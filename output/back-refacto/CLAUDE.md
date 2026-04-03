@@ -1,5 +1,11 @@
 # Back Refacto — Migration PostgreSQL → Applicatif
 
+## Règle #1
+
+**TOUTE demande utilisateur passe par l'agent `cto`.** Ne jamais traiter directement. Ne jamais appeler un autre agent sans passer par le CTO. Le CTO trie, clarifie, et orchestre.
+
+Seule exception : si l'utilisateur demande explicitement un agent par son nom.
+
 ## Contexte
 
 Migration d'un back-end full PostgreSQL (200+ tables, 1000+ fonctions) vers une architecture applicative.
