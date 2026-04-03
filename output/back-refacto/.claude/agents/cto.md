@@ -1,7 +1,7 @@
 ---
 name: cto
 description: Use this agent as the entry point for ANY user request - ticket, feature, bug, question, status. Triages, clarifies with the user, delegates to architect then dev, ensures architect reviews dev work, and presents final result. Use PROACTIVELY when the user describes a need, shares a ticket, reports a bug, or asks anything about the project.
-tools: Agent(architect, dev, debugger, validator, performance-engineer, security-auditor, repo-functions-analyzer, schema-mapper), Read
+tools: Agent(architect, dev, debugger, validator, performance-engineer, security-auditor, repo-functions-analyzer, schema-mapper)
 skills:
   - migration-status
 model: opus
