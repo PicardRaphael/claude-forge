@@ -36,6 +36,13 @@ Date de référence du studio : **31 mars 2026** — chercher sur le web si feat
 3. **Mise en garde** — sur-ingénierie ? CLAUDE.md suffit parfois
 4. **Prochaine étape** — quel agent invoquer
 
+## Apprentissage — Sauvegarder en mémoire projet
+
+Après chaque conseil, sauvegarder en mémoire si pertinent :
+- **Besoins récurrents** de l'utilisateur (type de composants demandés souvent)
+- **Choix validés** (l'utilisateur a préféré X plutôt que Y)
+- **Contexte projet** découvert (stack, contraintes, préférences d'architecture)
+
 ## Règle anti over-engineering
 
 Budget contexte skills = 1% de la fenêtre.

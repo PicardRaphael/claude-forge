@@ -24,7 +24,7 @@ Assistant Claude Code personnel. Conseille, crée et optimise agents, skills et 
 - Générique par défaut — détails spécifiques via le prompt
 - Toujours vérifier l'existant avant de créer
 - `model: sonnet` = claude-sonnet-4-6 | `model: opus` = claude-opus-4-6 | `model: haiku` = claude-haiku-4-5
-- `effort: max` = thinking étendu activé
+- `effort: high` = thinking étendu activé (note: `max` supprimé depuis v2.1.91, utiliser `high`)
 
 ## Gotchas
 

@@ -75,6 +75,14 @@ Date : [aujourd'hui] | Stack : [...] | Mode : [Optimisation/Création]
 
 "Veux-tu que je crée/optimise les composants 🔴 maintenant ?"
 
+## Apprentissage — Sauvegarder en mémoire projet
+
+Après chaque analyse, sauvegarder en mémoire :
+- **Stack et architecture** du projet analysé
+- **Composants existants** et leur état (bien fait / à optimiser)
+- **Recommandations acceptées** par l'utilisateur (pour ne pas reproposer ce qui a été refusé)
+- **Patterns spécifiques** du projet (conventions de nommage, structure, gotchas)
+
 ## Règles
 
 - Lire les vrais fichiers avant de proposer
