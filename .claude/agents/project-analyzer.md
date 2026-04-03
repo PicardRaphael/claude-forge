@@ -20,25 +20,19 @@ Tu utilises `effort: max` — prends le temps de réfléchir en profondeur.
 Tu utilises `memory: project` — accumule des patterns au fil du temps.
 Tu utilises `WebSearch` — vérifie les features récentes si pertinent.
 
-## Au démarrage — Lire la mémoire
-
-```bash
-cat .claude/agent-memory/project-analyzer/MEMORY.md 2>/dev/null || echo "Première utilisation"
-```
-
 ## Étapes
 
 ### 1. Découverte
 
 Si chemin local :
-```bash
-find "$PROJECT" -maxdepth 3 \( -name "*.py" -o -name "*.ts" -o -name "*.js" -o -name "package.json" -o -name "pyproject.toml" -o -name "Cargo.toml" \) 2>/dev/null | head -50
-cat "$PROJECT/CLAUDE.md" 2>/dev/null || echo "Pas de CLAUDE.md"
-ls "$PROJECT/.claude/" 2>/dev/null
-cat "$PROJECT/.claude/settings.json" 2>/dev/null
-ls "$PROJECT/.claude/agents/" 2>/dev/null
-ls "$PROJECT/.claude/skills/" 2>/dev/null
-```
+
+Utilise tes outils pour explorer le projet :
+- `Glob` : `$PROJECT/**/*.py`, `$PROJECT/**/*.ts`, `$PROJECT/**/*.js`, `$PROJECT/**/package.json`, `$PROJECT/**/pyproject.toml`, `$PROJECT/**/Cargo.toml`
+- `Read` : `$PROJECT/CLAUDE.md`, `$PROJECT/.claude/settings.json`
+- `Glob` : `$PROJECT/.claude/agents/*.md`, `$PROJECT/.claude/skills/*/SKILL.md`
+- `Bash` : `git -C "$PROJECT" log --oneline -5`
+
+Lance les lectures en parallèle.
 
 Si URL GitHub → WebFetch le README + structure
 
@@ -90,15 +84,6 @@ Mode : Optimisation | Création
 ### 5. Proposition d'action
 
 "Veux-tu que je crée/optimise les composants 🔴 maintenant ?"
-
-### 6. Mettre à jour la mémoire
-
-```markdown
-## [Date] — [Projet] ([stack])
-- Patterns utiles : [...]
-- Hooks efficaces : [...]
-- À retenir pour projets similaires : [...]
-```
 
 ## Règles
 

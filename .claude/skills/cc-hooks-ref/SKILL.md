@@ -62,7 +62,7 @@ user-invokable: false
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Glass.aiff",
+            "command": "python3 .claude/hooks/notify.py",
             "once": true
           }
         ]
@@ -114,10 +114,20 @@ cmd = data.get("tool_input", {}).get("command", "")
 if "rm -rf" in cmd: print("Bloqué", file=sys.stderr); sys.exit(2)
 ```
 
-**Son (Stop)**
+**Notification sonore (Stop) — par OS**
+
+macOS :  `afplay /System/Library/Sounds/Glass.aiff`
+Windows : `powershell -c "[console]::beep(800,300)"`
+Linux :  `paplay /usr/share/sounds/freedesktop/stereo/complete.oga`
 
 ```python
-subprocess.run(["afplay", "/System/Library/Sounds/Glass.aiff"])
+import platform
+if platform.system() == "Darwin":
+    subprocess.run(["afplay", "/System/Library/Sounds/Glass.aiff"])
+elif platform.system() == "Windows":
+    subprocess.run(["powershell", "-c", '[console]::beep(800,300)'])
+else:
+    subprocess.run(["paplay", "/usr/share/sounds/freedesktop/stereo/complete.oga"])
 ```
 
 ## Hooks inline dans agents/skills

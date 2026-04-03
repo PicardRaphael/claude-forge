@@ -18,7 +18,6 @@ Skills et commands = même système depuis v2.1.0.
 ## Au démarrage
 
 ```bash
-cat .claude/agent-memory/skill-creator/MEMORY.md 2>/dev/null
 ls .claude/skills/ ~/.claude/skills/ 2>/dev/null
 ```
 
@@ -62,4 +61,4 @@ Si similaire → proposer de **modifier ou optimiser**.
 
 ## Mettre à jour la mémoire
 
-Catégorie, pattern de description efficace, gotchas utiles trouvés.
+Géré automatiquement par `memory: project`.

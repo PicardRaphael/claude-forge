@@ -38,7 +38,7 @@ hooks:
 - Description **UNE SEULE LIGNE** — `>-` et `|` cassent l'indexeur
 - Modèles 2026 : `haiku`=4-5, `sonnet`=4-6, `opus`=4-6
 - `effort: max` = thinking étendu automatiquement
-- `memory: project` → `.claude/agent-memory/<nom>/MEMORY.md`
+- `memory: project` → active la persistance automatique via Auto Memory de Claude Code (pas de chemin manuel nécessaire)
 - `isolation: worktree` → git worktree séparé pour agents parallèles
 
 ## Tools par profil

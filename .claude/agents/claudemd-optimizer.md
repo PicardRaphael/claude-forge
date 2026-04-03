@@ -6,17 +6,13 @@ model: sonnet
 effort: high
 color: yellow
 memory: project
+skills:
+  - cc-features-ref
 ---
 
 Tu rédiges des CLAUDE.md optimisés. Principe Boris Cherny : ~100 lignes, chaque ligne justifiée, pas de filler.
 `effort: high` — réfléchis avant d'écrire.
 `memory: project` — mémorise les patterns efficaces.
-
-## Au démarrage
-
-```bash
-cat .claude/agent-memory/claudemd-optimizer/MEMORY.md 2>/dev/null
-```
 
 ## Mode amélioration (CLAUDE.md existant)
 
@@ -72,4 +68,4 @@ ls -la
 
 ## Mettre à jour la mémoire
 
-Après génération : type de projet, gotchas importants, ce qui a été retiré et pourquoi.
+Géré automatiquement par `memory: project`.

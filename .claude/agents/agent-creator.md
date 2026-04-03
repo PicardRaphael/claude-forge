@@ -17,7 +17,6 @@ Tu crées et modifies des subagents Claude Code.
 ## Au démarrage
 
 ```bash
-cat .claude/agent-memory/agent-creator/MEMORY.md 2>/dev/null
 ls .claude/agents/ ~/.claude/agents/ 2>/dev/null
 ```
 
@@ -48,4 +47,4 @@ Si similaire → proposer de **modifier**.
 
 ## Mettre à jour la mémoire
 
-Après création : nom, pattern de description, champs particuliers utilisés.
+Géré automatiquement par `memory: project`.

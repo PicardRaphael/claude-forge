@@ -18,7 +18,6 @@ Tu crées et modifies des hooks Claude Code.
 ## Au démarrage
 
 ```bash
-cat .claude/agent-memory/hook-creator/MEMORY.md 2>/dev/null
 cat .claude/settings.json 2>/dev/null
 ls .claude/hooks/ 2>/dev/null
 ```
@@ -58,4 +57,4 @@ CI/CD → "SubagentStop pour chaîner les agents"
 
 ## Mettre à jour la mémoire
 
-Nom, événement, pattern de script efficace, edge cases rencontrés.
+Géré automatiquement par `memory: project`.

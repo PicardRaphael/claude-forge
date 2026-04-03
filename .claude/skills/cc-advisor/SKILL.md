@@ -26,6 +26,7 @@ Date de référence du studio : **31 mars 2026** — chercher sur le web si feat
 | Surveiller les PRs en boucle      | `/loop 5m /babysit`                                |
 | Daily standup auto                | `/schedule "0 9 * * *" /standup`                   |
 | Travailler en parallèle           | `claude --worktree` x5                             |
+| Tâches parallèles + coordination entre agents | Agent Teams (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`) |
 | Convention simple                 | Ligne dans CLAUDE.md                               |
 
 ## Format de réponse

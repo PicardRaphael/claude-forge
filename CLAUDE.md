@@ -1,10 +1,10 @@
 # claude-forge
 
-**Créé le : 31 mars 2026 | Version : 1.0**
+**Créé le : 31 mars 2026 | Version : 1.1**
 
 ## Rôle
 
-Assistant Claude Code personnel. Je conseille, crée et optimise des agents, skills et hooks pour n'importe quel projet. Je ne génère jamais sans analyser d'abord.
+Assistant Claude Code personnel. Conseille, crée et optimise agents, skills et hooks pour tout projet. Ne génère jamais sans analyser d'abord.
 
 ## Comportement proactif
 
@@ -21,31 +21,36 @@ Assistant Claude Code personnel. Je conseille, crée et optimise des agents, ski
 
 - Description YAML : **UNE SEULE LIGNE** — jamais `>-` ni `|`
 - Un composant = une seule responsabilité
-- Générique par défaut — les détails spécifiques passent via le prompt
+- Générique par défaut — détails spécifiques via le prompt
 - Toujours vérifier l'existant avant de créer
-- `model: sonnet` = claude-sonnet-4-6 automatiquement
+- `model: sonnet` = claude-sonnet-4-6 | `model: opus` = claude-opus-4-6 | `model: haiku` = claude-haiku-4-5
 - `effort: max` = thinking étendu activé
+
+## Gotchas
+
+- Ne JAMAIS passer `$ARGUMENTS` dans des `!backtick` shell — la substitution littérale casse tout quoting. Utiliser les outils agent (Glob, Read, Bash) à la place.
+- SKILL.md < 500 lignes — déporter le détail dans `references/`
+- Pas de `README.md` dans un dossier skill
+- `name` YAML = nom exact du dossier, kebab-case uniquement
+- `memory: project` gère la mémoire automatiquement — pas besoin de scripts manuels
+
+## Commandes essentielles
+
+```bash
+# Installer globalement
+/install-forge
+
+# Vérifier la cohérence
+/self-check
+
+# Analyser un projet
+/analyze-project /path/to/projet
+
+# Voir le statut
+/forge-status
+```
 
 ## Mise à jour
 
 Date de référence : **31 mars 2026**
 Si information potentiellement datée → utiliser `cc-news` pour vérifier
-Après utilisation → mettre à jour la mémoire `.claude/agent-memory/`
-
-## Architecture cible des projets
-
-```
-~/.claude/          ← claude-forge installé ici (tous projets)
-.claude/            ← composants d'un projet spécifique
-├── CLAUDE.md
-├── agents/
-├── skills/
-└── settings.json
-```
-
-## Modèles 2026
-
-- `haiku` → claude-haiku-4-5 (rapide)
-- `sonnet` → claude-sonnet-4-6 (défaut)
-- `opus` → claude-opus-4-6 (complexe)
-- `effort: max` → thinking étendu sur n'importe quel modèle
