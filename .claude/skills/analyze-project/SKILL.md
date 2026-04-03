@@ -11,42 +11,22 @@ agent: opus
 
 # Analyse de projet — $ARGUMENTS
 
-## Contexte injecté automatiquement
+## Etape 1 — Explorer le projet
 
-!`P=$(cat <<'_ARG_'
-$ARGUMENTS
-_ARG_
-) && echo "=== Projet ===" && echo "$P"`
-!`P=$(cat <<'_ARG_'
-$ARGUMENTS
-_ARG_
-) && [ -d "$P" ] && echo "=== Structure ===" && find "$P" -maxdepth 3 \( -name "*.py" -o -name "*.ts" -o -name "*.js" -o -name "package.json" -o -name "pyproject.toml" -o -name "Cargo.toml" -o -name "go.mod" \) 2>/dev/null | head -40`
-!`P=$(cat <<'_ARG_'
-$ARGUMENTS
-_ARG_
-) && [ -d "$P" ] && echo "=== CLAUDE.md ===" && cat "$P/CLAUDE.md" 2>/dev/null || echo "Aucun"`
-!`P=$(cat <<'_ARG_'
-$ARGUMENTS
-_ARG_
-) && [ -d "$P" ] && echo "=== Agents ===" && ls "$P/.claude/agents/" 2>/dev/null || echo "Aucun"`
-!`P=$(cat <<'_ARG_'
-$ARGUMENTS
-_ARG_
-) && [ -d "$P" ] && echo "=== Skills ===" && ls "$P/.claude/skills/" 2>/dev/null || echo "Aucune"`
-!`P=$(cat <<'_ARG_'
-$ARGUMENTS
-_ARG_
-) && [ -d "$P" ] && echo "=== Hooks ===" && cat "$P/.claude/settings.json" 2>/dev/null || echo "Aucun"`
-!`P=$(cat <<'_ARG_'
-$ARGUMENTS
-_ARG_
-) && [ -d "$P" ] && echo "=== Git ===" && git -C "$P" log --oneline -5 2>/dev/null || echo "Pas de git"`
+Utilise tes outils pour collecter ces informations sur le chemin `$ARGUMENTS` :
+
+1. **Structure** : `Glob` avec `$ARGUMENTS/**/*` (maxdepth 3) pour lister les fichiers clés (*.py, *.ts, *.js, package.json, pyproject.toml, Cargo.toml, go.mod)
+2. **CLAUDE.md** : `Read` le fichier `$ARGUMENTS/CLAUDE.md` s'il existe
+3. **Agents** : `Glob` avec `$ARGUMENTS/.claude/agents/*.md`
+4. **Skills** : `Glob` avec `$ARGUMENTS/.claude/skills/*/SKILL.md`
+5. **Hooks/Settings** : `Read` le fichier `$ARGUMENTS/.claude/settings.json` s'il existe
+6. **Git** : `Bash` avec `git -C <path> log --oneline -5`
+
+Lance les lectures en parallèle quand possible.
 
 ---
 
-## Mission
-
-Avec toutes ces informations, produis un rapport complet :
+## Etape 2 — Produire le rapport
 
 ### 1. Identifier le stack
 
