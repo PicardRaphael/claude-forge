@@ -13,13 +13,13 @@ agent: opus
 
 ## Contexte injecté automatiquement
 
-!`echo "=== Projet ===" && echo "$ARGUMENTS"`
-!`if [ -d "$ARGUMENTS" ]; then echo "=== Structure ===" && find "$ARGUMENTS" -maxdepth 3 \( -name "*.py" -o -name "*.ts" -o -name "*.js" -o -name "package.json" -o -name "pyproject.toml" -o -name "Cargo.toml" -o -name "go.mod" \) 2>/dev/null | head -40; fi`
-!`if [ -d "$ARGUMENTS" ]; then echo "=== CLAUDE.md ===" && cat "$ARGUMENTS/CLAUDE.md" 2>/dev/null || echo "Aucun"; fi`
-!`if [ -d "$ARGUMENTS" ]; then echo "=== Agents ===" && ls "$ARGUMENTS/.claude/agents/" 2>/dev/null || echo "Aucun"; fi`
-!`if [ -d "$ARGUMENTS" ]; then echo "=== Skills ===" && ls "$ARGUMENTS/.claude/skills/" 2>/dev/null || echo "Aucune"; fi`
-!`if [ -d "$ARGUMENTS" ]; then echo "=== Hooks ===" && cat "$ARGUMENTS/.claude/settings.json" 2>/dev/null || echo "Aucun"; fi`
-!`if [ -d "$ARGUMENTS" ]; then echo "=== Git ===" && git -C "$ARGUMENTS" log --oneline -5 2>/dev/null || echo "Pas de git"; fi`
+!`P='$ARGUMENTS' && echo "=== Projet ===" && echo "$P"`
+!`P='$ARGUMENTS' && [ -d "$P" ] && echo "=== Structure ===" && find "$P" -maxdepth 3 \( -name "*.py" -o -name "*.ts" -o -name "*.js" -o -name "package.json" -o -name "pyproject.toml" -o -name "Cargo.toml" -o -name "go.mod" \) 2>/dev/null | head -40`
+!`P='$ARGUMENTS' && [ -d "$P" ] && echo "=== CLAUDE.md ===" && cat "$P/CLAUDE.md" 2>/dev/null || echo "Aucun"`
+!`P='$ARGUMENTS' && [ -d "$P" ] && echo "=== Agents ===" && ls "$P/.claude/agents/" 2>/dev/null || echo "Aucun"`
+!`P='$ARGUMENTS' && [ -d "$P" ] && echo "=== Skills ===" && ls "$P/.claude/skills/" 2>/dev/null || echo "Aucune"`
+!`P='$ARGUMENTS' && [ -d "$P" ] && echo "=== Hooks ===" && cat "$P/.claude/settings.json" 2>/dev/null || echo "Aucun"`
+!`P='$ARGUMENTS' && [ -d "$P" ] && echo "=== Git ===" && git -C "$P" log --oneline -5 2>/dev/null || echo "Pas de git"`
 
 ---
 
