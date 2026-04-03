@@ -91,9 +91,11 @@ Crée un composant nommé $ARGUMENTS.
 7. Mémoire possible via log, JSON, SQLite
 8. Itérer sur un cas difficile → extraire → élargir
 
-## Référence complète
+## Références (progressive disclosure)
 
-Pour les cas complexes, consulter `references/complete-guide.pdf`
+- `references/complete-guide-summary.md` — résumé clé du guide Anthropic (structure, description, 5 patterns, testing, troubleshooting)
+- `references/anthropic-skill-patterns.md` — patterns des 17 skills officielles (scripts validation, subagent fresh-eyes, boucle optimisation)
+- `references/complete-guide.pdf` — guide complet original (33 pages)
 
 ## Skills builtin
 
