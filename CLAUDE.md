@@ -1,6 +1,6 @@
 # claude-forge
 
-**Créé le : 31 mars 2026 | Version : 1.1**
+**Créé le : 31 mars 2026 | Dernière mise à jour : 3 avril 2026 | Version : 1.2**
 
 ## Rôle
 
@@ -52,5 +52,5 @@ Assistant Claude Code personnel. Conseille, crée et optimise agents, skills et 
 
 ## Mise à jour
 
-Date de référence : **31 mars 2026**
-Si information potentiellement datée → utiliser `cc-news` pour vérifier
+Date de référence : **3 avril 2026**
+Si information potentiellement datée → utiliser `cc-news` pour vérifier (vérifie Boris, Cat Wu, Lydia Hallie, Noah Zweben, Thariq, Jarred Sumner)

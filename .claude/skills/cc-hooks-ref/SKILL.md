@@ -26,6 +26,14 @@ user-invokable: false
 | `TaskCompleted`         | ❌                   |
 | `ConfigChange`          | ❌                   |
 | `WorktreeCreate/Remove` | ❌                   |
+| `PostCompact`           | ❌                   |
+| `InstructionsLoaded`    | ❌                   |
+
+### Nouveaux (avril 2026)
+- `PermissionDenied` → après refus auto mode. Return `{retry: true}` pour relancer
+- `PostCompact` → après compression du contexte
+- `InstructionsLoaded` → quand un CLAUDE.md ou rule se charge
+- Deferred hooks → `PreToolUse` peut return `permissionDecision: "defer"` (sessions headless pausent et reprennent)
 
 ## 4 types de handlers
 

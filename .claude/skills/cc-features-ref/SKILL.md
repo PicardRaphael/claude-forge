@@ -6,7 +6,7 @@ user-invokable: false
 
 # Fonctionnalités Claude Code 2026
 
-_Référence au 31 mars 2026 — utiliser cc-news pour les nouveautés postérieures_
+_Mise à jour : 3 avril 2026 — utiliser cc-news pour les nouveautés postérieures_
 
 ## Slash Commands
 
@@ -19,7 +19,9 @@ _Référence au 31 mars 2026 — utiliser cc-news pour les nouveautés postérie
 | `/debug`                     | Troubleshoot via logs de session             |
 | `/voice`                     | Contrôle vocal                               |
 | `/teleport`                  | Push session local ↔ claude.ai/code          |
-| `/btw <note>`                | Note sans interrompre Claude                 |
+| `/btw <note>`                | Question sidebar COÛT ZÉRO (pas de pollution contexte) |
+| `/branch`                    | Fork la session courante                     |
+| `/compact "instructions"`    | Compaction ciblée avec instructions           |
 | `/config`                    | Thème, output style, modèle                  |
 | `/agents`                    | Gère les subagents                           |
 | `/skills`                    | Liste les skills                             |
@@ -52,11 +54,10 @@ Format interval : `5m`, `30m`, `1h`, `6h`, `1d`
 | Niveau   | Effet                  |
 | -------- | ---------------------- |
 | `low`    | Rapide, simple         |
-| `medium` | Défaut                 |
-| `high`   | Analyse approfondie    |
-| `max`    | Thinking étendu activé |
+| `medium` | Défaut (Opus/Sonnet 4.6) |
+| `high`   | Thinking étendu activé |
 
-Dans le contenu d'une skill : le mot `ultrathink` active le thinking étendu.
+**`max` supprimé depuis v2.1.91.** Utiliser `high`. Keyword `ultrathink` dans le contenu active le thinking étendu ponctuellement.
 
 ## Git Worktrees — #1 productivité
 
@@ -85,6 +86,48 @@ CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 claude
 
 Subagents qui se communiquent directement via task board partagé.
 
+## Fonctionnalités récentes (avril 2026)
+
+| Feature | Description |
+|---------|-------------|
+| Cloud Auto-Fix | Fixe CI failures et review comments automatiquement |
+| Computer Use | Claude contrôle l'écran (research preview) |
+| Session sharing | Partager conversation par lien |
+| Plugin Marketplace | `/plugin` > Discover — marketplace officiel |
+| Plugin executables | `bin/` dans plugin → commandes callable depuis Bash |
+| `additionalDirectories` | Dans settings.json pour accès repos externes permanent |
+| `disableSkillShellExecution` | Bloquer exécution shell dans les skills |
+| `PermissionDenied` hook | Se déclenche après refus auto mode |
+| `PostCompact` hook | Se déclenche après compression du contexte |
+| Deferred hooks | `PreToolUse` peut retourner `permissionDecision: "defer"` |
+| `InstructionsLoaded` hook | Quand un CLAUDE.md ou rule se charge |
+
+## .claude/rules/ (v2.0.64+)
+
+Fichiers `.md` auto-chargés à chaque session. Alternative modulaire au CLAUDE.md monolithique.
+
+```yaml
+---
+paths:
+  - "src/api/**/*.ts"
+---
+# Règles uniquement pour les fichiers API TypeScript
+```
+
+- Sans `paths:` → chargé à chaque session
+- Avec `paths:` → chargé uniquement quand Claude lit un fichier matchant
+- Sous-dossiers supportés
+- Bon endroit pour : routing agents, workflows, règles obligatoires
+
+## Best practices (Boris + équipe)
+
+- **`/clear` entre tâches non liées** — sessions fourre-tout = piège #1
+- **`/compact` proactif à 70%** — pas attendre l'auto-compact
+- **"Document & Clear"** — dump plan dans un .md, /clear, nouvelle session
+- **CLAUDE.md concis** — pour chaque ligne : "si je l'enlève, ça casse ?" sinon couper
+- **Hooks = 100% déterministe. CLAUDE.md = ~80%.** (Boris)
+- **Vérification = tip #1** — toujours donner à Claude un moyen de vérifier son output
+
 ## Plugins
 
 ```bash
@@ -106,6 +149,7 @@ LSPs disponibles pour tous les langages majeurs.
 | `--continue`       | Continue la dernière session       |
 | `--from-pr <url>`  | Worktree depuis une PR             |
 | `--add-dir <path>` | Ajoute un dossier au contexte      |
+| `-w`               | Raccourci worktree                 |
 | `--teleport`       | Push vers claude.ai/code           |
 | `-p <prompt>`      | Mode headless                      |
 

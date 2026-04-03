@@ -16,7 +16,7 @@ argument-hint: "[fichier ou texte]"
 allowed-tools: Read, Bash
 when_to_use: Use when the user asks to X
 model: sonnet
-effort: high # low|medium|high|max
+effort: high # low|medium|high (max supprimé v2.1.91)
 user-invokable: true
 disable-model-invocation: true # slash command manuelle uniquement
 context: fork
@@ -37,10 +37,13 @@ metadata:
 
 ## Règles critiques
 
-- Description **UNE SEULE LIGNE** — jamais `>-` ni `|`
+- Description **UNE SEULE LIGNE en anglais** — jamais `>-` ni `|`
 - `name` = nom exact du dossier
 - Pas de `README.md` dans le dossier
-- SKILL.md < 500 lignes → reste dans `references/`
+- SKILL.md < 500 lignes → déporter dans `references/`
+- **`commands/` est DÉPRÉCIÉ** → utiliser `skills/` à la place. Les deux marchent mais skills est le standard.
+- Skills métier doivent avoir une section **Apprentissage** pour sauvegarder en mémoire
+- Skills injectées en ENTIER dans le contexte des subagents → garder courtes
 
 ## Injection dynamique
 
@@ -94,4 +97,13 @@ Pour les cas complexes, consulter `references/complete-guide.pdf`
 
 ## Skills builtin
 
-`/simplify`, `/batch`, `/debug`, `/loop`, `/voice`
+`/simplify`, `/batch`, `/debug`, `/loop`, `/voice`, `/btw`, `/branch`, `/compact`
+
+## .claude/rules/ — alternative aux skills pour comportements obligatoires
+
+Les rules (`rules/*.md`) sont chargées automatiquement à chaque session. Utiliser pour :
+- Routing agents (qui appeler quand)
+- Règles obligatoires (DB, sécurité, conventions)
+- Workflows (skill-navigator)
+
+Les skills sont pour les workflows invocables à la demande. Les rules sont toujours actives.
