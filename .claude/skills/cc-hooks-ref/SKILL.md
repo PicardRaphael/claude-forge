@@ -1,31 +1,31 @@
 ---
 name: cc-hooks-ref
 description: Référence complète des hooks Claude Code — 21 événements, 4 types de handlers, format settings.json, scripts Python, blocage exit 2, hooks inline. Charger quand on crée ou modifie un hook.
-user-invocable: false
+user-invokable: false
 ---
 
 # Référence — Hooks Claude Code
 
 ## 21 événements
 
-| Événement | Bloque |
-|-----------|--------|
-| `PreToolUse` | ✅ exit 2 |
-| `PostToolUse` | ❌ |
-| `PostToolUseFailure` | ❌ |
-| `Stop` | ✅ JSON block |
-| `SubagentStart/Stop` | ✅ Stop = JSON block |
-| `SessionStart/End` | ❌ |
-| `UserPromptSubmit` | ❌ |
-| `PermissionRequest` | ✅ |
-| `PermissionDenied` | ❌ |
-| `Notification` | ❌ |
-| `PreCompact` | ❌ |
-| `Setup` | ❌ |
-| `TeammateIdle` | ❌ |
-| `TaskCompleted` | ❌ |
-| `ConfigChange` | ❌ |
-| `WorktreeCreate/Remove` | ❌ |
+| Événement               | Bloque               |
+| ----------------------- | -------------------- |
+| `PreToolUse`            | ✅ exit 2            |
+| `PostToolUse`           | ❌                   |
+| `PostToolUseFailure`    | ❌                   |
+| `Stop`                  | ✅ JSON block        |
+| `SubagentStart/Stop`    | ✅ Stop = JSON block |
+| `SessionStart/End`      | ❌                   |
+| `UserPromptSubmit`      | ❌                   |
+| `PermissionRequest`     | ✅                   |
+| `PermissionDenied`      | ❌                   |
+| `Notification`          | ❌                   |
+| `PreCompact`            | ❌                   |
+| `Setup`                 | ❌                   |
+| `TeammateIdle`          | ❌                   |
+| `TaskCompleted`         | ❌                   |
+| `ConfigChange`          | ❌                   |
+| `WorktreeCreate/Remove` | ❌                   |
 
 ## 4 types de handlers
 
@@ -41,26 +41,44 @@ user-invocable: false
 ```json
 {
   "hooks": {
-    "PostToolUse": [{"matcher": "Write|Edit", "hooks": [
-      {"type": "command", "command": "python3 .claude/hooks/format.py"}
-    ]}],
-    "PreToolUse": [{"matcher": "Bash", "hooks": [
-      {"type": "command", "command": "python3 .claude/hooks/security.py"}
-    ]}],
-    "Stop": [{"hooks": [
-      {"type": "command", "command": "afplay /System/Library/Sounds/Glass.aiff", "once": true}
-    ]}]
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          { "type": "command", "command": "python3 .claude/hooks/format.py" }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "python3 .claude/hooks/security.py" }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Glass.aiff",
+            "once": true
+          }
+        ]
+      }
+    ]
   }
 }
 ```
 
 ## Exit codes
 
-| Code | Effet |
-|------|-------|
-| `0` | Succès |
-| `1` | Erreur loggée, continue |
-| `2` | BLOQUÉ (PreToolUse) |
+| Code | Effet                   |
+| ---- | ----------------------- |
+| `0`  | Succès                  |
+| `1`  | Erreur loggée, continue |
+| `2`  | BLOQUÉ (PreToolUse)     |
 
 ## Template Python
 
@@ -83,18 +101,21 @@ if __name__ == "__main__":
 ## Cas d'usage courants
 
 **Formater Python (PostToolUse Write|Edit)**
+
 ```python
 path = data.get("tool_input", {}).get("path", "")
 if path.endswith(".py"): subprocess.run(["ruff", "format", path])
 ```
 
 **Bloquer rm -rf (PreToolUse Bash)**
+
 ```python
 cmd = data.get("tool_input", {}).get("command", "")
 if "rm -rf" in cmd: print("Bloqué", file=sys.stderr); sys.exit(2)
 ```
 
 **Son (Stop)**
+
 ```python
 subprocess.run(["afplay", "/System/Library/Sounds/Glass.aiff"])
 ```

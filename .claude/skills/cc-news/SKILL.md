@@ -1,7 +1,7 @@
 ---
 name: cc-news
 description: Use this skill when the user asks about recent Claude Code updates, new features, or when any information might be outdated. Use PROACTIVELY when the user asks "quoi de neuf", "est-ce que X existe maintenant", or when knowledge seems stale. Date de référence : 31 mars 2026.
-user-invocable: true
+user-invokable: true
 allowed-tools: WebSearch, WebFetch, Read, Write
 argument-hint: "fonctionnalité ou sujet à vérifier"
 ---
@@ -36,6 +36,7 @@ Chercher : Claude Code $ARGUMENTS 2026
 
 ```markdown
 ## [Date] — Mise à jour cc-news
+
 Nouvelles features : [...]
 Sources : [URLs]
 ```

@@ -1,7 +1,7 @@
 ---
 name: cc-skills-ref
 description: Référence complète du format YAML des skills Claude Code — champs frontmatter, $ARGUMENTS, !backtick, context fork, paths, 9 catégories Thariq, 8 principes, skills builtin. Charger quand on crée ou modifie une skill.
-user-invocable: false
+user-invokable: false
 ---
 
 # Référence — Skills Claude Code (= Commands depuis v2.1.0)
@@ -10,15 +10,15 @@ user-invocable: false
 
 ```yaml
 ---
-name: ma-skill                     # OBLIGATOIRE — kebab-case = nom du dossier
-description: Ce que ça fait. Use when [triggers].  # OBLIGATOIRE — UNE SEULE LIGNE
+name: ma-skill # OBLIGATOIRE — kebab-case = nom du dossier
+description: Ce que ça fait. Use when [triggers]. # OBLIGATOIRE — UNE SEULE LIGNE
 argument-hint: "[fichier ou texte]"
 allowed-tools: Read, Bash
 when_to_use: Use when the user asks to X
 model: sonnet
-effort: high                       # low|medium|high|max
-user-invocable: true
-disable-model-invocation: true     # slash command manuelle uniquement
+effort: high # low|medium|high|max
+user-invokable: true
+disable-model-invocation: true # slash command manuelle uniquement
 context: fork
 agent: Explore
 paths: "**/*.py"
@@ -45,23 +45,25 @@ metadata:
 ## Injection dynamique
 
 ### `$ARGUMENTS`
+
 ```markdown
 Crée un composant nommé $ARGUMENTS.
 ```
 
 ### `!backtick` — injection shell
+
 ```markdown
 !`git status --short`
 !`git diff --cached | head -100`
 ```
 
-## `user-invocable` vs `disable-model-invocation`
+## `user-invokable` vs `disable-model-invocation`
 
-| | `user-invocable: false` | `disable-model-invocation: true` |
-|-|------------------------|----------------------------------|
-| `/skill` utilisateur | ❌ | ✅ |
-| Claude charge auto | ❌ | ❌ |
-| Usage | Connaissance pure | Slash command contrôlée |
+|                      | `user-invokable: false` | `disable-model-invocation: true` |
+| -------------------- | ----------------------- | -------------------------------- |
+| `/skill` utilisateur | ❌                      | ✅                               |
+| Claude charge auto   | ❌                      | ❌                               |
+| Usage                | Connaissance pure       | Slash command contrôlée          |
 
 ## 9 catégories (Thariq, Anthropic)
 
@@ -85,6 +87,10 @@ Crée un composant nommé $ARGUMENTS.
 6. Description = déclencheur pour le modèle
 7. Mémoire possible via log, JSON, SQLite
 8. Itérer sur un cas difficile → extraire → élargir
+
+## Référence complète
+
+Pour les cas complexes, consulter `references/complete-guide.pdf`
 
 ## Skills builtin
 

@@ -27,11 +27,12 @@ Si similaire → proposer de **modifier ou optimiser**.
 ## Mode optimisation (skill existante)
 
 Évaluer :
+
 - Description sur une seule ligne ? Triggers naturels ?
 - Section Gotchas présente ?
 - > 500 lignes → déplacer dans references/ ?
 - `!backtick` pour contexte dynamique utile ?
-- `user-invocable` / `disable-model-invocation` corrects ?
+- `user-invokable` / `disable-model-invocation` corrects ?
 - `effort` pertinent ?
 
 ## Questions (UNE à la fois)
@@ -51,6 +52,7 @@ Si similaire → proposer de **modifier ou optimiser**.
 **Description UNE SEULE LIGNE** avec triggers naturels
 
 **Corps SKILL.md** :
+
 1. Rôle
 2. Étapes
 3. **Section Gotchas** ← LA plus importante

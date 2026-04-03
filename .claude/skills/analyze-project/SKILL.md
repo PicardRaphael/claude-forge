@@ -1,7 +1,7 @@
 ---
 name: analyze-project
 description: Analyzes any project and proposes or optimizes Claude Code components. Use when the user says "analyse ce projet", "propose des skills pour X", "optimise les composants de Y".
-user-invocable: true
+user-invokable: true
 disable-model-invocation: true
 argument-hint: "/path/to/project ou https://github.com/..."
 allowed-tools: Read, Grep, Glob, Bash, WebFetch, WebSearch, Write
@@ -28,6 +28,7 @@ agent: opus
 Avec toutes ces informations, produis un rapport complet :
 
 ### 1. Identifier le stack
+
 Langage, framework, build, test, lint, services externes.
 
 ### 2. Choisir le mode
@@ -39,6 +40,7 @@ Lire chaque composant et évaluer : description ligne unique ? gotchas ? tools m
 Stratégie complète from scratch.
 
 ### 3. Vérifier features récentes si pertinent
+
 `site:github.com/anthropics/claude-code [feature]`
 
 ### 4. Rapport

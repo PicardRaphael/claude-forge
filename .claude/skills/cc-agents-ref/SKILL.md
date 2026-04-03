@@ -1,7 +1,7 @@
 ---
 name: cc-agents-ref
 description: Référence complète du format YAML des subagents Claude Code — tous les champs frontmatter, tools, hooks inline, memory, isolation, maxTurns, effort, background. Charger quand on crée ou modifie un agent.
-user-invocable: false
+user-invokable: false
 ---
 
 # Référence — Subagents Claude Code
@@ -10,20 +10,20 @@ user-invocable: false
 
 ```yaml
 ---
-name: mon-agent                    # OBLIGATOIRE — kebab-case unique
-description: Use this agent when [condition]. Use PROACTIVELY when [trigger]. Input must include [quoi].  # OBLIGATOIRE — UNE SEULE LIGNE
+name: mon-agent # OBLIGATOIRE — kebab-case unique
+description: Use this agent when [condition]. Use PROACTIVELY when [trigger]. Input must include [quoi]. # OBLIGATOIRE — UNE SEULE LIGNE
 tools: Read, Grep, Glob, Bash
 disallowedTools: Write, Edit
-model: sonnet                      # haiku|sonnet|opus|inherit
-color: blue                        # red|orange|yellow|green|blue|purple
+model: sonnet # haiku|sonnet|opus|inherit
+color: blue # red|orange|yellow|green|blue|purple
 skills:
   - ma-skill
-memory: project                    # user|project|local
+memory: project # user|project|local
 isolation: worktree
 background: true
 maxTurns: 50
-effort: high                       # low|medium|high|max
-permissionMode: acceptEdits        # acceptEdits|plan|bypassPermissions
+effort: high # low|medium|high|max
+permissionMode: acceptEdits # acceptEdits|plan|bypassPermissions
 hooks:
   PostToolUse:
     - matcher: "Write|Edit"
@@ -43,12 +43,12 @@ hooks:
 
 ## Tools par profil
 
-| Profil | Tools |
-|--------|-------|
-| Read-only | `Read, Grep, Glob` |
-| + shell lecture | ajouter `Bash` |
-| + web | ajouter `WebFetch, WebSearch` |
-| Écrivain | ajouter `Write, Edit` |
+| Profil          | Tools                         |
+| --------------- | ----------------------------- |
+| Read-only       | `Read, Grep, Glob`            |
+| + shell lecture | ajouter `Bash`                |
+| + web           | ajouter `WebFetch, WebSearch` |
+| Écrivain        | ajouter `Write, Edit`         |
 
 Bash restreint : `Bash(git *)`, `Bash(bun run *)`
 
