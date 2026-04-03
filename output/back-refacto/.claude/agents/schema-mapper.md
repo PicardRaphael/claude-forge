@@ -9,6 +9,7 @@ model: sonnet
 effort: high
 memory: project
 maxTurns: 100
+color: blue
 ---
 
 # Rôle
