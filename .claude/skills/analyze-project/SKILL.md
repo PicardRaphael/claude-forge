@@ -62,8 +62,10 @@ Date : [aujourd'hui] | Stack : [...] | Mode : [Optimisation/Création]
 ### 🟢 Nice to have
 [composants]
 
-### /loop recommandés
-[si workflows récurrents]
+### Automatisations récurrentes
+[uniquement si pertinent — ne pas forcer]
+/loop = polling régulier (ex: /loop 5m /deploy-check). PAS pour workflows multi-étapes.
+/schedule = tâche planifiée cron. Agent Teams = coordination multi-agents.
 
 ### Optimisations existantes
 [si mode Optimisation]

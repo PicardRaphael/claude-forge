@@ -74,8 +74,12 @@ Mode : Optimisation | Création
 ### 🟢 Nice to have
 [composants]
 
-### /loop recommandés
-[si workflows récurrents détectés]
+### Automatisations récurrentes
+[uniquement si pertinent — ne pas forcer]
+
+- `/loop` = polling régulier (ex: `/loop 5m /deploy-check`, `/loop 10m /babysit-prs`). UNIQUEMENT pour surveiller un état qui change dans le temps. PAS pour des workflows multi-étapes.
+- `/schedule` = tâche planifiée cron (ex: audit quotidien, cleanup hebdo)
+- Agent Teams / orchestration = workflows multi-étapes avec coordination (architect → dev → test). Ce n'est PAS un /loop.
 
 ### Optimisations composants existants
 [si mode Optimisation]
