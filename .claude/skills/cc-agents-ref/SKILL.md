@@ -35,30 +35,54 @@ hooks:
 
 ## Règles critiques
 
-- Description **UNE SEULE LIGNE** — `>-` et `|` cassent l'indexeur
+- Description **UNE SEULE LIGNE** en **anglais** — `>-` et `|` cassent l'indexeur
 - Modèles 2026 : `haiku`=4-5, `sonnet`=4-6, `opus`=4-6
-- `effort: max` = thinking étendu automatiquement
-- `memory: project` → active la persistance automatique via Auto Memory de Claude Code (pas de chemin manuel nécessaire)
+- `effort: high` = thinking étendu (**`max` supprimé depuis v2.1.91**)
+- `memory: project` → persistance automatique via Auto Memory
 - `isolation: worktree` → git worktree séparé pour agents parallèles
+- **Un subagent NE PEUT PAS spawner de sub-agents** (GitHub #19077, by design)
+- Skills listées dans `skills:` sont injectées EN ENTIER au démarrage du subagent
+- Subagents **n'héritent PAS** les skills du parent — toujours lister explicitement
 
 ## Tools par profil
 
-| Profil          | Tools                         |
-| --------------- | ----------------------------- |
-| Read-only       | `Read, Grep, Glob`            |
-| + shell lecture | ajouter `Bash`                |
-| + web           | ajouter `WebFetch, WebSearch` |
-| Écrivain        | ajouter `Write, Edit`         |
+| Profil | Tools |
+|--------|-------|
+| Read-only / Analyse | `Read, Grep, Glob` |
+| + shell | ajouter `Bash` |
+| + web | ajouter `WebFetch, WebSearch` |
+| Implémentation | ajouter `Write, Edit` |
+| Orchestrateur | **UNIQUEMENT `Agent(nom1, nom2), Read`** — pas de Bash/Grep |
 
-Bash restreint : `Bash(git *)`, `Bash(bun run *)`
+### Tools avancés
+
+- `Agent(nom1, nom2)` → restreindre quels agents peuvent être spawnés
+- `Bash(git *)` → restreindre Bash à des commandes spécifiques
+- `disallowedTools: Bash, Write` → denylist (retire de la liste héritée)
+
+### ATTENTION : un agent qui a Bash/Grep fera le travail lui-même au lieu de déléguer. Pour forcer la délégation, retirer ces outils.
 
 ## System prompt — ordre obligatoire
 
 1. Rôle
 2. Input reçu
 3. Étapes numérotées
-4. Règles strictes
+4. Règles strictes (dont "dit NON quand")
 5. Format de sortie avec exemple exact
+6. Section Apprentissage (si skill métier → sauvegarder en mémoire)
+
+## Architecture — où va quoi
+
+| Besoin | Composant |
+|--------|-----------|
+| Orchestration / routing | `.claude/rules/` (PAS un agent) |
+| Worker spécialisé | `.claude/agents/` |
+| Workflow invocable | `.claude/skills/` |
+| Contexte projet | `CLAUDE.md` |
+| Accès repo externe | `settings.json` → `additionalDirectories` |
+
+**La session principale = l'orchestrateur.** Elle lit les rules et dispatch aux agents.
+**NE JAMAIS créer d'agent orchestrateur/CTO.** Ça ne marche pas.
 
 ## Localisation
 
