@@ -1,90 +1,85 @@
 ---
 name: validation-checklist
-description: Checklist for validating migrated PostgreSQL functions. Compares original SQL function behavior with new application code. Loaded by validator agent.
-user-invokable: false
+description: Checklist for validating a migrated PostgreSQL function — behavioral equivalence, edge cases, error handling. Load when validating or reviewing a completed migration.
+user-invokable: true
+argument-hint: "[function name or endpoint to validate]"
 ---
 
-# Checklist de validation — Migration PostgreSQL → Applicatif
+# Migration Validation Checklist
 
-## 1. Équivalence comportementale
+Goal: ensure the new TypeScript endpoint is **behaviorally equivalent** to the original PostgreSQL function.
 
-| Check | Comment vérifier |
-|-------|-----------------|
-| Mêmes entrées | Les paramètres de la fonction SQL correspondent aux paramètres de l'endpoint |
-| Mêmes sorties | Les colonnes retournées par la fonction = les champs de la réponse API |
-| Mêmes filtres | Chaque WHERE de la fonction est reproduit dans la requête applicative |
-| Mêmes jointures | Chaque JOIN de la fonction est reproduit (vérifier avec doc/dump/fk.csv) |
-| Mêmes conditions | Les CASE WHEN, IF/ELSIF sont reproduits dans la logique applicative |
-| Valeurs en dur | Chaque valeur magique (role_id = 1, type = 'H') est identique |
-| Soft-delete | Si la fonction filtre `deleted_at IS NULL`, le code aussi |
-| Tri | ORDER BY reproduit si pertinent pour l'API |
-| Pagination | Si la fonction avait un LIMIT, l'endpoint aussi |
+## 1. Input/Output equivalence
 
-## 2. Qualité SQL
+- [ ] Same required parameters
+- [ ] Same optional parameters with same defaults
+- [ ] Same output shape (field names, types, nullability)
+- [ ] Same pagination behavior (if applicable)
+- [ ] Same ordering (if the PG function had ORDER BY)
 
-| Check | Règle |
-|-------|-------|
-| Pas de SELECT * | Colonnes listées explicitement |
-| JOIN explicites | Pas de jointure dans WHERE |
-| Placeholders | $1, $2 — jamais de concaténation |
-| Index couverts | Les colonnes de JOIN et WHERE ont des indexes (vérifier doc/dump/indexes.csv) |
-| Pas de N+1 | Pas de requête dans une boucle |
-| Pagination | Cursor-based si dataset > 1000 |
-| Types numériques | numeric/decimal → string (TS) ou decimal.Decimal (Go), jamais float |
+## 2. Business rules
 
-## 3. Qualité code
+- [ ] All business rules from the PG function are implemented in the use case
+- [ ] Each business rule is covered by a unit test
+- [ ] Rule violations throw the correct typed `DomainError` subclass
+- [ ] Error codes match the expected HTTP status (404 / 400 / 409 / 422)
 
-| Check | Règle |
-|-------|-------|
-| Conventions respectées | Le code suit les patterns des fichiers existants |
-| Types/Structs complets | Entrées et sorties typées, pas de any/interface{} |
-| Validation entrées | Paramètres validés avant la requête |
-| Gestion erreurs | Erreurs SQL catchées et mappées en HTTP codes |
-| Documentation | Commentaire en tête avec source (fonction PostgreSQL de référence) |
+## 3. Edge cases
 
-## 4. Cohérence projet
+- [ ] Empty result set returns `[]` not `null`
+- [ ] Not found returns 404 with typed error, not 500
+- [ ] Invalid input caught by Zod validation (400), not reaching the use case
+- [ ] NULL DB values handled explicitly (not silently converted to `undefined`)
+- [ ] Numeric overflow / division by zero cases handled
 
-| Check | Comment vérifier |
-|-------|-----------------|
-| Pas de duplication | L'endpoint ne fait pas la même chose qu'un existant |
-| Migration tracker | doc/migration-tracker.md mis à jour |
-| Règles métier documentées | Les valeurs en dur et filtres implicites sont commentés |
-| Dépendances | Si la fonction appelait d'autres fonctions, c'est signalé |
+## 4. Data mapping
 
-## 5. Régressions potentielles
+- [ ] All DB columns are mapped to domain entity fields
+- [ ] snake_case → camelCase conversion is complete
+- [ ] No DB column leaks into the API response
+- [ ] Dates are serialized consistently (ISO 8601 string)
+- [ ] Decimal/numeric columns use appropriate TypeScript type (string or number)
 
-| Check | Quoi vérifier |
-|-------|--------------|
-| Fonctions dépendantes | D'autres fonctions PostgreSQL appellent-elles la fonction migrée ? |
-| Triggers | Y a-t-il des triggers sur les tables modifiées ? |
-| Autres endpoints | D'autres endpoints touchent-ils les mêmes tables ? |
-| Effets de bord | La fonction originale avait-elle des effets cachés (logs, audit, notifications) ? |
+## 5. Tests
 
-## Format de sortie du validator
+- [ ] Unit test: nominal case (success path)
+- [ ] Unit test: not found error
+- [ ] Unit test: business rule violation(s)
+- [ ] Unit test: invalid input
+- [ ] All tests pass: `bun test --filter "[UseCaseName]"`
 
+## 6. Types
+
+- [ ] No `any` types in use case, repository, or mapper
+- [ ] `bun run typecheck` passes with zero errors
+- [ ] Repository interface updated if new methods added
+
+## 7. API contract
+
+- [ ] Route registered in `src/api/routes/index.ts`
+- [ ] OpenAPI spec auto-generates (`GET /openapi.json`)
+- [ ] Request schema (Zod) validates all inputs
+- [ ] Response schema (Zod) matches actual output shape
+- [ ] HTTP method and path follow REST conventions (see `doc/api-design.md`)
+
+## 8. Final verification
+
+```bash
+bun run typecheck       # Zero type errors
+bun run test            # All tests pass
+bun run dev             # Server starts without errors
+curl localhost:3000/api/[endpoint]  # Returns expected data
 ```
-## Validation
 
-**Fonction originale :** {schema}.{function_name}
-**Endpoint migré :** {méthode} {route}
+## Behavioral equivalence matrix
 
-### Équivalence comportementale
-- ✅ | ❌ Mêmes entrées : {détail}
-- ✅ | ❌ Mêmes sorties : {détail}
-- ✅ | ❌ Mêmes filtres : {détail}
-- ✅ | ❌ Mêmes jointures : {détail}
-- ✅ | ❌ Valeurs en dur : {détail}
+When uncertain if behavior matches, test both old (via direct DB call) and new (via API) with the same inputs:
 
-### Qualité
-- ✅ | ❌ SQL : {détail}
-- ✅ | ❌ Code : {détail}
-- ✅ | ❌ Types : {détail}
+```sql
+-- Old: call PG function directly
+SELECT * FROM f_get_copropriete('123');
 
-### Régressions
-- ✅ | ❌ Dépendances : {détail}
-
-### Verdict : ✅ PASS | ❌ FAIL
-
-### Corrections requises (si FAIL)
-1. {correction}
+-- New: call API
+-- GET /api/coproprietes/123
+-- → Compare field by field
 ```

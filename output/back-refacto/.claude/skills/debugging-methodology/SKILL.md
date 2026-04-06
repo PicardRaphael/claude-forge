@@ -1,70 +1,125 @@
 ---
 name: debugging-methodology
-description: Root-cause-first debugging methodology. 5 levels of isolation, common patterns for PostgreSQL migration bugs, SQL debugging techniques. Loaded by debugger agent.
-user-invokable: false
+description: Root-cause debugging methodology — 5 levels of investigation, PostgreSQL migration bugs, TypeScript errors. Load when investigating a bug, unexpected behavior, or test failure.
+user-invokable: true
+argument-hint: "[description of the bug or failing test]"
 ---
 
-# Méthodologie de debugging
+# Debugging Methodology — Root Cause First
 
-## Les 5 niveaux d'isolation
+**Rule:** Never patch a symptom. Find the root cause, then fix it.
 
-Toujours descendre du symptôme vers la cause racine :
+## The 5 levels
 
-```
-Niveau 1 — Endpoint/Route
-  Est-ce le bon endpoint qui est appelé ?
-  Les paramètres arrivent-ils correctement ?
+Work through these in order. Stop at the level where you find the root cause.
 
-Niveau 2 — Service/Logique métier
-  La logique de traitement est-elle correcte ?
-  Les conditions/validations sont-elles bonnes ?
+### Level 1 — Reproduce reliably
 
-Niveau 3 — Repository/Requête SQL
-  La requête retourne-t-elle les bonnes données ?
-  Les jointures sont-elles correctes ?
-  Les filtres sont-ils appliqués ?
-
-Niveau 4 — Données
-  Les données en base sont-elles correctes ?
-  Y a-t-il des incohérences (orphelins, doublons) ?
-
-Niveau 5 — Infrastructure
-  Connexion DB OK ? Timeout ? Pool saturé ?
+Before investigating, confirm the bug is reproducible:
+```bash
+bun test --filter "[FailingTest]"   # Does it fail consistently?
+bun run dev                          # Does the server reproduce the issue?
 ```
 
-## Bugs typiques de migration PostgreSQL → Applicatif
+If not reproducible → it's a flaky test or race condition (different problem).
 
-| Symptôme | Cause probable | Comment vérifier |
-|----------|---------------|-----------------|
-| Données manquantes | Filtre soft-delete oublié (`deleted_at IS NULL`) | Comparer la requête migrée avec la fonction originale |
-| Mauvaises données | Valeur en dur incorrecte (role_id = 2 au lieu de 1) | Lire la fonction originale, vérifier les valeurs |
-| Erreur jointure | FK incorrecte ou table manquante | Vérifier doc/dump/fk.csv |
-| Résultats vides | Condition WHERE trop restrictive | Comparer chaque WHERE avec l'original |
-| Doublons | JOIN manquant ou mal conditionné | Vérifier la fonction originale |
-| Erreur type | numeric → float au lieu de string | Vérifier le mapping types |
-| Lenteur soudaine | Index manquant sur colonne de filtre | Vérifier doc/dump/indexes.csv |
-| Crash NULL | Colonne nullable non gérée | Vérifier is_nullable dans doc/dump/columns.csv |
+### Level 2 — Read the full error
 
-## Techniques de diagnostic SQL
+Read the entire error message and stack trace:
+- What is the exact error type? (`TypeError`, `ZodError`, `DomainError`, etc.)
+- What file and line number?
+- What was the call stack?
 
-### Vérifier une requête suspecte
-1. Lire la requête dans le code
-2. La comparer avec la fonction PostgreSQL originale — diff ligne par ligne
-3. Vérifier chaque JOIN avec doc/dump/fk.csv
-4. Vérifier chaque colonne avec doc/dump/columns.csv
-5. Chercher les valeurs en dur et les comparer avec l'original
+Common mistakes: reading only the first line, ignoring the stack trace.
 
-### Trouver quel endpoint utilise une table
+### Level 3 — Check the data flow
+
+Trace the request through the hexagonal layers:
 ```
-Grep pattern="FROM\s+{table}|JOIN\s+{table}|INTO\s+{table}" path="src/"
+API Route → Use Case → Repository Interface → Repository Implementation → DB
 ```
 
-### Trouver la fonction originale d'un endpoint migré
-Lire le commentaire en tête du fichier : `// Migré depuis : {schema}/{function}.sql`
+At which layer does the data stop being correct?
 
-## Apprentissage
+```typescript
+// Temporary debug logging (remove after fixing)
+console.log("[DEBUG route] input:", input);
+console.log("[DEBUG use-case] copro:", copro);
+console.log("[DEBUG mapper] raw row:", row);
+```
 
-Après chaque debug, sauvegarder en mémoire :
-- **Patterns de bugs récurrents** (même cause dans plusieurs endroits)
-- **Pièges BDD découverts** (colonnes ambiguës, données incohérentes)
-- **Fonctions mal migrées** identifiées
+### Level 4 — Verify types and contracts
+
+Type errors often manifest as runtime bugs:
+```bash
+bun run typecheck    # Find all TypeScript errors
+```
+
+Check:
+- Are the Zod schemas matching the actual DB column types?
+- Are mapper functions handling all nullable columns?
+- Are use case inputs/outputs typed correctly?
+
+### Level 5 — Isolate with a minimal test
+
+Write a minimal failing test that demonstrates the bug:
+```typescript
+it("reproduces bug #X", async () => {
+  // Minimal setup
+  // Exact scenario that fails
+  // Assert the expected behavior
+});
+```
+
+This test becomes the regression test once the bug is fixed.
+
+## PostgreSQL migration bugs — common patterns
+
+### Pattern: Mapper missing a field
+**Symptom:** API returns `undefined` for a field that exists in DB
+**Cause:** `toEntity()` mapper doesn't include that column
+**Fix:** Add the field to the mapper function
+
+### Pattern: Type mismatch on numeric columns
+**Symptom:** `NaN` or string where number expected
+**Cause:** PostgreSQL returns decimals as strings; Drizzle preserves this
+**Fix:** `Number(row.montant)` or use `z.coerce.number()` in Zod schema
+
+### Pattern: NULL vs undefined mismatch
+**Symptom:** Condition `if (!value)` triggers when value is `0` or `""`
+**Cause:** Falsy check instead of null check
+**Fix:** `if (value === null || value === undefined)`
+
+### Pattern: Business rule in PG function not ported
+**Symptom:** Old behavior allowed/blocked something the new API doesn't
+**Cause:** Rule was implicit in the PG function, not documented
+**Fix:** Read the PG function carefully, port the rule to the use case
+
+### Pattern: Zod coercion issue
+**Symptom:** Query param arrives as string, `z.number()` rejects it
+**Cause:** HTTP query params are always strings
+**Fix:** Use `z.coerce.number()` for query params
+
+## Decision tree
+
+```
+Bug reported
+  ↓
+Reproducible? → No → Flaky test / race condition → separate investigation
+  ↓ Yes
+Type error (tsc)? → Yes → Fix TypeScript types first
+  ↓ No
+Test failure? → Yes → Write minimal failing test → find root cause
+  ↓ No
+Runtime error? → Yes → Add debug logging at each layer → find where data corrupts
+  ↓ No
+Wrong output (no error)? → Trace data flow → check mapper → check business rule
+```
+
+## After fixing
+
+1. Remove all debug `console.log` statements
+2. Confirm the test that reproduced the bug now passes
+3. Run full test suite: `bun run test`
+4. Run typecheck: `bun run typecheck`
+5. If the bug was a missing business rule, document it in project memory

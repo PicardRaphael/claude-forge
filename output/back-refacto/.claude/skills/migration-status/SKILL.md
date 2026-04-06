@@ -1,86 +1,82 @@
 ---
 name: migration-status
-description: Track PostgreSQL function migration progress. Shows which functions are migrated, pending, or blocked per domain. Auto-updated by migrate-function and create-endpoint. Use when user says "avancement", "migration status", "où on en est", "combien de fonctions".
-allowed-tools: Read, Write, Grep, Glob
+description: Track PostgreSQL function migration progress to Drizzle/TypeScript. Load when user asks about migration status, what has been migrated, what remains, or to update the tracker after completing a migration.
+user-invokable: true
+argument-hint: "[domain or function name to check/update]"
 ---
 
-# Suivi de migration PostgreSQL → applicatif
+# Migration Status Tracker
 
-## Fichier de tracking
+## Tracker file
 
-Le fichier `doc/migration-tracker.md` est la source de vérité.
+All migration progress is tracked in `doc/migration-tracker.md`.
 
-### Si le fichier n'existe pas
+**Rule 10 from CLAUDE.md:** Update `doc/migration-tracker.md` after EVERY completed migration.
 
-Le générer à partir de :
-1. `doc/schemas/RAPPORT.md` → liste des domaines
-2. `Glob "{repo_fonctions}/**/*.sql"` → toutes les fonctions
-3. Créer le fichier avec toutes les fonctions en status `⬜ pending`
-
-### Format du fichier
+## How to read the tracker
 
 ```markdown
-# Migration tracker
-
-> Dernière mise à jour : {YYYY-MM-DD}
-> Total : {migré}/{total} fonctions ({pourcentage}%)
-
-## Vue d'ensemble
-
-| Domaine | Total | ✅ Migrées | ⬜ Pending | 🚫 Ignorées | % |
-|---------|-------|-----------|-----------|-------------|---|
-| {domaine} | {n} | {n} | {n} | {n} | {n}% |
-| **Total** | **{n}** | **{n}** | **{n}** | **{n}** | **{n}%** |
-
-## {domaine}
-
-### ✅ Migrées
-
-| Fonction | Endpoint | Date | Notes |
-|----------|----------|------|-------|
-| `f_{name}` | `GET /copros/:id` | {YYYY-MM-DD} | — |
-
-### ⬜ Pending
-
-| Fonction | Convention | Complexité | Dépend de |
-|----------|-----------|-----------|-----------|
-| `f_{name}` | read | {simple/moyenne/complexe} | — |
-| `proc_{name}` | procedure | complexe | `f_{x}`, `p_{y}` non migrées |
-
-### 🚫 Ignorées
-
-| Fonction | Raison |
-|----------|--------|
-| `tr_{name}` | Trigger géré côté ORM |
+## Domain: Copropriétés
+| Function | Status | Notes |
+|---|---|---|
+| f_get_copropriete | ✅ migrated | GET /api/coproprietes/:id |
+| f_list_coproprietes | ✅ migrated | GET /api/coproprietes |
+| p_create_copropriete | 🔄 in progress | |
+| f_get_solde | ⏳ pending | Depends on comptes domain |
 ```
 
-## Actions
+**Status codes:**
+- ✅ migrated — endpoint exists, tested, functional
+- 🔄 in progress — currently being worked on
+- ⏳ pending — not started
+- ❌ blocked — dependency issue, document the blocker
+- 🚫 skip — not needed (internal function, trigger, etc.)
 
-### `/migration-status` (sans argument)
+## After completing a migration
 
-Afficher le résumé : pourcentage global + par domaine.
+1. Update `doc/migration-tracker.md` — change status to ✅
+2. Add the API route path in the Notes column
+3. If business rules were discovered, add them to project memory
 
-### `/migration-status {domaine}`
+## Migration checklist (per function)
 
-Afficher le détail d'un domaine : fonctions migrées, pending, ignorées.
+- [ ] Read the PostgreSQL function source (in pg-functions repo — READ ONLY)
+- [ ] Identify inputs, outputs, business rules
+- [ ] Create domain entity / value objects if needed
+- [ ] Create typed errors for each failure mode
+- [ ] Create use case with `execute()` method
+- [ ] Write unit tests (mock repository)
+- [ ] Create Drizzle mapper
+- [ ] Create repository implementation
+- [ ] Create Hono route with Zod schemas
+- [ ] Verify behavioral equivalence (same inputs → same outputs)
+- [ ] Update migration-tracker.md
 
-### Mise à jour automatique
+## Domain groupings
 
-Les skills `/migrate-function` et `/create-endpoint` doivent appeler cette logique après chaque migration :
+Organize migration by domain to maximize coherence:
 
-1. Lire `doc/migration-tracker.md`
-2. Passer la fonction de `⬜ Pending` à `✅ Migrées`
-3. Ajouter l'endpoint, la date, et les notes
-4. Recalculer les pourcentages
-5. Si la fonction migrée était une dépendance d'autres fonctions → mettre à jour leur colonne "Dépend de"
+| Domain | Key tables | Key functions |
+|---|---|---|
+| Copropriétés | coproprietes, syndicats | f_get_copropriete, f_list_coproprietes |
+| Lots & tantièmes | lots, tantiemes | f_get_lots_copropriete, f_calcul_tantiemes |
+| Comptabilité | comptes, ecritures | f_get_solde, f_list_ecritures |
+| Appels de fonds | appels_de_fonds | f_list_appels, p_create_appel |
+| Copropriétaires | coproprietaires | f_get_coproprietaires_lot |
 
-### Marquer comme ignorée
+## Progress summary format
 
-Le dev dit "ignore `tr_copro_audit`" → passer en `🚫 Ignorées` avec la raison.
+When asked for a status update, produce this format:
 
-## Règles
+```
+Migration progress: X/Y functions (Z%)
 
-- Ne JAMAIS modifier les fichiers du repo fonctions
-- Le tracker est dans le repo back, pas dans le repo fonctions
-- Si le tracker et la réalité divergent (nouvelle fonction dans le repo) → signaler au dev
-- Les pourcentages excluent les fonctions ignorées du total
+✅ Migrated (X):
+  - domain: function → endpoint
+
+🔄 In progress (X):
+  - domain: function
+
+⏳ Pending (X):
+  - domain: function (blocker if any)
+```

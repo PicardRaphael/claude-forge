@@ -1,187 +1,81 @@
 # Agent Delegation Rules - MANDATORY
 
-## Regles de Delegation (OBLIGATOIRE)
+## TOUJOURS deleguer. Ne JAMAIS explorer ou coder directement.
 
-**TOUJOURS deleguer aux agents specialises. Ne JAMAIS explorer ou coder directement.**
-
-### Evaluation de la complexite (AVANT delegation)
+### Evaluation de la complexite
 
 | Taille | Criteres | Action |
 |--------|----------|--------|
-| **S** | Bug fix, <3 fichiers | Agent direct (debugger ou dev) |
+| **S** | Bug fix, <3 fichiers | Agent direct |
 | **M** | Nouveau endpoint, 3-5 fichiers | Architect (plan) → Dev |
-| **L** | Migration domaine entier, >5 fichiers, multi-tables | Architect (plan) → TaskCreate → multi-Dev paralleles |
+| **L** | Migration domaine, >5 fichiers | Architect → TaskCreate → multi-Dev |
 
-### → Agent `architect` (design + review)
+### Triage — Qui appeler quand
 
-Deleguer TOUJOURS quand :
-- **Design** d'un nouvel endpoint ou modification
-- **Analyse d'impact** d'un changement
-- **Review du code** apres le dev
-- **Planifier une migration** de fonction PostgreSQL
-- **Explorer le codebase** pour comprendre l'architecture
+| L'utilisateur dit... | Agents |
+|---------------------|--------|
+| "J'ai besoin d'un endpoint pour X" | `api-designer` (design) → user valide → `dev` (skill add-endpoint) → `code-reviewer` → `performance-engineer` → `security-auditor` |
+| "Migre la fonction f_xxx" | `refactor-pg-function` → `code-reviewer` → `validator` → `performance-engineer` |
+| "Connecte la table X" | `dev` (skill connect-table) → `code-reviewer` |
+| "Modifie l'endpoint, ajoute X" | `architect` (design) → `dev` → `code-reviewer` → `performance-engineer` |
+| "Bug / erreur / ça marche pas" | `debugger` → `code-reviewer` |
+| "C'est lent / performance" | `performance-engineer` → `dev` si fix → `code-reviewer` |
+| "Audit sécurité / on release" | `security-auditor` → `dev` si fix → `security-auditor` (re-audit) |
+| "Ajoute des tests" | `test-writer` |
+| "Review mon code" | `code-reviewer` |
+| "Analyse la BDD / les tables" | `db-inspector` ou `schema-mapper` (via MCP PostgreSQL) |
+| "Analyse les fonctions PG" | `db-inspector` (peut lire le source des fonctions via MCP) |
+| "Où en est la migration ?" | Lire doc/migration-tracker.md directement |
+| Ticket complexe | Découper → TaskCreate → router chaque tâche |
 
-Exemples : "J'ai besoin d'un endpoint pour...", "Comment migrer f_xxx ?", "Analyse l'impact de...", "Review le code du dev"
+### Workflows types
 
-### → Agent `dev` (implementation)
-
-Deleguer quand :
-- **Implementer** un plan valide par l'architecte
-- **Creer/modifier** un endpoint, service, repository
-- **Appliquer un fix** valide par le debugger
-- **Corriger** un probleme signale par security-auditor ou performance-engineer
-
-Le dev charge la skill appropriee selon le type de tache :
-- Migration → skill `migrate-function`
-- Nouvel endpoint → skill `create-endpoint`
-- Modification → skill `update-endpoint`
-
-### → Agent `debugger` (diagnostic + fix)
-
-Deleguer quand :
-- **Bug** signale par l'utilisateur
-- **Erreur** / crash / comportement inattendu
-- **Donnees incorrectes** retournees par un endpoint
-
-Exemples : "Y a un bug sur...", "Ca marche pas", "L'endpoint retourne des doublons", "Erreur 500 sur..."
-
-### → Agent `validator` (equivalence comportementale)
-
-Deleguer APRES le dev et l'architect review, quand :
-- Une **fonction PostgreSQL a ete migree** vers un endpoint
-- Besoin de verifier que le code migre fait la meme chose que l'original
-
-**Hard gate** : FAIL = retour au dev.
-
-### → Agent `performance-engineer` (profiling + review perf)
-
-Deleguer quand :
-- **Lenteur** signalee par l'utilisateur
-- **Review performance** apres creation/modification d'un endpoint
-- **Requete SQL complexe** (6+ jointures, pas d'index)
-
-Exemples : "C'est lent sur...", "L'endpoint met 5 secondes"
-
-Aussi appele systematiquement apres le dev pour les features et migrations.
-
-### → Agent `security-auditor` (audit securite)
-
-Deleguer quand :
-- **Audit securite** demande (avant release, revue periodique)
-- **Nouvel endpoint** cree (audit automatique)
-- **Vulnerabilite** suspectee
-
-Exemples : "Fais un audit secu", "Verifie la securite de...", "On release vendredi"
-
-### → Agent `repo-functions-analyzer` (analyse repo fonctions)
-
-Deleguer quand :
-- **Comprendre un domaine** du repo fonctions PostgreSQL
-- **Inventorier les fonctions** d'un schema
-- **Analyser les dependances** entre fonctions
-
-Exemples : "Analyse le domaine copro", "Quelles fonctions touchent la table X ?"
-
-### → Agent `schema-mapper` (analyse BDD)
-
-Deleguer quand :
-- **Premiere analyse** de la BDD (generer doc/schemas/)
-- **Decouverte des domaines** et clusters de tables
-
-Exemples : "Analyse ma BDD", "Genere la doc des domaines"
-
-### → Agent `sql-optimizer` (optimisation SQL)
-
-Deleguer quand :
-- Une **requete SQL a besoin d'optimisation**
-- L'architect ou le performance-engineer identifie un probleme SQL
-
-### → Main Claude directement (PAS de delegation)
-
-Repondre directement UNIQUEMENT pour :
-- **Questions** sur le projet, l'avancement, l'architecture
-- **Statut migration** → lire doc/migration-tracker.md
-- **Configuration** .claude/ (rules, hooks, settings)
-- **Git** (commit, push, status)
-
-## Workflows types
-
-### Feature / Nouvel endpoint
-
+**Nouvel endpoint :**
 ```
-Utilisateur : "J'ai besoin d'un endpoint pour recuperer les copros"
-    |
-Main Claude : taille = M, type = feature
-    |
-    +-- architect (design technique)
-    |       +-- Produit : plan (route, SQL, types, fichiers)
-    |
-    +-- Main Claude : presente le plan, attend validation utilisateur
-    |
-    +-- dev (implemente le plan, skill create-endpoint)
-    |
-    +-- architect (review code)
-    |       +-- OK ou corrections → retour dev
-    |
-    +-- performance-engineer (review perf)
-    +-- security-auditor (audit)
-    |
-    +-- Main Claude : presente le resultat
+api-designer (design) → user valide → dev (skill add-endpoint)
+  → code-reviewer → performance-engineer → security-auditor
 ```
 
-### Migration fonction PostgreSQL
-
+**Migration fonction PostgreSQL :**
 ```
-Utilisateur : "Migre la fonction f_get_proprietaires"
-    |
-Main Claude : taille = M, type = migration
-    |
-    +-- architect (design)
-    +-- Main Claude : validation utilisateur
-    +-- dev (skill migrate-function)
-    +-- architect (review)
-    +-- validator (equivalence comportementale) ← HARD GATE
-    +-- performance-engineer (review perf)
-    |
-    +-- Main Claude : presente le resultat
+refactor-pg-function (analyse SQL + implémente)
+  → code-reviewer → validator (équivalence) → performance-engineer
 ```
 
-### Bug fix
-
+**Bug fix :**
 ```
-Utilisateur : "Bug sur GET /copros, retourne des doublons"
-    |
-Main Claude : taille = S, type = bug
-    |
-    +-- debugger (diagnostic + fix)
-    +-- architect (review du fix)
-    |
-    +-- Main Claude : presente le resultat
+debugger (diagnostic + fix) → code-reviewer
 ```
 
-### Migration complexe (domaine entier)
-
+**Migration domaine entier (taille L) :**
 ```
-Utilisateur : "Migre tout le domaine copro"
-    |
-Main Claude : taille = L, type = migration
-    |
-    +-- architect (plan global + decoupe en taches)
-    +-- Main Claude : validation utilisateur
-    +-- TaskCreate (une tache par fonction a migrer)
-    +-- Plusieurs dev en parallele
-    +-- architect (review de chaque migration)
-    +-- validator (chaque migration)
-    +-- performance-engineer (review global)
-    |
-    +-- Main Claude : presente le resultat
+architect (plan global) → user valide → TaskCreate
+  → plusieurs refactor-pg-function en parallèle
+  → code-reviewer (chaque migration) → validator (chaque migration)
+  → performance-engineer (review global)
 ```
 
-## Comment deleguer
+### Gates après implémentation
+
+| Gate | Systématique | Conditionnel |
+|------|-------------|-------------|
+| `code-reviewer` | TOUJOURS | — |
+| `validator` | Migrations PG | — |
+| `performance-engineer` | Features + Migrations | "C'est lent" |
+| `security-auditor` | Nouveaux endpoints | Avant release |
+
+### Comment déléguer
 
 Inclure dans le prompt de l'agent :
-1. La demande exacte de l'utilisateur
-2. Le type de tache (migration / feature / modification / bug)
-3. Les fichiers/tables/fonctions concernees si connus
-4. La taille evaluee (S/M/L)
-5. Le contexte pertinent (domaine, regles metier connues)
+1. Demande exacte de l'utilisateur
+2. Type de tâche (migration / feature / modification / bug)
+3. Fichiers/tables/fonctions concernées
+4. Taille évaluée (S/M/L)
+5. Contexte pertinent (domaine, règles métier)
+
+### Main Claude directement (PAS de delegation)
+
+- Questions sur le projet
+- Statut migration → lire doc/migration-tracker.md
+- Git (commit, push, status)
+- Configuration .claude/

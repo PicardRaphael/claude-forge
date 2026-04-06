@@ -1,66 +1,95 @@
 ---
 name: sql-best-practices
-description: PostgreSQL SQL best practices for large databases (200+ tables, millions of rows). Covers query optimization, indexing, anti-patterns, and type-safe patterns. Loaded by sql-optimizer, migrate-function, create-endpoint, update-endpoint.
+description: PostgreSQL SQL best practices for this project — rules, anti-patterns, pagination, query optimization. Load when writing SQL, Drizzle queries, or reviewing database access patterns.
 user-invokable: false
 ---
 
-# PostgreSQL SQL — Best practices
+# PostgreSQL SQL Best Practices
 
-## Règles absolues
+## Core rules
 
-1. **Jamais de SELECT *** — toujours lister les colonnes
-2. **Jamais de jointure implicite** — toujours `JOIN ... ON`
-3. **Jamais de OFFSET > 1000** — cursor-based pagination
-4. **Jamais de N+1** — une requête avec JOIN, pas une boucle
-5. **Jamais de string concatenation SQL** — placeholders `$1, $2`
-6. **Toujours le filtre soft-delete** si le projet en utilise
-7. **Toujours typer les résultats** — pas de `any` ou `interface{}`
-8. **numeric/decimal PostgreSQL → string (TS) ou decimal.Decimal (Go)** — jamais float
-9. **CREATE INDEX CONCURRENTLY** en production — jamais sans CONCURRENTLY
-10. **EXISTS au lieu de IN** pour sous-requêtes corrélées
+1. **Never SELECT \*** — always name columns explicitly
+2. **Always paginate** — no unbounded queries on large tables
+3. **Use parameterized queries** — never interpolate user input into SQL
+4. **Index before querying** — check `EXPLAIN ANALYZE` on any query touching >10k rows
+5. **Never modify PostgreSQL functions** in the `pg-functions` repo — read-only
 
-## Jointures
+## Drizzle query patterns
 
-```sql
--- CORRECT : explicite
-SELECT u.name, o.total
-FROM users u
-JOIN orders o ON o.user_id = u.id
-WHERE u.deleted_at IS NULL
+### Pagination
+```typescript
+// Always paginate list queries
+const rows = await db
+  .select()
+  .from(coproprietes)
+  .orderBy(asc(coproprietes.nom))
+  .limit(limit)
+  .offset((page - 1) * limit);
 
--- INTERDIT : implicite
-SELECT u.name, o.total FROM users u, orders o WHERE o.user_id = u.id
+const [{ count }] = await db
+  .select({ count: sql<number>`count(*)` })
+  .from(coproprietes);
+
+return {
+  data: rows.map(toCopropriete),
+  pagination: { page, limit, total: Number(count), totalPages: Math.ceil(Number(count) / limit) },
+};
 ```
 
-- Table la plus restrictive en premier dans le FROM
-- Filtres sur la table jointe dans le `ON`, pas dans le `WHERE`
-- `LEFT JOIN` uniquement si on veut les lignes sans correspondance
-- Max 5-6 jointures par requête — au-delà, CTE ou découper
-
-## Pagination
-
-```sql
--- Petits datasets (<1000)
-SELECT * FROM coproprietes WHERE active = true ORDER BY name LIMIT 20 OFFSET 40;
-
--- Grands datasets — cursor-based (OBLIGATOIRE si offset > 1000)
-SELECT * FROM coproprietes WHERE active = true AND id > $1 ORDER BY id LIMIT 20;
+### Null-safe comparisons
+```typescript
+// Use isNull / isNotNull, not eq(col, null)
+.where(isNull(lots.dateCession))
+.where(isNotNull(comptes.iban))
 ```
 
-## Anti-patterns critiques
+### Transactions
+```typescript
+await db.transaction(async (tx) => {
+  await tx.insert(ecritures).values(debit);
+  await tx.insert(ecritures).values(credit);
+});
+// If either insert fails, both are rolled back
+```
 
-| Anti-pattern | Fix |
-|-------------|-----|
-| `WHERE LOWER(col) = 'x'` | `WHERE col ILIKE 'x'` ou expression index |
-| `SELECT DISTINCT` sur grosse table | `GROUP BY` |
-| Sous-requête corrélée par ligne | Window function (`SUM() OVER()`) |
-| `OR` sur colonnes différentes | `UNION` |
-| UUIDv4 comme PK | UUIDv7 ou `BIGSERIAL` |
-| `OFFSET 50000` | Cursor-based pagination |
+### Calling PostgreSQL functions (read-only)
+```typescript
+// Call existing f_* or p_* functions via sql tag
+const result = await db.execute(
+  sql`SELECT * FROM f_get_solde_copropriete(${coproprieteId})`
+);
+```
 
-## Références détaillées
+## Anti-patterns
 
-Pour les techniques avancées, consulter dans `references/` :
-- `advanced-optimization.md` — indexing avancé (BRIN, GIN, partial, covering), EXPLAIN ANALYZE, partitioning, materialized views, bulk ops, window functions, JSONB, locks, connection pooling, vacuum
-- `typescript-patterns.md` — patterns type-safe pour TypeScript + PostgreSQL
-- `go-patterns.md` — patterns type-safe pour Go + PostgreSQL
+| Anti-pattern | Problem | Fix |
+|---|---|---|
+| `SELECT *` | Fetches unused columns, breaks on schema change | Name columns |
+| Unbounded query | OOM on large tables | Always `.limit()` |
+| Logic in SQL | Business rules split between layers | Move to use case |
+| Raw string concat | SQL injection | Drizzle parameterizes automatically |
+| N+1 queries | Performance collapse | Use JOINs or batch loading |
+| `any` on DB results | Type safety lost | Use Drizzle inferred types |
+
+## PostgreSQL function conventions
+
+| Prefix | Purpose |
+|--------|---------|
+| `f_*` | Read (SELECT) — safe to call anytime |
+| `p_*` | Write (INSERT/UPDATE/DELETE) — use in transactions |
+| `proc_*` | Orchestration procedure |
+| `tr_*` | Trigger — never call directly |
+
+## Performance checklist
+
+- [ ] Query uses an index (check with `EXPLAIN ANALYZE`)
+- [ ] No `SELECT *`
+- [ ] Lists are paginated (max 100 rows per page)
+- [ ] Joins are on indexed columns
+- [ ] No correlated subqueries in loops
+- [ ] Heavy aggregations use materialized views or are cached
+
+## See also
+
+- `references/advanced-optimization.md` — EXPLAIN, indexes, VACUUM
+- `references/typescript-patterns.md` — TypeScript + Drizzle type patterns

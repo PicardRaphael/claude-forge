@@ -1,116 +1,95 @@
 ---
 name: security-checklist
-description: Security audit checklist adapted for PostgreSQL migration projects - SQL injection, auth, data exposure, dependency scanning, OWASP Top 10 adapted. Loaded by security-auditor agent.
-user-invokable: false
+description: Security audit checklist — SQL injection, authentication, input validation, OWASP Top 10 for this TypeScript/Hono/PostgreSQL API. Load when reviewing security of endpoints or before a release.
+user-invokable: true
+argument-hint: "[endpoint or module to audit]"
 ---
 
 # Security Checklist
 
-## Priorité #1 — Injection SQL
+## 1. SQL Injection
 
-C'est la surface d'attaque #1 de ce projet (migration SQL → applicatif).
+- [ ] All DB queries use Drizzle ORM (parameterized by default)
+- [ ] Any raw `sql` tag uses template literals (never string concat)
+- [ ] No user input is ever concatenated into a SQL string
 
-### FAIL automatique si :
-- Concaténation de string dans une requête SQL
-- Template literal avec des variables utilisateur dans une requête
-- `req.params`, `req.body`, `req.query` utilisé directement dans du SQL
-
-### Vérification
-```
-Grep pattern="query\(`.*\$\{|query\(.*\+.*req\.|Exec.*fmt\.Sprintf.*req\." path="src/"
-```
-
-### Pattern correct
-```sql
--- TOUJOURS : placeholders
-SELECT * FROM users WHERE id = $1 AND active = $2
--- JAMAIS : concaténation
-SELECT * FROM users WHERE id = ' + req.params.id + '
-```
-
-## Priorité #2 — Authentification / Autorisation
-
-### Checks
-- [ ] Chaque endpoint a un middleware d'authentification (sauf les publics explicitement listés)
-- [ ] Les endpoints de modification (POST/PUT/PATCH/DELETE) vérifient les rôles/permissions
-- [ ] Les tokens JWT ont une expiration raisonnable
-- [ ] Les endpoints ne permettent pas d'accéder aux données d'un autre utilisateur (IDOR)
-
-### Pattern IDOR (Insecure Direct Object Reference)
-```
-// VULNÉRABLE — l'utilisateur peut accéder à n'importe quelle copro
-GET /copros/:id
-
-// SÉCURISÉ — vérifier que l'utilisateur a le droit
-GET /copros/:id → WHERE id = $1 AND (owner_id = $currentUserId OR role = 'admin')
-```
-
-## Priorité #3 — Exposition de données
-
-### FAIL automatique si :
-- Un endpoint retourne des mots de passe (même hashés)
-- Un endpoint retourne des tokens ou clés API
-- Un endpoint retourne des données sensibles non nécessaires (email, téléphone dans une liste publique)
-
-### Vérification
-```
-Grep pattern="password|token|secret|api_key|private_key" path="src/" --type ts
-```
-Vérifier que ces champs ne sont JAMAIS dans les types de réponse.
-
-## Priorité #4 — Validation des entrées
-
-### Checks
-- [ ] Chaque paramètre d'entrée est typé et validé
-- [ ] Les IDs sont des nombres (pas des strings arbitraires)
-- [ ] Les strings ont une longueur max
-- [ ] Les enums sont validés contre une liste blanche
-- [ ] Les dates sont parsées correctement
-
-### Pattern
 ```typescript
-// Validation avec zod (TS)
-const schema = z.object({
-  id: z.number().int().positive(),
-  name: z.string().min(1).max(255),
-  status: z.enum(['active', 'inactive']),
-});
+// ✅ Safe — Drizzle parameterizes
+db.select().from(coproprietes).where(eq(coproprietes.id, userId));
+
+// ✅ Safe — sql tag with template literal
+db.execute(sql`SELECT * FROM f_get_solde(${coproprieteId})`);
+
+// ❌ UNSAFE — string concat
+db.execute(sql.raw(`SELECT * FROM coproprietes WHERE id = '${userId}'`));
 ```
 
-## Priorité #5 — Configuration
+## 2. Authentication
 
-### Checks
-- [ ] Pas de secrets hardcodés dans le code
-- [ ] CORS configuré (pas `*` en prod)
-- [ ] Rate limiting activé sur les endpoints publics
-- [ ] Headers de sécurité (HSTS, X-Content-Type-Options, X-Frame-Options)
-- [ ] Variables d'environnement pour les secrets
+- [ ] All non-public endpoints require `Authorization: Bearer <API_KEY>` header
+- [ ] The `auth` middleware is applied at the app level or explicitly per route
+- [ ] API key is loaded from environment variable, not hardcoded
+- [ ] API key is at least 32 characters long
+- [ ] API key comparison uses constant-time comparison (no timing attacks)
 
-### Vérification secrets hardcodés
+```typescript
+// In src/api/middleware/auth.ts — ensure timing-safe comparison
+import { timingSafeEqual } from "crypto";
 ```
-Grep pattern="password\s*=\s*['\"]|secret\s*=\s*['\"]|api_key\s*=\s*['\"]" path="src/"
-```
 
-## Priorité #6 — Dépendances
+## 3. Input validation
 
-### Commandes d'audit
+- [ ] All route inputs (params, query, body) are validated with Zod schemas
+- [ ] UUID params use `z.string().uuid()` (prevents injection via malformed IDs)
+- [ ] Pagination params use `z.coerce.number().int().min(1).max(100)` (prevents DoS)
+- [ ] String inputs have `.max()` length limits where appropriate
+- [ ] No `z.any()` in request schemas
+
+## 4. Output sanitization
+
+- [ ] No internal error details (stack traces, DB errors) in 500 responses
+- [ ] No sensitive fields (passwords, tokens, PG function internals) in responses
+- [ ] Error messages don't reveal whether a resource exists for unauthenticated users
+
+## 5. Environment variables
+
+- [ ] Validated with Zod at startup (`src/shared/config/env.ts`)
+- [ ] `.env` is in `.gitignore`
+- [ ] Only `.env.example` with placeholder values is committed
+- [ ] `DATABASE_URL` uses SSL in production (`?sslmode=require`)
+
+## 6. Dependencies
+
+- [ ] No known CVEs in dependencies (`bun audit` or `npm audit`)
+- [ ] `@hono/zod-openapi` and `drizzle-orm` are up to date
+- [ ] No unused packages in `package.json`
+
+## 7. OWASP Top 10 (relevant to this API)
+
+| Risk | Status | Notes |
+|---|---|---|
+| A01 Broken Access Control | Check per endpoint | All routes behind auth middleware? |
+| A02 Cryptographic Failures | N/A V1 | No user passwords stored |
+| A03 Injection | Drizzle ORM | All queries parameterized |
+| A04 Insecure Design | Architecture | Hexagonal, DomainErrors, no logic in routes |
+| A05 Security Misconfiguration | Env vars | Validated at startup |
+| A06 Vulnerable Components | bun audit | Check periodically |
+| A07 Auth Failures | API key | Review key rotation policy |
+| A08 Data Integrity | Zod validation | All inputs validated |
+| A09 Logging Failures | error-handler | Logs 500s without exposing details |
+| A10 SSRF | N/A | No outbound HTTP calls in V1 |
+
+## 8. PostgreSQL function access
+
+- [ ] The app connects to PostgreSQL with a **read/write user** (not superuser)
+- [ ] The DB user does NOT have `DROP`, `CREATE TABLE`, `ALTER TABLE` permissions
+- [ ] The repo containing PostgreSQL functions is READ-ONLY — never modified by the app
+
+## Quick audit command
+
 ```bash
-# TypeScript
-npm audit
-npx audit-ci --critical
-
-# Go
-govulncheck ./...
+bun run typecheck    # Type safety
+bun run test         # All tests including error cases
+grep -r "any" src/   # Hunt for 'any' types
+grep -r "sql.raw" src/  # Hunt for raw SQL
 ```
-
-### Sévérité
-- CVE critique ou haute → FAIL
-- CVE moyenne → avertissement
-- CVE basse → informatif
-
-## Apprentissage
-
-Après chaque audit, sauvegarder en mémoire :
-- Patterns de sécurité validés (middleware auth, validation)
-- Vulnérabilités trouvées et corrigées (pour ne pas les reproduire)
-- Dépendances à risque identifiées

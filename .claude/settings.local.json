@@ -8,7 +8,10 @@
       "Bash(npm:*)",
       "Bash(bun:*)",
       "WebSearch",
-      "WebFetch(domain:raw.githubusercontent.com)"
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(mkdir -p \"C:/Users/raphael.picard_neote/Documents/claude-forge/output/back-refacto/.claude/agents\")",
+      "Bash(mkdir -p \"C:/Users/raphael.picard_neote/Documents/claude-forge/output/back-refacto/.claude/rules\")",
+      "Bash(mkdir -p \"C:/Users/raphael.picard_neote/Documents/claude-forge/output/back-refacto/.claude/skills\")"
     ]
   }
 }

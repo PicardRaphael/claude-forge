@@ -1,64 +1,63 @@
-# Skill Navigator Rule - MANDATORY
+# Skill Navigator - MANDATORY
 
 ## Quand consulter ce guide
-
-- La tache touche **2+ domaines** (tables + fonctions + SQL)
-- Tu n'es **pas sur** quelle skill charger
-- La demande est **ambigue**
+- Tâche touche 2+ domaines
+- Pas sûr quelle skill charger
+- Demande ambiguë
 
 ## Decision Tree
 
-### "Je dois MIGRER une fonction"
+### "Je dois CRÉER quelque chose"
 | Quoi ? | Skill |
 |--------|-------|
-| Migrer f_xxx vers un endpoint | `migrate-function` |
-| Creer un endpoint from scratch | `create-endpoint` |
-| Modifier un endpoint existant | `update-endpoint` |
-| Pas sur si migration ou creation | Lire la demande : mentionne une fonction = migration, mentionne un besoin = creation |
+| Nouvel endpoint REST | `add-endpoint` (11 étapes) |
+| Connecter une table PG existante | `connect-table` |
+| Nouvelle erreur métier | `add-error` |
 
-### "Je dois ecrire du SQL"
-| Quoi ? | Skill |
-|--------|-------|
-| Regles de base (jointures, placeholders, anti-patterns) | `sql-best-practices` |
-| Indexing avance, partitioning, EXPLAIN | `sql-best-practices/references/advanced-optimization.md` |
-| Patterns TypeScript + PostgreSQL | `sql-best-practices/references/typescript-patterns.md` |
-| Patterns Go + PostgreSQL | `sql-best-practices/references/go-patterns.md` |
-| Optimiser une requete specifique | Agent `sql-optimizer` (pas une skill) |
+### "Je dois COMPRENDRE l'existant"
+| Quoi ? | Skill / Doc |
+|--------|------------|
+| Architecture hexagonale | `architecture-rules` (auto) + `doc/architecture.md` |
+| Conventions REST | `api-conventions` (auto) + `doc/api-design.md` |
+| Patterns/anti-patterns | `doc/patterns.md` |
+| Erreurs et hiérarchie | `doc/error-handling.md` |
+| Conventions code | `doc/conventions.md` |
+| Tests | `doc/testing.md` |
+| Choix techniques (pour la direction) | `doc/choix-techniques.md` |
 
-### "Je dois comprendre la BDD"
+### "Je dois écrire du SQL"
 | Quoi ? | Skill |
 |--------|-------|
-| Config (chemin repo, stack) | `schema-context` |
-| Structure des CSV / MCP | `schema-data-source` |
-| Format des docs generes | `schema-output-format` |
-| Lire les domaines documentes | `doc/schemas/*.md` directement |
+| Règles de base | `sql-best-practices` |
+| Indexing avancé, EXPLAIN | `sql-best-practices/references/advanced-optimization.md` |
+| Patterns TypeScript + Drizzle | `sql-best-practices/references/typescript-patterns.md` |
+| Optimiser une requête | Agent `performance-engineer` ou `sql-optimizer` |
 
 ### "Je dois valider / auditer"
 | Quoi ? | Skill |
 |--------|-------|
-| Equivalence migration (original vs migre) | `validation-checklist` |
-| Securite (injection, auth, deps) | `security-checklist` |
-| Debugging (diagnostic, error mapping) | `debugging-methodology` + `error-patterns` |
-
-### "Je dois designer une API"
-| Quoi ? | Skill |
-|--------|-------|
-| Routes, methodes, pagination, erreurs | `api-design-patterns` |
+| Équivalence migration PG → TS | `validation-checklist` |
+| Sécurité | `security-checklist` |
+| Debugging | `debugging-methodology` + `error-patterns` |
 
 ### "Je dois suivre la migration"
 | Quoi ? | Skill |
 |--------|-------|
-| Avancement, tracker | `migration-status` |
+| Avancement par domaine | `migration-status` |
 
-## Competing Skills — Boundary Table
+### "Je dois analyser la BDD"
+| Quoi ? | Skill |
+|--------|-------|
+| Config (chemin repo, MCP) | `schema-context` |
+| Lire structure via MCP/CSV | `schema-data-source` |
+| Format docs générés | `schema-output-format` |
+
+## Competing Skills
 
 | Situation | Use THIS | Not THAT |
 |-----------|----------|----------|
-| Migrer une fonction existante | `migrate-function` | `create-endpoint` (pas de fonction source) |
-| Creer un endpoint sans fonction source | `create-endpoint` | `migrate-function` (pas de migration) |
-| Modifier un endpoint existant | `update-endpoint` | `create-endpoint` (endpoint existe deja) |
-| SQL de base (regles) | `sql-best-practices` | `sql-optimizer` agent (optimisation specifique) |
-| Optimiser une requete precise | `sql-optimizer` agent | `sql-best-practices` (reference, pas action) |
-| Comprendre la BDD (structure) | `schema-data-source` | `schema-context` (config seulement) |
-| Bug applicatif | `debugging-methodology` | `validation-checklist` (equivalence migration) |
-| Regression de migration | `validation-checklist` | `debugging-methodology` (bug general) |
+| Créer un endpoint | `add-endpoint` | `api-design-patterns` (référence) |
+| Comprendre conventions REST | `api-conventions` | `add-endpoint` (création) |
+| Migrer une fonction PG | Agent `refactor-pg-function` | `add-endpoint` |
+| Bug applicatif | `debugging-methodology` | `validation-checklist` |
+| Régression migration | `validation-checklist` | `debugging-methodology` |

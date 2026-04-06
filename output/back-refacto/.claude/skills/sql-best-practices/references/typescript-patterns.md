@@ -1,171 +1,149 @@
-# TypeScript + PostgreSQL — Patterns type-safe
+# TypeScript + Drizzle Patterns
 
-## Driver recommandé
-
-`pg` (node-postgres) ou `postgres` (postgres.js) avec types génériques.
-
-## Typage des résultats
+## Type inference from Drizzle schemas
 
 ```typescript
-// Toujours définir une interface pour le résultat
-interface Copropriete {
-  id: number;
-  name: string;
-  active: boolean;
-  budget: string;        // numeric PostgreSQL → string (précision décimale)
-  created_at: Date;
-  deleted_at: Date | null;
+// src/infra/postgres/schema/coproprietes.table.ts
+import { pgTable, serial, varchar, integer, timestamp } from "drizzle-orm/pg-core";
+
+export const coproprietes = pgTable("coproprietes", {
+  id: serial("id").primaryKey(),
+  nom: varchar("nom", { length: 255 }).notNull(),
+  syndicId: integer("syndic_id"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Infer the SELECT row type
+type CoproprieteRow = typeof coproprietes.$inferSelect;
+// { id: number; nom: string; syndicId: number | null; createdAt: Date | null }
+
+// Infer the INSERT type
+type NewCopropriete = typeof coproprietes.$inferInsert;
+// { nom: string; syndicId?: number | null; createdAt?: Date | null }
+```
+
+Use `$inferSelect` and `$inferInsert` — never write manual types for DB rows.
+
+## Mapper pattern with full types
+
+```typescript
+// src/infra/postgres/mappers/copropriete.mapper.ts
+import type { Copropriete } from "@core/domain/entities/copropriete";
+import type { coproprietes } from "../schema/coproprietes.table";
+
+type CoproprieteRow = typeof coproprietes.$inferSelect;
+
+// DB row → Domain entity (pure function)
+export function toCopropriete(row: CoproprieteRow): Copropriete {
+  return {
+    id: String(row.id),              // DB uses integer, domain uses string UUID
+    nom: row.nom,
+    syndicId: row.syndicId ?? null,  // Explicit null handling
+    createdAt: row.createdAt?.toISOString() ?? null,
+  };
 }
 
-// Query typée
-const result = await db.query<Copropriete>(
-  'SELECT id, name, active, budget, created_at, deleted_at FROM coproprietes WHERE id = $1',
-  [id]
-);
-const copro: Copropriete = result.rows[0];
+// Domain entity → DB insert row
+export function toRow(entity: Omit<Copropriete, "id">): NewCopropriete {
+  return {
+    nom: entity.nom,
+    syndicId: entity.syndicId ? Number(entity.syndicId) : null,
+  };
+}
 ```
 
-## Mapping types PostgreSQL → TypeScript
-
-| PostgreSQL | TypeScript | Note |
-|-----------|-----------|------|
-| `integer`, `bigint` | `number` | bigint > 2^53 → `string` ou `BigInt` |
-| `numeric`, `decimal`, `money` | `string` | JAMAIS `number` (perte de précision) |
-| `boolean` | `boolean` | |
-| `text`, `varchar` | `string` | |
-| `timestamp`, `timestamptz` | `Date` | |
-| `jsonb` | `Record<string, unknown>` | Typer plus précisément si possible |
-| `uuid` | `string` | |
-| `integer[]` | `number[]` | |
-
-## Paramètres — toujours des placeholders
+## Zod schema from domain entity
 
 ```typescript
-// CORRECT
-const result = await db.query('SELECT * FROM users WHERE email = $1 AND active = $2', [email, true]);
+// src/shared/schemas/copropriete.schema.ts
+import { z } from "zod";
 
-// INTERDIT — injection SQL
-const result = await db.query(`SELECT * FROM users WHERE email = '${email}'`);
+export const CoproprieteSchema = z.object({
+  id: z.string(),
+  nom: z.string(),
+  syndicId: z.string().nullable(),
+  createdAt: z.string().datetime().nullable(),
+});
+
+export type CoproprieteDto = z.infer<typeof CoproprieteSchema>;
 ```
 
-## Repository pattern
+Keep the Zod schema for API responses separate from the domain entity type.
+The API response type (DTO) may differ from the domain entity.
+
+## Type-safe WHERE clauses
 
 ```typescript
-class CoproprieteRepository {
-  constructor(private db: Pool) {}
+import { eq, and, or, isNull, isNotNull, gte, lte, like, inArray } from "drizzle-orm";
 
-  async findById(id: number): Promise<Copropriete | null> {
-    const { rows } = await this.db.query<Copropriete>(
-      `SELECT id, name, active, budget, created_at
-       FROM coproprietes
-       WHERE id = $1 AND deleted_at IS NULL`,
-      [id]
-    );
-    return rows[0] ?? null;
+// Single condition
+.where(eq(coproprietes.id, id))
+
+// Multiple conditions (AND)
+.where(and(
+  eq(coproprietes.syndicId, syndicId),
+  isNotNull(coproprietes.nom)
+))
+
+// OR
+.where(or(
+  eq(coproprietes.id, "1"),
+  eq(coproprietes.id, "2")
+))
+
+// Range
+.where(and(
+  gte(ecritures.date, startDate),
+  lte(ecritures.date, endDate)
+))
+
+// IN list
+.where(inArray(lots.coproprieteId, [1, 2, 3]))
+
+// LIKE (search)
+.where(like(coproprietes.nom, `%${search}%`))
+```
+
+## Handling optional filters
+
+```typescript
+async findAll(filters: {
+  syndicId?: string;
+  search?: string;
+} = {}): Promise<Copropriete[]> {
+  const conditions = [];
+
+  if (filters.syndicId) {
+    conditions.push(eq(coproprietes.syndicId, Number(filters.syndicId)));
+  }
+  if (filters.search) {
+    conditions.push(like(coproprietes.nom, `%${filters.search}%`));
   }
 
-  async findByFilters(filters: CoproFilters): Promise<PaginatedResult<Copropriete>> {
-    const conditions: string[] = ['deleted_at IS NULL'];
-    const params: unknown[] = [];
-    let paramIndex = 1;
+  const rows = await db
+    .select()
+    .from(coproprietes)
+    .where(conditions.length > 0 ? and(...conditions) : undefined)
+    .orderBy(asc(coproprietes.nom));
 
-    if (filters.active !== undefined) {
-      conditions.push(`active = $${paramIndex++}`);
-      params.push(filters.active);
-    }
-    if (filters.search) {
-      conditions.push(`name ILIKE $${paramIndex++}`);
-      params.push(`%${filters.search}%`);
-    }
-
-    // Cursor-based pagination
-    if (filters.afterId) {
-      conditions.push(`id > $${paramIndex++}`);
-      params.push(filters.afterId);
-    }
-
-    params.push(filters.limit ?? 20);
-
-    const { rows } = await this.db.query<Copropriete>(
-      `SELECT id, name, active, budget, created_at
-       FROM coproprietes
-       WHERE ${conditions.join(' AND ')}
-       ORDER BY id
-       LIMIT $${paramIndex}`,
-      params
-    );
-
-    return {
-      data: rows,
-      nextCursor: rows.length > 0 ? rows[rows.length - 1].id : null,
-    };
-  }
+  return rows.map(toCopropriete);
 }
 ```
 
-## Transaction pattern
+## Numeric types from PostgreSQL
+
+PostgreSQL `numeric` / `decimal` columns come back as **strings** from `pg` driver.
+Always convert explicitly:
 
 ```typescript
-async function transferBudget(fromId: number, toId: number, amount: string): Promise<void> {
-  const client = await pool.connect();
-  try {
-    await client.query('BEGIN');
+// ❌ Will be string "1234.56" at runtime
+const montant: number = row.montant;
 
-    await client.query(
-      'UPDATE coproprietes SET budget = budget - $1::numeric WHERE id = $2',
-      [amount, fromId]
-    );
-    await client.query(
-      'UPDATE coproprietes SET budget = budget + $1::numeric WHERE id = $2',
-      [amount, toId]
-    );
+// ✅ Explicit conversion
+const montant = Number(row.montant);
 
-    await client.query('COMMIT');
-  } catch (err) {
-    await client.query('ROLLBACK');
-    throw err;
-  } finally {
-    client.release();
-  }
-}
-```
-
-## Bulk insert
-
-```typescript
-// UNNEST pour insert multi-lignes en une requête
-async function insertLots(lots: NewLot[]): Promise<void> {
-  await db.query(
-    `INSERT INTO lot_copro (copropriete_id, numero, type, tantieme)
-     SELECT * FROM UNNEST($1::int[], $2::text[], $3::text[], $4::numeric[])`,
-    [
-      lots.map(l => l.coproprieteId),
-      lots.map(l => l.numero),
-      lots.map(l => l.type),
-      lots.map(l => l.tantieme),
-    ]
-  );
-}
-```
-
-## Error handling
-
-```typescript
-import { DatabaseError } from 'pg';
-
-try {
-  await db.query('INSERT INTO users (email) VALUES ($1)', [email]);
-} catch (err) {
-  if (err instanceof DatabaseError) {
-    if (err.code === '23505') {
-      // Unique violation
-      throw new ConflictError('Email already exists');
-    }
-    if (err.code === '23503') {
-      // Foreign key violation
-      throw new NotFoundError('Referenced entity does not exist');
-    }
-  }
-  throw err;
-}
+// ✅ Or in Zod schema
+const schema = z.object({
+  montant: z.string().transform(Number),  // or z.coerce.number()
+});
 ```

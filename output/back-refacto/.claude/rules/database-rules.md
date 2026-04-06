@@ -1,37 +1,40 @@
 # Database Rules - MANDATORY
 
-## Structure only — JAMAIS les donnees
+## MCP PostgreSQL disponible
 
-Via MCP ou CSV, on ne recupere que la STRUCTURE (tables, colonnes, FK, indexes, triggers).
-On ne fait JAMAIS de SELECT sur les donnees des tables.
+Le MCP PostgreSQL est configuré. L'utiliser pour :
+- Explorer la structure (tables, colonnes, FK, indexes, triggers)
+- Lire le source des fonctions (f_*, p_*, proc_*, tr_*)
+- Vérifier les types de colonnes
 
-## SQL dans le code applicatif
+**INTERDIT via MCP :**
+- SELECT sur les données (sauf tables de référence < 100 lignes)
+- INSERT, UPDATE, DELETE, DROP, ALTER, TRUNCATE, CREATE
 
-### OBLIGATOIRE
-- Placeholders `$1, $2` — jamais de concatenation de string
-- Lister les colonnes explicitement — jamais de `SELECT *`
+## Drizzle ORM — Règles
+
+- `bun run db:pull` pour introspection — JAMAIS `drizzle migrate`
+- Le schéma PostgreSQL est IMMUTABLE — ne jamais modifier la structure
+- Garder uniquement les colonnes nécessaires dans le schéma Drizzle
+- Requêtes simples → Drizzle API
+- Requêtes complexes → `sql\`\`` raw
+
+## SQL dans le code
+
+- Placeholders `$1, $2` — jamais de concaténation
+- Lister les colonnes — jamais `SELECT *`
 - `JOIN ... ON` explicite — jamais de jointure dans WHERE
-- Filtre soft-delete (`deleted_at IS NULL`) si applicable
-- Cursor-based pagination si dataset > 1000 lignes
-- `CREATE INDEX CONCURRENTLY` en production
-
-### INTERDIT
-- Concatenation de variables utilisateur dans du SQL (injection)
-- `OFFSET > 1000` (utiliser cursor-based)
-- `float` pour les montants (utiliser string en TS, decimal.Decimal en Go)
-- `SELECT *`
-- Jointure implicite dans WHERE
+- Filtre soft-delete si applicable
+- Cursor-based pagination si > 1000 lignes
+- `numeric/decimal` → `string` en TypeScript, jamais `number`
 
 ## Repo fonctions PostgreSQL
 
-- **LECTURE SEULE** — ne JAMAIS modifier les fichiers du repo fonctions
-- Les fonctions sont une REFERENCE pour comprendre la logique metier
-- Ne pas copier les requetes telles quelles — les adapter et optimiser
-- Documenter les regles metier decouvertes dans chaque fonction
+- **LECTURE SEULE** — ne JAMAIS modifier
+- Les fonctions sont une RÉFÉRENCE pour comprendre la logique métier
+- Ne pas copier les requêtes telles quelles — adapter pour Drizzle
+- SQL reste dans les repositories, logique métier dans les use cases
 
 ## Migration tracker
 
-Apres chaque migration, mettre a jour `doc/migration-tracker.md` :
-- Passer la fonction de ⬜ a ✅
-- Ajouter l'endpoint, la date
-- Recalculer les pourcentages
+Après chaque migration : mettre à jour `doc/migration-tracker.md`
