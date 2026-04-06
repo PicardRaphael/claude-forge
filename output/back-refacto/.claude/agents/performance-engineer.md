@@ -4,7 +4,7 @@ description: Use this agent to profile and review performance on the Neoteem sta
 tools: Read, Grep, Glob, Bash
 model: sonnet
 effort: high
-color: blue
+color: green
 memory: project
 skills:
   - sql-best-practices

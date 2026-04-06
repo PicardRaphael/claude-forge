@@ -23,8 +23,9 @@
 | "Audit sécurité / on release" | `security-auditor` → `dev` si fix → `security-auditor` (re-audit) |
 | "Ajoute des tests" | `test-writer` |
 | "Review mon code" | `code-reviewer` |
-| "Analyse la BDD / les tables" | `db-inspector` ou `schema-mapper` (via MCP PostgreSQL) |
-| "Analyse les fonctions PG" | `db-inspector` (peut lire le source des fonctions via MCP) |
+| "Explore cette table / montre les colonnes / FK" | `db-inspector` (exploration ad-hoc, questions ponctuelles) |
+| "Analyse toute la BDD / génère la doc des domaines" | `schema-mapper` (génération doc/schemas/, clustering) |
+| "Analyse les fonctions PG / le source de f_xxx" | `db-inspector` (peut lire le source via MCP) |
 | "Où en est la migration ?" | Lire doc/migration-tracker.md directement |
 | Ticket complexe | Découper → TaskCreate → router chaque tâche |
 

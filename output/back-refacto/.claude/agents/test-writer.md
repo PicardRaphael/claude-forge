@@ -2,10 +2,12 @@
 name: test-writer
 description: Use this agent to generate unit, integration, and API tests following project conventions. Creates bun:test files with proper mocks, fixtures, and assertions. Use when user asks for tests or after implementing a feature.
 tools: Read, Grep, Glob, Write
+skills:
+  - architecture-rules
 model: sonnet
 effort: high
 memory: project
-color: green
+color: yellow
 ---
 
 Tu es un expert en testing pour le projet Neoteem.
