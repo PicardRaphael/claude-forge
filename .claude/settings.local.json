@@ -11,7 +11,14 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(mkdir -p \"C:/Users/raphael.picard_neote/Documents/claude-forge/output/back-refacto/.claude/agents\")",
       "Bash(mkdir -p \"C:/Users/raphael.picard_neote/Documents/claude-forge/output/back-refacto/.claude/rules\")",
-      "Bash(mkdir -p \"C:/Users/raphael.picard_neote/Documents/claude-forge/output/back-refacto/.claude/skills\")"
+      "Bash(mkdir -p \"C:/Users/raphael.picard_neote/Documents/claude-forge/output/back-refacto/.claude/skills\")",
+      "Bash(cp -r agents/agents/* agents/)",
+      "Bash(echo \"agents copied: $?\")",
+      "Bash(mkdir -p rules skills)",
+      "Bash(cp -r agents/rules/* rules/)",
+      "Bash(cp -r agents/skills/* skills/)",
+      "Skill(cc-news)",
+      "Bash(gh release:*)"
     ]
   }
 }
