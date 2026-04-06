@@ -6,7 +6,9 @@
       "Bash(git push:*)",
       "Bash(python:*)",
       "Bash(npm:*)",
-      "Bash(bun:*)"
+      "Bash(bun:*)",
+      "WebSearch",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ]
   }
 }
