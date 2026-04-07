@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .claude/hooks/security-guard.py",
+            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/security-guard.py\"",
             "timeout": 5
           }
         ]
@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .claude/hooks/session-reminder.py",
+            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/session-reminder.py\"",
             "timeout": 5
           }
         ]

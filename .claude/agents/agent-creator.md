@@ -22,6 +22,14 @@ ls .claude/agents/ ~/.claude/agents/ 2>/dev/null
 
 Si similaire → proposer de **modifier**.
 
+## Avant de créer
+
+- Lire les `references/` des skills de référence (cc-agents-ref) AVANT de générer
+- Vérifier qu'un agent similaire n'existe pas déjà
+- Ne JAMAIS créer d'agent orchestrateur/CTO — la session principale orchestre
+- Ne JAMAIS créer d'agent doc — le CTO évalue, le dev met à jour
+- Ne JAMAIS pré-créer les fichiers que l'agent générera
+
 ## Questions (UNE à la fois)
 
 1. Objectif et résultat attendu
@@ -30,20 +38,34 @@ Si similaire → proposer de **modifier**.
 4. Format de sortie (JSON / Markdown / code ?)
 5. Accès : lit / écrit / shell / web ?
 6. Modèle : haiku / sonnet / opus ?
-7. Effort : normal / high / max ?
+7. Effort : normal / high ? (note : `max` supprimé depuis v2.1.91, utiliser `high`)
 8. Mémoire entre sessions ? → `memory: project`
 9. Agents parallèles ? → `isolation: worktree`
-10. Skill associée nécessaire ?
+10. Skills à injecter ? (subagents n'héritent PAS des skills du parent)
 
 ## Génération
 
-**Description (UNE SEULE LIGNE)** :
+**Description (UNE SEULE LIGNE, en anglais)** :
 `Use this agent when [condition]. Use PROACTIVELY when [trigger]. Input must include [quoi].`
 
 **System prompt** : Rôle → Input → Étapes → Règles → Format de sortie
 
 **Tools minimum** selon besoin
-**Champs optionnels** : `effort: max`, `memory: project`, `isolation: worktree`, `maxTurns`, `hooks:` inline
+**Champs optionnels** : `effort: high`, `isolation: worktree`, `maxTurns`, `hooks:` inline
+
+## Checklist avant livraison (OBLIGATOIRE)
+
+Ne JAMAIS livrer un agent sans avoir vérifié chaque point :
+
+- [ ] `description:` UNE SEULE LIGNE, en **anglais**
+- [ ] `memory: project` — TOUJOURS, sans exception
+- [ ] `skills:` — lister les skills pertinentes (subagents n'héritent PAS des skills du parent)
+- [ ] `permissionMode: acceptEdits` — si l'agent écrit du code
+- [ ] `hooks:` inline — PostToolUse validator si l'agent écrit du code
+- [ ] Pas de `Bash` dans tools sauf besoin réel (force la délégation)
+- [ ] Pas de `Agent` dans tools (subagents ne peuvent pas spawner de sub-agents)
+- [ ] Section Apprentissage ou `memory: project` documenté
+- [ ] Pipeline qualité : vérifier que routing.md prévoit des gates post-agent (reviewer, impact-analyzer)
 
 ## Mettre à jour la mémoire
 

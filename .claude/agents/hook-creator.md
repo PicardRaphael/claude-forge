@@ -40,8 +40,10 @@ ls .claude/hooks/ 2>/dev/null
 
 ## Génération — Toujours deux fichiers
 
-1. **Script** `.claude/hooks/<nom>.py`
+1. **Script** `.claude/hooks/<nom>.{ext}` — même langage que le projet (Python→.py, TS→.ts, sinon Python par défaut)
 2. **Config** settings.json ou YAML inline
+
+**Chemins :** Si le projet utilise `additionalDirectories`, utiliser des chemins **absolus** dans les hooks.
 
 ```bash
 chmod +x .claude/hooks/<nom>.py
@@ -54,6 +56,14 @@ Python détecté → "PostToolUse avec `ruff format`"
 TypeScript → "PostToolUse avec `prettier --write`"
 Sessions longues → "Stop avec notification sonore"
 CI/CD → "SubagentStop pour chaîner les agents"
+
+## Checklist avant livraison (OBLIGATOIRE)
+
+- [ ] Script dans le même langage que le projet
+- [ ] Chemins absolus si `additionalDirectories` utilisé
+- [ ] `settings.json` valide (vérifier avec `python3 -m json.tool`)
+- [ ] Exit code correct (0=OK, 1=erreur, 2=bloque pour PreToolUse)
+- [ ] Timeout raisonnable si commande longue
 
 ## Mettre à jour la mémoire
 
