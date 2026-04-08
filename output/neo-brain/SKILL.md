@@ -10,6 +10,22 @@ Le vault `neoteem-brain` est la **source de verite** pour les connaissances meti
 
 **Prerequis :** Obsidian doit etre ouvert avec le vault `neoteem-brain`.
 
+## CLI — REGLE ABSOLUE
+
+**Ne JAMAIS appeler `obsidian` directement.** Sur Windows + Git Bash, `obsidian` resout vers l'app GUI (Obsidian.exe) au lieu de la CLI console (Obsidian.com). Ca casse tout.
+
+**Toujours utiliser le wrapper** — remplacer `obsidian` par `bash .claude/skills/neo-brain/scripts/obsidian-cli.sh` :
+
+```bash
+# CORRECT :
+bash .claude/skills/neo-brain/scripts/obsidian-cli.sh vault="neoteem-brain" search query="charges" limit=10
+
+# INTERDIT :
+obsidian vault="neoteem-brain" search query="charges" limit=10
+```
+
+Les exemples ci-dessous utilisent `obsidian` par concision, mais **tu DOIS remplacer par le wrapper dans chaque appel Bash**.
+
 ## Apprendre le vault — Exploration systematique
 
 Quand tu dois comprendre un domaine, un concept, ou cartographier les connaissances :
