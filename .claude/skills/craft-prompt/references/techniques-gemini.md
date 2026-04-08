@@ -1,119 +1,262 @@
 # Techniques Prompt — Google Gemini
 
-_Source : ai.google.dev, Google AI documentation, recherche 8 avril 2026_
-_Note : sera complete quand la recherche Gemini revient_
+_Source : ai.google.dev, Kaggle whitepaper, Google Cloud, recherche 8 avril 2026_
 
 ## Differences cles vs Claude
 
 | Aspect | Claude | Gemini |
 |--------|--------|--------|
-| Structure | XML tags natifs | Markdown ou JSON (pas de XML) |
-| System prompt | Dans le champ `system` | `system_instruction` (champ dedie) |
-| Thinking | Adaptive thinking (`effort`) | "Think step by step" manuel |
-| Output structure | Structured Output + JSON schema | `response_schema` + JSON mode natif |
-| Grounding | Non (pas de search integre) | Google Search grounding integre |
-| Code exec | Via tool use (Bash) | `code_execution` natif |
+| Structure | XML tags natifs | XML tags aussi (recommande Gemini 3) |
+| System prompt | Champ `system` | `system_instruction` (champ dedie, REMPLACE le defaut) |
+| Thinking | Adaptive (`effort: low/medium/high`) | `thinking_level` (MINIMAL/LOW/MEDIUM/HIGH) |
+| Output structure | Structured Output + JSON schema | `response_schema` + `response_mime_type` natif |
+| Grounding | Non (via MCP/tools) | Google Search integre (first-party) |
+| Code exec | Via tool use (Bash) | `code_execution` sandbox Python natif |
 | Prefill | Deprecated sur 4.6 | Non supporte |
-| Caching | `cache_control` ephemeral | Context Caching (different) |
-| Multimodal | Images, PDF | Images, video, audio, PDF |
+| Context window | 200K (1M en option) | 1M par defaut |
+| Multimodal | Images + PDF | Images + Video + Audio + PDF |
+| Temperature | Pas de reco specifique | `1.0` obligatoire sur Gemini 3 |
+| Consistance | Stable | Variable — exige system instructions solides |
+| Fichier projet | `CLAUDE.md` (additionnel) | `GEMINI.md` (remplace le system prompt) |
+| Forced tool use | `tool_choice: {type: "tool", name: "..."}` | `mode: ANY` + `allowed_function_names` |
+| Enums | Instructions textuelles | `text/x.enum` mime type natif |
 
-## Structure recommandee Gemini
+## Structure recommandee (whitepaper Google)
 
-```
-System instruction:
-[Role + regles globales + contraintes]
-
-User prompt:
-[Contexte specifique + tache + format attendu]
-```
-
-### System instruction — Best practices Google
+4 blocs canoniques :
 
 ```
-You are a senior real estate accountant specialized in French property management.
-
-Rules:
-- Always respond in French
-- Use precise financial terms
-- Show your calculations step by step
-- If data is missing, list what you need instead of guessing
+Role       → "You are a senior real estate accountant."
+Context    → "This is for a SaaS platform managing 500 properties."
+Instruction → "Analyze the following charges breakdown."
+Output Format → "Return JSON: {items[], total, alerts[]}"
 ```
 
-## Techniques Gemini-specifiques
+**Si un bloc manque (surtout Role et Output Format), la qualite chute.** Claude infere mieux le contexte implicite.
 
-### Grounding avec Google Search
+## System Instructions
 
 ```python
-tools=[{"google_search": {}}]
+model = genai.GenerativeModel(
+    model_name="gemini-3.1-pro-preview",
+    system_instruction="""
+    You are a code review assistant for TypeScript/Node.js projects.
+    Always respond with valid JSON.
+    Schema: { "issues": [{ "line": number, "severity": "error|warning|info", "message": string }] }
+    Today's date: 2026-04-08.
+    """
+)
 ```
 
-Gemini peut verifier ses reponses contre des resultats Google Search en temps reel. Utile pour les faits recents. Claude n'a pas d'equivalent natif.
+### Regles critiques
 
-### Code Execution
+- **Pas de contraintes negatives ouvertes** — "Do not infer" casse la logique
+- **Inclure la date du jour** — sinon Gemini cherche des infos de son training
+- **`GEMINI.md`** remplace completement le system prompt (≠ CLAUDE.md qui s'ajoute)
+
+```
+# Mauvais
+"Do not use information outside the provided context."
+
+# Bon
+"Base all deductions exclusively on the provided context."
+```
+
+## Thinking Level (Gemini 3)
+
+Remplace `thinking_budget` de Gemini 2.5 :
+
+| Niveau | Cas d'usage | Equiv. Claude |
+|--------|-------------|---------------|
+| `MINIMAL` | Extraction, classification simple | `effort: low` |
+| `LOW` | Summarization, Q&A | `effort: low` |
+| `MEDIUM` | Analyse de code, raisonnement modere | `effort: medium` |
+| `HIGH` (defaut) | Agentic, debug complexe | `effort: high` |
 
 ```python
-tools=[{"code_execution": {}}]
+generation_config = genai.GenerationConfig(
+    thinking_level="LOW",
+    temperature=1.0  # TOUJOURS 1.0 sur Gemini 3
+)
 ```
 
-Gemini peut executer du Python dans un sandbox pour calculer, generer des graphiques, analyser des donnees. Plus integre que le tool use Claude (pas besoin de Bash).
+## Structured Output (JSON Mode)
 
-### JSON Mode natif
+### response_schema — Methode principale
 
 ```python
-generation_config={
-    "response_mime_type": "application/json",
-    "response_schema": {
-        "type": "object",
-        "properties": {
-            "sentiment": {"type": "string", "enum": ["positive", "negative", "neutral"]},
-            "confidence": {"type": "number"}
-        }
-    }
-}
+from pydantic import BaseModel
+
+class ReviewResult(BaseModel):
+    sentiment: str
+    score: float
+    tags: list[str]
+
+response = model.generate_content(
+    "Analyze this review...",
+    generation_config=genai.GenerationConfig(
+        response_mime_type="application/json",
+        response_schema=ReviewResult,
+    ),
+)
 ```
 
-Plus strict que Claude : le schema est GARANTI. Equivalent de Structured Output chez Claude.
-
-### Enum constraints
+### Enum-only (classification pure)
 
 ```python
-"response_schema": {
-    "type": "string",
-    "enum": ["syndic", "gerance", "compta", "tech"]
-}
+import enum
+
+class Sentiment(enum.Enum):
+    POSITIVE = "positive"
+    NEGATIVE = "negative"
+    NEUTRAL = "neutral"
+
+generation_config=genai.GenerationConfig(
+    response_mime_type="text/x.enum",
+    response_schema=Sentiment,
+)
+# Retourne directement: "negative"
 ```
 
-Force une valeur parmi une liste fermee. Tres utile pour la classification.
+### Pieges JSON Gemini
+
+- Proprietes triees **alphabetiquement** par defaut → `propertyOrdering` pour controler
+- Schemas complexes = erreur 400 → aplatir, reduire les noms
+- Structured output degrade la qualite sur modeles **fines** → eviter la combinaison
+
+## Grounding (Google Search)
+
+```python
+tools = [genai.Tool(google_search=genai.GoogleSearch())]
+```
+
+Gemini execute 1-N requetes Search automatiquement. Retourne `groundingMetadata` avec sources.
+
+```
+# Forcer le grounding recent
+"Use Google Search to find the current quarterly earnings of Nvidia.
+My knowledge cutoff is January 2025 — search for info published after that date."
+```
+
+**Grounding + Structured Output** combinables en une seule requete (Claude ne peut pas).
+
+## Code Execution
+
+```python
+tools = [genai.Tool(code_execution=genai.CodeExecution())]
+```
+
+- Python uniquement (sandbox)
+- Calculs multi-etapes + graphiques
+- Combinable avec Grounding : search → Python → JSON
+
+## Function Calling
+
+```python
+def get_weather(location: str, unit: str = "celsius") -> dict:
+    """Get current weather for a location."""
+    pass
+
+tools = [get_weather]  # Schema genere depuis la docstring
+```
+
+### Parallel function calling
+
+Gemini retourne N function calls simultanement. **Gemini 3 : toujours passer le `id`** dans le response.
+
+### Forced tool use
+
+```python
+tool_config = genai.ToolConfig(
+    function_calling_config=genai.FunctionCallingConfig(
+        mode="ANY",  # Force appel
+        allowed_function_names=["get_weather"]
+    )
+)
+```
+
+### Limite : 10-20 outils actifs max
+
+Au-dela la selection se degrade → dynamic tool loading.
+
+## Multimodal
+
+| Modalite | Limite par requete | Placement |
+|----------|-------------------|-----------|
+| Images | 3 600 | EN PREMIER, texte apres |
+| Video | 1 heure | EN PREMIER |
+| Audio | 8,4 heures | EN PREMIER |
+
+- **Audio** : preciser "transcribe verbatim, do not summarize"
+- **Video** : ajouter metadonnees projet pour corriger noms/titres
+- **Multi-images** : interleaver images et texte selon la logique narrative
+
+Claude ne traite pas audio/video dans l'API.
+
+## Placement du contexte long
+
+**Regle Gemini** : donnees EN PREMIER, question EN DERNIER.
+
+```
+[document de 100 pages]
+
+Based on the information above, identify all clauses related to liability.
+```
+
+Claude gere bien les deux ordres. Gemini degrade si question avant donnees.
+
+## Few-shot Gemini
+
+```xml
+<examples>
+  <example>
+    <input>The product arrived damaged.</input>
+    <output>{"sentiment": "negative", "issues": ["product_quality"]}</output>
+  </example>
+</examples>
+
+<task>Analyze: "Great value but packaging could be better."</task>
+```
+
+Few-shot + thinking mode = amplification de la precision.
 
 ## Quand utiliser Gemini vs Claude
 
-| Cas d'usage | Meilleur choix | Pourquoi |
+| Cas d'usage | Meilleur | Pourquoi |
 |---|---|---|
-| Code generation | Claude | Meilleur reasoning, tool use plus riche |
-| Analyse de video | Gemini | Multimodal natif (video + audio) |
+| Code generation | Claude | Meilleur reasoning, tool use riche |
+| Analyse video/audio | Gemini | Multimodal natif |
 | Faits recents | Gemini | Grounding Google Search |
 | Agents complexes | Claude | Agent Teams, skills, progressive disclosure |
 | Data analysis | Gemini | Code execution natif |
 | Prompts structures | Claude | XML tags + adaptive thinking |
-| Batch classification | Les deux | JSON mode natif chez les deux |
-| Long documents (1M+) | Gemini 2.5 Pro | 1M context + caching |
+| Classification batch | Les deux | JSON mode natif chez les deux |
+| Long documents (1M+) | Gemini | 1M natif + caching |
+| Taches ambigues | Claude | Meilleur instruction-following nuance |
+| Determinisme | Gemini | response_schema + enum garanti |
 
-## Template prompt Gemini
+## Template prompt Gemini complet
 
 ```python
 import google.generativeai as genai
 
 model = genai.GenerativeModel(
-    model_name="gemini-2.5-pro",
+    model_name="gemini-3.1-pro-preview",
     system_instruction="""Tu es un expert en gestion immobiliere.
     Reponds toujours en francais.
     Structure tes reponses en sections claires.
+    Date du jour : 2026-04-08.
     Si tu n'es pas sur, dis-le explicitement.""",
-    tools=[{"google_search": {}}, {"code_execution": {}}],
-    generation_config={
-        "response_mime_type": "application/json",
-        "response_schema": {...}
-    }
+    tools=[
+        genai.Tool(google_search=genai.GoogleSearch()),
+        genai.Tool(code_execution=genai.CodeExecution()),
+    ],
+    generation_config=genai.GenerationConfig(
+        response_mime_type="application/json",
+        response_schema={...},
+        thinking_level="MEDIUM",
+        temperature=1.0,
+    )
 )
 
 response = model.generate_content("Analyse cette situation...")
@@ -121,9 +264,13 @@ response = model.generate_content("Analyse cette situation...")
 
 ## Gotchas Gemini
 
-- Pas de XML tags — Gemini les ignore ou les traite comme du texte brut
-- `system_instruction` est un champ API separe, pas dans le prompt
-- Le grounding ajoute du latency (Google Search call)
-- Code execution limité au Python (pas de Node, pas de Bash)
-- Temperature par defaut plus haute que Claude — preciser `temperature: 0` pour les taches deterministes
-- Gemini est plus verbeux que Claude par defaut — ajouter "Be concise" explicitement
+- `temperature=1.0` obligatoire sur Gemini 3 (optimise pour cette valeur)
+- `GEMINI.md` REMPLACE le system prompt (≠ CLAUDE.md qui s'ajoute)
+- Proprietes JSON triees alphabetiquement par defaut
+- Grounding ajoute du latency (Google Search call)
+- Code execution limite au Python
+- Plus verbeux que Claude → ajouter "Be concise"
+- Pas de contraintes negatives ouvertes ("do not infer" casse tout)
+- `thinking_level` ne peut PAS etre desactive sur Gemini 2.5 Pro
+- `id` obligatoire dans function response sur Gemini 3 (sinon perd le mapping)
+- Structured output degrade les modeles fines
