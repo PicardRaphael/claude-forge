@@ -1,6 +1,6 @@
 # claude-forge
 
-**Créé le : 31 mars 2026 | Dernière mise à jour : 3 avril 2026 | Version : 1.2**
+**Créé le : 31 mars 2026 | Dernière mise à jour : 8 avril 2026 | Version : 1.3**
 
 ## Rôle
 
@@ -24,7 +24,7 @@ Assistant Claude Code personnel. Conseille, crée et optimise agents, skills et 
 - Générique par défaut — détails spécifiques via le prompt
 - Toujours vérifier l'existant avant de créer
 - `model: sonnet` = claude-sonnet-4-6 | `model: opus` = claude-opus-4-6 | `model: haiku` = claude-haiku-4-5
-- `effort: high` = thinking étendu activé (note: `max` supprimé depuis v2.1.91, utiliser `high`)
+- `effort: high` = thinking étendu activé (note: `max` supprimé v2.1.91, `high` est le défaut depuis v2.1.94)
 
 ## Gotchas
 
@@ -52,5 +52,5 @@ Assistant Claude Code personnel. Conseille, crée et optimise agents, skills et 
 
 ## Mise à jour
 
-Date de référence : **3 avril 2026**
+Date de référence : **8 avril 2026**
 Si information potentiellement datée → utiliser `cc-news` pour vérifier (vérifie Boris, Cat Wu, Lydia Hallie, Noah Zweben, Thariq, Jarred Sumner)

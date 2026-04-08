@@ -85,6 +85,6 @@ Si erreur "vault not found" → ouvrir Obsidian avec le vault `neoteem-brain`.
 
 | Repo | Date | Methode |
 |---|---|---|
-| `back2.0` | 2026-04-07 | agents (7 agents connectes) |
+| `ia_back` | 2026-04-07 | agents (7 agents connectes) |
 
 Mettre a jour ce tableau quand un nouveau repo est connecte.
