@@ -6,7 +6,7 @@ user-invokable: false
 
 # Fonctionnalités Claude Code 2026
 
-_Mise à jour : 3 avril 2026 — utiliser cc-news pour les nouveautés postérieures_
+_Mise à jour : 8 avril 2026 (v2.1.96) — utiliser cc-news pour les nouveautés postérieures_
 
 ## Slash Commands
 
@@ -54,10 +54,10 @@ Format interval : `5m`, `30m`, `1h`, `6h`, `1d`
 | Niveau   | Effet                  |
 | -------- | ---------------------- |
 | `low`    | Rapide, simple         |
-| `medium` | Défaut (Opus/Sonnet 4.6) |
-| `high`   | Thinking étendu activé |
+| `medium` | Ancien défaut          |
+| `high`   | Thinking étendu activé — **DÉFAUT depuis v2.1.94** |
 
-**`max` supprimé depuis v2.1.91.** Utiliser `high`. Keyword `ultrathink` dans le contenu active le thinking étendu ponctuellement.
+**`max` supprimé depuis v2.1.91.** `high` est le défaut pour API-key, Bedrock/Vertex, Team et Enterprise (v2.1.94). Keyword `ultrathink` dans le contenu active le thinking étendu ponctuellement.
 
 ## Git Worktrees — #1 productivité
 
@@ -101,6 +101,13 @@ Subagents qui se communiquent directement via task board partagé.
 | `PostCompact` hook | Se déclenche après compression du contexte |
 | Deferred hooks | `PreToolUse` peut retourner `permissionDecision: "defer"` |
 | `InstructionsLoaded` hook | Quand un CLAUDE.md ou rule se charge |
+| `hookSpecificOutput.sessionTitle` | Nommer sessions depuis hook `UserPromptSubmit` (v2.1.94) |
+| `keep-coding-instructions` | Nouveau frontmatter pour output styles de plugins (v2.1.94) |
+| Bedrock via Mantle | `CLAUDE_CODE_USE_MANTLE=1` (v2.1.94) |
+| `NO_FLICKER` mode | `CLAUDE_CODE_NO_FLICKER=1` renderer expérimental + support souris (Boris) |
+| Opus 4.6 output | 64k tokens par défaut, 128k max (Cat Wu) |
+| `--resume` cross-worktree | Reprend sessions d'autres worktrees du même repo (v2.1.94) |
+| Write tool 60% faster | Diff computation optimisée sur gros fichiers (v2.1.94) |
 
 ## .claude/rules/ (v2.0.64+)
 

@@ -34,6 +34,7 @@ user-invokable: false
 - `PostCompact` → après compression du contexte
 - `InstructionsLoaded` → quand un CLAUDE.md ou rule se charge
 - Deferred hooks → `PreToolUse` peut return `permissionDecision: "defer"` (sessions headless pausent et reprennent)
+- `hookSpecificOutput.sessionTitle` sur `UserPromptSubmit` (v2.1.94) → nommer dynamiquement la session depuis un hook
 
 ## 4 types de handlers
 

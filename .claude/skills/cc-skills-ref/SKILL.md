@@ -44,6 +44,8 @@ metadata:
 - **`commands/` est DÉPRÉCIÉ** → utiliser `skills/` à la place. Les deux marchent mais skills est le standard.
 - Skills métier doivent avoir une section **Apprentissage** pour sauvegarder en mémoire
 - Skills injectées en ENTIER dans le contexte des subagents → garder courtes
+- Plugin skills utilisent le `name` du frontmatter (plus le basename du dossier) depuis v2.1.94
+- `disableSkillShellExecution` : setting pour bloquer l'exécution shell dans les skills
 
 ## Injection dynamique
 
