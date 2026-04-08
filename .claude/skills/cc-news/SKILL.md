@@ -50,6 +50,11 @@ Chercher : Claude Code deprecated OR breaking 2026
 Chercher : Claude Cowork update 2026
 Chercher : Claude Dispatch new features 2026
 Chercher : anthropic Agent Teams claude code 2026
+Chercher : @AmandaAskell prompt engineering Claude 2026
+Chercher : @alexalbert__ Claude prompt techniques 2026
+Chercher : @emollick prompt engineering 2026
+Chercher : "context engineering" OR "adaptive thinking" Claude 2026
+Chercher : Gemini prompt engineering new techniques 2026
 ```
 
 ## Étapes
