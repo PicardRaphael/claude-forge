@@ -47,6 +47,9 @@ Chercher : @noahzweben Claude Code 2026
 Chercher : thariq shihipar claude code skills 2026
 Chercher : jarred sumner anthropic claude code 2026
 Chercher : Claude Code deprecated OR breaking 2026
+Chercher : Claude Cowork update 2026
+Chercher : Claude Dispatch new features 2026
+Chercher : anthropic Agent Teams claude code 2026
 ```
 
 ## Étapes

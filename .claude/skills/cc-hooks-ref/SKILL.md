@@ -139,6 +139,16 @@ else:
     subprocess.run(["paplay", "/usr/share/sounds/freedesktop/stereo/complete.oga"])
 ```
 
+## Hooks Agent Teams (experimental)
+
+| Hook | Declenchement | Blocage |
+|------|--------------|---------|
+| `TeammateIdle` | Un teammate n'a plus de tache | Non |
+| `TaskCreated` | Nouvelle tache sur le board | Non |
+| `TaskCompleted` | Tache terminee | Oui (exit 2 = renvoyer feedback) |
+
+Activer : `"CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"` dans `env` de settings.json.
+
 ## Hooks inline dans agents/skills
 
 ```yaml

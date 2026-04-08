@@ -126,6 +126,19 @@ paths:
 - Sous-dossiers supportés
 - Bon endroit pour : routing agents, workflows, règles obligatoires
 
+## Claude Cowork + Dispatch
+
+| Feature | Description |
+|---------|-------------|
+| Cowork | Claude Code power pour knowledge workers, dans Claude Desktop |
+| Dispatch | Remote control mobile → desktop, taches persistantes et planifiees |
+| Agent Teams | Teammates Claude Code independants avec task board + mailbox |
+| Skills cross-compat | Meme format SKILL.md partout (Code, Cowork, plugins) |
+| Connecteurs | Google Drive, Gmail, Slack, Jira, Linear, M365... |
+| agentskills.io | Standard ouvert, skills portables |
+
+Voir `cc-cowork-ref` pour la reference complete.
+
 ## Best practices (Boris + équipe)
 
 - **`/clear` entre tâches non liées** — sessions fourre-tout = piège #1
