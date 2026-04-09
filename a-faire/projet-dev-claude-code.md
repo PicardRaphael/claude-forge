@@ -109,20 +109,20 @@ Quand on corrige un agent → push GitHub → tous les repos ont la MAJ.
 
 ## Distribution aux devs
 
-### Methode 1 — settings.json dans chaque repo (Bitbucket, immediat)
+### Methode 1 — settings.json + Bitbucket (recommandee, zero GitHub)
 
 ```json
 {
   "extraKnownMarketplaces": {
     "neoteem-tools": {
-      "source": { "source": "git-url", "url": "https://github.com/neoteem/claude-dev-tools.git" }
+      "source": { "source": "git-url", "url": "https://bitbucket.org/neot-v2/claude-dev-tools.git" }
     }
   },
   "enabledPlugins": { "dev-tools@neoteem-tools": true }
 }
 ```
 
-Les devs recoivent au `git pull`. **Fonctionne meme sans GitHub connecte a l'orga Claude.**
+Claude Code poll le repo au demarrage + toutes les heures. Push sur Bitbucket → les devs recoivent la MAJ automatiquement. **Pas besoin de GitHub pour les devs.**
 
 ### Methode 2 — Managed settings (admin orga, force totale)
 
@@ -147,9 +147,8 @@ Dev ameliore un agent
 
 | Prerequis | Qui | Quand |
 |-----------|-----|-------|
-| Admin connecte GitHub a l'orga | Admin | Semaine 1 |
-| Repo GitHub `neoteem/claude-dev-tools` cree | DevOps | Semaine 1 |
-| Extraire agents/skills de ia_back vers le plugin | Raphael | Semaine 2 |
+| Repo Bitbucket `neot-v2/claude-dev-tools` cree | DevOps | Semaine 1 |
+| Extraire agents/skills de ia_back vers le plugin | Raphael | Semaine 1 |
 | Ajouter `enabledPlugins` dans les repos Bitbucket | DevOps | Semaine 2 |
 | Former les devs (30 min) | Raphael | Semaine 3 |
 

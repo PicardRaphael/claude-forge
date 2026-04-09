@@ -35,7 +35,11 @@ Bitbucket est notre outil principal pour le code et il le restera. Mais pour les
 - Les triggers cloud sont **impossibles**
 - On perd **l'interet principal** de Cowork pour une equipe
 
-**Ce qu'on propose :** utiliser GitHub **uniquement pour les plugins Claude** (2-3 repos). Le code reste sur Bitbucket (128 repos). C'est une coexistence, pas une migration.
+**Ce qu'on propose :** utiliser GitHub **uniquement pour le plugin Cowork support** (1 repo). Le plugin dev peut rester sur Bitbucket (Claude Code poll n'importe quel git). Le code reste sur Bitbucket (128 repos). C'est une coexistence, pas une migration.
+
+**Resume :**
+- **Devs (Claude Code)** → plugin sur Bitbucket, ca suffit (poll au demarrage + 1h)
+- **Non-devs (Cowork)** → plugin sur GitHub obligatoire (auto-sync marketplace)
 
 ---
 
