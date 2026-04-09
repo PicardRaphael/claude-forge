@@ -110,6 +110,38 @@ Raphael redigera le contenu. Le DevOps n'a qu'a s'assurer que le fichier est pre
 
 ---
 
+## Structure du plugin Cowork "Support Neoteem"
+
+Le plugin est sur GitHub (voir `setup-github-orga.md`). Il contient des **skills** uniquement (pas d'agents, rules, hooks — Cowork n'en a pas besoin).
+
+```
+claude-support-plugin/
+├── plugin.json              # Manifest
+└── skills/                  # Skills auto-chargees dans Cowork
+    ├── ticket-triage/
+    │   └── SKILL.md         # Triage automatique
+    ├── knowledge-search/
+    │   └── SKILL.md         # Recherche dans le vault support
+    ├── escalation/
+    │   └── SKILL.md         # Matrice d'escalade
+    └── capitalize/
+        └── SKILL.md         # Ecrire la solution dans le vault
+```
+
+**Difference avec le plugin dev (Claude Code) :**
+
+| | Plugin Support (Cowork) | Plugin Dev (Claude Code) |
+|---|---|---|
+| Heberge sur | GitHub (obligatoire) | Bitbucket (suffit) |
+| Contient | Skills uniquement | Skills + Agents |
+| Rules/Hooks | Non (pas dans Cowork) | Dans chaque repo, pas le plugin |
+| Auto-update | Marketplace sync 30 min | Poll git URL 1h |
+| Public cible | Non-technique | Developpeurs |
+
+Les skills du plugin support seront definies avec l'equipe support selon leurs besoins reels. Raphael les creera.
+
+---
+
 ## Monitoring
 
 ### Verifier le sync
