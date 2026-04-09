@@ -9,109 +9,62 @@
 ## Objectif
 
 Les developpeurs ont un kit Claude Code partage avec :
-1. **Agents specialises** (architect, dev, test-writer, code-reviewer, etc.)
-2. **Skills de reference** (conventions API, SQL, architecture hexagonale)
-3. **Connexion au vault** (neoteem-brain = contexte metier)
-4. **Mise a jour automatique** des outils quand on les ameliore
+1. **Agents, skills, rules, hooks** specifiques a chaque repo
+2. **Connexion au vault neoteem-brain** = contexte metier partage pour tous
+3. **Mise a jour automatique** via plugin Bitbucket (poll 1h)
 
 ---
 
-## Architecture
+## Principe
+
+Chaque repo a ses propres agents/skills/rules/hooks dans `.claude/` — adaptes a son stack et son metier. Mais **tous les repos partagent la connexion au vault neoteem-brain** via le kit `neo-brain` (skill + wrapper CLI).
 
 ```
-Bitbucket (repos de code)              GitHub (plugin dev tools)
-  neot-v2/ia_back/                       neoteem/claude-dev-tools/
-    ├── .claude/                           ├── agents/
-    │   ├── settings.json ──────────────→    │   ├── architect.md
-    │   │   enabledPlugins:                  │   ├── code-reviewer.md
-    │   │   "dev-tools@neoteem-tools"        │   ├── test-writer.md
-    │   ├── rules/                           │   └── ...
-    │   └── skills/neo-brain/              ├── skills/
-    └── src/                                 │   ├── sql-best-practices/
-                                             │   ├── architecture-rules/
-                                             │   └── ...
-                                           └── plugin.json
+Bitbucket
+  neot-v2/ia_back/.claude/         → agents TS/Bun specifiques ia_back
+  neot-v2/bdd/.claude/             → agents PG specifiques bdd
+  neot-v2/neo_ia/.claude/          → agents Python specifiques neo_ia
+  neot-v2/ws/.claude/              → agents Go specifiques ws
+      │
+      └── Tous ont : skills/neo-brain/ → connexion vault neoteem-brain
 ```
+
+**neoteem-brain** est le point commun : tout le monde y cherche le contexte metier avant de coder.
 
 ---
 
 ## Ce qui existe deja
 
-| Repo | Agents | Skills | Rules | Hooks | Statut |
-|------|--------|--------|-------|-------|--------|
-| ia_back | 11 | 16+ | 4 (knowledge-first) | 4 + git pre-push | Complet |
-| neoteem-brain | 4 (Agent Teams) | 7 + ticket-analyzer | 10 | 3 + git pre-push | Complet |
-| neo_ia | - | - | - | push notify | Basique |
-| bdd | - | - | - | - | Pas configure |
+| Repo | .claude/ | neo-brain | Statut |
+|------|----------|-----------|--------|
+| ia_back | Complet (11 agents, 16 skills, 4 rules, 4 hooks) | Oui (7 agents connectes) | Pret |
+| neoteem-brain | Complet (4 agents Agent Teams, 7 skills, 10 rules) | Natif | Pret |
+| neo_ia | Basique (hooks seulement) | Non | A configurer |
+| bdd | Rien | Non | A configurer |
+| ws | Rien | Non | A configurer |
+| ~123 autres repos | Rien | Non | A evaluer |
 
 ---
 
-## Ce qu'apporte le plugin partage
+## Comment connecter un nouveau repo au vault
 
-### Aujourd'hui (sans plugin)
+Le kit `neo-brain` est disponible a la racine du vault : `neoteem-brain/neo-brain/`.
 
-Chaque repo a sa propre copie des agents/skills dans `.claude/`. Quand on corrige un agent :
-1. Corriger dans ia_back
-2. Copier dans neoteem-brain
-3. Copier dans neo_ia
-4. Copier dans bdd
-5. ... x128 repos
+Pour connecter un repo :
+1. Copier `neo-brain/` dans `.claude/skills/` du repo
+2. Ajouter `neo-brain` dans les `skills:` des agents metier
+3. C'est tout — Claude cherche dans le vault avant de coder
 
-### Demain (avec plugin GitHub)
-
-Un seul endroit (GitHub). Tous les repos referencent le meme plugin :
-```json
-// settings.json de chaque repo Bitbucket
-{
-  "enabledPlugins": { "dev-tools@neoteem-tools": true }
-}
-```
-
-Quand on corrige un agent → push GitHub → tous les repos ont la MAJ.
+Documentation complete : `neoteem-brain/neo-brain/README.md`
 
 ---
 
-## Contenu du plugin "Dev Tools Neoteem"
+## Plugin partage Bitbucket (optionnel, pour les composants communs)
 
-### Agents partages
-
-| Agent | Model | Role |
-|-------|-------|------|
-| architect | opus | Design et review architecture |
-| dev | sonnet | Implementation feature |
-| test-writer | sonnet | Tests unitaires et integration |
-| code-reviewer | sonnet | Review code qualite |
-| debugger | opus | Diagnostic et fix bugs |
-| performance-engineer | sonnet | Optimisation SQL/API |
-| security-auditor | sonnet | Audit securite endpoints |
-
-### Skills partagees
-
-| Skill | Role |
-|-------|------|
-| architecture-rules | Conventions hexagonale Neoteem |
-| sql-best-practices | Regles SQL PostgreSQL |
-| api-conventions | Conventions REST API |
-| neo-brain | Connexion vault Obsidian (wrapper CLI inclus) |
-| add-endpoint | Guide creation endpoint |
-| connect-table | Guide connexion table Drizzle |
-
-### Rules partagees
-
-| Rule | Role |
-|------|------|
-| cto-mindset | Orchestration, esprit critique |
-| agent-delegation | Routing : qui appeler quand |
-| database-rules | BDD immutable, MCP read-only |
-| skill-navigator | Knowledge-first, choix des skills |
-
----
-
-## Distribution aux devs
-
-### Methode 1 — settings.json + Bitbucket (recommandee, zero GitHub)
+Si des agents/skills sont identiques entre plusieurs repos, on peut les extraire dans un plugin Bitbucket :
 
 ```json
+// settings.json de chaque repo
 {
   "extraKnownMarketplaces": {
     "neoteem-tools": {
@@ -124,33 +77,16 @@ Quand on corrige un agent → push GitHub → tous les repos ont la MAJ.
 
 Claude Code poll le repo au demarrage + toutes les heures. Push sur Bitbucket → les devs recoivent la MAJ automatiquement. **Pas besoin de GitHub pour les devs.**
 
-### Methode 2 — Managed settings (admin orga, force totale)
-
-L'admin pousse le plugin via les managed settings → tous les devs le recoivent automatiquement, meme sur les repos qui n'ont pas de settings.json.
-
----
-
-## Mise a jour automatique
-
-```
-Dev ameliore un agent
-  → Push sur GitHub neoteem/claude-dev-tools
-  → Claude Code detecte le changement au prochain demarrage (ou poll 1h)
-  → Tous les devs ont la nouvelle version
-```
-
-**Pas besoin de copier dans 128 repos.** Un seul push.
-
 ---
 
 ## Prerequis
 
 | Prerequis | Qui | Quand |
 |-----------|-----|-------|
-| Repo Bitbucket `neot-v2/claude-dev-tools` cree | DevOps | Semaine 1 |
-| Extraire agents/skills de ia_back vers le plugin | Raphael | Semaine 1 |
-| Ajouter `enabledPlugins` dans les repos Bitbucket | DevOps | Semaine 2 |
-| Former les devs (30 min) | Raphael | Semaine 3 |
+| Kit neo-brain deploye dans les repos actifs | Raphael | Progressif |
+| `.claude/` configure par repo (agents/skills adaptes au stack) | Raphael | Par repo |
+| Plugin Bitbucket si composants communs | Raphael + DevOps | Si besoin |
+| Former les devs (30 min) | Raphael | Par equipe |
 
 ---
 
@@ -158,7 +94,6 @@ Dev ameliore un agent
 
 | Metrique | Avant | Apres (estime) |
 |----------|-------|----------------|
-| Temps setup Claude Code nouveau repo | 1h+ (copier .claude/) | 0 (plugin auto) |
-| Coherence agents entre repos | Variable | 100% identique |
-| Temps deploiement correction agent | 30 min x N repos | 1 push (5 min) |
 | Devs avec contexte metier (neo-brain) | 2 | Tous |
+| Temps de comprehension d'un domaine metier | 1h+ (lire Confluence, demander) | 5 min (vault) |
+| Qualite du code premier jet | Variable | +40% (contexte metier des le depart) |
