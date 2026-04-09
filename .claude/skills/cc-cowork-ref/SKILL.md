@@ -117,19 +117,49 @@ Plugin = bundle
   └── Sub-agents (agents automatiques du bundle)
 ```
 
-### Installation
+### Installation individuelle
 
 1. Claude Desktop → Cowork → **Customize**
 2. **Browse plugins** → Install
 3. Ou upload un plugin custom
 
+### Deploiement Team — 3 methodes
+
+**1. Marketplace Cowork UI (le plus simple)**
+- Admin cree marketplace dans l'interface web
+- Par plugin : **auto-install** (tous), self-service (catalogue), hidden
+- GitHub sync optionnel : merge PR → resync auto (30 min max)
+
+**2. settings.json dans le repo (pour Claude Code)**
+```json
+{
+  "extraKnownMarketplaces": {
+    "neoteem-tools": {
+      "source": { "source": "github", "repo": "acme/plugins" }
+    }
+  },
+  "enabledPlugins": { "mon-plugin@neoteem-tools": true }
+}
+```
+Membres recoivent au `git pull`.
+
+**3. managed-settings.json (force totale, admin only)**
+- Console admin OU fichier systeme MDM
+- Fetch au demarrage + poll toutes les heures
+- `strictKnownMarketplaces` = managed-only (impossible a contourner)
+- **Priorite : server-managed > endpoint-managed > project > user > local**
+
+### Bug connu
+
+`enabledPlugins` dans `settings.local.json` est ignore si la cle n'existe pas dans `settings.json`. Workaround : mettre `"enabledPlugins": {}` dans settings.json.
+
 ### 11 plugins built-in
 
 Bio, Research, Customer Support, Data, Enterprise, Search, Finance, Legal, Marketing, Product Management, Productivity, Sales.
 
-### Templates enterprise
+### Sources plugin supportees
 
-HR, Design, Engineering, Operations, Financial Analysis, Investment Banking, Equity Research, Private Equity, Wealth Management.
+ZIP (Cowork UI), GitHub repo + marketplace.json, npm, git URL, git-subdir (monorepo).
 
 ## Securite — Points critiques
 
@@ -177,14 +207,15 @@ Pour qu'une skill soit disponible dans Cowork, elle doit etre au scope `user` ou
 - [github.com/anthropics/skills](https://github.com/anthropics/skills) — skills officielles
 - [github.com/anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) — plugins Cowork
 
-## Taches planifiees (Dispatch)
+## Taches planifiees
 
-### Depuis le mobile
+### Cowork Desktop
 
-```
-"Verifie mes emails chaque matin a 9h et resume les urgences"
-"Chaque vendredi, fais un resume de la semaine dans un doc"
-```
+- Tous plans payes (Pro, Max, Team, Enterprise)
+- `/schedule` dans le chat → configure intervalle
+- **Machine doit etre eveillee + Claude Desktop ouvert** (sinon skip → relance au reveil)
+- Acces a tous connecteurs et plugins installes
+- **PAS de triggers partages** — chaque utilisateur configure les siens
 
 ### Depuis Claude Code (/schedule)
 
@@ -192,6 +223,17 @@ Pour qu'une skill soit disponible dans Cowork, elle doit etre au scope `user` ou
 /schedule "0 9 * * 1-5" /brain-check    # lundi-vendredi 9h
 /schedule "0 8 * * 1" /weekly-report     # lundi 8h
 ```
+
+Necessite GitHub connecte (triggers cloud). Si bloque par l'orga → Task Scheduler local.
+
+### Dispatch (mobile → desktop)
+
+```
+"Verifie mes emails chaque matin a 9h et resume les urgences"
+"Chaque vendredi, fais un resume de la semaine dans un doc"
+```
+
+**Team : desactive par defaut.** Admin doit activer org-wide. Pas de granularite par utilisateur.
 
 ### Prompt optimal pour tache planifiee
 
