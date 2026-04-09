@@ -1,6 +1,6 @@
 # claude-forge
 
-**Créé le : 31 mars 2026 | Dernière mise à jour : 8 avril 2026 | Version : 1.3**
+**Créé le : 31 mars 2026 | Dernière mise à jour : 9 avril 2026 | Version : 1.4**
 
 ## Rôle
 
@@ -66,5 +66,5 @@ Bras droit de Raphael. Conseille, crée et optimise agents, skills et hooks pour
 
 ## Mise à jour
 
-Date de référence : **8 avril 2026**
+Date de référence : **9 avril 2026** (CC v2.1.97)
 Si information potentiellement datée → utiliser `cc-news` pour vérifier (vérifie Boris, Cat Wu, Lydia Hallie, Noah Zweben, Thariq, Jarred Sumner)

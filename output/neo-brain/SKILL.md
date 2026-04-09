@@ -107,12 +107,35 @@ obsidian vault="neoteem-brain" tags sort=count counts
 
 Voir `references/obsidian-cli-commands.md` pour la liste complete des commandes.
 
-## Methode de recherche
+## Methode de recherche — Token-smart
+
+Deux modes selon l'intention. Choisir le bon AVANT de chercher.
+
+### Mode Query (repondre a une question)
+
+Objectif : reponse precise, minimum de tokens.
+
+1. **`search:context`** d'abord — renvoie les snippets autour des matches, PAS le fichier entier
+   ```bash
+   obsidian vault="neoteem-brain" search:context query="charges copropriete" limit=5
+   ```
+2. **Trier** — lire les snippets retournes. Identifier les 1-3 notes les plus pertinentes
+3. **`read`** seulement si le snippet ne suffit pas — et seulement les notes triees a l'etape 2
+4. **Suivre les connexions** uniquement si la reponse est encore incomplete
+5. **Stopper** des que la reponse est complete — ne pas lire "au cas ou"
+
+> **Budget** : une query typique = 1 search:context + 1-2 reads. Pas 10.
+
+### Mode Exploration (cartographier un domaine)
+
+Objectif : comprendre en profondeur, lecture complete obligatoire.
 
 1. **Chercher** avec `search query="..."` — laisser l'index trouver
-2. **Lire** la note trouvee avec `read file="..."`
+2. **Lire** la note trouvee avec `read file="..."` — lecture complete, pas de raccourci
 3. **Suivre les connexions** avec `backlinks file="..."` et les `[[wikilinks]]` dans le contenu
 4. **Iterer** — lire les notes liees, suivre les backlinks, jusqu'a avoir le contexte complet
+
+Ce mode est reserve a : repo-analyzer, vault-enricher, et demandes explicites d'exploration.
 
 Ne pas prescrire de chemin — `search` et `file=` resolvent automatiquement.
 
@@ -139,9 +162,30 @@ obsidian vault="neoteem-brain" append file="q-charges-copro" content="\n\n## Com
 obsidian vault="neoteem-brain" property:set name="derniere-maj" value="YYYY-MM-DD" file="q-charges-copro"
 ```
 
-## Analyse de fichiers massifs — REGLE ABSOLUE
+## Corriger une note (info obsolete ou fausse)
 
-Les notes du brain et les fonctions PG peuvent faire **1000+ lignes**. Ne JAMAIS couper l'analyse.
+Quand l'utilisateur signale qu'une info est fausse ou obsolete (table supprimee, fonction renommee, processus change) :
+
+1. **Trouver la note source** avec `search:context query="..."` 
+2. **Mettre a jour la note** avec `append` — ajouter une section `## Obsolete` ou corriger le contenu
+3. **Mettre a jour `derniere-maj`** avec `property:set`
+4. **Chercher les Knowledge qui referent cette note** avec `backlinks file="..."` 
+5. **Mettre a jour chaque Knowledge impacte** — corriger l'info, pas creer un nouveau Knowledge
+
+```bash
+# Exemple : la table t_xyz n'existe plus
+obsidian vault="neoteem-brain" append file="t-xyz" content="\n\n> [!warning] Obsolete\n> Cette table a ete supprimee le YYYY-MM-DD. Remplacee par [[t-abc]]."
+obsidian vault="neoteem-brain" property:set name="derniere-maj" value="YYYY-MM-DD" file="t-xyz"
+obsidian vault="neoteem-brain" property:set name="statut" value="obsolete" file="t-xyz"
+```
+
+**Regle** : ne JAMAIS creer une nouvelle note pour corriger une ancienne. Corriger sur place + propager aux backlinks.
+
+## Analyse de fichiers massifs — REGLE ABSOLUE (mode Exploration uniquement)
+
+Cette regle s'applique en **mode Exploration** (repo-analyzer, vault-enricher, exploration explicite). En mode Query, voir "Methode de recherche — Token-smart" ci-dessus.
+
+**En exploration, les notes du brain et les fichiers source des repos peuvent faire 1000+ lignes. Ne JAMAIS couper l'analyse.**
 
 1. **Paginer pour tout couvrir** — utiliser `Read` avec `offset`/`limit` (ou `head`/`tail`) pour diviser en morceaux digestibles (ex: 500 lignes), mais **continuer jusqu'a la derniere ligne**
 2. **Ne jamais s'arreter au milieu** — un fichier de 1822 lignes lu en 4 passes de 500 = OK. Lu en 1 passe de 80 = INTERDIT
