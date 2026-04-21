@@ -1,0 +1,14 @@
+{
+  "name": "feedback-triage",
+  "version": "1.0.0",
+  "description": "Triage automatique des feedbacks utilisateurs NeoChat/NeoDoc/NeoMail — analyse Langfuse, consultation neoteem-brain, creation tickets Jira IAN",
+  "author": { "name": "Neoteem" },
+  "license": "MIT",
+  "keywords": [
+    "feedback",
+    "jira",
+    "langfuse",
+    "neoteem",
+    "triage"
+  ]
+}

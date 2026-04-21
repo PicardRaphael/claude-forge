@@ -1,0 +1,36 @@
+---
+titre: "Forge Brain — Home"
+resume: "Point d'entrée principal du vault de connaissances claude-forge"
+aliases:
+  - "home"
+  - "accueil"
+type: index
+derniere-maj: 2026-04-21
+auteur: claude
+tags:
+  - "#type/index"
+---
+
+# Forge Brain
+
+Knowledge base technique de claude-forge. Tout ce que j'apprends sur l'IA, les outils de coding, les techniques et l'industrie.
+
+## Navigation
+
+| Section | Contenu |
+|---------|---------|
+| [[MOC-Claude-Code]] | Features, changelog, hooks, skills, agents, best practices |
+| [[MOC-Concurrents]] | Gemini CLI, Codex, Copilot, Cursor, xAI |
+| [[MOC-Modeles]] | Specs, benchmarks, migrations des modèles IA |
+| [[MOC-Techniques]] | Prompt engineering, context engineering, patterns |
+| [[MOC-Leaders]] | Boris, Thariq, Karpathy, Altman, Amanda Askell... |
+| [[MOC-Industrie]] | Market, funding, événements, tendances |
+| [[MOC-Prompts]] | System prompts, agent prompts, skill prompts, templates réutilisables |
+
+## Conventions
+
+- 1 concept = 1 note atomique
+- Frontmatter obligatoire (voir `Templates/`)
+- Wikilinks pour tout cross-référencement
+- Tags `#type/` + `#domaine/` sur chaque note
+- `derniere-maj` mise à jour à chaque édition

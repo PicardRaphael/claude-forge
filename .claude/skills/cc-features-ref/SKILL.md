@@ -6,7 +6,7 @@ user-invokable: false
 
 # Fonctionnalités Claude Code 2026
 
-_Mise à jour : 8 avril 2026 (v2.1.96) — utiliser cc-news pour les nouveautés postérieures_
+_Mise à jour : 17 avril 2026 (v2.1.112) — utiliser cc-news pour les nouveautés postérieures_
 
 ## Slash Commands
 
@@ -30,6 +30,13 @@ _Mise à jour : 8 avril 2026 (v2.1.96) — utiliser cc-news pour les nouveautés
 | `/model`                     | Change de modèle en cours de session         |
 | `/compact`                   | Compacte le contexte                         |
 | `/context`                   | Inspecte le contexte                         |
+| `/team-onboarding`           | Génère guide ramp-up pour nouveaux membres (v2.1.101) |
+| `/ultraplan`                 | Auto-provisioning environnement cloud distant (v2.1.101) |
+| `/autofix-pr`                | Envoie session+PR au cloud, fixer continue avec contexte (Noah, v2.1.97+) |
+| `/tui fullscreen`            | Mode fullscreen sans scintillement (v2.1.110) |
+| `/recap`                     | Résumé de session au retour (v2.1.108) |
+| `/focus`                     | Focus view — remplace ancien Ctrl+O focus (v2.1.110) |
+| `/doctor`                    | Diagnostique MCP, alertes dupliqués cross-scopes (v2.1.110) |
 
 ## /loop — La plus puissante
 
@@ -42,6 +49,14 @@ _Mise à jour : 8 avril 2026 (v2.1.96) — utiliser cc-news pour les nouveautés
 
 Format interval : `5m`, `30m`, `1h`, `6h`, `1d`
 
+### Dynamic Loop (v2.1.110, Noah)
+
+```bash
+/loop /babysit-prs          # SANS intervalle = Claude auto-programme le prochain tick
+```
+
+Claude utilise `ScheduleWakeup` pour décider dynamiquement quand revérifier (économie de tokens vs polling fixe).
+
 ## /schedule
 
 ```bash
@@ -51,13 +66,17 @@ Format interval : `5m`, `30m`, `1h`, `6h`, `1d`
 
 ## Effort levels
 
-| Niveau   | Effet                  |
-| -------- | ---------------------- |
-| `low`    | Rapide, simple         |
-| `medium` | Ancien défaut          |
-| `high`   | Thinking étendu activé — **DÉFAUT depuis v2.1.94** |
+| Niveau   | Effet (Opus 4.7)                                        |
+| -------- | -------------------------------------------------------- |
+| `low`    | ≈ medium 4.6. Routes simples, schémas, tests unitaires  |
+| `medium` | Refactors multi-fichiers, migrations simples             |
+| `high`   | Migrations complexes, debug cross-layer, code review     |
+| `xhigh`  | **DÉFAUT Opus 4.7.** Design API, archi modules, refactors structurels, tâches agentiques longues |
+| `max`    | Problèmes très durs. Diminishing returns, prone overthinking |
 
-**`max` supprimé depuis v2.1.91.** `high` est le défaut pour API-key, Bedrock/Vertex, Team et Enterprise (v2.1.94). Keyword `ultrathink` dans le contenu active le thinking étendu ponctuellement.
+**`xhigh` est le nouveau défaut** pour Opus 4.7 (v2.1.111+). `high` reste le défaut pour Sonnet 4.6.
+Effort plus important sur 4.7 que tout modèle précédent — il contrôle directement le nombre de tool calls et la profondeur de raisonnement.
+À `xhigh`/`max` : mettre max_tokens à 64k+ minimum.
 
 ## Git Worktrees — #1 productivité
 
@@ -108,6 +127,24 @@ Subagents qui se communiquent directement via task board partagé.
 | Opus 4.6 output | 64k tokens par défaut, 128k max (Cat Wu) |
 | `--resume` cross-worktree | Reprend sessions d'autres worktrees du même repo (v2.1.94) |
 | Write tool 60% faster | Diff computation optimisée sur gros fichiers (v2.1.94) |
+| OS CA cert store | Trusted par défaut, `CLAUDE_CODE_CERT_STORE=bundled` pour revenir (v2.1.101) |
+| Settings resilience | Typos hook events ne cassent plus settings.json (v2.1.101) |
+| Monitor tool | Suit logs/PR par script, remplace le polling agent — gros savings tokens (Noah, v2.1.97+) |
+| Managed Agents | Beta publique, sandboxing, SSE, $0.08/session-hour (8 avril) |
+| Cowork GA | Tous plans payés, RBAC, OpenTelemetry, usage analytics Enterprise (avril) |
+| Dispatch + CC | Lance sessions Claude Code + Computer Use intégré (avril) |
+| **Routines** | **Research preview** — Scheduled + API + Webhook automations cloud (v2.1.110) |
+| **Desktop Redesign** | Multi-sessions sidebar, terminal intégré, Side Chat `Cmd+;`, 3 modes vue (14 avril) |
+| **Push notifications** | Claude envoie notifs push mobiles (Remote Control + config, v2.1.110) |
+| **`--channels`** | Relay approbation permissions vers téléphone (v2.1.110) |
+| `PreCompact` hook | Avant compression contexte, blocage possible exit code 2 (v2.1.110) |
+| `ENABLE_PROMPT_CACHING_1H` | Opt-in cache 1h (API key, Bedrock, Vertex, Foundry) — remplace `_BEDROCK` (v2.1.108) |
+| `FORCE_PROMPT_CACHING_5M` | Force TTL 5 minutes (v2.1.108) |
+| `autoScrollEnabled` | Désactiver auto-scroll en fullscreen (v2.1.110) |
+| Session recap | Active même sans télémétrie, opt-out `CLAUDE_CODE_ENABLE_AWAY_SUMMARY=0` (v2.1.110) |
+| Advisor Tool | Beta — Sonnet consulte Opus mid-generation, 1 seul appel API (9 avril) |
+| Claude for Word | Beta publique, sidebar native Mac + Windows (10 avril) |
+| MCP 500K chars | Tool result override jusqu'à 500K chars (v2.1.110) |
 
 ## .claude/rules/ (v2.0.64+)
 
@@ -172,6 +209,8 @@ LSPs disponibles pour tous les langages majeurs.
 | `-w`               | Raccourci worktree                 |
 | `--teleport`       | Push vers claude.ai/code           |
 | `-p <prompt>`      | Mode headless                      |
+| `--channels`       | Relay approbation permissions vers mobile (v2.1.110) |
+| `--resume <name>`  | Reprend tâches planifiées non expirées (v2.1.110) |
 
 ## Hooks Boris en production
 

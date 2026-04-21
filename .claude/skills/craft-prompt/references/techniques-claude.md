@@ -85,9 +85,9 @@ that doesn't know how to pronounce them.
 
 ```python
 client.messages.create(
-    model="claude-opus-4-6",
+    model="claude-opus-4-7",
     thinking={"type": "adaptive"},
-    output_config={"effort": "high"},  # low | medium | high
+    output_config={"effort": "xhigh"},  # low | medium | high | xhigh | max
 )
 ```
 
@@ -134,8 +134,10 @@ system=[{
 
 ## Breaking changes
 
-- `effort: max` supprime → utiliser `high`
+- `budget_tokens` **NON SUPPORTE** sur Opus 4.7 → `thinking: {type: "adaptive"}` + `output_config: {effort: "xhigh"}`
+- `effort: xhigh` = nouveau defaut Opus 4.7. `high` reste defaut Sonnet 4.6
 - Prefill deprecated sur claude-4.6+ → Structured Outputs
-- `budget_tokens` deprecated → `thinking: {type: "adaptive"}`
 - Skills = standard ouvert (agentskills.io) adopte par OpenAI, Gemini, GitHub Copilot
-- Opus 4.6 explore plus par defaut → reduire les instructions "sois exhaustif"
+- Opus 4.7 est plus litterral que 4.6 → instructions de scope explicites, parallelisme explicite
+- Opus 4.7 spawn moins de subagents et fait moins de tool calls → le specifier quand necessaire
+- Nouveau tokenizer Opus 4.7 : meme input = ~1.0-1.35x plus de tokens que 4.6

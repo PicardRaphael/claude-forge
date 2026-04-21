@@ -16,7 +16,7 @@ argument-hint: "[fichier ou texte]"
 allowed-tools: Read, Bash
 when_to_use: Use when the user asks to X
 model: sonnet
-effort: high # low|medium|high (max supprimé v2.1.91)
+effort: high # low|medium|high|xhigh|max
 user-invokable: true
 disable-model-invocation: true # slash command manuelle uniquement
 context: fork
@@ -98,6 +98,19 @@ Crée un composant nommé $ARGUMENTS.
 - `references/complete-guide-summary.md` — résumé clé du guide Anthropic (structure, description, 5 patterns, testing, troubleshooting)
 - `references/anthropic-skill-patterns.md` — patterns des 17 skills officielles (scripts validation, subagent fresh-eyes, boucle optimisation)
 - `references/complete-guide.pdf` — guide complet original (33 pages)
+
+## Best practices Anthropic officielles (platform.claude.com)
+
+- **Description en 3eme personne** : "Processes Excel files and generates reports" — pas "I can..." ni "You can..."
+- **Include trigger conditions** : "Use when working with PDF files or when the user mentions PDFs"
+- **Feedback loops** : run validator → fix → repeat. Pattern plan-validate-execute
+- **Checklist pattern** pour workflows complexes : Claude copie et coche
+- **Avoid deeply nested references** : max 1 niveau depuis SKILL.md
+- **Fichiers longs (>100 lignes)** : table des matieres en haut
+- **Tester avec haiku, sonnet ET opus** — ce qui marche sur opus peut manquer de detail pour haiku
+- **Naming : gerund form** prefere (processing-pdfs) ou action-oriented (process-pdfs)
+- **Avoid time-sensitive info** — "old patterns" section si deprecation
+- **MCP tools : fully qualified names** (ServerName:tool_name)
 
 ## Skills builtin
 

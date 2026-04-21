@@ -22,7 +22,7 @@ memory: project # user|project|local
 isolation: worktree
 background: true
 maxTurns: 50
-effort: high # low|medium|high|max
+effort: high # low|medium|high|xhigh|max
 permissionMode: acceptEdits # acceptEdits|plan|bypassPermissions
 hooks:
   PostToolUse:
@@ -36,8 +36,9 @@ hooks:
 ## Règles critiques
 
 - Description **UNE SEULE LIGNE** en **anglais** — `>-` et `|` cassent l'indexeur
-- Modèles 2026 : `haiku`=4-5, `sonnet`=4-6, `opus`=4-6
-- `effort: high` = thinking étendu (**`max` supprimé depuis v2.1.91**)
+- Modèles 2026 : `haiku`=4-5, `sonnet`=4-6, `opus`=4-7
+- Effort : `xhigh` = défaut Opus 4.7 (coding agentique). `high` = sessions concurrentes. `medium`/`low` = coût/latence. `max` = problèmes très durs (diminishing returns, overthinking)
+- Opus 4.7 : instructions plus littérales, moins de subagents spontanés, moins de tool calls. Être explicite sur le scope, le parallélisme, et la lecture exhaustive des fichiers
 - `memory: project` → persistance automatique via Auto Memory
 - `isolation: worktree` → git worktree séparé pour agents parallèles
 - **Un subagent NE PEUT PAS spawner de sub-agents** (GitHub #19077, by design)
@@ -83,6 +84,18 @@ hooks:
 
 **La session principale = l'orchestrateur.** Elle lit les rules et dispatch aux agents.
 **NE JAMAIS créer d'agent orchestrateur/CTO.** Ça ne marche pas.
+
+## Best practices (Boris + Thariq + Anthropic)
+
+- **permissionMode OBLIGATOIRE** : `plan` sur read-only, `acceptEdits` sur write
+- **disallowedTools sur read-only** : `disallowedTools: Write, Edit` = double protection (Boris)
+- **effort: high sur TOUS les sonnet** — JAMAIS medium (Boris: "high for everything")
+- **memory: project sur TOUS les agents** — accumulation cross-sessions
+- **Writer/Reviewer pattern** : un agent ecrit, un autre review (contexte frais = pas de biais)
+- **Description = trigger** : "Use PROACTIVELY when..." pour que CC sache quand dispatcher
+- **Verification agents** : investir du temps sur code-reviewer, validator, test-writer (Thariq: "spend a week")
+- **Opus 4.7 subagent management** : 4.7 spawn moins de subagents → fan-out doit etre EXPLICITE dans les rules
+- **Plan-driven** : "the plan IS the prompt" — inclure intent + fichiers + criteres acceptance dans le prompt du Task
 
 ## Localisation
 

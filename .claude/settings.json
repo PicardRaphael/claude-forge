@@ -35,6 +35,12 @@
       }
     ]
   },
+  "permissions": {
+    "allow": [
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
+    ]
+  },
   "enabledPlugins": {
     "document-skills@anthropic-agent-skills": true
   }
