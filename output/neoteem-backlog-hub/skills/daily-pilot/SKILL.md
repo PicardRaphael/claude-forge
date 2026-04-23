@@ -1,6 +1,6 @@
 ---
 name: daily-pilot
-description: Manage the dirigeant's day — calendar briefings, meeting prep, email drafting and responses. Use when the user says "bonjour", "mon programme", "prepare-moi pour la reunion", "reponds a ce mail", "qu'est-ce que j'ai aujourd'hui", or mentions meetings, emails, or agenda.
+description: Manage the dirigeant's day — calendar briefings, meeting prep, email drafting and responses, mail summaries, and scheduling. Use when the user says "bonjour", "mon programme", "prepare-moi pour la reunion", "reponds a ce mail", "reponds au mail de X", "resume mes mails", "j'ai rate quoi", "trouve-moi un creneau", "j'ai de la place quand", "planifie une reunion", or mentions meetings, emails, calendar, or agenda.
 ---
 
 # Daily Pilot — Copilote de journee

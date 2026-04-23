@@ -1,6 +1,6 @@
 ---
 name: strategic-advisor
-description: Help a dirigeant make informed decisions on technical proposals, product direction, and company evolution. Use when the user shares a dev proposal, asks for an opinion on a technical choice, wants to evaluate a strategic direction, or asks "qu'est-ce qu'on devrait faire pour X ?".
+description: Help a dirigeant make informed decisions on technical proposals, product direction, and company evolution. Use when the user shares a dev proposal, asks for an opinion on a technical choice, wants to evaluate a strategic direction, says "c'est quoi le risque si", "propose des evolutions", "qu'est-ce qu'on devrait ameliorer", "on a le budget pour un seul projet", or asks "qu'est-ce qu'on devrait faire pour X ?". Always searches the web for industry best practices before advising.
 ---
 
 # Strategic Advisor — Conseiller strategique Neoteem
