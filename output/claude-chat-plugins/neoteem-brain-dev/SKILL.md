@@ -41,8 +41,15 @@ Si Bash n'est pas disponible (Claude Chat, Cowork), utiliser les tools MCP :
 | `read_note_by_path(path)` | `read path=` |
 | `get_backlinks(file)` | `backlinks file= counts` |
 | `get_tags()` | `tags sort=count counts` |
+| `create_note(path, content)` | `create path= content= silent` |
+| `append_note(file, content)` | `append file= content=` |
+| `update_property(file, name, value)` | `property:set name= value= file=` |
+| `get_property(file, name)` | `property:get name= file=` |
+| `daily_read()` | `daily:read` |
+| `daily_append(content)` | `daily:append content=` |
+| `get_tasks(daily, todo)` | `tasks [daily] [todo]` |
 
-**Ecriture non disponible en MCP** — capitaliser les decouvertes localement et signaler les notes a creer/mettre a jour.
+**Ecriture disponible en MCP** — `create_note`, `append_note`, `update_property` (depuis v1.1.0).
 
 ### Comment detecter le mode
 
@@ -323,7 +330,7 @@ Cette regle s'applique en **mode Exploration** (repo-analyzer, vault-enricher, e
 - Ecriture autorisee dans `Knowledge/` et en `append` sur notes existantes
 - Utiliser `silent` sur `create` pour ne pas ouvrir la note dans Obsidian
 - Mettre le nom du repo courant dans `repo:` du frontmatter (pas un repo en dur)
-- Mode MCP = lecture seule, signaler les ecritures necessaires
+- Mode MCP = lecture + ecriture depuis v1.1.0 (`create_note`, `append_note`, `update_property`)
 
 ## Apprentissage
 

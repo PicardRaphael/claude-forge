@@ -1,0 +1,9 @@
+{
+  "name": "support-lojii",
+  "description": "Neoteem LOJII support plugin — SC/SD ticket triage and N2 qualification, powered by neoteem-brain vault",
+  "version": "2.1.0",
+  "author": {
+    "name": "Neoteem"
+  },
+  "keywords": ["support", "jira", "lojii", "neoteem", "triage", "neoteem-brain"]
+}

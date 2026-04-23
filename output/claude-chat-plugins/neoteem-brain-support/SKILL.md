@@ -46,8 +46,15 @@ Si Bash n'est pas disponible (Claude Chat, Cowork), utiliser les tools MCP :
 | `read_note_by_path(path)` | `read path=` |
 | `get_backlinks(file)` | `backlinks file= counts` |
 | `get_tags()` | `tags sort=count counts` |
+| `create_note(path, content)` | `create path= content= silent` |
+| `append_note(file, content)` | `append file= content=` |
+| `update_property(file, name, value)` | `property:set name= value= file=` |
+| `get_property(file, name)` | `property:get name= file=` |
+| `daily_read()` | `daily:read` |
+| `daily_append(content)` | `daily:append content=` |
+| `get_tasks(daily, todo)` | `tasks [daily] [todo]` |
 
-**Ecriture non disponible en MCP** — signaler a l'equipe technique si une note doit etre creee/corrigee.
+**Ecriture disponible en MCP** — `create_note`, `append_note`, `update_property` (depuis v1.1.0).
 
 ### Comment detecter le mode
 
@@ -57,69 +64,106 @@ Si Bash n'est pas disponible (Claude Chat, Cowork), utiliser les tools MCP :
 
 ## Strategie de recherche et auto-enrichissement
 
+### Principe fondamental — la recherche est GLOBALE
+
+`search:context` cherche dans **tout le vault d'un coup** (850+ notes). Les dossiers ci-dessous sont un **ordre de preference pour utiliser les resultats**, PAS un scope de recherche. Ne jamais filtrer mentalement les resultats par dossier.
+
+Ordre de preference des resultats :
+1. **07-Support/** — notes deja reformulees pour le support → utiliser directement
+2. **Knowledge/** — reponses synthetisees → reformuler legerement
+3. **01-Domaines/, 02-BDD/, 03-Apps/, 06-Regles/** — notes techniques → reformuler avant de repondre
+
+**Si le search renvoie des resultats de 02-BDD/ ou 03-Apps/ mais rien de 07-Support/, UTILISER ces resultats techniques et les reformuler.** Ne JAMAIS dire "Aucune note vault" quand le search a renvoye des notes pertinentes dans d'autres dossiers.
+
 ### Classifier la question AVANT de chercher
 
 | Signal dans la question | Type | Strategie |
 |------------------------|------|-----------|
 | "Comment faire X ?", "Pourquoi Y ?" | **Simple** | Flux standard (1 search + 1-2 reads) |
+| Appel depuis triage-tickets, analyse d'un ticket SC/SD, classification Bug/Support/SR | **Ticket-triage** | Flux ticket-triage (voir ci-dessous) |
 | "Tous les X", "liste complete", "recap de chaque", "exhaustif" | **Exhaustive** | Flux exhaustif (voir ci-dessous) |
 
-**Choisir le bon flux AVANT la premiere recherche.** Ne pas decouvrir apres 8 searches que la question etait exhaustive.
+**Choisir le bon flux AVANT la premiere recherche.**
 
 ### Flux standard (question simple)
 
 ```
 Question support
     ↓
-1. Chercher dans 07-Support/ (notes deja reformulees pour le support)
+1. search:context global (tout le vault)
     ↓
-  Trouvee? → Repondre directement
-    ↓ non
-2. Knowledge/ (reponses deja traitees, focalisees)
-    ↓
-  Trouvee? → Reformuler + repondre + auto-creer note 07-Support/ (CLI) ou signaler (MCP)
-    ↓ non
-3. Vault structure (01-Domaines/, 02-BDD/, 03-Apps/, 06-Regles/)
-    ↓
-  Trouvee? → Reformuler + repondre + auto-creer note 07-Support/ (CLI) ou signaler (MCP)
-    ↓ non
-4. Escalade → Repondre "investigation necessaire, transmettre a l'equipe technique"
+  Resultats 07-Support/ ? → Repondre directement
+    ↓ non, mais resultats Knowledge/ ou 01-06/ ?
+  Oui → Reformuler + repondre + auto-creer note 07-Support/ (CLI) ou signaler (MCP)
+    ↓ non, 0 resultat pertinent
+2. Escalade → Repondre "investigation necessaire, transmettre a l'equipe technique"
 ```
-
-**Knowledge/ avant le vault structure** — les reponses y sont deja synthetisees, ca economise des tokens.
 
 > **Budget standard** : 1 search + 1-2 reads. Pas 10.
 
+### Flux ticket-triage (classification et diagnostic de tickets SC/SD)
+
+Ce flux s'active quand la skill est appelee depuis `triage-tickets` ou `analyse-qualification-tickets`, ou pour analyser un ticket support.
+
+```
+Symptome du ticket
+    ↓
+1. search:context global — mots-cles du symptome (vue fonctionnelle)
+    ↓
+  Resultats pertinents ? → Trier par preference (07-Support > Knowledge > 01-06/)
+    ↓ 0 resultat ou resultats non pertinents
+2. search:context global — termes alternatifs (vue technique : table, module, ecran)
+    ↓
+  Resultats pertinents ? → Trier par preference + reformuler
+    ↓ 0 resultat
+3. MOC du domaine concerne (MOC-BDD, MOC-Domaines, MOC-Apps)
+    ↓
+  Note pertinente trouvee dans le MOC ? → read + reformuler
+    ↓ non
+4. "Aucune note vault sur ce sujet" — VALIDE seulement apres les 3 etapes ci-dessus
+```
+
+> **Budget ticket-triage** : 2 searches + 1 MOC optionnel + 2-3 reads. Max 6 appels.
+>
+> **Regle absolue** : "Aucune note vault sur ce sujet" est INTERDIT apres un seul search. Toujours essayer au moins 2 variantes de recherche (fonctionnelle + technique) avant de conclure.
+
+**Mapping ticket → termes de recherche** (2 variantes minimum) :
+
+| Symptome ticket | Recherche 1 (fonctionnelle) | Recherche 2 (technique) |
+|----------------|---------------------------|------------------------|
+| Erreur sur les charges | `charges copropriete erreur` | `appel-fonds calcul t_appel_fonds` |
+| Probleme comptabilite | `comptabilite ecriture solde` | `t_ecriture compta rapprochement` |
+| Locataire absent de la liste | `locataire bail affichage` | `t_bail statut actif` |
+| Erreur extranet | `extranet portail acces` | `portail coproprietaire connexion` |
+| Souci courrier/correspondance | `correspondance document envoi` | `correspondance drive template` |
+
 ### Flux exhaustif (question "tous les X")
 
-Les questions "liste-moi tous les X" ne se resolvent pas par des recherches vault successives. Le vault n'a pas forcement une note unique avec la liste complete. Il faut aller a la source de verite.
+Les questions "liste-moi tous les X" ne se resolvent pas par des recherches vault successives. Il faut aller a la source de verite.
 
 ```
 Question exhaustive ("tous les roles", "chaque type de X")
     ↓
-1. 1 search dans 07-Support/ ou Knowledge/ → FAQ/synthese existante?
+1. 1 search global → FAQ/synthese existante?
     ↓ trouvee → Repondre
     ↓ non
-2. Identifier la SOURCE DE VERITE (pas le vault, la source primaire) :
-   - Donnees BDD → notes 02-BDD/ (tables, constantes, enums)
+2. Identifier la SOURCE DE VERITE :
+   - Donnees BDD → notes 02-BDD/
    - Regles metier → notes 01-Domaines/
    - Config/parametrage → notes 03-Apps/
     ↓
-3. Lire la/les MOC pour trouver les notes sources exactes :
-   obsidian vault="neoteem-brain" read file="MOC-BDD"
+3. Lire la/les MOC pour trouver les notes sources exactes
     ↓
-4. Lire les 2-4 notes sources identifiees (pas de search supplementaire)
+4. Lire les 2-4 notes sources identifiees
     ↓
 5. Synthetiser → Repondre → Creer FAQ dans 07-Support/ pour la prochaine fois
 ```
 
 > **Budget exhaustif** : 1 search + 1 MOC + 2-4 reads sources. Max 6 appels total.
->
-> **Anti-pattern** : enchaîner des `search:context` avec des variantes de mots-cles ("role tiers", "type acteur", "acteur role bail"...) en esperant tomber sur la bonne note. Si le 1er search ne donne pas de FAQ prete, passer directement a l'etape 2 (MOC → notes sources).
 
 ### Hints de recherche — termes techniques vault
 
-Le vault est indexe par noms techniques. Les recherches en langage naturel generent du bruit. Privilegier les termes vault :
+Le vault est indexe par noms techniques. Privilegier les termes vault :
 
 | Le support demande... | Chercher avec... |
 |----------------------|-----------------|
@@ -129,8 +173,16 @@ Le vault est indexe par noms techniques. Les recherches en langage naturel gener
 | Comptabilite | `ecriture compta rapprochement` |
 | Documents / courriers | `correspondance document drive` |
 | Extranet / portail | `extranet portail acces` |
+| AG / assemblee generale | `ag assemblee resolution convocation` |
+| Paie / gardien | `paie gardien bulletin salaire` |
+| Sinistre / assurance | `sinistre assurance declaration` |
+| Relance / impaye | `relance impaye recouvrement echeancier` |
+| Fonds travaux / ALUR | `fonds-travaux alur provision` |
+| Import / export | `import export integration migration` |
+| OCR / lettrage | `ocr lettrage rapprochement bancaire` |
 
-Quand le 1er search ne renvoie que du bruit, **ne pas re-chercher avec d'autres mots**. Lire le MOC du domaine concerne a la place.
+**Flux standard** : quand le 1er search ne renvoie que du bruit, lire le MOC du domaine concerne.
+**Flux ticket-triage** : relancer avec des termes techniques alternatifs PUIS lire le MOC si toujours rien.
 
 ### 1. Chercher (search)
 
@@ -318,7 +370,9 @@ tags:
 - `file=` / `read_note(file=)` resout comme un wikilink (nom seul), `path=` est le chemin exact
 - Ne jamais modifier les notes dans `01-Domaines/`, `02-BDD/`, `03-Apps/` — lecture seule
 - Ne jamais exposer les noms techniques dans les reponses — toujours reformuler
-- Mode MCP = lecture seule, signaler les ecritures necessaires
+- Mode MCP = lecture + ecriture depuis v1.1.0 (`create_note`, `append_note`, `update_property`)
+- **"Aucune note vault" est un dernier recours** — ne jamais conclure apres 1 seul search. Le vault a 850+ notes. Si 07-Support/ ne matche pas, 02-BDD/ (196 notes), 03-Apps/ (248 notes), Knowledge/ (111 notes) contiennent souvent l'info sous forme technique. Reformuler plutot que dire "pas trouve".
+- **search:context est global** — il cherche dans tout le vault, pas dossier par dossier. Les dossiers sont un ordre de preference pour LIRE les resultats, pas un filtre de recherche.
 
 ## Apprentissage
 
