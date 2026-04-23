@@ -6,14 +6,17 @@
 
 ## 0. Brief du matin
 
-Tu ouvres Claude, tu dis "bonjour". Il te fait un point flash.
+Tu ouvres Claude, tu dis "bonjour". Il te fait un brief complet de ta journee.
 
 **Exemple :**
 > "Bonjour"
 >
-> → "3 tickets N2 ont avance hier (N2-8734 passe en test, N2-8801 livre, N2-8756 bloque par l'equipe front). 1 ticket AML en attente de ta decision (AML-4521, demande de modification des charges). 2 nouvelles demandes clients a trier."
+> → "AGENDA : 10h reunion syndic (Nils, Benjamin), 14h point dev, 16h30 call Immo+.
+> JIRA : 3 tickets avances, 1 AML attend ta decision, 2 demandes clients.
+> MAILS : 4 mails importants — dont 1 urgent de [client] sur les charges.
+> DECISION EN ATTENTE : validation spec module gerance."
 
-30 secondes, actionnable, chaque matin.
+30 secondes, tout ta journee, chaque matin.
 
 ---
 
@@ -139,7 +142,51 @@ Claude est configure pour etre ton bras droit, pas un yes-man. Il te dit quand u
 
 ---
 
-## 11. Se souvenir de tes preferences
+## 11. Se preparer pour une reunion
+
+Tu as une reunion dans 30 min. Claude te prepare un briefing avec tout le contexte.
+
+**Exemples :**
+- "Prepare-moi pour la reunion de 14h" → Contexte du sujet (vault), tickets lies (Jira), derniers mails echanges avec les participants, points a aborder, decisions attendues
+- "Je vois le client Immo+ dans 1h" → Historique des echanges (Gmail), demandes en cours (Jira), contexte metier (vault), talking points
+- "C'est quoi la reunion de 10h deja ?" → Details Google Calendar + contexte
+
+---
+
+## 12. Repondre a un mail
+
+Tu colles un mail, Claude redige la reponse adaptee au destinataire. Avec le contexte metier du vault si besoin.
+
+**Exemples :**
+- *Tu colles un mail client sur un probleme de charges* → Claude cherche dans le vault le fonctionnement des charges, redige une reponse claire en langage client
+- "Reponds au mail de Thomas" → Claude cherche le mail dans Gmail, lit le contexte, redige la reponse
+- "Reponds a ce mail en disant qu'on prend en compte" → Draft pro, adapte au ton (client = formel, equipe = direct)
+- *Mail technique d'un dev* → Claude utilise brain-dev pour comprendre le contexte technique, redige la reponse
+
+---
+
+## 13. Trier ses mails
+
+Tu as 50 mails non lus. Claude les trie par urgence.
+
+**Exemples :**
+- "Resume mes mails importants" → Tri : urgent (reponse aujourd'hui) / important (cette semaine) / informatif (pour info)
+- "J'ai rate quoi depuis hier ?" → Resume des mails importants depuis hier
+- Pour chaque mail urgent, Claude propose : "Tu veux que je redige une reponse ?"
+
+---
+
+## 14. Trouver un creneau
+
+Tu veux caler une reunion. Claude regarde ton agenda et propose.
+
+**Exemples :**
+- "J'ai de la place quand pour une reunion d'1h cette semaine ?" → Claude regarde Google Calendar, propose les creneaux libres par priorite (matin d'abord, pas le vendredi aprem)
+- "Planifie une reunion avec Nils sur le module syndic" → Claude propose un creneau, cree l'evenement, prepare un ordre du jour
+
+---
+
+## 15. Se souvenir de tes preferences
 
 Claude retient tes corrections, tes preferences et le contexte de tes projets d'une conversation a l'autre.
 
@@ -165,5 +212,9 @@ Claude retient tes corrections, tes preferences et le contexte de tes projets d'
 | "Qu'est-ce qu'on devrait ameliorer ?" | Vault + Jira → 3 propositions |
 | "J'aimerais creer X" | Verifie l'existant → faisabilite → approche |
 | "Aide-moi a formuler ca" | Reformule ta demande → tu valides → il execute |
+| "Prepare-moi pour la reunion" | Calendar + vault + Jira + mails → briefing |
+| "Reponds a ce mail" | Vault context → draft adapte au destinataire |
+| "Resume mes mails" | Tri urgent / important / informatif |
+| "J'ai de la place quand ?" | Calendar → creneaux par priorite |
 | Mauvaise idee | Te le dit franchement |
 | Demande floue | Te pose des questions |
