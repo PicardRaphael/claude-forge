@@ -1,6 +1,6 @@
 ---
 name: prompt-boost
-description: Reformulate a vague or complex idea into a powerful structured prompt. Use when the user says "aide-moi a formuler", "comment je demande ca a Claude", "donne-moi un prompt pour", "optimise cette demande", "ameliore ma demande", "j'ai une idee mais je sais pas comment la dire", or when a request is clearly too vague to get a good result.
+description: Reformulate a vague or complex idea into a powerful structured prompt. Use when the user asks for help formulating a request, wants a prompt generated or optimized, or when a request is clearly too vague to produce a good result.
 ---
 
 # Prompt Boost — Reformulateur de demandes

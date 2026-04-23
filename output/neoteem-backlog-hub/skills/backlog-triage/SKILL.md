@@ -1,6 +1,6 @@
 ---
 name: backlog-triage
-description: Triage a raw demand (mail, text, ticket) into a structured spec and Jira N2 ticket. Use when the user pastes a client request, a mail, or any feature demand to process. Also use when the user says "analyse le ticket X", "trie les tickets AML", "c'est quoi ce ticket", "y a des doublons", or asks to review a batch of Jira tickets. Deduplicates, enriches with vault context, proposes a spec, and creates the N2 ticket on validation.
+description: Triage raw demands into structured specs and Jira N2 tickets. Use when the user pastes a client request, analyzes existing tickets, reviews a batch of Jira tickets, or checks for duplicates. Handles single tickets, batch analysis, deduplication, vault enrichment, spec generation, and N2 ticket creation on validation.
 ---
 
 # Backlog Triage — Intelligence Hub Neoteem
