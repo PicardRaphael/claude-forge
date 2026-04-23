@@ -1,0 +1,9 @@
+{
+  "name": "neoteem-backlog-hub",
+  "version": "1.0.0",
+  "description": "Backlog intelligence hub for Neoteem — triage demands, deduplicate, generate specs, create Jira N2 tickets",
+  "author": {
+    "name": "Neoteem"
+  },
+  "keywords": ["backlog", "triage", "jira", "spec", "neoteem"]
+}

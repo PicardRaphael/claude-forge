@@ -33,3 +33,10 @@ tags:
 - [[Silent Assumptions]] — Karpathy anti-pattern #1
 - [[Over-Engineering]] — Abstraction prématurée
 - [[Drive-By Refactoring]] — Refacto non demandé
+
+
+## Configuration
+
+- [[claude-desktop-preferences]] — Profil, Cowork, pattern vault-first MCP pour non-devs
+- [[forge-prompt-machine]] — 12 principes FORGE BellumAI x Askell, checklist, anti-patterns
+- [[prompting-chat-cowork-code]] — Differences de prompting Chat vs Cowork vs Code, Opus 4.7
