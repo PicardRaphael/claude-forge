@@ -1,4 +1,10 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(git *)",
+      "Bash(ls *)"
+    ]
+  },
   "hooks": {
     "Stop": [
       {
@@ -21,6 +27,16 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/delegate-guard.py\"",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "SessionStart": [
@@ -35,13 +51,5 @@
       }
     ]
   },
-  "permissions": {
-    "allow": [
-      "Bash(git commit:*)",
-      "Bash(git push:*)"
-    ]
-  },
-  "enabledPlugins": {
-    "document-skills@anthropic-agent-skills": true
-  }
+  "enabledPlugins": {}
 }

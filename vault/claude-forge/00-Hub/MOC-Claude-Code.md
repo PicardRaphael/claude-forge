@@ -42,6 +42,8 @@ tags:
 - [[CLAUDE.md Best Practices]] — Concis, gotchas, compounding
 - [[Workflow Boris]] — Fleet commander, 5 terminaux, worktrees
 - [[Skills Best Practices]] — Thariq: gotchas, progressive disclosure
+- [[delegate-guard-pattern]] — Hook PreToolUse forge-only : bloque edits directs, redirige vers agents spécialisés
+- [[kit-rules-standard]] — 3 rules obligatoires tout projet : check-before-create, quality-gates, learn-from-mistakes
 
 ## Dépréciations
 

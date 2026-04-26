@@ -1,0 +1,7 @@
+{
+  "name": "nils-copilot",
+  "description": "Copilote IA du dirigeant Neoteem — briefings, mails, triage backlog, conseils strategiques, et reformulation de prompts",
+  "version": "1.0.0",
+  "author": "Neoteem",
+  "keywords": ["dirigeant", "copilot", "neoteem", "briefing", "mail", "triage", "strategie"]
+}

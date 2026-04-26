@@ -1,6 +1,6 @@
 ---
 name: cc-hooks-ref
-description: Référence complète des hooks Claude Code — 21 événements, 4 types de handlers, format settings.json, scripts Python, blocage exit 2, hooks inline. Charger quand on crée ou modifie un hook.
+description: Référence complète des hooks Claude Code — 21 événements, 5 types de handlers, format settings.json, scripts Python, blocage exit 2, hooks inline. Charger quand on crée ou modifie un hook.
 user-invokable: false
 ---
 
@@ -36,13 +36,14 @@ user-invokable: false
 - Deferred hooks → `PreToolUse` peut return `permissionDecision: "defer"` (sessions headless pausent et reprennent)
 - `hookSpecificOutput.sessionTitle` sur `UserPromptSubmit` (v2.1.94) → nommer dynamiquement la session depuis un hook
 
-## 4 types de handlers
+## 5 types de handlers
 
 ```json
 {"type": "command", "command": "python3 .claude/hooks/hook.py", "timeout": 60}
 {"type": "http", "url": "https://webhook.example.com"}
 {"type": "prompt", "prompt": "Sûr ?", "model": "haiku"}
 {"type": "agent", "agent": "mon-agent", "prompt": "Vérifie..."}
+{"type": "mcp_tool", "server": "mon-server", "tool": "mon-outil", "input": {"key": "value"}}
 ```
 
 ## settings.json

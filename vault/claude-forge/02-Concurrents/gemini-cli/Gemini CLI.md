@@ -6,7 +6,7 @@ aliases:
   - "gemini-cli"
 domaine: gemini
 type: concurrent
-derniere-maj: 2026-04-21
+derniere-maj: 2026-04-26
 auteur: claude
 sources:
   - "https://geminicli.com/docs/changelogs/latest/"
@@ -30,8 +30,12 @@ CLI IA de Google pour le développement. Open source, YOLO mode par défaut, 1M+
 
 ## Dernières mises à jour
 
+- **v0.39.0-preview** (14 avril) : Subagents refactorisés en `invoke_subagent` unique, `/memory inbox` pour skill extraction, Plan Mode avec confirmation skill
+- **v0.38.0** (14 avril) : Chapters Narrative Flow, Context Compression Service, `/memory inbox`, ContextManager architecture découplée, fix memory leaks + PTY exhaustion
 - **v0.38.1** (16 avril) : Bugfixes MCP progress leak, Ctrl+G, Gemini 3 dispo pour tous
 - **v0.37.1** (9 avril) : Sandbox dynamique, worktrees, Chapters, browser agent
+- **Code Assist intégration** : code customization supportée en CLI + agent mode, persistent memory sur GitHub, `/deploy` Cloud Run depuis agent mode
+- **Subscriptions** : AI Pro = 5x limites, AI Ultra = 20x limites (partagées CLI + Code Assist)
 
 ## Comparaison avec Claude Code
 

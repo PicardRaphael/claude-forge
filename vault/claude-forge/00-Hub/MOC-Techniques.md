@@ -27,6 +27,7 @@ tags:
 - [[Document and Clear]] — Plan → .md → /clear → nouvelle session
 - [[Skills as Composability]] — Thariq, skills = couche composable
 - [[LLM Wiki]] — Karpathy, knowledge management plain text
+- [[Karpathy Dev Discipline]] — 4 principes coding (Simplicity, Surgical, Assumptions, Verifiable Steps)
 
 ## Anti-patterns
 

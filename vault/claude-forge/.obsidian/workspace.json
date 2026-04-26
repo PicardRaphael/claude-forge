@@ -6,7 +6,7 @@
       {
         "id": "5c9aafa13ff423dd",
         "type": "tabs",
-        "dimension": 26.929530201342285,
+        "dimension": 26.92953020134228,
         "children": [
           {
             "id": "6de73b139036c01a",
@@ -27,16 +27,20 @@
       {
         "id": "d358c5c22def46f8",
         "type": "tabs",
-        "dimension": 73.07046979865773,
+        "dimension": 73.07046979865771,
         "children": [
           {
             "id": "f961d3e8e7c67a7e",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Vue graphique"
+              "type": "markdown",
+              "state": {
+                "file": "06-Industrie/Anthropic Revenue 30B.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Anthropic Revenue 30B"
             }
           }
         ]
@@ -112,6 +116,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Bienvenue.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -121,7 +126,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Rétroliens"
+              "title": "Rétrolien pour Bienvenue"
             }
           },
           {
@@ -130,11 +135,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Bienvenue.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Liens sortants"
+              "title": "Liens sortants de Bienvenue"
             }
           },
           {
@@ -172,12 +178,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "Bienvenue.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Plan"
+              "title": "Plan de Bienvenue"
             }
           }
         ]
@@ -198,8 +205,19 @@
       "bases:Créer une nouvelle base": false
     }
   },
-  "active": "f961d3e8e7c67a7e",
+  "active": "6de73b139036c01a",
   "lastOpenFiles": [
+    "01-Claude-Code/best-practices/kit-rules-standard.md",
+    "01-Claude-Code/best-practices/delegate-guard-pattern.md",
+    "01-Claude-Code/best-practices/delegate-guard-pattern.md.tmp.21056.1777198757140",
+    "Knowledge/erreurs/erreur-recherche-vault-scope-filtre.md",
+    "Knowledge/erreurs/e-descriptions-keyword-stuffing.md",
+    "04-Techniques/prompting-chat-cowork-code.md",
+    "04-Techniques/forge-prompt-machine.md",
+    "04-Techniques/amanda-askell-prompt-engineering.md",
+    "04-Techniques/claude-desktop-preferences.md",
+    "Knowledge/erreurs/erreur-bash-permission-format.md",
+    "06-Industrie/Anthropic Revenue 30B.md",
     "Bienvenue.md",
     "01-Claude-Code/agents/Agent — skill-creator.md",
     "01-Claude-Code/agents/Agent — self-updater.md",
@@ -223,18 +241,7 @@
     "07-Prompts",
     "01-Claude-Code/features/Deprecation budget_tokens.md",
     "01-Claude-Code/features/Deprecation 1M Context Beta.md",
-    "01-Claude-Code/features/Deprecation Sonnet 4 Opus 4.md",
-    "01-Claude-Code/features/Deprecation Haiku 3.md",
-    "04-Techniques/patterns/LLM Wiki.md",
-    "04-Techniques/patterns/Workflow Boris.md",
-    "04-Techniques/prompt-engineering/Effort Levels Guide.md",
-    "06-Industrie/Managed Agents.md",
-    "06-Industrie/Cowork GA.md",
-    "04-Techniques/prompt-engineering/Adaptive Thinking.md",
-    "06-Industrie/Agent Skills Spec.md",
-    "04-Techniques/context-engineering/Context Engineering.md",
     "01-Claude-Code/changelog/CC v2.1.114.md.tmp.7556.1776751276031",
-    "01-Claude-Code/changelog/CC v2.1.116.md.tmp.7556.1776751261949",
-    "Templates/knowledge.md.tmp.7556.1776750974726"
+    "01-Claude-Code/changelog/CC v2.1.116.md.tmp.7556.1776751261949"
   ]
 }

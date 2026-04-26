@@ -22,7 +22,81 @@ Tu utilises `WebSearch` — vérifie les features récentes si pertinent.
 
 ## Étapes
 
-### 1. Découverte
+### 0. Détection mécanique (Phase 0 — TOUJOURS exécuter)
+
+Lancer EN PARALLÈLE pour construire la matrice de détection :
+
+```bash
+# Stack & deps
+ls $PROJECT/package.json $PROJECT/pyproject.toml $PROJECT/Cargo.toml $PROJECT/go.mod $PROJECT/pom.xml $PROJECT/Gemfile 2>/dev/null
+cat $PROJECT/package.json 2>/dev/null | head -60
+cat $PROJECT/pyproject.toml 2>/dev/null | head -40
+
+# Configs formatters/linters
+ls $PROJECT/.prettierrc* $PROJECT/.eslintrc* $PROJECT/eslint.config.* $PROJECT/ruff.toml $PROJECT/tsconfig.json $PROJECT/mypy.ini $PROJECT/pyrightconfig.json 2>/dev/null
+
+# Configs infra/services
+ls $PROJECT/.env* $PROJECT/docker-compose.yml $PROJECT/Dockerfile $PROJECT/wrangler.toml $PROJECT/vercel.json $PROJECT/.mcp.json 2>/dev/null
+
+# Tests
+ls $PROJECT/jest.config.* $PROJECT/vitest.config.* $PROJECT/pytest.ini $PROJECT/playwright.config.* 2>/dev/null
+
+# Lock files
+ls $PROJECT/package-lock.json $PROJECT/yarn.lock $PROJECT/pnpm-lock.yaml $PROJECT/Cargo.lock $PROJECT/poetry.lock 2>/dev/null
+```
+
+Remplir la matrice de détection :
+
+| Catégorie | Détecté | Recommandation |
+|-----------|---------|----------------|
+| **Langage** | ? | Plugin LSP correspondant |
+| **Framework** | ? | MCP context7 si librairie populaire |
+| **DB** | ? | MCP database approprié |
+| **Formatter** | ? | Hook PostToolUse auto-format |
+| **Linter** | ? | Hook PostToolUse auto-lint |
+| **Type checker** | ? | Hook PostToolUse type-check |
+| **Tests** | ? | Hook PostToolUse run tests |
+| **Lock files** | ? | Hook PreToolUse block edits |
+| **`.env` files** | ? | Hook PreToolUse block edits |
+| **Docker** | ? | MCP Docker |
+| **Cloud** | ? | MCP AWS/Cloudflare/Vercel |
+| **Issue tracker** | ? | MCP Jira/Linear/GitHub |
+| **Monitoring** | ? | MCP Sentry/Datadog/Langfuse |
+
+### 0.5. Audit config Claude Code existante
+
+Vérifier EN PARALLÈLE :
+
+```bash
+# Config projet
+cat $PROJECT/.claude/settings.json 2>/dev/null
+cat $PROJECT/.claude/settings.local.json 2>/dev/null
+cat $PROJECT/.mcp.json 2>/dev/null
+cat $PROJECT/CLAUDE.md 2>/dev/null
+
+# Composants existants
+ls $PROJECT/.claude/agents/ $PROJECT/.claude/skills/ $PROJECT/.claude/rules/ $PROJECT/.claude/hooks/ 2>/dev/null
+
+# Plugins installés (global)
+ls ~/.claude/plugins/installed/ 2>/dev/null
+```
+
+Remplir l'audit config :
+
+| Élément | État | Recommandation |
+|---------|------|----------------|
+| **CLAUDE.md** | absent/présent/trop long | Créer / optimiser / tailler |
+| **settings.json** | permissions ? env ? hooks ? | Permissions manquantes à ajouter |
+| **settings.local.json** | env vars locales ? | Variables sensibles à y mettre |
+| **.mcp.json** | absent/présent | MCP servers à ajouter au projet |
+| **rules/** | routing ? conventions ? | Rules manquantes |
+| **agents/** | combien ? lesquels ? | Agents manquants ou à optimiser |
+| **skills/** | combien ? lesquelles ? | Skills manquantes |
+| **Plugins LSP** | installé pour ce langage ? | Plugin LSP à installer |
+| **Plugins workflow** | pertinents installés ? | Plugins à recommander |
+| **delegate-guard hook** | absent/présent | SYSTÉMATIQUE — créer si absent, adapter au langage |
+
+### 1. Découverte approfondie
 
 Si chemin local :
 
@@ -74,6 +148,30 @@ Mode : Optimisation | Création
 ### 🟢 Nice to have
 [composants]
 
+### ⚙️ Configuration, commandes & plugins
+Consulter le vault pour les tables de référence complètes :
+`vault/claude-forge/01-Claude-Code/best-practices/setup-project-complet.md`
+
+Recommander pour CE projet uniquement :
+
+#### Config settings.json
+- **Permissions** : adapter au stack détecté (permissions par langage → voir vault)
+- **Env vars** : si pertinent (NO_FLICKER, PROMPT_CACHING, AGENT_TEAMS)
+- **.mcp.json** : si services externes → checker dans git pour l'équipe
+- **additionalDirectories** : si multi-repo (+ chemins absolus dans hooks)
+
+#### Commandes CLI & slash commands
+- **Flags** : worktrees, headless CI, --agent, --from-pr (selon workflow)
+- **Session** : /compact, /clear, /simplify, /doctor, /batch, /loop, /schedule (selon besoins)
+- **Best practices Boris** : /clear entre tâches, /compact à 70%, "Document & Clear"
+
+#### Plugins (max 3-4, pas de bloat)
+- **LSP** : un seul, correspondant au langage principal
+- **Workflow** : commit-commands, frontend-design, security-guidance (si signal détecté)
+
+### 🔌 MCP Servers recommandés
+[Basé sur la matrice Phase 0 — ne lister que ceux pertinents]
+
 ### Automatisations récurrentes
 [uniquement si pertinent — ne pas forcer]
 
@@ -98,6 +196,21 @@ Mode : Optimisation | Création
 - Ne JAMAIS proposer d'agent orchestrateur/CTO — la session principale orchestre
 - Ne JAMAIS proposer d'agent doc — inutile, le CTO évalue, le dev met à jour
 - Ne JAMAIS pré-créer les fichiers que les agents généreront
+- TOUJOURS recommander un hook `delegate-guard` adapté au langage/agents du projet — voir vault `delegate-guard-pattern.md`
+
+### Règles cross-projet (OBLIGATOIRES — les rules forge ne s'appliquent pas aux projets externes)
+
+- **AVANT toute modification** : scanner la mémoire forge (`MEMORY.md`) pour les feedbacks pertinents au type de composant (skill → feedback_skill_*, agent → feedback_agent_*, etc.)
+- **AVANT de créer/modifier un composant** : interroger le vault forge-brain (`Knowledge/erreurs/`, `04-Techniques/`, `07-Prompts/`) pour les best practices et erreurs passées
+- **DÉLÉGATION OBLIGATOIRE** — INTERDICTION d'Edit/Write direct sur ces fichiers :
+  - Modifications de `SKILL.md` → dispatcher `skill-creator` avec le contexte complet
+  - Modifications de `agents/*.md` → dispatcher `agent-creator`
+  - Modifications de `CLAUDE.md` → dispatcher `claudemd-optimizer`
+  - Modifications de hooks → dispatcher `hook-creator`
+- **Charger la skill de référence forge** (`cc-skills-ref`, `cc-agents-ref`, `cc-hooks-ref`) AVANT de proposer des composants — ne jamais improviser le format
+- **Ne JAMAIS "improviser" le format** d'un composant — toujours vérifier le format canonique d'abord
+- **Si le projet cible n'a PAS `delegate-guard.py`** : rappeler à l'utilisateur de le déployer pour protéger le projet
+
 - UN fichier canonique par concept — pas de duplication entre skills et rules
 - Vérifier que db:generate/db:migrate ne sont pas dans les agents (DB immutable si applicable)
 
@@ -115,8 +228,11 @@ Chaque composant proposé dans le rapport DOIT prévoir :
 - Section **Apprentissage** — TOUJOURS pour skills métier
 - Section **Gotchas**
 
-**Rules :**
-- `routing.md` — TOUJOURS avec pipeline qualité (gates pre/post agent)
+**Rules (kit standard — voir vault `kit-rules-standard.md`) :**
+- `check-before-create.md` — TOUJOURS. Workflow : mémoire → refs → patterns → architect fast pass → implémenter → code-reviewer. Adapté aux agents DU PROJET.
+- `quality-gates.md` — TOUJOURS. Workflows concrets par type de tâche avec les agents du projet. Séquence minimale : architect → dev → test-writer → code-reviewer.
+- `learn-from-mistakes.md` — TOUJOURS. Sans `globs:` restrictifs.
+- `routing.md` / `agent-delegation.md` — TOUJOURS avec table de routage et architect-first
 - `conventions.md` — si le projet a des conventions spécifiques
 
 **Hooks :**
@@ -124,3 +240,4 @@ Chaque composant proposé dans le rapport DOIT prévoir :
 - Stop quality check — vérifier que les modifications ont été reviewées
 - Hooks dans le même langage que le projet (Python pour Python, TS pour TS, Python par défaut pour SQL/autre)
 - Chemins absolus si le projet utilise `additionalDirectories`
+- `delegate-guard` — FORGE UNIQUEMENT. Ne PAS déployer dans les autres repos (les agents spécialisés n'y existent pas). Les repos utilisent architect + code-reviewer via check-before-create.

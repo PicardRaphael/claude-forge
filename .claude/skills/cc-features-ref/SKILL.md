@@ -6,7 +6,7 @@ user-invokable: false
 
 # Fonctionnalités Claude Code 2026
 
-_Mise à jour : 17 avril 2026 (v2.1.112) — utiliser cc-news pour les nouveautés postérieures_
+_Mise à jour : 26 avril 2026 (v2.1.119) — utiliser cc-news pour les nouveautés postérieures_
 
 ## Slash Commands
 
@@ -37,6 +37,8 @@ _Mise à jour : 17 avril 2026 (v2.1.112) — utiliser cc-news pour les nouveaut�
 | `/recap`                     | Résumé de session au retour (v2.1.108) |
 | `/focus`                     | Focus view — remplace ancien Ctrl+O focus (v2.1.110) |
 | `/doctor`                    | Diagnostique MCP, alertes dupliqués cross-scopes (v2.1.110) |
+| `/usage`                     | Fusionne /cost + /stats — les deux restent comme alias (v2.1.119) |
+| `/theme`                     | Créer/switcher custom themes JSON dans ~/.claude/themes/ (v2.1.119) |
 
 ## /loop — La plus puissante
 
@@ -145,6 +147,14 @@ Subagents qui se communiquent directement via task board partagé.
 | Advisor Tool | Beta — Sonnet consulte Opus mid-generation, 1 seul appel API (9 avril) |
 | Claude for Word | Beta publique, sidebar native Mac + Windows (10 avril) |
 | MCP 500K chars | Tool result override jusqu'à 500K chars (v2.1.110) |
+| Auto Mode | Shift+Tab cycle Ask → Plan → Auto. Auto-approve via classifier ML (Opus 4.7, Max/Teams/Enterprise) |
+| Hooks MCP direct | `type: "mcp_tool"` — hooks invoquent outils MCP directement (v2.1.119) |
+| Custom Themes | Créer themes JSON dans ~/.claude/themes/, plugins peuvent shipper des themes (v2.1.119) |
+| /config persiste | Settings /config persistent dans ~/.claude/settings.json avec precedence override (v2.1.119) |
+| Fix Opus 4.7 context | Corrigé calcul 200K → 1M natif, plus de faux auto-compact (v2.1.119) |
+| DISABLE_UPDATES | Env var bloque tout update y compris claude update manuel (v2.1.119) |
+| WSL managed settings | wslInheritsWindowsSettings hérite settings Windows (v2.1.119) |
+| /fork optimisé | Écrit pointeur au lieu de copier toute la conversation (v2.1.119) |
 
 ## .claude/rules/ (v2.0.64+)
 
@@ -211,6 +221,7 @@ LSPs disponibles pour tous les langages majeurs.
 | `-p <prompt>`      | Mode headless                      |
 | `--channels`       | Relay approbation permissions vers mobile (v2.1.110) |
 | `--resume <name>`  | Reprend tâches planifiées non expirées (v2.1.110) |
+| `--console`        | Auth login pour Anthropic Console (API billing) (v2.1.119) |
 
 ## Hooks Boris en production
 

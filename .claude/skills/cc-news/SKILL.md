@@ -8,7 +8,7 @@ argument-hint: "fonctionnalité ou sujet à vérifier"
 
 # Vérificateur de Nouveautés Claude Code
 
-Date de référence du studio : **21 avril 2026** (v2.1.116)
+Date de référence du studio : **26 avril 2026** (v2.1.119)
 Tout ce qui est postérieur à cette date doit être recherché.
 
 ## Sources à consulter
@@ -62,6 +62,14 @@ Chercher : Claude Code deprecated OR breaking 2026
 Chercher : Claude Cowork update 2026
 Chercher : Claude Dispatch new features 2026
 Chercher : anthropic Agent Teams claude code 2026
+```
+
+### Plugins officiels Anthropic (obligatoire)
+```
+Vérifier version du plugin claude-code-setup :
+  Read("~/.claude/plugins/cache/claude-plugins-official/claude-code-setup/*/. claude-plugin/plugin.json")
+Si version > 1.0.0 → lire les changements et mettre à jour cc-advisor/references/mcp-catalog.md
+Chercher : site:github.com/anthropics claude-code-setup plugin update 2026
 ```
 
 ### Écosystème & frameworks (obligatoire)

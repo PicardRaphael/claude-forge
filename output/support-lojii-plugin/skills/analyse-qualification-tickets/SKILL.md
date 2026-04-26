@@ -11,13 +11,15 @@ Traitement end-to-end d'un ticket SC/SD : analyse fonctionnelle → réponse cli
 
 ## Configuration Jira
 
-| Champ | Valeur |
+Voir `../triage-tickets/config.json` pour les parametres partages.
+
+| Champ | Source |
 |-------|--------|
-| Cloud ID | 5e62fe26-500a-40c4-9222-d190203a79e0 |
+| Cloud ID | Variable config ou env |
 | Site | neoteem.atlassian.net |
-| Projets support | SC (Syndic), SD (Gérance) |
+| Projets support | SC (Syndic), SD (Gerance) |
 | Projet dev | N2 (NEOTEEM) |
-| Rapporteur (Valéry) | accountId: 5f74464dac3a2d006fd1ffd2 |
+| Rapporteur | accountId dans config |
 
 ### Custom fields du Module N2 (parent)
 

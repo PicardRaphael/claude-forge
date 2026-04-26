@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "obsidian-brain": {
+      "command": "python",
+      "args": ["-m", "src.server"],
+      "cwd": "C:/Users/valery.martirosyan_n/Downloads/mcp-obsidian-brain"
+    }
+  }
+}
