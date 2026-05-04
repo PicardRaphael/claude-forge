@@ -4,7 +4,7 @@ resume: "Index des modèles IA : Claude, GPT, Gemini, Grok — specs, benchmarks
 aliases:
   - "MOC Modeles"
 type: index
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-04
 auteur: claude
 tags:
   - "#type/index"
@@ -19,10 +19,12 @@ tags:
 - [[Opus 4.6]] — 1M context, current model
 - [[Sonnet 4.6]] — Fast, effort high obligatoire
 - [[Haiku 4.5]] — Rapide, léger
+- [[Claude Mythos Preview]] — SWE-bench 93.9%, zero-day autonome, Glasswing only
 
 ## GPT (OpenAI)
 
 - [[GPT-5.4]] — Dernier flagship
+- [[GPT-5.3 Codex]] — 25% plus rapide, computer use, agentic coding
 - [[GPT-5.3 Codex Spark]] — 1000+ tok/s (Cerebras)
 
 ## Gemini (Google)

@@ -5,7 +5,7 @@ aliases:
   - "MOC Claude Code"
   - "CC index"
 type: index
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-04
 auteur: claude
 tags:
   - "#type/index"
@@ -16,6 +16,12 @@ tags:
 
 ## Changelog
 
+- [[CC v2.1.126]] — Model picker gateway, project purge, PermissionDenied hook, PowerShell primary Windows (1er mai)
+- [[CC v2.1.123]] — Fix OAuth 401 loop (29 avril)
+- [[CC v2.1.122]] — Bedrock service tier, /resume PR URL (28 avril)
+- [[CC v2.1.121]] — alwaysLoad MCP, plugin prune, PostToolUse all tools, memory leaks (28 avril)
+- [[CC v2.1.120]] — Windows sans Git Bash, ultrareview CLI, ${CLAUDE_EFFORT} skills (25 avril)
+- [[CC v2.1.119]] — Auto Mode, hooks MCP, custom themes, /usage (23 avril)
 - [[CC v2.1.116]] — Resume 67% faster, agent hooks, thinking spinner (20 avril)
 - [[CC v2.1.113]] — Breaking: CLI natif binaire, sandbox security (17 avril)
 - [[CC v2.1.114]] — Fix Agent Teams permission dialog (18 avril)
@@ -35,6 +41,8 @@ tags:
 - [[Remote Control]]
 - [[Dynamic Loop]]
 - [[Plugin Marketplace]]
+- [[Computer Use CC]]
+- [[Claude Security]]
 
 ## Best Practices
 

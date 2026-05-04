@@ -4,7 +4,7 @@ resume: "Index des outils AI coding concurrents : Gemini CLI, Codex, Copilot, Cu
 aliases:
   - "MOC Concurrents"
 type: index
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-04
 auteur: claude
 tags:
   - "#type/index"
@@ -28,3 +28,5 @@ tags:
 - Multi-agent parallèle (tous)
 - YAML frontmatter agents (CC, Gemini CLI)
 - Plugin/MCP ecosystems (tous)
+- Usage-based billing (Copilot juin, Codex credits)
+- Security scanning integre (Claude Security, Cursor Security Review, Copilot security)

@@ -111,5 +111,5 @@ Apres chaque cc-news, capitaliser les decouvertes dans le vault forge-brain.
 
 ## Mise à jour
 
-Date de référence : **26 avril 2026** (CC v2.1.119)
+Date de référence : **4 mai 2026** (CC v2.1.126)
 Si information potentiellement datée → utiliser `cc-news` pour vérifier (vérifie Boris, Cat Wu, Lydia Hallie, Noah Zweben, Thariq, Jarred Sumner)
