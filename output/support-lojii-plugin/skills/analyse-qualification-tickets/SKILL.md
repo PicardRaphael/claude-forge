@@ -11,15 +11,13 @@ Traitement end-to-end d'un ticket SC/SD : analyse fonctionnelle → réponse cli
 
 ## Configuration Jira
 
-Voir `../triage-tickets/config.json` pour les parametres partages.
-
-| Champ | Source |
+| Champ | Valeur |
 |-------|--------|
-| Cloud ID | Variable config ou env |
+| Cloud ID | 5e62fe26-500a-40c4-9222-d190203a79e0 |
 | Site | neoteem.atlassian.net |
 | Projets support | SC (Syndic), SD (Gerance) |
 | Projet dev | N2 (NEOTEEM) |
-| Rapporteur | accountId dans config |
+| Rapporteur (Valery) | accountId: 5f74464dac3a2d006fd1ffd2 |
 
 ### Custom fields du Module N2 (parent)
 
@@ -70,6 +68,7 @@ Ajouter une ligne à chaque fois que Claude rate quelque chose.
 - **Description N2** : reprendre la description du ticket SC/SD source à l'identique dans le N2.
 - **Commentaire N2** : résumer tous les commentaires du SC/SD sur le N2 pour que le dev ait le contexte complet sans ouvrir le ticket support.
 - **Validation obligatoire** : toujours présenter la fiche N2 complète et attendre la confirmation de Valéry avant de créer.
+- **Message d'erreur descriptif ≠ bug** : si le message d'erreur décrit littéralement la situation (« ce numéro de facture existe déjà », « doublon », « format invalide », « champ obligatoire »), c'est une garde métier, pas un bug. TOUJOURS vérifier dans LOJII si le message dit vrai AVANT de classifier. Si la donnée existe réellement ou si la contrainte est effectivement violée → Voie B (Support : le client tente une action invalide), pas Voie A (Bug). Classer en Bug uniquement si le message est faux, trompeur ou si l'erreur apparaît à tort.
 
 ---
 
@@ -124,7 +123,7 @@ Si un N2 en cours sur le même symptôme est trouvé → appliquer le RACCOURCI.
 - **A2 — Sans N2 mais avec précédents** : pas de N2 en cours, mais des tickets SC/SD résolus ou des N2 clôturés existent sur le même symptôme → exploiter ces précédents pour proposer une solution ou un contournement connu. Indiquer la solution trouvée dans les anciens tickets (qui a répondu quoi, quelle correction a été apportée). Si le bug a été corrigé par le passé mais revient → signaler la régression et proposer la création d'un nouveau N2 en Phase 2.
 - **A3 — Sans N2 et sans précédent** : bug nouveau jamais vu → diagnostic, proposer la création d'un N2 en Phase 2, réponse client informant que c'est remonté à l'équipe technique.
 
-**VOIE B — Purement fonctionnel avec réponse connue** : Le vault neoteem-brain (`07-Support/`) ou les tickets résolus permettent de répondre avec certitude que c'est un comportement normal, une méconnaissance du logiciel ou une procédure documentée → donner **directement la réponse** avec les sources (note vault, tickets résolus). Ne PAS demander de vérifications dans LOJII. Ne PAS proposer de piste bug. Fournir l'explication claire + la réponse client prête à envoyer. Ne PAS passer en Phase 2.
+**VOIE B — Purement fonctionnel avec réponse connue** : Le vault neoteem-brain (`07-Support/`) ou les tickets résolus permettent de répondre avec certitude que c'est un comportement normal, une méconnaissance du logiciel ou une procédure documentée → donner **directement la réponse** avec les sources (note vault, tickets résolus). Inclure explicitement : les messages d’erreur applicatifs qui décrivent correctement la situation (doublon vérifié, contrainte valide, champ manquant) sont des comportements normaux = Voie B. Ne PAS demander de vérifications dans LOJII. Ne PAS proposer de piste bug. Fournir l'explication claire + la réponse client prête à envoyer. Ne PAS passer en Phase 2.
 
 **VOIE C — Doute entre bug et fonctionnel** : Les recherches ne permettent pas de trancher avec certitude → proposer **les deux pistes** côte à côte :
 - **Piste Bug** : pourquoi ça pourrait être un bug (symptômes suspects, tickets similaires non résolus, absence de N2 connu) + vérifications à faire pour confirmer + qualification N2 provisoire

@@ -4,7 +4,7 @@ resume: "Index des techniques : prompt engineering, context engineering, pattern
 aliases:
   - "MOC Techniques"
 type: index
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-04
 auteur: claude
 tags:
   - "#type/index"
@@ -28,6 +28,7 @@ tags:
 - [[Skills as Composability]] — Thariq, skills = couche composable
 - [[LLM Wiki]] — Karpathy, knowledge management plain text
 - [[Karpathy Dev Discipline]] — 4 principes coding (Simplicity, Surgical, Assumptions, Verifiable Steps)
+- [[config-guardian-pattern]] — Audit multi-repo 5 checks, corrections par stack, mémoire compounding Boris+Karpathy
 
 ## Anti-patterns
 
@@ -35,6 +36,12 @@ tags:
 - [[Over-Engineering]] — Abstraction prématurée
 - [[Drive-By Refactoring]] — Refacto non demandé
 
+
+## Neoteem Infrastructure
+
+- [[mcp-obsidian-brain-v2]] — MCP SQLite FTS5, remplace CLI Obsidian, VM serveur
+- [[SQLite FTS5 pour vault]] — Pattern : indexer un vault Obsidian dans SQLite FTS5
+- [[neoteem-brain-plugins]] — 5 plugins Cowork role-based (dev/admin/support)
 
 ## Configuration
 

@@ -13,8 +13,4 @@ Appliquer les patterns listés ici en priorité sur les définitions générales
 
 ## Apprentissages
 
-<!-- Les corrections seront ajoutées ici automatiquement lors des sessions /analyse -->
-<!-- Exemple :
-[2025-04-08] | SC-12345 | Bug → Support | Quand le client dit "je n'arrive pas à faire X", c'est du Support même si X ne fonctionne pas sur son écran — vérifier si X est censé fonctionner avant de classifier Bug
-[2025-04-09] | SD-6789 | Support → Service Request | Les demandes de correction d'IBAN sont toujours des Service Requests, même si le client formule ça comme une question
--->
+[2026-04-27] | (cas remonté par équipe) | Bug → Support | Message d'erreur "ce numéro de facture existe déjà" = garde métier, pas bug. La facture existait réellement en base. RÈGLE : quand le message d'erreur est descriptif (existe déjà, doublon, format invalide, champ obligatoire), TOUJOURS vérifier dans LOJII si le message dit vrai AVANT de classifier. Si vrai → Support (le client tente une action invalide), pas Bug.

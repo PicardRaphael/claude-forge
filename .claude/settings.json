@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(git *)",
-      "Bash(ls *)"
+      "Bash(git -C *)",
+      "Bash(ls *)",
+      "Bash(taskkill *)"
     ]
   },
   "hooks": {
@@ -11,8 +13,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "powershell -c \"[console]::beep(800,300)\"",
-            "timeout": 10
+            "command": "rundll32 user32.dll,MessageBeep",
+            "timeout": 2
           }
         ]
       }

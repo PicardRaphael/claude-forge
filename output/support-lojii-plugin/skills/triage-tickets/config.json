@@ -13,7 +13,5 @@
   ],
   "label_a_ajouter": "À_valider",
   "date_recherche_support": "2024-12-31",
-  "fallback_docx": true,
-  "cloud_id": "5e62fe26-500a-40c4-9222-d190203a79e0",
-  "rapporteur_account_id": "5f74464dac3a2d006fd1ffd2"
+  "fallback_docx": true
 }

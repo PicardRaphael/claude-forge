@@ -67,6 +67,7 @@ Ajouter une ligne à chaque fois que Claude rate quelque chose.
 - **issuetype + requestType + composant** — après classification, mettre à jour ces 3 champs via `editJiraIssue`. Voir `references/jira-field-mappings.md` pour les IDs.
 - **createIssueLink INTERDIT en batch** — ne jamais créer de liens Jira automatiquement. L'agent N1 contrôle le N2 et lie manuellement après vérification. Mentionner le N2 dans la note interne avec l'URL nue.
 - **Ne pas réaffecter** — conserver l'assigné actuel du ticket. Le batch ne touche pas à l'assignation.
+- **Message d'erreur descriptif ≠ Bug** — Un message du type "ce numéro de facture existe déjà", "doublon", "format invalide", "champ obligatoire manquant" est une **garde métier applicative** qui fonctionne correctement, pas un dysfonctionnement. Avant de classifier Bug, **vérifier dans LOJII si le message dit vrai** (ex : la facture existe-t-elle réellement ?). Si oui → **Support** (le client ne sait pas qu'il crée un doublon), pas Bug. Si la donnée n'existe pas alors que le message le prétend → Bug potentiel. Règle : erreur technique (crash, HTTP 500, données corrompues, écran blanc) = Bug probable. Erreur applicative descriptive (existe déjà, doublon, format invalide, champ obligatoire) = vérifier d'abord si le message dit vrai.
 
 ---
 
@@ -97,9 +98,11 @@ Si le vault contient une note `07-Support/procedures/proc-*` décrivant l'action
 
 En l'absence de match vault et de pattern `learnings.md`, utiliser ces définitions :
 
-**Bug** — LOJII se comporte anormalement. Erreur affichée, données incorrectes, fonctionnalité absente ou cassée, crash. Le logiciel ne fait pas ce qu'il est censé faire.
+**Bug** — LOJII se comporte anormalement. Distinguer deux catégories :
+- *Erreur technique* (crash, HTTP 500, données corrompues, écran blanc, fonctionnalité absente) → Bug probable.
+- *Erreur applicative descriptive* ("existe déjà", "doublon", "format invalide", "champ obligatoire") → **vérifier d'abord dans LOJII si le message dit vrai**. Si la donnée problématique existe réellement → la garde métier fonctionne correctement = **Support**, pas Bug. Si la donnée n'existe pas alors que le message le prétend → Bug potentiel.
 
-**Support** — Le client ne sait pas comment utiliser LOJII. Le logiciel fonctionne correctement. Question d'usage, demande d'explication, méconnaissance d'une fonctionnalité.
+**Support** — Le client ne sait pas comment utiliser LOJII. Le logiciel fonctionne correctement. Question d'usage, demande d'explication, méconnaissance d'une fonctionnalité. Inclut les cas où un message d'erreur applicatif est correct et le client a fait une erreur de saisie.
 
 **Service Request** — Action à réaliser sur les données ou la configuration. Correction ponctuelle, extraction, paramétrage. Ni un bug, ni une question d'usage. Consulter `references/service-request-rules.md` pour déterminer si le support peut intervenir directement.
 

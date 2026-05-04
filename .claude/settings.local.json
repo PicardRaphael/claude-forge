@@ -4,6 +4,7 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(git push *)",
+      "Bash(git push)",
       "Bash(python *)",
       "Bash(npm *)",
       "Bash(bun *)",
@@ -37,7 +38,10 @@
       "WebFetch(domain:findskill.ai)",
       "WebFetch(domain:publish.twitter.com)",
       "Skill(update-config)",
-      "Bash(cd C:/Users/raphael.picard_neote/Documents/neot-v2/*)"
+      "Bash(cd C:/Users/raphael.picard_neote/Documents/neot-v2/*)",
+      "Bash(cd \"C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-brain\" && git *)",
+      "Bash(taskkill *)",
+      "Bash(git -C *)"
     ]
   }
 }

@@ -100,7 +100,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 299.5
   },
   "right": {
     "id": "147cc1b9ba4dc698",
@@ -205,8 +205,29 @@
       "bases:Créer une nouvelle base": false
     }
   },
-  "active": "6de73b139036c01a",
+  "active": "1174f529d8bd7a8b",
   "lastOpenFiles": [
+    "04-Techniques/config-guardian-pattern.md",
+    "00-Hub/MOC-Industrie.md.tmp.8356.1777872770660",
+    "00-Hub/MOC-Industrie.md.tmp.8356.1777872767215",
+    "00-Hub/MOC-Modeles.md.tmp.8356.1777872766268",
+    "00-Hub/MOC-Modeles.md.tmp.8356.1777872762987",
+    "06-Industrie/Code with Claude Conference.md",
+    "06-Industrie/Code with Claude Conference.md.tmp.8356.1777872754649",
+    "01-Claude-Code/features/Computer Use CC.md",
+    "01-Claude-Code/features/Computer Use CC.md.tmp.8356.1777872745695",
+    "01-Claude-Code/features/Claude Security.md",
+    "01-Claude-Code/features/Claude Security.md.tmp.8356.1777872735451",
+    "03-Modeles/anthropic/Claude Mythos Preview.md",
+    "03-Modeles/anthropic",
+    "01-Claude-Code/changelog/CC v2.1.126.md",
+    "04-Techniques/neoteem-brain-plugins.md",
+    "04-Techniques/sqlite-fts5-vault.md",
+    "04-Techniques/mcp-obsidian-brain-v2.md",
+    "01-Claude-Code/changelog/CC v2.1.123.md",
+    "01-Claude-Code/changelog/CC v2.1.122.md",
+    "01-Claude-Code/changelog/CC v2.1.121.md",
+    "01-Claude-Code/changelog/CC v2.1.120.md",
     "01-Claude-Code/best-practices/kit-rules-standard.md",
     "01-Claude-Code/best-practices/delegate-guard-pattern.md",
     "01-Claude-Code/best-practices/delegate-guard-pattern.md.tmp.21056.1777198757140",
@@ -221,27 +242,6 @@
     "Bienvenue.md",
     "01-Claude-Code/agents/Agent — skill-creator.md",
     "01-Claude-Code/agents/Agent — self-updater.md",
-    "01-Claude-Code/agents/Agent — project-auditor.md",
-    "01-Claude-Code/agents/Agent — project-analyzer.md",
-    "01-Claude-Code/agents/Agent — hook-creator.md",
-    "01-Claude-Code/agents/Agent — claudemd-optimizer.md",
-    "01-Claude-Code/agents/Agent — agent-creator.md",
-    "Templates/agent.md",
-    "Templates/erreur.md",
-    "Knowledge/erreurs",
-    "07-Prompts/system-prompts/System Prompt Claude Code.md",
-    "07-Prompts/system-prompts/System Prompt Amanda Askell.md",
-    "00-Hub/MOC-Prompts.md",
-    "Templates/prompt.md",
-    "Templates/prompt.md.tmp.7556.1776751672340",
-    "07-Prompts/templates-prompts",
-    "07-Prompts/system-prompts",
-    "07-Prompts/skill-prompts",
-    "07-Prompts/agent-prompts",
-    "07-Prompts",
-    "01-Claude-Code/features/Deprecation budget_tokens.md",
-    "01-Claude-Code/features/Deprecation 1M Context Beta.md",
-    "01-Claude-Code/changelog/CC v2.1.114.md.tmp.7556.1776751276031",
-    "01-Claude-Code/changelog/CC v2.1.116.md.tmp.7556.1776751261949"
+    "Knowledge/erreurs"
   ]
 }
