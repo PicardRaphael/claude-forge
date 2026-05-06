@@ -39,6 +39,28 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/vault-query-guard.py\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Read|Grep|Glob|Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/vault-query-tracker.py\"",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "SessionStart": [

@@ -29,6 +29,8 @@ tags:
 - [[LLM Wiki]] — Karpathy, knowledge management plain text
 - [[Karpathy Dev Discipline]] — 4 principes coding (Simplicity, Surgical, Assumptions, Verifiable Steps)
 - [[config-guardian-pattern]] — Audit multi-repo 5 checks, corrections par stack, mémoire compounding Boris+Karpathy
+- [[agentic-engineering-karpathy]] — Framework Karpathy : Software 3.0, vibe coding vs agentic engineering, jagged intelligence
+- [[pattern-agentic-engineering]] — Checklist deploiement agentic engineering sur projet Neoteem
 
 ## Anti-patterns
 
