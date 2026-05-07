@@ -1,3 +1,7 @@
+---
+description: "Mandatory 5-step checklist before any create/modify: memory, vault, references, forge skill, delegate to specialist"
+---
+
 # Verifier AVANT de creer ou modifier — OBLIGATOIRE
 
 Avant toute creation ou modification de composant (skill, agent, hook, rule, prompt), executer ce checklist dans l'ordre. AUCUNE EXCEPTION, meme si "c'est juste un petit changement".

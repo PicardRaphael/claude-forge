@@ -31,6 +31,7 @@ tags:
 - [[config-guardian-pattern]] — Audit multi-repo 5 checks, corrections par stack, mémoire compounding Boris+Karpathy
 - [[agentic-engineering-karpathy]] — Framework Karpathy : Software 3.0, vibe coding vs agentic engineering, jagged intelligence
 - [[pattern-agentic-engineering]] — Checklist deploiement agentic engineering sur projet Neoteem
+- [[pattern-vault-query-guard]] — Hook deterministe : agents DOIVENT consulter vault avant d'ecrire
 
 ## Anti-patterns
 

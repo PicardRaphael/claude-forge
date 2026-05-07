@@ -15,11 +15,11 @@ agent: opus
 
 Utilise tes outils pour collecter ces informations sur le chemin `$ARGUMENTS` :
 
-1. **Structure** : `Glob` avec `$ARGUMENTS/**/*` (maxdepth 3) pour lister les fichiers clés (*.py, *.ts, *.js, package.json, pyproject.toml, Cargo.toml, go.mod)
-2. **CLAUDE.md** : `Read` le fichier `$ARGUMENTS/CLAUDE.md` s'il existe
-3. **Agents** : `Glob` avec `$ARGUMENTS/.claude/agents/*.md`
-4. **Skills** : `Glob` avec `$ARGUMENTS/.claude/skills/*/SKILL.md`
-5. **Hooks/Settings** : `Read` le fichier `$ARGUMENTS/.claude/settings.json` s'il existe
+1. **Structure** : `Glob` avec $ARGUMENTS/**/* (maxdepth 3) pour lister les fichiers clés (*.py, *.ts, *.js, package.json, pyproject.toml, Cargo.toml, go.mod)
+2. **CLAUDE.md** : `Read` le fichier $ARGUMENTS/CLAUDE.md s'il existe
+3. **Agents** : `Glob` avec $ARGUMENTS/.claude/agents/*.md
+4. **Skills** : `Glob` avec $ARGUMENTS/.claude/skills/*/SKILL.md
+5. **Hooks/Settings** : `Read` le fichier $ARGUMENTS/.claude/settings.json s'il existe
 6. **Git** : `Bash` avec `git -C <path> log --oneline -5`
 
 Lance les lectures en parallèle quand possible.

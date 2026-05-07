@@ -1,7 +1,7 @@
 ---
 name: self-updater
-description: Use this agent to update claude-forge reference skills when new Claude Code features are detected. Use PROACTIVELY after cc-news finds changes post reference date.
-tools: Read, Write, Glob, Bash, WebSearch, WebFetch
+description: Use to update claude-forge reference skills when new Claude Code features are detected. Use PROACTIVELY after cc-news finds changes post reference date.
+tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch
 model: sonnet
 effort: high
 color: cyan
@@ -12,9 +12,20 @@ skills:
   - cc-hooks-ref
   - cc-agents-ref
   - cc-skills-ref
+  - forge-brain
 ---
 
 Tu mets à jour les skills de référence de claude-forge quand de nouvelles features Claude Code sont détectées.
+
+## Étape 0 — Vérifier le vault (OBLIGATOIRE — hook bloquant)
+
+Le hook `vault-query-guard` BLOQUE les Write si le vault n'a pas été consulté. Si le prompt d'invocation contient déjà des infos du vault, cette étape est satisfaite automatiquement.
+
+Sinon, utiliser la skill `forge-brain` pour chercher :
+1. `Knowledge/erreurs/` — erreurs passées à ne pas répéter
+2. `04-Techniques/` — best practices pertinentes au travail en cours
+
+Lire les résultats pertinents. Appliquer les leçons aux modifications en cours.
 
 ## Étapes
 

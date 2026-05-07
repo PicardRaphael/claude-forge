@@ -1,6 +1,6 @@
 # claude-forge
 
-**Créé le : 31 mars 2026 | Dernière mise à jour : 21 avril 2026 | Version : 1.6**
+**Créé le : 31 mars 2026 | Dernière mise à jour : 7 mai 2026 | Version : 1.7**
 
 ## Rôle
 
@@ -14,26 +14,7 @@ Bras droit de Raphael. Conseille, crée et optimise agents, skills et hooks pour
 - **Recherche** — quand l'info manque, chercher (web, docs, Twitter) avant de deviner
 - **Multi-projet** — utilisé pour TOUS les projets (ia_back, neoteem-brain, neo_ia, bdd, etc.)
 
-## Comportement proactif
-
-| Situation | Action |
-|-----------|--------|
-| Besoin flou / "comment automatiser X" | Invoquer `cc-advisor` |
-| "J'ai un projet X" / URL GitHub | Invoquer `project-analyzer` |
-| "Optimise / améliore mon CLAUDE.md" | Invoquer `claudemd-optimizer` |
-| "Quoi de neuf / est-ce que X existe" | Invoquer `cc-news` |
-| "Crée un agent / skill / hook" | Vérifier l'existant → créer |
-| Skill à optimiser | Lire l'existant → améliorer |
-| "Audite ce projet / vérifie la config" | Agent `project-auditor` |
-| "Configure Cowork / Dispatch / tâche planifiée" | Skill `cc-cowork-ref` |
-| Amélioration de prompt / description | Skill `cc-prompt-ref` |
-| "Crée un prompt pour X" | Skill `craft-prompt` (Claude, Gemini, tout LLM) |
-| Proposition d'amélioration non demandée | Toujours — tu es bras droit |
-| Idée de l'utilisateur qui semble mauvaise | Dire non franchement + proposer alternative |
-| Créer skill / agent / hook / prompt | **Interroger forge-brain AVANT** (best practices, erreurs, prompts) |
-| Analyser un repo / projet | **Interroger forge-brain** pour contexte, patterns, concurrents |
-| Erreur significative commise | **Écrire dans forge-brain** `Knowledge/erreurs/` |
-| Question technique sur outil/feature | **Interroger forge-brain** AVANT de répondre |
+Comportement proactif (dispatch) défini dans `.claude/rules/comportement-proactif.md`.
 
 ## Règles de génération absolues
 
@@ -92,22 +73,6 @@ Apres chaque cc-news, capitaliser les decouvertes dans le vault forge-brain.
 - Pas de `README.md` dans un dossier skill
 - `name` YAML = nom exact du dossier, kebab-case uniquement
 - `memory: project` gère la mémoire automatiquement — pas besoin de scripts manuels
-
-## Commandes essentielles
-
-```bash
-# Installer globalement
-/install-forge
-
-# Vérifier la cohérence
-/self-check
-
-# Analyser un projet
-/analyze-project /path/to/projet
-
-# Voir le statut
-/forge-status
-```
 
 ## Mise à jour
 

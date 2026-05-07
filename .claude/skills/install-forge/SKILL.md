@@ -24,7 +24,7 @@ Pour chaque fichier dans `.claude/agents/` et `.claude/skills/`, vérifier s'il 
 
 ### 3. Dry-run check
 
-Si `$ARGUMENTS` contient `--dry-run` : s'arrêter ici et afficher un résumé de ce qui serait copié/mis à jour.
+Si $ARGUMENTS contient `--dry-run` : s'arrêter ici et afficher un résumé de ce qui serait copié/mis à jour.
 
 ### 4. Copie
 

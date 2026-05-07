@@ -18,7 +18,7 @@ C’est de la prospection : que manque-t-il pour que ce projet soit meilleur ?
 
 ## Validation préalable
 
-Vérifier que `$ARGUMENTS` est fourni et que le chemin existe.
+Vérifier que $ARGUMENTS est fourni et que le chemin existe.
 
 Si le chemin est absent ou invalide, afficher :
 

@@ -69,6 +69,7 @@ Ajouter une ligne à chaque fois que Claude rate quelque chose.
 - **Commentaire N2** : résumer tous les commentaires du SC/SD sur le N2 pour que le dev ait le contexte complet sans ouvrir le ticket support.
 - **Validation obligatoire** : toujours présenter la fiche N2 complète et attendre la confirmation de Valéry avant de créer.
 - **Message d'erreur descriptif ≠ bug** : si le message d'erreur décrit littéralement la situation (« ce numéro de facture existe déjà », « doublon », « format invalide », « champ obligatoire »), c'est une garde métier, pas un bug. TOUJOURS vérifier dans LOJII si le message dit vrai AVANT de classifier. Si la donnée existe réellement ou si la contrainte est effectivement violée → Voie B (Support : le client tente une action invalide), pas Voie A (Bug). Classer en Bug uniquement si le message est faux, trompeur ou si l'erreur apparaît à tort.
+- **Ne JAMAIS sauter la lecture des PJ** : les clients décrivent souvent mal leur problème — la capture d'écran montre le vrai contexte (écran, message d'erreur, données). Toujours appeler `get_attachment_content` sur chaque PJ avant de commencer l'analyse. Une PJ non lue = un diagnostic potentiellement faux.
 
 ---
 
@@ -85,13 +86,22 @@ Produire directement :
 
 ## PHASE 1 — Analyse fonctionnelle
 
-### Étape 1 — Récupérer le ticket
+### Étape 1 — Récupérer le ticket + lire TOUTES les pièces jointes
 
 Appeler `getJiraIssue` avec les champs : `summary, description, status, issuetype, priority, created, issuelinks, comment, assignee, attachment`.
 
 Identifier : client, symptôme exact, pièces jointes, commentaires existants, N2 déjà liés.
 
-Si le ticket a des captures d'écran ou des vidéos → utiliser `get_attachment_content` (MCP JIRA) pour lire les PJ et affiner le diagnostic. Les images aident souvent à trancher entre Bug et Support.
+⚠️ **LECTURE DES PJ OBLIGATOIRE** : Appeler `get_attachment_content` sur **chaque pièce jointe** du ticket (images, PDF, vidéos). Ne JAMAIS se fier uniquement à la description textuelle — les captures d'écran montrent souvent l'écran exact, le message d'erreur réel, ou le contexte que le client n'a pas su décrire. Les PJ sont la source d'information la plus fiable pour comprendre le problème et trancher entre Bug et Support.
+
+Ordre de lecture :
+1. D'abord les images (captures d'écran) — information visuelle immédiate
+2. Puis les PDF (documents, exports) — contexte complémentaire
+3. Puis les vidéos si disponibles — reproduction du problème
+
+Résumer ce que chaque PJ apporte au diagnostic dans la section « 📎 PJ analysées » de la fiche de sortie.
+
+Si le ticket n'a aucune PJ → le noter, c'est un critère pour l'étape 1bis (qualité de la demande).
 
 ### Étape 1bis — Vérifier la qualité de la demande
 
@@ -324,6 +334,11 @@ Si BLOQUANT : rappeler les règles d'escalade (relance dev à 24h si pas EN COUR
 ```
 📋 ANALYSE DU TICKET [SC/SD-XXXXX]
 
+📎 PJ analysées :
+- [nom_fichier.png] : [ce que la capture montre — écran, message d'erreur, données visibles]
+- [nom_fichier.pdf] : [contenu pertinent extrait]
+- (ou « Aucune PJ sur ce ticket »)
+
 🔍 Diagnostic :
 - Client : [nom]
 - Problème : [résumé clair du symptôme]
@@ -333,6 +348,7 @@ Si BLOQUANT : rappeler les règles d'escalade (relance dev à 24h si pas EN COUR
 - Sources : [notes vault utilisées, tickets résolus si fallback utilisé]
 
 🔧 Vérifications à faire dans LOJII :
+[OBLIGATOIRE — toujours inclure des étapes concrètes, numérotées, spécifiques au ticket]
 [Voie A1] Aucune — bug confirmé, N2 en cours.
 [Voie A2] Aucune ou minimales — solution/contournement trouvé dans les précédents : [tickets sources, solution appliquée]
 [Voie A3] Étapes de reproduction : [étapes précises pour confirmer et documenter le bug]

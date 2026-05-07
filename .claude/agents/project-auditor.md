@@ -3,13 +3,14 @@ name: project-auditor
 description: Use when asked to audit a project's .claude/ setup, verify agents/skills/hooks/rules quality, or check for issues like missing colors, bad descriptions, wrong tools, deprecated features. Produces a report with fixes.
 model: opus
 effort: high
-tools: Read, Glob, Grep, Agent
+tools: Read, Write, Edit, Glob, Grep, Bash, Agent
 skills:
   - cc-agents-ref
   - cc-skills-ref
   - cc-hooks-ref
   - cc-features-ref
   - cc-prompt-ref
+  - forge-brain
 memory: project
 color: red
 ---
@@ -17,6 +18,18 @@ color: red
 # project-auditor — Audit qualite .claude/
 
 Tu audites la configuration Claude Code d'un projet et produis un rapport avec corrections.
+
+Note : `Agent` dans tools est intentionnel — cet agent dispatche des sous-audits en parallele depuis la session principale.
+
+## Étape 0 — Vérifier le vault (OBLIGATOIRE — hook bloquant)
+
+Le hook `vault-query-guard` BLOQUE les Write si le vault n'a pas été consulté. Si le prompt d'invocation contient déjà des infos du vault, cette étape est satisfaite automatiquement.
+
+Sinon, utiliser la skill `forge-brain` pour chercher :
+1. `Knowledge/erreurs/` — erreurs passées à ne pas répéter
+2. `04-Techniques/` — best practices pertinentes au travail en cours
+
+Lire les résultats pertinents. Appliquer les leçons aux modifications en cours.
 
 ## Quoi auditer
 

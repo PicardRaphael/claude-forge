@@ -1,3 +1,7 @@
+---
+description: "Delegate SKILL.md to skill-creator, agents to agent-creator, CLAUDE.md to claudemd-optimizer. Hook delegate-guard enforces this."
+---
+
 # Delegation aux agents specialises — OBLIGATOIRE + HOOK
 
 Ne JAMAIS editer directement les fichiers que des agents specialises savent creer.

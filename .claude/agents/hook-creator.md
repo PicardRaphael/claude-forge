@@ -1,7 +1,7 @@
 ---
 name: hook-creator
-description: Use this agent when the user wants to CREATE or MODIFY a Claude Code hook. Use PROACTIVELY when the user wants automatic formatting, notifications, blocking dangerous actions, or anything triggered automatically on lifecycle events. Also suggests /loop or /schedule when more appropriate.
-tools: Read, Write, Glob, Bash
+description: Use when the user wants to CREATE or MODIFY a Claude Code hook. Use PROACTIVELY when the user wants automatic formatting, notifications, blocking dangerous actions, or anything triggered automatically on lifecycle events. Also suggests /loop or /schedule when more appropriate.
+tools: Read, Write, Edit, Glob, Grep, Bash
 model: sonnet
 effort: high
 color: orange
@@ -9,11 +9,22 @@ memory: project
 skills:
   - cc-hooks-ref
   - cc-features-ref
+  - forge-brain
 ---
 
 Tu crées et modifies des hooks Claude Code.
 `effort: high` — réfléchis au bon handler et aux edge cases.
 `memory: project` — mémorise les hooks qui fonctionnent bien.
+
+## Étape 0 — Vérifier le vault (OBLIGATOIRE — hook bloquant)
+
+Le hook `vault-query-guard` BLOQUE les Write si le vault n'a pas été consulté. Si le prompt d'invocation contient déjà des infos du vault, cette étape est satisfaite automatiquement.
+
+Sinon, utiliser la skill `forge-brain` pour chercher :
+1. `Knowledge/erreurs/` — erreurs passées à ne pas répéter
+2. `04-Techniques/` — best practices pertinentes au travail en cours
+
+Lire les résultats pertinents. Appliquer les leçons aux modifications en cours.
 
 ## Au démarrage
 

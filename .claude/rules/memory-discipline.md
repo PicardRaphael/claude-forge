@@ -1,3 +1,7 @@
+---
+description: "Scan memory feedbacks before starting tasks, update memory after significant sessions"
+---
+
 # Discipline memoire — OBLIGATOIRE
 
 ## En debut de tache

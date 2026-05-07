@@ -10,10 +10,13 @@ Protected target paths (any of these substrings in the normalized file_path):
   .claude/agents/ — forge agents
 
 Guard logic:
-  1. If file_path is NOT in a protected path  → exit 0 (don't interfere)
-  2. If CLAUDE_AGENT is a specialist          → exit 0 (bypass)
-  3. If marker file exists and is < 60 min old → exit 0 (vault queried recently)
-  4. Otherwise                                → exit 2 (BLOCK)
+  1. If file_path is NOT in a protected path    → exit 0 (don't interfere)
+  2. If marker file exists and is < 60 min old  → exit 0 (vault queried recently)
+  3. Otherwise                                  → exit 2 (BLOCK)
+
+There is NO specialist bypass. All agents (skill-creator, agent-creator, etc.) must
+query vault/ or memory/ before writing to protected paths. If blocked, query the vault
+then retry.
 
 The marker file is written by vault-query-tracker.py when a Read/Grep/Glob/Skill
 targets vault/ or memory/ paths.
@@ -37,16 +40,6 @@ PROTECTED_PATH_FRAGMENTS = [
     ".claude/agents/",
 ]
 
-# Specialist agents that have already done the research
-SPECIALIST_AGENTS = {
-    "skill-creator",
-    "agent-creator",
-    "hook-creator",
-    "claudemd-optimizer",
-    "project-analyzer",
-    "project-auditor",
-}
-
 MARKER_MAX_AGE_MINUTES = 60
 
 
@@ -57,12 +50,6 @@ def normalize(path: str) -> str:
 
 def is_protected_path(norm_path: str) -> bool:
     return any(fragment in norm_path for fragment in PROTECTED_PATH_FRAGMENTS)
-
-
-def specialist_bypass_active() -> bool:
-    """Return True if we are running inside a specialist agent session."""
-    claude_agent = os.environ.get("CLAUDE_AGENT", "")
-    return claude_agent in SPECIALIST_AGENTS
 
 
 def marker_is_fresh() -> bool:
@@ -90,11 +77,12 @@ def block(file_path: str) -> None:
     print(
         f"BLOCKED: Write to '{filename}' requires querying forge-brain or memory first.\n"
         f"File: {file_path}\n"
-        f"Before creating vault notes, skills, agents, or output files, you MUST:\n"
-        f"  1. Read or search vault/ (Knowledge/erreurs/, 04-Techniques/, 07-Prompts/)\n"
-        f"  2. Or invoke the /forge-brain skill\n"
-        f"  3. Or read relevant memory/ files\n"
-        f"Then retry this write.",
+        f"You MUST query the vault or memory BEFORE writing to protected paths:\n"
+        f"  1. Read vault/ files (Knowledge/erreurs/, 04-Techniques/, 07-Prompts/)\n"
+        f"  2. Or search vault/ with Grep/Glob\n"
+        f"  3. Or invoke the /forge-brain skill\n"
+        f"  4. Or read memory/ files\n"
+        f"This applies to ALL agents, including specialists. Query first, then retry.",
         file=sys.stderr,
     )
     sys.exit(2)
@@ -120,15 +108,11 @@ def main() -> None:
         if not is_protected_path(norm_path):
             sys.exit(0)
 
-        # Step 2: specialist agent bypass
-        if specialist_bypass_active():
-            sys.exit(0)
-
-        # Step 3: vault was queried recently
+        # Step 2: vault was queried recently
         if marker_is_fresh():
             sys.exit(0)
 
-        # Step 4: block
+        # Step 3: block
         block(file_path)
 
     except SystemExit:
