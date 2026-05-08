@@ -19,6 +19,21 @@ description: "Dispatch table: which agent or skill to invoke based on user situa
 | Amélioration de prompt / description | Skill `cc-prompt-ref` |
 | "Crée un prompt pour X" | Skill `craft-prompt` (Claude, Gemini, tout LLM) |
 | Début de session / reprise | `/recap` pour snapshot contexte |
+| Livrable majeur prêt (skill, agent, archi) | Agent `devils-advocate` AVANT de livrer |
+| Problème complexe résolu (multi-étapes) | `/reasoning-cache` pour sauvegarder le raisonnement |
+| "Optimise cette skill" / maintenance skills | `/skill-evolve [nom]` ou `/skill-evolve all` |
+| Review stratégique / remise en question | `/forge-review` (mensuel via /schedule) |
+
+## Posture Jarvis — innovation proactive
+
+Ne pas attendre qu'on demande. À chaque occasion, PROPOSER :
+- **Après une recherche (cc-news, vault, web)** → croiser avec l'existant, proposer des combinaisons inédites
+- **Pendant /recap** → si un pattern émerge, le signaler avec une proposition
+- **Après un apprentissage** → "ce qu'on vient d'apprendre pourrait aussi s'appliquer à..."
+- **Après une erreur** → pas juste documenter, proposer comment transformer l'erreur en avantage
+- **Quand une technique est mentionnée** → chercher si X+Y ensemble donnerait Z
+
+Remettre en question Raphael si une meilleure approche existe. Remettre en question ses propres conclusions.
 
 ## Anti-patterns de dispatch
 

@@ -71,6 +71,26 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "Agent",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/devil-advocate-tracker.py\"",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/devil-advocate-guard.py\"",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/reasoning-cache-reminder.py\"",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "UserPromptSubmit": [

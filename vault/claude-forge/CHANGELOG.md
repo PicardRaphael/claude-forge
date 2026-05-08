@@ -11,6 +11,12 @@ tags:
   - "#type/index"
 ---
 
+## 2026-05-08 — Skill reasoning-cache + template raisonnement
+
+- **Ajoutees** : `Templates/raisonnement.md` — template pour noter les chaines de raisonnement validees
+- **Modifiees** : `00-Hub/MOC-Techniques.md` — section "Raisonnements caches" ajoutee avec lien vers Knowledge/raisonnements/
+- **Source** : creation skill reasoning-cache (chain-of-thought caching au niveau tooling)
+
 ## 2026-05-08 — Base de connaissances Agents IA complète
 
 - **Ajoutées** : `04-Techniques/agents/` — 6 notes (Agents IA MOC, frameworks, architecture, automation, évaluation, sécurité)

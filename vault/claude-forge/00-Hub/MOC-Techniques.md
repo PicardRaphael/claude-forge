@@ -1,12 +1,12 @@
 ---
-titre: "MOC — Techniques"
+titre: MOC — Techniques
 resume: "Index des techniques : prompt engineering, context engineering, patterns, anti-patterns"
 aliases:
-  - "MOC Techniques"
-  - "index techniques"
-  - "techniques CC"
-  - "patterns Claude Code"
-  - "prompt engineering techniques"
+  - MOC Techniques
+  - index techniques
+  - techniques CC
+  - patterns Claude Code
+  - prompt engineering techniques
 type: index
 derniere-maj: 2026-05-08
 auteur: claude
@@ -52,6 +52,10 @@ tags:
 - [[Drive-By Refactoring]] — Refacto non demandé
 - [[erreur-pipeline-advisory-sans-hooks]] — Rules advisory ignorees, hooks marker+guard obligatoires (3 iterations)
 
+
+## Raisonnements caches
+
+- `Knowledge/raisonnements/` — Chaines de raisonnement validees, indexees par type de probleme (skill `/reasoning-cache`)
 
 ## Neoteem Infrastructure
 

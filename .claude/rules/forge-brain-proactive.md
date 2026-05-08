@@ -75,6 +75,23 @@ Fallback Read/Glob/Grep si Obsidian est fermé (pre-check échoue).
 | Synthèse d'analyse | `Knowledge/syntheses/` | knowledge |
 | Question technique résolue | `Knowledge/questions/` | knowledge |
 | Exploration technique | `Knowledge/explorations/` | knowledge |
+| Raisonnement réussi (multi-étapes) | `Knowledge/raisonnements/` | raisonnement |
+| Critique adversariale (devil's advocate) | `Knowledge/critiques/` | critique |
+| Évolution de skill proposée | `Knowledge/evolutions/` | evolution |
+| Review stratégique forge | `Knowledge/reviews/` | review |
+
+## Cycle d'apprentissage vault (Jarvis)
+
+Le vault n'est pas qu'une base de connaissances — c'est le système nerveux de forge. Chaque agent y lit ET y écrit.
+
+| Agent/Skill | Lit dans | Écrit dans |
+|-------------|----------|------------|
+| `devils-advocate` | `Knowledge/erreurs/`, `Knowledge/critiques/` | `Knowledge/critiques/` |
+| `reasoning-cache` | `Knowledge/raisonnements/` (prior art) | `Knowledge/raisonnements/` |
+| `skill-evolve` | Skills + `Knowledge/evolutions/` + mémoire | `Knowledge/evolutions/` |
+| `forge-review` | CLAUDE.md + rules + skills + agents | `Knowledge/reviews/` |
+
+Pas de Langfuse, pas d'outil externe. Le vault = single source of truth pour l'apprentissage.
 
 ## Vault path
 

@@ -14,6 +14,8 @@ Ne JAMAIS editer directement les fichiers que des agents specialises savent cree
 | Creer/modifier un agent (.md dans agents/) | `agent-creator` | Oui — exit 2 |
 | Creer/modifier un hook | `hook-creator` | Non — mais rule s'applique |
 | Optimiser un CLAUDE.md | `claudemd-optimizer` | Oui — exit 2 |
+| Critiquer un livrable majeur | `devils-advocate` | Non — mais rule s'applique |
+| Évoluer/optimiser une skill | `/skill-evolve` → `skill-creator` | Oui (skill-creator) |
 
 ## Exceptions (le hook les connait)
 
