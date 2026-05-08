@@ -5,13 +5,14 @@ aliases:
   - vault search scope filter
   - aucune note vault faux négatif
   - neo-brain-support search bug
-tags:
-  - erreur
-  - neo-brain
-  - skills
-  - vault
+  - "recherche vault filtre mental"
+  - "faux negatif recherche obsidian"
+type: erreur
+auteur: claude
 derniere-maj: 2026-04-23
-severity: haute
+tags:
+  - "#type/erreur"
+  - "#domaine/claude-code"
 ---
 
 # Erreur : recherche vault filtrée mentalement par dossier

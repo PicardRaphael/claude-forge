@@ -3,9 +3,14 @@ titre: "MOC — Industrie IA"
 resume: "Index industrie : market, funding, événements, tendances, incidents"
 aliases:
   - "MOC Industrie"
+  - "index industrie"
+  - "industrie IA"
+  - "market IA"
+  - "funding AI startups"
 type: index
-derniere-maj: 2026-05-04
+derniere-maj: 2026-05-08
 auteur: claude
+sources: []
 tags:
   - "#type/index"
   - "#domaine/industrie"

@@ -1,7 +1,15 @@
 ---
 titre: "Claude Code v2.1.111 — Opus 4.7"
 resume: "Opus 4.7 + xhigh effort + auto mode sans flag + /ultrareview + /effort slider"
-aliases: ["v2.1.111", "2.1.111"]
+aliases:
+  - "v2.1.111"
+  - "2.1.111"
+  - "CC 2.1.111"
+  - "Opus 4.7 release"
+  - "auto mode"
+  - "ultrareview"
+  - "effort xhigh"
+  - "slider effort CC"
 domaine: claude-code
 type: changelog
 derniere-maj: 2026-04-21

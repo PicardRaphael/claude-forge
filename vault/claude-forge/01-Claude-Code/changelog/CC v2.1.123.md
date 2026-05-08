@@ -4,6 +4,10 @@ resume: "Fix OAuth 401 retry loop avec CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1"
 aliases:
   - "CC 2.1.123"
   - "v2.1.123"
+  - "oauth fix"
+  - "401 retry"
+  - "CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS"
+  - "oauth 401 loop"
 domaine: claude-code
 type: changelog
 derniere-maj: 2026-04-29
@@ -23,4 +27,6 @@ tags:
 
 ## Liens
 
-- [[CC v2.1.122]]
+- Precedent : [[CC v2.1.122]]
+- Suivant : [[CC v2.1.126]]
+- [[MOC-Claude-Code]]

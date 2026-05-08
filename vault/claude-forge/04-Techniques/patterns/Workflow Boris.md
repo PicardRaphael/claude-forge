@@ -12,7 +12,7 @@ sources:
   - "https://howborisusesclaudecode.com"
 tags:
   - "#type/technique"
-  - "#domaine/techniques"
+  - "#domaine/technique"
 ---
 
 ## Description

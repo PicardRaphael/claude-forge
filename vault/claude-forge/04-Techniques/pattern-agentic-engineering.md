@@ -166,8 +166,9 @@ Apres deploiement, verifier :
 
 Le test final : est-ce que le systeme resiste a un audit agressif ? Si oui, l'architecture tient.
 
-## Voir aussi
+## Liens
 
+- [[MOC-Techniques]]
 - [[vibe-coding-setup-complet]] — pattern setup detaille (skills, journalier, RECAP)
 - [[neoteem-agentic-engineering-mapping]] — mapping complet Karpathy ↔ Neoteem
 - [[agentic-engineering-karpathy]] — framework source

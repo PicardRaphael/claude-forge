@@ -1,24 +1,26 @@
 ---
 titre: "Claude Mythos Preview"
 resume: "Modele frontier Anthropic, SWE-bench 93.9%, zero-day autonome, acces restreint Project Glasswing"
+aliases:
+  - "mythos"
+  - "claude-mythos"
+  - "glasswing"
 type: modele
-provider: anthropic
-date: 2026-04-07
 derniere-maj: 2026-05-04
 auteur: claude
+sources:
+  - "https://www.anthropic.com/news/claude-mythos-preview"
 tags:
   - "#type/modele"
-  - "#domaine/modeles"
+  - "#domaine/claude"
   - "#domaine/securite"
 ---
 
-# Claude Mythos Preview
-
-## Specs
+## Specifications
 
 - **Provider** : Anthropic
 - **Date annonce** : 7 avril 2026
-- **SWE-bench Verified** : 93.9% (vs Opus 4.6 = 80.8%)
+- **SWE-bench Verified** : 93.9% (vs [[Opus 4.7]] = 87.6%, Opus 4.6 = 80.8%)
 - **Pricing** : 5x le prix d'Opus 4.6
 - **Acces** : Gated Research Preview uniquement (Project Glasswing)
 
@@ -39,14 +41,14 @@ tags:
 - Termes : usage restreint a la cybersecurite defensive
 - Validateurs humains d'accord avec severity assessment dans 89% des cas (198 rapports)
 
-## Contexte
+## Quand utiliser
 
-- UK AISI : pas significativement meilleur sur taches individuelles, mais complete des "difficult multistep infiltration challenges" qu'aucun autre modele n'avait reussi
+- Acces restreint — uniquement via Project Glasswing
+- Cybersecurite defensive : audit, detection de vulnerabilites
+- UK AISI : complete des "difficult multistep infiltration challenges" qu'aucun autre modele n'avait reussi
 - <1% des vulns trouvees par Mythos sont patchees a ce jour
-- Risque : modeles open-weight rattraperont sans les memes restrictions d'acces
 
 ## Liens
 
-- [[Project Glasswing]]
-- [[Claude Security]]
 - [[Opus 4.7]]
+- [[MOC-Modeles]]

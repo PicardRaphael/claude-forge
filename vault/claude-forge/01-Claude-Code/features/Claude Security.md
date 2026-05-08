@@ -1,10 +1,19 @@
 ---
 titre: "Claude Security"
 resume: "Beta publique enterprise, scans planifies, triage, exports, webhooks — propulse par Opus 4.7"
+aliases:
+  - "Claude Code Security"
+  - "security scan"
+  - "vulnerability scanner CC"
+  - "scan sécurité repos"
+  - "claude security scanning"
+  - "audit sécurité Claude Code"
+domaine: claude-code
 type: feature
-date: 2026-05-01
 derniere-maj: 2026-05-04
 auteur: claude
+sources:
+  - "https://www.anthropic.com/news"
 tags:
   - "#type/feature"
   - "#domaine/claude-code"
@@ -47,3 +56,4 @@ Accenture, BCG, Deloitte, Infosys, PwC
 
 - [[Claude Mythos Preview]]
 - [[Project Glasswing]]
+- [[MOC-Claude-Code]]

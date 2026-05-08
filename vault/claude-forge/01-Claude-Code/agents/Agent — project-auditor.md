@@ -3,12 +3,17 @@ titre: "Agent — project-auditor"
 resume: "Audite la configuration .claude/ d'un projet (agents, skills, hooks, rules, settings) et produit un rapport avec corrections"
 aliases:
   - "project-auditor"
+  - "project auditor"
+  - "audit config CC"
+  - "quality checker"
+  - "vérifier configuration projet"
+  - "audit agents skills hooks"
 projet: claude-forge
 type: agent
 permission-mode: default
 model: opus
 effort: high
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-08
 auteur: claude
 tags:
   - "#type/agent"
@@ -21,10 +26,9 @@ Use when asked to audit a project's .claude/ setup, verify agents/skills/hooks/r
 
 ## Tools
 
-- Read
-- Glob
-- Grep
-- Agent
+- Read, Write, Edit, Glob, Grep, Bash, Agent
+- Skills : cc-agents-ref, cc-skills-ref, cc-hooks-ref, cc-features-ref, cc-prompt-ref, forge-brain, obsidian-cli, obsidian-markdown
+- `memory: project` | `color: red`
 
 ## Quand utiliser
 

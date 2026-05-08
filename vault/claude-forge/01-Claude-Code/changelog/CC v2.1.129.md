@@ -1,9 +1,25 @@
 ---
-tags: [claude-code, changelog]
-date: 2026-05-06
+titre: "Claude Code v2.1.129"
+resume: "Plugin URL, sync output, auto-update package manager, skillOverrides, fix cache TTL 1h→5min critique"
+aliases:
+  - "CC 2.1.129"
+  - "v2.1.129"
+  - "plugin URL"
+  - "sync output"
+  - "skillOverrides"
+  - "cache TTL fix CC"
+domaine: claude-code
+type: changelog
 derniere-maj: 2026-05-06
+auteur: claude
+sources:
+  - "https://code.claude.com/docs/en/changelog"
+tags:
+  - "#type/changelog"
+  - "#domaine/claude-code"
 ---
-# CC v2.1.129
+
+## Changements
 
 ## Nouveautes
 - `--plugin-url <url>` charger plugin .zip depuis URL
@@ -16,7 +32,7 @@ derniere-maj: 2026-05-06
 - Policy refusal errors incluent API Request ID
 - OTel `claude_code.pull_request.count` compte PRs via MCP tools
 
-## Fixes critiques
+## Bug fixes
 - **1h prompt cache TTL silently downgraded to 5min** (CRITIQUE)
 - `/context` dump ~1.6k tokens gaspilles par appel
 - OAuth refresh race after wake-from-sleep (multi-sessions logout)
@@ -28,4 +44,5 @@ derniere-maj: 2026-05-06
 - **[VSCode]** `/clear` ne reset pas le contexte
 
 ## Liens
-- [[CC v2.1.128]]
+- Precedent : [[CC v2.1.128]]
+- [[MOC-Claude-Code]]

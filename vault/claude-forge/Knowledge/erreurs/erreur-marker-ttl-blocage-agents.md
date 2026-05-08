@@ -1,17 +1,19 @@
 ---
-titre: Markers architect avec TTL bloquaient les sous-agents
-resume: TTL 60min sur architect-guard causait des blocages en cascade — remplace par existence seule
-domaine: hooks, agents, workflow
-derniere-maj: 2026-05-07
-auteur: claude
-tags:
-  - "#type/erreur"
-  - "#domaine/tech"
-  - "#statut/resolu"
+titre: "Markers architect avec TTL bloquaient les sous-agents"
+resume: "TTL 60min sur architect-guard causait des blocages en cascade — remplace par existence seule"
 aliases:
   - marker TTL blocage
   - architect-guard timeout
   - agent bloque marker expire
+  - "TTL marker antipattern"
+  - "marker expiration cascade"
+type: erreur
+derniere-maj: 2026-05-07
+auteur: claude
+tags:
+  - "#type/erreur"
+  - "#domaine/claude-code"
+  - "#statut/resolu"
 ---
 
 # Markers architect avec TTL — blocage systématique des sous-agents
@@ -57,3 +59,8 @@ Le pattern Boris fonctionne, c'est l'implémentation qui comptait :
 ## Leçon
 
 Les hooks de **guard** (PreToolUse) doivent être les plus simples possible — un check binaire (existe/existe pas), pas de logique temporelle. Plus un hook est complexe, plus il risque de bloquer des cas légitimes. Les hooks de **quality** (PostToolUse) comme ruff/typecheck doivent être `async: true` pour ne pas multiplier les tool calls bloquantes.
+
+## Liens
+
+- [[erreur-pipeline-advisory-sans-hooks]] — meme pattern de hooks deterministes
+- [[erreur-creation-sans-vault-query]] — autre cas de marker+guard

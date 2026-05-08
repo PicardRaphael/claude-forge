@@ -4,6 +4,10 @@ resume: "Auto Mode, hooks MCP direct, custom themes, /usage, fix Opus 4.7 contex
 aliases:
   - "CC 2.1.119"
   - "v2.1.119"
+  - "auto mode release"
+  - "hooks MCP"
+  - "custom themes CC"
+  - "claude code auto mode"
 domaine: claude-code
 type: changelog
 derniere-maj: 2026-04-26
@@ -72,6 +76,8 @@ tags:
 
 ## Liens
 
-- [[CC v2.1.116]]
+- Precedent : [[CC v2.1.116]]
+- Suivant : [[CC v2.1.120]]
 - [[Auto Mode]]
 - [[Opus 4.7]]
+- [[MOC-Claude-Code]]

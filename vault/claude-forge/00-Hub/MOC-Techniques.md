@@ -3,6 +3,10 @@ titre: "MOC — Techniques"
 resume: "Index des techniques : prompt engineering, context engineering, patterns, anti-patterns"
 aliases:
   - "MOC Techniques"
+  - "index techniques"
+  - "techniques CC"
+  - "patterns Claude Code"
+  - "prompt engineering techniques"
 type: index
 derniere-maj: 2026-05-08
 auteur: claude
@@ -32,7 +36,6 @@ tags:
 - [[agentic-engineering-karpathy]] — Framework Karpathy : Software 3.0, vibe coding vs agentic engineering, jagged intelligence
 - [[pattern-agentic-engineering]] — Checklist deploiement agentic engineering sur projet Neoteem
 - [[pattern-vault-query-guard]] — Hook deterministe : agents DOIVENT consulter vault avant d'ecrire
-
 - [[best-practices-claude-code-leaders]] — Synthese Boris, Erik, Thariq, Cat Wu, Karpathy : planification, contexte, skills, effort
 - [[decoupe-agents-anti-crash]] — Max 6-8 ops/agent, decoupage par theme/repo/phase, parallelisation
 - [[limites-subagents-claude-code]] — 200K ctx, 32K output, maxTurns casse, jamais parallele, bugs GitHub
@@ -40,7 +43,6 @@ tags:
 ## Architecture Hooks
 
 - [[erreur-marker-ttl-blocage-agents]] — TTL sur markers = blocage, existence seule + SessionStart reset
-- [[pattern-vault-query-guard]] — Hook deterministe : agents DOIVENT consulter vault avant d'ecrire
 - [[pattern-architect-first-pipeline]] — SessionStart reset → architect → dev → code-reviewer → /go → pipeline-reset
 
 ## Anti-patterns

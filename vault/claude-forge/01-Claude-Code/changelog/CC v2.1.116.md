@@ -1,7 +1,14 @@
 ---
 titre: "Claude Code v2.1.116"
 resume: "Resume 67% faster, agent hooks, thinking spinner inline, MCP startup faster"
-aliases: ["v2.1.116", "2.1.116"]
+aliases:
+  - "v2.1.116"
+  - "2.1.116"
+  - "CC 2.1.116"
+  - "resume faster"
+  - "thinking spinner"
+  - "agent hooks frontmatter"
+  - "MCP startup rapide"
 domaine: claude-code
 type: changelog
 derniere-maj: 2026-04-21
@@ -29,5 +36,6 @@ tags: ["#type/changelog", "#domaine/claude-code"]
 - Fix Devanagari rendering, Ctrl+- undo, Cmd+Left/Right, Ctrl+Z hang wrapper, scrollback duplication, modal overflow, VS Code blank cells, API 400 cache TTL, `/branch` >50MB, `/plugin` doublons, `/update` et `/tui` après worktree
 
 ## Liens
-- Précédent : [[CC v2.1.114]]
+- Precedent : [[CC v2.1.114]]
+- Suivant : [[CC v2.1.119]]
 - [[MOC-Claude-Code]]

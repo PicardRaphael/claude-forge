@@ -5,24 +5,21 @@ aliases:
   - "skip checklist skill"
   - "modification sans verification"
   - "je sais deja"
-type: knowledge
+  - "check-before-create ignore"
+  - "checklist non executee"
+type: erreur
 derniere-maj: 2026-05-07
 auteur: claude
 sources:
   - "[[Best practices Boris Thariq]]"
 tags:
-  - "#type/knowledge"
+  - "#type/erreur"
   - "#domaine/claude-code"
-  - "#erreur"
 ---
 
-## Contexte
-
-Session du 2026-05-07, modification de la skill `triage-tickets` (plugin support-lojii). Ajout de Phase C (retrospective), etape COMPRENDRE (lexique), format learnings enrichi, causes racines, enrichissement lexique automatique.
-
-Modification substantielle (~150 lignes ajoutees) sur plusieurs heures.
-
 ## Ce qui s'est passe
+
+Session du 2026-05-07, modification de la skill `triage-tickets` (plugin support-lojii). Ajout de Phase C (retrospective), etape COMPRENDRE (lexique), format learnings enrichi, causes racines, enrichissement lexique automatique. Modification substantielle (~150 lignes ajoutees) sur plusieurs heures.
 
 Aucune etape du checklist `check-before-create` executee :
 1. Memoire (MEMORY.md) — PAS lu. Les feedbacks `feedback_skill_*`, `feedback_use_skill_creator`, `feedback_major_mistakes` existaient mais non consultes.
@@ -47,7 +44,5 @@ Aucune etape du checklist `check-before-create` executee :
 
 ## Liens
 
-- `check-before-create.md` — rule qui definit le checklist
-- `feedback_major_mistakes.md` — erreurs recurrentes
-- `feedback_proactive_references.md` — feedback cree suite a cette erreur
-- `feedback_checklist_before_modify.md` — feedback cree suite a cette erreur
+- [[erreur-edit-direct-skills]] — meme anti-pattern "je sais deja"
+- [[erreur-creation-sans-vault-query]] — meme famille de bypass checklist

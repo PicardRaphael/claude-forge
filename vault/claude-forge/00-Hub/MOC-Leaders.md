@@ -3,8 +3,12 @@ titre: "MOC — Leaders & Visionnaires"
 resume: "Index des personnes clés : équipe CC, leaders IA, chercheurs"
 aliases:
   - "MOC Leaders"
+  - "index leaders"
+  - "leaders IA"
+  - "personnalités AI"
+  - "équipe Claude Code"
 type: index
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-08
 auteur: claude
 tags:
   - "#type/index"
@@ -21,6 +25,7 @@ tags:
 - [[Noah Zweben]] — CC team, cloud features, @noahzweben
 - [[Thariq Shihipar]] — Skills author, @trq212
 - [[Jarred Sumner]] — Bun creator, acquis Anthropic, @jaraboron
+- [[Erik Schluntz]] — Co-fondateur, tool use/computer use, "stopped writing code manually", @ErikSchluntz
 
 ## Prompt Engineering
 

@@ -57,5 +57,6 @@ Service systemd + nginx reverse proxy HTTPS. Config via `config.yaml`.
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[neoteem-brain-plugins]]
 - [[SQLite FTS5 pour vault]]

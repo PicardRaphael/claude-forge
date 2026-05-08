@@ -3,6 +3,12 @@ titre: "Dépréciation budget_tokens (thinking)"
 resume: "thinking.budget_tokens supprimé dans Opus 4.7 — retourne 400 error, utiliser adaptive thinking"
 aliases:
   - "budget_tokens deprecated"
+  - "budget tokens deprecation"
+  - "thinking budget"
+  - "adaptive thinking migration"
+  - "thinking budget_tokens removed"
+  - "deprecation thinking tokens"
+domaine: claude-code
 type: deprecation
 date-deprecation: 2026-04-16
 date-retirement: 2026-04-16

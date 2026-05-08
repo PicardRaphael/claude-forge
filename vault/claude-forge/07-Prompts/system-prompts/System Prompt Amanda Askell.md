@@ -7,7 +7,7 @@ aliases:
 domaine: technique
 type: prompt
 cible: claude
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-08
 auteur: claude
 sources:
   - "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/system-prompts"

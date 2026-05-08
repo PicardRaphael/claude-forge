@@ -1,22 +1,27 @@
 ---
-titre: Pattern architect-first pipeline complet
-resume: SessionStart reset → architect → dev séquentiel → /go → pipeline-reset, markers sans TTL
-domaine: hooks, agents, workflow, architecture
-derniere-maj: 2026-05-08
-auteur: claude
-tags:
-  - "#type/technique"
-  - "#domaine/tech"
-  - "#statut/actif"
+titre: "Pattern architect-first pipeline complet"
+resume: "SessionStart reset → architect → dev sequentiel → /go → pipeline-reset, markers sans TTL"
 aliases:
   - architect-first
   - pipeline markers
   - workflow dev complet
+domaine: claude-code
+type: technique
+derniere-maj: 2026-05-08
+auteur: claude
+sources: []
+tags:
+  - "#type/technique"
+  - "#domaine/claude-code"
 ---
 
-# Pattern Architect-First Pipeline
+## Description
 
-Pattern Boris Cherny adapté Neoteem. Force un plan avant chaque tâche de code.
+Pattern Boris Cherny adapte Neoteem. Force un plan architect avant chaque tache de code via des hooks deterministes et des markers fichier.
+
+## Quand utiliser
+
+Sur tout projet avec des agents de developpement. Garantit qu'un plan existe avant toute ecriture de code.
 
 ## Le flow complet
 
@@ -82,9 +87,16 @@ Session dispatch dev agent 2 (scope: 5 fichiers max)
 - neo_ia (Python) — architect.md + hooks .py
 - ia_back (TypeScript) — architect.md + hooks .ts
 
+## Exemple
+
+```
+/recap → "implemente X" → architect-guard bloque → architect planifie → marker pose → dev-agent execute → /go → tests + review + commit + push → markers reset
+```
+
 ## Liens
 
+- [[MOC-Techniques]]
 - [[limites-subagents-claude-code]] — limites techniques des sub-agents
-- [[erreur-marker-ttl-blocage-agents]] — erreur qui a mené à ce pattern
-- [[decoupe-agents-anti-crash]] — découpage des tâches
-- [[Fleet Commander]] — pattern Boris parallélisation sessions
+- [[erreur-marker-ttl-blocage-agents]] — erreur qui a mene a ce pattern
+- [[decoupe-agents-anti-crash]] — decoupage des taches
+- [[Workflow Boris]] — pattern Boris parallelisation sessions

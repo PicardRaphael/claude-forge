@@ -3,12 +3,17 @@ titre: "Agent — project-analyzer"
 resume: "Analyse un projet complet et propose une strategie d'automatisation Claude Code avec rapport priorise"
 aliases:
   - "project-analyzer"
+  - "project analyzer"
+  - "analyse projet CC"
+  - "project scanner"
+  - "analyser un projet"
+  - "recommandations automatisation"
 projet: claude-forge
 type: agent
 permission-mode: default
 model: opus
 effort: high
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-08
 auteur: claude
 tags:
   - "#type/agent"
@@ -21,12 +26,9 @@ Use this agent when the user wants to analyze any project and get full Claude Co
 
 ## Tools
 
-- Read
-- Grep
-- Glob
-- Bash
-- WebFetch
-- WebSearch
+- Read, Write, Edit, Grep, Glob, Bash, WebFetch, WebSearch
+- Skills : cc-advisor, cc-features-ref, cc-agents-ref, cc-skills-ref, cc-hooks-ref, cc-news, forge-brain, obsidian-cli, obsidian-markdown
+- `memory: project` | `color: purple`
 
 ## Quand utiliser
 

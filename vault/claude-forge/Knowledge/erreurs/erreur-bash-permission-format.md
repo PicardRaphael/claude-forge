@@ -1,15 +1,18 @@
 ---
+titre: "Erreur : mauvais format permissions Bash dans settings.json"
+resume: "Bash(git commit:*) avec deux-points au lieu de Bash(git commit *) avec espace — permissions cassees sur 9 fichiers"
 aliases:
   - bash permission format
   - settings permission syntax
   - Bash colon bug
-tags:
-  - erreur
-  - claude-code
-  - settings
-  - permissions
+  - "permission Bash deux-points"
+  - "settings.json permissions cassees"
+type: erreur
+auteur: claude
 derniere-maj: 2026-04-22
-severity: haute
+tags:
+  - "#type/erreur"
+  - "#domaine/claude-code"
 ---
 
 # Erreur : mauvais format permissions Bash dans settings.json

@@ -11,7 +11,7 @@ auteur: claude
 sources: []
 tags:
   - "#type/technique"
-  - "#domaine/techniques"
+  - "#domaine/technique"
 ---
 
 ## Description
@@ -27,6 +27,10 @@ Contrôle du niveau de réflexion de Claude dans Claude Code. 5 niveaux disponib
 | `high` | Sessions concurrentes, coding standard | Minimum pour Sonnet |
 | `xhigh` | Défaut Opus 4.7, coding agentique | Sweet spot |
 | `max` | Problèmes très durs | Diminishing returns |
+
+## Quand utiliser
+
+Pour configurer le niveau d'effort des agents Claude Code selon leur role (analyste, dev, gate, securite) et le modele utilise (Opus vs Sonnet).
 
 ## Règles Claude-Forge
 

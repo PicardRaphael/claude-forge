@@ -1,17 +1,18 @@
 ---
 titre: "Erreur — Keyword stuffing dans descriptions YAML skills"
 resume: "Descriptions bourrées de triggers FR entre guillemets au lieu de triggers sémantiques anglais"
-aliases: []
-type: knowledge
-cree: 2026-04-23
-sources:
-  - "Session claude-forge — config boss"
+aliases:
+  - "erreur keyword stuffing"
+  - "description YAML bourree"
+  - "skill description triggers"
+  - "keyword stuffing descriptions"
+  - "descriptions non semantiques"
+type: erreur
 auteur: claude
-repo: claude-forge
 derniere-maj: 2026-04-23
 tags:
-  - "#type/knowledge"
-  - "#domaine/erreur"
+  - "#type/erreur"
+  - "#domaine/claude-code"
 ---
 
 # Erreur — Keyword stuffing dans descriptions YAML
@@ -46,3 +47,8 @@ Use when the user greets, asks about their agenda, prepares for a meeting, repli
 ## Regle a retenir
 
 **Description = verbes d'intention semantiques en anglais.** Pas de phrases entre guillemets, pas de FR, pas de liste exhaustive de formulations. Claude comprend l'intention, pas les mots exacts.
+
+## Liens
+
+- [[erreur-edit-direct-skills]]
+- [[Best practices Boris Thariq]]

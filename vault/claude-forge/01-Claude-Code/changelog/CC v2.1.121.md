@@ -4,6 +4,10 @@ resume: "alwaysLoad MCP, plugin prune, PostToolUse output replace all tools, ful
 aliases:
   - "CC 2.1.121"
   - "v2.1.121"
+  - "alwaysLoad MCP"
+  - "plugin prune"
+  - "PostToolUse output"
+  - "fullscreen UX CC"
 domaine: claude-code
 type: changelog
 derniere-maj: 2026-04-29
@@ -97,5 +101,6 @@ tags:
 
 ## Liens
 
-- [[CC v2.1.120]]
-- [[CC v2.1.122]]
+- Precedent : [[CC v2.1.120]]
+- Suivant : [[CC v2.1.122]]
+- [[MOC-Claude-Code]]

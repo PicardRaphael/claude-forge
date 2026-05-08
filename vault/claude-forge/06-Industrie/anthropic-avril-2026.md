@@ -4,7 +4,6 @@ resume: "Google $10B, valorisation $350B, revenue >$30B, Mythos Preview, Claude 
 aliases:
   - "Anthropic funding 2026"
   - "Anthropic $350B"
-domaine: industrie
 type: knowledge
 derniere-maj: 2026-04-26
 auteur: claude
@@ -42,3 +41,4 @@ tags:
 
 - [[CC v2.1.119]]
 - [[Opus 4.7]]
+- [[MOC-Industrie]]

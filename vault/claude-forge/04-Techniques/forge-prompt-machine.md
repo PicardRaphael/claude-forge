@@ -152,6 +152,10 @@ Si brief ambigu sur un point critique : proposer 2-3 interpretations, demander l
 
 Inclure l'instruction de recherche web dans le prompt avec obligation de citer les sources. Ne pas se limiter au contexte interne.
 
+## Quand utiliser
+
+Reference lors de la creation ou review de prompts, skills, agents, ou instructions Claude Desktop. Les 12 principes servent de checklist qualite pour tout livrable textuel destine a un LLM.
+
 ## Ce qu'on ne retient PAS de FORGE
 
 - **XML systematique** — nos skills markdown fonctionnent bien, XML serait du bruit
@@ -161,7 +165,8 @@ Inclure l'instruction de recherche web dans le prompt avec obligation de citer l
 
 ## Liens
 
-- [[Amanda Askell]] — TDD for system prompts, reference Anthropic
+- [[MOC-Techniques]]
+- [[amanda-askell-prompt-engineering]] — TDD for system prompts, reference Anthropic
 - [[claude-desktop-preferences]] — Pattern vault-first pour prefs
 - [[Context Engineering]] — Paradigme dominant 2026
 - [[System Prompt Design]] — Structure optimale Amanda Askell

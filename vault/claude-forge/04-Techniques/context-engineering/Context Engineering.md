@@ -3,6 +3,11 @@ titre: "Context Engineering"
 resume: "Paradigme dominant 2026 — structure autour de la tâche > formulation du prompt"
 aliases:
   - "context engineering"
+  - "ingénierie de contexte"
+  - "context management LLM"
+  - "context window optimization"
+  - "structuration du contexte"
+  - "context engineering 2026"
 domaine: technique
 type: technique
 derniere-maj: 2026-04-21

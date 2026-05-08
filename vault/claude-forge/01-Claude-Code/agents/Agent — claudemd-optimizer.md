@@ -3,12 +3,17 @@ titre: "Agent — claudemd-optimizer"
 resume: "Redige et optimise des CLAUDE.md selon le principe Boris Cherny (~100 lignes, chaque ligne justifiee)"
 aliases:
   - "claudemd-optimizer"
+  - "claudemd optimizer"
+  - "optimisation CLAUDE.md"
+  - "CLAUDE.md writer"
+  - "améliorer CLAUDE.md"
+  - "rédiger CLAUDE.md"
 projet: claude-forge
 type: agent
 permission-mode: default
 model: sonnet
 effort: high
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-08
 auteur: claude
 tags:
   - "#type/agent"
@@ -21,10 +26,9 @@ Use this agent when the user wants to create, improve or optimize a CLAUDE.md. U
 
 ## Tools
 
-- Read
-- Write
-- Glob
-- Bash
+- Read, Write, Edit, Glob, Grep, Bash
+- Skills : cc-features-ref, forge-brain, obsidian-cli, obsidian-markdown
+- `memory: project` | `color: yellow`
 
 ## Quand utiliser
 

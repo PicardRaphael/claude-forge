@@ -44,7 +44,12 @@ Meme split (dev, dev-admin, support, support-admin) dans `claude-chat-plugins/`.
 
 Les skills admin utilisent `create_note`, `append_note`, `update_property`. Chaque ecriture cree un commit git sur `mcp/<username>`. Raphael merge manuellement.
 
+## Quand utiliser
+
+Reference pour l'installation, la configuration ou l'ajout de plugins brain sur un poste ou profil Neoteem. Aussi pour comprendre le split lecture/ecriture par role.
+
 ## Liens
 
+- [[MOC-Techniques]]
 - [[mcp-obsidian-brain-v2]]
 - [[SQLite FTS5 pour vault]]

@@ -49,4 +49,5 @@ results = db.search("charges copropriete", limit=5)
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[mcp-obsidian-brain-v2]]

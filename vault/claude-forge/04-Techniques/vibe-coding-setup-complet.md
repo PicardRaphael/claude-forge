@@ -17,9 +17,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
-# Setup Vibe Coding Complet
+## Description
 
-Pattern teste et deploye sur neo_ia (Python/FastAPI) et ia_back (Bun/Hono/TypeScript). Applicable a tout projet.
+Architecture complete pour vibe coding avec Claude Code : agents, skills, pipeline, journalier, RECAP, /go, /recap, shared-learnings. Pattern teste et deploye sur neo_ia (Python/FastAPI) et ia_back (Bun/Hono/TypeScript). Applicable a tout projet.
+
+## Quand utiliser
+
+Setup initial d'un nouveau projet avec Claude Code, ou audit d'un projet existant pour verifier que tous les composants du vibe coding sont en place.
 
 ## Architecture agents — 100% opus
 
@@ -106,8 +110,9 @@ Le setup est pret pour brancher sur des tickets Jira :
 - Option 2 : Manuel leger — "fais le ticket N2-12345" (MCP Atlassian)
 - Option 3 : Hook sur branche — `feature/N2-12345` declenche la lecture du ticket
 
-## Voir aussi
+## Liens
 
+- [[MOC-Techniques]]
 - [[Opus 4.7]] — effort levels, adaptive thinking
 - [[Boris Cherny]] — workflow 5 terminaux, /go, /recap
 - [[kit-rules-standard]] — rules de base pour tout projet

@@ -1,16 +1,25 @@
 ---
 titre: "Config Guardian — Audit multi-repo"
 resume: "Pattern pour auditer la config Claude Code de plusieurs repos depuis forge — 5 checks, corrections par stack, mémoire compounding"
+aliases:
+  - "config guardian"
+  - "audit multi-repo"
+  - "drift detection"
+domaine: claude-code
 type: technique
 derniere-maj: 2026-05-04
 auteur: claude
+sources:
+  - "[[best-practices-claude-code-leaders]]"
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
   - "#domaine/neoteem"
 ---
 
-# Config Guardian — Audit multi-repo
+## Description
+
+Skill `/config-guardian` dans forge qui scanne les repos projet (ia_back, neo_ia, neoteem-brain) et produit un rapport d'ecarts par rapport a une baseline de regles Claude Code.
 
 ## Probleme
 
@@ -58,8 +67,14 @@ Skill `/config-guardian` dans forge qui scanne les 3 repos et produit un rapport
 - Sections Memoire ajoutees dans 2 CLAUDE.md
 - Score final : 15/15
 
+## Quand utiliser
+
+Apres chaque session de modification d'agents/hooks/rules sur un repo, ou en audit periodique (hebdomadaire). Detecte la derive de config avant qu'elle ne cause des problemes.
+
 ## Liens
 
+- [[MOC-Techniques]]
 - [[CC v2.1.126]]
 - [[setup-project-complet]]
 - [[kit-rules-standard]]
+- [[pattern-agentic-engineering]]

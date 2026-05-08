@@ -15,9 +15,9 @@ tags:
   - "#domaine/copilot"
 ---
 
-## Vue d'ensemble
+## Profil
 
-Assistant IA de GitHub, intégré à VS Code, CLI, et github.com. Multi-modèle (GPT, Claude, Codex).
+Assistant IA de GitHub, integre a VS Code, CLI, et github.com. Multi-modele (GPT, Claude, Codex).
 
 ## Features clés
 

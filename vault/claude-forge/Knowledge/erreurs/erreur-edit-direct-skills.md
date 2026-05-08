@@ -4,6 +4,9 @@ resume: "Editer les SKILL.md a la main produit des composants non-conformes — 
 aliases:
   - "skill edition directe"
   - "edit sans agent"
+  - "edit direct SKILL.md"
+  - "skill-creator non utilise"
+  - "composant non conforme edit manuel"
 type: erreur
 cree: 2026-04-26
 auteur: claude
@@ -50,6 +53,6 @@ Lors d'une analyse complete de ia_back, meme erreur a plus grande echelle :
 
 Les rules advisory ne suffisent PAS. Chaque rule critique doit etre doublee d'un hook deterministe quand c'est techniquement possible.
 
-## Voir aussi
+## Liens
 
-- [[erreur-keyword-stuffing]] — autre erreur de non-respect des standards
+- [[e-descriptions-keyword-stuffing]] — autre erreur de non-respect des standards

@@ -15,9 +15,9 @@ tags:
   - "#domaine/gemini"
 ---
 
-## Vue d'ensemble
+## Profil
 
-CLI IA de Google pour le développement. Open source, YOLO mode par défaut, 1M+ tokens par agent.
+CLI IA de Google pour le developpement. Open source, YOLO mode par defaut, 1M+ tokens par agent.
 
 ## Features clés
 

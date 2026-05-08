@@ -5,6 +5,8 @@ aliases:
   - "skip vault query"
   - "creation sans verification"
   - "advisory rules insuffisantes"
+  - "vault pas consulte avant creation"
+  - "composant sans brain check"
 type: erreur
 cree: 2026-05-06
 derniere-maj: 2026-05-06
@@ -79,7 +81,7 @@ PreToolUse (guard) : detecte action protegee → verifie marqueur → bloque si 
 
 Applicable a tout workflow "verifie X avant de faire Y".
 
-## Voir aussi
+## Liens
 
 - [[erreur-edit-direct-skills]] — meme famille, scope plus etroit
 - [[pattern-agentic-engineering]] — le pattern qui a ete cree sans verification

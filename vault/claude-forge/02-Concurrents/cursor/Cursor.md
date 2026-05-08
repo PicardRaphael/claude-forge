@@ -3,6 +3,11 @@ titre: "Cursor"
 resume: "Agents Window, Design Mode, canvases, background agents, /worktree, /best-of-n"
 aliases:
   - "cursor ai"
+  - "Cursor IDE"
+  - "Cursor AI"
+  - "Anysphere"
+  - "Cursor 3"
+  - "VS Code AI fork"
 domaine: cursor
 type: concurrent
 derniere-maj: 2026-04-21
@@ -14,9 +19,9 @@ tags:
   - "#domaine/cursor"
 ---
 
-## Vue d'ensemble
+## Profil
 
-IDE IA basé sur VS Code fork. Cursor 3 (2 avril 2026) = refonte majeure.
+IDE IA base sur VS Code fork. Cursor 3 (2 avril 2026) = refonte majeure.
 
 ## Features clés
 

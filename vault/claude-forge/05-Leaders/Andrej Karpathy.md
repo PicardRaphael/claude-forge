@@ -5,7 +5,7 @@ aliases:
   - "karpathy"
 role: "AI researcher, educator"
 affiliation: "Independent (ex-Tesla, ex-OpenAI)"
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-08
 auteur: claude
 sources:
   - "https://github.com/karpathy"
@@ -34,8 +34,15 @@ Chercheur IA, éducateur. Ex-directeur AI chez Tesla, ex-OpenAI. Focus 2026 : kn
 - **Over-Engineering** — abstraction prématurée
 - **Drive-By Refactoring** — refacto non demandé
 
+### Sequoia AI Ascent (mai 2026)
+- "Agentic engineering" remplace officiellement "vibe coding" (1 an apres)
+- 80% de son code est AI-generated
+- Framework **Software 3.0** — programmer par contexte, pas par instructions
+- Alerte **"jagged intelligence"** — l'IA excelle ou elle a des feedback loops, echoue sur l'ambigu
+
 ## Liens
 
 - [[LLM Wiki]]
 - [[Silent Assumptions]]
+- [[Code with Claude Conference]]
 - [[MOC-Leaders]]

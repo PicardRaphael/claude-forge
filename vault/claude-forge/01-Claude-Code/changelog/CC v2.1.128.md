@@ -1,9 +1,25 @@
 ---
-tags: [claude-code, changelog]
-date: 2026-05-04
+titre: "Claude Code v2.1.128"
+resume: "/color random, MCP tool count, plugin zip, EnterWorktree local HEAD, Auto mode hints, focus mode fix"
+aliases:
+  - "CC 2.1.128"
+  - "v2.1.128"
+  - "color random"
+  - "worktree unpushed"
+  - "plugin zip"
+  - "auto mode hints"
+domaine: claude-code
+type: changelog
 derniere-maj: 2026-05-06
+auteur: claude
+sources:
+  - "https://code.claude.com/docs/en/changelog"
+tags:
+  - "#type/changelog"
+  - "#domaine/claude-code"
 ---
-# CC v2.1.128
+
+## Changements
 
 ## Nouveautes
 - `/color` sans args = random session color
@@ -15,7 +31,7 @@ derniere-maj: 2026-05-06
 - MCP reconnect : tools re-announced summarizes par prefix (plus de flood)
 - Auto mode : hint quand classifier echoue (retry, /compact, --debug)
 
-## Fixes critiques
+## Bug fixes
 - Focus mode dimming response precedente
 - Crash >10MB stdin via `claude -p`
 - Parallel shell calls : read-only fail ne cancel plus siblings
@@ -26,5 +42,6 @@ derniere-maj: 2026-05-06
 - `/fast` sur 3P providers fuzzy-match vers skill
 
 ## Liens
-- [[CC v2.1.126]]
-- [[CC v2.1.129]]
+- Precedent : [[CC v2.1.126]]
+- Suivant : [[CC v2.1.129]]
+- [[MOC-Claude-Code]]

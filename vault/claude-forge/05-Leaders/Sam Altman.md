@@ -5,7 +5,7 @@ aliases:
   - "altman"
 role: "CEO OpenAI"
 affiliation: "OpenAI"
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-08
 auteur: claude
 sources: []
 tags:
@@ -17,7 +17,12 @@ tags:
 
 CEO d'OpenAI. Figure la plus médiatisée de l'industrie IA.
 
-## Positions récentes (avril 2026)
+## Contributions clés
+
+- CEO OpenAI, leadership dans la course a l'AGI
+- "New Deal for AI" — wealth fund, robot tax, 4-day workweek
+
+## Positions récentes
 
 - **Déclare AGI atteint** selon la définition interne OpenAI
 - Prochaine cible = ASI ("AI CEO/President")

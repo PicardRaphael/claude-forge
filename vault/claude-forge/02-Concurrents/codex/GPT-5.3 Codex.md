@@ -15,28 +15,30 @@ tags:
   - "#domaine/openai"
 ---
 
-## Caractéristiques
+## Profil
 
-- Modèle : **GPT-5.3** (premier modèle instrumental dans sa propre création)
+Agent coding OpenAI base sur GPT-5.3, premier modele instrumental dans sa propre creation.
+
+## Features cles
+
 - Trois modes : Read-only / Auto / Full Access
 - **Subagents** : split jobs across several sessions
 - **MCP support** : outils tiers via terminal
 - **Local code review** : scan changes avant PR
-- Context 1M tokens = plan Pro $200/mo (Plus $20 = fenêtre réduite)
-- Classifié "High capability" cybersécurité (Preparedness Framework)
+- Context 1M tokens = plan Pro $200/mo (Plus $20 = fenetre reduite)
+- Classifie "High capability" cybersecurite (Preparedness Framework)
 
-## Points forts vs Claude Code
+## Comparaison avec Claude Code
 
-- Interface interactive avec updates fréquents sur progression
-- MCP support natif (comme CC)
-- Subagents (comme CC)
-
-## Points faibles vs Claude Code
-
-- Context 1M réservé au plan $200/mo
-- Pas de worktrees natifs
-- Moins de tooling CLI (pas d'équivalent /loop, /schedule, /batch)
-- Pas de plugin marketplace
+| Feature | GPT-5.3 Codex | Claude Code |
+|---------|---------------|-------------|
+| Interface | Updates frequents sur progression | CLI + extensions |
+| MCP | Support natif | Support natif |
+| Subagents | Oui | Oui |
+| Context 1M | Plan $200/mo uniquement | Beta |
+| Worktrees | Non | Natif (`claude -w`) |
+| Tooling CLI | Basique | /loop, /schedule, /batch |
+| Plugin marketplace | Non | 2500+ plugins |
 
 ## Liens
 

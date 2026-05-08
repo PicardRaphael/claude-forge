@@ -5,7 +5,6 @@ aliases:
   - "karpathy neoteem"
   - "agentic engineering neoteem"
   - "software 3.0 neoteem"
-domaine: neoteem
 type: synthese
 derniere-maj: 2026-05-06
 auteur: claude
@@ -113,7 +112,7 @@ Karpathy : "la verifiabilite est LE levier". On a les gates (test-writer, code-r
 ### Agent-native infrastructure complete
 Karpathy insiste sur le headless setup. Nos repos sont bons (CLI, MCP, APIs) mais certains workflows restent humain-natifs (Jira manual, Google Drive navigation).
 
-## Voir aussi
+## Liens
 
 - [[agentic-engineering-karpathy]] — framework complet
 - [[vibe-coding-setup-complet]] — pattern setup

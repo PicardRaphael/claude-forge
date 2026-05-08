@@ -1,6 +1,6 @@
 ---
 name: cc-news
-description: Use this skill when the user asks about recent Claude Code updates, new features, AI industry news, or when any information might be outdated. Use PROACTIVELY when the user asks "quoi de neuf", "est-ce que X existe maintenant", or when knowledge seems stale. Date de référence : 21 avril 2026.
+description: Use this skill when the user asks about recent Claude Code updates, new features, AI industry news, or when any information might be outdated. Use PROACTIVELY when the user asks "quoi de neuf", "est-ce que X existe maintenant", or when knowledge seems stale. Date de référence : 8 mai 2026 (v2.1.129).
 user-invokable: true
 allowed-tools: WebSearch, WebFetch, Read, Write
 argument-hint: "fonctionnalité ou sujet à vérifier"
@@ -8,7 +8,7 @@ argument-hint: "fonctionnalité ou sujet à vérifier"
 
 # Vérificateur de Nouveautés Claude Code
 
-Date de référence du studio : **26 avril 2026** (v2.1.119)
+Date de référence du studio : **8 mai 2026** (v2.1.129)
 Tout ce qui est postérieur à cette date doit être recherché.
 
 ## Sources à consulter

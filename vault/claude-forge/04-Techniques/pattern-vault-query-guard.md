@@ -22,6 +22,14 @@ tags:
 
 # Pattern Vault Query Guard
 
+## Description
+
+Hook deterministe + Etape 0 dans chaque agent : forge-brain obligatoire avant tout Write sur vault/output/skills/agents. Pas de bypass specialiste.
+
+## Quand utiliser
+
+Sur tout projet utilisant le vault forge-brain avec des agents qui creent/modifient des fichiers. Empeche les agents de sauter la consultation du vault avant d'ecrire.
+
 ## Probleme
 
 Les rules advisory ("toujours consulter le vault") sont ignorees sous pression conversationnelle. L'utilisateur a des idees, le flow est rapide, les verifications sautent. Documente 3+ fois comme erreur recurrente.
@@ -84,8 +92,20 @@ Agent demarre
 
 skill-creator, agent-creator, hook-creator, claudemd-optimizer, project-analyzer, project-auditor, python-dev, self-updater
 
+## Exemple
+
+Etape 0 dans un agent :
+
+```markdown
+## Etape 0 — Verifier le vault (OBLIGATOIRE — hook bloquant)
+
+Utiliser la skill forge-brain pour chercher :
+1. Knowledge/erreurs/ — erreurs passees
+2. 04-Techniques/ — best practices
+```
+
 ## Liens
 
-- `.claude/hooks/vault-query-guard.py`
-- `.claude/hooks/vault-query-tracker.py`
-- `Knowledge/erreurs/erreur-skip-checklist-skill-modification.md`
+- [[MOC-Techniques]]
+- [[erreur-skip-checklist-skill-modification]]
+- [[Best practices Boris Thariq]]

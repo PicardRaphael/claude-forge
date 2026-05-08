@@ -5,6 +5,9 @@ aliases:
   - "advisory pipeline bypass"
   - "hooks enforcement pattern"
   - "marker guard pattern"
+  - "rules advisory ignorees"
+  - "pipeline agent skip"
+  - "hooks deterministes obligatoires"
 type: erreur
 gravite: critique
 contexte: "neo_ia — session du 2026-05-07, features 01-10"

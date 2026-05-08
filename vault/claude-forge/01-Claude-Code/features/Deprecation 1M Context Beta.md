@@ -3,6 +3,12 @@ titre: "Dépréciation 1M Context Beta (Sonnet 4/4.5)"
 resume: "Beta 1M context pour Sonnet 4 et 4.5 retirée le 30 avril 2026 — migrer vers Sonnet 4.6"
 aliases:
   - "1m context deprecated"
+  - "1M context deprecation"
+  - "context window sonnet"
+  - "retrait beta 1M"
+  - "sonnet 4 1M context"
+  - "deprecation fenêtre contexte"
+domaine: claude-code
 type: deprecation
 date-deprecation: 2026-04-01
 date-retirement: 2026-04-30

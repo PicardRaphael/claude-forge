@@ -14,7 +14,7 @@ tags:
   - "#domaine/xai"
 ---
 
-## Vue d'ensemble
+## Profil
 
 Division IA d'Elon Musk. Focus sur Grok (chatbot) et coding tools.
 
@@ -33,7 +33,15 @@ Division IA d'Elon Musk. Focus sur Grok (chatbot) et coding tools.
 - Layoffs ordonnés par Musk
 - 2 poaches de Cursor
 
+## Comparaison avec Claude Code
+
+| Feature | xAI Grok | Claude Code |
+|---------|----------|-------------|
+| CLI | Grok Build (upcoming) | CLI mature |
+| Modele | Grok 4.3 Beta | Opus 4.7 |
+| Pricing | $0.20/M tokens (grok-code-fast-1) | $5/$25 MTok (Opus) |
+| Maturite | En retard sur coding (Musk) | SWE-bench 87.6% |
+
 ## Liens
 
-- [[Elon Musk]]
 - [[MOC-Concurrents]]

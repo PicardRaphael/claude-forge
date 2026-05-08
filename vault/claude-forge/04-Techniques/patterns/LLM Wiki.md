@@ -11,7 +11,7 @@ auteur: claude
 sources: []
 tags:
   - "#type/technique"
-  - "#domaine/techniques"
+  - "#domaine/technique"
 ---
 
 ## Description
@@ -29,11 +29,15 @@ Quand on a besoin d'organiser un corpus de connaissances large. Alternative à R
 - 70x plus efficient que RAG
 - Maintenance : LLM organise, humain valide
 
+## Exemple
+
+Un wiki personnel de ~100 articles couvrant un domaine (ex: droit immobilier, compliance, stack technique). Chaque article = ~4000 mots. Le LLM organise les articles (structure, cross-references, sommaire), l'humain valide le contenu.
+
 ## Lien avec forge-brain
 
 Ce vault est inspiré du même principe : knowledge base structurée, notes atomiques, cross-linkée, plain text Obsidian.
 
 ## Liens
 
-- [[Andrej Karpathy]]
 - [[MOC-Techniques]]
+- [[Andrej Karpathy]]

@@ -1,10 +1,18 @@
 ---
 titre: "Computer Use dans Claude Code"
 resume: "Research preview macOS+Windows, controle souris/clavier, Dispatch integration, Pro/Max only"
+aliases:
+  - "Computer Use CC"
+  - "computer use"
+  - "contrôle écran CC"
+  - "mouse keyboard control"
+  - "Claude Code desktop automation"
+  - "computer use Dispatch"
+domaine: claude-code
 type: feature
-date: 2026-03-24
 derniere-maj: 2026-05-04
 auteur: claude
+sources: []
 tags:
   - "#type/feature"
   - "#domaine/claude-code"
@@ -48,3 +56,4 @@ tags:
 
 - [[Dispatch]]
 - [[Cowork GA]]
+- [[MOC-Claude-Code]]

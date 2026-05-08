@@ -1,24 +1,30 @@
 ---
-titre: Limites techniques des sub-agents Claude Code
-resume: 200K ctx, 32K output, maxTurns cassé, jamais en parallèle — bugs confirmés GitHub
-domaine: claude-code, agents, architecture
-derniere-maj: 2026-05-08
-auteur: claude
-tags:
-  - "#type/technique"
-  - "#domaine/tech"
-  - "#statut/actif"
+titre: "Limites techniques des sub-agents Claude Code"
+resume: "200K ctx, 32K output, maxTurns casse, jamais en parallele — bugs confirmes GitHub"
 aliases:
   - subagent limits
   - agent crash
   - tool result missing
   - agent overload
-  - découpage agents
+domaine: claude-code
+type: technique
+derniere-maj: 2026-05-08
+auteur: claude
+sources: []
+tags:
+  - "#type/technique"
+  - "#domaine/claude-code"
 ---
 
-# Limites techniques des sub-agents Claude Code
+## Description
 
-## Limites concrètes (confirmées mai 2026)
+Documentation des limites techniques hard des sub-agents Claude Code, avec bugs GitHub confirmes et workarounds. Reference pour tout projet utilisant des agents.
+
+## Quand utiliser
+
+Avant de concevoir une architecture multi-agents, ou pour diagnostiquer un crash/blocage d'agent.
+
+## Limites concretes (confirmees mai 2026)
 
 | Paramètre | Valeur | Bug GitHub |
 |-----------|--------|------------|
@@ -103,7 +109,16 @@ Agent 2 : 5 web searches thème B
 - **Section "Découpage" dans l'agent architect** (planification intelligente)
 - Les deux ensemble = double couverture
 
+## Exemple
+
+Verification nesting bloque :
+```bash
+grep "^tools:" .claude/agents/*.md
+# Aucun agent ne doit avoir Agent ou Task
+```
+
 ## Liens
 
-- [[erreur-marker-ttl-blocage-agents]] — autre source de blocage agents (corrigé)
-- [[decoupe-agents-anti-crash]] — note technique découpage
+- [[MOC-Techniques]]
+- [[erreur-marker-ttl-blocage-agents]] — autre source de blocage agents (corrige)
+- [[decoupe-agents-anti-crash]] — note technique decoupage

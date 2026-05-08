@@ -14,16 +14,17 @@ tags:
   - "#domaine/claude"
 ---
 
-## Specs
+## Specifications
 
 | Propriété | Valeur |
 |-----------|--------|
 | Model ID | claude-haiku-4-5-20251001 |
 
-## Notes
+## Quand utiliser
 
-- Haiku 3 (`claude-3-haiku-20240307`) retiré le 19 avril 2026
+- Taches simples, faible cout/latence
 - `model: haiku` dans frontmatter YAML Claude Code
+- Haiku 3 (`claude-3-haiku-20240307`) retire le 19 avril 2026
 
 ## Liens
 

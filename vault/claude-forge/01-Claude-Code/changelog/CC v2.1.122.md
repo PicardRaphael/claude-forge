@@ -4,6 +4,10 @@ resume: "Bedrock service tier, /resume PR URL, MCP dedup, OTEL numerique, bug fi
 aliases:
   - "CC 2.1.122"
   - "v2.1.122"
+  - "bedrock service tier"
+  - "resume PR URL"
+  - "MCP dedup"
+  - "OTEL numerique CC"
 domaine: claude-code
 type: changelog
 derniere-maj: 2026-04-29
@@ -56,5 +60,6 @@ tags:
 
 ## Liens
 
-- [[CC v2.1.121]]
-- [[CC v2.1.123]]
+- Precedent : [[CC v2.1.121]]
+- Suivant : [[CC v2.1.123]]
+- [[MOC-Claude-Code]]

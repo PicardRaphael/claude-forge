@@ -4,6 +4,11 @@ resume: "claude-sonnet-4-20250514 et claude-opus-4-20250514 retirés le 15 juin 
 aliases:
   - "sonnet 4 deprecated"
   - "opus 4 deprecated"
+  - "sonnet 4 retirement"
+  - "opus 4 retirement"
+  - "retirement juin 2026"
+  - "deprecation modeles 2025"
+domaine: claude-code
 type: deprecation
 date-deprecation: 2026-04-01
 date-retirement: 2026-06-15

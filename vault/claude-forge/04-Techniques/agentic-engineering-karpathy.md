@@ -1,12 +1,25 @@
 ---
-tags: [technique, agentic-engineering, karpathy, software-3]
-date: 2026-05-01
+titre: "Agentic Engineering — Karpathy Sequoia AI Ascent 2026"
+resume: "Framework Software 3.0 de Karpathy : vibe coding vs agentic engineering, jagged intelligence, shifted scarcity, agent-native infrastructure"
+aliases:
+  - "agentic engineering karpathy"
+  - "software 3.0"
+  - "sequoia AI ascent"
+domaine: claude-code
+type: technique
 derniere-maj: 2026-05-06
-source: https://www.youtube.com/watch?v=96jN2OCOfLs
+auteur: claude
+sources:
+  - "https://www.youtube.com/watch?v=96jN2OCOfLs"
+tags:
+  - "#type/technique"
+  - "#domaine/claude-code"
+  - "#domaine/agents"
 ---
-# Agentic Engineering (Karpathy, Sequoia AI Ascent 2026)
 
-Framework de reference pour le developpement assiste par agents IA.
+## Description
+
+Framework de reference pour le developpement assiste par agents IA, presente par Andrej Karpathy a Sequoia AI Ascent (mai 2026).
 
 ## Software 3.0
 
@@ -82,6 +95,13 @@ Tout doit etre reecrit pour les agents :
 - CLAUDE.md concis + skills progressives = context window comme programme
 - Piste d'amelioration : evals systematiques
 
+## Quand utiliser
+
+Cadre conceptuel pour toute decision d'architecture agentic : quand deleguer aux agents, quand garder le controle humain, comment structurer l'infrastructure pour les agents.
+
 ## Liens
+
+- [[MOC-Techniques]]
 - [[05-Leaders/Andrej Karpathy]]
 - [[04-Techniques/vibe-coding-setup-complet]]
+- [[pattern-agentic-engineering]]

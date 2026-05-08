@@ -3,12 +3,17 @@ titre: "Agent — agent-creator"
 resume: "Cree et modifie des subagents Claude Code en posant des questions structurees et en appliquant les best practices"
 aliases:
   - "agent-creator"
+  - "agent creator"
+  - "création agents CC"
+  - "subagent creator"
+  - "créer un agent"
+  - "générateur agents"
 projet: claude-forge
 type: agent
 permission-mode: default
 model: sonnet
 effort: high
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-08
 auteur: claude
 tags:
   - "#type/agent"
@@ -21,11 +26,9 @@ Use this agent when the user wants to CREATE or MODIFY a Claude Code subagent. U
 
 ## Tools
 
-- Read
-- Write
-- Glob
-- Bash
-- WebSearch
+- Read, Write, Edit, Glob, Grep, Bash, WebSearch
+- Skills : cc-agents-ref, forge-brain, obsidian-cli, obsidian-markdown
+- `memory: project` | `color: blue`
 
 ## Quand utiliser
 

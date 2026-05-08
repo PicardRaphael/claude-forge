@@ -3,12 +3,17 @@ titre: "Agent — skill-creator"
 resume: "Cree, modifie et optimise des skills et slash commands Claude Code avec structure complete (SKILL.md, references, scripts)"
 aliases:
   - "skill-creator"
+  - "skill creator"
+  - "création skills CC"
+  - "skill builder"
+  - "créer une skill"
+  - "slash command creator"
 projet: claude-forge
 type: agent
 permission-mode: default
 model: sonnet
 effort: high
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-08
 auteur: claude
 tags:
   - "#type/agent"
@@ -21,10 +26,9 @@ Use this agent when the user wants to CREATE, MODIFY or OPTIMIZE a Claude Code s
 
 ## Tools
 
-- Read
-- Write
-- Glob
-- Bash
+- Read, Write, Edit, Glob, Grep, Bash
+- Skills : cc-skills-ref, forge-brain, obsidian-cli, obsidian-markdown
+- `memory: project` | `color: green`
 
 ## Quand utiliser
 

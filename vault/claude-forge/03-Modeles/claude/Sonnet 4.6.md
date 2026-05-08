@@ -14,18 +14,18 @@ tags:
   - "#domaine/claude"
 ---
 
-## Specs
+## Specifications
 
 | Propriété | Valeur |
 |-----------|--------|
 | Context window | 200K (standard) / 1M (beta) |
 | Thinking | Adaptive supporté |
 
-## Usage Claude Code
+## Quand utiliser
 
+- Subagents Claude Code par defaut (`model: sonnet`)
 - **effort: high OBLIGATOIRE** — jamais medium
-- Modèle par défaut pour subagents
-- `model: sonnet` dans frontmatter YAML
+- Sessions concurrentes ou taches de complexite moderee
 
 ## Liens
 

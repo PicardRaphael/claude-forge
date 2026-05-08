@@ -1,7 +1,15 @@
 ---
 titre: "Claude Code v2.1.110 — Release majeure"
 resume: "TUI fullscreen, push notifs, PreCompact hook, channels, side chat, remote control élargi"
-aliases: ["v2.1.110", "2.1.110"]
+aliases:
+  - "v2.1.110"
+  - "2.1.110"
+  - "CC 2.1.110"
+  - "changelog avril 2026"
+  - "fullscreen tui"
+  - "push notifications"
+  - "remote control CC"
+  - "PreCompact hook"
 domaine: claude-code
 type: changelog
 derniere-maj: 2026-04-21

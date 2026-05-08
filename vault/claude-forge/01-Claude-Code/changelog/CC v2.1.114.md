@@ -1,7 +1,13 @@
 ---
 titre: "Claude Code v2.1.114"
 resume: "Fix crash permission dialog Agent Teams"
-aliases: ["v2.1.114", "2.1.114"]
+aliases:
+  - "v2.1.114"
+  - "2.1.114"
+  - "CC 2.1.114"
+  - "agent teams fix"
+  - "permission dialog crash"
+  - "hotfix agent teams"
 domaine: claude-code
 type: changelog
 derniere-maj: 2026-04-21

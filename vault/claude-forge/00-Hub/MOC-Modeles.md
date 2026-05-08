@@ -3,9 +3,14 @@ titre: "MOC — Modèles IA"
 resume: "Index des modèles IA : Claude, GPT, Gemini, Grok — specs, benchmarks, migrations"
 aliases:
   - "MOC Modeles"
+  - "index modèles"
+  - "modèles LLM"
+  - "comparatif modèles IA"
+  - "Claude Opus Sonnet Haiku"
 type: index
-derniere-maj: 2026-05-04
+derniere-maj: 2026-05-08
 auteur: claude
+sources: []
 tags:
   - "#type/index"
   - "#domaine/modeles"

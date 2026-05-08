@@ -1,7 +1,14 @@
 ---
 titre: "Claude Code v2.1.113 — Breaking"
 resume: "CLI natif binaire, sandbox security renforcée, find -exec plus auto-approuvé"
-aliases: ["v2.1.113", "2.1.113"]
+aliases:
+  - "v2.1.113"
+  - "2.1.113"
+  - "CC 2.1.113"
+  - "CLI native binary"
+  - "breaking change avril 2026"
+  - "sandbox security CC"
+  - "binaire natif CLI"
 domaine: claude-code
 type: changelog
 derniere-maj: 2026-04-21
@@ -33,6 +40,6 @@ tags: ["#type/changelog", "#domaine/claude-code"]
 - 22 bug fixes
 
 ## Liens
-- Précédent : [[CC v2.1.112]]
+- Precedent : [[CC v2.1.111]]
 - Suivant : [[CC v2.1.114]]
 - [[MOC-Claude-Code]]

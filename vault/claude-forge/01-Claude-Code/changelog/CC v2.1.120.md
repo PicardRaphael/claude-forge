@@ -4,6 +4,10 @@ resume: "Windows sans Git Bash, ultrareview CLI, ${CLAUDE_EFFORT} dans skills, P
 aliases:
   - "CC 2.1.120"
   - "v2.1.120"
+  - "windows powershell CC"
+  - "ultrareview CLI"
+  - "CLAUDE_EFFORT"
+  - "CC sans git bash"
 domaine: claude-code
 type: changelog
 derniere-maj: 2026-04-29
@@ -60,5 +64,6 @@ tags:
 
 ## Liens
 
-- [[CC v2.1.119]]
-- [[CC v2.1.121]]
+- Precedent : [[CC v2.1.119]]
+- Suivant : [[CC v2.1.121]]
+- [[MOC-Claude-Code]]

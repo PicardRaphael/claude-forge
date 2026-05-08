@@ -16,7 +16,7 @@ tags:
   - "#domaine/openai"
 ---
 
-## Vue d'ensemble
+## Profil
 
 CLI IA d'OpenAI pour le développement. 3M utilisateurs/semaine, +1M/mois.
 

@@ -3,9 +3,14 @@ titre: "MOC — Prompts"
 resume: "Index de tous les prompts, system prompts, agent prompts, skill prompts et templates réutilisables"
 aliases:
   - "MOC Prompts"
+  - "index prompts"
+  - "prompts référence"
+  - "system prompts collection"
+  - "templates prompts"
 type: index
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-08
 auteur: claude
+sources: []
 tags:
   - "#type/index"
   - "#domaine/prompts"

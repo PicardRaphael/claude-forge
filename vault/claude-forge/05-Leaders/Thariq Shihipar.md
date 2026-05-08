@@ -6,7 +6,7 @@ aliases:
   - "@trq212"
 role: "Skills Author, Claude Code team"
 affiliation: "Anthropic"
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-08
 auteur: claude
 sources:
   - "x.com/trq212"
@@ -36,6 +36,11 @@ Auteur du système de skills de Claude Code. Anthropic.
 3. Progressive disclosure — pointer vers des fichiers
 4. Ne pas être trop spécifique — flexibilité
 5. 1 skill = 1 catégorie propre
+
+## Positions récentes
+
+- Article LinkedIn viral "Lessons from Building Claude Code: How We Use Skills"
+- Seuil auto-compact configurable, `/rewind`
 
 ## Liens
 

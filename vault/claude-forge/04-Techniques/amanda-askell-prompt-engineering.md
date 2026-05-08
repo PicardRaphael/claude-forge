@@ -1,14 +1,25 @@
 ---
-tags:
-  - technique
-  - prompt-engineering
-  - anthropic
-  - amanda-askell
+titre: "Amanda Askell — Prompt Engineering & Custom Instructions"
+resume: "15 techniques de prompt engineering par Amanda Askell (Anthropic) : TDD prompts, anti-filler, disposition vs regles, debug avec le modele"
+aliases:
+  - "amanda askell"
+  - "askell prompt engineering"
+  - "TDD system prompts"
+domaine: technique
+type: technique
 derniere-maj: 2026-04-23
-source: recherche web multi-sources
+auteur: claude
+sources:
+  - "https://x.com/AmandaAskell/status/1866207266761760812"
+  - "https://www.anthropic.com/research/claude-character"
+  - "https://www.bigtechnology.com/p/how-anthropic-builds-claudes-personality"
+tags:
+  - "#type/technique"
+  - "#domaine/prompt-engineering"
+  - "#domaine/anthropic"
 ---
 
-# Amanda Askell — Prompt Engineering & Custom Instructions
+## Description
 
 Amanda Askell est la philosophe d'Anthropic qui dirige l'equipe "personality alignment" et a ecrit le "soul document" de Claude (~30 000 mots). Time 100 AI 2024.
 
@@ -110,6 +121,10 @@ Le coeur du bon prompting = "externalize your brain" dans le modele. Relire ses 
 > "Why do we use system prompts at all? First, they let us give the model 'live' information like the date. Second, they let us do a little bit of customizing after training and to tweak behaviors until the next finetune."
 > — [Thread Claude 3, mars 2024](https://x.com/AmandaAskell/status/1765207842993434880)
 
+## Quand utiliser
+
+A chaque creation de system prompt, skill, agent description, ou instructions personnalisees. Reference fondamentale pour le prompt engineering chez Anthropic.
+
 ## Sources cles
 
 - [Thread TDD system prompts (dec 2024)](https://x.com/AmandaAskell/status/1866207266761760812)
@@ -123,3 +138,10 @@ Le coeur du bon prompting = "externalize your brain" dans le modele. Relire ses 
 - [Simon Willison tag](https://simonwillison.net/tags/amanda-askell/)
 - [Tweet "You are a" (juin 2025)](https://x.com/AmandaAskell/status/1935410853903483328)
 - [Tweet soul document (dec 2025)](https://x.com/AmandaAskell/status/1995610567923695633)
+
+## Liens
+
+- [[MOC-Techniques]]
+- [[forge-prompt-machine]]
+- [[claude-desktop-preferences]]
+- [[Context Engineering]]

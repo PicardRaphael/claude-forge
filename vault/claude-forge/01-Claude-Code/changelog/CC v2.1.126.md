@@ -1,19 +1,25 @@
 ---
-titre: "CC v2.1.126"
+titre: "Claude Code v2.1.126"
 resume: "Model picker gateway, project purge, PermissionDenied hook, PowerShell primary Windows, OTel skills"
+aliases:
+  - "CC 2.1.126"
+  - "v2.1.126"
+  - "model picker gateway"
+  - "project purge"
+  - "PermissionDenied hook"
+  - "PowerShell primary Windows"
+domaine: claude-code
 type: changelog
-version: 2.1.126
-date: 2026-05-01
 derniere-maj: 2026-05-04
 auteur: claude
+sources:
+  - "https://code.claude.com/docs/en/changelog"
 tags:
   - "#type/changelog"
   - "#domaine/claude-code"
 ---
 
-# CC v2.1.126 — 1er mai 2026
-
-## Features
+## Changements
 
 - `/model` picker liste les modeles depuis `/v1/models` quand `ANTHROPIC_BASE_URL` pointe vers un gateway compatible
 - `claude project purge [path]` — supprime tout l'etat CC d'un projet (transcripts, tasks, file history, config entry). Flags : `--dry-run`, `-y/--yes`, `-i/--interactive`, `--all`
@@ -56,6 +62,12 @@ tags:
 - Fix PowerShell bare `--` (git diff -- file) mis-flagge comme `--%`
 - Fix Agent SDK hang sur malformed tool name en parallel tool call batch
 
-## Security
+## Securite
 
 - Fix `allowManagedDomainsOnly` / `allowManagedReadPathsOnly` ignores quand higher-priority managed-settings n'avait pas de bloc `sandbox`
+
+## Liens
+
+- Precedent : [[CC v2.1.123]]
+- Suivant : [[CC v2.1.128]]
+- [[MOC-Claude-Code]]

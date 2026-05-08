@@ -6,7 +6,7 @@ aliases:
   - "prompting Cowork"
   - "Chat vs Code vs Cowork"
   - "differences prompting plateformes"
-domaine: technique
+domaine: prompting
 type: technique
 derniere-maj: 2026-04-23
 auteur: claude
@@ -18,9 +18,17 @@ sources:
   - "https://medium.com/illumination/claude-cowork-vs-claude-chat-when-to-use-which-and-why-most-people-get-it-wrong-e09201a9de3f"
 tags:
   - "#type/technique"
-  - "#domaine/technique"
+  - "#domaine/prompting"
   - "#pattern/prompting"
 ---
+
+## Description
+
+Differences de prompting entre Claude Chat, Cowork et Code. Chaque plateforme a ses patterns optimaux — le contexte engineering bat le wordsmithing dans les 3 cas.
+
+## Quand utiliser
+
+Quand on redige un prompt et qu'on a besoin de savoir quel style adopter selon la plateforme cible (Chat, Cowork, Code).
 
 ## Modele par defaut
 
@@ -104,8 +112,17 @@ Concretement :
 | Code | Accumuler les corrections au lieu de /clear | /clear apres 2 echecs, reecrire le prompt |
 | Toutes | Pas de format de sortie | Toujours specifier le format attendu |
 
+## Exemple
+
+**Chat** : "Je dois rediger un mail de relance client. Ton professionnel mais ferme. 3 paragraphes max."
+
+**Cowork** : "Cree un rapport d'analyse concurrentielle. Livrable = tableau comparatif 5 criteres x 4 concurrents + recommandation. Avant de commencer, quelles questions tu as ?"
+
+**Code** : `implemente l'endpoint POST /api/feedbacks avec validation zod et test unitaire`
+
 ## Liens
 
+- [[MOC-Techniques]]
 - [[claude-desktop-preferences]] — Configuration profil et Cowork
 - [[forge-prompt-machine]] — 12 principes FORGE BellumAI x Askell
 - [[Context Engineering]] — Paradigme dominant 2026

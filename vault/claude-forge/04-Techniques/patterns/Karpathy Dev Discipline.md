@@ -40,12 +40,27 @@ Apres audit complet de neo_ia et ia_back, ~70-80% etait deja couvert (architect-
 - Format `[Step N] → verify: [check concret]` dans les plans architect
 - Pas de passage au step N+1 sans verification PASS
 
+## Quand utiliser
+
+Setup d'un nouveau projet Claude Code, ou audit d'un projet existant pour verifier que les principes Karpathy sont implementes en rules.
+
+## Exemple
+
+Rule `dev-discipline.md` :
+```markdown
+# Dev Discipline
+1. **Simplicity First** — minimum de code, pas d'abstraction speculative
+2. **Surgical Changes** — ne toucher que ce qui est demande
+3. **Explicit Assumptions** — lister les hypotheses avant de coder
+```
+
 ## Decision : pas de plugin
 
 Le plugin brut est redondant a 80% avec l'existant. Les 2 rules ciblees comblent les gaps sans bruit contextuel.
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[Andrej Karpathy]]
 - [[Amanda Askell — Prompt Engineering & Custom Instructions]]
 - [[LLM Wiki]]

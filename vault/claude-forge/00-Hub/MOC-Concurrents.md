@@ -3,9 +3,14 @@ titre: "MOC — Concurrents"
 resume: "Index des outils AI coding concurrents : Gemini CLI, Codex, Copilot, Cursor, xAI"
 aliases:
   - "MOC Concurrents"
+  - "index concurrents"
+  - "concurrents IA coding"
+  - "outils AI coding"
+  - "alternatives Claude Code"
 type: index
-derniere-maj: 2026-05-04
+derniere-maj: 2026-05-08
 auteur: claude
+sources: []
 tags:
   - "#type/index"
   - "#domaine/concurrents"

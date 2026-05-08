@@ -6,7 +6,7 @@ aliases:
   - "@bcherny"
 role: "Creator of Claude Code"
 affiliation: "Anthropic"
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-08
 auteur: claude
 sources:
   - "https://howborisusesclaudecode.com"
@@ -37,6 +37,11 @@ Créateur de Claude Code. Travaille chez Anthropic. Workflow "Fleet Commander" �
 4. **Focus Mode** (`/focus`) cache étapes intermédiaires
 5. **Effort levels** low/medium/high/xhigh/max
 6. **Vérification systématique** — son skill `/go`
+
+## Positions récentes
+
+- 6 tips post-Opus 4.7 (16 avril 2026)
+- Acquisition Bun / CC $1B ARR
 
 ## Liens
 

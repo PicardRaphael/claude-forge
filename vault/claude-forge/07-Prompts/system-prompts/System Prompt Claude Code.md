@@ -7,7 +7,7 @@ aliases:
 domaine: claude-code
 type: prompt
 cible: claude
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-08
 auteur: claude
 sources:
   - "https://github.com/Piebald-AI/claude-code-system-prompts"

@@ -15,7 +15,7 @@ tags:
   - "#domaine/claude"
 ---
 
-## Specs
+## Specifications
 
 | Propriété | Valeur |
 |-----------|--------|
@@ -42,6 +42,13 @@ tags:
 - → Être explicite sur le scope et le parallélisme
 - `budget_tokens` **supprimé** (400 error) → utiliser adaptive thinking
 - Task budgets (beta) : plafond token pour boucles agentiques
+
+## Quand utiliser
+
+- Modele par defaut pour tous les agents projet Neoteem (`effort: xhigh` par defaut)
+- Sessions agentiques complexes, analyses approfondies, securite
+- `effort: high` minimum pour les subagents
+- `effort: medium`/`low` pour reduire cout/latence
 
 ## Dates clés
 

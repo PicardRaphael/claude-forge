@@ -4,7 +4,6 @@ resume: "Analyse comparative du plugin officiel vs forge — gaps identifiés et
 aliases:
   - "claude-code-setup"
   - "automation recommender"
-domaine: claude-code
 type: knowledge
 derniere-maj: 2026-04-26
 auteur: claude

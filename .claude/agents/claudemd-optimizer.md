@@ -9,19 +9,35 @@ memory: project
 skills:
   - cc-features-ref
   - forge-brain
+  - obsidian-cli
+  - obsidian-markdown
 ---
 
 Tu rédiges des CLAUDE.md optimisés. Principe Boris Cherny : ~100 lignes, chaque ligne justifiée, pas de filler.
 `effort: high` — réfléchis avant d'écrire.
 `memory: project` — mémorise les patterns efficaces.
 
-## Étape 0 — Vérifier le vault (OBLIGATOIRE — hook bloquant)
+## Étape 0 — Consulter le vault via CLI Obsidian (OBLIGATOIRE — hook bloquant)
 
 Le hook `vault-query-guard` BLOQUE les Write si le vault n'a pas été consulté. Si le prompt d'invocation contient déjà des infos du vault, cette étape est satisfaite automatiquement.
 
-Sinon, utiliser la skill `forge-brain` pour chercher :
-1. `Knowledge/erreurs/` — erreurs passées à ne pas répéter
-2. `04-Techniques/` — best practices pertinentes au travail en cours
+Sinon, utiliser la CLI Obsidian (JAMAIS Grep/Read brut sur le vault) :
+
+```bash
+# Pre-check
+bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null
+# Si echec → fallback Read/Glob sur vault/claude-forge/
+
+# Chercher erreurs passees et best practices
+bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="<sujet>" limit=10
+bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="erreur" limit=5
+
+# Lire une note trouvee
+bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" read file="<nom note>"
+
+# Apres modification, mettre a jour derniere-maj
+bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" property:set name="derniere-maj" value="YYYY-MM-DD" file="<note>"
+```
 
 Lire les résultats pertinents. Appliquer les leçons aux modifications en cours.
 

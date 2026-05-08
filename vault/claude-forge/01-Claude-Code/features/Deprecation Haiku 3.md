@@ -3,6 +3,12 @@ titre: "Dépréciation Haiku 3"
 resume: "claude-3-haiku-20240307 retiré le 19 avril 2026 — migrer vers haiku-4-5"
 aliases:
   - "haiku 3 deprecated"
+  - "haiku 3 retirement"
+  - "retrait haiku 3"
+  - "haiku deprecation"
+  - "claude-3-haiku end of life"
+  - "migration haiku 4.5"
+domaine: claude-code
 type: deprecation
 date-deprecation: 2026-03-01
 date-retirement: 2026-04-19

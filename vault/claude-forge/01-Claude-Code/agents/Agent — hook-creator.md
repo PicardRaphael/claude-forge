@@ -3,12 +3,17 @@ titre: "Agent — hook-creator"
 resume: "Cree et modifie des hooks Claude Code (formatting, notifications, blocage, evenements lifecycle)"
 aliases:
   - "hook-creator"
+  - "hook creator"
+  - "création hooks CC"
+  - "hook builder"
+  - "créer un hook"
+  - "automatisation lifecycle"
 projet: claude-forge
 type: agent
 permission-mode: default
 model: sonnet
 effort: high
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-08
 auteur: claude
 tags:
   - "#type/agent"
@@ -21,10 +26,9 @@ Use this agent when the user wants to CREATE or MODIFY a Claude Code hook. Use P
 
 ## Tools
 
-- Read
-- Write
-- Glob
-- Bash
+- Read, Write, Edit, Glob, Grep, Bash
+- Skills : cc-hooks-ref, cc-features-ref, forge-brain, obsidian-cli, obsidian-markdown
+- `memory: project` | `color: orange`
 
 ## Quand utiliser
 
