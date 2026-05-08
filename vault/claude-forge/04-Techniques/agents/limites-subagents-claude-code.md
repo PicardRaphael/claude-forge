@@ -62,6 +62,18 @@ Boris ne fait PAS de sub-agents profonds. Il parallélise avec des **worktrees s
 
 Son pattern : 5 worktrees parallèles, chacun avec sa propre session Claude Code. Plan Mode 80% du temps, code 20%.
 
+## Comment bloquer le nesting
+
+Pas de variable d'env ni de setting pour bloquer le nesting. La solution : **ne jamais donner `Agent` ou `Task` dans les `tools:` des agents**. Seule la session principale (qui a tous les outils par défaut) peut orchestrer.
+
+Vérification : `grep "^tools:" .claude/agents/*.md` — si aucun agent n'a Agent/Task, le nesting est impossible.
+
+Sur les 3 repos Neoteem (neo_ia, ia_back, neoteem-brain) : **aucun agent n'a Agent/Task** → nesting déjà bloqué.
+
+Standard pour tout nouveau repo :
+- **Ne JAMAIS mettre Agent ou Task dans les tools d'un agent**
+- Si un agent a besoin qu'un autre tourne → retourner le résultat à la session principale qui dispatch
+
 ## Comment découper une tâche
 
 **Par module :**
