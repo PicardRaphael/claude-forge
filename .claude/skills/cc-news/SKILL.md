@@ -45,6 +45,31 @@ Tout ce qui est postérieur à cette date doit être recherché.
 13. **Google AI Studio** (@GoogleAIStudio) — Gemini platform
    - x.com/GoogleAIStudio
 
+### RAG & Embeddings leaders
+14. **Jonas Roman** (@JonasRoman) — RAG en production, ex-Mistral AI (FR)
+   - youtube.com/@JonasRoman-t5t
+   - lagentia.fr
+15. **Omar Khattab** (@lateinteraction) — ColBERT, DSPy, MIT
+   - x.com/lateinteraction
+16. **Jerry Liu** (@jerryjliu0) — LlamaIndex founder
+   - x.com/jerryjliu0
+   - llamaindex.ai/blog
+17. **Harrison Chase** (@hwchase17) — LangChain founder (contexte RAG spécifique)
+   - blog.langchain.com
+18. **Han Xiao** (@haborosc) — Jina AI/Elastic, late chunking
+   - x.com/haborosc
+   - jina.ai/news
+19. **Chip Huyen** (@chiphuyen) — AI Engineering author
+   - x.com/chiphuyen
+   - huyenchip.com
+20. **Nils Reimers** — Sentence-BERT, Cohere VP Search
+   - sbert.net
+21. **Douwe Kiela** — RAG original paper co-author, Contextual AI CEO
+   - contextual.ai/blog
+22. **James Briggs** (@jamescalam) — Aurelio AI, RAG tutorials
+   - youtube.com/@jamesbriggs
+   - pinecone.io/learn/series/rag/
+
 ## Recherches à effectuer
 
 ### Claude Code (obligatoire)
@@ -87,6 +112,19 @@ Chercher : @alexalbert__ Claude prompt techniques 2026
 Chercher : @emollick prompt engineering 2026
 Chercher : "context engineering" OR "adaptive thinking" Claude 2026
 Chercher : Gemini prompt engineering new techniques 2026
+```
+
+### RAG & Embeddings (obligatoire)
+```
+Chercher : Jonas Roman RAG production 2026
+Chercher : @lateinteraction ColBERT DSPy 2026
+Chercher : LlamaIndex new features RAG 2026
+Chercher : Jina AI embeddings late chunking 2026
+Chercher : Cohere embed rerank new features 2026
+Chercher : @chiphuyen AI engineering RAG 2026
+Chercher : Contextual AI RAG 2.0 2026
+Chercher : MTEB embedding benchmark 2026
+Chercher : @jamescalam RAG tutorial 2026
 ```
 
 ### Industrie IA — Concurrents & leaders
@@ -147,6 +185,14 @@ Chercher : Elon Musk xAI Grok coding 2026
 - **GitHub Copilot** : [updates]
 - **Cursor** : [updates]
 - **xAI/Grok** : [updates Elon Musk]
+
+### RAG & Embeddings
+- **Jonas Roman** : [RAG prod tips]
+- **Omar Khattab** : [ColBERT/DSPy updates]
+- **Jerry Liu** : [LlamaIndex/agentic retrieval]
+- **Han Xiao** : [Jina embeddings/late chunking]
+- **Chip Huyen** : [AI engineering insights]
+- **James Briggs** : [RAG tutorials]
 
 ### Leaders & visionnaires
 - **Karpathy** : [AI coding, Obsidian, techniques]
