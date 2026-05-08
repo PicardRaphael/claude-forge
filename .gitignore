@@ -1,3 +1,8 @@
 .claude/.session-vault-queried
 .claude/.devil-advocate-done
 .claude/.reasoning-reminder-shown
+.claude/.session-turn-counter
+.claude/.learning-reminder-fired
+.claude/settings.local.json
+.obsidian/
+vault/.obsidian/

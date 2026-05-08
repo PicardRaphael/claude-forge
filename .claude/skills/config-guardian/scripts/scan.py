@@ -12,10 +12,13 @@ import sys
 import glob
 import re
 
+# Repo paths via env var NEOT_V2_DIR (parent containing ia_back/neo_ia/neoteem-brain).
+# Fallback : ~/Documents/neot-v2 (convention default). Set NEOT_V2_DIR to override per-machine.
+_NEOT_V2 = os.environ.get("NEOT_V2_DIR") or os.path.expanduser("~/Documents/neot-v2")
 REPOS = {
-    "ia_back": r"C:\Users\raphael.picard_neote\Documents\neot-v2\ia_back",
-    "neo_ia": r"C:\Users\raphael.picard_neote\Documents\neot-v2\neo_ia",
-    "neoteem-brain": r"C:\Users\raphael.picard_neote\Documents\neot-v2\neoteem-brain",
+    "ia_back": os.path.join(_NEOT_V2, "ia_back"),
+    "neo_ia": os.path.join(_NEOT_V2, "neo_ia"),
+    "neoteem-brain": os.path.join(_NEOT_V2, "neoteem-brain"),
 }
 
 GLOBAL_SETTINGS = os.path.expanduser(r"~\.claude\settings.json")

@@ -7,7 +7,7 @@ type: project
 Hook `delegate-guard.py` cree le 2026-04-26. Fonctionne en production, 10/10 tests passes.
 
 ## Fichiers
-- Script : `C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/delegate-guard.py`
+- Script : `.claude/hooks/delegate-guard.py`
 - Config : `.claude/settings.json`, PreToolUse, matcher `Edit|Write`
 
 ## Comportement

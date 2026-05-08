@@ -16,9 +16,9 @@ Scanne ia_back, neo_ia et neoteem-brain pour détecter les écarts par rapport �
 
 | Alias | Chemin |
 |-------|--------|
-| ia_back | `C:/Users/raphael.picard_neote/Documents/neot-v2/ia_back` |
-| neo_ia | `C:/Users/raphael.picard_neote/Documents/neot-v2/neo_ia` |
-| neoteem-brain | `C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-brain` |
+| ia_back | `<work-repos>/ia_back` |
+| neo_ia | `<work-repos>/neo_ia` |
+| neoteem-brain | `<work-repos>/neoteem-brain` |
 
 ## Étapes d'exécution
 

@@ -95,4 +95,4 @@ Pas de Langfuse, pas d'outil externe. Le vault = single source of truth pour l'a
 
 ## Vault path
 
-`C:/Users/raphael.picard_neote/Documents/claude-forge/vault/claude-forge/`
+`vault/claude-forge/`

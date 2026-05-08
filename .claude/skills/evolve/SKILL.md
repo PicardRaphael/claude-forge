@@ -24,7 +24,7 @@ Si le chemin est absent ou invalide, afficher :
 
 ```
 Usage : /evolve /chemin/absolu/du/projet
-Exemple : /evolve C:/Users/raphael/Documents/neot-v2/neo_ia
+Exemple : /evolve <work-repos>/neo_ia
 ```
 
 Ne pas continuer. Ne pas analyser le répertoire courant par défaut.
@@ -210,8 +210,8 @@ La section **Ce qui a été écarté** est obligatoire. Elle prouve que la séle
 ## Exemples d’usage
 
 ```
-/evolve C:/Users/raphael/Documents/neot-v2/neo_ia
-/evolve C:/Users/raphael/Documents/neot-v2/ia_back
+/evolve <work-repos>/neo_ia
+/evolve <work-repos>/ia_back
 /evolve /home/user/projects/mon-api
 ```
 

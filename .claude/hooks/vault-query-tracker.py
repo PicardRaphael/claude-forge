@@ -8,7 +8,7 @@ forge-brain, 04-Techniques/, or 07-Prompts/ (and a few other forge-brain paths).
 For Skill: serializes the full tool_input and checks for forge-brain / neo-brain keywords.
 
 When a match is found, writes an ISO timestamp to the marker file
-  C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/.session-vault-queried
+  <project_root>/.claude/.session-vault-queried (resolved at runtime via __file__)
 
 This marker is consumed by vault-query-guard.py to allow protected writes.
 Always exits 0 — PostToolUse hooks must never block.
@@ -18,7 +18,9 @@ import os
 import sys
 from datetime import datetime
 
-MARKER_PATH = "C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/.session-vault-queried"
+_HOOK_DIR = os.path.dirname(os.path.abspath(__file__))
+_CLAUDE_DIR = os.path.dirname(_HOOK_DIR)
+MARKER_PATH = os.path.join(_CLAUDE_DIR, ".session-vault-queried")
 
 # Substrings that indicate a vault / memory query
 VAULT_MARKERS = [

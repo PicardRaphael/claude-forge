@@ -7,7 +7,7 @@ description: Search, read, and write to the forge-brain Obsidian vault — persi
 
 Knowledge base Obsidian de claude-forge. Stocke tout ce que j'apprends : Claude Code, concurrents, modèles, techniques, leaders, industrie.
 
-**Vault** : `C:/Users/raphael.picard_neote/Documents/claude-forge/vault/claude-forge/`
+**Vault** : `vault/claude-forge/`
 
 ## Quand utiliser — Le vault est un RÉFLEXE
 

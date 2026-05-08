@@ -14,14 +14,16 @@ Guard logic:
 NOTE: This is a REMINDER, not a blocker (exit 0). The user decides whether
 to run devils-advocate. The reminder appears after every unchecked delivery.
 
-Marker path: C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/.devil-advocate-done
+Marker path: <project_root>/.claude/.devil-advocate-done (resolved at runtime via __file__)
 Written by: devil-advocate-tracker.py
 """
 import json
 import os
 import sys
 
-MARKER_PATH = "C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/.devil-advocate-done"
+_HOOK_DIR = os.path.dirname(os.path.abspath(__file__))
+_CLAUDE_DIR = os.path.dirname(_HOOK_DIR)
+MARKER_PATH = os.path.join(_CLAUDE_DIR, ".devil-advocate-done")
 
 WARNING_MSG = (
     "\n[devil-advocate-guard] ATTENTION — Le devil's advocate n'a pas encore ete execute "

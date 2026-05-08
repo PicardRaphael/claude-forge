@@ -21,7 +21,7 @@ then retry.
 The marker file is written by vault-query-tracker.py when a Read/Grep/Glob/Skill
 targets vault/ or memory/ paths.
 
-Marker path: C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/.session-vault-queried
+Marker path: <project_root>/.claude/.session-vault-queried (resolved at runtime via __file__)
 
 Fail-open policy: ONLY on stdin parse errors. A missing/expired marker is NOT a
 parse error — it means no vault query has occurred and the write must be blocked.
@@ -31,7 +31,9 @@ import os
 import sys
 from datetime import datetime, timedelta
 
-MARKER_PATH = "C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/.session-vault-queried"
+_HOOK_DIR = os.path.dirname(os.path.abspath(__file__))
+_CLAUDE_DIR = os.path.dirname(_HOOK_DIR)
+MARKER_PATH = os.path.join(_CLAUDE_DIR, ".session-vault-queried")
 
 PROTECTED_PATH_FRAGMENTS = [
     "vault/",

@@ -12,7 +12,7 @@ Deux hooks complémentaires déployés le 2026-05-06 :
 **Why:** Les advisory rules (check-before-create, forge-brain-proactive) avaient un taux d'échec documenté. Failure #8 dans feedback_major_mistakes. Les hooks sont déterministes.
 
 **How to apply:**
-- Marker path hardcodé en absolu : `C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/.session-vault-queried`
+- Marker path hardcodé en absolu : `.claude/.session-vault-queried`
 - Bypass : `CLAUDE_AGENT` dans `{skill-creator, agent-creator, hook-creator, claudemd-optimizer}` → exit 0
 - Fail-open uniquement sur stdin parse error — marker absent = BLOCK (pas fail-open)
 - `.claude/.session-vault-queried` ajouté au `.gitignore` racine

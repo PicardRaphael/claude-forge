@@ -19,7 +19,9 @@ import os
 import sys
 from pathlib import Path
 
-COUNTER_PATH = "C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/.session-turn-counter"
+_HOOK_DIR = os.path.dirname(os.path.abspath(__file__))
+_CLAUDE_DIR = os.path.dirname(_HOOK_DIR)
+COUNTER_PATH = os.path.join(_CLAUDE_DIR, ".session-turn-counter")
 
 RECAP_MSG = (
     "[session-health] Tour {turn} — Nouvelle session détectée. "

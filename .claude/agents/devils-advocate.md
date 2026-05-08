@@ -43,8 +43,8 @@ Si un fichier est référencé, le lire avec `Read` avant d'argumenter.
 7. **Classer les objections** — BLOQUANT / AVERTISSEMENT / NITPICK
 8. **Rédiger le verdict + sauvegarder la critique** avec le format de sortie ci-dessous. Après avoir rendu le verdict, sauvegarder la critique dans le vault via un heredoc Bash (les colons YAML cassent la CLI, `Write` est bloqué par `disallowedTools`) :
    ```bash
-   mkdir -p "C:/Users/raphael.picard_neote/Documents/claude-forge/vault/claude-forge/Knowledge/critiques"
-   cat > "C:/Users/raphael.picard_neote/Documents/claude-forge/vault/claude-forge/Knowledge/critiques/critique-<YYYY-MM-DD>-<slug>.md" << 'EOF'
+   mkdir -p "vault/claude-forge/Knowledge/critiques"
+   cat > "vault/claude-forge/Knowledge/critiques/critique-<YYYY-MM-DD>-<slug>.md" << 'EOF'
    ---
    titre: "Critique — <nom proposition>"
    type: knowledge

@@ -22,7 +22,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/learning-reminder.py\"",
+            "command": "python \".claude/hooks/learning-reminder.py\"",
             "timeout": 10,
             "once": true
           }
@@ -35,7 +35,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/security-guard.py\"",
+            "command": "python \".claude/hooks/security-guard.py\"",
             "timeout": 5
           }
         ]
@@ -45,7 +45,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/delegate-guard.py\"",
+            "command": "python \".claude/hooks/delegate-guard.py\"",
             "timeout": 5
           }
         ]
@@ -55,7 +55,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/vault-query-guard.py\"",
+            "command": "python \".claude/hooks/vault-query-guard.py\"",
             "timeout": 5
           }
         ]
@@ -67,7 +67,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/vault-query-tracker.py\"",
+            "command": "python \".claude/hooks/vault-query-tracker.py\"",
             "timeout": 5
           }
         ]
@@ -77,17 +77,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/devil-advocate-tracker.py\"",
+            "command": "python \".claude/hooks/devil-advocate-tracker.py\"",
             "timeout": 5
           },
           {
             "type": "command",
-            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/devil-advocate-guard.py\"",
+            "command": "python \".claude/hooks/devil-advocate-guard.py\"",
             "timeout": 5
           },
           {
             "type": "command",
-            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/reasoning-cache-reminder.py\"",
+            "command": "python \".claude/hooks/reasoning-cache-reminder.py\"",
             "timeout": 5
           }
         ]
@@ -98,7 +98,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/session-health.py\"",
+            "command": "python \".claude/hooks/session-health.py\"",
             "timeout": 5
           }
         ]
@@ -109,7 +109,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/session-reminder.py\"",
+            "command": "python \".claude/hooks/session-reminder.py\"",
             "timeout": 5
           }
         ]

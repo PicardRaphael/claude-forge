@@ -17,7 +17,9 @@ import os
 import re
 import sys
 
-MARKER_PATH = "C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/.reasoning-reminder-shown"
+_HOOK_DIR = os.path.dirname(os.path.abspath(__file__))
+_CLAUDE_DIR = os.path.dirname(_HOOK_DIR)
+MARKER_PATH = os.path.join(_CLAUDE_DIR, ".reasoning-reminder-shown")
 
 REMINDER_MSG = (
     "\n[reasoning-cache-reminder] Raisonnement complexe detecte. "

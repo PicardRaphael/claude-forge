@@ -64,7 +64,7 @@ Collecter 2-3 wikilinks pertinents pour la section `## Liens`.
 
 **IMPORTANT — creation avec `Write`, PAS obsidian-cli** : le frontmatter contient des `:`, ce qui casse le parser de la CLI (exit 127). Utiliser `Write` pour la creation initiale.
 
-Chemin : `C:/Users/raphael.picard_neote/Documents/claude-forge/vault/claude-forge/Knowledge/raisonnements/<slug>.md`
+Chemin : `vault/claude-forge/Knowledge/raisonnements/<slug>.md`
 
 Format du slug : `<type>-<3-mots-cles>.md` (ex : `architecture-decision-hooks-vs-rules.md`)
 

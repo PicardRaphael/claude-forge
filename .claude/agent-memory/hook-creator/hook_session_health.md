@@ -30,5 +30,5 @@ type: project
 
 ## File paths
 
-- Script: `C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/session-health.py`
-- Counter: `C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/.session-turn-counter`
+- Script: `.claude/hooks/session-health.py`
+- Counter: `.claude/.session-turn-counter`

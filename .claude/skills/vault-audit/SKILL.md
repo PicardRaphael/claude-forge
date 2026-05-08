@@ -37,7 +37,6 @@ Si échec → fallback filesystem (audit.py fonctionne en mode filesystem par d�
 ### 2. Lancer l'audit
 
 ```bash
-cd "C:/Users/raphael.picard_neote/Documents/claude-forge"
 python3 .claude/skills/vault-audit/scripts/audit.py [options]
 ```
 
@@ -51,7 +50,6 @@ Options disponibles :
 ### 3. Si $ARGUMENTS contient "fix" : lancer les corrections déterministes
 
 ```bash
-cd "C:/Users/raphael.picard_neote/Documents/claude-forge"
 python3 .claude/skills/vault-audit/scripts/fix.py [--dry-run] [--note "NomNote"]
 ```
 
