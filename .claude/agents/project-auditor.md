@@ -1,6 +1,6 @@
 ---
 name: project-auditor
-description: Use when asked to audit a project's .claude/ setup, verify agents/skills/hooks/rules quality, or check for issues like missing colors, bad descriptions, wrong tools, deprecated features. Produces a report with fixes.
+description: Use when asked to audit, analyze, or review a project's .claude/ setup, verify agents/skills/hooks/rules/CLAUDE.md quality, or check for issues. Use PROACTIVELY when user says analyse les skills, analyse les agents, vérifie la config, refais une analyse de X. Produces a report with fixes.
 model: opus
 effort: high
 tools: Read, Write, Edit, Glob, Grep, Bash, Agent
