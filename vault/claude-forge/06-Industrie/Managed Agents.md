@@ -3,6 +3,10 @@ titre: "Managed Agents — Beta publique"
 resume: "Agents cloud Anthropic $0.08/session-hour + tokens, sandbox, checkpointing, Notion/Rakuten/Asana"
 aliases:
   - "managed agents"
+  - "agents cloud anthropic"
+  - "managed agents beta"
+  - "agents geres"
+  - "anthropic cloud agents"
 type: knowledge
 derniere-maj: 2026-05-08
 auteur: claude

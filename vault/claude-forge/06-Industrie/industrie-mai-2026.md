@@ -4,6 +4,9 @@ resume: "GPT-5.5 Instant, Cursor $60B, Gemini CLI Actions, Copilot AI Credits, M
 aliases:
   - "industrie mai 2026"
   - "ai industry may 2026"
+  - "industrie IA mai"
+  - "cursor 60B"
+  - "GPT-5.5 instant"
 type: knowledge
 derniere-maj: 2026-05-08
 auteur: claude

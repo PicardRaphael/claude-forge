@@ -4,6 +4,9 @@ resume: "5 plugins Cowork separes (dev/dev-admin/dev-ia/support/support-admin) +
 aliases:
   - "neoteem-brain plugins"
   - "brain plugins"
+  - "plugins cowork neoteem"
+  - "architecture plugins brain"
+  - "role-based vault access"
 domaine: technique
 type: technique
 derniere-maj: 2026-04-29

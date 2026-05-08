@@ -4,6 +4,9 @@ resume: "Index de tout le savoir Claude Code : features, changelog, hooks, skill
 aliases:
   - "MOC Claude Code"
   - "CC index"
+  - "claude code features"
+  - "index claude code"
+  - "CC features map"
 type: index
 derniere-maj: 2026-05-08
 auteur: claude

@@ -4,6 +4,9 @@ resume: "Créateur de Claude Code, @bcherny, fleet commander workflow, 6 tips Op
 aliases:
   - "bcherny"
   - "@bcherny"
+  - "boris cherny"
+  - "boris claude code"
+  - "howborisusesclaudecode"
 role: "Creator of Claude Code"
 affiliation: "Anthropic"
 derniere-maj: 2026-05-08

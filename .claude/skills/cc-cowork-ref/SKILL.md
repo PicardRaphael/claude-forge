@@ -253,3 +253,10 @@ Destination : [ou sauvegarder / envoyer]
 - Computer Use est en research preview (mars 2026) — pas stable pour production
 - Skills projet (`.claude/skills/`) ne sont PAS visibles dans Cowork — utiliser `~/.claude/skills/` ou plugin
 - ToxicSkills : 13.4% des skills publiques vulnerables (Snyk fev 2026) — auditer avant d'installer
+
+
+## Apprentissage
+
+Après chaque usage significatif, sauvegarder en mémoire projet les patterns efficaces et erreurs rencontrées.
+
+_Aucune entrée pour le moment._

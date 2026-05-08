@@ -4,6 +4,9 @@ resume: "Agent coding OpenAI, 3 modes, subagents, MCP, contexte 1M ($200/mo Pro)
 aliases:
   - "OpenAI Codex"
   - "GPT-5.3"
+  - "codex openai"
+  - "gpt 5.3 codex"
+  - "openai coding agent"
 domaine: openai
 type: concurrent
 derniere-maj: 2026-04-26

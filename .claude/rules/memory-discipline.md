@@ -20,12 +20,21 @@ Si la session a produit un apprentissage non trivial :
 - Decouverte technique → creer/mettre a jour un fichier memoire reference_*
 - Contexte projet change → mettre a jour le fichier memoire project_*
 
-## Forge Brain
+## Forge Brain — via CLI Obsidian
 
 Le vault forge-brain est la memoire LONGUE. La memoire projet (MEMORY.md) est la memoire COURTE.
 - Info specifique a la relation avec Raphael → memoire projet
 - Info technique reutilisable par n'importe qui → forge-brain vault
 - Erreur significative → les DEUX (memoire + Knowledge/erreurs/)
+- Question technique resolue → Knowledge/questions/
+- Exploration technique → Knowledge/explorations/
+
+Toujours utiliser la CLI Obsidian pour interagir avec le vault :
+```bash
+bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="..."
+bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" read file="..."
+```
+JAMAIS Grep/Read brut sur le vault. Fallback si Obsidian ferme.
 
 ## Anti-patterns
 

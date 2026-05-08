@@ -4,6 +4,10 @@ resume: "Point d'entrée principal du vault de connaissances claude-forge"
 aliases:
   - "home"
   - "accueil"
+  - "forge brain"
+  - "vault home"
+  - "knowledge base"
+  - "index principal"
 type: index
 derniere-maj: 2026-05-08
 auteur: claude

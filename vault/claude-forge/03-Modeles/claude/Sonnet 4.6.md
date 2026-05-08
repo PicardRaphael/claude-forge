@@ -4,6 +4,9 @@ resume: "Modèle rapide, effort high obligatoire dans Claude Code, 1M context na
 aliases:
   - "sonnet-4-6"
   - "claude-sonnet-4-6"
+  - "sonnet 4.6"
+  - "claude sonnet"
+  - "modele sonnet"
 domaine: claude-code
 type: modele
 derniere-maj: 2026-04-21

@@ -4,6 +4,9 @@ resume: "1ere conference dev Anthropic : SF 6-7 mai, Londres 19 mai, Tokyo 10 ju
 aliases:
   - "code with claude"
   - "cwc 2026"
+  - "conference anthropic dev"
+  - "code with claude SF"
+  - "anthropic developer conference"
 type: evenement
 date: 2026-05-06
 derniere-maj: 2026-05-08

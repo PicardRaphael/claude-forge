@@ -4,6 +4,9 @@ resume: "Spec ouverte discover/install/publish skills entre CC, Copilot, Cursor,
 aliases:
   - "agent skills spec"
   - "gh skill"
+  - "skills cross-platform"
+  - "spec ouverte skills"
+  - "standard skills agents"
 type: knowledge
 derniere-maj: 2026-04-21
 auteur: claude

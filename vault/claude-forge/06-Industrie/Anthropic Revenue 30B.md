@@ -4,6 +4,9 @@ resume: "Anthropic dépasse OpenAI pour la première fois — $30B vs $25B annua
 aliases:
   - "anthropic revenue"
   - "anthropic 30b"
+  - "anthropic chiffre affaires"
+  - "anthropic vs openai revenue"
+  - "anthropic $30B"
 type: knowledge
 derniere-maj: 2026-04-21
 auteur: claude

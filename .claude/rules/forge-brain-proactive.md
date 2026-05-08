@@ -7,6 +7,32 @@ globs: "*"
 
 Le vault forge-brain est la mémoire infinie. L'interroger est un RÉFLEXE, pas une option.
 
+## COMMENT interroger — CLI Obsidian (OBLIGATOIRE)
+
+Ne JAMAIS utiliser Grep/Read brut sur le vault. Toujours la CLI :
+
+```bash
+# Pre-check
+bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null
+
+# Chercher
+bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="sujet" limit=10
+
+# Lire une note
+bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" read file="Nom Note"
+
+# Backlinks (naviguer le graphe)
+bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" backlinks file="Nom Note"
+
+# Tags (vue structurelle)
+bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" tags sort=count counts
+
+# Après écriture, mettre à jour derniere-maj
+bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" property:set name="derniere-maj" value="YYYY-MM-DD" file="Note"
+```
+
+Fallback Read/Glob/Grep si Obsidian est fermé (pre-check échoue).
+
 ## QUAND INTERROGER le vault
 
 ### 1. Début de session
@@ -47,6 +73,8 @@ Le vault forge-brain est la mémoire infinie. L'interroger est un RÉFLEXE, pas 
 | Prompt efficace créé | `07-Prompts/` | prompt |
 | Erreur commise | `Knowledge/erreurs/` | erreur |
 | Synthèse d'analyse | `Knowledge/syntheses/` | knowledge |
+| Question technique résolue | `Knowledge/questions/` | knowledge |
+| Exploration technique | `Knowledge/explorations/` | knowledge |
 
 ## Vault path
 

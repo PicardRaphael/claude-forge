@@ -4,6 +4,9 @@ resume: "100 articles, 400K mots plain text, 70x plus efficient que RAG pour org
 aliases:
   - "llm wiki"
   - "karpathy wiki"
+  - "LLM knowledge base"
+  - "wiki pattern karpathy"
+  - "plain text knowledge management"
 domaine: technique
 type: technique
 derniere-maj: 2026-04-21

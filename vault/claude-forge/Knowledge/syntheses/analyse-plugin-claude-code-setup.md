@@ -4,6 +4,9 @@ resume: "Analyse comparative du plugin officiel vs forge — gaps identifiés et
 aliases:
   - "claude-code-setup"
   - "automation recommender"
+  - "plugin setup anthropic"
+  - "isabella he plugin"
+  - "analyse plugin officiel"
 type: knowledge
 derniere-maj: 2026-04-26
 auteur: claude

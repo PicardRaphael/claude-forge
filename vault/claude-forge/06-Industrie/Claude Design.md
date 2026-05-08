@@ -3,6 +3,10 @@ titre: "Claude Design"
 resume: "Plugin Anthropic Labs dans Cowork — text-to-prototype, wireframes, design system auto, export"
 aliases:
   - "claude design"
+  - "anthropic labs design"
+  - "text to prototype"
+  - "claude wireframes"
+  - "design plugin cowork"
 type: knowledge
 derniere-maj: 2026-04-21
 auteur: claude

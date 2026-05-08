@@ -4,6 +4,9 @@ resume: "5 niveaux d'effort Claude Code : low, medium, high, xhigh (défaut Opus
 aliases:
   - "effort levels"
   - "effort"
+  - "niveaux effort claude"
+  - "xhigh effort"
+  - "effort guide claude code"
 domaine: technique
 type: technique
 derniere-maj: 2026-04-21

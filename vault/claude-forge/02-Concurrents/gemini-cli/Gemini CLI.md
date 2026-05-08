@@ -4,6 +4,9 @@ resume: "CLI IA Google, chapters, subagents YAML, context compression, 1M+ token
 aliases:
   - "gemini cli"
   - "gemini-cli"
+  - "google gemini cli"
+  - "gemini terminal"
+  - "gemini coding agent"
 domaine: gemini
 type: concurrent
 derniere-maj: 2026-04-26

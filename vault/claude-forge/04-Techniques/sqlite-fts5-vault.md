@@ -4,6 +4,9 @@ resume: "Utiliser SQLite FTS5 comme moteur de recherche pour un vault Obsidian, 
 aliases:
   - "FTS5 vault"
   - "SQLite full-text search vault"
+  - "recherche plein texte vault"
+  - "FTS5 obsidian"
+  - "sqlite search MCP"
 domaine: technique
 type: technique
 derniere-maj: 2026-04-29

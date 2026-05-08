@@ -3,6 +3,10 @@ titre: "Sam Altman"
 resume: "CEO OpenAI, déclare AGI atteint, $25B revenue, New Deal for AI, IPO 2026-2027"
 aliases:
   - "altman"
+  - "sam altman"
+  - "CEO openai"
+  - "openai ceo"
+  - "new deal for ai"
 role: "CEO OpenAI"
 affiliation: "OpenAI"
 derniere-maj: 2026-05-08

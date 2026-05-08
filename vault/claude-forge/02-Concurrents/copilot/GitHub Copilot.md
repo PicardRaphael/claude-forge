@@ -4,6 +4,9 @@ resume: "Autopilot, gh skill cross-platform, Opus 4.7 dispo, plans individuels s
 aliases:
   - "copilot"
   - "github copilot"
+  - "copilot autopilot"
+  - "gh copilot"
+  - "github ai assistant"
 domaine: copilot
 type: concurrent
 derniere-maj: 2026-04-21

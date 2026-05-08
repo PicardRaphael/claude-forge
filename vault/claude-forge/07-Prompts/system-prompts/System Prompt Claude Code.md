@@ -4,6 +4,9 @@ resume: "Context engineering dynamique de Claude Code : assemblage conditionnel,
 aliases:
   - "claude code system prompt"
   - "piebald system prompts"
+  - "CC system prompt"
+  - "context engineering claude code"
+  - "piebald-ai repo"
 domaine: claude-code
 type: prompt
 cible: claude

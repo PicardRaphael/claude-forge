@@ -4,6 +4,9 @@ resume: "Opus 4.7 adaptive thinking — off par défaut, thinking: {type: adapti
 aliases:
   - "adaptive thinking"
   - "extended thinking"
+  - "reflexion etendue"
+  - "thinking mode claude"
+  - "chain of thought claude"
 domaine: technique
 type: technique
 derniere-maj: 2026-04-21

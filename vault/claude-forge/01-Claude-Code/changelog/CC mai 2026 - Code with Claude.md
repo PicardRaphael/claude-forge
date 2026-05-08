@@ -4,6 +4,10 @@ resume: "Desktop GUI, web UI, Plan mode, Auto mode, Security, Dreaming, CLI upda
 aliases:
   - "Code with Claude mai 2026"
   - "CC mai 2026"
+  - "claude code may 2026"
+  - "CC changelog mai"
+  - "code with claude drop"
+  - "CC desktop GUI"
 domaine: claude-code
 type: changelog
 derniere-maj: 2026-05-08

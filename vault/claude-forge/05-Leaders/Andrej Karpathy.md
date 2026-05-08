@@ -3,6 +3,10 @@ titre: "Andrej Karpathy"
 resume: "LLM Wiki (100 articles, 400K mots, 70x vs RAG), AutoResearch, anti-patterns LLM coding"
 aliases:
   - "karpathy"
+  - "andrej karpathy"
+  - "karpathy llm wiki"
+  - "AutoResearch"
+  - "agentic engineering karpathy"
 role: "AI researcher, educator"
 affiliation: "Independent (ex-Tesla, ex-OpenAI)"
 derniere-maj: 2026-05-08

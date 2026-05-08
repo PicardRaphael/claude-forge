@@ -4,6 +4,9 @@ resume: "Modèle rapide et léger, remplace Haiku 3 (retiré 19 avril 2026)"
 aliases:
   - "haiku-4-5"
   - "claude-haiku-4-5"
+  - "haiku 4.5"
+  - "claude haiku"
+  - "modele rapide claude"
 domaine: claude-code
 type: modele
 derniere-maj: 2026-04-21

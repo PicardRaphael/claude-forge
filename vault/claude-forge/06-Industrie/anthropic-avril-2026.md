@@ -4,6 +4,9 @@ resume: "Google $10B, valorisation $350B, revenue >$30B, Mythos Preview, Claude 
 aliases:
   - "Anthropic funding 2026"
   - "Anthropic $350B"
+  - "anthropic avril 2026"
+  - "google anthropic 10B"
+  - "anthropic valorisation"
 type: knowledge
 derniere-maj: 2026-04-26
 auteur: claude

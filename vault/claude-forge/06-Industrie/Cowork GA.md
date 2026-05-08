@@ -4,6 +4,9 @@ resume: "Cowork GA 9 avril 2026, tous plans payés, RBAC, OpenTelemetry, Analyti
 aliases:
   - "cowork"
   - "claude cowork"
+  - "cowork GA"
+  - "claude desktop pro"
+  - "cowork enterprise"
 type: knowledge
 derniere-maj: 2026-05-08
 auteur: claude

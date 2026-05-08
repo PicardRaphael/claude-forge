@@ -3,6 +3,10 @@ titre: "Erik Schluntz"
 resume: "Co-fondateur Anthropic, tool use/computer use/SWE-bench, 'stopped writing code manually', talk Vibe Coding in Prod"
 aliases:
   - "schluntz"
+  - "erik schluntz"
+  - "@ErikSchluntz"
+  - "building effective agents"
+  - "cobalt robotics"
 role: "Member of Technical Staff & Co-founder"
 affiliation: "Anthropic"
 derniere-maj: 2026-05-08

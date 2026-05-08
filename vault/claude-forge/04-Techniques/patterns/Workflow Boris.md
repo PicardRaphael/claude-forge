@@ -4,6 +4,9 @@ resume: "5 terminaux + 5-10 sessions cloud en parallèle, chacun en worktree, ne
 aliases:
   - "fleet commander"
   - "workflow boris"
+  - "boris workflow"
+  - "parallel agents pattern"
+  - "worktree workflow"
 domaine: technique
 type: technique
 derniere-maj: 2026-04-21

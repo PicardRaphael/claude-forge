@@ -4,6 +4,10 @@ resume: "SWE-bench 87.6%, adaptive thinking, xhigh effort, nouveau tokenizer, 23
 aliases:
   - "opus-4-7"
   - "claude-opus-4-7"
+  - "opus 4.7"
+  - "claude opus"
+  - "modele opus"
+  - "SWE-bench 87"
 domaine: claude-code
 type: modele
 derniere-maj: 2026-04-21

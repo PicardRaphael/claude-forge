@@ -4,6 +4,9 @@ resume: "Structure optimale system prompt Claude par Amanda Askell : role, const
 aliases:
   - "amanda askell system prompt"
   - "system prompt structure"
+  - "askell prompt template"
+  - "structure system prompt claude"
+  - "prompt engineering askell"
 domaine: technique
 type: prompt
 cible: claude

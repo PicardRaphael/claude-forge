@@ -4,6 +4,9 @@ resume: "Claude Code team, workshops Frontend Masters, Agent Teams, Session Shar
 aliases:
   - "lydiahallie"
   - "@lydiahallie"
+  - "lydia hallie"
+  - "lydia anthropic"
+  - "frontend masters claude code"
 role: "Claude Code team"
 affiliation: "Anthropic"
 derniere-maj: 2026-05-08

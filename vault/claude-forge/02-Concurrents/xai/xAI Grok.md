@@ -4,6 +4,9 @@ resume: "Grok 4.3 Beta, Grok 5 en training Q2 2026, Musk admet retard coding, 4 
 aliases:
   - "grok"
   - "xai"
+  - "grok coding"
+  - "elon musk ai"
+  - "grok build"
 domaine: xai
 type: concurrent
 derniere-maj: 2026-04-21

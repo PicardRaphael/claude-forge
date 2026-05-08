@@ -4,6 +4,9 @@ resume: "Skills author Claude Code, @trq212, gotchas = highest-signal, progressi
 aliases:
   - "thariq"
   - "@trq212"
+  - "thariq shihipar"
+  - "thariq skills"
+  - "skills author claude code"
 role: "Skills Author, Claude Code team"
 affiliation: "Anthropic"
 derniere-maj: 2026-05-08
