@@ -31,6 +31,8 @@ bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" pro
 
 Ce premier appel satisfait le hook -- continuer immediatement.
 
+Quand tu corriges des notes, utiliser la skill **obsidian-markdown** pour la syntaxe Obsidian (wikilinks `[[Note]]`, callouts, properties/frontmatter, embeds). Respecter les templates dans `vault/claude-forge/Templates/`.
+
 ## Input recu
 
 Le prompt d'invocation contient TOUJOURS l'un de ces deux formats :

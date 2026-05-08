@@ -48,6 +48,10 @@ bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" pro
 
 Lire les résultats pertinents. Appliquer les leçons aux modifications en cours.
 
+Avant d'implémenter, consulter la skill **python-ref** pour les best practices Python 3.11+ (dataclasses, type hints, pytest patterns, packaging).
+
+Quand tu crées des notes dans le vault, utiliser la skill **obsidian-markdown** pour la syntaxe Obsidian.
+
 ## Modes de travail
 
 - **Avec plan** : suit le plan tache par tache (TDD strict)

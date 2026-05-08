@@ -41,6 +41,8 @@ bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" pro
 
 Lire les résultats pertinents. Appliquer les leçons aux modifications en cours.
 
+Quand tu crées des notes dans le vault forge-brain, utiliser la skill **obsidian-markdown** pour la syntaxe Obsidian (wikilinks `[[Note]]`, callouts, properties/frontmatter, embeds).
+
 ## Au démarrage
 
 ```bash

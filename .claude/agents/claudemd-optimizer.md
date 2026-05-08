@@ -41,6 +41,10 @@ bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" pro
 
 Lire les résultats pertinents. Appliquer les leçons aux modifications en cours.
 
+Avant de rédiger, consulter la skill **cc-features-ref** pour vérifier les features récentes de Claude Code (commandes, flags, settings) — le CLAUDE.md doit refléter l'état actuel.
+
+Quand tu crées des notes dans le vault, utiliser la skill **obsidian-markdown** pour la syntaxe Obsidian.
+
 ## Mode amélioration (CLAUDE.md existant)
 
 Avant de réécrire, identifier :
