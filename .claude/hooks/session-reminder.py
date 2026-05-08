@@ -3,6 +3,15 @@
 import glob
 import os
 import sys
+import tempfile
+
+# Clean learning-reminder marker from previous session
+_marker = os.path.join(tempfile.gettempdir(), "claude-forge-learning-reminded")
+if os.path.exists(_marker):
+    try:
+        os.remove(_marker)
+    except Exception:
+        pass
 
 def find_latest_memory():
     pattern = os.path.expanduser("~/.claude/projects/*/memory/MEMORY.md")

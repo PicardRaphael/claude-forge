@@ -1,24 +1,15 @@
 #!/usr/bin/env python3
-"""Learning reminder — rappel de sauvegarder les apprentissages avant d'arrêter.
+"""Learning reminder — fires ONCE per session on Stop.
 
-Triggered on: Stop (une fois par session via once:true dans settings.json)
-
-Comportement :
-- Injecte un rappel dans le contexte de Claude via decision:block + reason
-- Claude voit le message et peut sauvegarder avant de s'arrêter vraiment
-- once:true dans settings.json = se déclenche une seule fois par session
-
-Note sur le mécanisme Stop :
-- Sur l'événement Stop, additionalContext n'est pas supporté
-- Le seul moyen d'injecter du contenu est decision:block + reason
-- "block" sur Stop = "continue avec reason comme prompt", pas "empêcher définitivement"
-- Avec once:true, le hook ne se déclenche qu'une fois → pas de boucle infinie
-
-Toujours exit 0 — pas de blocage sur erreur.
+Marker in %TEMP% prevents infinite loop (decision:block re-triggers Stop).
+SessionStart hook (session-reminder.py) cleans the marker.
 """
 import json
 import os
 import sys
+import tempfile
+
+MARKER = os.path.join(tempfile.gettempdir(), "claude-forge-learning-reminded")
 
 REMINDER = (
     "Avant de terminer : as-tu appris quelque chose cette session ? Vérifie :\n"
@@ -36,24 +27,17 @@ def main() -> None:
     except Exception:
         pass
 
-    # Marker file — ne se déclenche qu'une seule fois par session
-    marker = os.path.join(os.path.dirname(__file__), ".learning-reminder-fired")
-    if os.path.exists(marker):
+    if os.path.exists(MARKER):
         sys.exit(0)
 
     try:
-        os.makedirs(os.path.dirname(marker), exist_ok=True)
-        with open(marker, "w") as f:
-            f.write("fired")
+        with open(MARKER, "w") as f:
+            f.write("1")
     except Exception:
         pass
 
     try:
-        output = {
-            "decision": "block",
-            "reason": REMINDER,
-        }
-        print(json.dumps(output))
+        print(json.dumps({"decision": "block", "reason": REMINDER}))
     except Exception:
         pass
 
