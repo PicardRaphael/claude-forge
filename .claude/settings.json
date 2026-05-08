@@ -17,6 +17,16 @@
             "timeout": 2
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/learning-reminder.py\"",
+            "timeout": 10,
+            "once": true
+          }
+        ]
       }
     ],
     "PreToolUse": [
@@ -58,6 +68,17 @@
           {
             "type": "command",
             "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/vault-query-tracker.py\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"C:/Users/raphael.picard_neote/Documents/claude-forge/.claude/hooks/session-health.py\"",
             "timeout": 5
           }
         ]
