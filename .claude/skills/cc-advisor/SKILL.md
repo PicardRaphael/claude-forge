@@ -84,6 +84,11 @@ Après chaque conseil, sauvegarder en mémoire si pertinent :
 
 Catalogue complet signal → MCP server : [references/mcp-catalog.md](references/mcp-catalog.md)
 
+## Gotchas
+
+- **Toujours vérifier le vault forge-brain d'abord** — avant de recommander un composant ou une technique, chercher si un pattern existe déjà dans `04-Techniques/` ou `Knowledge/`. Éviter de réinventer ce qui est déjà documenté.
+- **Pas d'agent orchestrateur** — ne jamais recommander de créer un agent CTO/chef-d'orchestre. La session principale orchestre via `.claude/rules/`. Documenté dans `feedback_no_cto_agent.md`.
+
 ## Règle anti over-engineering
 
 Budget contexte skills = 1% de la fenêtre.

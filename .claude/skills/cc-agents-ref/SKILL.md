@@ -97,6 +97,13 @@ hooks:
 - **Opus 4.7 subagent management** : 4.7 spawn moins de subagents → fan-out doit etre EXPLICITE dans les rules
 - **Plan-driven** : "the plan IS the prompt" — inclure intent + fichiers + criteres acceptance dans le prompt du Task
 
+
+## Gotchas
+
+- **`memory: project` obligatoire** — sur TOUS les agents sans exception. Sans ça, pas d'accumulation cross-sessions et chaque run repart de zéro.
+- **`skills:` obligatoire** — les subagents n'héritent PAS des skills du parent. Toujours lister explicitement chaque skill nécessaire dans le frontmatter de l'agent.
+- **Pas de `Agent` dans les tools d'un subagent** — les subagents ne peuvent pas spawner d'autres sub-agents (GitHub #19077, by design). Un agent qui a besoin d'un autre worker doit être redesigné comme orchestrateur au niveau rules.
+
 ## Localisation
 
 - `.claude/agents/` → projet ← PRIORITAIRE

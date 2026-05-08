@@ -101,6 +101,12 @@ Chercher : Sam Altman OpenAI announcements 2026
 Chercher : Elon Musk xAI Grok coding 2026
 ```
 
+## Gotchas
+
+- **Max 6-8 recherches par agent** — au-delà l'agent crash ou perd le fil. Découper en agents parallèles par thème si le scan est large.
+- **Capitaliser dans le vault APRÈS le scan** — ne pas finir sans créer/mettre à jour les notes forge-brain. Étape 7 de la checklist est obligatoire, pas optionnelle.
+- **Vérifier le vault AVANT de chercher** — step 1 de la checklist : éviter de re-chercher ce qui est déjà documenté avec un `derniere-maj` récent.
+
 ## Étapes
 
 1. **Chercher dans le vault forge-brain** d'abord — vérifier ce qui est déjà connu (`derniere-maj` des notes)
@@ -178,3 +184,9 @@ Après chaque scan cc-news, capitaliser dans le vault `vault/claude-forge/` :
 3. **Mettre à jour les MOCs** — ajouter les wikilinks des nouvelles notes
 4. **Mettre à jour `derniere-maj`** sur chaque note touchée
 5. **Utiliser les templates** de `Templates/` pour chaque nouveau type de note
+
+## Apprentissage
+
+Après chaque usage significatif, sauvegarder en mémoire projet les patterns efficaces et erreurs rencontrées.
+
+_Aucune entrée pour le moment._

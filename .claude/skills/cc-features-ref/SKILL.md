@@ -238,3 +238,14 @@ LSPs disponibles pour tous les langages majeurs.
   ]
 }
 ```
+
+## Gotchas
+
+- **Date de référence** — ce fichier est figé à v2.1.119 (26 avril 2026). Utiliser `cc-news` si l'info semble datée ou si la feature demandée est postérieure à cette date.
+- **Pas de `effort: max`** — déprécié depuis v2.1.91, utiliser `high` ou `xhigh`. `max` reste fonctionnel mais prone à l'overthinking.
+
+## Apprentissage
+
+Après chaque usage significatif, sauvegarder en mémoire projet les patterns efficaces et erreurs rencontrées.
+
+_Aucune entrée pour le moment._

@@ -168,3 +168,15 @@ hooks:
 chmod +x .claude/hooks/<nom>.py
 python3 -m json.tool .claude/settings.json
 ```
+
+## Gotchas
+
+- **JSON sur stdin, pas de variables d'environnement** — tous les hooks reçoivent leurs données via `json.loads(sys.stdin.read())`. Ne pas lire `os.environ` pour les inputs du hook.
+- **Exit code 2 = blocage uniquement sur PreToolUse** — sur PostToolUse, Stop et autres événements, exit 2 est ignoré ou traité comme exit 1. Seul PreToolUse bloque l'exécution de l'outil.
+- **Pas de TTL sur markers** — les markers doivent être vérifiés par leur existence seule (`os.path.exists(marker)`), jamais par logique temporelle. Un marker expirable = complexité inutile + bugs de timing.
+
+## Apprentissage
+
+Après chaque usage significatif, sauvegarder en mémoire projet les patterns efficaces et erreurs rencontrées.
+
+_Aucune entrée pour le moment._

@@ -122,6 +122,13 @@ tags:
 5. **Ne jamais modifier Templates/** — lecture seule
 6. **Vault ≠ mémoire projet** — le vault stocke du savoir référence, pas du feedback/projet
 
+## Gotchas
+
+- **CLI wrapper obligatoire Windows** — ne jamais appeler `obsidian` directement, toujours `bash .claude/skills/forge-brain/scripts/obsidian-cli.sh`. L'exécutable résolu sur Windows est `Obsidian.exe` au lieu de `.com`, le wrapper corrige ça.
+- **Colons dans `content=` cassent la CLI** — le parser YAML interprète les `:` comme séparateurs. Pour créer des notes avec frontmatter, toujours utiliser `Write` directement sur le fichier vault.
+- **Fallback Read/Glob si Obsidian fermé** — faire un pre-check `version` avant toute commande CLI. Si échec, basculer vers `Read`/`Write`/`Glob`/`Grep` sur les fichiers du vault directement.
+- **Aliases minimum 4-6 par note** — standard neoteem-brain : inclure synonymes FR/EN et variantes techniques (ex : "Opus 4.7", "claude-opus-4-7", "opus47", "Claude Opus").
+
 ## Apprentissage
 
 Après chaque session significative utilisant le vault :
