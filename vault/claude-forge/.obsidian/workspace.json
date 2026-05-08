@@ -6,7 +6,6 @@
       {
         "id": "5c9aafa13ff423dd",
         "type": "tabs",
-        "dimension": 26.92953020134228,
         "children": [
           {
             "id": "6de73b139036c01a",
@@ -14,33 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01-Claude-Code/best-practices/delegate-guard-pattern.md",
+                "file": "05-Leaders/Sam Altman.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "delegate-guard-pattern"
-            }
-          }
-        ]
-      },
-      {
-        "id": "d358c5c22def46f8",
-        "type": "tabs",
-        "dimension": 73.07046979865771,
-        "children": [
-          {
-            "id": "f961d3e8e7c67a7e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "06-Industrie/Anthropic Revenue 30B.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Anthropic Revenue 30B"
+              "title": "Sam Altman"
             }
           }
         ]
@@ -207,41 +185,41 @@
   },
   "active": "6de73b139036c01a",
   "lastOpenFiles": [
-    "07-Prompts/system-prompts/System Prompt Claude Code.md.tmp.10900.0e0ad9936ae4",
-    "07-Prompts/system-prompts/System Prompt Amanda Askell.md.tmp.10900.9462b41b86c2",
-    "06-Industrie/Managed Agents.md.tmp.10900.3a156f4658fe",
-    "06-Industrie/industrie-mai-2026.md.tmp.10900.d60187619a77",
-    "06-Industrie/Code with Claude Conference.md.tmp.10900.d443423ef8b2",
-    "06-Industrie/Anthropic Revenue 30B.md.tmp.10900.412a924cb754",
-    "06-Industrie/Agent Skills Spec.md.tmp.10900.18a829772376",
-    "05-Leaders/Sam Altman.md.tmp.10900.25588b7f1d8f",
-    "05-Leaders/Lydia Hallie.md.tmp.10900.ac1a711c2f36",
-    "05-Leaders/Boris Cherny.md.tmp.10900.411a6e67edff",
-    "05-Leaders/Andrej Karpathy.md.tmp.10900.2b21a2acc326",
-    "01-Claude-Code/best-practices/kit-rules-standard.md",
-    "01-Claude-Code/best-practices/setup-project-complet.md",
-    "Bienvenue.md",
-    "04-Techniques/patterns/pattern-architect-first-pipeline.md",
-    "04-Techniques/best-practices-claude-code-leaders.md",
-    "04-Techniques/agents/limites-subagents-claude-code.md",
-    "05-Leaders/Erik Schluntz.md",
-    "04-Techniques/agents/decoupe-agents-anti-crash.md",
-    "01-Claude-Code/changelog/CC mai 2026 - Code with Claude.md",
-    "06-Industrie/industrie-mai-2026.md",
-    "Knowledge/erreurs/erreur-marker-ttl-blocage-agents.md",
-    "Knowledge/erreurs/erreur-pipeline-advisory-sans-hooks.md",
-    "04-Techniques/pattern-vault-query-guard.md",
-    "Knowledge/erreurs/erreur-skip-checklist-skill-modification.md",
-    "Knowledge/erreurs/erreur-creation-sans-vault-query.md",
-    "04-Techniques/pattern-agentic-engineering.md",
-    "Knowledge/syntheses/neoteem-agentic-engineering-mapping.md",
-    "04-Techniques/agentic-engineering-karpathy.md",
-    "01-Claude-Code/changelog/CC v2.1.129.md",
-    "01-Claude-Code/changelog/CC v2.1.128.md",
-    "04-Techniques/vibe-coding-setup-complet.md",
-    "04-Techniques/config-guardian-pattern.md",
-    "06-Industrie/Code with Claude Conference.md",
-    "01-Claude-Code/features/Computer Use CC.md",
-    "01-Claude-Code/features/Claude Security.md"
+    "Knowledge/raisonnements",
+    "CHANGELOG.md.tmp.27392.145cc4e8397e",
+    "Templates/raisonnement.md",
+    "Knowledge/syntheses/techniques-inedites.md",
+    "05-Leaders/Ethan Mollick.md",
+    "05-Leaders/Simon Willison.md",
+    "05-Leaders/Jim Fan.md",
+    "05-Leaders/Lilian Weng.md",
+    "05-Leaders/Andrew Ng.md",
+    "05-Leaders/Shunyu Yao.md",
+    "04-Techniques/agents/agents-securite.md",
+    "04-Techniques/agents/agents-evaluation.md",
+    "04-Techniques/agents/agents-automation.md",
+    "04-Techniques/agents/agents-architecture.md",
+    "04-Techniques/agents/agents-frameworks.md",
+    "04-Techniques/agents/Agents IA.md",
+    "CHANGELOG.md",
+    "CHANGELOG.md.tmp.25848.65d149bc9be3",
+    "Knowledge/syntheses/rag-obsidian-claude-video-analyse.md.tmp.25848.0947a731c6af",
+    "Knowledge/syntheses/outils-portabilite-forge.md",
+    "Knowledge/syntheses/outils-portabilite-forge.md.tmp.25848.f951a3cd6411",
+    "Knowledge/syntheses/rag-obsidian-claude-video-analyse.md",
+    "Knowledge/syntheses/rag-obsidian-claude-video-analyse.md.tmp.25848.05317ea55e24",
+    "Knowledge/syntheses/video-rag-obsidian-claude.fr.vtt",
+    "Knowledge/syntheses/video-rag-obsidian-claude.fr.vtt.part",
+    "05-Leaders/James Briggs.md",
+    "05-Leaders/Omar Khattab.md",
+    "04-Techniques/rag/rag-embeddings.md",
+    "05-Leaders/Nils Reimers.md",
+    "05-Leaders/Greg Kamradt.md",
+    "05-Leaders/Greg Kamradt.md.tmp.25848.90aa096e8566",
+    "05-Leaders/Chip Huyen.md",
+    "05-Leaders/Chip Huyen.md.tmp.25848.c8cf37a17a64",
+    "05-Leaders/Han Xiao.md",
+    "05-Leaders/Harrison Chase.md",
+    "05-Leaders/Jerry Liu.md.tmp.25848.2e268988b769"
   ]
 }
