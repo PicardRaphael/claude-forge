@@ -11,6 +11,15 @@ tags:
   - "#type/index"
 ---
 
+## 2026-05-08 — Base de connaissances Agents IA complète
+
+- **Ajoutées** : `04-Techniques/agents/` — 6 notes (Agents IA MOC, frameworks, architecture, automation, évaluation, sécurité)
+- **Leaders** : 6 fiches agents dans `05-Leaders/` (Shunyu Yao, Andrew Ng, Lilian Weng, Jim Fan, Simon Willison, Ethan Mollick)
+- **Synthèse** : `techniques-inedites.md` — 8 combinaisons innovantes RAG × Agents jamais faites
+- **cc-news** : section Agents IA & Automation leaders ajoutée (12 sources)
+- **CLAUDE.md** : v1.9, mindset Jarvis/Innovateur ajouté
+- **Source** : recherche via 5 agents parallèles (frameworks, architecture, leaders, automation, évaluation)
+
 ## 2026-05-08 — Base de connaissances RAG complète
 
 - **Ajoutées** : `04-Techniques/rag/` — 7 notes (RAG MOC, chunking, embeddings, architecture, metadata, reranking, vector-databases)

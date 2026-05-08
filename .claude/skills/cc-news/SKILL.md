@@ -70,6 +70,28 @@ Tout ce qui est postérieur à cette date doit être recherché.
    - youtube.com/@jamesbriggs
    - pinecone.io/learn/series/rag/
 
+### Agents IA & Automation leaders
+23. **Shunyu Yao** (@ysymyth) — ReAct, Tree of Thoughts, Chief AI Scientist Tencent
+   - ysymyth.github.io
+24. **Andrew Ng** (@AndrewYNg) — DeepLearning.AI, 4 agentic design patterns
+   - x.com/AndrewYNg
+   - deeplearning.ai
+25. **Lilian Weng** (@lilianweng) — OpenAI VP Research, Lil'Log (canonical agent posts)
+   - lilianweng.github.io
+26. **Jim Fan** (@DrJimFan) — NVIDIA Voyager/GROOT, Foundation Agent
+   - x.com/DrJimFan
+27. **Simon Willison** (@simonw) — Agentic Engineering Patterns, LLM CLI
+   - simonwillison.net
+28. **Joao Moura** (@joaomdmoura) — CrewAI founder
+   - x.com/joaomdmoura
+   - crewai.com/blog
+29. **Ethan Mollick** (@emollick) — One Useful Thing, Equation of Agentic Work
+   - oneusefulthing.org
+30. **Swyx** (@swyx) — Latent Space podcast, AI Engineer conferences
+   - latent.space
+31. **Matt Shumer** (@mattshumer_) — HyperWrite, "Something Big Is Happening"
+   - x.com/mattshumer_
+
 ## Recherches à effectuer
 
 ### Claude Code (obligatoire)
@@ -125,6 +147,22 @@ Chercher : @chiphuyen AI engineering RAG 2026
 Chercher : Contextual AI RAG 2.0 2026
 Chercher : MTEB embedding benchmark 2026
 Chercher : @jamescalam RAG tutorial 2026
+```
+
+### Agents IA & Automation (obligatoire)
+```
+Chercher : @ysymyth ReAct agents 2026
+Chercher : Andrew Ng agentic AI DeepLearning 2026
+Chercher : @lilianweng LLM agents blog 2026
+Chercher : @DrJimFan NVIDIA agents robotics 2026
+Chercher : Simon Willison agentic engineering patterns 2026
+Chercher : CrewAI new features 2026
+Chercher : @emollick AI agents work 2026
+Chercher : Latent Space podcast AI agents 2026
+Chercher : OpenAI Agents SDK Codex new features 2026
+Chercher : Google ADK A2A protocol agents 2026
+Chercher : Stagehand browser automation AI 2026
+Chercher : Claude Managed Agents Cowork Dispatch 2026
 ```
 
 ### Industrie IA — Concurrents & leaders
@@ -205,6 +243,14 @@ Chercher : Elon Musk xAI Grok coding 2026
 - **Alex Albert** : [prompt techniques]
 - **Ethan Mollick** : [observations]
 - [autres observations notables]
+
+### Agents IA & Automation
+- **Shunyu Yao** : [ReAct/agents updates]
+- **Andrew Ng** : [agentic AI teachings]
+- **Jim Fan** : [NVIDIA agents/robotics]
+- **Simon Willison** : [agentic patterns]
+- **Ethan Mollick** : [AI work insights]
+- **Swyx/Latent Space** : [AI engineering community]
 
 Sources : [URLs]
 ```
