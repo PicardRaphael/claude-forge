@@ -38,6 +38,7 @@ tags:
 - [[Silent Assumptions]] — Karpathy anti-pattern #1
 - [[Over-Engineering]] — Abstraction prématurée
 - [[Drive-By Refactoring]] — Refacto non demandé
+- [[erreur-pipeline-advisory-sans-hooks]] — Rules advisory ignorees, hooks marker+guard obligatoires (3 iterations)
 
 
 ## Neoteem Infrastructure

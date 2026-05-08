@@ -63,6 +63,7 @@ Ajouter une ligne à chaque fois que Claude rate quelque chose.
 - **Pas de formatage dans les notes internes** — Jira SD ignore gras/souligné/italique (wiki et markdown). Texte brut + emojis + tirets + sauts de ligne uniquement.
 - **issuetype + requestType + composant** — après classification, mettre à jour ces 3 champs via `editJiraIssue`. Voir `references/jira-field-mappings.md` pour les IDs.
 - **createIssueLink INTERDIT en batch** — ne jamais créer de liens Jira automatiquement. L'agent N1 contrôle le N2 et lie manuellement après vérification. Mentionner le N2 dans la note interne avec l'URL nue.
+- **Donnée vs Code — TOUJOURS vérifier avant de confirmer Bug** — quand le programme est identifié, vérifier si les données en entrée sont correctes. Donnée incorrecte en base = Service Request (intervention BDD), pas Bug. La majorité des “bugs” apparents sont des problèmes de données. Bug = uniquement si le code est défectueux avec des données correctes.
 - **Ne pas réaffecter** — conserver l'assigné actuel du ticket. Le batch ne touche pas à l'assignation.
 - **Étapes de vérification OBLIGATOIRES dans chaque note** — chaque note interne DOIT contenir une section "📋 Étapes de vérification / actions dans LOJII" avec des étapes concrètes, numérotées, spécifiques au ticket. Bug : étapes de reproduction. Support : vérifications config/état. SR : étapes d'intervention. Jamais générique.
 - **Message d'erreur descriptif ≠ Bug** — "Ce numéro existe déjà", "doublon", "format invalide" sont des gardes métier applicatives, pas des bugs. Vérifier dans LOJII si le message dit vrai avant de classifier Bug. Voir section Classification ci-dessous pour les règles complètes.
@@ -96,6 +97,10 @@ Ordre de priorité : vault neoteem-brain (problèmes connus, FAQ) → `learnings
 Note `07-Support/problemes-connus/pb-*` → Bug. Note `07-Support/faq/faq-*` → Support. Note `07-Support/procedures/proc-*` → SR. Sinon :
 
 **Bug** — LOJII se comporte anormalement : erreur technique (crash, HTTP 500, données corrompues, écran blanc) → Bug probable. Erreur applicative descriptive ("existe déjà", "doublon") → vérifier d'abord dans LOJII si le message dit vrai. Si oui = garde métier = **Support**. Si non = Bug potentiel.
+
+**Avant de confirmer un Bug, vérifier si c'est un problème de données :**
+Quand le programme source est identifié, vérifier d'abord si les données en entrée sont correctes (table, champ, valeur). Si les données en base sont incorrectes, manquantes ou incohérentes → ce n'est PAS un Bug, c'est une **Service Request** (intervention BDD / correction de données). Le programme fonctionne correctement, ce sont les données qui sont mauvaises. La majorité des "bugs" apparents sont des problèmes de données.
+Bug = uniquement quand le code lui-même a un défaut et que le problème se reproduirait même avec des données correctes.
 
 **Support** — Le client ne sait pas comment utiliser LOJII. Le logiciel fonctionne correctement. Question d'usage, demande d'explication, méconnaissance d'une fonctionnalité. Inclut les cas où un message d'erreur applicatif est correct et le client a fait une erreur de saisie.
 
@@ -169,64 +174,71 @@ Recherches vault + Jira (N2 en cours) en parallèle, quel que soit le type de ti
 **3e. Rédiger et poster la note interne** via `add_internal_note` (MCP JIRA).
 Ne jamais utiliser `addCommentToJiraIssue` (commentaire public).
 
-Format de la note interne — titres en gras Unicode, séparateurs entre sections, URLs nues uniquement :
+Format de la note interne — entonnoir : action d'abord, analyse en dessous. Titres en gras Unicode, séparateurs entre sections, URLs nues uniquement :
 ```
-🔍 𝗧𝗶𝗰𝗸𝗲𝘁𝘀 𝘀𝗶𝗺𝗶𝗹𝗮𝗶𝗿𝗲𝘀
+⚡ 𝗔̀ 𝗙𝗔𝗜𝗥𝗘 : [1 phrase — l'action concrète que le support doit faire]
 
-SC-XXXXX — [résumé court]
-https://neoteem.atlassian.net/browse/SC-XXXXX
-Ou : Aucun ticket N2 similaire trouvé en cours sur ce sujet.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-⚫ 𝗖𝗹𝗮𝘀𝘀𝗶𝗳𝗶𝗰𝗮𝘁𝗶𝗼𝗻 : [Bug / Support / SR] ([précision courte])
-
-Symptôme : [description du problème rapporté par le client, contexte, bases concernées, PJ disponibles]
+[Bug] → N2 dev : [programme], [ligne/fonction], [ce qui ne va pas]
+[Support] → Répondre au client : [résumé de la réponse]
+[SR] → Intervention : [action — correction données / config / extraction]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🟠 𝗩𝗲́𝗿𝗶𝗳𝗶𝗰𝗮𝘁𝗶𝗼𝗻𝘀 𝗮̀ 𝗳𝗮𝗶𝗿𝗲 𝗽𝗼𝘂𝗿 𝗰𝗼𝗻𝗳𝗶𝗿𝗺𝗲𝗿 𝘀𝗶 𝗰'𝗲𝘀𝘁 𝘂𝗻 [𝗕𝗨𝗚/𝗦𝘂𝗽𝗽𝗼𝗿𝘁/𝗦𝗥] ?
+⚫ 𝗖𝗹𝗮𝘀𝘀𝗶𝗳𝗶𝗰𝗮𝘁𝗶𝗼𝗻 : [Bug / Support / SR]
 
-1. [étape concrète spécifique au ticket]
-2. [étape concrète spécifique au ticket]
-3. [etc.]
+Symptôme : [description courte du problème]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-⚡ 𝗥𝗲𝗰𝗼𝗺𝗺𝗮𝗻𝗱𝗮𝘁𝗶𝗼𝗻 :
+🔍 𝗔𝗻𝗮𝗹𝘆𝘀𝗲
 
-[Diagnostic et recommandation : N2 bloquant/non bloquant, escalade, vérification config, etc.]
+Programme identifié : [nom du programme/fonction PG si trouvé]
+Cause : [défaut de code / donnée incorrecte en base → reclassé SR / méconnaissance client]
+Données vérifiées : [ce qui a été vérifié dans LOJII/BDD]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-💬 𝗥𝗲́𝗽𝗼𝗻𝘀𝗲 𝗰𝗹𝗶𝗲𝗻𝘁 𝘀𝗲𝗹𝗼𝗻 𝗺𝗮 𝗿𝗲𝗰𝗼𝗺𝗺𝗮𝗻𝗱𝗮𝘁𝗶𝗼𝗻 :
+🟠 𝗩𝗲́𝗿𝗶𝗳𝗶𝗰𝗮𝘁𝗶𝗼𝗻𝘀
+
+1. [étape concrète]
+2. [étape concrète]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔗 𝗧𝗶𝗰𝗸𝗲𝘁𝘀 𝘀𝗶𝗺𝗶𝗹𝗮𝗶𝗿𝗲𝘀
+
+[SC/N2-XXXXX ou "Aucun"]
+https://neoteem.atlassian.net/browse/XX-XXXXX
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💬 𝗥𝗲́𝗽𝗼𝗻𝘀𝗲 𝗰𝗹𝗶𝗲𝗻𝘁
 
 Bonjour,
-
-[Texte concis — accusé de réception du problème, diagnostic simplifié, prochaines étapes. Vouvoiement.]
-
+[texte concis, vouvoiement]
 Bien à vous,
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-⚙ 𝗔𝗰𝘁𝗶𝗼𝗻𝘀 𝗲𝗳𝗳𝗲𝗰𝘁𝘂𝗲́𝗲𝘀 :
+⚙ 𝗔𝗰𝘁𝗶𝗼𝗻𝘀 𝗲𝗳𝗳𝗲𝗰𝘁𝘂𝗲́𝗲𝘀
 
-Type → [Bug / Support / SR] ([conservé/modifié]) – Type de demande → [nom] ([ID]) – Composant → [nom] ([conservé/modifié]) – Priorité → [niveau]
+Type → [Bug / Support / SR] – Composant → [nom] – Priorité → [niveau]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🧠 𝗩𝗮𝘂𝗹𝘁 𝗻𝗲𝗼𝘁𝗲𝗲𝗺-𝗯𝗿𝗮𝗶𝗻 :
+🧠 𝗩𝗮𝘂𝗹𝘁
 
-[Notes vault utilisées pour le diagnostic — reformulées si techniques. Ou : Aucune note vault sur ce sujet (après 2+ recherches avec termes alternatifs).]
+[Notes utilisées ou "Aucune note vault"]
 ```
 
 **Règles de mise en page des notes internes :**
+- **Entonnoir obligatoire** — la première section ⚡ À FAIRE contient l'action en 1 phrase. L'analyse (cause, vérifications, vault) vient après. Le support lit l'action d'abord, les détails si nécessaire.
 - Titres en **gras Unicode mathématique** (𝗔𝗕𝗖) — Jira affiche ces caractères en gras sans formatage wiki. Utiliser la table de conversion : A→𝗔, B→𝗕, C→𝗖, etc. Les accents fonctionnent dans le texte normal mais PAS dans les caractères gras Unicode.
 - **Séparateurs** ━━━ (U+2501 BOX DRAWINGS HEAVY HORIZONTAL) entre chaque section — 30 caractères par ligne.
 - **Emojis** en début de chaque titre de section.
 - **Sauts de ligne** : une ligne vide après chaque titre, une ligne vide avant chaque séparateur.
 - **Pas de formatage wiki/markdown** — pas de `*gras*`, `_italique_`, `+souligné+`. Jira Service Desk les ignore dans les notes internes.
-- La section "Réponse client selon ma recommandation" doit toujours commencer par "Bonjour," et finir par "Bien à vous," — texte concis entre les deux.
+- La section 💬 Réponse client doit toujours commencer par “Bonjour,” et finir par “Bien à vous,” — texte concis entre les deux.
 
 **3f. Ajouter l'étiquette "À_valider" dans le champ Étiquettes**
 Lire les étiquettes existantes du ticket. Ajouter "À_valider" dans le champ Étiquettes sans supprimer les autres.
@@ -238,9 +250,9 @@ Lire les étiquettes existantes du ticket. Ajouter "À_valider" dans le champ É
 ✅ Triage terminé — [N] tickets traités
 
 📊 Répartition :
-- Bugs : [N]
+- Bugs : [N] (N2 dev)
 - Support : [N]
-- Service Requests : [N]
+- Service Requests : [N] (dont [X] corrections données)
 
 🧠 Vault neoteem-brain :
 - Tickets informés par le vault : [N]/[total] ([%])
