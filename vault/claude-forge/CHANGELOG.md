@@ -11,6 +11,11 @@ tags:
   - "#type/index"
 ---
 
+## 2026-05-08 — Erreur paths hardcodés multi-poste
+
+- **Ajoutées** : `Knowledge/erreurs/erreur-settings-paths-hardcodes-multi-poste.md` — bug paths absolus user-spécifiques dans settings.json + hooks Python + marker files, cassent quand on pull sur un autre poste
+- **Source** : premier usage de claude-forge sur poste perso (rapha) après pull depuis poste pro (raphael.picard_neote) — flot d'erreurs `Python was not found` + guard vault-query bloqué en permanence
+
 ## 2026-05-08 — Skill reasoning-cache + template raisonnement
 
 - **Ajoutees** : `Templates/raisonnement.md` — template pour noter les chaines de raisonnement validees
