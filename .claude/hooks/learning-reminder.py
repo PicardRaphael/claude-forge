@@ -17,6 +17,7 @@ Note sur le mécanisme Stop :
 Toujours exit 0 — pas de blocage sur erreur.
 """
 import json
+import os
 import sys
 
 REMINDER = (
@@ -31,8 +32,19 @@ REMINDER = (
 
 def main() -> None:
     try:
-        # Lire stdin même si on n'utilise pas les données
         sys.stdin.read()
+    except Exception:
+        pass
+
+    # Marker file — ne se déclenche qu'une seule fois par session
+    marker = os.path.join(os.path.dirname(__file__), ".learning-reminder-fired")
+    if os.path.exists(marker):
+        sys.exit(0)
+
+    try:
+        os.makedirs(os.path.dirname(marker), exist_ok=True)
+        with open(marker, "w") as f:
+            f.write("fired")
     except Exception:
         pass
 
@@ -43,7 +55,7 @@ def main() -> None:
         }
         print(json.dumps(output))
     except Exception:
-        pass  # Fail-open — jamais bloquer sur erreur
+        pass
 
     sys.exit(0)
 
