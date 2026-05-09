@@ -95,6 +95,8 @@ def main() -> None:
             matched = is_vault_query_file(tool_input)
         elif tool_name == "Skill":
             matched = is_vault_query_skill(tool_input)
+        elif tool_name.startswith("mcp__forge-brain__"):
+            matched = True
 
         if matched:
             write_marker()
