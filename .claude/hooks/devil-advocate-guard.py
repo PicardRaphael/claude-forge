@@ -32,16 +32,32 @@ WARNING_MSG = (
     "Pipeline : architect-first → implementation → test/review → devils-advocate → livraison\n"
 )
 
-# Agents EXCLUDED from the guard (read-only, research, non-deliverable)
-EXCLUDED_AGENTS = [
-    "explore",
-    "plan",
-    "claude-code-guide",
-    "vault-maintainer",
-    "project-analyzer",
-    "project-auditor",
-    "statusline-setup",
-    "self-updater",
+# Agents that PRODUCE major deliverables (new skill, agent, hook, architecture)
+DELIVERABLE_AGENTS = [
+    "skill-creator",
+    "agent-creator",
+    "hook-creator",
+    "claudemd-optimizer",
+]
+
+# Keywords in description that signal a major deliverable (CREATION, not modification)
+DELIVERABLE_KEYWORDS = [
+    "create", "crée", "nouveau", "new",
+    "architecture", "archi",
+    "proposal", "proposition",
+    "innovation",
+]
+
+# Keywords that signal a NON-deliverable (modification, fix, migration)
+NON_DELIVERABLE_KEYWORDS = [
+    "fix", "update", "migrate", "migration", "modify", "modifie",
+    "remove", "supprime", "clean", "refactor", "rename",
+    "test", "check", "verify", "audit", "search", "read",
+    "explore", "analyze", "quick",
+]
+
+# Always excluded regardless
+ALWAYS_EXCLUDED = [
     "devils-advocate",
     "devil-advocate",
 ]
@@ -51,16 +67,26 @@ def normalize(s: str) -> str:
     return s.replace("\\", "/").lower()
 
 
-def is_excluded_agent(tool_input: dict) -> bool:
-    """Check if agent is in the exclusion list (read-only/research agents)."""
-    subagent_type = tool_input.get("subagent_type", "")
-    if subagent_type and any(m in normalize(subagent_type) for m in EXCLUDED_AGENTS):
-        return True
-    name = tool_input.get("name", "")
-    if name and any(m in normalize(name) for m in EXCLUDED_AGENTS):
-        return True
+def is_deliverable_agent(tool_input: dict) -> bool:
+    """Check if agent produces a major deliverable that needs devil's advocate review."""
+    subagent_type = normalize(tool_input.get("subagent_type", ""))
+    name = normalize(tool_input.get("name", ""))
     description = normalize(tool_input.get("description", ""))
-    if any(kw in description for kw in ["search", "explore", "audit", "analyze", "read"]):
+
+    if any(m in subagent_type for m in ALWAYS_EXCLUDED):
+        return False
+    if any(m in name for m in ALWAYS_EXCLUDED):
+        return False
+
+    # Non-deliverable keywords override everything
+    if any(kw in description for kw in NON_DELIVERABLE_KEYWORDS):
+        return False
+
+    if any(m in subagent_type for m in DELIVERABLE_AGENTS):
+        return True
+    if any(m in name for m in DELIVERABLE_AGENTS):
+        return True
+    if any(kw in description for kw in DELIVERABLE_KEYWORDS):
         return True
     return False
 
@@ -86,10 +112,10 @@ def main() -> None:
         if tool_name != "Agent":
             sys.exit(0)
 
-        if is_excluded_agent(tool_input):
+        if not is_deliverable_agent(tool_input):
             sys.exit(0)
 
-        # Guarded agent completed — track that a deliverable exists
+        # Deliverable agent completed — track that review is needed
         deliverable_path = os.path.join(_CLAUDE_DIR, ".devil-advocate-needed")
         if not os.path.exists(deliverable_path):
             with open(deliverable_path, "w") as f:
