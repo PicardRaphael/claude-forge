@@ -27,6 +27,16 @@
             "once": true
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \".claude/hooks/devil-advocate-stop.py\"",
+            "timeout": 5,
+            "once": true
+          }
+        ]
       }
     ],
     "PreToolUse": [

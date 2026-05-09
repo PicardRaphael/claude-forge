@@ -89,13 +89,15 @@ def main() -> None:
         if is_excluded_agent(tool_input):
             sys.exit(0)
 
-        # Guarded agent completed — check marker
+        # Guarded agent completed — track that a deliverable exists
+        deliverable_path = os.path.join(_CLAUDE_DIR, ".devil-advocate-needed")
+        if not os.path.exists(deliverable_path):
+            with open(deliverable_path, "w") as f:
+                f.write("1")
+
         if os.path.exists(MARKER_PATH):
-            # Devil's advocate already ran this session → silent pass
-            # Marker persists for the whole session (reset by SessionStart)
             pass
         else:
-            # No marker → remind
             print(WARNING_MSG)
 
     except Exception:
