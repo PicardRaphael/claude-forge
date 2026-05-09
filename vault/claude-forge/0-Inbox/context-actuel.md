@@ -18,34 +18,37 @@ tags:
 
 ## Phase actuelle
 
-Écosystème forge consolidé. MCP forge-brain self-contained, vault holistique, /done + /watch, devil's advocate corrigé, règle d'autonomie en place.
+Forge v2 consolidé. MCP-only, vault holistique, devil's advocate intelligent, règle d'autonomie. Prêt pour test de validation (20 tests).
 
 ## Dernière session (2026-05-09)
 
 ### Décisions prises
-- MCP forge-brain = seul accès vault (CLI supprimée)
+- MCP forge-brain = seul accès vault (CLI Obsidian supprimée partout)
 - Vault 1-Projets/ = source canonique contexte projet
 - Règle d'autonomie : advisor + devil's advocate valident → agir sans demander
+- Devil's advocate : uniquement sur CRÉATIONS et propositions d'archi, pas sur fixes/migrations
 - 9e principe skills : méthodes intégrées
-- Skip Firecrawl (16$/mois, pas assez de valeur)
+- Skip Firecrawl (16$/mois, WebFetch suffit)
+- Subagents n'héritent PAS des MCP → pas d'agent orchestrateur
 
-### En cours
-- 8 agents référencent encore la CLI Obsidian → migration MCP à faire
-- CLAUDE.md avec règle d'autonomie → à commit + push
-- Skills vault-audit, skill-evolve, forge-review → encore quelques refs CLI
+### Ce qui a été livré (8 commits)
+- Vault holistique : 0-Inbox, 1-Projets (7 notes), 2-Casquettes (3 notes), 2 templates
+- Skills : /done (métacognition), /watch (YouTube)
+- MCP forge-brain self-contained (11 outils, auto-start, port 8091)
+- Migration CLI→MCP : 10 agents, 6 skills, 2 rules, 3 references — zéro ref CLI
+- Stop hook devil's advocate + guard intelligent
+- Profil holistique Raphael Picard complet
 
 ### Prochaines étapes
-- Migrer les 8 agents CLI → MCP (agent-creator, skill-creator, hook-creator, claudemd-optimizer, vault-maintainer, self-updater, project-analyzer, project-auditor, devils-advocate, python-dev)
-- Nettoyer vault-query-guard (simplifier avec MCP)
+- Tester avec prompt-test-session-2026-05-09.md (20 tests)
 - /skill-evolve all sur neo_ia (27 skills) et ia_back (28 skills) pour 9e principe
-- Explorer vault comme interface bidirectionnelle (Raphael écrit dans context-actuel, Jarvis lit)
-- Tester /done sur une session de travail réel (pas juste post-setup)
+- Proposer des innovations proactivement (règle d'autonomie)
 
 ## Fils ouverts
 - Fine-tuning IA locale (gap identifié, pas commencé)
-- Consolidation Agent (/schedule périodique pour patterns cross-sessions)
-- Playwright MCP (gratuit, permettrait de "voir" les UI) — futur
-- obsidian-markdown/bases/canvas : garder comme référence format, pas d'intégration MCP nécessaire
+- Playwright MCP (gratuit, voir les UI) — futur
+- Consolidation Agent (/schedule pour patterns cross-sessions)
+- Subagents et MCP : les subagents n'héritent pas les MCP → limitation connue
 
 ## Liens
 
