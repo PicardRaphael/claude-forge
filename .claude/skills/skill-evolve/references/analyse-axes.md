@@ -84,7 +84,7 @@ Pour chaque pattern, verifier s'il est pertinent pour la skill analysee et prese
 | git log pour contexte historique | skill-evolve | skill analyse des composants forge |
 | scripts Python pour operations deterministes | vault-audit | skill fait des validations critiques |
 | Format tableau pour sweep multi-items | skill-evolve | skill analyse plusieurs elements |
-| Pre-check avant chaque outil externe | forge-brain, obsidian-cli | skill utilise un outil externe |
+| Pre-check avant chaque outil externe | forge-brain (MCP) | skill utilise un outil externe |
 
 ### Comment identifier d'autres patterns
 

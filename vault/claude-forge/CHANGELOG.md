@@ -11,6 +11,16 @@ tags:
   - "#type/index"
 ---
 
+## 2026-05-09 — Migration CLI→MCP complète + Stop hook devil's advocate + autonomie
+
+- **Migration CLI→MCP** : TOUS les agents (10/10), skills (forge-brain, done, recap, reasoning-cache, skill-evolve, forge-review, vault-audit), rules (memory-discipline, check-before-create, forge-brain-proactive), et references migrés. Zéro ref CLI dans le projet.
+- **Stop hook** : `devil-advocate-stop.py` bloque la fin de session si devil's advocate pas lancé
+- **Auto-start MCP** : hook SessionStart lance le MCP automatiquement
+- **Skill obsidian-cli supprimée** : remplacée par MCP forge-brain
+- **Règle d'autonomie** : advisor + devil's advocate valident → agir sans demander
+- **MCP optimisé** : 11 outils (+ list_notes, vault_stats), descriptions forge-brain, exemples adaptés
+- **Source** : feedback Raphael, recherche Boris best practices, advisor
+
 ## 2026-05-09 — MCP forge-brain + /watch + Context Note + devil's advocate
 
 - **Ajoutées** :

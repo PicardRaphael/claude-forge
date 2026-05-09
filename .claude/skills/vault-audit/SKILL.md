@@ -25,14 +25,10 @@ Compatible avec `/loop` pour monitoring périodique.
 
 ## Étapes
 
-### 1. Pre-check CLI Obsidian
+### 1. Accès vault via MCP
 
-```bash
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null
-```
-
-Si succès → CLI disponible pour `backlinks`, `tags counts`, `property:set`.
-Si échec → fallback filesystem (audit.py fonctionne en mode filesystem par défaut).
+Le MCP forge-brain (auto-start, port 8091) fournit search, read, backlinks, tags.
+audit.py accède directement au filesystem pour le scoring (pas besoin du MCP).
 
 ### 2. Lancer l'audit
 

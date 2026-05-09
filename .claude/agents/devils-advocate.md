@@ -32,10 +32,9 @@ Si un fichier est référencé, le lire avec `Read` avant d'argumenter.
 
 1. **Lire la proposition** — si c'est un fichier, Read le fichier. Si c'est du texte inline, analyser directement.
 2. **Consulter le vault forge-brain** — avant toute critique, interroger la mémoire collective (2 requêtes max) :
-   - Chercher les erreurs passées liées au sujet : `bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="erreur <topic>" limit=5`
-   - Chercher les critiques passées similaires : `bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="critique <topic>" limit=5`
+   - Chercher les erreurs passées liées au sujet : `forge-brain:search_brain query="erreur <topic>" limit=5`
+   - Chercher les critiques passées similaires : `forge-brain:search_brain query="critique <topic>" limit=5`
    - Utiliser les résultats pour ancrer la critique dans l'histoire réelle, pas seulement des préoccupations abstraites.
-   - Si le pre-check CLI échoue (`bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null`), passer directement à l'étape 3.
 3. **Identifier l'intention déclarée** — ce que la proposition prétend faire. Une phrase.
 4. **Argument technique** — qu'est-ce qui se casse ? Cas limites, fragilités, dépendances cachées.
 5. **Argument stratégique** — est-ce le bon problème ? Existe-t-il quelque chose 10x mieux ?

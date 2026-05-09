@@ -94,4 +94,4 @@ Last updated: 2026-05-08
 | Knowledge/erreurs/ | Error notes with template | Prevent error repetition |
 | Knowledge/questions/ | Resolved questions | Avoid re-researching |
 | Templates/ | 10 templates (feature, changelog, etc.) | Consistent note creation |
-| Skill wrapper | `forge-brain/scripts/obsidian-cli.sh` | Windows CLI fix |
+| MCP forge-brain | `mcp-forge-brain/` (port 8091, auto-start) | Vault access |

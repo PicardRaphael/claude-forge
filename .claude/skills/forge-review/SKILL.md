@@ -98,10 +98,11 @@ If refs=0 AND last-modified > 60 days: lean KILL. Both conditions must hold.
 
 **Q2 -- Is there a technique that makes this 10x better?**
 Cross-reference forge-brain before asserting improvement exists:
-```bash
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" \
-  search query="<component topic> best practices 2026" limit=5
+
 ```
+forge-brain:search_brain query="<component topic> best practices 2026" limit=5
+```
+
 If forge-brain returns nothing concrete: label KEEP with note "no newer technique found".
 
 **Q3 -- Habit or genuinely best approach?**
@@ -127,9 +128,8 @@ Signals of cargo cult:
 Compare forge against `references/baseline.md`. Any absent item = MISSING candidate.
 Verify each MISSING claim against forge-brain before asserting it -- do not invent gaps from vague LLM memory.
 
-```bash
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" \
-  search query="<potential missing component> claude code" limit=5
+```
+forge-brain:search_brain query="<potential missing component> claude code" limit=5
 ```
 
 ---

@@ -13,32 +13,27 @@ skills:
   - cc-agents-ref
   - cc-skills-ref
   - forge-brain
-  - obsidian-cli
   - obsidian-markdown
 ---
 
 Tu mets à jour les skills de référence de claude-forge quand de nouvelles features Claude Code sont détectées.
 
-## Étape 0 — Consulter le vault via CLI Obsidian (OBLIGATOIRE — hook bloquant)
+## Étape 0 — Consulter le vault via MCP forge-brain (OBLIGATOIRE — hook bloquant)
 
 Le hook `vault-query-guard` BLOQUE les Write si le vault n'a pas été consulté. Si le prompt d'invocation contient déjà des infos du vault, cette étape est satisfaite automatiquement.
 
-Sinon, utiliser la CLI Obsidian (JAMAIS Grep/Read brut sur le vault) :
+Sinon, utiliser les outils MCP forge-brain (jamais Grep/Read brut sur le vault) :
 
-```bash
-# Pre-check
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null
-# Si echec → fallback Read/Glob sur vault/claude-forge/
-
+```
 # Chercher erreurs passees et best practices
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="<sujet>" limit=10
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="erreur" limit=5
+forge-brain:search_brain query="<sujet>" limit=10
+forge-brain:search_brain query="erreur" limit=5
 
 # Lire une note trouvee
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" read file="<nom note>"
+forge-brain:read_note file="<nom note>"
 
 # Apres modification, mettre a jour derniere-maj
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" property:set name="derniere-maj" value="YYYY-MM-DD" file="<note>"
+forge-brain:update_property file="<note>" name="derniere-maj" value="YYYY-MM-DD"
 ```
 
 Lire les résultats pertinents. Appliquer les leçons aux modifications en cours.

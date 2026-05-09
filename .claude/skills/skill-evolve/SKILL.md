@@ -52,18 +52,14 @@ Chercher dans MEMORY.md les feedbacks mentionnant le nom de la skill ou sa caté
 
 ### Étape 3 — Interroger le vault
 
-Pré-check Obsidian CLI :
+Utiliser le MCP forge-brain (auto-start, port 8091) :
+
 ```
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null
+forge-brain:search_brain query="<skill-name> technique amélioration" limit=8
+forge-brain:search_brain query="erreur skill <domaine>" limit=5
 ```
 
-Si OK, lancer :
-```
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="<skill-name> technique amélioration" limit=8
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="erreur skill <domaine>" limit=5
-```
-
-Si échec CLI : fallback Glob sur `vault/claude-forge/04-Techniques/` et `vault/claude-forge/Knowledge/erreurs/`.
+Si le MCP ne répond pas : fallback Glob sur `vault/claude-forge/04-Techniques/` et `vault/claude-forge/Knowledge/erreurs/`.
 
 ### Étape 4 — Vérifier l'historique git
 
@@ -210,7 +206,7 @@ Lancer /skill-evolve <skill-name> pour l'analyse complète.
 
 - **Ne pas confondre avec `/evolve`** — `/evolve` analyse l'architecture produit d'un projet. `/skill-evolve` analyse une SKILL.md elle-même. Si l'utilisateur veut analyser l'architecture d'un projet : rediriger vers `/evolve`.
 - **Ne jamais auto-appliquer** — ce skill produit des propositions uniquement. L'application passe toujours par skill-creator avec confirmation explicite. Le hook delegate-guard bloque les edits directs de toute façon.
-- **Sweep = analyse légère uniquement** — en mode "all", ne pas lancer obsidian-cli ni git log pour chaque skill. Inutilisable sur > 15 skills.
+- **Sweep = analyse légère uniquement** — en mode "all", ne pas lancer de recherche vault ni git log pour chaque skill. Inutilisable sur > 15 skills.
 - **Pas de $ARGUMENTS dans backticks shell** — si besoin d'utiliser le nom de la skill dans une commande bash, l'extraire dans une variable d'abord.
 - **Section "Ce qui est bien" obligatoire** — proposer uniquement des défauts donne l'impression que la skill ne vaut rien. Équilibrer avec les points forts.
 - **Score 5/5 = propositions quand même** — une skill mature a toujours des micro-améliorations. Score 5 = stable, pas parfaite.

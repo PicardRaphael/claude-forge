@@ -149,7 +149,7 @@ La **Suggestion** se déduit des signaux observés :
 
 ## Gotchas
 
-- **MCP forge-brain en premier, CLI en fallback** — utiliser `forge-brain:vault_stats`, `forge-brain:get_tags`, `forge-brain:search_brain` (MCP `localhost:8091`). Si le MCP est down, fallback CLI : `bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null`. Sur Windows ne jamais appeler `obsidian` directement, toujours via le wrapper.
+- **MCP forge-brain uniquement** — utiliser `forge-brain:vault_stats`, `forge-brain:get_tags`, `forge-brain:search_brain` (MCP auto-start, port 8091). Jamais de CLI Obsidian.
 - **`find -newer FILE` non-déterministe** — le mtime du fichier de référence change. Toujours `-mtime -7` pour "7 derniers jours"
 - **Paths absolus sur Git Bash Windows** — `find vault/claude-forge` retourne `/c/Users/...`. Afficher seulement `basename` dans le rapport
 - **Suggestion = descriptive, pas prescriptive** — "Activité récente sur X" et non "Vous devriez faire Y"

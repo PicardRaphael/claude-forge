@@ -36,16 +36,11 @@ Si la session a produit un apprentissage non trivial :
 
 **Règle clé :** `vault/1-Projets/` = source canonique pour le contexte projet stable. `memory/project_*.md` = uniquement la phase en cours et les décisions temporaires. Si une info est dans les deux → la supprimer de memory, garder le vault.
 
-## Forge Brain — via CLI Obsidian
+## Forge Brain — via MCP forge-brain
 
-Toujours utiliser la CLI Obsidian pour interagir avec le vault :
-
-Toujours utiliser la CLI Obsidian pour interagir avec le vault :
-```bash
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="..."
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" read file="..."
-```
-JAMAIS Grep/Read brut sur le vault. Fallback si Obsidian ferme.
+Accès vault UNIQUEMENT via MCP forge-brain (auto-start SessionStart, port 8091).
+JAMAIS CLI Obsidian, Grep ou Read brut sur le vault.
+Outils : `search_brain`, `read_note`, `list_notes`, `vault_stats`, `create_note`, `append_note`, `update_property`.
 
 ## Anti-patterns
 

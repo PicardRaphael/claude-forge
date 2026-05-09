@@ -14,11 +14,10 @@ Avant d'utiliser Obsidian CLI, faire un pre-check. Si CLI indisponible, basculer
 
 **Implementation type :**
 ```
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null
-# si echec -> Glob sur vault/claude-forge/04-Techniques/ et Knowledge/erreurs/
+forge-brain:search_brain  query="<sujet>"  limit=10
 ```
 
-**Applicable a :** Toute skill qui interroge le vault.
+**Applicable a :** Toute skill qui interroge le vault (MCP forge-brain, auto-start).
 
 ---
 

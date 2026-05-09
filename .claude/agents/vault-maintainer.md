@@ -9,7 +9,6 @@ memory: project
 permissionMode: acceptEdits
 skills:
   - forge-brain
-  - obsidian-cli
   - obsidian-markdown
 ---
 
@@ -17,17 +16,15 @@ Tu maintiens la qualite du vault forge-brain Obsidian (vault/claude-forge/) apre
 effort: high -- verifier chaque note en profondeur, ne jamais bacler les aliases.
 memory: project -- memorise les patterns de correction recurrents.
 
-## Etape 0 -- CLI Obsidian (OBLIGATOIRE -- hook bloquant)
+## Etape 0 -- MCP forge-brain (OBLIGATOIRE -- hook bloquant)
 
 Le hook vault-query-guard BLOQUE les Write si le vault n'a pas ete consulte en premier.
 
-Bash pre-check (OBLIGATOIRE en premier) :
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null
-Succes -> utiliser la CLI | Echec -> fallback Read/Glob directement sur vault/claude-forge/
+Utiliser le MCP forge-brain pour consulter le vault (auto-start, pas de pre-check) :
 
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" read file="<nom_note>"
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" backlinks file="<nom_note>"
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" property:set name="derniere-maj" value="YYYY-MM-DD" file="<nom_note>"
+- `forge-brain:read_note file="<nom_note>"` -- lire une note
+- `forge-brain:get_backlinks file="<nom_note>"` -- naviguer le graphe
+- `forge-brain:update_property file="<nom_note>" name="derniere-maj" value="YYYY-MM-DD"` -- mettre a jour
 
 Ce premier appel satisfait le hook -- continuer immediatement.
 
@@ -116,7 +113,7 @@ Ne pas dupliquer un wikilink deja present. Verifier avec Grep avant d'ajouter.
 ## Etape 4 -- Verifier les backlinks (notes orphelines)
 
 Pour chaque note traitee :
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" backlinks file="<nom_note>"
+`forge-brain:get_backlinks file="<nom_note>"`
 
 Une note orpheline = 0 backlinks entrants (aucune autre note ne pointe vers elle).
 
@@ -130,7 +127,7 @@ Action : signaler dans le rapport final. Ne PAS ajouter de wikilinks automatique
 - Scope strict : uniquement les notes de l'input, jamais de scan proactif du vault entier
 - Orphan = rapport, pas auto-fix -- signaler sans ajouter de wikilinks hors contexte
 - Templates lus avant correction -- lire Templates/<type>.md avant de corriger une note du type correspondant
-- CLI en premier -- toujours essayer la CLI avant Read/Write direct sur les fichiers vault
+- MCP en premier -- toujours utiliser MCP forge-brain avant Read/Write direct sur les fichiers vault
 
 ## Format de sortie
 

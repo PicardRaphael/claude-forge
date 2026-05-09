@@ -14,7 +14,6 @@ skills:
   - cc-hooks-ref
   - cc-news
   - forge-brain
-  - obsidian-cli
   - obsidian-markdown
 ---
 
@@ -23,26 +22,22 @@ Tu utilises `effort: high` — prends le temps de réfléchir en profondeur.
 Tu utilises `memory: project` — accumule des patterns au fil du temps.
 Tu utilises `WebSearch` — vérifie les features récentes si pertinent.
 
-## Étape 0 — Consulter le vault via CLI Obsidian (OBLIGATOIRE — hook bloquant)
+## Étape 0 — Consulter le vault via MCP forge-brain (OBLIGATOIRE — hook bloquant)
 
 Le hook `vault-query-guard` BLOQUE les Write si le vault n'a pas été consulté. Si le prompt d'invocation contient déjà des infos du vault, cette étape est satisfaite automatiquement.
 
-Sinon, utiliser la CLI Obsidian (JAMAIS Grep/Read brut sur le vault) :
+Sinon, utiliser les outils MCP forge-brain (jamais Grep/Read brut sur le vault) :
 
-```bash
-# Pre-check
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null
-# Si echec → fallback Read/Glob sur vault/claude-forge/
-
+```
 # Chercher erreurs passees et best practices
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="<sujet>" limit=10
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="erreur" limit=5
+forge-brain:search_brain query="<sujet>" limit=10
+forge-brain:search_brain query="erreur" limit=5
 
 # Lire une note trouvee
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" read file="<nom note>"
+forge-brain:read_note file="<nom note>"
 
 # Apres modification, mettre a jour derniere-maj
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" property:set name="derniere-maj" value="YYYY-MM-DD" file="<note>"
+forge-brain:update_property file="<note>" name="derniere-maj" value="YYYY-MM-DD"
 ```
 
 Lire les résultats pertinents. Appliquer les leçons aux modifications en cours.
@@ -168,16 +163,16 @@ Mode : Optimisation | Création
 ### CLAUDE.md [optimisé/proposé]
 [contenu complet prêt à copier-coller]
 
-### 🔴 Priorité 1 — Impact immédiat
+### Priorité 1 — Impact immédiat
 [composant] : [ce qu'il fait en une ligne]
 
-### 🟡 Priorité 2 — Qualité de vie
+### Priorité 2 — Qualité de vie
 [composants]
 
-### 🟢 Nice to have
+### Nice to have
 [composants]
 
-### ⚙️ Configuration, commandes & plugins
+### Configuration, commandes & plugins
 Consulter le vault pour les tables de référence complètes :
 `vault/claude-forge/01-Claude-Code/best-practices/setup-project-complet.md`
 
@@ -198,7 +193,7 @@ Recommander pour CE projet uniquement :
 - **LSP** : un seul, correspondant au langage principal
 - **Workflow** : commit-commands, frontend-design, security-guidance (si signal détecté)
 
-### 🔌 MCP Servers recommandés
+### MCP Servers recommandés
 [Basé sur la matrice Phase 0 — ne lister que ceux pertinents]
 
 ### Automatisations récurrentes
@@ -214,7 +209,7 @@ Recommander pour CE projet uniquement :
 
 ### 5. Proposition d'action
 
-"Veux-tu que je crée/optimise les composants 🔴 maintenant ?"
+"Veux-tu que je crée/optimise les composants priorité 1 maintenant ?"
 
 ## Règles
 

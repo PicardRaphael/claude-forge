@@ -14,13 +14,13 @@ Relire les feedbacks pertinents au TYPE de tache. Les erreurs passees sont docum
 - hook → `feedback_hooks_*`
 - general → `feedback_major_mistakes`
 
-## 2. Forge Brain (vault) — via CLI Obsidian
+## 2. Forge Brain (vault) — via MCP forge-brain
 
-Interroger le vault via CLI (JAMAIS Grep/Read brut) — AVANT de toucher quoi que ce soit :
+Interroger le vault via MCP (JAMAIS CLI, Grep ou Read brut) — AVANT de toucher quoi que ce soit :
 
-```bash
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="<sujet>" limit=10
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="erreur" limit=5
+```
+forge-brain:search_brain  query="<sujet>"  limit=10
+forge-brain:search_brain  query="erreur"   limit=5
 ```
 
 Sections a chercher :
