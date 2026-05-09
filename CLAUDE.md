@@ -56,18 +56,10 @@ Ne JAMAIS invoquer un plugin externe quand une skill forge couvre le meme sujet.
 Structure : `0-Inbox/` (capture) · `1-Projets/` (contexte projet CANONIQUE) · `2-Casquettes/` (vie holistique) · `00-Hub/` à `07-Prompts/` (savoir technique) · `Knowledge/` (apprentissages).
 Standard qualité : minimum 4-6 aliases, résumé spécifique, 2+ wikilinks par note.
 
-Accès vault : MCP forge-brain (port 8091, préféré) > CLI Obsidian (fallback) > Read/Glob (fallback ultime).
-Lancer le MCP : `python mcp-forge-brain/start.py`
-
-CLI (fallback si MCP indisponible) :
-```bash
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="..."
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" read file="..."
-```
-Pre-check CLI : `bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null` — si échec, fallback Read/Glob.
-
+Accès : MCP forge-brain UNIQUEMENT (auto-start SessionStart, port 8091). Ne JAMAIS utiliser CLI Obsidian, Grep ou Read brut sur le vault.
+Outils MCP : `search_brain`, `read_note`, `list_notes`, `vault_stats`, `create_note`, `append_note`, `update_property`.
+Format écriture : skill `obsidian-markdown` (wikilinks, frontmatter, aliases).
 Dossiers critiques : `Knowledge/erreurs/` · `Knowledge/questions/` · `Knowledge/explorations/`
-Aliases par note : minimum 4-6 (synonymes FR/EN + variantes techniques).
 
 ## Gotchas
 

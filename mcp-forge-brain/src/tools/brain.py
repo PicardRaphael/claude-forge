@@ -91,6 +91,32 @@ class BrainTools:
             self._git.commit_file(path, username, "append", full_path.stem)
         return f"Contenu ajoute a: {path}"
 
+    def list_notes(self, folder: str = "", limit: int = 50) -> str:
+        rows = self._db._conn.execute(
+            "SELECT file_stem, path FROM notes WHERE path LIKE ? ORDER BY file_stem LIMIT ?",
+            (f"{folder}%" if folder else "%", limit),
+        ).fetchall()
+        if not rows:
+            return f"Aucune note dans '{folder or 'vault'}'."
+        lines = [f"- {r['file_stem']} ({r['path']})" for r in rows]
+        return f"{len(lines)} notes:\n" + "\n".join(lines)
+
+    def vault_stats(self) -> str:
+        total = self._db._conn.execute("SELECT COUNT(*) FROM notes").fetchone()[0]
+        tags_count = self._db._conn.execute("SELECT COUNT(DISTINCT tag) FROM tags").fetchone()[0]
+        links_count = self._db._conn.execute("SELECT COUNT(*) FROM links").fetchone()[0]
+        aliases_count = self._db._conn.execute("SELECT COUNT(*) FROM aliases").fetchone()[0]
+        folders = self._db._conn.execute(
+            "SELECT SUBSTR(path, 1, INSTR(path, '/') - 1) as folder, COUNT(*) as cnt "
+            "FROM notes WHERE INSTR(path, '/') > 0 GROUP BY folder ORDER BY cnt DESC"
+        ).fetchall()
+        lines = [f"**Vault forge-brain** : {total} notes, {tags_count} tags, {links_count} wikilinks, {aliases_count} aliases\n"]
+        lines.append("| Dossier | Notes |")
+        lines.append("|---------|-------|")
+        for f in folders:
+            lines.append(f"| {f['folder']} | {f['cnt']} |")
+        return "\n".join(lines)
+
     def update_property(self, file: str, name: str, value: str, username: str = "anonymous") -> str:
         path = self._db.resolve_note(file)
         if not path:
@@ -198,6 +224,21 @@ def register_tools(mcp, tools: BrainTools):
             content: contenu markdown a ajouter
         """
         return tools.append_note(file, content)
+
+    @mcp.tool()
+    def list_notes(folder: str = "", limit: int = 50) -> str:
+        """Liste les notes d'un dossier du vault.
+
+        Args:
+            folder: prefixe de chemin (ex: "1-Projets/Neoteem", "Knowledge/erreurs"). Vide = tout le vault.
+            limit: nombre max (default 50)
+        """
+        return tools.list_notes(folder, limit)
+
+    @mcp.tool()
+    def vault_stats() -> str:
+        """Statistiques du vault : nombre de notes, tags, wikilinks, aliases, repartition par dossier."""
+        return tools.vault_stats()
 
     @mcp.tool()
     def update_property(file: str, name: str, value: str) -> str:

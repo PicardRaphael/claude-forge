@@ -46,23 +46,23 @@ Identifier et formaliser :
 
 ### 3. Rechercher des raisonnements similaires existants
 
-```bash
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="<mots-cles du probleme>" limit=10 2>/dev/null
+```
+forge-brain:search_brain query="<mots-cles du probleme>" limit=10
 ```
 
 Si un raisonnement similaire existe : verifier si une mise a jour vaut mieux qu'une nouvelle note.
 
 ### 4. Identifier les notes liees
 
-```bash
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="<technique ou erreur associee>" limit=5 2>/dev/null
+```
+forge-brain:search_brain query="<technique ou erreur associee>" limit=5
 ```
 
 Collecter 2-3 wikilinks pertinents pour la section `## Liens`.
 
 ### 5. Creer la note vault
 
-**IMPORTANT — creation avec `Write`, PAS obsidian-cli** : le frontmatter contient des `:`, ce qui casse le parser de la CLI (exit 127). Utiliser `Write` pour la creation initiale.
+**IMPORTANT — creation avec MCP `create_note(path, content)`**. Le MCP gere le YAML sans probleme.
 
 Chemin : `vault/claude-forge/Knowledge/raisonnements/<slug>.md`
 
@@ -75,12 +75,10 @@ Lire le template avant de creer :
 
 Structure obligatoire (voir section **Template** ci-dessous).
 
-### 6. Mettre a jour la date via CLI
+### 6. Mettre a jour la date
 
-Apres creation avec `Write` :
-
-```bash
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" property:set name="derniere-maj" value="YYYY-MM-DD" file="<nom-note>" 2>/dev/null
+```
+forge-brain:update_property file="<nom-note>" name="derniere-maj" value="YYYY-MM-DD"
 ```
 
 ### 7. Lier au MOC-Techniques
@@ -155,8 +153,7 @@ Inclure obligatoirement :
 ## Gotchas
 
 - **Ne pas cacher la solution, cacher le chemin** : le code/commit contient la solution. Ce qu'on veut conserver c'est le fork pris et pourquoi.
-- **`Write` pour la creation, pas obsidian-cli** : le frontmatter YAML contient des `:`. Passer ca dans `content=` de la CLI casse le parser (exit 127). Utiliser `Write` directement sur le fichier vault.
-- **obsidian-cli reste obligatoire pour les queries** : search, backlinks, property:set apres creation — mais PAS pour le create initial.
+- **MCP forge-brain pour tout** — search, create, append, update_property. Plus de distinction Write vs CLI.
 - **Insight cle = critere de validation** : si on ne peut pas remplir cette section avec quelque chose de non-evident, le raisonnement ne vaut pas la peine d'etre cache.
 - **Slug unique** : verifier qu'un fichier du meme nom n'existe pas avant de creer. Format `<type>-<3-mots-cles>.md`.
 - **MOC obligatoire** : chaque note cree DOIT etre linkee dans MOC-Techniques. Oublier le MOC = note orpheline.

@@ -7,34 +7,31 @@ globs: "*"
 
 Le vault forge-brain est la mémoire infinie. L'interroger est un RÉFLEXE, pas une option.
 
-## COMMENT interroger — 3 niveaux (du plus rapide au fallback)
+## COMMENT interroger — MCP forge-brain (OBLIGATOIRE)
 
-Ne JAMAIS utiliser Grep/Read brut sur le vault. Hiérarchie d'accès :
+Le MCP `forge-brain` (auto-start via hook SessionStart, port 8091) est le SEUL moyen d'accès au vault.
+Ne JAMAIS utiliser Grep/Read/Glob brut sur le vault. Ne JAMAIS utiliser la CLI Obsidian.
 
-### Niveau 1 — MCP forge-brain (PRÉFÉRÉ si disponible)
+### Outils MCP disponibles
 
-Le MCP `forge-brain` (http://localhost:8091/mcp) offre un accès SQLite FTS5 ultra-rapide :
-- `search_brain(query, limit)` — recherche full-text sur tout le vault
-- `read_note(file)` — lire une note par nom ou alias
-- `get_backlinks(file)` — naviguer le graphe
-- `get_tags()` — vue structurelle
+| Outil | Usage |
+|-------|-------|
+| `search_brain(query, limit)` | Recherche full-text FTS5 sur tout le vault |
+| `read_note(file)` | Lire une note par nom ou alias |
+| `read_note_by_path(path)` | Lire par chemin exact |
+| `get_backlinks(file)` | Naviguer le graphe de liens |
+| `get_tags()` | Vue structurelle par tags |
+| `get_property(file, name)` | Lire une propriété frontmatter |
+| `list_notes(folder, limit)` | Lister les notes d'un dossier |
+| `vault_stats()` | Stats vault (notes, tags, wikilinks, aliases) |
+| `create_note(path, content)` | Créer une note |
+| `append_note(file, content)` | Ajouter du contenu à une note |
+| `update_property(file, name, value)` | Modifier une propriété frontmatter |
 
-Le MCP doit être lancé manuellement : `python mcp-forge-brain/start.py`
+### Fallback (MCP crash uniquement)
 
-### Niveau 2 — CLI Obsidian (si Obsidian ouvert)
-
-```bash
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="sujet" limit=10
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" read file="Nom Note"
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" backlinks file="Nom Note"
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" property:set name="derniere-maj" value="YYYY-MM-DD" file="Note"
-```
-
-### Niveau 3 — Read/Glob direct (fallback ultime)
-
-Si MCP down ET Obsidian fermé, accès direct aux fichiers vault/ avec Read/Glob.
-À éviter — pas de search, pas de FTS, pas d'aliases.
+Si le MCP ne répond pas malgré l'auto-start → Read/Glob direct sur `vault/claude-forge/`.
+Ce cas ne devrait jamais arriver en usage normal.
 
 ## QUAND INTERROGER le vault
 

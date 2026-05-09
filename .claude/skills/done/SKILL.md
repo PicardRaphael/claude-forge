@@ -82,14 +82,10 @@ Si un feedback existant couvre deja l'item : **mettre a jour** le fichier exista
 
 ### 2b -- Verifier le vault pour les faits et erreurs
 
-Pre-check CLI Obsidian :
-```bash
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null
-```
+Utiliser le MCP forge-brain (auto-start, toujours disponible) :
 
-Si la CLI est disponible :
-```bash
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="<mots-cles>" limit=5 2>/dev/null
+```
+forge-brain:search_brain  query="<mots-cles>"  limit=5
 ```
 
 Si une note existante couvre l'item : **signaler le conflit** et proposer une mise a jour plutot qu'une creation.
@@ -181,8 +177,8 @@ Chemin selon le type :
 **Creer avec `Write`** (jamais `obsidian create` -- les colons YAML cassent le parser CLI).
 
 Mettre a jour `derniere-maj` apres creation :
-```bash
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" property:set name="derniere-maj" value="YYYY-MM-DD" file="<nom-note>" 2>/dev/null
+```
+forge-brain:update_property  file="<nom-note>"  name="derniere-maj"  value="YYYY-MM-DD"
 ```
 
 Lier au MOC correspondant si une note vault est creee.
@@ -275,7 +271,7 @@ Cette note est la **working memory** -- ce que Jarvis doit savoir au reveil. `/r
 - **MEMORY.md < 200 lignes** -- si l'index approche la limite, mentionner dans le rapport.
 - **Conflit = proposition, pas action unilaterale** -- si un item contredit une note existante, proposer la mise a jour plutot qu'ecraser.
 - **Separation memoire/vault** -- memoire = feedback specifique relation utilisateur. Vault = savoir reutilisable par n'importe qui.
-- **CLI Obsidian via wrapper** -- toujours `bash .claude/skills/forge-brain/scripts/obsidian-cli.sh`, jamais `obsidian` directement (Windows resout vers Obsidian.exe).
+- **MCP forge-brain auto-start** -- le MCP est lance par hook SessionStart. Utiliser les outils MCP (search_brain, read_note, create_note...) pour tout acces vault. Jamais de CLI.
 - **Auto-trigger inexistant** -- cette skill ne s'auto-declenche pas en fin de session. Un Stop hook separe serait necessaire (hors scope).
 - **`/done` != `/recap`** -- `/recap` = snapshot etat du projet en DEBUT de session (git, vault, memoire). `/done` = metacognition en FIN de session (extraction et capitalisation de ce qui s'est passe). Les deux sont complementaires, pas redondants.
 - **Deduplication avant ecriture** -- toujours lire MEMORY.md et les feedbacks existants avant de creer un nouveau fichier memoire.

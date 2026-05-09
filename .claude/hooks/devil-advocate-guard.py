@@ -91,8 +91,9 @@ def main() -> None:
 
         # Guarded agent completed — check marker
         if os.path.exists(MARKER_PATH):
-            # Devil's advocate already ran → consume marker, silent pass
-            consume_marker()
+            # Devil's advocate already ran this session → silent pass
+            # Marker persists for the whole session (reset by SessionStart)
+            pass
         else:
             # No marker → remind
             print(WARNING_MSG)

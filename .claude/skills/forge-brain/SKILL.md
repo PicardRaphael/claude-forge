@@ -22,61 +22,44 @@ Knowledge base Obsidian de claude-forge. Stocke tout ce que j'apprends : Claude 
 | **Erreur significative commise** | **Créer note dans `Knowledge/erreurs/` avec template `erreur.md`** |
 | Info potentiellement datée | Vérifier la note existante + `derniere-maj` |
 
-## Accès au vault — Hiérarchie
+## Accès au vault — MCP forge-brain (OBLIGATOIRE)
 
-1. **MCP forge-brain** (préféré) — `search_brain`, `read_note`, `get_backlinks`, `get_tags`, `create_note`, `append_note` via MCP `localhost:8091`
-2. **CLI Obsidian** (fallback si MCP down) — `obsidian-cli.sh` search/read/backlinks
-3. **Read/Glob** (fallback ultime si Obsidian fermé) — accès fichiers direct sur `vault/claude-forge/`
+Le MCP forge-brain (auto-start SessionStart, port 8091) est le SEUL moyen d'accès au vault.
+Ne JAMAIS utiliser la CLI Obsidian, Grep, Read ou Glob brut sur le vault.
 
-### MCP forge-brain (PREMIER CHOIX)
+### Outils MCP
 
-```
-forge-brain:search_brain  query="Opus 4.7" limit=10
-forge-brain:read_note     file="Opus 4.7"
-forge-brain:get_backlinks file="Opus 4.7"
-forge-brain:get_tags
-forge-brain:create_note   file="path/note.md" content="..."
-forge-brain:append_note   file="path/note.md" content="..."
-```
+| Outil | Usage |
+|-------|-------|
+| `search_brain(query, limit)` | Recherche full-text FTS5 |
+| `read_note(file)` | Lire par nom ou alias |
+| `read_note_by_path(path)` | Lire par chemin exact |
+| `get_backlinks(file)` | Naviguer le graphe |
+| `get_tags()` | Vue structurelle |
+| `get_property(file, name)` | Lire propriété frontmatter |
+| `list_notes(folder, limit)` | Lister notes d'un dossier |
+| `vault_stats()` | Stats vault complètes |
+| `create_note(path, content)` | Créer une note |
+| `append_note(file, content)` | Ajouter à une note |
+| `update_property(file, name, value)` | Modifier propriété |
 
-### CLI Obsidian (fallback)
+### Écriture — format Obsidian Flavored Markdown
 
-**Ne JAMAIS appeler `obsidian` directement.** Toujours utiliser le wrapper :
-```bash
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh <command>
-```
+Quand on CRÉE une note via MCP `create_note`, le contenu doit respecter la skill `obsidian-markdown` :
+- Frontmatter YAML (titre, resume, aliases 4-6, type, derniere-maj, tags)
+- Wikilinks `[[Note]]` (pas de markdown links pour les notes internes)
+- Minimum 2 wikilinks par note
+- Résumé spécifique dans le frontmatter
 
-#### Pre-check CLI (OBLIGATOIRE avant CLI)
+### Fallback (si MCP crash)
 
-```bash
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null
-```
-- Succès → utiliser la CLI (via le wrapper)
-- Échec → fallback vers `Read`/`Write`/`Glob`/`Grep` directement sur les fichiers du vault
-
-### Commandes CLI courantes
-
-```bash
-# Rechercher
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="Opus 4.7" limit=10
-
-# Lire une note
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" read file="Opus 4.7"
-
-# Lister les tags
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" tags
-
-# Propriétés d'une note
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" property:get file="Opus 4.7" property=derniere-maj
-```
+Read/Glob direct sur `vault/claude-forge/`. Ne devrait jamais arriver.
 
 ## Créer une note
 
-**La CLI ne supporte pas les `:` dans content=** (casse le parser YAML). Toujours utiliser `Write` :
-
-1. Lire le template correspondant : `Read("vault/claude-forge/Templates/<type>.md")`
-2. Créer la note avec `Write` en suivant le template
-3. Ajouter le wikilink dans le MOC correspondant
+1. Lire le template correspondant via MCP : `read_note(file="<type>")` dans `Templates/`
+2. Créer la note avec `create_note(path="...", content="...")` en suivant le template
+3. Ajouter le wikilink dans le MOC correspondant via `append_note`
 
 ## Structure du vault
 
@@ -146,10 +129,8 @@ tags:
 
 ## Gotchas
 
-- **CLI wrapper obligatoire Windows** — ne jamais appeler `obsidian` directement, toujours `bash .claude/skills/forge-brain/scripts/obsidian-cli.sh`. L'exécutable résolu sur Windows est `Obsidian.exe` au lieu de `.com`, le wrapper corrige ça.
-- **Colons dans `content=` cassent la CLI** — le parser YAML interprète les `:` comme séparateurs. Pour créer des notes avec frontmatter, toujours utiliser `Write` directement sur le fichier vault.
-- **MCP doit tourner** — le MCP forge-brain n'est pas auto-lancé. Si les outils MCP ne répondent pas, fallback sur CLI. Lancer : `python mcp-forge-brain/start.py`
-- **Fallback Read/Glob si Obsidian fermé** — faire un pre-check `version` avant toute commande CLI. Si échec, basculer vers `Read`/`Write`/`Glob`/`Grep` sur les fichiers du vault directement.
+- **MCP auto-start** — le hook SessionStart lance le MCP automatiquement. Si les outils MCP ne répondent pas, vérifier que `mcp-forge-brain/start.py` existe et que le port 8091 est libre.
+- **Écriture via MCP, format via obsidian-markdown** — le MCP gère le transport (create/append/update), la skill obsidian-markdown gère le format (wikilinks, frontmatter, callouts).
 - **Aliases minimum 4-6 par note** — standard neoteem-brain : inclure synonymes FR/EN et variantes techniques (ex : "Opus 4.7", "claude-opus-4-7", "opus47", "Claude Opus").
 
 ## Apprentissage

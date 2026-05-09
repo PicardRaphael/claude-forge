@@ -5,13 +5,20 @@ import os
 import sys
 import tempfile
 
-# Clean learning-reminder marker from previous session
-_marker = os.path.join(tempfile.gettempdir(), "claude-forge-learning-reminded")
-if os.path.exists(_marker):
-    try:
-        os.remove(_marker)
-    except Exception:
-        pass
+# Clean markers from previous session
+_HOOK_DIR = os.path.dirname(os.path.abspath(__file__))
+_CLAUDE_DIR = os.path.dirname(_HOOK_DIR)
+
+for marker_name in [
+    os.path.join(tempfile.gettempdir(), "claude-forge-learning-reminded"),
+    os.path.join(_CLAUDE_DIR, ".devil-advocate-done"),
+    os.path.join(_CLAUDE_DIR, ".session-vault-queried"),
+]:
+    if os.path.exists(marker_name):
+        try:
+            os.remove(marker_name)
+        except Exception:
+            pass
 
 def find_latest_memory():
     pattern = os.path.expanduser("~/.claude/projects/*/memory/MEMORY.md")

@@ -28,16 +28,23 @@ git log --oneline --format="%h — %s (%ar)" -5
 
 #### Collecte 2 — Vault stats
 
-```bash
-# Nombre total de notes (hors Templates)
-find vault/claude-forge -name "*.md" ! -path "*/Templates/*" ! -name "Bienvenue.md" | wc -l
+Utiliser les outils MCP forge-brain :
 
+```
+forge-brain:vault_stats
+```
+Donne : nombre total de notes, tags, wikilinks, aliases, répartition par dossier.
+
+```
+forge-brain:get_tags
+```
+Donne le top des tags par fréquence. Afficher les 10 premiers dans le rapport.
+
+```bash
 # Notes modifiées dans les 7 derniers jours — ordre plus récent en premier
+# (find est le seul usage acceptable ici : le MCP n'a pas de filtre par date de modification)
 find vault/claude-forge -name "*.md" ! -path "*/Templates/*" -mtime -7   -printf "%T@ %p
 " 2>/dev/null | sort -rn | head -10 | cut -d' ' -f2-
-
-# Top 10 tags par fréquence
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" tags sort=count counts 2>/dev/null | head -10
 ```
 
 #### Collecte 3 — Derniers feedbacks mémoire
@@ -48,8 +55,10 @@ ls -lt ~/.claude/projects/$(claude-project-id)/memory/feedback_*.md 2>/dev/null 
 
 #### Collecte 3b — Dernières erreurs vault
 
-```bash
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="erreur" limit=5 2>/dev/null
+Utiliser l'outil MCP forge-brain :
+
+```
+forge-brain:search_brain  query="erreur" limit=5
 ```
 
 Lire le **resume** frontmatter de chaque note trouvée pour l'afficher dans le rapport.
@@ -57,6 +66,7 @@ Lire le **resume** frontmatter de chaque note trouvée pour l'afficher dans le r
 #### Collecte 3c — Dernières notes Knowledge
 
 ```bash
+# find est ici le seul usage acceptable : le MCP n'a pas de filtre par date de modification
 find vault/claude-forge/Knowledge -name "*.md" -mtime -14 -printf "%T@ %p
 " 2>/dev/null | sort -rn | head -5 | cut -d' ' -f2-
 ```
@@ -64,14 +74,17 @@ find vault/claude-forge/Knowledge -name "*.md" -mtime -14 -printf "%T@ %p
 #### Collecte 3e — Dernières notes contexte (projets + casquettes)
 
 ```bash
+# find est ici le seul usage acceptable : le MCP n'a pas de filtre par date de modification
 find vault/claude-forge/1-Projets vault/claude-forge/2-Casquettes -name "*.md" -mtime -14 -printf "%T@ %p
 " 2>/dev/null | sort -rn | head -5 | cut -d' ' -f2-
 ```
 
 #### Collecte 3d — Best practices et techniques récentes
 
-```bash
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="best practices" limit=5 2>/dev/null
+Utiliser l'outil MCP forge-brain :
+
+```
+forge-brain:search_brain  query="best practices" limit=5
 ```
 
 #### Collecte 4 — Date de référence cc-news
@@ -136,7 +149,7 @@ La **Suggestion** se déduit des signaux observés :
 
 ## Gotchas
 
-- **CLI Obsidian via wrapper uniquement sur Windows** — ne jamais appeler `obsidian` directement. Toujours `bash .claude/skills/forge-brain/scripts/obsidian-cli.sh`. Si la commande tags échoue, vérifier : `bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null`
+- **MCP forge-brain en premier, CLI en fallback** — utiliser `forge-brain:vault_stats`, `forge-brain:get_tags`, `forge-brain:search_brain` (MCP `localhost:8091`). Si le MCP est down, fallback CLI : `bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null`. Sur Windows ne jamais appeler `obsidian` directement, toujours via le wrapper.
 - **`find -newer FILE` non-déterministe** — le mtime du fichier de référence change. Toujours `-mtime -7` pour "7 derniers jours"
 - **Paths absolus sur Git Bash Windows** — `find vault/claude-forge` retourne `/c/Users/...`. Afficher seulement `basename` dans le rapport
 - **Suggestion = descriptive, pas prescriptive** — "Activité récente sur X" et non "Vous devriez faire Y"

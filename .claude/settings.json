@@ -113,6 +113,16 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \".claude/hooks/mcp-autostart.py\"",
+            "timeout": 10,
+            "async": true
+          }
+        ]
       }
     ]
   },
