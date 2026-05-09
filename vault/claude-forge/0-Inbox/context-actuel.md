@@ -1,6 +1,6 @@
 ---
 titre: Context Actuel
-resume: Working memory dynamique — mis à jour par /done, lu par /recap. Ce que Jarvis doit savoir RIGHT NOW.
+resume: Working memory dynamique — mis à jour par /done, lu par /recap
 aliases:
   - context actuel
   - contexte courant
@@ -18,33 +18,34 @@ tags:
 
 ## Phase actuelle
 
-Construction de l'écosystème forge — vault holistique, /done, MCP forge-brain, standard qualité.
+Écosystème forge consolidé. MCP forge-brain self-contained, vault holistique, /done + /watch, devil's advocate corrigé, règle d'autonomie en place.
 
 ## Dernière session (2026-05-09)
 
 ### Décisions prises
-- Vault `1-Projets/` = source canonique contexte projet stable
-- `memory/project_*.md` = phase éphémère uniquement
+- MCP forge-brain = seul accès vault (CLI supprimée)
+- Vault 1-Projets/ = source canonique contexte projet
+- Règle d'autonomie : advisor + devil's advocate valident → agir sans demander
 - 9e principe skills : méthodes intégrées
-- Standard qualité : 4-6 aliases, résumé, 2+ wikilinks
+- Skip Firecrawl (16$/mois, pas assez de valeur)
 
 ### En cours
-- Skill `/watch` (YouTube transcription) en création
-- MCP forge-brain self-contained (port 8091)
-- Context Note dynamique (ce fichier)
-- Migration memory→vault (4 project_*.md slimmés)
+- 8 agents référencent encore la CLI Obsidian → migration MCP à faire
+- CLAUDE.md avec règle d'autonomie → à commit + push
+- Skills vault-audit, skill-evolve, forge-review → encore quelques refs CLI
 
 ### Prochaines étapes
-- Commit tout le batch
-- Tester /done sur une vraie session
-- Lancer MCP forge-brain en daemon permanent
-- Explorer Firecrawl (16$/mois) si besoin
+- Migrer les 8 agents CLI → MCP (agent-creator, skill-creator, hook-creator, claudemd-optimizer, vault-maintainer, self-updater, project-analyzer, project-auditor, devils-advocate, python-dev)
+- Nettoyer vault-query-guard (simplifier avec MCP)
+- /skill-evolve all sur neo_ia (27 skills) et ia_back (28 skills) pour 9e principe
+- Explorer vault comme interface bidirectionnelle (Raphael écrit dans context-actuel, Jarvis lit)
+- Tester /done sur une session de travail réel (pas juste post-setup)
 
 ## Fils ouverts
-
 - Fine-tuning IA locale (gap identifié, pas commencé)
 - Consolidation Agent (/schedule périodique pour patterns cross-sessions)
-- Devil's advocate : penser à le lancer sur les décisions d'archi, pas juste les agents
+- Playwright MCP (gratuit, permettrait de "voir" les UI) — futur
+- obsidian-markdown/bases/canvas : garder comme référence format, pas d'intégration MCP nécessaire
 
 ## Liens
 
