@@ -19,6 +19,7 @@ description: "Dispatch table: which agent or skill to invoke based on user situa
 | Amélioration de prompt / description | Skill `cc-prompt-ref` |
 | "Crée un prompt pour X" | Skill `craft-prompt` (Claude, Gemini, tout LLM) |
 | Début de session / reprise | `/recap` pour snapshot contexte |
+| Fin de session / capitalisation | `/done` pour metacognition — decisions, faits, preferences, erreurs |
 | Livrable majeur prêt (skill, agent, archi) | Agent `devils-advocate` AVANT de livrer |
 | Problème complexe résolu (multi-étapes) | `/reasoning-cache` pour sauvegarder le raisonnement |
 | "Optimise cette skill" / maintenance skills | `/skill-evolve [nom]` ou `/skill-evolve all` |

@@ -20,14 +20,25 @@ Si la session a produit un apprentissage non trivial :
 - Decouverte technique → creer/mettre a jour un fichier memoire reference_*
 - Contexte projet change → mettre a jour le fichier memoire project_*
 
+## Frontière mémoire ↔ vault (CANONIQUE)
+
+| Type d'info | Où ? | Exemple |
+|-------------|------|---------|
+| Feedback relation Raphael | `memory/feedback_*.md` | "ne pas éditer directement les skills" |
+| Préférence utilisateur | `memory/user_*.md` | profil holistique, comment travailler |
+| Référence technique | `memory/reference_*.md` | pattern neo-brain, permissions limitation |
+| **Contexte projet STABLE** | **`vault/1-Projets/<nom>/`** | stack, repos, scope, contraintes |
+| Phase projet ÉPHÉMÈRE | `memory/project_*.md` | "en cours de refacto", "prochain sprint" |
+| Erreur significative | les DEUX | `memory/feedback_*` + `Knowledge/erreurs/` |
+| Savoir technique réutilisable | `vault/` uniquement | techniques, modèles, leaders |
+| Question technique résolue | `vault/Knowledge/questions/` | — |
+| Exploration technique | `vault/Knowledge/explorations/` | — |
+
+**Règle clé :** `vault/1-Projets/` = source canonique pour le contexte projet stable. `memory/project_*.md` = uniquement la phase en cours et les décisions temporaires. Si une info est dans les deux → la supprimer de memory, garder le vault.
+
 ## Forge Brain — via CLI Obsidian
 
-Le vault forge-brain est la memoire LONGUE. La memoire projet (MEMORY.md) est la memoire COURTE.
-- Info specifique a la relation avec Raphael → memoire projet
-- Info technique reutilisable par n'importe qui → forge-brain vault
-- Erreur significative → les DEUX (memoire + Knowledge/erreurs/)
-- Question technique resolue → Knowledge/questions/
-- Exploration technique → Knowledge/explorations/
+Toujours utiliser la CLI Obsidian pour interagir avec le vault :
 
 Toujours utiliser la CLI Obsidian pour interagir avec le vault :
 ```bash

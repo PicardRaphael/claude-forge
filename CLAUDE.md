@@ -1,6 +1,6 @@
 # claude-forge
 
-**Créé le : 31 mars 2026 | Dernière mise à jour : 8 mai 2026 | Version : 2.0**
+**Créé le : 31 mars 2026 | Dernière mise à jour : 9 mai 2026 | Version : 2.0**
 
 ## Contrat Jarvis
 
@@ -53,12 +53,18 @@ Ne JAMAIS invoquer un plugin externe quand une skill forge couvre le meme sujet.
 
 ## Vault forge-brain
 
-CLI OBLIGATOIRE — jamais Grep/Read brut sur le vault :
+Structure : `0-Inbox/` (capture) · `1-Projets/` (contexte projet CANONIQUE) · `2-Casquettes/` (vie holistique) · `00-Hub/` à `07-Prompts/` (savoir technique) · `Knowledge/` (apprentissages).
+Standard qualité : minimum 4-6 aliases, résumé spécifique, 2+ wikilinks par note.
+
+Accès vault : MCP forge-brain (port 8091, préféré) > CLI Obsidian (fallback) > Read/Glob (fallback ultime).
+Lancer le MCP : `python mcp-forge-brain/start.py`
+
+CLI (fallback si MCP indisponible) :
 ```bash
 bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="..."
 bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" read file="..."
 ```
-Pre-check avant usage : `bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null` — si échec, fallback Read/Glob.
+Pre-check CLI : `bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null` — si échec, fallback Read/Glob.
 
 Dossiers critiques : `Knowledge/erreurs/` · `Knowledge/questions/` · `Knowledge/explorations/`
 Aliases par note : minimum 4-6 (synonymes FR/EN + variantes techniques).
@@ -73,3 +79,4 @@ Aliases par note : minimum 4-6 (synonymes FR/EN + variantes techniques).
 - Pour écrire CLAUDE.md depuis cet agent : Bash heredoc avec `export CLAUDE_AGENT=claudemd-optimizer`
 - Recherche = croiser domaines pour innovations, PAS juste synthétiser. Ajouter "Techniques inédites proposées" dans les synthèses vault.
 - Si info potentiellement datée → `cc-news` (vérifie Boris, Cat Wu, Lydia Hallie, Noah Zweben, Thariq, Jarred Sumner) | CC v2.1.129
+- Devil's advocate OBLIGATOIRE avant toute proposition majeure (archi, innovation, nouvelle skill/agent). LANCER l'agent, pas juste "y penser". Ref : `rules/devils-advocate-pipeline.md`

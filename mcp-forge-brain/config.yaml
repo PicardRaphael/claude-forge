@@ -1,0 +1,23 @@
+vault_path: vault/claude-forge
+db_path: mcp-forge-brain/forge-brain.db
+port: 8091
+
+git:
+  pull_interval_seconds: 9999
+  push_interval_seconds: 9999
+  remote: origin
+  main_branch: main
+
+watcher:
+  poll_interval_seconds: 30
+
+fts:
+  weights:
+    file_stem: 10.0
+    content: 1.0
+    aliases: 8.0
+
+excluded_dirs:
+  - .obsidian
+  - Templates
+  - Excalidraw

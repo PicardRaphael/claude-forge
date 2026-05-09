@@ -7,31 +7,34 @@ globs: "*"
 
 Le vault forge-brain est la mémoire infinie. L'interroger est un RÉFLEXE, pas une option.
 
-## COMMENT interroger — CLI Obsidian (OBLIGATOIRE)
+## COMMENT interroger — 3 niveaux (du plus rapide au fallback)
 
-Ne JAMAIS utiliser Grep/Read brut sur le vault. Toujours la CLI :
+Ne JAMAIS utiliser Grep/Read brut sur le vault. Hiérarchie d'accès :
+
+### Niveau 1 — MCP forge-brain (PRÉFÉRÉ si disponible)
+
+Le MCP `forge-brain` (http://localhost:8091/mcp) offre un accès SQLite FTS5 ultra-rapide :
+- `search_brain(query, limit)` — recherche full-text sur tout le vault
+- `read_note(file)` — lire une note par nom ou alias
+- `get_backlinks(file)` — naviguer le graphe
+- `get_tags()` — vue structurelle
+
+Le MCP doit être lancé manuellement : `python mcp-forge-brain/start.py`
+
+### Niveau 2 — CLI Obsidian (si Obsidian ouvert)
 
 ```bash
-# Pre-check
 bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null
-
-# Chercher
 bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" search query="sujet" limit=10
-
-# Lire une note
 bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" read file="Nom Note"
-
-# Backlinks (naviguer le graphe)
 bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" backlinks file="Nom Note"
-
-# Tags (vue structurelle)
-bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" tags sort=count counts
-
-# Après écriture, mettre à jour derniere-maj
 bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" property:set name="derniere-maj" value="YYYY-MM-DD" file="Note"
 ```
 
-Fallback Read/Glob/Grep si Obsidian est fermé (pre-check échoue).
+### Niveau 3 — Read/Glob direct (fallback ultime)
+
+Si MCP down ET Obsidian fermé, accès direct aux fichiers vault/ avec Read/Glob.
+À éviter — pas de search, pas de FTS, pas d'aliases.
 
 ## QUAND INTERROGER le vault
 
@@ -63,10 +66,41 @@ Fallback Read/Glob/Grep si Obsidian est fermé (pre-check échoue).
 - Documenter : ce qui s'est passé, pourquoi c'était une erreur, quoi faire à la place
 - Lier aux notes techniques pertinentes
 
+## STANDARD QUALITÉ — OBLIGATOIRE pour TOUTE note
+
+Chaque note vault DOIT respecter ces minimums :
+
+| Champ | Minimum | Exemple |
+|-------|---------|---------|
+| `aliases` | 4-6 (FR + EN + variantes + abréviations) | `["claude-forge", "forge", "le forge", "framework forge"]` |
+| `resume` | 1 phrase complète, spécifique, pas générique | `"Backend IA Neoteem — FastAPI Python, agents autonomes, RAG"` |
+| `derniere-maj` | Date ISO du jour | `2026-05-09` |
+| `tags` | Au moins 2 (type + domaine) | `["#type/context", "#projet/neoteem"]` |
+| Wikilinks | Minimum 2 liens vers notes liées | `[[Raphael-Picard]], [[Neoteem]]` |
+
+### Aliases — comment les choisir
+- Nom complet FR
+- Nom complet EN (si pertinent)
+- Abréviation / acronyme
+- Variante avec/sans tirets/espaces
+- Terme que l'utilisateur utiliserait en conversation
+- Synonyme technique
+
+### Dossiers de rangement (ontologie par utilité)
+
+| Je crée une note sur... | Dossier |
+|------------------------|---------|
+| Un projet en cours | `1-Projets/<nom-projet>/` |
+| Une aire de responsabilité de vie | `2-Casquettes/` |
+| Une capture rapide à trier | `0-Inbox/` |
+
 ## QUOI ÉCRIRE dans le vault
 
 | Situation | Dossier | Template |
 |-----------|---------|----------|
+| Contexte de projet | `1-Projets/<nom>/` | context-projet |
+| Casquette de vie | `2-Casquettes/` | context-casquette |
+| Capture rapide | `0-Inbox/` | - |
 | Nouvelle feature/outil découvert | `01-Claude-Code/` ou `02-Concurrents/` | feature / concurrent |
 | Nouveau modèle ou update | `03-Modeles/` | modele |
 | Technique/pattern appris | `04-Techniques/` | technique |

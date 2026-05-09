@@ -22,14 +22,31 @@ Knowledge base Obsidian de claude-forge. Stocke tout ce que j'apprends : Claude 
 | **Erreur significative commise** | **Créer note dans `Knowledge/erreurs/` avec template `erreur.md`** |
 | Info potentiellement datée | Vérifier la note existante + `derniere-maj` |
 
-## CLI — RÈGLE ABSOLUE (Windows)
+## Accès au vault — Hiérarchie
+
+1. **MCP forge-brain** (préféré) — `search_brain`, `read_note`, `get_backlinks`, `get_tags`, `create_note`, `append_note` via MCP `localhost:8091`
+2. **CLI Obsidian** (fallback si MCP down) — `obsidian-cli.sh` search/read/backlinks
+3. **Read/Glob** (fallback ultime si Obsidian fermé) — accès fichiers direct sur `vault/claude-forge/`
+
+### MCP forge-brain (PREMIER CHOIX)
+
+```
+forge-brain:search_brain  query="Opus 4.7" limit=10
+forge-brain:read_note     file="Opus 4.7"
+forge-brain:get_backlinks file="Opus 4.7"
+forge-brain:get_tags
+forge-brain:create_note   file="path/note.md" content="..."
+forge-brain:append_note   file="path/note.md" content="..."
+```
+
+### CLI Obsidian (fallback)
 
 **Ne JAMAIS appeler `obsidian` directement.** Toujours utiliser le wrapper :
 ```bash
 bash .claude/skills/forge-brain/scripts/obsidian-cli.sh <command>
 ```
 
-### Pre-check (OBLIGATOIRE)
+#### Pre-check CLI (OBLIGATOIRE avant CLI)
 
 ```bash
 bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null
@@ -37,7 +54,7 @@ bash .claude/skills/forge-brain/scripts/obsidian-cli.sh version 2>/dev/null
 - Succès → utiliser la CLI (via le wrapper)
 - Échec → fallback vers `Read`/`Write`/`Glob`/`Grep` directement sur les fichiers du vault
 
-## Commandes courantes
+### Commandes CLI courantes
 
 ```bash
 # Rechercher
@@ -64,6 +81,9 @@ bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" pro
 ## Structure du vault
 
 ```
+0-Inbox/          — Capture rapide, à trier par /done
+1-Projets/        — Notes de contexte par projet (Neoteem, Claude-Forge, etc.)
+2-Casquettes/     — Aires de responsabilité de vie (profil holistique, famille, gaming)
 00-Hub/           — Home + 6 MOCs (index par thème)
 01-Claude-Code/   — features/, changelog/, best-practices/, hooks/, skills/, agents/
 02-Concurrents/   — gemini-cli/, codex/, copilot/, cursor/, xai/
@@ -73,7 +93,7 @@ bash .claude/skills/forge-brain/scripts/obsidian-cli.sh vault="claude-forge" pro
 06-Industrie/     — Market, funding, événements, tendances
 07-Prompts/       — system-prompts/, agent-prompts/, skill-prompts/, templates-prompts/
 Knowledge/        — explorations/, syntheses/
-Templates/        — 10 templates (feature, changelog, best-practice, leader, technique, modele, concurrent, deprecation, knowledge, prompt)
+Templates/        — 12 templates (+context-projet, +context-casquette)
 ```
 
 ## Templates (OBLIGATOIRE)
@@ -92,6 +112,8 @@ Toujours lire le template AVANT de créer une note :
 | `06-Industrie/` | `Templates/knowledge.md` |
 | `07-Prompts/` | `Templates/prompt.md` |
 | `Knowledge/` | `Templates/knowledge.md` |
+| `1-Projets/` | `Templates/context-projet.md` |
+| `2-Casquettes/` | `Templates/context-casquette.md` |
 
 ## Frontmatter obligatoire
 
@@ -126,6 +148,7 @@ tags:
 
 - **CLI wrapper obligatoire Windows** — ne jamais appeler `obsidian` directement, toujours `bash .claude/skills/forge-brain/scripts/obsidian-cli.sh`. L'exécutable résolu sur Windows est `Obsidian.exe` au lieu de `.com`, le wrapper corrige ça.
 - **Colons dans `content=` cassent la CLI** — le parser YAML interprète les `:` comme séparateurs. Pour créer des notes avec frontmatter, toujours utiliser `Write` directement sur le fichier vault.
+- **MCP doit tourner** — le MCP forge-brain n'est pas auto-lancé. Si les outils MCP ne répondent pas, fallback sur CLI. Lancer : `python mcp-forge-brain/start.py`
 - **Fallback Read/Glob si Obsidian fermé** — faire un pre-check `version` avant toute commande CLI. Si échec, basculer vers `Read`/`Write`/`Glob`/`Grep` sur les fichiers du vault directement.
 - **Aliases minimum 4-6 par note** — standard neoteem-brain : inclure synonymes FR/EN et variantes techniques (ex : "Opus 4.7", "claude-opus-4-7", "opus47", "Claude Opus").
 

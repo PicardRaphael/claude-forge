@@ -1,6 +1,6 @@
 ---
 name: cc-skills-ref
-description: Référence complète du format YAML des skills Claude Code — champs frontmatter, $ARGUMENTS, !backtick, context fork, paths, 9 catégories Thariq, 8 principes, skills builtin. Charger quand on crée ou modifie une skill.
+description: Référence complète du format YAML des skills Claude Code — champs frontmatter, $ARGUMENTS, !backtick, context fork, paths, 9 catégories Thariq, 9 principes, skills builtin. Charger quand on crée ou modifie une skill.
 user-invokable: false
 ---
 
@@ -43,6 +43,7 @@ metadata:
 - SKILL.md < 500 lignes → déporter dans `references/`
 - **`commands/` est DÉPRÉCIÉ** → utiliser `skills/` à la place. Les deux marchent mais skills est le standard.
 - Skills métier doivent avoir une section **Apprentissage** pour sauvegarder en mémoire
+- Skills métier doivent intégrer des **méthodes** (le comment bien faire) dans chaque étape, pas seulement les gotchas
 - Skills injectées en ENTIER dans le contexte des subagents → garder courtes
 - Plugin skills utilisent le `name` du frontmatter (plus le basename du dossier) depuis v2.1.94
 - `disableSkillShellExecution` : setting pour bloquer l'exécution shell dans les skills
@@ -82,7 +83,7 @@ Crée un composant nommé $ARGUMENTS.
 8. Operations
 9. Knowledge Base
 
-## 8 principes (Thariq)
+## 9 principes (Thariq)
 
 1. Ne pas énoncer l'évident
 2. **Section Gotchas** ← la plus importante
@@ -92,6 +93,7 @@ Crée un composant nommé $ARGUMENTS.
 6. Description = déclencheur pour le modèle
 7. Mémoire possible via log, JSON, SQLite
 8. Itérer sur un cas difficile → extraire → élargir
+9. **Méthodes intégrées** — chaque étape inclut le "comment bien faire", pas juste le "quoi faire"
 
 ## Références (progressive disclosure)
 
@@ -111,6 +113,7 @@ Crée un composant nommé $ARGUMENTS.
 - **Naming : gerund form** prefere (processing-pdfs) ou action-oriented (process-pdfs)
 - **Avoid time-sensitive info** — "old patterns" section si deprecation
 - **MCP tools : fully qualified names** (ServerName:tool_name)
+- **Process methods** : skills should include HOW to do each step well, not just list steps — synthesize best practices into the workflow
 
 ## Skills builtin
 

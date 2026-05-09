@@ -54,6 +54,8 @@ TEMPLATE_SECTIONS = {
     "07-Prompts": ["## Liens"],
     "Knowledge/erreurs": ["## Liens"],
     "Knowledge/syntheses": ["## Liens"],
+    "1-Projets": ["## Liens"],
+    "2-Casquettes": ["## Liens"],
 }
 
 # MOC per top-level folder
@@ -66,6 +68,9 @@ FOLDER_TO_MOC = {
     "06-Industrie": "MOC-Industrie",
     "07-Prompts": "MOC-Prompts",
     "Knowledge": None,  # no single MOC
+    "0-Inbox": None,  # draft area, no MOC
+    "1-Projets": None,  # project context, no MOC — wikilinks to parent project required
+    "2-Casquettes": None,  # life areas, no MOC — wikilinks to Raphael-Picard required
 }
 
 # Scoring weights (sum = 100)

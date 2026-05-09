@@ -106,6 +106,9 @@ Pour les notes grade D avec aliases pauvres ou resume vide :
 | 05-Leaders | [[MOC-Leaders]] |
 | 06-Industrie | [[MOC-Industrie]] |
 | 07-Prompts | [[MOC-Prompts]] |
+| 0-Inbox | aucun (zone de brouillon) |
+| 1-Projets | aucun — wikilink vers projet parent obligatoire |
+| 2-Casquettes | aucun — wikilink vers [[Raphael-Picard]] obligatoire |
 
 ## Gotchas
 

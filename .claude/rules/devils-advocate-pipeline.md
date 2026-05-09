@@ -9,7 +9,7 @@ description: "Run devils-advocate agent before delivering major work — skills,
 TOUT LE MONDE. Les agents spécialisés ET la session principale (moi).
 
 - **Agents** : le hook `devil-advocate-guard.py` rappelle automatiquement après chaque agent qui produit un livrable
-- **Session principale** : AVANT de proposer une innovation, une architecture, une technique à Raphael → lancer devil's advocate ou au minimum challenger mentalement sa propre proposition
+- **Session principale** : AVANT de proposer une innovation, une architecture, une technique à Raphael → lancer devil's advocate. Pas "challenger mentalement" — LANCER L'AGENT. La session 2026-05-09 a prouvé que le challenge mental ne suffit pas (3 bloquants trouvés par l'agent que j'avais manqués).
 
 ## Quand invoquer
 

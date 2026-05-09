@@ -61,6 +61,13 @@ find vault/claude-forge/Knowledge -name "*.md" -mtime -14 -printf "%T@ %p
 " 2>/dev/null | sort -rn | head -5 | cut -d' ' -f2-
 ```
 
+#### Collecte 3e — Dernières notes contexte (projets + casquettes)
+
+```bash
+find vault/claude-forge/1-Projets vault/claude-forge/2-Casquettes -name "*.md" -mtime -14 -printf "%T@ %p
+" 2>/dev/null | sort -rn | head -5 | cut -d' ' -f2-
+```
+
 #### Collecte 3d — Best practices et techniques récentes
 
 ```bash
