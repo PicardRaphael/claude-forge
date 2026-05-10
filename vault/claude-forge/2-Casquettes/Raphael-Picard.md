@@ -51,7 +51,7 @@ tags:
 Responsable choix architecturaux IA, architecture neuro-symbolique, RAG, agents autonomes. Pilote le pôle IA, acculture les équipes.
 
 ### [[2-Casquettes/Famille|Famille]]
-Jennifer, Rose (3 ans), Louis (6 mois). Vie en maison à Marchampt.
+Jennifer, Rose (3 ans), Louis (18 mois). Vie en maison à Marchampt.
 
 ### [[2-Casquettes/Gaming|Gaming]]
 Passionné jeux vidéo depuis toujours. Diablo 4, PoE2. Ancien esportif et streamer.

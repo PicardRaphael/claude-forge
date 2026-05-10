@@ -1,284 +1,132 @@
 ---
 name: cc-news
-description: Use this skill when the user asks about recent Claude Code updates, new features, AI industry news, or when any information might be outdated. Use PROACTIVELY when the user asks "quoi de neuf", "est-ce que X existe maintenant", or when knowledge seems stale. Date de référence : 8 mai 2026 (v2.1.129).
+description: Use this skill when the user asks about recent Claude Code updates, new features, AI industry news, or when any information might be outdated. Use PROACTIVELY when the user asks "quoi de neuf", "est-ce que X existe maintenant", or when knowledge seems stale. Date de reference : 10 mai 2026 (v2.1.138).
 user-invokable: true
-allowed-tools: WebSearch, WebFetch, Read, Write
-argument-hint: "fonctionnalité ou sujet à vérifier"
+allowed-tools: WebSearch, WebFetch, Read, Write, Agent
+argument-hint: "domaine ou sujet (ex: rag, agents, fine-tuning, concurrents, claude-code, prompt, tout)"
 ---
 
-# Vérificateur de Nouveautés Claude Code
+# cc-news — Veille IA & Claude Code
 
-Date de référence du studio : **8 mai 2026** (v2.1.129)
+Date de référence : **10 mai 2026** (v2.1.138)
 Tout ce qui est postérieur à cette date doit être recherché.
 
-## Sources à consulter
+## Tier 0 — Vérifier EN PREMIER (toujours, avant tout routage)
 
-### Officielles
-1. `https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md`
-2. `https://docs.anthropic.com/en/release-notes/claude-code`
-3. `https://code.claude.com/docs/en/changelog`
+Ces 5 queries s'exécutent quel que soit $ARGUMENTS :
 
-### Équipe Claude Code (OBLIGATOIRE — vérifier chaque personne)
-4. **Boris Cherny** (@bcherny) — créateur de Claude Code
-   - `https://howborisusesclaudecode.com`
-   - threads.com/@boris_cherny
-   - x.com/bcherny
-5. **Cat Wu** (@_catwu) — Head of Product Claude Code
-   - x.com/_catwu
-6. **Lydia Hallie** (@lydiahallie) — Claude Code team
-   - x.com/lydiahallie
-7. **Noah Zweben** (@noahzweben) — Claude Code team
-   - x.com/noahzweben
-8. **Thariq Shihipar** (@trq212) — Skills author, Claude Code team
-   - x.com/trq212
-   - linkedin.com/in/thariq
-9. **Jarred Sumner** (@jaraboron) — Bun creator, acquis par Anthropic
-   - x.com/jaraboron
-10. **Felix Rieseberg** (@felixrieseberg) — Claude Code contributor
-   - x.com/felixrieseberg
-
-### Écosystème & frameworks (OBLIGATOIRE)
-11. **LangChain** (@LangChainAI) — Framework agents/RAG
-   - x.com/LangChainAI
-12. **Claude officiel** (@AnthropicAI) — Compte officiel Anthropic
-   - x.com/AnthropicAI
-13. **Google AI Studio** (@GoogleAIStudio) — Gemini platform
-   - x.com/GoogleAIStudio
-
-### RAG & Embeddings leaders
-14. **Jonas Roman** (@JonasRoman) — RAG en production, ex-Mistral AI (FR)
-   - youtube.com/@JonasRoman-t5t
-   - lagentia.fr
-15. **Omar Khattab** (@lateinteraction) — ColBERT, DSPy, MIT
-   - x.com/lateinteraction
-16. **Jerry Liu** (@jerryjliu0) — LlamaIndex founder
-   - x.com/jerryjliu0
-   - llamaindex.ai/blog
-17. **Harrison Chase** (@hwchase17) — LangChain founder (contexte RAG spécifique)
-   - blog.langchain.com
-18. **Han Xiao** (@haborosc) — Jina AI/Elastic, late chunking
-   - x.com/haborosc
-   - jina.ai/news
-19. **Chip Huyen** (@chiphuyen) — AI Engineering author
-   - x.com/chiphuyen
-   - huyenchip.com
-20. **Nils Reimers** — Sentence-BERT, Cohere VP Search
-   - sbert.net
-21. **Douwe Kiela** — RAG original paper co-author, Contextual AI CEO
-   - contextual.ai/blog
-22. **James Briggs** (@jamescalam) — Aurelio AI, RAG tutorials
-   - youtube.com/@jamesbriggs
-   - pinecone.io/learn/series/rag/
-
-### Agents IA & Automation leaders
-23. **Shunyu Yao** (@ysymyth) — ReAct, Tree of Thoughts, Chief AI Scientist Tencent
-   - ysymyth.github.io
-24. **Andrew Ng** (@AndrewYNg) — DeepLearning.AI, 4 agentic design patterns
-   - x.com/AndrewYNg
-   - deeplearning.ai
-25. **Lilian Weng** (@lilianweng) — OpenAI VP Research, Lil'Log (canonical agent posts)
-   - lilianweng.github.io
-26. **Jim Fan** (@DrJimFan) — NVIDIA Voyager/GROOT, Foundation Agent
-   - x.com/DrJimFan
-27. **Simon Willison** (@simonw) — Agentic Engineering Patterns, LLM CLI
-   - simonwillison.net
-28. **Joao Moura** (@joaomdmoura) — CrewAI founder
-   - x.com/joaomdmoura
-   - crewai.com/blog
-29. **Ethan Mollick** (@emollick) — One Useful Thing, Equation of Agentic Work
-   - oneusefulthing.org
-30. **Swyx** (@swyx) — Latent Space podcast, AI Engineer conferences
-   - latent.space
-31. **Matt Shumer** (@mattshumer_) — HyperWrite, "Something Big Is Happening"
-   - x.com/mattshumer_
-
-## Recherches à effectuer
-
-### Claude Code (obligatoire)
 ```
-Chercher : Claude Code changelog site:github.com/anthropics/claude-code
-Chercher : Claude Code $ARGUMENTS 2026
-Chercher : @bcherny Claude Code 2026
-Chercher : @_catwu Claude Code 2026
-Chercher : @lydiahallie Claude Code 2026
-Chercher : @noahzweben Claude Code 2026
-Chercher : thariq shihipar claude code skills 2026
-Chercher : jarred sumner anthropic claude code 2026
-Chercher : @felixrieseberg Claude Code 2026
-Chercher : Claude Code deprecated OR breaking 2026
-Chercher : Claude Cowork update 2026
-Chercher : Claude Dispatch new features 2026
-Chercher : anthropic Agent Teams claude code 2026
+Claude Code changelog site:github.com/anthropics/claude-code
+@AnthropicAI Claude announcements
+frontier model release OpenAI GPT OR Google Gemini OR Claude
+Claude Code deprecated OR breaking
+[si $ARGUMENTS fourni] Claude Code $ARGUMENTS
 ```
 
-### Plugins officiels Anthropic (obligatoire)
+Puis consulter le vault forge-brain pour vérifier ce qui est déjà documenté :
+`search_brain("Claude Code changelog")` + `search_brain("$ARGUMENTS")` si fourni.
+
+## Routage $ARGUMENTS
+
+| $ARGUMENTS | Action |
+|------------|--------|
+| vide ou "tout" | Lancer 11 agents parallèles (orchestration complète) |
+| "claude-code" ou "CC" | Read references/domain-claude-code.md → exécuter ses queries |
+| "rag" ou "embeddings" | Read references/domain-rag.md → exécuter ses queries |
+| "agents" ou "agentic" | Read references/domain-agents.md → exécuter ses queries (2 agents) |
+| "fine-tuning" ou "ft" ou "local" | Read references/domain-finetuning.md → exécuter ses queries (2 agents) |
+| "concurrents" ou "openai" ou "gemini" ou "cursor" | Read references/domain-concurrents.md → exécuter ses queries (2 agents) |
+| "prompt" ou "prompting" | Read references/domain-prompt-engineering.md → exécuter ses queries |
+| sujet spécifique (ex: "GPT-5.5") | search_brain(sujet) puis WebSearch sur les domaines pertinents |
+
+## Orchestration complète (11 agents parallèles)
+
+Avant de lancer les agents, faire `search_brain("recent")` pour obtenir les notes récentes du vault.
+Passer les titres des notes récentes dans le prompt de l'Agent Discovery pour qu'il filtre les doublons.
+
+Lancer via Agent tool simultanément — chaque agent lit son fichier de référence et exécute les queries indiquées :
+
+Chaque agent doit ajouter l'année en cours aux queries non-`site:` pour obtenir des résultats récents.
+Exemple : "Jonas Roman RAG production" → chercher "Jonas Roman RAG production 2026" (ou l'année courante).
+Les queries `site:` n'ont pas besoin d'année — les résultats sont déjà triés par date.
+
 ```
-Vérifier version du plugin claude-code-setup :
-  Read("~/.claude/plugins/cache/claude-plugins-official/claude-code-setup/*/. claude-plugin/plugin.json")
-Si version > 1.0.0 → lire les changements et mettre à jour cc-advisor/references/mcp-catalog.md
-Chercher : site:github.com/anthropics claude-code-setup plugin update 2026
+Agent 1a : "Read .claude/skills/cc-news/references/domain-claude-code.md
+             Execute ONLY the queries under heading '### Agent A — Officiel + Équipe'.
+             Return findings as bullet list with source URLs."
+
+Agent 1b : "Read .claude/skills/cc-news/references/domain-claude-code.md
+             Execute ONLY the queries under heading '### Agent B — Plugins + Écosystème'.
+             Return findings as bullet list with source URLs."
+
+Agent 2  : "Read .claude/skills/cc-news/references/domain-rag.md
+             Execute all queries in the file. Return findings as bullet list with source URLs. Max 11 queries."
+
+Agent 3a : "Read .claude/skills/cc-news/references/domain-agents.md
+             Execute ONLY the queries under heading '### Agent A — Leaders + Frameworks'.
+             Return findings as bullet list with source URLs."
+
+Agent 3b : "Read .claude/skills/cc-news/references/domain-agents.md
+             Execute ONLY the queries under heading '### Agent B — Produits + MCP'.
+             Return findings as bullet list with source URLs."
+
+Agent 4a : "Read .claude/skills/cc-news/references/domain-finetuning.md
+             Execute ONLY the queries under heading '### Agent A — Leaders (queries 1-10)'.
+             Return findings as bullet list."
+
+Agent 4b : "Read .claude/skills/cc-news/references/domain-finetuning.md
+             Execute ONLY the queries under heading '### Agent B — Techniques + Benchmarks (queries 11-20)'.
+             Return findings as bullet list."
+
+Agent 5a : "Read .claude/skills/cc-news/references/domain-concurrents.md
+             Execute ONLY the queries under heading '### Agent A — OpenAI + Google'.
+             Return findings as bullet list with source URLs."
+
+Agent 5b : "Read .claude/skills/cc-news/references/domain-concurrents.md
+             Execute ONLY the queries under heading '### Agent B — Cursor + Copilot + xAI + Leaders'.
+             Return findings as bullet list with source URLs."
+
+Agent 6  : "Read .claude/skills/cc-news/references/domain-prompt-engineering.md
+             Execute all queries in the file. Return findings as bullet list with source URLs. Max 10 queries."
+
+Agent 7  : "Read .claude/skills/cc-news/references/domain-discovery.md
+             Execute all queries in the file. Return findings as bullet list with source URLs. Max 7 queries.
+             Focus on things NOT already known — new tools, new people, breakthrough papers.
+             AVANT d'exécuter les queries, le parent aura passé un résumé des notes vault récentes.
+             Ignorer les résultats qui correspondent à des sujets déjà documentés."
 ```
 
-### Écosystème & frameworks (obligatoire)
-```
-Chercher : @LangChainAI LangChain LangGraph new features 2026
-Chercher : @AnthropicAI Claude announcements 2026
-Chercher : @GoogleAIStudio Gemini updates 2026
-Chercher : @felixrieseberg Claude Code 2026
-```
-
-### Prompt engineering & techniques
-```
-Chercher : @AmandaAskell prompt engineering Claude 2026
-Chercher : @alexalbert__ Claude prompt techniques 2026
-Chercher : @emollick prompt engineering 2026
-Chercher : "context engineering" OR "adaptive thinking" Claude 2026
-Chercher : Gemini prompt engineering new techniques 2026
-```
-
-### RAG & Embeddings (obligatoire)
-```
-Chercher : Jonas Roman RAG production 2026
-Chercher : @lateinteraction ColBERT DSPy 2026
-Chercher : LlamaIndex new features RAG 2026
-Chercher : Jina AI embeddings late chunking 2026
-Chercher : Cohere embed rerank new features 2026
-Chercher : @chiphuyen AI engineering RAG 2026
-Chercher : Contextual AI RAG 2.0 2026
-Chercher : MTEB embedding benchmark 2026
-Chercher : @jamescalam RAG tutorial 2026
-```
-
-### Agents IA & Automation (obligatoire)
-```
-Chercher : @ysymyth ReAct agents 2026
-Chercher : Andrew Ng agentic AI DeepLearning 2026
-Chercher : @lilianweng LLM agents blog 2026
-Chercher : @DrJimFan NVIDIA agents robotics 2026
-Chercher : Simon Willison agentic engineering patterns 2026
-Chercher : CrewAI new features 2026
-Chercher : @emollick AI agents work 2026
-Chercher : Latent Space podcast AI agents 2026
-Chercher : OpenAI Agents SDK Codex new features 2026
-Chercher : Google ADK A2A protocol agents 2026
-Chercher : Stagehand browser automation AI 2026
-Chercher : Claude Managed Agents Cowork Dispatch 2026
-```
-
-### Industrie IA — Concurrents & leaders
-```
-Chercher : Google Gemini Code Assist OR Gemini CLI new features 2026
-Chercher : OpenAI Codex CLI OR ChatGPT code new features 2026
-Chercher : GitHub Copilot new features 2026
-Chercher : Cursor AI new features 2026
-Chercher : Andrej Karpathy AI coding tools 2026
-Chercher : Yann LeCun AI agents 2026
-Chercher : Sam Altman OpenAI announcements 2026
-Chercher : Elon Musk xAI Grok coding 2026
-```
-
-## Gotchas
-
-- **Max 6-8 recherches par agent** — au-delà l'agent crash ou perd le fil. Découper en agents parallèles par thème si le scan est large.
-- **Capitaliser dans le vault APRÈS le scan** — ne pas finir sans créer/mettre à jour les notes forge-brain. Étape 7 de la checklist est obligatoire, pas optionnelle.
-- **Vérifier le vault AVANT de chercher** — step 1 de la checklist : éviter de re-chercher ce qui est déjà documenté avec un `derniere-maj` récent.
+Synthétiser avec le format de references/format-reponse.md.
 
 ## Étapes
 
-1. **Chercher dans le vault forge-brain** d'abord — vérifier ce qui est déjà connu (`derniere-maj` des notes)
-2. Rechercher TOUTES les sources ci-dessus (officielles + équipe)
-3. Identifier ce qui est postérieur à la date de référence
-4. Comparer avec les notes existantes du vault (pas juste cc-features-ref)
+1. **Vault forge-brain d'abord** — `search_brain` sur le sujet pour voir ce qui est déjà connu (`derniere-maj`)
+2. Exécuter Tier 0 (5 queries fixes)
+3. Router selon $ARGUMENTS (domaine unique ou orchestration complète)
+4. Identifier ce qui est postérieur à la date de référence
 5. Vérifier les dépréciations et breaking changes
-6. Résumer les nouveautés à l'utilisateur
-7. **Capitaliser dans le vault forge-brain** :
-   - Créer des notes atomiques pour chaque nouveauté significative (1 concept = 1 note)
-   - Mettre à jour les notes existantes si l'info a évolué
-   - Mettre à jour les MOCs correspondants (ajouter les wikilinks des nouvelles notes)
-   - Mettre à jour `derniere-maj` sur chaque note touchée
-8. Mettre à jour la mémoire si découvertes importantes (fichiers reference_*)
+6. Résumer les nouveautés à l'utilisateur (format references/format-reponse.md)
+7. **Capitaliser dans le vault forge-brain** (obligatoire, pas optionnel) — Si une nouvelle version CC est découverte, mettre à jour la date de référence et la version dans ce SKILL.md (ligne 3 description + ligne 11 body).
 
-## Format de réponse
+## Capitalisation vault (étape 7)
 
-```markdown
-## [Date] — Mise à jour cc-news
+- Nouvelle version CC → `01-Claude-Code/changelog/CC vX.Y.Z.md`
+- Nouveau modèle → `03-Modeles/<provider>/<nom>.md`
+- Feature concurrent → mettre à jour `02-Concurrents/<produit>/`
+- Nouvelle technique → `04-Techniques/<sous-dossier>/`
+- Info leader → mettre à jour `05-Leaders/`
+- Info industrie → `06-Industrie/`
+- Utiliser les templates de `Templates/` pour chaque nouveau type
 
-### Officiel (changelog)
-- [version] : [features]
+Règle : **1 concept = 1 note atomique**. Mettre à jour les MOCs. Mettre à jour `derniere-maj`.
+Voir skill `forge-brain` pour le format complet et les outils MCP.
 
-### Équipe Claude Code
-- **Boris** : [tips/annonces]
-- **Cat** : [insights produit]
-- **Lydia** : [features/workshops]
-- **Noah** : [features cloud/mobile]
-- **Thariq** : [skills patterns]
-- **Jarred** : [performance/runtime]
+## Gotchas
 
-### Dépréciations
-- [feature] → [remplacement]
-
-### Industrie IA
-- **Google/Gemini** : [updates Gemini Code, CLI]
-- **OpenAI** : [updates Codex, ChatGPT code, Sam Altman]
-- **GitHub Copilot** : [updates]
-- **Cursor** : [updates]
-- **xAI/Grok** : [updates Elon Musk]
-
-### RAG & Embeddings
-- **Jonas Roman** : [RAG prod tips]
-- **Omar Khattab** : [ColBERT/DSPy updates]
-- **Jerry Liu** : [LlamaIndex/agentic retrieval]
-- **Han Xiao** : [Jina embeddings/late chunking]
-- **Chip Huyen** : [AI engineering insights]
-- **James Briggs** : [RAG tutorials]
-
-### Leaders & visionnaires
-- **Karpathy** : [AI coding, Obsidian, techniques]
-- **Yann LeCun** : [vision AI, debats]
-- **Sam Altman** : [annonces OpenAI]
-- **Elon Musk** : [xAI, Grok]
-
-### Prompt engineering & communauté
-- **Amanda Askell** : [prompt techniques Claude]
-- **Alex Albert** : [prompt techniques]
-- **Ethan Mollick** : [observations]
-- [autres observations notables]
-
-### Agents IA & Automation
-- **Shunyu Yao** : [ReAct/agents updates]
-- **Andrew Ng** : [agentic AI teachings]
-- **Jim Fan** : [NVIDIA agents/robotics]
-- **Simon Willison** : [agentic patterns]
-- **Ethan Mollick** : [AI work insights]
-- **Swyx/Latent Space** : [AI engineering community]
-
-Sources : [URLs]
-```
-
-- Indiquer la date de la recherche
-- Distinguer "officiel" vs "equipe" vs "industrie" vs "communaute"
-- Si rien de nouveau dans une section → l'omettre
-- Si rien de nouveau du tout → dire que le studio est à jour
-
-## Forge Brain — Capitalisation (OBLIGATOIRE)
-
-Après chaque scan cc-news, capitaliser dans le vault `vault/claude-forge/` :
-
-1. **Chercher d'abord** ce qui existe déjà dans le vault (éviter doublons)
-2. **Créer des notes atomiques** pour chaque nouveauté significative :
-   - Nouvelle version CC → `01-Claude-Code/changelog/CC vX.Y.Z.md`
-   - Nouveau modèle/update → `03-Modeles/<provider>/<nom>.md`
-   - Nouvelle feature concurrent → mettre à jour la fiche dans `02-Concurrents/`
-   - Nouvelle technique/pattern → `04-Techniques/<sous-dossier>/`
-   - Nouveau prompt/system prompt → `07-Prompts/<sous-dossier>/`
-   - Info leader → mettre à jour la fiche dans `05-Leaders/`
-   - Info industrie → `06-Industrie/`
-3. **Mettre à jour les MOCs** — ajouter les wikilinks des nouvelles notes
-4. **Mettre à jour `derniere-maj`** sur chaque note touchée
-5. **Utiliser les templates** de `Templates/` pour chaque nouveau type de note
-
-## Apprentissage
-
-Après chaque usage significatif, sauvegarder en mémoire projet les patterns efficaces et erreurs rencontrées.
-
-_Aucune entrée pour le moment._
+- **Max 6-8 queries par agent** — au-delà l'agent perd le fil. Les reference files sont conçus pour respecter ce budget.
+- **fine-tuning + concurrents + agents + claude-code = 2 agents chacun** — ces domaines dépassent 8 queries ; l'orchestration complète utilise 11 agents (pas 6) pour cette raison.
+- **Vault AVANT de chercher** — éviter de re-chercher ce qui est documenté avec un `derniere-maj` récent.
+- **Capitaliser APRÈS le scan** — l'étape 7 est obligatoire, pas optionnelle.
+- **Modèle vs produit vs industrie** — GPT-5.5 → `03-Modeles/`. Feature Codex CLI → `02-Concurrents/`. Acquisition/funding → `06-Industrie/`. Ne pas tout mettre dans Concurrents.
+- **Ne pas hardcoder l'année dans les queries** — les reference files n'ont pas "2026" dans leurs queries ; la date de référence dans ce fichier suffit.
+- **Si un agent ne retourne rien** — relancer le domaine individuellement plutôt que l'ignorer. Un scan incomplet doit être signalé.

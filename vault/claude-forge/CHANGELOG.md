@@ -5,11 +5,65 @@ aliases:
   - changelog vault
   - historique vault
 type: index
-derniere-maj: 2026-05-08
+derniere-maj: 2026-05-10
 auteur: claude
 tags:
   - "#type/index"
 ---
+
+## 2026-05-10 — Reorganisation 04-Techniques : 12 notes deplacees dans sous-dossiers, 5 index Knowledge crees
+
+- **Deplacees vers prompt-engineering/** :
+  - `amanda-askell-prompt-engineering.md` — depuis racine 04-Techniques
+  - `forge-prompt-machine.md` — depuis racine 04-Techniques
+  - `prompting-chat-cowork-code.md` — depuis racine 04-Techniques
+- **Deplacees vers patterns/** :
+  - `config-guardian-pattern.md` — depuis racine 04-Techniques
+  - `pattern-vault-query-guard.md` — depuis racine 04-Techniques
+  - `vibe-coding-setup-complet.md` — depuis racine 04-Techniques
+  - `best-practices-claude-code-leaders.md` — depuis racine 04-Techniques
+- **Deplacees vers agents/** :
+  - `agentic-engineering-karpathy.md` — depuis racine 04-Techniques
+  - `pattern-agentic-engineering.md` — depuis racine 04-Techniques (notes distinctes, pas fusionnees)
+- **Deplacees hors 04-Techniques** :
+  - `claude-desktop-preferences.md` → `01-Claude-Code/features/` (type feature, pas technique)
+  - `mcp-obsidian-brain-v2.md` → `01-Claude-Code/features/` (feature Claude Code Neoteem)
+  - `neoteem-brain-plugins.md` → `1-Projets/Neoteem/neoteem-brain/` (contexte projet)
+  - `sqlite-fts5-vault.md` → `04-Techniques/rag/` (technique RAG/search)
+- **Ajoutees** : 5 index `_index.md` dans Knowledge/ : evolutions/, reviews/, raisonnements/, explorations/, questions/
+- **Modifiees** :
+  - `00-Hub/MOC-Techniques.md` — reorganisation sections, suppression entrees parties, ajout Prompt Engineering + RAG
+  - `00-Hub/MOC-Claude-Code.md` — ajout claude-desktop-preferences + mcp-obsidian-brain-v2 dans Features
+  - `1-Projets/Neoteem/neoteem-brain/neoteem-brain.md` — ajout liens neoteem-brain-plugins + mcp-obsidian-brain-v2
+- **Source** : reorganisation organisationnelle 04-Techniques demandee par Raphael
+
+## 2026-05-10 — Capitalisation cc-news : 6 techniques prompt engineering 2026 (outcome-first, over-specification, harness, MASS, PromptArmor, deprecated)
+
+- **Ajoutées** :
+  - `04-Techniques/prompt-engineering/outcome-first-prompting.md` — OpenAI GPT-5.5 : outcome + critères de succès, pas process step-by-step
+  - `04-Techniques/prompt-engineering/over-specification-paradox.md` — UCL arXiv 2601.00880 : seuil S*=0.509, dégradation quadratique, 29.8% réduction tokens
+  - `04-Techniques/prompt-engineering/deprecated-techniques-2026.md` — Inventaire complet techniques contre-productives sur frontier models
+  - `04-Techniques/agents/harness-engineering.md` — Agent = Modèle + Harness, contraintes déterministes > prompts suggestifs
+  - `04-Techniques/agents/mass-multi-agent-system-search.md` — DeepMind ICLR 2026 : optimisation conjointe prompts + topologie multi-agent
+  - `04-Techniques/agents/prompt-armor.md` — ICLR 2026 arXiv 2507.15219 : LLM préprocesseur défense injection, < 1% attack rate
+- **Modifiées** :
+  - `00-Hub/MOC-Techniques.md` — 3 nouvelles sections + 6 wikilinks ajoutés
+  - `00-Hub/MOC-Prompts.md` — 3 wikilinks ajoutés dans section Principes
+- **Source** : cc-news scan 2026-05-10 (24 techniques prompt engineering)
+
+## 2026-05-10 — Capitalisation cc-news : changelogs CC 2.1.132-136, Cursor 3.3, Grok 4.20, Jina v4, Context Engineering
+
+- **Ajoutées** :
+  - `01-Claude-Code/changelog/CC v2.1.132.md` — CLAUDE_CODE_SESSION_ID, memory leak 10GB+ MCP stdout (6 mai)
+  - `01-Claude-Code/changelog/CC v2.1.133.md` — worktree.baseRef, CLAUDE_EFFORT hooks, sandbox paths (7 mai)
+  - `01-Claude-Code/changelog/CC v2.1.136.md` — Release majeure 50+ changements, autoMode.hard_deny (8 mai)
+  - `04-Techniques/rag/jina-embeddings-v4.md` — 3.8B, single+multi-vector ColBERT unifié, 72.19 JinaVDR
+- **Modifiées** :
+  - `02-Concurrents/cursor/Cursor.md` — section Cursor 3.3 : PR Review, Parallel Agents, Visual Canvases
+  - `02-Concurrents/xai/xAI Grok.md` — Grok 4.3 (1M ctx, vidéo), Grok 4.20 Beta (4+16 agents)
+  - `04-Techniques/context-engineering/Context Engineering.md` — 4 pilliers, sweet spot 150-300 mots, règles empiriques
+  - `00-Hub/MOC-Claude-Code.md` — wikilinks CC v2.1.132/133/136
+- **Source** : cc-news scan 2026-05-10
 
 ## 2026-05-09 — Migration CLI→MCP complète + Stop hook devil's advocate + autonomie
 

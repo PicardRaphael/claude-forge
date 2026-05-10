@@ -3,6 +3,7 @@ db_path: mcp-forge-brain/forge-brain.db
 port: 8091
 
 git:
+  auto_commit: false
   pull_interval_seconds: 9999
   push_interval_seconds: 9999
   remote: origin

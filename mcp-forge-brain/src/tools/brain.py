@@ -73,7 +73,7 @@ class BrainTools:
         full_path.write_text(content, encoding="utf-8")
         parsed = parse_note(full_path.stem, path, content)
         self._db.index_note(parsed, full_path.stat().st_mtime)
-        if self._git:
+        if self._git and self._git._cfg.auto_commit:
             self._git.commit_file(path, username, "create", full_path.stem)
         return f"Note creee: {path}"
 
@@ -87,7 +87,7 @@ class BrainTools:
         new_content = full_path.read_text(encoding="utf-8", errors="replace")
         parsed = parse_note(full_path.stem, path, new_content)
         self._db.index_note(parsed, full_path.stat().st_mtime)
-        if self._git:
+        if self._git and self._git._cfg.auto_commit:
             self._git.commit_file(path, username, "append", full_path.stem)
         return f"Contenu ajoute a: {path}"
 
@@ -144,7 +144,7 @@ class BrainTools:
         full_path.write_text(content, encoding="utf-8")
         parsed = parse_note(full_path.stem, path, content)
         self._db.index_note(parsed, full_path.stat().st_mtime)
-        if self._git:
+        if self._git and self._git._cfg.auto_commit:
             self._git.commit_file(path, username, "update", full_path.stem)
         return f"Propriete '{name}' mise a jour dans: {path}"
 

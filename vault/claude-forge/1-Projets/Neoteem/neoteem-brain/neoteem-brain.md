@@ -50,3 +50,5 @@ Syndic de copropriété, gérance locative, comptabilité immobilière.
 
 - [[1-Projets/Neoteem/Neoteem|Neoteem]]
 - [[1-Projets/Claude-Forge/Claude-Forge|Claude-Forge]]
+- [[neoteem-brain-plugins]] — Architecture 5 plugins Cowork role-based
+- [[mcp-obsidian-brain-v2]] — MCP SQLite FTS5, remplace CLI Obsidian

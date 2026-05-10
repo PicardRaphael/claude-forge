@@ -1,25 +1,26 @@
 ---
-titre: "settings.json avec paths absolus hardcodés cassent en multi-poste"
-resume: "Settings Claude Code synchronisés via git contenaient des paths absolus user-spécifiques. Sur un autre poste, hooks Python échouent silencieusement avec No such file or directory."
 aliases:
-  - "settings hardcoded paths"
-  - "hooks cassés multi-machine"
-  - "paths absolus settings.json"
-  - "claude code multi-poste"
-  - "git-synced settings broken"
-type: erreur
-gravite: importante
-cree: 2026-05-08
-contexte: "claude-forge poste perso (rapha) — premier usage après pull depuis poste pro (raphael.picard_neote)"
-derniere-maj: 2026-05-08
+- settings hardcoded paths
+- hooks cassés multi-machine
+- paths absolus settings.json
+- claude code multi-poste
+- git-synced settings broken
 auteur: claude
+contexte: claude-forge poste perso (rapha) — premier usage après pull depuis poste
+  pro (raphael.picard_neote)
+cree: 2026-05-08
+derniere-maj: 2026-05-08
+gravite: importante
+resume: Settings Claude Code synchronisés via git contenaient des paths absolus user-spécifiques.
+  Sur un autre poste, hooks Python échouent silencieusement avec No such file or directory.
 tags:
   - "#type/erreur"
+  - "#erreur/infra"
   - "#domaine/claude-code"
-  - "#domaine/hooks"
   - "#domaine/multi-poste"
+titre: settings.json avec paths absolus hardcodés cassent en multi-poste
+type: erreur
 ---
-
 ## Ce qui s'est passé
 
 `/recap` lancé sur poste perso → flot d'erreurs `Python was not found` sur chaque PreToolUse/PostToolUse hook. Investigation :

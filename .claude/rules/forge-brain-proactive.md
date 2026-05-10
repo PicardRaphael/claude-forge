@@ -93,23 +93,41 @@ Chaque note vault DOIT respecter ces minimums :
 
 ## QUOI ÉCRIRE dans le vault
 
-| Situation | Dossier | Template |
-|-----------|---------|----------|
-| Contexte de projet | `1-Projets/<nom>/` | context-projet |
-| Casquette de vie | `2-Casquettes/` | context-casquette |
-| Capture rapide | `0-Inbox/` | - |
-| Nouvelle feature/outil découvert | `01-Claude-Code/` ou `02-Concurrents/` | feature / concurrent |
-| Nouveau modèle ou update | `03-Modeles/` | modele |
-| Technique/pattern appris | `04-Techniques/` | technique |
-| Prompt efficace créé | `07-Prompts/` | prompt |
-| Erreur commise | `Knowledge/erreurs/` | erreur |
-| Synthèse d'analyse | `Knowledge/syntheses/` | knowledge |
-| Question technique résolue | `Knowledge/questions/` | knowledge |
-| Exploration technique | `Knowledge/explorations/` | knowledge |
-| Raisonnement réussi (multi-étapes) | `Knowledge/raisonnements/` | raisonnement |
-| Critique adversariale (devil's advocate) | `Knowledge/critiques/` | critique |
-| Évolution de skill proposée | `Knowledge/evolutions/` | evolution |
-| Review stratégique forge | `Knowledge/reviews/` | review |
+| Situation | Dossier | Note |
+|-----------|---------|------|
+| Contexte de projet | `1-Projets/<nom>/` | 1 note/projet |
+| Casquette de vie | `2-Casquettes/` | 1 note/casquette |
+| Capture rapide à trier | `0-Inbox/` | temporaire |
+| Feature Claude Code | `01-Claude-Code/features/` | 1 note/feature |
+| Deprecation Claude Code | `01-Claude-Code/deprecations/` | 1 note/deprecation |
+| Changelog CC (par mois) | `01-Claude-Code/changelog/` | 1 note/mois |
+| Best practice CC | `01-Claude-Code/best-practices/` | 1 note/pattern |
+| Agent CC documenté | `01-Claude-Code/agents/` | 1 note/agent |
+| Produit concurrent | `02-Concurrents/<entreprise>/` | 1 note/produit (ChatGPT, Codex, Gemini, CLI...) |
+| Modèle IA (specs, benchmarks) | `03-Modeles/<provider>/` | 1 note/modèle (GPT-5.5, Gemini 3...) |
+| Technique RAG | `04-Techniques/rag/` | 1 note/technique |
+| Technique agents | `04-Techniques/agents/` | 1 note/pattern |
+| Technique prompt engineering | `04-Techniques/prompt-engineering/` | 1 note/technique |
+| Technique fine-tuning | `04-Techniques/fine-tuning/` | 1 note/technique ou framework |
+| Pattern/workflow réutilisable | `04-Techniques/patterns/` | 1 note/pattern |
+| Context engineering | `04-Techniques/context-engineering/` | 1 note/concept |
+| Leader RAG/embeddings | `05-Leaders/rag/` | 1 note/personne |
+| Leader agents/automation | `05-Leaders/agents/` | 1 note/personne |
+| Leader fine-tuning/local AI | `05-Leaders/fine-tuning/` | 1 note/personne |
+| Leader prompt engineering | `05-Leaders/prompt/` | 1 note/personne |
+| Leader industrie/CEO | `05-Leaders/industrie/` | 1 note/personne |
+| Leader Claude Code/Anthropic | `05-Leaders/claude-code/` | 1 note/personne |
+| News industrie (événement, funding) | `06-Industrie/` | 1 note/événement |
+| System prompt réutilisable | `07-Prompts/system-prompts/` | 1 note/prompt |
+| Technique de prompting | `07-Prompts/techniques/` | 1 note/technique |
+| Index "quelle technique quand" | `07-Prompts/techniques/index-prompting.md` | 1 note unique |
+| Erreur commise | `Knowledge/erreurs/` | 1 note/erreur |
+| Critique devil's advocate | `Knowledge/critiques/` | 1 note/critique |
+| Synthèse d'analyse | `Knowledge/syntheses/` | 1 note/synthèse |
+| Question technique résolue | `Knowledge/questions/` | 1 note/question |
+| Raisonnement multi-étapes | `Knowledge/raisonnements/` | via /reasoning-cache |
+| Évolution de skill | `Knowledge/evolutions/` | via /skill-evolve |
+| Review stratégique | `Knowledge/reviews/` | via /forge-review |
 
 ## Cycle d'apprentissage vault (Jarvis)
 

@@ -1,15 +1,17 @@
 ---
 titre: "xAI Grok"
-resume: "Grok 4.3 Beta, Grok 5 en training Q2 2026, Musk admet retard coding, 4 divisions"
+resume: "Grok 4.20 Beta système multi-agents (4+16 agents), Grok 4.3 (1M context, vidéo native), grok-code-fast-1 modèle coding rapide"
 aliases:
   - "grok"
   - "xai"
   - "grok coding"
   - "elon musk ai"
   - "grok build"
+  - "grok multi-agent"
+  - "Grok 4.20"
 domaine: xai
 type: concurrent
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-10
 auteur: claude
 sources: []
 tags:
@@ -29,9 +31,16 @@ Division IA d'Elon Musk. Focus sur Grok (chatbot) et coding tools.
 
 ## Dernières mises à jour
 
-- **Grok 4.3 Beta** en itération rapide
-- **Grok 5** en training (Colossus 1.5GW), Q2 2026 attendu
+### Mai 2026
+
+- **Grok 4.3** — 1M context window, vidéo native (multimodal), itération rapide
+- **Grok 4.20 Beta** — système **multi-agents** : mode 4-agents ET mode **Heavy 16-agents** (workloads complexes)
+- **`grok-code-fast-1`** — modèle coding rapide à $0.20/M tokens
 - Musk admet **"Grok is currently behind in coding"**
+
+### Avril 2026
+
+- **Grok 5** en training (Colossus 1.5GW), Q2 2026 attendu
 - Plugins Microsoft Office teased
 - Layoffs ordonnés par Musk
 - 2 poaches de Cursor
@@ -48,3 +57,14 @@ Division IA d'Elon Musk. Focus sur Grok (chatbot) et coding tools.
 ## Liens
 
 - [[MOC-Concurrents]]
+
+
+## Mises à jour mai 2026
+
+- **xAI dissous** → fusionné dans SpaceX comme **SpaceXAI** (mai 2026)
+- 9/12 co-fondateurs partis en mars, tous 11 + 80 chercheurs partis
+- SpaceX a acquis xAI (fév 2026) — all-stock deal, valorisation xAI $250B, entité combinée $1.25T
+- **grok-code-fast-1** : MoE 314B, 256k ctx, 70.8% SWE-Bench, 92 tok/s, $0.20/$1.50 (15x/10x moins cher Sonnet). Gratuit sur Copilot, Cursor, Cline, Roo.
+- **Digital Optimus** (mars) : projet conjoint xAI-Tesla intégrant Grok dans produits Tesla
+- **Grok 5** toujours pas sorti — attendu Q2 2026
+- **Anthropic-SpaceX deal** : Anthropic utilise toute la capacité Colossus 1 (220K+ GPUs NVIDIA)

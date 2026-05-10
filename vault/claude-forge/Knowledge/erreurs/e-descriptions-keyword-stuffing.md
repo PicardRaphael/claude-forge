@@ -1,20 +1,21 @@
 ---
-titre: "Erreur — Keyword stuffing dans descriptions YAML skills"
-resume: "Descriptions bourrées de triggers FR entre guillemets au lieu de triggers sémantiques anglais"
 aliases:
-  - "erreur keyword stuffing"
-  - "description YAML bourree"
-  - "skill description triggers"
-  - "keyword stuffing descriptions"
-  - "descriptions non semantiques"
-type: erreur
+- erreur keyword stuffing
+- description YAML bourree
+- skill description triggers
+- keyword stuffing descriptions
+- descriptions non semantiques
 auteur: claude
 derniere-maj: 2026-04-23
+resume: Descriptions bourrées de triggers FR entre guillemets au lieu de triggers
+  sémantiques anglais
 tags:
   - "#type/erreur"
+  - "#erreur/skill"
   - "#domaine/claude-code"
+titre: Erreur — Keyword stuffing dans descriptions YAML skills
+type: erreur
 ---
-
 # Erreur — Keyword stuffing dans descriptions YAML
 
 ## Ce qui s'est passe

@@ -5,6 +5,7 @@ __pycache__/
 *.db-wal
 .claude/.session-vault-queried
 .claude/.devil-advocate-done
+.claude/.devil-advocate-needed
 .claude/.reasoning-reminder-shown
 .claude/.session-turn-counter
 .claude/.learning-reminder-fired

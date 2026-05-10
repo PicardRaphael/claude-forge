@@ -16,7 +16,9 @@ REMINDER = (
     "1. Mémoire projet (feedback_* / reference_*) — apprentissages à sauvegarder ?\n"
     "2. Vault forge-brain (Knowledge/erreurs/, Knowledge/questions/) — note à créer ?\n"
     "3. Skills (section Apprentissage) — pattern efficace ou gotcha découvert ?\n"
-    "4. CLAUDE.md — erreur à ne plus refaire ?\n\n"
+    "4. CLAUDE.md — erreur à ne plus refaire ?\n"
+    "5. /reasoning-cache — as-tu résolu un problème complexe (raisonnement multi-étapes, "
+    "direction changée, approche non-évidente) ? Si oui, lance /reasoning-cache pour le sauvegarder.\n\n"
     "Si rien à sauvegarder, réponds juste 'rien à sauvegarder' pour continuer."
 )
 

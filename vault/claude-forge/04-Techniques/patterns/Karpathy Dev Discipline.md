@@ -14,7 +14,7 @@ sources:
   - "[[Andrej Karpathy]]"
 tags:
   - "#type/technique"
-  - "#domaine/technique"
+  - "#type/technique"
 ---
 
 ## Description

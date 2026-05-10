@@ -1,21 +1,22 @@
 ---
-titre: "Markers architect avec TTL bloquaient les sous-agents"
-resume: "TTL 60min sur architect-guard causait des blocages en cascade — remplace par existence seule"
 aliases:
-  - marker TTL blocage
-  - architect-guard timeout
-  - agent bloque marker expire
-  - "TTL marker antipattern"
-  - "marker expiration cascade"
-type: erreur
-derniere-maj: 2026-05-07
+- marker TTL blocage
+- architect-guard timeout
+- agent bloque marker expire
+- TTL marker antipattern
+- marker expiration cascade
 auteur: claude
+derniere-maj: 2026-05-07
+resume: TTL 60min sur architect-guard causait des blocages en cascade — remplace par
+  existence seule
 tags:
   - "#type/erreur"
+  - "#erreur/hook"
+  - "#erreur/agent"
   - "#domaine/claude-code"
-  - "#statut/resolu"
+titre: Markers architect avec TTL bloquaient les sous-agents
+type: erreur
 ---
-
 # Markers architect avec TTL — blocage systématique des sous-agents
 
 ## Ce qui s'est passé
@@ -62,5 +63,5 @@ Les hooks de **guard** (PreToolUse) doivent être les plus simples possible — 
 
 ## Liens
 
-- [[erreur-pipeline-advisory-sans-hooks]] — meme pattern de hooks deterministes
-- [[erreur-creation-sans-vault-query]] — autre cas de marker+guard
+- [[erreur-advisory-rules-insuffisantes]] — même pattern de hooks déterministes
+- [[harness-engineering]] — Agent = Modèle + Harness

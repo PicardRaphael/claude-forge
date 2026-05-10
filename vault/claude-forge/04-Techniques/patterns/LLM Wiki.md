@@ -14,7 +14,7 @@ auteur: claude
 sources: []
 tags:
   - "#type/technique"
-  - "#domaine/technique"
+  - "#type/technique"
 ---
 
 ## Description

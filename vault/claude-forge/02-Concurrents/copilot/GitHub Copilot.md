@@ -53,3 +53,13 @@ Assistant IA de GitHub, integre a VS Code, CLI, et github.com. Multi-modele (GPT
 
 - [[Agent Skills Spec]]
 - [[MOC-Concurrents]]
+
+
+## Mises à jour mai 2026
+
+- **Enterprise-managed plugins CLI** (6 mai, preview) : admins distribuent plugins enterprise-wide via `.github-private`
+- **VS Code avril** (6 mai) : semantic search workspace + GitHub repos, Chronicle (local DB chat history), cross-device session continuity, bring-your-own model key, agents accèdent terminals + browser
+- **Usage-based billing** effective 1er juin : AI Credits par tokens, Pro/Pro+/Student paused, Opus 4.7 Pro+ only
+- **Code review billing** : AI Credits + GitHub Actions minutes sur private repos
+- **GPT-5.3-Codex LTS** (18 mars)
+- **Model selection 3rd-party agents** (14 avril) : Claude et Codex agents sélectionnables sur github.com

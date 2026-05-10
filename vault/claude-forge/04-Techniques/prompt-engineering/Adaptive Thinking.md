@@ -15,7 +15,7 @@ sources:
   - "https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-7"
 tags:
   - "#type/technique"
-  - "#domaine/technique"
+  - "#type/technique"
 ---
 
 ## Description

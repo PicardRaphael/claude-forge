@@ -93,7 +93,7 @@ Standard en 2026 : OpenAI, Cohere, Jina, Nomic, Qwen3.
 ## Multimodal
 
 - **ColPali** (ICLR 2025) : PaliGemma + ColBERT late interaction sur images de pages. Élimine OCR.
-- **Jina Embeddings v4** (3.8B) : text+image, single et multi-vector, LoRA adapters. 72.19 JinaVDR vs ColPali 64.50.
+- **[[jina-embeddings-v4|Jina Embeddings v4]]** (3.8B) : text+image, single et multi-vector, LoRA adapters. 72.19 JinaVDR vs ColPali 64.50.
 - **Jina CLIP v2** : 89 langues, 512x512 images. 75% réduction dimensionnelle → 99% performance.
 
 ## Sparse vs Dense vs Hybrid

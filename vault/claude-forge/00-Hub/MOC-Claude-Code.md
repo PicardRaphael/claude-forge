@@ -8,7 +8,7 @@ aliases:
   - "index claude code"
   - "CC features map"
 type: index
-derniere-maj: 2026-05-08
+derniere-maj: 2026-05-10
 auteur: claude
 sources: []
 tags:
@@ -18,44 +18,29 @@ tags:
 
 # Claude Code
 
-## Changelog
+## Changelog (consolidé par mois)
 
-- [[CC v2.1.126]] — Model picker gateway, project purge, PermissionDenied hook, PowerShell primary Windows (1er mai)
-- [[CC v2.1.123]] — Fix OAuth 401 loop (29 avril)
-- [[CC v2.1.122]] — Bedrock service tier, /resume PR URL (28 avril)
-- [[CC v2.1.121]] — alwaysLoad MCP, plugin prune, PostToolUse all tools, memory leaks (28 avril)
-- [[CC v2.1.120]] — Windows sans Git Bash, ultrareview CLI, ${CLAUDE_EFFORT} skills (25 avril)
-- [[CC v2.1.119]] — Auto Mode, hooks MCP, custom themes, /usage (23 avril)
-- [[CC v2.1.116]] — Resume 67% faster, agent hooks, thinking spinner (20 avril)
-- [[CC v2.1.113]] — Breaking: CLI natif binaire, sandbox security (17 avril)
-- [[CC v2.1.114]] — Fix Agent Teams permission dialog (18 avril)
-- [[CC v2.1.111]] — Opus 4.7 + xhigh + auto mode (16 avril)
-- [[CC v2.1.110]] — TUI fullscreen, push notifs, PreCompact hook (15 avril)
+- [[CC mai 2026 - Code with Claude]] — Desktop GUI, web UI, v2.1.126→v2.1.136, cache TTL fix, memory leak fix
+- [[CC avril 2026]] — Opus 4.7, Auto Mode, CLI binaire natif, Windows sans Git Bash, v2.1.110→v2.1.123
 
-## Features
+## Features (notes existantes)
 
-- [[Auto Mode]]
-- [[Effort Levels]]
-- [[Worktrees]]
-- [[Skills System]]
-- [[Hooks System]]
-- [[Agent Teams]]
-- [[Routines]]
-- [[Session Sharing]]
-- [[Remote Control]]
-- [[Dynamic Loop]]
-- [[Plugin Marketplace]]
 - [[Computer Use CC]]
 - [[Claude Security]]
+- [[claude-desktop-preferences]] — Profil, Cowork, pattern vault-first MCP pour non-devs
+- [[mcp-obsidian-brain-v2]] — MCP SQLite FTS5 autonome, déployé sur VM, accessible via VPN
+
+## Features (à documenter)
+
+Auto Mode · Effort Levels · Worktrees · Skills System · Hooks System · Agent Teams · Routines · Session Sharing · Remote Control · Dynamic Loop · Plugin Marketplace
 
 ## Best Practices
 
-- [[Context Management]] — /clear, /compact, /btw, subagents
-- [[CLAUDE.md Best Practices]] — Concis, gotchas, compounding
 - [[Workflow Boris]] — Fleet commander, 5 terminaux, worktrees
-- [[Skills Best Practices]] — Thariq: gotchas, progressive disclosure
 - [[delegate-guard-pattern]] — Hook PreToolUse forge-only : bloque edits directs, redirige vers agents spécialisés
 - [[kit-rules-standard]] — 3 rules obligatoires tout projet : check-before-create, quality-gates, learn-from-mistakes
+- [[claudemd-maintenance]] — Consensus Boris + Anthropic : 100-200L max, monthly audit
+- [[best-practices-claude-code-leaders]] — Synthèse Boris, Erik, Thariq, Cat Wu, Karpathy
 
 ## Dépréciations
 

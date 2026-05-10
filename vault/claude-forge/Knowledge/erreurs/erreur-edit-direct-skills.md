@@ -1,22 +1,24 @@
 ---
-titre: "Edit direct de skills au lieu d'utiliser skill-creator"
-resume: "Editer les SKILL.md a la main produit des composants non-conformes — toujours deleguer a skill-creator"
 aliases:
-  - "skill edition directe"
-  - "edit sans agent"
-  - "edit direct SKILL.md"
-  - "skill-creator non utilise"
-  - "composant non conforme edit manuel"
-type: erreur
-cree: 2026-04-26
+- skill edition directe
+- edit sans agent
+- edit direct SKILL.md
+- skill-creator non utilise
+- composant non conforme edit manuel
 auteur: claude
-repo: neoteem-brain
+cree: 2026-04-26
 derniere-maj: 2026-04-26
+repo: neoteem-brain
+resume: Editer les SKILL.md a la main produit des composants non-conformes — toujours
+  deleguer a skill-creator
 tags:
   - "#type/erreur"
+  - "#erreur/comportement"
+  - "#erreur/skill"
   - "#domaine/claude-code"
+titre: Edit direct de skills au lieu d'utiliser skill-creator
+type: erreur
 ---
-
 # Edit direct de skills au lieu d'utiliser skill-creator
 
 ## Ce qui s'est passe

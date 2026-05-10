@@ -1,20 +1,20 @@
 ---
-titre: MOC — Techniques
-resume: "Index des techniques : prompt engineering, context engineering, patterns, anti-patterns"
 aliases:
-  - MOC Techniques
-  - index techniques
-  - techniques CC
-  - patterns Claude Code
-  - prompt engineering techniques
-type: index
-derniere-maj: 2026-05-08
+- MOC Techniques
+- index techniques
+- techniques CC
+- patterns Claude Code
+- prompt engineering techniques
 auteur: claude
+derniere-maj: '2026-05-10'
+resume: 'Index des techniques : prompt engineering, context engineering, patterns,
+  anti-patterns'
 tags:
-  - "#type/index"
-  - "#domaine/techniques"
+- '#type/index'
+- '#type/techniques'
+titre: MOC — Techniques
+type: index
 ---
-
 # Techniques
 
 ## Prompt Engineering
@@ -22,23 +22,35 @@ tags:
 - [[Context Engineering]] — Paradigme dominant 2026
 - [[Adaptive Thinking]] — Opus 4.7, off par défaut
 - [[Effort Levels Guide]] — low/medium/high/xhigh/max
-- [[System Prompt Design]] — Amanda Askell, structure optimale
+- [[amanda-askell-prompt-engineering]] — 15 techniques Askell : TDD prompts, anti-filler, disposition vs regles
+- [[forge-prompt-machine]] — 12 principes FORGE BellumAI x Askell, checklist, anti-patterns
+- [[prompting-chat-cowork-code]] — Differences de prompting Chat vs Cowork vs Code, Opus 4.7
+- [[outcome-first-prompting]] — OpenAI GPT-5.5 : définir l'outcome, pas le process (avril 2026)
+- [[over-specification-paradox]] — UCL : au-delà de S*=0.509, spécifier nuit quadratiquement
+- [[deprecated-techniques-2026]] — Techniques désormais contre-productives sur modèles frontier
 
 ## Patterns
 
-- [[Knowledge-First Routing]] — Brain avant code
-- [[Fleet Commander]] — Boris, parallélisme worktrees
-- [[Document and Clear]] — Plan → .md → /clear → nouvelle session
-- [[Skills as Composability]] — Thariq, skills = couche composable
+- Knowledge-First Routing — Brain avant code
+- Fleet Commander — Boris, parallélisme worktrees
+- Document and Clear — Plan → .md → /clear → nouvelle session
+- Skills as Composability — Thariq, skills = couche composable
 - [[LLM Wiki]] — Karpathy, knowledge management plain text
 - [[Karpathy Dev Discipline]] — 4 principes coding (Simplicity, Surgical, Assumptions, Verifiable Steps)
 - [[config-guardian-pattern]] — Audit multi-repo 5 checks, corrections par stack, mémoire compounding Boris+Karpathy
-- [[agentic-engineering-karpathy]] — Framework Karpathy : Software 3.0, vibe coding vs agentic engineering, jagged intelligence
-- [[pattern-agentic-engineering]] — Checklist deploiement agentic engineering sur projet Neoteem
-- [[pattern-vault-query-guard]] — Hook deterministe : agents DOIVENT consulter vault avant d'ecrire
 - [[best-practices-claude-code-leaders]] — Synthese Boris, Erik, Thariq, Cat Wu, Karpathy : planification, contexte, skills, effort
+- [[vibe-coding-setup-complet]] — Architecture complete vibe coding Claude Code : agents, skills, pipeline, /go, /recap
+- [[pattern-vault-query-guard]] — Hook deterministe : agents DOIVENT consulter vault avant d'ecrire
 - [[decoupe-agents-anti-crash]] — Max 6-8 ops/agent, decoupage par theme/repo/phase, parallelisation
 - [[limites-subagents-claude-code]] — 200K ctx, 32K output, maxTurns casse, jamais parallele, bugs GitHub
+
+## Agents & Harness Engineering
+
+- [[agentic-engineering-karpathy]] — Framework Karpathy : Software 3.0, vibe coding vs agentic engineering, jagged intelligence
+- [[pattern-agentic-engineering]] — Checklist deploiement agentic engineering sur projet Neoteem
+- [[harness-engineering]] — Agent = Modèle + Harness : contraintes déterministes > prompts suggestifs
+- [[mass-multi-agent-system-search]] — DeepMind ICLR 2026 : optimisation conjointe prompts + topologie
+- [[prompt-armor]] — ICLR 2026 : LLM préprocesseur défense injection, taux attaque < 1%
 
 ## Architecture Hooks
 
@@ -47,24 +59,28 @@ tags:
 
 ## Anti-patterns
 
-- [[Silent Assumptions]] — Karpathy anti-pattern #1
-- [[Over-Engineering]] — Abstraction prématurée
-- [[Drive-By Refactoring]] — Refacto non demandé
-- [[erreur-pipeline-advisory-sans-hooks]] — Rules advisory ignorees, hooks marker+guard obligatoires (3 iterations)
+- Silent Assumptions — Karpathy anti-pattern #1
+- Over-Engineering — Abstraction prématurée
+- Drive-By Refactoring — Refacto non demandé
+- [[erreur-advisory-rules-insuffisantes]] — Rules advisory ignorées, hooks déterministes obligatoires
 
+## RAG & Search
+
+- [[sqlite-fts5-vault]] — Pattern : indexer un vault Obsidian dans SQLite FTS5 sans dependance Obsidian
 
 ## Raisonnements caches
 
 - `Knowledge/raisonnements/` — Chaines de raisonnement validees, indexees par type de probleme (skill `/reasoning-cache`)
 
-## Neoteem Infrastructure
+## Fine-Tuning LLM
 
-- [[mcp-obsidian-brain-v2]] — MCP SQLite FTS5, remplace CLI Obsidian, VM serveur
-- [[SQLite FTS5 pour vault]] — Pattern : indexer un vault Obsidian dans SQLite FTS5
-- [[neoteem-brain-plugins]] — 5 plugins Cowork role-based (dev/admin/support)
-
-## Configuration
-
-- [[claude-desktop-preferences]] — Profil, Cowork, pattern vault-first MCP pour non-devs
-- [[forge-prompt-machine]] — 12 principes FORGE BellumAI x Askell, checklist, anti-patterns
-- [[prompting-chat-cowork-code]] — Differences de prompting Chat vs Cowork vs Code, Opus 4.7
+- [[MOC-Fine-Tuning]] — **Index complet fine-tuning** (techniques, outils, modèles, infra, privacy)
+- [[fine-tuning-techniques-peft]] — LoRA, QLoRA, DoRA, Spectrum, IA3, configs recommandées 2026
+- [[fine-tuning-alignment]] — DPO, GRPO, ORPO, SimPO, DAPO, RLHF, pipeline 3 stages
+- [[fine-tuning-frameworks]] — Unsloth, Axolotl, LLaMA-Factory, TRL, Ludwig, MLX
+- [[fine-tuning-models]] — Meilleurs modèles open-source par taille et cas d'usage
+- [[fine-tuning-datasets]] — Préparation données, qualité, synthétique, Argilla, Distilabel
+- [[fine-tuning-evaluation]] — Benchmarks, LLM-as-judge, métriques post-FT
+- [[fine-tuning-infrastructure]] — GPUs, cloud providers, serving (vLLM, SGLang, Ollama)
+- [[fine-tuning-privacy]] — On-premise, RGPD, VaultGemma, federated learning, TEE
+- [[rag-vs-fine-tuning]] — Quand RAG, quand fine-tuning, quand hybride, RAFT

@@ -8,6 +8,7 @@ import yaml
 
 @dataclass
 class GitConfig:
+    auto_commit: bool = False
     pull_interval_seconds: int = 300
     push_interval_seconds: int = 1800
     remote: str = "origin"
