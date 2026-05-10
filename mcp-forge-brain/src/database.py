@@ -18,7 +18,6 @@ STOP_WORDS_FR = frozenset({
     "en", "dans", "sur", "sous", "par", "pour", "avec", "sans",
     "est", "sont", "a", "ont", "fait", "faire", "etre", "avoir",
     "comment", "pourquoi", "quand", "quel", "quelle", "quels", "quelles",
-    "probleme", "erreur", "bug", "souci",
 })
 
 
@@ -295,7 +294,12 @@ class BrainDB:
             return None
         try:
             fm = yaml.safe_load(row[0])
-            return str(fm.get(name, "")) if isinstance(fm, dict) else None
+            if not isinstance(fm, dict):
+                return None
+            val = fm.get(name, "")
+            if isinstance(val, list):
+                return ", ".join(str(v) for v in val)
+            return str(val)
         except yaml.YAMLError:
             return None
 

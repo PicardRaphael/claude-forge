@@ -26,7 +26,7 @@ class BrainTools:
                 lines.append(f"- {r['file_stem']} ({r['path']})")
         return "\n".join(lines)
 
-    def read_note(self, file: str) -> str:
+    def read_note(self, file: str, max_lines: int = 0) -> str:
         path = self._db.resolve_note(file)
         if not path:
             suggestions = self._db.suggest_notes(file, limit=5)
@@ -37,7 +37,12 @@ class BrainTools:
         full_path = self._vault / path
         if not full_path.exists():
             return f"Note '{file}' indexee mais fichier manquant: {path}"
-        return full_path.read_text(encoding="utf-8", errors="replace")
+        content = full_path.read_text(encoding="utf-8", errors="replace")
+        if max_lines > 0:
+            lines = content.split("\n")
+            if len(lines) > max_lines:
+                return "\n".join(lines[:max_lines]) + f"\n\n... ({len(lines) - max_lines} lignes tronquees)"
+        return content
 
     def read_note_by_path(self, path: str) -> str:
         full_path = self._vault / path
@@ -72,10 +77,13 @@ class BrainTools:
         full_path.parent.mkdir(parents=True, exist_ok=True)
         full_path.write_text(content, encoding="utf-8")
         parsed = parse_note(full_path.stem, path, content)
+        alias_warning = ""
+        if len(parsed.aliases) < 4:
+            alias_warning = f" WARNING: seulement {len(parsed.aliases)} aliases (minimum recommande: 4)"
         self._db.index_note(parsed, full_path.stat().st_mtime)
         if self._git and self._git._cfg.auto_commit:
             self._git.commit_file(path, username, "create", full_path.stem)
-        return f"Note creee: {path}"
+        return f"Note creee: {path}{alias_warning}"
 
     def append_note(self, file: str, content: str, username: str = "anonymous") -> str:
         path = self._db.resolve_note(file)
@@ -127,19 +135,15 @@ class BrainTools:
         fm_re = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)
         fm_match = fm_re.match(content)
         if fm_match:
-            try:
-                fm = yaml.safe_load(fm_match.group(1))
-                if not isinstance(fm, dict):
-                    fm = {}
-            except yaml.YAMLError:
-                fm = {}
-            fm[name] = value
-            new_fm = yaml.dump(fm, default_flow_style=False, allow_unicode=True).strip()
-            content = f"---\n{new_fm}\n---\n{content[fm_match.end():]}"
+            fm_text = fm_match.group(1)
+            prop_re = re.compile(rf"^{re.escape(name)}:.*$", re.MULTILINE)
+            if prop_re.search(fm_text):
+                fm_text = prop_re.sub(f"{name}: {value}", fm_text)
+            else:
+                fm_text = fm_text.rstrip() + f"\n{name}: {value}"
+            content = f"---\n{fm_text}\n---\n{content[fm_match.end():]}"
         else:
-            fm = {name: value}
-            new_fm = yaml.dump(fm, default_flow_style=False, allow_unicode=True).strip()
-            content = f"---\n{new_fm}\n---\n\n{content}"
+            content = f"---\n{name}: {value}\n---\n\n{content}"
 
         full_path.write_text(content, encoding="utf-8")
         parsed = parse_note(full_path.stem, path, content)
@@ -164,13 +168,14 @@ def register_tools(mcp, tools: BrainTools):
         return tools.search_brain(query, limit, context)
 
     @mcp.tool()
-    def read_note(file: str) -> str:
+    def read_note(file: str, max_lines: int = 0) -> str:
         """Lit une note par son nom ou alias (resolution wikilink).
 
         Args:
             file: nom de la note ou alias (ex: "Raphael-Picard", "Claude-Forge", "vibe coding")
+            max_lines: si > 0, tronque la note apres N lignes (economise des tokens)
         """
-        return tools.read_note(file)
+        return tools.read_note(file, max_lines)
 
     @mcp.tool()
     def read_note_by_path(path: str) -> str:

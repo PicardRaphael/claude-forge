@@ -55,13 +55,6 @@ def parse_note(file_stem: str, path: str, content: str) -> ParsedNote:
             seen.add(link_stem)
             unique_links.append(link_stem)
 
-    # Auto-boost by folder — aliases ×8 gives these notes ranking priority
-    folder = path.split("/")[0] if "/" in path else ""
-    if folder == "Knowledge":
-        aliases.extend(["knowledge", "synthese"])
-    elif folder == "07-Support":
-        aliases.append("support")
-
     return ParsedNote(
         file_stem=file_stem,
         path=path,
