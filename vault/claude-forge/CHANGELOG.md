@@ -11,6 +11,23 @@ tags:
   - "#type/index"
 ---
 
+## 2026-05-10 — Dossier chatbot/ : 11 notes architectures chatbot & multi-agent
+
+- **Creees dans 04-Techniques/chatbot/** :
+  - `index-architectures.md` — Decision tree pattern + framework, matrice evaluation croisee
+  - `architecture-claude-api.md` — Messages API, Agent SDK, Managed Agents, system prompts
+  - `architecture-openai-api.md` — Responses API, Agents SDK, Conversations, Realtime
+  - `architecture-langgraph.md` — StateGraph, supervisor, swarm, checkpointing, HITL
+  - `architecture-crewai.md` — Crews, Flows, memory unifiee, prototypage rapide
+  - `architecture-gemini-api.md` — Function calling, ADK, A2A, Interactions API
+  - `architecture-autogen.md` — GroupChat, en declin, successeur MS Agent Framework
+  - `pattern-orchestrateur.md` — Supervisor + hierarchique cross-framework
+  - `pattern-swarm.md` — Handoffs decentralises cross-framework
+  - `pattern-pipeline.md` — Prompt chaining, evaluator-optimizer, parallelisation
+  - `pattern-single-agent-multi-tool.md` — Pattern defaut 80% des chatbots
+- **Modifie** : `MOC-Techniques.md` — section "Architectures Chatbot & Multi-Agent" ajoutee
+- **Source** : 4 agents de recherche paralleles (Claude API, OpenAI, LangGraph, CrewAI/AutoGen/Gemini) + advisor + devil's advocate
+
 ## 2026-05-10 — Reorganisation 04-Techniques : 12 notes deplacees dans sous-dossiers, 5 index Knowledge crees
 
 - **Deplacees vers prompt-engineering/** :

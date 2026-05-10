@@ -64,6 +64,20 @@ type: index
 - Drive-By Refactoring — Refacto non demandé
 - [[erreur-advisory-rules-insuffisantes]] — Rules advisory ignorées, hooks déterministes obligatoires
 
+## Architectures Chatbot & Multi-Agent
+
+- [[index-architectures]] — **Decision tree : quel pattern + framework pour quel chatbot**
+- [[pattern-single-agent-multi-tool]] — Le defaut (80% des cas) : 1 agent + N outils
+- [[pattern-orchestrateur]] — Supervisor central + variante hierarchique
+- [[pattern-swarm]] — Handoffs decentralises, latence optimale
+- [[pattern-pipeline]] — Chaine sequentielle, evaluator-optimizer
+- [[architecture-claude-api]] — Messages API, Agent SDK, Managed Agents
+- [[architecture-openai-api]] — Responses API, Agents SDK, Conversations
+- [[architecture-langgraph]] — StateGraph, checkpointing, HITL
+- [[architecture-crewai]] — Crews, Flows, prototypage rapide
+- [[architecture-gemini-api]] — ADK, A2A protocol, budget tokens
+- [[architecture-autogen]] — GroupChat, en declin
+
 ## RAG & Search
 
 - [[sqlite-fts5-vault]] — Pattern : indexer un vault Obsidian dans SQLite FTS5 sans dependance Obsidian

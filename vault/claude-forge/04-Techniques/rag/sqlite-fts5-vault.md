@@ -33,7 +33,7 @@ Pattern pour indexer un vault Obsidian (fichiers .md) dans SQLite FTS5 et expose
 - **BM25 pondere** : `bm25(notes_fts, 10.0, 1.0, 8.0)` — nom x10, contenu x1, aliases x8. Les notes canoniques battent les meta-notes qui mentionnent le terme en passant.
 - **Alias resolution** : `read_note("charges CC")` trouve `charges-copropriete.md` via la table aliases. Comme les wikilinks Obsidian.
 - **Snippets natifs** : `snippet(notes_fts, 1, '>>> ', ' <<<', '...', 32)` — plus rapide que du Python maison.
-- **Stop words FR** : filtrer "le", "la", "comment", "probleme", "erreur" avant la requete FTS5.
+- **Stop words FR** : filtrer articles et prepositions ("le", "la", "dans", "pour"...). Ne PAS filtrer les mots d'intention ("erreur", "probleme", "bug") — voir [[erreur-mcp-stopwords-semantiques]].
 - **WAL mode** : `PRAGMA journal_mode=WAL` obligatoire pour multi-lecteurs.
 - **Pas de stemming** : Obsidian n'en fait pas, on veut la parite.
 - **brain.db est jetable** : si corrompu, supprimer et redemarrer. Reconstruit en ~5s.
