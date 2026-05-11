@@ -20,8 +20,8 @@ tags:
   - "#type/leader"
   - "#domaine/ia"
   - "#domaine/rag"
+type: leader
 ---
-
 ## Profil
 
 Co-fondateur & CEO de LlamaIndex (créé oct 2022), un des deux frameworks RAG fondateurs. Princeton alumnus. Parcours : Apple, Quora, Two Sigma, Uber.
@@ -40,6 +40,7 @@ Framework RAG avec 5-10 stratégies de chunking intégrées, hierarchical parent
 
 ## Liens
 
+- [[MOC-Leaders]]
 - [LlamaIndex Blog](https://www.llamaindex.ai/blog)
 - [Medium](https://medium.com/@jerryjliu98)
 - [GitHub: run-llama](https://github.com/run-llama/llama_index)

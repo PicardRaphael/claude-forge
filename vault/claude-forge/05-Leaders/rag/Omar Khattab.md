@@ -21,6 +21,7 @@ tags:
   - "#type/leader"
   - "#domaine/ia"
   - "#domaine/rag"
+type: ""
 ---
 
 ## Profil
@@ -44,6 +45,7 @@ Frontières actives de recherche : long-context retrieval, agentic search, retri
 
 ## Liens
 
+- [[MOC-Leaders]]
 - Site : [omarkhattab.com](https://omarkhattab.com)
 - X : [@lateinteraction](https://x.com/lateinteraction)
 - GitHub : [okhat](https://github.com/okhat)

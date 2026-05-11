@@ -19,8 +19,8 @@ tags:
   - "#type/leader"
   - "#domaine/ia"
   - "#domaine/agents"
+type: leader
 ---
-
 ## Profil
 
 Co-fondateur Coursera. Ex-head Google Brain et Baidu AI Group. Cours **Agentic AI** (2026) sur DeepLearning.AI.
@@ -37,6 +37,7 @@ Prône l'**eval-driven development** : vendor-neutral, Python-based.
 
 ## Liens
 
+- [[MOC-Leaders]]
 - [deeplearning.ai](https://www.deeplearning.ai/courses/agentic-ai/)
 - X : [@AndrewYNg](https://x.com/AndrewYNg)
 - [[Agents IA]] — [[agents-architecture]]

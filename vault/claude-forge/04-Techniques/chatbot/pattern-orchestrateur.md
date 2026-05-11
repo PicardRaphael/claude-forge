@@ -180,6 +180,7 @@ Chaque routing = 1 appel LLM supplementaire. Le supervisor consomme ~2,800 token
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[agents-architecture]] — Pattern Supervisor (theorie)
 - [[pattern-swarm]] — Alternative decentralisee
 - [[pattern-pipeline]] — Alternative sequentielle

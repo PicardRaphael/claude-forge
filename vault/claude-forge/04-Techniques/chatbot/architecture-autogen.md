@@ -97,6 +97,7 @@ Unifie Semantic Kernel + AutoGen. .NET et Python LTS. Pour les equipes Microsoft
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[agents-frameworks]] — AutoGen = en declin
 - [[architecture-langgraph]] — Alternative production recommandee
 - [[pattern-orchestrateur]] — GroupChatManager ≈ pattern orchestrateur conversationnel

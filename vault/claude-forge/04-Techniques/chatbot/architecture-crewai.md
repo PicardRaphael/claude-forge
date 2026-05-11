@@ -185,6 +185,7 @@ crew = Crew(agents=[...], tasks=[...], memory=memory)
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[agents-frameworks]] — CrewAI = Tier 2, production-capable
 - [[architecture-langgraph]] — Alternative production avec checkpointing
 - [[pattern-orchestrateur]] — Pattern supervisor en CrewAI (hierarchical process)

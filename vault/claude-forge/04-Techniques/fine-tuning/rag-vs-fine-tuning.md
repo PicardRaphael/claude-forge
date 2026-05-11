@@ -76,6 +76,7 @@ Lamini Memory Tuning (MoME) : 95% accuracy factuelle vs 50% GPT-4+RAG. Le fine-t
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[RAG]] — MOC RAG complet
 - [[fine-tuning-techniques-peft]] — techniques PEFT
 - [[fine-tuning-privacy]] — privacy et RGPD

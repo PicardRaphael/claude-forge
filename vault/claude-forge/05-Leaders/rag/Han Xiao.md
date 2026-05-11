@@ -20,6 +20,7 @@ tags:
   - "#type/leader"
   - "#domaine/ia"
   - "#domaine/rag"
+type: ""
 ---
 
 ## Profil
@@ -40,6 +41,7 @@ Innovation majeure : embed le document complet d'abord (modèle long-context), p
 
 ## Liens
 
+- [[MOC-Leaders]]
 - Blog : [hanxiao.io](https://hanxiao.io)
 - [Jina AI News](https://jina.ai/news)
 - X : @JinaAI_

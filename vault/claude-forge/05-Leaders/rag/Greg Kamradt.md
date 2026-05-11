@@ -21,6 +21,7 @@ tags:
   - "#type/leader"
   - "#domaine/ia"
   - "#domaine/rag"
+type: ""
 ---
 
 ## Profil
@@ -47,6 +48,7 @@ A popularisé l'utilisation de la distance cosinus entre embeddings de phrases c
 
 ## Liens
 
+- [[MOC-Leaders]]
 - Site : [gregkamradt.com](https://gregkamradt.com/projects)
 - GitHub : [gkamradt](https://github.com/gkamradt/ChunkViz)
 - [5 Levels of Text Splitting (GitHub)](https://github.com/FullStackRetrieval-com/RetrievalTutorials)

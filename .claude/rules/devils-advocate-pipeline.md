@@ -24,6 +24,8 @@ TOUT LE MONDE. Les agents spécialisés ET la session principale (moi).
 | Modification de CLAUDE.md | NON — trop fréquent |
 | Fix de bug / correction mineure | NON |
 | Recherche / synthèse informative | NON |
+| Création de fiches vault / batch de notes | NON — synthèse informative, pas livrable technique |
+| Audit / restructuration vault | NON — utiliser vault-audit à la place |
 
 ## Comment l'intégrer
 

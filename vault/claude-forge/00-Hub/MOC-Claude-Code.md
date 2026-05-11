@@ -48,3 +48,13 @@ Auto Mode · Effort Levels · Worktrees · Skills System · Hooks System · Agen
 - [[Deprecation Sonnet 4 Opus 4]]
 - [[Deprecation 1M Context Beta]]
 - [[Deprecation budget_tokens]]
+
+## Liens
+
+
+### Ajouts mai 2026
+
+- [[Code with Claude 2026]] — Conférence SF 6 mai : SpaceX, Dreaming, Outcomes, Multi-agent, Routines
+- [[Memory Managed Agents]] — Memory = filesystem, permission scopes, optimistic concurrency, version history
+- [[Dreaming Managed Agents]] — Review cross-sessions, déduplication, vérification, enrichissement mémoire
+- [[boris-workflow-2026-may]] — Boris setup mai 2026 : mobile-first, /loop partout, 150 PRs/jour

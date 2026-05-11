@@ -19,8 +19,8 @@ tags:
   - "#type/leader"
   - "#domaine/ia"
   - "#domaine/agents"
+type: leader
 ---
-
 ## Profil
 
 VP Research OpenAI. 46,900+ citations Google Scholar.
@@ -34,6 +34,7 @@ Blog Lil'Log couvre aussi reward hacking, hallucinations, attaques adversariales
 
 ## Liens
 
+- [[MOC-Leaders]]
 - Blog : [lilianweng.github.io](https://lilianweng.github.io/)
 - X : [@lilianweng](https://x.com/lilianweng)
 - [[Agents IA]] — [[agents-architecture]]

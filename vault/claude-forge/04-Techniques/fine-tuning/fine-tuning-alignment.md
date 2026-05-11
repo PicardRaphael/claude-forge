@@ -63,6 +63,7 @@ Fusionne SFT + alignement en un seul pass via odds ratios. Zéro dépendance ext
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[fine-tuning-techniques-peft]] — LoRA, QLoRA, DoRA
 - [[Nathan Lambert]] — expert RLHF, premier textbook
 - [[fine-tuning-frameworks]] — implémentations dans TRL, Axolotl

@@ -69,6 +69,7 @@ Entraîne seulement les couches à haut Signal-to-Noise Ratio. Alternative à la
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[fine-tuning-alignment]] — techniques d'alignement (DPO, GRPO)
 - [[fine-tuning-frameworks]] — Unsloth, Axolotl, LLaMA-Factory
 - [[Edward Hu]] — inventeur LoRA

@@ -19,8 +19,8 @@ sources:
 tags:
   - "#type/leader"
   - "#domaine/industrie"
+type: leader
 ---
-
 ## Profil
 
 Chercheur IA, éducateur. Ex-directeur AI chez Tesla, ex-OpenAI. Focus 2026 : knowledge management avec LLMs.

@@ -118,6 +118,7 @@ Seuils production : **>0.8** faithfulness et context precision. Top-k optimal : 
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[RAG]] — Index principal
 - [[rag-chunking]] — Stratégies de découpage
 - [[rag-reranking]] — Reranking et hybrid search

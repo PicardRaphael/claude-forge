@@ -21,6 +21,7 @@ sources:
 tags:
   - "#type/leader"
   - "#domaine/claude-code"
+type: ""
 ---
 
 ## Profil
@@ -53,3 +54,15 @@ Créateur de Claude Code. Travaille chez Anthropic. Workflow "Fleet Commander" �
 
 - [[Workflow Boris]]
 - [[MOC-Leaders]]
+
+
+## Mise à jour mai 2026 (AI Ascent Sequoia)
+
+- Setup : mobile-first (Claude app iOS), 5-10 sessions web, centaines d'agents, milliers la nuit
+- Record : 150 PRs en 1 jour
+- /loop = "the future" — dizaines de loops actifs (PRs, CI, feedback Twitter→Slack)
+- "Coding is solved" — 0% code écrit à la main depuis oct 2025
+- Routines = loops côté serveur (persistent)
+- Vision : "by a couple years, the model does all the code, starts agents, builds environments"
+- Claude Design = prochain product overhang
+- Source : [[boris-workflow-2026-may]]

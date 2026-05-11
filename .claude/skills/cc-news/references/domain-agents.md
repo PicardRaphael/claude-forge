@@ -24,6 +24,11 @@ Nombre de queries : 14 — **Découper sur 2 agents** (Agent A + Agent B)
 | **Ethan Mollick** (@emollick) | One Useful Thing, Equation of Agentic Work | oneusefulthing.org |
 | **Swyx** (@swyx) | Latent Space podcast, AI Engineer conferences | latent.space |
 | **Matt Shumer** (@mattshumer_) | HyperWrite, "Something Big Is Happening" | x.com/mattshumer_ |
+| **Chi Wang** (@sonichi) | AutoGen/AG2 creator, Google DeepMind | github.com/sonichi |
+| **Yohei Nakajima** (@yaboron) | BabyAGI creator, GP Untapped Capital | yoheinakajima.com |
+| **Dario Amodei** | CEO Anthropic, RSP, AI safety | darioamodei.com |
+| **David Shapiro** (@daveshap) | ACE Framework, cognitive architecture | github.com/daveshap |
+| **Div Garg** (@div99) | MultiOn founder, browser agents | divyanshgarg.com |
 
 ## Queries à exécuter
 

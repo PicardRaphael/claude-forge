@@ -53,3 +53,6 @@ Prompts réutilisables pour tâches courantes.
 | Gemini | GEMINI.md, agents Gemini CLI |
 | GPT | Codex agents, ChatGPT custom instructions |
 | Tout LLM | Principes universels, techniques cross-model |
+
+## Liens
+

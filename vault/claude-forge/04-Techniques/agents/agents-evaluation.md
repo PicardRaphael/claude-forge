@@ -94,6 +94,7 @@ Kubernetes pod autoscaling. Queue-based (SQS, Pub/Sub). Rate limiting per-tenant
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[Agents IA]] — Index principal
 - [[agents-frameworks]] — Frameworks comparés
 - [[agents-securite]] — Sécurité et guardrails

@@ -21,8 +21,8 @@ tags:
   - "#type/leader"
   - "#domaine/ia"
   - "#domaine/agents"
+type: leader
 ---
-
 ## Profil
 
 Co-créateur de Django. Outil **LLM** CLI open-source (philosophie Unix pour l'IA). Écrit un guide "kind of book-shaped" sur les **Agentic Engineering Patterns** (fév 2026).
@@ -36,6 +36,7 @@ Co-créateur de Django. Outil **LLM** CLI open-source (philosophie Unix pour l'I
 
 ## Liens
 
+- [[MOC-Leaders]]
 - Blog : [simonwillison.net](https://simonwillison.net/)
 - X : [@simonw](https://x.com/simonw)
 - GitHub : [simonw/llm](https://github.com/simonw/llm)

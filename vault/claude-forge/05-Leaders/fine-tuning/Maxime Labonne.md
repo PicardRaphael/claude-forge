@@ -41,6 +41,7 @@ Senior Staff ML Scientist chez Liquid AI, head of post-training. PhD en ML (Poly
 
 ## Liens
 
+- [[MOC-Leaders]]
 - X : [@maximelabonne](https://x.com/maximelabonne)
 - GitHub : [github.com/mlabonne](https://github.com/mlabonne)
 - Blog : [mlabonne.github.io/blog](https://mlabonne.github.io/blog/)

@@ -21,8 +21,8 @@ tags:
   - "#type/leader"
   - "#domaine/ia"
   - "#domaine/agents"
+type: leader
 ---
-
 ## Profil
 
 Director of AI & Distinguished Scientist chez NVIDIA. Co-lead Project GR00T (robotique humanoïde). GEAR Lab (Generalist Embodied Agent Research). Columbia valedictorian, premier stagiaire OpenAI.
@@ -36,6 +36,7 @@ Director of AI & Distinguished Scientist chez NVIDIA. Co-lead Project GR00T (rob
 
 ## Liens
 
+- [[MOC-Leaders]]
 - Site : [jimfan.me](https://jimfan.me/)
 - X : [@DrJimFan](https://x.com/DrJimFan)
 - [[Agents IA]] — [[agents-architecture]]

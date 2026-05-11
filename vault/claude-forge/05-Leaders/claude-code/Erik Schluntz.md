@@ -22,6 +22,7 @@ tags:
   - "#type/leader"
   - "#domaine/claude-code"
   - "#domaine/agents"
+type: ""
 ---
 
 ## Profil

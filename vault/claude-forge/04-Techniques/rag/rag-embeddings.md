@@ -128,6 +128,7 @@ Coût ingestion : une fois par document via prompt caching.
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[RAG]] — Index principal
 - [[rag-chunking]] — Impact chunking sur embeddings
 - [[rag-reranking]] — Reranking post-retrieval

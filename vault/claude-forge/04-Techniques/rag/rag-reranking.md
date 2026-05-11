@@ -80,6 +80,7 @@ Contexte LLM prepended à chaque chunk à l'indexation. -49% échecs retrieval (
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[RAG]] — Index principal
 - [[rag-embeddings]] — Dense vs sparse
 - [[rag-vector-databases]] — Support hybrid natif

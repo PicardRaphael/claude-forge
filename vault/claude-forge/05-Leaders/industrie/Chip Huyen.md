@@ -20,6 +20,7 @@ tags:
   - "#type/leader"
   - "#domaine/ia"
   - "#domaine/rag"
+type: ""
 ---
 
 ## Profil
@@ -40,6 +41,7 @@ Livre de référence pour le ML en production.
 
 ## Liens
 
+- [[MOC-Leaders]]
 - Site : [huyenchip.com](https://huyenchip.com/)
 - GitHub : [chiphuyen](https://github.com/chiphuyen/aie-book)
 - X : @chiphuyen

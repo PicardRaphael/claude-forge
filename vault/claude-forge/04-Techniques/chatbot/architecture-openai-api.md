@@ -244,6 +244,7 @@ Pas de migration automatique des Threads.
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[agents-architecture]] — Patterns abstraits
 - [[agents-frameworks]] — Comparatif tous frameworks
 - [[architecture-claude-api]] — Equivalent Claude

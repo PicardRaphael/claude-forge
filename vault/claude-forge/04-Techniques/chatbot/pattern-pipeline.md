@@ -209,6 +209,7 @@ Les gates entre steps sont du CODE, pas du LLM. Si le classifieur dit "escalatio
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[agents-architecture]] — Pattern Pipeline (theorie)
 - [[pattern-orchestrateur]] — Alternative avec routing dynamique
 - [[pattern-single-agent-multi-tool]] — Alternative sans multi-agent

@@ -40,3 +40,6 @@ Chaque note = un raisonnement valide, avec :
 ## Navigation
 
 - [[MOC-Techniques]] — index des techniques
+
+## Liens
+

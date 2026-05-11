@@ -156,6 +156,7 @@ Install : `/plugin install <nom>@claude-plugins-official`
 
 ## Liens
 
+- [[MOC-Claude-Code]]
 - [[Plugin Marketplace]]
 - [[Best practices Boris Thariq]]
 - [[analyse-plugin-claude-code-setup]]

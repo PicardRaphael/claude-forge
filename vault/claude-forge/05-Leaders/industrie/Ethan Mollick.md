@@ -20,6 +20,7 @@ tags:
   - "#type/leader"
   - "#domaine/ia"
   - "#domaine/agents"
+type: ""
 ---
 
 ## Profil
@@ -34,6 +35,7 @@ Associate Professor à Wharton. TIME Most Influential in AI. Auteur *Co-Intellig
 
 ## Liens
 
+- [[MOC-Leaders]]
 - Newsletter : [oneusefulthing.org](https://www.oneusefulthing.org/)
 - X : [@emollick](https://x.com/emollick)
 - [[Agents IA]]

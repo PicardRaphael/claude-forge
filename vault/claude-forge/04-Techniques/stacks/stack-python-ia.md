@@ -493,6 +493,7 @@ tools = [{"type": "mcp", "server": {"url": "..."}}]
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[stack-typescript-ia]] — Equivalent TypeScript
 - [[index-architectures]] — Decision pattern + framework chatbot
 - [[MOC-Fine-Tuning]] — Guide complet fine-tuning

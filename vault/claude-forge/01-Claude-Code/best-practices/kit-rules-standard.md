@@ -67,5 +67,6 @@ Quand project-analyzer analyse un projet :
 
 ## Liens
 
+- [[MOC-Claude-Code]]
 - [[delegate-guard-pattern]] — hook forge only
 - [[erreur-edit-direct-skills]] — erreur qui a motive ce kit

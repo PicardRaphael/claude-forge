@@ -37,6 +37,7 @@ LLM Research Engineer chez Lightning AI. Professeur de statistiques à l'Univers
 
 ## Liens
 
+- [[MOC-Leaders]]
 - X : [@rasbt](https://x.com/rasbt)
 - YouTube : [youtube.com/c/SebastianRaschka](https://www.youtube.com/c/SebastianRaschka)
 - Newsletter : [magazine.sebastianraschka.com](https://magazine.sebastianraschka.com/)

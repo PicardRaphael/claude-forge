@@ -36,6 +36,7 @@ Beta publique depuis le 8 avril 2026. Agents cloud gérés par Anthropic.
 
 ## Liens
 
+- [[MOC-Claude-Code]]
 - [[Cowork GA]]
 - [[Code with Claude Conference]]
 - [[MOC-Industrie]]

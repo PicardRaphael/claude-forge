@@ -42,6 +42,7 @@ Prouvé que des modèles frontier peuvent être entraînés à une fraction du c
 
 ## Liens
 
+- [[MOC-Leaders]]
 - [[fine-tuning-alignment]] — GRPO en détail
 - [[fine-tuning-models]] — DeepSeek R1 distills
 - [[Arthur Mensch]] — Mistral, concurrent open-source

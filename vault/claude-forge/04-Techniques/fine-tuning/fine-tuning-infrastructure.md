@@ -93,6 +93,7 @@ tags:
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[fine-tuning-models]] — quel modèle pour quel GPU
 - [[fine-tuning-privacy]] — solutions on-premise
 - [[Georgi Gerganov]] — créateur llama.cpp

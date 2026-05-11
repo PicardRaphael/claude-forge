@@ -40,6 +40,7 @@ Quitté Microsoft → PhD sous Turing Award winner Yoshua Bengio au Mila. Focus 
 
 ## Liens
 
+- [[MOC-Leaders]]
 - X : [@edwardjhu](https://x.com/edwardjhu)
 - Site : [edwardjhu.com](https://edwardjhu.com/about/)
 - Paper LoRA : [arxiv:2106.09685](https://arxiv.org/abs/2106.09685)

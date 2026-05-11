@@ -20,6 +20,7 @@ tags:
   - "#type/leader"
   - "#domaine/ia"
   - "#domaine/rag"
+type: ""
 ---
 
 ## Profil
@@ -47,6 +48,7 @@ Le marché RAG : $1.2B, croissance 49% CAGR, projeté $11B en 2030.
 
 ## Liens
 
+- [[MOC-Leaders]]
 - [Contextual AI Blog](https://contextual.ai/blog)
 - [Wikipedia](https://en.wikipedia.org/wiki/Douwe_Kiela)
 - [[RAG]] — [[rag-architecture]]

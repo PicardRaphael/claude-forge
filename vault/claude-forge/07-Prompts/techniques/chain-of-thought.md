@@ -40,6 +40,7 @@ Demander au modèle de raisonner étape par étape avant de donner sa réponse. 
 
 ## Liens
 
+- [[MOC-Prompts]]
 - [[index-prompting]]
 - [[Adaptive Thinking]]
 - [[deprecated-techniques-2026]]

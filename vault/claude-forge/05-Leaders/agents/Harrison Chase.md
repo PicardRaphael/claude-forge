@@ -21,8 +21,8 @@ tags:
   - "#type/leader"
   - "#domaine/ia"
   - "#domaine/rag"
+type: leader
 ---
-
 ## Profil
 
 Fondateur & CEO de LangChain (oct 2022). Harvard alumnus. DeepLearning.AI instructor. Host conférence **Interrupt 2026** (Agent Conference). Son premier prototype GPT (début 2022) était déjà du RAG — chat avec données Notion/Slack.
@@ -44,6 +44,7 @@ Prône les **cognitive architectures contraintes et domain-specific** plutôt qu
 
 ## Liens
 
+- [[MOC-Leaders]]
 - [LangChain Blog](https://blog.langchain.com)
 - [Sequoia Podcast](https://sequoiacap.com/podcast/training-data-harrison-chase/)
 - Coursera : "LangChain Chat with Your Data", "LangChain for LLM Application Development"

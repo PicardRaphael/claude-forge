@@ -36,6 +36,7 @@ Créateur de LLaMA-Factory, basé à Pékin. Chez ByteDance.
 
 ## Liens
 
+- [[MOC-Leaders]]
 - GitHub : [github.com/hiyouga](https://github.com/hiyouga)
 - Repo : [github.com/hiyouga/LlamaFactory](https://github.com/hiyouga/LlamaFactory)
 - [[fine-tuning-frameworks]] — comparatif avec Unsloth, Axolotl

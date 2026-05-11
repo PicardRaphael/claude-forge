@@ -391,6 +391,7 @@ const agent = new Agent({
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[stack-python-ia]] — Equivalent Python
 - [[index-architectures]] — Decision pattern + framework chatbot
 - [[rag-embeddings]] — Concepts embeddings (language-agnostic)

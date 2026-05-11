@@ -39,3 +39,6 @@ Knowledge base technique de claude-forge. Tout ce que j'apprends sur l'IA, les o
 - Wikilinks pour tout cross-référencement
 - Tags `#type/` + `#domaine/` sur chaque note
 - `derniere-maj` mise à jour à chaque édition
+
+## Liens
+

@@ -103,3 +103,6 @@ type: index
 - [[fine-tuning-infrastructure]] — GPUs, cloud providers, serving (vLLM, SGLang, Ollama)
 - [[fine-tuning-privacy]] — On-premise, RGPD, VaultGemma, federated learning, TEE
 - [[rag-vs-fine-tuning]] — Quand RAG, quand fine-tuning, quand hybride, RAFT
+
+## Liens
+

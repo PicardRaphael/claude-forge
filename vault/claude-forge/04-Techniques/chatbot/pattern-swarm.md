@@ -208,6 +208,7 @@ OpenAI Swarm (oct 2024) etait un framework experimental/educatif, explicitement 
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[agents-architecture]] — Pattern Swarm (theorie)
 - [[pattern-orchestrateur]] — Alternative centralisee
 - [[pattern-pipeline]] — Alternative sequentielle

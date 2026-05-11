@@ -33,3 +33,6 @@ Template : `Templates/knowledge.md`
 
 - [[MOC-Techniques]] — index des techniques
 - [[Knowledge/erreurs/_index]] — erreurs (patterns a eviter)
+
+## Liens
+

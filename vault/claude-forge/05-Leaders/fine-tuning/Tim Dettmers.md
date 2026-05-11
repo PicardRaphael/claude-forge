@@ -42,6 +42,7 @@ Pivot de la quantization (rendements décroissants) vers les **coding agents** (
 
 ## Liens
 
+- [[MOC-Leaders]]
 - X : [@Tim_Dettmers](https://x.com/Tim_Dettmers)
 - Blog : [timdettmers.com](https://timdettmers.com/)
 - SERA : [timdettmers.com/2026/01/27/building-open-coding-agent-sera/](https://timdettmers.com/2026/01/27/building-open-coding-agent-sera/)

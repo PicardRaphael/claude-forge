@@ -33,3 +33,6 @@ Template : `Templates/knowledge.md`
 
 - [[MOC-Techniques]] — index des techniques
 - [[Knowledge/syntheses/_index]] — syntheses (quand une exploration aboutit)
+
+## Liens
+

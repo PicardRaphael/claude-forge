@@ -169,6 +169,7 @@ Fenetre glissante d'evenements recents + resume des anciens. -38% tokens, -18% l
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[agents-frameworks]] — Google ADK = Tier 3, platform-specific
 - [[architecture-claude-api]] — Concurrent Anthropic
 - [[architecture-openai-api]] — Concurrent OpenAI

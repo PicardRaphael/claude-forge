@@ -86,5 +86,6 @@ Le delegate-guard doit etre le PREMIER hook du matcher Edit|Write (avant les gua
 
 ## Liens
 
+- [[MOC-Claude-Code]]
 - [[erreur-edit-direct-skills]] — erreur qui a motive ce pattern
 - [[setup-project-complet]] — checklist setup projet

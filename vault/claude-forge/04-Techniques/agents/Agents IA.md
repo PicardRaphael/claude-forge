@@ -104,6 +104,15 @@ Production utilise les deux. Joint MCP/A2A interoperability spec anticipée.
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[RAG]] — RAG pipeline (complémentaire aux agents)
 - [[techniques-inedites]] — Combinaisons innovantes RAG + agents
 - [[agentic-engineering-karpathy]] — Software 3.0
+
+### Pionniers agents autonomes
+- [[Chi Wang]] — AutoGen/AG2, multi-agent conversationnel, Google DeepMind
+- [[Yohei Nakajima]] — BabyAGI, task loop autonome, premier agent open-source populaire
+- [[Joao Moura]] — CrewAI, role-based multi-agent, 50.8K stars
+- [[David Shapiro]] — ACE Framework, architecture cognitive 6 couches
+- [[Div Garg]] — MultiOn, agents web autonomes 500+ steps
+- [[Dario Amodei]] — CEO Anthropic, cadre sécurité agents (RSP, ASL levels)

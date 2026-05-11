@@ -130,6 +130,7 @@ Thumbs up/down → NPS système. Hallucinations flaggées → test cases automat
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[RAG]] — Index principal
 - [[rag-chunking]] — Metadata-aware chunking
 - [[rag-embeddings]] — Modèles d'embedding

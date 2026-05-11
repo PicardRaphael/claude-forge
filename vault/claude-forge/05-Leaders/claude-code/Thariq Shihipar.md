@@ -20,6 +20,7 @@ sources:
 tags:
   - "#type/leader"
   - "#domaine/claude-code"
+type: ""
 ---
 
 ## Profil

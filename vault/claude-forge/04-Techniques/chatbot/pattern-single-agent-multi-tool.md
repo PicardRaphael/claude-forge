@@ -205,6 +205,7 @@ Mauvaises descriptions :
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[agents-architecture]] — Tool Use (theorie)
 - [[pattern-orchestrateur]] — Quand upgrader vers multi-agent
 - [[architecture-claude-api]] — Implementation Claude

@@ -63,6 +63,7 @@ tags:
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[Daniel Han]] — créateur Unsloth
 - [[Wing Lian]] — créateur Axolotl
 - [[Yaowei Zheng]] — créateur LLaMA-Factory

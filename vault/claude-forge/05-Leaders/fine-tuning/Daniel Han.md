@@ -38,6 +38,7 @@ CEO et co-fondateur d'Unsloth (YC S24). Fondé avec son frère Michael Han. Ex-N
 
 ## Liens
 
+- [[MOC-Leaders]]
 - X : [@danielhanchen](https://x.com/danielhanchen)
 - Site : [unsloth.ai](https://unsloth.ai/)
 - GitHub : [github.com/unslothai/unsloth](https://github.com/unslothai/unsloth)

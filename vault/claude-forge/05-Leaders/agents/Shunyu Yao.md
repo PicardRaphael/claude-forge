@@ -21,8 +21,8 @@ tags:
   - "#type/leader"
   - "#domaine/ia"
   - "#domaine/agents"
+type: leader
 ---
-
 ## Profil
 
 PhD Princeton, Tsinghua Yao Class. 15K+ citations à 28 ans. A rejoint OpenAI (août 2024), travaillé sur Operator et Deep Research. Nommé **Chief AI Scientist chez Tencent** (déc 2025), rapporte directement au président Martin Lau.
@@ -37,6 +37,7 @@ PhD Princeton, Tsinghua Yao Class. 15K+ citations à 28 ans. A rejoint OpenAI (a
 
 ## Liens
 
+- [[MOC-Leaders]]
 - Site : [ysymyth.github.io](https://ysymyth.github.io/)
 - [Google Scholar](https://scholar.google.com/citations?user=qJBXk9cAAAAJ)
 - [[Agents IA]] — [[agents-architecture]]

@@ -61,6 +61,7 @@ tags:
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[fine-tuning-techniques-peft]] — techniques LoRA/QLoRA
 - [[fine-tuning-infrastructure]] — GPUs pour chaque taille
 - [[Arthur Mensch]] — Mistral AI

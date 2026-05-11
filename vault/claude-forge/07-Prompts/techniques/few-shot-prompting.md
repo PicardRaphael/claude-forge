@@ -41,6 +41,7 @@ Inclure 2-5 paires input/output dans le prompt pour montrer le format attendu. L
 
 ## Liens
 
+- [[MOC-Prompts]]
 - [[index-prompting]]
 - [[outcome-first-prompting]]
 - [[deprecated-techniques-2026]]

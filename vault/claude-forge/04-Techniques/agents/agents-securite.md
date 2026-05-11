@@ -74,6 +74,7 @@ Chaque invocation tool, décision permission, et output = loggé immutablement. 
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[Agents IA]] — Index principal
 - [[agents-evaluation]] — Testing et benchmarks
 - [[agents-architecture]] — Patterns architecture

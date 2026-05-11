@@ -83,6 +83,7 @@ tags:
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[fine-tuning-techniques-peft]] — techniques PEFT
 - [[fine-tuning-evaluation]] — évaluer le modèle fine-tuné
 - [[fine-tuning-frameworks]] — outils de fine-tuning

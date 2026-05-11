@@ -199,6 +199,7 @@ Instruire Claude a poser des questions de clarification plutot que deviner. Patt
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[agents-architecture]] — Patterns abstraits (ReAct, Supervisor, Swarm)
 - [[agents-frameworks]] — Comparatif tous frameworks
 - [[architecture-openai-api]] — Equivalent OpenAI

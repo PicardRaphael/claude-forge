@@ -18,6 +18,7 @@ sources: []
 tags:
   - "#type/leader"
   - "#domaine/industrie"
+type: ""
 ---
 
 ## Profil

@@ -35,6 +35,7 @@ Créateur et maintainer d'Axolotl, le framework de fine-tuning le plus complet.
 
 ## Liens
 
+- [[MOC-Leaders]]
 - X : [@winglian](https://x.com/winglian)
 - GitHub : [github.com/axolotl-ai-cloud/axolotl](https://github.com/axolotl-ai-cloud/axolotl)
 - [[fine-tuning-frameworks]] — comparatif avec Unsloth, LLaMA-Factory

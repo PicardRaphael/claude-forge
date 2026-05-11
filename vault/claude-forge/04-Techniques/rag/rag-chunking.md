@@ -117,6 +117,7 @@ Consensus 2026 : **10-20% overlap** (50-100 tokens pour chunks de 512). Microsof
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[RAG]] — Index principal
 - [[rag-embeddings]] — Impact du chunking sur les embeddings
 - [[rag-metadata]] — Metadata-aware chunking

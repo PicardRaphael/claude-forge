@@ -4,6 +4,9 @@ type: knowledge
 domaine: claude-code
 derniere-maj: 2026-05-09
 auteur: claude
+resume: ""
+aliases: []
+tags: []
 ---
 
 # Critique adversariale — Skill `/done`
@@ -45,3 +48,6 @@ Extraire automatiquement decisions/faits/preferences/erreurs de la conversation 
 ## Verdict
 
 **Decision : BLOQUER** — 3 bloquants, 6 avertissements, 2 nitpicks. La skill telle quelle livre la moitie d'un systeme (extraction sans trigger fiable) avec un frontmatter qui ne fait pas ce qu'il pretend faire.
+
+## Liens
+

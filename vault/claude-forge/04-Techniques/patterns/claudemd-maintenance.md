@@ -70,6 +70,7 @@ Mais aussi : **"Ruthlessly edit your CLAUDE.md over time."**
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[over-specification-paradox]]
 - [[harness-engineering]]
 - [[best-practices-claude-code-leaders]]

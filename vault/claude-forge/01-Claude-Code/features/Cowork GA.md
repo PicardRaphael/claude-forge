@@ -38,6 +38,7 @@ Claude Cowork (ex-Claude Desktop Pro) en disponibilité générale depuis le 9 a
 
 ## Liens
 
+- [[MOC-Claude-Code]]
 - [[Managed Agents]]
 - [[Dispatch]]
 - [[Claude Design]]

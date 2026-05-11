@@ -38,21 +38,21 @@ Si un fichier est référencé, le lire avec `Read` avant d'argumenter.
 5. **Argument stratégique** — est-ce le bon problème ? Existe-t-il quelque chose 10x mieux ?
 6. **Argument pratique** — quel est le coût de maintenance ? Sera-t-il abandonné dans 2 semaines ?
 7. **Classer les objections** — BLOQUANT / AVERTISSEMENT / NITPICK
-8. **Rédiger le verdict + sauvegarder la critique** avec le format de sortie ci-dessous. Après avoir rendu le verdict, sauvegarder la critique dans le vault via un heredoc Bash :
-   ```bash
-   mkdir -p "vault/claude-forge/Knowledge/critiques"
-   cat > "vault/claude-forge/Knowledge/critiques/critique-<YYYY-MM-DD>-<slug>.md" << 'EOF'
-   ---
-   titre: "Critique — <nom proposition>"
-   type: knowledge
-   domaine: claude-code
-   derniere-maj: <YYYY-MM-DD>
-   auteur: claude
-   ---
-   <corps de la critique>
-   EOF
+8. **Rédiger le verdict + sauvegarder la critique** avec le format de sortie ci-dessous. Après avoir rendu le verdict, sauvegarder la critique dans le vault via MCP `create_note` :
    ```
-   Note : si `permissionMode: plan` bloque les écritures shell, la sauvegarde vault est skip — le verdict textuel reste la sortie principale.
+   mcp__forge-brain__create_note(
+     path="Knowledge/critiques/critique-<YYYY-MM-DD>-<slug>.md",
+     content="---
+titre: \"Critique — <nom proposition>\"
+type: knowledge
+domaine: claude-code
+derniere-maj: <YYYY-MM-DD>
+auteur: claude
+---
+<corps de la critique>"
+   )
+   ```
+   Le MCP forge-brain est accessible (non bloqué par `disallowedTools`). La sauvegarde vault est OBLIGATOIRE — c'est le compounding effect.
 
 ## Règles strictes
 

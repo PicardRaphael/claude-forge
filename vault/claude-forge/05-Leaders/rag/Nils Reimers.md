@@ -21,6 +21,7 @@ tags:
   - "#type/leader"
   - "#domaine/ia"
   - "#domaine/rag"
+type: ""
 ---
 
 ## Profil
@@ -49,6 +50,7 @@ Dirige l'équipe search : dense/sparse embeddings, reranking, query generation.
 
 ## Liens
 
+- [[MOC-Leaders]]
 - Site : [nils-reimers.de](https://www.nils-reimers.de/)
 - [sbert.net](https://sbert.net/)
 - [[RAG]] — [[rag-embeddings]]

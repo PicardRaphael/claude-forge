@@ -36,6 +36,7 @@ Chief Scientist chez Together AI. Créateur de FlashAttention.
 
 ## Liens
 
+- [[MOC-Leaders]]
 - Site : [tridao.me](https://tridao.me/)
 - Paper FA4 : [tridao.me/blog/2026/flash4/](https://tridao.me/blog/2026/flash4/)
 - [[fine-tuning-infrastructure]] — impact sur les performances d'entraînement

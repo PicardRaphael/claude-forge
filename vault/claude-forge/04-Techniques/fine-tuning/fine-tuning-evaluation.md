@@ -58,5 +58,6 @@ GPT-4/Claude juge les outputs sur : helpfulness, accuracy, harmlessness.
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[fine-tuning-datasets]] — qualité des données
 - [[fine-tuning-techniques-peft]] — techniques à évaluer

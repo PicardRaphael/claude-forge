@@ -11,6 +11,37 @@ tags:
   - "#type/index"
 ---
 
+## 2026-05-11 — Capitalisation vidéos Code with Claude + Boris AI Ascent
+
+- **Créées dans 01-Claude-Code/features/** :
+  - `Memory Managed Agents.md` — Architecture memory : filesystem, permission scopes, optimistic concurrency, version history
+  - `Dreaming Managed Agents.md` — Process scheduled review cross-sessions, déduplication, vérification, enrichissement
+  - `Code with Claude 2026.md` — Résumé conférence SF : SpaceX, Dreaming, Outcomes, Multi-agent, Routines
+- **Créée dans 04-Techniques/patterns/** :
+  - `boris-workflow-2026-may.md` — Setup Boris mai 2026 : mobile-first, /loop partout, 150 PRs/jour, coding is solved
+- **Modifiées** : `MOC-Claude-Code.md` (4 notes ajoutées), `Boris Cherny.md` (section mai 2026)
+- **Source** : transcription YouTube — Memory & Dreaming (Mahesh Murag), Boris AI Ascent Sequoia, Everything new from CwC 2026 (Matt Cuda)
+
+## 2026-05-11 — 6 fiches leaders agents/industrie + audit + corrections devil's advocate
+
+- **Créées dans 05-Leaders/agents/** :
+  - `Chi Wang.md` — AutoGen/AG2 creator, Google DeepMind, ICLR 2026
+  - `Yohei Nakajima.md` — BabyAGI creator, Untapped Capital GP, build-in-public
+  - `David Shapiro.md` — ACE Framework, architecture cognitive 6 couches
+  - `Div Garg.md` — MultiOn founder, browser agents 500+ steps
+  - `Joao Moura.md` — CrewAI founder & CEO, $18M levés, 50.8K stars
+- **Créée dans 05-Leaders/industrie/** :
+  - `Dario Amodei.md` — CEO Anthropic, RSP, Mythos, clash DoD 2026 (déplacé d'agents/ suite critique devil's advocate)
+- **Corrections devil's advocate** :
+  - Dario Amodei : déplacé de agents/ → industrie/ (cohérence taxonomique, la note dit elle-même qu'il n'est pas un builder agents)
+  - `type: leader` harmonisé sur les 13 fiches agents (8 anciennes avaient `type: ""`)
+  - Aliases Dario enrichis : +4 termes de recherche sémantique (responsible scaling, AI safety leader, etc.)
+  - Joao Moura créé (candidat le plus évident absent de la batch initiale)
+- **Modifiés** : `MOC-Leaders.md` (section Agents + Industrie enrichies), `Agents IA.md` (section Pionniers)
+- **Enrichi** : `cc-news/references/domain-agents.md` (5 leaders ajoutés au tableau)
+- **Audit** : 199 notes, score moyen 95/100 (185A/13B/0C/1D), fix déterministe appliqué
+- **Source** : recherche web 2026 + devil's advocate
+
 ## 2026-05-10 — Dossier stacks/ : 2 notes reference implementation IA (TS + Python)
 
 - **Creees dans 04-Techniques/stacks/** :
@@ -166,3 +197,6 @@ tags:
 - **Synthèses** : `rag-obsidian-claude-video-analyse.md` (analyse critique vidéo YouTube), `outils-portabilite-forge.md` (defuddle, yt-dlp)
 - **cc-news** : section RAG & Embeddings leaders ajoutée (9 sources)
 - **Source** : recherche approfondie via 5 agents parallèles (chunking, embeddings, architecture, experts, metadata) + analyse vidéo YouTube RAG+Obsidian+Claude
+
+## Liens
+

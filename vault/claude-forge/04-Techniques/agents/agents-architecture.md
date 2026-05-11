@@ -97,6 +97,7 @@ Voir [[agents-securite]] pour détails. Points critiques :
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[Agents IA]] — Index principal
 - [[agents-frameworks]] — Comparatif frameworks
 - [[agents-automation]] — Patterns automation

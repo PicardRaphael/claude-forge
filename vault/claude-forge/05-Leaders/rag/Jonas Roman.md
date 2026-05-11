@@ -21,6 +21,7 @@ tags:
   - "#type/leader"
   - "#domaine/ia"
   - "#domaine/rag"
+type: ""
 ---
 
 ## Profil
@@ -51,6 +52,7 @@ Chaîne YouTube **"Jonas Roman | AI Ops"** (ex-"IA en Prod"). Communauté Skool 
 
 ## Liens
 
+- [[MOC-Leaders]]
 - YouTube : [youtube.com/@JonasRoman-t5t](https://www.youtube.com/@JonasRoman-t5t)
 - Communauté : skool.com/ia-en-prod
 - Agence : [lagentia.fr](https://lagentia.fr)

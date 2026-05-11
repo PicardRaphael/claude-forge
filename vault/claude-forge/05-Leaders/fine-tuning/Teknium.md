@@ -35,5 +35,6 @@ Co-fondateur et Head of Post-Training chez Nous Research. Pseudonyme. Ex-Stabili
 
 ## Liens
 
+- [[MOC-Leaders]]
 - X : [@Teknium1](https://x.com/Teknium1)
 - [[fine-tuning-alignment]] — techniques d'alignement utilisées pour Hermes

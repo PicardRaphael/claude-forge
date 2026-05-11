@@ -21,6 +21,7 @@ tags:
   - "#type/leader"
   - "#domaine/ia"
   - "#domaine/rag"
+type: ""
 ---
 
 ## Profil
@@ -35,6 +36,7 @@ Fondateur Aurelio AI. Ex-Developer Advocate chez Pinecone. Travaille sur Semanti
 
 ## Liens
 
+- [[MOC-Leaders]]
 - YouTube : [youtube.com/@jamesbriggs](https://www.youtube.com/@jamesbriggs)
 - GitHub : [jamescalam](https://github.com/jamescalam)
 - [Pinecone RAG Series](https://www.pinecone.io/learn/series/rag/)

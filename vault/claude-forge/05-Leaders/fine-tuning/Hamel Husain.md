@@ -36,6 +36,7 @@ Fondateur de Parlance Labs. 20+ ans ML (ex-Airbnb, GitHub).
 
 ## Liens
 
+- [[MOC-Leaders]]
 - X : [@HamelHusain](https://x.com/HamelHusain)
 - Cours : [maven.com/parlance-labs/fine-tuning](https://maven.com/parlance-labs/fine-tuning)
 - [[fine-tuning-evaluation]] — évaluation qu'il enseigne

@@ -46,6 +46,7 @@ Valorisation $14B+ (2025). $830M levés mars 2026 pour data centers.
 
 ## Liens
 
+- [[MOC-Leaders]]
 - Site : [mistral.ai](https://mistral.ai)
 - [[fine-tuning-models]] — Mistral dans les modèles à fine-tuner
 - [[Liang Wenfeng]] — DeepSeek, concurrent open-source

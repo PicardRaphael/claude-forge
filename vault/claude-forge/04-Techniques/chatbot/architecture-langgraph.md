@@ -238,6 +238,7 @@ Revenir a n'importe quel checkpoint et re-executer. Invaluable pour debugger des
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[agents-architecture]] — Patterns abstraits
 - [[agents-frameworks]] — Comparatif frameworks (LangGraph = Tier 1)
 - [[architecture-claude-api]] — Equivalent Claude

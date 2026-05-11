@@ -221,3 +221,7 @@ Phase 4 : LangGraph avec checkpointing (enterprise)
 - [[agents-architecture]] — Patterns abstraits (WHAT)
 - [[agents-frameworks]] — Comparatif general frameworks
 - [[Agents IA]] — MOC principal agents
+
+## Liens
+
+- [[MOC-Techniques]]

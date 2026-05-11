@@ -95,6 +95,7 @@ Top stack : Braintrust (eval-first), LangSmith (LangChain), Langfuse (open-sourc
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[Agents IA]] — Index principal
 - [[agents-evaluation]] — Testing et benchmarks
 - [[agents-securite]] — Sécurité production

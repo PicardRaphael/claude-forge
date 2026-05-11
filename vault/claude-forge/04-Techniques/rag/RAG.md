@@ -93,6 +93,7 @@ Le RAG (Retrieval-Augmented Generation) combine la recherche d'information dans 
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[agentic-engineering-karpathy]] — Karpathy utilise Obsidian comme alternative au RAG
 - [[sqlite-fts5-vault]] — Technique FTS5 utilisée dans notre MCP vault
 - [[mcp-obsidian-brain-v2]] — Notre implémentation MCP de recherche vault

@@ -8,7 +8,7 @@ aliases:
   - "personnalités AI"
   - "équipe Claude Code"
 type: index
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-11
 auteur: claude
 tags:
   - "#type/index"
@@ -31,6 +31,11 @@ tags:
 - [[Lilian Weng]] — VP Research OpenAI, blog canonical agents
 - [[Shunyu Yao]] — ReAct, Tree of Thoughts, Chief AI Scientist Tencent
 - [[Simon Willison]] — Django, LLM CLI, Agentic Engineering Patterns
+- [[Chi Wang]] — AutoGen/AG2 creator, Google DeepMind
+- [[Yohei Nakajima]] — BabyAGI creator, Untapped Capital GP
+- [[Joao Moura]] — CrewAI founder & CEO, role-based multi-agent
+- [[David Shapiro]] — ACE Framework, cognitive architecture
+- [[Div Garg]] — MultiOn founder, browser agents
 ## Fine-Tuning (`05-Leaders/fine-tuning/`)
 - [[Daniel Han]] — Unsloth, fine-tuning 2-30x plus rapide
 - [[Edward Hu]] — LoRA, μTransfer
@@ -60,5 +65,9 @@ tags:
 - [[Ethan Mollick]] — Wharton, Co-Intelligence, One Useful Thing
 - [[Liang Wenfeng]] — CEO DeepSeek, GRPO
 - [[Sam Altman]] — CEO OpenAI
+- [[Dario Amodei]] — CEO Anthropic, AI safety, RSP
 ## À créer
-Amanda Askell · Alex Albert · Elon Musk · Yann LeCun · Patrick Lewis · Rafael Rafailov · Joao Moura · Yohei Nakajima
+Amanda Askell · Alex Albert · Elon Musk · Yann LeCun · Patrick Lewis · Rafael Rafailov
+
+## Liens
+

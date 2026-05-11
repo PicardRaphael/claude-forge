@@ -36,6 +36,7 @@ Senior Research Scientist et Post-Training Lead à l'Allen Institute for AI (AI2
 
 ## Liens
 
+- [[MOC-Leaders]]
 - X : [@natolambert](https://x.com/natolambert)
 - Newsletter : [interconnects.ai](https://www.interconnects.ai/)
 - [[fine-tuning-alignment]] — techniques d'alignement qu'il couvre

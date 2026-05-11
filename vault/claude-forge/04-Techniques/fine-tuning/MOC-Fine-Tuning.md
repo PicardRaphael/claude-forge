@@ -67,3 +67,7 @@ tags:
 - [[RAG]] — MOC RAG (complémentaire au fine-tuning)
 - [[Expertise-IA]] — roadmap expertise (fine-tuning = gap prioritaire)
 - [[rag-architecture]] — patterns RAG avancés, section RAG vs FT
+
+## Liens
+
+- [[MOC-Techniques]]

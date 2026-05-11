@@ -98,6 +98,7 @@ Pattern populaire : **Dify + n8n** (Dify = LLM logic, n8n = triggers business).
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[Agents IA]] — Index principal
 - [[agents-architecture]] — Patterns d'architecture
 - [[Harrison Chase]] — LangGraph, Deep Agents

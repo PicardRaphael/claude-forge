@@ -66,6 +66,7 @@ Hybrid search natif : Weaviate, Vespa, Qdrant, **Milvus 2.6** (dense+sparse mêm
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[RAG]] — Index principal
 - [[rag-embeddings]] — Modèles à stocker
 - [[rag-reranking]] — Post-retrieval reranking

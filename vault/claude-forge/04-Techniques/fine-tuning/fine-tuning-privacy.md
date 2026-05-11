@@ -94,6 +94,7 @@ Problème non résolu : que signifie "effacer" quand les données sont absorbée
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[fine-tuning-infrastructure]] — GPUs et cloud
 - [[rag-vs-fine-tuning]] — quand utiliser quoi
 - [[fine-tuning-techniques-peft]] — LoRA/QLoRA pour réduire le bruit DP

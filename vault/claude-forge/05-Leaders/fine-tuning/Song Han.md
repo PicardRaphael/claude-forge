@@ -39,6 +39,7 @@ Professeur titulaire MIT EECS, dirige le Han Lab. Pionnier de l'IA efficace.
 
 ## Liens
 
+- [[MOC-Leaders]]
 - X : [@songhan_mit](https://x.com/songhan_mit)
 - Lab : [hanlab.mit.edu](https://hanlab.mit.edu/)
 - [[fine-tuning-infrastructure]] — AWQ dans les engines de serving

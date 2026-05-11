@@ -43,6 +43,7 @@ HuggingFace a acquis ggml-org (fév 2026). Georgi conserve l'autonomie complète
 
 ## Liens
 
+- [[MOC-Leaders]]
 - X : [@ggerganov](https://x.com/ggerganov)
 - GitHub : [github.com/ggml-org/llama.cpp](https://github.com/ggml-org/llama.cpp)
 - [[fine-tuning-infrastructure]] — serving avec llama.cpp

@@ -34,6 +34,7 @@ Ex-Technical Lead HuggingFace, rejoint Google DeepMind en 2025. Go-to référenc
 
 ## Liens
 
+- [[MOC-Leaders]]
 - X : [@_philschmid](https://x.com/_philschmid)
 - Blog : [philschmid.de](https://www.philschmid.de/)
 - [[fine-tuning-frameworks]] — outils HuggingFace qu'il documente
