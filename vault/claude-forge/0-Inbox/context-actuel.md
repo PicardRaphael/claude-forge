@@ -18,40 +18,44 @@ tags:
 
 ## Phase actuelle
 
-Recherche architectures chatbot/multi-agent terminee. 13 notes vault creees (11 chatbot/ + 2 stacks/). Pret pour proposer/auditer/optimiser des projets IA concrets.
+Vault forge-brain enrichi (203 notes). 6 fiches leaders agents créées, vidéos Code with Claude 2026 capitalisées, devil's advocate optimisé. Prêt pour utilisation opérationnelle du vault sur des projets concrets.
 
-## Derniere session (2026-05-10 → 2026-05-11)
+## Dernière session (2026-05-11)
 
-### Decisions prises
-- chatbot/ = HOW (implementation), agents/ = WHAT (theorie abstraite)
-- 11 notes au lieu de 13 : fusion orchestrateur+hierarchique, suppression pattern-rag-agent (appartient a rag/)
-- AutoGen marque "en declin" conformement au vault
-- Notes stack : 1 par langage (TS + Python), pas divisees par framework
-- "Decision rapide" remplacee par wikilinks vers agents-frameworks (source unique)
-- Star counts supprimes des notes (volatils, incoherents apres 48h)
-- Corrections devil's advocate : audit checklists, diagnostic flows, sections observability/memory/guardrails/MCP
+### Décisions prises
+- Dario Amodei déplacé agents/ → industrie/ (cohérence taxonomique, validé par DA)
+- Rule DA : fiches vault + audits exclus du scope devil's advocate
+- DA sauvegarde critique : MCP create_note remplace heredoc Bash (fix compounding)
+- type: leader harmonisé sur 13 fiches agents
+- /dream (skill dreaming maison) : reporté — prématuré, pas assez de données (advisor valide)
+- Joao Moura ajouté (candidat évident signalé par DA)
 
-### Livre
-- 11 notes `04-Techniques/chatbot/` : 6 frameworks + 4 patterns + 1 index decision
-- 2 notes `04-Techniques/stacks/` : stack-typescript-ia + stack-python-ia (guides complets)
-- MAJ MOC-Techniques (2 nouvelles sections) + CHANGELOG (2 entrees)
-- Commits : 70ad099 (chatbot/) + 75dc7fd (stacks/) — pushes sur main
+### Livré
+- 6 fiches leaders : Chi Wang, Yohei Nakajima, Joao Moura, David Shapiro, Div Garg, Dario Amodei
+- 4 notes vidéos : Memory Managed Agents, Dreaming, Code with Claude 2026, Boris workflow mai 2026
+- Fix DA heredoc → MCP + rule exclusion scope
+- Audit vault : 199→203 notes, 95/100, fix déterministe appliqué
+- Erreur documentée : erreur-da-heredoc-bash-silencieux
+- Commit 216e695, pushé sur main
 
-### Prochaines etapes
-- Session 4 : leaders multi-agent + cc-news enrichi
-- Utiliser les notes pour proposer une architecture concrete a Raphael (chatbot, RAG, agent)
-- Auditer un projet existant avec les checklists des stacks
+### Prochaines étapes
+- Laisser les critiques DA s'accumuler 4-6 semaines (compounding réparé)
+- Revisiter /dream quand 20+ critiques accumulées
+- Utiliser plus /loop (insight Boris : killer feature)
+- Google I/O 19 mai → re-checker Gemini 4.0
+- Proposer architecture concrète chatbot à Raphael avec les notes vault
 
 ## Fils ouverts
-- Google I/O 19 mai → re-checker Gemini 4.0
-- Copilot usage-based billing 1er juin → impact a documenter
-- MCP: `update_property` regex ne gere pas les proprietes multi-lignes (listes YAML) — OK pour scalaires
-- Verifier si Mastra v1.32 et Vercel AI SDK v6 existent reellement (flag devil's advocate)
+- Google I/O 19 mai → Gemini 4.0
+- Copilot usage-based billing 1er juin → impact à documenter
+- MCP: update_property regex ne gère pas les propriétés multi-lignes (listes YAML) — OK pour scalaires
+- Vérifier si Mastra v1.32 et Vercel AI SDK v6 existent réellement (flag devil's advocate)
+- deploy skill-evolve all sur neo_ia (27 skills) et ia_back (28 skills) — project_deploy_methods_other_repos.md
 
 ## Liens
 
 - [[Raphael-Picard]]
 - [[Claude-Forge]]
-- [[index-architectures]]
-- [[stack-typescript-ia]]
-- [[stack-python-ia]]
+- [[Code with Claude 2026]]
+- [[Dreaming Managed Agents]]
+- [[boris-workflow-2026-may]]
