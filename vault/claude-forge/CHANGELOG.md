@@ -11,6 +11,34 @@ tags:
   - "#type/index"
 ---
 
+## 2026-05-11 — Architecture profonde NeoDoc (neo_ia)
+
+- **Créées dans 1-Projets/Neoteem/neo_ia/neodoc/** :
+  - `neodoc-architecture.md` — Vue d'ensemble : RAG Vertex AI Discovery Engine, workspaces, notes indexables, schéma BDD 9 tables
+  - `neodoc-research-agent.md` — Agent Research LangGraph 5 nœuds, query decomposition (google-genai natif), grounding citations, dual path (retrieve vs full_doc)
+  - `neodoc-ingestion-pipeline.md` — Pipeline 7 étapes Drive/upload → GCS → Discovery Engine, 4 modes (sync/async/batch/folder), retry intelligent
+- **Modifiée** : `neo_ia.md` — wikilinks NeoDoc ajoutés
+- **Source** : analyse profonde du code source apps/neodoc/
+
+## 2026-05-11 — Architecture profonde NeoMail (neo_ia)
+
+- **Créées dans 1-Projets/Neoteem/neo_ia/neomail/** :
+  - `neomail-architecture.md` — Vue d'ensemble : webhook Pub/Sub, classification LLM, 21 tools, BROUILLON ONLY, diff NeoChat vs NeoMail
+  - `neomail-webhook-pipeline.md` — Pipeline 10 étapes : Pub/Sub → History API → classify → label sync → auto-reply draft, sécurité IAM, hiérarchie exceptions
+- **Restructurée** : notes NeoChat déplacées dans `neochat/`, NeoMail dans `neomail/`
+- **Modifiée** : `neo_ia.md` — wikilinks NeoMail ajoutés
+- **Source** : analyse profonde du code source apps/neomail/
+
+## 2026-05-11 — Architecture profonde NeoChat (neo_ia)
+
+- **Créées dans 1-Projets/Neoteem/neo_ia/** :
+  - `neochat-architecture.md` — Vue d'ensemble : 6 agents, 26 tools, interrupt handlers, ToolInTool patterns
+  - `neochat-react-engine.md` — Declarative ReAct Engine 7 phases, AgentBlueprint dataclass, interrupt handlers
+  - `neochat-adaptive-prompt.md` — Adaptive Prompt Builder V2 4 layers (cache Gemini), ToolPromptLoader, conditional rules
+  - `neochat-tool-rag.md` — HybridToolSelector pgvector : 10 étapes (expansion, hybrid search, LLM rerank, BFS deps)
+- **Modifiée** : `neo_ia.md` — ajout section Architecture détaillée par app (NeoChat/NeoDoc/NeoMail)
+- **Source** : analyse profonde du code source neo_ia (blueprint, react.py, adaptive.py, selector.py, builders)
+
 ## 2026-05-11 — Capitalisation vidéos Code with Claude + Boris AI Ascent
 
 - **Créées dans 01-Claude-Code/features/** :

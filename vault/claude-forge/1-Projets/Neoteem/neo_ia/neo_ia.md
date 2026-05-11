@@ -45,3 +45,21 @@ Monorepo LLM assistants B2B de [[1-Projets/Neoteem/Neoteem|Neoteem]]. 3 apps : N
 
 - [[1-Projets/Neoteem/Neoteem|Neoteem]]
 - [[1-Projets/Neoteem/ia_back/ia_back|ia_back]]
+
+
+## Architecture détaillée par app
+
+### NeoChat (documentation profonde)
+- [[neochat-architecture]] — Vue d'ensemble : 7 agents, 26 tools, 6 interrupt handlers
+- [[neochat-react-engine]] — Declarative ReAct Engine 7 phases (AgentBlueprint)
+- [[neochat-adaptive-prompt]] — Prompt Builder V2 4 layers (cache Gemini)
+- [[neochat-tool-rag]] — HybridToolSelector pgvector (full-text + semantic + RRF)
+
+### NeoDoc (documentation profonde)
+- [[neodoc-architecture]] — Vue d'ensemble : RAG Vertex AI Discovery Engine, workspaces multi-tenant, notes indexables
+- [[neodoc-research-agent]] — Agent Research LangGraph 5 nœuds (decompose → retrieve → generate → respond)
+- [[neodoc-ingestion-pipeline]] — Pipeline 7 étapes : Drive/upload → GCS → Vertex AI Discovery Engine
+
+### NeoMail (documentation profonde)
+- [[neomail-architecture]] — Vue d'ensemble : webhook Pub/Sub, classification LLM, 21 tools, BROUILLON ONLY
+- [[neomail-webhook-pipeline]] — Pipeline 10 étapes : Pub/Sub → classify → label → auto-reply draft
