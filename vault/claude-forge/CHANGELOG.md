@@ -11,6 +11,15 @@ tags:
   - "#type/index"
 ---
 
+## 2026-05-10 — Dossier stacks/ : 2 notes reference implementation IA (TS + Python)
+
+- **Creees dans 04-Techniques/stacks/** :
+  - `stack-typescript-ia.md` — SDKs (Vercel AI SDK, Mastra, LlamaIndex.TS), RAG, streaming SSE, Zod, deployment edge, audit checklist, diagnostic optimisation
+  - `stack-python-ia.md` — SDKs (LangGraph, Pydantic AI, Instructor, DSPy, CrewAI), RAG, ML/DL, FastAPI SSE, deployment, audit checklist, diagnostic optimisation
+- **Sections ajoutees (corrections devil's advocate)** : Observability, Memory, Guardrails, MCP, Provider routing, Agent sandboxing, Audit Checklist (12-15 anti-patterns), Diagnostic optimisation (flux conditionnel)
+- **Modifie** : `MOC-Techniques.md` — section "Stacks Implementation IA" ajoutee
+- **Source** : Agent recherche TS/Python + advisor + devil's advocate (3 bloquants corriges)
+
 ## 2026-05-10 — Dossier chatbot/ : 11 notes architectures chatbot & multi-agent
 
 - **Creees dans 04-Techniques/chatbot/** :

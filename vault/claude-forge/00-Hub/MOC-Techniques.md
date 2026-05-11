@@ -78,6 +78,11 @@ type: index
 - [[architecture-gemini-api]] — ADK, A2A protocol, budget tokens
 - [[architecture-autogen]] — GroupChat, en declin
 
+## Stacks Implementation IA (TypeScript / Python)
+
+- [[stack-typescript-ia]] — **Stack TS complet** : Vercel AI SDK, Mastra, Zod, SSE, Cloudflare, audit checklist
+- [[stack-python-ia]] — **Stack Python complet** : LangGraph, Pydantic AI, Instructor, DSPy, FastAPI, audit checklist
+
 ## RAG & Search
 
 - [[sqlite-fts5-vault]] — Pattern : indexer un vault Obsidian dans SQLite FTS5 sans dependance Obsidian
