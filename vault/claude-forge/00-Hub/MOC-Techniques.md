@@ -106,3 +106,13 @@ type: index
 
 ## Liens
 
+
+
+## Spec-Driven Development
+
+- [[pattern-spec-driven-development]] — Consensus pionniers 2026 : interview → SPEC.md → execute. Thariq, Boris, Anthropic
+- [[pattern-spec-skill-deployment]] — Guide déploiement skill /spec sur un nouveau repo
+- [[pattern-sdd-triangle]] — Drew Breunig : SPEC ↔ TESTS ↔ CODE, outil Plumb, spec diffing
+- [[pattern-github-spec-kit]] — Framework 93K stars, 6 commandes, Constitution.md
+- [[pattern-gsd-framework]] — GSD 59K stars, contexte frais par agent, plans = prompts
+- [[feature-dev-plugin]] — Plugin officiel Anthropic 7 phases, 3 types d'agents en //
