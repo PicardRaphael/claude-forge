@@ -1,0 +1,37 @@
+{
+  "cc-news": {
+    "type": "skill",
+    "description": "Recherche les nouveautés Claude Code (Boris, Cat Wu, Lydia Hallie, Noah Zweben)",
+    "triggers": ["quoi de neuf", "news", "nouveauté", "nouveautés", "what's new", "mise à jour", "update cc", "update claude code"]
+  },
+  "forge-brain": {
+    "type": "skill",
+    "description": "Accède au vault forge-brain (search, read, create notes)",
+    "triggers": ["cherche dans le vault", "note vault", "forge-brain", "vault obsidian"]
+  },
+  "craft-prompt": {
+    "type": "skill",
+    "description": "Crée ou optimise un prompt pour Claude, Gemini, ou tout LLM",
+    "triggers": ["crée un prompt", "optimise ce prompt", "optimise le prompt", "prompt pour", "améliore ce prompt"]
+  },
+  "vault-audit": {
+    "type": "skill",
+    "description": "Audite la qualité des notes vault (aliases, wikilinks, MOCs)",
+    "triggers": ["audit vault", "vérifie les notes", "qualité vault", "audite le vault"]
+  },
+  "done": {
+    "type": "command",
+    "description": "Capitalise la session (décisions, faits, erreurs, apprentissages)",
+    "triggers": ["fin de session", "capitalise", "capitaliser la session", "fin de travail"]
+  },
+  "recap": {
+    "type": "command",
+    "description": "Résume la session en cours ou reprend le contexte",
+    "triggers": ["résume la session", "où on en est", "reprends le contexte", "summary session"]
+  },
+  "skill-evolve": {
+    "type": "skill",
+    "description": "Fait évoluer une skill existante via analyse + skill-creator",
+    "triggers": ["évolue la skill", "améliore la skill", "optimise la skill", "optimise skill", "évoluer la skill"]
+  }
+}

@@ -14,6 +14,8 @@ for marker_name in [
     os.path.join(_CLAUDE_DIR, ".devil-advocate-done"),
     os.path.join(_CLAUDE_DIR, ".devil-advocate-needed"),
     os.path.join(_CLAUDE_DIR, ".session-vault-queried"),
+    os.path.join(_CLAUDE_DIR, ".skill-recommendations-session"),
+    os.path.join(_CLAUDE_DIR, ".vault-write-count"),
 ]:
     if os.path.exists(marker_name):
         try:
