@@ -98,11 +98,11 @@ Chaque note vault DOIT respecter ces minimums :
 | Contexte de projet | `1-Projets/<nom>/` | 1 note/projet |
 | Casquette de vie | `2-Casquettes/` | 1 note/casquette |
 | Capture rapide à trier | `0-Inbox/` | temporaire |
-| Feature Claude Code | `01-Claude-Code/features/` | 1 note/feature |
-| Deprecation Claude Code | `01-Claude-Code/deprecations/` | 1 note/deprecation |
-| Changelog CC (par mois) | `01-Claude-Code/changelog/` | 1 note/mois |
-| Best practice CC | `01-Claude-Code/best-practices/` | 1 note/pattern |
-| Agent CC documenté | `01-Claude-Code/agents/` | 1 note/agent |
+| Feature Claude Code | `01-Claude/Code/features/` | 1 note/feature |
+| Deprecation Claude Code | `01-Claude/Code/deprecations/` | 1 note/deprecation |
+| Changelog CC (par mois) | `01-Claude/Code/changelog/` | 1 note/mois |
+| Best practice CC | `01-Claude/Code/best-practices/` | 1 note/pattern |
+| Agent CC documenté | `01-Claude/Code/agents/` | 1 note/agent |
 | Produit concurrent | `02-Concurrents/<entreprise>/` | 1 note/produit (ChatGPT, Codex, Gemini, CLI...) |
 | Modèle IA (specs, benchmarks) | `03-Modeles/<provider>/` | 1 note/modèle (GPT-5.5, Gemini 3...) |
 | Technique RAG | `04-Techniques/rag/` | 1 note/technique |

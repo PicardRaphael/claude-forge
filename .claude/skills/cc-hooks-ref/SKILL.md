@@ -1,12 +1,12 @@
 ---
 name: cc-hooks-ref
-description: Référence complète des hooks Claude Code — 21 événements, 5 types de handlers, format settings.json, scripts Python, blocage exit 2, hooks inline. Charger quand on crée ou modifie un hook.
+description: Référence complète des hooks Claude Code — 25+ événements, 5 types de handlers, hookSpecificOutput, asyncRewake, format settings.json, scripts Python, blocage exit 2, hooks inline. Charger quand on crée ou modifie un hook.
 user-invokable: false
 ---
 
 # Référence — Hooks Claude Code
 
-## 21 événements
+## 25+ événements
 
 | Événement               | Bloque               |
 | ----------------------- | -------------------- |
@@ -28,13 +28,24 @@ user-invokable: false
 | `WorktreeCreate/Remove` | ❌                   |
 | `PostCompact`           | ❌                   |
 | `InstructionsLoaded`    | ❌                   |
+| `CwdChanged`            | ❌                   |
+| `FileChanged`           | ❌                   |
+| `PostToolBatch`         | ❌                   |
+| `Elicitation`           | ❌                   |
+| `ElicitationResult`     | ❌                   |
+| `UserPromptExpansion`   | ✅ exit 2            |
 
-### Nouveaux (avril 2026)
+### Notes par événement (avril-mai 2026)
 - `PermissionDenied` → après refus auto mode. Return `{retry: true}` pour relancer
 - `PostCompact` → après compression du contexte
 - `InstructionsLoaded` → quand un CLAUDE.md ou rule se charge
 - Deferred hooks → `PreToolUse` peut return `permissionDecision: "defer"` (sessions headless pausent et reprennent)
 - `hookSpecificOutput.sessionTitle` sur `UserPromptSubmit` (v2.1.94) → nommer dynamiquement la session depuis un hook
+- `CwdChanged` → répertoire de travail modifié
+- `FileChanged` → changement de fichier détecté
+- `PostToolBatch` → après un lot d'appels d'outils
+- `Elicitation` / `ElicitationResult` → prompts de saisie utilisateur
+- `UserPromptExpansion` → expansion du prompt (bloquable exit 2)
 
 ## 5 types de handlers
 
@@ -89,6 +100,25 @@ user-invokable: false
 | `0`  | Succès                  |
 | `1`  | Erreur loggée, continue |
 | `2`  | BLOQUÉ (PreToolUse)     |
+
+## hookSpecificOutput — Pattern avancé
+
+Permet de modifier les inputs d'outils et d'injecter du contexte (pas seulement bloquer/autoriser).
+
+```json
+{
+  "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "allow|deny|ask|defer",
+    "updatedInput": { "modified_field": "value" },
+    "additionalContext": "Contexte injecté pour Claude"
+  }
+}
+```
+
+## asyncRewake
+
+`asyncRewake: true` — réveille Claude quand un hook background exit 2, affiche stderr comme system reminder.
 
 ## Template Python
 
@@ -174,6 +204,10 @@ python3 -m json.tool .claude/settings.json
 - **JSON sur stdin, pas de variables d'environnement** — tous les hooks reçoivent leurs données via `json.loads(sys.stdin.read())`. Ne pas lire `os.environ` pour les inputs du hook.
 - **Exit code 2 = blocage uniquement sur PreToolUse** — sur PostToolUse, Stop et autres événements, exit 2 est ignoré ou traité comme exit 1. Seul PreToolUse bloque l'exécution de l'outil.
 - **Pas de TTL sur markers** — les markers doivent être vérifiés par leur existence seule (`os.path.exists(marker)`), jamais par logique temporelle. Un marker expirable = complexité inutile + bugs de timing.
+
+## Vault
+
+[[hooks-guide]], [[erreur-settings-paths-hardcodes-multi-poste]], [[erreur-advisory-rules-insuffisantes]]
 
 ## Apprentissage
 

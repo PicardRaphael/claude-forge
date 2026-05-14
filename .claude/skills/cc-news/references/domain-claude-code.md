@@ -28,6 +28,8 @@ Nombre de queries : 18 — **Découper sur 2 agents** (Agent A + Agent B)
 |--------|--------|---------|
 | **LangChain** | @LangChainAI | Framework agents/RAG |
 | **Claude officiel** | @AnthropicAI | Compte officiel Anthropic |
+| **Claude Code Log** | @ClaudeCodeLog | Changelog et tips Claude Code communautaires |
+| **Claude Devs** | @ClaudeDevs | Communauté développeurs Claude |
 | **Google AI Studio** | @GoogleAIStudio | Gemini platform |
 | **HuggingFace** | — | Transformers, PEFT, TRL |
 | **DSPy** | @lateinteraction | Programmable foundation models |
@@ -43,6 +45,7 @@ Claude Code deprecated OR breaking
 @_catwu Claude Code
 @lydiahallie Claude Code
 @noahzweben OR @trq212 OR @jaraboron Claude Code
+@ClaudeCodeLog OR @ClaudeDevs Claude Code
 ```
 
 ### Agent B — Plugins + Écosystème

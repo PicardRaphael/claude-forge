@@ -6,6 +6,8 @@ user-invokable: false
 
 # Référence — Skills Claude Code (= Commands depuis v2.1.0)
 
+**Mis à jour : 14 mai 2026**
+
 ## Format complet
 
 ```yaml
@@ -32,6 +34,10 @@ hooks:
           once: true
 metadata:
   author: MonEquipe
+shell: bash # bash (défaut) ou powershell pour les blocs !command
+settings:
+  skillOverrides:
+    ma-skill: off # on | name-only | user-invocable-only | off — surcharge sans toucher SKILL.md
 ---
 ```
 
@@ -47,6 +53,14 @@ metadata:
 - Skills injectées en ENTIER dans le contexte des subagents → garder courtes
 - Plugin skills utilisent le `name` du frontmatter (plus le basename du dossier) depuis v2.1.94
 - `disableSkillShellExecution` : setting pour bloquer l'exécution shell dans les skills
+
+## Description — activation et limites
+
+- `description` + `when_to_use` combinés sont **tronqués à 1 536 caractères** dans le skill listing
+- `description` seul : **max 1 024 caractères**
+- **Formule directive** : "ALWAYS invoke when [trigger]. DO NOT [action concurrente] without invoking first."
+- **73 % des skills communautaires** avec une description passive ne s'activent jamais (audit 214 skills)
+- Écrire en 3e personne : "Processes X and generates Y" — pas "I can..." ni "You should..."
 
 ## Injection dynamique
 
@@ -115,6 +129,13 @@ Crée un composant nommé $ARGUMENTS.
 - **MCP tools : fully qualified names** (ServerName:tool_name)
 - **Process methods** : skills should include HOW to do each step well, not just list steps — synthesize best practices into the workflow
 
+## Budget et performance
+
+- `skillListingBudgetFraction` (setting) : fraction du context window allouée au listing des skills (défaut 1 %)
+- `/doctor` : diagnostique un dépassement de budget skill
+- Après auto-compaction : CC ré-attache jusqu'à **5 000 tokens par skill**, max **25 000 combinés**
+- Skills plus anciennes dans la session peuvent être **complètement abandonnées** après compaction → garder SKILL.md court
+
 ## Skills builtin
 
 `/simplify`, `/batch`, `/debug`, `/loop`, `/voice`, `/btw`, `/branch`, `/compact`
@@ -127,3 +148,7 @@ Les rules (`rules/*.md`) sont chargées automatiquement à chaque session. Utili
 - Workflows (skill-navigator)
 
 Les skills sont pour les workflows invocables à la demande. Les rules sont toujours actives.
+
+## Vault
+
+[[skills-guide]], [[cowork-skills-reliability]] — diagnostic activation et fiabilité

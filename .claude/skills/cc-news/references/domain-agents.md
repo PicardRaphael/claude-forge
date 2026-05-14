@@ -59,4 +59,4 @@ MCP servers new popular tools
 ## Capitalisation vault
 
 Nouveaux frameworks/patterns → `04-Techniques/agents/`
-Nouveaux outils MCP → `01-Claude-Code/` ou `04-Techniques/patterns/`
+Nouveaux outils MCP → `01-Claude/Code/` ou `04-Techniques/patterns/`

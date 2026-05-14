@@ -10,7 +10,7 @@ aliases:
   - "agent infrastructure"
 domaine: technique
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-14
 auteur: claude
 sources:
   - "https://martinfowler.com/articles/harness-engineering.html"
@@ -77,10 +77,51 @@ Ces hooks = harness engineering appliqué à Claude Code.
          ↕ modèle LLM ↕
 ```
 
+## Évolution du paradigme (mai 2026)
+
+**Reconnu comme 4e paradigme** de l'AI Engineering (TechTimes, 13 mai 2026) :
+
+```
+Prompt Engineering (2022-24) → Context Engineering (2025) → Harness Engineering (2026)
+```
+
+**65% des échecs d'agents** tracent à des défauts de harness, PAS à des limitations du modèle.
+
+### Feedforward vs Feedback (Fowler)
+
+| Type | Quand | Exemples |
+|------|-------|----------|
+| **Feedforward (guides)** | AVANT action — anticipation | CLAUDE.md, SKILL.md contraintes, architecture docs |
+| **Feedback (sensors)** | APRÈS action — correction | Hooks exit 2, linters, tests, type checkers |
+
+**Feedforward > Feedback** — mieux vaut anticiper que corriger. Mais les deux sont nécessaires.
+
+### Computational vs Inferential
+
+| | Computational | Inferential |
+|---|---|---|
+| Vitesse | ms-sec | sec-min |
+| Fiabilité | Déterministe, 100% | Probabiliste, ~95% |
+| Exemples | Linters, hooks, tests | AI code review, semantic analysis |
+| Coût | CPU, quasi gratuit | GPU/API, cher |
+
+**Priorité : Computational d'abord, Inferential en complément.**
+
+### Ashby's Law appliquée
+
+Réduire la variété que l'agent doit gérer → réduire le scope → harness plus complet possible. 1 skill = 1 responsabilité.
+
+### Ressources
+
+- awesome-harness-engineering (GitHub ai-boost) — catalogue complet patterns/outils
+- Martin Fowler article — référence canonique
+- Augment Code Guide — application au coding
+
 ## Quand utiliser
 
 - Design d'un système multi-agent
 - Audit d'un agent existant qui a des comportements imprévisibles
+- **Diagnostic de skill Cowork qui ne suit pas les instructions** — c'est un problème de harness
 - Décider entre "prompt instruction" et "hook déterministe"
 - Évaluation de la robustesse d'un pipeline agentic
 

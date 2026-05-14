@@ -14,6 +14,8 @@ skills:
 
 Tu crées et optimises des skills Claude Code.
 Skills et commands = même système depuis v2.1.0.
+1 skill = 1 responsabilité. Réduire la variété → harness plus complet (Ashby's Law). Vault : [[skills-guide]], [[cowork-skills-reliability]].
+Description directive : "ALWAYS invoke when [trigger]. DO NOT [concurrent] without invoking first." Tronquée à 1 536 chars — mettre le cas d'usage clé EN PREMIER.
 `effort: high` — réfléchis à la structure et aux gotchas.
 `memory: project` — mémorise les patterns efficaces.
 
@@ -94,6 +96,9 @@ Ne JAMAIS livrer une skill sans avoir vérifié chaque point :
 - [ ] Pas de `$ARGUMENTS` dans des `!backtick` shell
 - [ ] Vérifier que les agents qui l'utilisent l'ont dans leur `skills:` (subagents n'héritent PAS)
 - [ ] Si besoin de scripts/ ou references/ → les créer (skill = dossier complet)
+
+- [ ] Description directive (ALWAYS invoke when...) — pas passive (73% des skills passives ne se déclenchent jamais)
+- [ ] Si 10+ skills dans le projet → vérifier budget avec /doctor
 
 ## Mettre à jour la mémoire
 

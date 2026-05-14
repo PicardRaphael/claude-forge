@@ -2,6 +2,7 @@
 name: cc-agents-ref
 description: Référence complète du format YAML des subagents Claude Code — tous les champs frontmatter, tools, hooks inline, memory, isolation, maxTurns, effort, background. Charger quand on crée ou modifie un agent.
 user-invokable: false
+derniere-maj: 2026-05-14
 ---
 
 # Référence — Subagents Claude Code
@@ -15,11 +16,12 @@ description: Use this agent when [condition]. Use PROACTIVELY when [trigger]. In
 tools: Read, Grep, Glob, Bash
 disallowedTools: Write, Edit
 model: sonnet # haiku|sonnet|opus|inherit
-color: blue # red|orange|yellow|green|blue|purple
+color: blue # red|orange|yellow|green|blue|purple|pink|cyan
 skills:
   - ma-skill
 memory: project # user|project|local
 isolation: worktree
+initialPrompt: "Premier message soumis automatiquement comme premier tour utilisateur (via --agent)"
 background: true
 maxTurns: 50
 effort: high # low|medium|high|xhigh|max
@@ -44,6 +46,7 @@ hooks:
 - **Un subagent NE PEUT PAS spawner de sub-agents** (GitHub #19077, by design)
 - Skills listées dans `skills:` sont injectées EN ENTIER au démarrage du subagent
 - Subagents **n'héritent PAS** les skills du parent — toujours lister explicitement
+- `CLAUDE_CODE_FORK_SUBAGENT=1` (v2.1.117+) — le subagent hérite du contexte complet de la conversation parente et réutilise le prompt cache parent. Chaque spawn tourne en background automatiquement.
 
 ## Tools par profil
 
@@ -96,7 +99,7 @@ hooks:
 - **Verification agents** : investir du temps sur code-reviewer, validator, test-writer (Thariq: "spend a week")
 - **Opus 4.7 subagent management** : 4.7 spawn moins de subagents → fan-out doit etre EXPLICITE dans les rules
 - **Plan-driven** : "the plan IS the prompt" — inclure intent + fichiers + criteres acceptance dans le prompt du Task
-
+- **Generator/Evaluator pattern** : pour les agents complexes ou long-running, séparer le générateur (fait le travail) de l'évaluateur (juge le résultat). Les agents skewent systématiquement positif quand ils notent leur propre travail — la séparation est critique. L'évaluateur doit avoir ses propres outils (ex: Playwright MCP pour tests UI).
 
 ## Gotchas
 
@@ -108,3 +111,7 @@ hooks:
 
 - `.claude/agents/` → projet ← PRIORITAIRE
 - `~/.claude/agents/` → tous projets
+
+## Vault
+
+[[agents-orchestration]], [[context-management]] — isolation, orchestration patterns, worktree usage.

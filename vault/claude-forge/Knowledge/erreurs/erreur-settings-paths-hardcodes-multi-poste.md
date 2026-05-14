@@ -9,7 +9,7 @@ auteur: claude
 contexte: claude-forge poste perso (rapha) — premier usage après pull depuis poste
   pro (raphael.picard_neote)
 cree: 2026-05-08
-derniere-maj: 2026-05-08
+derniere-maj: 2026-05-14
 gravite: importante
 resume: Settings Claude Code synchronisés via git contenaient des paths absolus user-spécifiques.
   Sur un autre poste, hooks Python échouent silencieusement avec No such file or directory.
@@ -71,6 +71,14 @@ MARKER_PATH = os.path.join(PROJECT_ROOT, ".claude", ".session-vault-queried")
 2. **Désactiver App Execution Aliases** dans Settings Windows → off pour `python.exe` et `python3.exe` (sinon le stub Store intercepte)
 3. **Redémarrer Claude Code** — sinon le PATH du process reste figé d'avant l'install
 4. Sed-replace `<old_user>` → `<new_user>` dans `.claude/settings*.json` ET `.claude/hooks/*.py`
+
+## Recidive 2026-05-14
+
+Meme erreur recue 6 jours plus tard. Les 13 hooks Python dans settings.json pointaient encore vers `/c/Users/raphael.picard_neote/.../python.exe`. Le fix du 8 mai n'avait pas ete applique a tous les hooks (seuls quelques-uns avaient ete corriges).
+
+**Fix applique** : `replace_all` de `\"/c/Users/raphael.picard_neote/.../python.exe\" ` par `python ` dans settings.json. 13 occurrences corrigees d'un coup. Les scripts utilisent deja `$(git rev-parse --show-toplevel)` pour le chemin du script — seul le path Python etait hardcode.
+
+**Lecon** : un fix partiel = pas de fix. Toujours verifier TOUTES les occurrences d'un pattern, pas juste celle qui a cause l'erreur visible.
 
 ## Liens
 

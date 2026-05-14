@@ -14,9 +14,11 @@ aliases:
   - "v2.1.132"
   - "v2.1.133"
   - "v2.1.136"
+  - "v2.1.139"
+  - "v2.1.140"
 domaine: claude-code
 type: changelog
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-14
 auteur: claude
 sources:
   - "https://www.anthropic.com/news"
@@ -99,6 +101,19 @@ tags:
 - `autoMode.hard_deny` (liste noire auto mode)
 - @file picker >100, WSL2 image paste, plan mode fix
 - Fix MCP après `/clear`, OAuth refresh fix
+
+### v2.1.139 (~11 mai)
+
+- **`/goal` command** — condition de completion, Claude travaille de facon autonome jusqu'a l'atteindre. Mode interactif, `-p`, et Remote Control
+- **Agent View** (`claude agents`) — dashboard unique pour toutes les sessions (en cours, bloquees, terminees)
+
+### v2.1.140 (~12-13 mai)
+
+- `command-hook args` — passage d'arguments aux hooks de type command
+- `PostToolUse continueOnBlock` — option pour continuer malgre un hook bloquant
+- `CLAUDE_PROJECT_DIR` pour MCP stdio servers et plugin commands
+- `subagent_type` sur agent hook input — identifier le type d'agent dans les hooks
+- Fix `ConfigChange` hooks et hierarchie `disableAllHooks`/`allowManagedHooksOnly`
 
 ## Liens
 

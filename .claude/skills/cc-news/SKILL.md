@@ -1,6 +1,6 @@
 ---
 name: cc-news
-description: Use this skill when the user asks about recent Claude Code updates, new features, AI industry news, or when any information might be outdated. Use PROACTIVELY when the user asks "quoi de neuf", "est-ce que X existe maintenant", or when knowledge seems stale. Date de reference : 10 mai 2026 (v2.1.138).
+description: Use this skill when the user asks about recent Claude Code updates, new features, AI industry news, or when any information might be outdated. Use PROACTIVELY when the user asks "quoi de neuf", "est-ce que X existe maintenant", or when knowledge seems stale. Date de reference : 14 mai 2026 (v2.1.140).
 user-invokable: true
 allowed-tools: WebSearch, WebFetch, Read, Write, Agent
 argument-hint: "domaine ou sujet (ex: rag, agents, fine-tuning, concurrents, claude-code, prompt, tout)"
@@ -8,7 +8,7 @@ argument-hint: "domaine ou sujet (ex: rag, agents, fine-tuning, concurrents, cla
 
 # cc-news — Veille IA & Claude Code
 
-Date de référence : **10 mai 2026** (v2.1.138)
+Date de référence : **14 mai 2026** (v2.1.140)
 Tout ce qui est postérieur à cette date doit être recherché.
 
 ## Tier 0 — Vérifier EN PREMIER (toujours, avant tout routage)
@@ -110,7 +110,7 @@ Synthétiser avec le format de references/format-reponse.md.
 
 ## Capitalisation vault (étape 7)
 
-- Nouvelle version CC → `01-Claude-Code/changelog/CC vX.Y.Z.md`
+- Nouvelle version CC → `01-Claude/Code/changelog/CC vX.Y.Z.md`
 - Nouveau modèle → `03-Modeles/<provider>/<nom>.md`
 - Feature concurrent → mettre à jour `02-Concurrents/<produit>/`
 - Nouvelle technique → `04-Techniques/<sous-dossier>/`

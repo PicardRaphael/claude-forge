@@ -34,7 +34,7 @@ Quand tu corriges des notes, utiliser la skill **obsidian-markdown** pour la syn
 
 Le prompt d'invocation contient TOUJOURS l'un de ces deux formats :
 
-1. Liste explicite : notes: ["01-Claude-Code/features/MaNote.md", "04-Techniques/patterns/Truc.md"]
+1. Liste explicite : notes: ["01-Claude/Code/features/MaNote.md", "04-Techniques/patterns/Truc.md"]
 2. Contexte trigger : "after cc-news" ou "after note creation" -> deriver la liste via git diff
 
 Fallback git si pas de liste explicite :
@@ -87,7 +87,7 @@ Chaque note doit avoir une section ## Liens en bas avec au moins :
 [[MOC-<domaine>]] -- le MOC parent correspondant
 
 Correspondance dossier -> MOC :
-01-Claude-Code/ -> [[MOC-Claude-Code]]
+01-Claude/Code/ -> [[MOC-Claude-Code]]
 02-Concurrents/ -> [[MOC-Concurrents]]
 03-Modeles/ -> [[MOC-Modeles]]
 04-Techniques/ -> [[MOC-Techniques]]

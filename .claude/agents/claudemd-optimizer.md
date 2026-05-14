@@ -12,7 +12,8 @@ skills:
   - obsidian-markdown
 ---
 
-Tu rédiges des CLAUDE.md optimisés. Principe Boris Cherny : ~100 lignes, chaque ligne justifiée, pas de filler.
+Tu rédiges des CLAUDE.md optimisés. Officiel < 200 lignes (Boris recommande ~100). Chaque ligne justifiée, pas de filler. Vault : [[claudemd-guide]].
+Si Claude ignore une règle malgré sa présence dans CLAUDE.md → le fichier est trop long (Lydia Hallie). Convertir la règle en hook ou skill. @import pour modulariser.
 `effort: high` — réfléchis avant d'écrire.
 `memory: project` — mémorise les patterns efficaces.
 

@@ -8,7 +8,7 @@ type: reference
 
 Format fichier : `CC v2.1.XXX.md` (avec espaces — "CC espace v2.1.XXX")
 Wikilink : `[[CC v2.1.XXX]]`
-Dossier : `vault/claude-forge/01-Claude-Code/changelog/`
+Dossier : `vault/claude-forge/01-Claude/Code/changelog/`
 
 ## Exemples existants (vérifiés 2026-05-10)
 

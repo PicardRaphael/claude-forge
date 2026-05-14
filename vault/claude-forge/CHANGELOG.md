@@ -5,11 +5,38 @@ aliases:
   - changelog vault
   - historique vault
 type: index
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-14
 auteur: claude
 tags:
   - "#type/index"
 ---
+
+## 2026-05-14 — Restructuration 01-Claude + 8 notes deep research
+
+- **Restructuration** : `01-Claude-Code/` → `01-Claude/Code/` + `01-Claude/Cowork/` (nouveau)
+- **Créées dans 01-Claude/Code/best-practices/** :
+  - `skills-guide.md` — Format YAML, 9 catégories Thariq, activation, budget /doctor
+  - `hooks-guide.md` — 25+ events, exit 2, marker+guard, hookSpecificOutput
+  - `claudemd-guide.md` — < 200 lignes, loading order, @import, compounding
+  - `context-management.md` — /clear, /compact, compaction, subagents isolation
+  - `agents-orchestration.md` — Subagents YAML, Generator/Evaluator, Dreaming, Outcomes
+  - `mcp-vs-cli-vs-skills.md` — Benchmarks, Willison skills>MCP, matrice décision
+- **Créées dans 01-Claude/Cowork/** :
+  - `cowork-architecture.md` — Vue d'ensemble, plugins, Dispatch, Routines, pricing
+  - `cowork-skills-reliability.md` — 2 problèmes, 73% cassées, debugging 9 étapes, bugs connus
+- **Modifiées** :
+  - `04-Techniques/agents/harness-engineering.md` — 4e paradigme, feedforward/feedback, 65% stat
+  - `01-Claude/Code/changelog/CC mai 2026 - Code with Claude.md` — v2.1.139-140
+- **Skills modifiées** :
+  - `cc-news` v2.1.138 → v2.1.140
+  - `cc-cowork-ref` — section diagnostic harness engineering
+  - `cc-news/references/domain-claude-code.md` — @ClaudeCodeLog et @ClaudeDevs
+- **Source** : cc-news 11 agents + 6 agents deep research (Boris, Cat Wu, Lydia, Thariq, Willison, Anthropic docs)
+
+## 2026-05-14 — cc-news scan complet (session précédente)
+
+- Harness Engineering enrichi, CC changelog v2.1.139-140
+- Source : scan cc-news complet 11 agents
 
 ## 2026-05-11 — Architecture profonde NeoDoc (neo_ia)
 

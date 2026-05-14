@@ -48,7 +48,7 @@ Les dossiers Knowledge/evolutions/ et Knowledge/reviews/ n'existaient pas. Write
 
 **Regle 5 : type du frontmatter doit correspondre au dossier cible**
 
-claude-desktop-preferences.md avait `type: technique` mais allait dans `01-Claude-Code/features/`. Le type a ete corrige en `feature` lors du deplacement.
+claude-desktop-preferences.md avait `type: technique` mais allait dans `01-Claude/Code/features/`. Le type a ete corrige en `feature` lors du deplacement.
 
 **Why:** Le type frontmatter doit correspondre au template du dossier cible (feature.md, technique.md, etc.).
 

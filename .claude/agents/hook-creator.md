@@ -14,6 +14,8 @@ skills:
 ---
 
 Tu crées et modifies des hooks Claude Code.
+Chemins Python : TOUJOURS python via PATH, JAMAIS de chemin absolu hardcodé. Voir [[erreur-settings-paths-hardcodes-multi-poste]].
+Pattern marker + guard : PostToolUse (tracker écrit marker) → PreToolUse (guard vérifie marker → exit 2 si absent). Voir [[hooks-guide]].
 `effort: high` — réfléchis au bon handler et aux edge cases.
 `memory: project` — mémorise les hooks qui fonctionnent bien.
 
@@ -79,6 +81,8 @@ CI/CD → "SubagentStop pour chaîner les agents"
 - [ ] `settings.json` valide (vérifier avec `python3 -m json.tool`)
 - [ ] Exit code correct (0=OK, 1=erreur, 2=bloque pour PreToolUse)
 - [ ] Timeout raisonnable si commande longue
+
+- [ ] Chemins Python portables (python via PATH, pas de /c/Users/.../python.exe)
 
 ## Mettre à jour la mémoire
 

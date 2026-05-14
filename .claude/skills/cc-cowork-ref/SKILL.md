@@ -6,7 +6,7 @@ user-invokable: false
 
 # Reference — Claude Cowork, Dispatch & Agent Teams
 
-_Mise a jour : 8 avril 2026_
+_Mise a jour : 14 mai 2026_
 
 ## Claude Cowork
 
@@ -244,6 +244,42 @@ Sources : [ou chercher l'info]
 Format : [comment presenter le resultat]
 Destination : [ou sauvegarder / envoyer]
 ```
+
+## Diagnostic : Skill ne suit pas les instructions
+
+Quand une skill Cowork ne fait pas ce qu'on lui demande, c'est presque toujours un probleme de **harness**, pas de modele. 65% des echecs d'agents tracent a des defauts de harness (Martin Fowler, mai 2026).
+
+### Feedforward controls (guides AVANT action) — les plus efficaces
+
+| Control | Exemple |
+|---------|---------|
+| Contraintes explicites | "TOUJOURS X", "JAMAIS Y" -- pas "essaie de" ou "idealement" |
+| Gotchas section | Mettre les pieges specifiques -- highest-signal content |
+| Format de sortie prescrit | "Resume en 3 bullets max avec source URL" pas "fais un resume" |
+| Scope unique | 1 skill = 1 responsabilite. Si > 3 responsabilites -> decouper |
+| SKILL.md < 500 lignes | Au-dela, le modele perd le fil -- deporter dans references/ |
+
+### Feedback controls (sensors APRES action) — pour corriger les derives
+
+- Instructions de verification DANS la skill : "Avant de repondre, verifie que X, Y, Z"
+- Pattern "Give Claude a way to verify its output" (Boris Cherny tip #1)
+- Hooks PostToolUse pour valider les outputs si critique
+
+### Checklist diagnostic rapide
+
+- SKILL.md < 500 lignes ?
+- Instructions = contraintes ("TOUJOURS/JAMAIS") et non suggestions ("essaie de") ?
+- Gotchas section presente avec pieges specifiques ?
+- Scope unique et clair (pas 5 responsabilites) ?
+- Format de sortie explicite ?
+- Verification integree ("Avant de livrer, verifie que...") ?
+- Si Cowork scope : skill dans ~/.claude/skills/ ou plugin (PAS .claude/skills/) ?
+
+### Le paradigme Harness Engineering
+
+Prompt Engineering (2022-24) -> Context Engineering (2025) -> Harness Engineering (2026). "Anytime an agent makes a mistake, engineer a solution so it never makes that mistake again."
+
+---
 
 ## Gotchas
 

@@ -174,7 +174,7 @@ Mode : Optimisation | Création
 
 ### Configuration, commandes & plugins
 Consulter le vault pour les tables de référence complètes :
-`vault/claude-forge/01-Claude-Code/best-practices/setup-project-complet.md`
+`vault/claude-forge/01-Claude/Code/best-practices/setup-project-complet.md`
 
 Recommander pour CE projet uniquement :
 
