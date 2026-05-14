@@ -11,6 +11,7 @@ _CLAUDE_DIR = os.path.dirname(_HOOK_DIR)
 
 for marker_name in [
     os.path.join(tempfile.gettempdir(), "claude-forge-learning-reminded"),
+    os.path.join(tempfile.gettempdir(), "claude-forge-proactivity-reminded"),
     os.path.join(_CLAUDE_DIR, ".devil-advocate-done"),
     os.path.join(_CLAUDE_DIR, ".devil-advocate-needed"),
     os.path.join(_CLAUDE_DIR, ".session-vault-queried"),
