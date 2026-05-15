@@ -1,6 +1,6 @@
 ---
 name: reasoning-cache
-description: Captures a successful multi-step reasoning chain as a vault note for future reuse. Use PROACTIVELY after solving a complex problem where the path reversed direction at least once, or where a non-obvious approach was chosen over an obvious one.
+description: Captures a successful multi-step reasoning chain as a vault note for future reuse. Use PROACTIVELY after solving a complex problem where the path reversed direction at least once, or where a non-obvious approach was chosen over an obvious one. ALWAYS invoke when the user says save this reasoning, cache this, or after a multi-step debug that changed direction.
 argument-hint: "[problem description] [-- steps]"
 allowed-tools: Bash, Read, Write, Glob
 user-invokable: true

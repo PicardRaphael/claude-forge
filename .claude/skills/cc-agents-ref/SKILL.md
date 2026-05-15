@@ -1,6 +1,6 @@
 ---
 name: cc-agents-ref
-description: Référence complète du format YAML des subagents Claude Code — tous les champs frontmatter, tools, hooks inline, memory, isolation, maxTurns, effort, background. Charger quand on crée ou modifie un agent.
+description: ALWAYS load this reference when creating or modifying a Claude Code subagent. Covers all YAML frontmatter fields: tools, hooks inline, memory, isolation, maxTurns, effort, background. Do NOT create agents without loading this first.
 user-invokable: false
 derniere-maj: 2026-05-14
 ---

@@ -1,6 +1,6 @@
 ---
 name: cc-features-ref
-description: Référence de toutes les fonctionnalités Claude Code 2026 — /loop, /schedule, /batch, /simplify, /voice, /teleport, worktrees, effort levels, Auto Memory, plugins, LSPs, Agent Teams, flags CLI. Charger quand l'utilisateur demande les nouveautés ou veut savoir ce qui existe.
+description: ALWAYS load when the user asks about Claude Code features, capabilities, or what exists. Covers all 2026 features: /loop, /schedule, /batch, /simplify, /voice, /teleport, worktrees, effort levels, Auto Memory, plugins, LSPs, Agent Teams, CLI flags. Do NOT use cc-news for feature reference — use this.
 user-invokable: false
 ---
 

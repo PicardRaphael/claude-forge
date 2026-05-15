@@ -1,6 +1,6 @@
 ---
 name: forge-brain
-description: Search, read, and write to the forge-brain Obsidian vault — persistent infinite memory for AI tools, techniques, prompts, industry news, mistakes, and everything learned. Use PROACTIVELY at session start, before creating any skill/agent/hook/prompt, before answering technical questions, after cc-news, and after significant mistakes.
+description: Search, read, and write to the forge-brain Obsidian vault — persistent infinite memory for AI tools, techniques, prompts, industry news, mistakes, and everything learned. Use PROACTIVELY at session start, before creating any skill/agent/hook/prompt, before answering technical questions, after cc-news, and after significant mistakes. ALWAYS invoke when the user asks about vault content, past decisions, or knowledge base.
 ---
 
 # Forge Brain

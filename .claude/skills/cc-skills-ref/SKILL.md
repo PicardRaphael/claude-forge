@@ -1,6 +1,6 @@
 ---
 name: cc-skills-ref
-description: Référence complète du format YAML des skills Claude Code — champs frontmatter, $ARGUMENTS, !backtick, context fork, paths, 9 catégories Thariq, 9 principes, skills builtin. Charger quand on crée ou modifie une skill.
+description: ALWAYS load this reference when creating or modifying a Claude Code skill. Covers YAML frontmatter, $ARGUMENTS, !backtick, context fork, paths, 9 Thariq categories, 9 principles, builtin skills. Do NOT create skills without loading this first.
 user-invokable: false
 ---
 

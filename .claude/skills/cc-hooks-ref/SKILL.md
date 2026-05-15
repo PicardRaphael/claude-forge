@@ -1,6 +1,6 @@
 ---
 name: cc-hooks-ref
-description: Référence complète des hooks Claude Code — 25+ événements, 5 types de handlers, hookSpecificOutput, asyncRewake, format settings.json, scripts Python, blocage exit 2, hooks inline. Charger quand on crée ou modifie un hook.
+description: ALWAYS load this reference when creating or modifying a Claude Code hook. Covers 25+ events, 5 handler types, hookSpecificOutput, asyncRewake, settings.json format, Python scripts, exit 2 blocking, inline hooks. Do NOT create hooks without loading this first.
 user-invokable: false
 ---
 
