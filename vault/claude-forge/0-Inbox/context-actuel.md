@@ -4,48 +4,42 @@ resume: Working memory dynamique — mis à jour par /done, lu par /recap
 aliases: [context actuel, contexte courant, working memory, mémoire de travail, état actuel]
 type: context
 status: active
-derniere-maj: 2026-05-14
+derniere-maj: 2026-05-15
 auteur: claude
 tags: ["#type/context", "#meta/working-memory"]
 ---
 
 ## Phase actuelle
 
-Session marathon de renforcement forge — cc-news, deep research, restructuration vault, mise à jour complète des agents/skills/hooks.
+Vault forge-brain nettoyé et skills fiabilisées. Prêt pour du travail produit ou de nouvelles explorations.
 
-## Dernière session (2026-05-14)
+## Dernière session (2026-05-15)
 
 ### Décisions prises
-- Vault restructuré : `01-Claude/Code/` + `01-Claude/Cowork/`
-- 8 notes best-practices créées (skills-guide, hooks-guide, claudemd-guide, context-management, agents-orchestration, mcp-vs-cli-vs-skills, cowork-architecture, cowork-skills-reliability)
-- 4 agents specialists enrichis (Ashby, Generator/Evaluator, PATH portable, descriptions directives)
-- 3 reference skills mises à jour (cc-skills-ref, cc-agents-ref, cc-hooks-ref)
-- 5 hooks créés/modifiés (skill-activation, vault-write-tracker, proactivity-reminder, apply-edit, hooks Python PATH fix)
-- Skill `/expand` créée
-- cc-news : v2.1.140, date de référence 14 mai 2026
+- Vault audit complet : 231→251 notes, 100% grade A (98.9/100)
+- 37 wikilinks à chemin normalisés (path/note → note)
+- 20 notes vault créées (4 leaders, 4 features CC, 6 techniques, 3 _index, 2 ref/industrie, 1 erreur)
+- cowork-skills-reliability.md réalisé : 8 descriptions directives, .skill-triggers.json 7→24
+- Bug fixes audit.py (inline arrays YAML, resume list crash) et fix.py (normalisation wikilinks auto)
 
 ### En cours
-- **Demain : debug skill Cowork** qui ne suit pas les instructions — checklist 9 étapes dans `cowork-skills-reliability.md`
-- Nouveau hook `skill-activation.py` à tester en conditions réelles
+- Rien en cours — session clôturée proprement.
 
 ### Prochaines étapes
-1. `/recap` + `/vault-audit` rapide pour vérifier cohérence post-restructuration
-2. Debug skill Cowork avec la checklist harness engineering
-3. Fusionner `claudemd-maintenance.md` dans `claudemd-guide.md` (DA bloquant)
-4. Mettre à jour `MOC-Claude-Code.md` avec les 8 nouvelles notes
-5. Renommer `0-Inbox`, `1-Projets`, `2-Casquettes` en format `0X-` (session dédiée)
+1. Fusionner `claudemd-maintenance.md` dans `claudemd-guide.md` (DA bloquant identifié session 2026-05-14)
+2. Renommer `0-Inbox`, `1-Projets`, `2-Casquettes` en format `0X-` (session dédiée)
+3. Tests architecture multi-agents : `0-Inbox/tests-architecture-repos.md`
+4. cc-news post-Google I/O (19-20 mai) — Gemini Omni attendu
+5. Tester skill-activation.py en conditions réelles sur sessions variées
 
 ## Fils ouverts
 - Google I/O le 19-20 mai — Gemini Omni attendu, relancer cc-news après
 - Deprecation Sonnet 4 / Opus 4 le 15 juin — vérifier aucun code ne référence les anciens IDs
-- Notes cc-news non-capitalisées individuellement : xAI→SpaceXAI, Kimi K2.6, Copilot REST API
-- Tester skill-activation.py en conditions réelles (1er fire confirmé cette session ✓)
+- Notes cc-news non-capitalisées : xAI→SpaceXAI, Kimi K2.6, Copilot REST API
 - Forge = PRIVÉ, jamais d'open-source (feedback explicite Raphael)
-- Cowork n'a PAS de hooks — impacte la stratégie debug skill Cowork demain
-- Tests architecture multi-agents : note `0-Inbox/tests-architecture-repos.md` à exécuter
-- Fusionner claudemd-maintenance.md dans claudemd-guide.md
-- Renommer 0-Inbox, 1-Projets, 2-Casquettes en format 0X-
-- MOC-Claude-Code.md à mettre à jour avec les 8 nouvelles notes
+- Cowork n'a PAS de hooks — checklist harness engineering uniquement
+- ~18 red links vault restants (notes à créer au fil de l'eau : Amanda Askell déjà fait, restent Agent Teams features CC etc.)
+- Audit script ne résout pas les aliases Obsidian ([[Cowork]] → cowork-architecture via alias)
 
 ## Liens
 [[Claude-Forge|Claude-Forge]]
