@@ -15,6 +15,7 @@ tags:
   - "#type/reference"
   - "#domaine/claude-code"
   - "#domaine/plugin"
+auteur: claude
 ---
 
 ## Installation

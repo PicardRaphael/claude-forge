@@ -36,5 +36,5 @@ En avril 2026, Anthropic annonce un revenue annualisé de **$30B**, dépassant O
 ## Liens
 
 - [[Sam Altman]]
-- [[Stanford AI Index 2026]]
+- Stanford AI Index 2026
 - [[MOC-Industrie]]

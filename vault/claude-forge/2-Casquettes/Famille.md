@@ -20,7 +20,7 @@ tags:
 
 ## Description
 
-Vie familiale de [[2-Casquettes/Raphael-Picard|Raphael]]. En couple avec Jennifer Français, père de Rose et Louis.
+Vie familiale de [[Raphael-Picard|Raphael]]. En couple avec Jennifer Français, père de Rose et Louis.
 
 ## Membres
 
@@ -34,4 +34,4 @@ Maison à Marchampt (69430, Beaujolais) depuis ~4 ans. Avant : Fontaines-sur-Sa�
 
 ## Liens
 
-- [[2-Casquettes/Raphael-Picard|Raphael Picard]]
+- [[Raphael-Picard|Raphael Picard]]

@@ -18,7 +18,7 @@ tags:
 
 ## Description
 
-Framework personnel de productivité pour Claude Code, créé par [[2-Casquettes/Raphael-Picard|Raphael]]. Kit d'outillage sur-mesure qui génère dynamiquement des Skills, Rules, Hooks et Agents adaptés à n'importe quelle stack. Base de TOUS les projets Neoteem.
+Framework personnel de productivité pour Claude Code, créé par [[Raphael-Picard|Raphael]]. Kit d'outillage sur-mesure qui génère dynamiquement des Skills, Rules, Hooks et Agents adaptés à n'importe quelle stack. Base de TOUS les projets Neoteem.
 
 ## Pourquoi ce projet
 
@@ -42,5 +42,5 @@ Transformer Claude Code d'un outil de coding en un **partenaire** (contrat Jarvi
 
 ## Liens
 
-- [[2-Casquettes/Raphael-Picard|Raphael Picard]]
-- [[1-Projets/Neoteem/Neoteem|Neoteem]]
+- [[Raphael-Picard|Raphael Picard]]
+- [[Neoteem|Neoteem]]

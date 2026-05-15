@@ -119,6 +119,13 @@ def parse_frontmatter(content: str) -> tuple[dict, str]:
                 current_list = []
                 fm[key] = current_list
                 current_key = key
+            elif val.startswith("[") and val.endswith("]"):
+                # Inline YAML array: [a, b, c]
+                inner = val[1:-1]
+                items = [v.strip().strip('"').strip("'") for v in inner.split(",") if v.strip()]
+                fm[key] = items
+                current_key = key
+                current_list = None
             else:
                 fm[key] = val
                 current_key = key
@@ -158,8 +165,14 @@ def score_note(path: Path, vault_root: Path, all_note_names: set) -> dict:
         partial_scores["aliases_4plus"] = WEIGHTS["aliases_4plus"]
 
     # --- 3. Resume informative (10 pts) ---
-    resume = fm.get("resume", "").strip()
-    titre = fm.get("titre", "").strip()
+    resume = fm.get("resume", "")
+    if isinstance(resume, list):
+        resume = " ".join(str(r) for r in resume)
+    resume = str(resume).strip()
+    titre = fm.get("titre", "")
+    if isinstance(titre, list):
+        titre = " ".join(str(t) for t in titre)
+    titre = str(titre).strip()
     if not resume:
         issues.append("Resume vide")
         partial_scores["resume_informative"] = 0

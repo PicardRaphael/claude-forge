@@ -52,4 +52,4 @@ Use when the user greets, asks about their agenda, prepares for a meeting, repli
 ## Liens
 
 - [[erreur-edit-direct-skills]]
-- [[Best practices Boris Thariq]]
+- [[best-practices-claude-code-leaders|Best practices Boris Thariq]]

@@ -20,7 +20,7 @@ tags:
 
 ## Description
 
-Monorepo LLM assistants B2B de [[1-Projets/Neoteem/Neoteem|Neoteem]]. 3 apps : NeoChat (agents ReAct), NeoDoc (RAG Vertex AI Search), NeoMail (classification + draft). Projet principal de Raphael.
+Monorepo LLM assistants B2B de [[Neoteem|Neoteem]]. 3 apps : NeoChat (agents ReAct), NeoDoc (RAG Vertex AI Search), NeoMail (classification + draft). Projet principal de Raphael.
 
 ## Stack
 
@@ -43,8 +43,8 @@ Monorepo LLM assistants B2B de [[1-Projets/Neoteem/Neoteem|Neoteem]]. 3 apps : N
 
 ## Liens
 
-- [[1-Projets/Neoteem/Neoteem|Neoteem]]
-- [[1-Projets/Neoteem/ia_back/ia_back|ia_back]]
+- [[Neoteem|Neoteem]]
+- [[ia_back|ia_back]]
 
 
 ## Architecture détaillée par app

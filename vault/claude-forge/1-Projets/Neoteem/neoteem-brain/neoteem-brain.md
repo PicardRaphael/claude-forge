@@ -19,7 +19,7 @@ tags:
 
 ## Description
 
-Vault Obsidian de [[1-Projets/Neoteem/Neoteem|Neoteem]]. 682+ notes, 2245+ wikilinks. Base de connaissances métier centralisée (Confluence, Jira, code, fonctions PG).
+Vault Obsidian de [[Neoteem|Neoteem]]. 682+ notes, 2245+ wikilinks. Base de connaissances métier centralisée (Confluence, Jira, code, fonctions PG).
 
 ## Domaines métier
 
@@ -48,7 +48,7 @@ Syndic de copropriété, gérance locative, comptabilité immobilière.
 
 ## Liens
 
-- [[1-Projets/Neoteem/Neoteem|Neoteem]]
-- [[1-Projets/Claude-Forge/Claude-Forge|Claude-Forge]]
+- [[Neoteem|Neoteem]]
+- [[Claude-Forge|Claude-Forge]]
 - [[neoteem-brain-plugins]] — Architecture 5 plugins Cowork role-based
 - [[mcp-obsidian-brain-v2]] — MCP SQLite FTS5, remplace CLI Obsidian

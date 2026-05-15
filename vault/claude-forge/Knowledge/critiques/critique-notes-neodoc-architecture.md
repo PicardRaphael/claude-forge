@@ -12,6 +12,7 @@ aliases:
 tags:
   - "#type/knowledge"
   - "#domaine/neoteem"
+resume: "Critique DA des 3 notes architecture NeoDoc — research agent, ingestion pipeline, architecture. Objections et recommandations sur la documentation vault."
 ---
 
 ## Verdict : LIVRER TEL QUEL

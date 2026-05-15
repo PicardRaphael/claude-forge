@@ -15,6 +15,7 @@ tags:
   - "#type/technique"
   - "#domaine/workflow"
   - "#domaine/framework"
+auteur: claude
 ---
 
 ## Vue d'ensemble
@@ -61,6 +62,7 @@ Fichier `.specify/memory/constitution.md` = règles non-négociables vérifiées
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[pattern-spec-driven-development]] — Pattern SDD complet
 - [[pattern-gsd-framework]] — Framework concurrent (GSD)
 - [[over-specification-paradox]] — Risque de sur-spécification

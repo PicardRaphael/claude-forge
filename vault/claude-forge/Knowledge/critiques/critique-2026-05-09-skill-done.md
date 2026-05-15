@@ -4,9 +4,15 @@ type: knowledge
 domaine: claude-code
 derniere-maj: 2026-05-09
 auteur: claude
-resume: ""
-aliases: []
-tags: []
+resume: "Critique DA skill /done — 3 bloquants (frontmatter agent sur skill, path fragile, doublon /recap), BLOQUER"
+aliases:
+  - "critique skill done"
+  - "DA skill done"
+  - "critique done metacognition"
+  - "devil advocate done"
+tags:
+  - "#type/knowledge"
+  - "#domaine/claude-code"
 ---
 
 # Critique adversariale — Skill `/done`

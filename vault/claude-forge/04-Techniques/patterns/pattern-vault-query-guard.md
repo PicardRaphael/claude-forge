@@ -14,7 +14,7 @@ derniere-maj: 2026-05-10
 auteur: claude
 sources:
   - "[[erreur-skip-checklist-skill-modification]]"
-  - "[[Best practices Boris Thariq]]"
+  - "[[best-practices-claude-code-leaders|Best practices Boris Thariq]]"
 tags:
   - "#type/technique"
   - "#domaine/claude-code"

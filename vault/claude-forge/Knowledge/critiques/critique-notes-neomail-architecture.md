@@ -11,6 +11,7 @@ aliases:
 tags:
   - "#type/knowledge"
   - "#domaine/neoteem"
+resume: "Critique DA des 2 notes architecture NeoMail — webhook pipeline et architecture. Objections et recommandations sur la documentation vault."
 ---
 
 ## Verdict : LIVRER TEL QUEL

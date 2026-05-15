@@ -43,20 +43,20 @@ tags:
 5. Freelance (2022-2025) — Royal Canin/Ekino (e-commerce +100 pays), portfolio perso
 6. Lead IA Neoteem (nov. 2025-maintenant) — CDI remote
 7. Certifié Anthropic, Google, HuggingFace
-8. Créateur de [[1-Projets/Claude-Forge/Claude-Forge|Claude-Forge]]
+8. Créateur de [[Claude-Forge|Claude-Forge]]
 
 ## Casquettes
 
-### Lead IA @ [[1-Projets/Neoteem/Neoteem|Neoteem]]
+### Lead IA @ [[Neoteem|Neoteem]]
 Responsable choix architecturaux IA, architecture neuro-symbolique, RAG, agents autonomes. Pilote le pôle IA, acculture les équipes.
 
-### [[2-Casquettes/Famille|Famille]]
+### [[Famille|Famille]]
 Jennifer, Rose (3 ans), Louis (18 mois). Vie en maison à Marchampt.
 
-### [[2-Casquettes/Gaming|Gaming]]
+### [[Gaming|Gaming]]
 Passionné jeux vidéo depuis toujours. Diablo 4, PoE2. Ancien esportif et streamer.
 
-### [[1-Projets/Expertise-IA/Expertise-IA|Expertise IA]]
+### [[Expertise-IA|Expertise IA]]
 Focus 100% IA. Maîtrise agents/RAG/Claude Code. Veut apprendre fine-tuning et IA locale.
 
 ## Vision (6 mois — fin 2026)

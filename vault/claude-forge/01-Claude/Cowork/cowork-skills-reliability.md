@@ -91,7 +91,19 @@ Formule : `ALWAYS invoke when [trigger]. DO NOT [action concurrente] without inv
 
 Plus serre que CC pur. Plugins et MCP tools en competition pour le contexte. Si Claude agit comme s'il oublie une skill → saturation de budget, pas un bug du modele.
 
-## Pattern Skill Activation Hook (forge ne l'a pas encore)
+## IMPORTANT : Cowork n'a PAS de hooks
+
+Contrairement a Claude Code, **Cowork ne supporte pas les hooks** (PreToolUse, PostToolUse, etc.). Les patterns d'enforcement deterministe (exit 2, marker+guard) ne fonctionnent PAS dans Cowork.
+
+Consequence : pour fiabiliser une skill Cowork, on ne peut compter que sur :
+- La qualite du SKILL.md (description directive, gotchas, contraintes explicites)
+- Les instructions globales Cowork (identity + rules dans les settings Claude Desktop)
+- Le pattern socratique ("Avant de commencer, quelles questions tu as ?")
+- Le scope des skills : `~/.claude/skills/` ou plugin (PAS `.claude/skills/`)
+
+Le Skill Activation Hook (ci-dessous) fonctionne dans Claude Code mais PAS dans Cowork.
+
+## Pattern Skill Activation Hook (Claude Code uniquement)
 
 Un hook `UserPromptSubmit` qui intercepte les prompts et ajoute des recommandations de skills avant que Claude ne les voie. Claude ne peut pas oublier car il n'a jamais eu a se souvenir.
 

@@ -62,5 +62,5 @@ Le plugin brut est redondant a 80% avec l'existant. Les 2 rules ciblees comblent
 
 - [[MOC-Techniques]]
 - [[Andrej Karpathy]]
-- [[Amanda Askell — Prompt Engineering & Custom Instructions]]
+- [[Amanda Askell|Amanda Askell — Prompt Engineering & Custom Instructions]]
 - [[LLM Wiki]]

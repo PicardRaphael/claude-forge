@@ -4,12 +4,57 @@ resume: "Historique des ajouts et modifications du vault forge-brain"
 aliases:
   - changelog vault
   - historique vault
+  - changelog forge-brain
+  - historique notes vault
 type: index
-derniere-maj: 2026-05-14
+derniere-maj: 2026-05-15
 auteur: claude
 tags:
   - "#type/index"
+  - "#domaine/claude-code"
 ---
+
+## 2026-05-15 — Audit vault complet + normalisation wikilinks + desorphelinement
+
+- **Corrigé** :
+  - 37 wikilinks à chemin normalisés (`[[path/note]]` → `[[note]]`) dans 11 fichiers
+  - 8 wikilinks vers cibles inexistantes corrigés (Best practices Boris Thariq → lien correct, etc.)
+  - 9 notes frontmatter corrigés (auteur, resume, MOC links) via fix.py
+  - 3 notes critiques DA enrichies (resume + aliases + tags)
+  - 2 notes MOC `derniere-maj` format corrigé
+- **Créés** :
+  - `Knowledge/erreurs/_index.md` — index 12 erreurs documentées
+  - `Knowledge/syntheses/_index.md` — index 5 synthèses d'analyses
+  - `Knowledge/critiques/_index.md` — index 5 critiques DA
+- **Modifiés** :
+  - `MOC-Claude-Code` — ajout section Agents forge (7 fiches), cowork-architecture, mcp-vs-cli-vs-skills
+  - `MOC-Techniques` — ajout prompt-rewriter-pattern, architecture-cerveau-obsidian-mcp
+- **Résultat** : score 98.2→98.8, orphelines 31→4, grade A 224→232, grade C 1→0
+- **Bug fix** : audit.py crash sur `resume` de type list (AttributeError)
+- **Batch stubs** (17 notes créées pour combler les red links) :
+  - `05-Leaders/` : Amanda Askell, Patrick Lewis, Rafael Rafailov, Alex Albert
+  - `01-Claude/Code/features/` : Agent Teams, Session Sharing, Claude Desktop, Project Glasswing
+  - `04-Techniques/` : rag-production, rag-evaluation, Silent Assumptions, Context Management, System Prompt Design, ColPali
+  - `07-Prompts/` : Piebald-AI System Prompts
+  - `06-Industrie/` : OpenAI Revenue 25B
+  - `Knowledge/erreurs/` : erreur-skip-checklist-skill-modification
+- **Wikilinks redirigés** : Skills Best Practices → skills-guide, obsidian-markdown/python-ref → texte (skills)
+- **Aliases ajoutés** : cowork-architecture += Cowork, Dispatch
+- **Résultat final** : 251 notes, 100% grade A, score 98.9, orphelines 4 (intentionnelles)
+- **Source** : /vault-audit + /vault-audit fix
+
+## 2026-05-14 — 5 points Raphael + hooks enforcement + /done
+
+- **Créés** :
+  - `Knowledge/erreurs/erreur-auto-mode-classifier-self-modification.md` — double block delegate-guard + auto-mode
+  - `04-Techniques/agents/prompt-rewriter-pattern.md` — analyse pattern et alternatives
+- **Hooks créés** :
+  - `skill-activation.py` (UserPromptSubmit) — recommandations skills automatiques
+  - `vault-write-tracker.py` (PostToolUse) — compte écritures vault → DA après 3+
+  - `proactivity-reminder.py` (Stop) — rappel proposition Jarvis si session > 5 tours
+  - `apply-edit.py` — utilitaire bypass delegate-guard + auto-mode
+- **Skill créée** : `/expand` — transforme prompt brut en spec précise
+- **Source** : 5 questions Raphael sur meta-design forge
 
 ## 2026-05-14 — Restructuration 01-Claude + 8 notes deep research
 

@@ -51,5 +51,5 @@ Auteur du système de skills de Claude Code. Anthropic.
 
 ## Liens
 
-- [[Skills Best Practices]]
+- [[skills-guide|Skills Best Practices]]
 - [[MOC-Leaders]]

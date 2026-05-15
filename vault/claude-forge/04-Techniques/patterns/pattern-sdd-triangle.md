@@ -15,6 +15,7 @@ tags:
   - "#type/technique"
   - "#domaine/workflow"
   - "#domaine/testing"
+auteur: claude
 ---
 
 ## Le Triangle
@@ -77,6 +78,7 @@ Actuellement au niveau **spec-first** (la spec est écrite avant le dev mais peu
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[pattern-spec-driven-development]] — Pattern SDD complet
 - [[pattern-spec-skill-deployment]] — Déploiement skill /spec
 - [[over-specification-paradox]] — Ne pas sur-spécifier (S*=0.509)

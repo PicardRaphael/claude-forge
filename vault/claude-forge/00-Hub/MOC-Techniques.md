@@ -6,7 +6,7 @@ aliases:
 - patterns Claude Code
 - prompt engineering techniques
 auteur: claude
-derniere-maj: '2026-05-10'
+derniere-maj: 2026-05-15
 resume: 'Index des techniques : prompt engineering, context engineering, patterns,
   anti-patterns'
 tags:
@@ -51,6 +51,8 @@ type: index
 - [[harness-engineering]] — Agent = Modèle + Harness : contraintes déterministes > prompts suggestifs
 - [[mass-multi-agent-system-search]] — DeepMind ICLR 2026 : optimisation conjointe prompts + topologie
 - [[prompt-armor]] — ICLR 2026 : LLM préprocesseur défense injection, taux attaque < 1%
+- [[prompt-rewriter-pattern]] — Pattern prompt rewriter : transformer des prompts vagues en specs précises
+- [[architecture-cerveau-obsidian-mcp]] — Architecture cerveau Obsidian + MCP pour mémoire persistante IA
 
 ## Architecture Hooks
 

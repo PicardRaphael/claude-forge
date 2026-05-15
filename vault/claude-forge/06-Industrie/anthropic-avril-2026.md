@@ -42,6 +42,6 @@ tags:
 
 ## Liens
 
-- [[CC v2.1.119]]
+- CC v2.1.119
 - [[Opus 4.7]]
 - [[MOC-Industrie]]

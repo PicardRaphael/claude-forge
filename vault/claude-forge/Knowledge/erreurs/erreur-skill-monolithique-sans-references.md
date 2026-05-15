@@ -64,5 +64,5 @@ references/
 ## Liens
 
 - [[best-practices-claude-code-leaders]] — Boris/Thariq best practices
-- [[cc-news]] — la skill refactorisée
+- cc-news (skill forge) — la skill refactorisée
 - [[erreur-edit-direct-skills]] — erreur liée (éditer sans spécialiste)

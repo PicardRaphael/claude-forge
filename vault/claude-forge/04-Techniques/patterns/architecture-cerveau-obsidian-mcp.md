@@ -60,7 +60,7 @@ derniere-maj: 2026-05-10
 
 Regles : 1 concept = 1 note, max 5 sections H2, aliases min 4-6 (FR + EN + variantes + domaine), wikilinks min 2.
 
-Voir : [[obsidian-markdown]] pour le format.
+Voir : obsidian-markdown (skill forge) pour le format.
 
 ## Etape 2 — L index SQLite FTS5
 

@@ -499,4 +499,4 @@ tools = [{"type": "mcp", "server": {"url": "..."}}]
 - [[MOC-Fine-Tuning]] — Guide complet fine-tuning
 - [[rag-chunking]], [[rag-embeddings]], [[rag-vector-databases]] — Concepts RAG
 - [[agents-frameworks]] — Comparatif frameworks agents
-- [[python-ref]] — Skill Python best practices
+- python-ref (skill forge) — Skill Python best practices

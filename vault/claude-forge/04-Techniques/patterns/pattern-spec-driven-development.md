@@ -16,6 +16,7 @@ tags:
   - "#type/technique"
   - "#domaine/claude-code"
   - "#domaine/workflow"
+auteur: claude
 ---
 
 ## Principe
@@ -86,6 +87,7 @@ SPEC ↔ TESTS ↔ CODE en feedback loop. La spec n'est pas figée — implémen
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[pattern-architect-first-pipeline]] — Pipeline d'implémentation EN AVAL de la spec
 - [[over-specification-paradox]] — Seuil S*=0.509, ne pas sur-spécifier
 - [[Context Engineering]] — La spec est un artefact de context engineering

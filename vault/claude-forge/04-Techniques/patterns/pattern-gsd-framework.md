@@ -14,6 +14,7 @@ tags:
   - "#type/technique"
   - "#domaine/workflow"
   - "#domaine/framework"
+auteur: claude
 ---
 
 ## Problème résolu
@@ -58,6 +59,7 @@ CONTEXT.md       ← contexte technique consolidé
 
 ## Liens
 
+- [[MOC-Techniques]]
 - [[pattern-spec-driven-development]] — Pattern SDD complet
 - [[pattern-github-spec-kit]] — Framework concurrent (Spec Kit)
 - [[Context Engineering]] — Le contexte frais est du context engineering

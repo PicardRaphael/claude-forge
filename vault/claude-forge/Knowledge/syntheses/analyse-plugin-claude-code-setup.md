@@ -60,5 +60,5 @@ Plugin officiel Anthropic `claude-code-setup` v1.0.0, auteur Isabella He. Contie
 
 ## Liens
 
-- [[Plugin Marketplace]]
-- [[Best practices Boris Thariq]]
+- [[cowork-architecture|Plugin Marketplace]]
+- [[best-practices-claude-code-leaders|Best practices Boris Thariq]]

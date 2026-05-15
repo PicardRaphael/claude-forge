@@ -10,7 +10,7 @@ type: best-practice
 derniere-maj: 2026-04-26
 auteur: claude
 sources:
-  - "[[Best practices Boris Thariq]]"
+  - "[[best-practices-claude-code-leaders|Best practices Boris Thariq]]"
   - "cc-features-ref"
   - "plugin claude-code-setup (Anthropic)"
 tags:
@@ -157,6 +157,6 @@ Install : `/plugin install <nom>@claude-plugins-official`
 ## Liens
 
 - [[MOC-Claude-Code]]
-- [[Plugin Marketplace]]
-- [[Best practices Boris Thariq]]
+- [[cowork-architecture|Plugin Marketplace]]
+- [[best-practices-claude-code-leaders|Best practices Boris Thariq]]
 - [[analyse-plugin-claude-code-setup]]

@@ -18,7 +18,7 @@ tags:
 
 ## Description
 
-Entreprise où [[2-Casquettes/Raphael-Picard|Raphael]] travaille comme Lead Ingénieur IA & Architecte Solutions depuis novembre 2025 (CDI remote).
+Entreprise où [[Raphael-Picard|Raphael]] travaille comme Lead Ingénieur IA & Architecte Solutions depuis novembre 2025 (CDI remote).
 
 ## Responsabilités
 
@@ -30,10 +30,10 @@ Entreprise où [[2-Casquettes/Raphael-Picard|Raphael]] travaille comme Lead Ing�
 
 ## Repos
 
-- **[[1-Projets/Neoteem/ia_back/ia_back|ia_back]]** : backend IA (15 agents, 28 skills, 14 rules, 8 hooks)
-- **[[1-Projets/Neoteem/neo_ia/neo_ia|neo_ia]]** : monorepo Python NeoChat/NeoDoc/NeoMail (11 agents, 27 skills)
-- **[[1-Projets/Neoteem/neoteem-brain/neoteem-brain|neoteem-brain]]** : vault Obsidian métier (682+ notes)
-- **[[1-Projets/Neoteem/bdd/bdd|bdd]]** : repo PG/PL-pgSQL (2779 fichiers)
+- **[[ia_back|ia_back]]** : backend IA (15 agents, 28 skills, 14 rules, 8 hooks)
+- **[[neo_ia|neo_ia]]** : monorepo Python NeoChat/NeoDoc/NeoMail (11 agents, 27 skills)
+- **[[neoteem-brain|neoteem-brain]]** : vault Obsidian métier (682+ notes)
+- **[[bdd|bdd]]** : repo PG/PL-pgSQL (2779 fichiers)
 
 ## Stack
 
@@ -47,5 +47,5 @@ Python (FastAPI), TypeScript, Gemini (Vertex AI), Claude, PostgreSQL, pgvector, 
 
 ## Liens
 
-- [[2-Casquettes/Raphael-Picard|Raphael Picard]]
-- [[1-Projets/Claude-Forge/Claude-Forge|Claude-Forge]]
+- [[Raphael-Picard|Raphael Picard]]
+- [[Claude-Forge|Claude-Forge]]

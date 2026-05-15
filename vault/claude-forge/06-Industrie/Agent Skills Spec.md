@@ -36,5 +36,5 @@ Spécification ouverte pour les skills d'agents IA cross-platform. Initiée via 
 ## Liens
 
 - [[GitHub Copilot]]
-- [[Convergence AI Coding]]
+- Convergence AI Coding
 - [[MOC-Industrie]]

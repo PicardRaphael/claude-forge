@@ -19,7 +19,7 @@ tags:
 
 ## Description
 
-Backend IA de [[1-Projets/Neoteem/Neoteem|Neoteem]]. FastAPI Python, architecture neuro-symbolique, agents autonomes, RAG hybride pgvector+RRF. Scale 1000+ outils.
+Backend IA de [[Neoteem|Neoteem]]. FastAPI Python, architecture neuro-symbolique, agents autonomes, RAG hybride pgvector+RRF. Scale 1000+ outils.
 
 ## Stack
 
@@ -43,5 +43,5 @@ Backend IA de [[1-Projets/Neoteem/Neoteem|Neoteem]]. FastAPI Python, architectur
 
 ## Liens
 
-- [[1-Projets/Neoteem/Neoteem|Neoteem]]
-- [[2-Casquettes/Raphael-Picard|Raphael Picard]]
+- [[Neoteem|Neoteem]]
+- [[Raphael-Picard|Raphael Picard]]

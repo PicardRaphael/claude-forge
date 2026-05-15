@@ -6,7 +6,7 @@ aliases:
 - expert ia
 - vision ia
 auteur: claude
-derniere-maj: '2026-05-10'
+derniere-maj: 2026-05-15
 resume: Projet de positionnement comme expert IA reconnu — fine-tuning, IA locale,
   portfolio
 status: active
@@ -19,7 +19,7 @@ type: context
 ---
 ## Description
 
-Projet de développement d'expertise et de reconnaissance comme référence en IA agentique. Objectif principal de [[2-Casquettes/Raphael-Picard|Raphael]] à 6 mois (fin 2026).
+Projet de développement d'expertise et de reconnaissance comme référence en IA agentique. Objectif principal de [[Raphael-Picard|Raphael]] à 6 mois (fin 2026).
 
 ## Pourquoi ce projet
 
@@ -50,9 +50,9 @@ Parcours atypique (moniteur d'équitation → dev → Lead IA). Prouver qu'on pe
 
 ## Liens
 
-- [[2-Casquettes/Raphael-Picard|Raphael Picard]]
-- [[1-Projets/Claude-Forge/Claude-Forge|Claude-Forge]]
-- [[1-Projets/Neoteem/Neoteem|Neoteem]]
+- [[Raphael-Picard|Raphael Picard]]
+- [[Claude-Forge|Claude-Forge]]
+- [[Neoteem|Neoteem]]
 
 
 ## Recherche Fine-Tuning (mai 2026)

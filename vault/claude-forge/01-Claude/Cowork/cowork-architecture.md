@@ -7,6 +7,8 @@ aliases:
   - "cowork vue d'ensemble"
   - "cowork guide"
   - "cowork plugins architecture"
+  - "Cowork"
+  - "Dispatch"
 domaine: claude-code
 type: technique
 derniere-maj: 2026-05-14

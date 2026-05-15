@@ -21,7 +21,7 @@ tags:
 
 ## Description
 
-Passion principale de [[2-Casquettes/Raphael-Picard|Raphael]] en dehors du travail. Gamer depuis toujours, ancien esportif et streamer.
+Passion principale de [[Raphael-Picard|Raphael]] en dehors du travail. Gamer depuis toujours, ancien esportif et streamer.
 
 ## État actuel
 
@@ -31,4 +31,4 @@ Passion principale de [[2-Casquettes/Raphael-Picard|Raphael]] en dehors du trava
 
 ## Liens
 
-- [[2-Casquettes/Raphael-Picard|Raphael Picard]]
+- [[Raphael-Picard|Raphael Picard]]

@@ -117,7 +117,28 @@ def add_moc_link(body: str, moc_name: str) -> tuple[str, bool]:
     return body, True
 
 
-def fix_note(path: Path, vault_root: Path, dry_run: bool = False) -> dict:
+def normalize_wikilinks(body: str, all_note_names: set, ambiguous_names: set) -> tuple[str, int]:
+    """Replace [[path/to/Note|Display]] with [[Note|Display]] when Note is unambiguous."""
+    pattern = re.compile(r'\[\[([^\]|]+/([^\]|]+))(\|[^\]]+)?\]\]')
+    count = 0
+
+    def replacer(m):
+        nonlocal count
+        full_path = m.group(1)
+        basename = m.group(2)
+        display = m.group(3) or ""
+        if basename in ambiguous_names:
+            return m.group(0)
+        if basename in all_note_names or basename.replace(".md", "") in all_note_names:
+            count += 1
+            return f"[[{basename}{display}]]"
+        return m.group(0)
+
+    new_body = pattern.sub(replacer, body)
+    return new_body, count
+
+
+def fix_note(path: Path, vault_root: Path, dry_run: bool = False, all_note_names: set = None, ambiguous_names: set = None) -> dict:
     """Apply deterministic fixes to a single note. Returns fix report."""
     try:
         content = path.read_text(encoding="utf-8")
@@ -161,7 +182,13 @@ def fix_note(path: Path, vault_root: Path, dry_run: bool = False) -> dict:
         if moc_added:
             fixes.append(f"Lien [[{expected_moc}]] ajouté")
 
-    # 4. Update derniere-maj if it was empty (we just set it)
+    # 4. Normalize path-based wikilinks
+    if all_note_names and ambiguous_names:
+        new_body, wl_count = normalize_wikilinks(new_body, all_note_names, ambiguous_names)
+        if wl_count:
+            fixes.append(f"Wikilinks normalisés : {wl_count} chemins → noms simples")
+
+    # 5. Update derniere-maj if it was empty (we just set it)
     if "derniere-maj" in added_fields:
         today_str = date.today().isoformat()
         new_fm = re.sub(
@@ -209,6 +236,17 @@ def main():
         print(f"ERROR: vault not found at {vault_root}", file=sys.stderr)
         sys.exit(1)
 
+    # Pre-compute all note names and detect ambiguous ones (same stem in multiple folders)
+    from collections import Counter
+    all_notes = [
+        p for p in vault_root.rglob("*.md")
+        if not any(part in SKIP_DIRS for part in p.parts)
+        and p.name not in SKIP_FILES
+    ]
+    stem_counts = Counter(p.stem for p in all_notes)
+    all_note_names = {p.stem for p in all_notes}
+    ambiguous_names = {name for name, cnt in stem_counts.items() if cnt > 1}
+
     if args.note:
         # Fix a single note
         matches = list(vault_root.rglob(f"{args.note}.md"))
@@ -217,17 +255,14 @@ def main():
             sys.exit(1)
         targets = matches[:1]
     else:
-        targets = [
-            p for p in sorted(vault_root.rglob("*.md"))
-            if not any(part in SKIP_DIRS for part in p.parts)
-            and p.name not in SKIP_FILES
-        ]
+        targets = sorted(all_notes)
 
     fixed_count = 0
     skipped_count = 0
 
     for p in targets:
-        result = fix_note(p, vault_root, dry_run=args.dry_run)
+        result = fix_note(p, vault_root, dry_run=args.dry_run,
+                          all_note_names=all_note_names, ambiguous_names=ambiguous_names)
         if result.get("error"):
             print(f"[ERROR] {result['path']} : {result['error']}")
         elif result.get("skipped"):

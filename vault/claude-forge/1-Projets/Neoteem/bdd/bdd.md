@@ -19,11 +19,11 @@ tags:
 
 ## Description
 
-Repo PostgreSQL/PL-pgSQL de [[1-Projets/Neoteem/Neoteem|Neoteem]]. ~65 schémas, 2779 fichiers SQL, ~10 devs.
+Repo PostgreSQL/PL-pgSQL de [[Neoteem|Neoteem]]. ~65 schémas, 2779 fichiers SQL, ~10 devs.
 
 ## Schémas principaux
 
-public, proprietaire, comptabilite, requete, suivicopro, suivilocataire, ag, lettrage, ia. Le schéma `ia` est appelé par [[1-Projets/Neoteem/ia_back/ia_back|ia_back]] — ne jamais casser ses signatures.
+public, proprietaire, comptabilite, requete, suivicopro, suivilocataire, ag, lettrage, ia. Le schéma `ia` est appelé par [[ia_back|ia_back]] — ne jamais casser ses signatures.
 
 ## Composants Claude Code (déployé 2026-04-07)
 
@@ -39,4 +39,4 @@ public, proprietaire, comptabilite, requete, suivicopro, suivilocataire, ag, let
 
 ## Liens
 
-- [[1-Projets/Neoteem/Neoteem|Neoteem]]
+- [[Neoteem|Neoteem]]
