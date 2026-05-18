@@ -7,14 +7,24 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-05-15
+derniere-maj: 2026-05-18
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
 
-<<<<<<< Updated upstream
+## 2026-05-18 — Capitalisation guide officiel Anthropic prompting Opus 4.7
+
+- **Modifiées** :
+  - `03-Modeles/anthropic/Opus 4.7.md` — enrichi : instruction-following littéral, response length adaptative, tool use, subagents, ton, design defaults, code review recall/precision, effort levels, prompts officiels
+  - `04-Techniques/prompt-engineering/Effort Levels Guide.md` — strict respect low/medium, risque under-thinking, 64k tokens, steerability thinking
+  - `04-Techniques/prompt-engineering/Adaptive Thinking.md` — steerability, interleaved thinking, migration extended→adaptive, bonnes pratiques Anthropic
+- **Créées** :
+  - `04-Techniques/prompt-engineering/opus-47-design-defaults.md` — style cream/Georgia/terracotta persistant + 2 contre-mesures + prompt anti-slop allégé
+  - `04-Techniques/prompt-engineering/prompting-opus47-cheatsheet.md` — 16 prompts officiels Anthropic copier-coller + 4 bonus
+- **Source** : Guide officiel Anthropic "Prompting best practices" (platform.claude.com) + article Ruben Hassid (Substack)
+
 ## 2026-05-15 — Audit vault complet + normalisation wikilinks + desorphelinement
 
 - **Corrigé** :
@@ -83,7 +93,7 @@ tags:
 
 - Harness Engineering enrichi, CC changelog v2.1.139-140
 - Source : scan cc-news complet 11 agents
-=======
+
 ## 2026-05-13 — Setup Claude Code lojii + Figma MCP + Techniques memoire agents
 
 - **Ajoutées** : `1-Projets/lojii/lojii.md`, `1-Projets/lojii/analyse-claude-code-2026-05-13.md`, `04-Techniques/patterns/pattern-figma-mcp-claude-code.md`, `04-Techniques/agents/technique-dreaming-cross-session.md`, `04-Techniques/agents/technique-shared-agent-memory.md`, `Knowledge/critiques/critique-2026-05-13-setup-lojii.md`
@@ -106,7 +116,6 @@ tags:
 - **Ajoutées** : `04-Techniques/rag/tool-retrieval-query-expansion.md`
 - **Modifiées** : `04-Techniques/rag/RAG.md` (ajout lien MOC)
 - **Source** : Recherche web état de l'art 2024-2026 (Re-Invoke, TOOLQP, OATS, ToolRerank, ToolShed, MCP Semantic Discovery) + analyse code neo_ia HybridToolSelector
->>>>>>> Stashed changes
 
 ## 2026-05-11 — Architecture profonde NeoDoc (neo_ia)
 

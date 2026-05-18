@@ -6,7 +6,7 @@ aliases:
 - patterns Claude Code
 - prompt engineering techniques
 auteur: claude
-derniere-maj: 2026-05-15
+derniere-maj: 2026-05-18
 resume: 'Index des techniques : prompt engineering, context engineering, patterns,
   anti-patterns'
 tags:
@@ -28,6 +28,8 @@ type: index
 - [[outcome-first-prompting]] — OpenAI GPT-5.5 : définir l'outcome, pas le process (avril 2026)
 - [[over-specification-paradox]] — UCL : au-delà de S*=0.509, spécifier nuit quadratiquement
 - [[deprecated-techniques-2026]] — Techniques désormais contre-productives sur modèles frontier
+- [[prompting-opus47-cheatsheet]] — 16 prompts officiels Anthropic copier-coller pour Opus 4.7
+- [[opus-47-design-defaults]] — Style visuel persistant Opus 4.7 + 2 contre-mesures
 
 ## Patterns
 
