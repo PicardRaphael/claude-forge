@@ -14,6 +14,7 @@ tags:
   - "#domaine/claude-code"
 ---
 
+<<<<<<< Updated upstream
 ## 2026-05-15 — Audit vault complet + normalisation wikilinks + desorphelinement
 
 - **Corrigé** :
@@ -82,6 +83,30 @@ tags:
 
 - Harness Engineering enrichi, CC changelog v2.1.139-140
 - Source : scan cc-news complet 11 agents
+=======
+## 2026-05-13 — Setup Claude Code lojii + Figma MCP + Techniques memoire agents
+
+- **Ajoutées** : `1-Projets/lojii/lojii.md`, `1-Projets/lojii/analyse-claude-code-2026-05-13.md`, `04-Techniques/patterns/pattern-figma-mcp-claude-code.md`, `04-Techniques/agents/technique-dreaming-cross-session.md`, `04-Techniques/agents/technique-shared-agent-memory.md`, `Knowledge/critiques/critique-2026-05-13-setup-lojii.md`
+- **Modifiées** : `0-Inbox/context-actuel.md`
+- **Source** : Analyse projet-analyzer + recherche web Figma MCP + Anthropic Dreaming + Netflix memory pattern + agent-memory scopes
+
+## 2026-05-13 — Setup Claude Code lojii + Pattern Figma MCP
+
+- **Ajoutées** : `1-Projets/lojii/lojii.md`, `1-Projets/lojii/analyse-claude-code-2026-05-13.md`, `04-Techniques/patterns/pattern-figma-mcp-claude-code.md`, `Knowledge/critiques/critique-2026-05-13-setup-lojii.md`
+- **Modifiées** : `0-Inbox/context-actuel.md`
+- **Source** : Analyse projet-analyzer + recherche web Figma MCP + critique devil's advocate
+
+## 2026-05-13 — Analyse projet Lojii (frontend Vue 3)
+
+- **Ajoutées** : `1-Projets/lojii/lojii.md`, `1-Projets/lojii/analyse-claude-code-2026-05-13.md`
+- **Source** : Analyse complète projet-analyzer sur neofront/lojii (634 composants Vue 3 / Vuetify 3)
+
+## 2026-05-12 — État de l'art Tool Retrieval & Query Expansion
+
+- **Ajoutées** : `04-Techniques/rag/tool-retrieval-query-expansion.md`
+- **Modifiées** : `04-Techniques/rag/RAG.md` (ajout lien MOC)
+- **Source** : Recherche web état de l'art 2024-2026 (Re-Invoke, TOOLQP, OATS, ToolRerank, ToolShed, MCP Semantic Discovery) + analyse code neo_ia HybridToolSelector
+>>>>>>> Stashed changes
 
 ## 2026-05-11 — Architecture profonde NeoDoc (neo_ia)
 

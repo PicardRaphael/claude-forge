@@ -45,6 +45,7 @@ Le RAG (Retrieval-Augmented Generation) combine la recherche d'information dans 
 - [[rag-architecture]] — Patterns avancés (GraphRAG, RAPTOR, Self-RAG, CRAG, Agentic)
 - [[rag-reranking]] — Modèles de reranking, hybrid search, fusion
 - [[rag-vector-databases]] — Comparatif vector DBs 2026
+- [[tool-retrieval-query-expansion]] — Query expansion/rewriting pour tool selection (Re-Invoke, OATS, TOOLQP)
 
 ### Production
 - [[rag-evaluation]] — RAGAS, métriques, testing

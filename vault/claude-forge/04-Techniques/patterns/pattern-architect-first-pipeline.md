@@ -100,3 +100,25 @@ Session dispatch dev agent 2 (scope: 5 fichiers max)
 - [[erreur-marker-ttl-blocage-agents]] — erreur qui a mene a ce pattern
 - [[decoupe-agents-anti-crash]] — decoupage des taches
 - [[Workflow Boris]] — pattern Boris parallelisation sessions
+
+
+## Mise à jour mai 2026 — Advisor avant Architect
+
+Le pipeline intègre désormais un step **advisor** avant l'architect pour les grosses tâches :
+
+```
+exploration → advisor (scope/approche) → architect (plan) → dev → tests → architect review → livraison
+```
+
+### Quand invoquer advisor
+- Brief ambigu ou scope pas clair
+- Nouveau scope ≥ 3 fichiers (pas un fix)
+- Décision impactante (stack, pattern, dépendance)
+- Brief multi-tiers / multi-phases
+
+### Pourquoi
+Session neo_ia 2026-05-11 : advisor consulté tardivement → va-et-vient sur le scope (Tier 0 vs 9 thèmes). Avec advisor dès le début, le scope aurait été clair immédiatement.
+
+L'advisor voit la conversation complète (transcript), l'architect ne voit que le prompt. L'advisor recadre le **quoi**, l'architect planifie le **comment**.
+
+Rule forge : `pipeline-grosse-tache.md`

@@ -6,3 +6,4 @@
 ## Project
 - [vault-audit-skill-created](project_vault_audit_created.md) — Skill vault-audit créée 2026-05-08 — audit + fix vault forge-brain avec scripts Python déterministes
 - [skill-evolve-created](project_skill_evolve_created.md) — Skill skill-evolve créée 2026-05-08 — méta-analyse skills forge, 4 axes, mode sweep, propose jamais applique
+- [lojii-skills-created](project_lojii_skills_created.md) — 6 skills lojii créées 2026-05-13 — paths: auto-trigger, references/ index vault externe, skills: injection context dans slash commands
