@@ -4,43 +4,61 @@ resume: Working memory dynamique — mis à jour par /done, lu par /recap
 aliases: [context actuel, contexte courant, working memory, mémoire de travail, état actuel]
 type: context
 status: active
-derniere-maj: 2026-05-18
+derniere-maj: 2026-05-20
 auteur: claude
 tags: ["#type/context", "#meta/working-memory"]
 ---
 
 ## Phase actuelle
-Capitalisation du guide officiel Anthropic Opus 4.7 + fiabilisation des skills cross-repo (neo_ia, ia_back).
 
-## Dernière session (2026-05-18)
+Workflow ticket Jira → spec → implémentation cross-repo (ia_back + neo_ia) + outillage personnel forge (x-read, /notes, capitalisation vault).
+
+## Dernière session (2026-05-20)
 
 ### Décisions prises
-- Capitalisation guide officiel Anthropic "Prompting best practices" (~900 lignes) en 5 notes vault
-- Création du cheat sheet `prompting-opus47-cheatsheet` — 20 prompts officiels copier-coller
-- Création de `opus-47-design-defaults` — style persistant cream/Georgia + 2 contre-mesures
-- 20 skills passées `user-invokable: true` sur neo_ia (13) et ia_back (7) — toutes les skills référence/conventions
-- Nouvelle note feature vault : `auto-mode-classifier` (système Anthropic non documenté ailleurs)
+
+- Pattern Thariq `running-implementation-notes` déployé sur ia_back + neo_ia + skill `/notes` forge
+- Skill `/x-read` créée (twitter-api-client backend, cookies `claude-forge/.claude/secrets/`)
+- Mode `pretty` x-read télécharge images localement (Claude multimodal peut Read)
+- `/decompose-ticket` copié de neo_ia vers ia_back, paths `${NEOT_V2_ROOT}` (pas hardcodés)
+- Liaison `/spec → /decompose-ticket` : suggestion active sur XL, jamais auto-lancement
+- `.mcp.json` ia_back paths relatifs en LOCAL (pas pushé — password en clair)
+- Refus respecté du auto-mode classifier sur push credentials
 
 ### En cours
-- Rien en cours — session clôturée.
+
+- 3 SKILL.md ia_back (recap, refactor-scan, spec) ont encore paths hardcodés pré-existants → audit séparé
+- Rotation password PostgreSQL `test` à coordonner avec Jérôme (secret compromis dans historique git)
+- Refactor `${PG_CONNECTION_STRING}` via `.env` cross-repos (impact équipe)
 
 ### Prochaines étapes
-1. Vérifier que /goal et autres workflows neo_ia utilisent bien les skills maintenant accessibles
-2. Étendre `config-guardian` pour détecter les skills référence marquées `false` (pattern récurrent)
-3. Fusionner `claudemd-maintenance.md` dans `claudemd-guide.md` (DA bloquant)
-4. Tests architecture multi-agents : `0-Inbox/tests-architecture-repos.md`
-5. cc-news post-Google I/O (19-20 mai) — Gemini Omni attendu
+
+1. **Coordination Jérôme** : rotation password PG + refactor secrets via .env (session dédiée sécu)
+2. **Pre-commit hook anti-paths-utilisateur** : claude-forge + ia_back + neo_ia, sinon 4ème récidive
+3. **Audit paths hardcodés ia_back** : fix recap + refactor-scan + spec SKILL.md
+4. **x-read fix structurel** : `ReadOnlyAccount(Account)` qui override write methods + tests
+5. **Tester `/spec` + `/decompose-ticket` ia_back** sur un vrai ticket Jira (jamais testé en conditions réelles)
 
 ## Fils ouverts
-- Le guide "31 pages" Anthropic = la page docs officielle (pas un PDF) — sources à jour dans notes Opus 4.7
-- Classifier auto-mode bloque les git cross-repo sans permission explicite — note feature créée
-- Skills `user-invokable: false` = invisibles à Claude sauf référencées par autre skill → règle systémique
-- Forge = PRIVÉ, jamais d'open-source (feedback explicite Raphael)
-- Deprecation Sonnet 4 / Opus 4 le 15 juin — vérifier aucun code ne référence les anciens IDs
-- Cowork n'a PAS de hooks — checklist harness engineering uniquement
+
+- Article X (`x.com/i/article/<id>`) pas accessible via API tweet seule — solution future à trouver
+- Politique de purge `.claude/skills/x-read/downloads/` (croîtra silencieusement)
+- Drift cross-repo `/spec` et `/decompose-ticket` dupliqués ia_back + neo_ia
+- Pattern Thariq déployé en advisory (80% compliance Boris) — hook enforcement utile à terme
+- 3 nouveaux feedbacks à appliquer : multi-chantiers, claim-security-provable, audit-claims-after-brief
+
+## Apprentissages session
+
+- DA verdict 3 bloquants traités : x-read description honnête + decompose-ticket paths + MCP push refusé
+- Session 30+ tours = piège fourre-tout Boris (3 erreurs même signature détectées par DA)
+- Auto-mode classifier Claude détecte credentials → respecter ses blocages
+- Sub-agent skill-creator peut se tromper sur calculs de paths → vérifier empiriquement
 
 ## Liens
-[[2-Casquettes/Raphael-Picard|Raphael Picard]]
-[[Claude-Forge|Claude-Forge]]
-[[prompting-opus47-cheatsheet]]
-[[auto-mode-classifier]]
+
+- [[Raphael-Picard]]
+- [[Claude-Forge]]
+- [[critique-session-2026-05-20-running-notes-decompose-xread-mcp]]
+- [[erreur-password-postgres-clair-mcp-json]]
+- [[mcp-paths-relatifs-portabilite]]
+- [[running-implementation-notes]]
