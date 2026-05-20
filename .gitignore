@@ -12,3 +12,10 @@ __pycache__/
 .claude/settings.local.json
 .obsidian/
 vault/.obsidian/
+
+# X-read skill — never commit auth cookies
+.claude/secrets/x-cookies.json
+.claude/secrets/*.json
+
+# twitter-api-client default output dir
+data/

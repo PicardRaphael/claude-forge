@@ -4,6 +4,8 @@ description: Use this skill when the user asks about recent Claude Code updates,
 user-invokable: true
 allowed-tools: WebSearch, WebFetch, Read, Write, Agent
 argument-hint: "domaine ou sujet (ex: rag, agents, fine-tuning, concurrents, claude-code, prompt, tout)"
+skills:
+  - x-read
 ---
 
 # cc-news — Veille IA & Claude Code
@@ -108,6 +110,15 @@ Synthétiser avec le format de references/format-reponse.md.
 6. Résumer les nouveautés à l'utilisateur (format references/format-reponse.md)
 7. **Capitaliser dans le vault forge-brain** (obligatoire, pas optionnel) — Si une nouvelle version CC est découverte, mettre à jour la date de référence et la version dans ce SKILL.md (ligne 3 description + ligne 11 body).
 
+### Fallback X/Twitter
+
+Si une source à analyser est une URL X.com/Twitter (`https://x.com/...` ou `https://twitter.com/...`) :
+- Defuddle et WebFetch échouent systématiquement sur X (DOM JS / HTTP 402)
+- Invoquer la skill `x-read` avec l'URL en argument : `Skill(x-read, args="<url>")`
+- Si la skill x-read n'est pas disponible (cookies absents, pas encore installée) → fallback :
+  1. Demander à l'utilisateur de coller le contenu du tweet
+  2. Capitaliser quand même dans le vault avec la source citée
+
 ## Capitalisation vault (étape 7)
 
 - Nouvelle version CC → `01-Claude/Code/changelog/CC vX.Y.Z.md`
@@ -130,3 +141,4 @@ Voir skill `forge-brain` pour le format complet et les outils MCP.
 - **Modèle vs produit vs industrie** — GPT-5.5 → `03-Modeles/`. Feature Codex CLI → `02-Concurrents/`. Acquisition/funding → `06-Industrie/`. Ne pas tout mettre dans Concurrents.
 - **Ne pas hardcoder l'année dans les queries** — les reference files n'ont pas "2026" dans leurs queries ; la date de référence dans ce fichier suffit.
 - **Si un agent ne retourne rien** — relancer le domaine individuellement plutôt que l'ignorer. Un scan incomplet doit être signalé.
+- **X/Twitter inaccessible via Defuddle/WebFetch** — toujours déléguer à la skill `x-read` (utilise cookies du compte authentifié). Si x-read pas dispo → demander coller le contenu à l'utilisateur, ne pas abandonner la source.
