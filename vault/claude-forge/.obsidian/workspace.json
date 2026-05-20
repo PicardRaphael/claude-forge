@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "1-Projets/Neoteem/neo_ia/neochat/neochat-tool-rag.md",
+                "file": "04-Techniques/patterns/running-implementation-notes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "neochat-tool-rag"
+              "title": "running-implementation-notes"
             }
           }
         ]
@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "running-implementation-notes",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -74,7 +74,8 @@
               "title": "Signets"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -183,8 +184,31 @@
       "bases:Créer une nouvelle base": false
     }
   },
-  "active": "1174f529d8bd7a8b",
+  "active": "6de73b139036c01a",
   "lastOpenFiles": [
+    "CHANGELOG.md.tmp.24528.02fd09cfa921",
+    "1-Projets/Neoteem/agent-manager-neoteem.md",
+    "04-Techniques/patterns/codebase-maps-pattern.md.tmp.24528.82fd5bc94d6e",
+    "01-Claude/Code/best-practices/agent-manager-role.md.tmp.24528.8258dbb53239",
+    "04-Techniques/agents/subagent-explore-then-edit.md.tmp.24528.61167198c85b",
+    "04-Techniques/patterns/running-implementation-notes.md.tmp.24528.cc31c4edc817",
+    "Knowledge/critiques/critique-capitalisation-blog-large-codebases-tweet-thariq.md.tmp.24528.ef6f65b561c8",
+    "1-Projets/Neoteem/neo_ia/neochat/neochat-tool-rag.md",
+    "Knowledge/critiques/critique-capitalisation-blog-large-codebases-tweet-thariq.md",
+    "00-Hub/MOC-Techniques.md.tmp.24528.959da173e8db",
+    "CHANGELOG.md.tmp.24528.e1376b56a13c",
+    "04-Techniques/patterns/codebase-maps-pattern.md",
+    "01-Claude/Code/best-practices/agent-manager-role.md",
+    "04-Techniques/agents/subagent-explore-then-edit.md",
+    "04-Techniques/patterns/running-implementation-notes.md",
+    "00-Hub/MOC-Techniques.md.tmp.26136.c74aede90764",
+    "Knowledge/raisonnements/architecture-decision-hook-maison-vs-plugin-tiers.md",
+    "Knowledge/critiques/critique-tdd-neo-ia-proposal.md",
+    "CHANGELOG.md.tmp.26136.0ebd558e605d",
+    "0-Inbox/context-actuel.md.tmp.26136.b9e55ac837eb",
+    "01-Claude/Code/features/auto-mode-classifier.md",
+    "04-Techniques/prompt-engineering/prompting-opus47-cheatsheet.md",
+    "04-Techniques/prompt-engineering/opus-47-design-defaults.md",
     "1-Projets/lojii/architecture-full-web-charte.md",
     "04-Techniques/agents/technique-shared-agent-memory.md",
     "04-Techniques/agents/technique-dreaming-cross-session.md",
@@ -192,34 +216,11 @@
     "Knowledge/critiques/critique-2026-05-13-setup-lojii.md",
     "1-Projets/lojii/analyse-claude-code-2026-05-13.md",
     "1-Projets/lojii/lojii.md",
-    "1-Projets/lojii",
     "04-Techniques/patterns/pattern-gsd-framework.md",
     "04-Techniques/patterns/pattern-github-spec-kit.md",
     "04-Techniques/patterns/pattern-sdd-triangle.md",
     "04-Techniques/patterns/pattern-spec-skill-deployment.md",
     "01-Claude-Code/best-practices/feature-dev-plugin.md",
-    "04-Techniques/patterns/pattern-spec-driven-development.md",
-    "Knowledge/critiques/critique-notes-neodoc-architecture.md",
-    "1-Projets/Neoteem/neo_ia/neodoc/neodoc-ingestion-pipeline.md",
-    "1-Projets/Neoteem/neo_ia/neodoc/neodoc-research-agent.md",
-    "1-Projets/Neoteem/neo_ia/neodoc/neodoc-architecture.md",
-    "1-Projets/Neoteem/neo_ia/neodoc",
-    "Knowledge/critiques/critique-notes-neomail-architecture.md",
-    "1-Projets/Neoteem/neo_ia/neomail/neomail-webhook-pipeline.md",
-    "1-Projets/Neoteem/neo_ia/neomail/neomail-architecture.md",
-    "1-Projets/Neoteem/neo_ia/neomail",
-    "1-Projets/Neoteem/neo_ia/neo_ia.md",
-    "1-Projets/Neoteem/neo_ia/neochat-tool-rag.md",
-    "1-Projets/Neoteem/neo_ia/neochat/neochat-tool-rag.md",
-    "1-Projets/Neoteem/neo_ia/neochat/neochat-adaptive-prompt.md",
-    "1-Projets/Neoteem/neo_ia/neochat/neochat-react-engine.md",
-    "1-Projets/Neoteem/neo_ia/neochat/neochat-architecture.md",
-    "1-Projets/Neoteem/neo_ia/neochat",
-    "CHANGELOG.md.tmp.1112.bcaacd09c191",
-    "CHANGELOG.md.tmp.1112.be81a81ad9ef",
-    "07-Prompts/techniques",
-    "05-Leaders/agents",
-    "04-Techniques/stacks",
-    "04-Techniques/fine-tuning"
+    "04-Techniques/patterns/pattern-spec-driven-development.md"
   ]
 }
