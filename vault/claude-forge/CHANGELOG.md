@@ -14,6 +14,15 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-20 — Fixes DA EVOLVE (frontière mémoire/vault + audit fantôme)
+
+- **Créée** :
+  - `1-Projets/Neoteem/agent-manager-neoteem.md` — Application concrète du rôle Agent Manager à Neoteem (scindée depuis agent-manager-role.md selon rule memory-discipline.md)
+- **Modifiées** :
+  - `01-Claude/Code/best-practices/agent-manager-role.md` — Section "Application à Neoteem" retirée (déportée vers 1-Projets/), tag #projet/neoteem retiré, wikilink ajouté vers [[agent-manager-neoteem]]
+  - `04-Techniques/patterns/codebase-maps-pattern.md` — Table "Application aux repos Neoteem" retirée (audit fantôme non basé sur audit réel)
+- **Source** : Verdict devil's advocate 2026-05-20 — fixes EVOLVE non-bloquants restants
+
 ## 2026-05-20 — Capitalisation blog Anthropic "Large codebases" + tweet Thariq
 
 - **Créées** :

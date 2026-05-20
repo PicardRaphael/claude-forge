@@ -88,16 +88,6 @@ Les migrations sont gérées dans @tools/migrations/
 - ❌ Dupliquer dans CLAUDE.md ET CODEBASE-MAP.md → pollute le contexte. Choisir un seul endroit.
 - ❌ Décrire le **comment** plutôt que le **quoi** — la map dit où, pas comment le code fonctionne
 
-## Application aux repos Neoteem
-
-| Repo | Map nécessaire ? | Justification |
-|------|------------------|---------------|
-| ia_back | ⚠️ peut-être | Structure FastAPI standard, mais > 30 modules — utile pour discovery |
-| neo_ia | ✅ recommandé | Monorepo NeoChat/NeoDoc/NeoMail, structure non-évidente |
-| bdd | ✅ recommandé | 2779 fichiers, structure PG/PL-pgSQL atypique |
-| lojii | ⚠️ peut-être | 634 composants Vue, hiérarchie composants à documenter |
-| neoteem-brain | ❌ non | Structure vault Obsidian déjà self-documenting |
-
 ## Liens
 
 - [[claudemd-guide]] — Layered CLAUDE.md (concept parent)

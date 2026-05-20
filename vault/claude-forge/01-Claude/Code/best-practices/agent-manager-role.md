@@ -19,7 +19,6 @@ tags:
   - "#type/best-practice"
   - "#domaine/claude-code"
   - "#domaine/workflow"
-  - "#projet/neoteem"
 ---
 
 ## Le constat Anthropic
@@ -63,20 +62,6 @@ Phase 2 : Agent Manager officialisé         → marketplace privée, governance
 Phase 3 : Équipe dédiée                     → multi-tools (Cursor, Codex), policy globale
 ```
 
-## Application à Neoteem
-
-Cas concret : Raphael = Lead IA Neoteem, joue actuellement le rôle **Agent Manager** sans titre officiel pour les repos ia_back, neo_ia, neoteem-brain, bdd, lojii.
-
-**Risques actuels :**
-- Bus factor = 1 (si Raphael indispo, le setup ne tient pas)
-- Knowledge tribal dans claude-forge (perso) au lieu d'un asset Neoteem partagé
-- Pas de marketplace privée Neoteem encore officialisée
-
-**Évolutions à considérer :**
-- Designer un binôme apprenant (futur Agent Manager)
-- Migrer une partie du knowledge forge perso vers neoteem-brain (asset team)
-- Documenter le rôle explicitement dans la fiche de Raphael (cf [[Raphael-Picard]])
-
 ## Gouvernance — questions à trancher tôt
 
 Selon Anthropic, ces 4 questions reviennent systématiquement en enterprise :
@@ -99,6 +84,5 @@ Réponses minimales pour démarrer (recommandation Anthropic) : ensemble défini
 
 - [[claudemd-guide]] — Convention CLAUDE.md à standardiser
 - [[skills-guide]] — Catalogue skills à curate
-- [[Raphael-Picard]] — Joue ce rôle pour Neoteem
-- [[neoteem-brain]] — Asset team à structurer
 - [[cowork-architecture]] — Marketplaces privées
+- [[agent-manager-neoteem]] — Application concrète du rôle à Neoteem
