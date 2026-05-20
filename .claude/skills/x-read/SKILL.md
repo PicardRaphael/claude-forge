@@ -1,6 +1,6 @@
 ---
 name: x-read
-description: ALWAYS invoke when the user types `/x-read <url>`, `/x-read timeline [N]`, or `/x-read @user [N]`. Reads X/Twitter content (tweets, timeline, user posts) from the authenticated personal account using cookies. Read-only enforced by construction — no write methods exposed. Use to capitalize tweets into forge-brain vault or fetch content blocked by Defuddle/WebFetch.
+description: ALWAYS invoke when the user types `/x-read <url>`, `/x-read timeline [N]`, or `/x-read @user [N]`. Reads X/Twitter content (tweets, timeline, user posts) from the authenticated personal account using cookies. Read-only by discipline — the Account class has write methods available but they are never invoked in this CLI. Use to capitalize tweets into forge-brain vault or fetch content blocked by Defuddle/WebFetch.
 user-invokable: true
 argument-hint: "<url> | timeline [N] | @user [N]"
 allowed-tools: Bash, Read
@@ -24,7 +24,7 @@ Backend : `twitter-api-client` (Trevor Hobenshield). Cookies dans `~/.claude/sec
 
 ### 1. Vérifier les prérequis
 
-Vérifier que `~/.claude/secrets/x-cookies.json` existe :
+Vérifier que `claude-forge/.claude/secrets/x-cookies.json` existe (gitignored, relatif au repo) :
 
 ```bash
 python3 .claude/skills/x-read/reader.py check
@@ -113,8 +113,12 @@ tags: ["#type/knowledge", "#source/twitter"]
 - **API twitter-api-client peut casser** -- pinner la version dans requirements.txt. Si une méthode n'existe plus, noter la version cassante dans la section Apprentissage
 - **thread complet** -- pour un tweet en reply, `tweets_by_ids` retourne le tweet seul. Utiliser `tweet_details` si besoin du thread complet
 
+- **Claim sécurité honnête** — read-only par discipline pas par construction. La classe Account importée (pour timeline) a des write methods en RAM. Elles ne sont jamais routées par le CLI (`main()`), mais accessibles via l'objet. Pour un vrai read-only structural, créer `ReadOnlyAccount(Account)` qui override les write methods en `raise NotImplementedError`. Voir critique-session-2026-05-20-running-notes-decompose-xread-mcp.
+- **Path cookies relatif au repo claude-forge** — `claude-forge/.claude/secrets/x-cookies.json` (à la racine du repo, PAS `.claude/secrets/`). Le reader.py résout `Path(__file__).resolve().parent.parent.parent / "secrets" / "x-cookies.json"`.
+
 ## Apprentissage
 
+- 2026-05-20 régression détectée par DA : claim "Read-only enforced by construction" était factuellement faux (Account class a write methods). Fix appliqué : honnêteté dans la description. Apprentissage : toute description qui claim un contrat sécurité ("read-only", "sandboxed", "no write") doit être prouvable par le code, pas juste par convention. Pattern check à ajouter dans le check-list DA.
 - Mode `pretty` ajouté 2026-05-20 : Claude est multimodal, peut Read les images locales téléchargées. Sans téléchargement, images invisibles.
 Capturer ici les patterns observés en production :
 
