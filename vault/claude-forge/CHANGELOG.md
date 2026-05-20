@@ -7,12 +7,34 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-05-18
+derniere-maj: 2026-05-20
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-05-20 — Capitalisation blog Anthropic "Large codebases" + tweet Thariq
+
+- **Créées** :
+  - `04-Techniques/patterns/running-implementation-notes.md` — Pattern Thariq (758k vues 18 mai 2026) : fichier vivant maintenu pendant l'implémentation pour capturer design decisions, deviations, tradeoffs, open questions
+  - `04-Techniques/agents/subagent-explore-then-edit.md` — Pattern Anthropic : subagent read-only mappe le subsystem dans un fichier, main agent édite avec la picture complète
+  - `01-Claude/Code/best-practices/agent-manager-role.md` — Rôle org émergent (DRI / Agent Manager / équipe dédiée) pour Claude Code en enterprise
+  - `04-Techniques/patterns/codebase-maps-pattern.md` — Markdown table of contents à la racine pour navigation Claude sur grosses codebases
+- **Modifiées** :
+  - `01-Claude/Code/best-practices/hooks-guide.md` — Ajout section "Self-improving hooks" : pattern Stop hook qui propose updates CLAUDE.md, SessionStart dynamique, 3 rôles des hooks
+- **Source** : Blog Anthropic "How Claude Code works in large codebases" (14 mai 2026) + tweet @trq212 (18 mai 2026)
+
+## 2026-05-18 — Feature classifier + audit skills cross-repo
+
+- **Créée** :
+  - `01-Claude/Code/features/auto-mode-classifier.md` — Filet de sécurité Anthropic en mode auto : scope, self-modification, destructif. Bypass via permissions.allow
+- **Modifiée** :
+  - `0-Inbox/context-actuel.md` — résolu conflit merge + mis à jour avec session 2026-05-18
+- **Hors-vault** :
+  - neo_ia : 13 skills passées `user-invokable: true` (référence/conventions accessibles spontanément)
+  - ia_back : 7 skills passées `user-invokable: true`
+- **Source** : Session audit neo_ia + question Raphael sur classifier
 
 ## 2026-05-18 — Capitalisation guide officiel Anthropic prompting Opus 4.7
 

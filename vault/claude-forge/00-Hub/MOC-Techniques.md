@@ -6,7 +6,7 @@ aliases:
 - patterns Claude Code
 - prompt engineering techniques
 auteur: claude
-derniere-maj: 2026-05-18
+derniere-maj: 2026-05-20
 resume: 'Index des techniques : prompt engineering, context engineering, patterns,
   anti-patterns'
 tags:
@@ -45,6 +45,9 @@ type: index
 - [[pattern-vault-query-guard]] — Hook deterministe : agents DOIVENT consulter vault avant d'ecrire
 - [[decoupe-agents-anti-crash]] — Max 6-8 ops/agent, decoupage par theme/repo/phase, parallelisation
 - [[limites-subagents-claude-code]] — 200K ctx, 32K output, maxTurns casse, jamais parallele, bugs GitHub
+- [[running-implementation-notes]] — Thariq : fichier vivant pendant implémentation, capture décisions/déviations/tradeoffs/questions
+- [[subagent-explore-then-edit]] — Anthropic : subagent read-only mappe le subsystem dans un fichier, main agent édite avec picture complète
+- [[codebase-maps-pattern]] — Markdown table of contents racine pour grosses codebases / structure non-conventionnelle
 
 ## Agents & Harness Engineering
 
@@ -94,6 +97,7 @@ type: index
 ## Raisonnements caches
 
 - `Knowledge/raisonnements/` — Chaines de raisonnement validees, indexees par type de probleme (skill `/reasoning-cache`)
+- [[architecture-decision-hook-maison-vs-plugin-tiers]] — Hook maison Python l'emporte sur plugin tiers populaire (tdd-guard) car validation LLM = antipattern dans un guard déterministe
 
 ## Fine-Tuning LLM
 

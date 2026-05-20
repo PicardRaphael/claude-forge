@@ -129,3 +129,62 @@ Un hook `UserPromptSubmit` ou `NotificationPostMessage` qui detecte les prompts 
 - [[claudemd-guide]] — Quand les rules ne suffisent pas → hooks
 - [[erreur-advisory-rules-insuffisantes]] — 3 incidents ou les rules ont ete ignorees
 - [[erreur-settings-paths-hardcodes-multi-poste]] — Portabilite des hooks
+
+## Self-improving hooks (pattern Anthropic, mai 2026)
+
+> "Most teams think of hooks as scripts that prevent Claude from doing something wrong, but their more valuable use is continuous improvement." — Anthropic blog "Claude Code at scale" (14 mai 2026)
+
+Le rôle le plus sous-exploité des hooks : **ne pas bloquer, mais améliorer le setup en continu**.
+
+### Stop hook qui propose des updates CLAUDE.md
+
+À la fin d'une session, un hook `Stop` analyse ce qui s'est passé et propose des additions au CLAUDE.md (gotchas découverts, patterns récurrents, erreurs évitables). Le contexte est encore frais → la qualité des suggestions est bien supérieure à une review post-hoc.
+
+**Implémentation type :**
+
+```json
+{
+  "Stop": [
+    {
+      "matcher": "*",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "python .claude/hooks/learning-reminder.py"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Le script lit le transcript, identifie les apprentissages, propose des updates en stderr (ou écrit directement un brouillon dans `.claude/CLAUDE-suggestions.md`).
+
+→ Pattern déployé dans forge (`learning-reminder.py`).
+
+### SessionStart qui charge le contexte dynamique
+
+> "A start hook can load team-specific context dynamically so every developer gets the right setup for their module without manual configuration."
+
+Au lieu d'un CLAUDE.md statique qui charge TOUT pour tout le monde, un hook `SessionStart` détecte le dossier courant (ou le ticket Jira lié, ou la branche git) et charge **uniquement** le contexte pertinent. Évite la pollution du contexte.
+
+**Cas d'usage :**
+- Dev qui ouvre `apps/payments/` → charge `payments-conventions.md` seul
+- Dev qui ouvre `infra/` → charge `infra-runbook.md` seul
+- Dev sur la branche `feature/XYZ` → charge le ticket Jira XYZ via MCP
+
+### Enforcement de linting/formatting (rappel)
+
+Plus consistent que de demander à Claude de se souvenir d'une instruction.
+
+> "For automated checks like linting and formatting, hooks enforce the rules deterministically and produce more consistent results than relying on Claude to remember an instruction."
+
+### Trois rôles des hooks (à connaître)
+
+| Rôle | Event | Exemple |
+|------|-------|---------|
+| **Garde-fou** (bloquer le mauvais) | `PreToolUse` exit 2 | delegate-guard, commit-guard |
+| **Enforcement** (faire à coup sûr) | `PostToolUse` | auto-format, lint, tests |
+| **Self-improvement** (capitaliser) | `Stop`, `SessionEnd` | learning-reminder, CLAUDE.md proposer |
+
+→ Les teams qui ne pensent qu'au premier rôle laissent la moitié de la valeur sur la table.
