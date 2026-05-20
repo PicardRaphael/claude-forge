@@ -15,6 +15,14 @@ Cookies file (claude-forge/.claude/secrets/x-cookies.json):
   "ct0": "...",
   "auth_token": "..."
 }
+
+Modes:
+- tweet <url>   : raw API JSON response
+- pretty <url>  : clean dict {author, text, media+local_path, urls, stats}
+                  Images auto-downloaded to .claude/skills/x-read/downloads/
+- timeline [N]  : home feed
+- user <h> [N]  : tweets from @handle
+- check         : verify cookies + package
 """
 import json
 import sys
@@ -139,10 +147,95 @@ def read_user_tweets(handle: str, limit: int = 10) -> list:
     return tweets
 
 
+def _extract_tweet(t: dict) -> dict:
+    """Extract clean tweet data: author, text, urls expanded, media downloaded."""
+    legacy = t.get("legacy", {})
+    user = t.get("core", {}).get("user_results", {}).get("result", {}).get("legacy", {})
+
+    # Expand URLs (replace t.co with real URLs in text)
+    text = legacy.get("full_text", "")
+    urls = legacy.get("entities", {}).get("urls", [])
+    for u in urls:
+        if u.get("url") and u.get("expanded_url"):
+            text = text.replace(u["url"], u["expanded_url"])
+
+    # Media (photos/videos)
+    media = []
+    for m in legacy.get("extended_entities", {}).get("media", []):
+        item = {"type": m.get("type"), "url": m.get("media_url_https")}
+        if m.get("video_info"):
+            variants = sorted(
+                [v for v in m["video_info"].get("variants", []) if v.get("bitrate")],
+                key=lambda v: v.get("bitrate", 0),
+                reverse=True,
+            )
+            if variants:
+                item["video_url"] = variants[0]["url"]
+        media.append(item)
+
+    return {
+        "author": "@" + user.get("screen_name", "?"),
+        "name": user.get("name"),
+        "date": legacy.get("created_at"),
+        "text": text,
+        "media": media,
+        "external_urls": [u.get("expanded_url") for u in urls if u.get("expanded_url")],
+        "stats": {
+            "likes": legacy.get("favorite_count"),
+            "retweets": legacy.get("retweet_count"),
+            "replies": legacy.get("reply_count"),
+            "views": t.get("views", {}).get("count"),
+        },
+    }
+
+
+def _download_media(url: str, dest_dir: Path) -> Path | None:
+    """Download a media URL to dest_dir. Returns local path or None on error."""
+    try:
+        import httpx
+    except ImportError:
+        return None
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    filename = url.rstrip("/").split("/")[-1].split("?")[0]
+    if "." not in filename:
+        filename += ".jpg"
+    local = dest_dir / filename
+    if local.exists():
+        return local
+    try:
+        r = httpx.get(url, timeout=15, follow_redirects=True)
+        r.raise_for_status()
+        local.write_bytes(r.content)
+        return local
+    except Exception as e:
+        print(f"WARNING: failed to download {url}: {e}", file=sys.stderr)
+        return None
+
+
+def pretty_tweet(url: str, download: bool = True) -> dict:
+    """Read tweet and return clean dict with downloaded media paths."""
+    raw = read_tweet(url)
+    if not raw or "data" not in raw:
+        print("ERROR: empty response", file=sys.stderr)
+        sys.exit(1)
+    t = raw["data"]["tweetResult"][0]["result"]
+    if t.get("__typename") == "TweetUnavailable":
+        return {"error": "Tweet unavailable (deleted, private, or suspended)", "raw": t}
+    extracted = _extract_tweet(t)
+    if download and extracted["media"]:
+        media_dir = Path(__file__).resolve().parent / "downloads"
+        for m in extracted["media"]:
+            local = _download_media(m["url"], media_dir)
+            if local:
+                m["local_path"] = str(local)
+    return extracted
+
+
 def main():
     if len(sys.argv) < 2:
-        print("Usage: reader.py {tweet|timeline|user|check} [args]", file=sys.stderr)
-        print("  tweet <url>            -- read one tweet by URL", file=sys.stderr)
+        print("Usage: reader.py {tweet|pretty|timeline|user|check} [args]", file=sys.stderr)
+        print("  tweet <url>            -- raw API response (JSON)", file=sys.stderr)
+        print("  pretty <url>           -- clean extract + download media locally", file=sys.stderr)
         print("  timeline [N]           -- read N home feed tweets (default 20)", file=sys.stderr)
         print("  user <handle> [N]      -- read N tweets from @handle (default 10)", file=sys.stderr)
         print("  check                  -- verify cookies + package (no API call)", file=sys.stderr)
@@ -159,6 +252,12 @@ def main():
             print("ERROR: tweet mode requires a URL argument", file=sys.stderr)
             sys.exit(1)
         result = read_tweet(sys.argv[2])
+
+    elif mode == "pretty":
+        if len(sys.argv) < 3:
+            print("ERROR: pretty mode requires a URL argument", file=sys.stderr)
+            sys.exit(1)
+        result = pretty_tweet(sys.argv[2])
 
     elif mode == "timeline":
         limit = int(sys.argv[2]) if len(sys.argv) > 2 else 20

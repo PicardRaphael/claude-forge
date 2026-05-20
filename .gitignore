@@ -19,3 +19,6 @@ vault/.obsidian/
 
 # twitter-api-client default output dir
 data/
+
+# x-read downloaded media (large binaries, not part of repo)
+.claude/skills/x-read/downloads/

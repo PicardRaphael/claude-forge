@@ -100,6 +100,10 @@ tags: ["#type/knowledge", "#source/twitter"]
 
 ## Gotchas
 
+- **Images attachées** — toujours utiliser mode `pretty` qui les télécharge. Sans téléchargement local, Claude ne peut pas voir les images des tweets.
+- **Articles X (`x.com/i/article/...`)** — le tweet ne contient que le lien, pas le contenu. Pas accessible via API tweet seule.
+- **URLs t.co** — pretty mode les expand automatiquement, mode tweet garde les t.co. Toujours préférer pretty.
+- **Dossier downloads/** — gitignored, médias non commités.
 - **Cookies = accès complet au compte X** -- JAMAIS commiter `x-cookies.json`. Le fichier est dans `~/.claude/secrets/` (hors repo, gitignore `secrets/` dans `~/.claude/.gitignore`)
 - **`home_timeline` est sur `Account`, pas `Scraper`** -- reader.py utilise `Account(cookies=...)` UNIQUEMENT pour `home_latest_timeline`. Les méthodes write (`tweet`, `like`, `follow`) ne sont JAMAIS importées ni exposées dans le CLI
 - **Rate limits X** -- ~50 requêtes/15 min selon endpoint. Si 429 -> attendre 15 min
@@ -111,6 +115,7 @@ tags: ["#type/knowledge", "#source/twitter"]
 
 ## Apprentissage
 
+- Mode `pretty` ajouté 2026-05-20 : Claude est multimodal, peut Read les images locales téléchargées. Sans téléchargement, images invisibles.
 Capturer ici les patterns observés en production :
 
 - Si `twitter-api-client` casse à une version -> noter version fonctionnelle dans requirements.txt avec pin
