@@ -7,12 +7,19 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-21
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-05-21 (soir) — Kill TDD strict hooks + fix marker wipe sub-agent
+
+- **Ajoutée** : `Knowledge/raisonnements/raisonnement-kill-tdd-strict-hooks-mai-2026.md` — décision tranchée (TDD = convention agent, pas hook bloquant) avec preuves web search Anthropic + DA verdict + bug bonus marker wipe sub-agent worktree
+- **Modifiée** : `04-Techniques/patterns/pipeline-boris-adapte-neoteem.md` — section "Mise à jour 21 mai 2026 (soir)" ajoutée : règle "1 test à la fois" (vs "MAX 3 batch"), kill hooks ce soir, pipeline canonique final
+- **Source** : Session frustration Raphael (4h+ sur fix BERNAT). Web search Boris Cherny + Anthropic confirme "ONE failing test per behavior per cycle, never bulk". DA verdict refonte hooks (16→6) refusé pour ce soir — 4 bloquants techniques. 3 kills propres uniquement (`tdd-guard.py` × 2 + `on-env-protect.py`). Bug bonus diagnostiqué : `session-reset-markers` wipe au démarrage sub-agent worktree v2.1.69+ — fix `source==startup` + check `agent_type`.
+- **Commits** : neo_ia `a27ccec`/`25abe5d`/`342a8b0` — ia_back `a78f996`/`a9fb5fd`/`6d037e1`
 
 ## 2026-05-22 — Pipeline Boris adapté Neoteem (gain 50-60%/feature)
 

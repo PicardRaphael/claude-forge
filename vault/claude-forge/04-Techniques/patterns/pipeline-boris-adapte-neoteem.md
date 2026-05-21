@@ -191,3 +191,43 @@ Checklist pour démarrer un repo avec ce pattern :
 - [[reference_boris_thariq_bestpractices]] — référence canonique mise à jour
 - [[reference_opus47_best_practices]] — effort levels Opus 4.7
 - [[erreur-marker-ttl-blocage-agents]] — leçon TTL précédente
+
+
+## Mise à jour 21 mai 2026 (soir) — TDD via convention agent
+
+Après session frustration Raphael (4h+ sur fix BERNAT bloqué par hooks neo_ia), refonte appliquée sur neo_ia + ia_back en miroir.
+
+### Changements majeurs
+
+1. **Kill `tdd-guard.py` + `tdd-guard.ts`** : friction sans valeur ajoutée. TDD désormais appliqué par **convention agent** (architect → test-writer phase RED → dev → code-reviewer), pas par PreToolUse hook bloquant. Source : Boris Cherny + Anthropic ("TDD via feedback loops, not filesystem blocking").
+
+2. **Règle "MAX 3 tests par comportement" REMPLACÉE par "UN test à la fois en boucle red-green courte"** :
+   - Citation Anthropic : *"RED: Write ONE test that fails. Just one. GREEN: Write minimal code to pass that test only."*
+   - Anti-pattern Anthropic : *"Tests written in bulk test imagined behavior, not observed behavior."*
+   - Coverage par feature reste large (happy + edge + erreurs) mais écrits **un par un**, jamais en batch
+   - Si brief avec >5 cas : test-writer écrit le 1er uniquement, dispatch dev, puis continue
+
+3. **Kill `on-env-protect.py`** (neo_ia) : permissions Claude Code natives suffisent.
+
+4. **Fix bug marker wipe sub-agent worktree** : `session-reset-markers.py/ts` ne déclenchait pas seulement sur nouvelle session mais aussi au démarrage de chaque sub-agent en isolation worktree (Claude Code v2.1.69+). Fix : ne wipe QUE si `source=startup` ET pas d'`agent_type/agent_id/subagent_type` présent.
+
+5. **Bypass via `agent_type` (pas via `/tests/` aveugle)** : `architect-guard` exempte désormais test-writer, code-reviewer, architect — pas un chemin aveugle (sinon n'importe quel dev éviterait architect en écrivant dans tests/).
+
+### Pipeline final (canonique pour neo_ia + ia_back)
+
+```
+[Bug fix S]  architect (fast pass 30-60s, BYPASS tests) → dev → code-reviewer → commit
+[Bug fix M]  architect → test-writer (1 test non-régression) → dev → code-reviewer → commit
+[Feature M]  architect (plan + matrice) → test-writer (1 test happy path) → dev → boucle (1 edge → dev) → code-reviewer → commit
+[Feature L]  advisor → architect → test-writer (1 test à la fois) → dev (boucle) → code-reviewer → security/perf si applicable → commit
+```
+
+### Hooks essentiels restants (à NE PAS toucher sans DA fresh)
+
+`dispatch-guard`, `architect-guard`, `agent-marker-writer`, `commit-guard`, `session-reset-markers` (fixé), `marker-protect` (fixé read-only), `guard-pytest-scope`/`guard-test-scope`, `repo-scope-guard` (neo_ia seul).
+
+### Référence
+
+- [[raisonnement-kill-tdd-strict-hooks-mai-2026]]
+- [[critique-2026-05-21-refonte-hooks-16-vers-6]]
+- Commits : neo_ia `a27ccec`/`25abe5d`/`342a8b0` — ia_back `a78f996`/`a9fb5fd`/`6d037e1`
