@@ -186,6 +186,14 @@
   },
   "active": "6de73b139036c01a",
   "lastOpenFiles": [
+    "Knowledge/critiques/critique-2026-05-21-repartition-opus-sonnet.md",
+    "01-Claude/Code/features/MCP Tunnels.md",
+    "01-Claude/Code/features/Self-Hosted Sandboxes.md",
+    "Knowledge/erreurs/erreur-stop-critique-position-gotcha-fin.md",
+    "0-Inbox/context-actuel.md.tmp.24528.0ea032e7a3f6",
+    "Knowledge/critiques/critique-session-2026-05-20-running-notes-decompose-xread-mcp.md",
+    "04-Techniques/patterns/mcp-paths-relatifs-portabilite.md",
+    "Knowledge/erreurs/erreur-password-postgres-clair-mcp-json.md",
     "CHANGELOG.md.tmp.24528.02fd09cfa921",
     "1-Projets/Neoteem/agent-manager-neoteem.md",
     "04-Techniques/patterns/codebase-maps-pattern.md.tmp.24528.82fd5bc94d6e",
@@ -204,8 +212,6 @@
     "00-Hub/MOC-Techniques.md.tmp.26136.c74aede90764",
     "Knowledge/raisonnements/architecture-decision-hook-maison-vs-plugin-tiers.md",
     "Knowledge/critiques/critique-tdd-neo-ia-proposal.md",
-    "CHANGELOG.md.tmp.26136.0ebd558e605d",
-    "0-Inbox/context-actuel.md.tmp.26136.b9e55ac837eb",
     "01-Claude/Code/features/auto-mode-classifier.md",
     "04-Techniques/prompt-engineering/prompting-opus47-cheatsheet.md",
     "04-Techniques/prompt-engineering/opus-47-design-defaults.md",
@@ -215,12 +221,6 @@
     "04-Techniques/patterns/pattern-figma-mcp-claude-code.md",
     "Knowledge/critiques/critique-2026-05-13-setup-lojii.md",
     "1-Projets/lojii/analyse-claude-code-2026-05-13.md",
-    "1-Projets/lojii/lojii.md",
-    "04-Techniques/patterns/pattern-gsd-framework.md",
-    "04-Techniques/patterns/pattern-github-spec-kit.md",
-    "04-Techniques/patterns/pattern-sdd-triangle.md",
-    "04-Techniques/patterns/pattern-spec-skill-deployment.md",
-    "01-Claude-Code/best-practices/feature-dev-plugin.md",
-    "04-Techniques/patterns/pattern-spec-driven-development.md"
+    "1-Projets/lojii/lojii.md"
   ]
 }
