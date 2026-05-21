@@ -186,6 +186,16 @@
   },
   "active": "6de73b139036c01a",
   "lastOpenFiles": [
+    "Knowledge/syntheses/synthese-audit-coherence-neo-ia-ia-back.md",
+    "Knowledge/critiques/critique-2026-05-21-tdd-optimizations-handshake.md",
+    "0-Inbox/context-actuel.md.tmp.30152.8fc728d50762",
+    "Knowledge/raisonnements/raisonnement-hook-agent-detection-method.md",
+    "Knowledge/erreurs/erreur-claude-agent-env-var-dead-code.md",
+    "Knowledge/critiques/critique-2026-05-21-dispatch-guard-livraison.md",
+    "Knowledge/critiques/critique-2026-05-21-color-tdd-cto-mindset.md",
+    "01-Claude/Code/best-practices/agents-color-convention.md",
+    "Knowledge/erreurs/erreur-deploy-sans-advisor-da-cwc2026.md",
+    "Knowledge/critiques/critique-2026-05-21-outcomes-test-deploy.md",
     "Knowledge/critiques/critique-2026-05-21-repartition-opus-sonnet.md",
     "01-Claude/Code/features/MCP Tunnels.md",
     "01-Claude/Code/features/Self-Hosted Sandboxes.md",
@@ -209,18 +219,8 @@
     "01-Claude/Code/best-practices/agent-manager-role.md",
     "04-Techniques/agents/subagent-explore-then-edit.md",
     "04-Techniques/patterns/running-implementation-notes.md",
-    "00-Hub/MOC-Techniques.md.tmp.26136.c74aede90764",
     "Knowledge/raisonnements/architecture-decision-hook-maison-vs-plugin-tiers.md",
     "Knowledge/critiques/critique-tdd-neo-ia-proposal.md",
-    "01-Claude/Code/features/auto-mode-classifier.md",
-    "04-Techniques/prompt-engineering/prompting-opus47-cheatsheet.md",
-    "04-Techniques/prompt-engineering/opus-47-design-defaults.md",
-    "1-Projets/lojii/architecture-full-web-charte.md",
-    "04-Techniques/agents/technique-shared-agent-memory.md",
-    "04-Techniques/agents/technique-dreaming-cross-session.md",
-    "04-Techniques/patterns/pattern-figma-mcp-claude-code.md",
-    "Knowledge/critiques/critique-2026-05-13-setup-lojii.md",
-    "1-Projets/lojii/analyse-claude-code-2026-05-13.md",
-    "1-Projets/lojii/lojii.md"
+    "01-Claude/Code/features/auto-mode-classifier.md"
   ]
 }

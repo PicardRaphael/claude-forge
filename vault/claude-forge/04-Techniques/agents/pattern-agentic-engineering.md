@@ -10,7 +10,7 @@ aliases:
   - "deploiement agentic"
 domaine: claude-code
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-21
 auteur: claude
 sources:
   - "[[agentic-engineering-karpathy]]"
@@ -21,7 +21,6 @@ tags:
   - "#domaine/claude-code"
   - "#domaine/neoteem"
 ---
-
 # Pattern Agentic Engineering
 
 Checklist pour deployer l'architecture agentic engineering sur tout projet Neoteem. Chaque item est valide par l'experience production (neo_ia, ia_back) et le framework Karpathy.
@@ -173,3 +172,54 @@ Le test final : est-ce que le systeme resiste a un audit agressif ? Si oui, l'ar
 - [[vibe-coding-setup-complet]] — pattern setup detaille (skills, journalier, RECAP)
 - [[agentic-engineering-karpathy]] — framework source
 - [[config-guardian-pattern]] — audit multi-repo
+
+
+---
+
+## Mise à jour mai 2026 — Apprentissages neo_ia + ia_back
+
+### Corrections par rapport à la version initiale
+
+- **Modèles** : PAS 100% opus. Politique CwC 2026 = Opus xhigh pour jugement (architect, code-reviewer, security), Sonnet high pour exécution (dev-*). Exception : dev-neochat = Opus (LangGraph complexe).
+- **Pipeline** : TDD test-first = `architect (contrats testables) → test-writer RED → dev → test-writer REFACTOR → code-reviewer`. PAS l'ancien architect → dev → test-writer.
+- **Sprint Contract** : test-writer valide les contrats architect AVANT d'écrire les tests (handshake bidirectionnel).
+- **Rules manquantes** : `learn-from-mistakes.md` + `agents-color-convention.md` + `outcomes-after-architect.md` obligatoires (tous oubliés au déploiement initial ia_back).
+- **Frontmatter rules** : TOUTE rule DOIT avoir `---\ndescription: ...\n---` sinon elle est morte silencieusement.
+
+### Arbre de décision — Questions à poser avant setup
+
+Quand Raphael dit "analyse/setup ce repo", poser ces questions via AskUserQuestion :
+
+| Question | Impact sur le setup |
+|----------|-------------------|
+| Stack ? (Python/TS/Go/Rust) | Hooks dans le même langage, permissions Bash, test runner |
+| Mono-app ou multi-app ? | 1 agent dev vs dev-* par app |
+| TDD strict ou bypass S ? | Contrats testables dans architect, test-writer phases RED/REFACTOR |
+| Base de données ? laquelle ? | db-inspector, schema-context, guard-pg-readonly |
+| Domaine métier complexe ? | Brain vault, neo-brain skill, MCP obsidian |
+| Multi-dev ou solo ? | shared-learnings rule, settings.local.json gitignore |
+| Workflow (PR / commit direct) ? | /go avec ou sans PR, commit-guard |
+| Endpoints publics ? | security-auditor, security-reviewer |
+| CI/CD existant ? | deploy-check skill, /autofix-pr |
+
+### Audit post-setup — 8 checks (confirmé empiriquement)
+
+1. **Agents → Skills** : chaque skill `skills:` a des instructions dans le body
+2. **Agents → Tools** : cohérent avec le rôle (read-only = pas Write/Edit)
+3. **Skills → References** : < 500L, references/ utilisées
+4. **Rules → Frontmatter** : chaque rule a `description:` (sinon morte)
+5. **Hooks → Settings** : chaque hook existe physiquement
+6. **Delegation → Agents** : agents mentionnés dans les rules existent
+7. **Memory** : `memory: project` sur tous les agents
+8. **Credentials** : `.mcp.json` + `settings.local.json` dans `.gitignore`
+
+Source : [[synthese-audit-coherence-neo-ia-ia-back]]
+
+### Pattern skills orphelines (problème #1 trouvé)
+
+11/16 agents ia_back et 6/12 agents neo_ia avaient des skills dans `skills:` frontmatter mais aucune instruction dans le body. La skill est chargée (consomme des tokens) mais l'agent ne sait pas quand l'utiliser. Fix : 1 ligne d'instruction par skill.
+
+### Liens ajoutés
+
+- [[synthese-audit-coherence-neo-ia-ia-back]] — audit 67 problèmes, 4 patterns
+- [[critique-2026-05-21-tdd-optimizations-handshake]] — DA Sprint Contract
