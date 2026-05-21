@@ -77,6 +77,7 @@ Dossiers critiques : `Knowledge/erreurs/` · `Knowledge/questions/` · `Knowledg
 - Devil's advocate OBLIGATOIRE avant toute proposition majeure (archi, innovation, nouvelle skill/agent). LANCER l'agent, pas juste "y penser". Ref : `rules/devils-advocate-pipeline.md`
 - Devil's advocate : vérifier le résultat COMPLET de l'agent avant d'annoncer "validé". Résultat tronqué = relancer.
 - Grosse refacto/architecture/décision impactante → TOUJOURS lancer advisor + devil's advocate AVANT de livrer. Présenter résultats + désaccords à Raphael.
+- Advisor AVANT de commencer le travail substantiel (pas après). Timing : après exploration/orientation, AVANT d'écrire du code ou de formuler une proposition. L'appeler tôt oriente mieux que l'appeler tard pour valider.
 - Ne JAMAIS annoncer "rien à sauvegarder" au learning-reminder par facilité — vérifier réellement ce qui a été appris.
 - CLAUDE.md DOIT évoluer : ajouter après chaque erreur comportementale, supprimer le redondant. Audit mensuel via `/forge-review`.
 - Recherche web → TOUJOURS capitaliser dans le vault (notes atomiques). Ne JAMAIS finir une recherche sans créer/mettre à jour les notes.
