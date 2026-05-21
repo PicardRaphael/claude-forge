@@ -9,14 +9,13 @@ aliases:
   - back ia
 type: context
 status: active
-derniere-maj: 2026-05-09
+derniere-maj: 2026-05-21
 auteur: claude
 tags:
   - "#type/context"
   - "#type/projet"
   - "#projet/ia-back"
 ---
-
 ## Description
 
 Backend IA de [[Neoteem|Neoteem]]. FastAPI Python, architecture neuro-symbolique, agents autonomes, RAG hybride pgvector+RRF. Scale 1000+ outils.
@@ -45,3 +44,10 @@ Backend IA de [[Neoteem|Neoteem]]. FastAPI Python, architecture neuro-symbolique
 
 - [[Neoteem|Neoteem]]
 - [[Raphael-Picard|Raphael Picard]]
+
+
+## Correction stack mai 2026
+
+**Drizzle ORM n'est PAS utilisé.** Le projet utilise `postgres.js` (SQL template literals). Le CLAUDE.md et 23 fichiers agents/skills/rules ont été corrigés le 2026-05-21. Il reste ~64 occurrences dans les exemples de code des skills references/ — refacto planifiée.
+
+Stack corrigée : Bun + Hono + @hono/zod-openapi + **postgres.js** + Zod + bun:test

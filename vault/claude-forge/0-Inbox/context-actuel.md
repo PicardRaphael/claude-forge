@@ -1,43 +1,42 @@
 ---
 titre: Context Actuel
-resume: Working memory dynamique — mis à jour par /done, lu par /recap
-aliases: [context actuel, contexte courant, working memory, mémoire de travail, état actuel]
+resume: Working memory dynamique -- mis a jour par /done, lu par /recap
+aliases: [context actuel, contexte courant, working memory, memoire de travail, etat actuel]
 type: context
 status: active
 derniere-maj: 2026-05-21
 auteur: claude
 tags: ["#type/context", "#meta/working-memory"]
 ---
+
 ## Phase actuelle
-Les 2 repos (neo_ia + ia_back) sont à 100% conformité Boris/Thariq/Karpathy. Pipeline TDD test-first, Sprint Contract, 67 problèmes corrigés, blueprint vault complet.
+Tests comportementaux terminés sur neo_ia (25/25) et ia_back (32/41, 0 FAIL réel) — les deux repos sont au niveau production.
 
 ## Dernière session (2026-05-21)
-### Décisions prises
-- Pipeline TDD test-first sur les 2 repos : architect (contrats testables) → test-writer RED → dev → test-writer REFACTOR → code-reviewer
-- Sprint Contract bidirectionnel : test-writer valide contrats architect AVANT d'écrire les tests
-- 21 agents corrigés (skills orphelines → instructions body)
-- 5 rules créées/fixées (frontmatter, learn-from-mistakes)
-- Credentials sortis du git (.mcp.json, settings.local.json)
-- Note vault pattern-agentic-engineering = guide canonique tous cas d'usage
-- Préférence : analyse-first (pas questionnaire) pour setup repos
+### Decisions prises
+- Pattern behavioral-dispatch-test capitalisé comme Phase 7 du workflow agentic engineering
+- ia_back CLAUDE.md corrigé : Drizzle→postgres.js (le code n'a jamais utilisé Drizzle)
+- api-designer ia_back : instruction neo-brain-dev-ia déplacée en étape 0 bloquante
+- Prompts de test corrigés 3 fois (fausses prémisses, hooks en cascade, /go sans diff)
+- IDOR documenté sur /api/v1/coproprietes/:id/conseil-syndical
 
 ### En cours
-- Mesurer taux de rejet Sprint Contract step 0 sur 30 jours
-- Tester pipeline TDD en live sur un vrai ticket
+- neo_ia : fix conftest.py pushé (4ab67ef), pipeline TDD validé en conditions réelles
+- ia_back : 4 commits pushés (api-designer, CLAUDE.md, Drizzle→postgres.js 23 fichiers, artifacts)
+- Reste ~64 occurrences Drizzle dans sql-best-practices/references/ et connect-table (refacto future)
 
-### Prochaines étapes
-- Tester le blueprint sur un repo vierge (lojii-front = bon candidat)
-- cc-news Tokyo (10 juin) à surveiller
+### Prochaines etapes
+- Refacto Drizzle→postgres.js dans les exemples de code des skills ia_back
+- Corriger IDOR conseil-syndical avant prod
+- Lancer les scénarios 1 et 2 ia_back avec des prompts corrigés (vrais noms de tables/fonctions)
 
 ## Fils ouverts
-- MCP Tunnels → évaluer pour brain Neoteem quand GA
-- Bash heredoc guard (fuite documentée, risque faible court terme)
-- Rotation mot de passe PG Cloud SQL ia_back (dans historique git)
-- Batch cosmétique restant : pipeline-reset orphelin (référence dans /go, pas un hook)
+- neo_ia : get_lots_archives_immeuble en cours de dev (questions architect répondues, session active)
+- Proposition /test-dispatch refusée — Raphael a fait autrement
+- neo_ia scénario 1 original (search_acteur) abandonné — doublon détecté
 
 ## Liens
 [[Raphael-Picard]]
 [[Claude-Forge]]
-[[pattern-agentic-engineering]]
+[[pattern-behavioral-dispatch-test]]
 [[synthese-audit-coherence-neo-ia-ia-back]]
-[[critique-2026-05-21-tdd-optimizations-handshake]]

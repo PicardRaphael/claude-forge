@@ -336,3 +336,25 @@ Source : [[synthese-audit-coherence-neo-ia-ia-back]], plugin `claude-code-setup:
 **Toujours consulter le vault EN PREMIER** — avant de répondre, avant de proposer, avant de créer. Le vault contient les erreurs passées, les patterns validés, et les critiques DA précédentes. Ne jamais travailler "de mémoire" quand le vault a l'info.
 
 **Toujours utiliser les agents spécialisés** — delegate-guard bloque de toute façon, mais le réflexe doit être naturel, pas forcé par un hook.
+
+
+## Phase 7 — Test comportemental post-modification (mai 2026)
+
+Après setup, audit ou modification massive → produire une **suite de tests comportementaux PASS/FAIL** que Raphael lance en session fraîche.
+
+Détail complet : [[pattern-behavioral-dispatch-test]]
+
+### Checklist rapide
+
+- [ ] Chaque agent apparaît dans au moins 1 scénario
+- [ ] Chaque hook bloquant (exit 2) a un test négatif
+- [ ] Chaque skill user-invokable est testée
+- [ ] Le pipeline TDD complet est testé bout en bout
+- [ ] Les prompts utilisent le vocabulaire métier du projet
+- [ ] Score quantitatif (/N) pour suivi d'évolution
+
+### Position dans le workflow
+
+```
+setup/audit → corrections → devil's advocate → TEST COMPORTEMENTAL → livraison
+```
