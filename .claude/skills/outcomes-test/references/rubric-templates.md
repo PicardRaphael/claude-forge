@@ -80,7 +80,31 @@ Copier le template correspondant dans un fichier `RUBRIC.md` dans le dossier du 
 
 ---
 
-## Template 4 — CLAUDE.md
+## Template 4 — Code Implementation (générique)
+
+```markdown
+# Rubric — Implementation : [Feature]
+
+## Critères obligatoires (MUST)
+- [ ] Types complets (pas de any/untyped)
+- [ ] Linter clean (0 errors)
+- [ ] Tests unitaires existent et passent
+- [ ] Pas de credentials/secrets hardcodés
+- [ ] Pas de DDL si base gérée séparément
+
+## Critères souhaitables (SHOULD)
+- [ ] Tests d'intégration pour les endpoints
+- [ ] Error handling explicite (pas de catch générique)
+- [ ] CHANGELOG mis à jour
+
+## Critères bonus (NICE)
+- [ ] Coverage > 80% sur fichiers modifiés
+- [ ] Implementation notes à jour
+```
+
+---
+
+## Template 5 — CLAUDE.md
 
 ```markdown
 # Rubric — CLAUDE.md : [Projet]
