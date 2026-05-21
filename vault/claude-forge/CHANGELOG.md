@@ -14,6 +14,16 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-21 — Refactor vault-before-specialist forge (4 fixes)
+
+- **Ajoutée** : `Knowledge/erreurs/erreur-vault-before-specialist-ttl-scope.md`
+- **Source** : Raphael observe que devil's advocate et advisor appellent neo-brain trop souvent. Audit + DA + advisor → 4 fixes appliqués : retirer TTL 60min (viole marker-ttl-antipattern), réduire scope 10→4 agents (skill/agent/hook/claudemd-creator seulement), is_specialist lit subagent_type only (plus de faux positifs prompt), nouveau hook session-reset-vault-marker.py SessionStart. Tests empiriques 6/6 PASS. Audit neo_ia complémentaire : pas de hook bloquant équivalent, advisory uniquement, RAS.
+
+## 2026-05-21 — neo_ia repo-scope + dette hook vault notée
+
+- **Ajoutée** : `Knowledge/erreurs/erreur-architect-neo_ia-fouille-bdd.md`
+- **Source** : Architect neo_ia explorait bdd/ sans autorisation. Solution triple : rule `repo-scope.md` + patch top-of-file `architect.md` + 3 hooks Python (auth-detector UserPromptSubmit, repo-scope-guard PreToolUse, auth-cleanup SessionStart). Tests empiriques 8/8 PASS. Dette `vault-before-specialist.py` (TTL 60min, scope gonflé) notée pour session dédiée.
+
 ## 2026-05-21 — TDD optimizations + audit cohérence 2 repos
 
 - **Ajoutées** : `Knowledge/critiques/critique-2026-05-21-tdd-optimizations-handshake.md`, `Knowledge/syntheses/synthese-audit-coherence-neo-ia-ia-back.md`
