@@ -1,7 +1,7 @@
 ---
 titre: "Guide complet des Hooks Claude Code"
 resume: "Guide de reference des hooks Claude Code — 25+ events lifecycle, enforcement exit 2, pattern marker+guard pour prerequis deterministes"
-aliases:
+aliases: ["hooks guide", "guide hooks CC", "hooks claude code", "hooks best practices", "hooks events", "hook exit 2", "hook marker guard", "hooks enforcement pattern", "hooks self-improving", "hooks settings.json format", "hookSpecificOutput", "PreToolUse PostToolUse hooks"]
   - "hooks guide"
   - "guide hooks CC"
   - "hooks claude code"
@@ -21,7 +21,6 @@ tags:
   - "#domaine/claude-code"
   - "#domaine/hooks"
 ---
-
 ## Principe fondamental
 
 > **Hooks = deterministe (100%). CLAUDE.md = advisory.**

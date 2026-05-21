@@ -1,7 +1,7 @@
 ---
 titre: "Guide complet des Skills Claude Code"
 resume: "Guide de reference pour creer des skills Claude Code — format YAML, 9 categories Thariq, pattern d'activation directive, gotchas et budget /doctor"
-aliases:
+aliases: ["skills guide", "guide skills CC", "skills claude code", "skills format", "skills best practices", "9 categories skills", "skill YAML frontmatter", "SKILL.md structure", "skill creation guide", "thariq skills categories", "skill description trigger", "skill references pattern"]
   - "skills guide"
   - "guide skills CC"
   - "skills claude code"
@@ -21,7 +21,6 @@ tags:
   - "#domaine/claude-code"
   - "#domaine/skills"
 ---
-
 ## Anatomie d'une Skill
 
 Une skill est un **dossier**, pas un fichier. `SKILL.md` est le hub ; le reste (references/, scripts/, examples/) fait le vrai travail.

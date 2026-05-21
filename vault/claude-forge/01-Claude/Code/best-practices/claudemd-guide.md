@@ -1,7 +1,7 @@
 ---
 titre: "Guide CLAUDE.md — Taille, contenu, maintenance"
 resume: "Guide CLAUDE.md officiel — limite 200 lignes, hierarchie de chargement, @import, comportement compaction, nature advisory et pattern compounding"
-aliases:
+aliases: ["CLAUDE.md guide", "claudemd guide", "CLAUDE.md best practices", "CLAUDE.md structure", "CLAUDE.md size limit", "CLAUDE.md 200 lignes", "CLAUDE.md loading order", "CLAUDE.md compounding", "CLAUDE.md maintenance", "CLAUDE.md gotchas"]
   - "claudemd guide"
   - "guide CLAUDE.md"
   - "CLAUDE.md best practices"
@@ -19,7 +19,6 @@ tags:
   - "#type/technique"
   - "#domaine/claude-code"
 ---
-
 ## Taille et contenu
 
 ### Officiel : < 200 lignes par fichier

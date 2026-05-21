@@ -3,7 +3,7 @@ name: python-dev
 description: Use when writing, debugging, refactoring, or reviewing Python code. Use PROACTIVELY when the task involves Python implementation, whether from a plan, a spec, a bug report, or a feature request.
 tools: Read, Write, Edit, Glob, Grep, Bash
 model: opus
-effort: high
+effort: xhigh
 color: green
 memory: project
 permissionMode: acceptEdits

@@ -1,7 +1,7 @@
 ---
 titre: "Agents et orchestration Claude Code"
 resume: "Guide des subagents et orchestration Claude Code — format YAML complet, pattern Generator/Evaluator, Dreaming, Outcomes, Agent Teams experimental"
-aliases:
+aliases: ["agents orchestration", "orchestration agents CC", "subagents YAML", "agent frontmatter", "agent permissionMode", "agent memory project", "generator evaluator pattern", "agent delegation", "agent pipeline", "agent isolation worktree", "agent effort levels", "agent maxTurns"]
   - "agents orchestration CC"
   - "subagents guide"
   - "orchestration agents"
@@ -20,7 +20,6 @@ tags:
   - "#domaine/claude-code"
   - "#domaine/agents"
 ---
-
 ## Philosophie
 
 Boris Cherny :

@@ -1,7 +1,7 @@
 ---
 titre: "Effort Levels Guide"
 resume: "5 niveaux d'effort Claude — strict respect sur Opus 4.7, risque under-thinking à low, 64k tokens requis à xhigh/max"
-aliases:
+aliases: ["effort levels", "effort", "niveaux effort claude", "xhigh effort", "effort guide claude code", "effort parameter", "effort level best practice", "effort xhigh high medium low", "effort opus sonnet", "effort coding agentique", "task horizon effort", "claude effort config", "effort level recommendation"]
   - "effort levels"
   - "effort"
   - "niveaux effort claude"
@@ -18,7 +18,6 @@ tags:
   - "#type/technique"
   - "#domaine/prompt-engineering"
 ---
-
 ## Description
 
 Contrôle du niveau de réflexion de Claude. 5 niveaux. Sur Opus 4.7, effort est **plus important que sur tout modèle précédent** et respecté strictement, surtout à low/medium.

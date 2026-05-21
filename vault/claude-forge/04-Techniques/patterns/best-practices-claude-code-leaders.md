@@ -1,7 +1,7 @@
 ---
 titre: "Best Practices Claude Code — Synthese Leaders"
 resume: "Recap consolide Boris, Erik Schluntz, Thariq, Cat Wu, Karpathy : planification, contexte, parallelisme, skills, effort, agentic engineering"
-aliases:
+aliases: ["best practices CC", "recap bonnes pratiques", "boris thariq best practices", "best practices claude code leaders", "setup projet claude code", "analyse repo best practices", "project analyzer reference", "claude code setup guide", "fleet commander patterns", "document and clear boris", "compaction best practice"]
   - "best practices CC"
   - "recap bonnes pratiques"
   - "boris erik thariq best practices"
@@ -21,7 +21,6 @@ tags:
   - "#domaine/claude-code"
   - "#domaine/agents"
 ---
-
 ## 1. Ne plus ecrire de code — devenir PM de Claude
 
 **Erik Schluntz** + **Boris Cherny** : meme posture

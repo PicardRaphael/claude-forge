@@ -1,7 +1,7 @@
 ---
 titre: "Setup projet Claude Code — Guide complet"
 resume: "Toutes les configs, commandes, plugins et best practices pour setup un projet CC"
-aliases:
+aliases: ["setup projet complet", "setup project complet", "claude code project setup", "analyse repo setup", "project analyzer checklist", "nouveau projet claude code", "init projet claude code", "setup complet claude code", "CLAUDE.md skills agents hooks rules setup"]
   - "setup projet"
   - "configuration claude code"
   - "project setup guide"
@@ -17,7 +17,6 @@ tags:
   - "#type/best-practice"
   - "#domaine/claude-code"
 ---
-
 ## Permissions par stack
 
 | Stack | Permissions `settings.json` |

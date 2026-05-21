@@ -1,7 +1,7 @@
 ---
 titre: "Context Management — Gestion du contexte LLM"
 resume: "Techniques de gestion du contexte pour LLM — compaction, /clear entre taches, document & clear, delegation subagents, prompt caching."
-aliases:
+aliases: ["Context Management", "context management", "gestion contexte", "gestion contexte LLM", "compaction sessions longues", "document and clear", "document clear pattern", "session longue claude code", "task horizon context", "auto compact", "AUTOCOMPACT_PCT_OVERRIDE", "context saturation", "context window management"]
   - "Context Management"
   - "context management"
   - "gestion contexte"
@@ -15,7 +15,6 @@ tags:
   - "#type/technique"
   - "#domaine/context-engineering"
 ---
-
 ## Description
 
 Techniques de gestion du contexte pour maximiser l'efficacite des LLM dans les sessions longues. Couvre la compaction, le /clear entre taches non liees, le pattern Document & Clear, la delegation aux subagents, et le prompt caching.
