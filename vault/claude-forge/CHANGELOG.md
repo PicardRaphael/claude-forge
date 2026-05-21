@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-21 — Dispatch-guard E2E + erreur CLAUDE_AGENT + raisonnement détection
+
+- **Ajoutées** : `Knowledge/erreurs/erreur-claude-agent-env-var-dead-code.md`, `Knowledge/raisonnements/raisonnement-hook-agent-detection-method.md`, `Knowledge/critiques/critique-2026-05-21-dispatch-guard-livraison.md`, `Knowledge/critiques/critique-2026-05-21-color-tdd-cto-mindset.md`
+- **Modifiée** : `0-Inbox/context-actuel.md` — mis à jour avec contexte dispatch-guard + résultats E2E
+- **Source** : Sessions 2026-05-21 — déploiement dispatch-guard, tests E2E, confirmation empirique agent_type runtime
+
 ## 2026-05-21 — Convention couleurs agents cross-repo
 
 - **Ajoutée** : `01-Claude/Code/best-practices/agents-color-convention.md` — Standard palette couleurs par catégorie (8 couleurs, 8 rôles)

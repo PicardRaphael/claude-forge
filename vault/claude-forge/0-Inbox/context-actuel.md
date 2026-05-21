@@ -9,32 +9,35 @@ auteur: claude
 tags: ["#type/context", "#meta/working-memory"]
 ---
 ## Phase actuelle
-Capitalisation Code with Claude 2026 terminée. Outcomes-test déployé sur 3 repos. Politique Opus/Sonnet alignée CwC 2026.
+dispatch-guard déployé sur ia_back + neo_ia. Enforcement déterministe du pattern CTO (session principale ne code plus directement).
 
 ## Dernière session (2026-05-21)
 ### Décisions prises
-- Politique modèles : Sonnet exécution (dev), Opus jugement (architect, reviewer, security). Exception dev-neochat = Opus (LangGraph complexe)
-- Outcomes-test post-dev (pas post-architect) — évalue du code concret
-- permissionMode: acceptEdits obligatoire sur tous agents créateurs
-- Mémoire feedback_all_opus remplacée par model-allocation-strategy
-- Autocompact 50% ajouté ia_back, Document & Clear ajouté neo_ia
+- dispatch-guard basé sur agent_type/subagent_type JSON stdin (pas CLAUDE_AGENT env var = dead code)
+- Multi-field fallback pour couvrir variations inter-versions CC
+- tdd-guard neo_ia refactorisé : glob + remontée parent pour tests aplatis/préfixés
+- Dispatch-guard en premier dans la chaîne PreToolUse (avant architect-guard et tdd-guard)
 
 ### En cours
-- Outcomes-test rule advisory sur ia_back/neo_ia — DA a signalé qu'elle devrait être enforced par hook (pas fait)
-- 3 copies outcomes-test byte-identical → risque divergence (DA signalé)
+- Vérification empirique en live du champ exact injecté par le runtime CC (agent_type vs subagent_type)
+- Fix findTestFile ia_back (pattern basique .test.ts colocalisé, suffisant pour l'instant)
+- Hook Bash heredoc guard optionnel (fuite cat > file.py contourne dispatch-guard)
 
 ### Prochaines étapes
-- Tester /outcomes-test sur un vrai livrable (dev agent code) pour valider le pipeline
-- Considérer hook outcomes-guard pour enforcer la rule (advisory = 80% compliance)
-- Mesurer taux FAIL code-reviewer Sonnet vs Opus pendant 2-4 semaines
+- Lancer un vrai subagent dev qui fait un Write, dumper le JSON stdin pour confirmer le champ runtime
+- Tester /outcomes-test sur un vrai livrable dev
 - cc-news Tokyo (10 juin) à surveiller
 
 ## Fils ouverts
 - MCP Tunnels → évaluer pour brain Neoteem quand GA
 - Outcomes rubric hook enforcement (rule advisory insuffisante selon vault)
+- Bash heredoc guard (fuite documentée, risque faible court terme)
+- Exemptions dispatch-guard hardcodées → risque divergence entre les 2 repos
 - Template rubric "spec" à créer si on utilise /spec sur les repos projet
 
 ## Liens
 [[Raphael-Picard]]
 [[Claude-Forge]]
-[[Code with Claude 2026]]
+[[erreur-claude-agent-env-var-dead-code]]
+[[raisonnement-hook-agent-detection-method]]
+[[critique-2026-05-21-dispatch-guard-livraison]]
