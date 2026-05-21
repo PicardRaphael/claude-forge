@@ -223,3 +223,70 @@ Source : [[synthese-audit-coherence-neo-ia-ia-back]]
 
 - [[synthese-audit-coherence-neo-ia-ia-back]] — audit 67 problèmes, 4 patterns
 - [[critique-2026-05-21-tdd-optimizations-handshake]] — DA Sprint Contract
+
+
+## Workflow analyse/setup repo (confirmé mai 2026)
+
+### Étape 1 — Analyse automatique (PAS de questions)
+
+Analyser le repo comme `claude-code-setup:claude-automation-recommender` :
+- Détecter stack (package.json, pyproject.toml, Cargo.toml, go.mod)
+- Détecter framework (imports, dépendances)
+- Détecter DB (Drizzle, Prisma, SQLAlchemy, raw SQL)
+- Détecter tests existants (jest, pytest, bun:test, go test)
+- Détecter .claude/ existant (agents, skills, hooks, rules, settings)
+- Détecter mono-app vs multi-app (src/ vs apps/*/)
+
+### Étape 2 — Proposer (1-2 par catégorie, pas submerger)
+
+Mapper les signaux codebase aux composants via le Decision Framework :
+
+| Signal | Composant |
+|--------|-----------|
+| Code source modifiable | dispatch-guard (main session ne code pas) |
+| Tests existants ou testable | tdd-guard + test-writer + architect contrats testables |
+| Plusieurs apps/modules | dev-* par app, architect obligatoire |
+| DB | db-inspector, guard-readonly si DB externe |
+| Framework avec linter | PostToolUse auto-format (ruff, prettier, eslint) |
+| .env ou secrets | PreToolUse guard .env |
+| Endpoints publics | security-auditor agent |
+| Domaine métier complexe | Brain vault + MCP obsidian |
+
+### Étape 3 — Questions SEULEMENT pour ce qui ne se déduit pas
+
+- TDD strict ou bypass taille S ?
+- Commit direct ou PRs ?
+- Solo ou multi-dev ?
+
+### Étape 4 — Déployer via agents spécialisés
+
+agent-creator, skill-creator, hook-creator, claudemd-optimizer. JAMAIS éditer directement.
+
+### Étape 5 — Audit 8 checks post-setup
+
+Voir section "Audit post-setup" ci-dessus.
+
+### Étape 6 — DA avant livraison
+
+Devil's advocate sur le setup complet avant d'annoncer "terminé".
+
+### Composants indispensables (confirmés par neo_ia + ia_back)
+
+| Composant | Type | Pourquoi indispensable |
+|-----------|------|----------------------|
+| dispatch-guard | hook | Force délégation aux agents (advisory = 80%, hook = 100%) |
+| architect-guard | hook | Force plan avant code |
+| tdd-guard | hook | Force tests avant code (si TDD) |
+| commit-guard | hook | Force code-reviewer avant commit |
+| guard-test-scope | hook | Empêche test suite complète |
+| session-reset-markers | hook | Reset markers à chaque session |
+| learn-from-mistakes | rule | Boris compounding |
+| shared-learnings | rule | Apprentissages commités, pas juste mémoire |
+| quality-gates | rule | Pipeline documenté |
+| agent-delegation | rule | Routing clair |
+| agents-color-convention | rule | Cohérence visuelle cross-repo |
+| /go | skill | test → review → changelog → commit |
+| /recap | skill | Contexte au retour |
+| /spec | skill | Spec avant implem (taille M/L) |
+
+Source : [[synthese-audit-coherence-neo-ia-ia-back]], plugin `claude-code-setup:claude-automation-recommender`
