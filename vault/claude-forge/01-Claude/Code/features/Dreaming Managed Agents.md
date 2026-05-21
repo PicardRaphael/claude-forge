@@ -78,3 +78,24 @@ Le coût du dreaming est payé une fois, réparti sur tous les agents qui lisent
 - [[Memory Managed Agents]] — Primitive memory (storage + structure)
 - [[Managed Agents]] — Feature Managed Agents
 - [[MOC-Claude-Code]]
+
+
+## Limites techniques (mai 2026)
+
+| Paramètre | Valeur |
+|-----------|--------|
+| Sessions par dream | Max 100 |
+| Input store | Jamais modifié (review-before-attach) |
+| Modèles supportés | Opus 4.7, Sonnet 4.6 uniquement |
+| Header API | `dreaming-2026-04-21` |
+| Billing | Standard API rates |
+
+## Démo live keynote SF (6 mai)
+
+Startup fictive "Lumara" — landing drones sur la Lune :
+- Simulation initiale : 4/6 sites réussis (Site 3 crash à 398 m/s, Site 4 en descente à 20.8 m/s)
+- Dreaming lancé overnight via bouton "Dream" dans Developer Console
+- Agent produit un "descent-playbook.md" avec heuristiques des missions précédentes
+- Simulation post-dreaming : **6/6 sites réussis**, pas de régression
+
+Le hill-climbing s'est fait sans intervention humaine — juste un clic sur "Dream".

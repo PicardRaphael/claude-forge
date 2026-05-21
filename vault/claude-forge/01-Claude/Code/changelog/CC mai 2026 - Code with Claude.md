@@ -122,3 +122,15 @@ tags:
 - [[Cowork GA]]
 - [[MOC-Claude-Code]]
 - [[CC avril 2026]]
+
+
+## London drop (19 mai 2026)
+
+### Nouvelles features
+- **Self-Hosted Sandboxes** (public beta) — exécution Managed Agents dans infra client (Cloudflare, Modal, Vercel, Daytona, custom containers)
+- **MCP Tunnels** (research preview) — accès sécurisé aux MCP servers privés via tunnel outbound chiffré e2e
+
+### Enrichissements existants
+- **Outcomes** : max_iterations 3 default / 20 max, 8 webhook event types
+- **Dreaming** : 100 sessions max par dream, header `dreaming-2026-04-21`, modèles Opus 4.7 + Sonnet 4.6 uniquement
+- **Webhooks Managed Agents** : 8 events, at-least-once delivery, X-Webhook-Signature 5min replay protection

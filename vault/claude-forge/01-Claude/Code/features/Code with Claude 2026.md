@@ -64,3 +64,53 @@ Dreaming, Outcomes, Multi-agent, Routines = plus d'autonomie mais plus de consom
 - [[boris-workflow-2026-may]] — Boris setup mai 2026
 - [[Managed Agents]] — Feature Managed Agents
 - [[MOC-Claude-Code]]
+
+
+## Stats keynote (transcription complète)
+
+| Métrique | Valeur | Source |
+|----------|--------|--------|
+| API volume YoY | +17x | Ami Vora |
+| Temps dev moyen sur CC | 20h/semaine | Ami Vora |
+| Demande 2026 YTD | +80x | Dario Amodei (Chris Ebert) |
+| PRs/engineer Anthropic | +200% | Cat Wu |
+| Mercado Libre PRs | 500K+ reviewées | Cat Wu |
+| Stripe Scala→Java | 10 semaines estimées → 4 jours | Ami Vora |
+| Binti foster licensing | -20 jours sur le process | Ami Vora |
+
+## Concept : Task Horizon (Dianne Penn)
+
+Mesure de combien de temps Claude peut travailler de façon autonome tout en améliorant ses livrables :
+- L'an dernier : minutes
+- Maintenant : heures
+- Demain : proactif, always-on, sait quoi faire sans perdre le fil
+
+## Opus Preview / Mythos
+
+Mentionné comme "le prochain point de l'exponentielle, pas un petit pas". A trouvé une vulnérabilité de 27 ans dans OpenBSD qui avait survécu à tous les reviewers et fuzzers humains.
+
+## Conseil Dianne Penn aux développeurs
+
+> "Design for the next version of Claude, not just the current one. Maintain harder evals, build ambitious prototypes that don't work today."
+
+## Boris Cherny — Higher Order Prompts
+
+> "The default isn't 'I'm going to prompt Claude Code.' The default is 'I will have Claude prompt Claude Code.'"
+
+Routines = higher order prompts. Boris ne prompt plus — il crée des routines qui promptent.
+
+## London (19 mai 2026)
+
+### Nouvelles annonces
+- **[[Self-Hosted Sandboxes]]** (public beta) — exécution agents dans l'infra client
+- **[[MCP Tunnels]]** (research preview) — accès sécurisé aux MCP servers privés
+
+### Speakers London
+- Boris Cherny (Head of Claude Code)
+- Angela Jiang (Head of Product, Claude Platform)
+- Lisa Crofoot (Research Product Management Lead)
+- Katelyn Lesse (Head of Engineering, Claude Platform)
+- Cat Wu (Head of Product, Claude Code)
+
+### Framework 16 features (inaiwetrust)
+Structuré en 3 couches : **Autonomy** (Auto Mode, Routines, CI Autofix, Work Trees, Auto Memory) · **Visibility** (Agent View, Remote Control, Desktop Rebuild, Full Screen TUI) · **Infrastructure** (Self-Hosted Sandboxes, MCP Tunnels, Claude Security, Advisor Strategy, Tool Search, Programmatic Tool Calling, Compaction)

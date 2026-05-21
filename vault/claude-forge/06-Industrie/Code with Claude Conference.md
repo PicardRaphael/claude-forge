@@ -71,3 +71,20 @@ tags:
 - [[Managed Agents]]
 - [[Claude Design]]
 - [[MOC-Industrie]]
+
+
+## London — 19 mai 2026
+
+### Speakers confirmés
+- **Boris Cherny** — Head of Claude Code, Anthropic
+- **Angela Jiang** — Head of Product, Claude Platform, Anthropic
+- **Lisa Crofoot** — Research Product Management Lead, Anthropic
+- **Katelyn Lesse** — Head of Engineering, Claude Platform, Anthropic
+- **Cat Wu** — Head of Product, Claude Code, Anthropic
+
+### Annonces spécifiques London
+- **[[Self-Hosted Sandboxes]]** (public beta) — Cloudflare, Modal, Vercel, Daytona
+- **[[MCP Tunnels]]** (research preview) — tunnel sécurisé vers MCP privés
+
+### Extended London — 20 mai
+Format pour indie devs et early-stage founders. Builder deep-dives, workshops laptops-open.

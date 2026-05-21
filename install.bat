@@ -82,18 +82,28 @@ if %errorlevel% neq 0 (
 echo.
 
 :: --- Optionnels ---
-echo [4/5] Outils optionnels...
+echo [4/5] Outils optionnels (video-to-text, yt-dlp amélioré)...
 
 ffmpeg -version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo   ○ ffmpeg — non installé (optionnel, améliore yt-dlp)
+    echo   → Installation de ffmpeg via winget...
+    winget install --id Gyan.FFmpeg -e --accept-source-agreements --accept-package-agreements
+    echo   ✓ ffmpeg installé (redémarrer le terminal pour PATH)
 ) else (
     echo   ✓ ffmpeg installé
 )
 
+python -c "import faster_whisper" >nul 2>&1
+if %errorlevel% neq 0 (
+    echo   → Installation de faster-whisper (transcription audio)...
+    pip install faster-whisper
+) else (
+    echo   ✓ faster-whisper installé
+)
+
 deno --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo   ○ deno — non installé (optionnel)
+    echo   ○ deno — non installé (optionnel, améliore yt-dlp)
 ) else (
     echo   ✓ deno installé
 )
@@ -121,6 +131,20 @@ if %errorlevel% equ 0 (
     for /f "tokens=*" %%v in ('python -m yt_dlp --version') do echo   │ yt-dlp     : %%v
 ) else (
     echo   │ yt-dlp     : ERREUR
+)
+
+ffmpeg -version >nul 2>&1
+if %errorlevel% equ 0 (
+    echo   │ ffmpeg     : OK
+) else (
+    echo   │ ffmpeg     : non installé
+)
+
+python -c "import faster_whisper" >nul 2>&1
+if %errorlevel% equ 0 (
+    echo   │ whisper    : OK
+) else (
+    echo   │ whisper    : non installé
 )
 
 echo   └─────────────────────────────────────┘

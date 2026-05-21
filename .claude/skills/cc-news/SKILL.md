@@ -1,6 +1,6 @@
 ---
 name: cc-news
-description: Use this skill when the user asks about recent Claude Code updates, new features, AI industry news, or when any information might be outdated. Use PROACTIVELY when the user asks "quoi de neuf", "est-ce que X existe maintenant", or when knowledge seems stale. Date de reference : 14 mai 2026 (v2.1.140).
+description: Use this skill when the user asks about recent Claude Code updates, new features, AI industry news, or when any information might be outdated. Use PROACTIVELY when the user asks "quoi de neuf", "est-ce que X existe maintenant", or when knowledge seems stale. Date de reference : 21 mai 2026 (v2.1.140 + Code with Claude London).
 user-invokable: true
 allowed-tools: WebSearch, WebFetch, Read, Write, Agent
 argument-hint: "domaine ou sujet (ex: rag, agents, fine-tuning, concurrents, claude-code, prompt, tout)"
@@ -10,7 +10,7 @@ skills:
 
 # cc-news — Veille IA & Claude Code
 
-Date de référence : **14 mai 2026** (v2.1.140)
+Date de référence : **21 mai 2026** (v2.1.140 + Code with Claude London)
 Tout ce qui est postérieur à cette date doit être recherché.
 
 ## Tier 0 — Vérifier EN PREMIER (toujours, avant tout routage)
