@@ -7,12 +7,22 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-05-20
+derniere-maj: 2026-05-22
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-05-22 — Pipeline Boris adapté Neoteem (gain 50-60%/feature)
+
+- **Ajoutées** :
+  - `04-Techniques/patterns/pipeline-boris-adapte-neoteem.md` — recette pipeline agentic à appliquer sur tout nouveau repo (architect S/M/L, max 3 tests/comportement, REFACTOR fusionné, pipeline conditionnel, effort high partout sauf jugement)
+  - `Knowledge/raisonnements/raisonnement-revirement-pipeline-mai-2026.md` — capture multi-étapes du revirement (retire architect → rends-le rapide → pipeline conditionnel). Précieux pour comprendre POURQUOI un jour
+  - `Knowledge/erreurs/erreur-pipeline-trop-long-frustration.md` — l'erreur déclencheur (4h/feature, perte de plaisir). Anti-patterns à NE PAS recréer
+- **Modifiées** : aucune note vault directement (le pattern existant `pattern-architect-first-pipeline.md` reste valide en complément)
+- **Source** : Session 21-22 mai 2026, frustration utilisateur "4h pour une feature, je ne prends plus de plaisir". Pivot multi-étapes via advisor + DA + project-auditor cross-repo + recherche web Boris/Willison 2026. Commits f6d89e0 neo_ia + bc109aa ia_back. Gain mesuré : feature M neo_ia 30-45 min → 12-18 min, feature CRUD ia_back 4h → 1h30.
+- **Mémoires liées** (mises à jour, pas dans vault) : `feedback_pipeline_quality_gates`, `feedback_opus47_workflow`, `feedback_test_writer_systematic`, `reference_boris_thariq_bestpractices` (section adaptation Neoteem ajoutée)
 
 ## 2026-05-21 — repo-scope-guard fixes adversaires (post-DA)
 
