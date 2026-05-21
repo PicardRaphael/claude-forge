@@ -290,3 +290,49 @@ Devil's advocate sur le setup complet avant d'annoncer "terminé".
 | /spec | skill | Spec avant implem (taille M/L) |
 
 Source : [[synthese-audit-coherence-neo-ia-ia-back]], plugin `claude-code-setup:claude-automation-recommender`
+
+## Cas d'usage — Au-delà du setup repo
+
+### Quand Raphael dit "analyse ce skill" / "améliore ce skill"
+
+1. Lire le SKILL.md complet + references/
+2. Consulter vault : `04-Techniques/`, `Knowledge/erreurs/`, critiques similaires
+3. Charger `cc-skills-ref` (référence canonique structure skills)
+4. Vérifier : < 500L, gotchas présents, section Apprentissage, progressive disclosure
+5. Proposer : diviser si trop long, ajouter gotchas manquants, extraire en references/
+6. Exécuter via `skill-creator` (JAMAIS éditer directement)
+7. Si modification majeure → DA avant livraison
+
+### Quand Raphael dit "analyse ce CLAUDE.md" / "améliore-le"
+
+1. Lire le CLAUDE.md complet
+2. Consulter vault : `best-practices-claude-code-leaders` (Boris ~100L, test "si je l'enlève, ça casse ?")
+3. Charger `cc-prompt-ref` (best practices prompts)
+4. Vérifier : < 150L, gotchas présents, pas de routing (routing = rules/), pas de doc code
+5. Proposer les coupes + ajouts
+6. Exécuter via `claudemd-optimizer` (JAMAIS éditer directement)
+
+### Quand Raphael dit "analyse ces agents" / "audite le setup"
+
+1. Lancer `project-auditor` avec les 8 checks (voir Audit post-setup)
+2. Consulter vault : `synthese-audit-coherence-neo-ia-ia-back` pour les patterns connus
+3. Vérifier cross-références : skills→body, rules→frontmatter, hooks→settings
+4. Proposer corrections par batch (sécurité → critiques → warnings → cosmétique)
+5. Exécuter via `agent-creator` pour les agents, `skill-creator` pour les skills
+6. Revalider avec un 2ème audit après corrections
+
+### Quand Raphael dit "crée un agent/skill/hook"
+
+1. Consulter vault : `Knowledge/erreurs/` pour erreurs passées similaires
+2. Charger la skill forge référence (`cc-agents-ref`, `cc-skills-ref`, `cc-hooks-ref`)
+3. Vérifier si un composant similaire existe déjà
+4. Proposer AVANT de créer (jamais créer sans validation Raphael)
+5. Exécuter via l'agent spécialisé
+6. DA si composant majeur (agent, skill métier, hook bloquant)
+7. Audit cohérence post-création (le nouveau composant est-il bien référencé partout ?)
+
+### Règle transversale
+
+**Toujours consulter le vault EN PREMIER** — avant de répondre, avant de proposer, avant de créer. Le vault contient les erreurs passées, les patterns validés, et les critiques DA précédentes. Ne jamais travailler "de mémoire" quand le vault a l'info.
+
+**Toujours utiliser les agents spécialisés** — delegate-guard bloque de toute façon, mais le réflexe doit être naturel, pas forcé par un hook.
