@@ -5,7 +5,7 @@ tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch
 model: sonnet
 effort: high
 permissionMode: acceptEdits
-color: blue
+color: pink
 memory: project
 skills:
   - cc-agents-ref

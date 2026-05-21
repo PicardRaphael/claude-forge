@@ -14,7 +14,7 @@ skills:
   - forge-brain
   - obsidian-markdown
 memory: project
-color: red
+color: purple
 ---
 
 # project-auditor — Audit qualite .claude/

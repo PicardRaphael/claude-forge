@@ -2,6 +2,7 @@
 name: outcomes-grader
 description: Read-only grader that evaluates a deliverable against a RUBRIC.md. Scores each criterion PASS/FAIL/PARTIAL with justification. Used exclusively by the outcomes-test skill.
 model: opus
+color: yellow
 effort: high
 memory: project
 tools:

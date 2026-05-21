@@ -5,7 +5,7 @@ tools: Read, Write, Edit, Glob, Grep, Bash
 model: sonnet
 effort: high
 permissionMode: acceptEdits
-color: yellow
+color: pink
 memory: project
 skills:
   - cc-features-ref

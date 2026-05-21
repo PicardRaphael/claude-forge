@@ -14,6 +14,11 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-21 — Convention couleurs agents cross-repo
+
+- **Ajoutée** : `01-Claude/Code/best-practices/agents-color-convention.md` — Standard palette couleurs par catégorie (8 couleurs, 8 rôles)
+- **Source** : Test Desktop avec collègue — point coloré visible mais pas le nom d'agent, besoin de convention cohérente cross-repo
+
 ## 2026-05-20 — Fixes DA EVOLVE (frontière mémoire/vault + audit fantôme)
 
 - **Créée** :
