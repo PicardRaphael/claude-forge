@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-21 — TDD optimizations + audit cohérence 2 repos
+
+- **Ajoutées** : `Knowledge/critiques/critique-2026-05-21-tdd-optimizations-handshake.md`, `Knowledge/syntheses/synthese-audit-coherence-neo-ia-ia-back.md`
+- **Modifiée** : `0-Inbox/context-actuel.md` — ajout résultats audit + optimisations TDD
+- **Source** : Session 2026-05-21 — Sprint Contract, audit cohérence ia_back (43 problèmes) + neo_ia (24 problèmes)
+
 ## 2026-05-21 — Dispatch-guard E2E + erreur CLAUDE_AGENT + raisonnement détection
 
 - **Ajoutées** : `Knowledge/erreurs/erreur-claude-agent-env-var-dead-code.md`, `Knowledge/raisonnements/raisonnement-hook-agent-detection-method.md`, `Knowledge/critiques/critique-2026-05-21-dispatch-guard-livraison.md`, `Knowledge/critiques/critique-2026-05-21-color-tdd-cto-mindset.md`
