@@ -9,57 +9,35 @@ auteur: claude
 tags: ["#type/context", "#meta/working-memory"]
 ---
 ## Phase actuelle
-dispatch-guard déployé sur ia_back + neo_ia. Enforcement déterministe du pattern CTO (session principale ne code plus directement).
+Les 2 repos (neo_ia + ia_back) sont à 100% conformité Boris/Thariq/Karpathy. Pipeline TDD test-first, Sprint Contract, 67 problèmes corrigés, blueprint vault complet.
 
 ## Dernière session (2026-05-21)
 ### Décisions prises
-- dispatch-guard basé sur agent_type/subagent_type JSON stdin (pas CLAUDE_AGENT env var = dead code)
-- Multi-field fallback pour couvrir variations inter-versions CC
-- tdd-guard neo_ia refactorisé : glob + remontée parent pour tests aplatis/préfixés
-- Dispatch-guard en premier dans la chaîne PreToolUse (avant architect-guard et tdd-guard)
+- Pipeline TDD test-first sur les 2 repos : architect (contrats testables) → test-writer RED → dev → test-writer REFACTOR → code-reviewer
+- Sprint Contract bidirectionnel : test-writer valide contrats architect AVANT d'écrire les tests
+- 21 agents corrigés (skills orphelines → instructions body)
+- 5 rules créées/fixées (frontmatter, learn-from-mistakes)
+- Credentials sortis du git (.mcp.json, settings.local.json)
+- Note vault pattern-agentic-engineering = guide canonique tous cas d'usage
+- Préférence : analyse-first (pas questionnaire) pour setup repos
 
 ### En cours
-- Vérification empirique en live du champ exact injecté par le runtime CC (agent_type vs subagent_type)
-- Fix findTestFile ia_back (pattern basique .test.ts colocalisé, suffisant pour l'instant)
-- Hook Bash heredoc guard optionnel (fuite cat > file.py contourne dispatch-guard)
+- Mesurer taux de rejet Sprint Contract step 0 sur 30 jours
+- Tester pipeline TDD en live sur un vrai ticket
 
 ### Prochaines étapes
-- Lancer un vrai subagent dev qui fait un Write, dumper le JSON stdin pour confirmer le champ runtime
-- Tester /outcomes-test sur un vrai livrable dev
+- Tester le blueprint sur un repo vierge (lojii-front = bon candidat)
 - cc-news Tokyo (10 juin) à surveiller
 
 ## Fils ouverts
 - MCP Tunnels → évaluer pour brain Neoteem quand GA
-- Outcomes rubric hook enforcement (rule advisory insuffisante selon vault)
 - Bash heredoc guard (fuite documentée, risque faible court terme)
-- Exemptions dispatch-guard hardcodées → risque divergence entre les 2 repos
-- Template rubric "spec" à créer si on utilise /spec sur les repos projet
+- Rotation mot de passe PG Cloud SQL ia_back (dans historique git)
+- Batch cosmétique restant : pipeline-reset orphelin (référence dans /go, pas un hook)
 
 ## Liens
 [[Raphael-Picard]]
 [[Claude-Forge]]
-[[erreur-claude-agent-env-var-dead-code]]
-[[raisonnement-hook-agent-detection-method]]
-[[critique-2026-05-21-dispatch-guard-livraison]]
-
-
----
-## Session 2026-05-21 (suite) — Optimisations TDD + Audit cohérence
-
-### Décisions prises
-- Pipeline ia_back passé en test-first : architect (contrats testables) → test-writer red → dev → test-writer refactor → code-reviewer
-- Sprint Contract handshake bidirectionnel : test-writer valide les contrats architect AVANT d'écrire les tests (step 0)
-- Rules mortes fixées : agents-color-convention + outcomes-after-architect avaient pas de frontmatter description:
-- .mcp.json ia_back + settings.local.json (2 repos) untrackés de git
-- DA validé : 0 bloquant, 4 avertissements (advisory step 0 OK en v1, migration Drizzle ajoutée en BYPASS)
-
-### Audit cohérence profond
-- ia_back : 43 problèmes (4 critiques, 14 warnings) — pattern #1 = skills orphelines (11 agents)
-- neo_ia : 24 problèmes (5 critiques, 19 warnings) — même pattern skills orphelines (6 agents)
-- Checklist 8 points créée pour réutilisation sur tout repo
-
-### Prochaines étapes
-- Batch 3 : corriger skills orphelines dans le body des agents (11 ia_back + 6 neo_ia)
-- Tester le pipeline TDD complet en live sur un vrai ticket
-- cc-news Tokyo (10 juin) à surveiller
-- Mesurer taux de rejet Sprint Contract step 0 sur 30 jours
+[[pattern-agentic-engineering]]
+[[synthese-audit-coherence-neo-ia-ia-back]]
+[[critique-2026-05-21-tdd-optimizations-handshake]]
