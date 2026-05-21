@@ -14,6 +14,11 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-21 — repo-scope-guard fixes adversaires (post-DA)
+
+- **Ajoutée** : `Knowledge/erreurs/erreur-tests-heureux-vs-adverses.md`
+- **Source** : DA lancé post-push (stop hook l'a forcé) a trouvé 3 bloquants : Glob pattern hors scope non testé, Write ia_back non bloqué (incohérence rule/hook), Bash bypass triviaux. 2 fixes appliqués : (1) Glob résout aussi le pattern relatif/absolu, (2) FREE_READ_REPOS vs FREE_WRITE_REPOS (ia_back read-only enforced). Position assumée by-discipline pour Bash arbitraire (pas de regex hardcodée — décision Raphael). Documenté dans rule "Limites assumées".
+
 ## 2026-05-21 — Refactor vault-before-specialist forge (4 fixes)
 
 - **Ajoutée** : `Knowledge/erreurs/erreur-vault-before-specialist-ttl-scope.md`
