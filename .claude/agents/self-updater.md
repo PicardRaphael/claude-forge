@@ -4,6 +4,7 @@ description: Use to update claude-forge reference skills when new Claude Code fe
 tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch
 model: sonnet
 effort: high
+permissionMode: acceptEdits
 color: cyan
 memory: project
 skills:

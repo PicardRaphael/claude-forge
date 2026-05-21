@@ -4,6 +4,7 @@ description: Use when the user wants to CREATE, MODIFY or OPTIMIZE a Claude Code
 tools: Read, Write, Edit, Glob, Grep, Bash
 model: sonnet
 effort: high
+permissionMode: acceptEdits
 color: green
 memory: project
 skills:

@@ -4,6 +4,7 @@ description: Use when the user wants to create, improve or optimize a CLAUDE.md.
 tools: Read, Write, Edit, Glob, Grep, Bash
 model: sonnet
 effort: high
+permissionMode: acceptEdits
 color: yellow
 memory: project
 skills:

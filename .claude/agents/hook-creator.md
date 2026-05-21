@@ -4,6 +4,7 @@ description: Use when the user wants to CREATE or MODIFY a Claude Code hook. Use
 tools: Read, Write, Edit, Glob, Grep, Bash
 model: sonnet
 effort: high
+permissionMode: acceptEdits
 color: orange
 memory: project
 skills:

@@ -3,6 +3,7 @@ name: project-auditor
 description: Use when asked to audit, analyze, or review a project's .claude/ setup, verify agents/skills/hooks/rules/CLAUDE.md quality, or check for issues. Use PROACTIVELY when user says analyse les skills, analyse les agents, vérifie la config, refais une analyse de X. Produces a report with fixes.
 model: opus
 effort: xhigh
+permissionMode: plan
 tools: Read, Write, Edit, Glob, Grep, Bash, Agent
 skills:
   - cc-agents-ref

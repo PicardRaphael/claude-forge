@@ -4,6 +4,7 @@ description: Use when the user wants to CREATE or MODIFY a Claude Code subagent.
 tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch
 model: sonnet
 effort: high
+permissionMode: acceptEdits
 color: blue
 memory: project
 skills:
