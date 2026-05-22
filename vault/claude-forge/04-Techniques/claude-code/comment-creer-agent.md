@@ -172,8 +172,8 @@ Invoquer l'agent depuis session vierge. Vérifier :
 - Outils suffisants (rien ne manque)
 - Outils restreints respectés (disallowedTools)
 
-### Étape 6 — DA après création majeure
-Côté forge : `devils-advocate` après création (cf [[devils-advocate-pipeline]]).
+### Étape 6 — DA si livrable majeur (CONDITIONNEL)
+Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (agent orchestrant, agent sécu, agent cross-repos). Doctrine 22 mai : pas de gates systématiques (cf [[raisonnement-22mai-doctrine-vs-enforcement]] + [[feedback_pipeline_quality_gates]]). DA reste **conditionnel ciblé**.
 
 ---
 

@@ -173,8 +173,8 @@ Côté repo externe : utiliser `mcp-builder` ou `skill-creator` officiel Anthrop
 ### Étape 5 — Test en session fraîche
 Tester la skill dans une session vierge avec un prompt qui devrait l'activer. Si elle ne s'active pas → description pas assez directive.
 
-### Étape 6 — Devil's advocate
-Côté forge : `devils-advocate` AVANT livraison majeure (cf [[devils-advocate-pipeline]]).
+### Étape 6 — Devil's advocate (CONDITIONNEL)
+Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilisée cross-repos, skill sécu critique, skill métier complexe). Doctrine 22 mai : pas de gates systématiques (cf [[raisonnement-22mai-doctrine-vs-enforcement]]). DA reste **conditionnel**, pas réflexe.
 
 ---
 

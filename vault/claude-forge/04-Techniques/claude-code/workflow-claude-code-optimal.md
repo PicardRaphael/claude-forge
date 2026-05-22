@@ -12,6 +12,8 @@ aliases:
   - "verifiable checkpoints"
   - "parallelisation 5 sessions"
   - "compute allocator"
+  - "comment automatiser claude code"
+  - "automation workflow"
 derniere-maj: 2026-05-22
 auteur: claude
 type: technique
@@ -338,7 +340,7 @@ Pas d'overhead. Pas d'agent.
 - **[anthropics/claude-code](https://github.com/anthropics/claude-code)** : config minimaliste 3 slash commands, démonstration "minimum qui marche"
 - **[anthropics/claude-code-action/CLAUDE.md](https://github.com/anthropics/claude-code-action)** : seul CLAUDE.md Anthropic public
 - **[anthropics/claude-for-legal/CLAUDE.md](https://github.com/anthropics/claude-for-legal)** : 130 lignes, 5 sections
-- **[forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)** : CLAUDE.md viral 110k stars, 70 lignes, 4 principes
+- **[multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)** : CLAUDE.md viral (ex-forrestchang), 70 lignes, 4 principes — fan project pas endorsé par Karpathy
 - **[trailofbits/claude-code-config](https://github.com/trailofbits/claude-code-config)** : entreprise sécu complète
 
 ### Pattern Karpathy

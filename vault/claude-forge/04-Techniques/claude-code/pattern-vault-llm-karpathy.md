@@ -326,8 +326,8 @@ Quand le LLM cherche un sujet, il commence par `index.md` pour s'orienter.
 - **Dataview** (Obsidian plugin) — requêtes vault
 - **git** — versioning
 
-### Forrest Chang viral
-- **[forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)** — CLAUDE.md viral 110k stars (220k cumul avec mirror multica-ai). **NB** : pas endorsé par Karpathy publiquement.
+### Fan project viral (ex-forrestchang → multica-ai)
+- **[multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)** — CLAUDE.md viral (URL active, l'original `forrestchang/andrej-karpathy-skills` redirige vers ce repo). **NB** : pas endorsé par Karpathy publiquement, c'est un fan project. Stars exactes à vérifier à date.
 - 70 lignes, 4 principes
 - Démonstration "court + opinionated > long + neutre"
 
@@ -352,8 +352,8 @@ Quand le LLM cherche un sujet, il commence par `index.md` pour s'orienter.
 - CEO Shopify
 - qmd open source : BM25 + vector + rerank, CLI + MCP
 
-### Forrest Chang
-- [github.com/forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills) — 110k stars
+### Fan project viral (ex-forrestchang → multica-ai)
+- [github.com/multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) — URL active, ex-forrestchang. Stars à vérifier.
 
 ### Anthropic (Karpathy chez eux)
 - Équipe pretraining + Claude-accelerated research
@@ -364,8 +364,8 @@ Quand le LLM cherche un sujet, il commence par `index.md` pour s'orienter.
 
 ### Pièges attribution
 - **qmd ≠ Karpathy** — créé par **Tobi Lütke** (Karpathy le recommande, ne l'a pas créé)
-- **Karpathy stars 220k = flottant** : 110k Forrest Chang seul + 220k cumul avec mirror multica-ai. Citer les 2 distinctement.
-- **`forrestchang/andrej-karpathy-skills`** pas endorsé publiquement par Karpathy — c'est un fan project
+- **`forrestchang/andrej-karpathy-skills` URL obsolète** : redirige vers `multica-ai/andrej-karpathy-skills` aujourd'hui. Citer la version active. Stars exactes à vérifier à date.
+- **Fan project pas endorsé** publiquement par Karpathy
 
 ### Pièges layers
 - **LLM qui modifie raw/** = bug fatal du pattern

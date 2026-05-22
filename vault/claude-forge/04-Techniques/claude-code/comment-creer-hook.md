@@ -7,7 +7,7 @@ aliases:
   - "create claude code hook"
   - "hook parfait"
   - "hook best practices"
-  - "29 events hooks"
+  - "25+ events hooks"
   - "exit codes hooks"
   - "hookSpecificOutput"
   - "asyncRewake"
@@ -92,21 +92,38 @@ Avec hooks bloquants sur règles critiques :
 }
 ```
 
-### Les 29 events officiels (verbatim docs Anthropic)
+### Les 25+ events officiels (source vérifiée : `.claude/skills/cc-hooks-ref/SKILL.md`)
 
-| Phase | Events principaux |
-|-------|-------------------|
-| **Lifecycle** | `SessionStart`, `SessionEnd`, `UserPromptSubmit`, `Stop`, `SubagentStop` |
-| **Tools** | `PreToolUse`, `PostToolUse` |
-| **Files** | `PreEdit`, `PostEdit`, `PreWrite`, `PostWrite` |
-| **Bash** | `PreBash`, `PostBash` |
-| **Compaction** | `PreCompact`, `PostCompact` |
-| **Agents** | `PreAgent`, `PostAgent`, `AgentResult` |
-| **Worktrees** | `WorktreeCreate`, `WorktreeDelete` |
-| **Async** | `asyncRewake` |
-| ... | (29 events documentés total) |
+| Event | Bloquant | Phase |
+|-------|----------|-------|
+| `PreToolUse` | ✅ exit 2 | Avant tout outil — c'est ICI qu'on intercepte Write/Edit/MultiEdit/Bash via `matcher` |
+| `PostToolUse` | ❌ | Après outil — formatage, lint, notifications |
+| `PostToolUseFailure` | ❌ | Après échec outil |
+| `Stop` | ✅ JSON block | Fin de turn (avec `once: true` sinon boucle) |
+| `SubagentStart` / `SubagentStop` | ✅ (Stop) | Sub-agents lifecycle |
+| `SessionStart` / `SessionEnd` | ❌ | Lifecycle session |
+| `UserPromptSubmit` | ❌ | Prompt utilisateur reçu |
+| `UserPromptExpansion` | ✅ exit 2 | Expansion du prompt (bloquable) |
+| `PermissionRequest` | ✅ | Avant demande permission |
+| `PermissionDenied` | ❌ | Après refus auto-mode (`{retry: true}` pour relancer) |
+| `Notification` | ❌ | Notification utilisateur |
+| `PreCompact` / `PostCompact` | ❌ | Avant / après compression contexte |
+| `Setup` | ❌ | Setup initial |
+| `TeammateIdle` | ❌ | Coéquipier inactif |
+| `TaskCompleted` | ❌ | Tâche terminée |
+| `ConfigChange` | ❌ | Config modifiée |
+| `WorktreeCreate` / `WorktreeRemove` | ❌ (mais non-zero abort sur Create) | Worktrees |
+| `InstructionsLoaded` | ❌ | Chargement CLAUDE.md/rule |
+| `CwdChanged` | ❌ | Répertoire courant modifié |
+| `FileChanged` | ❌ | Fichier modifié détecté |
+| `PostToolBatch` | ❌ | Après lot d'appels outils |
+| `Elicitation` / `ElicitationResult` | ❌ | Prompts saisie utilisateur |
 
-**Note** : `PostCompact` et `asyncRewake` existent (vérifié). `exit 1` ≠ bloquant (seul `exit 2` est bloquant côté tools).
+**Pour intercepter une écriture de fichier** : utiliser `PreToolUse` avec `matcher: "Write|Edit|MultiEdit"` (triplet obligatoire, cf [[feedback_multiedit_matcher_blind_spot]]). Il n'existe **PAS** d'événements `PreEdit`/`PostEdit`/`PreWrite`/`PostWrite`/`PreBash`/`PostBash` séparés — tout passe par `PreToolUse`/`PostToolUse` avec matcher.
+
+**`asyncRewake`** = option de retour d'un hook (réveille la session plus tard), **PAS un event**.
+
+**`exit 1` n'est PAS bloquant** côté tools (seul `exit 2` l'est). Exception `WorktreeCreate` : tout non-zero abort.
 
 ### Exit codes
 
@@ -169,10 +186,12 @@ Réveille la session à un timing futur. Utile pour scheduling, polling externe.
 - La règle est-elle **déterministe** (vérifiable mécaniquement) ? Si non → impossible en hook
 
 ### Étape 2 — Choisir l'event
-- Pour bloquer une action → `PreToolUse` (matcher l'outil)
-- Pour formater après → `PostToolUse` (matcher l'outil)
-- Pour notifier en fin → `Stop` (avec `once: true` pour éviter boucle)
-- Pour réveiller plus tard → `asyncRewake`
+- Pour bloquer une écriture/édition → `PreToolUse` avec `matcher: "Write|Edit|MultiEdit"`
+- Pour bloquer une commande Bash → `PreToolUse` avec `matcher: "Bash"`
+- Pour formater après écriture → `PostToolUse` avec `matcher: "Write|Edit|MultiEdit"`
+- Pour notifier en fin de turn → `Stop` (avec `once: true` sinon boucle)
+- Pour bloquer un prompt user → `UserPromptExpansion` (exit 2)
+- Pour réveiller la session plus tard → retour `asyncRewake` depuis un autre hook
 
 ### Étape 3 — Implémenter le script
 - **Même stack que le projet** (Python si Python, Node si Node) — cf [[feedback_hooks_same_stack]]
@@ -194,8 +213,8 @@ Tester :
 ### Étape 6 — Déléguer à `hook-creator`
 Côté forge : agent `hook-creator` génère la structure (pas bloqué par delegate-guard mais convention).
 
-### Étape 7 — DA après création majeure
-Côté forge : `devils-advocate` après hook critique (sécu/scope).
+### Étape 7 — DA si livrable majeur (CONDITIONNEL, pas systématique)
+Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (hook sécu critique, scope cross-repo). Doctrine 22 mai : pas de gates systématiques (cf [[raisonnement-22mai-doctrine-vs-enforcement]] + [[feedback_pipeline_quality_gates]]). DA reste **conditionnel ciblé**.
 
 ---
 
@@ -366,7 +385,7 @@ Aliases déclarés en frontmatter (10) :
 - create claude code hook
 - hook parfait
 - hook best practices
-- 29 events hooks
+- 25+ events hooks
 - exit codes hooks
 - hookSpecificOutput
 - asyncRewake

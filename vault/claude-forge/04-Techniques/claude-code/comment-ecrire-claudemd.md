@@ -217,10 +217,10 @@ Session N+1 → erreur évitée (compounding)
 
 | Optim | Gain |
 |-------|------|
-| < 200 lignes vs 500+ | **~60% moins tokens** chargés à chaque session, adhérence Claude **mesurablement meilleure** (verbatim Anthropic : "consume more context and reduce adherence") |
-| Test "Would removing..." | Élimine 30-50% des lignes en moyenne sur un CLAUDE.md non-audité |
-| Compounding error-driven | **0% récurrence** des erreurs capturées (vs ~40% sans) |
-| Sortie vers hooks | Passe de ~80% compliance à 100% sur les règles critiques |
+| < 200 lignes vs 500+ | Moins de tokens chargés à chaque session, adhérence Claude meilleure (verbatim Anthropic : "consume more context and reduce adherence") |
+| Test "Would removing..." | Élimine une part significative des lignes sur un CLAUDE.md non-audité (estimation empirique forge, pas chiffre Anthropic) |
+| Compounding error-driven | Erreurs capturées une fois cessent de récurrer (verbatim Boris : "Anytime we see Claude do something incorrectly, we add it to CLAUDE.md") |
+| Sortie vers hooks | Passe d'une compliance partielle (advisory) à 100% sur ce que le hook détecte (verbatim Anthropic : "If a rule must hold every time, make it a hook") |
 | `@import` modulaire | Réduit duplication entre repos liés, chargement conditionnel |
 
 ---
@@ -272,9 +272,9 @@ Config complète Trail of Bits exposée publiquement. CLAUDE.md illustre :
 - Stop hook anti-rationalization (Haiku check cop-outs) — pattern inédit
 - Sections sécu explicites
 
-### 4. `forrestchang/andrej-karpathy-skills` (CLAUDE.md viral)
+### 4. `multica-ai/andrej-karpathy-skills` (CLAUDE.md viral — ex-forrestchang)
 
-**70 lignes, 4 principes** — repo 110k stars (220k cumul avec mirror multica-ai). **NB** : pas endorsé par Karpathy publiquement, mais largement repris. Démonstration que **court + opinionated > long + neutre**.
+**70 lignes, 4 principes** — repo viral (URL active : `multica-ai/andrej-karpathy-skills`, redirection depuis l'original `forrestchang/`). **NB** : pas endorsé par Karpathy publiquement, c'est un fan project. Démonstration que **court + opinionated > long + neutre**. Stars exactes à vérifier à date de consultation.
 
 ---
 
@@ -297,7 +297,7 @@ Config complète Trail of Bits exposée publiquement. CLAUDE.md illustre :
 - [anthropics/claude-for-legal](https://github.com/anthropics/claude-for-legal) — CLAUDE.md 130L référence
 - [anthropics/claude-code](https://github.com/anthropics/claude-code) — config minimaliste
 - [trailofbits/claude-code-config](https://github.com/trailofbits/claude-code-config) — config entreprise sécu
-- [forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills) — CLAUDE.md viral
+- [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) — CLAUDE.md viral (ex-forrestchang)
 
 ---
 

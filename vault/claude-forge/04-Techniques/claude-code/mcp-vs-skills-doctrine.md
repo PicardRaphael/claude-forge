@@ -220,16 +220,18 @@ Le serveur MCP Sentry pèse **~8k tokens upfront** (schemas tools). À mettre en
 - ❌ **`Grep`/`Read` brut sur vault MCP-indexé** — utiliser le MCP (cf forge-brain-proactive)
 - ❌ **Heredoc pour write disguised** quand agent a `disallowedTools: Write,Edit` (cf [[feedback_da_bash_write]])
 
-### Anti-pattern transversal : Lethal trifecta (Thariq)
+### Anti-pattern transversal : Lethal trifecta (Simon Willison)
+**Terme forgé par Simon Willison** ([simonwillison.net](https://simonwillison.net), juin 2025), repris par Thariq dans Agent SDK Workshop mai 2026.
+
 Combinaison toxique d'accès LLM :
 1. Accès à des **données privées**
 2. Capacité d'**exposition externe** (envoyer email, post API)
 3. Exposition à du **contenu non-trusted** (user input, web content)
 
-Les trois ensemble = vulnérabilité majeure. Couper au moins 1 des 3 axes.
+Les trois ensemble = vulnérabilité majeure (prompt injection exfiltration). Couper au moins 1 des 3 axes.
 
 > "Swiss cheese defense" — multi-layer defense, plusieurs hooks/skills imparfaits qui ensemble couvrent les trous
-> — Thariq, Agent SDK Workshop
+> — Thariq Shihipar, Agent SDK Workshop Code with Claude SF mai 2026
 
 ---
 

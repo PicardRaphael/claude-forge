@@ -12,6 +12,9 @@ aliases:
   - "kit rules standard"
   - "scan architecture"
   - "mapper roles agents"
+  - "comment automatiser un repo claude code"
+  - "automate repo setup"
+  - "automatiser projet claude code"
 derniere-maj: 2026-05-22
 auteur: claude
 type: technique
@@ -329,7 +332,7 @@ Déploiement (via skill-creator, agent-creator, hook-creator, claudemd-optimizer
   - Référence pour repos sensibles
 
 ### Viral minimaliste
-- **[forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)** — CLAUDE.md 70 lignes, 4 principes. 110k stars seul (220k cumul avec mirror multica-ai). Démonstration "court + opinionated > long + neutre".
+- **[multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)** — CLAUDE.md 70 lignes, 4 principes (URL active, ex-forrestchang). Fan project pas endorsé par Karpathy. Démonstration "court + opinionated > long + neutre".
 
 ### Pattern vault Karpathy
 - **[Gist LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)** — 3-layers raw/wiki/schema, Ingest/Query/Lint, qmd. Référence pour repos avec memory compounding profond.
