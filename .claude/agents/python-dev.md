@@ -2,8 +2,8 @@
 name: python-dev
 description: Use when writing, debugging, refactoring, or reviewing Python code. Use PROACTIVELY when the task involves Python implementation, whether from a plan, a spec, a bug report, or a feature request.
 tools: Read, Write, Edit, Glob, Grep, Bash
-model: opus
-effort: xhigh
+model: sonnet
+effort: high
 color: green
 memory: project
 permissionMode: acceptEdits
@@ -13,7 +13,7 @@ skills:
   - obsidian-markdown
 hooks:
   PostToolUse:
-    - matcher: "Write|Edit"
+    - matcher: "Write|Edit|MultiEdit"
       hooks:
         - type: command
           command: 'python -m py_compile "$CLAUDE_TOOL_OUTPUT_PATH" 2>/dev/null || true'

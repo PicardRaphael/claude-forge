@@ -1,3 +1,7 @@
+---
+description: "Update vault CHANGELOG.md after adding or modifying vault/claude-forge/ notes. Required BEFORE commit."
+---
+
 # Changelog vault — OBLIGATOIRE après ajout de notes
 
 Quand tu ajoutes ou modifies des notes dans le vault forge-brain (create/update dans vault/claude-forge/), mettre à jour `vault/claude-forge/CHANGELOG.md` AVANT le commit.

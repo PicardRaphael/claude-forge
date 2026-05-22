@@ -3,9 +3,10 @@ name: project-analyzer
 description: Use when the user wants to analyze any project and get full Claude Code recommendations. Use PROACTIVELY when the user says "j'ai un projet", "analyse mon projet", "qu'est-ce que je peux faire", or shares a path or GitHub URL. Uses opus thinking + web search + memory.
 tools: Read, Write, Edit, Grep, Glob, Bash, WebFetch, WebSearch
 model: opus
-effort: xhigh
+effort: high
 color: purple
 memory: project
+permissionMode: plan
 skills:
   - cc-advisor
   - cc-features-ref

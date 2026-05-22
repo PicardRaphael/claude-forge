@@ -1,0 +1,107 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git *)",
+      "Bash(git -C *)",
+      "Bash(ls *)",
+      "Bash(taskkill *)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "rundll32 user32.dll,MessageBeep",
+            "timeout": 2
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:\\Users\\raphael.picard_neote\\AppData\\Local\\Programs\\Python\\Python313\\python.exe \"$(git rev-parse --show-toplevel)/.claude/hooks/learning-reminder.py\"",
+            "timeout": 10,
+            "once": true
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:\\Users\\raphael.picard_neote\\AppData\\Local\\Programs\\Python\\Python313\\python.exe \"$(git rev-parse --show-toplevel)/.claude/hooks/proactivity-reminder.py\"",
+            "timeout": 3,
+            "once": true
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:\\Users\\raphael.picard_neote\\AppData\\Local\\Programs\\Python\\Python313\\python.exe \"$(git rev-parse --show-toplevel)/.claude/hooks/security-guard.py\"",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:\\Users\\raphael.picard_neote\\AppData\\Local\\Programs\\Python\\Python313\\python.exe \"$(git rev-parse --show-toplevel)/.claude/hooks/delegate-guard.py\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:\\Users\\raphael.picard_neote\\AppData\\Local\\Programs\\Python\\Python313\\python.exe \"$(git rev-parse --show-toplevel)/.claude/hooks/session-health.py\"",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:\\Users\\raphael.picard_neote\\AppData\\Local\\Programs\\Python\\Python313\\python.exe \"$(git rev-parse --show-toplevel)/.claude/hooks/skill-activation.py\"",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:\\Users\\raphael.picard_neote\\AppData\\Local\\Programs\\Python\\Python313\\python.exe \"$(git rev-parse --show-toplevel)/.claude/hooks/session-reminder.py\"",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "C:\\Users\\raphael.picard_neote\\AppData\\Local\\Programs\\Python\\Python313\\python.exe \"$(git rev-parse --show-toplevel)/.claude/hooks/mcp-autostart.py\"",
+            "timeout": 10,
+            "async": true
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {}
+}

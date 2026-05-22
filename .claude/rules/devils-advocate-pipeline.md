@@ -1,56 +1,54 @@
 ---
-description: "Run devils-advocate agent before delivering major work — skills, agents, architecture decisions, technique proposals"
+description: "Run devils-advocate agent CONDITIONALLY on major deliverables (architecture decisions, reusable skills, orchestrating agents) — NOT systematically post-22 mai doctrine"
 ---
 
-# Devil's Advocate — OBLIGATOIRE avant livraison majeure
+# Devil's Advocate — CONDITIONNEL (doctrine 22 mai 2026)
 
-## Qui est concerné
+## Doctrine post-pivot 22 mai
 
-TOUT LE MONDE. Les agents spécialisés ET la session principale (moi).
+**DA n'est PAS un gate systématique.** Le hook `devil-advocate-stop` qui forçait DA en fin de session = anti-pattern doctrinal (workflow hooks supprimé). DA reste conditionnel ciblé.
 
-- **Agents** : le hook `devil-advocate-guard.py` rappelle automatiquement après chaque agent qui produit un livrable
-- **Session principale** : AVANT de proposer une innovation, une architecture, une technique à Raphael → lancer devil's advocate. Pas "challenger mentalement" — LANCER L'AGENT. La session 2026-05-09 a prouvé que le challenge mental ne suffit pas (3 bloquants trouvés par l'agent que j'avais manqués).
+Référence : [[critique-2026-05-22-8-canoniques-chantier]] + [[raisonnement-22mai-doctrine-vs-enforcement]].
 
-## Quand invoquer
+## Quand invoquer (ciblé)
 
 | Livrable | Devil's advocate ? |
 |----------|-------------------|
-| Nouvelle skill créée | OUI — hook automatique |
-| Nouvel agent créé | OUI — hook automatique |
-| Nouveau hook créé | OUI — hook automatique |
-| Décision d'architecture | OUI — session principale |
-| Proposition de technique / innovation | OUI — session principale |
-| Proposition Jarvis (croisement inédit) | OUI — surtout celles-là |
-| Modification de CLAUDE.md | NON — trop fréquent |
+| **Décision d'architecture** majeure | OUI — session principale lance DA |
+| **Skill réutilisée cross-repos** ou skill métier complexe | OUI |
+| **Agent orchestrant** ou sécu critique | OUI |
+| **Proposition Jarvis** (croisement inédit) | OUI |
+| Refonte structurelle vault / composants | OUI |
+| Nouvelle skill basique | NON — DA = overhead |
+| Nouvel agent simple | NON |
+| Nouveau hook lint/format | NON |
+| Modification de CLAUDE.md | NON |
 | Fix de bug / correction mineure | NON |
 | Recherche / synthèse informative | NON |
-| Création de fiches vault / batch de notes | NON — synthèse informative, pas livrable technique |
-| Audit / restructuration vault | NON — utiliser vault-audit à la place |
+| Création de fiches vault / batch de notes | NON |
+| Audit / restructuration vault | NON — utiliser vault-audit |
 
 ## Comment l'intégrer
 
 1. Terminer le livrable normalement (via agents spécialisés)
-2. Lancer `devils-advocate` avec le livrable en contexte
-3. Présenter à Raphael : le livrable + la critique + ta réponse à la critique
-4. Le devil's advocate sauvegarde sa critique dans le vault (`Knowledge/critiques/`)
+2. Lancer `devils-advocate` avec le livrable en contexte (si applicable selon tableau)
+3. Présenter à Raphael : livrable + critique + ta réponse
+4. DA sauvegarde sa critique dans `Knowledge/critiques/`
 
-## Pipeline complet avec devil's advocate
+## Anti-patterns
 
-```
-architect-first → implémentation → test/review → devil's advocate → livraison
-```
+- ❌ **Invoquer DA sur tout** → fatigue, on l'ignore. Réservé aux livrables MAJEURS uniquement.
+- ❌ **Gate systématique** par hook → workflow hooks = anti-pattern doctrine 22 mai
+- ❌ **Ignorer les objections BLOCKING** → autant ne pas l'avoir
+- ❌ **Ne pas sauvegarder dans le vault** → on perd l'apprentissage
 
-Le devil's advocate est le DERNIER gate avant la livraison. Il ne bloque pas — il informe.
+## Ce que le DA consulte dans le vault
 
-## Ce que le devil's advocate consulte dans le vault
-
-AVANT de critiquer, il DOIT chercher :
+AVANT de critiquer, le DA cherche (conditionnel ciblé, max 2 requêtes MCP) :
 - `Knowledge/erreurs/` — erreurs passées similaires
 - `Knowledge/critiques/` — critiques précédentes sur le même sujet
 - `Knowledge/raisonnements/` — raisonnements validés pertinents
 
-## Anti-patterns
+## Référence canonique
 
-- Invoquer devil's advocate sur tout → fatigue, on l'ignore. Réservé aux livrables MAJEURS.
-- Ignorer systématiquement ses objections BLOCKING → alors autant ne pas l'avoir.
-- Ne pas sauvegarder dans le vault → on perd l'apprentissage.
+Source de vérité : [[comment-creer-agent]] (DA conditionnel) + [[workflow-claude-code-optimal]].

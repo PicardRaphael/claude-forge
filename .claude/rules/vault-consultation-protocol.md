@@ -1,3 +1,7 @@
+---
+description: "Centralizes vault forge-brain consultation protocol referenced by agents. MCP tools, format obsidian-markdown, conditional consultation per agent type."
+---
+
 # Protocole consultation vault — Single source of truth
 
 Cette rule centralise le protocole de consultation du vault forge-brain pour les agents. Elle est référencée par chaque agent au lieu d'être copiée-collée. Objectif : DRY + facilité de mise à jour.

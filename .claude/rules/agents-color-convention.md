@@ -1,3 +1,7 @@
+---
+description: "Apply 8-color convention on all agents (red sec/orange review/yellow test/green dev/blue archi/purple analyse/cyan infra/pink meta). Same role = same color cross-repo."
+---
+
 # Convention couleurs agents — OBLIGATOIRE
 
 Chaque agent DOIT avoir un champ `color` dans son frontmatter YAML. La couleur dépend de la catégorie :

@@ -3,7 +3,7 @@ name: python-ref
 description: ALWAYS load this reference when writing, reviewing, or debugging Python code. Covers Python 3.11+ best practices, patterns, testing, and packaging. Do NOT write Python without loading this first.
 model: sonnet
 effort: medium
-user-invokable: true
+user-invokable: false
 ---
 
 # Python 3.11+ — Reference
