@@ -99,6 +99,71 @@ class BrainTools:
             self._git.commit_file(path, username, "append", full_path.stem)
         return f"Contenu ajoute a: {path}"
 
+    def update_note(self, file: str, content: str, username: str = "anonymous") -> str:
+        """Remplace EN ENTIER le contenu d'une note existante (frontmatter + body).
+        Pour ajouter en fin, utiliser append_note. Pour modifier 1 propriete frontmatter,
+        utiliser update_property. Pour inserer a un endroit precis, utiliser insert_section.
+        """
+        path = self._db.resolve_note(file)
+        if not path:
+            return f"Note '{file}' introuvable."
+        full_path = self._vault / path
+        full_path.write_text(content, encoding="utf-8")
+        parsed = parse_note(full_path.stem, path, content)
+        self._db.index_note(parsed, full_path.stat().st_mtime)
+        if self._git and self._git._cfg.auto_commit:
+            self._git.commit_file(path, username, "update", full_path.stem)
+        return f"Note mise a jour: {path}"
+
+    def insert_section(
+        self,
+        file: str,
+        marker: str,
+        content: str,
+        position: str = "after",
+        username: str = "anonymous",
+    ) -> str:
+        """Insere du contenu avant/apres une section markdown reperee par son header exact.
+
+        Args:
+            file: nom de la note ou alias
+            marker: ligne header complete (ex: "## COMMENT — Grille 6 etapes")
+            content: contenu markdown a inserer
+            position: "before" ou "after" le marker (default "after")
+        """
+        if position not in ("before", "after"):
+            return f"Position invalide: '{position}'. Utiliser 'before' ou 'after'."
+        path = self._db.resolve_note(file)
+        if not path:
+            return f"Note '{file}' introuvable."
+        full_path = self._vault / path
+        original = full_path.read_text(encoding="utf-8", errors="replace")
+        if marker not in original:
+            return f"Marker '{marker}' introuvable dans: {path}"
+        lines = original.splitlines(keepends=True)
+        out: list[str] = []
+        inserted = False
+        for line in lines:
+            if not inserted and line.rstrip("\n") == marker.rstrip("\n"):
+                if position == "before":
+                    out.append(content if content.endswith("\n") else content + "\n")
+                    out.append(line)
+                else:
+                    out.append(line)
+                    out.append(content if content.endswith("\n") else content + "\n")
+                inserted = True
+            else:
+                out.append(line)
+        if not inserted:
+            return f"Marker '{marker}' present mais non aligne (ligne entiere)."
+        new_content = "".join(out)
+        full_path.write_text(new_content, encoding="utf-8")
+        parsed = parse_note(full_path.stem, path, new_content)
+        self._db.index_note(parsed, full_path.stat().st_mtime)
+        if self._git and self._git._cfg.auto_commit:
+            self._git.commit_file(path, username, f"insert_{position}", full_path.stem)
+        return f"Contenu insere {position} '{marker}' dans: {path}"
+
     def list_notes(self, folder: str = "", limit: int = 50) -> str:
         rows = self._db._conn.execute(
             "SELECT file_stem, path FROM notes WHERE path LIKE ? ORDER BY file_stem LIMIT ?",
@@ -229,6 +294,28 @@ def register_tools(mcp, tools: BrainTools):
             content: contenu markdown a ajouter
         """
         return tools.append_note(file, content)
+
+    @mcp.tool()
+    def update_note(file: str, content: str) -> str:
+        """Remplace EN ENTIER le contenu d'une note existante (frontmatter + body).
+
+        Args:
+            file: nom de la note ou alias
+            content: nouveau contenu complet (frontmatter YAML + body markdown)
+        """
+        return tools.update_note(file, content)
+
+    @mcp.tool()
+    def insert_section(file: str, marker: str, content: str, position: str = "after") -> str:
+        """Insere du contenu avant/apres une section markdown reperee par son header exact.
+
+        Args:
+            file: nom de la note ou alias
+            marker: ligne header complete (ex: "## COMMENT")
+            content: contenu markdown a inserer
+            position: "before" ou "after" le marker (default "after")
+        """
+        return tools.insert_section(file, marker, content, position)
 
     @mcp.tool()
     def list_notes(folder: str = "", limit: int = 50) -> str:
