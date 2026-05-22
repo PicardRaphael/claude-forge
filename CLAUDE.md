@@ -6,6 +6,7 @@
 
 - **Auto-mode classifier hard block** sur `.claude/settings.json` (self-modification protection Anthropic) : édition manuelle Raphael requise pour modifs hooks/permissions. Workaround agent = générer `.proposed`.
 - **JAMAIS `$ARGUMENTS` dans backticks shell** : substitution littérale casse quoting (Windows particulièrement).
+- **Hooks Windows : `py` launcher**, jamais chemin Python en dur (cross-machine). Jamais `C:\Users\...` (Bash mange `\`)
 - **MCP forge-brain UNIQUEMENT pour accès vault** : jamais Grep/Read/Glob/CLI Obsidian brut.
 
 ## Contrat Jarvis
