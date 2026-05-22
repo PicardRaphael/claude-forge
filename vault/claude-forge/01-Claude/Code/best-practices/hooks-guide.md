@@ -187,3 +187,24 @@ Plus consistent que de demander à Claude de se souvenir d'une instruction.
 | **Self-improvement** (capitaliser) | `Stop`, `SessionEnd` | learning-reminder, CLAUDE.md proposer |
 
 → Les teams qui ne pensent qu'au premier rôle laissent la moitié de la valeur sur la table.
+
+
+## Anti-pattern critique — Workflow enforcement (mise à jour 22 mai 2026)
+
+**Ne JAMAIS utiliser un hook pour forcer un workflow agentique** (architect-first, code-reviewer-before-commit, dispatch-to-dev).
+
+Hooks = lint, test, security, observabilité, scope (doctrine Anthropic 2026).
+Doctrine = CLAUDE.md / rules — la session principale juge.
+
+Pattern observé et corrigé le 22 mai 2026 sur ia_back + neo_ia :
+- `architect-guard` (force architect avant Write/Edit) → SUPPRIMÉ
+- `commit-guard` (force code-reviewer marker avant commit) → SUPPRIMÉ
+- `dispatch-guard` (bloque session principale d'écrire dans src/) → SUPPRIMÉ
+- `marker-protect`, `agent-marker-writer`, `pipeline-reset`, `session-reset-markers` → SUPPRIMÉS
+
+Sources doctrine :
+- Boris Cherny : "thinnest wrapper", "complex scaffolding rendered obsolete by next model"
+- Anthropic Agent SDK : "Claude decides when to invoke subagents"
+- Hooks reference : exemples = rm -rf, force-push, secret leak, lint blocant
+
+Symptôme avant refonte : friction 6× sur le dev d'une feature. Voir [[raisonnement-22mai-doctrine-vs-enforcement]] et [[erreur-hooks-workflow-enforcement]] (à créer).

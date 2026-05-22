@@ -63,3 +63,12 @@ Monorepo LLM assistants B2B de [[Neoteem|Neoteem]]. 3 apps : NeoChat (agents ReA
 ### NeoMail (documentation profonde)
 - [[neomail-architecture]] — Vue d'ensemble : webhook Pub/Sub, classification LLM, 21 tools, BROUILLON ONLY
 - [[neomail-webhook-pipeline]] — Pipeline 10 étapes : Pub/Sub → classify → label → auto-reply draft
+
+
+## Refonte hooks 22 mai 2026
+
+Suppression de 7 hooks workflow (architect-guard, commit-guard, dispatch-guard, marker-protect, agent-marker-writer, pipeline-reset, session-reset-markers) suite à friction 6×. Doctrine encodée dans `rules/quality-gates.md` + `rules/when-to-architect.md`. Architect split en `architect-quick` (sonnet) + `architect-deep` (opus xhigh).
+
+Hooks restants (8) : `repo-scope-guard`, `guard-pytest-scope`, `auth-detector`, `auth-cleanup`, `on-push-notify`, `session-health`, `spec-brief-boundary-guard`, + ruff format/check inline. Tous = lint/test/security/observabilité légitimes selon doctrine Anthropic.
+
+Voir [[raisonnement-22mai-doctrine-vs-enforcement]].

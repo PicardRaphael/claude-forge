@@ -427,3 +427,16 @@ tags:
   - `Managed Agents.md` — London features, webhooks 8 events, Outcomes params, Advisor Strategy, clients keynote
   - `CC mai 2026 - Code with Claude.md` — London drop (Self-Hosted Sandboxes + MCP Tunnels + enrichissements)
 - **Source** : Transcription Whisper vidéo YouTube (427 segments, 47 min) + 142 captures d'écran + blogs tiers (Chris Ebert, Simon Willison, Dotzlaw, inaiwetrust, dev.to) + page officielle London
+
+## 2026-05-22 — Refonte doctrine hooks workflow ia_back + neo_ia
+
+- **Ajoutées** :
+  - `Knowledge/raisonnements/raisonnement-22mai-doctrine-vs-enforcement.md` (décision centrale, sources Anthropic Boris/Thariq/Agent SDK)
+  - `Knowledge/erreurs/erreur-hooks-workflow-enforcement.md` (anti-pattern à ne pas refaire)
+- **Modifiées** :
+  - `04-Techniques/patterns/pipeline-boris-adapte-neoteem.md` (note suppression hooks)
+  - `05-Leaders/claude-code/Boris Cherny.md` (application doctrine Neoteem)
+  - `01-Claude/Code/best-practices/hooks-guide.md` (section anti-pattern workflow enforcement)
+  - `1-Projets/Neoteem/ia_back/ia_back.md` (refonte hooks 22 mai)
+  - `1-Projets/Neoteem/neo_ia/neo_ia.md` (refonte hooks 22 mai)
+- **Source** : friction 6× développement feature, recherche web Anthropic 2026 (Agent SDK "Claude decides when to invoke", Boris "thinnest wrapper")

@@ -66,3 +66,12 @@ Créateur de Claude Code. Travaille chez Anthropic. Workflow "Fleet Commander" �
 - Vision : "by a couple years, the model does all the code, starts agents, builds environments"
 - Claude Design = prochain product overhang
 - Source : [[boris-workflow-2026-may]]
+
+## Application doctrine 22 mai 2026 sur Neoteem
+
+Le 22 mai 2026, refonte ia_back + neo_ia inspirée directement par sa doctrine :
+- **"Thinnest wrapper"** → suppression de 7 hooks workflow par repo (decision scaffolding obsolète)
+- **"Claude decides when to invoke"** (Agent SDK) → la session principale juge quand appeler architect, pas un hook
+- **Bitter lesson** → on n'encode pas la structure du repo dans des hooks (paths, patterns) qui deviennent obsolètes au prochain refacto
+
+Voir [[raisonnement-22mai-doctrine-vs-enforcement]] pour les décisions concrètes et les sources web complètes.

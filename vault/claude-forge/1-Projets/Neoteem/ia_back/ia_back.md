@@ -51,3 +51,12 @@ Backend IA de [[Neoteem|Neoteem]]. FastAPI Python, architecture neuro-symbolique
 **Drizzle ORM n'est PAS utilisé.** Le projet utilise `postgres.js` (SQL template literals). Le CLAUDE.md et 23 fichiers agents/skills/rules ont été corrigés le 2026-05-21. Il reste ~64 occurrences dans les exemples de code des skills references/ — refacto planifiée.
 
 Stack corrigée : Bun + Hono + @hono/zod-openapi + **postgres.js** + Zod + bun:test
+
+
+## Refonte hooks 22 mai 2026
+
+Suppression de 7 hooks workflow (architect-guard, commit-guard, dispatch-guard, marker-protect, agent-marker-writer, pipeline-reset, session-reset-markers) suite à friction 6×. Doctrine encodée dans `rules/quality-gates.md` + `rules/when-to-architect.md`. Architect split en `architect-quick` (sonnet) + `architect-deep` (opus xhigh).
+
+Hooks restants (7) : `typecheck`, `guard-core-imports`, `guard-pg-repo-readonly`, `guard-test-scope`, `on-push-notify`, `session-health`, `spec-brief-boundary-guard`. Tous = lint/test/security/observabilité légitimes selon doctrine Anthropic.
+
+Voir [[raisonnement-22mai-doctrine-vs-enforcement]].

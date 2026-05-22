@@ -231,3 +231,18 @@ Après session frustration Raphael (4h+ sur fix BERNAT bloqué par hooks neo_ia)
 - [[raisonnement-kill-tdd-strict-hooks-mai-2026]]
 - [[critique-2026-05-21-refonte-hooks-16-vers-6]]
 - Commits : neo_ia `a27ccec`/`25abe5d`/`342a8b0` — ia_back `a78f996`/`a9fb5fd`/`6d037e1`
+
+
+## Mise à jour 22 mai 2026 — Suppression hooks workflow
+
+Le pipeline défini ici (5 étapes) reste valide MAIS n'est plus enforcé par hook. Tous les hooks workflow ont été supprimés sur ia_back + neo_ia le 22 mai 2026 :
+
+- `architect-guard`, `commit-guard`, `dispatch-guard`
+- `marker-protect`, `agent-marker-writer`
+- `pipeline-reset`, `session-reset-markers`
+
+Raison : friction 6× sur le dev quotidien, sur-déclenchement. La doctrine est désormais dans `rules/quality-gates.md` + `rules/when-to-architect.md` de chaque repo.
+
+Architect a aussi été split en 2 : `architect-quick` (sonnet, 5 lignes max, < 60s) pour S et `architect-deep` (opus xhigh) pour M/L.
+
+Voir [[raisonnement-22mai-doctrine-vs-enforcement]] pour le détail complet et les sources Anthropic (Boris Cherny "thinnest wrapper", Agent SDK "Claude decides when to invoke").
