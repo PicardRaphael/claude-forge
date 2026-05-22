@@ -8,7 +8,7 @@ aliases:
   - "index claude code"
   - "CC features map"
 type: index
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-22
 auteur: claude
 sources: []
 tags:
@@ -17,6 +17,20 @@ tags:
 ---
 
 # Claude Code
+
+## ⭐ Notes canoniques chantier 22 mai 2026 (source de vérité actionnable)
+
+Quand on demande "analyse ce repo, propose-moi la config CC", la doctrine se trouve ici :
+
+- [[comment-ecrire-claudemd]] — target 200L, 5 anti-patterns Anthropic, compounding Boris
+- [[comment-creer-skill]] — 9 catégories Thariq, frontmatter trigger 3e personne
+- [[comment-creer-agent]] — 2-agent Justin Young, Sonnet/Opus split, convention 8 couleurs
+- [[comment-creer-hook]] — 25+ events, doctrine "rule 100% → hook", Fowler Guides+Sensors
+- [[workflow-claude-code-optimal]] — routines Boris + advisor 5× Angela Jiang + leaf nodes Erik
+- [[methode-analyser-repo]] (META) — grille 6 étapes pour transformer repo en config CC
+- [[mcp-vs-skills-doctrine]] — MCP data / Skills how-to / Bash exploration
+- [[pattern-vault-llm-karpathy]] — 3-layers raw/wiki/schema, qmd Tobi Lütke
+- [[trail-of-bits-config]] — setup entreprise sécu publique (anti-rationalization Stop hook + 3-tier sandbox)
 
 ## Changelog (consolidé par mois)
 

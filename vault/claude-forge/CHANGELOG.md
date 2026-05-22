@@ -7,12 +7,70 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-05-21
+derniere-maj: 2026-05-22
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-05-22 — Chantier refonte canonique (8 canoniques + 14 leaders + cleanup 28 notes)
+
+Refonte complète du vault forge-brain pour en faire une **source de vérité actionnable** : quand on demande "analyse ce repo, propose-moi la config Claude Code", les agents trouvent immédiatement la doctrine canonique. Stratégie clean slate validée Raphael (rm sec, pas d'archive).
+
+### Ajoutées — 8 notes canoniques (`04-Techniques/claude-code/`)
+1. `comment-ecrire-claudemd.md` — CLAUDE.md target 200L Anthropic, 5 anti-patterns officiels, compounding Boris
+2. `mcp-vs-skills-doctrine.md` — MCP data / Skills how-to (Thariq 3-way trade-offs, lethal trifecta Simon Willison)
+3. `comment-creer-skill.md` — 9 catégories Thariq verbatim, frontmatter trigger 3e personne, < 500L
+4. `comment-creer-agent.md` — frontmatter complet, 2-agent Justin Young, Sonnet/Opus split, convention 8 couleurs
+5. `comment-creer-hook.md` — 25+ events officiels, doctrine "rule 100% → hook", Fowler Guides+Sensors
+6. `workflow-claude-code-optimal.md` — routines Boris, advisor 5× Angela Jiang, leaf nodes Erik, multi-clauding
+7. `methode-analyser-repo.md` (META) — grille 6 étapes pour transformer repo en config CC
+8. `pattern-vault-llm-karpathy.md` — 3-layers raw/wiki/schema, 3 ops Ingest/Query/Lint, qmd Tobi Lütke
+9. `trail-of-bits-config.md` — setup entreprise sécu publique (anti-rationalization Stop hook + 3-tier sandbox)
+
+### Ajoutées — 14 fiches leaders + corrections d'attribution
+- `05-Leaders/claude-code/` : cat-wu, lisa-crofoot, angela-jiang, daisy-hollman, jeremy-hadfield, justin-young, Noah Zweben + réécrites Erik Schluntz + Thariq Shihipar
+- `05-Leaders/agents/` : addy-osmani, martin-fowler, hashimoto
+- `05-Leaders/industrie/` : tobi-lutke
+
+**Corrections d'attribution arbitrées** :
+- Advisor 5× → Angela Jiang (PAS Cat Wu)
+- "Scaffolding holds Claude back" → Lisa Crofoot (PAS Cat Wu)
+- +300% PRs équipe → Noah Zweben | +200% PRs/eng org → Cat Wu (PAS Boris)
+- 2-agent architecture → Justin Young (anthropic.com/engineering/effective-harnesses)
+- qmd créateur → Tobi Lütke (PAS Karpathy, qui le recommande)
+- Building Effective Agents co-auteur → Barry Zhang (PAS Amanda Askell)
+- Lethal trifecta → Simon Willison juin 2025 (Thariq diffuse, ne crée pas)
+
+### Critique DA appliquée
+- `Knowledge/critiques/critique-2026-05-22-8-canoniques-chantier.md` créée
+- 1 BLOQUANT corrigé : events inventés (PreEdit/PostEdit/PreWrite/etc) → 25+ events réels alignés sur `cc-hooks-ref/SKILL.md`
+- 5 forts corrigés : attribution lethal trifecta, aliases "automatiser", DA-gate conditionnel, métriques inventées → qualitatif, forrestchang → multica-ai
+
+### Supprimées — 28 notes (clean slate)
+**Remplacées par canoniques (6)** : skills-guide, agents-orchestration, hooks-guide, claudemd-guide + claudemd-maintenance, karpathy-llm-wiki-pattern v0.1
+**Obsolètes doctrine 22 mai (11)** : Workflow Boris (avril) + boris-workflow-2026-may, pattern-architect-first-pipeline, setup-project-complet + kit-rules-standard, vibe-coding-setup-complet, best-practices-claude-code-leaders, pipeline-boris-adapte-neoteem, pattern-agentic-engineering, agentic-engineering-karpathy + Karpathy Dev Discipline
+**Knowledge obsolètes (11)** : erreur-marker-ttl + erreur-architect-marker, raisonnement-hook-agent-detection, critique-architect-guard + critique-dispatch-guard + critique-color-tdd + critique-tdd-neo-ia + critique-setup-tdd-strict + critique-mcp-forge-brain + critique-tdd-optimizations + erreur-skip-checklist
+
+### Wikilinks redirigés
+- 64 fichiers vault modifiés
+- ~106 wikilinks redirigés vers canoniques cibles
+- 0 wikilink résiduel vérifié empiriquement
+
+### Source motivation
+- 16 rapports de recherche déposés dans `0-Inbox/_chantier-22mai/` (~373 KB)
+- Code with Claude London 19 mai 2026 (Boris/Cat/Angela/Lisa/Daisy/Jeremy/Noah)
+- Code with Claude SF 6-7 mai 2026 (Erik/Thariq)
+- Karpathy chez Anthropic depuis 19 mai 2026
+- Doctrine pivot 22 mai : hooks lint/security/scope, JAMAIS workflow
+
+### Commits
+- `a29ddb4` : 16 rapports + PLAN-EXECUTION-FINAL
+- `c651959` → `5443897` : 8 canoniques
+- `f3188a0` : corrections DA
+- `310c3f1` : 14 fiches leaders
+- `9272a8f` : Phase C cleanup 28 notes
 
 ## 2026-05-21 (soir) — Kill TDD strict hooks + fix marker wipe sub-agent
 
