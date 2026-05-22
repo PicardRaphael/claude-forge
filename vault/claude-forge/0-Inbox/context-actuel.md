@@ -1,42 +1,47 @@
 ---
 titre: Context Actuel
-resume: Working memory dynamique -- mis a jour par /done, lu par /recap
+resume: Working memory dynamique — mis à jour par /done, lu par /recap
 aliases: [context actuel, contexte courant, working memory, memoire de travail, etat actuel]
 type: context
 status: active
-derniere-maj: 2026-05-21
+derniere-maj: 2026-05-22
 auteur: claude
 tags: ["#type/context", "#meta/working-memory"]
 ---
 
 ## Phase actuelle
-Tests comportementaux terminés sur neo_ia (25/25) et ia_back (32/41, 0 FAIL réel) — les deux repos sont au niveau production.
 
-## Dernière session (2026-05-21)
-### Decisions prises
-- Pattern behavioral-dispatch-test capitalisé comme Phase 7 du workflow agentic engineering
-- ia_back CLAUDE.md corrigé : Drizzle→postgres.js (le code n'a jamais utilisé Drizzle)
-- api-designer ia_back : instruction neo-brain-dev-ia déplacée en étape 0 bloquante
-- Prompts de test corrigés 3 fois (fausses prémisses, hooks en cascade, /go sans diff)
-- IDOR documenté sur /api/v1/coproprietes/:id/conseil-syndical
+Calibrage doctrine claude-forge : passage de "OBLIGATOIRE partout" à "intelligent + conditionnel" pour les agents. Fix DA bouclant 5 min + DRY 8 agents sur consultation vault.
+
+## Dernière session (2026-05-22 soir)
+
+### Décisions prises
+- DA : étape 2 vault conditionnelle (max 2 requêtes ciblées), sauvegarde non bloquante, interdit Bash heredoc
+- Nouvelle rule `vault-consultation-protocol.md` = single source of truth
+- 8 agents DRY : bloc Étape 0 vault remplacé par référence (3 lignes)
+- Critiques DA des refontes structurelles rejetées sauvegardées dans le vault
+- Commit `e8e08b1` (14 fichiers, +279/-143) — uniquement les changements de cette session, pas les fichiers parallèles d'un autre agent
+- Pas de modifs sur neo_ia/ia_back (autre agent en cours)
 
 ### En cours
-- neo_ia : fix conftest.py pushé (4ab67ef), pipeline TDD validé en conditions réelles
-- ia_back : 4 commits pushés (api-designer, CLAUDE.md, Drizzle→postgres.js 23 fichiers, artifacts)
-- Reste ~64 occurrences Drizzle dans sql-best-practices/references/ et connect-table (refacto future)
+- Un autre agent finit des modifs sur ia_back + neo_ia en parallèle (Raphael a précisé)
+- Critique DA `architect-guard-allowlist` : verdict BLOQUER refonte allowlist, livrer uniquement exemption tests par-pattern si récurrence
 
-### Prochaines etapes
-- Refacto Drizzle→postgres.js dans les exemples de code des skills ia_back
-- Corriger IDOR conseil-syndical avant prod
-- Lancer les scénarios 1 et 2 ia_back avec des prompts corrigés (vrais noms de tables/fonctions)
+### Prochaines étapes
+- Tester en session fraîche que le DA ne boucle plus (relancer DA sur une proposition triviale, vérifier sortie < 2 min sans tentative Bash)
+- Si Raphael relance "refonte massive de quelque chose", PENSER au feedback_recurring_meta_anti_pattern AVANT de proposer
+- Le fix DRY claude-forge ne se généralise PAS à neo_ia/ia_back (leurs OBLIGATOIRE sont métier, pas du copié-collé)
 
 ## Fils ouverts
-- neo_ia : get_lots_archives_immeuble en cours de dev (questions architect répondues, session active)
-- Proposition /test-dispatch refusée — Raphael a fait autrement
-- neo_ia scénario 1 original (search_acteur) abandonné — doublon détecté
+
+- Si latence créateurs encore trop forte → baker best practices critiques directement dans leur prompt (au lieu de les faire chercher) — chantier futur, pas ce soir
+- Couplage architect.md ↔ architect-guard hook (AVERTISSEMENT 5 du DA matin) : à traiter quand on touchera vraiment la doctrine architect
+- Si même les 4 créateurs paraissent trop lents après ce fix → mesurer 2 semaines avant de toucher davantage
 
 ## Liens
-[[Raphael-Picard]]
-[[Claude-Forge]]
-[[pattern-behavioral-dispatch-test]]
-[[synthese-audit-coherence-neo-ia-ia-back]]
+
+[[2-Casquettes/Raphael-Picard|Raphael Picard]]
+[[1-Projets/Claude-Forge/Claude-Forge|Claude-Forge]]
+[[raisonnement-kill-tdd-strict-hooks-mai-2026]]
+[[critique-2026-05-22-architect-guard-allowlist]]
+[[critique-2026-05-22-vault-doctrine-renversement]]

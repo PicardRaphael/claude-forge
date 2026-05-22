@@ -9,9 +9,14 @@ __pycache__/
 .claude/.reasoning-reminder-shown
 .claude/.session-turn-counter
 .claude/.learning-reminder-fired
+.claude/.skill-recommendations-session
+.claude/.vault-write-count
 .claude/settings.local.json
 .obsidian/
 vault/.obsidian/
+
+# Output local (livrables de travail, audits ad-hoc)
+output/
 
 # X-read skill — never commit auth cookies
 .claude/secrets/x-cookies.json
