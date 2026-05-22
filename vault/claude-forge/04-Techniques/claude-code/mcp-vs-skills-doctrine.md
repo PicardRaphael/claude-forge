@@ -208,6 +208,7 @@ Le serveur MCP Sentry pèse **~8k tokens upfront** (schemas tools). À mettre en
 - ❌ **MCP qui duplique l'accès filesystem natif** — Read/Glob/Grep suffisent
 - ❌ **Credentials en clair dans `.mcp.json` versionné** — cf [[erreur-password-postgres-clair-mcp-json]]
 - ❌ **MCP sans schema documenté** — Claude ne peut pas l'utiliser correctement
+- ❌ **MCP server custom sans `tools_list` testé** : si le handshake `tools_list` retourne un schema invalide (champ manquant, type incorrect), Claude **skip silencieusement** le serveur. Toujours tester en isolation avec `mcp-inspector` ou client minimal avant d'exposer en prod.
 
 ### Anti-patterns Skills
 - ❌ **Description en 1ère personne** ("I help you...") — toujours 3e personne directive ("Use when...")

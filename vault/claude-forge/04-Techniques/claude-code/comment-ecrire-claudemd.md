@@ -142,7 +142,7 @@ Appliquer ce test à **chaque ligne** avant de la garder. Une ligne descriptive 
 | Règle qui doit valoir 100% du temps | **Hook, pas CLAUDE.md** (voir [[comment-creer-hook]]) |
 | Instruction réutilisable cross-repo | **Skill, pas CLAUDE.md** (voir [[comment-creer-skill]]) |
 
-**Doctrine forge 22 mai 2026** : tout ce qui DOIT tenir à 100% sort de CLAUDE.md (advisory ~80% compliance) vers un hook bloquant.
+**Doctrine forge 22 mai 2026** : tout ce qui DOIT tenir à 100% sort de CLAUDE.md (compliance partielle, observée empiriquement ~80% mais pas mesurée par Anthropic publiquement) vers un hook bloquant.
 
 > "If a rule must hold every time, make it a hook rather than a prompt instruction."
 > — docs Anthropic, features-overview (validation totale doctrine 22 mai)
@@ -206,7 +206,7 @@ Session N+1 → erreur évitée (compounding)
 
 ### Niveau expert (cross-repo + hooks complémentaires)
 
-- CLAUDE.md = advisory layer (80% compliance attendue)
+- CLAUDE.md = advisory layer (compliance partielle attendue, ordre de grandeur ~80% observé sur forge)
 - Règles critiques doublées par hooks bloquants
 - Skills extraites pour réutilisation cross-repo
 - Frontmatter custom si tooling automatique consomme CLAUDE.md
@@ -234,7 +234,7 @@ Session N+1 → erreur évitée (compounding)
 | **Kitchen sink** | Tout mettre "au cas où" | Test "Would removing this cause mistakes?" |
 | **Correcting over and over** | Même règle répétée 3× sous formulations différentes | Une seule formulation, formulée comme directive |
 | **Over-specified** | Précision sur l'inutile, descriptions du code | Décrire le code lisible n'aide pas — supprimer |
-| **Trust-then-verify gap** | Lister une rule sans la vérifier par un hook | Si critique → hook. Sinon accepter ~80% |
+| **Trust-then-verify gap** | Lister une rule sans la vérifier par un hook | Si critique → hook. Sinon accepter compliance partielle |
 | **Infinite exploration** | Pas de bornes d'investigation données | Préciser scope max ("ne lis pas plus de X fichiers") |
 
 ### Anti-patterns forge supplémentaires
@@ -245,6 +245,8 @@ Session N+1 → erreur évitée (compounding)
 - ❌ **ALL-CAPS excessif** : 1-2 emphasis OK, 20 = bruit (cf [[erreur-emphasis-overtriggering]])
 - ❌ **CLAUDE.md comme TODO list** : utiliser plans/, pas CLAUDE.md
 - ❌ **Mise à jour 3 sessions trop tard** : capturer l'erreur tout de suite ou jamais (le détail s'évapore)
+- ❌ **Pas de test de chargement** : vérifier après modification que le CLAUDE.md ne dépasse pas la taille (200L), que l'encoding est valide (UTF-8 sans BOM), que les `@import` ne sont pas circulaires. Un CLAUDE.md cassé est chargé silencieusement ou tronqué.
+- ❌ **Ignorer `AGENTS.md` comme alternative** : Hashimoto (Ghostty) a proposé `AGENTS.md` (cf [[hashimoto]]) comme nom alternatif neutre cross-LLM (Claude Code + Cursor + Gemini CLI + Codex). Pas obligatoire mais à considérer si repo open-source multi-LLM.
 
 ---
 

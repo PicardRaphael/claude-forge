@@ -45,13 +45,13 @@ tags:
 > "If a rule must hold every time, make it a hook rather than a prompt instruction."
 > — docs Anthropic features-overview
 
-C'est l'arbitrage central. Une règle dans CLAUDE.md ou une skill = advisory ~80% compliance. Un hook bloquant = 100%.
+C'est l'arbitrage central. Une règle dans CLAUDE.md ou une skill = **advisory** (compliance partielle, observée empiriquement autour de ~80% sur forge, ordre de grandeur indicatif sans mesure Anthropic publique). Un hook bloquant = **100% sur ce qu'il détecte mécaniquement**.
 
 **Taxonomie Fowler / Böckeler (2 avril 2026)** :
 
 | Type | Nature | Force |
 |------|--------|-------|
-| **Guides** | Inferential (prompts, rules) | Moyen — ~80% |
+| **Guides** | Inferential (prompts, rules) | Moyen — compliance partielle |
 | **Sensors** | Computational (hooks, tests) | Fort — 100% sur ce qu'ils détectent |
 
 ---
@@ -59,14 +59,16 @@ C'est l'arbitrage central. Une règle dans CLAUDE.md ou une skill = advisory ~80
 ## POURQUOI — Le problème résolu
 
 Sans hooks, on accumule des règles advisory dans CLAUDE.md. Conséquences :
-- **~80% compliance** sur règles critiques
+- **Compliance partielle** sur règles critiques (le LLM peut "oublier" ou être manipulé)
 - **Trust-then-verify gap** — la règle existe mais rien ne la vérifie
 - **Récurrence d'erreurs** — la session suivante refait l'erreur
 
 Avec hooks bloquants sur règles critiques :
-- **100% compliance** sur ce que le hook détecte
+- **100% compliance** sur ce que le hook détecte mécaniquement
 - **Détection précoce** (PreToolUse avant action)
 - **Side-effects automatiques** (format, notify, log)
+
+**Note honnêteté intellectuelle** : "~80% compliance advisory" = ordre de grandeur empirique observé sur forge, **pas une mesure Anthropic publique**. Le chiffre exact varie selon : longueur CLAUDE.md, position de la règle, ALL-CAPS, contexte de la session.
 
 ---
 
@@ -254,7 +256,7 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (hook sécu criti
 
 | Optim | Gain |
 |-------|------|
-| Hook bloquant vs rule advisory | 100% compliance vs ~80% (verbatim Anthropic) |
+| Hook bloquant vs rule advisory | 100% compliance vs compliance partielle (verbatim Anthropic : "If a rule must hold every time, make it a hook") |
 | Triplet matcher complet | 0 trou MultiEdit (vs blind spot avant) |
 | Stack identique au projet | Pas de dep manager parallèle, debug plus simple |
 | Chemins absolus settings | Marche multi-poste sans réécrire |
@@ -285,6 +287,7 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (hook sécu criti
 - ❌ **Hook qui dépasse 60s** — killed sans warning
 - ❌ **Hook qui consume tokens LLM** (Haiku check inutile sur tous les events) — réserver aux cas critiques
 - ❌ **Hooks non testés adverses** — cas heureux ne suffit pas (cf [[feedback_tests_adverses_obligatoires]])
+- ❌ **Hook qui modifie le filesystem du repo en cours de turn** — race condition avec Write/Edit Claude. Si un hook PostToolUse formate un fichier que Claude vient d'écrire, Claude peut ne pas voir la version formatée et écraser sur le tour suivant. Solution : formater silencieusement (exit 0) ET informer Claude via stderr du changement.
 
 ### Pédagogiques
 - ❌ **Hook au lieu de skill** quand la règle est advisory (pas critique)

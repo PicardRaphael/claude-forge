@@ -249,22 +249,52 @@ Quand le LLM cherche un sujet, il commence par `index.md` pour s'orienter.
 - + Dataview pour requêtes vault
 - + git pour versioning
 
-### Niveau expert (forge actuel — dépasse Karpathy)
+### Niveau expert (pattern générique — applicable à tout vault LLM)
 
-**Forge dépasse Karpathy sur frontmatter strict** :
-- Standard 4-6 aliases minimum (forge) vs frontmatter minimal (Karpathy)
-- `resume` 1 phrase spécifique obligatoire
-- `derniere-maj` ISO obligatoire
-- 2+ wikilinks minimum
+**Frontmatter strict** (au-delà du minimum Karpathy) :
+- 4-6 aliases minimum par note pour findability (FR + EN + variantes)
+- `resume` 1 phrase spécifique obligatoire (pas générique)
+- `derniere-maj` ISO obligatoire (détection notes obsolètes)
+- 2+ wikilinks minimum (graphe dense)
 - Tags type + domaine obligatoires
-- Templates Templater pour cohérence
+- Templates (Templater) pour cohérence
 
-**Forge tooling custom** :
-- MCP forge-brain custom (11 outils, FTS5 + 4 forces uniques)
-- Agents dédiés : `vault-maintainer`, `project-auditor`
-- Skills dédiées : `obsidian-markdown`, `/vault-audit`
-- Pipeline `cc-news` → capitalisation atomique systématique
-- Knowledge/erreurs, /critiques, /raisonnements, /reviews structurés
+**Tooling custom MCP** :
+- MCP custom pour le vault (FTS5 + alias expansion + content-hash watcher)
+- Agents dédiés maintenance (vault-maintainer, project-auditor)
+- Skills dédiées format (obsidian-markdown)
+- Pipeline news → capitalisation atomique systématique
+- Sous-dossiers Knowledge structurés (erreurs / critiques / raisonnements / reviews)
+
+---
+
+## EXEMPLE D'APPLICATION — vault forge-brain (référence personnelle)
+
+> Cette section illustre l'application du pattern Karpathy sur un vault réel. Elle est **descriptive**, pas prescriptive.
+
+### Stats vault forge-brain (au 22 mai 2026)
+- **318 notes** réparties dans dossiers ontologiques
+- **1774 aliases** (moyenne 5.6 par note)
+- **1508 wikilinks** internes
+- **118 tags** structurels
+
+### Tooling custom forge
+- MCP forge-brain (port 8091, FastMCP 2 + pyyaml + SQLite FTS5)
+- 11 outils MCP (search_brain, read_note, get_backlinks, vault_stats, etc.)
+- 4 forces uniques : fallback search 4-strat, alias expansion FR avec stem variants, content-hash short-circuit watcher, BM25 pondéré 10/1/8
+
+### Agents forge mobilisés
+- `vault-maintainer` (lint, dédoublonnage)
+- `project-auditor` (audit cohérence)
+- `devils-advocate` (critique avant livraison)
+
+### Slash commands forge
+- `/forge-review` (audit mensuel)
+- `/dream` (cross-session memory review, equiv Anthropic Dreaming)
+- `/recap` (snapshot contexte)
+- `/done` (capitalisation fin de session)
+
+**NB** : ces détails sont spécifiques au forge. Le pattern Karpathy générique reste applicable avec d'autres outils (qmd, Obsidian natif, Dataview, etc.).
 
 ---
 
@@ -331,11 +361,9 @@ Quand le LLM cherche un sujet, il commence par `index.md` pour s'orienter.
 - 70 lignes, 4 principes
 - Démonstration "court + opinionated > long + neutre"
 
-### Forge (référence personnelle, dépasse Karpathy)
-- **vault/claude-forge/** — 318 notes, 1774 aliases, 1508 wikilinks, 118 tags
-- MCP custom forge-brain (port 8091, FTS5, 11 outils)
-- Skills dédiées : `obsidian-markdown`, `/vault-audit`, `/recap`, `/done`
-- Standard frontmatter strict 4-6 aliases minimum
+### Forge (référence personnelle — application concrète du pattern, voir section dédiée plus haut)
+- Section "EXEMPLE D'APPLICATION" ci-dessus pour les détails forge spécifiques
+- Pattern Karpathy générique applicable à tout vault LLM avec n'importe quel tooling (qmd, MCP custom, Obsidian natif + Dataview)
 
 ---
 

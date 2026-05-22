@@ -281,7 +281,7 @@ Déploiement (via skill-creator, agent-creator, hook-creator, claudemd-optimizer
 |-------|------|
 | Méthode reproductible | Time-to-config divisé par ~3 (vs ad-hoc) |
 | Sonnet/Opus split | ~5× moins de coût sur agents exécution |
-| Boundaries → hooks (pas rules) | 100% compliance vs ~80% advisory |
+| Boundaries → hooks (pas rules) | 100% compliance vs compliance partielle advisory |
 | Patterns → skills (9 catégories) | Réutilisation cross-sessions |
 | CLAUDE.md < 200L | ~60% moins tokens contexte (verbatim Anthropic) |
 | Sortie justifiée | Utilisateur peut challenger et itérer rationnellement |

@@ -217,7 +217,7 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilis�
 | Description trigger directive | Auto-activation fiable, ~0 token gaspillé sur mauvaises activations |
 | < 500L SKILL.md + references/ | Body chargé seulement à l'activation, references seulement à la demande |
 | Progressive disclosure | 5k tokens budget par skill, 25k combiné post-compaction (limites Anthropic) |
-| scripts/ pour ops déterministes | Fiabilité 100% vs ~80% pour LLM sur ops répétitives |
+| scripts/ pour ops déterministes | Fiabilité 100% vs compliance partielle LLM sur ops répétitives |
 | agentskills.io | 1 skill = utilisable sur ~40 produits |
 
 ---
@@ -229,6 +229,7 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilis�
 - ❌ Keyword stuffing dans description — cf [[e-descriptions-keyword-stuffing]]
 - ❌ `name` ≠ nom du dossier — invalide
 - ❌ Description > 1024 caractères — tronquée
+- ❌ **Description qui copie le body** : la description est un TRIGGER ("Use when X"), pas un résumé du contenu. Si la description = première ligne du body, c'est faux. Description directive ≠ description descriptive.
 
 ### Structure
 - ❌ **SKILL.md monolithique > 500 lignes** — déporter dans `references/`

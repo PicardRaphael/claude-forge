@@ -46,8 +46,8 @@ tags:
 Le **harness** = tout ce qui n'est pas le modèle : prompt système, outils disponibles, hooks, validation, état partagé.
 
 **Stat harness > modèle** :
-- LangChain : **52.8% → 66.5%** sur Terminal Bench avec **même modèle, harness changes seuls**
-- Forge AI : **79.8% vs 58%** Claude Code = **+21.8 pts harness > model** (Addy Osmani)
+- LangChain : **52.8% → 66.5%** sur Terminal Bench avec **même modèle, harness changes seuls** (Fowler/Böckeler 2 avril 2026)
+- ForgeCode vs Claude Code : **79.8% vs 58%** sur Terminal-Bench 2.0 = **+21.8 pts** par architecture harness seule. **Même modèle des deux côtés : Claude Opus 4.6**. Source : Addy Osmani, Harness Engineering.
 
 Le harness compte autant que le modèle.
 
@@ -103,7 +103,10 @@ max-turns: <nombre, optionnel>
    - `xhigh` = défaut Opus 4.7, **RÉSERVÉ** architect / dev-lead / refactor-pg
    - `max` **DÉPRÉCIÉ** depuis v2.1.91 (prone overthinking)
 5. **`memory: project`** = OBLIGATOIRE sur TOUS les agents (gère mémoire automatique)
-6. **`permissionMode`** = OBLIGATOIRE — `acceptEdits` pour créateurs sinon auto bloque
+6. **`permissionMode`** = OBLIGATOIRE :
+   - `acceptEdits` pour créateurs (skill-creator, agent-creator, hook-creator, claudemd-optimizer)
+   - `auto` pour exécutants (dev, code-reviewer, test-writer)
+   - `plan` pour agents qui doivent **toujours passer par un plan validé** avant action (ex : architect critique). Utile mais peu commun — préférer `auto` par défaut.
 7. **`disallowedTools: Write, Edit`** sur agents read-only (force délégation)
 
 ### Politique modèles forge (validée 21 mai 2026)
@@ -242,6 +245,7 @@ Démontré sur tâches **long-running** où la séparation phase pensée / phase
 - ❌ **Agent CTO orchestrateur** — session principale orchestre (cf [[feedback_no_cto_agent]])
 - ❌ **Agent doc** — pas d'agent dédié à la doc, l'agent qui code update aussi
 - ❌ **Agent monolithique** > 6-8 ops/agent — découper
+- ❌ **Agent qui invoque un autre agent (ré-entrance)** : risque de boucle infinie ou de tool_use partagés conflictuels. Si vraiment nécessaire, passer par la session principale qui orchestre. La règle Anthropic implicite : un sub-agent ne devrait pas avoir le tool `Agent` sauf cas explicite documenté.
 
 ### Frontmatter
 - ❌ **Pas de `memory: project`** — mémoire pas gérée

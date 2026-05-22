@@ -290,8 +290,8 @@ Pas d'overhead. Pas d'agent.
 | Multi-clauding 5-10 sessions | **+200% PRs/eng** (Cat Wu, org Anthropic) — **+300% équipe 3 mois** (Noah Zweben) |
 | Sonnet/Opus split | ~5× moins de coût sur exécution, qualité préservée jugement |
 | Verifiable checkpoints + /loop | **2-3× quality** (Boris tip #1) |
-| Harness changes (Fowler) | LangChain **52.8% → 66.5%** Terminal Bench, même modèle |
-| Harness > model | Forge AI **79.8% vs CC 58%** = **+21.8 pts** (Addy Osmani) |
+| Harness changes (Fowler) | LangChain **52.8% → 66.5%** Terminal Bench, **même modèle**, harness seul (2 avril 2026) |
+| Harness > model | **ForgeCode 79.8% vs Claude Code 58%** sur Terminal-Bench 2.0 = **+21.8 pts**, **même modèle (Claude Opus 4.6) des deux côtés**, harness seul (Addy Osmani) |
 | 99% tokens planning vs code | ROI massif sur 15-20 min planning (Thariq) |
 | Compounding error-driven | 0% récurrence erreurs capturées |
 
