@@ -117,3 +117,9 @@ tags:
 - 3 skills allowed-tools ajoute : defuddle (Bash/WebFetch/Read), obsidian-markdown (Read/Write/Edit/MCP forge-brain), forge-brain (tous outils MCP forge-brain)
 - .claude/settings.local.json.proposed genere : retire Bash(cat > *) overly broad (user applique manuellement, classifier bloque)
 - 4 skills sans allowed-tools restent : configure-claude-desktop, expand, json-canvas, obsidian-bases (skills de reference sans outil critique, defaut OK)
+
+## [2026-05-22] note-updated | context-actuel + memoire py launcher
+- Cree memoire reference_python_windows_cross_machine.md (pattern py cross-machine)
+- Update MEMORY.md avec entree py launcher
+- Commit e80972a : python-dev.md ligne 19 corrige (python -m py_compile -> py -m py_compile)
+- 19 commits chantier total : bb9e66e -> e80972a
