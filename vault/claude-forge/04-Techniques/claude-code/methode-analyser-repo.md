@@ -1,0 +1,454 @@
+---
+titre: "Méthode pour analyser un repo et proposer config Claude Code optimale"
+resume: "Grille canonique 6 étapes pour analyser tout repo et proposer skills/agents/hooks/CLAUDE.md/workflow optimaux. Source de vérité actionnable pour 'analyse ce repo, propose-moi la config CC'."
+aliases:
+  - "methode analyser repo"
+  - "analyse repo claude code"
+  - "config claude code optimale"
+  - "grille analyse repo"
+  - "audit setup repo"
+  - "proposer config claude code"
+  - "6 etapes analyse repo"
+  - "kit rules standard"
+  - "scan architecture"
+  - "mapper roles agents"
+derniere-maj: 2026-05-22
+auteur: claude
+type: technique
+sources:
+  - "Code with Claude London 19 mai 2026"
+  - "Code with Claude SF 6-7 mai 2026"
+  - "github.com/anthropics/claude-code"
+  - "github.com/anthropics/claude-for-legal"
+  - "github.com/trailofbits/claude-code-config"
+  - "github.com/forrestchang/andrej-karpathy-skills"
+tags:
+  - "#type/technique"
+  - "#domaine/claude-code"
+  - "#sujet/methode"
+  - "#meta"
+---
+
+# Méthode pour analyser un repo et proposer config Claude Code optimale
+
+> **Note méta canonique forge** — quand on dit "analyse ce repo, propose-moi la config CC", cette grille s'applique.
+
+---
+
+## QUOI — Définition
+
+**Grille d'analyse en 6 étapes** pour transformer un repo brut en config Claude Code complète :
+- **Skills** justifiées
+- **Agents** par rôle avec modèle/effort/couleur
+- **Hooks** lint/security/scope (PAS workflow)
+- **CLAUDE.md** squelette
+- **Workflow** adapté à la taille du repo
+
+Cette méthode est la **synthèse opérationnelle** des notes canoniques sœurs ([[comment-creer-skill]], [[comment-creer-agent]], [[comment-creer-hook]], [[comment-ecrire-claudemd]], [[workflow-claude-code-optimal]], [[mcp-vs-skills-doctrine]]).
+
+---
+
+## POURQUOI — Le problème résolu
+
+Sans grille, l'analyse est :
+- **Ad-hoc** — chaque analyse réinvente la méthode
+- **Incomplète** — on oublie une dimension (sécu, scope, modèle)
+- **Copiée d'un autre repo** — sans tenir compte du contexte spécifique
+- **Pas justifiée** — l'utilisateur reçoit une config sans le "parce que"
+
+Avec grille :
+- **Reproductible** — même méthode = même qualité
+- **Exhaustive** — 6 étapes couvrent tous les besoins
+- **Justifiée** — chaque proposition liée à un observable du repo
+- **Adaptée** — sortie spécifique à l'archi observée
+
+---
+
+## COMMENT — Grille 6 étapes
+
+### Étape 1 — Scanner l'architecture
+
+**Observer** :
+- **Stack** : langages + versions (Python, TypeScript, Vue, Rust, etc.)
+- **Structure** : mono-repo / microservices / monorepo workspaces
+- **Database** : type (PostgreSQL, SQLite, etc.), nombre de DB, migrations
+- **Tests** : framework, coverage, intégration / e2e
+- **CI** : GitHub Actions, GitLab CI, Jenkins
+- **Build** : npm/pnpm/yarn, pip/poetry/uv, cargo, etc.
+- **Taille codebase** : LOC, nombre de fichiers, profondeur
+- **MCP existants** : `.mcp.json` ou équivalent
+- **`.claude/` existant** : audit ce qui est déjà là
+
+**Outils** :
+- `Glob` pour structure
+- `Read package.json / pyproject.toml / Cargo.toml`
+- `Read README.md` pour intent
+- `git log --oneline -50` pour activité
+- `tree -L 3` ou `Glob '**/*'` pour topologie
+
+**Sortie** : note technique 1 page max avec stack + topologie + signaux forts.
+
+### Étape 2 — Identifier les rôles dev récurrents
+
+**Lister les rôles** qui apparaîtraient si l'équipe avait 5-10 devs :
+
+| Rôle | Présent quand |
+|------|---------------|
+| **architect** | Archi complexe, refactor majeur, nouvelle feature L/XL |
+| **dev-feature** | Implémentation features nouvelles |
+| **code-reviewer** | Tout repo avec PR ou commits multiples |
+| **test-writer** | Tests présents, framework déclaré |
+| **refactor** | Codebase legacy ou patterns à harmoniser |
+| **debugger** | Tests qui échouent, prod issues à reproduire |
+| **sécu-auditor** | Repo avec credentials, IDOR, scope critique |
+| **db-migrator** | DB avec migrations |
+| **api-designer** | API publique ou interne |
+| **doc-writer** | OBSOLÈTE — pas d'agent doc (cf [[feedback_no_doc_agent]]) |
+
+**Sortie** : liste 4-8 rôles dev pertinents au repo.
+
+### Étape 3 — Mapper rôles → agents
+
+**Pour chaque rôle identifié**, créer un agent avec :
+- **`name`** : kebab-case (`architect`, `dev-feature`, `code-reviewer`)
+- **`model`** :
+  - Sonnet pour exécution (dev, test-writer, code-reviewer)
+  - Opus pour jugement (architect, devils-advocate)
+  - Haiku pour checks rapides
+- **`effort`** :
+  - `high` partout
+  - `xhigh` UNIQUEMENT pour architect / dev-lead / refactor-pg
+- **`color`** : convention 8 couleurs cross-repo
+- **`memory: project`** OBLIGATOIRE
+- **`permissionMode`** OBLIGATOIRE
+- **`disallowedTools: Write, Edit`** sur read-only (code-reviewer, project-auditor)
+- **`skills`** : injecter les skills pertinentes (et les référencer dans body)
+
+**Sortie** : liste 4-8 agents proposés avec justification ("parce que ton repo a X feature critique → architect blue Opus xhigh").
+
+### Étape 4 — Identifier les boundaries critiques → Hooks
+
+**Repérer les invariants 100%** :
+
+| Boundary | Hook type |
+|----------|-----------|
+| **Lint / format** | PostEdit/PostWrite (prettier, black, eslint) |
+| **Credentials secrets** | PreToolUse (grep secrets dans Write) |
+| **Scope cross-repo** | PreToolUse Bash (empêcher `cd ../autre-repo`) |
+| **DB migrations immutables** | PreToolUse (empêcher Edit sur migrations passées) |
+| **Frontmatter YAML valide** | PostEdit (vérifier YAML) |
+| **Secrets en clair `.mcp.json`** | PostWrite (grep + block) |
+
+**Anti-pattern doctrine 22 mai forge** :
+- ❌ JAMAIS hooks workflow (architect-first, TDD strict, commit gates)
+- ❌ JAMAIS pipeline markers + guards
+- ❌ JAMAIS TTL sur markers
+- ✅ Lint / security / scope UNIQUEMENT
+
+**Sortie** : liste 2-5 hooks proposés (lint/security/scope uniquement).
+
+### Étape 5 — Identifier les patterns récurrents → Skills
+
+**Pour chaque pattern qui apparaît > 2 fois dans le repo** :
+- Pattern de test → skill `test-X-pattern`
+- Pattern de scaffolding composant → skill `scaffold-component`
+- Pattern de runbook ops → skill `runbook-X`
+
+**Filtrer par 9 catégories Thariq** :
+1. Library & API Reference
+2. Product Verification
+3. Data Fetching & Analysis
+4. Business Process & Team Automation
+5. Code Scaffolding & Templates
+6. Code Quality & Review
+7. CI/CD & Deployment
+8. Runbooks
+9. Infrastructure Operations
+
+Si le pattern entre dans 1 des 9 → skill légitime. Sinon, CLAUDE.md ou rule suffit.
+
+**Sortie** : liste 3-10 skills proposées, justifiées par pattern observé.
+
+### Étape 6 — Définir CLAUDE.md
+
+**Squelette 5 sections** (référence [anthropics/claude-for-legal/CLAUDE.md](https://github.com/anthropics/claude-for-legal) 130 lignes) :
+
+```markdown
+# <Nom projet>
+
+**Une phrase qui dit ce que fait le projet.**
+
+## Stack
+- <Stack identifiée étape 1>
+
+## Commandes fréquentes
+- Build / Test / Lint / Run dev
+
+## Gotchas (compounding)
+- <Pièges observés en session, ajoutés au fil>
+
+## Conventions
+- <Naming, structure>
+
+## Things to leave alone
+- <Migrations, vendored code, générés>
+```
+
+**Cible < 200 lignes** (verbatim Anthropic).
+
+**Sortie** : CLAUDE.md skeleton + premières gotchas observées au scan.
+
+---
+
+## QUAND — Critère d'application
+
+### Méthode complète quand :
+- Nouveau repo à équiper
+- Audit complet repo existant
+- Refonte majeure setup `.claude/`
+
+### Méthode légère (étape 1 + 6) quand :
+- Repo très simple ou very small
+- POC / spike
+- One-shot exploration
+
+---
+
+## WORKFLOW — Pipeline analyse complète
+
+```
+1. Scan archi (étape 1)
+        ↓
+2. Identifier rôles (étape 2)
+        ↓
+3. Mapper agents (étape 3) ── parallèle ── 4. Identifier boundaries → hooks (étape 4)
+        ↓                                          ↓
+5. Identifier patterns → skills (étape 5)
+        ↓
+6. CLAUDE.md squelette (étape 6)
+        ↓
+[Output complet : skills + agents + hooks + CLAUDE.md + workflow recommandé]
+        ↓
+Validation utilisateur (qu'est-ce qu'il veut garder/modifier)
+        ↓
+Déploiement (via skill-creator, agent-creator, hook-creator, claudemd-optimizer)
+```
+
+---
+
+## APPELS — Composants mobilisés
+
+- [[comment-creer-skill]] — pour chaque skill proposée étape 5
+- [[comment-creer-agent]] — pour chaque agent proposé étape 3
+- [[comment-creer-hook]] — pour chaque hook proposé étape 4
+- [[comment-ecrire-claudemd]] — pour CLAUDE.md étape 6
+- [[workflow-claude-code-optimal]] — workflow recommandé selon taille repo
+- [[mcp-vs-skills-doctrine]] — décider quand MCP custom nécessaire
+
+---
+
+## OPTIMISATION — Output recommandé
+
+### Niveau basique
+- 2-3 agents (architect, dev, reviewer)
+- 1 hook (lint)
+- CLAUDE.md 50-100 lignes
+- Workflow S/M
+
+### Niveau avancé
+- 4-6 agents par rôle (Sonnet/Opus split)
+- 2-3 hooks (lint + security)
+- 5-10 skills
+- CLAUDE.md ~150 lignes
+- Workflow L
+
+### Niveau expert (Trail of Bits style)
+- 6-10 agents avec couleur + skills injectées
+- 3-5 hooks (lint + security + scope + anti-rationalization Stop)
+- 10-20 skills par catégorie Thariq
+- MCP custom si métier
+- CLAUDE.md ~180 lignes
+- Workflow XL avec advisor strategy, multi-clauding, /loop
+
+---
+
+## POURQUOI CETTE OPTIM — Gain mesurable
+
+| Optim | Gain |
+|-------|------|
+| Méthode reproductible | Time-to-config divisé par ~3 (vs ad-hoc) |
+| Sonnet/Opus split | ~5× moins de coût sur agents exécution |
+| Boundaries → hooks (pas rules) | 100% compliance vs ~80% advisory |
+| Patterns → skills (9 catégories) | Réutilisation cross-sessions |
+| CLAUDE.md < 200L | ~60% moins tokens contexte (verbatim Anthropic) |
+| Sortie justifiée | Utilisateur peut challenger et itérer rationnellement |
+
+---
+
+## ANTI-PATTERNS
+
+### Méthode
+- ❌ **Copier config d'un autre repo sans analyse** — chaque repo a son contexte
+- ❌ **Sauter étape 1** — proposer agents sans scan archi
+- ❌ **Pas de justification** — "voici la config" sans "parce que ton repo a X"
+- ❌ **Trop d'agents** (> 10) — surcharge cognitive, conflits
+- ❌ **Trop de skills** (> 30) — budget contexte explosé
+
+### Doctrine
+- ❌ **Hooks workflow** — anti-pattern 22 mai 2026
+- ❌ **Agent CTO orchestrateur** — session principale orchestre (cf [[feedback_no_cto_agent]])
+- ❌ **Agent doc** — pas d'agent doc (cf [[feedback_no_doc_agent]])
+- ❌ **Pipeline markers + guards** — anti-pattern
+
+### Output
+- ❌ **CLAUDE.md > 200L** — kitchen sink (verbatim Anthropic anti-pattern)
+- ❌ **Pas de section Gotchas** dans CLAUDE.md — pas de compounding
+- ❌ **PR-workflow imposé** comme standard — optionnel customisable par repo
+- ❌ **Skills sans description trigger 3e personne** — pas d'activation
+
+### Process
+- ❌ **Pas advisor+DA AVANT proposer** (cf [[feedback_advisor_da_mandatory]])
+- ❌ **Questionnaire avant analyse** — analyser d'abord (cf [[feedback_analyse_first_not_questionnaire]])
+- ❌ **Pas de vérification empirique** des claims sub-agents (cf [[feedback_audit_claims_after_brief]])
+
+---
+
+## EXEMPLES CONCRETS — Repos de référence
+
+### Anthropic minimaliste
+- **[anthropics/claude-code](https://github.com/anthropics/claude-code)** — config 3 slash commands. Démonstration "minimum qui marche". Pour repo très simple.
+
+### Anthropic structuré
+- **[anthropics/claude-for-legal/CLAUDE.md](https://github.com/anthropics/claude-for-legal)** — 130L, 5 sections. Référence canonique CLAUDE.md.
+
+### Entreprise sécu complète
+- **[trailofbits/claude-code-config](https://github.com/trailofbits/claude-code-config)** — stack complet :
+  - Anti-rationalization Stop hook (inédit)
+  - 3-tier sandbox (`/sandbox` + devcontainer + dropkit DO)
+  - Hooks sécu uniquement
+  - Référence pour repos sensibles
+
+### Viral minimaliste
+- **[forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)** — CLAUDE.md 70 lignes, 4 principes. 110k stars seul (220k cumul avec mirror multica-ai). Démonstration "court + opinionated > long + neutre".
+
+### Pattern vault Karpathy
+- **[Gist LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)** — 3-layers raw/wiki/schema, Ingest/Query/Lint, qmd. Référence pour repos avec memory compounding profond.
+
+### Tech écosystème
+- **Stripe, Vercel, Cloudflare, Sentry, OpenAI, HashiCorp, Figma, Netlify** — skills publics
+- **Simon Willison** `simonw/llm` — référence skill atomique
+
+---
+
+## SOURCES — Verbatim avec URLs
+
+### Anthropic officiel
+- [code.claude.com/docs/en/memory](https://code.claude.com/docs/en/memory) — CLAUDE.md target 200L
+- [anthropic.com/engineering/effective-harnesses-for-long-running-agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) — 2-agent architecture
+- features-overview — "If a rule must hold every time, make it a hook"
+
+### Code with Claude SF + London
+- Boris : "I prompt Claude → I create a routine"
+- Cat Wu / Lisa Crofoot / Angela Jiang / Noah Zweben / Daisy Hollman / Jeremy Hadfield (London 19 mai 2026)
+- Erik Schluntz : Vibe Coding stratégies (SF mai 2026)
+- Thariq : 9 catégories, lethal trifecta, compute allocator
+
+### Référence Boris doctrine
+- Pragmatic Engineer — compounding error-driven
+- Sequoia AI Ascent — "coding is solved"
+
+### Référence Fowler
+- 2 avril 2026 — Guides+Sensors, "Agent = Model + Harness"
+
+### Trail of Bits
+- [github.com/trailofbits/claude-code-config](https://github.com/trailofbits/claude-code-config)
+
+---
+
+## GOTCHAS — Pièges observés
+
+### Pièges analyse
+- **Sauter étape 1** = config ad-hoc, pas adaptée
+- **Pas de scan `.claude/` existant** = double composants
+- **Pas de `git log`** = manque le contexte récent
+- **Trop d'hypothèses sans vérification empirique** (cf [[feedback_audit_claims_after_brief]])
+
+### Pièges proposition
+- **Trop ambitieux** : 20 agents pour repo qui en mérite 4
+- **Trop conservateur** : 0 hook sur repo sécu critique
+- **Copier config d'un autre repo** sans contexte
+- **Pas justifier** : "voici la config" sans "parce que"
+
+### Pièges déploiement
+- **Édit direct** au lieu de déléguer aux agents spécialisés (skill-creator, agent-creator, etc.)
+- **Pas de DA** avant livraison majeure
+- **Pas de test comportemental** post-setup (cf [[feedback_behavioral_test_pattern]])
+
+### Pièges cross-repo
+- **Décisions naming faites sur un repo** doivent être propagées (cf [[feedback_propagate_decisions_cross_repo]])
+- **Drift de stack** (ex Drizzle → postgres.js) à détecter par grep stack OLD vs NEW (cf [[feedback_drizzle_postgresjs_drift]])
+
+### Pièges Jarvis (forge)
+- **Pas mode exécutant pur** (cf [[feedback_never_pure_executor]])
+- **JAMAIS un seul agent pour multi-repo** — 1 agent par repo en parallèle (cf [[feedback_audit_repo_method]])
+- **`Explore` ≠ `project-auditor`** — Explore = recherche rapide, audit = project-auditor
+
+---
+
+## ALIASES — Findability
+
+Aliases déclarés en frontmatter (10) :
+- methode analyser repo
+- analyse repo claude code
+- config claude code optimale
+- grille analyse repo
+- audit setup repo
+- proposer config claude code
+- 6 etapes analyse repo
+- kit rules standard
+- scan architecture
+- mapper roles agents
+
+---
+
+## WIKILINKS
+
+### Notes canoniques sœurs (sources de vérité)
+- [[comment-creer-skill]]
+- [[comment-creer-agent]]
+- [[comment-creer-hook]]
+- [[comment-ecrire-claudemd]]
+- [[workflow-claude-code-optimal]]
+- [[mcp-vs-skills-doctrine]]
+- [[pattern-vault-llm-karpathy]]
+
+### Fiches leaders (à créer)
+- [[Boris Cherny]]
+- [[Cat Wu]]
+- [[Thariq Shihipar]]
+- [[Erik Schluntz]]
+- [[Martin Fowler]]
+
+### Knowledge / refs liées
+- [[raisonnement-22mai-doctrine-vs-enforcement]]
+- [[synthese-audit-coherence-neo-ia-ia-back]]
+- [[feedback_audit_repo_method]]
+- [[feedback_no_cto_agent]]
+- [[feedback_no_doc_agent]]
+- [[feedback_analyse_first_not_questionnaire]]
+- [[feedback_advisor_da_mandatory]]
+- [[feedback_audit_claims_after_brief]]
+- [[feedback_behavioral_test_pattern]]
+- [[feedback_propagate_decisions_cross_repo]]
+- [[feedback_drizzle_postgresjs_drift]]
+- [[feedback_never_pure_executor]]
+
+### Forge custom
+- [[project-auditor]] — agent forge dédié audit
+- [[project-analyzer]] — agent forge analyse projet
+- [[devils-advocate-pipeline]]
+- [[forge-brain-proactive]]
+
+---
+
+**Fin note canonique `methode-analyser-repo.md`** — 7/8 chantier 22 mai 2026 (NOTE MÉTA).
