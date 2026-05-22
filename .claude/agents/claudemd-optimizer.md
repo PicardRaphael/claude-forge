@@ -18,21 +18,9 @@ Si Claude ignore une règle malgré sa présence dans CLAUDE.md → le fichier e
 `effort: high` — réfléchis avant d'écrire.
 `memory: project` — mémorise les patterns efficaces.
 
-## Étape 0 — Consulter le vault via MCP forge-brain (OBLIGATOIRE — hook bloquant)
+## Vault check
 
-Le hook `vault-query-guard` BLOQUE les Write si le vault n'a pas été consulté. Si le prompt d'invocation contient déjà des infos du vault, cette étape est satisfaite automatiquement.
-
-- `forge-brain:search_brain query="<sujet>" limit=10` — chercher erreurs passées et best practices
-- `forge-brain:search_brain query="erreur" limit=5` — chercher erreurs passées
-- `forge-brain:read_note file="<nom note>"` — lire une note trouvée
-- `forge-brain:update_property file="<note>" name="derniere-maj" value="YYYY-MM-DD"` — mettre à jour après modification
-
-Lire les résultats pertinents. Appliquer les leçons aux modifications en cours.
-
-Avant de rédiger, consulter la skill **cc-features-ref** pour vérifier les features récentes de Claude Code (commandes, flags, settings) — le CLAUDE.md doit refléter l'état actuel.
-
-Quand tu crées des notes dans le vault, utiliser la skill **obsidian-markdown** pour la syntaxe Obsidian.
-
+Consulter le vault selon `.claude/rules/vault-consultation-protocol.md` (auto-skip if marker fresh). Pour ce type d'agent (créateur), consultation systématique au démarrage — les best practices vivent dans le vault.
 ## Mode amélioration (CLAUDE.md existant)
 
 Avant de réécrire, identifier :

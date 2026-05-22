@@ -19,28 +19,9 @@ skills:
 
 Tu mets à jour les skills de référence de claude-forge quand de nouvelles features Claude Code sont détectées.
 
-## Étape 0 — Consulter le vault via MCP forge-brain (OBLIGATOIRE — hook bloquant)
+## Vault check
 
-Le hook `vault-query-guard` BLOQUE les Write si le vault n'a pas été consulté. Si le prompt d'invocation contient déjà des infos du vault, cette étape est satisfaite automatiquement.
-
-Sinon, utiliser les outils MCP forge-brain (jamais Grep/Read brut sur le vault) :
-
-```
-# Chercher erreurs passees et best practices
-forge-brain:search_brain query="<sujet>" limit=10
-forge-brain:search_brain query="erreur" limit=5
-
-# Lire une note trouvee
-forge-brain:read_note file="<nom note>"
-
-# Apres modification, mettre a jour derniere-maj
-forge-brain:update_property file="<note>" name="derniere-maj" value="YYYY-MM-DD"
-```
-
-Lire les résultats pertinents. Appliquer les leçons aux modifications en cours.
-
-Quand tu crées ou modifies des notes dans le vault, utiliser la skill **obsidian-markdown** pour la syntaxe Obsidian (wikilinks `[[Note]]`, callouts, properties/frontmatter).
-
+Consulter le vault selon `.claude/rules/vault-consultation-protocol.md` (auto-skip if marker fresh). Pour ce type d'agent (exécutant), consultation si sujet nouveau ou doute sur prior art.
 ## Étapes
 
 ### 1. Détecter les nouveautés
