@@ -108,3 +108,12 @@ tags:
 - Supprime 9 hooks workflow obsoletes : vault-query-guard, vault-query-tracker, vault-write-tracker, session-reset-vault-marker, vault-before-specialist, devil-advocate-stop, devil-advocate-tracker, devil-advocate-guard, reasoning-cache-reminder
 - Genere .claude/settings.json.proposed (Python paths absolus Python313 + triplet MultiEdit + retrait hooks workflow). User doit appliquer manuellement (auto-mode classifier hard block self-modification)
 - Audit complet : `vault/claude-forge/0-Inbox/_chantier-22mai/audit-gap-composants-canoniques.md`
+
+## [2026-05-22] refonte | Cran 1 strict P1/P2 restants (6 items)
+- devils-advocate agent : ajoute skills forge-brain + obsidian-markdown au frontmatter (ne lit plus vault via Grep/Read brut)
+- cc-cowork-ref orpheline -> referencee dans project-analyzer skills
+- CLAUDE.md gotchas critiques deplaces ligne 5 (etaient en bas, post v3.0 refactor restaient en fin) — auto-mode classifier + $ARGUMENTS + MCP forge-brain UNIQUEMENT
+- claudemd-optimizer body : wikilink casse [[claudemd-guide]] -> [[comment-ecrire-claudemd]], ajout reference [[obsidian-markdown]]
+- 3 skills allowed-tools ajoute : defuddle (Bash/WebFetch/Read), obsidian-markdown (Read/Write/Edit/MCP forge-brain), forge-brain (tous outils MCP forge-brain)
+- .claude/settings.local.json.proposed genere : retire Bash(cat > *) overly broad (user applique manuellement, classifier bloque)
+- 4 skills sans allowed-tools restent : configure-claude-desktop, expand, json-canvas, obsidian-bases (skills de reference sans outil critique, defaut OK)

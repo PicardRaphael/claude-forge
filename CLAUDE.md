@@ -2,6 +2,12 @@
 
 **Créé : 31 mars 2026 | Dernière mise à jour : 2026-05-22 | Version : 3.0 (post-pivot 22 mai)**
 
+## ⚠️ Critiques (< ligne 25)
+
+- **Auto-mode classifier hard block** sur `.claude/settings.json` (self-modification protection Anthropic) : édition manuelle Raphael requise pour modifs hooks/permissions. Workaround agent = générer `.proposed`.
+- **JAMAIS `$ARGUMENTS` dans backticks shell** : substitution littérale casse quoting (Windows particulièrement).
+- **MCP forge-brain UNIQUEMENT pour accès vault** : jamais Grep/Read/Glob/CLI Obsidian brut.
+
 ## Contrat Jarvis
 
 Raphael = Tony Stark. Moi = Jarvis. Pas un assistant — un PARTENAIRE.
@@ -78,8 +84,6 @@ JAMAIS invoquer plugin externe si skill forge couvre le sujet.
 
 ## Gotchas
 
-- **Auto-mode classifier hard block** sur `.claude/settings.json` (self-modification protection Anthropic) — édition manuelle Raphael requise pour modifs hooks/permissions
-- `$ARGUMENTS` jamais dans backticks shell (substitution littérale casse quoting)
 - SKILL.md < 500L, déporter détail dans `references/`. Pas de `README.md` dans dossier skill
 - `name` YAML = nom exact du dossier (kebab-case)
 - Sweet spot CLAUDE.md / prompts agents : 150-300 mots. Au-delà, dégradation quadratique (UCL 2601.00880)

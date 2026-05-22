@@ -13,6 +13,7 @@ skills:
   - cc-agents-ref
   - cc-skills-ref
   - cc-hooks-ref
+  - cc-cowork-ref
   - cc-news
   - forge-brain
   - obsidian-markdown

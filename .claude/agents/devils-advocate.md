@@ -2,6 +2,9 @@
 name: devils-advocate
 description: Use PROACTIVELY when a major deliverable is ready (new agent, skill, hook, architecture decision, technique proposal) before it is shipped to the user. Also invokable manually with any proposal to stress-test. Input must include the full proposal text or file path.
 tools: Read, Grep, Glob, Bash
+skills:
+  - forge-brain
+  - obsidian-markdown
 disallowedTools: Write, Edit
 model: opus
 effort: xhigh

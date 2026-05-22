@@ -22,7 +22,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"$(git rev-parse --show-toplevel)/.claude/hooks/learning-reminder.py\"",
+            "command": "C:\\Users\\raphael.picard_neote\\AppData\\Local\\Programs\\Python\\Python313\\python.exe \"$(git rev-parse --show-toplevel)/.claude/hooks/learning-reminder.py\"",
             "timeout": 10,
             "once": true
           }
@@ -32,17 +32,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"$(git rev-parse --show-toplevel)/.claude/hooks/devil-advocate-stop.py\"",
-            "timeout": 5,
-            "once": true
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python \"$(git rev-parse --show-toplevel)/.claude/hooks/proactivity-reminder.py\"",
+            "command": "C:\\Users\\raphael.picard_neote\\AppData\\Local\\Programs\\Python\\Python313\\python.exe \"$(git rev-parse --show-toplevel)/.claude/hooks/proactivity-reminder.py\"",
             "timeout": 3,
             "once": true
           }
@@ -55,79 +45,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"$(git rev-parse --show-toplevel)/.claude/hooks/security-guard.py\"",
+            "command": "C:\\Users\\raphael.picard_neote\\AppData\\Local\\Programs\\Python\\Python313\\python.exe \"$(git rev-parse --show-toplevel)/.claude/hooks/security-guard.py\"",
             "timeout": 5
           }
         ]
       },
       {
-        "matcher": "Edit|Write",
+        "matcher": "Edit|Write|MultiEdit",
         "hooks": [
           {
             "type": "command",
-            "command": "python \"$(git rev-parse --show-toplevel)/.claude/hooks/delegate-guard.py\"",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python \"$(git rev-parse --show-toplevel)/.claude/hooks/vault-query-guard.py\"",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Agent",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python \"$(git rev-parse --show-toplevel)/.claude/hooks/vault-before-specialist.py\"",
-            "timeout": 5
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python \"$(git rev-parse --show-toplevel)/.claude/hooks/vault-write-tracker.py\"",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Read|Grep|Glob|Skill|mcp__forge-brain__search_brain|mcp__forge-brain__read_note|mcp__forge-brain__list_notes|mcp__forge-brain__vault_stats|mcp__forge-brain__get_backlinks|mcp__forge-brain__get_tags",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python \"$(git rev-parse --show-toplevel)/.claude/hooks/vault-query-tracker.py\"",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Agent",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python \"$(git rev-parse --show-toplevel)/.claude/hooks/devil-advocate-tracker.py\"",
-            "timeout": 5
-          },
-          {
-            "type": "command",
-            "command": "python \"$(git rev-parse --show-toplevel)/.claude/hooks/devil-advocate-guard.py\"",
-            "timeout": 5
-          },
-          {
-            "type": "command",
-            "command": "python \"$(git rev-parse --show-toplevel)/.claude/hooks/reasoning-cache-reminder.py\"",
+            "command": "C:\\Users\\raphael.picard_neote\\AppData\\Local\\Programs\\Python\\Python313\\python.exe \"$(git rev-parse --show-toplevel)/.claude/hooks/delegate-guard.py\"",
             "timeout": 5
           }
         ]
@@ -138,7 +66,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"$(git rev-parse --show-toplevel)/.claude/hooks/session-health.py\"",
+            "command": "C:\\Users\\raphael.picard_neote\\AppData\\Local\\Programs\\Python\\Python313\\python.exe \"$(git rev-parse --show-toplevel)/.claude/hooks/session-health.py\"",
             "timeout": 5
           }
         ]
@@ -147,7 +75,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"$(git rev-parse --show-toplevel)/.claude/hooks/skill-activation.py\"",
+            "command": "C:\\Users\\raphael.picard_neote\\AppData\\Local\\Programs\\Python\\Python313\\python.exe \"$(git rev-parse --show-toplevel)/.claude/hooks/skill-activation.py\"",
             "timeout": 3
           }
         ]
@@ -158,7 +86,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"$(git rev-parse --show-toplevel)/.claude/hooks/session-reminder.py\"",
+            "command": "C:\\Users\\raphael.picard_neote\\AppData\\Local\\Programs\\Python\\Python313\\python.exe \"$(git rev-parse --show-toplevel)/.claude/hooks/session-reminder.py\"",
             "timeout": 5
           }
         ]
@@ -167,18 +95,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"$(git rev-parse --show-toplevel)/.claude/hooks/mcp-autostart.py\"",
+            "command": "C:\\Users\\raphael.picard_neote\\AppData\\Local\\Programs\\Python\\Python313\\python.exe \"$(git rev-parse --show-toplevel)/.claude/hooks/mcp-autostart.py\"",
             "timeout": 10,
             "async": true
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python \"$(git rev-parse --show-toplevel)/.claude/hooks/session-reset-vault-marker.py\"",
-            "timeout": 5
           }
         ]
       }

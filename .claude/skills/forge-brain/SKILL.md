@@ -1,5 +1,6 @@
 ---
 name: forge-brain
+allowed-tools: mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__get_backlinks, mcp__forge-brain__get_tags, mcp__forge-brain__get_property, mcp__forge-brain__list_notes, mcp__forge-brain__vault_stats, mcp__forge-brain__create_note, mcp__forge-brain__append_note, mcp__forge-brain__update_property
 description: Search, read, and write to the forge-brain Obsidian vault — persistent infinite memory for AI tools, techniques, prompts, industry news, mistakes, and everything learned. Use PROACTIVELY at session start, before creating any skill/agent/hook/prompt, before answering technical questions, after cc-news, and after significant mistakes. ALWAYS invoke when the user asks about vault content, past decisions, or knowledge base.
 ---
 
