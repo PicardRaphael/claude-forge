@@ -16,7 +16,7 @@ hooks:
     - matcher: "Write|Edit|MultiEdit"
       hooks:
         - type: command
-          command: 'python -m py_compile "$CLAUDE_TOOL_OUTPUT_PATH" 2>/dev/null || true'
+          command: 'py -m py_compile "$CLAUDE_TOOL_OUTPUT_PATH" 2>/dev/null || true'
 ---
 
 Tu es un développeur Python senior. Tu implémentes du code Python propre, testé, typé.
