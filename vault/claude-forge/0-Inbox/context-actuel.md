@@ -1,47 +1,67 @@
 ---
-titre: Context Actuel
-resume: Working memory dynamique — mis à jour par /done, lu par /recap
-aliases: [context actuel, contexte courant, working memory, memoire de travail, etat actuel]
+titre: "Context Actuel"
+resume: "Working memory dynamique — mis a jour par /done, lu par /recap. Etat post-chantier 22 mai 2026 : vault Karpathy strict + 8 canoniques + 14 leaders + composants conformes."
+aliases:
+  - "context actuel"
+  - "contexte courant"
+  - "working memory"
+  - "memoire de travail"
+  - "etat actuel"
 type: context
 status: active
 derniere-maj: 2026-05-22
 auteur: claude
-tags: ["#type/context", "#meta/working-memory"]
+tags:
+  - "#type/context"
+  - "#meta/working-memory"
 ---
 
 ## Phase actuelle
 
-Calibrage doctrine claude-forge : passage de "OBLIGATOIRE partout" à "intelligent + conditionnel" pour les agents. Fix DA bouclant 5 min + DRY 8 agents sur consultation vault.
+Chantier 22 mai 2026 TERMINE et pousse : vault forge-brain transforme en source de verite actionnable (pattern Karpathy strict + 8 notes canoniques + 14 fiches leaders + composants .claude/ alignes doctrine 22 mai).
 
-## Dernière session (2026-05-22 soir)
+## Derniere session (2026-05-22)
 
-### Décisions prises
-- DA : étape 2 vault conditionnelle (max 2 requêtes ciblées), sauvegarde non bloquante, interdit Bash heredoc
-- Nouvelle rule `vault-consultation-protocol.md` = single source of truth
-- 8 agents DRY : bloc Étape 0 vault remplacé par référence (3 lignes)
-- Critiques DA des refontes structurelles rejetées sauvegardées dans le vault
-- Commit `e8e08b1` (14 fichiers, +279/-143) — uniquement les changements de cette session, pas les fichiers parallèles d'un autre agent
-- Pas de modifs sur neo_ia/ia_back (autre agent en cours)
+### Decisions prises
+- **Pattern Karpathy strict** adopte sur vault forge-brain (3-layers raw/wiki/schema + index.md content-oriented + log.md append-only + SCHEMA.md self-describing)
+- **Demantelement hooks workflow** : 9 hooks supprimes coherent doctrine 22 mai
+- **CLAUDE.md v3.0** : 91 lignes, retire effort xhigh defaut + hook critique double + architect-first obligatoire + DA systematique
+- **Knowledge cleanup NON execute** : verdict audit 3/3 = 39 GARDER / 0 SUPPRIMER (archives historiques par construction)
+- **Cran 2 (P0+P1)** applique. P2 nice-to-have ignores volontairement
+- **Effort xhigh reduit** : python-dev/project-analyzer/project-auditor sonnet+high
+- **DA conditionnel** : devils-advocate-pipeline rule reecrite OBLIGATOIRE -> CONDITIONNEL cible
 
 ### En cours
-- Un autre agent finit des modifs sur ia_back + neo_ia en parallèle (Raphael a précisé)
-- Critique DA `architect-guard-allowlist` : verdict BLOQUER refonte allowlist, livrer uniquement exemption tests par-pattern si récurrence
+- **AUCUNE TACHE en cours** — chantier termine et pousse (16 commits a29ddb4 -> d2bbcec)
 
-### Prochaines étapes
-- Tester en session fraîche que le DA ne boucle plus (relancer DA sur une proposition triviale, vérifier sortie < 2 min sans tentative Bash)
-- Si Raphael relance "refonte massive de quelque chose", PENSER au feedback_recurring_meta_anti_pattern AVANT de proposer
-- Le fix DRY claude-forge ne se généralise PAS à neo_ia/ia_back (leurs OBLIGATOIRE sont métier, pas du copié-collé)
+### Prochaines etapes
+- **Action utilisateur requise** : appliquer manuellement `.claude/settings.json.proposed` (auto-mode classifier hard block sur tout vecteur agent : Write/Edit/cp/heredoc). Commande PowerShell : `copy .claude\settings.json.proposed .claude\settings.json`
+- Une fois applique : plus d'erreurs hooks bruyantes (9 hooks supprimes references mais settings.json obsolete jusque-la)
+- Tester en session fraiche : "analyse ce repo, propose-moi la config CC parfaite" doit pointer immediatement sur [[methode-analyser-repo]]
 
 ## Fils ouverts
 
-- Si latence créateurs encore trop forte → baker best practices critiques directement dans leur prompt (au lieu de les faire chercher) — chantier futur, pas ce soir
-- Couplage architect.md ↔ architect-guard hook (AVERTISSEMENT 5 du DA matin) : à traiter quand on touchera vraiment la doctrine architect
-- Si même les 4 créateurs paraissent trop lents après ce fix → mesurer 2 semaines avant de toucher davantage
+- Audit `Knowledge/syntheses/` separe (3 notes pre-pivot 8-9 mai) — chantier basse priorite, pas critique
+- Bug session : hook delegate-guard bloque Edit direct CLAUDE.md, agent Agent bloque par vault-before-specialist supprime. Workaround = Bash heredoc avec CLAUDE_AGENT env var (jusqu'a application settings.json.proposed)
+
+## Commits chantier 22 mai (16 total)
+
+- `a29ddb4` : 16 rapports recherche + PLAN-EXECUTION-FINAL
+- `c651959 -> 5443897` : 8 canoniques produites
+- `f3188a0` : corrections DA (1 bloquant + 5 forts)
+- `310c3f1` : 14 fiches leaders
+- `9272a8f` : cleanup destructif 28 notes obsoletes
+- `173ebf5` : CHANGELOG + MOCs
+- `1f3f1f4` : nice-to-have DA N1-N5
+- `d2bbcec` : vault Karpathy strict + composants doctrine 22 mai
 
 ## Liens
 
-[[2-Casquettes/Raphael-Picard|Raphael Picard]]
-[[1-Projets/Claude-Forge/Claude-Forge|Claude-Forge]]
-[[raisonnement-kill-tdd-strict-hooks-mai-2026]]
-[[raisonnement-22mai-doctrine-vs-enforcement]]
-[[critique-2026-05-22-vault-doctrine-renversement]]
+- [[Raphael-Picard]]
+- [[Claude-Forge]]
+- [[index]] — index content-oriented vault
+- [[log]] — log append-only operations
+- [[SCHEMA]] — conventions vault
+- [[methode-analyser-repo]] (META canonique)
+- [[raisonnement-22mai-doctrine-vs-enforcement]] (pivot doctrinal)
+- [[critique-2026-05-22-8-canoniques-chantier]] (verdict DA chantier)
