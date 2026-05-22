@@ -30,5 +30,5 @@ Techniques de gestion du contexte pour maximiser l'efficacite des LLM dans les s
 
 - [[MOC-Techniques]]
 - [[Context Engineering]]
-- [[Workflow Boris]]
+- [[workflow-claude-code-optimal]]
 - [[context-management]]

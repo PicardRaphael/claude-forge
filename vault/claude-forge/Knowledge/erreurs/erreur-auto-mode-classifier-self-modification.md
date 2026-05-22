@@ -51,5 +51,5 @@ Ce n'est PAS un workaround — c'est la solution architecturale. L'écriture via
 ## Liens
 
 - [[erreur-settings-paths-hardcodes-multi-poste]] — Autre erreur d'infra hooks
-- [[hooks-guide]] — Patterns hooks et enforcement
+- [[comment-creer-hook]] — Patterns hooks et enforcement
 - [[delegate-guard-pattern]] — Le hook custom vs le classifier interne

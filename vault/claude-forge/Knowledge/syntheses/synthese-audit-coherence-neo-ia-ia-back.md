@@ -67,6 +67,6 @@ sources:
 
 ## Liens
 
-- [[critique-2026-05-21-tdd-optimizations-handshake]] — critique DA des optimisations TDD
+- [[erreur-advisory-rules-insuffisantes]] — critique DA des optimisations TDD
 - [[erreur-claude-agent-env-var-dead-code]] — erreur dispatch-guard associée
-- [[raisonnement-hook-agent-detection-method]] — raisonnement agent_type confirmé
+- [[erreur-claude-agent-env-var-dead-code]] — raisonnement agent_type confirmé

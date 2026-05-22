@@ -12,7 +12,7 @@ type: technique
 derniere-maj: 2026-05-10
 auteur: claude
 sources:
-  - "[[best-practices-claude-code-leaders]]"
+  - "[[workflow-claude-code-optimal]]"
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
@@ -76,5 +76,5 @@ Apres chaque session de modification d'agents/hooks/rules sur un repo, ou en aud
 ## Liens
 
 - [[MOC-Techniques]]
-- [[pattern-agentic-engineering]]
-- [[best-practices-claude-code-leaders]]
+- [[workflow-claude-code-optimal]]
+- [[workflow-claude-code-optimal]]

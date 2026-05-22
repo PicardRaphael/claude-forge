@@ -132,4 +132,4 @@ Pour cette raison : un seul subagent explorer à la fois, et bien borner sa tâc
 - [[running-implementation-notes]] — Phase 2 logique après exploration
 - [[limites-subagents-claude-code]] — Limites techniques à connaître
 - [[decoupe-agents-anti-crash]] — Découpage par phase
-- [[claudemd-guide]] — Subagent doit hériter du CLAUDE.md
+- [[comment-ecrire-claudemd]] — Subagent doit hériter du CLAUDE.md

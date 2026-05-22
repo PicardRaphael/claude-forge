@@ -63,6 +63,6 @@ references/
 
 ## Liens
 
-- [[best-practices-claude-code-leaders]] — Boris/Thariq best practices
+- [[workflow-claude-code-optimal]] — Boris/Thariq best practices
 - cc-news (skill forge) — la skill refactorisée
 - [[erreur-edit-direct-skills]] — erreur liée (éditer sans spécialiste)

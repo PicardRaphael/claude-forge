@@ -1,6 +1,6 @@
 ---
 titre: "Comment créer un hook Claude Code parfait"
-resume: "Note canonique pour créer un hook Claude Code — 29 events officiels, timeout 60s, exit codes 0/1/2, hookSpecificOutput, doctrine 'If a rule must hold every time, make it a hook'. Lint/security/scope OUI, workflow NON (doctrine 22 mai)."
+resume: "Note canonique pour créer un hook Claude Code — 25+ events officiels, timeout 60s, exit codes 0/1/2, hookSpecificOutput, doctrine 'If a rule must hold every time, make it a hook'. Lint/security/scope OUI, workflow NON (doctrine 22 mai)."
 aliases:
   - "comment creer hook"
   - "creer un hook claude code"
@@ -170,7 +170,7 @@ Réveille la session à un timing futur. Utile pour scheduling, polling externe.
 ❌ **Pipeline markers + guards** — anti-pattern, supprimé d'ia_back et neo_ia 22 mai
 ❌ **TTL sur markers** — existence seule suffit (cf [[feedback_marker_ttl_pattern]])
 ❌ **dispatch-guard CLAUDE_AGENT** — env var dead code (cf [[erreur-claude-agent-env-var-dead-code]])
-❌ **Architect-guard allowlist** — supprimé (cf [[critique-2026-05-22-architect-guard-allowlist]])
+❌ **Architect-guard allowlist** — supprimé (cf [[raisonnement-22mai-doctrine-vs-enforcement]])
 ❌ Pour ce qu'une **skill** ou un **rule** ferait (advisory)
 
 ### Référence doctrine forge
@@ -413,7 +413,7 @@ Aliases déclarés en frontmatter (10) :
 - [[erreur-hooks-workflow-enforcement]]
 - [[critique-2026-05-21-refonte-hooks-16-vers-6]]
 - [[erreur-claude-agent-env-var-dead-code]]
-- [[critique-2026-05-22-architect-guard-allowlist]]
+- [[raisonnement-22mai-doctrine-vs-enforcement]]
 - [[feedback_marker_ttl_pattern]]
 - [[feedback_multiedit_matcher_blind_spot]]
 - [[feedback_hooks_same_stack]]

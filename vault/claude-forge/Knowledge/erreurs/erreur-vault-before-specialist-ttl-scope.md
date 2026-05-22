@@ -47,7 +47,7 @@ Marker = existence-only. Plus de `MARKER_MAX_AGE_MINUTES`. Plus de `datetime` im
 Plus de matching dans `prompt` ou `description`. Si je dis "skill-creator" dans un dispatch à general-purpose, ça passe. C'est la donnée structurée du tool_input qui compte.
 
 ### Fix 4 — Nouveau hook `session-reset-vault-marker.py` (SessionStart)
-Supprime le marker au démarrage de chaque session. Reset propre. Combine avec [Fix 1] = pattern existence-only + reset SessionStart, conforme [[pattern-architect-first-pipeline]].
+Supprime le marker au démarrage de chaque session. Reset propre. Combine avec [Fix 1] = pattern existence-only + reset SessionStart, conforme [[workflow-claude-code-optimal]].
 
 ## Tests empiriques (validation)
 
@@ -69,9 +69,9 @@ En investiguant, j'ai aussi compris que les 54k tokens consommés au tour 1 de c
 
 - [[marker-ttl-antipattern]]
 - [[delegate-guard-pattern]]
-- [[pattern-architect-first-pipeline]]
+- [[workflow-claude-code-optimal]]
 - [[enforce-not-advise]]
-- [[erreur-marker-ttl-blocage-agents]]
+- [[raisonnement-22mai-doctrine-vs-enforcement]]
 - [[erreur-advisory-rules-insuffisantes]]
 - [[erreur-architect-neo_ia-fouille-bdd]]
 

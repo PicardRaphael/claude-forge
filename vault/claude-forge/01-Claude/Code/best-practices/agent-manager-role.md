@@ -82,7 +82,7 @@ Réponses minimales pour démarrer (recommandation Anthropic) : ensemble défini
 
 ## Liens
 
-- [[claudemd-guide]] — Convention CLAUDE.md à standardiser
-- [[skills-guide]] — Catalogue skills à curate
+- [[comment-ecrire-claudemd]] — Convention CLAUDE.md à standardiser
+- [[comment-creer-skill]] — Catalogue skills à curate
 - [[cowork-architecture]] — Marketplaces privées
 - [[agent-manager-neoteem]] — Application concrète du rôle à Neoteem

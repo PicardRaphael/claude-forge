@@ -128,7 +128,7 @@ Réduire la variété que l'agent doit gérer → réduire le scope → harness 
 ## Liens
 
 - [[Context Engineering]] — Composant "orchestration" du harness
-- [[best-practices-claude-code-leaders]] — Patterns de harness appliqués (Boris, Karpathy)
+- [[workflow-claude-code-optimal]] — Patterns de harness appliqués (Boris, Karpathy)
 - [[agents-securite]] — Sandboxing et permissions = couches du harness
 - [[mass-multi-agent-system-search]] — Optimisation automatisée du harness multi-agent
 - [[MOC-Techniques]]

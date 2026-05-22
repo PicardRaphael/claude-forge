@@ -78,5 +78,5 @@ La session principale doit chercher dans le vault AVANT de savoir quoi injecter.
 
 ## Liens
 
-[[critique-2026-05-21-dispatch-guard-livraison]]
+[[erreur-claude-agent-env-var-dead-code]]
 [[critique-2026-05-21-refonte-hooks-16-vers-6]]

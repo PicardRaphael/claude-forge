@@ -98,4 +98,4 @@ Code : `Bun.spawnSync(["bun", "run", "typecheck"], { timeout: 30_000 })` sur CHA
 
 **Anti-pattern observé : raisonner par budget de hooks ("16 → 6") au lieu de par friction/valeur de chaque hook.** Le bon nombre n'est pas une cible — c'est le résultat de l'audit hook-par-hook (valeur métier × fréquence × friction tolérable). Réinstaller cette discipline avant toute refonte hooks future.
 
-Lié : [[pipeline-boris-adapte-neoteem]], [[critique-2026-05-21-setup-tdd-strict-neoia]]
+Lié : [[workflow-claude-code-optimal]], [[raisonnement-kill-tdd-strict-hooks-mai-2026]]

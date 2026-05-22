@@ -106,8 +106,8 @@ Boris : "Agentic search > RAG. Glob + grep pilotes par le modele surpassent un i
 
 ## Liens
 
-- [[claudemd-guide]] — Compaction survie et taille
-- [[skills-guide]] — Budget contexte des skills
-- [[hooks-guide]] — Hooks comme alternative au contexte advisory
+- [[comment-ecrire-claudemd]] — Compaction survie et taille
+- [[comment-creer-skill]] — Budget contexte des skills
+- [[comment-creer-hook]] — Hooks comme alternative au contexte advisory
 - [[harness-engineering]] — Context management dans le harness
 - [[Boris Cherny]] — Session hygiene

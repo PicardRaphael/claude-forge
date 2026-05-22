@@ -100,5 +100,5 @@ Les 3 se cumulent. Un tool call passe = autorisé par les 3.
 
 - [[Claude Security]]
 - [[delegate-guard-pattern]]
-- [[hooks-guide]]
+- [[comment-creer-hook]]
 - [[MOC-Claude-Code]]

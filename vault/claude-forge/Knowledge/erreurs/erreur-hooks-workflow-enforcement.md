@@ -107,6 +107,6 @@ Si oui à au moins une → l'erreur est en train d'être refaite.
 
 - [[raisonnement-22mai-doctrine-vs-enforcement]] — décisions complètes
 - [[Boris-Cherny]]
-- [[hooks-guide]]
-- [[pipeline-boris-adapte-neoteem]]
+- [[comment-creer-hook]]
+- [[workflow-claude-code-optimal]]
 - [[erreur-pipeline-trop-long-frustration]] — symptôme utilisateur

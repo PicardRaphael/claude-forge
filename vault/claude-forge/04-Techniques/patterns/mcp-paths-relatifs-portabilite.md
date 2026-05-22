@@ -120,5 +120,5 @@ Pattern correct : `"args": ["./wrapper.mjs", "${PG_CONNECTION_STRING}"]` avec `.
 
 - [[erreur-password-postgres-clair-mcp-json]] — Erreur sécu connexe découverte
 - [[ia-back-project]] — Application concrète
-- [[hooks-guide]] — Enforcement déterministe
+- [[comment-creer-hook]] — Enforcement déterministe
 - [[harness-engineering]] — Pattern foundational

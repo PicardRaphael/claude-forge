@@ -103,7 +103,7 @@ Critique sauvegardée par l'orchestrateur (session principale) car le DA agent n
 - [[subagent-explore-then-edit]] — Note EVOLVE bloquant, fix MCP
 - [[agent-manager-role]] — Note EVOLVE, scinder vers 1-Projets
 - [[codebase-maps-pattern]] — Note EVOLVE, audit fantôme
-- [[hooks-guide]] — Note KEEP
+- [[comment-creer-hook]] — Note KEEP
 - [[erreur-da-heredoc-bash-silencieux]] — Erreur référencée
 - [[pattern-spec-driven-development]]
 - [[pattern-sdd-triangle]]

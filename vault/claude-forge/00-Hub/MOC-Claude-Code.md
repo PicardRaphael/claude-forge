@@ -37,11 +37,11 @@ Auto Mode · Effort Levels · Worktrees · Skills System · Hooks System · Agen
 
 ## Best Practices
 
-- [[Workflow Boris]] — Fleet commander, 5 terminaux, worktrees
+- [[workflow-claude-code-optimal]] — Fleet commander, 5 terminaux, worktrees
 - [[delegate-guard-pattern]] — Hook PreToolUse forge-only : bloque edits directs, redirige vers agents spécialisés
-- [[kit-rules-standard]] — 3 rules obligatoires tout projet : check-before-create, quality-gates, learn-from-mistakes
-- [[claudemd-maintenance]] — Consensus Boris + Anthropic : 100-200L max, monthly audit
-- [[best-practices-claude-code-leaders]] — Synthèse Boris, Erik, Thariq, Cat Wu, Karpathy
+- [[methode-analyser-repo]] — 3 rules obligatoires tout projet : check-before-create, quality-gates, learn-from-mistakes
+- [[comment-ecrire-claudemd]] — Consensus Boris + Anthropic : 100-200L max, monthly audit
+- [[workflow-claude-code-optimal]] — Synthèse Boris, Erik, Thariq, Cat Wu, Karpathy
 - [[mcp-vs-cli-vs-skills]] — Quand MCP, quand CLI, quand skill : matrice de décision
 
 ## Agents forge (fiches)
@@ -69,4 +69,4 @@ Auto Mode · Effort Levels · Worktrees · Skills System · Hooks System · Agen
 - [[Code with Claude 2026]] — Conférence SF 6 mai : SpaceX, Dreaming, Outcomes, Multi-agent, Routines
 - [[Memory Managed Agents]] — Memory = filesystem, permission scopes, optimistic concurrency, version history
 - [[Dreaming Managed Agents]] — Review cross-sessions, déduplication, vérification, enrichissement mémoire
-- [[boris-workflow-2026-may]] — Boris setup mai 2026 : mobile-first, /loop partout, 150 PRs/jour
+- [[workflow-claude-code-optimal]] — Boris setup mai 2026 : mobile-first, /loop partout, 150 PRs/jour

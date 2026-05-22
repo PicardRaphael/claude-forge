@@ -146,14 +146,14 @@ J'ai estimé "fusion hooks PreToolUse = 30-100s/feature gain". Mesure terrain : 
 
 ## Décisions finales appliquées (commit f6d89e0 neo_ia + bc109aa ia_back, 22 mai 2026)
 
-Voir `[[pipeline-boris-adapte-neoteem]]` pour la recette complète.
+Voir `[[workflow-claude-code-optimal]]` pour la recette complète.
 
 ## Liens
 
-- [[pipeline-boris-adapte-neoteem]] — la recette finale
+- [[workflow-claude-code-optimal]] — la recette finale
 - [[critique-2026-05-21-refonte-pipeline-boris-pattern]] — le DA qui a sauvé la session
 - [[erreur-pipeline-trop-long-frustration]] — l'erreur de départ
-- [[pattern-architect-first-pipeline]] — pattern précédent compatible
-- [[boris-workflow-2026-may]] — Boris pur (référence)
+- [[workflow-claude-code-optimal]] — pattern précédent compatible
+- [[workflow-claude-code-optimal]] — Boris pur (référence)
 - [[advisor-da-before-proposing]] (mémoire) — confirmé une fois de plus
 - [[measure-before-optimize-tests]] (mémoire) — confirmé sur fusion hooks

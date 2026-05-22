@@ -14,7 +14,7 @@ derniere-maj: 2026-05-21
 auteur: claude
 sources:
   - "Session 2026-05-21 — 5 tests blueprint claude-forge, validés 37/37"
-  - "[[pattern-agentic-engineering]]"
+  - "[[workflow-claude-code-optimal]]"
   - "[[synthese-audit-coherence-neo-ia-ia-back]]"
 tags:
   - "#type/technique"
@@ -117,9 +117,9 @@ Le test comportemental est le **dernier gate avant livraison**, après le devil'
 
 ## Liens
 
-- [[pattern-agentic-engineering]] — checklist setup, le test comportemental = Phase 7
+- [[workflow-claude-code-optimal]] — checklist setup, le test comportemental = Phase 7
 - [[synthese-audit-coherence-neo-ia-ia-back]] — 8 checks d'audit, les tests comportementaux complètent
-- [[critique-2026-05-21-dispatch-guard-livraison]] — DA sur le dispatch guard
+- [[erreur-claude-agent-env-var-dead-code]] — DA sur le dispatch guard
 
 
 ## Pièges identifiés (feedback neo_ia, mai 2026)

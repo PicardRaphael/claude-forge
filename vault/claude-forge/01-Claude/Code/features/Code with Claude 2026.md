@@ -60,7 +60,7 @@ Dreaming, Outcomes, Multi-agent, Routines = plus d'autonomie mais plus de consom
 
 - [[Dreaming Managed Agents]] — Détail du dreaming
 - [[Memory Managed Agents]] — Architecture memory
-- [[boris-workflow-2026-may]] — Boris setup mai 2026
+- [[workflow-claude-code-optimal]] — Boris setup mai 2026
 - [[Managed Agents]] — Feature Managed Agents
 - [[MOC-Claude-Code]]
 

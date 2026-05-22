@@ -43,12 +43,12 @@ Template : `Templates/knowledge.md`
 - [[erreur-devils-advocate-tronque]] — Résultat DA tronqué annoncé comme "validé"
 - [[erreur-edit-direct-skills]] — Édits directs sans passer par agents spécialisés
 - [[erreur-hooks-bash-quoting-windows]] — Quoting bash cassé sur Windows
-- [[erreur-marker-ttl-blocage-agents]] — TTL sur markers = blocage agents
+- [[raisonnement-22mai-doctrine-vs-enforcement]] — TTL sur markers = blocage agents
 - [[erreur-mcp-stopwords-semantiques]] — Stop words filtrant les queries d'intention
 - [[erreur-mcp-yaml-dump-corruption]] — yaml.dump corrompt le frontmatter
 - [[erreur-settings-paths-hardcodes-multi-poste]] — Chemins durs cassant la portabilité
 - [[erreur-skill-monolithique-sans-references]] — Skill > 500L sans references/
-- [[erreur-skip-checklist-skill-modification]] — Skip checklist lors de modification de skill
+- [[erreur-edit-direct-skills]] — Skip checklist lors de modification de skill
 
 ## Liens
 

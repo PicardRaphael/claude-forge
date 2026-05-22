@@ -53,7 +53,7 @@ Le runtime CC injecte ces champs quand le hook s'exécute dans un subagent nomm�
 
 ## Liens
 
-- [[critique-2026-05-21-dispatch-guard-livraison]] — critique DA qui a identifié le risque multi-field
+- [[erreur-claude-agent-env-var-dead-code]] — critique DA qui a identifié le risque multi-field
 - [[erreur-advisory-rules-insuffisantes]] — même pattern : code qui semble fonctionner mais ne fait rien
 - [[architecture-decision-hook-maison-vs-plugin-tiers]] — contexte du tdd-guard maison
 

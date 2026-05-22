@@ -109,4 +109,4 @@ Si le repo n'a pas `/decompose-ticket`, `/spec` suffit — le BRIEF est assez cl
 - [[MOC-Techniques]]
 - [[pattern-spec-driven-development]] — Recherche complète SDD
 - [[feature-dev-plugin]] — Plugin Anthropic complémentaire
-- [[pattern-architect-first-pipeline]] — Pipeline d'exécution en aval
+- [[workflow-claude-code-optimal]] — Pipeline d'exécution en aval

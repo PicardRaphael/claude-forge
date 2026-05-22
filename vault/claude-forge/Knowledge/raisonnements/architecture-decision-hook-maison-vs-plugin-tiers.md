@@ -65,7 +65,7 @@ Signal de déclenchement : "on prend le plugin existant ou on fait maison ?" sur
 
 ## Liens
 
-- [[erreur-marker-ttl-blocage-agents]]
+- [[raisonnement-22mai-doctrine-vs-enforcement]]
 - [[erreur-advisory-rules-insuffisantes]]
-- [[critique-tdd-neo-ia-proposal]]
+- [[raisonnement-kill-tdd-strict-hooks-mai-2026]]
 - [[neo_ia]]

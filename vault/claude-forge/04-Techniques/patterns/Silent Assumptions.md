@@ -30,5 +30,5 @@ Anti-pattern identifie par Andrej Karpathy comme le piege #1 du coding avec IA :
 ## Liens
 
 - [[MOC-Techniques]]
-- [[Karpathy Dev Discipline]]
+- [[Andrej Karpathy]]
 - [[Andrej Karpathy]]

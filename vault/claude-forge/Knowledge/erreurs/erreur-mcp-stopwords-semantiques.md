@@ -29,5 +29,5 @@ Retire les 4 mots de `STOP_WORDS_FR`. Verifie : `search_brain("erreur edit direc
 
 ## Liens
 
-- [[critique-2026-05-10-mcp-forge-brain]]
+- [[erreur-mcp-stopwords-semantiques]]
 - [[sqlite-fts5-vault]]

@@ -43,5 +43,5 @@ Calibrage doctrine claude-forge : passage de "OBLIGATOIRE partout" à "intellige
 [[2-Casquettes/Raphael-Picard|Raphael Picard]]
 [[1-Projets/Claude-Forge/Claude-Forge|Claude-Forge]]
 [[raisonnement-kill-tdd-strict-hooks-mai-2026]]
-[[critique-2026-05-22-architect-guard-allowlist]]
+[[raisonnement-22mai-doctrine-vs-enforcement]]
 [[critique-2026-05-22-vault-doctrine-renversement]]

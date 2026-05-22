@@ -22,9 +22,9 @@ domaine: claude-code
 sources:
   - "Session Raphael 21 mai 2026 — 4h+ sur fix BERNAT bloqué par hooks neo_ia"
   - "Web search Boris Cherny / Anthropic / Thariq Shihipar (21 mai 2026)"
-  - "[[critique-2026-05-21-setup-tdd-strict-neoia]]"
+  - "[[raisonnement-kill-tdd-strict-hooks-mai-2026]]"
   - "[[critique-2026-05-21-refonte-hooks-16-vers-6]]"
-  - "[[best-practices-claude-code-leaders]]"
+  - "[[workflow-claude-code-optimal]]"
   - "https://howborisusesclaudecode.com/"
   - "https://claude.com/blog/how-anthropic-teams-use-claude-code"
 ---
@@ -79,7 +79,7 @@ Soir du 21 mai 2026. Raphael passe 4h+ sur un fix bug (BERNAT, filtres `lister_d
 
 ### 4. Le vault avait déjà tranché 24h avant
 
-- [[pipeline-boris-adapte-neoteem]] (22 mai 2026) : "phase REFACTOR test-writer SUPPRIMÉE", "MAX 3 tests par comportement" (révisé ce soir : "1 test à la fois")
+- [[workflow-claude-code-optimal]] (22 mai 2026) : "phase REFACTOR test-writer SUPPRIMÉE", "MAX 3 tests par comportement" (révisé ce soir : "1 test à la fois")
 - `feedback_pipeline_quality_gates` (mémoire) : "gates CONDITIONNELLES, 5 étapes CRUD pas 8"
 
 → La doctrine 22 mai n'avait juste **pas été déployée sur neo_ia**. Contradiction `testing-mandatory.md` ligne 124 vs `quality-gates.md` ligne 116.
@@ -164,11 +164,11 @@ La vraie best practice Anthropic : **1 test à la fois en boucle red-green court
 
 ## Liens
 
-- [[critique-2026-05-21-setup-tdd-strict-neoia]] — DA verdict initial
+- [[raisonnement-kill-tdd-strict-hooks-mai-2026]] — DA verdict initial
 - [[critique-2026-05-21-refonte-hooks-16-vers-6]] — DA verdict refonte hooks
-- [[pipeline-boris-adapte-neoteem]] — pipeline canonique mis à jour
-- [[best-practices-claude-code-leaders]] — référence Boris/Erik/Thariq/Karpathy
+- [[workflow-claude-code-optimal]] — pipeline canonique mis à jour
+- [[workflow-claude-code-optimal]] — référence Boris/Erik/Thariq/Karpathy
 - [[erreur-pipeline-trop-long-frustration]] — erreur déclencheur 21 mai
-- [[erreur-architect-marker-pipeline-neoia]] — bug marker initial (3 root causes)
+- [[raisonnement-22mai-doctrine-vs-enforcement]] — bug marker initial (3 root causes)
 - [[raisonnement-revirement-pipeline-mai-2026]] — pivot précédent 22 mai
 - [[boris-thariq-bestpractices]]

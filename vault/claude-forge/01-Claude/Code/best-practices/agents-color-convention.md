@@ -50,5 +50,5 @@ Adopté le 2026-05-21 après constat que les couleurs étaient incohérentes ent
 
 ## Liens
 
-- [[setup-project-complet]] — setup CC incluant les agents
-- [[agents-orchestration]] — patterns d'orchestration agents
+- [[methode-analyser-repo]] — setup CC incluant les agents
+- [[comment-creer-agent]] — patterns d'orchestration agents

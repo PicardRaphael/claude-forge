@@ -88,10 +88,10 @@ SPEC ↔ TESTS ↔ CODE en feedback loop. La spec n'est pas figée — implémen
 ## Liens
 
 - [[MOC-Techniques]]
-- [[pattern-architect-first-pipeline]] — Pipeline d'implémentation EN AVAL de la spec
+- [[workflow-claude-code-optimal]] — Pipeline d'implémentation EN AVAL de la spec
 - [[over-specification-paradox]] — Seuil S*=0.509, ne pas sur-spécifier
 - [[Context Engineering]] — La spec est un artefact de context engineering
-- [[setup-project-complet]] — Plugin feature-dev dans le setup
+- [[methode-analyser-repo]] — Plugin feature-dev dans le setup
 - [[Agents IA]] — Agents spécialisés dans les frameworks SDD
 
 ## Architectures concrètes — structures de dossiers

@@ -9,8 +9,8 @@ type: synthese
 derniere-maj: 2026-05-06
 auteur: claude
 sources:
-  - "[[agentic-engineering-karpathy]]"
-  - "[[vibe-coding-setup-complet]]"
+  - "[[Andrej Karpathy]]"
+  - "[[workflow-claude-code-optimal]]"
   - "Session claude-forge 2026-05-06"
 tags:
   - "#type/synthese"
@@ -114,7 +114,7 @@ Karpathy insiste sur le headless setup. Nos repos sont bons (CLI, MCP, APIs) mai
 
 ## Liens
 
-- [[agentic-engineering-karpathy]] — framework complet
-- [[vibe-coding-setup-complet]] — pattern setup
+- [[Andrej Karpathy]] — framework complet
+- [[workflow-claude-code-optimal]] — pattern setup
 - [[Boris Cherny]] — workflow fleet commander
 - [[Opus 4.7]] — effort levels

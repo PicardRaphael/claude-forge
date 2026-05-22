@@ -68,8 +68,8 @@ Boris solo + expert + session interactive. Neoteem 2-3 devs + sub-agents + sessi
 ## Liens
 
 - [[erreur-advisory-rules-insuffisantes]] — pattern advisory 80% vs hook 100%, 3 incidents chiffres
-- [[erreur-marker-ttl-blocage-agents]] — diagnostic historique du blocage marker = TTL, pas existence
-- [[erreur-architect-marker-pipeline-neoia]] — bug scope du 21 mai, fix = 4 lignes pas suppression
+- [[raisonnement-22mai-doctrine-vs-enforcement]] — diagnostic historique du blocage marker = TTL, pas existence
+- [[raisonnement-22mai-doctrine-vs-enforcement]] — bug scope du 21 mai, fix = 4 lignes pas suppression
 - [[critique-2026-05-21-outcomes-test-deploy]] — meme pattern parite forcee multi-repo critique hier
 - [[critique-2026-05-13-setup-lojii]] — precedent parite forcee
 - [[erreur-tests-heureux-vs-adverses]] — 8 tests PASS sur cas heureux ne valident PAS securite

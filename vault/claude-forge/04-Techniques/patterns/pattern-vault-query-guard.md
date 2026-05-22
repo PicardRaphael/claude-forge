@@ -13,8 +13,8 @@ type: technique
 derniere-maj: 2026-05-10
 auteur: claude
 sources:
-  - "[[erreur-skip-checklist-skill-modification]]"
-  - "[[best-practices-claude-code-leaders|Best practices Boris Thariq]]"
+  - "[[erreur-edit-direct-skills]]"
+  - "[[workflow-claude-code-optimal|Best practices Boris Thariq]]"
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
@@ -109,4 +109,4 @@ Utiliser la skill forge-brain pour chercher :
 
 - [[MOC-Techniques]]
 - [[erreur-edit-direct-skills]]
-- [[best-practices-claude-code-leaders]]
+- [[workflow-claude-code-optimal]]

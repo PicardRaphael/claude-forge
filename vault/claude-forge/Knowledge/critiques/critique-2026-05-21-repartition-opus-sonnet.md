@@ -71,4 +71,4 @@ La proposition met 6 agents en Sonnet. Les deux ne peuvent pas coexister.
 ## Liens
 
 - [[erreur-advisory-rules-insuffisantes]] — rules advisory = 80% compliance, hook necessaire
-- [[critique-tdd-neo-ia-proposal]] — precedent Sonnet pour execution
+- [[raisonnement-kill-tdd-strict-hooks-mai-2026]] — precedent Sonnet pour execution

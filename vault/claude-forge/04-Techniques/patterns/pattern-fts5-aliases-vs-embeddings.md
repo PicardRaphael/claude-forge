@@ -62,5 +62,5 @@ FTSWeights(file_stem=10.0, content=1.0, aliases=8.0)
 
 - [[sqlite-fts5-vault]]
 - [[RAG]]
-- [[critique-2026-05-10-mcp-forge-brain]]
+- [[erreur-mcp-stopwords-semantiques]]
 - [[MOC-Techniques]]

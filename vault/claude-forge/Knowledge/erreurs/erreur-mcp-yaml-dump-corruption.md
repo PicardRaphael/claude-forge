@@ -37,5 +37,5 @@ Remplace par regex ciblee : cherche `^{name}:.*$` et remplace la ligne. Si la pr
 
 ## Liens
 
-- [[critique-2026-05-10-mcp-forge-brain]]
+- [[erreur-mcp-stopwords-semantiques]]
 - [[sqlite-fts5-vault]]

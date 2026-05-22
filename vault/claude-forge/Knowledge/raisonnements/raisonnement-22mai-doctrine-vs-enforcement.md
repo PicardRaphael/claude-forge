@@ -147,7 +147,7 @@ Le feedback est donc révisé (pas supprimé) avec ce scope. Sans cette révisio
 - [[critique-2026-05-21-refonte-hooks-16-vers-6]] — étape précédente (16→6 hooks)
 - [[raisonnement-kill-tdd-strict-hooks-mai-2026]] — kill TDD strict 21 mai
 - [[erreur-pipeline-trop-long-frustration]] — symptôme côté utilisateur
-- [[pipeline-boris-adapte-neoteem]] — pipeline pratique post-refonte
+- [[workflow-claude-code-optimal]] — pipeline pratique post-refonte
 - [[claude-code-hooks]] (à créer/update) — guide hooks
 - [[agents-color-convention]] — architect-quick + architect-deep = blue
 

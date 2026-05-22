@@ -73,6 +73,6 @@ Kimi K2.6 scale à 300 sub-agents / 4000 étapes coordonnées. Pour forge, teste
 
 ## Liens
 
-- [[agents-orchestration]] — Patterns multi-agents
+- [[comment-creer-agent]] — Patterns multi-agents
 - [[harness-engineering]] — Pourquoi tester le harness, pas juste le modèle
 - [[cowork-skills-reliability]] — Debugging skills

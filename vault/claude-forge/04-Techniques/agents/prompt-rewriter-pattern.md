@@ -60,12 +60,12 @@ Pattern qui intercepte les prompts utilisateur via un hook `UserPromptSubmit` et
 
 ## Alternative retenue : Skill Activation Hook
 
-Au lieu de réécrire le prompt, injecter des recommandations de skills pertinentes via `additionalContext`. Claude ne peut pas oublier car il n'a jamais eu à se souvenir. Voir [[skills-guide]] et [[cowork-skills-reliability]].
+Au lieu de réécrire le prompt, injecter des recommandations de skills pertinentes via `additionalContext`. Claude ne peut pas oublier car il n'a jamais eu à se souvenir. Voir [[comment-creer-skill]] et [[cowork-skills-reliability]].
 
 ## Liens
 
 - [[MOC-Techniques]]
-- [[skills-guide]] — Activation des skills et budget
-- [[hooks-guide]] — UserPromptSubmit et additionalContext
+- [[comment-creer-skill]] — Activation des skills et budget
+- [[comment-creer-hook]] — UserPromptSubmit et additionalContext
 - [[harness-engineering]] — Feedforward controls (guides avant action)
 - [[context-management]] — Token economy

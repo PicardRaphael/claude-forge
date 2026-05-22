@@ -111,8 +111,8 @@ Le hook track ce qu'il a deja recommande et ne repete pas. Complement aux guard 
 
 ## Liens
 
-- [[skills-guide]] — Format et best practices
-- [[hooks-guide]] — Patterns d'enforcement
+- [[comment-creer-skill]] — Format et best practices
+- [[comment-creer-hook]] — Patterns d'enforcement
 - [[harness-engineering]] — 65% des echecs = harness, pas modele
 - [[erreur-advisory-rules-insuffisantes]] — Preuve empirique que l'advisory ne suffit pas
 - [[prompting-chat-cowork-code]] — Differences de prompting par plateforme

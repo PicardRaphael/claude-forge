@@ -110,7 +110,7 @@ Thariq diffuse et applique le concept, mais le **terme "lethal trifecta" a été
 - [[mcp-vs-skills-doctrine]]
 - [[workflow-claude-code-optimal]]
 - [[methode-analyser-repo]]
-- [[skills-guide|Skills Best Practices]]
+- [[comment-creer-skill|Skills Best Practices]]
 - [[Boris Cherny]] — co-doctrine Claude Code
 - [[Erik Schluntz]] — co-architecture agents
 - [[MOC-Leaders]]

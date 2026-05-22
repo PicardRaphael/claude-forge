@@ -62,6 +62,6 @@ Ce pattern est déployé 3 fois dans forge :
 ## Liens
 
 - [[erreur-edit-direct-skills]]
-- [[erreur-marker-ttl-blocage-agents]]
+- [[raisonnement-22mai-doctrine-vs-enforcement]]
 - [[pattern-vault-query-guard]]
 - [[harness-engineering]] — Martin Fowler formalise : contraintes déterministes > prompts advisory

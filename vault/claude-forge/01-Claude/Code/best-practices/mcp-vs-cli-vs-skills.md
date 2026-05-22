@@ -79,8 +79,8 @@ Score 0 = CLI, 1 = MCP. Total 0-1 = CLI, 4-5 = MCP.
 
 ## Liens
 
-- [[skills-guide]] — Format et best practices skills
-- [[hooks-guide]] — Hooks comme alternative a MCP pour enforcement
+- [[comment-creer-skill]] — Format et best practices skills
+- [[comment-creer-hook]] — Hooks comme alternative a MCP pour enforcement
 - [[harness-engineering]] — Skills et MCP dans l'architecture harness
 - [[Simon Willison]] — Position "skills > MCP" detaillee
 - [[Boris Cherny]] — "Agentic search > RAG"

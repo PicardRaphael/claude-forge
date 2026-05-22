@@ -150,5 +150,5 @@ Enforcer via warning dans `create_note` : "WARNING: seulement N aliases (minimum
 - [[mcp-obsidian-brain-v2]] — implementation deployee
 - [[sqlite-fts5-vault]] — pattern technique FTS5
 - [[pattern-fts5-aliases-vs-embeddings]] — decision embeddings
-- [[critique-2026-05-10-mcp-forge-brain]] — audit devil's advocate
+- [[erreur-mcp-stopwords-semantiques]] — audit devil's advocate
 - [[MOC-Techniques]]

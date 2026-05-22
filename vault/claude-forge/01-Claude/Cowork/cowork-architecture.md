@@ -126,7 +126,7 @@ Simon Willison : "I do not think it is fair to tell regular non-programmer users
 ## Liens
 
 - [[cowork-skills-reliability]] — Problemes de fiabilite skills
-- [[skills-guide]] — Format identique CC ↔ Cowork
-- [[hooks-guide]] — Hooks pour enforcement dans Cowork
+- [[comment-creer-skill]] — Format identique CC ↔ Cowork
+- [[comment-creer-hook]] — Hooks pour enforcement dans Cowork
 - [[prompting-chat-cowork-code]] — Differences de prompting par plateforme
-- [[agents-orchestration]] — Agent Teams et multi-agent
+- [[comment-creer-agent]] — Agent Teams et multi-agent

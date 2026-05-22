@@ -100,4 +100,4 @@ Les skills du plugin sont **globales** — elles s'ajoutent aux skills projet sa
 ## Liens
 
 - [[lojii]] — premier projet configure avec le plugin Figma
-- [[pattern-architect-first-pipeline]] — pipeline qui integre le design Figma
+- [[workflow-claude-code-optimal]] — pipeline qui integre le design Figma

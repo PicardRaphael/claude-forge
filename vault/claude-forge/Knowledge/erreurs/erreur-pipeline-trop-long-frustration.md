@@ -88,7 +88,7 @@ Raphael avait dit "c'est lent" plusieurs sessions avant. Le signal a été pris 
 
 ## Quoi faire à la place
 
-Voir `[[pipeline-boris-adapte-neoteem]]` pour la recette complète.
+Voir `[[workflow-claude-code-optimal]]` pour la recette complète.
 
 **Résumé** :
 1. Architect routing taille S/M/L
@@ -113,7 +113,7 @@ Voir `[[pipeline-boris-adapte-neoteem]]` pour la recette complète.
 
 ## Méta-leçon — comment éviter de recréer ça sur le prochain repo
 
-**Pour TOUT nouveau repo** : appliquer `[[pipeline-boris-adapte-neoteem]]` DÈS le départ, pas après que l'utilisateur ait perdu 4h.
+**Pour TOUT nouveau repo** : appliquer `[[workflow-claude-code-optimal]]` DÈS le départ, pas après que l'utilisateur ait perdu 4h.
 
 **Checklist initiale** :
 - [ ] Architect a un routing taille S/M/L ?
@@ -127,9 +127,9 @@ Si non à 1+ : tu vas recréer l'erreur du 21 mai.
 
 ## Liens
 
-- [[pipeline-boris-adapte-neoteem]] — la recette à appliquer
+- [[workflow-claude-code-optimal]] — la recette à appliquer
 - [[raisonnement-revirement-pipeline-mai-2026]] — chemin de raisonnement
 - [[critique-2026-05-21-refonte-pipeline-boris-pattern]] — le DA qui a sauvé
-- [[erreur-marker-ttl-blocage-agents]] — autre erreur même famille (workaround sediment)
+- [[raisonnement-22mai-doctrine-vs-enforcement]] — autre erreur même famille (workaround sediment)
 - [[feedback_workaround_sediment]] (mémoire) — pattern accumulation
-- [[boris-workflow-2026-may]] — référence Boris
+- [[workflow-claude-code-optimal]] — référence Boris

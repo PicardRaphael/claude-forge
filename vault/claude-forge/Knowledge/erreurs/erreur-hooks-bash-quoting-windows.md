@@ -42,7 +42,7 @@ Remplacé les 10 hooks de `bash -c 'python "$(git rev-parse --show-toplevel)/.cl
 
 ## Liens
 
-- [[erreur-marker-ttl-blocage-agents]]
+- [[raisonnement-22mai-doctrine-vs-enforcement]]
 - [[harness-engineering]]
 
 

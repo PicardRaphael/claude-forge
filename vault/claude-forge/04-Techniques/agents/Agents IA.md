@@ -107,7 +107,7 @@ Production utilise les deux. Joint MCP/A2A interoperability spec anticipée.
 - [[MOC-Techniques]]
 - [[RAG]] — RAG pipeline (complémentaire aux agents)
 - [[techniques-inedites]] — Combinaisons innovantes RAG + agents
-- [[agentic-engineering-karpathy]] — Software 3.0
+- [[Andrej Karpathy]] — Software 3.0
 
 ### Pionniers agents autonomes
 - [[Chi Wang]] — AutoGen/AG2, multi-agent conversationnel, Google DeepMind

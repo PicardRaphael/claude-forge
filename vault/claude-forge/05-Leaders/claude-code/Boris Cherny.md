@@ -52,7 +52,7 @@ Créateur de Claude Code. Travaille chez Anthropic. Workflow "Fleet Commander" �
 
 ## Liens
 
-- [[Workflow Boris]]
+- [[workflow-claude-code-optimal]]
 - [[MOC-Leaders]]
 
 
@@ -65,7 +65,7 @@ Créateur de Claude Code. Travaille chez Anthropic. Workflow "Fleet Commander" �
 - Routines = loops côté serveur (persistent)
 - Vision : "by a couple years, the model does all the code, starts agents, builds environments"
 - Claude Design = prochain product overhang
-- Source : [[boris-workflow-2026-may]]
+- Source : [[workflow-claude-code-optimal]]
 
 ## Application doctrine 22 mai 2026 sur Neoteem
 

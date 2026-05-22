@@ -66,5 +66,5 @@ Les deux sont complémentaires : /spec pour planifier → feature-dev ou /go pou
 ## Liens
 
 - [[pattern-spec-driven-development]] — Pattern SDD complet
-- [[setup-project-complet]] — Plugin dans le setup standard
-- [[pattern-architect-first-pipeline]] — Pipeline implémentation
+- [[methode-analyser-repo]] — Plugin dans le setup standard
+- [[workflow-claude-code-optimal]] — Pipeline implémentation

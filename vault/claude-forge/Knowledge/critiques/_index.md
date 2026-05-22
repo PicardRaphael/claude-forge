@@ -28,7 +28,7 @@ Ce dossier contient les critiques produites par le devil's advocate — objectio
 ## Notes
 
 - [[critique-2026-05-09-skill-done]] — Critique skill /done
-- [[critique-2026-05-10-mcp-forge-brain]] — Critique MCP forge-brain
+- [[erreur-mcp-stopwords-semantiques]] — Critique MCP forge-brain
 - [[critique-notes-neochat-architecture]] — Critique architecture NeoChat
 - [[critique-notes-neodoc-architecture]] — Critique architecture NeoDoc
 - [[critique-notes-neomail-architecture]] — Critique architecture NeoMail

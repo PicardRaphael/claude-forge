@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "04-Techniques/patterns/running-implementation-notes.md",
+                "file": "0-Inbox/_chantier-22mai/recherche-blog-docs-anthropic.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "running-implementation-notes"
+              "title": "recherche-blog-docs-anthropic"
             }
           }
         ]
@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "running-implementation-notes",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -74,8 +74,7 @@
               "title": "Signets"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -184,43 +183,43 @@
       "bases:Créer une nouvelle base": false
     }
   },
-  "active": "6de73b139036c01a",
+  "active": "1174f529d8bd7a8b",
   "lastOpenFiles": [
-    "Knowledge/syntheses/synthese-audit-coherence-neo-ia-ia-back.md",
-    "Knowledge/critiques/critique-2026-05-21-tdd-optimizations-handshake.md",
-    "0-Inbox/context-actuel.md.tmp.30152.8fc728d50762",
-    "Knowledge/raisonnements/raisonnement-hook-agent-detection-method.md",
-    "Knowledge/erreurs/erreur-claude-agent-env-var-dead-code.md",
-    "Knowledge/critiques/critique-2026-05-21-dispatch-guard-livraison.md",
-    "Knowledge/critiques/critique-2026-05-21-color-tdd-cto-mindset.md",
-    "01-Claude/Code/best-practices/agents-color-convention.md",
-    "Knowledge/erreurs/erreur-deploy-sans-advisor-da-cwc2026.md",
-    "Knowledge/critiques/critique-2026-05-21-outcomes-test-deploy.md",
-    "Knowledge/critiques/critique-2026-05-21-repartition-opus-sonnet.md",
-    "01-Claude/Code/features/MCP Tunnels.md",
-    "01-Claude/Code/features/Self-Hosted Sandboxes.md",
-    "Knowledge/erreurs/erreur-stop-critique-position-gotcha-fin.md",
-    "0-Inbox/context-actuel.md.tmp.24528.0ea032e7a3f6",
-    "Knowledge/critiques/critique-session-2026-05-20-running-notes-decompose-xread-mcp.md",
-    "04-Techniques/patterns/mcp-paths-relatifs-portabilite.md",
-    "Knowledge/erreurs/erreur-password-postgres-clair-mcp-json.md",
-    "CHANGELOG.md.tmp.24528.02fd09cfa921",
-    "1-Projets/Neoteem/agent-manager-neoteem.md",
-    "04-Techniques/patterns/codebase-maps-pattern.md.tmp.24528.82fd5bc94d6e",
-    "01-Claude/Code/best-practices/agent-manager-role.md.tmp.24528.8258dbb53239",
-    "04-Techniques/agents/subagent-explore-then-edit.md.tmp.24528.61167198c85b",
-    "04-Techniques/patterns/running-implementation-notes.md.tmp.24528.cc31c4edc817",
-    "Knowledge/critiques/critique-capitalisation-blog-large-codebases-tweet-thariq.md.tmp.24528.ef6f65b561c8",
-    "1-Projets/Neoteem/neo_ia/neochat/neochat-tool-rag.md",
-    "Knowledge/critiques/critique-capitalisation-blog-large-codebases-tweet-thariq.md",
-    "00-Hub/MOC-Techniques.md.tmp.24528.959da173e8db",
-    "CHANGELOG.md.tmp.24528.e1376b56a13c",
-    "04-Techniques/patterns/codebase-maps-pattern.md",
-    "01-Claude/Code/best-practices/agent-manager-role.md",
-    "04-Techniques/agents/subagent-explore-then-edit.md",
-    "04-Techniques/patterns/running-implementation-notes.md",
-    "Knowledge/raisonnements/architecture-decision-hook-maison-vs-plugin-tiers.md",
-    "Knowledge/critiques/critique-tdd-neo-ia-proposal.md",
-    "01-Claude/Code/features/auto-mode-classifier.md"
+    "04-Techniques/claude-code/comment-creer-hook.md.tmp.5652.3dd925ddc1f9",
+    "04-Techniques/claude-code/trail-of-bits-config.md",
+    "04-Techniques/claude-code/trail-of-bits-config.md.tmp.5652.9cad8da7c319",
+    "05-Leaders/industrie/tobi-lutke.md",
+    "05-Leaders/agents/hashimoto.md",
+    "05-Leaders/agents/martin-fowler.md",
+    "05-Leaders/agents/addy-osmani.md",
+    "05-Leaders/claude-code/justin-young.md",
+    "05-Leaders/claude-code/justin-young.md.tmp.5652.aaba31fe4fa6",
+    "05-Leaders/claude-code/angela-jiang.md",
+    "05-Leaders/claude-code/jeremy-hadfield.md",
+    "05-Leaders/claude-code/lisa-crofoot.md",
+    "05-Leaders/claude-code/Noah Zweben.md",
+    "05-Leaders/claude-code/daisy-hollman.md",
+    "05-Leaders/claude-code/cat-wu.md",
+    "Knowledge/critiques/critique-2026-05-22-8-canoniques-chantier.md",
+    "Knowledge/critiques/critique-2026-05-22-8-canoniques-chantier.md.tmp.5652.861ecff14ae5",
+    "04-Techniques/claude-code/methode-analyser-repo.md.tmp.5652.800ea438aaa0",
+    "04-Techniques/claude-code/workflow-claude-code-optimal.md.tmp.5652.166788bd2330",
+    "04-Techniques/claude-code/comment-ecrire-claudemd.md.tmp.5652.782c3781ed5e",
+    "04-Techniques/claude-code/comment-ecrire-claudemd.md.tmp.5652.c7a297296433",
+    "04-Techniques/claude-code/comment-creer-skill.md.tmp.5652.245b00c9f2ce",
+    "04-Techniques/claude-code/workflow-claude-code-optimal.md.tmp.5652.3db92c53c473",
+    "04-Techniques/claude-code/methode-analyser-repo.md.tmp.5652.948f704967c9",
+    "04-Techniques/claude-code/pattern-vault-llm-karpathy.md",
+    "04-Techniques/claude-code/methode-analyser-repo.md",
+    "04-Techniques/claude-code/workflow-claude-code-optimal.md",
+    "04-Techniques/claude-code/comment-creer-hook.md",
+    "04-Techniques/claude-code/comment-creer-agent.md",
+    "04-Techniques/claude-code/comment-creer-skill.md",
+    "04-Techniques/claude-code/mcp-vs-skills-doctrine.md",
+    "04-Techniques/claude-code/comment-ecrire-claudemd.md",
+    "0-Inbox/_chantier-22mai/PLAN-EXECUTION-FINAL.md",
+    "0-Inbox/_chantier-22mai/verif-25k-et-compute-allocator.md",
+    "0-Inbox/_chantier-22mai/verif-finale-avant-canoniques.md",
+    "0-Inbox/_chantier-22mai/verif-hooks-anthropic-officielle.md"
   ]
 }

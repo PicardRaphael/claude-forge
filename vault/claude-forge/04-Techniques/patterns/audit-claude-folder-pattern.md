@@ -17,7 +17,7 @@ tags:
   - "#pattern/audit"
 sources:
   - "[[Boris Cherny]]"
-  - "[[best-practices-claude-code-leaders]]"
+  - "[[workflow-claude-code-optimal]]"
   - "[[feedback_audit_repo_method]]"
 ---
 

@@ -120,5 +120,5 @@ grep "^tools:" .claude/agents/*.md
 ## Liens
 
 - [[MOC-Techniques]]
-- [[erreur-marker-ttl-blocage-agents]] — autre source de blocage agents (corrige)
+- [[raisonnement-22mai-doctrine-vs-enforcement]] — autre source de blocage agents (corrige)
 - [[decoupe-agents-anti-crash]] — note technique decoupage

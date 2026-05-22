@@ -75,4 +75,4 @@ Le setup Claude Code (CLAUDE.md, agents, skills, hooks, rules) est maintenu par 
 - [[neo_ia]] — Repo monorepo IA
 - [[ia_back]] — Repo backend IA
 - [[cowork-architecture]] — Marketplaces privées Cowork
-- [[claudemd-guide]] — Convention à standardiser cross-repo
+- [[comment-ecrire-claudemd]] — Convention à standardiser cross-repo

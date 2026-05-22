@@ -90,7 +90,7 @@ Les migrations sont gérées dans @tools/migrations/
 
 ## Liens
 
-- [[claudemd-guide]] — Layered CLAUDE.md (concept parent)
-- [[setup-project-complet]] — Setup global d'un repo
+- [[comment-ecrire-claudemd]] — Layered CLAUDE.md (concept parent)
+- [[methode-analyser-repo]] — Setup global d'un repo
 - [[harness-engineering]] — Codebase navigation est partie du harness
-- [[best-practices-claude-code-leaders]] — Synthèse leaders
+- [[workflow-claude-code-optimal]] — Synthèse leaders

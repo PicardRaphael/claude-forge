@@ -38,10 +38,10 @@ type: index
 - Document and Clear — Plan → .md → /clear → nouvelle session
 - Skills as Composability — Thariq, skills = couche composable
 - [[LLM Wiki]] — Karpathy, knowledge management plain text
-- [[Karpathy Dev Discipline]] — 4 principes coding (Simplicity, Surgical, Assumptions, Verifiable Steps)
+- [[Andrej Karpathy]] — 4 principes coding (Simplicity, Surgical, Assumptions, Verifiable Steps)
 - [[config-guardian-pattern]] — Audit multi-repo 5 checks, corrections par stack, mémoire compounding Boris+Karpathy
-- [[best-practices-claude-code-leaders]] — Synthese Boris, Erik, Thariq, Cat Wu, Karpathy : planification, contexte, skills, effort
-- [[vibe-coding-setup-complet]] — Architecture complete vibe coding Claude Code : agents, skills, pipeline, /go, /recap
+- [[workflow-claude-code-optimal]] — Synthese Boris, Erik, Thariq, Cat Wu, Karpathy : planification, contexte, skills, effort
+- [[workflow-claude-code-optimal]] — Architecture complete vibe coding Claude Code : agents, skills, pipeline, /go, /recap
 - [[pattern-vault-query-guard]] — Hook deterministe : agents DOIVENT consulter vault avant d'ecrire
 - [[decoupe-agents-anti-crash]] — Max 6-8 ops/agent, decoupage par theme/repo/phase, parallelisation
 - [[limites-subagents-claude-code]] — 200K ctx, 32K output, maxTurns casse, jamais parallele, bugs GitHub
@@ -51,8 +51,8 @@ type: index
 
 ## Agents & Harness Engineering
 
-- [[agentic-engineering-karpathy]] — Framework Karpathy : Software 3.0, vibe coding vs agentic engineering, jagged intelligence
-- [[pattern-agentic-engineering]] — Checklist deploiement agentic engineering sur projet Neoteem
+- [[Andrej Karpathy]] — Framework Karpathy : Software 3.0, vibe coding vs agentic engineering, jagged intelligence
+- [[workflow-claude-code-optimal]] — Checklist deploiement agentic engineering sur projet Neoteem
 - [[harness-engineering]] — Agent = Modèle + Harness : contraintes déterministes > prompts suggestifs
 - [[mass-multi-agent-system-search]] — DeepMind ICLR 2026 : optimisation conjointe prompts + topologie
 - [[prompt-armor]] — ICLR 2026 : LLM préprocesseur défense injection, taux attaque < 1%
@@ -61,8 +61,8 @@ type: index
 
 ## Architecture Hooks
 
-- [[erreur-marker-ttl-blocage-agents]] — TTL sur markers = blocage, existence seule + SessionStart reset
-- [[pattern-architect-first-pipeline]] — SessionStart reset → architect → dev → code-reviewer → /go → pipeline-reset
+- [[raisonnement-22mai-doctrine-vs-enforcement]] — TTL sur markers = blocage, existence seule + SessionStart reset
+- [[workflow-claude-code-optimal]] — SessionStart reset → architect → dev → code-reviewer → /go → pipeline-reset
 
 ## Anti-patterns
 

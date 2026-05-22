@@ -49,7 +49,7 @@ Section `## ⛔ SCOPE REPO — RÈGLE ABSOLUE` insérée ligne 22 (avant ligne 2
 Cette solution est composée à partir de trois patterns vault existants :
 - [[delegate-guard-pattern]] — PreToolUse exit 2 + marker (déployé 3× dans forge avant)
 - [[prompt-rewriter-pattern]] — UserPromptSubmit qui détecte un signal dans le prompt
-- [[pattern-architect-first-pipeline]] — marker sans TTL, reset SessionStart
+- [[workflow-claude-code-optimal]] — marker sans TTL, reset SessionStart
 
 **Combinaison inédite** : path-based scope enforcement avec auth par phrase naturelle. À répliquer si un autre repo a besoin du même cloisonnement (typiquement quand un repo en agente plusieurs voisins).
 
@@ -69,7 +69,7 @@ Cette solution est composée à partir de trois patterns vault existants :
 
 - [[delegate-guard-pattern]]
 - [[prompt-rewriter-pattern]]
-- [[pattern-architect-first-pipeline]]
+- [[workflow-claude-code-optimal]]
 - [[marker-ttl-antipattern]]
 - [[critical-instructions-top-of-file]]
 - [[enforce-not-advise]]
