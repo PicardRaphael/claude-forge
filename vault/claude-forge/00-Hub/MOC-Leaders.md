@@ -8,7 +8,7 @@ aliases:
   - "personnalités AI"
   - "équipe Claude Code"
 type: index
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-23
 auteur: claude
 tags:
   - "#type/index"
@@ -18,7 +18,8 @@ tags:
 - [[Boris Cherny]] — Créateur CC, @bcherny
 - [[cat-wu]] — Head of Product CC + Cowork, +200% PRs/eng org Anthropic (London 19 mai 2026)
 - [[lisa-crofoot]] — Research PM, "scaffolding holds Claude back" (London)
-- [[angela-jiang]] — Claude Platform, advisor strategy 5× cost reduction (London)
+- [[angela-jiang]] — Head of Product Claude Platform / API & SDKs (London)
+- [[Brad-Abrams]] — Product Lead Anthropic, créateur **Advisor Strategy** (CwC SF avec Mario Rodriguez GitHub) — "close to Opus-level intelligence at much lower prices"
 - [[daisy-hollman]] — MTS, "Beyond the Basics with Claude Code" London talk
 - [[jeremy-hadfield]] — Dreaming feature research preview mai 2026
 - [[justin-young]] — MTS, two-agent architecture canonique (26 nov 2025)
@@ -32,7 +33,7 @@ tags:
 - [[Andrej Karpathy]] — LLM Wiki, AutoResearch, agentic engineering, chez Anthropic depuis 19 mai 2026
 - [[martin-fowler]] — Guides+Sensors taxonomy (avec Böckeler), "Agent = Model + Harness"
 - [[addy-osmani]] — Harness Engineering, Ratchet Principle, +21.8 pts Forge vs CC
-- [[hashimoto]] — Origine "harness engineering", Ghostty AGENTS.md
+- [[Mitchell-Hashimoto]] — Popularise "harness engineering" (5 fév 2026, my-ai-adoption-journey). Ghostty creator, co-fondateur HashiCorp. AGENTS.md = spec collective OpenAI/Google/Cursor (pas Hashimoto seul)
 - [[Andrew Ng]] — 4 agentic design patterns, Coursera
 - [[Harrison Chase]] — LangChain, LangGraph, Interrupt 2026
 - [[Jerry Liu]] — LlamaIndex, agentic document processing

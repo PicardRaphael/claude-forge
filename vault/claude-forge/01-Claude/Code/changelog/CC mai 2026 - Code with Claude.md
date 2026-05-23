@@ -18,7 +18,7 @@ aliases:
   - "v2.1.140"
 domaine: claude-code
 type: changelog
-derniere-maj: 2026-05-14
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://www.anthropic.com/news"
@@ -134,3 +134,49 @@ tags:
 - **Outcomes** : max_iterations 3 default / 20 max, 8 webhook event types
 - **Dreaming** : 100 sessions max par dream, header `dreaming-2026-04-21`, modèles Opus 4.7 + Sonnet 4.6 uniquement
 - **Webhooks Managed Agents** : 8 events, at-least-once delivery, X-Webhook-Signature 5min replay protection
+
+## Patterns canoniques émergents (CwC SF + London + écosystème)
+
+### Advisor Strategy ([[Brad-Abrams]], CwC SF 6 mai 2026)
+
+Talk avec **Mario Rodriguez** (GitHub CPO) : *"Caching, harnesses, and advisors: Building on Claude at GitHub scale"*.
+
+Pattern :
+- **Executor model** : smaller (Haiku), exécute la majorité des appels
+- **Advisor model** : larger (Opus), consulté ponctuellement
+
+Verbatim Brad Abrams :
+> "We get close to Opus-level intelligence at much lower prices because we're being very conservative about the tokens that advisor actually sends"
+
+Pattern utilisé chez GitHub Copilot à scale. Mario Rodriguez : cache hit rate > 94% comme métrique foundational ("1% efficiency means millions overall").
+
+⚠️ Coquille corrigée 23 mai 2026 : avant cet audit, le vault forge attribuait à tort cette stratégie à "Angela Jiang 5× cost reduction" — coquille propagée depuis Simon Willison "Angela Kiang". Source canonique : [[Brad-Abrams]].
+
+### Harness engineering ([[Mitchell-Hashimoto]], 5 fév 2026)
+
+Concept "Agent = Model + Harness" :
+- **Popularisé** par Hashimoto ([mitchellh.com/writing/my-ai-adoption-journey](https://mitchellh.com/writing/my-ai-adoption-journey)) — il hedge lui-même sur la paternité ("I didn't coin")
+- Formalisé par LangChain (Vivek Trivedy, 17 fév 2026)
+- Repris par Birgitta Böckeler (Thoughtworks, martinfowler.com 2 avril 2026) — "guides + sensors"
+- Repris par Addy Osmani (qualitatif)
+
+### Justin Young 2-agent ([[Justin-Young]], post Anthropic engineering)
+
+Pattern Initializer + Coding agent. **Footnote 1 verbatim** : *"The system prompt, set of tools, and overall agent harness was otherwise identical"*. **Pas de split Opus/Sonnet** dans l'article (extrapolation forge corrigée 23 mai 2026).
+
+### 9 catégories skills ([[Thariq Shihipar]], post Anthropic mars 2026)
+
+Post *"Lessons from Building Claude Code: How We Use Skills"* : Anthropic runs hundreds of Skills internally, organized into 9 categories. Détail dans [[comment-creer-skill]].
+
+### Pipeline architect → dev → reviewer → test (doctrine forge)
+
+Pipeline recommandé tâches M/L/XL, conditionnel (skip selon taille). Détail dans [[methode-analyser-repo]].
+
+## Liens audit 23 mai 2026
+
+- [[CHANGELOG]] section "Audit thématique vault Claude Code" (23 mai 2026)
+- [[comparaison-skill-anthropic-claude-code-setup]]
+- [[sequence-canonique-modification]] — rule transverse créée
+- [[methode-analyser-repo]] — pipeline architect/dev/reviewer/test explicité
+- [[Brad-Abrams]] — fiche leader créée
+- [[Mitchell-Hashimoto]] — fiche leader créée

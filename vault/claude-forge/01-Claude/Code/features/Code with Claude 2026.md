@@ -47,7 +47,7 @@ Cron jobs cloud : "Every night at 2am, pull top bug from Linear, attempt fix, op
 - **Boris Cherny** — Demo multi-agent live (agents pick up GitHub issues → fix → PR → review)
 - **Mahesh Murag** — Memory and Dreaming for self-learning agents
 - **Dickson Tsai** — What's new in Claude Code
-- **Mario Rodriguez & Brad Abrams** — Caching, harnesses, advisors at GitHub scale
+- **Mario Rodriguez & [[Brad-Abrams]]** — Caching, harnesses, advisors at GitHub scale ([[Advisor Strategy]] : executor Haiku + advisor Opus, "close to Opus-level intelligence at much lower prices")
 - **Jarred Sumner** — Co-demo avec Boris
 
 ## Impact token spend
@@ -63,6 +63,8 @@ Dreaming, Outcomes, Multi-agent, Routines = plus d'autonomie mais plus de consom
 - [[workflow-claude-code-optimal]] — Boris setup mai 2026
 - [[Managed Agents]] — Feature Managed Agents
 - [[MOC-Claude-Code]]
+- [[Brad-Abrams]] — créateur Advisor Strategy
+- [[Mitchell-Hashimoto]] — popularisateur "harness engineering" (5 fév 2026)
 
 
 ## Stats keynote (transcription complète)

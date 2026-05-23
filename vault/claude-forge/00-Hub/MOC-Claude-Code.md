@@ -8,7 +8,7 @@ aliases:
   - "index claude code"
   - "CC features map"
 type: index
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-23
 auteur: claude
 sources: []
 tags:
@@ -23,14 +23,20 @@ tags:
 Quand on demande "analyse ce repo, propose-moi la config CC", la doctrine se trouve ici :
 
 - [[comment-ecrire-claudemd]] — target 200L, 5 anti-patterns Anthropic, compounding Boris
-- [[comment-creer-skill]] — 9 catégories Thariq, frontmatter trigger 3e personne
-- [[comment-creer-agent]] — 2-agent Justin Young, Sonnet/Opus split, convention 8 couleurs
-- [[comment-creer-hook]] — 25+ events, doctrine "rule 100% → hook", Fowler Guides+Sensors
-- [[workflow-claude-code-optimal]] — routines Boris + advisor 5× Angela Jiang + leaf nodes Erik
-- [[methode-analyser-repo]] (META) — grille 6 étapes pour transformer repo en config CC
-- [[mcp-vs-skills-doctrine]] — MCP data / Skills how-to / Bash exploration
+- [[comment-creer-skill]] — 9 catégories Thariq (post Anthropic mars 2026), frontmatter trigger 3e personne, règle ~250 chars auto-trigger
+- [[comment-creer-agent]] — 2-agent Justin Young (sans split modèles), Sonnet/Opus split doctrine forge (Cat Wu + Brad Abrams), convention 8 couleurs
+- [[comment-creer-hook]] — **29 events officiels**, timeouts 600s/30s/60s par type, doctrine "rule 100% → hook", Böckeler Guides+Sensors
+- [[workflow-claude-code-optimal]] — routines Boris + **Advisor Strategy Brad Abrams** + leaf nodes Erik
+- [[methode-analyser-repo]] (META) — grille 6 étapes + pipeline architect→dev→reviewer→test
+- [[mcp-vs-skills-doctrine]] — MCP data / Skills how-to / Bash exploration, lethal trifecta = Willison
 - [[pattern-vault-llm-karpathy]] — 3-layers raw/wiki/schema, qmd Tobi Lütke
 - [[trail-of-bits-config]] — setup entreprise sécu publique (anti-rationalization Stop hook + 3-tier sandbox)
+- [[methode-pivoter-doctrine]] — checklist 5 étapes pour pivot doctrinal sans régression silencieuse
+- [[comparaison-skill-anthropic-claude-code-setup]] — vault forge vs skill officielle (15× plus profond, 3 bits utiles repris)
+
+## ⚙️ Rules transverses
+
+- `.claude/rules/sequence-canonique-modification.md` — séquence A→B→C→D→E obligatoire pour création/modification/optimisation
 
 ## Changelog (consolidé par mois)
 
@@ -84,3 +90,8 @@ Auto Mode · Effort Levels · Worktrees · Skills System · Hooks System · Agen
 - [[Memory Managed Agents]] — Memory = filesystem, permission scopes, optimistic concurrency, version history
 - [[Dreaming Managed Agents]] — Review cross-sessions, déduplication, vérification, enrichissement mémoire
 - [[workflow-claude-code-optimal]] — Boris setup mai 2026 : mobile-first, /loop partout, 150 PRs/jour
+
+### Leaders ajoutés audit 23 mai 2026
+
+- [[Brad-Abrams]] — Product Lead Anthropic, créateur Advisor Strategy (CwC SF avec Mario Rodriguez GitHub)
+- [[Mitchell-Hashimoto]] — popularisateur "harness engineering" (5 fév 2026)
