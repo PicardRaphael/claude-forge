@@ -29,7 +29,6 @@ tags:
   - "#sujet/workflow"
   - "#doctrine/2026"
 ---
-
 # Workflow Claude Code optimal pour tout repo (mai 2026)
 
 > Note canonique forge — workflow optimal pour utiliser Claude Code selon doctrine Anthropic mai 2026.
@@ -509,3 +508,55 @@ Aliases déclarés en frontmatter (12) :
 ---
 
 **Fin note canonique `workflow-claude-code-optimal.md`** — révisée 23 mai 2026 post-audit thématique vault.
+
+---
+
+## AJOUT 23 MAI 2026 — Code-first orchestration via Programmatic Tool Calling (PTC)
+
+Anthropic ships **Programmatic Tool Calling (PTC)** mai 2026 — pattern d'orchestration où **le code Python orchestre, le modèle juge à chaque étape**.
+
+### Principe canonique
+
+> "Use code for what code is good at, use models for what models are good at"
+> — popularisé par tweet @_vmlops 23 mai 2026 (résumé du principe docs Anthropic)
+
+**Note honnêteté** : le slug "/workflows" cité par le tweet @_vmlops n'est PAS un slug officiel Anthropic (404 docs). Le pattern existe et s'appelle **Programmatic Tool Calling (PTC)** côté docs officielles.
+
+### Pattern
+
+```
+LLM orchestrator (sub-agents classiques) :
+- 10 sub-agents → main session paie token tax, contexte gonfle
+- Chaque résultat sub-agent re-entre dans contexte orchestrateur
+
+PTC (code orchestrator) :
+- Claude écrit Python qui orchestre N tool calls dans sandbox
+- Seul l'output final entre dans contexte
+- 20 tool calls = 1 inference (vs N inférences)
+```
+
+### Quand utiliser PTC vs sub-agents
+
+| Pattern | Quand préférer |
+|---------|----------------|
+| **PTC** | Orchestration déterministe + filtrage data + boucles + conditionals |
+| **Sub-agents** (Justin Young 2-agent) | Jugement contextuel à chaque étape, multi-step reasoning |
+
+Complémentaires, pas concurrents.
+
+### Détail technique complet
+
+Voir [[programmatic-tool-calling]] — note canonique dédiée avec :
+- Config API verbatim (`code_execution_20260120` + `allowed_callers`)
+- Métriques Anthropic (25.6% → 28.5% knowledge retrieval, 46.5% → 51.2% GIA)
+- Use case verbatim (budget compliance 20 employees)
+- Comparaison détaillée vs sub-agents
+- Gotchas (containers 4.5 min, sandbox strict, slug `/workflows` non canonique)
+
+### Sources
+
+- [Docs Anthropic PTC](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling)
+- [Anthropic engineering blog](https://www.anthropic.com/engineering/advanced-tool-use)
+- [[programmatic-tool-calling]] — note canonique forge
+
+`derniere-maj` à mettre à jour après ce ajout.

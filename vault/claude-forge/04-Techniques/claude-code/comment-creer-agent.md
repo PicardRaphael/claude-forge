@@ -28,7 +28,6 @@ tags:
   - "#sujet/agents"
   - "#doctrine/2026"
 ---
-
 # Comment créer un agent Claude Code parfait
 
 > Note canonique forge — création d'agents selon doctrine Anthropic + Justin Young + Cat Wu + Brad Abrams + Böckeler/Fowler mai 2026.
@@ -450,3 +449,38 @@ Aliases déclarés en frontmatter (10) :
 ---
 
 **Fin note canonique `comment-creer-agent.md`** — révisée 23 mai 2026 post-audit thématique vault.
+
+---
+
+## AJOUT 23 MAI 2026 — Alternative orchestration via PTC
+
+Pour les tâches **multi-tools déterministes** (orchestration sans jugement à chaque étape), **Programmatic Tool Calling (PTC)** est une alternative au pattern sub-agents qui évite le "token tax" du contexte qui gonfle.
+
+### Pattern complémentaire (pas concurrent)
+
+- **Sub-agent (Justin Young 2-agent)** : initializer + coding agent. Chaque sub-agent peut faire du jugement contextuel. Résultats re-entrent dans contexte orchestrateur.
+- **PTC** : Claude écrit Python qui orchestre N tool calls dans sandbox. Seul output final entre dans contexte. 1 inference vs N inferences.
+
+### Quand préférer PTC
+
+- ✅ Orchestration déterministe (loops, conditionals, data transformations)
+- ✅ Filtrage / agrégation de gros volumes avant decision
+- ✅ Réduction token consumption critique (workloads scale)
+- ❌ PAS quand jugement contextuel requis à chaque étape
+
+### Quand préférer sub-agents
+
+- ✅ Tâches nécessitant jugement à chaque étape
+- ✅ Multi-step reasoning chained
+- ✅ Long-running avec context différencié par sub-agent
+
+### Détail technique complet
+
+Voir [[programmatic-tool-calling]] — note canonique avec config API, métriques, gotchas, comparaison détaillée.
+
+### Sources
+
+- [Docs Anthropic PTC](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling)
+- [[programmatic-tool-calling]] — note canonique forge
+
+`derniere-maj` à mettre à jour après ce ajout.

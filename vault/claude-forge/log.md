@@ -166,3 +166,16 @@ Session longue (50+ échanges).
 - **5 commits poussés** sur main : 9530458, cd058cc, 4aee799, c8ef44b, 3c55d94, 7b9f46c, bbe0311, b45d922
 
 Pattern récurrent détecté : drift propagation aval (MOCs, CLAUDE.md, index.md) après pivot doctrinal canonique. 3 incidents en 3 jours.
+
+## [2026-05-23] notes-creees | PTC + Google eng-practices
+
+Suite tweet @_vmlops sur "/workflows shipped" (single source externe, slug non vérifié 404).
+
+**Vérification** : feature canonique côté docs Anthropic = **Programmatic Tool Calling (PTC)**, pas `/workflows`. Pattern d'erreur identique à "Claude decides when to parallelize" hier (paraphrase tweet présentée comme verbatim Anthropic).
+
+- **Note canonique créée** : [[programmatic-tool-calling]] (orchestration code Python, sandbox Anthropic, principe "code orchestre / modèle juge", comparaison sub-agents Justin Young, métriques verbatim docs)
+- **Note référence créée** : [[google-eng-practices]] (4 docs Google CL/small-CLs/handling-comments, applicabilité forge calibrée — Small CLs principle convergent, handling reviewer comments peu applicable forge perso)
+- **Append [[workflow-claude-code-optimal]]** : section PTC + lien vers note canonique
+- **Append [[comment-creer-agent]]** : section PTC alternative aux sub-agents
+
+Méta-prompt bibliothèque non touché — il prendra automatiquement les nouvelles notes au prochain run (read vault entier).
