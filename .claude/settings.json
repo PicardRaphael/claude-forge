@@ -22,7 +22,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"$(git rev-parse --show-toplevel)/.claude/hooks/learning-reminder.py\"",
+            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/learning-reminder.py\"",
             "timeout": 10,
             "once": true
           }
@@ -32,7 +32,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"$(git rev-parse --show-toplevel)/.claude/hooks/proactivity-reminder.py\"",
+            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/proactivity-reminder.py\"",
             "timeout": 3,
             "once": true
           }
@@ -45,7 +45,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"$(git rev-parse --show-toplevel)/.claude/hooks/security-guard.py\"",
+            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/security-guard.py\"",
             "timeout": 5
           }
         ]
@@ -55,7 +55,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"$(git rev-parse --show-toplevel)/.claude/hooks/delegate-guard.py\"",
+            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/delegate-guard.py\"",
             "timeout": 5
           }
         ]
@@ -66,7 +66,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"$(git rev-parse --show-toplevel)/.claude/hooks/session-health.py\"",
+            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/session-health.py\"",
             "timeout": 5
           }
         ]
@@ -75,7 +75,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"$(git rev-parse --show-toplevel)/.claude/hooks/skill-activation.py\"",
+            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/skill-activation.py\"",
             "timeout": 3
           }
         ]
@@ -86,7 +86,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"$(git rev-parse --show-toplevel)/.claude/hooks/session-reminder.py\"",
+            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/session-reminder.py\"",
             "timeout": 5
           }
         ]
@@ -95,7 +95,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"$(git rev-parse --show-toplevel)/.claude/hooks/mcp-autostart.py\"",
+            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/mcp-autostart.py\"",
             "timeout": 10,
             "async": true
           }

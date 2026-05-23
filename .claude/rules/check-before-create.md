@@ -14,20 +14,52 @@ Relire les feedbacks pertinents au TYPE de tache. Les erreurs passees sont docum
 - hook → `feedback_hooks_*`
 - general → `feedback_major_mistakes`
 
-## 2. Forge Brain (vault) — via MCP forge-brain
+## 2. Ordre canonique : ANALYSER → LIRE CANONIQUES → CROISER → PLAN → EXÉCUTER
 
-Interroger le vault via MCP (JAMAIS CLI, Grep ou Read brut) — AVANT de toucher quoi que ce soit :
+L'ordre est CRITIQUE. Sauter une étape ou inverser = audit biaisé.
 
-```
-forge-brain:search_brain  query="<sujet>"  limit=10
-forge-brain:search_brain  query="erreur"   limit=5
-```
+### Étape A — ANALYSER LE RÉEL D'ABORD (sans biais canonique)
 
-Sections a chercher :
-- `04-Techniques/` — best practices, patterns
-- `Knowledge/erreurs/` — erreurs passees a eviter (CRITIQUE)
-- `Knowledge/questions/` — questions deja resolues
-- `07-Prompts/` — prompts reutilisables
+Pour un audit / création :
+- Auditer skills/agents/hooks/rules existants (compter, lister, mesurer)
+- Scanner le code RÉEL (étape 1 + 5 méthode canonique)
+- Extraire les FAITS bruts : ce que le repo fait, pas ce qu'il devrait faire
+
+**Pourquoi en premier** : si tu lis les canoniques avant, tu viens à l'analyse biaisé — tu vois ce que tu t'attends à voir. L'analyse brute donne le RÉEL sans filtre.
+
+### Étape B — LIRE CANONIQUES EN ENTIER (après analyse)
+
+Interroger le vault via MCP (JAMAIS CLI/Grep/Read brut). `search_brain` retourne des EXTRAITS ~10 lignes — INSUFFISANT pour audit/création.
+
+**Règle absolue** : lire EN ENTIER les notes canoniques pertinentes via `read_note` (SANS `max_lines` ou `max_lines: 500+`).
+
+| Tâche | Notes canoniques à lire EN ENTIER |
+|-------|----------------------------------|
+| Créer/modifier agent | [[comment-creer-agent]] + [[workflow-claude-code-optimal]] |
+| Créer/modifier skill | [[comment-creer-skill]] + [[mcp-vs-skills-doctrine]] |
+| Créer/modifier hook | [[comment-creer-hook]] + [[raisonnement-22mai-doctrine-vs-enforcement]] |
+| Optimiser CLAUDE.md | [[comment-ecrire-claudemd]] + [[pattern-vault-llm-karpathy]] |
+| Auditer / analyser repo | **TOUTES** : [[methode-analyser-repo]] + [[comment-creer-agent]] + [[comment-creer-skill]] + [[comment-creer-hook]] + [[comment-ecrire-claudemd]] + [[workflow-claude-code-optimal]] + [[raisonnement-22mai-doctrine-vs-enforcement]] |
+
+Puis chercher dans `Knowledge/erreurs/`, `Knowledge/questions/`, `07-Prompts/` pour le contexte spécifique.
+
+### Étape C — CROISER analyse ⨯ canoniques
+
+Mettre côte-à-côte les FAITS observés (étape A) et les RÈGLES canoniques (étape B). Lister les ÉCARTS mesurables :
+- Agent X = Opus mais doctrine dit Sonnet → écart sonnet/opus split
+- Skill Y = 800L mais canonique dit < 500L → écart taille
+- Hook Z = workflow gate mais doctrine 22 mai interdit → écart doctrinal
+- Etc.
+
+Pas d'opinion, pas d'idéologie. Que des écarts mesurables.
+
+### Étape D — PLAN basé sur les ÉCARTS (pas sur l'idéologie)
+
+Le plan = liste des écarts à fixer, priorisés. Si pas d'écart sur un point → pas de fix.
+
+### Étape E — EXÉCUTER
+
+Anti-pattern documenté ([[feedback_lire_canoniques_avant_audit]]) : "lire canoniques d'abord = biais de perception" + "search_brain seul = audit basé mémoire session, pas source de vérité". Erreur audit ia_back 22 mai 2026.
 
 ## 3. References existantes
 

@@ -91,6 +91,48 @@ Pour CHAQUE skill, verifier :
 | Pas de routing | Routing dans rules/, pas dans CLAUDE.md |
 | Pas d'evidence | Pas de regles que Claude connait deja |
 
+## Audit qualité-design transverse (OBLIGATOIRE — pas juste check technique)
+
+L'audit technique (frontmatter, taille, chemins) ne suffit PAS. Auditer AUSSI :
+
+### Skills
+
+| Check transverse | Critère |
+|---|---|
+| **Monolithiques à diviser** | Skill > 500L OU couvre > 2 sujets distincts → candidate split |
+| **Redondantes / chevauchement** | 2+ skills avec descriptions/triggers proches → candidates fusion |
+| **Trop nombreuses** | > 30 skills = budget contexte explosé (réf [[methode-analyser-repo]]) → identifier candidates kill |
+| **Orphelines réelles** | Skill non invocable ET non listée dans skills: d'un agent ET non référencée dans body → kill |
+| **Cohérence canoniques forge 22 mai** | Comparer à [[comment-creer-skill]] : 9 catégories Thariq, description trigger 3e personne, < 500L |
+
+### Hooks
+
+| Check transverse | Critère |
+|---|---|
+| **Redondants** | 2+ hooks même logique (lint + format dupliqués) → fusion |
+| **Workflow (interdit doctrine 22 mai)** | Hook qui force architect-first, TDD strict, commit gates, markers TTL → SUPPRIMER (réf [[raisonnement-22mai-doctrine-vs-enforcement]]) |
+| **Lint/security/scope uniquement** | Cohérence avec [[comment-creer-hook]] |
+
+### Agents
+
+| Check transverse | Critère |
+|---|---|
+| **Chevauchement de rôles** | 2+ agents avec scope similaire → fusion ou clarification |
+| **Trop nombreux** | > 10 agents = surcharge cognitive, conflits dispatch |
+| **Modèle/effort cohérent** | Sonnet exécution / Opus jugement / xhigh RÉSERVÉ architect+dev-lead+refactor-pg (réf [[comment-creer-agent]]) |
+| **Agent CTO orchestrateur** | INTERDIT — session principale orchestre via rules (réf [[feedback_no_cto_agent]]) |
+
+### Référentiel canonique OBLIGATOIRE
+
+Pour TOUT jugement transverse, consulter via MCP forge-brain :
+- [[methode-analyser-repo]] — grille 6 étapes
+- [[comment-creer-skill]] — 9 catégories Thariq
+- [[comment-creer-agent]] — Sonnet/Opus split, couleurs
+- [[comment-creer-hook]] — doctrine 22 mai
+- [[raisonnement-22mai-doctrine-vs-enforcement]] — anti-patterns
+
+JAMAIS juger en référence aux connaissances génériques. TOUJOURS référencer les notes canoniques forge 22 mai.
+
 ## Format du rapport
 
 ```markdown
