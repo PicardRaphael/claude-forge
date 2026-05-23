@@ -1,6 +1,6 @@
 ---
 titre: Context Actuel
-resume: "Working memory dynamique — mis à jour par /done, lu par /recap. Session 2026-05-23 (tour 3) : audit thématique 03-RAG vault (45 corrections sur 12 notes RAG + 3 squelettes enrichis + 2 fiches leaders Jerry Liu/Harrison Chase + capitalisation 11 erreurs)."
+resume: "Working memory dynamique — mis à jour par /done, lu par /recap. Session 2026-05-23 : 4 audits thématiques vault complétés en parallèle (02 prompt-eng, 03 RAG, 04 agents-IA, 06 patterns/context/stacks). Reste 05 fine-tuning + 07 leaders + 08 dogfooding."
 aliases:
   - "context actuel"
   - "contexte courant"
@@ -18,42 +18,43 @@ tags:
 
 ## Phase actuelle
 
-Audits thématiques vault forge en cours (méthode A→B→C→D→E + propagation F) — 02 prompt engineering ✅, 03 RAG ✅, 06 patterns/context/stacks ✅. Reste : 04 agents-ia, 05 fine-tuning, 07 leaders-modeles-industrie.
+Audits thématiques vault forge en cours (méthode A→B→C→D→E + propagation F) — **4/7 thèmes complétés** : 02 prompt-eng ✅, 03 RAG ✅, 04 agents-IA ✅, 06 patterns/context/stacks ✅. Reste : 05 fine-tuning, 07 leaders-modèles-industrie, 08 forge dogfooding.
 
-## Dernière session (2026-05-23 — tour 3, audit RAG)
+## Dernière session (2026-05-23 — audit thème 06 patterns/context/stacks)
 
 ### Décisions prises
-- **Méthode audit full 6 étapes appliquée** sur RAG (78 claims, 11 ❌ + 34 ⚠️ = 45 corrections en 1 session)
-- **2 vagues de 3 sub-agents** (vs 6 simultanés) — recommandation advisor validée pattern réutilisable
-- **Note erreurs synthétique unique** (vs 5 fragmentées) pour les 11 FAUX RAG
-- **Pré-vérification arXiv IDs avant sub-agents** = pattern validé (économise tokens)
-- **Ownership cross-cluster** (C2.6 Anthropic propriétaire Cluster 2, autres reprennent verdict) = pattern validé
+- Méthode validée 23 mai (sub-agents par cluster + checkpoint A + self-verify FAUX fort impact + Type 1/2/3) appliquée intégralement sur thème 06
+- 6 sub-agents parallèles par cluster thématique (Karpathy/Anthropic/Spec-driven/Forge-custom/Stacks/Figma) + 5+ self-verify WebFetch direct
+- Carte blanche Raphael honorée — exécution direct du plan jusqu'au commit/push sans re-valider note par note
+- Empty commit `70bd497` de traçabilité créé après détection HEREDOC Windows échoué
 
-### En cours
-- Commits poussés : `c8382de` (audit RAG 14 fichiers) + `e4abf66` (post-audit : 2 fiches leaders + erreurs synthétique)
-- Mémoire enrichie : 2 nouveaux feedbacks (`arxiv_id_yymm_format`, `arxiv_url_swap_papers_similaires`)
-- Vault : 12 notes RAG corrigées, 3 squelettes enrichis (rag-evaluation, rag-production, ColPali), 2 leaders ajoutés
+### Corrections appliquées (28 sur ~92 claims, 21 notes)
+- **Type 3 (4 réécritures)** : LLM Wiki, Context Engineering, Context Management, pattern-sdd-triangle
+- **Type 2 (16 chirurgicales)** : Spec Kit 105K stars / 7 fichiers / 40+ ext, BMAD 21 agents, S*=0.509 retiré, Modal cold start corrigé, Figma 8 skills (3 noms inventés corrigés), 70x RAG non attestable, 400K mots non attesté, sweet spot 150-300 mots retiré, /compact 40-60% (pas 70%)
+- **Type 1 (8 attributions)** : 3 niveaux SDD = Böckeler (pas Breunig/Park), 4 piliers context-eng = communauté (pas Karpathy), Document & Clear = Manus AI (pas Boris), Anti-pattern #1 Karpathy = lecture forge, date Thariq RIN 19 mai (pas 18), GSD = Lex Christopherson/TACHES, ponctuation `;` verbatim Karpathy
+- **Propagation F** : Andrej Karpathy.md, context-management.md, project-analyzer.md, cc-features-ref/SKILL.md
 
-### Corrections critiques RAG (11 FAUX)
-- TOOLQP date 2025→2026 (arXiv 2601.07782)
-- URL MCP-Zero 2603.13426→2506.01056 (double swap avec OATS)
-- Gemini 1.5 Pro NIAH multi-fact >99.7% (pas ~60% qui est GPT-4 Turbo)
-- Karpathy "alternative au RAG" → verbatim canonique
-- Cache cosine 0.95→0.80 (seuil inversé)
-- Tableau benchmark reranking C4.2 (12 chiffres non traçables)
-- 4 chiffres fantômes retirés (73% retrieval, 65%/85-90%, 70% pgvector, 73% enterprises)
+### Fondations canoniques confirmées (WebFetch direct)
+- ✅ Verbatim Karpathy "Obsidian is the IDE; the LLM is the programmer; the wiki is the codebase" — gist 442a6bf, 4 avril 2026
+- ✅ Verbatim Anthropic blog 15 mai 2026 codebase-maps
+- ✅ Verbatim Thariq RIN 4 sections (19 mai)
+- ✅ Leak Claude Code 31 mars 2026 / 512K lignes / 1900 TS files
+- ✅ Drew Breunig Plumb (`github.com/dbreunig/plumb`)
+- ✅ Sid Bidasaria feature-dev plugin + 7 phases
+- ✅ Addy Osmani 2500+ configs + 6 zones
 
-### Prochaines étapes
-- **Audit thème 04 (agents-ia)** — 10+ notes
-- **Audit thème 05 (fine-tuning)** — 15+ notes
-- **Audit thème 07 (leaders, modèles, industrie)** — ~80 notes (le plus gros, dernière étape)
+### Prochaines étapes (par priorité)
+1. **Audit thème 05 fine-tuning** — ~15 notes (Dettmers, Hu, Han, Dao, etc.)
+2. **Audit thème 07 leaders/modèles/industrie** — ~80 notes (le plus gros, dernière étape)
+3. **Audit thème 08 forge dogfooding** — méta-audit canoniques forge
 
 ## Fils ouverts
 
-- **Pattern récidiviste paraphrase verbatim** : Karpathy "alternative au RAG" = Xe occurrence. Méthode self-verify phase E + WebFetch direct fonctionne pour mitigation.
-- **6 patterns récurrents identifiés** dans `erreur-audit-rag-11-faux-2026-05-23` : arXiv YYMM, URL swap, paraphrase, inversion modèle, seuil inversé, chiffres fantômes. À surveiller en audits 04/05/07.
-- **Notes ToolRerank top-50 dégrade** marqué "à sourcer dans tables paper" — à vérifier en lisant PDF complet si occasion.
-- **Self-RAG et CRAG chiffres** également marqués "à vérifier tables PDF" pour cohérence verbatim.
+- **Notes prompt-engineering encore avec S*=0.509** : over-specification-paradox, deprecated-techniques-2026, outcome-first-prompting, index-prompting — déjà couvert par audit thème 02 (commits eb8f058, daf5d28, 0d8a415)
+- **`gh` CLI absent forge** : workarounds documentés dans `reference_workarounds_session_constraints`
+- **HEREDOC long Git Bash Windows échoue silencieusement** : préférer `git commit -F` ou inline court
+- **Commits parallèles d'autres sessions/agents** englobent les modifs working tree — pas de bug, juste un pattern à connaître
+- **Propagation cross-vault** : 18 notes pointent vers Context Engineering, plusieurs vers pattern-spec-driven-development — toutes scope thèmes 02/04/07 (à valider quand ces audits tournent)
 
 ## Liens
 
@@ -61,9 +62,11 @@ Audits thématiques vault forge en cours (méthode A→B→C→D→E + propagati
 - [[Claude-Forge]]
 - [[methode-analyser-repo]]
 - [[feedback_audit_thematique_methode]]
-- [[feedback_arxiv_id_yymm_format]]
-- [[feedback_arxiv_url_swap_papers_similaires]]
-- [[erreur-audit-rag-11-faux-2026-05-23]]
-- [[RAG]]
-- [[Jerry Liu]]
-- [[Harrison Chase]]
+- [[feedback_carte_blanche_commit_push]]
+- [[reference_audit_06_findings]]
+- [[reference_workarounds_session_constraints]]
+- [[LLM Wiki]]
+- [[Context Engineering]]
+- [[Andrej Karpathy]]
+- [[Birgitta Böckeler]]
+- [[Drew Breunig]]
