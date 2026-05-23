@@ -1,11 +1,11 @@
 ---
 titre: "Workflow Claude Code optimal pour tout repo (mai 2026)"
-resume: "Workflow canonique mai 2026 — Routines higher-order prompt (Boris), advisor 5× (Angela Jiang), leaf nodes/human core/verifiable checkpoints (Erik), multi-clauding /loop, planification 15-20min, parallélisation 5-10 sessions, Sonnet/Opus split, compounding."
+resume: "Workflow canonique mai 2026 — Routines higher-order prompt (Boris), Advisor Strategy (Brad Abrams), leaf nodes/human core/verifiable checkpoints (Erik), multi-clauding /loop, planification 15-20min, parallélisation 5 terminal + 5-10 browser sessions, Sonnet/Opus split, compounding."
 aliases:
   - "workflow claude code optimal"
   - "workflow boris 2026"
   - "routines claude code"
-  - "advisor strategy 5x"
+  - "advisor strategy brad abrams"
   - "multi-clauding"
   - "leaf nodes erik schluntz"
   - "compounding error driven"
@@ -14,12 +14,12 @@ aliases:
   - "compute allocator"
   - "comment automatiser claude code"
   - "automation workflow"
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-23
 auteur: claude
 type: technique
 sources:
-  - "Code with Claude London 19 mai 2026 — Boris/Cat/Angela/Lisa/Daisy/Jeremy keynotes"
-  - "Code with Claude SF 6-7 mai 2026 — Erik/Thariq/Boris"
+  - "Code with Claude London 19 mai 2026 — Boris/Cat/Brad Abrams/Lisa/Daisy/Jeremy/Noah/Fiona/Ami keynotes"
+  - "Code with Claude SF 6-7 mai 2026 — Erik/Thariq/Boris/Brad Abrams"
   - "Sequoia AI Ascent 29 avril 2026 — Boris coding is solved"
   - "Pragmatic Engineer interview Boris Cherny"
   - "anthropic.com/engineering"
@@ -41,11 +41,11 @@ tags:
 Le **workflow optimal Claude Code mai 2026** combine 7 pratiques canoniques de l'équipe Anthropic :
 
 1. **Routines** — higher-order prompts (Boris)
-2. **Advisor strategy** — pattern 5× cost reduction (Angela Jiang)
+2. **Advisor Strategy** — pattern cost reduction (Brad Abrams)
 3. **Leaf nodes / human core / verifiable checkpoints** (Erik Schluntz)
-4. **Multi-clauding** — 5-10 sessions parallèles
+4. **Multi-clauding** — 5 terminal + 5-10 browser sessions parallèles
 5. **`/loop`** — autonome long-running
-6. **Sonnet/Opus split** — exécution vs jugement
+6. **Sonnet/Opus split** — exécution vs jugement (doctrine forge cohérente avec Cat Wu + Brad Abrams)
 7. **Compounding error-driven** — CLAUDE.md évolue avec les erreurs
 
 **Verbatim Boris** (Sequoia avril 2026) :
@@ -54,8 +54,7 @@ Le **workflow optimal Claude Code mai 2026** combine 7 pratiques canoniques de l
 
 Le shift est de "comment faire coder Claude" vers "comment orchestrer Claude qui code".
 
-> "I prompt Claude → I create a routine that prompts Claude"
-> — Boris Cherny, Code with Claude London 19 mai 2026
+**Concept canonique Boris** : routines = higher-order prompts (créer une routine qui prompte Claude pour toi, au lieu de prompter manuellement). Source : Code with Claude SF 6 mai 2026. La formule lapidaire "I prompt Claude → I create a routine that prompts Claude" parfois citée est une glose pédagogique, pas un verbatim Boris attesté.
 
 ---
 
@@ -69,9 +68,9 @@ Sans workflow optimisé :
 - **Erreurs récurrentes** sans compounding
 
 Avec workflow optimal :
-- **5-10 sessions parallèles** = parallélisation horizontale
-- **15-20 min planification** = 10× réduction d'itérations
-- **Advisor strategy** = 5× cost reduction (Angela Jiang verbatim)
+- **5 terminal + 5-10 browser sessions parallèles** = parallélisation horizontale
+- **15-20 min planification** = ROI massif sur itérations
+- **Advisor Strategy** = "close to Opus-level intelligence at much lower prices" (Brad Abrams verbatim)
 - **Compounding** = 0% récurrence d'erreurs capturées
 
 ---
@@ -82,7 +81,7 @@ Avec workflow optimal :
 
 **Higher-order prompt** : au lieu de prompter Claude à chaque fois, créer une **routine** (skill, slash command, agent) qui prompte Claude pour toi.
 
-> "I prompt Claude → I create a routine that prompts Claude" — Boris, London keynote
+Concept Boris (CwC SF 6 mai 2026) : passer de prompter manuellement à créer des routines réutilisables.
 
 Concrètement :
 - Tâche faite > 2 fois → skill ou slash command
@@ -91,18 +90,23 @@ Concrètement :
 
 Toute action manuelle répétée est une routine en attente.
 
-### 2. Advisor strategy (Angela Jiang)
+### 2. Advisor Strategy (Brad Abrams, Anthropic Product Lead Claude)
 
-**5× cost reduction** sur agents long-running (Code with Claude London 19 mai 2026).
+Source : [Code with Claude SF — "Caching, harnesses, and advisors: Building on Claude at GitHub scale"](https://claude.com/code-with-claude/session/sf-caching-harnesses-and-advisors-building-on-claude-at-github-scale) (talk avec Mario Rodriguez, GitHub CPO).
 
 Pattern :
-- Modèle puissant (Opus) **advise** le contexte initial
-- Modèle moins cher (Sonnet) **execute** sur l'advise
-- L'advisor revient à des checkpoints clés
+- **Executor model** : smaller (Haiku), exécute la majorité des appels
+- **Advisor model** : larger (Opus), consulté ponctuellement
+- Cost efficiency sans sacrifier l'intelligence
+
+**Verbatim Brad Abrams** :
+> "We get close to Opus-level intelligence at much lower prices because we're being very conservative about the tokens that advisor actually sends"
+
+Pattern utilisé chez **GitHub Copilot** à scale. Mario Rodriguez (GitHub CPO) : cache hit rate au-dessus de 94% comme métrique foundational, "1% efficiency means millions overall".
+
+> ⚠️ Avant 23 mai 2026 : le vault forge attribuait à tort cette doctrine à "Angela Jiang 5× cost reduction" — coquille propagée depuis une mention Simon Willison "Angela Kiang". La source canonique est **Brad Abrams**, pas Angela Jiang, et il n'y a pas de "5×" verbatim.
 
 Implémentation forge : tool `advisor()` natif (cf section parallélisation).
-
-> "advisor strategy 5× cost reduction" — Angela Jiang, London
 
 ### 3. Stratégies Erik Schluntz (Vibe Coding in Production)
 
@@ -117,15 +121,15 @@ Implémentation forge : tool `advisor()` natif (cf section parallélisation).
 
 **Case study Erik** : 22 000 LOC en 1 jour = **analogie cognitive verbatim** (pas métrique brute) — le framing exact est "2 semaines → 1 jour" à analogie cognitive près.
 
-### 4. Multi-clauding (parallélisation 5-10 sessions)
+### 4. Multi-clauding (parallélisation 5 terminal + 5-10 browser)
 
-**Boris** lance 5-10 sessions web Claude Code en parallèle pour features indépendantes.
+**Verbatim Boris** (Lenny's Newsletter) : "Boris runs 5 instances of Claude Code simultaneously in his terminal using 5 separate git checkouts of the same repo." Boris pousse aussi 5-10 sessions web Claude Code en parallèle pour features indépendantes.
 
 Records Anthropic :
-- **Boris** : 259 PRs/30j en décembre 2025 (Opus 4.5, ~8.6/j moyenne)
-- **Boris** : "few dozen + 150 record" en avril 2026 (Sequoia, Opus 4.6-4.7)
-- **Noah Zweben** : +300% PRs équipe sur 3 mois
-- **Cat Wu** : +200% PRs/eng org Anthropic
+- **Boris** : 259 PRs/30j en décembre 2025 (Opus 4.5, ~8.6/j moyenne) — verbatim X/Threads
+- **Boris** : "few dozen baseline + 150 record" en avril 2026 (Sequoia, Opus 4.6-4.7)
+- **Noah Zweben** (CwC London, verbatim Every) : "weekly PR throughput went up 300%, from around 500 in January to roughly 1,150 in March"
+- **Cat Wu** : +200% PRs/eng org Anthropic (CwC London — single source, à reconfirmer)
 
 Conditions :
 - Features **indépendantes** (worktrees)
@@ -136,22 +140,23 @@ Conditions :
 
 Skill bundled Anthropic pour exécution long-running autonome.
 
-Pattern verbatim Boris :
-> "Give Claude a way to verify its work → 2-3x quality"
+Pattern Boris (tip #1) : **"Give Claude a way to verify its work → 2-3x quality"**
 
 `/loop` + verifiable checkpoints = autonome avec qualité.
 
-### 6. Sonnet / Opus split
+### 6. Sonnet / Opus split (doctrine forge cohérente avec Anthropic)
 
-**Politique forge validée 21 mai 2026** :
+**Doctrine forge inférée**, cohérente avec :
+- **Cat Wu** (CwC London 19 mai 2026) : "Opus 4.7 tips — delegate, write full-context briefs, use the new `xhigh` effort level"
+- **Brad Abrams** (CwC SF) : Advisor Strategy = executor (Haiku) + advisor (Opus)
 
-| Modèle | Rôle | Exemples |
-|--------|------|----------|
+| Modèle | Rôle forge | Exemples |
+|--------|-----------|----------|
 | **Sonnet** | Exécution | dev, code-reviewer, test-writer, python-dev |
 | **Opus** | Jugement | architect, devils-advocate, project-auditor |
 | **Haiku** | Checks rapides | classifiers, anti-rationalization |
 
-**Effort** : `high` partout sauf architect/dev-lead/refactor-pg = `xhigh`. `max` déprécié.
+**Effort** : `high` partout sauf architect/dev-lead/refactor-pg = `xhigh`. `max` toujours disponible (vérifié docs 23 mai 2026), à utiliser avec prudence (prone overthinking).
 
 ### 7. Compounding error-driven (Boris)
 
@@ -167,11 +172,11 @@ Erreur observée → ajout ligne CLAUDE.md (ou hook si 100%) → session suivant
 
 ### 8. Compute allocator mindset (Thariq)
 
-> "we're all becoming 'compute allocators,' and our main job is to decide what's worth spending compute on"
-> — Thariq, "How I AI: HTML is the new markdown"
+> "All of us are becoming these compute allocators now"
+> — Thariq, ChatPRD "How I AI: HTML is the new markdown" verbatim
 
 > "99% of your AI-generated tokens should go to planning, interfaces, and communication—not production code"
-> — Thariq, idem
+> — Thariq, idem (à reconfirmer URL exact)
 
 **Implication** : passe 15-20 min à planifier avant de lancer Claude. Le ROI est massif.
 
@@ -230,8 +235,8 @@ Pas d'overhead. Pas d'agent.
 ```
 1. Planning humain 15-20 min minimum
 2. /spec + decompose
-3. Multi-clauding (5-10 sessions) sur tickets indépendants
-4. Advisor strategy : Opus advise, Sonnet execute
+3. Multi-clauding (5 terminal + 5-10 browser) sur tickets indépendants
+4. Advisor Strategy : Opus advise, Sonnet/Haiku execute
 5. Verifiable checkpoints à chaque ticket
 6. /loop autonome sur tâches répétitives
 7. Compounding CLAUDE.md au fil
@@ -269,8 +274,8 @@ Pas d'overhead. Pas d'agent.
 
 ### Niveau expert (forge actuel)
 - Routines exhaustives + agents dédiés + hooks lint/security/scope
-- Multi-clauding 5-10 sessions
-- Advisor strategy systématique
+- Multi-clauding 5 terminal + 5-10 browser
+- Advisor Strategy systématique (Brad Abrams pattern)
 - Compounding CLAUDE.md + vault (pattern Karpathy LLM Wiki)
 - `/loop` pour tâches répétitives
 - `/spec` + `decompose-ticket` workflow
@@ -285,13 +290,13 @@ Pas d'overhead. Pas d'agent.
 
 | Optim | Gain verbatim |
 |-------|---------------|
-| Routines (higher-order) | Productivité ×N (Boris : 259 PRs/30j) |
-| Advisor strategy | **5× cost reduction** (Angela Jiang, London) |
-| Multi-clauding 5-10 sessions | **+200% PRs/eng** (Cat Wu, org Anthropic) — **+300% équipe 3 mois** (Noah Zweben) |
-| Sonnet/Opus split | ~5× moins de coût sur exécution, qualité préservée jugement |
+| Routines (higher-order) | Productivité ×N (Boris : 259 PRs/30j déc 2025) |
+| Advisor Strategy | **"Close to Opus-level intelligence at much lower prices"** (Brad Abrams verbatim CwC SF) |
+| Multi-clauding 5 terminal + 5-10 browser | **+300% équipe 3 mois** Noah Zweben verbatim Every : "500 in January to roughly 1,150 in March" |
+| Sonnet/Opus split (doctrine forge) | Cohérent avec Cat Wu + Brad Abrams patterns |
 | Verifiable checkpoints + /loop | **2-3× quality** (Boris tip #1) |
-| Harness changes (Fowler) | LangChain **52.8% → 66.5%** Terminal Bench, **même modèle**, harness seul (2 avril 2026) |
-| Harness > model | **ForgeCode 79.8% vs Claude Code 58%** sur Terminal-Bench 2.0 = **+21.8 pts**, **même modèle (Claude Opus 4.6) des deux côtés**, harness seul (Addy Osmani) |
+| Harness changes (Böckeler) | LangChain **52.8% → 66.5%** Terminal Bench, **harness seul**, modèle **GPT-5.2-Codex** (Vivek Trivedy LangChain blog 17 fév 2026) |
+| ForgeCode Terminal-Bench 2.0 | **79.8%** (Bustamante). Comparaison à Claude Code et +21.8 pts non sourcés directement chez Addy Osmani (qualitatif uniquement) |
 | 99% tokens planning vs code | ROI massif sur 15-20 min planning (Thariq) |
 | Compounding error-driven | 0% récurrence erreurs capturées |
 
@@ -302,9 +307,9 @@ Pas d'overhead. Pas d'agent.
 ### Workflow
 - ❌ **Tout prompter manuellement** — automatiser les routines
 - ❌ **0 advisor / 0 verification** — qualité aléatoire
-- ❌ **Tout en Opus** — coût ×5 inutile sur exécution
+- ❌ **Tout en Opus** — coût ×N inutile sur exécution
 - ❌ **Tout en Sonnet** — qualité dégradée sur jugement
-- ❌ **`max` effort** — déprécié v2.1.91, prone overthinking
+- ❌ **`max` effort partout** — coût massif, réserver
 - ❌ **Pipeline workflow trop long** (> 30 min sur CRUD) — frustration, supersédé doctrine 22 mai
 - ❌ **REFACTOR phase systématique** dans pipeline — supprimée doctrine 22 mai
 
@@ -314,7 +319,7 @@ Pas d'overhead. Pas d'agent.
 - ❌ **Doc agent dédié** — pas d'agent doc (cf [[feedback_no_doc_agent]])
 
 ### Parallélisation
-- ❌ **5 sessions sur features dépendantes** — conflits worktrees
+- ❌ **5+ sessions sur features dépendantes** — conflits worktrees
 - ❌ **Pas de `/clear` entre tâches non liées** — pollution contexte (Boris piège #1)
 - ❌ **Pas de délégation subagent** pour recherche — pollue contexte principal
 
@@ -331,20 +336,23 @@ Pas d'overhead. Pas d'agent.
 ## EXEMPLES CONCRETS — Repos externes
 
 ### Anthropic interne (verbatim métrique)
-- **Boris Cherny** : 259 PRs/30j (déc 2025, Opus 4.5), "few dozen + 150 record" (avril 2026)
-- **Noah Zweben** : +300% PRs équipe sur 3 mois
-- **Cat Wu** : +200% PRs/eng org Anthropic
-- **Angela Jiang** : advisor strategy 5× cost reduction
+- **Boris Cherny** : 259 PRs/30j (déc 2025, Opus 4.5), "few dozen baseline + 150 record" (avril 2026 Sequoia)
+- **Boris setup parallel** : 5 terminal instances + 5-10 browser sessions
+- **Noah Zweben** (verbatim Every) : "500 in January to roughly 1,150 in March" = +300% PRs équipe 3 mois
+- **Cat Wu** : +200% PRs/eng org Anthropic (single source CwC London)
+- **Brad Abrams** : Advisor Strategy (CwC SF talk avec GitHub)
+- **Daisy Hollman** (CwC London) : "You should be running agents overnight" / "red squigglies for agents"
+- **Fiona Fung** (Head of Engineering Anthropic, CwC London) : "Pick your noisiest workflow…and ask if it's still serving its purpose" + "In technical debates, code wins"
 
 ### Repos publics référence
-- **[anthropics/claude-code](https://github.com/anthropics/claude-code)** : config minimaliste 3 slash commands, démonstration "minimum qui marche"
+- **[anthropics/claude-code](https://github.com/anthropics/claude-code)** : config minimaliste 3 slash commands (démonstration "minimum qui marche")
 - **[anthropics/claude-code-action/CLAUDE.md](https://github.com/anthropics/claude-code-action)** : seul CLAUDE.md Anthropic public
-- **[anthropics/claude-for-legal/CLAUDE.md](https://github.com/anthropics/claude-for-legal)** : 130 lignes, 5 sections
-- **[multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)** : CLAUDE.md viral (ex-forrestchang), 70 lignes, 4 principes — fan project pas endorsé par Karpathy
+- **[anthropics/claude-for-legal/CLAUDE.md](https://github.com/anthropics/claude-for-legal)** : **174 lignes**, 5 sections (vérifié 23 mai 2026)
+- **[multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)** : CLAUDE.md viral (ex-forrestchang), **67 lignes**, 4 principes — fan project pas endorsé par Karpathy
 - **[trailofbits/claude-code-config](https://github.com/trailofbits/claude-code-config)** : entreprise sécu complète
 
 ### Pattern Karpathy
-- [Gist LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — 3-layers (raw/wiki/schema), Ingest/Query/Lint, qmd (Tobi Lütke) tooling
+- [Gist LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — 3-layers (raw/wiki/schema), Ingest/Query/Lint, qmd (Tobi Lütke, attribution via handle `tobi`+npm) tooling
 
 ### Erik Schluntz case study
 - 22 000 LOC en 1 jour (analogie cognitive verbatim)
@@ -355,33 +363,40 @@ Pas d'overhead. Pas d'agent.
 ## SOURCES — Verbatim avec URLs
 
 ### Code with Claude London 19 mai 2026 (équipe Anthropic)
-- **Boris Cherny** keynote — "I prompt Claude → I create a routine that prompts Claude"
-- **Cat Wu** : +200% PRs/eng
-- **Lisa Crofoot** : "scaffolding holds Claude back"
-- **Angela Jiang** : advisor strategy 5× cost reduction
-- **Noah Zweben** : +300% PRs équipe 3 mois
-- **Daisy Hollman** : ...
-- **Jeremy Hadfield** : Dreaming feature
+- **Boris Cherny** keynote — Routines / higher-order prompts (concept canonique CwC SF + London)
+- **Cat Wu** : Opus 4.7 tips, xhigh effort level
+- **Lisa Crofoot** : "scaffolding holds Claude back" (single source à confirmer)
+- **Noah Zweben** verbatim Every : "weekly PR throughput went up 300%, from around 500 in January to roughly 1,150 in March"
+- **Daisy Hollman** : workshop "Beyond the Basics with Claude Code", "agents overnight", "red squigglies"
+- **Jeremy Hadfield** : Dreaming feature (notes-to-self cross-tasks)
+- **Fiona Fung** (Head of Engineering Anthropic) : "Pick your noisiest workflow" + "In technical debates, code wins"
+- **Ami Vora** (Chief Product Officer) : keynote
+- **Katelyn Lesse** (Head of Platform Engineering)
 
 ### Code with Claude SF 6-7 mai 2026
 - **Erik Schluntz** : Vibe Coding in Prod (PM guidance, leaf nodes, human core, verifiable checkpoints)
-- **Thariq Shihipar** : Agent SDK Workshop + HTML markdown (lethal trifecta, swiss cheese, 99% tokens planning, compute allocator)
+- **Thariq Shihipar** : Agent SDK Workshop, HTML markdown, compute allocators verbatim
+- **Brad Abrams + Mario Rodriguez (GitHub CPO)** : Caching, harnesses, advisors talk — Advisor Strategy
 
 ### Sequoia AI Ascent 29 avril 2026
 - **Boris** : "coding is solved"
-- **Karpathy** : "Vibe coding is over → Agentic engineering"
+- **Karpathy** : "From Vibe Coding to Agentic Engineering" — vibe et agentic positionnés en **complémentaires** (pas remplacement)
 
-### Pragmatic Engineer
-- **Boris** : "Anytime we see Claude do something incorrectly, we add it to CLAUDE.md"
+### Pragmatic Engineer / Latent Space
+- **Boris** : "Anytime we see Claude do something incorrectly, we add it to CLAUDE.md" (Pragmatic Engineer)
+- **Boris** : "All the secret sauce — it's all in the model" (Latent Space verbatim)
+- **Boris** : "Plain glob and grep, driven by the model, beat everything" (Pragmatic Engineer)
+- **Boris** : "Complex scaffolding is often rendered obsolete by the next model generation"
 
 ### Anthropic engineering blog
-- [anthropic.com/engineering/effective-harnesses-for-long-running-agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) — Justin Young 2-agent
+- [anthropic.com/engineering/effective-harnesses-for-long-running-agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) — Justin Young 2-agent (initializer + coding, harness identique, pas de split modèles)
 
-### Martin Fowler / Birgitta Böckeler
-- 2 avril 2026 — Guides+Sensors, "Agent = Model + Harness"
-
-### Addy Osmani
-- Harness Engineering — Forge 79.8% vs CC 58%, Ratchet Principle
+### Hashimoto / Böckeler / LangChain / Bustamante
+- [mitchellh.com/writing/my-ai-adoption-journey](https://mitchellh.com/writing/my-ai-adoption-journey) — Hashimoto popularise "harness engineering" (5 fév 2026)
+- [martinfowler.com/articles/harness-engineering.html](https://martinfowler.com/articles/harness-engineering.html) — Böckeler Guides+Sensors 2 avril 2026
+- [langchain.com/blog/improving-deep-agents-with-harness-engineering](https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering) — Vivek Trivedy 17 fév 2026
+- [nicolasbustamante.com/blog/model-harness-fit](https://nicolasbustamante.com/blog/model-harness-fit) — ForgeCode 79.8%
+- [addyosmani.com/blog/agent-harness-engineering/](https://addyosmani.com/blog/agent-harness-engineering/) — Addy Osmani qualitatif
 
 ---
 
@@ -393,9 +408,9 @@ Pas d'overhead. Pas d'agent.
 - **Subagent qui commit malgré "pas de commit"** — TOP du prompt en gras (cf [[feedback_subagent_autocommit]])
 
 ### Pièges modèle
-- **`effort: max` déprécié** v2.1.91 — utiliser `xhigh`
-- **`xhigh` partout = coût massif** — réservé architect/dev-lead/refactor-pg
-- **Opus 4.7 plus littéral** — être explicite scope et parallélisme
+- **`effort: max` toujours disponible** mai 2026 (vérifié docs), à utiliser avec prudence
+- **`xhigh` partout = coût massif** — réservé architect/dev-lead/refactor-pg (forge)
+- **Opus 4.7 plus littéral** — être explicite scope et parallélisme (observation forge)
 
 ### Pièges spec
 - **BRIEF distant** (ex BRIEF-NEOIA depuis ia_back) = CONTRAT + ce que JE fais, JAMAIS les fichiers/internes du repo distant (cf [[feedback_spec_brief_diagnostic]])
@@ -423,17 +438,19 @@ Pas d'overhead. Pas d'agent.
 
 ## ALIASES — Findability
 
-Aliases déclarés en frontmatter (10) :
+Aliases déclarés en frontmatter (12) :
 - workflow claude code optimal
 - workflow boris 2026
 - routines claude code
-- advisor strategy 5x
+- advisor strategy brad abrams
 - multi-clauding
 - leaf nodes erik schluntz
 - compounding error driven
 - verifiable checkpoints
 - parallelisation 5 sessions
 - compute allocator
+- comment automatiser claude code
+- automation workflow
 
 ---
 
@@ -451,16 +468,19 @@ Aliases déclarés en frontmatter (10) :
 ### Fiches leaders (à créer)
 - [[Boris Cherny]]
 - [[Cat Wu]]
-- [[Angela Jiang]]
+- [[Brad Abrams]]
 - [[Lisa Crofoot]]
 - [[Noah Zweben]]
 - [[Daisy Hollman]]
 - [[Jeremy Hadfield]]
+- [[Fiona Fung]]
+- [[Ami Vora]]
 - [[Erik Schluntz]]
 - [[Justin Young]]
 - [[Thariq Shihipar]]
 - [[Andrej Karpathy]]
-- [[Martin Fowler]]
+- [[Birgitta Böckeler]]
+- [[Mitchell Hashimoto]]
 - [[Addy Osmani]]
 
 ### Knowledge / refs liées
@@ -488,4 +508,4 @@ Aliases déclarés en frontmatter (10) :
 
 ---
 
-**Fin note canonique `workflow-claude-code-optimal.md`** — 6/8 chantier 22 mai 2026.
+**Fin note canonique `workflow-claude-code-optimal.md`** — révisée 23 mai 2026 post-audit thématique vault.

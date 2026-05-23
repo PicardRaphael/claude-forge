@@ -7,12 +7,56 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-23
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-05-23 — Audit thématique vault Claude Code (95 claims auditées, 22 corrections)
+
+Audit profond de 12 notes canoniques thème Claude Code via 6 sub-agents parallèles + vérifications directes (docs Anthropic). 95 claims analysées, **22 erreurs structurelles ou citations fausses détectées et corrigées**.
+
+### Erreurs structurelles corrigées (Type 3 — réécriture)
+- **Justin Young 2-agent ≠ Opus/Sonnet split** : article dit "harness was otherwise identical". Réécrit [[comment-creer-agent]].
+- **Advisor strategy = Brad Abrams (pas Angela Jiang)** : coquille Simon Willison "Angela Kiang" propagée. Verbatim Abrams : "close to Opus-level intelligence at much lower prices". Source CwC SF avec Mario Rodriguez (GitHub). Réécrit [[comment-creer-agent]] + [[workflow-claude-code-optimal]].
+- **Lethal trifecta = Simon Willison juin 2025** (pas Thariq). Éléments : private data / untrusted content / **exfiltration vector**. URL canonique : `simonwillison.net/2025/Jun/16/the-lethal-trifecta/`. Réécrit [[mcp-vs-skills-doctrine]].
+- **Agent = Model + Harness** : popularisé par Hashimoto (5 fév 2026), pas Fowler/Böckeler. Réécrit [[comment-creer-agent]] + [[comment-creer-hook]].
+- **LangChain 52.8→66.5** : Vivek Trivedy 17 fév 2026, modèle **GPT-5.2-Codex** (pas Claude). Réécrit.
+- **Stop hook `once: true`** : skill frontmatter UNIQUEMENT (verbatim docs). Réécrit [[comment-creer-hook]].
+
+### Chiffres corrigés (Type 2)
+- claude-for-legal CLAUDE.md = **174 lignes** (pas 130)
+- multica-ai = **67 lignes** (pas 70)
+- Hook timeouts : **600s/30s/60s** selon type (pas 60s partout)
+- **29 events** hooks officiels (pas 25+) — vault rate `TaskCreated` + `StopFailure`
+- **effort: max TOUJOURS DISPONIBLE** mai 2026 (pas déprécié v2.1.91)
+
+### Nouvelles règles ajoutées
+- **SKILL.md description ~250 chars** pour auto-trigger fiable (limite system reminder `/skills` tronque au-delà)
+- **Pipeline standard architect→dev→reviewer→test** explicité dans [[methode-analyser-repo]] avec quand-skip
+
+### Notes leaders créées
+- [[Brad-Abrams]] — Product Lead Anthropic, créateur Advisor Strategy
+- [[Mitchell-Hashimoto]] — popularisateur "harness engineering"
+
+### Notes modifiées (12)
+- [[comment-creer-hook]] (réécriture complète : 29 events, timeouts, once:true)
+- [[comment-creer-agent]] (réécriture complète : 2-agent Justin Young sans split, Brad Abrams Advisor Strategy, sources Fowler/Hashimoto corrigées)
+- [[comment-creer-skill]] (réécriture complète : 9 catégories source corrigée, règle 250 chars)
+- [[comment-ecrire-claudemd]] (réécriture complète : 174L/67L, max disponible, Hashimoto AGENTS.md)
+- [[workflow-claude-code-optimal]] (réécriture complète : Brad Abrams, Noah Zweben verbatim, harness sources)
+- [[methode-analyser-repo]] (réécriture complète : pipeline standard ajouté + alias automatiser)
+- [[mcp-vs-skills-doctrine]] (réécriture complète : lethal trifecta Willison, Ronacher URL, qmd attribution nuancée)
+- [[pattern-vault-llm-karpathy]] (append corrections : vibe coding titre exact, qmd, 4 patterns labels)
+- [[trail-of-bits-config]] (append : C12.5 reformulation MCP doctrine)
+- [[methode-pivoter-doctrine]] (append : citation pivot reformulée)
+- [[raisonnement-22mai-doctrine-vs-enforcement]] (append : citation Anthropic verbatim corrigée, pivot reste valide)
+- [[critique-2026-05-22-8-canoniques-chantier]] (append : compléments audit 23 mai)
+
+### Source audit
+`output/audit-vault-thematique/01-claude-code/` — A-inventaire-claims, B-verif-cluster*, C-croisement-revise, D-plan-correction.
 
 ## 2026-05-22 — Chantier refonte canonique (8 canoniques + 14 leaders + cleanup 28 notes)
 

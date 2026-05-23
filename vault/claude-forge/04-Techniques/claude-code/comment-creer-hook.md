@@ -1,24 +1,24 @@
 ---
 titre: "Comment créer un hook Claude Code parfait"
-resume: "Note canonique pour créer un hook Claude Code — 25+ events officiels, timeout 60s, exit codes 0/1/2, hookSpecificOutput, doctrine 'If a rule must hold every time, make it a hook'. Lint/security/scope OUI, workflow NON (doctrine 22 mai)."
+resume: "Note canonique pour créer un hook Claude Code — 29 events officiels (docs Anthropic), timeouts par type (600s/30s/60s), exit codes 0/1/2, hookSpecificOutput, doctrine 'If a rule must hold every time, make it a hook'. Lint/security/scope OUI, workflow NON (doctrine 22 mai)."
 aliases:
   - "comment creer hook"
   - "creer un hook claude code"
   - "create claude code hook"
   - "hook parfait"
   - "hook best practices"
-  - "25+ events hooks"
+  - "29 events hooks"
   - "exit codes hooks"
   - "hookSpecificOutput"
   - "asyncRewake"
   - "guides sensors fowler"
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-23
 auteur: claude
 type: technique
 sources:
   - "https://code.claude.com/docs/en/hooks"
   - "docs.claude.com — features-overview"
-  - "Martin Fowler — Guides+Sensors taxonomy 2 avril 2026"
+  - "Birgitta Böckeler — martinfowler.com/articles/harness-engineering.html (2 avril 2026)"
   - "github.com/trailofbits/claude-code-config"
 tags:
   - "#type/technique"
@@ -29,13 +29,20 @@ tags:
 
 # Comment créer un hook Claude Code parfait
 
-> Note canonique forge — création de hooks selon doctrine Anthropic 22 mai 2026 + Fowler/Böckeler.
+> Note canonique forge — création de hooks selon doctrine Anthropic 22-23 mai 2026 + Böckeler.
 
 ---
 
+> ⚠️ **Ordre canonique pour TOUTE création/modification de hook** : suivre A→B→C→D→E (analyser réel → lire canoniques EN ENTIER → croiser → plan d'écarts → exécuter). Cf [[methode-analyser-repo]] section **ORDRE CANONIQUE**. Pas de prescription avant analyse du réel.
+
 ## QUOI — Définition
 
-**Hook** = commande shell exécutée automatiquement par Claude Code sur un événement du lifecycle. Permet :
+**Hook** = commande shell, endpoint HTTP, ou prompt LLM exécuté automatiquement par Claude Code sur un événement du lifecycle. Verbatim docs Anthropic :
+
+> "Hooks are user-defined shell commands, HTTP endpoints, or LLM prompts that execute automatically at specific points in Claude Code's lifecycle."
+> — [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks)
+
+Permet :
 - **Validation déterministe** (bloquer une action invalide)
 - **Sensor** (observer + collecter signaux)
 - **Side-effect** (formater, notifier, logger)
@@ -47,12 +54,14 @@ tags:
 
 C'est l'arbitrage central. Une règle dans CLAUDE.md ou une skill = **advisory** (compliance partielle, observée empiriquement autour de ~80% sur forge, ordre de grandeur indicatif sans mesure Anthropic publique). Un hook bloquant = **100% sur ce qu'il détecte mécaniquement**.
 
-**Taxonomie Fowler / Böckeler (2 avril 2026)** :
+**Taxonomie Böckeler/Fowler (2 avril 2026)** :
 
 | Type | Nature | Force |
 |------|--------|-------|
 | **Guides** | Inferential (prompts, rules) | Moyen — compliance partielle |
 | **Sensors** | Computational (hooks, tests) | Fort — 100% sur ce qu'ils détectent |
+
+Verbatim Böckeler : "the harness is everything in an AI agent **except the model itself**" — guides steer before action, sensors catch problems after. Source : [martinfowler.com/articles/harness-engineering.html](https://martinfowler.com/articles/harness-engineering.html)
 
 ---
 
@@ -94,32 +103,41 @@ Avec hooks bloquants sur règles critiques :
 }
 ```
 
-### Les 25+ events officiels (source vérifiée : `.claude/skills/cc-hooks-ref/SKILL.md`)
+### Les 29 events officiels (source vérifiée verbatim docs Anthropic 23 mai 2026)
 
-| Event | Bloquant | Phase |
-|-------|----------|-------|
-| `PreToolUse` | ✅ exit 2 | Avant tout outil — c'est ICI qu'on intercepte Write/Edit/MultiEdit/Bash via `matcher` |
-| `PostToolUse` | ❌ | Après outil — formatage, lint, notifications |
-| `PostToolUseFailure` | ❌ | Après échec outil |
-| `Stop` | ✅ JSON block | Fin de turn (avec `once: true` sinon boucle) |
-| `SubagentStart` / `SubagentStop` | ✅ (Stop) | Sub-agents lifecycle |
-| `SessionStart` / `SessionEnd` | ❌ | Lifecycle session |
-| `UserPromptSubmit` | ❌ | Prompt utilisateur reçu |
-| `UserPromptExpansion` | ✅ exit 2 | Expansion du prompt (bloquable) |
-| `PermissionRequest` | ✅ | Avant demande permission |
-| `PermissionDenied` | ❌ | Après refus auto-mode (`{retry: true}` pour relancer) |
-| `Notification` | ❌ | Notification utilisateur |
-| `PreCompact` / `PostCompact` | ❌ | Avant / après compression contexte |
-| `Setup` | ❌ | Setup initial |
-| `TeammateIdle` | ❌ | Coéquipier inactif |
-| `TaskCompleted` | ❌ | Tâche terminée |
-| `ConfigChange` | ❌ | Config modifiée |
-| `WorktreeCreate` / `WorktreeRemove` | ❌ (mais non-zero abort sur Create) | Worktrees |
-| `InstructionsLoaded` | ❌ | Chargement CLAUDE.md/rule |
-| `CwdChanged` | ❌ | Répertoire courant modifié |
-| `FileChanged` | ❌ | Fichier modifié détecté |
-| `PostToolBatch` | ❌ | Après lot d'appels outils |
-| `Elicitation` / `ElicitationResult` | ❌ | Prompts saisie utilisateur |
+Source : [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — section "Lifecycle events".
+
+| # | Event | Bloquant | Phase |
+|---|-------|----------|-------|
+| 1 | `SessionStart` | ❌ | Lifecycle session |
+| 2 | `Setup` | ❌ | Setup initial |
+| 3 | `UserPromptSubmit` | ❌ | Prompt utilisateur reçu |
+| 4 | `UserPromptExpansion` | ✅ exit 2 | Expansion du prompt |
+| 5 | `PreToolUse` | ✅ exit 2 | Avant tout outil — intercepter Write/Edit/MultiEdit/Bash via `matcher` |
+| 6 | `PermissionRequest` | ✅ | Avant demande permission |
+| 7 | `PermissionDenied` | ❌ | Après refus auto-mode (`{retry: true}` pour relancer) |
+| 8 | `PostToolUse` | ❌ | Après outil — formatage, lint, notifications |
+| 9 | `PostToolUseFailure` | ❌ | Après échec outil |
+| 10 | `PostToolBatch` | ❌ | Après lot d'appels outils |
+| 11 | `Notification` | ❌ | Notification utilisateur |
+| 12 | `SubagentStart` | ❌ | Sub-agent démarre |
+| 13 | `SubagentStop` | ✅ (Stop) | Sub-agent finit |
+| 14 | `TaskCreated` | ❌ | Task créée |
+| 15 | `TaskCompleted` | ❌ | Task terminée |
+| 16 | `Stop` | ✅ JSON block | Fin de turn (avec `decision: "block"` + `reason`) |
+| 17 | `StopFailure` | ❌ (output ignoré) | Échec Stop hook |
+| 18 | `TeammateIdle` | ❌ | Coéquipier inactif |
+| 19 | `InstructionsLoaded` | ❌ | Chargement CLAUDE.md/rule |
+| 20 | `ConfigChange` | ❌ | Config modifiée |
+| 21 | `CwdChanged` | ❌ | Répertoire courant modifié |
+| 22 | `FileChanged` | ❌ | Fichier modifié détecté |
+| 23 | `WorktreeCreate` | ✅ (non-zero abort) | Création worktree |
+| 24 | `WorktreeRemove` | ❌ | Suppression worktree |
+| 25 | `PreCompact` | ❌ | Avant compression contexte |
+| 26 | `PostCompact` | ❌ | Après compression contexte |
+| 27 | `Elicitation` | ❌ | Prompt saisie utilisateur |
+| 28 | `ElicitationResult` | ❌ | Résultat saisie |
+| 29 | `SessionEnd` | ❌ | Fin session |
 
 **Pour intercepter une écriture de fichier** : utiliser `PreToolUse` avec `matcher: "Write|Edit|MultiEdit"` (triplet obligatoire, cf [[feedback_multiedit_matcher_blind_spot]]). Il n'existe **PAS** d'événements `PreEdit`/`PostEdit`/`PreWrite`/`PostWrite`/`PreBash`/`PostBash` séparés — tout passe par `PreToolUse`/`PostToolUse` avec matcher.
 
@@ -127,20 +145,34 @@ Avec hooks bloquants sur règles critiques :
 
 **`exit 1` n'est PAS bloquant** côté tools (seul `exit 2` l'est). Exception `WorktreeCreate` : tout non-zero abort.
 
-### Exit codes
+### Exit codes (verbatim docs)
+
+> "**Exit 0** means success. Claude Code parses stdout for JSON output fields..."
+> "**Exit 2** means a blocking error. Claude Code ignores stdout and any JSON in it. Instead, stderr text is fed back to Claude as an error message."
+> "For most hook events, only exit code 2 blocks the action. Claude Code treats exit code 1 as a non-blocking error and proceeds with the action, even though 1 is the conventional Unix failure code. If your hook is meant to enforce a policy, use `exit 2`."
 
 | Exit code | Effet |
 |-----------|-------|
 | **0** | Silent success |
 | **1** | Visible (stderr remonté à user, NON bloquant) |
 | **2** | **BLOCKING** — l'action Claude est annulée |
-| Autre | Stderr remonté |
+| Autre | Non-bloquant — `<hook name> hook error` + première ligne stderr |
 
 **Exception WorktreeCreate** : tout non-zero abort.
 
-### Timeout
+### Timeouts (verbatim docs 23 mai 2026)
 
-**60 secondes** (verbatim docs). Hook qui dépasse = killed.
+> "`timeout` | no | Seconds before canceling. Defaults: 600 for `command`, `http`, and `mcp_tool`; 30 for `prompt`; 60 for `agent`. UserPromptSubmit lowers the `command`, `http`, and `mcp_tool` default to 30"
+
+| Type hook | Timeout défaut | Note |
+|-----------|---------------|------|
+| `command` | **600s** | 30s pour UserPromptSubmit |
+| `http` | **600s** | 30s pour UserPromptSubmit |
+| `mcp_tool` | **600s** | 30s pour UserPromptSubmit |
+| `prompt` (LLM-based, ex: anti-rationalization Trail of Bits) | **30s** | — |
+| `agent` | **60s** | — |
+
+Hook qui dépasse son timeout = killed.
 
 ### hookSpecificOutput
 
@@ -148,6 +180,17 @@ Format JSON spécifique selon event. Permet :
 - Retour structuré au-delà de exit code
 - Métadonnées additionnelles
 - `decision: "block"` + `reason: "..."` pour Stop hook (sinon boucle infinie)
+
+### `once: true` — règle CRITIQUE (verbatim docs)
+
+> "`once` | no | If `true`, runs once per session then is removed. **Only honored for hooks declared in skill frontmatter; ignored in settings files and agent frontmatter**"
+
+**Conséquence pratique** :
+- `once: true` dans **skill frontmatter** → honoré
+- `once: true` dans `.claude/settings.json` → **silencieusement ignoré**
+- `once: true` dans agent frontmatter → **silencieusement ignoré**
+
+→ Pour un Stop hook dans `settings.json`, utiliser `decision: "block"` + `reason: "..."` (pas `once: true`).
 
 ### asyncRewake
 
@@ -159,12 +202,14 @@ Réveille la session à un timing futur. Utile pour scheduling, polling externe.
 
 ### Créer un hook quand :
 
-✅ **Lint / format** — règle déterministe sur le code (PostEdit/PostWrite)
+✅ **Lint / format** — règle déterministe sur le code (PostToolUse Write/Edit/MultiEdit)
 ✅ **Security** — credentials, secrets, IDOR, scope cross-repo (PreToolUse)
 ✅ **Scope guard** — empêcher accès hors-repo (PreToolUse Bash)
 ✅ **Validation déterministe** — pré-condition vérifiable mécaniquement
 ✅ **Notification side-effect** — logger, webhook, telemetry (PostToolUse)
 ✅ **Format frontmatter** — vérifier YAML valide
+
+**Note** : la phrase "Hooks are deterministic and are recommended for lint, test, and security" parfois citée comme verbatim Anthropic n'apparaît pas textuellement sur `code.claude.com/docs/en/hooks` (vérifié 23 mai 2026). C'est une **paraphrase pédagogique** du principe "hook bloquant pour règle 100% déterministe", convergente avec la doctrine officielle.
 
 ### NE PAS créer un hook quand (doctrine forge 22 mai 2026) :
 
@@ -191,14 +236,14 @@ Réveille la session à un timing futur. Utile pour scheduling, polling externe.
 - Pour bloquer une écriture/édition → `PreToolUse` avec `matcher: "Write|Edit|MultiEdit"`
 - Pour bloquer une commande Bash → `PreToolUse` avec `matcher: "Bash"`
 - Pour formater après écriture → `PostToolUse` avec `matcher: "Write|Edit|MultiEdit"`
-- Pour notifier en fin de turn → `Stop` (avec `once: true` sinon boucle)
+- Pour notifier en fin de turn → `Stop` (avec `decision: "block"` + `reason` ou skill `once: true`)
 - Pour bloquer un prompt user → `UserPromptExpansion` (exit 2)
 - Pour réveiller la session plus tard → retour `asyncRewake` depuis un autre hook
 
 ### Étape 3 — Implémenter le script
 - **Même stack que le projet** (Python si Python, Node si Node) — cf [[feedback_hooks_same_stack]]
 - **Chemins absolus** dans settings.json (Windows alias MS Store sinon)
-- **Timeout < 60s** — sinon killed
+- **Timeout < limite par type** — sinon killed
 - **Exit code 2 pour bloquer**, **0 pour silent**, **1 pour visible non-bloquant**
 
 ### Étape 4 — Triplet matcher Write|Edit|MultiEdit
@@ -233,7 +278,7 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (hook sécu criti
 ## OPTIMISATION — 3 niveaux
 
 ### Niveau basique
-- 1-2 hooks (lint/format PostEdit)
+- 1-2 hooks (lint/format PostToolUse)
 - Settings.json clean
 - Chemins absolus
 - Exit codes corrects
@@ -247,7 +292,7 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (hook sécu criti
 ### Niveau expert (Trail of Bits-style)
 - **Anti-rationalization Stop hook** : Haiku check cop-outs sur session principale (Trail of Bits)
 - **3-tier sandbox** : `/sandbox` builtin + devcontainer + dropkit DO
-- **Hooks composés** : plusieurs hooks imparfaits qui ensemble couvrent les trous (Thariq "swiss cheese defense")
+- **Hooks composés** : plusieurs hooks imparfaits qui ensemble couvrent les trous ("swiss cheese defense" — concept général cybersécurité repris dans l'écosystème Claude Code)
 - **asyncRewake** pour scheduling autonome
 
 ---
@@ -260,8 +305,8 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (hook sécu criti
 | Triplet matcher complet | 0 trou MultiEdit (vs blind spot avant) |
 | Stack identique au projet | Pas de dep manager parallèle, debug plus simple |
 | Chemins absolus settings | Marche multi-poste sans réécrire |
-| Stop hook anti-rationalization | Haiku ~$0.001 par check, prévient erreurs cascadées (Trail of Bits) |
-| Sensors (Fowler) | LangChain 52.8% → 66.5% Terminal Bench avec sensors seuls |
+| Stop hook anti-rationalization | Haiku check rapide, prévient erreurs cascadées (Trail of Bits) |
+| Sensors (Böckeler) | LangChain harness changes : 52.8% → 66.5% Terminal Bench (Vivek Trivedy LangChain blog 17 fév 2026, modèle GPT-5.2-Codex) |
 
 ---
 
@@ -279,12 +324,12 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (hook sécu criti
 - ❌ **Matcher "Write|Edit"** sans MultiEdit — trou (cf [[feedback_multiedit_matcher_blind_spot]])
 - ❌ **Chemin Python relatif** sur Windows — alias MS Store (cf [[feedback_python_path_windows]])
 - ❌ **`exit 1` pour bloquer** — non bloquant, utiliser `exit 2`
-- ❌ **Stop hook sans `once: true`** — boucle infinie (cf [[feedback_stop_hook_injection]])
+- ❌ **`once: true` dans settings.json ou agent frontmatter** — silencieusement ignoré, utiliser `decision: "block"` + `reason`
 - ❌ **Bash heredoc dans hook** Windows — boucle quoting Git Bash
 - ❌ **Settings paths hardcodés** multi-poste — chemins relatifs ou env vars (cf [[erreur-settings-paths-hardcodes-multi-poste]])
 
 ### Architecture
-- ❌ **Hook qui dépasse 60s** — killed sans warning
+- ❌ **Hook qui dépasse son timeout par type** — killed sans warning (600s command/http/mcp_tool, 30s prompt, 60s agent)
 - ❌ **Hook qui consume tokens LLM** (Haiku check inutile sur tous les events) — réserver aux cas critiques
 - ❌ **Hooks non testés adverses** — cas heureux ne suffit pas (cf [[feedback_tests_adverses_obligatoires]])
 - ❌ **Hook qui modifie le filesystem du repo en cours de turn** — race condition avec Write/Edit Claude. Si un hook PostToolUse formate un fichier que Claude vient d'écrire, Claude peut ne pas voir la version formatée et écraser sur le tour suivant. Solution : formater silencieusement (exit 0) ET informer Claude via stderr du changement.
@@ -305,15 +350,15 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (hook sécu criti
 - Hooks lint/security uniquement, pas de workflow
 
 ### Anthropic officiel
-- docs.claude.com/hooks — spec complète 29 events
-- [github.com/anthropics/claude-code](https://github.com/anthropics/claude-code) — config minimaliste, 3 slash commands
+- [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — spec complète 29 events
+- [github.com/anthropics/claude-code](https://github.com/anthropics/claude-code) — config minimaliste
 
-### Fowler / Böckeler
-- [martinfowler.com](https://martinfowler.com) — Guides+Sensors 2 avril 2026
-- Evidence LangChain : 52.8% → 66.5% Terminal Bench, harness changes seuls
+### Böckeler / Fowler
+- [martinfowler.com/articles/harness-engineering.html](https://martinfowler.com/articles/harness-engineering.html) — Guides+Sensors 2 avril 2026
+- Concept "Agent = Model + Harness" : popularisé par Hashimoto (5 fév 2026), formalisé par LangChain, repris par Böckeler
 
 ### Patterns reconnus
-- **Lint PostEdit** : prettier/black auto sur write
+- **Lint PostToolUse** : prettier/black auto sur write
 - **Format frontmatter YAML** validation
 - **Scope guard PreToolUse Bash** : empêcher `cd ../../autre-repo`
 - **Credentials detector** : grep secrets avant write
@@ -323,26 +368,21 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (hook sécu criti
 ## SOURCES — Verbatim avec URLs
 
 ### Anthropic officiel
-- [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — spec 29 events
+- [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — spec 29 events, timeouts, exit codes, `once: true` scope
 - docs.claude.com features-overview — "If a rule must hold every time, make it a hook"
-- Timeout 60s, exit codes officiels
 
 ### Doctrine forge 22 mai 2026
 - [[raisonnement-22mai-doctrine-vs-enforcement]] — pivot
 - [[critique-2026-05-21-refonte-hooks-16-vers-6]] — historique pivot
 - [[erreur-hooks-workflow-enforcement]] — anti-pattern documenté
 
-### Martin Fowler / Birgitta Böckeler
-- 2 avril 2026 — Guides+Sensors taxonomy
-- "Agent = Model + Harness"
-- LangChain evidence 52.8% → 66.5%
+### Böckeler / Fowler
+- [martinfowler.com/articles/harness-engineering.html](https://martinfowler.com/articles/harness-engineering.html) — Guides+Sensors taxonomy 2 avril 2026
+- Hashimoto [mitchellh.com/writing/my-ai-adoption-journey](https://mitchellh.com/writing/my-ai-adoption-journey) — popularisation "harness engineering"
 
 ### Trail of Bits
 - [github.com/trailofbits/claude-code-config](https://github.com/trailofbits/claude-code-config)
 - Anti-rationalization pattern (inédit)
-
-### Thariq Shihipar
-- Code with Claude SF 6-7 mai 2026 — Swiss cheese defense
 
 ---
 
@@ -359,13 +399,13 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (hook sécu criti
 - **WorktreeCreate** : tout non-zero abort (exception)
 
 ### Pièges events
-- **Stop hook sans `once: true`** = boucle infinie (cf [[feedback_stop_hook_injection]])
-- **`additionalContext` non supporté** dans Stop hook — utiliser `decision: "block"` + `reason`
+- **`once: true` honoré UNIQUEMENT en skill frontmatter** — ignoré silencieusement dans settings.json et agent frontmatter
+- **Stop hook sans `decision: "block"` + `reason`** dans settings.json = potentielle boucle (utiliser `additionalContext` non supporté, préférer `decision`)
 - **MultiEdit absent du matcher** = trou (cf [[feedback_multiedit_matcher_blind_spot]])
 - **`agent_type` détection** : via stdin JSON, JAMAIS via env var (cf [[reference_agent_type_hook_detection]])
 
 ### Pièges architecture
-- **Hook timeout 60s** strict
+- **Timeouts par type** : 600s command/http/mcp_tool, 30s prompt, 60s agent (UserPromptSubmit abaisse 600s→30s pour command/http/mcp_tool)
 - **Hook qui consume tokens** (Haiku call) = coût caché, réserver
 - **Sensors > Guides** : préférer hooks à rules quand critique
 
@@ -388,7 +428,7 @@ Aliases déclarés en frontmatter (10) :
 - create claude code hook
 - hook parfait
 - hook best practices
-- 25+ events hooks
+- 29 events hooks
 - exit codes hooks
 - hookSpecificOutput
 - asyncRewake
@@ -407,8 +447,8 @@ Aliases déclarés en frontmatter (10) :
 - [[mcp-vs-skills-doctrine]]
 
 ### Fiches leaders (à créer)
-- [[Martin Fowler]]
-- [[Thariq Shihipar]]
+- [[Birgitta Böckeler]]
+- [[Mitchell Hashimoto]]
 - [[Trail of Bits config publique]]
 
 ### Knowledge / erreurs / refs
@@ -416,7 +456,6 @@ Aliases déclarés en frontmatter (10) :
 - [[erreur-hooks-workflow-enforcement]]
 - [[critique-2026-05-21-refonte-hooks-16-vers-6]]
 - [[erreur-claude-agent-env-var-dead-code]]
-- [[raisonnement-22mai-doctrine-vs-enforcement]]
 - [[feedback_marker_ttl_pattern]]
 - [[feedback_multiedit_matcher_blind_spot]]
 - [[feedback_hooks_same_stack]]
@@ -435,4 +474,4 @@ Aliases déclarés en frontmatter (10) :
 
 ---
 
-**Fin note canonique `comment-creer-hook.md`** — 5/8 chantier 22 mai 2026.
+**Fin note canonique `comment-creer-hook.md`** — révisée 23 mai 2026 post-audit thématique vault.

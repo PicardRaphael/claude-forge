@@ -2,7 +2,7 @@
 titre: "Doctrine vs enforcement — refonte hooks workflow ia_back + neo_ia"
 type: knowledge
 domaine: claude-code
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-23
 aliases:
   - "doctrine vs enforcement 22 mai"
   - "refonte hooks workflow mai 2026"
@@ -27,7 +27,6 @@ sources:
   - "[[raisonnement-kill-tdd-strict-hooks-mai-2026]]"
   - "[[erreur-pipeline-trop-long-frustration]]"
 ---
-
 # Doctrine vs enforcement — refonte hooks workflow 22 mai 2026
 
 ## Contexte
@@ -159,3 +158,30 @@ Le feedback est donc révisé (pas supprimé) avec ce scope. Sans cette révisio
 - [Building Claude Code with Boris Cherny, Pragmatic Engineer](https://newsletter.pragmaticengineer.com/p/building-claude-code-with-boris-cherny) — "thinnest wrapper"
 - [Inside Claude Code, Medium](https://medium.com/@Coda./inside-claude-code-engineering-the-future-of-agentic-development-508050bf37a2) — bitter lesson appliqué
 - [How Boris Uses Claude Code](https://howborisusesclaudecode.com/) — workflow officiel
+
+---
+
+## CORRECTION CITATION POST-AUDIT 23 MAI 2026
+
+La citation Agent SDK utilisée dans ce raisonnement :
+> "Claude decides when to parallelize — you're defining the capability, not the scheduling."
+
+n'apparaît pas verbatim sur [code.claude.com/docs/en/agent-sdk/overview](https://code.claude.com/docs/en/agent-sdk/overview) (vérifié 23 mai 2026).
+
+**Verbatim réels Anthropic** (à utiliser à la place) :
+- *"Claude decides when to call a tool based on the user's request"*
+- *"Skills are model-invoked: Claude autonomously chooses when to use them based on context"*
+- *"Claude autonomously invokes when relevant"*
+
+**Le pivot doctrinal 22 mai reste 100% valide** — il repose sur de multiples sources convergentes :
+1. Boris "thinnest wrapper" (Latent Space, Pragmatic Engineer)
+2. Boris "All the secret sauce — it's all in the model" (Latent Space verbatim)
+3. Docs Anthropic Agent SDK : Claude decides / autonomously invokes
+4. Doctrine Anthropic hooks recommandés pour lint/test/security (cf [[comment-creer-hook]])
+5. Skills = model-invoked (docs Anthropic)
+
+La formule exacte citée était une paraphrase pédagogique, pas un verbatim. Le **principe** "la session principale décide quand invoquer, pas un hook" reste pleinement attesté.
+
+---
+
+Source audit : `output/audit-vault-thematique/01-claude-code/C-croisement-revise.md`

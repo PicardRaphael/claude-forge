@@ -6,7 +6,7 @@ aliases:
   - "DA chantier 22 mai"
   - "critique notes canoniques vault"
   - "verdict 8 canoniques"
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-23
 auteur: claude (devils-advocate via session principale)
 type: critique
 sources:
@@ -17,7 +17,6 @@ tags:
   - "#chantier/22mai2026"
   - "#sujet/vault"
 ---
-
 # Critique DA — 8 canoniques chantier 22 mai 2026
 
 > Devils-advocate sur les 8 notes canoniques produites en Phase B du chantier vault forge-brain.
@@ -131,3 +130,52 @@ Les 8 notes répètent la doctrine "hooks lint/security/scope, JAMAIS workflow" 
 ---
 
 **Fin critique DA chantier 22 mai 2026.**
+
+---
+
+## COMPLÉMENTS AUDIT THÉMATIQUE VAULT — 23 MAI 2026
+
+Audit profond (95 claims, 6 sub-agents parallèles + vérifs directes) a révélé des erreurs supplémentaires non identifiées en critique du 22 mai :
+
+### Erreurs structurelles supplémentaires (Type 3 — réécriture)
+
+- **Justin Young 2-agent ≠ Opus/Sonnet split** — extrapolation forge non sourcée. Article dit "harness was otherwise identical". Réécrit dans [[comment-creer-agent]].
+- **Advisor strategy = Brad Abrams (pas Angela Jiang)** — coquille Simon Willison "Angela Kiang" propagée. Verbatim Abrams : "close to Opus-level intelligence at much lower prices". Pas de chiffre "5×". Source : Code with Claude SF talk avec Mario Rodriguez (GitHub CPO). Réécrit dans [[comment-creer-agent]] + [[workflow-claude-code-optimal]].
+- **Lethal trifecta éléments** : private data / untrusted content / **exfiltration vector** (vault disait "exposition externe"). Créé par Simon Willison juin 2025, pas Thariq. Réécrit dans [[mcp-vs-skills-doctrine]].
+- **Agent = Model + Harness** : popularisé par Hashimoto (5 fév 2026), formalisé LangChain, repris Böckeler. Pas créé par Fowler/Böckeler. Réécrit dans [[comment-creer-agent]] + [[comment-creer-hook]].
+- **LangChain 52.8→66.5** : Vivek Trivedy 17 fév 2026, **modèle GPT-5.2-Codex pas Claude**. Réécrit dans [[comment-creer-agent]] + [[workflow-claude-code-optimal]].
+- **Stop hook `once: true`** : skill frontmatter UNIQUEMENT, pas settings.json ni agent frontmatter. Réécrit dans [[comment-creer-hook]].
+
+### Erreurs de chiffres (Type 2 — chirurgical)
+
+- claude-for-legal CLAUDE.md = **174 lignes** (pas 130)
+- multica-ai = **67 lignes** (pas 70)
+- Hook timeouts : **600s/30s/60s** selon type (pas 60s partout)
+- **29 events** hooks (pas 25+) — vault rate TaskCreated + StopFailure
+- **effort: max TOUJOURS DISPONIBLE** mai 2026 (pas déprécié v2.1.91)
+
+### Erreurs citation/paraphrase (Type 1 — source à corriger)
+
+- "Claude decides when to parallelize — you're defining the capability" → formule paraphrasée. Verbatim docs : "Claude decides when to call a tool" + "Claude autonomously invokes". Pivot 22 mai reste valide.
+- Karpathy "Vibe coding is over" → titre exact "From Vibe Coding to Agentic Engineering". Complémentaires pas remplacement.
+- Boris "MCP cross-surface" → terme "cross-surface" non verbatim, retirer.
+- Thariq 9 catégories source LinkedIn 17 mars → "post Anthropic mars 2026 — Lessons from Building Claude Code".
+
+### Nouvelles règles à ajouter
+
+- SKILL.md description : limite pratique auto-invocation **~250 chars** (système reminder `/skills` tronque) — règle pratique inédite documentée audit 23 mai
+- Stop hook `once: true` : skill frontmatter UNIQUEMENT
+
+### URLs canoniques rectifiées
+
+- Lethal trifecta = `simonwillison.net/2025/Jun/16/the-lethal-trifecta/`
+- Ronacher 8k tokens = `lucumr.pocoo.org/2025/12/13/skills-vs-mcp/`
+- Justin Young 2-agent = `anthropic.com/engineering/effective-harnesses-for-long-running-agents`
+- Brad Abrams Advisor Strategy = `claude.com/code-with-claude/session/sf-caching-harnesses-and-advisors-building-on-claude-at-github-scale`
+- Hashimoto harness = `mitchellh.com/writing/my-ai-adoption-journey`
+- LangChain harness = `langchain.com/blog/improving-deep-agents-with-harness-engineering`
+- Böckeler harness = `martinfowler.com/articles/harness-engineering.html`
+
+---
+
+Source audit : `output/audit-vault-thematique/01-claude-code/` (A-inventaire-claims, B-verif-cluster*, C-croisement-revise, D-plan-correction).

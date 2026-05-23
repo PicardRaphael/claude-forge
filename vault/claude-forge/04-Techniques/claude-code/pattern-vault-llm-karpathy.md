@@ -12,7 +12,7 @@ aliases:
   - "qmd tobi lutke"
   - "agentic engineering memory"
   - "compounding wiki"
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-23
 auteur: claude
 type: pattern
 sources:
@@ -26,7 +26,6 @@ tags:
   - "#sujet/karpathy"
   - "#sujet/llm-wiki"
 ---
-
 # Pattern vault LLM canonique Karpathy
 
 > Note canonique forge — pattern Karpathy LLM Wiki (Gist 4 avril 2026), application à forge-brain.
@@ -473,3 +472,36 @@ Aliases déclarés en frontmatter (10) :
 **Fin note canonique `pattern-vault-llm-karpathy.md`** — 8/8 chantier 22 mai 2026.
 
 **🎉 LES 8 CANONIQUES SONT TERMINÉES.**
+
+---
+
+## CORRECTIONS POST-AUDIT 23 MAI 2026
+
+Audit thématique vault forge a révélé les nuances suivantes (ne touche pas le pattern principal, juste les attributions/verbatim) :
+
+### C7.3 — qmd attribution Tobi Lütke (nuance)
+
+**Avant** : "qmd créé par Tobi Lütke (CEO Shopify)"
+**Précision** : Handle `tobi` GitHub historiquement Tobias Lütke (Shopify CEO), confirmé par npm `@tobilu/qmd` et sources tierces (Medium). **Attribution communément acceptée mais non signée dans README officiel**. Karpathy le recommande dans son Gist LLM Wiki — il ne l'a pas créé.
+
+### C7.5 — "Vibe coding is over" → titre exact
+
+**Avant** : "Vibe coding is over → Agentic engineering" (Sequoia 29 avril 2026)
+**Correction** : titre exact = **"From Vibe Coding to Agentic Engineering"**. Karpathy positionne les deux en **complémentaires** :
+- Vibe coding = "raise the floor" (rendre accessible)
+- Agentic engineering = "preserve the quality bar" (maintenir la qualité)
+
+Pas un remplacement, une transition / complémentarité.
+
+### C7.4 — 4 failure patterns labels (nuance)
+
+**Avant** : "silent assumptions / hypertrophy / collateral changes / no verifiable success criteria" présentés comme verbatim Karpathy
+**Précision** : Les **labels courts** sont des **synthèses communautaires** du thread X Karpathy 26 janvier 2026, pas verbatim Karpathy. Les concepts sous-jacents sont attestés (6+ sources convergentes), mais les noms exacts viennent de l'écosystème (vault forge, articles tiers).
+
+**URL thread X 26 janvier 2026** : à reconstruire via archive.org si lien original mort.
+
+---
+
+**Pattern principal Karpathy (3 layers + 2 fichiers obligatoires + 3 ops) reste 100% canonique.** Ces corrections ne touchent que les attributions / verbatim secondaires.
+
+Source audit : `output/audit-vault-thematique/01-claude-code/B-verif-cluster7-karpathy.md`

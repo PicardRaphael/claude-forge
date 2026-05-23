@@ -8,7 +8,8 @@ description: "Dispatch table: which agent or skill to invoke based on user situa
 |-----------|--------|
 | Besoin flou / "comment automatiser X" | Invoquer `cc-advisor` |
 | "J'ai un projet X" / URL GitHub | Invoquer `project-analyzer` |
-| "Analyse les skills/agents/rules de X" / audit config | Agent `project-auditor` (PAS Explore) |
+| "Analyse les skills/agents/rules de X" / audit config | Agent `project-auditor` (PAS Explore) — scope `.claude/` UNIQUEMENT, inclut audit qualité-design transverse (skills à diviser/fusionner/kill, hooks redondants, cohérence canoniques forge 22 mai) |
+| "Analyse mon repo X et propose config CC" / "propose-moi le meilleur setup" | **Méthode 6 étapes [[methode-analyser-repo]]** — scan archi + code RÉEL + patterns récurrents + audit `.claude/` en parallèle. JAMAIS s'arrêter à `.claude/` |
 | "Analyse ia_back" / "analyse neo_ia" / multi-repo | Agent `project-auditor` par repo, en parallele |
 | "Optimise / améliore mon CLAUDE.md" | Invoquer `claudemd-optimizer` |
 | "Quoi de neuf / est-ce que X existe" | Invoquer `cc-news` |
@@ -24,6 +25,23 @@ description: "Dispatch table: which agent or skill to invoke based on user situa
 | Problème complexe résolu (multi-étapes) | `/reasoning-cache` pour sauvegarder le raisonnement |
 | "Optimise cette skill" / maintenance skills | `/skill-evolve [nom]` ou `/skill-evolve all` |
 | Review stratégique / remise en question | `/forge-review` (mensuel via /schedule) |
+
+## Séquence canonique AVANT tout dispatch créateur/analyste — OBLIGATOIRE
+
+Avant d'invoquer `agent-creator`, `skill-creator`, `hook-creator`, `claudemd-optimizer`, `project-auditor`, `project-analyzer`, `cc-advisor`, `evolve`, `skill-evolve`, `spec` — la session principale DOIT briefer le sub-agent avec la séquence canonique :
+
+```
+1. ANALYSER le RÉEL du repo (faits bruts, code, .claude/ existant)
+2. LIRE canoniques EN ENTIER via MCP forge-brain (read_note SANS max_lines)
+3. CROISER analyse ⨯ canoniques → écarts mesurables
+4. PLAN basé sur écarts (pas sur idéologie)
+5. EXÉCUTER après validation
+```
+
+Source canonique : [[methode-analyser-repo]] + `.claude/rules/sequence-canonique-modification.md`.
+
+**Brief minimum à inclure dans tout prompt sub-agent créateur** :
+> "Suivre la séquence A→B→C→D→E de `.claude/rules/sequence-canonique-modification.md`. Lire les canoniques vault EN ENTIER via MCP forge-brain (`read_note` sans `max_lines`) AVANT toute prescription. Analyser le repo réel d'abord."
 
 ## Posture Jarvis — innovation proactive
 
@@ -42,3 +60,4 @@ Remettre en question Raphael si une meilleure approche existe. Remettre en quest
 - **JAMAIS `general-purpose` pour > 8 operations** — decouper en agents paralleles
 - **JAMAIS Grep/Read brut sur le vault** — utiliser CLI Obsidian (`obsidian search`, `obsidian read`)
 - **JAMAIS un seul agent pour multi-repo** — 1 agent par repo, en parallele
+- **JAMAIS s'arrêter à l'audit `.claude/` quand l'user demande "analyse mon repo / propose-moi config CC"** — c'est la méthode 6 étapes [[methode-analyser-repo]] : scan archi (étape 1) + scan code pour patterns récurrents (étape 5) sont OBLIGATOIRES en parallèle de l'audit `.claude/`. Sinon propositions théoriques déconnectées du repo réel.

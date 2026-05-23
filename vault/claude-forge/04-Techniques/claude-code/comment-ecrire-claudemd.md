@@ -12,7 +12,7 @@ aliases:
   - "configuration CLAUDE.md"
   - "200 lignes CLAUDE.md"
   - "anti-patterns CLAUDE.md"
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-23
 auteur: claude
 type: technique
 sources:
@@ -33,6 +33,8 @@ tags:
 > Note canonique forge — doctrine Anthropic mai 2026, validée verbatim sur sources officielles.
 
 ---
+
+> ⚠️ **Ordre canonique pour TOUTE création/modification de CLAUDE.md** : suivre A→B→C→D→E (analyser réel → lire canoniques EN ENTIER → croiser → plan d'écarts → exécuter). Cf [[methode-analyser-repo]] section **ORDRE CANONIQUE**. Pas de prescription avant analyse du réel.
 
 ## QUOI — Définition
 
@@ -117,7 +119,7 @@ CLAUDE.md = **compounding** : chaque erreur capturée une fois ne se reproduit p
 - Vendored code
 ```
 
-**Exemple concret référence** : [anthropics/claude-for-legal/CLAUDE.md](https://github.com/anthropics/claude-for-legal) — 130 lignes, 5 sections, seul CLAUDE.md Anthropic public structuré.
+**Exemple concret référence** : [anthropics/claude-for-legal/CLAUDE.md](https://github.com/anthropics/claude-for-legal) — **174 lignes** (vérifié empiriquement 23 mai 2026), 5 sections, seul CLAUDE.md Anthropic public structuré.
 
 ### Test de chaque ligne — "Would removing this cause mistakes?"
 
@@ -246,7 +248,16 @@ Session N+1 → erreur évitée (compounding)
 - ❌ **CLAUDE.md comme TODO list** : utiliser plans/, pas CLAUDE.md
 - ❌ **Mise à jour 3 sessions trop tard** : capturer l'erreur tout de suite ou jamais (le détail s'évapore)
 - ❌ **Pas de test de chargement** : vérifier après modification que le CLAUDE.md ne dépasse pas la taille (200L), que l'encoding est valide (UTF-8 sans BOM), que les `@import` ne sont pas circulaires. Un CLAUDE.md cassé est chargé silencieusement ou tronqué.
-- ❌ **Ignorer `AGENTS.md` comme alternative** : Hashimoto (Ghostty) a proposé `AGENTS.md` (cf [[hashimoto]]) comme nom alternatif neutre cross-LLM (Claude Code + Cursor + Gemini CLI + Codex). Pas obligatoire mais à considérer si repo open-source multi-LLM.
+- ❌ **Ignorer `AGENTS.md` comme alternative** : `AGENTS.md` proposé comme nom alternatif neutre cross-LLM (Claude Code + Cursor + Gemini CLI + Codex) — spec collective OpenAI/Google/Cursor août 2025, popularisée par Mitchell Hashimoto. Pas obligatoire mais à considérer si repo open-source multi-LLM.
+
+### Anti-pattern : effort `max` "déprécié" — FAUX
+
+**Avant 23 mai 2026** : la doctrine forge écrivait "effort: max déprécié v2.1.91". **C'est faux**.
+
+Vérifié verbatim docs Anthropic 23 mai 2026 ([code.claude.com/docs/en/agent-sdk/subagents](https://code.claude.com/docs/en/agent-sdk/subagents)) :
+> "`effort` | No | ... Options: `low`, `medium`, `high`, `xhigh`, `max`; available levels depend on the model"
+
+→ `max` est toujours disponible. Ce qui est déprécié = `budget_tokens` manuel, remplacé par adaptive thinking. À utiliser avec prudence sur `max` (prone overthinking observé sur Opus 4.7).
 
 ---
 
@@ -254,7 +265,7 @@ Session N+1 → erreur évitée (compounding)
 
 ### 1. `anthropics/claude-for-legal/CLAUDE.md` (référence Anthropic)
 
-**130 lignes, 5 sections** :
+**174 lignes, 5 sections** (vérifié empiriquement 23 mai 2026) :
 - Validation pipeline (lint, type, test commandes exactes)
 - Conventions (naming, structure)
 - Cookbooks (patterns récurrents du repo)
@@ -267,6 +278,8 @@ Le seul CLAUDE.md d'Anthropic exposé publiquement — **référence canonique**
 
 Le repo source de Claude Code lui-même : `.claude/` contient **3 slash commands custom** et un CLAUDE.md ultra-court. La doctrine "minimal qui marche" en action.
 
+⚠️ Note historique : le repo a été **leak accidentellement le 31 mars 2026** (500k LOC TypeScript, 1900 fichiers, 50k stars en heures). Le reverse engineering a révélé : 40 permission-gated tools, 46k-line query engine, **29-event-type hook pipeline** (confirmé docs officielles), 5-stage progressive compaction (budget reduction → snip → microcompact → context collapse → auto-compact), 3-layer memory architecture. Sources : [arxiv.org/html/2604.14228v1](https://arxiv.org/html/2604.14228v1), [addyosmani.com/blog/agent-harness-engineering/](https://addyosmani.com/blog/agent-harness-engineering/).
+
 ### 3. `github.com/trailofbits/claude-code-config` (entreprise sécu)
 
 Config complète Trail of Bits exposée publiquement. CLAUDE.md illustre :
@@ -276,7 +289,7 @@ Config complète Trail of Bits exposée publiquement. CLAUDE.md illustre :
 
 ### 4. `multica-ai/andrej-karpathy-skills` (CLAUDE.md viral — ex-forrestchang)
 
-**70 lignes, 4 principes** — repo viral (URL active : `multica-ai/andrej-karpathy-skills`, redirection depuis l'original `forrestchang/`). **NB** : pas endorsé par Karpathy publiquement, c'est un fan project. Démonstration que **court + opinionated > long + neutre**. Stars exactes à vérifier à date de consultation.
+**67 lignes, 4 principes** (vérifié empiriquement 23 mai 2026) — repo viral (URL active : `multica-ai/andrej-karpathy-skills`, redirection depuis l'original `forrestchang/`). **NB** : pas endorsé par Karpathy publiquement, c'est un fan project. Démonstration que **court + opinionated > long + neutre**. Stars exactes à vérifier à date de consultation.
 
 ---
 
@@ -286,20 +299,21 @@ Config complète Trail of Bits exposée publiquement. CLAUDE.md illustre :
 
 - [code.claude.com/docs/en/memory](https://code.claude.com/docs/en/memory) — taille 200L target, distinction MEMORY.md
 - [anthropic.com/engineering/claude-code-best-practices](https://www.anthropic.com/engineering/claude-code-best-practices) — anti-patterns + test "Would removing..."
-- docs Anthropic features-overview — doctrine hook vs rule
+- [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — doctrine hook vs rule
+- [code.claude.com/docs/en/agent-sdk/subagents](https://code.claude.com/docs/en/agent-sdk/subagents) — effort levels valides (max inclus)
 
 ### Boris Cherny (Anthropic, créateur Claude Code)
 
 - Pragmatic Engineer interview — "Anytime we see Claude do something incorrectly, we add it to CLAUDE.md"
 - Sequoia AI Ascent avril 2026 — "coding is solved"
-- Code with Claude London 19 mai 2026 — "I prompt Claude → I create a routine that prompts Claude"
+- Code with Claude London 19 mai 2026
 
 ### Repos publics
 
-- [anthropics/claude-for-legal](https://github.com/anthropics/claude-for-legal) — CLAUDE.md 130L référence
+- [anthropics/claude-for-legal](https://github.com/anthropics/claude-for-legal) — CLAUDE.md 174L référence (vérifié 23 mai 2026)
 - [anthropics/claude-code](https://github.com/anthropics/claude-code) — config minimaliste
 - [trailofbits/claude-code-config](https://github.com/trailofbits/claude-code-config) — config entreprise sécu
-- [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) — CLAUDE.md viral (ex-forrestchang)
+- [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) — CLAUDE.md viral 67L (ex-forrestchang)
 
 ---
 
@@ -353,8 +367,9 @@ Aliases déjà déclarés en frontmatter (10) :
 - [[pattern-vault-llm-karpathy]]
 
 ### Fiches leaders
-- [[Boris Cherny]] (à créer dans la phase leaders)
+- [[Boris Cherny]]
 - [[Cat Wu]]
+- [[Mitchell Hashimoto]]
 - [[Erik Schluntz]]
 
 ### Knowledge — erreurs liées
@@ -370,4 +385,4 @@ Aliases déjà déclarés en frontmatter (10) :
 
 ---
 
-**Fin note canonique `comment-ecrire-claudemd.md`** — pilote du chantier 22 mai 2026.
+**Fin note canonique `comment-ecrire-claudemd.md`** — révisée 23 mai 2026 post-audit thématique vault.

@@ -123,3 +123,13 @@ tags:
 - Update MEMORY.md avec entree py launcher
 - Commit e80972a : python-dev.md ligne 19 corrige (python -m py_compile -> py -m py_compile)
 - 19 commits chantier total : bb9e66e -> e80972a
+## [2026-05-23] audit-thematique-claude-code | 12 notes corrigées + 2 leaders créés
+
+Audit profond thème Claude Code (95 claims, 6 sub-agents parallèles).
+
+- **Notes réécrites** (`update_note` complète) : [[comment-creer-hook]] [[comment-creer-agent]] [[comment-creer-skill]] [[comment-ecrire-claudemd]] [[workflow-claude-code-optimal]] [[methode-analyser-repo]] [[mcp-vs-skills-doctrine]]
+- **Notes append** (compléments) : [[pattern-vault-llm-karpathy]] [[trail-of-bits-config]] [[methode-pivoter-doctrine]] [[raisonnement-22mai-doctrine-vs-enforcement]] [[critique-2026-05-22-8-canoniques-chantier]]
+- **Notes créées** : [[Brad-Abrams]] (Product Lead Anthropic, Advisor Strategy) + [[Mitchell-Hashimoto]] (popularisateur harness engineering)
+- **22 erreurs corrigées** : Justin Young split, Brad Abrams vs Angela Jiang, lethal trifecta = Willison, max non déprécié, 29 events hooks, timeouts par type, once:true skill only, 174L vs 130L, etc.
+- **Nouvelles règles** : 250 chars description SKILL.md auto-trigger, pipeline architect→dev→reviewer→test ajouté à [[methode-analyser-repo]]
+- **Source audit** : `output/audit-vault-thematique/01-claude-code/`

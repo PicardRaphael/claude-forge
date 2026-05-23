@@ -9,7 +9,7 @@ aliases:
   - "claude-code-config"
   - "ToB config CC"
   - "sandbox 3-tier Claude Code"
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-23
 auteur: claude
 type: setup-public
 sources:
@@ -20,7 +20,6 @@ tags:
   - "#domaine/securite"
   - "#projet/forge"
 ---
-
 # Trail of Bits — Configuration Claude Code entreprise sécurité publique
 
 ## QUI / QUOI
@@ -176,3 +175,31 @@ Limites :
 - Pas d'audit indépendant du repo (Trail of Bits est lui-même l'audit)
 - Patterns testés en interne ToB, pas benchmarkés cross-org
 - Sandbox 3-tier suppose stack DigitalOcean / devcontainer — adapter selon stack cible
+
+---
+
+## CORRECTIONS POST-AUDIT 23 MAI 2026
+
+### C12.5 — Doctrine MCP/Skills ToB (reformulation)
+
+**Avant** : "Sécurité-sensitive → skills par défaut, MCP désactivé en projet par défaut"
+**Reformulation plus juste** (vérification empirique README sub-agent cluster 9) :
+
+> **Sécurité-sensitive → Skills préférées par défaut** (in-repo, code-reviewable, versionnables). **MCP réservé aux intégrations externes / cross-ecosystem** (clients externes qui doivent intégrer outils tiers). Pas un "désactivé strict" mais un "minimal par défaut".
+
+C'est la position **la plus prudente publique** sur MCP, convergente avec Ronacher (cf [[mcp-vs-skills-doctrine]], "Sentry MCP ~8k tokens upfront").
+
+### Anti-rationalization Stop hook — verbatim confirmés
+
+- ✅ Citation "claiming issues are 'pre-existing' or 'out of scope', saying 'too many issues' to fix, deferring to unrequested 'follow-ups'" — **verbatim README confirmé**
+- ✅ Citation "The prompt must demand 'raw JSON only' — without that instruction, Haiku wraps results in markdown fences, silently breaking the hook's JSON parsing" — **verbatim README confirmé**
+
+### 3-tier sandbox confirmé
+
+`/sandbox` builtin + devcontainer + dropkit DO droplets — vérifié empiriquement.
+
+---
+
+Source audit : `output/audit-vault-thematique/01-claude-code/B-verif-cluster9-12-13-14-repos.md`
+
+Note `derniere-maj` mise à jour 23 mai 2026.

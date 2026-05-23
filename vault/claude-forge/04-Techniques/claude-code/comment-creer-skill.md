@@ -1,6 +1,6 @@
 ---
 titre: "Comment créer une skill Claude Code parfaite"
-resume: "Note canonique pour créer une skill Claude Code selon les 9 catégories Thariq, structure progressive disclosure, frontmatter trigger 3e personne, < 500L SKILL.md, agentskills.io spec ouverte."
+resume: "Note canonique pour créer une skill Claude Code selon les 9 catégories Thariq (post Anthropic mars 2026), structure progressive disclosure, frontmatter trigger 3e personne, < 500L SKILL.md, limite pratique description ~250 chars pour auto-invocation, agentskills.io spec ouverte."
 aliases:
   - "comment creer skill"
   - "creer une skill"
@@ -12,12 +12,12 @@ aliases:
   - "SKILL.md structure"
   - "frontmatter skill"
   - "agentskills.io"
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-23
 auteur: claude
 type: technique
 sources:
   - "https://www.claude.com/blog/skills-explained"
-  - "Thariq Shihipar LinkedIn 17 mars 2026 — 9 catégories"
+  - "Thariq Shihipar — post Anthropic 'Lessons from Building Claude Code: How We Use Skills' (mars 2026)"
   - "github.com/anthropics/skills"
   - "agentskills.io"
 tags:
@@ -32,6 +32,8 @@ tags:
 > Note canonique forge — création de skills selon doctrine Anthropic + Thariq mai 2026.
 
 ---
+
+> ⚠️ **Ordre canonique pour TOUTE création/modification de skill** : suivre A→B→C→D→E (analyser réel → lire canoniques EN ENTIER → croiser → plan d'écarts → exécuter). Cf [[methode-analyser-repo]] section **ORDRE CANONIQUE**. Pas de prescription avant analyse du réel.
 
 ## QUOI — Définition
 
@@ -74,7 +76,7 @@ Sans skills, on accumule dans CLAUDE.md des instructions cross-repos (= bruit). 
 ```yaml
 ---
 name: <nom-exact-du-dossier-kebab-case>
-description: <trigger directive 3e personne, max 1024 chars>
+description: <trigger directive 3e personne, max 1024 chars spec — viser < 250 chars pour auto-invocation fiable>
 allowed-tools: <optionnel — liste outils>
 model: <optionnel — sonnet/opus/haiku>
 ---
@@ -87,7 +89,10 @@ model: <optionnel — sonnet/opus/haiku>
    - ❌ "I help you create skills"
    - ❌ "This skill creates skills"
    - ✅ "Use when creating a new Claude Code skill, modifying an existing one, or when the user asks 'comment créer une skill'"
-3. **`description` ≤ 1024 caractères** — au-delà tronquée
+3. **`description` — DEUX limites importantes** :
+   - **Spec officielle** : 1024 chars max (au-delà tronquée)
+   - **Limite pratique auto-invocation** : **~250 chars** — le système reminder `/skills` injecté à chaque turn tronque les descriptions au-delà → tout ce qui dépasse devient **invisible à Claude pour l'auto-trigger**
+   - **Conséquence** : viser < 250 chars dans la `description` pour garantir l'auto-trigger fiable. Le détail va dans le body
 4. **`description` = critère d'activation** — Claude lit toutes les descriptions à chaque turn pour décider quelle skill activer
 
 ### Body SKILL.md
@@ -129,9 +134,11 @@ Pour la documentation longue, exemples massifs, ou détails à charger condition
 
 ---
 
-## QUAND — 9 catégories Thariq (LinkedIn 17 mars 2026)
+## QUAND — 9 catégories Thariq
 
-Ordre verbatim de Thariq Shihipar (Anthropic) :
+Source : Thariq Shihipar (Anthropic Claude Code team) — post Anthropic **"Lessons from Building Claude Code: How We Use Skills"** (mars 2026, date exacte à confirmer ~13-19 mars). Référence tierce : [dev.to article framework 19 mars 2026](https://dev.to/minatoplanb/how-anthropic-actually-uses-skills-in-claude-code-a-9-category-framework-1kel).
+
+Verbatim contexte : *"Anthropic runs hundreds of Skills internally, organized into 9 categories"*.
 
 | # | Catégorie | Exemples |
 |---|-----------|----------|
@@ -146,6 +153,8 @@ Ordre verbatim de Thariq Shihipar (Anthropic) :
 | 9 | **Infrastructure Operations** | Provisioning, infra commands |
 
 **Critère** : si ce que tu veux automatiser entre dans 1 de ces 9 catégories → skill légitime. Sinon, reconsidérer (peut-être agent, hook, ou simple CLAUDE.md).
+
+Insight Thariq : "most teams only use 2-3 of these categories — not because the others aren't useful, but because they didn't know they existed". Et : "Skills with a Gotchas section measurably improve Claude's accuracy".
 
 ---
 
@@ -164,6 +173,8 @@ Côté repo externe : utiliser `mcp-builder` ou `skill-creator` officiel Anthrop
 ### Étape 3 — Frontmatter trigger
 Écrire la **description comme un trigger directive 3e personne**. Tester mentalement : "si je tape X dans une session, est-ce que Claude devrait activer cette skill ?"
 
+**Cibler < 250 chars** dans la description pour garantir l'auto-trigger (limite pratique system reminder).
+
 ### Étape 4 — Body progressive disclosure
 - SKILL.md < 500 lignes
 - Instructions claires et directives
@@ -171,7 +182,7 @@ Côté repo externe : utiliser `mcp-builder` ou `skill-creator` officiel Anthrop
 - Scripts pour opérations déterministes
 
 ### Étape 5 — Test en session fraîche
-Tester la skill dans une session vierge avec un prompt qui devrait l'activer. Si elle ne s'active pas → description pas assez directive.
+Tester la skill dans une session vierge avec un prompt qui devrait l'activer. Si elle ne s'active pas → description pas assez directive **ou** trop longue (>250 chars système reminder).
 
 ### Étape 6 — Devil's advocate (CONDITIONNEL)
 Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilisée cross-repos, skill sécu critique, skill métier complexe). Doctrine 22 mai : pas de gates systématiques (cf [[raisonnement-22mai-doctrine-vs-enforcement]]). DA reste **conditionnel**, pas réflexe.
@@ -196,7 +207,7 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilis�
 - Description claire mais pas optimisée pour trigger
 
 ### Niveau avancé
-- Frontmatter trigger optimisé (3e personne, directive, mots-clés réels users)
+- Frontmatter trigger optimisé (3e personne, directive, < 250 chars, mots-clés réels users)
 - references/ pour détail
 - scripts/ pour ops déterministes
 - Section Gotchas + Apprentissage
@@ -214,7 +225,7 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilis�
 
 | Optim | Gain |
 |-------|------|
-| Description trigger directive | Auto-activation fiable, ~0 token gaspillé sur mauvaises activations |
+| Description trigger directive < 250 chars | Auto-activation fiable (au-delà : invisible reminder `/skills`) |
 | < 500L SKILL.md + references/ | Body chargé seulement à l'activation, references seulement à la demande |
 | Progressive disclosure | 5k tokens budget par skill, 25k combiné post-compaction (limites Anthropic) |
 | scripts/ pour ops déterministes | Fiabilité 100% vs compliance partielle LLM sur ops répétitives |
@@ -226,9 +237,10 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilis�
 
 ### Description / frontmatter
 - ❌ Description en 1ère personne ("I help...") — toujours 3e personne directive
+- ❌ Description **> 250 chars** = tronquée par system reminder `/skills` → invisible à Claude pour auto-trigger
+- ❌ Description **> 1024 chars** = tronquée spec officielle
 - ❌ Keyword stuffing dans description — cf [[e-descriptions-keyword-stuffing]]
 - ❌ `name` ≠ nom du dossier — invalide
-- ❌ Description > 1024 caractères — tronquée
 - ❌ **Description qui copie le body** : la description est un TRIGGER ("Use when X"), pas un résumé du contenu. Si la description = première ligne du body, c'est faux. Description directive ≠ description descriptive.
 
 ### Structure
@@ -252,23 +264,17 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilis�
 ## EXEMPLES CONCRETS — Repos externes
 
 ### Référence Anthropic
-- **[github.com/anthropics/skills](https://github.com/anthropics/skills)** — **17 skills officielles** incluant :
-  - `skill-creator` (méta : skill qui crée des skills)
-  - `mcp-builder` (créer des MCP servers)
-  - `pdf` (manipulation PDF)
-  - `frontend-design` (Lisa Crofoot)
-  - et 13 autres
+- **[github.com/anthropics/skills](https://github.com/anthropics/skills)** — skills officielles (incluant `skill-creator`, `mcp-builder`, `pdf`, `frontend-design`, etc.). Compte exact à vérifier sur le repo (le sous-dossier `skills/` n'est pas toujours listé par WebFetch automatique).
 
 ### Référence Karpathy
-- **`karpathy/nanochat/.claude/skills/read-arxiv-paper/SKILL.md`** — seul skill public Karpathy
-- ~40 lignes, atomique, démonstration "court + précis > long + générique"
+- **`karpathy/nanochat/.claude/skills/read-arxiv-paper/SKILL.md`** — ~40 lignes, atomique (single skill public Karpathy)
 
 ### Référence écosystème
 - **Stripe**, **Vercel**, **Cloudflare**, **Sentry**, **OpenAI**, **HashiCorp**, **Figma**, **Netlify** — skills publics
 - **Simon Willison** `simonw/llm`
 
 ### Spec ouverte
-- **[agentskills.io](https://agentskills.io)** — adopté par ~40 produits
+- **[agentskills.io](https://agentskills.io)** — ~40 produits
 - Cursor, Codex, Gemini CLI, Goose, Copilot, Roo, Kiro, Letta, Spring AI, Snowflake Cortex, Tabnine, Mistral Vibe, etc.
 
 ---
@@ -277,15 +283,16 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilis�
 
 ### Anthropic officiel
 - [claude.com/blog/skills-explained](https://www.claude.com/blog/skills-explained) — doctrine MCP/Skills
-- [github.com/anthropics/skills](https://github.com/anthropics/skills) — 17 skills officielles
+- [github.com/anthropics/skills](https://github.com/anthropics/skills) — skills officielles
 - docs Anthropic features-overview — budget 5k/25k tokens
 
 ### Thariq Shihipar (Anthropic)
-- **LinkedIn 17 mars 2026** — 9 catégories verbatim
+- **Post Anthropic mars 2026** "Lessons from Building Claude Code: How We Use Skills" — 9 catégories. Référence tierce : [dev.to article framework](https://dev.to/minatoplanb/how-anthropic-actually-uses-skills-in-claude-code-a-9-category-framework-1kel)
 - **Code with Claude SF 6-7 mai 2026** — Agent SDK Workshop + HTML markdown talks
+- **Verbatim compute allocators** : "All of us are becoming these compute allocators now" (ChatPRD How I AI)
 
 ### Lisa Crofoot (Anthropic)
-- **Code with Claude London 19 mai 2026** — "scaffolding holds Claude back" (catégorie 5 critique)
+- **Code with Claude London 19 mai 2026** — frontend-design skill, catégorie 5 (Code Scaffolding)
 
 ### Simon Willison
 - [simonwillison.net/2025/Oct/16/claude-skills/](https://simonwillison.net/2025/Oct/16/claude-skills/) — "Skills maybe a bigger deal than MCP"
@@ -298,10 +305,10 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilis�
 ## GOTCHAS — Pièges observés
 
 ### Pièges frontmatter
-- **Description YAML une seule ligne** : jamais `>-` ni `|` (forge)
+- **Description YAML une seule ligne** : jamais `>-` ni `|` — convention forge (évite bugs parsing dans plusieurs outils, pas spec Anthropic stricte)
 - **`name` kebab-case = dossier** exact
 - **Description 3e personne directive** sinon trigger défaillant
-- **≤ 1024 chars** sinon tronquée
+- **Spec 1024 chars MAIS limite pratique ~250 chars** pour auto-invocation (system reminder tronque)
 
 ### Pièges structure
 - **`README.md` dans dossier skill** = non-standard
@@ -375,4 +382,4 @@ Aliases déclarés en frontmatter (10) :
 
 ---
 
-**Fin note canonique `comment-creer-skill.md`** — 3/8 chantier 22 mai 2026.
+**Fin note canonique `comment-creer-skill.md`** — révisée 23 mai 2026 post-audit thématique vault.

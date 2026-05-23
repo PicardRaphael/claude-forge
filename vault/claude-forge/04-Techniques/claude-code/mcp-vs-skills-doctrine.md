@@ -1,6 +1,6 @@
 ---
 titre: "MCP vs Skills+CLI : quand utiliser quoi (doctrine 2026)"
-resume: "Doctrine canonique Anthropic mai 2026 — MCP connecte les données, Skills enseignent le how-to. Boris : MCP cross-surface simple. Thariq : 3-way trade-offs tools/bash/code-gen. Karpathy qmd = CLI+MCP les deux."
+resume: "Doctrine canonique Anthropic mai 2026 — MCP connecte les données, Skills enseignent le how-to. Boris : MCP simple multi-clients. Thariq : 3-way trade-offs tools/bash/code-gen. Karpathy qmd = CLI+MCP les deux. Lethal trifecta = Simon Willison."
 aliases:
   - "mcp vs skills"
   - "mcp ou skill"
@@ -10,9 +10,9 @@ aliases:
   - "mcp connects data skills teach how-to"
   - "mcp vs cli"
   - "tools bash code-gen tradeoffs"
-  - "lethal trifecta mcp"
+  - "lethal trifecta willison"
   - "compute allocator"
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-23
 auteur: claude
 type: technique
 sources:
@@ -21,7 +21,9 @@ sources:
   - "Code with Claude SF 6-7 mai 2026 — Thariq How I AI HTML markdown"
   - "Boris Cherny — Pragmatic Engineer interview"
   - "Karpathy LLM Wiki Gist 4 avril 2026"
+  - "Simon Willison — simonwillison.net/2025/Jun/16/the-lethal-trifecta/"
   - "Simon Willison — simonwillison.net/2025/Oct/16/claude-skills/"
+  - "Armin Ronacher — lucumr.pocoo.org/2025/12/13/skills-vs-mcp/"
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
@@ -65,7 +67,7 @@ Conséquence : 50-100 tools chargés, le modèle se perd dans le choix (anti-pat
 Conséquence : on réimplémente l'accès aux données (auth, parsing, pagination) à chaque skill au lieu de centraliser.
 
 ### Le bon arbitrage
-- **Accès données** = MCP (cross-surface, simple, partagé Claude Code + Desktop + Cursor + autres clients)
+- **Accès données** = MCP (cross-clients, simple, partagé Claude Code + Desktop + Cursor + autres clients)
 - **How-to procédural** = Skill (chargement progressif, < 5k tokens budget, partageable agentskills.io)
 - **Exploration / composition dynamique** = Bash
 
@@ -99,10 +101,9 @@ Conséquence : on réimplémente l'accès aux données (auth, parsing, paginatio
 > Anti-pattern : 50-100 tools structurés → "le modèle se perd"
 > — Thariq, Agent SDK Workshop
 
-### Doctrine Boris — MCP simple cross-surface
+### Doctrine Boris — MCP simple multi-clients
 
-> "MCP la réponse la plus simple" quand on veut le même accès données depuis Claude Code + Desktop + Cursor + Goose + Copilot
-> — Boris Cherny
+Concept Boris (Pragmatic Engineer interview) : MCP est la réponse simple quand on veut le même accès données partagé entre Claude Code + Desktop + Cursor + Goose + Copilot. La formule "cross-surface" parfois attribuée à Boris n'apparaît pas verbatim dans les sources primaires — c'est le concept qui est canonique, pas le terme.
 
 ---
 
@@ -174,7 +175,7 @@ Une **Skill** orchestre, appelle **MCP tools** pour les données, et compose ave
 ### Niveau avancé
 - MCP custom pour le métier (vault, DB business)
 - Skills extraites par domaine (front, back, sécu, sql)
-- Frontmatter skills riche (description = trigger directive 3e personne)
+- Frontmatter skills riche (description = trigger directive 3e personne, < 250 chars pour auto-trigger)
 
 ### Niveau expert (forge actuel)
 - 2 MCP custom distincts : **forge-brain** (vault perso, port 8091) + **obsidian-brain** (vault Neoteem business)
@@ -196,6 +197,8 @@ Une **Skill** orchestre, appelle **MCP tools** pour les données, et compose ave
 
 ### Mesure Ronacher (Sentry MCP)
 
+Source : [lucumr.pocoo.org/2025/12/13/skills-vs-mcp/](https://lucumr.pocoo.org/2025/12/13/skills-vs-mcp/) (Armin Ronacher, 13 décembre 2025).
+
 Le serveur MCP Sentry pèse **~8k tokens upfront** (schemas tools). À mettre en balance avec : qu'aurais coûté de réimplémenter l'accès Sentry dans 5 skills ?
 
 ---
@@ -212,6 +215,7 @@ Le serveur MCP Sentry pèse **~8k tokens upfront** (schemas tools). À mettre en
 
 ### Anti-patterns Skills
 - ❌ **Description en 1ère personne** ("I help you...") — toujours 3e personne directive ("Use when...")
+- ❌ **Description > 250 chars** = tronquée par system reminder `/skills` → invisible à Claude pour auto-trigger
 - ❌ **SKILL.md > 500 lignes monolithique** — déporter dans `references/`
 - ❌ **Skills orphelines** dans frontmatter agent sans être référencées dans le body (cf [[feedback_non_invokable_skills_orphan]])
 - ❌ **Keyword stuffing dans description** — cf [[e-descriptions-keyword-stuffing]]
@@ -222,17 +226,19 @@ Le serveur MCP Sentry pèse **~8k tokens upfront** (schemas tools). À mettre en
 - ❌ **Heredoc pour write disguised** quand agent a `disallowedTools: Write,Edit` (cf [[feedback_da_bash_write]])
 
 ### Anti-pattern transversal : Lethal trifecta (Simon Willison)
-**Terme forgé par Simon Willison** ([simonwillison.net](https://simonwillison.net), juin 2025), repris par Thariq dans Agent SDK Workshop mai 2026.
 
-Combinaison toxique d'accès LLM :
-1. Accès à des **données privées**
-2. Capacité d'**exposition externe** (envoyer email, post API)
-3. Exposition à du **contenu non-trusted** (user input, web content)
+**Terme forgé par Simon Willison** ([simonwillison.net/2025/Jun/16/the-lethal-trifecta/](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/), 16 juin 2025). Repris par l'écosystème Claude Code (Claude for Chrome / browser agents) pour la sécurité prompt injection.
+
+Combinaison toxique d'accès LLM (verbatim Willison) :
+1. **Private data** (données privées)
+2. **Untrusted content** (contenu non-trusted, user input, web)
+3. **Exfiltration vector** (capacité d'exfiltration externe)
 
 Les trois ensemble = vulnérabilité majeure (prompt injection exfiltration). Couper au moins 1 des 3 axes.
 
-> "Swiss cheese defense" — multi-layer defense, plusieurs hooks/skills imparfaits qui ensemble couvrent les trous
-> — Thariq Shihipar, Agent SDK Workshop Code with Claude SF mai 2026
+> ⚠️ Avant 23 mai 2026 : le vault forge attribuait à tort le lethal trifecta à Thariq Shihipar (Agent SDK Workshop Code with Claude SF). C'est **Simon Willison** qui a forgé le terme en juin 2025. Thariq le mentionne mais ne l'a pas créé.
+
+**"Swiss cheese defense"** = concept général cybersécurité (multi-layer defense, plusieurs couches imparfaites qui ensemble couvrent les trous). Repris dans l'écosystème Claude Code mais pas verbatim Thariq Agent SDK Workshop spécifiquement.
 
 ---
 
@@ -240,18 +246,19 @@ Les trois ensemble = vulnérabilité majeure (prompt injection exfiltration). Co
 
 ### MCP officiels Anthropic / écosystème
 - **Anthropic MCP servers** ([github.com/modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers)) — filesystem, git, sqlite, etc.
-- **Sentry MCP** (Ronacher) — ~8k tokens upfront, accès Sentry partagé cross-clients
+- **Sentry MCP** (Ronacher) — ~8k tokens upfront, accès Sentry partagé cross-clients ([lucumr.pocoo.org/2025/12/13/skills-vs-mcp/](https://lucumr.pocoo.org/2025/12/13/skills-vs-mcp/))
 - **forge-brain** (custom forge) — 11 tools sur vault perso, FastMCP 2, port 8091
 - **GitHub MCP** — `gh` operations + repos search
 
 ### Skills publiques (agentskills.io)
-- `anthropics/skills` — 17 skills officielles (pdf, skill-creator, mcp-builder, etc.)
+- `anthropics/skills` — skills officielles (pdf, skill-creator, mcp-builder, frontend-design, etc. — compte exact à vérifier sur le repo)
 - `karpathy/nanochat/.claude/skills/read-arxiv-paper/SKILL.md` — seul skill public Karpathy, ~40 lignes atomique
 - Stripe, Vercel, Cloudflare, Sentry, OpenAI, HashiCorp, Figma, Netlify — skills publics
 - Simon Willison `simonw/llm`
 
 ### Pattern hybride Karpathy (qmd)
-**qmd** (créé par **Tobi Lütke, CEO Shopify**, recommandé par Karpathy) :
+**qmd** — handle `tobi` GitHub (historiquement Tobias Lütke, CEO Shopify), confirmé par npm `@tobilu/qmd` et sources tierces (attribution communément acceptée, non signée dans README officiel). Karpathy le recommande dans son Gist LLM Wiki.
+
 - BM25 + vector + reranker
 - **CLI ET MCP** — les deux modes exposés
 - Démontre : pas d'opposition CLI vs MCP, complémentarité
@@ -259,7 +266,7 @@ Les trois ensemble = vulnérabilité majeure (prompt injection exfiltration). Co
 ### Trail of Bits (config sécu publique)
 - `/sandbox` builtin + devcontainer + dropkit DO droplets = 3-tier sandbox
 - MCP minimaux, hooks Stop pour anti-rationalization
-- Modèle de doctrine "MCP minimaliste + hooks sécu"
+- Doctrine ToB : **Skills préférées par défaut, MCP réservé aux intégrations externes / cross-ecosystem**
 
 ---
 
@@ -271,18 +278,20 @@ Les trois ensemble = vulnérabilité majeure (prompt injection exfiltration). Co
 - features-overview — doctrine hook vs rule
 
 ### Thariq Shihipar (Anthropic)
-- **Code with Claude SF 6-7 mai 2026** — Agent SDK Workshop (lethal trifecta, swiss cheese, bash > tools, 3-way trade-offs)
-- **Talk "How I AI: HTML is the new markdown"** — "99% of your AI-generated tokens should go to planning, interfaces, and communication—not production code" + "we're all becoming 'compute allocators'"
-- LinkedIn 17 mars 2026 — 9 catégories skills
+- **Code with Claude SF 6-7 mai 2026** — Agent SDK Workshop (3-way trade-offs tools/bash/code-gen, "le modèle se perd" anti-pattern)
+- **Talk "How I AI: HTML is the new markdown"** — verbatim "All of us are becoming these compute allocators now" (ChatPRD)
+- **Post Anthropic mars 2026** "Lessons from Building Claude Code: How We Use Skills" — 9 catégories skills
 
 ### Boris Cherny (Anthropic, créateur CC)
-- Pragmatic Engineer interview — "MCP la réponse la plus simple" cross-surface
+- Pragmatic Engineer interview — MCP simple multi-clients (concept)
 - Code with Claude London 19 mai 2026
 
 ### Karpathy
 - [Gist LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — 4 avril 2026, tooling = qmd (CLI+MCP)
+- Sequoia AI Ascent 29 avril 2026 — "From Vibe Coding to Agentic Engineering"
 
 ### Simon Willison
+- [simonwillison.net/2025/Jun/16/the-lethal-trifecta/](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/) — création du terme **lethal trifecta** (juin 2025)
 - [simonwillison.net/2025/Oct/16/claude-skills/](https://simonwillison.net/2025/Oct/16/claude-skills/) — "Skills maybe a bigger deal than MCP"
   - **Contexte critique** : facilité de partage (agentskills.io), PAS la mort de MCP. Complémentaires.
 
@@ -290,7 +299,7 @@ Les trois ensemble = vulnérabilité majeure (prompt injection exfiltration). Co
 - [agentskills.io](https://agentskills.io) — adopté par ~40 produits (Cursor, Codex, Gemini CLI, Goose, Copilot, Roo, Kiro, Letta, Spring AI, Snowflake Cortex, Tabnine, Mistral Vibe, etc.)
 
 ### Ronacher
-- Sentry MCP cost analysis — ~8k tokens upfront pour schemas
+- [lucumr.pocoo.org/2025/12/13/skills-vs-mcp/](https://lucumr.pocoo.org/2025/12/13/skills-vs-mcp/) — Sentry MCP cost analysis (~8k tokens upfront pour schemas)
 
 ---
 
@@ -307,6 +316,7 @@ Les trois ensemble = vulnérabilité majeure (prompt injection exfiltration). Co
 ### Pièges Skills
 - **Description = trigger** 3e personne directive, pas description 1re personne
 - **`name` YAML = nom exact du dossier** kebab-case
+- **Description spec 1024 chars MAIS ~250 chars pratique** (system reminder `/skills` tronque)
 - **Skills orphelines** dans frontmatter agent : si pas référencée dans le body, jamais activée
 - **STOP critique en gotchas fin** : critique en haut < ligne 25, pas en bas (cf [[erreur-stop-critique-position-gotcha-fin]])
 - **MultiEdit matcher** : hook PreToolUse "Write|Edit" sans MultiEdit = trou architectural (cf [[feedback_multiedit_matcher_blind_spot]])
@@ -317,6 +327,7 @@ Les trois ensemble = vulnérabilité majeure (prompt injection exfiltration). Co
 
 ### Piège transversal
 - **Confondre "MCP" et "Skill"** chez les juniors : MCP = couche data, Skill = couche savoir-faire. Pas le même rôle.
+- **Lethal trifecta attribué à tort** : c'est Simon Willison (juin 2025), pas Thariq.
 
 ---
 
@@ -331,7 +342,7 @@ Aliases déclarés en frontmatter (10) :
 - mcp connects data skills teach how-to
 - mcp vs cli
 - tools bash code-gen tradeoffs
-- lethal trifecta mcp
+- lethal trifecta willison
 - compute allocator
 
 ---
@@ -352,6 +363,7 @@ Aliases déclarés en frontmatter (10) :
 - [[Tobi Lutke]]
 - [[Andrej Karpathy]]
 - [[Simon Willison]]
+- [[Armin Ronacher]]
 
 ### Knowledge / erreurs liées
 - [[erreur-password-postgres-clair-mcp-json]]
@@ -372,4 +384,4 @@ Aliases déclarés en frontmatter (10) :
 
 ---
 
-**Fin note canonique `mcp-vs-skills-doctrine.md`** — 2e pilote chantier 22 mai 2026.
+**Fin note canonique `mcp-vs-skills-doctrine.md`** — révisée 23 mai 2026 post-audit thématique vault.
