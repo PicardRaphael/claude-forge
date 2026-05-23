@@ -10,7 +10,7 @@ aliases:
   - reciprocal rank fusion
 domaine: ia
 type: technique
-derniere-maj: 2026-05-08
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://www.zeroentropy.dev/articles/ultimate-guide-to-choosing-the-best-reranking-model-in-2025"
@@ -23,24 +23,34 @@ tags:
 
 ## Description
 
-Le reranking est l'ajout **le plus impactant** après hybrid search. Databricks : jusqu'à **+48% qualité retrieval**. ZeroEntropy : +28% NDCG@10.
+Le reranking est l'ajout **le plus impactant** après hybrid search. Études Databricks/Pinecone : jusqu'à **+48% qualité retrieval** (hybrid+rerank vs single-method). ZeroEntropy zerank-1 : **+28% NDCG@10**.
 
-## Leaderboard 2026 (ELO)
+## Leaderboard ELO 2026
 
-1. ZeroEntropy Zerank 2 — **1638 ELO**
-2. Cohere Rerank v4.0 Pro — **1629 ELO**
+Évaluation pairwise GPT-5 ([leaderboard Agentset/ZeroEntropy](https://agentset.ai/rerankers)) :
 
-## Benchmarks pratiques
+1. **ZeroEntropy Zerank 2** — 1638 ELO
+2. **Cohere Rerank v4.0 Pro** — 1629 ELO
+3. zerank-1 — 1573 ELO
+4. Voyage AI 2.5 — 1544 ELO
+5. Cohere Rerank v4.0 Fast — 1510 ELO
+6. Cohere Rerank v3.5 — 1451 ELO
 
-| Modèle | nDCG@10 | Latence p95 | ~$/1K queries |
-|--------|---------|-------------|---------------|
-| Cohere Rerank v3.5 | 0.735 | 210ms | $2.40 |
-| BGE-reranker-large v2 | 0.715 | 145ms | ~$0.35 (self-hosted) |
-| Jina Reranker v3 | 81.33% Hit@1 | 188ms | ~$0.30 (self-hosted) |
-| BGE-reranker-base v2 | 0.699 | 92ms | ~$0.18 (self-hosted) |
-| FlashRank (CPU) | lower | 55ms | ~$0.08 (self-hosted) |
+NB : leaderboard pairwise GPT-5, non un standard neutre.
 
-**Jina v3** = seul top-tier sous 200ms. **FlashRank** = viable pour CPU-only latency-critical. Cohere v3.5 = 100+ langues, JSON semi-structuré, auto-chunking 4096 tokens.
+## Modèles disponibles (panorama)
+
+**API managées** :
+- **Cohere Rerank v3.5/v4** : 100+ langues, JSON semi-structuré, auto-chunking 4096 tokens
+- **ZeroEntropy Zerank 2** : meilleur ELO actuel
+- **Jina Reranker v3** : top-tier latence sub-200ms, multilingue
+- **Voyage AI rerank-2.5**
+
+**Self-hosted** :
+- **BGE-reranker-large v2 / base v2** ([BAAI/HuggingFace](https://huggingface.co/BAAI)) : open-source, multilingue
+- **FlashRank** : viable CPU-only pour latence critique
+
+Latences et tarifs varient fortement selon provider et infrastructure self-hosted — benchmarker sur son propre traffic plutôt que se fier à des tableaux comparatifs (chiffres souvent non traçables en source primaire).
 
 ## Hybrid Search
 
@@ -66,7 +76,12 @@ Amélioration : **+15-30% sur métriques RAGAS**.
 
 ## Contextual Retrieval (Anthropic)
 
-Contexte LLM prepended à chaque chunk à l'indexation. -49% échecs retrieval (hybrid + contextual). Avec reranking : **-67%**. Coût contextualisation 50K chunks : $12 avec caching vs $94 sans (87% réduction).
+Contexte LLM prepended à chaque chunk à l'indexation ([anthropic.com/news/contextual-retrieval](https://www.anthropic.com/news/contextual-retrieval), verbatim) :
+
+- Contextual Embeddings seuls : **-35%** échecs retrieval (5.7% → 3.7%)
+- + Contextual BM25 : **-49%** (5.7% → 2.9%)
+- + Reranking : **-67%** (5.7% → 1.9%)
+- Coût ingestion : **$1.02 par million de tokens** avec prompt caching (réduction *"up to 90%"* via caching)
 
 ## Quand utiliser
 

@@ -10,7 +10,7 @@ aliases:
   - Pinecone vs Qdrant
 domaine: ia
 type: technique
-derniere-maj: 2026-05-08
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://www.datacamp.com/blog/the-top-5-vector-databases"
@@ -51,7 +51,7 @@ Le choix de la vector DB dépend de l'échelle, du budget, de l'écosystème exi
 
 Hybrid search natif : Weaviate, Vespa, Qdrant, **Milvus 2.6** (dense+sparse même collection, single API).
 
-**pgvector** = bon défaut pour ~70% des workloads IA-agent si l'équipe est déjà sur Postgres et l'index reste < 50M. Nécessite composition manuelle pour hybrid.
+**pgvector** = défaut recommandé si Postgres existant. Bornes techniques : vanilla pgvector < 10-20M vecteurs, pgvectorscale (Timescale) < 50M+. Usage prod confirmé : Instacart (migration FAISS+Elasticsearch → pgvector, 14M utilisateurs/jour, [blog Instacart 2025](https://tech.instacart.com/how-instacart-built-a-modern-search-infrastructure-on-postgres-c528fa601d54)), Supabase, Neon. Nécessite composition manuelle pour hybrid.
 
 ## Quand utiliser quoi
 

@@ -14,6 +14,28 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-23 — Audit thématique 03 RAG (~78 claims auditées)
+
+- **Modifiées (10 notes + 3 enrichissements squelettes)** :
+  - `04-Techniques/rag/RAG.md` (MOC) — retrait "73% retrieval" + "65%/85-90%" non sourcés, attribution Lewis et 11 co-auteurs Meta/FAIR/UCL/NYU, marché $11B avec source Grand View, Karpathy verbatim canonique
+  - `04-Techniques/rag/rag-architecture.md` — Self-RAG arXiv 2023/ICLR 2024, RAPTOR Stanford (pas Stanford/Google), GraphRAG chiffres marqués "source secondaire", Gemini 1.5 Pro >99.7% multi-fact corrigé (inversion modèle), 200K seuil verbatim Anthropic, Lamini case study Fortune 500
+  - `04-Techniques/rag/rag-chunking.md` — NAACL 2025 Vectara/UW-Madison auteurs, FloTorch source, overlap 10-20% (pas 50-100), Late Chunking inversion 0.8516/0.8590 corrigée, H-RAG 0.4271 (pas 0.4728), NMF 19.6-32.6x, NVIDIA tableau corrigé
+  - `04-Techniques/rag/rag-embeddings.md` — Voyage 65.1 (pas 67.1), Cohere dims 1536 (pas 1024), Voyage "médical" retiré, NV-Embed-v2 marqué MTEB v1 EN, BBQ Elasticsearch 8.16 + Qdrant 1.5-bit, ColBERT 554% = FastPlaid attribution, quantization 96% (pas 99%+)
+  - `04-Techniques/rag/rag-reranking.md` — tableau benchmark non traçable retiré, leaderboard ELO Agentset complet, Contextual Anthropic verbatim ($1.02/M)
+  - `04-Techniques/rag/rag-vector-databases.md` — "70% workloads pgvector" retiré, bornes techniques vanilla <10-20M et pgvectorscale <50M+, Instacart blog source
+  - `04-Techniques/rag/rag-metadata.md` — Qdrant 10-15 = règle empirique, Unstructured "75%" précisé "réduction erreurs préparation données", Markdown 20-40% HTML clean/68-87% réel, cache cosine 0.80 (pas 0.95), seuils RAGAS marqués "non canoniques", Crucible précisé
+  - `04-Techniques/rag/tool-retrieval-query-expansion.md` — **TOOLQP date 2025→2026**, **MCP-Zero URL 2603.13426→2506.01056**, OATS clarifié 2603.13426, ToolHijacker contexte shadow/target, Lost-in-Middle dissocié Liu 2023 vs blog vLLM
+  - `04-Techniques/fine-tuning/rag-vs-fine-tuning.md` — RAFT affiliations 100% UC Berkeley (Microsoft/Meta contributeurs blog seuls), ratio P=80% nuancé, Lamini case study Fortune 500
+  - `04-Techniques/rag/rag-evaluation.md` — squelette 30L → enrichi avec RAGAS/DeepEval/LLM-as-judge, patterns d'évaluation, pitfalls
+  - `04-Techniques/rag/rag-production.md` — squelette 30L → enrichi avec pipelines ingestion, retrieval multi-stage, drift detection, multi-tenancy, observabilité
+  - `04-Techniques/rag/ColPali.md` — squelette 30L → enrichi avec architecture PaliGemma+ColBERT, ICLR 2025, ViDoRe benchmark, comparatif Jina v4
+
+- **Bilan** : ~78 claims dont 11 ❌ (14.5%) + 34 ⚠️ (45%) → corrections appliquées en 1 session. Cluster 3 (embeddings) = 0 erreur (modèles Harrier-OSS-v1, Jina v5 confirmés réels). Cluster 6 (doctrine) = 30% erreurs (extrapolations forge).
+
+- **Source audit** : `output/audit-vault-thematique/03-rag/` (A-inventaire + 6 rapports cluster + D-synthèse + F-rapport final)
+
+---
+
 ## 2026-05-23 — Audit thématique 06 patterns + context + stacks (~92 claims auditées)
 
 - **Modifiées (13 notes vault + 2 fichiers .claude)** :

@@ -9,7 +9,7 @@ aliases:
   - "hybrid RAG fine-tuning"
 type: technique
 domaine: ia
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://gorilla.cs.berkeley.edu/blogs/9_raft.html"
@@ -54,7 +54,9 @@ Architecture recommandée :
 
 ## RAFT — Retrieval Augmented Fine-Tuning
 
-UC Berkeley/Microsoft/Meta. Entraîne le modèle en "open-book" avec 80/20 documents pertinents/distracteurs. Le modèle apprend à identifier les passages pertinents, ignorer les distracteurs, et citer les preuves.
+Paper [arXiv 2403.10131](https://arxiv.org/html/2403.10131v1) — auteurs **100% UC Berkeley** (Zhang, Patil, Jain, Shen, Zaharia, Stoica, Gonzalez). Le [blog gorilla.cs.berkeley.edu](https://gorilla.cs.berkeley.edu/blogs/9_raft.html) mentionne des contributions Microsoft (Cédric Vidal) et Meta (Suraj Subramanian) pour les démos/contenus, mais ils ne sont pas co-auteurs du paper arXiv.
+
+Entraîne le modèle en "open-book" : **P%** des données contiennent le document oracle + distracteurs, **(1-P)%** ne contiennent que des distracteurs. P=80% est une valeur d'ablation favorable, mais l'optimal varie selon dataset (testé sur 40%, 60%, 100%). Le modèle apprend à identifier les passages pertinents, ignorer les distracteurs, et citer les preuves.
 
 ## Raccourci < 200K tokens
 
@@ -68,7 +70,7 @@ Pour une base de connaissances < 200K tokens, le full-context prompting avec pro
 
 ## Quand Fine-Tuning bat RAG
 
-Lamini Memory Tuning (MoME) : 95% accuracy factuelle vs 50% GPT-4+RAG. Le fine-tuning est catégoriquement meilleur quand :
+[Lamini Memory Tuning (MoME)](https://www.lamini.ai/blog/lamini-memory-tuning) : *"95% accuracy was achieved with Lamini Memory Tuning, compared to only 50% accuracy with RAG"* — case study Fortune 500 (pas benchmark générale). Hallucinations "from 50% down to just 5%". Le fine-tuning est catégoriquement meilleur quand :
 - Raisonnement domaine-spécifique à internaliser
 - Format output rigide requis
 - Latence ne tolère pas l'overhead retrieval

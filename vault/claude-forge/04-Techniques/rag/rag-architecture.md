@@ -10,7 +10,7 @@ aliases:
   - GraphRAG
 domaine: ia
 type: technique
-derniere-maj: 2026-05-08
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://www.microsoft.com/en-us/research/project/graphrag/"
@@ -29,7 +29,7 @@ Au-delà du RAG basique, des patterns avancés permettent d'adresser les cas com
 
 ## Query Transformation
 
-Quand le RAG échoue, la retrieval est fautive **73% du temps**. La transformation de query adresse le gap sémantique.
+Quand un système RAG échoue, la retrieval est généralement la principale source d'erreur (consensus communauté, statistique exacte non sourcée en source primaire). La transformation de query adresse le gap sémantique.
 
 - **HyDE** : LLM génère une réponse hypothétique, embed ce texte pour la recherche. Efficace en zero-shot sur queries courtes.
 - **Multi-Query** : 3+ reformulations parallèles, merge/dedup/rerank. Pour queries ambiguës.
@@ -44,21 +44,21 @@ Stack production 2026 : **LangGraph** (orchestration, graphes cycliques) + **Lla
 
 - **LangGraph** : graphe dirigé cyclique avec branching conditionnel, checkpoints, human-in-the-loop
 - **LlamaIndex** : Composite Retrieval APIs, `auto_routed` mode, routing multi-index
-- **Adaptive RAG** : classifieur T5-large (~5-15ms) prédit difficulté query → no retrieval / single-step / multi-step. Coupe coûts de **30-50%**.
+- **Adaptive RAG** ([Jeong et al. NAACL 2024](https://arxiv.org/abs/2403.14403)) : classifieur **T5-large** prédit difficulté query → no retrieval / single-step / multi-step. Latence classifieur et gain de coût exacts à vérifier dans le paper résultats — ordres de grandeur cités dans des blogs (~ms latence, 30-50% économie) non sourcés verbatim au paper.
 
 Coût : 3-10x plus de tokens, 2-5x latence. Justifié sur multi-hop, ambiguïté, high-stakes. Pas sur FAQ bots.
 
 ## GraphRAG (Microsoft)
 
-Extrait knowledge graphs du texte, construit hiérarchies de communautés, génère résumés. **3.4x meilleure accuracy** que RAG traditionnel sur multi-hop complexe (80% vs 50%).
+Extrait knowledge graphs du texte, construit hiérarchies de communautés, génère résumés. Sources secondaires citent **3.4x meilleure accuracy** sur multi-hop (80% vs 50%) — verbatim direct non confirmé sur la page projet Microsoft, à sourcer si utilisé en contexte formel.
 
-**LazyGraphRAG** : réduit coût indexation à **0.1% du GraphRAG complet**. Les deux disponibles via Microsoft Discovery sur Azure.
+**LazyGraphRAG** : *"data indexing costs are identical to vector RAG and **0.1% of the costs of full GraphRAG**"* — verbatim [Microsoft Research Blog](https://www.microsoft.com/en-us/research/blog/lazygraphrag-setting-a-new-standard-for-quality-and-cost/), novembre 2024. Les deux disponibles via Microsoft Discovery sur Azure.
 
-## RAPTOR (Stanford/Google)
+## RAPTOR (Stanford)
 
-Recursive Abstractive Processing : embed → cluster → résume → recurse vers le haut. Retrieval multi-niveau.
+Recursive Abstractive Processing : embed → cluster → résume → recurse vers le haut. Retrieval multi-niveau. Paper [Sarthi et al. 2024](https://arxiv.org/abs/2401.18059) — affiliation **100% Stanford** (Sarthi, Abdullah, Tuli, Khanna, Goldie, Manning). Sarthi a rejoint Google DeepMind APRÈS publication.
 
-Coupling RAPTOR + GPT-4 : **+20% accuracy absolue** sur QuALITY benchmark. F-1 : +1.8 pts vs DPR, +5.3 pts vs BM25.
+Verbatim abstract : *"improves the best performance on the QuALITY benchmark by 20% in absolute accuracy"*. Scores F-1 (+1.8 pts vs DPR, +5.3 pts vs BM25) cités dans le corps du paper (tables).
 
 Extensions 2026 : **adRAP** (ajustement incrémental), **postQFRAP** (post-retrieval black-box compatible).
 
@@ -69,7 +69,7 @@ LM unique qui décide adaptativement de retriever et évalue sa propre sortie vi
 2. Passages multiples traités en parallèle avec évaluation pertinence
 3. Tokens critique : évaluent factualité et qualité
 
-**81% accuracy** fact-checking (vs 71% competing), **80% factualité** bio (vs 71% ChatGPT). Critique >90% agreement avec GPT-4.
+Paper [Asai et al. (arXiv oct. 2023, ICLR 2024)](https://arxiv.org/abs/2310.11511). Self-RAG surpasse significativement les baselines sur PubHealth (fact-checking) et Bio (FactScore). Chiffres précis (~81% PubHealth, ~80% FactScore, critique ~90% agreement GPT-4) dans les tables du paper PDF — à vérifier verbatim dans Table 2 si cités en contexte formel.
 
 ## CRAG (Corrective RAG)
 
@@ -78,21 +78,21 @@ LM unique qui décide adaptativement de retriever et évalue sa propre sortie vi
 - **Incorrect** (basse confiance) → discard, fallback web search
 - **Ambiguous** → combine retrieval refiné + web search
 
-Correct action : **78.1% accuracy** (+26.7 pts vs vanilla RAG). Reproduction open-source 2026 : pipeline Wikipedia 5 stages, 99% coverage.
+Paper [Yan et al. 2024](https://arxiv.org/abs/2401.15884). L'abstract confirme amélioration significative vs vanilla RAG. Chiffre "78.1% / +26.7 pts" à vérifier dans tables du paper PDF. Reproduction open-source 2026 : pipeline Wikipedia 5 stages, 99% coverage.
 
 ## RAG vs Fine-tuning vs Long Context
 
-**RAG résout un problème de connaissance. Fine-tuning résout un problème de comportement.** 60% des déploiements 2026 utilisent les deux.
+**RAG résout un problème de connaissance. Fine-tuning résout un problème de comportement.** L'hybridation RAG+FT est la tendance dominante 2025-2026 (chiffre "60%" circulant entre blogs industry sans source primaire identifiable).
 
 ### Long context (1M+ tokens)
-- Gemini 1.5 Pro : 99.7% NIAH single-fact mais ~60% multi-fact réaliste
-- "Lost in the middle" : -30% accuracy pour info positionnée centralement
-- Plafond pratique : 32-64K tokens, pas les maximums annoncés
-- Latence : ~60s pour 890K vs ~1s pour RAG
-- Coût : ~$2/appel long-context vs ~$0.00008/query RAG (1250x)
+- **Gemini 1.5 Pro** : **>99.7% recall NIAH single ET multi-fact** jusqu'à 1M tokens, 99.2% à 10M tokens ([Google Cloud Blog](https://cloud.google.com/blog/products/ai-machine-learning/the-needle-in-the-haystack-test-and-how-gemini-pro-solves-it))
+- **GPT-4 Turbo** : ~50% recall en multi-fact à sa limite max 128K (même source)
+- "Lost in the middle" ([Liu et al. 2023](https://arxiv.org/abs/2307.03172)) : dégradation significative (>30% observée dans certains contextes) pour info positionnée centralement
+- Plafond pratique (circa 2024, Greg Kamradt NIAH) : 32-64K tokens pour la majorité des modèles avant dégradation notable. Les modèles 2025-2026 améliorent cette limite.
+- Latence/coût : long-context est ordres de grandeur plus lent et plus cher que RAG (calculs varient selon tarifs API à date, ratio typique 100x-1000x+)
 
 ### Anthropic recommande
-Corpus < 200K tokens → full-context + prompt caching, skip retrieval.
+*"If your knowledge base is smaller than 200,000 tokens (about 500 pages of material), you can just include the entire knowledge base in the prompt"* — verbatim [Anthropic Contextual Retrieval](https://www.anthropic.com/news/contextual-retrieval). Avec prompt caching : "significantly faster and more cost-effective".
 
 ### Pattern hybride 2026
 RAG retrieve les documents les plus pertinents d'un grand corpus → charge dans un long context pour cross-document reasoning. RAG = scale (millions docs), long context = depth (centaines de pages).
@@ -110,11 +110,11 @@ Seuils production : **>0.8** faithfulness et context precision. Top-k optimal : 
 
 ## Multi-Index / Multi-Source
 
-73% des équipes enterprise (avril 2026) déploient hot/warm/cold indexes, coupant coûts embedding de **28-35%**.
+Pattern enterprise 2026 : hot/warm/cold indexes pour optimiser coûts d'embedding (chiffres exacts de pourcentage d'adoption non sourcés en source primaire).
 
 - **Query routing** : classifieur/LLM détermine quel index interroger
 - **Map-Reduce** : agents parallèles par sous-query/source, agrégation
-- **Milvus 2.6** : dense + sparse dans la même collection, fusion single API
+- **Milvus 2.6** : dense + sparse dans la même collection, [hybrid_search() API unique](https://milvus.io/blog/introduce-milvus-2-6-built-for-scale-designed-to-reduce-costs.md)
 
 ## Liens
 

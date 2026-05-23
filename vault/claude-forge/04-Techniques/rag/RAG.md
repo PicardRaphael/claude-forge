@@ -10,7 +10,7 @@ aliases:
   - RAG system
 domaine: ia
 type: index
-derniere-maj: 2026-05-08
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://arxiv.org/abs/2005.11401"
@@ -23,16 +23,20 @@ tags:
 
 ## Vue d'ensemble
 
-Le RAG (Retrieval-Augmented Generation) combine la recherche d'information dans une base de connaissances avec la génération par LLM. Inventé en 2020 par [[Patrick Lewis]] et [[Douwe Kiela]] (Meta/UCL/NYU), c'est l'architecture IA la plus déployée en 2026. Marché projeté à $11B en 2030.
+Le RAG (Retrieval-Augmented Generation) combine la recherche d'information dans une base de connaissances avec la génération par LLM. Introduit en **mai 2020 (NeurIPS 2020)** par **12 co-auteurs** dont [[Patrick Lewis]], Ethan Perez et [[Douwe Kiela]] (Meta/FAIR, UCL, NYU), c'est l'architecture IA la plus déployée en 2026.
 
-**Stat clé** : quand le RAG échoue, le problème vient de la **retrieval 73% du temps**, pas de la génération.
+**Marché** : projeté à **$11.0B en 2030** (Grand View Research, depuis $1.2B en 2024, CAGR 49.1%). MarketsAndMarkets donne $9.86B — deux estimations distinctes du même horizon.
+
+**Stat retrieval** : la retrieval est la principale source d'échec d'un système RAG (consensus communauté, statistique non universellement sourcée — éviter le chiffre "73%" qui circule sans source primaire).
 
 ## Taxonomie
 
-- **Naive RAG** — pipeline linéaire retrieve-read, ~65% de pertinence
-- **Advanced RAG** — pré/post-retrieval (query expansion, reranking), 85-90%
+- **Naive RAG** — pipeline linéaire retrieve-read
+- **Advanced RAG** — pré/post-retrieval (query expansion, reranking, contextual)
 - **Modular RAG** — modules composables et indépendants
 - **Agentic RAG** — systèmes itératifs et auto-correctifs (Self-RAG, CRAG)
+
+Les benchmarks (FloTorch 2026, Chroma Research, NAACL 2025 Vectara) confirment des gains significatifs d'Advanced RAG vs Naive (typiquement 25-40 points selon métrique et domaine), mais les pourcentages absolus "65% vs 85-90%" circulant entre blogs ne sont pas sourcés en source primaire.
 
 ## Notes techniques
 
@@ -83,18 +87,19 @@ Le RAG (Retrieval-Augmented Generation) combine la recherche d'information dans 
 
 ## Papers fondamentaux
 
-1. Lewis et al. (2020) — [RAG original](https://arxiv.org/abs/2005.11401)
+1. Lewis et al. (mai 2020, NeurIPS 2020) — [RAG original](https://arxiv.org/abs/2005.11401)
 2. Khattab & Zaharia (2020) — [ColBERT](https://arxiv.org/abs/2004.12832)
 3. Reimers & Gurevych (2019) — Sentence-BERT (EMNLP)
-4. Asai et al. (2023) — Self-RAG
-5. Yan et al. (2024) — CRAG
-6. Anthropic (2024) — [Contextual Retrieval](https://www.anthropic.com/news/contextual-retrieval)
-7. Jina AI (2024) — [Late Chunking](https://arxiv.org/pdf/2409.04701)
-8. Microsoft (2024) — GraphRAG + LazyGraphRAG
+4. Asai et al. (oct. 2023 arXiv, ICLR 2024) — [Self-RAG](https://arxiv.org/abs/2310.11511)
+5. Yan et al. (2024) — [CRAG](https://arxiv.org/abs/2401.15884)
+6. Sarthi et al. (2024, Stanford) — [RAPTOR](https://arxiv.org/abs/2401.18059)
+7. Anthropic (2024) — [Contextual Retrieval](https://www.anthropic.com/news/contextual-retrieval)
+8. Jina AI (2024) — [Late Chunking](https://arxiv.org/pdf/2409.04701)
+9. Microsoft (2024) — [GraphRAG + LazyGraphRAG](https://www.microsoft.com/en-us/research/blog/lazygraphrag-setting-a-new-standard-for-quality-and-cost/)
 
 ## Liens
 
 - [[MOC-Techniques]]
-- [[Andrej Karpathy]] — Karpathy utilise Obsidian comme alternative au RAG
+- [[Andrej Karpathy]] — pattern wiki-LLM cumulatif ([[pattern-vault-llm-karpathy]]) : *"Obsidian is the IDE; the LLM is the programmer; the wiki is the codebase."* (Gist 4 avril 2026). Karpathy contraste le **wiki cumulatif** avec la **synthèse RAG stateless** (NotebookLM, ChatGPT file uploads) — différence philosophique, pas remplacement technique.
 - [[sqlite-fts5-vault]] — Technique FTS5 utilisée dans notre MCP vault
 - [[mcp-obsidian-brain-v2]] — Notre implémentation MCP de recherche vault

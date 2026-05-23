@@ -10,7 +10,7 @@ aliases:
   - embedding optimization
 domaine: ia
 type: technique
-derniere-maj: 2026-05-08
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://milvus.io/blog/choose-embedding-model-rag-2026.md"
@@ -32,28 +32,28 @@ Les embeddings transforment le texte en vecteurs numériques pour la recherche s
 
 | Modèle | MTEB | Dims | Context | Prix/1M tokens |
 |--------|------|------|---------|----------------|
-| Voyage AI voyage-3-large | 67.1 | 1024 | 32K | $0.06-0.18 |
-| Cohere embed-v4 | 65.2 | 1024 | 128K | $0.12 |
+| Voyage AI voyage-3-large | 65.1 | 1024 | 32K | $0.06 |
+| Cohere embed-v4 (multimodal) | 65.2 | 1536 | 128K | $0.12 |
 | Jina embeddings v3 | 65.5 | 1024 | 8K | $0.02 |
 | OpenAI text-embedding-3-large | 64.6 | 3072 | 8K | $0.13 |
-| Gemini Embedding 2 | top cross-lingual | 768 | varies | $0.006 |
+| Gemini Embedding 2 | top cross-lingual | variable (MRL) | varies | $0.006 |
 
 ### Open-source
 
 | Modèle | MTEB v2 | Dims | Context | Licence |
 |--------|---------|------|---------|---------|
-| Microsoft Harrier-OSS-v1 (27B) | 74.3 | varies | 32K | MIT |
-| NV-Embed-v2 | 72.31 | 4096 | 32K | CC-BY-NC-4.0 |
-| Jina v5-text-small (677M) | 71.7 | 1024 | 8K | Apache 2.0 |
-| Qwen3-Embedding-8B | 70.58 | 1024 | 32K | Apache 2.0 |
-| BGE-M3 | 63.0 | 1024 | 8K | MIT |
-| Nomic Embed v1.5 (137M) | ~62 | 768 | 8K | Apache 2.0 |
+| Microsoft Harrier-OSS-v1 (27B, mars 2026) | 74.3 (MMTEB v2) | varies | 32K | MIT |
+| NV-Embed-v2 | 72.31 (MTEB v1 EN, 2024) | 4096 | 32K | CC-BY-NC-4.0 |
+| Jina v5-text-small (677M, fév 2026) | 71.7 (MTEB EN v2) | 1024 | 8K | Apache 2.0 |
+| Qwen3-Embedding-8B | 70.58 (MTEB Multilingual) | 1024 | 32K | Apache 2.0 |
+| BGE-M3 | 63.0-64.2 | 1024 | 8K | MIT |
+| Nomic Embed v1.5 (137M) | 62.39 | 768 | 8K | Apache 2.0 |
 
-**Voyage AI** domine le domain-specific (+4-6 pts MTEB sur code/legal/médical). **BGE-M3** = seul modèle dense+sparse+multi-vector. **Nomic** = seul avec weights+code+data ouverts.
+**Voyage AI** domine le domain-specific (+4-6 pts MTEB sur **code/legal** — [voyage-law-2 blog](https://blog.voyageai.com/2024/04/15/domain-specific-embeddings-and-retrieval-legal-edition-voyage-law-2/) ; "médical" non attesté pour Voyage). **BGE-M3** = seul modèle combinant dense+sparse+multi-vector ColBERT dans un seul modèle (Jina v4 = dense+multi-vector sans sparse). **Nomic** = seul avec weights+code+data ouverts.
 
 ## Fine-tuning
 
-Améliore le retrieval in-domain de **10-30%**. Atlassian : Recall@60 de 0.751 → 0.951 (+26%). Possible avec seulement 6300 samples synthétiques en 3 min sur GPU consumer.
+Améliore le retrieval in-domain de **10-30%**. Atlassian sur JIRA : Recall@60 de **0.751 → 0.951 (+26%)** ([HuggingFace/NVIDIA](https://huggingface.co/blog/nvidia/domain-specific-embedding-finetune)). Démontré possible avec **6300 samples synthétiques en 3 min sur GPU consumer** ([Philipp Schmid](https://philschmid.de/fine-tune-embedding-model-for-rag)).
 
 Techniques clés :
 1. **Synthetic data** — LLM génère paires (query, document)
@@ -82,18 +82,18 @@ Standard en 2026 : OpenAI, Cohere, Jina, Nomic, Qwen3.
 
 | Type | Compression | Précision | Usage |
 |------|------------|-----------|-------|
-| Scalar (int8) | 4x | 99%+ | Défaut production |
-| Binary (1-bit) | 32x | Variable | Shortlisting rapide |
+| Scalar (int8) | 4x | ~96% avec rescoring | Défaut production |
+| Binary (1-bit) | 32x | ~92.5% sans rescoring, ~96% avec | Shortlisting rapide |
 | Product (PQ) | Jusqu'à 97% | Dataset-dépendant | Complexe à tuner |
 
 **MRL + int8** combinés = ~16x compression totale depuis 1024d float32.
 
-2026 : Better Binary Quantization (BBQ, Elastic), Qdrant 1.5-bit et 2-bit.
+2026 : Better Binary Quantization (BBQ, Elasticsearch 8.16 nov 2024), Qdrant v1.15.0 1.5-bit (24x compression) et 2-bit (16x).
 
 ## Multimodal
 
 - **ColPali** (ICLR 2025) : PaliGemma + ColBERT late interaction sur images de pages. Élimine OCR.
-- **[[jina-embeddings-v4|Jina Embeddings v4]]** (3.8B) : text+image, single et multi-vector, LoRA adapters. 72.19 JinaVDR vs ColPali 64.50.
+- **[[jina-embeddings-v4|Jina Embeddings v4]]** (3.8B) : text+image, single et multi-vector, LoRA adapters. **JinaVDR 72.19** vs ColPali-v1.2 **64.50** ; **ViDoRe 84.11** mode single-vector (multi-vector = 90.17) ([blog Jina + arXiv 2506.18902](https://jina.ai/news/jina-embeddings-v4)).
 - **Jina CLIP v2** : 89 langues, 512x512 images. 75% réduction dimensionnelle → 99% performance.
 
 ## Sparse vs Dense vs Hybrid
@@ -102,9 +102,9 @@ Dense seul : **78% recall@10**. BM25 seul : **65%**. **Hybrid : 91% recall@10**.
 
 - **BM25** : zero training, parfait pour termes rares/identifiants. Échoue sur mismatch vocabulaire.
 - **SPLADE** : sparse appris avec expansion vocabulaire. Pré-calculer à l'indexation.
-- **ColBERT** : matrices per-token + MaxSim. PLAID indexing pour le scale. 554% speedup rapporté en 2026.
+- **ColBERT** : matrices per-token + MaxSim. PLAID indexing pour le scale. **FastPlaid (LightOn, ACL 2025)** : jusqu'à **554% speedup vs PLAID sur Quora** (H100 GPU). Speedup moyen autres datasets : 174-211%. ([Khattab tweet](https://x.com/lateinteraction/status/1930268106213216734), [github.com/lightonai/fast-plaid](https://github.com/lightonai/fast-plaid))
 
-Fusion : **Reciprocal Rank Fusion (RRF) à k=60** comme défaut. Petits corpus : k=10. Avec 50+ queries labellisées : combinaison convexe avec alpha tuné. Toujours reranker après fusion.
+Fusion : **Reciprocal Rank Fusion (RRF) à k=60** comme défaut (paper [Cormack et al. SIGIR 2009](https://plg.uwaterloo.ca/~gvcormac/cormacksigir09-rrf.pdf), défaut OpenSearch / Elasticsearch / Azure AI Search / MongoDB Atlas / Weaviate). Petits corpus : k=10. Avec 50+ queries labellisées : combinaison convexe avec alpha tuné. Toujours reranker après fusion.
 
 ## Contextual Embeddings (Anthropic)
 

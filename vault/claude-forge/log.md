@@ -196,3 +196,11 @@ Suite à phase 0 audit prompt engineering : création fiches leaders identifiés
 - **05-Leaders/industrie/** : Geoffrey Hinton, Yoshua Bengio, Demis Hassabis, Ilya Sutskever, Reid Hoffman, Allie K. Miller
 
 Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance idéologique). Karpathy / Willison / Mollick déjà ailleurs — cross-référence via wikilinks.
+
+## [2026-05-23] audit-thematique | 03-rag — 78 claims, 11 ❌ + 34 ⚠️ corrigées
+
+- Méthode 6 étapes audit Claude Code 23 mai appliquée (sub-agents par cluster, checkpoint, self-verify, Type 1/2/3)
+- 10 notes modifiées + 3 squelettes enrichis (rag-evaluation, rag-production, ColPali)
+- Corrections critiques : TOOLQP date 2026 (pas 2025), MCP-Zero URL corrigée, Gemini 1.5 Pro NIAH multi-fact (inversion), Karpathy verbatim canonique, cache cosine 0.80 (pas 0.95)
+- Liens : [[RAG]] [[rag-architecture]] [[tool-retrieval-query-expansion]] [[pattern-vault-llm-karpathy]]
+- Output : `output/audit-vault-thematique/03-rag/`

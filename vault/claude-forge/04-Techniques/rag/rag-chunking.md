@@ -10,7 +10,7 @@ aliases:
   - stratégies de chunking
 domaine: ia
 type: technique
-derniere-maj: 2026-05-08
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://blog.premai.io/rag-chunking-strategies-the-2026-benchmark-guide/"
@@ -25,13 +25,13 @@ tags:
 
 ## Description
 
-Le chunking est l'étape la plus impactante du pipeline RAG. Un paper NAACL 2025 (Vectara) démontre que la **configuration de chunking a autant d'impact que le choix du modèle d'embedding**.
+Le chunking est l'étape la plus impactante du pipeline RAG. Le paper [NAACL 2025 (Vectara + UW-Madison)](https://aclanthology.org/2025.findings-naacl.114.pdf) — "Is Semantic Chunking Worth the Computational Cost?" (Qu, Tu, Bao) — démontre que **la configuration de chunking a un impact comparable au choix du modèle d'embedding** ("better chunking and large embeddings provide complementary benefits").
 
 ## Stratégies
 
 ### Recursive Character Splitting — Le défaut 2026
 
-Utilise une hiérarchie de séparateurs (`"\n\n"`, `"\n"`, `". "`, `" "`). À 512 tokens + 50-100 tokens overlap : **69% accuracy** (FloTorch, 50 papers, 905K tokens) et **88-89% recall** (Chroma Research).
+Utilise une hiérarchie de séparateurs (`"\n\n"`, `"\n"`, `". "`, `" "`). À 512 tokens + **10-20% overlap** (consensus benchmarks 2026) : **69% accuracy** ([FloTorch 2026](https://www.flotorch.ai/blogs/rag-benchmarking-of-amazon-nova-and-gpt-4o-models), 50 papers académiques) et ~88-89% recall (Chroma Research benchmarks).
 
 **C'est le benchmark à battre pour 80% des cas.**
 
@@ -39,7 +39,7 @@ Utilise une hiérarchie de séparateurs (`"\n\n"`, `"\n"`, `". "`, `" "`). À 51
 
 Encode chaque phrase, détecte les baisses de similarité cosinus comme frontières de topic. Chroma mesure **91.9% recall** mais FloTorch seulement **54% accuracy** car fragments trop petits (43 tokens moyen). Plancher pratique : **200 tokens minimum**.
 
-Variante NMF (2026, Journal of Supercomputing) : décomposition en topics latents, 19-32x speedup GPU.
+Variante NMF ([Journal of Supercomputing 2026](https://link.springer.com/article/10.1007/s11227-026-08370-3)) : décomposition en topics latents, **19.6×–32.6× speedup GPU**.
 
 ### Late Chunking (Jina AI)
 
@@ -49,7 +49,7 @@ Inverse le pipeline "chunk-then-embed" en "embed-then-chunk" :
 3. Segmentation en chunks via span annotations
 4. Mean pooling par chunk
 
-**+6.5 points nDCG@10** sur NFCorpus. Approche qualité LLM-augmented (0.8516 vs 0.8590). Idéal pour documents avec pronoms, cross-références, dépendances contextuelles.
+**+6.5 points nDCG@10** sur NFCorpus (Late Chunking 29.98 vs naive 23.46). Sur Table 4 du paper : Late Chunking 0.8516 vs Contextual Embedding Anthropic 0.8590 — Late Chunking avantage : sans LLM supplémentaire à l'ingestion. Idéal pour documents avec pronoms, cross-références, dépendances contextuelles.
 
 ### Contextual Chunking (Anthropic)
 
@@ -64,7 +64,7 @@ Coût : **$1.02 / million tokens** avec prompt caching. Skip si corpus < 200K to
 
 - Parents (500-2000 tokens) : contexte cohérent pour génération
 - Enfants (100-500 tokens) : retrieval précis
-- H-RAG (SemEval-2026) : fenêtres 3 phrases, stride 2 → nDCG@5 de 0.4728
+- H-RAG ([SemEval-2026, arXiv 2605.00631](https://arxiv.org/abs/2605.00631)) : fenêtres 3 phrases, stride 2 → **nDCG@5 0.4271** sur Task A
 
 Résout la tension fondamentale : **recall demande petits chunks, génération demande grands chunks**.
 
@@ -76,14 +76,14 @@ LLM lit chaque proposition, décide si elle appartient à un chunk existant ou e
 
 ### Code Chunking (AST-based)
 
-**cAST** (CMU/Augment Code, 2025) : fusionne les noeuds AST jusqu'à un budget de taille. StarCoder2-7B gagne **+5.5 pts RepoEval**, **+4.3 CrossCodeEval**, **+2.7 SWE-bench**.
+**cAST** ([CMU, EMNLP 2025 Findings, arXiv 2506.15655](https://aclanthology.org/2025.findings-emnlp.430/)) : fusionne les noeuds AST jusqu'à un budget de taille. StarCoder2-7B gagne **+5.5 pts RepoEval**, **+4.3 CrossCodeEval**, **+2.7 SWE-bench**.
 
 **tree-sitter** = backend dominant. Implémentations : `code-chunk` (Supermemory AI), `code-splitter` (Rust).
 
 ### Multimodal Chunking
 
 - **Vision-Guided** (2025-2026) : LMM traite pages PDF par lots, préserve cohérence multi-pages
-- **MultiDocFusion** (2026) : pipeline hiérarchique, **+8-15% precision retrieval**
+- **MultiDocFusion** ([arXiv 2604.12352](https://arxiv.org/abs/2604.12352), 2026) : pipeline hiérarchique, **+8-15% precision retrieval**
 - Tables : toujours chunker comme unités complètes, jamais couper une table
 
 ## Tailles optimales
@@ -91,18 +91,18 @@ LLM lit chaque proposition, décide si elle appartient à un chunk existant ou e
 | Cas d'usage | Taille optimale | Source |
 |-------------|----------------|--------|
 | Défaut général | 400-512 tokens | FloTorch 2026, Chroma |
-| Queries factuelles | 256-512 tokens | NVIDIA |
-| Queries analytiques | 512-1024 tokens | NVIDIA |
-| Documents financiers | 1024 tokens | NVIDIA |
+| Queries factuelles | 256-512 tokens | [NVIDIA](https://developer.nvidia.com/blog/finding-the-best-chunking-strategy-for-accurate-ai-responses/) |
+| Queries analytiques | 1024 tokens | NVIDIA |
+| Documents financiers | 512-1024 tokens | NVIDIA |
 | Plancher minimum | 200 tokens | Vectara NAACL 2025 |
 
-**Context cliff à ~2500 tokens** : qualité chute fortement au-delà.
+**Context cliff à ~2500 tokens** : qualité chute fortement au-delà ([arXiv 2601.14123](https://arxiv.org/abs/2601.14123), SPLADE + Mistral-8B, janvier 2026).
 
 ## Overlap
 
 Consensus 2026 : **10-20% overlap** (50-100 tokens pour chunks de 512). Microsoft Azure recommande jusqu'à 25%.
 
-Étude janvier 2026 (SPLADE + Mistral-8B) : overlap **sans bénéfice mesurable** en sparse retrieval. Tester avant de payer le surcoût.
+Étude janvier 2026 ([arXiv 2601.14123](https://arxiv.org/abs/2601.14123), SPLADE + Mistral-8B) : *"overlap provides no measurable benefit and increases indexing cost"* en sparse retrieval. Tester avant de payer le surcoût.
 
 ## Quand utiliser quoi
 

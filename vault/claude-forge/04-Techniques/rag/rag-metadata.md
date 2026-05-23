@@ -10,7 +10,7 @@ aliases:
   - metadata strategies
 domaine: ia
 type: technique
-derniere-maj: 2026-05-08
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://unstructured.io/insights/how-to-use-metadata-in-rag-for-better-contextual-results"
@@ -35,7 +35,7 @@ Les métadonnées et la qualité des données sont les fondations d'un RAG perfo
 | Slack/Chat | channel, author, timestamp, thread_ts, reactions_count |
 | Bases de données | table_name, column_name, row_id, schema_version, last_updated |
 
-Qdrant : jusqu'à 10-15 champs metadata sans impact performance (<1M points).
+Qdrant supporte autant de payload indexes que nécessaire ([doc Qdrant payload](https://qdrant.tech/documentation/manage-data/payload/)) — chaque index consomme RAM. Règle empirique : 10-15 champs restent gérables sous 1M points.
 
 ## Pre-filtering vs Post-filtering
 
@@ -61,14 +61,14 @@ Collect → Clean → Deduplicate → Normalize → Chunk → Enrich metadata �
 
 | Outil | Spécialité | Tables complexes | Prix |
 |-------|-----------|-----------------|------|
-| Unstructured.io | 50+ formats, SOC 2/HIPAA | 75% | Managed |
-| LlamaParse | Vitesse (~6s), LlamaIndex | Bon | 10K free/mois |
-| Docling (IBM) | Self-hosted, open-source | **97.9%** | Gratuit |
+| Unstructured.io | 64-70+ formats, SOC 2/HIPAA Enterprise | 75% réduction erreurs préparation données | Managed |
+| LlamaParse | LlamaIndex-native | Bon | 10K crédits free/mois |
+| Docling (IBM) | Self-hosted, open-source | **97.9%** (benchmark Procycons 2025 sustainability reports) | Gratuit |
 | Reducto | Enterprise compliance | Élevé | SOC 2 Type II |
 | Amazon Textract | AWS, formulaires, manuscrit | Bon | Pay-per-page |
-| Mistral OCR 3 | Multilingue, scans | Bon | API |
+| Mistral OCR 3 (déc 2025) | Multilingue (chinois, EU-est/ouest, EN) | Bon | API |
 
-**Tables** : toujours extraire structurellement, sérialiser en **Markdown** (40% moins de tokens que HTML, meilleur raisonnement LLM). Jamais couper une table entre chunks.
+**Tables** : toujours extraire structurellement, sérialiser en **Markdown** (20-40% moins de tokens vs HTML clean, jusqu'à 68-87% vs HTML "réel" avec balises/scripts ; meilleur raisonnement LLM). Jamais couper une table entre chunks.
 
 ## Indexation optimisée
 
@@ -89,7 +89,7 @@ Index multiple représentations : petits chunks pour retrieval précis, parents 
 ## Optimisation des coûts
 
 ### Caching
-- Cache sémantique (cosine > 0.95) : **-30-50% appels LLM**, -68.8% coûts
+- Cache sémantique : seuil cosine **~0.80** optimal selon [GPT Semantic Cache paper (arXiv 2411.05276)](https://arxiv.org/abs/2411.05276) — **-68.8% appels LLM** à ce seuil. Seuil >0.95 = trop strict (faible hit rate). Estimations communauté : -30-50% appels API selon traffic.
 - Pré-chauffer contenu high-traffic en off-peak
 - Hash documents : ne re-embedder que les changements
 
@@ -105,21 +105,23 @@ Pour 100K queries/jour : $10.5K/mois optimisé vs $19.5K/mois naif.
 
 ### Métriques cibles
 
-| Métrique | Cible | Couche |
-|----------|-------|--------|
-| Faithfulness | >= 0.9 | Génération |
-| Answer Relevancy | >= 0.85 | Génération |
-| Context Precision | >= 0.8 | Retrieval |
-| Context Recall | >= 0.8 | Retrieval |
+Seuils pratiques recommandés (communauté RAG — **non canoniques [RAGAS docs](https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/)** qui ne prescrivent pas de thresholds). Métriques système (latence) à séparer des métriques RAGAS.
+
+| Métrique | Cible (pratique) | Couche |
+|----------|------------------|--------|
+| Faithfulness | >= 0.9 | Génération (RAGAS) |
+| Answer Relevancy | >= 0.85 | Génération (RAGAS) |
+| Context Precision | >= 0.8 | Retrieval (RAGAS) |
+| Context Recall | >= 0.8 | Retrieval (RAGAS) |
 | Hit Rate | >= 0.9 | Retrieval |
 | Hallucination Rate | < 5% | Génération |
-| Latence p95 | < 2s (450ms cached) | Système |
+| Latence p95 | < 2s (450ms cached) | Système (hors RAGAS) |
 
 ### Drift detection
 3 types : Data Drift, Query Drift, Concept Drift. Golden probe set frozen, re-embed weekly, mesurer shift cosinus. **Arize Phoenix** : projection 2D/3D pour detection visuelle.
 
 ### Feedback loops
-Thumbs up/down → NPS système. Hallucinations flaggées → test cases automatiques (CI/CD via DeepEval). **Crucible** (2026) : boucle RAGE intégrée.
+Thumbs up/down → NPS système. Hallucinations flaggées → test cases automatiques (CI/CD via DeepEval). **Crucible** (arXiv jan 2026) : système Nugget-Augmented Generation, évalué TREC NeuCLIR 2024 (recherche académique, pas framework production établi).
 
 ### Plateformes observabilité
 1. Maxim AI — full-stack
