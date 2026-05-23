@@ -1,6 +1,11 @@
-# Séquence canonique pour TOUTE création/modification de composant — OBLIGATOIRE
+# Séquence canonique pour TOUTE création/modification/OPTIMISATION de composant — OBLIGATOIRE
 
-Quand tu analyses un repo, proposes ou crées/modifies un **skill / agent / hook / CLAUDE.md / rule**, tu DOIS suivre cette séquence dans l'ordre. Pas d'exception.
+Quand tu :
+- **Analyses** un repo (project-auditor, project-analyzer, cc-advisor)
+- **Crées** un skill / agent / hook / CLAUDE.md / rule
+- **Modifies** ou **OPTIMISES** un composant existant (skill-evolve, evolve, skill-creator quand il modifie, etc.)
+
+tu DOIS suivre cette séquence dans l'ordre. **Pas d'exception** — y compris pour "juste" optimiser une skill existante.
 
 ## Séquence A → B → C → D → E
 
@@ -18,9 +23,11 @@ E. EXÉCUTER après validation utilisateur
 
 Source canonique vault : [[methode-analyser-repo]] section **ORDRE CANONIQUE**.
 
-## A. Analyser le RÉEL du repo
+## A. Analyser le RÉEL — selon le scope
 
-**Avant toute prescription**, observer les faits bruts :
+**Avant toute prescription**, observer les faits bruts. Le scope d'observation dépend du type de tâche.
+
+### Pour analyse REPO entier
 - Stack (langages, versions, framework, DB)
 - Structure (mono-repo / microservices / workspaces)
 - `.claude/` existant (skills, agents, hooks, rules, CLAUDE.md)
@@ -32,6 +39,18 @@ Outils :
 - `Read package.json / pyproject.toml / Cargo.toml`
 - `Read README.md`
 - `git log --oneline -50`
+
+### Pour optimisation d'un COMPOSANT EXISTANT (skill / agent / hook)
+- Lire le composant EN ENTIER (SKILL.md / agent.md / hook script)
+- Lire les `references/` et `scripts/` associés si présents
+- Vérifier si la skill est référencée dans le body d'agents (`grep -r "skill-name" .claude/`)
+- Vérifier l'usage récent (`git log --oneline -20 -- .claude/skills/<nom>/`)
+- Mesurer : nombre de lignes, longueur description frontmatter, taille references/
+
+### Pour modification de CLAUDE.md / rule
+- Lire le fichier EN ENTIER
+- Lister les composants qui le référencent (`grep -r "<rule-name>" .claude/`)
+- Vérifier que la modif ne casse pas les dépendances
 
 **Verbatim Anthropic** : *"Explore: Read the codebase and understand existing implementation patterns... This phase is critical because it prevents Claude from making assumptions about your architecture."*
 
@@ -84,10 +103,52 @@ Exécution via agents spécialisés ou Edit/Write selon contexte. Capitaliser ap
 
 ## Composants concernés (doivent appliquer cette séquence)
 
-- **Agents créateurs** : `agent-creator`, `skill-creator`, `hook-creator`, `claudemd-optimizer`
-- **Agents analystes** : `project-analyzer`, `project-auditor`
-- **Skills d'analyse/modification** : `analyze-project`, `cc-advisor`, `evolve`, `skill-evolve`, `spec`
-- **Session principale** : quand l'utilisateur dit "analyse mon repo / propose-moi config CC"
+### Création
+- `agent-creator` : créer un nouvel agent
+- `skill-creator` : créer une nouvelle skill
+- `hook-creator` : créer un nouveau hook
+- `claudemd-optimizer` : créer / refaire un CLAUDE.md
+
+### Modification / Optimisation (même séquence !)
+- `skill-creator` quand on l'invoque pour MODIFIER une skill existante
+- `agent-creator` quand on l'invoque pour MODIFIER un agent existant
+- `hook-creator` quand on l'invoque pour MODIFIER un hook existant
+- `claudemd-optimizer` pour optimiser un CLAUDE.md existant
+- `skill-evolve` : analyser et proposer optims d'une skill existante
+- `evolve` : analyser un projet et proposer des évolutions
+
+### Analyse
+- `project-analyzer` : "j'ai un projet X / URL GitHub"
+- `project-auditor` : audit `.claude/` d'un repo
+- `cc-advisor` : besoin flou / "comment automatiser X"
+- `spec` : transformer un ticket en spec structurée
+- `analyze-project` : analyse projet
+
+### Session principale
+- Quand l'utilisateur dit : "analyse mon repo", "propose config CC", "optimise cette skill", "améliore cet agent", "crée un hook pour X"
+
+## Exemples concrets — séquence par cas d'usage
+
+### Cas 1 — "Optimise la skill /xxx"
+A. Lire `.claude/skills/xxx/SKILL.md` EN ENTIER + scripts/ + references/
+B. `read_note("comment-creer-skill")` + `read_note("mcp-vs-skills-doctrine")` + `read_note("methode-analyser-repo")` SANS max_lines
+C. Écarts : description > 250 chars ? body > 500L ? scripts orphelins ? skill orpheline (pas référencée dans agents) ? pas dans 9 catégories Thariq ?
+D. Plan d'optim priorisé par impact
+E. Modifier via `skill-creator` (qui re-applique la séquence)
+
+### Cas 2 — "Améliore cet agent"
+A. Lire `.claude/agents/xxx.md` EN ENTIER
+B. `read_note("comment-creer-agent")` + `read_note("workflow-claude-code-optimal")` SANS max_lines
+C. Écarts : `permissionMode` manquant ? `memory: project` manquant ? Skills dans frontmatter pas référencées dans body ? Description en 1ère personne ?
+D. Plan d'optim
+E. Modifier via `agent-creator`
+
+### Cas 3 — "Crée un hook pour X"
+A. Vérifier les hooks existants (`.claude/hooks/` + `.claude/settings.json`)
+B. `read_note("comment-creer-hook")` + `read_note("raisonnement-22mai-doctrine-vs-enforcement")` SANS max_lines
+C. La règle est-elle 100% (hook) ou advisory (skill/rule) ? Lint/security/scope (OK) ou workflow (anti-pattern) ?
+D. Plan
+E. Créer via `hook-creator`
 
 ## Référence
 
