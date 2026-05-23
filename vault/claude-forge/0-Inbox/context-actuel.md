@@ -1,6 +1,6 @@
 ---
 titre: Context Actuel
-resume: Working memory dynamique -- mis a jour par /done, lu par /recap. Session 2026-05-23 : neo_ia session 3 complete (15 commits) + pattern anti-reentrance + instrumentation Niveau 3 + 5 notes vault.
+resume: Working memory dynamique -- mis a jour par /done, lu par /recap. Session 2026-05-23 : audit thematique vault Claude Code (22 corrections) + audit forge dogfooding (11 drifts) + meta-prompt bibliotheque + 6 prompts thematiques enrichis navigation.
 aliases:
   - "context actuel"
   - "contexte courant"
@@ -18,56 +18,53 @@ tags:
 
 ## Phase actuelle
 
-neo_ia session 3 complete et pushed (15 commits ahead origin/develop integres). Instrumentation Niveau 3 deployee (hook PostSubagentStop CSV), pattern anti-reentrance documente, dette F1+F2 corrigee. Reanalyse Niveau 3 prevue dans 1-2 semaines avec n>>30 invocations.
+Audit complet vault forge-brain en cours — 1/8 thèmes terminé (Claude Code), audit forge dogfooding terminé. Préparation infrastructure pour les 6 audits thématiques restants.
 
 ## Derniere session (2026-05-23)
 
-### Decisions prises
+### Décisions prises
 
-- **Refactor dev-neochat** A+B+C+scope : 158L->131L (-39%), 11 tools->6 (verif empirique 0% usage WebSearch/WebFetch/3MCP/MultiEdit), 8 skills->5, scope clarifie (apps/neochat 93% primaire, shared_* 32%+19% secondaire avec consultation Things to leave alone)
-- **Pattern anti-reentrance** : sub-agent ne peut PAS invoquer Agent. Format ESCALADE REQUISE markdown 5 champs (Detection, Raison, Agent recommande, Etat actuel, Suite recommandee). Corrige dev-neochat + dev-shared-utils.
-- **packages/CLAUDE.md complete** : NeoMail ajoute (3e app), 8 modules shared_utils detailles, Things to leave alone exhaustif, routing agents table + note anti-reentrance
-- **Niveau 3 instrumentation deployee** : hook agent-metrics-logger.py PostSubagentStop -> .claude/agent-metrics.csv (append-only, gitignored). Rule scope invocations dev-* (option b advisor).
-- **architect-deep PAS touche** : Niveau 1 flag 5/5 seuils MAIS Niveau 2 = 6 ops typique (faux positif Niveau 1, validation Cat Wu canonique max 6-8 ops)
-- **guard-ddl-ban hook security** : DA verdict KEEP avec 3 corrections appliquees (bypass env var, retrait alembic, message clarifie). 20 tests adverses passent.
-- **CHANGELOG.md** : 6 entrees groupees session 3 sous section 2026-05-22
+1. **Méthode audit thématique validée** : sub-agents par CLUSTER (pas par note) + checkpoint write A avant B + self-verify FAUX fort impact avant D + distinguer Type 1/2/3 erreurs
+2. **Hiérarchie sources scopée** : "Provider/auteur officiel sur SON produit/recherche = single source" — PAS "Anthropic universal"
+3. **Ordre exécution audits** : forge dogfooding ✅ → méta-prompt bibliothèque → 6 thématiques (02-07)
+4. **Rule transverse créée** : `.claude/rules/sequence-canonique-modification.md` pour propagation séquence A→B→C→D→E sur tous composants créateurs/modificateurs/analyseurs
+5. **Architecture prompts auto-suffisants** : chaque prompt = table "Navigation vault — où lire selon le cas" obligatoire
 
 ### En cours
 
-- (rien -- chantier session 3 termine, push reussi sur 2 repos bitbucket+github)
+- Skill `/pivot-check` v1 draftée dans `Knowledge/drafts/pivot-check-skill/` — 4 fixes DA pending avant activation (cf `PIVOT-CHECK-FIXES-PENDING.md`)
+- Méta-prompt bibliothèque prompts d'analyse écrit dans `output/meta-prompt-generer-bibliotheque-analyse.md` — **à relire à tête reposée avant exécution**
+- 6 prompts thématiques (02-07) enrichis avec navigation vault explicite — prêts pour exécution séquentielle
 
 ### Prochaines etapes
 
-- **Dans 1-2 semaines** : reanalyser `.claude/agent-metrics.csv` neo_ia avec n>>30 invocations distribuees. Critere statistique : si p50 > 8 ops sur > 20 invocations dev-* malgre rule scope -> split confirme. Sinon -> rule scope suffit.
-- Skill `/check-agent-metrics` forge pas creee finalement. Analyse manuelle quand pret via script `output/analyse-dev-neochat-empirique.py` adapte.
+1. **Demain à tête reposée** : relire le méta-prompt + valider catégories (~25 prompts visés)
+2. **Exécuter méta-prompt en session fraîche** → génère bibliothèque dans `vault/claude-forge/07-Prompts/analyse/`
+3. **Lancer les 6 audits thématiques** (02-07) en utilisant la bibliothèque générée
+4. **Pending workstream séparé** : appliquer les 4 fixes DA sur skill `/pivot-check`, puis activer
+5. **Test comportemental** post-bibliothèque : prendre 1 prompt généré, l'utiliser sur cas réel, vérifier qu'il fonctionne
 
 ## Fils ouverts
 
-- **dev-neodoc (n=2) et dev-neomail (n=1)** : verdict reporte faute donnees suffisantes. Attendre Niveau 3 mature.
-- **Cleanup claude-forge** : beaucoup de deletions output/ et modifs canoniques non-committees (hors scope session 3). A trier par Raphael quand il veut.
-- **architect-deep audit ligne par ligne "Would removing this cause mistakes?"** : jamais execute (preference Raphael = pas le faire sans donnees). A reconsiderer si patterns Niveau 3 le confirment.
+- **Karpathy enrichment canoniques vault** : décision = SKIP (advisor verdict, scope creep). Si plus tard un prompt généré échoue par manque navigation dans une note canonique, fixer cette note précise.
+- **6 audits thématiques** : prompts prêts mais pas encore lancés (~3-4h chacun en session fraîche dédiée)
+- **Propagation cross-repo audit forge** : ia_back partiellement corrigé (1 fix), neo_ia et autres repos à auditer ultérieurement
 
-## Capitalisation session
+## Apprentissages clés session
 
-### Memoire projet (4 nouveaux feedback)
-
-- [[feedback_methode_abcde_carte_pas_verdict]] -- Niveau 1 = carte, pas verdict
-- [[feedback_gotchas_line_numbers_verifies]] -- Tout claim fichier.py:N = grep -n verif AVANT relayage
-- [[feedback_anti_reentrance_sub_agents]] -- Eviter "deleguer/rediriger" dans Hors scope sub-agent
-- [[feedback_couper_loops_perfectionnisme]] -- Couper loops "es-tu parfait" apres ABCDE+advisor valide
-
-### Vault forge (5 notes + 1 MOC update)
-
-- [[critique-2026-05-22-guard-ddl-ban]] -- DA verdict KEEP avec 3 corrections
-- [[erreur-gotchas-line-numbers-non-verifies-claudemd]] -- Incident F1+F2 session 3
-- [[niveau-1-static-mesure-agents-neo-ia-2026-05-22]] -- Mesure 14 agents Niveau 1 + UPDATE Niveau 2
-- [[architecture-decision-niveaux-mesure-agents]] -- Raisonnement direction inversee Niveau 1/2/3
-- [[anti-reentrance-sub-agents-pattern-escalade]] -- Doctrine + pattern ESCALADE REQUISE
-- [[MOC-Techniques]] -- 2 wikilinks ajoutes section Agents & Harness Engineering
+- **3e incident drift doctrinal en 3 jours** (22 mai pivot neo_ia + 23 mai matin MOCs + 23 mai aprem forge dogfooding) → pattern récurrent, justifie automation `/pivot-check`
+- **Fatigue session signal** : >15 échanges = arrêter options A/B/C, décider directement quand Raphael délègue
+- **22 erreurs propagées dans vault Claude Code** : Justin Young split = extrapolation forge, Brad Abrams (pas Angela Jiang) = créateur Advisor Strategy, lethal trifecta = Willison, etc.
 
 ## Liens
 
-[[Raphael-Picard]]
-[[Claude-Forge]]
-[[anti-reentrance-sub-agents-pattern-escalade]]
-[[architecture-decision-niveaux-mesure-agents]]
+- [[Raphael-Picard]]
+- [[Claude-Forge]]
+- [[methode-pivoter-doctrine]]
+- [[methode-analyser-repo]]
+- [[Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23]]
+- [[feedback_doctrine_drift_pattern]]
+- [[feedback_audit_thematique_methode]]
+- [[feedback_anthropic_single_source]]
+- [[feedback_regle_scope_pas_universelle]]
+- [[feedback_session_fatigue_decision]]

@@ -153,3 +153,16 @@ Audit profond thème Claude Code (95 claims, 6 sub-agents parallèles).
 ## [2026-05-23] behavioral-test-pass | doctrine audit 23 mai
 
 Test comportemental session fraîche sur 6 corrections doctrinales audit thématique vault Claude Code → **6/6 PASS**. Validation : Brad Abrams Advisor Strategy (pas Angela Jiang), 29 events hooks (pas 25+), effort max toujours disponible (pas déprécié), Justin Young sans split modèles, Simon Willison lethal trifecta (pas Thariq), séquence A→B→C→D→E + pipeline conditionnel. Toutes notes canoniques contiennent ancrage anti-régression "⚠️ Avant 23 mai 2026…". Capitalisation : [[test-comportemental-audit-23mai]]. Audit thématique = **livré et validé**.
+
+## [2026-05-23] done-session | audit thematique CC + forge dogfooding + meta-prompt + 6 prompts thematiques enrichis
+
+Session longue (50+ échanges).
+
+- **Audit thématique vault Claude Code** : 95 claims, 6 sub-agents par cluster, **22 erreurs corrigées**, 2 leaders créés ([[Brad-Abrams]], [[Mitchell-Hashimoto]]), 1 rule transverse ([[sequence-canonique-modification]])
+- **Audit forge dogfooding** : 11 drifts corrigés (CLAUDE.md, vault/index.md, cc-hooks-ref, hook-creator, etc.). Skill `/pivot-check` draftée (4 fixes DA pending)
+- **Méta-prompt bibliothèque** écrit dans `output/meta-prompt-generer-bibliotheque-analyse.md` — à exécuter en session fraîche pour générer ~25 prompts dans `vault/07-Prompts/analyse/`
+- **6 prompts thématiques (02-07) enrichis** avec table "Navigation vault — où lire selon le cas"
+- **2 nouveaux feedbacks mémoire** : `feedback_session_fatigue_decision`, `feedback_doctrine_drift_pattern` enrichi avec 3e incident
+- **5 commits poussés** sur main : 9530458, cd058cc, 4aee799, c8ef44b, 3c55d94, 7b9f46c, bbe0311, b45d922
+
+Pattern récurrent détecté : drift propagation aval (MOCs, CLAUDE.md, index.md) après pivot doctrinal canonique. 3 incidents en 3 jours.
