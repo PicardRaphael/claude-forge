@@ -11,7 +11,7 @@ aliases:
   - "benchmarks LLM"
 type: technique
 domaine: ia
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://github.com/EleutherAI/lm-evaluation-harness"
@@ -32,15 +32,15 @@ Avant/après fine-tuning. Rapide, reproductible, détecte les régressions.
 
 | Outil | Stars | Forces |
 |-------|-------|--------|
-| **lm-evaluation-harness** (EleutherAI) | ~8K | 60+ benchmarks, backend HF Leaderboard |
-| **Lighteval** (HuggingFace) | ~3K | 1000+ tasks, multi-backend (vLLM, SGLang) |
-| **DeepEval** | ~5K | 14+ métriques auto-expliquées, RAG + FT |
+| **lm-evaluation-harness** (EleutherAI) | ~12.7K | 60+ benchmarks, backend HF Leaderboard |
+| **Lighteval** (HuggingFace) | ~2.4K | 1000+ tasks, multi-backend (vLLM, SGLang) |
+| **DeepEval** | ~15.6K | 40+ métriques (Agentic, RAG, Multi-Turn, MCP, Multimodal) |
 
 ### 2. LLM-as-Judge (calibration)
 
 GPT-4/Claude juge les outputs sur : helpfulness, accuracy, harmlessness.
 
-**Limitation :** sous-estime les erreurs edge cases. Skywork (fine-tuned judge) atteint ~57% accuracy sur les cas difficiles. **JudgeBench** (ICLR 2025) est le standard pour évaluer les judges.
+**Limitation :** sous-estime les erreurs edge cases. **Skywork-Critic-Llama-3.1-8B** atteint **57.43% accuracy** sur [JudgeBench](https://arxiv.org/abs/2410.12784). **JudgeBench** (Tan, Zhuang, Stoica et al., [arXiv 2410.12784](https://arxiv.org/abs/2410.12784), **ICLR 2025** — confirmé dans le PDF) est le standard pour évaluer les judges.
 
 ### 3. Évaluation humaine (ground truth)
 

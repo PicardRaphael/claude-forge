@@ -58,9 +58,9 @@ Paper [arXiv 2403.10131](https://arxiv.org/html/2403.10131v1) — auteurs **100%
 
 Entraîne le modèle en "open-book" : **P%** des données contiennent le document oracle + distracteurs, **(1-P)%** ne contiennent que des distracteurs. P=80% est une valeur d'ablation favorable, mais l'optimal varie selon dataset (testé sur 40%, 60%, 100%). Le modèle apprend à identifier les passages pertinents, ignorer les distracteurs, et citer les preuves.
 
-## Raccourci < 200K tokens
+## Raccourci full-context + prompt caching
 
-Pour une base de connaissances < 200K tokens, le full-context prompting avec prompt caching peut être plus rapide et moins cher que RAG ou fine-tuning.
+Pour un corpus stable qui rentre dans la fenêtre de contexte du modèle, le full-context prompting avec prompt caching simplifie l'architecture vs RAG ou fine-tuning. **Seuil chiffré non sourcé en source primaire** — dépend du modèle (Claude 200K-1M, Gemini 2M, GPT 1M+) et du tarif caching de chaque provider.
 
 ## Privacy
 

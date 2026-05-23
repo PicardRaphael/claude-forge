@@ -14,6 +14,23 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-23 — Audit thématique fine-tuning : 22 corrections sur 87 claims
+
+- **Auditées** : 10 notes `04-Techniques/fine-tuning/*` via 7 sub-agents parallèles WebFetch direct
+- **Corrigées** (9 notes patchées) :
+  - `fine-tuning-techniques-peft` : intruder dimensions (FAUX NeurIPS 2025 → arXiv 2410.21228 sans venue), Spectrum -36% retiré, DoRA reformulé, QLoRA verbatim abstract, ajout sources auteurs (Hu/Dettmers/Liu/Hartford)
+  - `fine-tuning-alignment` : SimPO (Princeton), KTO (Contextual AI), ORPO (KAIST), DAPO (50 pts AIME), GRPO chiffre -50% retiré, sources arXiv ajoutées
+  - `fine-tuning-frameworks` : stars actualisées (Unsloth 65K, MLX 26K, LLaMA-Factory 71K), torchtune marqué "no longer maintained 2025", TRL v1.0 mars 2026 confirmé, FSDP 5x reformulé
+  - `fine-tuning-infrastructure` : TGI archivé GitHub 21 mars 2026, neoclouds 40-85% (pas 40-70%), Together AI/AWS pricing précisé, Lambda RTX 4090 N/A, TCO seuil scoping
+  - `fine-tuning-models` : Gemma 3 corrigé (1B/4B/12B/27B, Gemma Terms of Use pas Apache), Llama 88.4% précisé (3.3 70B Instruct), DeepSeek licenses nuancées, Qwen >50% sourcé HF Spring 2026
+  - `fine-tuning-privacy` : VaultGemma ε+δ précisés, TEE benchmark ETH Zurich arXiv 2509.18886, TrueFoundry (ResMed pas Medtronic), EU AI Act delay mai 2026, FIT/LLMEraser sources arXiv
+  - `fine-tuning-datasets` : LIMA sourcé (arXiv 2305.11206) au lieu de "200 vs 2000" non sourcé, stars Argilla/Label Studio actualisées
+  - `fine-tuning-evaluation` : stars actualisées (lm-eval-harness 12.7K, DeepEval 15.6K x3), Skywork 57.43% précisé, JudgeBench ICLR 2025 **confirmé** (différent du pattern intruder dimensions)
+  - `rag-vs-fine-tuning` : seuil "200K tokens" retiré (non sourcé), reformulé en doctrine corpus + caching
+- **Créée** : `Knowledge/erreurs/erreur-audit-fine-tuning-2026-05-23.md`
+- **Patterns capitalisés** : venues inventées (NeurIPS/ICLR), stars GitHub drift x3-x6, chiffres marketing à scoper case study, confusion training vs inference pricing
+- **Source** : Audit thématique vault 05-fine-tuning (post-audit RAG + Claude Code 23 mai)
+
 ## 2026-05-23 — Post-audit RAG : fiches leaders manquantes + capitalisation erreurs
 
 - **Ajoutées** :

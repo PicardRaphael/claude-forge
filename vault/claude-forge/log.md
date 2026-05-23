@@ -211,3 +211,16 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - Créée : [[erreur-audit-rag-11-faux-2026-05-23]] synthèse 11 FAUX + 6 patterns récurrents
 - Mémoire forge : 2 nouveaux feedbacks (arxiv-id-yymm-format, arxiv-url-swap)
 - Liens : [[RAG]] [[Jerry Liu]] [[Harrison Chase]] [[erreur-audit-rag-11-faux-2026-05-23]]
+
+## [2026-05-23] audit-thematique-fine-tuning | 22 corrections sur 87 claims (9 notes patchees)
+
+- 7 sub-agents paralleles WebFetch direct : PEFT / Alignment / Frameworks / Infra / Models / Privacy+RAG / Datasets+Eval
+- Type 1 (8 cas) : venues inventees (intruder dimensions arXiv 2410.21228 sans NeurIPS), SimPO/KTO auteurs, Gemma 3 tailles+license, TrueFoundry Medtronic->ResMed
+- Type 2 (10 cas) : stars GitHub drift x3-x6 (DeepEval 5K->15.6K, MLX 4K->26K, Unsloth 54K->65K), chiffres -36
+## [2026-05-23] audit-thematique-fine-tuning | 22 corrections sur 87 claims (9 notes patchees)
+- 7 sub-agents paralleles WebFetch direct : PEFT / Alignment / Frameworks / Infra / Models / Privacy+RAG / Datasets+Eval
+- Type 1 (8 cas) : venues inventees (intruder dimensions arXiv 2410.21228 sans NeurIPS), SimPO/KTO auteurs, Gemma 3 tailles+license, TrueFoundry Medtronic vers ResMed
+- Type 2 (10 cas) : stars GitHub drift x3-x6 (DeepEval 5K vers 15.6K, MLX 4K vers 26K, Unsloth 54K vers 65K), chiffres -36%/-50%/5x retires, pricing precise
+- Type 3 (4 cas) : torchtune no longer maintained, TGI archive 21 mars 2026, EU AI Act delay mai 2026, Lamini scoping case study
+- Creee : [[erreur-audit-fine-tuning-2026-05-23]]
+- Liens : [[fine-tuning-techniques-peft]] [[fine-tuning-alignment]] [[fine-tuning-frameworks]] [[fine-tuning-infrastructure]] [[fine-tuning-models]] [[fine-tuning-privacy]] [[fine-tuning-datasets]] [[fine-tuning-evaluation]] [[rag-vs-fine-tuning]]

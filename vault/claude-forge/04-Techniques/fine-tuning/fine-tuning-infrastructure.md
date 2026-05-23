@@ -16,7 +16,7 @@ aliases:
   - "Together AI"
 type: technique
 domaine: ia
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://www.spheron.network/blog/gpu-cloud-pricing-comparison-2026/"
@@ -53,9 +53,9 @@ tags:
 
 | Provider | Prix (70B LoRA, 10M tokens) | Forces |
 |----------|-----------------------------|--------|
-| **Together AI** | ~$29 ($2.90/M) | Meilleur rapport qualité/prix, 200+ modèles |
-| **Vertex AI** | ~$30 ($3/M, Gemini Flash) | Pas de surcoût hosting |
-| **AWS Bedrock** | ~$80 ($7.99/M) | Écosystème AWS |
+| **Together AI** | $2.90/M tokens (training). Inference Llama 3.3 70B = $0.88/M | Meilleur rapport qualité/prix, 200+ modèles |
+| **Vertex AI** | $3/M (Gemini Flash) | Pas de surcoût hosting |
+| **AWS Bedrock** | $7.99/M (training). Inference Llama 3.3 70B = $2.65/M ; Provisioned Throughput 70B 8 CMU = ~$75.36/hr | Écosystème AWS |
 
 ### GPU Rental
 
@@ -63,11 +63,11 @@ tags:
 |----------|---------|-------------|------|
 | **Vast.ai** | ~$1.49 | $0.35 | P2P marketplace |
 | **RunPod** | $2.69 | $0.34 | Balance prix/fiabilité |
-| **Lambda Labs** | $2.49 | — | ML-focused |
+| **Lambda Labs** | $2.49 | N/A (DC GPUs only, pas de RTX 4090) | ML-focused |
 | **Nebius** | $2.95 | — | Neocloud ($6B+ cash) |
 | **CoreWeave** | Premium | — | Top tier, InfiniBand |
 
-**Règle :** Neoclouds = 40-70% moins cher que hyperscalers pour le même GPU.
+**Règle :** Neoclouds = **40-85%** moins cher que hyperscalers pour le même GPU (source [Spheron 2026](https://www.spheron.network/blog/gpu-cloud-pricing-comparison-2026/)). Hyperscalers facturent typiquement 3-6× plus.
 
 ## Serving / Inférence
 
@@ -75,7 +75,7 @@ tags:
 |--------|----------------------|-------------|---------------|
 | **SGLang** | ~16,200 tok/s | Rising | Raisonnement, shared-prefix |
 | **vLLM** | ~12,500 tok/s | Safe default | Batch, multi-hardware |
-| **TGI** | ~2,500 tok/s | **MAINTENANCE** | Ne plus utiliser |
+| **TGI** | ~2,500 tok/s | **ARCHIVÉ GitHub 21 mars 2026** | Ne plus utiliser — HF redirige vers vLLM/SGLang/llama.cpp/MLX |
 | **Ollama** | Consumer | Actif | Local, simple |
 | **llama.cpp** | CPU + GPU | Actif | Fondation écosystème local |
 
@@ -87,7 +87,7 @@ tags:
 
 ## TCO Local vs Cloud
 
-**Seuil de rentabilité local :** >500,000 tokens/jour, ROI 12-18 mois.
+**Ordre de grandeur indicatif** (heuristique éditoriale, pas de benchmark canonique) : >500K tokens/jour comme seuil de rentabilité local, ROI 12-18 mois sur RTX 4090 / RTX 5090. À recalculer selon GPU, modèle, taux d'utilisation réel.
 
 **Recommandation :** Hybride — local pour throughput prévisible, cloud pour overflow et expérimentation.
 

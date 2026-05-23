@@ -10,7 +10,7 @@ aliases:
   - "open source models"
 type: technique
 domaine: ia
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://qwenlm.github.io/blog/qwen3/"
@@ -26,16 +26,16 @@ tags:
 
 | Modèle | Taille | Licence | Forces |
 |--------|--------|---------|--------|
-| **Qwen 3 / 3.5** | 1.7B-397B MoE | Apache 2.0 | >50% downloads mondiaux, meilleur general-purpose |
-| **Llama 3.3 / 4** | 1B-405B | Llama License | 88.4% HumanEval, plus gros écosystème |
-| **DeepSeek R1** | distills 1.5B-70B | MIT | SOTA raisonnement, 32B distill bat beaucoup de 70B |
+| **Qwen 3 / 3.5** | 1.7B-397B MoE | Apache 2.0 | >50% downloads open-source mondiaux ([HF Spring 2026 report](https://huggingface.co/blog/huggingface/state-of-os-hf-spring-2026)), meilleur general-purpose |
+| **Llama 3.3 / 4** | 1B-405B | Llama License | Llama 3.3 70B Instruct = 88.4% HumanEval 0-shot pass@1, plus gros écosystème |
+| **DeepSeek R1** | distills 1.5B-70B | Repo MIT, distills héritent licenses base (Qwen → Apache 2.0, Llama → leurs licenses) | SOTA raisonnement, 32B distill bat o1-mini sur AIME (72.6 vs 63.6) |
 
 ## Tier 2 — Meilleurs par taille
 
 | Modèle | Taille | Licence | Forces |
 |--------|--------|---------|--------|
 | **Phi-4** | 14B | MIT | Meilleur petit raisonneur, tourne sur laptop |
-| **Gemma 3/4** | 2B-31B | Apache 2.0 | Edge, on-device, VaultGemma (privacy) |
+| **Gemma 3** | 1B / 4B / 12B / 27B | **Gemma Terms of Use** (custom Google permissif, **pas Apache 2.0**) | Edge, on-device, VaultGemma (privacy) |
 | **Mistral Nemo** | 12B | Apache 2.0 | 128K context, instruction-following |
 | **Mixtral 8x7B** | 46.7B (12.9B actif) | Apache 2.0 | Efficacité MoE |
 
@@ -48,8 +48,8 @@ tags:
 | Haute qualité | 14-32B | Phi-4 14B, Qwen3-32B, DeepSeek R1 32B |
 | Qualité maximale | 70B | Llama 3.3 70B, Qwen3-72B |
 | Raisonnement | 14-32B | DeepSeek R1 distills, Phi-4 |
-| Edge / mobile | 1-3B quantized | Gemma 2B, Qwen3-1.7B |
-| Apple Silicon | 8-14B | Phi-4, Gemma 9B, Qwen3-8B |
+| Edge / mobile | 1-4B quantized | Gemma 3 1B/4B, Qwen3-1.7B |
+| Apple Silicon | 8-14B | Phi-4 14B, Gemma 3 12B, Qwen3-8B |
 
 ## VRAM requis
 

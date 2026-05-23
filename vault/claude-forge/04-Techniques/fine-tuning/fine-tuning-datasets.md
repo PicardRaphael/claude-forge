@@ -12,7 +12,7 @@ aliases:
   - "Distilabel"
 type: technique
 domaine: ia
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://ai.meta.com/blog/how-to-fine-tune-llms-peft-dataset-curation/"
@@ -34,7 +34,7 @@ tags:
 | Adaptation domaine complexe | 500 | 1,000-5,000 | >10,000 |
 | Instruction following | 100 | 500-1,000 | >5,000 |
 
-**Principe critique :** 200 exemples expert-curated surpassent 2,000 exemples bruyants. Répéter un dataset filtré pendant 10 epochs > entraîner un dataset 10x plus grand pendant 1 epoch.
+**Principe critique** (heuristique praticienne inspirée de [LIMA — Zhou et al. 2023, arXiv 2305.11206](https://arxiv.org/abs/2305.11206)) : un petit dataset expert-curated (~1000 exemples chez LIMA) peut surpasser un large dataset bruyant. Le ratio "200 vs 2000" est une paraphrase communauté, pas un chiffre du paper. Répéter un dataset filtré pendant plusieurs epochs > entraîner un dataset N× plus grand pendant 1 epoch.
 
 ## Best Practices Qualité
 
@@ -68,8 +68,8 @@ tags:
 | Outil | Stars | Fonction | Meilleur pour |
 |-------|-------|----------|---------------|
 | **Distilabel** (Argilla) | ~3.2K | Génération données synthétiques + AI feedback | Pipelines scalables |
-| **Argilla** | ~4.5K | Annotation et review | Human-in-the-loop |
-| **Label Studio** | ~20K | Annotation multi-format | Multi-modal |
+| **Argilla** | ~5K | Annotation et review | Human-in-the-loop |
+| **Label Studio** | ~27K | Annotation multi-format | Multi-modal |
 
 ## Workflow Recommandé 2026
 

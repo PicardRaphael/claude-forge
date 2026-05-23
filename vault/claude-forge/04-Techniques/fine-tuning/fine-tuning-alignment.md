@@ -13,12 +13,16 @@ aliases:
   - "post-training"
 type: technique
 domaine: ia
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://arxiv.org/abs/2305.18290"
   - "https://arxiv.org/abs/2403.07691"
   - "https://arxiv.org/abs/2503.14476"
+  - "https://arxiv.org/abs/2405.14734"
+  - "https://arxiv.org/abs/2402.01306"
+  - "https://arxiv.org/abs/2402.03300"
+  - "https://arxiv.org/abs/2501.12948"
 tags:
   - "#type/technique"
   - "#domaine/ia"
@@ -31,12 +35,12 @@ tags:
 | Technique | Créateur | Mémoire | Stabilité | Meilleur pour |
 |-----------|----------|---------|-----------|---------------|
 | **DPO** | [[Rafael Rafailov]] (Stanford) | 2 modèles (policy + ref) | Haute | Défaut alignement |
-| **SimPO** | — | 1 modèle | Haute | DPO moins cher, +6.4 pts AlpacaEval |
-| **ORPO** | KAIST (Corée) | 1 modèle | Haute | SFT + alignement en 1 pass |
-| **KTO** | — | 1-2 modèles | Haute | Feedback binaire (thumbs up/down) |
+| **SimPO** | Yu Meng, Xia, Chen (Princeton) | 1 modèle | Haute | DPO moins cher, +6.4 pts AlpacaEval 2 |
+| **ORPO** | Hong, Lee, Thorne (KAIST) | 1 modèle | Haute | SFT + alignement en 1 pass |
+| **KTO** | Ethayarajh et al. (Contextual AI, ICML 2024) | 1-2 modèles | Haute | Feedback binaire (thumbs up/down) |
 | **PPO** (RLHF) | OpenAI | 3-4 modèles | Basse | Labs frontier, compute massif |
-| **GRPO** | DeepSeek | -50% vs PPO | Moyenne | Raisonnement (math, code) |
-| **DAPO** | — | ~GRPO | Haute | Chain-of-thought long, surpasse GRPO sur AIME |
+| **GRPO** | DeepSeek | Réduit mémoire vs PPO (chiffre non sourcé dans paper) | Moyenne | Raisonnement (math, code) |
+| **DAPO** | ByteDance Seed et al. | ~GRPO | Haute | 50 pts AIME 2024 (Qwen2.5-32B), CoT long |
 
 ## Pipeline Production 2026 (3 stages)
 
@@ -51,15 +55,27 @@ SFT (1-10M examples) → DPO/SimPO/ORPO → GRPO/DAPO
 
 ## DPO — Direct Preference Optimization
 
-Traite l'alignement comme une classification sur des paires de préférence. Pas besoin d'ingénierie RL. Défaut pour la plupart des équipes.
+[Rafailov, Sharma, Mitchell, Ermon, Manning, Finn (Stanford), arXiv 2305.18290](https://arxiv.org/abs/2305.18290). Traite l'alignement comme une classification sur des paires de préférence. Pas besoin d'ingénierie RL. Défaut pour la plupart des équipes.
+
+## SimPO — Simple Preference Optimization
+
+[Yu Meng, Mengzhou Xia, Danqi Chen (Princeton NLP), arXiv 2405.14734](https://arxiv.org/abs/2405.14734). Reference-free reward, 1 seul modèle. Verbatim : *"by as much as 6.4 points on AlpacaEval 2"* vs DPO.
+
+## KTO — Kahneman-Tversky Optimization
+
+[Ethayarajh, Xu, Muennighoff, Jurafsky, Kiela (Contextual AI), arXiv 2402.01306, ICML 2024](https://arxiv.org/abs/2402.01306). Feedback binaire (thumbs up/down) au lieu de paires de préférence.
+
+## DAPO — Decoupled Clip and Dynamic Sampling Policy Optimization
+
+["DAPO: An Open-Source LLM Reinforcement Learning System at Scale", arXiv 2503.14476](https://arxiv.org/abs/2503.14476). Atteint 50 pts AIME 2024 avec Qwen2.5-32B.
 
 ## GRPO — Group Relative Policy Optimization
 
-Développé par DeepSeek pour DeepSeekMath. Pas de value model, pas de reward model séparés. Technique dominante pour les modèles de raisonnement 2025-2026.
+[DeepSeek, arXiv 2402.03300](https://arxiv.org/abs/2402.03300), introduit avec DeepSeekMath. Pas de value model, pas de reward model séparés. Le paper évoque "optimizing the memory usage of PPO" sans chiffrer le gain. Technique dominante pour les modèles de raisonnement 2025-2026.
 
 ## ORPO — Odds Ratio Preference Optimization
 
-Fusionne SFT + alignement en un seul pass via odds ratios. Zéro dépendance externe. Idéal single-GPU, petits modèles.
+[Jiwoo Hong, Noah Lee, James Thorne (KAIST), arXiv 2403.07691](https://arxiv.org/abs/2403.07691). Fusionne SFT + alignement en un seul pass via odds ratios. Zéro dépendance externe. Idéal single-GPU, petits modèles.
 
 ## Liens
 

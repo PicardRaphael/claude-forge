@@ -13,7 +13,7 @@ aliases:
   - "mlx-tune"
 type: technique
 domaine: ia
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://unsloth.ai"
@@ -31,14 +31,14 @@ tags:
 
 | Framework | Stars | Vitesse | Forces | Créateur |
 |-----------|-------|---------|--------|----------|
-| **LLaMA-Factory** | ~68K | Bonne | Web UI, 300+ modèles, zero-code | [[Yaowei Zheng]] |
-| **Unsloth** | ~54K | **2-5x faster** | Kernels Triton, -70% VRAM | [[Daniel Han]] |
-| **TRL** (HuggingFace) | ~18K | Baseline | Réf SFT/DPO/GRPO, v1.0 mars 2026 | HuggingFace |
+| **LLaMA-Factory** | ~71.5K | Bonne | Web UI, 300+ modèles, zero-code | [[Yaowei Zheng]] |
+| **Unsloth** | ~65K | **2-5x faster** | Kernels Triton, -70% VRAM | [[Daniel Han]] |
+| **MLX** (Apple) | ~26.4K | Rapide Apple | Apple Silicon natif, framework array | Apple ml-explore |
+| **TRL** (HuggingFace) | ~18K | Baseline | Réf SFT/DPO/GRPO, **v1.0 mars 2026** | HuggingFace |
 | **PEFT** (HuggingFace) | ~17K | Baseline | 20+ méthodes PEFT | HuggingFace |
 | **Ludwig** | ~12K | Bonne | YAML déclaratif, multimodal, Ray | — |
-| **Axolotl** | ~11K | Bonne | Config YAML, FSDP/DeepSpeed, multi-node | [[Wing Lian]] |
-| **torchtune** | ~4K | Bonne | PyTorch-native, Meta-backed | Meta |
-| **MLX / mlx-tune** | ~4K | Rapide Apple | Apple Silicon natif, 3-5 min | Apple |
+| **Axolotl** | ~12K | Bonne | Config YAML, FSDP/DeepSpeed, multi-node | [[Wing Lian]] |
+| **torchtune** | ~5.8K | ⚠️ **No longer maintained (2025)** | PyTorch-native, archivé | Meta |
 
 ## Recommandations par profil
 
@@ -48,18 +48,20 @@ tags:
 | GPU unique, vitesse prioritaire | Unsloth |
 | Alignement, recherche | TRL + PEFT |
 | Production multi-GPU, reproductibilité | Axolotl |
-| Apple Silicon (M1-M4) | mlx-lm / mlx-tune |
+| Apple Silicon (M1-M4) | mlx-lm / MLX |
 
-## Benchmark (Llama 3.1 8B, A100 40GB, QLoRA, 2 epochs)
+⚠️ **torchtune** : ne pas recommander en 2026, le développement a pris fin en 2025 (README officiel).
 
-- **Unsloth** : 3.2 heures
-- **Axolotl** : 5.8 heures
-- **TRL (stock)** : ~6-7 heures
+## Benchmark (Llama 3.1 8B, A100 40GB, QLoRA, 2 epochs, 512 tokens)
+
+- **Unsloth** : 3.2 heures (confirmé via comparatif communauté)
+- **Axolotl** : 5.8 heures (confirmé)
+- **TRL (stock)** : ~similaire à Axolotl (chiffre exact non sourcé en source primaire)
 
 ## Multi-GPU
 
-- **PyTorch FSDP** : défaut recommandé 2026, 5x plus rapide que DeepSpeed ZeRO-3 sur 100M-1B
-- **DeepSpeed ZeRO** : avantage à 10B+, CPU/NVMe offloading
+- **PyTorch FSDP** : défaut recommandé 2026 sur 100M-1B (GPU util ~60% vs ~45% DeepSpeed, mémoire légèrement inférieure — [HF docs](https://huggingface.co/docs/accelerate/en/concept_guides/fsdp_and_deepspeed))
+- **DeepSpeed ZeRO** : avantage au-delà ~10B grâce à CPU/NVMe offloading et ZeRO-Infinity
 
 ## Liens
 
