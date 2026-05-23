@@ -43,11 +43,10 @@ C'est l'équivalent fonctionnel direct du pattern forge **`/dream + /schedule`**
 
 **Statut** : research preview annoncée à Code with Claude London (19 mai 2026).
 
-**Spécifications techniques** (sources : recherche-x-twitter-leaders.md, recherche-youtube-talks.md du chantier) :
-- **Header API** : `dreaming-2026-04-21`
-- **Limite** : max 100 sessions par dream
-- **Modèles supportés** : Opus 4.7 et Sonnet 4.6 uniquement
-- **Famille** : Claude Managed Agents (avec Multi-agent orchestration et Outcomes)
+**Spécifications techniques** (statut audit 23 mai 2026) :
+- ⚠️ **Specs `dreaming-2026-04-21` / max 100 sessions / restriction Opus 4.7+Sonnet 4.6 non sourcées publiquement** (WebFetch direct anthropic.com/news/dreaming = 404 au 23 mai 2026). Probablement spéculation/hallucination par session précédente. À confirmer publication officielle Anthropic ou retirer.
+- **Famille** : Claude Managed Agents (avec Multi-agent orchestration et Outcomes) — confirmé via CwC London 19 mai 2026
+- **Statut** : Research preview annoncée CwC London, pas encore GA
 
 **Principe** : Claude review ses sessions précédentes en arrière-plan (overnight typiquement), extrait apprentissages, met à jour mémoire/CLAUDE.md équivalent, propose améliorations workflow. Pattern aligné avec la philosophie "compounding" Boris Cherny et "engineer one time, agent runs forever" (Hashimoto).
 
@@ -80,7 +79,8 @@ Verbatim associé (équipe Dreaming, Ravi Trivedi) :
 
 ## STATUT D'INFORMATION
 
-- **Confirmé** : présence London 19 mai 2026, présentation Dreaming, sondage PRs Claude, header API et limites Dreaming
+- **Confirmé** : présence London 19 mai 2026, présentation Dreaming, sondage PRs Claude
+- **Non vérifié** : specs techniques exactes Dreaming (header API, max sessions, restriction modèles) — à confirmer publication officielle Anthropic
 - **À confirmer** : titre exact (MTS / Product / Research ?), historique pré-Anthropic
 - **Information non confirmée à date du chantier** : handle Twitter/X public, blog posts officiels co-signés sur Dreaming (probable post-event)
 

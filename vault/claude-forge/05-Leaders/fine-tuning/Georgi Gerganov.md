@@ -39,7 +39,7 @@ Software engineer bulgare. A single-handedly créé la révolution de l'IA local
 
 ## Événement majeur (2026)
 
-HuggingFace a acquis ggml-org (fév 2026). Georgi conserve l'autonomie complète et la direction technique. 150K+ GitHub stars. MIT licence maintenue.
+HuggingFace a acquis ggml-org (fév 2026). Georgi conserve l'autonomie complète et la direction technique. **112K+ GitHub stars** (mai 2026 — correction depuis 150K+ qui sur-estimait). MIT licence maintenue.
 
 ## Liens
 

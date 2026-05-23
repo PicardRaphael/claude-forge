@@ -30,7 +30,7 @@ Fondateur et CEO de CrewAI. Avant : Director of AI Engineering chez Clearbit (ac
 ## Contributions clés
 
 ### CrewAI (2024-2026)
-Framework multi-agent open-source Python, standalone (pas de dépendance LangChain). 50.8K+ GitHub stars. Orchestration d'équipes d'agents IA avec balance autonomie / contrôle précis.
+Framework multi-agent open-source Python, standalone (pas de dépendance LangChain). **52K+ GitHub stars (mai 2026)**. Orchestration d'équipes d'agents IA avec balance autonomie / contrôle précis.
 
 **Concepts clés :**
 - **Crews** — équipes d'agents avec rôles définis

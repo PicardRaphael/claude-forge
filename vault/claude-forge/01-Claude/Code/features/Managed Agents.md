@@ -77,4 +77,4 @@ Implémentation simple : update du `tools` array dans Messages API. Architecture
 ### Clients mentionnés keynote
 - **Notion** — agents long-running dans le produit via Managed Agents
 - **Shopify** — CC across engineering + non-engineering (design, product, data science)
-- **Mercado Libre** — 23K engineers, 500K+ PRs reviewées, 9000+ apps modernisées, objectif 90% autonomous coding Q3 2026
+- **Mercado Libre** — 23K engineers, 500K+ PRs reviewées, 9000+ apps modernisées, objectif 90% autonomous coding Q3 2026 ⚠️ _Chiffres précis à confirmer livestream CwC London 19 mai 2026 — non trouvés dans sources externes accessibles (audit 23 mai 2026)._

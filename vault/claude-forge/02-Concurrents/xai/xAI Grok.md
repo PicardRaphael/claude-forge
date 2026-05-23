@@ -43,7 +43,7 @@ Division IA d'Elon Musk. Focus sur Grok (chatbot) et coding tools.
 - **Grok 5** en training (Colossus 1.5GW), Q2 2026 attendu
 - Plugins Microsoft Office teased
 - Layoffs ordonnés par Musk
-- 2 poaches de Cursor
+- **2 senior engineers Cursor débauchés par xAI** (12 mars 2026) : Andrew Milich (Head of Product Engineering) + Jason Ginsberg (senior leader)
 
 ## Comparaison avec Claude Code
 
@@ -61,9 +61,9 @@ Division IA d'Elon Musk. Focus sur Grok (chatbot) et coding tools.
 
 ## Mises à jour mai 2026
 
-- **xAI dissous** → fusionné dans SpaceX comme **SpaceXAI** (mai 2026)
-- 9/12 co-fondateurs partis en mars, tous 11 + 80 chercheurs partis
-- SpaceX a acquis xAI (fév 2026) — all-stock deal, valorisation xAI $250B, entité combinée $1.25T
+- **Merger SpaceX-xAI** : annoncé **2 février 2026** (reverse triangular merger all-stock) — xAI absorbé dans SpaceX
+- **11 co-fondateurs xAI** (pas 12). Tous partis fin mars 2026 (Kroiss + Nordeen derniers, fin mars). Claim "80 chercheurs" non sourcé tier 1 — à confirmer
+- Valorisation : xAI $250B + SpaceX $1T = **entité combinée $1.25T** (plus grosse fusion historique)
 - **grok-code-fast-1** : MoE 314B, 256k ctx, 70.8% SWE-Bench, 92 tok/s, $0.20/$1.50 (15x/10x moins cher Sonnet). Gratuit sur Copilot, Cursor, Cline, Roo.
 - **Digital Optimus** (mars) : projet conjoint xAI-Tesla intégrant Grok dans produits Tesla
 - **Grok 5** toujours pas sorti — attendu Q2 2026

@@ -45,7 +45,7 @@ Pertinence forge : ses verbatim cadrent deux notes canoniques du chantier — `c
 
 ### Hooks = "red squigglies for agents"
 
-Métaphore canonique attribuée à Daisy Hollman (et également utilisée par Alex Albert) — référencée dans `audit-notes-existantes-vs-fraiches.md` du chantier :
+Métaphore canonique **coinée par Daisy Hollman** au workshop "Beyond the Basics with Claude Code" (CwC London 19 mai 2026). _Note : mention "également utilisée par Alex Albert" retirée 23 mai 2026 — non sourcée._ Référencée dans `audit-notes-existantes-vs-fraiches.md` du chantier :
 
 > "Daisy Hollman dit aussi 'red squigglies for agents' (CwC SF) — métaphore canonique pour expliquer rôle hooks"
 

@@ -32,7 +32,7 @@ Informaticien et chercheur AI franco-américain, 65 ans (né 1960). **Turing Awa
 - Bell Labs (CNN, OCR)
 - NYU professor (depuis 2003)
 - Chief AI Scientist Meta (2013-2025)
-- **Co-fondateur AMI Labs** (Advanced Machine Intelligence Labs), décembre 2025, $1.03 Mds levés à $3.5 Mds pre-money
+- **Co-fondateur AMI Labs** (Advanced Machine Intelligence Labs), fondée fin 2025. LeCun = **executive chairman** (CEO = Alexandre LeBrun). **Seed $1.03B / 890M€ annoncé 9 mars 2026** à $3.5B pre-money (plus gros seed européen jamais réalisé). HQ Paris.
 
 ## Position canonique sur prompt engineering
 

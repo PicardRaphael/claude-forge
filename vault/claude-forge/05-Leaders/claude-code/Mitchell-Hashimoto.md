@@ -27,7 +27,7 @@ tags:
 
 ## QUI
 
-Mitchell Hashimoto — Software engineer, co-fondateur HashiCorp (Vagrant, Terraform, Vault, Consul, Nomad, etc.). A quitté HashiCorp en 2023 pour se consacrer à Ghostty (terminal moderne en Zig). Site personnel : [mitchellh.com](https://mitchellh.com).
+Mitchell Hashimoto — Software engineer, co-fondateur HashiCorp (Vagrant, Terraform, Vault, Consul, Nomad, etc.). A quitté HashiCorp en 2023 pour se consacrer à Ghostty (terminal moderne en Zig, **55K+ stars mai 2026**). Site personnel : [mitchellh.com](https://mitchellh.com).
 
 ## CE QU'IL APPORTE
 

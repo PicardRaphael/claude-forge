@@ -40,7 +40,7 @@ Premier programme à battre un champion du monde au Go. **Lee Sedol défait 4-1*
 
 ### AlphaFold (2018, 2020, 2024)
 
-Révolution biologie structurale — prédiction de la structure 3D des protéines. **Nobel Prize in Chemistry 2024** (partagé avec John Jumper et David Baker). Open-sourcé sur protein database ~200M structures prédites.
+Révolution biologie structurale — prédiction de la structure 3D des protéines. **Nobel Prize in Chemistry 2024** — **répartition exacte** : **David Baker 1/2** (computational protein design), **Hassabis 1/4 + John Jumper 1/4** (protein structure prediction, AlphaFold). Open-sourcé sur protein database ~200M structures prédites.
 
 ### Gemini (Google DeepMind)
 

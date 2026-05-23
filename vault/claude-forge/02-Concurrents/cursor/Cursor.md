@@ -71,5 +71,5 @@ IDE IA base sur VS Code fork. Cursor 3 (2 avril 2026) = refonte majeure.
 - **Team Marketplace** (1er mai) : marketplace admin sans repo, first-party plugins
 - **Security Review beta** (30 avril) : Security Reviewer + Vulnerability Scanner agents (Teams/Enterprise)
 - **Bugbot learned rules** : résolution ~80% (15pp au-dessus du concurrent le plus proche)
-- $500M+ ARR, Ultra plan $200/mo
-- **SpaceX/Cursor** : deal option acquisition $60B, Colossus supercomputer
+- **$2B ARR (février 2026)** (vs $500M juin 2025), Ultra plan $200/mo
+- **SpaceX/Cursor deal (annonce 21 avril 2026)** : option d'acquisition $60B par SpaceX (closing prévu juillet 2026 post-IPO SpaceX 12 juin), OU $10B breakup fee. Sources : CNBC, TechCrunch.

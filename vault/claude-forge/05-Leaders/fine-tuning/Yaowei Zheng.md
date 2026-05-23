@@ -30,8 +30,8 @@ Créateur de LLaMA-Factory, basé à Pékin. Chez ByteDance.
 
 ## Contributions clés
 
-- **LLaMA-Factory** — framework unifié pour fine-tuning 500+ LLMs/VLMs sans code (web UI : LlamaBoard)
-- ACL 2024 paper, 68K+ GitHub stars
+- **LlamaFactory** (orthographe officielle un seul mot) — framework unifié pour fine-tuning 500+ LLMs/VLMs sans code (web UI : LlamaBoard)
+- ACL 2024 System Demonstrations Track paper, **71.5K+ GitHub stars (mai 2026)**
 - Plus basse barrière d'entrée pour le fine-tuning
 
 ## Liens

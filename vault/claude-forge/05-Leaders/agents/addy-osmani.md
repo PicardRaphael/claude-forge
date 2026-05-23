@@ -55,8 +55,8 @@ Chaque erreur d'agent = signal permanent qui tighten le harness. **L'erreur n'es
 
 ### 3. Stat chocs harness > model (Terminal Bench 2.0)
 
-- Claude Opus 4.6 dans **Claude Code** : **58.0%**
-- **Même modèle** dans **ForgeCode** (harness différent) : **79.8%**
+- Claude **Opus 4.6** (PAS 4.7) dans **Claude Code** : **58.0%**
+- **Même modèle** (Opus 4.6) dans **ForgeCode** (harness différent) : **79.8%**
 - Delta : **+21.8 points par architecture harness seule** (modèle identique)
 - Une équipe est passée de **top 40 à top 5** en changeant uniquement le harness
 

@@ -40,7 +40,7 @@ Co-auteur du paper CoT avec Jason Wei et al — [arXiv 2201.11903](https://arxiv
 
 ### 2. Self-Consistency (2022)
 
-Co-auteur — [arXiv 2203.11171](https://arxiv.org/abs/2203.11171). Sampler plusieurs réponses, choisir la plus fréquente. Améliore CoT.
+Co-auteur **senior** — [arXiv 2203.11171](https://arxiv.org/abs/2203.11171) "Self-Consistency Improves Chain of Thought Reasoning **in Language Models**". **Premier auteur = Xuezhi Wang**, Zhou = senior. Sampler plusieurs réponses, choisir la plus fréquente. Améliore CoT.
 
 ### 3. Least-to-Most Prompting
 

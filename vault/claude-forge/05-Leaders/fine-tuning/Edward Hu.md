@@ -1,6 +1,6 @@
 ---
 titre: "Edward Hu"
-resume: "Inventeur de LoRA et μTransfer, PhD sous Yoshua Bengio (Mila), ex-Microsoft Research et OpenAI (o1)"
+resume: "Inventeur de LoRA et μTransfer. Founder Compute Exchange (stealth). Ex-PhD Mila/Bengio, ex-Microsoft Research, ex-OpenAI o1"
 aliases:
   - "edward hu"
   - "Edward Hu"
@@ -10,7 +10,7 @@ aliases:
   - "expert parameter-efficient training"
   - "LoRA inventor"
   - "transfer learning"
-role: "AI researcher — PhD Mila"
+role: "Founder Compute Exchange (stealth) — ex-PhD Mila"
 domaine: ia
 type: leader
 derniere-maj: 2026-05-10
@@ -36,7 +36,7 @@ Inventeur de **LoRA** (2021, Microsoft Research) et **μP/μTransfer**. PhD sous
 
 ## Travaux récents (2025-2026)
 
-Quitté Microsoft → PhD sous Turing Award winner Yoshua Bengio au Mila. Focus : raisonnement et planning avec GFlowNets. Incubation de nouvelles entreprises.
+Quitté Microsoft → PhD sous Turing Award winner Yoshua Bengio au Mila (janvier 2022+). Focus : raisonnement et planning avec GFlowNets. **Désormais founder de Compute Exchange (stealth)** et incubation de nouvelles entreprises.
 
 ## Liens
 

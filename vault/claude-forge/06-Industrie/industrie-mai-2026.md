@@ -52,9 +52,9 @@ tags:
 ## Anthropic
 
 - Opus 4.7 lance
-- Limites doublees, partenariat compute SpaceX
+- Limites doublees, partenariat compute SpaceX (Colossus 1, 220K+ GPUs NVIDIA)
 - Push finance (JPMorgan/Dimon)
-- Possible levee $50Mds a $900Mds de valo
+- **Possible levée $30Mds à $900Mds de valorisation** (Bloomberg 12 mai 2026, deal non finalisé)
 - Claude Mythos Preview (cybersecurite, Project Glasswing)
 
 ## xAI / Musk

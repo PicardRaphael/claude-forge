@@ -65,11 +65,13 @@ Distinction clé :
 
 ### 3. Evidence empirique LangChain (février 2026)
 
-Sur **Terminal Bench 2.0**, même modèle, même API :
-- **52.8% → 66.5%** par harness changes seuls
+Sur **Terminal Bench 2.0**, même modèle (gpt-5.2-codex), même API :
+- **52.8% → 66.5% (+13.7pp)** par harness changes seuls
 - Rank **Top 30 → Top 5**
 
 > "No fine-tuning, no model swap, just harness changes."
+
+**Source canonique** : [LangChain blog — Improving Deep Agents with Harness Engineering](https://blog.langchain.com/improving-deep-agents-with-harness-engineering/) — concept Fowler/Böckeler (martinfowler.com 2 avril 2026), chiffres LangChain blog.
 
 C'est l'evidence "harness > model" la plus citée après Addy +21.8 pts (cf [[addy-osmani]]).
 

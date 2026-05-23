@@ -1,6 +1,6 @@
 ---
 titre: "Anthony Mikinka"
-resume: "Chercheur UCL (University College London), auteur de 'Universal Conditional Logic: A Formal Language for Prompt Engineering' (arXiv 2601.00880, déc 2025) — preuve mathématique du seuil S*=0.509"
+resume: "Chercheur indépendant, auteur de 'Universal Conditional Logic: A Formal Language for Prompt Engineering' (arXiv 2601.00880, soumis 31 déc 2025 UTC, ID jan 2026) — preuve mathématique du seuil S*=0.509"
 aliases:
   - "Anthony Mikinka"
   - "anthony mikinka"
@@ -10,7 +10,7 @@ aliases:
   - "S* threshold"
 domaine: prompt-engineering
 type: leader
-affiliation: "University College London (UCL)"
+affiliation: "Indépendant (affiliation UCL retirée — non attestée par l'arXiv)"
 derniere-maj: 2026-05-23
 auteur: claude
 sources:
@@ -23,11 +23,11 @@ tags:
 
 ## Profil
 
-Chercheur à **University College London (UCL)**. Information publique minimale — connu via son paper arXiv de décembre 2025.
+Chercheur indépendant. Information publique minimale — connu via son paper arXiv soumis le **31 décembre 2025 UTC** (ID `2601.00880` = janvier 2026 du fait du cross-year boundary UTC). _Note : affiliation "UCL" mentionnée antérieurement dans le vault n'est PAS attestée par l'arXiv (aucune affiliation listée sur le paper) — retirée._
 
 ## Contribution canonique
 
-### "Universal Conditional Logic: A Formal Language for Prompt Engineering" (31 déc 2025)
+### "Universal Conditional Logic: A Formal Language for Prompt Engineering" (soumis 31 déc 2025 UTC)
 
 [arXiv 2601.00880](https://arxiv.org/abs/2601.00880).
 

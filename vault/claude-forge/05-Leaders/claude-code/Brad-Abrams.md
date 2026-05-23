@@ -69,10 +69,10 @@ Session standalone "Claude Platform" — prompt caching, structured outputs, too
 
 ## SOURCES
 
+- **Source canonique verbatim** : [InfoQ — Anthropic's Code with Claude](https://www.infoq.com/news/2026/05/code-with-claude/) (la page claude.com liste juste l'agenda, sans le verbatim)
 - [LinkedIn profile](https://www.linkedin.com/in/brabrams/)
 - [X/Twitter @brada](https://x.com/brada/status/1910709143289340102)
 - [Code with Claude SF — Caching, harnesses, advisors session](https://claude.com/code-with-claude/session/sf-caching-harnesses-and-advisors-building-on-claude-at-github-scale)
-- [InfoQ — Anthropic's Code with Claude](https://www.infoq.com/news/2026/05/code-with-claude/)
 - LinkedIn posts : Computer Use launch, Building Blocks for Tomorrow's AI Agents, Amazon Bedrock AgentCore
 
 ## WIKILINKS

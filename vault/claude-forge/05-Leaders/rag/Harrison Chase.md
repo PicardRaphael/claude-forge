@@ -24,6 +24,10 @@ tags:
 type: leader
 ---
 
+## ⚠️ FICHE DOUBLON — voir canonique [[Harrison Chase]] (agents/)
+
+Cette fiche est conservée pour le contexte RAG. La fiche **canonique** est `05-Leaders/agents/Harrison Chase.md` (scope primaire = agents/LangGraph). Décision audit thème 07 (23 mai 2026).
+
 ## Profil
 
 Co-fondateur et CEO de **LangChain** (lancé octobre 2022, peu après ChatGPT). LangChain est devenu le framework le plus utilisé pour construire des applications LLM, particulièrement positionné sur les **chains**, les **agents** et l'orchestration.

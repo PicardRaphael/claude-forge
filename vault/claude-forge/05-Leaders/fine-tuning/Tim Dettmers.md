@@ -38,7 +38,7 @@ Créateur de **QLoRA** et **bitsandbytes** (millions de downloads mensuels). Ass
 
 ## Travaux récents (2025-2026)
 
-Pivot de la quantization (rendements décroissants) vers les **coding agents** (SERA). En pause santé depuis février 2025.
+Pivot de la quantization (rendements décroissants) vers les **coding agents** (SERA, jan 2026). _Note : claim "pause santé depuis février 2025" présent antérieurement retiré car non vérifiable publiquement._
 
 ## Liens
 

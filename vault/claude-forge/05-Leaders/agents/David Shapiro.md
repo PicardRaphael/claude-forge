@@ -28,8 +28,8 @@ Chercheur IA au Human-AI Empowerment Lab (Clemson University). YouTuber IA influ
 
 ## Contributions clés
 
-### ACE Framework (octobre 2023)
-Framework d'architecture cognitive pour agents autonomes, publié sur arXiv. Approche **cognition-first** : imagination, réflexion, planification stratégique avant interaction avec l'environnement. Inspiré du modèle OSI pour les couches d'abstraction.
+### ACE Framework — paper "Conceptual Framework for Autonomous Cognitive Entities" (octobre 2023)
+Paper arXiv 2310.06775 (3 oct 2023). Auteurs : Shapiro, Wangfan Li, Manuel Delaflor, Carlos Toxtli. Framework d'architecture cognitive pour agents autonomes. ACE = nom du framework décrit dans le paper, pas le titre du paper. Approche **cognition-first** : imagination, réflexion, planification stratégique avant interaction avec l'environnement. Inspiré du modèle OSI pour les couches d'abstraction.
 
 ### Les 6 couches hiérarchiques
 

@@ -31,7 +31,7 @@ Chief Scientist chez Together AI. Créateur de FlashAttention.
 ## Contributions clés
 
 - **FlashAttention** (1→4) — attention rapide et mémoire-efficace via IO-awareness
-- **FlashAttention-4** (MLSys 2026) : 1605 TFLOPs/s (71% utilization) sur B200, 1.3x plus rapide que cuDNN 9.13
+- **FlashAttention-4** (MLSys 2026, **Best Paper Honorable Mention**) : 1605 TFLOPs/s (71% utilization) sur B200, 1.3x plus rapide que cuDNN 9.13. Premier auteurs co-leads = Ted Zadouri, Jay Shah, Markus Hohnerbach ; Tri Dao = senior. arXiv 2603.05451.
 - Collaboration avec NVIDIA pour intégrer FA4 dans cuDNN 9.13-9.14
 
 ## Liens

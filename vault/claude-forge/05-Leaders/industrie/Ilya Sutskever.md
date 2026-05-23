@@ -29,7 +29,8 @@ PhD CS University of Toronto 2013 sous **Geoffrey Hinton**. Carrière :
 - Google Brain
 - Co-fondation **OpenAI** (2015)
 - Chief Scientist OpenAI (2015-2024)
-- **Co-fondateur + CEO Safe Superintelligence Inc** (2024+) — entreprise dédiée exclusivement au safe AI
+- **Co-fondateur Safe Superintelligence Inc** (juin 2024) — entreprise dédiée exclusivement au safe AI
+- **CEO SSI depuis juillet 2025** (Daniel Gross était CEO initial, parti vers Meta)
 
 ## Contributions canoniques
 
@@ -53,9 +54,9 @@ Co-architecte du modèle text-to-image fondateur.
 
 Rôle central dans la tentative de licencier Sam Altman du board OpenAI. Évènement majeur — Altman réintégré 5 jours plus tard. Sutskever quitte OpenAI en mai 2024.
 
-### Safe Superintelligence Inc (2024+)
+### Safe Superintelligence Inc (juin 2024+)
 
-Nouvelle entreprise focalisée à 100% sur **safe + powerful AI systems**. Pas de produits commerciaux intermédiaires, full alignment focus.
+Nouvelle entreprise focalisée à 100% sur **safe + powerful AI systems**. Pas de produits commerciaux intermédiaires, full alignment focus. **Sutskever CEO depuis juillet 2025** (après départ de Daniel Gross).
 
 ## Position publique
 

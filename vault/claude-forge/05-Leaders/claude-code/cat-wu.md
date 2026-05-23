@@ -40,7 +40,7 @@ Elle est la source canonique pour :
 
 1. **Vision produit Claude Code** — les 3 surfaces (CLI/IDE/Desktop), antfooding, multi-clauding
 2. **Adoption interne Anthropic** — métriques `+200% PRs/eng`, `>70-80% des "ants" daily users`
-3. **Stratégie clients enterprise** — Mercado Libre (23k ingénieurs), objectif 90% coding autonome Q3 2026
+3. **Stratégie clients enterprise** — Mercado Libre (chiffres précis à confirmer livestream CwC London)
 4. **Proactivité comme prochaine frontière** — vision "Claude anticipe ce dont vous avez besoin avant que vous le sachiez"
 
 Elle est la **seconde voix Anthropic** la plus citée sur Claude Code après Boris Cherny. Pour la stratégie produit + adoption, c'est la référence n°1.
@@ -51,15 +51,15 @@ Elle est la **seconde voix Anthropic** la plus citée sur Claude Code après Bor
 
 Co-keynote d'ouverture avec [[Boris Cherny]], Angela Jiang, Katelyn Lesse, Lisa Crofoot (9-10am BST).
 
-**Métriques chiffrées Anthropic et clients** (verbatim London 19 mai 2026, source : [livestream YouTube AgQ4cwL5eOM](https://www.youtube.com/watch?v=AgQ4cwL5eOM)) :
+**Métriques chiffrées Anthropic et clients** (rapportées CwC London 19 mai 2026, source supposée : [livestream YouTube AgQ4cwL5eOM](https://www.youtube.com/watch?v=AgQ4cwL5eOM) — transcript non public au 23 mai 2026) :
 
-| Métrique | Valeur | Contexte |
-|----------|--------|----------|
-| **PRs/ingénieur Anthropic interne** | **+200%** | Après adoption wall-to-wall Claude Code |
-| **Daily users Anthropic** | >70-80% des "ants" | Antfooding |
-| **Mercado Libre** | 23 000 ingénieurs sur Claude Code | 500k PRs reviewés, 9k apps modernisées |
-| **Mercado Libre objectif** | **90% coding autonome Q3 2026** | Cité par Oscar Mowen |
-| **Binti (foster family software)** | 20 jours saved | Exemple impact social |
+| Métrique | Valeur | Statut audit 23 mai |
+|----------|--------|---------------------|
+| **PRs/ingénieur Anthropic interne** | **+200%** | ✅ Confirmé via Lenny podcast Cat Wu + TechCrunch (paraphrase). Attribution claim source London-specific à confirmer livestream. |
+| **Daily users Anthropic** | >70-80% des "ants" | ⚠️ Concept antfooding confirmé (Every podcast), chiffres exacts à confirmer livestream |
+| **Mercado Libre — 23K ingénieurs, 500K PRs, 9K apps** | ⚠️ Non vérifiable | Aucune source externe (TechCrunch / Every / Lenny / MIT Tech Review / Fortune London / Chris Ebert blog) ne mentionne ces chiffres. À confirmer livestream YouTube ; sinon retirer. |
+| **Mercado Libre 90% Q3 2026 — "Oscar Mowen"** | ⚠️ Non vérifiable | Aucune trace publique de "Oscar Mowen". À confirmer ; sinon retirer. |
+| **Binti foster family — 20 jours saved** | ⚠️ Non vérifiable | Mention isolée vault, pas de source externe trouvée. |
 
 ### 2. Antfooding — Anthropic dogfooding poussé à l'extrême
 

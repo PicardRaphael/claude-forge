@@ -29,10 +29,10 @@ PhD Princeton, Tsinghua Yao Class. 15K+ citations à 28 ans. A rejoint OpenAI (a
 
 ## Contributions clés
 
-- **ReAct** (ICLR 2023 Oral, top 5%) — backbone de virtuellement tous les agents production 2026
+- **ReAct** (ICLR 2023 Oral, "Notable top 5%", premier auteur Yao) — backbone de virtuellement tous les agents production 2026
 - **Tree of Thoughts** — raisonnement multi-branche délibéré
-- **SWE-agent** — agents software engineering (NeurIPS 2024)
-- **tau-bench** — benchmark agent-tool-user interaction (ICLR 2025)
+- **SWE-agent** (NeurIPS 2024) — agents software engineering. **Premier auteur : John Yang**, Yao co-auteur (avec Carlos Jimenez, Wettig, Lieret, Narasimhan, Press)
+- **tau-bench** (ICLR 2025) — benchmark agent-tool-user interaction. Premier auteur Yao
 - **LATS** — Language Agent Tree Search, MCTS + LLM
 
 ## Liens

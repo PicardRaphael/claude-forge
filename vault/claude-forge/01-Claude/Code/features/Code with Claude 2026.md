@@ -75,9 +75,9 @@ Dreaming, Outcomes, Multi-agent, Routines = plus d'autonomie mais plus de consom
 | Temps dev moyen sur CC | 20h/semaine | Ami Vora |
 | Demande 2026 YTD | +80x | Dario Amodei (Chris Ebert) |
 | PRs/engineer Anthropic | +200% | Cat Wu |
-| Mercado Libre PRs | 500K+ reviewées | Cat Wu |
+| Mercado Libre PRs | 500K+ reviewées ⚠️ | Cat Wu (à confirmer livestream YouTube AgQ4cwL5eOM) |
 | Stripe Scala→Java | 10 semaines estimées → 4 jours | Ami Vora |
-| Binti foster licensing | -20 jours sur le process | Ami Vora |
+| Binti foster licensing | -20 jours sur le process ⚠️ | Ami Vora (à confirmer livestream) |
 
 ## Concept : Task Horizon (Dianne Penn)
 

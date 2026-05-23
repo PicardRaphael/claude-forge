@@ -26,7 +26,7 @@ type: ""
 
 ## Profil
 
-VP of AI Search chez Cohere. Créateur de Sentence-BERT (EMNLP 2019) et de la librairie sentence-transformers (v5.4, 15K+ modèles pré-entraînés sur HuggingFace). Co-créateur du benchmark BEIR (NeurIPS 2021).
+VP of AI Search chez Cohere. Créateur de Sentence-BERT (EMNLP 2019) et de la librairie sentence-transformers (v5.4, **20.7K+ modèles pré-entraînés sur HuggingFace, mai 2026**). Co-créateur du benchmark BEIR (NeurIPS 2021 Datasets & Benchmarks Track — Thakur premier auteur, Reimers co-auteur).
 
 ## Contributions clés
 
@@ -36,8 +36,8 @@ Réseaux siamois pour embeddings de phrases. Papier fondateur qui a rendu les em
 ### sentence-transformers
 Librairie Python standard pour les embeddings. v5.4 (avril 2026) : support multimodal (texte, images, audio, vidéo) + generative reranker.
 
-### BEIR (NeurIPS 2021)
-Benchmark zero-shot IR — le standard d'évaluation pour la retrieval.
+### BEIR (NeurIPS 2021 Datasets & Benchmarks Track)
+Benchmark zero-shot IR — le standard d'évaluation pour la retrieval. **Thakur premier auteur, Reimers co-auteur**.
 
 ### Chez Cohere
 Dirige l'équipe search : dense/sparse embeddings, reranking, query generation.
@@ -46,7 +46,7 @@ Dirige l'équipe search : dense/sparse embeddings, reranking, query generation.
 
 - Sentence-BERT (EMNLP 2019)
 - Making Monolingual Embeddings Multilingual (EMNLP 2020)
-- BEIR: Heterogeneous Benchmark for Zero-shot Evaluation (NeurIPS 2021)
+- BEIR: Heterogeneous Benchmark for Zero-shot Evaluation (NeurIPS 2021 Datasets & Benchmarks Track, premier auteur Nandan Thakur)
 
 ## Liens
 

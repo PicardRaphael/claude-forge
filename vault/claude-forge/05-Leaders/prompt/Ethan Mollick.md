@@ -23,6 +23,10 @@ tags:
   - "#domaine/education"
 ---
 
+## ⚠️ FICHE DOUBLON — voir canonique [[Ethan Mollick]] (industrie/)
+
+Cette fiche est conservée pour le contexte prompt engineering empirique. La fiche **canonique** est `05-Leaders/industrie/Ethan Mollick.md` (scope primaire = workplace AI / industrie). Décision audit thème 07 (23 mai 2026).
+
 ## Profil
 
 Associate Professor à **The Wharton School** (University of Pennsylvania). Focus : Generative AI dans le workplace, futur du travail, éducation. Approche sociologue + management professor — pas théorie AGI 2030, mais **mesure empirique AUJOURD'HUI** de l'impact des modèles (GPT-4 sur writing quality, coding speed, etc.).

@@ -48,7 +48,7 @@ Créateur de Claude Code. Travaille chez Anthropic. Workflow "Fleet Commander" �
 ## Positions récentes
 
 - 6 tips post-Opus 4.7 (16 avril 2026)
-- Acquisition Bun / CC $1B ARR
+- **Anthropic acquiert Bun** (1ère acquisition Anthropic, annonce corporate 2 déc 2025) + **Claude Code atteint $1B ARR** ("fastest B2B product ramp in history", 6 mois après GA mai 2025, $2.5B annualisé fév 2026, $2B+ rev mai 2026)
 
 ## Liens
 
@@ -61,7 +61,7 @@ Créateur de Claude Code. Travaille chez Anthropic. Workflow "Fleet Commander" �
 - Setup : mobile-first (Claude app iOS), 5-10 sessions web, centaines d'agents, milliers la nuit
 - Record : 150 PRs en 1 jour
 - /loop = "the future" — dizaines de loops actifs (PRs, CI, feedback Twitter→Slack)
-- "Coding is solved" — 0% code écrit à la main depuis oct 2025
+- "Coding is solved" — n'écrit plus de code à la main depuis **late 2025 / entering 2026** (transition documentée par Frontend Mentor + Sequoia AI Ascent 2026)
 - Routines = loops côté serveur (persistent)
 - Vision : "by a couple years, the model does all the code, starts agents, builds environments"
 - Claude Design = prochain product overhang

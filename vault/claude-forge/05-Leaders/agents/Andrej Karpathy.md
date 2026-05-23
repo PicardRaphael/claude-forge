@@ -11,8 +11,8 @@ aliases:
   - "vibe coding pioneer"
   - "Software 3.0"
 role: "AI researcher, educator"
-affiliation: "Independent (ex-Tesla, ex-OpenAI)"
-derniere-maj: 2026-05-08
+affiliation: Anthropic pre-training team (depuis 19 mai 2026, sous Nick Joseph). Ex-Eureka Labs, ex-Tesla, ex-OpenAI
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://github.com/karpathy"
@@ -23,7 +23,19 @@ type: leader
 ---
 ## Profil
 
-Chercheur IA, éducateur. Ex-directeur AI chez Tesla, ex-OpenAI. Focus 2026 : knowledge management avec LLMs.
+Chercheur IA, éducateur. **Rejoint Anthropic sur l'équipe pre-training le 19 mai 2026** sous Nick Joseph. Ex-Eureka Labs, ex-directeur AI Tesla, ex-OpenAI. Focus 2026 : knowledge management avec LLMs.
+
+## Anthropic — depuis 19 mai 2026
+
+**Verbatim Karpathy (X post 19 mai 2026)** :
+> "Personal update: I've joined Anthropic. I think the next few years at the frontier of LLMs will be especially formative."
+
+**Verbatim Anthropic spokesperson (TechCrunch)** :
+> "Karpathy started this week at Anthropic, where he is working on pre-training under team lead Nick Joseph."
+
+Sources :
+- [Karpathy X post](https://x.com/karpathy/status/2056753169888334312)
+- [TechCrunch — Karpathy joins Anthropic](https://techcrunch.com/2026/05/19/openai-co-founder-andrej-karpathy-joins-anthropics-pre-training-team/)
 
 ## Contributions clés
 
@@ -35,7 +47,7 @@ Chercheur IA, éducateur. Ex-directeur AI chez Tesla, ex-OpenAI. Focus 2026 : kn
 - Voir [[LLM Wiki]] pour détail
 
 ### AutoResearch
-- 21K GitHub stars
+- 82.9K+ GitHub stars (mai 2026 — drift x3.95 vs 21K initial)
 - "Agentic engineering"
 
 ### Anti-patterns LLM coding (tweet janvier 2026)

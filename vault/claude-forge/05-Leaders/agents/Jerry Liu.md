@@ -22,6 +22,10 @@ tags:
   - "#domaine/rag"
 type: leader
 ---
+## ⚠️ FICHE DOUBLON — voir canonique [[Jerry Liu]] (rag/)
+
+Cette fiche est conservée pour le contexte agents. La fiche **canonique** est `05-Leaders/rag/Jerry Liu.md` (scope primaire = RAG natif LlamaIndex). Décision audit thème 07 (23 mai 2026).
+
 ## Profil
 
 Co-fondateur & CEO de LlamaIndex (créé oct 2022), un des deux frameworks RAG fondateurs. Princeton alumnus. Parcours : Apple, Quora, Two Sigma, Uber.

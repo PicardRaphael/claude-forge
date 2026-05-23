@@ -14,6 +14,35 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-23 — Audit thématique 07 leaders/modèles/industrie/concurrents : ~40 notes patchées sur 98 auditées (135 claims)
+
+**Méthode** : 7 sub-agents parallèles par cluster (affiliations+benchmarks / stars / verbatim Anthropic / papers arXiv / concurrents / industrie funding / attributions sensibles) + 3 self-verify WebFetch directs. Méthode validée 6× consécutivement.
+
+**Patches majeurs** :
+- **Karpathy → Anthropic 19 mai 2026** (rejoint équipe pre-training sous Nick Joseph). Fiche `Andrej Karpathy.md` updatée + verbatim X post + source TechCrunch
+- **Sutskever CEO SSI depuis juillet 2025** (pas 2024, Daniel Gross était CEO initial)
+- **Cat Wu Mercado Libre 23K/500K/9K + Oscar Mowen** : marqués ⚠️ "à confirmer livestream YouTube" — aucune source externe accessible ne mentionne ces chiffres (Every podcast, Lenny, TechCrunch, MIT Tech Review, Fortune London, Chris Ebert blog). Possible mais non vérifié à date 23 mai. Propagé dans `Code with Claude 2026.md` + `Managed Agents.md`
+- **Jeremy Hadfield Dreaming specs** (`dreaming-2026-04-21` / max 100 sessions / restriction modèles) : marquées non vérifiées (WebFetch direct anthropic.com/news/dreaming = 404 au 23 mai)
+- **Anthropic valorisation $380B fév 2026 (Series G post-money) vs $900B en négociation mai 2026** (Bloomberg 12 mai) — préciser dans `Dario Amodei.md` + `industrie-mai-2026.md` ($30Mds levée, pas $50Mds)
+- **xAI 11 co-fondateurs** (pas 12). Merger SpaceX-xAI annoncé 2 février 2026 (pas mai)
+- **Cursor $2B ARR fév 2026** (vs $500M juin 2025 obsolète). SpaceX/Cursor deal $60B + $10B breakup fee (CNBC + TechCrunch)
+- **Stars GitHub drift x1.8-x4** corrigés : Karpathy AutoResearch 21K→82.9K, Ghostty 30K→55K, llama.cpp 150K→112K (sur-estimait), Unsloth 40K→65K + 10M downloads requalifié 2.19M PyPI, LLM Course 70K→79.6K, LLaMA-Factory 68K→71.5K, CrewAI 50.8K→52K, BabyAGI 20K→22.3K, sentence-transformers 15K→20.7K modèles HF
+- **Papers premier-auteur vs senior** précisés : Self-Consistency (Wang premier, Zhou senior), SWE-agent (John Yang premier, Yao co-auteur), BEIR (Thakur premier, Reimers co-auteur), AWQ (Ji Lin premier, Song Han senior), FlashAttention-4 (Zadouri/Shah/Hohnerbach co-leads, Tri Dao senior)
+- **Awards corrigés** : Schulhoff Prompt Report **PAS** EMNLP Best Theme (c'est HackAPrompt 2023). LlamaFactory = ACL 2024 System Demonstrations (pas main track). FlashAttention-4 = MLSys 2026 Best Paper Honorable Mention ajouté. Hassabis Nobel 1/4 + 1/4 + 1/2 Baker (pas 1/3-1/3-1/3)
+- **Doublons fusionnés vers dossier primaire** (canoniques marquées) :
+  - Harrison Chase canonique = `agents/`, doublon `rag/` marqué
+  - Jerry Liu canonique = `rag/`, doublon `agents/` marqué
+  - Ethan Mollick canonique = `industrie/`, doublon `prompt/` marqué
+  - Hashimoto canonique = `claude-code/Mitchell-Hashimoto.md` (version "popularisé + hedge"), doublon `agents/hashimoto.md` corrigé "INVENTÉ" → "popularisé"
+- **Lisa Crofoot** : verbatim "8 frontier models", "scaffolding holds Claude back", "Mythos OpenBSD 27 ans" — attributions à confirmer livestream (sources externes ne confirment pas l'attribution précise)
+- **Mikinka UCL** retiré (non attesté arXiv), Dettmers "pause santé fév 2025" retiré (non sourcé)
+- **Lilian Weng "46,900+ citations Scholar"** retiré (blog post sans entrée Scholar)
+- **Daisy Hollman "red squigglies" / Alex Albert** : mention Albert retirée (non sourcée)
+- **Boris Cherny "$1B ARR + Bun"** précisé : annonce corporate Anthropic 2 déc 2025 (pas verbatim Boris). "Coding solved" "late 2025/entering 2026" (pas spécifiquement "oct 2025")
+- **Daniel Han Unsloth "10M downloads"** : requalifié comme cumulé multi-canaux ; PyPI réel = 2.19M/mois (mai 2026)
+
+**Notes erreur** : pattern récurrent confirmé "venues conférence inventées" + "stars GitHub drift x3-x6 / 6 mois" + "specs techniques fabriquées sans source primaire" (Dreaming) + "chiffres clients fabriqués paraphrasés comme verbatim" (Mercado Libre/Oscar Mowen)
+
 ## 2026-05-23 — Audit thématique fine-tuning : 22 corrections sur 87 claims
 
 - **Auditées** : 10 notes `04-Techniques/fine-tuning/*` via 7 sub-agents parallèles WebFetch direct

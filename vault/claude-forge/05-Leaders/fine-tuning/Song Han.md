@@ -31,7 +31,7 @@ Professeur titulaire MIT EECS, dirige le Han Lab. Pionnier de l'IA efficace.
 
 ## Contributions clés
 
-- **AWQ** (Activation-aware Weight Quantization) — **MLSys 2024 Best Paper**. Adopté par NVIDIA TensorRT-LLM, AMD, Google Vertex AI, Amazon SageMaker, vLLM. 6M+ HuggingFace downloads
+- **AWQ** (Activation-aware Weight Quantization) — **MLSys 2024 Best Paper Award**. **Premier auteur = Ji Lin** (PhD du lab, désormais Research Scientist OpenAI), Song Han = senior. arXiv 2306.00978. Adopté par NVIDIA TensorRT-LLM, AMD, Google Vertex AI, Amazon SageMaker, vLLM. 9.2K+ modèles AWQ sur HuggingFace, top modèles >2M downloads chacun
 - **SmoothQuant**, **StreamingLLM**, **TinyChat**
 - **Deep Compression** — a influencé le NVIDIA Ampere Sparse Tensor Core
 - Cours TinyML au MIT

@@ -26,13 +26,17 @@ tags:
 
 ## QUI
 
-**Mitchell Hashimoto** — Créateur de **Ghostty** (terminal moderne en Zig + Swift/GTK, ~30k stars en 2026). Ex co-fondateur **HashiCorp** (Terraform, Vagrant, Consul, Vault, Nomad) — l'une des success stories majeures du DevOps des années 2010. Pseudo Twitter / GitHub : `mitchellh`. Blog `mitchellh.com`.
+**Mitchell Hashimoto** — Créateur de **Ghostty** (terminal moderne en Zig + Swift/GTK, **55K+ stars mai 2026**). Ex co-fondateur **HashiCorp** (Terraform, Vagrant, Consul, Vault, Nomad) — l'une des success stories majeures du DevOps des années 2010. Pseudo Twitter / GitHub : `mitchellh`. Blog `mitchellh.com`.
 
 Profil : ingénieur systèmes legendary tier. N'est pas chez Anthropic. Sa contribution est **lexicale + comportementale** — il a nommé un pattern que tout le monde pratiquait sans mot pour le désigner.
 
+## ⚠️ FICHE DOUBLON — voir canonique [[Mitchell-Hashimoto]] (claude-code/)
+
+Cette fiche est conservée pour les backlinks historiques mais la **canonique** est `05-Leaders/claude-code/Mitchell-Hashimoto.md`. Voir cette dernière pour la version corrigée 23 mai 2026 (Hashimoto a **popularisé** le terme, il hedge lui-même sur la paternité — pas "inventé").
+
 ## POURQUOI EST PERTINENT
 
-Hashimoto a **inventé le terme "harness engineering"** dans un blog post du **5 février 2026**. En 2 semaines, le terme a été repris par :
+Hashimoto a **popularisé le terme "harness engineering"** dans un blog post du **5 février 2026** (il hedge lui-même sur la paternité : *"I don't know if there is a broad industry-accepted term for this yet, but I've grown to calling this 'harness engineering.'"* — pas "inventé"). En 2 semaines, le terme a été repris par :
 - Martin Fowler (cf [[martin-fowler]] — taxonomy Guides+Sensors)
 - Addy Osmani (cf [[addy-osmani]] — Ratchet Principle, "+21.8 pts")
 - OpenAI (mentions internes)

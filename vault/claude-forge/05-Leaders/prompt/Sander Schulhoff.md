@@ -1,6 +1,6 @@
 ---
 titre: "Sander Schulhoff"
-resume: "CEO Learn Prompting + HackAPrompt, auteur principal The Prompt Report (1500+ papers, 200+ techniques, EMNLP Best Theme Paper), pionnier prompt engineering education et AI red-teaming"
+resume: "CEO Learn Prompting + HackAPrompt, auteur principal The Prompt Report (1500+ papers, 200+ techniques, arXiv 2406.06608), pionnier prompt engineering education et AI red-teaming. HackAPrompt = EMNLP 2023 Best Theme Paper (PAS le Prompt Report)"
 aliases:
   - "Sander Schulhoff"
   - "sander schulhoff"
@@ -38,7 +38,7 @@ Premier prompt engineering guide sur internet — publié 1 mois AVANT le lancem
 
 ### HackAPrompt
 
-Premier AI Red-Teaming competition global, partenaire OpenAI. **2× plus large** que la compétition AI Red-Teaming subséquente de la Maison-Blanche. Sponsorisé par OpenAI + 12 autres entreprises AI. **Best Theme Paper EMNLP** (top conférence NLP).
+Premier AI Red-Teaming competition global, partenaire OpenAI. **2× plus large** que la compétition AI Red-Teaming subséquente de la Maison-Blanche. Sponsorisé par OpenAI + 12 autres entreprises AI. Paper *"Ignore This Title and HackAPrompt"* = **EMNLP 2023 Best Theme Paper**.
 
 Aujourd'hui partenariats avec frontier AI labs pour rendre leurs modèles plus sécurisés.
 
@@ -46,10 +46,11 @@ Aujourd'hui partenariats avec frontier AI labs pour rendre leurs modèles plus s
 
 Étude la plus exhaustive sur prompt engineering jamais réalisée — [arXiv 2406.06608](https://arxiv.org/abs/2406.06608).
 - 76 pages
-- Co-auteurs : OpenAI, Microsoft, Google, Princeton, Stanford
+- 30+ co-auteurs : OpenAI, Microsoft, Google, Princeton, Stanford
 - Analyse de **1500+ papers académiques**
 - Taxonomie de **58 techniques** prompting + 40 techniques multi-modales
 - Vocabulaire structuré de 33 termes
+- ⚠️ **PAS de Best Theme Paper EMNLP** (confusion vault corrigée 23 mai 2026 — HackAPrompt 2023 a eu Best Theme, Prompt Report 2024 n'a pas d'award listé EMNLP)
 
 ### Workshops & enseignement
 

@@ -31,7 +31,7 @@ Né 1987 à Tokyo. BA Economics, Claremont McKenna College (2009). Aucune format
 ### BabyAGI (mars 2023)
 Premier agent autonome open-source populaire avec planification de tâches. Donner un objectif → l'agent génère sa propre task list, exécute une par une, ajoute de nouvelles tâches selon les résultats. **105 lignes de code.**
 
-**Impact** : 20K+ GitHub stars, 50+ citations académiques, millions d'impressions. Featured dans Fast Company, Forbes, Business Insider, VentureBeat. A déclenché le mouvement des agents autonomes.
+**Impact** : **22.3K+ GitHub stars (mai 2026)**, 50+ citations académiques, millions d'impressions. Featured dans Fast Company, Forbes, Business Insider, VentureBeat. A déclenché le mouvement des agents autonomes.
 
 Archivé septembre 2024, relancé comme "self-building autonomous agent" — framework minimal qui se construit et s'améliore lui-même.
 

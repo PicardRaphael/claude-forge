@@ -32,7 +32,7 @@ CEO et co-fondateur d'Unsloth (YC S24). Fondé avec son frère Michael Han. Ex-N
 ## Contributions clés
 
 - **Unsloth** — fine-tuning 2-30x plus rapide, 70-90% moins de mémoire via kernels Triton custom
-- 10M+ downloads mensuels, 40K+ GitHub stars
+- **65K+ GitHub stars** (mai 2026), **2.19M downloads/mois PyPI** (claim "10M+/mois" était probablement cumulé multi-canaux : PyPI + HF + Docker + conda — à requalifier)
 - Trouvé et corrigé 20+ bugs dans des LLM open-source (Gemma, Llama, Mistral, Phi)
 - Intégré dans TRL (2x speed, 70% memory reduction)
 

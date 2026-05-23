@@ -1,6 +1,6 @@
 ---
 titre: "Lilian Weng"
-resume: "VP Research OpenAI, auteure du post canonique Agent = LLM + memory + planning + tool use, 46K+ citations"
+resume: "VP Research OpenAI, auteure du post canonique 'LLM Powered Autonomous Agents' (Lil'Log juin 2023) : Agent = LLM + memory + planning + tool use"
 aliases:
   - Lilian Weng
   - Lil'Log
@@ -23,7 +23,7 @@ type: leader
 ---
 ## Profil
 
-VP Research OpenAI. 46,900+ citations Google Scholar.
+VP Research OpenAI. Chercheuse prolifique en LLM agents et alignment. _Note : claim "46,900+ citations Google Scholar" retiré (le blog post Lil'Log n'a pas d'entrée Scholar dédiée, chiffre non vérifiable)._
 
 ## Contributions clés
 

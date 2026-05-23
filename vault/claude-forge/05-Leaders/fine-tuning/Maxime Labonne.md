@@ -32,7 +32,7 @@ Senior Staff ML Scientist chez Liquid AI, head of post-training. PhD en ML (Poly
 
 ## Contributions clés
 
-- **LLM Course** (GitHub, 70K+ stars) — roadmap gratuite couvrant training, datasets, évaluation, quantization
+- **LLM Course** (GitHub, **79.6K+ stars mai 2026**) — roadmap gratuite couvrant training, datasets, évaluation, quantization
 - **LLM Engineer's Handbook** (Packt, 10,000+ copies) — co-auteur avec Paul Iusztin
 - **LLM Datasets** — liste curated de datasets de fine-tuning haute qualité
 - Tutoriels ORPO avec Llama 3, fine-tuning pratique
