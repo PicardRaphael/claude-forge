@@ -158,3 +158,4 @@ E. Créer via `hook-creator`
 
 Source canonique : [[methode-analyser-repo]] section "ORDRE CANONIQUE — A → B → C → D → E".
 Pivot doctrinal qui valide cette séquence : [[raisonnement-22mai-doctrine-vs-enforcement]].
+Méthode sister pour pivoter une doctrine sans drift résiduel : [[methode-pivoter-doctrine]] (checklist 5 étapes post-pivot).

@@ -52,3 +52,4 @@ AVANT de critiquer, le DA cherche (conditionnel ciblé, max 2 requêtes MCP) :
 ## Référence canonique
 
 Source de vérité : [[comment-creer-agent]] (DA conditionnel) + [[workflow-claude-code-optimal]].
+Méthode connexe : [[methode-pivoter-doctrine]] — les verdicts DA informent souvent les pivots doctrinaux (checklist 5 étapes post-pivot).
