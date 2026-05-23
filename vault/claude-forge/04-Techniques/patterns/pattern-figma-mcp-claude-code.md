@@ -1,22 +1,22 @@
 ---
 titre: "Pattern Figma MCP + Claude Code"
-resume: "Plugin officiel figma@claude-plugins-official : 7 skills, workflow design-to-code pixel-perfect, distribution equipe via enabledPlugins"
+resume: "Plugin officiel figma@claude-plugins-official : 8 skills officielles, workflow design-to-code pixel-perfect, distribution équipe via enabledPlugins"
 aliases:
   - figma mcp
   - figma claude code
   - figma plugin claude
   - design-to-code figma
   - pixel-perfect figma
-  - figma-implement-design
-  - figma-create-design-system-rules
   - figma skills mcp
 type: knowledge
-derniere-maj: 2026-05-13
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://help.figma.com/hc/en-us/articles/39166810751895-Figma-skills-for-MCP"
   - "https://github.com/figma/mcp-server-guide"
   - "https://help.figma.com/hc/en-us/articles/39888612464151-Claude-Code-and-Figma-Set-up-the-MCP-server"
+  - "https://developers.figma.com/docs/figma-mcp-server/rate-limits-access/"
+  - "https://docs.claude.com/en/docs/claude-code/mcp"
 tags:
   - "#type/knowledge"
   - "#domaine/tech"
@@ -30,18 +30,18 @@ tags:
 claude plugin install figma@claude-plugins-official
 ```
 
-Le plugin inclut le MCP server + les skills + les rules. Le MCP seul (`.mcp.json`) ne donne que les tools bruts sans les skills guidees.
+Le plugin inclut le MCP server + les skills + les rules. Le MCP seul (`.mcp.json`) ne donne que les tools bruts sans les skills guidées.
 
-### Distribution equipe
+### Distribution équipe
 
-Dans `.claude/settings.json` (commite) :
+Dans `.claude/settings.json` (commit) :
 ```json
 "enabledPlugins": {
   "figma@claude-plugins-official": true
 }
 ```
 
-Quand un collegue ouvre le projet, Claude Code lui propose d'installer le plugin automatiquement.
+Quand un collègue ouvre le projet, Claude Code lui propose d'installer le plugin automatiquement.
 
 ### Setup MCP fallback (sans plugin)
 
@@ -52,52 +52,60 @@ Dans `.mcp.json` :
 
 Ou desktop : `claude mcp add --transport http figma-desktop http://127.0.0.1:3845/mcp`
 
-## 7 Skills du plugin
+## 8 Skills officielles du plugin
 
-| Skill | Role | Quand l'utiliser |
-|-------|------|-----------------|
-| **figma-implement-design** | Convertit un design Figma en code pixel-perfect | Implementer un composant depuis une maquette |
-| **figma-create-design-system-rules** | Analyse le codebase et genere un fichier de conventions design | Debut de projet, onboarding, conventions team |
-| **figma-code-connect-components** | Lie composants Figma publies ↔ code via Code Connect | Dev Mode, navigation design→code |
-| **figma-use** | Ecrire sur le canvas Figma (frames, composants, variables, auto layout) | Creer/modifier du contenu Figma depuis Claude |
-| **figma-use-figjam** | Ecrire sur un board FigJam (stickies, sections, connectors) | Brainstorm, diagrams |
-| **figma-create-new-file** | Creer un fichier Figma vierge | Premier pas avant figma-use |
-| **figma-generate-design** | Genere des ecrans Figma depuis le code (code→design) | Synchro code→Figma |
+Source : https://help.figma.com/hc/en-us/articles/39166810751895-Figma-skills-for-MCP
+
+| Skill | Rôle |
+|-------|------|
+| **figma-use** | Écrire sur le canvas Figma (frames, composants, variables, auto layout) |
+| **figma-use-figjam** | Écrire sur un board FigJam (stickies, sections, connectors) |
+| **figma-use-slides** | Écrire dans Figma Slides |
+| **figma-code-connect** | Lier composants Figma publiés ↔ code via Code Connect |
+| **figma-create-new-file** | Créer un fichier Figma vierge |
+| **figma-generate-diagram** | Générer un diagramme dans FigJam |
+| **figma-generate-library** | Générer une component library |
+| **figma-generate-design** | Générer un fichier Figma design depuis le code (code→design) |
+
+⚠️ Correction 2026-05-23 : la liste précédente contenait des noms inventés (`figma-implement-design`, `figma-create-design-system-rules`, `figma-code-connect-components`) — ceux-ci n'existent PAS dans la liste officielle Figma. Liste vérifiée verbatim help.figma.com.
 
 ## Workflow pixel-perfect officiel
 
-1. **`get_design_context(nodeId)`** — donnees structurees du node (layout, tokens, variables)
+1. **`get_design_context(nodeId)`** — données structurées du node (layout, tokens, variables)
 2. **`get_metadata(fileKey)`** — si trop gros, mapper les nodes d'abord
-3. **`get_screenshot(nodeId)`** — reference visuelle
-4. **Telecharger les assets** (`download_figma_images`)
-5. **Implementer** en traduisant vers les conventions du projet
-6. **Valider** 1:1 contre la maquette avant de marquer termine
+3. **`get_screenshot(nodeId)`** — référence visuelle
+4. **Télécharger les assets** (`download_figma_images`)
+5. **Implémenter** en traduisant vers les conventions du projet
+6. **Valider** 1:1 contre la maquette avant de marquer terminé
 
-### Limite tokens
+### Limite tokens Claude Code
 
-Claude Code limite les reponses MCP a **25 000 tokens**. Si `get_design_context` depasse → utiliser `get_metadata` d'abord puis fetch node par node.
+Claude Code limite les réponses MCP : **warning à 10 000 tokens, max default 25 000 tokens**.
 
-## `figma-create-design-system-rules`
+> Verbatim docs.claude.com : *"Claude Code displays a warning when MCP tool output exceeds 10,000 tokens, and the default maximum is 25,000 tokens."*
 
-- **N'a PAS besoin d'URL Figma** par defaut — analyse le codebase
-- **Peut prendre une URL Figma** si on la passe en input → analyse codebase + design system
-- **Genere un fichier de conventions** (tokens, composants, nommage) dans `rules/` ou `instructions/`
-- **Attention** : peut proposer d'ecrire dans les skills existantes du projet. Verifier la destination avant d'accepter → preferer un nouveau fichier `rules/design-system.md`
+Override possible via env var `MAX_MCP_OUTPUT_TOKENS=50000`. Annotation `anthropic/maxResultSizeChars` outrepasse pour le contenu texte. Pas d'override possible pour images (seule solution = augmenter `MAX_MCP_OUTPUT_TOKENS`).
 
-## Integration avec les agents projet
+## Intégration avec les agents projet
 
-Les skills du plugin sont **globales** — elles s'ajoutent aux skills projet sans conflit. Mais pour que les agents les utilisent automatiquement :
-- Ajouter `figma-implement-design` dans le frontmatter `skills:` de `vue-dev` et `architect`
-- Mentionner dans le body : "Quand un lien Figma est dans le ticket, utiliser `figma-implement-design`"
+Skills du plugin **globales** — s'ajoutent aux skills projet sans conflit. Pour les agents :
+- Ajouter une des skills figma dans le frontmatter `skills:` de l'agent
+- Mentionner dans le body : "Quand un lien Figma est dans le ticket, utiliser `figma-code-connect` ou `figma-generate-design`"
 
 ## Rate limits
 
-| Plan | Limite |
+Source : https://developers.figma.com/docs/figma-mcp-server/rate-limits-access/
+
+| Plan / Seat | Limite |
 |------|--------|
-| Starter / View / Collab | **6 tool calls / mois** |
-| Professional / Organization / Enterprise (Dev ou Full seat) | Per-minute (Tier 1 Figma REST API) |
+| Starter / View / Collab seat | **6 tool calls / mois** (hard cap, écriture exemptée) |
+| Pro Dev/Full seat | Per-minute (Tier 1 Figma REST API) |
+| Organization Dev/Full seat | **200 calls / jour** |
+| Enterprise Dev/Full seat | **600 calls / jour** |
+
+Note : tools en écriture (write to Figma files) sont **exemptés** du cap mensuel Starter.
 
 ## Liens
 
-- [[lojii]] — premier projet configure avec le plugin Figma
-- [[workflow-claude-code-optimal]] — pipeline qui integre le design Figma
+- [[lojii]] — premier projet configuré avec le plugin Figma
+- [[workflow-claude-code-optimal]]

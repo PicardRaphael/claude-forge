@@ -189,7 +189,7 @@ Voir `cc-cowork-ref` pour la reference complete.
 ## Best practices (Boris + équipe)
 
 - **`/clear` entre tâches non liées** — sessions fourre-tout = piège #1
-- **`/compact` proactif à 70%** — pas attendre l'auto-compact
+- **`/compact` proactif sous 40-60%** — pas attendre l'auto-compact (~83.5%). Tips Thariq via howborisusesclaudecode.com
 - **"Document & Clear"** — dump plan dans un .md, /clear, nouvelle session
 - **CLAUDE.md concis** — pour chaque ligne : "si je l'enlève, ça casse ?" sinon couper
 - **Hooks = 100% déterministe. CLAUDE.md = ~80%.** (Boris)

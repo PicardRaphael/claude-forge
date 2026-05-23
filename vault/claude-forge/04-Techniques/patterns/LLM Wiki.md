@@ -1,6 +1,6 @@
 ---
 titre: "LLM Wiki — Pattern Karpathy"
-resume: "100 articles, 400K mots plain text, 70x plus efficient que RAG pour organiser la connaissance"
+resume: "Pattern Karpathy avril 2026 : un LLM compile et maintient un wiki markdown structuré plutôt que faire du RAG sur des sources brutes"
 aliases:
   - "llm wiki"
   - "karpathy wiki"
@@ -9,38 +9,46 @@ aliases:
   - "plain text knowledge management"
 domaine: technique
 type: technique
-derniere-maj: 2026-04-21
+derniere-maj: 2026-05-23
 auteur: claude
-sources: []
+sources:
+  - "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f"
+  - "https://x.com/karpathy/status/1937902205765607626"
 tags:
   - "#type/technique"
-  - "#type/technique"
+  - "#domaine/rag"
 ---
 
 ## Description
 
-Pattern d'[[Andrej Karpathy]] (avril 2026). Utiliser les LLMs pour organiser la connaissance plutôt que générer du code.
+Pattern d'[[Andrej Karpathy]] publié sur X le 3 avril 2026 puis formalisé en gist GitHub le 4 avril 2026 (5K+ stars, 4K+ forks). Utiliser un LLM pour **compiler et maintenir** un wiki markdown structuré plutôt que faire du RAG à chaque requête.
+
+> ✅ Verbatim Karpathy (gist) : *"Obsidian is the IDE; the LLM is the programmer; the wiki is the codebase."*
 
 ## Quand utiliser
 
-Quand on a besoin d'organiser un corpus de connaissances large. Alternative à RAG pour les bases de connaissances personnelles.
+Alternative au RAG pour les bases de connaissances personnelles à moyenne échelle. Pour les corpus très larges (millions de mots), RAG reste pertinent.
 
-## Specs
+## Specs verbatim Karpathy (gist)
 
-- ~100 articles, 400K mots
-- Plain text (pas de base vectorielle)
-- 70x plus efficient que RAG
-- Maintenance : LLM organise, humain valide
+- Échelle indicative : "~100 sources, ~hundreds of pages" (verbatim — pas de chiffre "400K mots" dans le gist direct)
+- Plain text markdown — pas de base vectorielle, pas de chunking, pas d'embeddings
+- 3 layers : `raw/` (sources immuables), `wiki/` (LLM-owned), schema/conventions
+- Maintenance : LLM organise/cross-référence/update, humain source/explore/valide
 
-## Exemple
+> Verbatim Karpathy : *"The LLM makes edits based on our conversation."* + *"LLMs handle cross-referencing and bookkeeping; humans handle sourcing, exploration, and asking the right questions."*
 
-Un wiki personnel de ~100 articles couvrant un domaine (ex: droit immobilier, compliance, stack technique). Chaque article = ~4000 mots. Le LLM organise les articles (structure, cross-references, sommaire), l'humain valide le contenu.
+## Pas de chiffre d'efficience attesté
+
+Le chiffre "70x plus efficient que RAG" est cité par MindStudio (blog tiers) mais **n'apparaît pas dans le gist Karpathy ni ses tweets**. À traiter comme angle éditorial d'un blog, pas comme claim Karpathy.
 
 ## Lien avec forge-brain
 
-Ce vault est inspiré du même principe : knowledge base structurée, notes atomiques, cross-linkée, plain text Obsidian.
+Ce vault implémente le pattern Karpathy : 3 layers (raw/wiki/schema), notes atomiques cross-linkées en plain text, LLM maintient l'organisation via le MCP forge-brain. Voir [[pattern-vault-llm-karpathy]] pour l'implémentation.
 
 ## Liens
 
-- [[MOC-Techniques]]
 - [[Andrej Karpathy]]
+- [[pattern-vault-llm-karpathy]]
+- [[Context Engineering]]
+- [[MOC-Techniques]]

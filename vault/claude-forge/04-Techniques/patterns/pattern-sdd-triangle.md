@@ -1,6 +1,6 @@
 ---
-titre: "SDD Triangle — Spec ↔ Tests ↔ Code feedback loop"
-resume: "Drew Breunig : SPEC, TESTS et CODE doivent rester synchronisés. Implémenter le code améliore la spec. Outil Plumb extrait les décisions des diffs et met à jour la spec automatiquement"
+titre: "SDD Triangle — Drew Breunig (Spec/Tests/Code)"
+resume: "Drew Breunig : SPEC, TESTS et CODE doivent rester synchronisés. Outil Plumb extrait les décisions des diffs et met à jour la spec. Trois niveaux de maturité (Böckeler, pas Breunig)"
 aliases:
   - SDD triangle
   - spec tests code
@@ -10,7 +10,12 @@ aliases:
   - living specification
 domaine: development
 type: technique
-derniere-maj: 2026-05-12
+derniere-maj: 2026-05-23
+sources:
+  - "https://www.dbreunig.com/2026/03/04/the-spec-driven-development-triangle.html"
+  - "https://github.com/dbreunig/plumb"
+  - "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  - "https://heeki.medium.com/using-spec-driven-development-with-claude-code-4a1ebe5d9f29"
 tags:
   - "#type/technique"
   - "#domaine/workflow"
@@ -18,7 +23,7 @@ tags:
 auteur: claude
 ---
 
-## Le Triangle
+## Le Triangle (Drew Breunig)
 
 ```
     SPEC
@@ -27,58 +32,70 @@ auteur: claude
 TESTS ── CODE
 ```
 
-Les 3 nœuds doivent rester synchronisés. Si on améliore le code, on doit améliorer la spec. La spec n'est PAS un document figé — implémenter le code révèle des décisions non anticipées qui doivent refluer dans la spec.
+Pattern de **Drew Breunig** : les 3 nœuds doivent rester synchronisés. Implémenter le code révèle des décisions non anticipées qui doivent refluer dans la spec. La spec n'est PAS un document figé.
 
-## Trois niveaux de maturité
+## Trois niveaux de maturité — Birgitta Böckeler (Thoughtworks)
 
-1. **Spec-first** — spec guide le build initial, peut drifter après
-2. **Spec-anchored** — spec et code évoluent ensemble, sync enforced
-3. **Spec-as-source** — humains éditent uniquement les specs, machines génèrent le code
+⚠️ **Attribution corrigée** : les 3 niveaux **NE viennent PAS** de Breunig (qui parle de Spec/Tests/Code, les 3 sommets du triangle). Ils viennent de **Birgitta Böckeler (Thoughtworks)** dans son article martinfowler.com. Heeki Park (AWS) les utilise en référençant explicitement Böckeler.
+
+1. **Spec-first** — spec écrite pour une tâche, utilisée pendant le dev, peut être abandonnée après
+2. **Spec-anchored** — spec maintenue comme living document tout au long du cycle de vie ; modifications commencent par la spec, AI regénère le code. C'est la cible de la plupart des outils SDD actuels.
+3. **Spec-as-source** — la spec est le SEUL artefact humain, code = output transient généré, jamais touché à la main
+
+> Verbatim Böckeler/Fowler : *"Are we making something worse in the attempt of making it better?"* (Verschlimmbesserung) — risque d'over-engineering SDD.
 
 ## Outil Plumb (Drew Breunig)
 
 Pre-commit hook qui intercepte `git commit` :
 
-1. Analyse le diff stagé + les logs de conversation Claude Code
+1. Analyse le diff stagé + logs de conversation Claude Code
 2. Extrait les "décisions prises" pendant l'implémentation
-3. Gate le commit sur la review humaine des décisions
-4. Les décisions approuvées mettent à jour la spec automatiquement
+3. Gate le commit sur review humaine des décisions
+4. Décisions approuvées → spec auto-mise-à-jour
 
-### Structure
+Repo : https://github.com/dbreunig/plumb. Slogan : *"A tool for keeping things true."*
+
+### Structure type
 
 ```
 .plumb/
   config.json
-  decisions.jsonl      ← log append-only des décisions
+  decisions.jsonl      ← log append-only
   requirements.json    ← requirements extraits
   coverage.json        ← couverture 3 dimensions
 ```
 
-### Couverture 3D (`plumb coverage`)
+### Couverture multi-dimensions (Breunig)
 
-1. **Code coverage** — tests qui couvrent le code
-2. **Spec-to-test mapping** — chaque requirement a au moins 1 test
-3. **Spec-to-code mapping** — chaque requirement a du code qui l'implémente
+Breunig mentionne plusieurs dimensions de couverture dans `plumb coverage` :
+
+1. **Code coverage** (tests qui couvrent le code)
+2. **Spec-to-test mapping** (chaque requirement a un test)
+3. **Spec-to-code mapping** (chaque requirement a du code)
+
+Le terme exact "Couverture 3D" n'est pas verbatim Breunig — c'est une lecture forge. Les concepts spec-to-test/spec-to-code sont bien chez lui.
 
 ## Lossless Feedback Loop (TDD + SDD)
 
-Le coding IA traditionnel est LOSSY — le raisonnement est éphémère, les décisions disparaissent entre sessions. Combiner TDD + SDD rend le processus lossless :
+Combiner TDD + SDD rend le processus lossless :
 
 - Spec + tests + code committés atomiquement
-- Chaque décision est tracée dans le decision log
-- Endgame prédit : devs écrivent specs + tests, IA génère le code, humains reviewent spec + résultats de tests (jamais le code directement)
+- Chaque décision tracée dans le decision log
+- Endgame : devs écrivent specs + tests, IA génère code, humains reviewent spec + résultats de tests
 
 ## Application dans /spec Neoteem
 
-Actuellement au niveau **spec-first** (la spec est écrite avant le dev mais peut drifter). Pour évoluer vers spec-anchored :
+Actuellement au niveau **spec-first** (Böckeler). Évolution vers spec-anchored possible :
 
 - Post-implémentation : générer un "spec diff" (planning vs réalité)
 - Intégrer Plumb ou équivalent dans le pipeline /go
-- Tracker les décisions prises pendant l'implémentation qui modifient la spec
+- Tracker les décisions qui modifient la spec
 
 ## Liens
 
 - [[MOC-Techniques]]
-- [[pattern-spec-driven-development]] — Pattern SDD complet
-- [[pattern-spec-skill-deployment]] — Déploiement skill /spec
-- [[over-specification-paradox]] — Ne pas sur-spécifier (S*=0.509)
+- [[pattern-spec-driven-development]]
+- [[pattern-spec-skill-deployment]]
+- [[Drew Breunig]]
+- [[Birgitta Böckeler]]
+- [[Heeki Park]]

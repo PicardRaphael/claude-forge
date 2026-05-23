@@ -1,6 +1,6 @@
 ---
 titre: "Architecture Cerveau Obsidian + MCP — Guide complet"
-resume: "Construire un cerveau persistant pour agents IA avec Obsidian + SQLite FTS5 + MCP : indexation, recherche, skills, auto-start, qualite"
+resume: "Construire un cerveau persistant pour agents IA avec Obsidian + SQLite FTS5 + MCP : indexation, recherche, skills, auto-start, qualité"
 aliases:
   - "cerveau obsidian MCP"
   - "obsidian brain architecture"
@@ -9,8 +9,10 @@ aliases:
   - "MCP obsidian from scratch"
   - "brain architecture agents"
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
+sources:
+  - "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f"
 tags:
   - "#type/technique"
   - "#domaine/rag"
@@ -19,7 +21,11 @@ tags:
 
 ## Pourquoi
 
-Les agents IA (Claude Code, Gemini CLI, etc.) perdent leur contexte entre sessions. Un vault Obsidian + MCP donne une memoire persistante infinie : chaque session lit et ecrit dans le vault, chaque erreur est documentee, chaque technique est retrouvable.
+Les agents IA (Claude Code, Gemini CLI, etc.) perdent leur contexte entre sessions. Un vault Obsidian + MCP donne une mémoire persistante infinie : chaque session lit et écrit dans le vault, chaque erreur est documentée, chaque technique est retrouvable.
+
+Inspiré du pattern Karpathy LLM Wiki (avril 2026) :
+
+> ✅ Verbatim Karpathy (gist 442a6bf...) : *"Obsidian is the IDE; the LLM is the programmer; the wiki is the codebase."*
 
 ## Architecture
 
@@ -27,7 +33,7 @@ Les agents IA (Claude Code, Gemini CLI, etc.) perdent leur contexte entre sessio
 Projet Claude Code
 ├── vault/<nom>/              ← fichiers .md (le cerveau)
 │   ├── 00-Hub/               ← MOCs (index navigables)
-│   ├── 01-..../              ← dossiers thematiques
+│   ├── 01-..../              ← dossiers thématiques
 │   └── Knowledge/            ← erreurs, syntheses, raisonnements
 ├── mcp-<nom>/                ← serveur MCP
 │   ├── src/
@@ -39,48 +45,48 @@ Projet Claude Code
 │   ├── config.yaml           ← chemins, poids BM25, port
 │   └── start.py              ← launcher
 └── .claude/
-    ├── hooks/mcp-autostart.py ← auto-demarre le MCP au SessionStart
+    ├── hooks/mcp-autostart.py ← auto-démarre le MCP au SessionStart
     ├── rules/forge-brain-proactive.md ← quand/comment interroger
     └── skills/forge-brain/SKILL.md    ← skill pour les agents
 ```
 
-## Etape 1 — Le vault (fichiers .md)
+## Étape 1 — Le vault (fichiers .md)
 
 Obsidian Flavored Markdown avec frontmatter YAML :
 
 ```yaml
 ---
 titre: "Nom de la note"
-resume: "1 phrase specifique"
+resume: "1 phrase spécifique"
 aliases: ["alias1", "alias2", "alias3", "alias4"]
 tags: ["#type/technique", "#domaine/rag"]
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 ---
 ```
 
-Regles : 1 concept = 1 note, max 5 sections H2, aliases min 4-6 (FR + EN + variantes + domaine), wikilinks min 2.
+Règles : 1 concept = 1 note, max 5 sections H2, aliases min 4-6 (FR + EN + variantes + domaine), wikilinks min 2.
 
 Voir : obsidian-markdown (skill forge) pour le format.
 
-## Etape 2 — L index SQLite FTS5
+## Étape 2 — L'index SQLite FTS5
 
 Schema 5 tables : `notes`, `aliases`, `links`, `tags`, `notes_fts` (virtual FTS5).
 
-BM25 pondere : file_stem x10, aliases x8, content x1. Les noms et aliases sont les signaux les plus forts.
+BM25 pondéré : file_stem x10, aliases x8, content x1. Les noms et aliases sont les signaux les plus forts.
 
-**Pas d embeddings** a moins de 1000 notes — voir [[pattern-fts5-aliases-vs-embeddings]].
+**Pas d'embeddings** à moins de 1000 notes — voir [[pattern-fts5-aliases-vs-embeddings]].
 
-Tokenizer : `unicode61 remove_diacritics 2` (pas de stemming, parite avec Obsidian).
+Tokenizer : `unicode61 remove_diacritics 2` (pas de stemming, parité avec Obsidian).
 
-Stop words : articles + prepositions uniquement. **Jamais** de mots d intention (erreur, probleme, bug) — voir [[erreur-mcp-stopwords-semantiques]].
+Stop words : articles + prépositions uniquement. **Jamais** de mots d'intention (erreur, problème, bug) — voir [[erreur-mcp-stopwords-semantiques]].
 
-Voir : [[sqlite-fts5-vault]] pour le detail technique.
+Voir : [[sqlite-fts5-vault]] pour le détail technique.
 
-## Etape 3 — Le serveur MCP
+## Étape 3 — Le serveur MCP
 
 FastMCP en mode HTTP (`streamable-http`). 9 outils minimum :
 
-| Outil | Lecture/Ecriture | Usage |
+| Outil | Lecture/Écriture | Usage |
 |-------|-----------------|-------|
 | `search_brain` | R | Recherche FTS5 |
 | `read_note` | R | Lire par nom ou alias |
@@ -90,17 +96,17 @@ FastMCP en mode HTTP (`streamable-http`). 9 outils minimum :
 | `get_property` | R | Lire frontmatter |
 | `list_notes` | R | Lister un dossier |
 | `vault_stats` | R | Stats globales |
-| `create_note` | W | Creer une note |
+| `create_note` | W | Créer une note |
 | `append_note` | W | Ajouter du contenu |
 | `update_property` | W | Modifier frontmatter (regex, PAS yaml.dump) |
 
-**Piege** : `update_property` ne doit PAS round-tripper le YAML — voir [[erreur-mcp-yaml-dump-corruption]].
+**Piège** : `update_property` ne doit PAS round-tripper le YAML — voir [[erreur-mcp-yaml-dump-corruption]].
 
-**Git sync desactive** : les commits sont geres par l agent, pas par le MCP. Sinon → branches parasites — voir `config.yaml : git.auto_commit: false`.
+**Git sync désactivé** : les commits sont gérés par l'agent, pas par le MCP. Sinon → branches parasites — voir `config.yaml : git.auto_commit: false`.
 
-Voir : [[mcp-obsidian-brain-v2]] pour l implementation.
+Voir : [[mcp-obsidian-brain-v2]] pour l'implémentation.
 
-## Etape 4 — Integration Claude Code
+## Étape 4 — Intégration Claude Code
 
 ### Auto-start (hook SessionStart)
 ```python
@@ -111,10 +117,10 @@ Voir : [[mcp-obsidian-brain-v2]] pour l implementation.
 ### Rules (quand interroger)
 ```markdown
 # .claude/rules/forge-brain-proactive.md
-- Debut de session → search_brain contexte
-- Avant de creer un composant → chercher erreurs + best practices
-- Apres une erreur → creer note Knowledge/erreurs/
-- Apres cc-news → capitaliser en notes atomiques
+- Début de session → search_brain contexte
+- Avant de créer un composant → chercher erreurs + best practices
+- Après une erreur → créer note Knowledge/erreurs/
+- Après cc-news → capitaliser en notes atomiques
 ```
 
 ### Skill (pour les agents)
@@ -124,31 +130,32 @@ Voir : [[mcp-obsidian-brain-v2]] pour l implementation.
 # Description = trigger ("Search, read, and write to the vault...")
 ```
 
-## Etape 5 — Standard qualite
+## Étape 5 — Standard qualité
 
-Le cerveau ne vaut que si les notes sont bien ecrites :
+Le cerveau ne vaut que si les notes sont bien écrites :
 
 | Standard | Minimum | Pourquoi |
 |----------|---------|----------|
 | Aliases | 4-6 (FR + EN + domaine) | Les aliases = embeddings gratuits |
-| Resume | 1 phrase specifique | search_brain affiche le resume |
+| Resume | 1 phrase spécifique | search_brain affiche le resume |
 | Tags | 2 (type + domaine) | Navigation structurelle |
 | Wikilinks | 2 | Graphe navigable |
-| derniere-maj | Date ISO | Detecter les notes stales |
+| derniere-maj | Date ISO | Détecter les notes stales |
 
 Enforcer via warning dans `create_note` : "WARNING: seulement N aliases (minimum 4)".
 
-## Anti-patterns documentes
+## Anti-patterns documentés
 
-- [[erreur-mcp-stopwords-semantiques]] — ne pas filtrer les mots d intention
+- [[erreur-mcp-stopwords-semantiques]] — ne pas filtrer les mots d'intention
 - [[erreur-mcp-yaml-dump-corruption]] — ne pas round-tripper le YAML
 - [[erreur-hooks-bash-quoting-windows]] — hooks portables cross-OS
-- Auto-boost generique (injecter "knowledge" a 30+ notes = ranking inutile)
+- Auto-boost générique (injecter "knowledge" à 30+ notes = ranking inutile)
 
 ## Liens
 
-- [[mcp-obsidian-brain-v2]] — implementation deployee
+- [[LLM Wiki]] — pattern Karpathy d'origine
+- [[mcp-obsidian-brain-v2]] — implémentation déployée
 - [[sqlite-fts5-vault]] — pattern technique FTS5
-- [[pattern-fts5-aliases-vs-embeddings]] — decision embeddings
+- [[pattern-fts5-aliases-vs-embeddings]] — décision embeddings
 - [[erreur-mcp-stopwords-semantiques]] — audit devil's advocate
 - [[MOC-Techniques]]

@@ -11,14 +11,13 @@ aliases:
   - planning first development
 domaine: claude-code
 type: technique
-derniere-maj: 2026-05-12
+derniere-maj: 2026-05-23
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
   - "#domaine/workflow"
 auteur: claude
 ---
-
 ## Principe
 
 **Planifier AVANT de coder, séparer planning et implémentation.** Consensus universel des pionniers 2026.
@@ -57,9 +56,9 @@ Variante teammate : 2ème session Claude review le plan comme staff engineer.
 
 | Framework | Stars | Approche |
 |-----------|-------|----------|
-| **GitHub Spec Kit** | 93K | Constitution → Specify → Clarify → Plan → Tasks → Implement |
-| **GSD** | 59K | Discuss → Plan → Execute → Verify → Ship, contexte frais par agent |
-| **BMAD** | 46K | 12+ agents SDLC, document sharding en story files |
+| **GitHub Spec Kit** | ~105K (2026-05-23) | Constitution → Specify → Plan → Tasks → Implement (6 core + 3 optionnelles) |
+| **GSD** | ~59K | Discuss → Plan → Execute → Verify → Ship, contexte frais par agent |
+| **BMAD** | ~46K (v6.6.0 avril 2026) | 21 agents spécialisés, document sharding en story files |
 
 ## Plugin feature-dev (Anthropic officiel, Sid Bidasaria)
 
@@ -79,17 +78,19 @@ Variante teammate : 2ème session Claude review le plan comme staff engineer.
 
 SPEC ↔ TESTS ↔ CODE en feedback loop. La spec n'est pas figée — implémenter le code améliore la spec. Outil Plumb : sur git commit, extrait les décisions du diff, met à jour la spec automatiquement.
 
-## Trois niveaux de maturité (Heeki Park)
+## Trois niveaux de maturité (Birgitta Böckeler, Thoughtworks)
 
-1. **Spec-first** — spec écrite avant le dev
-2. **Spec-anchored** — spec maintenue après complétion
-3. **Spec-as-source** — spec = seul artefact humain, code = output généré
+⚠️ Attribution corrigée : les 3 niveaux viennent de **Birgitta Böckeler** ([martinfowler.com](https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html)), pas de Heeki Park ni Drew Breunig. Park (AWS) utilise ces niveaux en référençant Böckeler explicitement.
+
+1. **Spec-first** — spec écrite avant le dev, peut drifter après
+2. **Spec-anchored** — spec maintenue comme living document tout au long du cycle de vie
+3. **Spec-as-source** — spec = seul artefact humain, code = output généré, jamais touché à la main
 
 ## Liens
 
 - [[MOC-Techniques]]
 - [[workflow-claude-code-optimal]] — Pipeline d'implémentation EN AVAL de la spec
-- [[over-specification-paradox]] — Seuil S*=0.509, ne pas sur-spécifier
+- [[over-specification-paradox]] — Risque de sur-spécification (concept, pas de chiffre canonique attesté)
 - [[Context Engineering]] — La spec est un artefact de context engineering
 - [[methode-analyser-repo]] — Plugin feature-dev dans le setup
 - [[Agents IA]] — Agents spécialisés dans les frameworks SDD
@@ -135,7 +136,7 @@ TODO/feature-<nom>/
 
 **Calibration gate** : taille déterminée APRÈS exploration (pas avant). M par défaut, re-calibré en phase 2. Pas de taille S (trop trivial pour /spec).
 
-### Architecture GitHub Spec Kit (93K stars)
+### Architecture GitHub Spec Kit (~105K stars mai 2026)
 
 ```
 specs/001-feature-name/
@@ -152,7 +153,7 @@ Concept de **Constitution** (`.specify/memory/constitution.md`) = règles archit
 
 6 commandes : `/speckit.constitution` → `/speckit.specify` → `/speckit.clarify` → `/speckit.plan` → `/speckit.tasks` → `/speckit.implement`
 
-### Architecture GSD (59K stars)
+### Architecture GSD (~59K stars mai 2026)
 
 ```
 PROJECT.md       ← vision et scope
@@ -166,9 +167,9 @@ Chaque subagent reçoit un **contexte frais** (200K tokens). Plans scopés à ~5
 
 Insight clé : "Plans are prompts — the PLAN.md file IS the executable instruction."
 
-### Architecture BMAD (46K stars)
+### Architecture BMAD (~46K stars v6.6.0 avril 2026)
 
-Document Sharding : PRD + architecture docs → Story Files (`{epicNum}.{storyNum}.story.md`). Chaque story embarque le contexte archi + acceptance criteria. 12+ agent personas (BA, PM, Architect, PO, Scrum Master, Dev, QA).
+Document Sharding : PRD + architecture docs → Story Files (`{epicNum}.{storyNum}.story.md`). Chaque story embarque le contexte archi + acceptance criteria. **21 agents spécialisés** (BA, PM, Architect, PO, Scrum Master, Dev, QA, etc.) + 50+ guided workflows + Scale-Adaptive Intelligence (Quick Flow / BMad Method / Enterprise Method).
 
 Best pour gros projets greenfield. Overkill pour itération rapide.
 

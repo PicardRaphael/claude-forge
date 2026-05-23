@@ -12,7 +12,7 @@ aliases:
   - pydantic ai stack
 domaine: ia
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://github.com/langchain-ai/langgraph"
@@ -26,7 +26,6 @@ tags:
   - "#domaine/python"
   - "#domaine/stacks"
 ---
-
 ## Decision rapide
 
 Pour choisir le framework agent → [[agents-frameworks]] | [[index-architectures]]
@@ -292,7 +291,7 @@ async def websocket_chat(websocket: WebSocket):
 | Plateforme | Cold start | GPU | Ideal pour |
 |-----------|-----------|-----|-----------|
 | **FastAPI + Docker** (Railway/Fly) | ~2s | Non | Chatbots, APIs LLM, majorite des cas |
-| **Modal** | <1s GPU | **Oui** (A100/H100) | Embeddings local, fine-tuning, inference lourde |
+| **Modal** | ~1s container, GPU warm secs→mins | **Oui** (A100/H100) | Embeddings local, fine-tuning, inference lourde |
 | **AWS Lambda** (Mangum) | ~1-3s | Non | Event-driven, AWS ecosystem |
 | **Replicate** | Variable | Oui | Serving modeles custom |
 | **BentoML** | Variable | Oui | Packaging modeles ML |

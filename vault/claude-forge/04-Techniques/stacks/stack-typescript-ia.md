@@ -12,7 +12,7 @@ aliases:
   - typescript agent stack
 domaine: ia
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://github.com/vercel/ai"
@@ -25,7 +25,6 @@ tags:
   - "#domaine/typescript"
   - "#domaine/stacks"
 ---
-
 ## Decision rapide
 
 Pour choisir le framework agent → [[agents-frameworks]] | [[index-architectures]]
@@ -386,7 +385,7 @@ const agent = new Agent({
 - `@xenova/transformers` renomme en `@huggingface/transformers` — les deux existent sur NPM
 - Vercel AI SDK RSC en pause — utiliser `useChat()` SSE
 - LangChain.js verbose et "Python-ported" — preferer Vercel AI SDK ou Mastra pour du TS idiomatique
-- `strict: true` (OpenAI) incompatible avec parallel tool calls
+- `strict: true` (OpenAI) historiquement incompatible avec parallel tool calls — **fix annoncé 2025+** (OpenAIDevs X) : compatibilité restaurée sur snapshots récents
 - Node.js natif n'a pas de `fetch` sur anciennes versions — utiliser Node 18+ ou Bun
 
 ## Liens

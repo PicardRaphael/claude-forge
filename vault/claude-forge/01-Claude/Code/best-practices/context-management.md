@@ -36,9 +36,9 @@ A mesure que le nombre de tokens augmente, la capacite du modele a rappeler l'in
 
 Sessions "fourre-tout" = piege #1. Commencer une tache, poser des questions sans rapport, revenir — le contexte est pollue.
 
-### /compact proactif a 70%
+### /compact proactif (sous 40-60%, pas 70%)
 
-`/compact "garder le plan"` — ne pas attendre l'auto-compact. Specifier ce qui doit etre preserve.
+`/compact "garder le plan"` — ne pas attendre l'auto-compact (fire ~83.5%). Specifier ce qui doit etre preserve. Tips Thariq (howborisusesclaudecode.com) : shoot sous 40%, push 60% sur taches simples.
 
 ### Document & Clear
 

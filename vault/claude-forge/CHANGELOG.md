@@ -14,6 +14,61 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-23 — Audit thématique 06 patterns + context + stacks (~92 claims auditées)
+
+- **Modifiées (13 notes vault + 2 fichiers .claude)** :
+  - `04-Techniques/patterns/LLM Wiki.md` — réécrite : sources Karpathy gist, retrait "70x RAG" non attesté, "400K mots" → verbatim "~100 sources, hundreds of pages"
+  - `04-Techniques/patterns/Silent Assumptions.md` — Karpathy 4 anti-patterns sans hiérarchie (suppression "#1")
+  - `04-Techniques/patterns/architecture-cerveau-obsidian-mcp.md` — ponctuation verbatim Karpathy `;` (point-virgules)
+  - `04-Techniques/patterns/config-guardian-pattern.md` — ponctuation verbatim Karpathy
+  - `04-Techniques/patterns/pattern-github-spec-kit.md` — Spec Kit 105K stars, 7 fichiers (pas 8), 40+ extensions (pas 80+)
+  - `04-Techniques/patterns/pattern-gsd-framework.md` — Lex Christopherson / TACHES, ~59K stars, 29 skills (commandes exactes hors scope)
+  - `04-Techniques/patterns/pattern-sdd-triangle.md` — 3 niveaux maturité = **Böckeler/Thoughtworks** (pas Breunig ni Park)
+  - `04-Techniques/patterns/pattern-spec-driven-development.md` — chiffres stars actualisés, attribution 3 niveaux Böckeler, suppression S*=0.509, BMAD 21 agents
+  - `04-Techniques/patterns/pattern-figma-mcp-claude-code.md` — 8 skills officielles (pas 7 inventés), env var MAX_MCP_OUTPUT_TOKENS, sources élargies
+  - `04-Techniques/patterns/running-implementation-notes.md` — date 19 mai 2026, métriques 951 likes/44 RT, URL tweet à retrouver
+  - `04-Techniques/context-engineering/Context Engineering.md` — réécrite : 4 piliers communauté pas Karpathy, retrait sweet spot 150-300 mots, nuance ALL-CAPS, 4K Stanford pas 3K
+  - `04-Techniques/context-engineering/Context Management.md` — réécrite : /compact 40-60% pas 70%, Document & Clear = communauté/Manus, /clear = Anthropic docs sans "piège #1"
+  - `04-Techniques/stacks/stack-python-ia.md` — Modal cold start ~1s container, GPU warm secs→mins
+  - `04-Techniques/stacks/stack-typescript-ia.md` — strict + parallel OpenAI fix annoncé
+  - `05-Leaders/agents/Andrej Karpathy.md` — retrait 400K mots / 70x RAG, ajout verbatim Obsidian/IDE/wiki
+  - `01-Claude/Code/best-practices/context-management.md` — /compact 40-60% pas 70%
+- **Fichiers .claude propagés** :
+  - `.claude/agents/project-analyzer.md` — attribution /compact corrigée
+  - `.claude/skills/cc-features-ref/SKILL.md` — /compact 40-60%
+- **Type 3 (réécritures structurelles)** : 4 notes (LLM Wiki, Context Engineering, Context Management, pattern-sdd-triangle)
+- **Type 2 (chiffres/sources)** : 16 corrections chirurgicales
+- **Type 1 (attribution)** : 8 corrections
+- **Source** : Audit thématique méthode validée 23 mai (sub-agents par cluster + self-verify FAUX fort impact + Type 1/2/3)
+- **Output complet** : `output/audit-vault-thematique/06-patterns-context/` (A-inventaire, B-cluster1 à B-cluster6, C-croisement-et-plan-correction)
+
+
+## 2026-05-23 — Leaders prompt + industrie (11 nouvelles fiches)
+
+Suite à l'audit prompt engineering : création des fiches leaders manquantes identifiées en phase 0 (validation experts).
+
+**05-Leaders/prompt/ (8 fiches ajoutées)** :
+- Sander Schulhoff — CEO Learn Prompting/HackAPrompt, Prompt Report
+- Riley Goodside — premier Staff Prompt Engineer Scale AI → Google DeepMind, glitch tokens
+- Elvis Saravia — Co-Founder DAIR.AI, promptingguide.ai
+- Jason Wei — Chain-of-Thought original author (NeurIPS 2022), FLAN, emergent abilities
+- Denny Zhou — "king of reasoning" Google DeepMind, fondateur Reasoning Team
+- Takeshi Kojima — Zero-shot CoT ("Let's think step by step", Matsuo Lab UTokyo)
+- Imran Khan — Sculpting paper (arxiv 2510.22251, indépendant) — correction attribution forge
+- Anthony Mikinka — UCL Universal Conditional Logic (arxiv 2601.00880, S*=0.509)
+- Yann LeCun — Turing 2018, AMI Labs, position critique LLM/prompt engineering (world models JEPA)
+- Ethan Mollick — Wharton, Prompting Science Report 1
+
+**05-Leaders/industrie/ (5 fiches ajoutées)** :
+- Geoffrey Hinton — Turing 2018 + Nobel Physics 2024, "Godfather of AI", U of T Emeritus
+- Yoshua Bengio — Turing 2018, MILA founder, AI alignment
+- Demis Hassabis — Nobel Chemistry 2024 (AlphaFold), DeepMind CEO, Gemini
+- Ilya Sutskever — Safe Superintelligence CEO, ex-OpenAI Chief Scientist, AlexNet co-auteur
+- Reid Hoffman — LinkedIn cofounder, Inflection AI board, "person-plus-AI" framework
+- Allie K. Miller — Open Machine CEO, AI business ROI, ex-AWS Head ML Startups
+
+**Source** : phase 0 audit prompt engineering 23 mai 2026, validation hiérarchie experts. Notes 4-6 aliases, sources tier 1-3, wikilinks cross-categories.
+
 ## 2026-05-23 — Audit thématique prompt engineering (vault forge)
 
 Audit méthodique 17 notes du thème prompt engineering (`04-Techniques/prompt-engineering/` + `07-Prompts/`). Méthode A→B→C→D→E + propagation F appliquée (cf [[methode-analyser-repo]]) avec 6 sub-agents par cluster + 4 self-verify WebFetch direct des fondations doctrinales.

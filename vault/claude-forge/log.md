@@ -187,3 +187,12 @@ Audit méthodique 17 notes thème prompt-engineering (`04-Techniques/prompt-engi
 - **Notes modifiées (14)** : Adaptive Thinking, Effort Levels Guide, System Prompt Design, amanda-askell-prompt-engineering, deprecated-techniques-2026, forge-prompt-machine, opus-47-design-defaults, outcome-first-prompting, over-specification-paradox, prompting-chat-cowork-code, System Prompt Amanda Askell, System Prompt Claude Code, chain-of-thought, few-shot-prompting
 - **Drifts Type 1/2 corrigés** : verbatim OpenAI fabriqué (cité 2× dans vault), Sculpting paper attribution Khan PAS Mikinka, "30 000 mots" → "35 000+ tokens", "157 versions" → "186+", "Let's think step by step" sourcé Kojima 2022, ALL-CAPS exception inversée vs verbatim Anthropic
 - **Outputs** : `output/audit-vault-thematique/02-prompt-engineering/` (A-inventaire + 6 rapports clusters + C-croisement + D-plan + 0-experts)
+
+## [2026-05-23] add | 11 nouvelles fiches leaders (prompt + industrie)
+
+Suite à phase 0 audit prompt engineering : création fiches leaders identifiés mais absents du vault.
+
+- **05-Leaders/prompt/** : Sander Schulhoff, Riley Goodside, Elvis Saravia, Jason Wei, Denny Zhou, Takeshi Kojima, Imran Khan, Anthony Mikinka, Yann LeCun, Ethan Mollick
+- **05-Leaders/industrie/** : Geoffrey Hinton, Yoshua Bengio, Demis Hassabis, Ilya Sutskever, Reid Hoffman, Allie K. Miller
+
+Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance idéologique). Karpathy / Willison / Mollick déjà ailleurs — cross-référence via wikilinks.

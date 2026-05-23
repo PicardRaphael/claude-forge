@@ -170,7 +170,7 @@ Recommander pour CE projet uniquement :
 #### Commandes CLI & slash commands
 - **Flags** : worktrees, headless CI, --agent, --from-pr (selon workflow)
 - **Session** : /compact, /clear, /simplify, /doctor, /batch, /loop, /schedule (selon besoins)
-- **Best practices Boris** : /clear entre tâches, /compact à 70%, "Document & Clear"
+- **Best practices Anthropic docs (co-rédigées Boris)** : /clear entre tâches non liées (verbatim doc) ; /compact proactif sous 40-60% (tips Thariq via howborisusesclaudecode) ; pattern "Document & Clear" (communauté/Manus AI/sshh.io)
 
 #### Plugins (max 3-4, pas de bloat)
 - **LSP** : un seul, correspondant au langage principal
