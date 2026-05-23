@@ -63,8 +63,8 @@ Les benchmarks (FloTorch 2026, Chroma Research, NAACL 2025 Vectara) confirment d
 - [[Nils Reimers]] — Sentence-BERT, BEIR, VP Search Cohere
 
 ### Frameworks et outils
-- [[Jerry Liu]] — fondateur LlamaIndex
-- [[Harrison Chase]] — fondateur LangChain
+- [[Jerry Liu]] — co-fondateur & CEO LlamaIndex (data + agentic retrieval)
+- [[Harrison Chase]] — co-fondateur & CEO LangChain (chains, agents, LangGraph, LangSmith)
 - [[Han Xiao]] — fondateur Jina AI, late chunking
 - [[Greg Kamradt]] — ChunkViz, 5 Levels of Text Splitting
 

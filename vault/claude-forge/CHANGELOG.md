@@ -14,6 +14,20 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-23 — Post-audit RAG : fiches leaders manquantes + capitalisation erreurs
+
+- **Ajoutées** :
+  - `05-Leaders/rag/Jerry Liu.md` — co-fondateur CEO LlamaIndex, agentic RAG, LlamaParse
+  - `05-Leaders/rag/Harrison Chase.md` — co-fondateur CEO LangChain, LangGraph, LangSmith
+  - `Knowledge/erreurs/erreur-audit-rag-11-faux-2026-05-23.md` — synthèse 11 FAUX audit RAG + 6 patterns récurrents (arXiv YYMM, URL swap, paraphrase, inversion modèle, seuil inversé, chiffres fantômes)
+- **Mémoire forge** :
+  - `feedback_arxiv_id_yymm_format.md` — format YYMM doit matcher mois cité
+  - `feedback_arxiv_url_swap_papers_similaires.md` — N papers domaine = URLs swapées
+- **Modifiée** :
+  - `04-Techniques/rag/RAG.md` — descriptions Jerry Liu / Harrison Chase enrichies
+
+---
+
 ## 2026-05-23 — Audit thématique 03 RAG (~78 claims auditées)
 
 - **Modifiées (10 notes + 3 enrichissements squelettes)** :

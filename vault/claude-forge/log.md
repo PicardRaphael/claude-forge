@@ -204,3 +204,10 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - Corrections critiques : TOOLQP date 2026 (pas 2025), MCP-Zero URL corrigée, Gemini 1.5 Pro NIAH multi-fact (inversion), Karpathy verbatim canonique, cache cosine 0.80 (pas 0.95)
 - Liens : [[RAG]] [[rag-architecture]] [[tool-retrieval-query-expansion]] [[pattern-vault-llm-karpathy]]
 - Output : `output/audit-vault-thematique/03-rag/`
+
+## [2026-05-23] post-audit-rag | fiches leaders + capitalisation erreurs
+
+- Créées : [[Jerry Liu]] (LlamaIndex CEO) et [[Harrison Chase]] (LangChain CEO) dans 05-Leaders/rag/
+- Créée : [[erreur-audit-rag-11-faux-2026-05-23]] synthèse 11 FAUX + 6 patterns récurrents
+- Mémoire forge : 2 nouveaux feedbacks (arxiv-id-yymm-format, arxiv-url-swap)
+- Liens : [[RAG]] [[Jerry Liu]] [[Harrison Chase]] [[erreur-audit-rag-11-faux-2026-05-23]]
