@@ -1,6 +1,6 @@
 ---
 titre: Context Actuel
-resume: "Working memory dynamique — mis à jour par /done, lu par /recap. Session 2026-05-23 (tour 2) : audit thématique 02-prompt-engineering vault (24 corrections sur 14 notes) + 16 fiches leaders créées (prompt + industrie)."
+resume: "Working memory dynamique — mis à jour par /done, lu par /recap. Session 2026-05-23 (tour 3) : audit thématique 03-RAG vault (45 corrections sur 12 notes RAG + 3 squelettes enrichis + 2 fiches leaders Jerry Liu/Harrison Chase + capitalisation 11 erreurs)."
 aliases:
   - "context actuel"
   - "contexte courant"
@@ -18,36 +18,52 @@ tags:
 
 ## Phase actuelle
 
-Audits thématiques vault forge en cours (méthode A→B→C→D→E + propagation F) — 02 prompt engineering ✅ terminé. Reste : 03 RAG, 04 agents-ia, 05 fine-tuning, 06 patterns/context (déjà partiellement fait par autre session), 07 leaders-modeles-industrie.
+Audits thématiques vault forge en cours (méthode A→B→C→D→E + propagation F) — 02 prompt engineering ✅, 03 RAG ✅, 06 patterns/context/stacks ✅. Reste : 04 agents-ia, 05 fine-tuning, 07 leaders-modeles-industrie.
 
-## Dernière session (2026-05-23 — tour 2)
+## Dernière session (2026-05-23 — tour 3, audit RAG)
 
 ### Décisions prises
-- **Méthode A.5** : insérer 3-4 WebFetch directs entre checkpoint A (inventaire) et phase B (sub-agents) sur les sources primaires suspectes. Validé empiriquement = gain 30 min wall-time.
-- **Yann LeCun en `prompt/`** : malgré position critique LLM, fiche dans `prompt/` (pas seulement `industrie/`) pour balance idéologique du vault.
-- **Cross-référencement leaders** : Karpathy/Willison/Mollick existant en `agents/` ou `industrie/` — Mollick dédoublé en `prompt/` car papier prompt direct (Prompting Science Report 1).
+- **Méthode audit full 6 étapes appliquée** sur RAG (78 claims, 11 ❌ + 34 ⚠️ = 45 corrections en 1 session)
+- **2 vagues de 3 sub-agents** (vs 6 simultanés) — recommandation advisor validée pattern réutilisable
+- **Note erreurs synthétique unique** (vs 5 fragmentées) pour les 11 FAUX RAG
+- **Pré-vérification arXiv IDs avant sub-agents** = pattern validé (économise tokens)
+- **Ownership cross-cluster** (C2.6 Anthropic propriétaire Cluster 2, autres reprennent verdict) = pattern validé
 
 ### En cours
-- Commit `7622e12` poussé : 16 fiches leaders (10 prompt + 6 industrie) + audit PE final.
-- Audit thème 06 (patterns + context + stacks) déjà fait en parallèle par autre session (commit dans CHANGELOG).
+- Commits poussés : `c8382de` (audit RAG 14 fichiers) + `e4abf66` (post-audit : 2 fiches leaders + erreurs synthétique)
+- Mémoire enrichie : 2 nouveaux feedbacks (`arxiv_id_yymm_format`, `arxiv_url_swap_papers_similaires`)
+- Vault : 12 notes RAG corrigées, 3 squelettes enrichis (rag-evaluation, rag-production, ColPali), 2 leaders ajoutés
+
+### Corrections critiques RAG (11 FAUX)
+- TOOLQP date 2025→2026 (arXiv 2601.07782)
+- URL MCP-Zero 2603.13426→2506.01056 (double swap avec OATS)
+- Gemini 1.5 Pro NIAH multi-fact >99.7% (pas ~60% qui est GPT-4 Turbo)
+- Karpathy "alternative au RAG" → verbatim canonique
+- Cache cosine 0.95→0.80 (seuil inversé)
+- Tableau benchmark reranking C4.2 (12 chiffres non traçables)
+- 4 chiffres fantômes retirés (73% retrieval, 65%/85-90%, 70% pgvector, 73% enterprises)
 
 ### Prochaines étapes
-- Audit thème 03 (RAG) — 8+ notes dans `04-Techniques/rag/`
-- Audit thème 04 (agents-ia) — 10+ notes
-- Audit thème 05 (fine-tuning) — 15+ notes
-- Audit thème 07 (leaders, modeles, industrie) — ~80 notes (le plus gros)
-- Capitalisation : Reid Hoffman avec [[Sam Altman]] + [[Dario Amodei]] : vérifier ces fiches existent déjà
+- **Audit thème 04 (agents-ia)** — 10+ notes
+- **Audit thème 05 (fine-tuning)** — 15+ notes
+- **Audit thème 07 (leaders, modèles, industrie)** — ~80 notes (le plus gros, dernière étape)
 
 ## Fils ouverts
 
-- **Pattern récidiviste tweet/paraphrase verbatim** : 5e occurrence en 2 jours. Méthode A.5 ([[feedback_webfetch_avant_subagents_audit]]) en mitigation. Surveiller si baisse aux prochains audits.
-- **Cross-categories leaders** : Karpathy a 1 seule fiche dans `agents/`. Mériterait stub `prompt/` (Software 3.0, context engineering originator). À traiter au prochain audit ou sur demande.
-- **Backlinks à vérifier** : les notes prompt-engineering pointent vers MOC-Leaders-Prompt — vérifier que ce MOC est à jour avec les 10 nouvelles fiches.
+- **Pattern récidiviste paraphrase verbatim** : Karpathy "alternative au RAG" = Xe occurrence. Méthode self-verify phase E + WebFetch direct fonctionne pour mitigation.
+- **6 patterns récurrents identifiés** dans `erreur-audit-rag-11-faux-2026-05-23` : arXiv YYMM, URL swap, paraphrase, inversion modèle, seuil inversé, chiffres fantômes. À surveiller en audits 04/05/07.
+- **Notes ToolRerank top-50 dégrade** marqué "à sourcer dans tables paper" — à vérifier en lisant PDF complet si occasion.
+- **Self-RAG et CRAG chiffres** également marqués "à vérifier tables PDF" pour cohérence verbatim.
 
 ## Liens
 
 - [[Raphael-Picard]]
 - [[Claude-Forge]]
 - [[methode-analyser-repo]]
-- [[feedback_webfetch_avant_subagents_audit]]
 - [[feedback_audit_thematique_methode]]
+- [[feedback_arxiv_id_yymm_format]]
+- [[feedback_arxiv_url_swap_papers_similaires]]
+- [[erreur-audit-rag-11-faux-2026-05-23]]
+- [[RAG]]
+- [[Jerry Liu]]
+- [[Harrison Chase]]
