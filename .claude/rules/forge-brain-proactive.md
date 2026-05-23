@@ -121,6 +121,8 @@ Chaque note vault DOIT respecter ces minimums :
 | System prompt réutilisable | `07-Prompts/system-prompts/` | 1 note/prompt |
 | Technique de prompting | `07-Prompts/techniques/` | 1 note/technique |
 | Index "quelle technique quand" | `07-Prompts/techniques/index-prompting.md` | 1 note unique |
+| Skill/agent draft WIP (DA en attente fixes) | `Knowledge/drafts/<nom>-skill/` ou `Knowledge/drafts/<nom>-agent/` | 1 dossier complet (SKILL.md/.md + refs) |
+| Test comportemental post-audit ou validation doctrine | `Knowledge/tests/` | 1 note/test |
 | Erreur commise | `Knowledge/erreurs/` | 1 note/erreur |
 | Critique devil's advocate | `Knowledge/critiques/` | 1 note/critique |
 | Synthèse d'analyse | `Knowledge/syntheses/` | 1 note/synthèse |

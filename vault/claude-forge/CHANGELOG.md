@@ -14,6 +14,34 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-23 — Audit dogfooding forge (propagation pivot doctrinal)
+
+Audit transverse : forge respecte-t-il sa propre doctrine canonique vault post-pivot 23 mai ?
+
+**Verdict** : PARTIAL PASS — 53/56 composants alignés (~95%), **9 drifts factuels corrigés** dans la propagation aval. Pattern reproduit `feedback_doctrine_drift_pattern` : canoniques OK, MEMORY/CLAUDE.md/index.md pas resynchronisées.
+
+### Drifts Type 1 doctrinaux corrigés
+- "25+ events" → "29 events" : `CLAUDE.md:34`, `vault/index.md:31`, `.claude/skills/cc-hooks-ref/SKILL.md:3+9`, `.claude/agents/hook-creator.md:34`
+- "Angela Jiang advisor 5×" → "Brad Abrams advisor strategy" : `CLAUDE.md:35`, `vault/index.md:32`, `vault/1-Projets/Neoteem/ia_back/analyse-2026-05-22.md:149`, `../ia_back/.claude/rules/quality-gates.md:43`, `vault/05-Leaders/claude-code/angela-jiang.md` (6 edits)
+- "`max` déprécié v2.1.91" → "`max` toujours disponible, prone overthinking" : `CLAUDE.md:48`
+
+### Drifts Type 3 structurels corrigés
+- `.claude/rules/sequence-canonique-modification.md` : frontmatter `description:` manquant → ajouté (rule MORTE silencieusement avant)
+- `.claude/rules/check-before-create.md` : doublon partiel A→B→C→D→E avec sequence-canonique → réduit en rappel court pointant vers source canonique
+
+### Canoniques 23 mai ajoutées à la navigation
+- `[[methode-pivoter-doctrine]]` (checklist pivot sans drift résiduel)
+- `[[comparaison-skill-anthropic-claude-code-setup]]`
+- `[[anti-reentrance-sub-agents-pattern-escalade]]`
+
+### Bonus : skill `/pivot-check` draftée (DA verdict GO-WITH-FIXES, pas encore active)
+Skill v1 (121L) créée pour automatiser la détection des drifts post-pivot doctrinal sur tous les composants forge + memory. DA verdict GO-WITH-FIXES avec B1 BLOQUANT (périmètre rate `agent-memory/*/MEMORY.md` = principale source du drift). Skill déplacée vers `vault/claude-forge/Knowledge/drafts/pivot-check-skill/` (hors scan CC) en attente d'application manuelle des 4 fixes par Raphael (cf `output/audit-vault-thematique/08-claude-forge/PIVOT-CHECK-FIXES-PENDING.md`). Insight conservé pour répétition du pattern `feedback_doctrine_drift_pattern` (2× en 2 jours).
+
+### Méta-insight
+Créer `methode-pivoter-doctrine.md` (canonique vault) n'a pas suffi à l'appliquer rétroactivement sur son propre pivot. Forge avait besoin d'un check automatisé → `/pivot-check`.
+
+---
+
 ## 2026-05-23 — Audit thématique vault Claude Code (95 claims auditées, 22 corrections)
 
 Audit profond de 12 notes canoniques thème Claude Code via 6 sub-agents parallèles + vérifications directes (docs Anthropic). 95 claims analysées, **22 erreurs structurelles ou citations fausses détectées et corrigées**.

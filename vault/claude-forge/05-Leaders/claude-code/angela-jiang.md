@@ -1,14 +1,14 @@
 ---
 titre: "Angela Jiang"
-resume: "Anthropic Claude Platform, doctrine 'advisor strategy 5× cost reduction' (Code with Claude London 19 mai 2026), Haiku/Sonnet executor + Opus advisor, vision Claude self-building"
+resume: "Anthropic Claude Platform, keynote Code with Claude London 19 mai 2026, vision Self-building Claude, Self-hosted sandboxes Managed Agents, MCP tunnels, Webhooks spec"
 aliases:
   - "angela jiang"
   - "Angela Jiang"
   - "A. Jiang"
   - "anthropic angela"
-  - "advisor strategy anthropic"
+  - "self-building claude"
   - "angela claude platform"
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://www.youtube.com/watch?v=AgQ4cwL5eOM"
@@ -32,38 +32,19 @@ tags:
 
 ## POURQUOI ELLE EST PERTINENTE
 
-Angela Jiang est la source canonique Anthropic sur **deux doctrines majeures de mai 2026** :
+Angela Jiang est la source canonique Anthropic sur **trois doctrines majeures de mai 2026** :
 
-1. **Advisor strategy** — pattern multi-modèles (Haiku/Sonnet executor + Opus advisor) qui a permis à Eve Legal d'obtenir "**frontier model quality at 5× lower cost**". C'est devenu la doctrine officielle Anthropic pour les déploiements production cost-sensitive.
-2. **Self-building Claude** — sa vision long terme : "Claude basically being able to build itself."
+1. **Self-building Claude** — sa vision long terme : "Claude basically being able to build itself."
+2. **Self-hosted sandboxes Managed Agents** — Daytona/Cloudflare/Vercel/Modal (annonce London).
+3. **MCP tunnels + Webhooks spec** — `tunnel.anthropic.com`, at-least-once delivery, X-Webhook-Signature.
+
+⚠️ **L'Advisor Strategy n'est PAS d'elle** — c'est Brad Abrams (CwC SF avec Mario Rodriguez). Coquille corrigée 23 mai 2026 : cf [[Brad-Abrams]] et [[workflow-claude-code-optimal]].
 
 Elle pilote aussi côté produit l'arsenal Managed Agents : **self-hosted sandboxes** (Daytona/Cloudflare/Vercel/Modal), **MCP tunnels** (`tunnel.anthropic.com`), multiagent orchestration.
 
 ## CONTRIBUTIONS CLÉS
 
-### 1. Advisor strategy — Code with Claude London 19 mai 2026
-
-**Citation canonique** (verbatim London 19 mai 2026) :
-
-> "Advisor strategy : Haiku/Sonnet executor + Opus advisor → Eve Legal got frontier model quality at 5× lower cost."
-> — Angela Jiang, Code with Claude London 19 mai 2026
-
-**Pattern** :
-
-| Rôle | Modèle | Job |
-|------|--------|-----|
-| **Executor** | Haiku 4.5 ou Sonnet 4.6 | 90-95% du travail (exécution rapide, low cost) |
-| **Advisor** | Opus 4.7 | Consultation ponctuelle sur décisions critiques, edge cases, jugement |
-
-**Résultat client** : Eve Legal a obtenu une qualité équivalente à un déploiement full-Opus pour **1/5e du coût**.
-
-**Implications doctrinales** :
-- Ne pas déployer Opus partout par défaut
-- Architecture multi-modèles = pattern par défaut en prod
-- L'advisor s'invoque uniquement quand l'executor signale un blocage / incertitude
-- Cf. [[reference-advisor-pattern]] et [[workflow-claude-code-optimal]]
-
-### 2. Vision self-building Claude — Code with Claude London 19 mai 2026
+### 1. Vision self-building Claude — Code with Claude London 19 mai 2026
 
 **Citation canonique** :
 
@@ -72,7 +53,7 @@ Elle pilote aussi côté produit l'arsenal Managed Agents : **self-hosted sandbo
 
 C'est la vision long terme officielle Anthropic : Claude qui construit, déploie, teste et améliore Claude. Cohérent avec Mythos (Anthropic preview), Dreaming, et le roadmap continuous task horizon de Lisa Crofoot.
 
-### 3. Self-hosted sandboxes (annonce London)
+### 2. Self-hosted sandboxes (annonce London)
 
 Annonce majeure portée par Angela Jiang à London :
 
@@ -80,7 +61,7 @@ Annonce majeure portée par Angela Jiang à London :
 - Compliance + isolation + control
 - Pattern : managed agents avec sandbox custom client
 
-### 4. MCP tunnels (annonce London)
+### 3. MCP tunnels (annonce London)
 
 - `tunnel.anthropic.com` — gateway dans le réseau privé client
 - Accès à des MCP servers internes derrière firewall
@@ -88,7 +69,7 @@ Annonce majeure portée par Angela Jiang à London :
 
 Co-démontré dans la demo Counter (e-commerce fictive) à London — agent "Growthbot" sur Slack qui requête un data warehouse interne via MCP tunnel.
 
-### 5. Webhooks et infrastructure Managed Agents
+### 4. Webhooks et infrastructure Managed Agents
 
 Spécification technique portée par Angela / Katelyn Lesse :
 
@@ -100,25 +81,20 @@ C'est la doctrine officielle Anthropic pour intégrer Managed Agents dans une in
 
 ## VERBATIM NOTABLES
 
-> "Advisor strategy : Haiku/Sonnet executor + Opus advisor → Eve Legal got frontier model quality at 5× lower cost."
-> — Angela Jiang, Code with Claude London 19 mai 2026
-
 > "I think the absolute end state we're trying to get to is Claude basically being able to build itself."
 > — Angela Jiang, Code with Claude London 19 mai 2026
 
 ## APPLICATION FORGE (mai 2026)
 
-L'advisor strategy d'Angela Jiang inspire directement le **model allocation strategy** appliqué dans forge (cf. mémoire `feedback_all_opus`) :
+Le model allocation strategy de forge (Sonnet exécution / Opus jugement) suit la doctrine **Brad Abrams** Advisor Strategy (PAS Angela Jiang, coquille corrigée 23 mai) — cf [[Brad-Abrams]] et [[workflow-claude-code-optimal]].
 
-- **Sonnet pour exécution** (most agents, effort: high)
-- **Opus pour jugement** (architect, dev-lead, devils-advocate, advisor)
-- Validé Raphael 21 mai 2026
+Angela Jiang contribue par ailleurs à la vision Self-building Claude qui motive le compounding forge (CLAUDE.md évolutif).
 
-Voir [[workflow-claude-code-optimal]] pour l'application complète du pattern.
+## CORRECTIONS D'ATTRIBUTION (audit dogfooding 23 mai 2026)
 
-## CORRECTIONS D'ATTRIBUTION (chantier 22 mai 2026)
-
-Le verbatim "advisor strategy 5× cost reduction" était initialement attribué à **Cat Wu** dans certaines notes — correction faite le 22 mai 2026 : il s'agit bien de **Angela Jiang** à Code with Claude London 19 mai 2026.
+**Avant 22 mai** : l'Advisor Strategy "5× cost reduction" était attribuée à tort à Cat Wu.
+**22 mai (correction partielle)** : forge a re-attribué à Angela Jiang sur foi d'une mention Simon Willison "Angela Kiang" — interprétation erronée.
+**23 mai (correction définitive)** : source canonique = **Brad Abrams** (CwC SF avec Mario Rodriguez GitHub), verbatim "close to Opus-level intelligence at much lower prices" (pas de "5×" verbatim). Cf [[Brad-Abrams]].
 
 ## WIKILINKS
 

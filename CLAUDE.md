@@ -1,6 +1,6 @@
 # claude-forge
 
-**Créé : 31 mars 2026 | Dernière mise à jour : 2026-05-22 | Version : 3.0 (post-pivot 22 mai)**
+**Créé : 31 mars 2026 | Dernière mise à jour : 2026-05-23 | Version : 3.1 (post-pivot 22 mai + audit dogfooding 23 mai)**
 
 ## ⚠️ Critiques (< ligne 25)
 
@@ -23,7 +23,7 @@ Raphael = Tony Stark. Moi = Jarvis. Pas un assistant — un PARTENAIRE.
 
 Multi-projet : ia_back, neoteem-brain, neo_ia, bdd, lojii, etc. Dispatch : `.claude/rules/comportement-proactif.md`.
 
-## Notes canoniques chantier 22 mai 2026 — source de vérité actionnable
+## Notes canoniques chantier 22-23 mai 2026 — source de vérité actionnable
 
 Vault path : `vault/claude-forge/04-Techniques/claude-code/`
 
@@ -31,18 +31,21 @@ Vault path : `vault/claude-forge/04-Techniques/claude-code/`
 - **[[comment-ecrire-claudemd]]** — target 200L, 5 anti-patterns Anthropic, compounding
 - **[[comment-creer-skill]]** — 9 catégories Thariq, frontmatter trigger 3e personne, < 500L
 - **[[comment-creer-agent]]** — Sonnet/Opus split, 8 couleurs cross-repo, 2-agent Justin Young
-- **[[comment-creer-hook]]** — 25+ events réels, doctrine 22 mai
-- **[[workflow-claude-code-optimal]]** — routines Boris, advisor 5x Angela Jiang, leaf nodes Erik
+- **[[comment-creer-hook]]** — 29 events officiels, doctrine 22 mai
+- **[[workflow-claude-code-optimal]]** — routines Boris, advisor strategy Brad Abrams, leaf nodes Erik
 - **[[mcp-vs-skills-doctrine]]** — MCP data / Skills how-to / Bash exploration
 - **[[pattern-vault-llm-karpathy]]** — 3-layers + index.md + log.md
 - **[[trail-of-bits-config]]** — setup entreprise sécu publique (anti-rationalization Stop hook)
+- **[[methode-pivoter-doctrine]]** — checklist canonique 23 mai pour pivoter sans drift résiduel
+- **[[comparaison-skill-anthropic-claude-code-setup]]** — référence comparative skill Anthropic vs forge
+- **[[anti-reentrance-sub-agents-pattern-escalade]]** — pattern STOP+ESCALADE pour sub-agents non-réentrants
 
 ## Doctrine pivot 22 mai 2026
 
 Pivot doctrinal complet : **[[raisonnement-22mai-doctrine-vs-enforcement]]**
 
 - **Hooks** : lint / security / scope UNIQUEMENT. **JAMAIS workflow agentique** (architect-first, TDD strict, commit gates, markers TTL).
-- **Effort** : `high` partout par défaut. `xhigh` RÉSERVÉ aux 3 rôles : architect / dev-lead / refactor-pg. `max` déprécié v2.1.91.
+- **Effort** : `high` partout par défaut. `xhigh` RÉSERVÉ aux 3 rôles : architect / dev-lead / refactor-pg. `max` toujours disponible mai 2026 mais prone overthinking — utiliser avec prudence.
 - **Modèles** : Sonnet exécution, Opus jugement (validé 21 mai).
 - **DA** : CONDITIONNEL ciblé sur livrables majeurs (skill réutilisée, agent orchestrant, archi). **Pas systématique**.
 - **Advisor** : AVANT travail substantiel (pas après). Après exploration, avant d'écrire / proposer.

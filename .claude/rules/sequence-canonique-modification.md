@@ -1,3 +1,7 @@
+---
+description: "Canonical A→B→C→D→E sequence for ANY create/modify/optimize of skill/agent/hook/CLAUDE.md/rule. Mandatory brief for sub-agents creators/analyzers."
+---
+
 # Séquence canonique pour TOUTE création/modification/OPTIMISATION de composant — OBLIGATOIRE
 
 Quand tu :

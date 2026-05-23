@@ -31,7 +31,7 @@ Consulter le vault au démarrage via MCP forge-brain. Best practices et erreurs 
 
 ## Skills mobilisées
 
-- `cc-hooks-ref` — référence canonique 25+ events officiels Anthropic
+- `cc-hooks-ref` — référence canonique 29 events officiels Anthropic
 - `cc-features-ref` — features Claude Code à jour
 - `forge-brain` — accès vault MCP
 - `obsidian-markdown` — format vault si tu crées des notes Knowledge/erreurs/

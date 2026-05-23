@@ -37,6 +37,22 @@ tags:
 
 ---
 
+## [2026-05-23] chantier | Audit dogfooding forge — propagation pivot doctrinal 23 mai
+- Détecté : forge ne respectait pas sa propre doctrine canonique vault sur 9 points (Type 1 doctrinal + 1 Type 3 structurel)
+- Corrigé `CLAUDE.md` : 25+ → 29 events, Angela Jiang → Brad Abrams, max non déprécié, + 3 canoniques 23 mai ajoutées (methode-pivoter-doctrine + comparaison-skill-anthropic + anti-reentrance-sub-agents)
+- Corrigé `vault/index.md` : mêmes 2 drifts doctrinaux + 3 canoniques 23 mai ajoutées
+- Corrigé `vault/05-Leaders/claude-code/angela-jiang.md` : retiré attribution Advisor Strategy (revient à Brad Abrams)
+- Corrigé `vault/1-Projets/Neoteem/ia_back/analyse-2026-05-22.md` : Angela Jiang → Brad Abrams
+- Corrigé `.claude/skills/cc-hooks-ref/SKILL.md` : 25+ → 29 events
+- Corrigé `.claude/agents/hook-creator.md` : 25+ → 29 events
+- Corrigé `.claude/agents/devils-advocate.md` : effort xhigh → high (DA = jugement, pas architect)
+- Ajouté frontmatter `description:` manquant sur `.claude/rules/sequence-canonique-modification.md` (rule MORTE silencieusement)
+- Réduit `.claude/rules/check-before-create.md` en rappel court qui pointe vers sequence-canonique-modification.md (single source of truth)
+- Cross-repo : corrigé `../neot-v2/ia_back/.claude/rules/quality-gates.md` (Angela → Brad Abrams)
+- Drafté skill `/pivot-check` v1 (121L) pour automatiser détection drifts post-pivot (méta-insight feedback_doctrine_drift_pattern) — DA verdict GO-WITH-FIXES (B1 BLOQUANT sur agent-memory/), skill déplacée vers `vault/Knowledge/drafts/pivot-check-skill/` (hors scan CC), application manuelle Raphael requise
+- Documenté pattern sub-agent bypass dans `Knowledge/erreurs/erreur-subagent-bypass-delegate-guard.md` : 3 couches protection (delegate-guard + sub-agent detection + auto-mode classifier) ont tenu
+- Méthode : A→B→C→D→E + advisor() + DA, validation Raphael carte blanche
+
 ## [2026-05-22] chantier | Karpathy strict + composants refonte
 - Cree dossier `raw/2026-05-22-chantier/` (Karpathy layer 1)
 - Deplace 8 sources immuables : `recherche-*.md` vers `raw/`
@@ -133,3 +149,7 @@ Audit profond thème Claude Code (95 claims, 6 sub-agents parallèles).
 - **22 erreurs corrigées** : Justin Young split, Brad Abrams vs Angela Jiang, lethal trifecta = Willison, max non déprécié, 29 events hooks, timeouts par type, once:true skill only, 174L vs 130L, etc.
 - **Nouvelles règles** : 250 chars description SKILL.md auto-trigger, pipeline architect→dev→reviewer→test ajouté à [[methode-analyser-repo]]
 - **Source audit** : `output/audit-vault-thematique/01-claude-code/`
+
+## [2026-05-23] behavioral-test-pass | doctrine audit 23 mai
+
+Test comportemental session fraîche sur 6 corrections doctrinales audit thématique vault Claude Code → **6/6 PASS**. Validation : Brad Abrams Advisor Strategy (pas Angela Jiang), 29 events hooks (pas 25+), effort max toujours disponible (pas déprécié), Justin Young sans split modèles, Simon Willison lethal trifecta (pas Thariq), séquence A→B→C→D→E + pipeline conditionnel. Toutes notes canoniques contiennent ancrage anti-régression "⚠️ Avant 23 mai 2026…". Capitalisation : [[test-comportemental-audit-23mai]]. Audit thématique = **livré et validé**.

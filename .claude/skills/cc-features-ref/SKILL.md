@@ -242,7 +242,7 @@ LSPs disponibles pour tous les langages majeurs.
 ## Gotchas
 
 - **Date de référence** — ce fichier est figé à v2.1.119 (26 avril 2026). Utiliser `cc-news` si l'info semble datée ou si la feature demandée est postérieure à cette date.
-- **Pas de `effort: max`** — déprécié depuis v2.1.91, utiliser `high` ou `xhigh`. `max` reste fonctionnel mais prone à l'overthinking.
+- **`effort: max`** — toujours disponible mai 2026 (verbatim docs Anthropic 23 mai), mais prone à l'overthinking. Réserver à cas justifiés ; doctrine forge = `high` par défaut, `xhigh` pour architect/dev-lead/refactor-pg.
 
 ## Apprentissage
 

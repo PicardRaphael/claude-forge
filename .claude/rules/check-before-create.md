@@ -1,83 +1,24 @@
 ---
-description: "Mandatory 5-step checklist before any create/modify: memory, vault, references, forge skill, delegate to specialist"
+description: "Short reminder pointing to canonical sequence — memory + vault + references + forge skill + delegate. Full spec in sequence-canonique-modification.md"
 ---
 
-# Verifier AVANT de creer ou modifier — OBLIGATOIRE
+# Verifier AVANT de creer ou modifier — RAPPEL COURT
 
-Avant toute creation ou modification de composant (skill, agent, hook, rule, prompt), executer ce checklist dans l'ordre. AUCUNE EXCEPTION, meme si "c'est juste un petit changement".
+Avant toute création/modification/optimisation de composant (skill, agent, hook, rule, CLAUDE.md), AUCUNE EXCEPTION :
 
-## 1. Memoire (MEMORY.md)
+1. **Mémoire** — relire feedbacks pertinents (`feedback_skill_*`, `feedback_agent_*`, `feedback_hooks_*`, `feedback_major_mistakes`)
+2. **Séquence canonique A→B→C→D→E** — voir source unique : `.claude/rules/sequence-canonique-modification.md` (et vault [[methode-analyser-repo]] section "ORDRE CANONIQUE")
+3. **References existantes** — lire les `references/` du composant cible AVANT modification
+4. **Skill de référence forge** — charger la skill pertinente (`cc-skills-ref`, `cc-agents-ref`, `cc-hooks-ref`, `cc-prompt-ref`)
+5. **Déléguer aux agents spécialisés** — SKILL.md → skill-creator, agents/*.md → agent-creator, CLAUDE.md → claudemd-optimizer, hooks → hook-creator. `delegate-guard.py` BLOQUE l'édit direct.
 
-Relire les feedbacks pertinents au TYPE de tache. Les erreurs passees sont documentees — ne pas les refaire.
-- skill → `feedback_skill_*`, `feedback_use_skill_creator`
-- agent → `feedback_agent_*`, `feedback_no_cto_agent`
-- hook → `feedback_hooks_*`
-- general → `feedback_major_mistakes`
+## Anti-patterns (observés en production)
 
-## 2. Ordre canonique : ANALYSER → LIRE CANONIQUES → CROISER → PLAN → EXÉCUTER
+- "Je sais déjà" → FAUX. 2026-04-26 : 6 skills + 14 agents édités à la main sans vérification, tous non conformes
+- "C'est juste un petit ajout" → petit ajout × 20 = gros problème de conformité
+- "Je vais aller plus vite sans agent" → plus vite OUI, mais non conforme = refaire tout après
+- "Je vais vérifier après" → non, tu oublieras. Vérifier AVANT ou le hook te bloquera.
 
-L'ordre est CRITIQUE. Sauter une étape ou inverser = audit biaisé.
+## Source canonique unique
 
-### Étape A — ANALYSER LE RÉEL D'ABORD (sans biais canonique)
-
-Pour un audit / création :
-- Auditer skills/agents/hooks/rules existants (compter, lister, mesurer)
-- Scanner le code RÉEL (étape 1 + 5 méthode canonique)
-- Extraire les FAITS bruts : ce que le repo fait, pas ce qu'il devrait faire
-
-**Pourquoi en premier** : si tu lis les canoniques avant, tu viens à l'analyse biaisé — tu vois ce que tu t'attends à voir. L'analyse brute donne le RÉEL sans filtre.
-
-### Étape B — LIRE CANONIQUES EN ENTIER (après analyse)
-
-Interroger le vault via MCP (JAMAIS CLI/Grep/Read brut). `search_brain` retourne des EXTRAITS ~10 lignes — INSUFFISANT pour audit/création.
-
-**Règle absolue** : lire EN ENTIER les notes canoniques pertinentes via `read_note` (SANS `max_lines` ou `max_lines: 500+`).
-
-| Tâche | Notes canoniques à lire EN ENTIER |
-|-------|----------------------------------|
-| Créer/modifier agent | [[comment-creer-agent]] + [[workflow-claude-code-optimal]] |
-| Créer/modifier skill | [[comment-creer-skill]] + [[mcp-vs-skills-doctrine]] |
-| Créer/modifier hook | [[comment-creer-hook]] + [[raisonnement-22mai-doctrine-vs-enforcement]] |
-| Optimiser CLAUDE.md | [[comment-ecrire-claudemd]] + [[pattern-vault-llm-karpathy]] |
-| Auditer / analyser repo | **TOUTES** : [[methode-analyser-repo]] + [[comment-creer-agent]] + [[comment-creer-skill]] + [[comment-creer-hook]] + [[comment-ecrire-claudemd]] + [[workflow-claude-code-optimal]] + [[raisonnement-22mai-doctrine-vs-enforcement]] |
-
-Puis chercher dans `Knowledge/erreurs/`, `Knowledge/questions/`, `07-Prompts/` pour le contexte spécifique.
-
-### Étape C — CROISER analyse ⨯ canoniques
-
-Mettre côte-à-côte les FAITS observés (étape A) et les RÈGLES canoniques (étape B). Lister les ÉCARTS mesurables :
-- Agent X = Opus mais doctrine dit Sonnet → écart sonnet/opus split
-- Skill Y = 800L mais canonique dit < 500L → écart taille
-- Hook Z = workflow gate mais doctrine 22 mai interdit → écart doctrinal
-- Etc.
-
-Pas d'opinion, pas d'idéologie. Que des écarts mesurables.
-
-### Étape D — PLAN basé sur les ÉCARTS (pas sur l'idéologie)
-
-Le plan = liste des écarts à fixer, priorisés. Si pas d'écart sur un point → pas de fix.
-
-### Étape E — EXÉCUTER
-
-Anti-pattern documenté ([[feedback_lire_canoniques_avant_audit]]) : "lire canoniques d'abord = biais de perception" + "search_brain seul = audit basé mémoire session, pas source de vérité". Erreur audit ia_back 22 mai 2026.
-
-## 3. References existantes
-
-Lire les `references/` du composant cible AVANT de modifier le SKILL.md ou l'agent.
-Si le composant n'existe pas encore, lire les references des composants similaires.
-
-## 4. Skill de reference forge
-
-Charger la skill forge pertinente (cc-skills-ref, cc-agents-ref, cc-hooks-ref, cc-prompt-ref) pour avoir le format a jour.
-
-## 5. Deleguer aux agents specialises
-
-SKILL.md → skill-creator, agents/*.md → agent-creator, CLAUDE.md → claudemd-optimizer, hooks → hook-creator.
-Le hook `delegate-guard.py` BLOQUERA l'edit direct de toute facon. Autant deleguer d'entree.
-
-## Anti-patterns (TOUS observes en production)
-
-- "Je sais deja" → FAUX. C'est arrive le 2026-04-26 : 6 skills + 14 agents edites a la main sans rien verifier
-- "C'est juste un petit ajout" → petit ajout x 20 = gros probleme de conformite
-- "Je vais aller plus vite sans agent" → plus vite OUI, mais non conforme = refaire tout apres
-- "Je vais verifier apres" → non, tu oublieras. Verifier AVANT ou le hook te bloquera.
+La séquence A→B→C→D→E détaillée (avec cas d'usage par type de tâche, anti-patterns, exemples concrets) vit dans **`.claude/rules/sequence-canonique-modification.md`**. Cette rule (`check-before-create.md`) est un rappel court qui pointe vers la canonique — pas de duplication (cf [[feedback_single_source_truth_vault_canonique]]).

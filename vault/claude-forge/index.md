@@ -28,9 +28,12 @@ Source de verite actionnable produite 22 mai 2026 dans `04-Techniques/claude-cod
 - **Comment ecrire un CLAUDE.md** → [[comment-ecrire-claudemd]]
 - **Comment creer une skill** → [[comment-creer-skill]] (9 categories Thariq)
 - **Comment creer un agent** → [[comment-creer-agent]] (Sonnet/Opus split, 8 couleurs)
-- **Comment creer un hook** → [[comment-creer-hook]] (25+ events reels, doctrine 22 mai)
-- **Workflow Claude Code optimal** → [[workflow-claude-code-optimal]] (routines Boris, advisor Angela Jiang)
+- **Comment creer un hook** → [[comment-creer-hook]] (29 events officiels, doctrine 22 mai)
+- **Workflow Claude Code optimal** → [[workflow-claude-code-optimal]] (routines Boris, advisor strategy Brad Abrams)
 - **Analyser un repo et proposer config CC** → [[methode-analyser-repo]] (META 6 etapes)
+- **Pivoter une doctrine sans drift residuel** → [[methode-pivoter-doctrine]] (checklist canonique 23 mai)
+- **Comparaison skill Anthropic claude-code-setup** → [[comparaison-skill-anthropic-claude-code-setup]]
+- **Pattern STOP + ESCALADE sub-agents** → [[anti-reentrance-sub-agents-pattern-escalade]]
 - **MCP vs Skills (quand quoi)** → [[mcp-vs-skills-doctrine]]
 - **Pattern vault LLM Karpathy** → [[pattern-vault-llm-karpathy]]
 - **Setup entreprise secu publique** → [[trail-of-bits-config]]

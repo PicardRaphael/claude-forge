@@ -7,7 +7,7 @@ skills:
   - obsidian-markdown
 disallowedTools: Write, Edit
 model: opus
-effort: xhigh
+effort: high
 color: red
 memory: project
 maxTurns: 25
