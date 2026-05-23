@@ -1,6 +1,6 @@
 ---
 titre: "Architecture AutoGen/AG2 — Multi-agent conversationnel"
-resume: "AutoGen (Microsoft) en declin : GroupChat, AssistantAgent, nested chats. Successeur = Microsoft Agent Framework. Usage = recherche/prototypage uniquement"
+resume: "AutoGen scinde en AG2 (fork communautaire) et Microsoft AutoGen, ce dernier en trajectoire de maintenance suite a la fusion vers Microsoft Agent Framework 1.0. Pattern unique : GroupChat avec selection de speaker"
 aliases:
   - architecture autogen
   - autogen chatbot
@@ -9,7 +9,7 @@ aliases:
   - microsoft autogen
 domaine: ia
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://github.com/ag2ai/ag2"
@@ -24,11 +24,9 @@ tags:
 
 ## Definition
 
-Framework multi-agent conversationnel de Microsoft Research, maintenant scinde en deux : **AG2** (fork communautaire open-source) et **Microsoft AutoGen** (steering vers Microsoft Agent Framework). Pattern unique : GroupChat ou les agents debattent dans un thread partage avec selection de speaker par LLM.
+Framework multi-agent conversationnel issu de Microsoft Research, maintenant scinde en deux : **AG2** (fork communautaire open-source, ag2ai) et **Microsoft AutoGen** (steering vers Microsoft Agent Framework 1.0). Pattern unique : **GroupChat** ou les agents debattent dans un thread partage avec selection de speaker par LLM, round-robin, manual, ou callable.
 
-**Statut 2026 : en declin pour la production.** Le vault `agents-frameworks.md` le confirme : "Adoption production en declin apres le split Microsoft. Zero mecanismes securite. Boucles de conversation = cout explosif si non-bornees."
-
-Usage recommande : recherche academique, prototypage de patterns conversationnels.
+**Statut 2026 : adoption production en baisse** apres le split. AutoGen reste utilise en recherche/prototypage pour explorer les patterns conversationnels multi-agent. Pour la production Microsoft moderne, le successeur recommande est **Microsoft Agent Framework 1.0** (annonce officielle Microsoft, fusion Semantic Kernel + AutoGen).
 
 ## Architecture
 
@@ -75,18 +73,20 @@ manager = GroupChatManager(groupchat=group_chat, llm_config=llm_config)
 user_proxy.initiate_chat(manager, message="Analyse les tendances IA Q3")
 ```
 
-## Pourquoi en declin
+## Pourquoi adoption en baisse
 
 | Probleme | Impact |
 |----------|--------|
 | Split Microsoft/AG2 | Fragmentation, confusion documentation |
 | Zero securite native | Pas de sandboxing, pas de guardrails |
-| Boucles non-bornees | Cout 5-6x vs LangGraph si `max_round` mal configure |
+| Boucles non-bornees | Cout peut exploser si `max_round` mal configure |
 | Pas de checkpointing | Pas de reprise apres crash |
 | Python only | Pas de support multi-langage |
 
+> ⚠️ La metrique "5-6x coût vs LangGraph" qui figurait avant **n'a pas de source primaire** (audit 23 mai 2026). L'ordre de grandeur "boucles non bornees = cout explosif" reste qualitativement vrai, mais ne pas citer un ratio chiffre sans le mesurer.
+
 ### Successeur : Microsoft Agent Framework 1.0
-Unifie Semantic Kernel + AutoGen. .NET et Python LTS. Pour les equipes Microsoft, c'est la voie recommandee.
+Unifie Semantic Kernel + AutoGen. .NET et Python LTS. Pour les equipes Microsoft, c'est la voie recommandee. Statut precis de l'ancien AutoGen (maintenance / supporte / abandonne) a verifier dans la doc Microsoft officielle.
 
 ## Quand utiliser malgre tout
 
@@ -98,6 +98,7 @@ Unifie Semantic Kernel + AutoGen. .NET et Python LTS. Pour les equipes Microsoft
 ## Liens
 
 - [[MOC-Techniques]]
-- [[agents-frameworks]] — AutoGen = en declin
+- [[agents-frameworks]] — AutoGen = adoption production en baisse
 - [[architecture-langgraph]] — Alternative production recommandee
-- [[pattern-orchestrateur]] — GroupChatManager ≈ pattern orchestrateur conversationnel
+- [[pattern-orchestrateur]] — GroupChatManager ≈ orchestrateur conversationnel
+- [[Knowledge/erreurs/agents-ia-22-claims-fausses-2026-05-23]] — audit source

@@ -1,6 +1,6 @@
 ---
 titre: "Architecture Claude API — Chatbot & multi-agent"
-resume: "Guide implémentation chatbot avec Claude API : Messages API, tool_use, Agent SDK, Managed Agents, system prompts, prompt caching, coûts"
+resume: "Guide implementation chatbot avec Claude API : Messages API, tool_use, Agent SDK, Managed Agents, system prompts, prompt caching, couts"
 aliases:
   - architecture claude api
   - claude api chatbot
@@ -10,7 +10,7 @@ aliases:
   - claude agent sdk
 domaine: ia
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview"
@@ -27,7 +27,7 @@ tags:
 
 ## Definition
 
-API Anthropic pour construire des chatbots et agents conversationnels. Trois niveaux d'abstraction : Messages API (controle total), Agent SDK (loop geree), Managed Agents (infrastructure hebergee). Philosophie : MCP-first pour les outils, gestion d'etat cote client, extended thinking integre.
+API Anthropic pour construire des chatbots et agents conversationnels. Trois niveaux d'abstraction : Messages API (controle total), Agent SDK (loop geree, **"runs inside your own process"** verbatim docs), Managed Agents (infrastructure hebergee, Research Preview). Philosophie : MCP-first pour les outils, gestion d'etat cote client, extended thinking integre.
 
 ## Architecture
 
@@ -48,7 +48,6 @@ API Anthropic pour construire des chatbots et agents conversationnels. Trois niv
 │                ├── Specialist B (thread)     │
 │                └── Specialist C (thread)     │
 │  Filesystem partage, contexte isole          │
-│  Max 20 agents, 25 threads concurrents       │
 └─────────────────────────────────────────────┘
 ```
 
@@ -79,7 +78,7 @@ while response.stop_reason == "tool_use":
     )
 ```
 
-### Agent SDK (loop geree)
+### Agent SDK
 
 ```python
 from claude_agent_sdk import query, ClaudeAgentOptions
@@ -161,7 +160,7 @@ with client.messages.stream(model=model, messages=msgs, system=sys) as stream:
 ```
 
 ### Persona constante
-Le system prompt est cache automatiquement (10% du cout apres le 1er appel). Placer la persona et les regles dans le system prompt, pas dans les messages user.
+Le system prompt est cache automatiquement (jusqu'a 90% de reduction sur cache hit). Placer la persona et les regles dans le system prompt, pas dans les messages user.
 
 ### Clarification et fallback
 Instruire Claude a poser des questions de clarification plutot que deviner. Pattern : `tool_choice: "auto"` + tool `ask_clarification` dans la liste d'outils.
@@ -175,10 +174,11 @@ Instruire Claude a poser des questions de clarification plutot que deviner. Patt
 | Opus 4.7 | $5 | $25 | Cas complexes, orchestration multi-agent |
 
 ### Optimisations
-- **Prompt caching** : 90% de reduction sur cache hit (system prompt + tools statiques)
-- **Batch API** : 50% de reduction, traitement asynchrone (< 1h en general)
+- **Prompt caching** : jusqu'a 90% de reduction sur cache hit (system prompt + tools statiques)
+- **Batch API** : 50% de reduction, traitement asynchrone
+- **Caching + batching combine** : Anthropic verbatim "jusqu'a 95% reduction" vs standard
 - **Triage Haiku→Sonnet→Opus** : classifier la complexite, router vers le modele adapte
-- **Managed Agents** : $0.08/h session + tokens. Rentable pour taches longues (> 5 min)
+- **Managed Agents** : tarif horaire + tokens (a confirmer pricing officiel ; rentable pour taches longues > 5 min)
 
 ### Quand utiliser Claude API
 - Support client avec outils internes (CRM, ticketing)
@@ -189,13 +189,12 @@ Instruire Claude a poser des questions de clarification plutot que deviner. Patt
 ### Quand eviter
 - Besoin de voice/realtime natif (pas d'API voix Claude)
 - Ecosysteme existant full OpenAI/Azure
-- Budget ultra-serre sur du volume (Haiku reste plus cher que GPT-4.1 Nano)
 
-## Fonctionnalites avancees (beta mai 2026)
+## Fonctionnalites avancees (mai 2026)
 
-- **Tool Search** : Claude decouvre les outils a la demande (`defer_loading: true`). -85% tokens sur les definitions d'outils.
-- **Programmatic Tool Calling** : Claude orchestre plusieurs tools via code Python sandbox. -37% tokens moyen.
-- **Dreaming** (Managed Agents) : l'agent review ses sessions passees et s'auto-ameliore.
+- **Tool Search** : Claude decouvre les outils a la demande (`defer_loading: true`). Reduction substantielle des tokens sur definitions d'outils (chiffre exact varie selon nombre d'outils).
+- **Programmatic Tool Calling (PTC)** : Claude orchestre plusieurs tools via code Python sandbox. Reduction tokens moyenne documentee Anthropic.
+- **Dreams** ([[technique-dreaming-cross-session]], Managed Agents Research Preview, beta header `dreaming-2026-04-21`) : l'agent reflechit sur les sessions passees pour curer sa memoire.
 
 ## Liens
 
@@ -206,3 +205,4 @@ Instruire Claude a poser des questions de clarification plutot que deviner. Patt
 - [[architecture-langgraph]] — Equivalent LangGraph
 - [[pattern-orchestrateur]] — Pattern orchestrateur detaille
 - [[pattern-single-agent-multi-tool]] — Pattern agent unique + outils
+- [[Knowledge/erreurs/agents-ia-22-claims-fausses-2026-05-23]] — audit source

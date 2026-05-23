@@ -10,7 +10,7 @@ aliases:
   - agent transfer
 domaine: ia
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://github.com/langchain-ai/langgraph-swarm-py"
@@ -88,8 +88,6 @@ app = create_swarm(
     default_active_agent="Billing",
 ).compile(checkpointer=AsyncPostgresSaver(conn))
 
-# L'agent de depart est determine par default_active_agent
-# Le systeme track quel agent etait actif en dernier
 config = {"configurable": {"thread_id": f"user_{user_id}"}}
 result = await app.ainvoke({"messages": [("user", query)]}, config)
 ```
@@ -119,11 +117,10 @@ tech_agent = Agent(
     tools=[run_diagnostic, transfer_to_billing],
 )
 
-# Le Runner suit les handoffs automatiquement
 result = await Runner.run(billing_agent, "Mon paiement a echoue et l'app crashe")
 ```
 
-### OpenAI — Triage Agent (point d'entree)
+### OpenAI — Triage Agent
 
 ```python
 triage = Agent(
@@ -131,10 +128,9 @@ triage = Agent(
     instructions="Dirige vers le bon specialiste.",
     handoffs=[billing_agent, tech_agent, faq_agent],
 )
-# Handoffs = le triage TRANSFERE le controle (ne garde pas)
 ```
 
-## System prompt chatbot — Agent swarm
+## System prompt — Agent swarm
 
 ```
 Tu es l'agent [Domaine] du support client [Entreprise].
@@ -155,20 +151,16 @@ Tu es l'agent [Domaine] du support client [Entreprise].
 ## Failure modes et solutions
 
 ### 1. Ping-pong loops
-**Probleme** : Agent A transfere a B qui transfere a A qui transfere a B...
-**Solution** : tracker le nombre de handoffs, hard limit (3 hops max). En LangGraph : `recursion_limit` dans la config.
+Agent A transfere a B qui transfere a A. Solution : tracker le nombre de handoffs, hard limit. En LangGraph : `recursion_limit` dans la config.
 
 ### 2. Perte de contexte
-**Probleme** : Agent B ne sait pas ce que Agent A a deja fait.
-**Solution** : `create_handoff_tool` passe l'historique complet par defaut. Ajouter un resume explicite dans le `Command.update` si l'historique est long.
+Agent B ne sait pas ce que Agent A a deja fait. Solution : `create_handoff_tool` passe l'historique complet par defaut. Ajouter un resume explicite dans le `Command.update` si l'historique est long.
 
 ### 3. Mauvais routing
-**Probleme** : l'agent route mal sans superviseur pour corriger.
-**Solution** : system prompts tres precis sur les domaines. Ajouter un agent "fallback" qui re-route. Accuracy : 91% (vs 94% pour supervisor).
+L'agent route mal sans superviseur pour corriger. Solution : system prompts tres precis sur les domaines. Ajouter un agent "fallback" qui re-route.
 
 ### 4. Conversation history bloat
-**Probleme** : chaque handoff passe TOUT l'historique, tokens explosent.
-**Solution** : compacter l'historique avant handoff. Passer un resume + les 3 derniers messages.
+Chaque handoff passe TOUT l'historique, tokens explosent. Solution : compacter l'historique avant handoff. Passer un resume + les 3 derniers messages.
 
 ## Specificites chatbot
 
@@ -176,28 +168,20 @@ Tu es l'agent [Domaine] du support client [Entreprise].
 Le systeme track quel agent etait actif en dernier. Sur un nouveau message du meme thread, l'agent precedent reprend automatiquement (pas de re-triage).
 
 ### Experience utilisateur
-Le handoff est transparent pour l'utilisateur — il ne voit qu'un seul chatbot. Le changement d'agent est invisible sauf si on l'annonce ("Je vous transfere au service technique").
+Le handoff est transparent pour l'utilisateur — il ne voit qu'un seul chatbot. Le changement d'agent est invisible sauf si on l'annonce.
 
-### Latence
--30% de tokens vs supervisor (pas d'appel intermediaire). Latence single-domain : ~2.8s vs ~4.2s pour supervisor.
+### Latence vs Orchestrateur
+Swarm reduit les hops centraux (pas d'appel intermediaire au supervisor) → moins de tokens et moins de latence. Compromis : routing moins fiable sur domaines ambigus.
 
-## Couts et quand utiliser
+> ⚠️ Les chiffres precis "-30% tokens, latence 2.8s/5.4s, accuracy 91%" qui figuraient avant **n'ont pas de source primaire** (audit 23 mai). Tendance qualitative confirmee multi-sources, chiffres a mesurer empiriquement.
 
-| Facteur | Swarm | vs Orchestrateur |
-|---------|-------|------------------|
-| Tokens/requete | ~1,900 | -30% |
-| Latence single | ~2.8s | -33% |
-| Latence multi | ~5.4s | -40% |
-| Routing accuracy | 91% | -3% |
-| Debug | Difficile | Plus facile |
-
-### Quand utiliser
+## Quand utiliser
 - **Latence critique** (chatbot temps-reel, voice)
-- **Domaines bien definis** avec < 3% de chevauchement
+- **Domaines bien definis** avec peu de chevauchement
 - **Volume eleve** ou l'economie de tokens compte
 - **Requetes multi-domaines frequentes** (le swarm les gere sans retour au centre)
 
-### Quand eviter
+## Quand eviter
 - Domaines ambigus (le swarm route moins bien que le supervisor)
 - Audit trail centralise necessaire
 - Phase de deploiement initial (commencer par orchestrateur, migrer vers swarm une fois les domaines stabilises)
@@ -214,3 +198,4 @@ OpenAI Swarm (oct 2024) etait un framework experimental/educatif, explicitement 
 - [[pattern-pipeline]] — Alternative sequentielle
 - [[architecture-langgraph]] — Implementation LangGraph
 - [[architecture-openai-api]] — Implementation OpenAI (Agents SDK)
+- [[Knowledge/erreurs/agents-ia-22-claims-fausses-2026-05-23]] — audit source

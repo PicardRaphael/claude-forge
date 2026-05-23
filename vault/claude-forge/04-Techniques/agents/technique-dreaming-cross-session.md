@@ -1,6 +1,6 @@
 ---
 titre: "Dreaming — Review cross-session automatique des patterns"
-resume: "Feature Anthropic Managed Agents : review automatique des sessions passees pour extraire patterns et auto-ameliorer les agents, Netflix 97% moins d'erreurs"
+resume: "Feature Anthropic Managed Agents (Research Preview, beta header dreaming-2026-04-21) : review automatique des sessions passees pour curer la memoire agent et faire emerger des insights"
 aliases:
   - dreaming
   - dreaming anthropic
@@ -9,10 +9,10 @@ aliases:
   - memory dreaming claude
   - review automatique sessions
 type: knowledge
-derniere-maj: 2026-05-13
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
-  - "https://claude.com/blog/claude-managed-agents-memory"
+  - "https://platform.claude.com/docs/en/managed-agents/dreams"
   - "https://www.edtechinnovationhub.com/news/anthropic-brings-persistent-memory-to-claude-managed-agents-in-public-beta"
   - "https://9to5mac.com/2026/05/07/anthropic-updates-claude-managed-agents-with-three-new-features/"
 tags:
@@ -24,16 +24,18 @@ tags:
 
 ## Concept
 
-**Dreaming** = processus planifie qui review les sessions passees d'un agent et extrait les patterns pour ameliorer la memoire automatiquement. L'agent "reve" entre les sessions pour consolider ses apprentissages.
+**Dreaming** = job asynchrone qui lit une memory store existante + 1 a 100 sessions passees, produit une nouvelle memory store reorganisee (duplicates merges, entrees obsoletes remplacees, nouveaux insights surfaces).
 
-Annonce : Anthropic, avril-mai 2026, dans le cadre de [[Claude Managed Agents]] memory (beta publique).
+> Verbatim docs Anthropic : "Dreams let Claude reflect on past sessions to curate an agent's memory and surface new insights."
+
+**Statut** : Research Preview. Beta header requis : `managed-agents-2026-04-01,dreaming-2026-04-21`. Acces sur demande via [le formulaire Managed Agents](https://claude.com/form/claude-managed-agents).
 
 ## Comment ca marche
 
-1. **Review planifiee** — un processus examine les sessions passees de l'agent
-2. **Extraction de patterns** — identifie les corrections humaines recurrentes, les erreurs repetees, les approches qui fonctionnent
-3. **Curation memoire** — met a jour la memoire de l'agent avec les insights extraits
-4. **Controle humain** — 2 modes : auto-update OU review humaine avant application
+1. **Input** : une pre-existing memory store + 1-100 session transcripts
+2. **Pipeline asynchrone** : claude-opus-4-7 ou claude-sonnet-4-6 traite (lifecycle : pending → running → completed/failed/canceled)
+3. **Output** : une NOUVELLE memory store separee (l'input n'est jamais modifie)
+4. **Review humain** : la sortie est inspectable via la Memory Stores API ou la Console, puis a attacher aux futures sessions ou a supprimer
 
 ## Cas d'usage en production
 
@@ -43,28 +45,28 @@ Annonce : Anthropic, avril-mai 2026, dans le cadre de [[Claude Managed Agents]] 
 
 ### Rakuten
 - Agents long-running avec memoire pour eviter de repeter les erreurs passees
-- **97% moins d'erreurs first-pass** dans un perimetre workspace-scoped et observable
+- **97% reduction in initial critical errors** (verbatim Anthropic) dans un perimetre workspace-scoped et observable
 
 ## Equivalent forge / Claude Code local
 
-Le Dreaming est une feature Managed Agents (cloud). Pour Claude Code local, l'equivalent est :
+Le Dreaming est une feature Managed Agents (cloud, Research Preview). Pour Claude Code local, l'equivalent qualitatif est :
 
 | Dreaming feature | Equivalent local |
 |-----------------|-----------------|
 | Review cross-session | Skill `/done` (metacognition fin de session) |
 | Extraction patterns | `learn-from-mistakes` rule + sections Apprentissage skills |
-| Curation memoire | `memory: project` dans `.claude/agent-memory/` (commit + git) |
-| Controle humain | Review du diff `.claude/agent-memory/` avant commit |
+| Curation memoire | Auto memory dans `~/.claude/projects/<project>/memory/` (machine-local) |
+| Controle humain | Review du diff vault avant commit |
 | Planification | `/schedule` + `/dream` skill (a creer) |
 
 ### Pattern local recommande
 
 ```
 1. Fin de session → /done extrait les apprentissages
-2. Agent ecrit dans .claude/agent-memory/<agent>/MEMORY.md
-3. git commit des changements memoire
+2. Claude ecrit dans ~/.claude/projects/<project>/memory/MEMORY.md (machine-local)
+3. Memoire vault commitee separement (git) si insights a partager equipe
 4. Prochain dev beneficie via git pull
-5. Periodiquement : review manuelle des MEMORY.md pour elaguer
+5. Periodiquement : review manuelle des memoires pour elaguer
 ```
 
 ## Technique Netflix — Persister les corrections humaines
@@ -78,14 +80,24 @@ Quand un humain corrige un agent mid-conversation :
 **Implementation** : ajouter dans le body de chaque agent :
 ```
 Quand l'utilisateur te corrige, ecris la correction dans ta memoire agent
-(.claude/agent-memory/<ton-nom>/MEMORY.md) avec le format :
+avec le format :
 - Erreur : <ce que tu as fait>
 - Correction : <ce que l'utilisateur a demande>
 - Why : <pourquoi c'etait faux>
 ```
 
+## Limites Research Preview
+
+| Limit | Value |
+|---|---|
+| Sessions par dream | 100 |
+| `instructions` length | 4 096 caracteres |
+| Models supportes | `claude-opus-4-7`, `claude-sonnet-4-6` |
+
+Couts : tokens API standard du modele selectionne, scale lineaire avec le nombre/longueur des sessions input.
+
 ## Liens
 
 - [[pattern-figma-mcp-claude-code]] — autre technique decouverte session lojii
-- [[lojii]] — premier projet avec memoire partagee agent-memory
-- [[reference_dreaming_pattern]] — memoire forge existante sur le sujet
+- [[lojii]] — premier projet avec memoire partagee
+- [[technique-shared-agent-memory]] — scopes memoire CLAUDE.md + auto memory

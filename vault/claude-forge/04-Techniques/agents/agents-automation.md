@@ -1,6 +1,6 @@
 ---
 titre: "Agents Automation — Workflows et production"
-resume: "Automation agents IA 2026 : workflows (n8n, Zapier), CI/CD, scheduling, Computer Use, browser agents, coûts production"
+resume: "Automation agents IA 2026 : workflows (n8n, Zapier), CI/CD, scheduling, Computer Use, browser agents, couts production"
 aliases:
   - agent automation
   - automation agents
@@ -10,7 +10,7 @@ aliases:
   - computer use
 domaine: ia
 type: technique
-derniere-maj: 2026-05-08
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://www.shareuhack.com/en/posts/claude-code-routines-2026"
@@ -25,12 +25,12 @@ tags:
 
 | Outil | Force | Usage |
 |-------|-------|-------|
-| **n8n** | 8000+ intégrations, open-source, $2.5B valuation | High volume, APIs stables |
-| **Claude Code /schedule** | Routines cloud, zero infra | Tâches IA complexes, scheduling |
+| **n8n** | 8000+ integrations, open-source, $2.5B valuation | High volume, APIs stables |
+| **Claude Code /schedule** | Routines cloud, zero infra | Taches IA complexes, scheduling |
 | **Make.com** | Cloud-locked, per-operation | Workflows visuels simples |
-| **Zapier AI** | 8000+ apps | Automations simples, écosystème max |
+| **Zapier AI** | 8000+ apps | Automations simples, ecosysteme max |
 
-Décision simple : high volume + APIs stables = n8n/Make. Ambiguë + non-structuré = Claude Code.
+Decision simple : high volume + APIs stables = n8n/Make. Ambigue + non-structure = Claude Code.
 
 ## Claude Code Scheduling
 
@@ -44,59 +44,63 @@ Unifient cron + webhook + GitHub events :
 Trigger /schedule toutes les heures = heartbeat agent. Wake up → read state → decide → act → sleep. Cloud = state persistent.
 
 ### Dispatch & Channels
-Dispatch : tâches depuis mobile/tablet. Channels : Telegram/Discord/webhooks → sessions.
+Dispatch : taches depuis mobile/tablet. Channels : Telegram/Discord/webhooks → sessions.
 
 ## CI/CD avec agents
 
-Claude Code en GitHub Actions : 1 workflow file + 1 secret + CLAUDE.md. **Code Review Plugin** : 4 agents review parallèles, confidence scoring >= 80%.
+Claude Code en GitHub Actions : 1 workflow file + 1 secret + CLAUDE.md. **Code Review Plugin** : 4 agents review paralleles, confidence scoring >= 80%.
 
 Pattern : morning PR reviews, overnight CI failure analysis, weekly dependency audits — tout en Routines.
 
-**GitHub Agent HQ** (`gh aw`) : visibilité org-wide agents (Copilot, Claude, Codex).
+**GitHub Agent HQ** (`gh aw`) : visibilite org-wide agents (Copilot, Claude, Codex).
 
 ## Computer Use / Browser agents
 
 | Agent | Approche | Score | Prix |
 |-------|---------|-------|------|
-| **Claude Computer Use** | Screenshot + mouse/keyboard, VMs | 44% OSWorld (3x vs 2024) | $20/mo |
-| **OpenAI Operator** | Browser-natif, achats/réservations | — | $200/mo |
+| **Claude Computer Use** | Screenshot + mouse/keyboard, VMs | 44% OSWorld (Sonnet 3.5, oct 2024, +3x vs 2024 initial) — Sonnet 4.5 et Mythos atteignent plus, chiffre exact a remettre a jour | $20/mo |
+| **OpenAI Operator** | Browser-natif, achats/reservations | — | $200/mo |
 | **Google Mariner** | Chrome extension, DOM-aware | — | Research |
-| **Stagehand** (Browserbase) | Open-source, 4 primitives, Playwright | 89% fiabilité | Free + ~$0.003/action |
+| **Stagehand** (Browserbase) | Open-source, 4 primitives, Playwright | 89% fiabilite (single source DigitalApplied) | Free + ~$0.003/action |
 
-**RPA vs AI agents** : RPA = fragile (bouge un bouton, cassé). AI agents gèrent le drift UI. Marché browser agents : **$12B en 2026**, +200% YoY.
+> ⚠️ Audit 23 mai : Computer Use Claude "44% OSWorld" est le chiffre de Sonnet 3.5 (oct 2024). Sonnet 4.5 progresse au-dela ; chiffre exact mai 2026 a verifier dans la fiche modele Anthropic.
 
-Pattern hybride production : **Playwright (80% steps prévisibles) + Stagehand/AI (20% dynamiques)**. Fiabilité : Playwright+Claude 92%, Stagehand 89%, Computer Use 78%.
+**RPA vs AI agents** : RPA = fragile (bouge un bouton, casse). AI agents gerent le drift UI.
 
-## Coûts production
+> Marche browser agents en forte croissance ; chiffres precis (single source "$12B +200% YoY") retires audit 23 mai (non sourcables).
+
+Pattern hybride production : **Playwright (80% steps previsibles) + Stagehand/AI (20% dynamiques)**. Fiabilites Playwright+Claude 92%, Stagehand 89%, Computer Use 78% = single source DigitalApplied, a confirmer.
+
+## Couts production
 
 ### Trois leviers majeurs
 
-| Stratégie | Économie |
+| Strategie | Economie |
 |-----------|---------|
 | Prompt caching | 50-90% input tokens |
 | Batch API | 50% off standard |
 | Model routing | 40-60% blended |
 
-Combiné caching + batching = **-70-90%** vs standard.
+Combine caching + batching = **jusqu'a 95% reduction** (verbatim Anthropic).
 
 ### Pricing tokens (mai 2026)
 
-| Modèle | Input/Output per M tokens |
+| Modele | Input/Output per M tokens |
 |--------|--------------------------|
 | Opus 4.6 | $5/$25 |
 | Sonnet 4.6 | $3/$15 |
 | Haiku 4.5 | $1/$5 |
 | GPT-5.4 Mini | $0.75/$4.50 |
 
-### Observabilité
+### Observabilite
 Top stack : Braintrust (eval-first), LangSmith (LangChain), Langfuse (open-source), Arize Phoenix (embedding viz), Helicone (multi-provider cost).
 
-79% des orgs ont adopté des agents mais la plupart ne peuvent pas tracer les échecs multi-step.
+**79% des orgs ont adopte des agents** (Cisco State of AI Security). Tracabilite des echecs multi-step = challenge ouvert.
 
 ## Liens
 
 - [[MOC-Techniques]]
 - [[Agents IA]] — Index principal
 - [[agents-evaluation]] — Testing et benchmarks
-- [[agents-securite]] — Sécurité production
+- [[agents-securite]] — Securite production
 - [[Boris Cherny]] — Claude Code Routines

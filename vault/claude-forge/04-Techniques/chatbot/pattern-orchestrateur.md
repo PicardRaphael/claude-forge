@@ -11,7 +11,7 @@ aliases:
   - multi-agent supervisor
 domaine: ia
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://github.com/langchain-ai/langgraph-supervisor-py"
@@ -29,7 +29,7 @@ tags:
 
 **Orchestrateur** (1 niveau) : un supervisor central recoit chaque message, classifie l'intention, et route vers le specialiste adapte. Apres reponse du specialiste, le controle revient au supervisor.
 
-**Hierarchique** (≥2 niveaux) : le supervisor delegue a des sub-supervisors qui gerent leurs propres equipes. Equipes de equipes.
+**Hierarchique** (≥2 niveaux) : le supervisor delegue a des sub-supervisors qui gerent leurs propres equipes. Equipes d'equipes.
 
 Difference cle avec le [[pattern-swarm]] : le supervisor est un point de passage OBLIGATOIRE. Aucun specialiste ne communique directement avec un autre.
 
@@ -71,7 +71,7 @@ supervisor = create_supervisor(
     [billing, tech],
     model=model,
     prompt="Route vers le specialiste adapte. Ne reponds jamais directement.",
-    output_mode="last_message",  # ou "full_history"
+    output_mode="last_message",
 )
 app = supervisor.compile(checkpointer=checkpointer)
 ```
@@ -93,7 +93,7 @@ top = create_supervisor(
 ).compile()
 ```
 
-### OpenAI — Agents-as-Tools (manager garde controle)
+### OpenAI — Agents-as-Tools
 
 ```python
 from agents import Agent
@@ -121,7 +121,7 @@ coordinator = client.beta.agents.create(
 )
 ```
 
-## System prompt chatbot — Supervisor
+## System prompt — Supervisor
 
 ```
 Tu es le superviseur du support client [Entreprise].
@@ -143,37 +143,26 @@ Tu es le superviseur du support client [Entreprise].
 ### Quand l'orchestrateur est meilleur que le swarm
 - Domaines **ambigus** (le routing LLM corrige les erreurs de classification)
 - **Audit trail** necessaire (tout passe par le supervisor = point de log centralise)
-- **Qualite de routing** prioritaire sur la latence (94% vs 91% pour swarm)
 - Phase de **deploiement initial** (commencer par orchestrateur, migrer vers swarm si les domaines se stabilisent)
 
 ### Couts multi-agent
-Chaque routing = 1 appel LLM supplementaire. Le supervisor consomme ~2,800 tokens/requete vs ~1,900 pour swarm.
-
-**Optimisation** : utiliser un modele leger pour le supervisor (Haiku/GPT-4.1-mini) et des modeles plus puissants pour les specialistes.
+Chaque routing = 1 appel LLM supplementaire. **Optimisation** : utiliser un modele leger pour le supervisor (Haiku/GPT-4.1-mini) et des modeles plus puissants pour les specialistes.
 
 ### Hierarchique : quand justifie ?
-- 6+ agents specialistes (trop pour un seul supervisor)
+- Beaucoup de specialistes (trop pour un seul supervisor cognitivement)
 - Domaines avec sous-domaines naturels (support → billing + refund)
 - Equipes qui developpent et testent les sub-graphes independamment
 
 **Attention** : chaque niveau ajoute de la latence (hop supplementaire). 2 niveaux = acceptable. 3+ = rarement justifie.
 
-## Couts et quand utiliser
+> ⚠️ Les chiffres precis "94% routing accuracy, 4.2s/9.1s latence, 2800 tokens/req" qui figuraient dans les versions anterieures **n'ont pas de source primaire** (audit 23 mai). Mesurer empiriquement ton propre cas.
 
-| Facteur | Orchestrateur | Hierarchique |
-|---------|---------------|--------------|
-| Latence | ~4.2s (single) | +50-100% par niveau |
-| Tokens | ~2,800/req | x1.5-2 |
-| Routing accuracy | 94% | ~94% par niveau |
-| Complexite debug | Moyenne | Haute |
-| Scalabilite agents | 2-5 | 6-20+ |
-
-### Quand utiliser
+## Quand utiliser
 - Support client multi-domaine (le cas d'usage canonique)
 - Workflows avec validation centralisee (compliance, moderation)
 - Chatbot enterprise avec audit trail
 
-### Quand eviter
+## Quand eviter
 - 1-2 domaines seulement → [[pattern-single-agent-multi-tool]]
 - Latence critique → [[pattern-swarm]]
 - Pipeline deterministe → [[pattern-pipeline]]

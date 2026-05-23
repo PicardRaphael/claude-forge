@@ -1,6 +1,6 @@
 ---
 titre: "Pattern Single Agent Multi-Tool — Le defaut"
-resume: "Pattern le plus simple et le plus courant : 1 seul agent avec N outils. Couvre 80% des cas chatbot. Code Claude, OpenAI, LangGraph. Quand PAS besoin de multi-agent"
+resume: "Pattern le plus simple et le plus courant : 1 seul agent avec N outils. Couvre la majorite des cas chatbot. Code Claude, OpenAI, LangGraph. Quand PAS besoin de multi-agent"
 aliases:
   - single agent multi tool
   - agent unique multi outils
@@ -10,7 +10,7 @@ aliases:
   - pattern defaut chatbot
 domaine: ia
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://www.anthropic.com/research/building-effective-agents"
@@ -26,7 +26,7 @@ tags:
 
 Un seul agent LLM equipe de N outils. Pas de multi-agent, pas de routing, pas de handoffs. Le LLM decide quand et quel outil appeler en boucle jusqu'a resolution.
 
-C'est le **pattern par defaut** pour les chatbots. Anthropic recommande : "Optimize single LLM calls with retrieval and in-context examples AVANT d'ajouter de la complexite."
+C'est le **pattern par defaut** pour les chatbots. Anthropic verbatim ([Building Effective Agents](https://www.anthropic.com/research/building-effective-agents)) : "optimizing single LLM calls with retrieval and in-context examples **is usually enough**".
 
 **Regle de decision** : si tu peux resoudre le probleme avec 1 agent + outils, ne pas aller en multi-agent. Multi-agent uniquement quand les domaines sont trop differents pour un seul system prompt.
 
@@ -98,10 +98,8 @@ response = client.responses.create(
     instructions=SYSTEM_PROMPT,
     input=user_query,
     tools=tools,
-    store=True,  # persistance server-side
+    store=True,
 )
-# La boucle agentique est geree par l'API si outils heberges
-# Pour les custom tools, boucler sur tool_calls comme Claude
 ```
 
 ### LangGraph (ReAct)
@@ -134,7 +132,7 @@ Tu aides les clients avec leurs commandes, questions, et problemes.
 
 <regles>
 - Ne devine JAMAIS une information verifiable par outil
-- Appelle les outils en parallele quand possible (ex: lookup_order + search_faq)
+- Appelle les outils en parallele quand possible
 - Si aucun outil ne peut aider, dis-le honnetement
 - Reponses concises : 2-3 phrases max sauf explication technique
 </regles>
@@ -149,9 +147,9 @@ Tu aides les clients avec leurs commandes, questions, et problemes.
 ## Specificites chatbot
 
 ### Combien d'outils ?
-- **Optimal** : 5-15 outils bien decrits
+- **Sweet spot** : ~5-15 outils bien decrits
 - **Au-dela de 20** : le LLM perd en precision de selection. Solutions :
-  - Claude : `defer_loading: true` (Tool Search) → -85% tokens
+  - Claude : `defer_loading: true` (Tool Search) → economies tokens substantielles sur les definitions d'outils
   - OpenAI : tool namespaces + deferred loading
   - Tous : regrouper les outils par domaine, lazy-load
 
@@ -162,17 +160,20 @@ Claude et GPT-4.1+ supportent les appels d'outils paralleles. Un seul tour pour 
 
 ### Quand passer au multi-agent ?
 Signes qu'un seul agent ne suffit plus :
-- System prompt > 2000 tokens (trop de domaines)
-- Precision de routing outil < 90%
+- System prompt trop gros (trop de domaines)
+- Precision de routing outil qui se degrade
 - Outils conflictuels (meme nom/description pour domaines differents)
 - Besoin de personas/tons differents selon le domaine
 
 ### Optimisation des descriptions d'outils
-Anthropic : "Write better tool descriptions, not more tools." Une description precise vaut 3 outils supplementaires.
+
+Principe canonique Anthropic : **investir dans des descriptions precises plutot que multiplier les outils**.
+
+> ⚠️ La formule "une description precise vaut 3 outils" (ratio numerique) qui figurait avant **n'apparait pas verbatim** dans les docs Anthropic (audit 23 mai). Garder le principe qualitatif sans le chiffre invente.
 
 Bonnes descriptions :
 ```
-"Recherche le statut d'une commande par son ID. Retourne : statut, date estimee, 
+"Recherche le statut d'une commande par son ID. Retourne : statut, date estimee,
  transporteur. Utiliser quand le client demande 'ou est ma commande'."
 ```
 
@@ -183,15 +184,9 @@ Mauvaises descriptions :
 
 ## Couts et quand utiliser
 
-| Aspect | Single Agent | vs Multi-Agent |
-|--------|-------------|----------------|
-| Tokens/requete | ~1,000-1,500 | -40-60% |
-| Latence | 1-3s | -50% |
-| Complexite code | Basse | -80% |
-| Maintenabilite | Haute | Bien meilleure |
-| Qualite routing | Outil-level | Agent-level |
+Single agent vs multi-agent : moins de tokens, moins de latence, code plus simple. Les ordres de grandeur "~1000-1500 tokens, 1-3s" qui figuraient avant sont des estimations forge — mesurer ton propre cas.
 
-### Quand utiliser (80% des cas)
+### Quand utiliser (majorite des cas)
 - Chatbot FAQ avec base de connaissances
 - Support client single-domain
 - Assistant interne (lookup, creation, recherche)
@@ -211,3 +206,4 @@ Mauvaises descriptions :
 - [[architecture-claude-api]] — Implementation Claude
 - [[architecture-openai-api]] — Implementation OpenAI
 - [[architecture-langgraph]] — Implementation LangGraph
+- [[Knowledge/erreurs/agents-ia-22-claims-fausses-2026-05-23]] — audit source

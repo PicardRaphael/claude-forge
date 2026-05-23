@@ -1,6 +1,6 @@
 ---
 titre: "Harness Engineering"
-resume: "Nouvelle discipline 2026 : tout ce qui entoure le modèle LLM (état, outils, feedback loops, contraintes, orchestration) — contraintes déterministes > prompts suggestifs"
+resume: "Discipline 2026 formalisee par Birgitta Bockeler (Thoughtworks, mars 2026) : tout ce qui entoure le modele LLM (state, tools, feedback loops, contraintes, orchestration). Reconnu 4e paradigme AI Engineering par TechTimes (13 mai 2026)"
 aliases:
   - "harness engineering"
   - "agent harness"
@@ -10,12 +10,11 @@ aliases:
   - "agent infrastructure"
 domaine: technique
 type: technique
-derniere-maj: 2026-05-14
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://martinfowler.com/articles/harness-engineering.html"
-  - "Simon Willison — Agentic Engineering Patterns ch.12"
-  - "Addy Osmani — agent infrastructure"
+  - "https://www.techtimes.com/articles/313524/20260513/harness-engineering-rises-4th-paradigm-ai-engineering.htm"
 tags:
   - "#type/technique"
   - "#domaine/agents"
@@ -23,42 +22,75 @@ tags:
 
 ## Description
 
-Discipline émergente (mars 2026+) définie par Martin Fowler (ThoughtWorks), Addy Osmani, et Simon Willison.
+Discipline formalisee par **Birgitta Bockeler** (Distinguished Engineer, Thoughtworks) dans son article hebergé sur martinfowler.com (mars 2026). Reconnue comme **4e paradigme de l'AI Engineering** par TechTimes (13 mai 2026), apres Prompt Engineering (2022-24) et Context Engineering (2025).
 
-**Formule centrale :**
+**Formule centrale (citee par Bockeler, attribuee a LangChain)** :
 
-> Agent = Modèle + Harness
+> Agent = Model + Harness
 
-Le harness = tout ce qui **entoure** le modèle et qui n'est pas le modèle lui-même.
+Le harness = tout ce qui **entoure** le modele et qui n'est pas le modele lui-meme.
+
+> [!note] Audit 23 mai 2026
+> Cette note a ete reattribuee a Bockeler (auteure reelle, single source primaire). Les versions anterieures citaient a tort Fowler / Addy Osmani / Simon Willison comme co-auteurs. Voir [[Knowledge/erreurs/agents-ia-22-claims-fausses-2026-05-23]].
 
 ## Composants du Harness
 
 | Composant | Description |
 |---|---|
-| **State management** | Persistance de l'état entre les appels (mémoire, contexte) |
-| **Tool execution** | Couche d'exécution et validation des tool calls |
-| **Feedback loops** | Signaux de succès/échec retournés au modèle |
-| **Enforceable constraints** | Contraintes déterministes (linters, guards, hooks) |
-| **Context management** | Assemblage dynamique du contexte par tâche |
-| **Sub-agent orchestration** | Coordination d'agents spécialisés |
+| **State management** | Persistance de l'etat entre les appels (memoire, contexte) |
+| **Tool execution** | Couche d'execution et validation des tool calls |
+| **Feedback loops** | Signaux de succes/echec retournes au modele |
+| **Enforceable constraints** | Contraintes deterministes (linters, guards, hooks) |
+| **Context management** | Assemblage dynamique du contexte par tache |
+| **Sub-agent orchestration** | Coordination d'agents specialises |
 
-## Insight clé : déterministe > suggestif
+## Feedforward vs Feedback (verbatim Bockeler)
 
-> **Linters qui bloquent > Prompts qui suggèrent**
+Distinction structurante :
 
-Un prompt disant "ne modifie pas les fichiers de configuration" sera ignoré 5% du temps.  
-Un hook qui exit(2) quand un fichier de config est modifié = 100% d'enforcement.
+| Type | Quand | Exemples |
+|------|-------|----------|
+| **Guides (feedforward controls)** | AVANT action — anticipation | CLAUDE.md, SKILL.md contraintes, architecture docs |
+| **Sensors (feedback controls)** | APRES action — correction | Hooks exit 2, linters, tests, type checkers |
 
-C'est le passage de l'**advisory** (instructions) au **déterministe** (contraintes exécutables).
+Bockeler verbatim : "Guides (feedforward controls)" / "Sensors (feedback controls)". **Feedforward > Feedback** en general — mieux vaut anticiper que corriger. Mais les deux sont necessaires.
+
+## Computational vs Inferential (verbatim Bockeler)
+
+> "Computational — deterministic and fast, run by the CPU"
+> "Inferential — Semantic analysis, AI code review, 'LLM as judge'"
+
+| | Computational | Inferential |
+|---|---|---|
+| Vitesse | ms-sec | sec-min |
+| Fiabilite | Deterministe, 100% | Probabiliste, ~95% |
+| Exemples | Linters, hooks, tests | AI code review, semantic analysis |
+| Cout | CPU, quasi gratuit | GPU/API, cher |
+
+**Priorite : Computational d'abord, Inferential en complement.**
+
+## Ashby's Law of Requisite Variety (verbatim Bockeler)
+
+> "A regulator must have at least as much variety as the system it governs"
+
+Reduire la variete que l'agent doit gerer → reduire le scope → harness plus complet possible. 1 skill = 1 responsabilite.
+
+## Insight cle : deterministe > suggestif
+
+Un prompt disant "ne modifie pas les fichiers de configuration" sera ignore une partie du temps. Un hook qui `exit(2)` quand un fichier de config est modifie = enforcement total.
+
+C'est le passage de l'**advisory** (instructions) au **deterministe** (contraintes executables).
+
+> Note : la formule "Linters qui bloquent > Prompts qui suggerent" presente dans les versions anterieures de cette note **n'apparait PAS verbatim** dans l'article de Bockeler. Elle est une synthese forge du principe deterministe > suggestif, pas une citation.
 
 ## Relation avec le vault forge
 
-Le vault forge-brain applique déjà ce principe :
+Le vault forge-brain applique deja ce principe :
 - `delegate-guard.py` — bloque les edits directs de skills/agents
-- `devil-advocate-guard.py` — force le devil's advocate sur les livrables
-- `vault-query-guard.py` — bloque les writes sans consultation vault préalable
+- `devil-advocate-guard.py` — pattern feedback control sur livrables majeurs
+- `vault-query-guard.py` — bloque les writes sans consultation vault prealable
 
-Ces hooks = harness engineering appliqué à Claude Code.
+Ces hooks = harness engineering applique a Claude Code.
 
 ## Couches du Harness (architecture)
 
@@ -74,61 +106,31 @@ Ces hooks = harness engineering appliqué à Claude Code.
 ├─────────────────────────────────┤
 │  State Management               │
 └─────────────────────────────────┘
-         ↕ modèle LLM ↕
+         ↕ modele LLM ↕
 ```
 
-## Évolution du paradigme (mai 2026)
+## Stat marche
 
-**Reconnu comme 4e paradigme** de l'AI Engineering (TechTimes, 13 mai 2026) :
+**65% des echecs d'agents** tracent a des defauts de harness, PAS a des limitations du modele — TechTimes (13 mai 2026), source primaire confirmee audit 23 mai.
 
-```
-Prompt Engineering (2022-24) → Context Engineering (2025) → Harness Engineering (2026)
-```
+## Ressources
 
-**65% des échecs d'agents** tracent à des défauts de harness, PAS à des limitations du modèle.
-
-### Feedforward vs Feedback (Fowler)
-
-| Type | Quand | Exemples |
-|------|-------|----------|
-| **Feedforward (guides)** | AVANT action — anticipation | CLAUDE.md, SKILL.md contraintes, architecture docs |
-| **Feedback (sensors)** | APRÈS action — correction | Hooks exit 2, linters, tests, type checkers |
-
-**Feedforward > Feedback** — mieux vaut anticiper que corriger. Mais les deux sont nécessaires.
-
-### Computational vs Inferential
-
-| | Computational | Inferential |
-|---|---|---|
-| Vitesse | ms-sec | sec-min |
-| Fiabilité | Déterministe, 100% | Probabiliste, ~95% |
-| Exemples | Linters, hooks, tests | AI code review, semantic analysis |
-| Coût | CPU, quasi gratuit | GPU/API, cher |
-
-**Priorité : Computational d'abord, Inferential en complément.**
-
-### Ashby's Law appliquée
-
-Réduire la variété que l'agent doit gérer → réduire le scope → harness plus complet possible. 1 skill = 1 responsabilité.
-
-### Ressources
-
-- awesome-harness-engineering (GitHub ai-boost) — catalogue complet patterns/outils
-- Martin Fowler article — référence canonique
+- awesome-harness-engineering (GitHub ai-boost) — catalogue patterns/outils
+- Article Bockeler sur martinfowler.com — reference canonique
 - Augment Code Guide — application au coding
 
 ## Quand utiliser
 
-- Design d'un système multi-agent
-- Audit d'un agent existant qui a des comportements imprévisibles
-- **Diagnostic de skill Cowork qui ne suit pas les instructions** — c'est un problème de harness
-- Décider entre "prompt instruction" et "hook déterministe"
-- Évaluation de la robustesse d'un pipeline agentic
+- Design d'un systeme multi-agent
+- Audit d'un agent existant qui a des comportements imprevisibles
+- **Diagnostic de skill Cowork qui ne suit pas les instructions** — c'est un probleme de harness
+- Decider entre "prompt instruction" et "hook deterministe"
+- Evaluation de la robustesse d'un pipeline agentic
 
 ## Liens
 
 - [[Context Engineering]] — Composant "orchestration" du harness
-- [[workflow-claude-code-optimal]] — Patterns de harness appliqués (Boris, Karpathy)
+- [[workflow-claude-code-optimal]] — Patterns de harness appliques (Boris, Karpathy)
 - [[agents-securite]] — Sandboxing et permissions = couches du harness
-- [[mass-multi-agent-system-search]] — Optimisation automatisée du harness multi-agent
+- [[mass-multi-agent-system-search]] — Optimisation automatisee du harness multi-agent
 - [[MOC-Techniques]]

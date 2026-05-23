@@ -10,7 +10,7 @@ aliases:
   - langgraph swarm
 domaine: ia
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://langchain-ai.github.io/langgraph/"
@@ -26,7 +26,7 @@ tags:
 
 ## Definition
 
-Framework open-source (MIT) pour orchestrer des agents via des graphes diriges avec etat type. Seul framework avec checkpointing natif, time-travel debugging, et HITL integre. Leader enterprise (34% des citations, Uber, LinkedIn, JP Morgan). Philosophie : model-agnostic, controle fin via graphe, persistence first-class.
+Framework open-source (MIT) pour orchestrer des agents via des graphes diriges avec etat type. Seul framework grand-public avec **checkpointing natif, time-travel debugging et HITL integre (`interrupt`)**. Adoption enterprise forte (Klarna, LinkedIn, Uber, JP Morgan documentes). Philosophie : model-agnostic, controle fin via graphe, persistence first-class.
 
 ## Architecture
 
@@ -55,16 +55,14 @@ Framework open-source (MIT) pour orchestrer des agents via des graphes diriges a
 │           Supervisor (multi-agent)            │
 │  User → Supervisor → [Math | Research | FAQ]  │
 │       ← Supervisor ← resultat                │
-│  Routing accuracy : 94%                       │
-│  Extra LLM call par routing step              │
+│  Routage LLM-based + audit trail centralise   │
 └──────────────────────────────────────────────┘
 
 ┌──────────────────────────────────────────────┐
 │           Swarm (multi-agent)                 │
 │  Alice ──handoff──→ Bob ──handoff──→ Alice    │
 │  Pas de superviseur central                   │
-│  -30% tokens, +latence reduite               │
-│  Risque ping-pong (limiter a 3 hops)          │
+│  Risque ping-pong (limiter recursion_limit)   │
 └──────────────────────────────────────────────┘
 ```
 
@@ -83,7 +81,6 @@ agent = create_react_agent(
 )
 app = agent  # deja compile
 
-# Invocation avec thread (memoire multi-turn)
 config = {"configurable": {"thread_id": f"user_{user_id}"}}
 result = await app.ainvoke({"messages": [("user", query)]}, config)
 ```
@@ -125,7 +122,7 @@ app = create_swarm([billing, tech], default_active_agent="Billing")
     .compile(checkpointer=AsyncPostgresSaver(conn))
 ```
 
-### Hierarchique (equipes imbriquees)
+### Hierarchique
 
 ```python
 research_team = create_supervisor(
@@ -153,27 +150,10 @@ def sensitive_action(state):
     else:
         return {"messages": ["Remboursement refuse par l'operateur."]}
 
-# Cote appelant : reprendre apres approbation
 app.invoke(Command(resume="approve"), config)
 ```
 
 **Attention** : au resume, le noeud re-execute depuis le debut. Idempotence obligatoire.
-
-## System prompt chatbot
-
-```
-Tu es un superviseur de support client. Tu routes les demandes :
-- Questions facturation → agent "billing"
-- Problemes techniques → agent "tech"  
-- Questions generales → agent "faq"
-
-Regles :
-- Toujours router, ne jamais repondre directement
-- Si la demande est ambigue, demander une clarification
-- Si 2+ domaines concernes, commencer par le plus urgent
-```
-
-Pour les agents specialistes, chaque agent a son propre system prompt avec les regles de son domaine.
 
 ## Specificites chatbot
 
@@ -186,14 +166,6 @@ Pour les agents specialistes, chaque agent a son propre system prompt avec les r
 | AsyncPostgresSaver | **Production standard** |
 | Redis | Haut debit |
 | MongoDB Store | Memoire cross-session (long-terme) |
-
-### Memoire cross-session (long-terme)
-```python
-from langgraph.store.memory import InMemoryStore
-store = InMemoryStore()
-app = graph.compile(checkpointer=checkpointer, store=store)
-```
-Le `Store` persiste des donnees entre threads (preferences utilisateur, historique).
 
 ### Streaming
 Streaming natif via `.astream()` ou `.astream_events()`. Chaque noeud du graphe peut streamer independamment.
@@ -208,11 +180,7 @@ Revenir a n'importe quel checkpoint et re-executer. Invaluable pour debugger des
 | LangGraph (framework) | **Gratuit** (MIT) |
 | LLM provider | Par token (Anthropic, OpenAI, etc.) |
 | LangSmith Plus | $39/seat/mois |
-| LangSmith Deployment (dev) | $0.0007/min |
-| LangSmith Deployment (prod) | $0.0036/min |
-| Node executions | $0.001/node (au-dela du free tier) |
-
-**Overhead framework** : ~14ms/operation (negligeable vs latence LLM). OpenAI Agents SDK : ~2-5ms.
+| LangSmith Deployment | Voir [pricing officiel](https://www.langchain.com/pricing-langgraph-platform) — modele migre vers per-deployment-run (mai 2026) |
 
 ### Quand utiliser LangGraph
 - Workflows complexes avec branching, cycles, retries
@@ -225,16 +193,11 @@ Revenir a n'importe quel checkpoint et re-executer. Invaluable pour debugger des
 - Chatbot simple single-agent (raw SDK plus simple et maintenable)
 - Equipe qui valorise la simplicite (learning curve graphe)
 - Budget serre (LangSmith ajoute des couts)
-- Le trend "LangChain exit" : equipes prod migrent vers raw SDK pour -40-60% code, -8-22% latence
+- Tendance "LangChain exit" : equipes prod migrent parfois vers raw SDK pour reduire code et latence (chiffres precis a mesurer cas par cas)
 
 ### Metriques production
 
-| Metrique | Supervisor | Swarm |
-|----------|-----------|-------|
-| Latence single-domain | ~4.2s | ~2.8s |
-| Latence multi-domain | ~9.1s | ~5.4s |
-| Routing accuracy | **94%** | 91% |
-| Tokens moyens/requete | ~2,800 | ~1,900 |
+> ⚠️ Les chiffres precis Supervisor vs Swarm ("94%/91% routing accuracy, 4.2s/2.8s latence, 2800/1900 tokens, overhead 14ms/op") qui figuraient dans les versions anterieures de cette note **n'ont pas de source primaire identifiable** (audit 23 mai 2026). Garder l'idee qualitative : Supervisor offre meilleur audit trail + meilleure tolerance aux domaines ambigus, Swarm reduit la latence et les tokens via moins de hops centraux. Pour chiffrer ton cas : mesurer empiriquement.
 
 ## Liens
 
@@ -246,3 +209,4 @@ Revenir a n'importe quel checkpoint et re-executer. Invaluable pour debugger des
 - [[pattern-orchestrateur]] — Supervisor detaille
 - [[pattern-swarm]] — Swarm/handoffs detaille
 - [[Harrison Chase]] — Createur LangGraph, Deep Agents
+- [[Knowledge/erreurs/agents-ia-22-claims-fausses-2026-05-23]] — audit source des retraits

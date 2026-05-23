@@ -11,7 +11,7 @@ aliases:
   - interactions api
 domaine: ia
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://ai.google.dev/gemini-api/docs/function-calling"
@@ -27,7 +27,7 @@ tags:
 
 ## Definition
 
-Ecosysteme Google pour chatbots et agents. Trois couches : Gemini API (function calling + Interactions API), ADK v1.0 GA (orchestration multi-agent), A2A protocol (communication inter-agents cross-framework). Avantage unique : **tokens les moins chers du marche** (Flash-Lite $0.10/MTok input) et **interoperabilite A2A**.
+Ecosysteme Google pour chatbots et agents. Trois couches : Gemini API (function calling + Interactions API), ADK v1.0 GA (orchestration multi-agent), A2A protocol (communication inter-agents cross-framework, **v1.0 publiee 12 mars 2026**). Avantages : tokens les moins chers du marche (Flash-Lite a $0.10/MTok input) et interoperabilite cross-framework via A2A.
 
 ## Architecture
 
@@ -50,10 +50,10 @@ Ecosysteme Google pour chatbots et agents. Trois couches : Gemini API (function 
 │  Event Compaction : -38% tokens, -18% latence     │
 └───────────────────────────────────────────────────┘
 
-┌──────────── A2A Protocol ────────────────────────┐
+┌──────────── A2A Protocol v1.0 ───────────────────┐
 │  Agent Cards (JSON) → discovery                   │
 │  Tasks : submitted → working → completed          │
-│  HTTP/SSE + gRPC (v0.3+)                          │
+│  HTTP/SSE + gRPC binding                          │
 │  Cross-framework : ADK ↔ LangGraph ↔ CrewAI      │
 └───────────────────────────────────────────────────┘
 ```
@@ -77,7 +77,7 @@ response = client.models.generate_content(
     config=types.GenerateContentConfig(
         tools=[lookup_order],
         automatic_function_calling=types.AutomaticFunctionCallingConfig(
-            disable=False  # SDK execute auto les fonctions
+            disable=False
         ),
     ),
 )
@@ -113,12 +113,10 @@ coordinator = LlmAgent(
 ### Interactions API (beta — server-side state)
 
 ```python
-# Multi-turn avec etat server-side (similaire a OpenAI Conversations)
 interaction = client.interactions.create(
     model="gemini-2.5-flash",
     input="Bonjour", store=True,
 )
-# Tour suivant
 interaction2 = client.interactions.create(
     model="gemini-2.5-flash",
     input="Ou est ma commande ?",
@@ -128,20 +126,19 @@ interaction2 = client.interactions.create(
 
 ## Specificites chatbot
 
-### Avantage cout massif
-Flash-Lite a $0.10/$0.40 par MTok = **~25x moins cher** qu'un agent GPT-4o ou Sonnet. Un systeme 4 agents en Flash-Lite coute moins qu'un single agent Sonnet.
+### Avantage cout
+Flash-Lite a $0.10/$0.40 par MTok = ordre de grandeur **~25x moins cher** qu'un agent GPT-4o ou Sonnet. Un systeme 4 agents en Flash-Lite peut couter moins qu'un single agent Sonnet.
 
 ### A2A pour interop
-Unique a Google. Permet a un agent ADK de communiquer avec un agent LangGraph ou CrewAI via Agent Cards et Tasks. Utile quand differentes equipes utilisent differents frameworks.
+Unique a Google. Permet a un agent ADK de communiquer avec un agent LangGraph ou CrewAI via Agent Cards et Tasks. **v1.0 publiee 12 mars 2026**, adoption en croissance.
 
 ### Limites chatbot
-- Gemini API pas d'equivalent a Claude Managed Agents (infrastructure hebergee)
-- A2A encore jeune (v1.0 avril 2026, adoption en croissance)
+- Gemini API pas d'equivalent direct a Claude Managed Agents (infrastructure hebergee)
 - Interactions API en beta
 - Multi-langue (Python, Go, Java, TS) = avantage mais ecosysteme communautaire plus petit que LangGraph
 
 ### Event Compaction (ADK 1.0)
-Fenetre glissante d'evenements recents + resume des anciens. -38% tokens, -18% latence. Crucial pour chatbots longues conversations.
+Fenetre glissante d'evenements recents + resume des anciens. **-38% tokens, -18% latence** (docs ADK). Crucial pour chatbots longues conversations.
 
 ## Couts et quand utiliser
 
@@ -153,7 +150,7 @@ Fenetre glissante d'evenements recents + resume des anciens. -38% tokens, -18% l
 
 - **Batch API** : 50% reduction
 - **Context caching** : $0.01-0.40/MTok + $1/MTok/h stockage
-- **Google Search grounding** : 5000 free/mois, puis $14/1000
+- **Google Search grounding** : pricing depend de la version Gemini. **Gemini 3.x** : 5000 free/mois, $14/1000 ensuite. **Gemini 2.5** : 500-1500 RPD free, $35/1000 ensuite. Verifier [ai.google.dev/pricing](https://ai.google.dev/pricing) selon ta version.
 
 ### Quand utiliser Gemini/ADK
 - Budget tokens critique (Flash-Lite imbattable)
@@ -175,3 +172,4 @@ Fenetre glissante d'evenements recents + resume des anciens. -38% tokens, -18% l
 - [[architecture-openai-api]] — Concurrent OpenAI
 - [[pattern-orchestrateur]] — ADK coordinator = pattern orchestrateur
 - [[pattern-pipeline]] — ADK SequentialAgent = pattern pipeline
+- [[Knowledge/erreurs/agents-ia-22-claims-fausses-2026-05-23]] — audit source

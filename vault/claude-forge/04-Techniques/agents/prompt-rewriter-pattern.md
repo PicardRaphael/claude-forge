@@ -10,7 +10,7 @@ aliases:
   - "réécriture de prompt"
 domaine: technique
 type: technique
-derniere-maj: 2026-05-14
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://github.com/severity1/claude-code-prompt-improver"
@@ -31,9 +31,10 @@ Pattern qui intercepte les prompts utilisateur via un hook `UserPromptSubmit` et
 ### claude-code-prompt-improver (severity1)
 
 - Hook `UserPromptSubmit` Python (~70 lignes)
-- Évalue la clarté du prompt (~189 tokens, 2.8% d'un contexte 200K)
-- Si vague → lance une skill qui pose 1-6 questions ciblées + fait de la recherche via Explore (Haiku)
-- Si clair → passe directement (zéro overhead)
+- **~189 tokens par prompt** pour l'évaluation de clarté (vs ~275 tokens en v0.3.x = -31%)
+- Sur une session de 30 messages : ~5,7K tokens cumulés = **~2,8% d'un contexte 200K** (vs 4,1% avant optimisation)
+- Si prompt vague → lance une skill qui pose 1-6 questions ciblées + fait de la recherche via Explore (Haiku)
+- Si prompt clair → passe directement (zéro overhead supplémentaire au-delà de l'évaluation)
 - Bypass avec préfixes : `*` (skip), `/` (slash), `#` (memorize)
 
 ### Prompt Rewrite & Scoping (mcpmarket)
@@ -46,7 +47,7 @@ Pattern qui intercepte les prompts utilisateur via un hook `UserPromptSubmit` et
 
 | Pour | Contre |
 |------|--------|
-| Réduit les allers-retours | +189 tokens par prompt = coût récurrent |
+| Réduit les allers-retours | ~189 tokens par prompt = coût récurrent |
 | Standardise la qualité | Risque de misinterpretation |
 | Aide sur les tâches vagues | Sur tâches précises (majorité), c'est du gaspillage |
 | Un hook suffit, pas d'agent | Latence ajoutée sur chaque prompt |
