@@ -19,7 +19,25 @@
 >
 > **⚠️ Risque spécifique ce thème** : confusion concepts cross-frameworks (LangGraph, CrewAI, AutoGen, BabyAGI, MultiOn, etc.) — vérifier chaque pattern attribué au bon framework, pas mélanger.
 >
-> **Mémoire forge à consulter avant lancer** : `feedback_audit_thematique_methode`, `feedback_anthropic_single_source`, `Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23`
+> **Mémoire forge à consulter avant lancer** : `feedback_audit_thematique_methode`, `feedback_anthropic_single_source`, `feedback_regle_scope_pas_universelle`, `Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23`
+
+## Navigation vault — où lire selon le cas
+
+| Si tu cherches... | Lire EN ENTIER via `mcp__forge-brain__read_note` SANS max_lines |
+|-------------------|------------------------------------------------------------------|
+| Méthode d'audit thématique générale | `[[methode-analyser-repo]]` (section ORDRE CANONIQUE A→B→C→D→E) |
+| Doctrine agents Claude Code | `[[comment-creer-agent]]` (2-agent Justin Young sans split, Sonnet/Opus split forge, Brad Abrams Advisor) |
+| Doctrine agents IA généralistes vault | Notes `04-Techniques/agents/*` + `[[Agents IA]]` MOC |
+| Harness engineering (Hashimoto popularise, Böckeler formalise) | `[[harness-engineering]]` + `[[comment-creer-hook]]` section Guides+Sensors |
+| Sources primaires agents IA (Ng, Weng, Chase, Liu, Yao, Moura) | Voir hiérarchie sources ci-dessus + `05-Leaders/agents/*` |
+| Pattern 2-agent / multi-agent / sub-agent | `[[comment-creer-agent]]` + `[[subagent-explore-then-edit]]` + `[[limites-subagents-claude-code]]` |
+| Comment éviter erreurs d'audit (attribution croisée frameworks) | `[[Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23]]` |
+
+**N'oublie pas de regarder aussi** :
+- `05-Leaders/agents/*` pour fiches leaders agents IA (Andrew Ng, Lilian Weng, Harrison Chase, etc.)
+- `Knowledge/erreurs/*` pour pièges d'audit passés
+- `01-Claude/Cowork/*` si pattern agents proches Cowork/Dispatch
+- `[[mcp-vs-skills-doctrine]]` pour la couche MCP qui sert les agents
 
 ## Scope
 

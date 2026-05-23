@@ -23,7 +23,28 @@
 > - Benchmarks modèles (GPT-5.2-Codex, Sonnet 4.6, Opus 4.7, Gemini, etc.) — vérifier le setup exact (température, harness, dataset) et la date du benchmark.
 > - Rôles changent (Karpathy a rejoint Anthropic 19 mai 2026) — vérifier la date de la note vs l'état actuel du leader.
 >
-> **Mémoire forge à consulter avant lancer** : `feedback_audit_thematique_methode`, `feedback_anthropic_single_source`, `Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23`
+> **Mémoire forge à consulter avant lancer** : `feedback_audit_thematique_methode`, `feedback_anthropic_single_source`, `feedback_regle_scope_pas_universelle`, `Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23`
+
+## Navigation vault — où lire selon le cas
+
+| Si tu cherches... | Lire EN ENTIER via `mcp__forge-brain__read_note` SANS max_lines |
+|-------------------|------------------------------------------------------------------|
+| Méthode d'audit thématique générale | `[[methode-analyser-repo]]` (section ORDRE CANONIQUE A→B→C→D→E) |
+| Fiches leaders Claude Code | `05-Leaders/claude-code/*` (Boris, Cat Wu, Thariq, Erik, Brad-Abrams, Mitchell-Hashimoto, etc.) |
+| Fiches leaders agents IA | `05-Leaders/agents/*` (Karpathy, Ng, Weng, Chase, Liu, Yao, etc.) |
+| Fiches leaders fine-tuning | `05-Leaders/fine-tuning/*` (Dettmers, Hu, Han, Dao, etc.) |
+| Fiches leaders RAG | `05-Leaders/rag/*` (Kiela, Lewis, Khattab, Reimers, etc.) |
+| Fiches leaders industrie | `05-Leaders/industrie/*` (Amodei, Altman, Mensch, Liang Wenfeng, etc.) |
+| Concurrents Anthropic | `02-Concurrents/*` (ChatGPT, Codex, Gemini CLI, Cursor, Forge AI) |
+| Modèles IA (specs, benchmarks) | `03-Modeles/*` (GPT-5.5, Opus 4.7, Sonnet 4.6, Haiku 4.5, Gemini 3, etc.) |
+| Industrie / événements (CwC, releases) | `06-Industrie/*` + `01-Claude/Code/features/Code with Claude 2026.md` |
+| Erreurs d'attribution déjà documentées (Angela Kiang→Jiang→Abrams) | `[[Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23]]` |
+
+**N'oublie pas de regarder aussi** :
+- MOCs : `[[MOC-Leaders]]`, `[[MOC-Concurrents]]`, `[[MOC-Modeles]]`, `[[MOC-Industrie]]`
+- LinkedIn officiel + X officiel du leader concerné (source primaire)
+- `Knowledge/erreurs/*` pour attributions déjà rectifiées
+- Pattern check `[[methode-pivoter-doctrine]]` si une attribution change rôle/affiliation
 
 ## Scope
 

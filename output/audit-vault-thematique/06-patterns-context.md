@@ -18,7 +18,26 @@
 >
 > **⚠️ Risque spécifique ce thème** : patterns "context engineering" récents (memory, compaction, context windows) évoluent vite — vérifier dates de validité contre features Anthropic actuelles. Pattern Karpathy LLM Wiki + pattern Boris compounding = sources canoniques à recroiser.
 >
-> **Mémoire forge à consulter avant lancer** : `feedback_audit_thematique_methode`, `feedback_anthropic_single_source`, `Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23`
+> **Mémoire forge à consulter avant lancer** : `feedback_audit_thematique_methode`, `feedback_anthropic_single_source`, `feedback_regle_scope_pas_universelle`, `Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23`
+
+## Navigation vault — où lire selon le cas
+
+| Si tu cherches... | Lire EN ENTIER via `mcp__forge-brain__read_note` SANS max_lines |
+|-------------------|------------------------------------------------------------------|
+| Méthode d'audit thématique générale | `[[methode-analyser-repo]]` (section ORDRE CANONIQUE A→B→C→D→E) |
+| Pattern Karpathy LLM Wiki (3-layers, index.md, log.md, qmd) | `[[pattern-vault-llm-karpathy]]` |
+| Compounding error-driven (Boris) | `[[comment-ecrire-claudemd]]` + `[[workflow-claude-code-optimal]]` |
+| Context engineering Claude (memory, compaction, context windows) | `[[Context Management]]` + docs Anthropic features |
+| Harness engineering (Agent = Model + Harness) | `[[harness-engineering]]` + `[[comment-creer-agent]]` |
+| Patterns vault (architecture-cerveau-obsidian-mcp, fts5-aliases-vs-embeddings) | Notes `04-Techniques/patterns/*` |
+| Routines higher-order (Boris) | `[[workflow-claude-code-optimal]]` |
+| Compute allocator mindset (Thariq) | `[[mcp-vs-skills-doctrine]]` + `[[workflow-claude-code-optimal]]` |
+| Lethal trifecta + Swiss cheese defense | `[[mcp-vs-skills-doctrine]]` section "Anti-pattern transversal" |
+
+**N'oublie pas de regarder aussi** :
+- `05-Leaders/claude-code/*` (Boris, Erik, Thariq, Cat Wu) et `05-Leaders/agents/*` (Karpathy, Fowler, Hashimoto)
+- `Knowledge/erreurs/*` pour pièges patterns
+- `01-Claude/Code/features/*` pour features context (Dreaming, Memory Managed Agents)
 
 ## Scope
 

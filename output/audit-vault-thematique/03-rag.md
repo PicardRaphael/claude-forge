@@ -17,7 +17,23 @@
 > 7. Validation Raphael par vague (Type 2 safe → Type 1 source → Type 3 réécriture)
 > 8. advisor() AVANT vague 3 ET AVANT rapport final
 >
-> **Mémoire forge à consulter avant lancer** : `feedback_audit_thematique_methode`, `feedback_anthropic_single_source`, `Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23`
+> **Mémoire forge à consulter avant lancer** : `feedback_audit_thematique_methode`, `feedback_anthropic_single_source`, `feedback_regle_scope_pas_universelle`, `Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23`
+
+## Navigation vault — où lire selon le cas
+
+| Si tu cherches... | Lire EN ENTIER via `mcp__forge-brain__read_note` SANS max_lines |
+|-------------------|------------------------------------------------------------------|
+| Méthode d'audit thématique générale | `[[methode-analyser-repo]]` (section ORDRE CANONIQUE A→B→C→D→E) |
+| Doctrine RAG vault | Notes `04-Techniques/rag/*` + `[[RAG]]` MOC |
+| Pattern Karpathy (qmd, BM25+vector+rerank, CLI+MCP) | `[[pattern-vault-llm-karpathy]]` |
+| MCP vs Skills vs CLI pour RAG | `[[mcp-vs-skills-doctrine]]` (Ronacher 8k tokens MCP, qmd hybride) |
+| Sources primaires RAG (Kiela, Lewis, Khattab, Reimers, Xiao, Kamradt) | Voir hiérarchie sources ci-dessus + `05-Leaders/rag/*` |
+| Comment éviter erreurs d'audit (paraphrase, chiffres inventés) | `[[Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23]]` |
+
+**N'oublie pas de regarder aussi** :
+- `05-Leaders/rag/*` pour fiches leaders RAG
+- `Knowledge/erreurs/*` pour pièges d'audit passés
+- `04-Techniques/agents/*` si RAG croise avec agentic (LangChain RAG, LlamaIndex agents)
 
 ## Scope
 

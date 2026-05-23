@@ -17,7 +17,24 @@
 > 7. Validation Raphael par vague (Type 2 safe → Type 1 source → Type 3 réécriture)
 > 8. advisor() AVANT vague 3 ET AVANT rapport final
 >
-> **Mémoire forge à consulter avant lancer** : `feedback_audit_thematique_methode`, `feedback_anthropic_single_source`, `Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23`
+> **Mémoire forge à consulter avant lancer** : `feedback_audit_thematique_methode`, `feedback_anthropic_single_source`, `feedback_regle_scope_pas_universelle`, `Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23`
+
+## Navigation vault — où lire selon le cas
+
+| Si tu cherches... | Lire EN ENTIER via `mcp__forge-brain__read_note` SANS max_lines |
+|-------------------|------------------------------------------------------------------|
+| Méthode d'audit thématique générale | `[[methode-analyser-repo]]` (section ORDRE CANONIQUE A→B→C→D→E) |
+| Comment éviter les pièges d'audit (paraphrase, attribution croisée) | `[[Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23]]` |
+| Doctrine forge sur prompt engineering Claude | `[[comment-ecrire-claudemd]]` + `[[mcp-vs-skills-doctrine]]` |
+| Pattern Karpathy applicable aux prompts | `[[pattern-vault-llm-karpathy]]` |
+| Sources primaires prompt engineering (qui croire) | Voir hiérarchie sources ci-dessus + `[[07-Prompts/index-prompting]]` si présent |
+| Convention 9 catégories Thariq (skills/prompts) | `[[comment-creer-skill]]` section "9 catégories" |
+| Risques propagation de doctrine (verbatim Anthropic paraphrasé) | `[[methode-pivoter-doctrine]]` + `[[critique-2026-05-22-8-canoniques-chantier]]` |
+
+**N'oublie pas de regarder aussi** :
+- `Knowledge/erreurs/*` pour les erreurs d'audit passées (notamment paraphrases verbatim Anthropic, attributions croisées)
+- `Knowledge/critiques/*` pour les DA précédents sur le sujet
+- `07-Prompts/` pour les prompts existants à croiser
 
 ## Scope thème
 

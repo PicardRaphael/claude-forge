@@ -19,7 +19,24 @@
 >
 > **⚠️ Risque spécifique ce thème** : benchmarks et chiffres de performance fine-tuning (speedup, VRAM, etc.) souvent cités sans contexte précis (modèle / taille / hardware). Toujours préciser source primaire + setup exact.
 >
-> **Mémoire forge à consulter avant lancer** : `feedback_audit_thematique_methode`, `feedback_anthropic_single_source`, `Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23`
+> **Mémoire forge à consulter avant lancer** : `feedback_audit_thematique_methode`, `feedback_anthropic_single_source`, `feedback_regle_scope_pas_universelle`, `Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23`
+
+## Navigation vault — où lire selon le cas
+
+| Si tu cherches... | Lire EN ENTIER via `mcp__forge-brain__read_note` SANS max_lines |
+|-------------------|------------------------------------------------------------------|
+| Méthode d'audit thématique générale | `[[methode-analyser-repo]]` (section ORDRE CANONIQUE A→B→C→D→E) |
+| Doctrine fine-tuning vault | Notes `04-Techniques/fine-tuning/*` |
+| Sources primaires fine-tuning (Dettmers, Hu, Han, Dao, Han Song, Gerganov, Raschka, Lambert) | Voir hiérarchie sources ci-dessus + `05-Leaders/fine-tuning/*` |
+| Papers fondateurs (LoRA, QLoRA, FlashAttention) | arXiv direct via WebFetch — voir hiérarchie sources |
+| Comment éviter erreurs d'audit (benchmarks setup manquant, chiffres inventés) | `[[Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23]]` |
+
+**N'oublie pas de regarder aussi** :
+- `05-Leaders/fine-tuning/*` pour fiches leaders (Tim Dettmers QLoRA, Edward Hu LoRA, Daniel Han Unsloth, etc.)
+- `Knowledge/erreurs/*` pour pièges d'audit passés
+- arXiv directement pour papers — pas se fier aux paraphrases tierces sur benchmarks
+
+**⚠️ Anthropic quasi non-pertinent ce thème** : pas de fine-tuning public Anthropic. Hiérarchie sources = chercheurs + frameworks + papers, pas Anthropic.
 
 ## Scope
 
