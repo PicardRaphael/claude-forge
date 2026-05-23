@@ -10,7 +10,7 @@ aliases:
   - "design defaults claude"
 domaine: technique
 type: technique
-derniere-maj: 2026-05-18
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
@@ -56,9 +56,9 @@ Ask the user to pick one, then implement only that direction.
 
 Cette approche remplace avantageusement l'usage de `temperature` pour obtenir de la variété design.
 
-## Prompt anti-AI-slop (Anthropic officiel, allégé pour 4.7)
+## Prompt anti-AI-slop (Anthropic officiel)
 
-Opus 4.7 nécessite **moins** de guidance anti-slop que les modèles précédents. Ce snippet suffit :
+Opus 4.7 nécessite **moins** de guidance anti-slop que les modèles précédents. Ce snippet (version COURTE pour 4.7) suffit :
 
 ```text
 <frontend_aesthetics>
@@ -70,6 +70,8 @@ character. Use unique fonts, cohesive colors and themes, and animations
 for effects and micro-interactions.
 </frontend_aesthetics>
 ```
+
+> ⚠️ Anthropic publie une **version longue** héritée pour 4.5/4.6 (plus prescriptive). Si vous ciblez ces modèles, voir docs Anthropic complet.
 
 ## Liens
 

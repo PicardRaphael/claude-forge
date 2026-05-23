@@ -10,7 +10,7 @@ aliases:
 domaine: claude-code
 type: prompt
 cible: claude
-derniere-maj: 2026-05-08
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://github.com/Piebald-AI/claude-code-system-prompts"
@@ -39,9 +39,9 @@ Le leak du code source (31 mars 2026, 512K lignes TS) a révélé :
 ## Piebald-AI
 
 Repo public qui track les system prompts Claude Code :
-- 157 versions archivées
+- 186+ versions archivées (au 22 mai 2026)
 - Token counts par version
-- v2.1.114 = version la plus récente archivée
+- v2.1.149 = version la plus récente archivée (au 22 mai 2026 — chiffres mis à jour : précédemment "157 / v2.1.114" périmés)
 
 ## Quand utiliser
 

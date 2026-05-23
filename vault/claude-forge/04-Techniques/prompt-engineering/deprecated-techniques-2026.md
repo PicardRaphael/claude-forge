@@ -10,7 +10,7 @@ aliases:
   - "prompting patterns broken"
 domaine: technique
 type: deprecation
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://developers.openai.com/api/docs/guides/prompt-guidance"
@@ -26,46 +26,48 @@ tags:
 
 En 2026, les modèles frontier (Claude Opus 4.7, GPT-5.x, Gemini 2.5 Deep Think) ont des capacités de raisonnement interne qui rendent certaines techniques 2023-2025 non seulement inutiles, mais **activement dégradantes**.
 
-> "The prompt patterns you spent months perfecting for GPT-5.2 may be actively making GPT-5.5 worse."
-> — OpenAI GPT-5.5 Prompting Guide, avril 2026
+> "Legacy prompts often over-specify the process because earlier models needed more help staying on track. With GPT-5.5, that can add noise, narrow the model's search space, or lead to overly mechanical answers."
+> — [OpenAI GPT-5.5 Prompting Guide](https://developers.openai.com/api/docs/guides/prompt-guidance), avril 2026 (verbatim canonique — version forge précédente "patterns you spent months perfecting" était fabriquée, corrigée 2026-05-23)
 
 ## Techniques désormais contre-productives
 
 ### 1. "Let's think step by step"
 
+**Origine :** Zero-shot CoT — **Kojima et al 2022** ([arXiv 2205.11916](https://arxiv.org/abs/2205.11916)), distinct du paper CoT (Wei et al 2022 arxiv 2201.11903 = few-shot CoT avec démonstrations).
 **Statut :** Inutile à nuisible sur reasoning models  
 **Pourquoi :** Claude Opus 4.7, GPT-5.x, Gemini Deep Think font le raisonnement internement (extended thinking). Ajouter cette instruction perturbe le flux de raisonnement natif.  
 **Alternative :** Rien — laisser le modèle raisonner. Ou utiliser `effort: xhigh` via API.
 
 ### 2. Few-shot sur reasoning models
 
-**Statut :** Contre-productif  
-**Pourquoi :** Les exemples "overwhelment" le raisonnement interne. Les reasoning models généralisent sans avoir besoin d'ancrage par exemples.  
+**Statut :** Contre-productif (heuristique post-2022)
+**Pourquoi :** Sur reasoning models (o1/o3, Claude extended thinking), les exemples consomment le contexte de raisonnement interne sans bénéfice. Heuristique synthétisée depuis docs OpenAI o1 + Anthropic extended thinking.
 **Alternative :** Zéro-shot + description claire de l'outcome attendu.
 
 ### 3. Self-consistency prompting
 
-**Statut :** Redondant  
-**Pourquoi :** Construit pour les LLM standard qui varient leurs sorties. Les reasoning models sont intrinsèquement cohérents — ils raisonnent avant de répondre.  
-**Alternative :** Confiance dans le raisonnement natif.
+**Statut :** Redondant (heuristique post-2022)
+**Pourquoi :** Self-consistency (Wang et al 2022, arxiv 2203.11171) a été construit pour les LLM standard qui varient leurs sorties. Les reasoning models internalisent un raisonnement avant de répondre — heuristique forge à confirmer empiriquement par modèle.
+**Alternative :** Confiance dans le raisonnement natif + verification post-réponse si critique.
 
 ### 4. Least-to-most prompting
 
-**Statut :** Contre-productif  
-**Pourquoi :** Prescrit une décomposition que le modèle fait mieux seul. Crée de l'hyper-littéralisme.  
+**Statut :** Contre-productif (heuristique post-2022)
+**Pourquoi :** Prescrit une décomposition que le modèle fait mieux seul. Crée de l'hyper-literalism documenté par paper Sculpting (Khan 2025, arxiv 2510.22251) sur GSM8K — Sculpting NUIT gpt-5 (-2.4 points vs baseline).
 **Alternative :** [[outcome-first-prompting]] — définir l'outcome, pas le process.
 
 ### 5. Process-first / step-by-step instructions (GPT-5.5)
 
-**Statut :** Activement dégradant sur GPT-5.5  
-**Pourquoi :** Même chose que least-to-most. Le modèle suit les steps même quand une meilleure approche existe.  
+**Statut :** Activement dégradant sur GPT-5.5
+**Pourquoi :** Verbatim OpenAI GPT-5.5 Prompting Guide : *"For many tasks, describe the destination rather than every step."* + *"Avoid carrying over every instruction from an older prompt stack."*
 **Alternative :** Instructions orientées outcome + critères de succès.
 
 ### 6. Prefilled responses (Claude 4.6+)
 
-**Statut :** Erreur 400  
-**Pourquoi :** Anthropic a retiré le support des "assistant prefills" sur Claude 4.6+. La feature retournait des comportements imprévisibles.  
-**Alternative :** XML output tags ou format instructions dans le prompt.
+**Statut :** No longer supported (docs Anthropic officielles)
+**Pourquoi :** Verbatim Anthropic migration guide : *"Prefilled responses on the last assistant turn are no longer supported starting with Claude 4.6 models."*
+**Alternative :** XML output tags ou format instructions dans le prompt. Voir migration guide Anthropic pour détail.
+**Note correction 2026-05-23 :** précédente formulation "erreur 400" n'était pas verbatim documenté — Anthropic dit "no longer supported", le comportement exact (erreur vs ignore) varie.
 
 ### 7. Sur-spécification au-delà de S*=0.509
 
@@ -75,15 +77,15 @@ En 2026, les modèles frontier (Claude Opus 4.7, GPT-5.x, Gemini 2.5 Deep Think)
 
 ### 8. ALL-CAPS / ALWAYS / NEVER pour les jugements
 
-**Statut :** Coupe le raisonnement du modèle  
-**Pourquoi :** Sur les modèles frontier, les instructions en majuscules empêchent le modèle de trouver de meilleures solutions dans les cas limites.  
-**Exception :** Contraintes de sécurité absolues (pas de données perso, etc.) — là les majuscules restent justifiées.  
-**Alternative :** Expliquer le POURQUOI de la règle. "Ne pas X car Y" > "NEVER X".
+**Statut :** Contre-productif sur Claude 4.6+ (verbatim Anthropic)
+**Pourquoi :** Verbatim Anthropic prompting best practices : *"The fix is to dial back any aggressive language. Where you might have said 'CRITICAL: You MUST use this tool when...', you can use more normal prompting like 'Use this tool when...'."* Les modèles 4.6+ sont plus responsifs au system prompt — les ALL-CAPS créent de l'overtriggering.
+**Alternative :** Formuler "Use X when Y" plutôt que "CRITICAL: You MUST use X". Expliquer le POURQUOI > imposer en majuscules.
+**Note correction 2026-05-23 :** précédente "exception sécu absolue" était l'INVERSE de la recommandation Anthropic. Pour les vraies contraintes de sécurité, formuler factuellement reste plus efficace que des majuscules.
 
 ### 9. Formatage markdown excessif
 
-**Statut :** Dégradant sur GPT-5.5  
-**Pourquoi :** Le GPT-5.5 guide recommande "plain paragraphs by default". Trop de headers/bullets fragmente la cohérence de sortie.  
+**Statut :** Dégradant sur GPT-5.5
+**Pourquoi :** Verbatim OpenAI GPT-5.5 Guide : *"Use plain paragraphs as the default format for normal conversation, explanations, reports, documentation, and technical writeups."* Trop de headers/bullets fragmente la cohérence de sortie.
 **Alternative :** Prose structurée pour les tâches analytiques. Markdown uniquement si la sortie est un document.
 
 ## Ce qui reste valide

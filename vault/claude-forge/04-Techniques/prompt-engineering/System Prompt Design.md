@@ -8,9 +8,11 @@ aliases:
   - "conception system prompt"
 type: technique
 domaine: prompt-engineering
-derniere-maj: 2026-05-15
+derniere-maj: 2026-05-23
 auteur: claude
-sources: []
+sources:
+  - "https://www.anthropic.com/research/claude-character"
+  - "[[amanda-askell-prompt-engineering]]"
 tags:
   - "#type/technique"
   - "#domaine/prompt-engineering"

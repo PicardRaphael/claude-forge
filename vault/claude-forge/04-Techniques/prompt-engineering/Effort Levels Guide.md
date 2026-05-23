@@ -10,7 +10,7 @@ aliases: ["effort levels", "effort", "niveaux effort claude", "xhigh effort", "e
   - "effort parameter"
 domaine: technique
 type: technique
-derniere-maj: 2026-05-18
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
@@ -41,7 +41,7 @@ Opus 4.7 respecte les effort levels **strictement**, surtout à low/medium. À `
 This task involves multi-step reasoning. Think carefully through the problem before responding.
 ```
 
-**Budget tokens à xhigh/max** : toujours configurer 64k+ max_tokens pour laisser au modèle la place de penser et d'agir via subagents et tool calls.
+**Budget tokens à xhigh/max** : Anthropic recommande de partir de 64k max_tokens (à tuner selon usage) pour laisser au modèle la place de penser et d'agir via subagents et tool calls. ("toujours configurer 64k+" était une sur-traduction forge — c'est un starting point recommandé, pas un absolu.)
 
 ## Effort et tool use
 

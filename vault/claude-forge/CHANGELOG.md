@@ -14,6 +14,37 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-23 — Audit thématique prompt engineering (vault forge)
+
+Audit méthodique 17 notes du thème prompt engineering (`04-Techniques/prompt-engineering/` + `07-Prompts/`). Méthode A→B→C→D→E + propagation F appliquée (cf [[methode-analyser-repo]]) avec 6 sub-agents par cluster + 4 self-verify WebFetch direct des fondations doctrinales.
+
+**Résultats** : 57 claims auditées sur 17 notes.
+- ✅ 39 canoniques (verbatim confirmés multi-source)
+- ⚠️ 14 partielles (paraphrase/sur-traduction à préciser)
+- ❌ 4 fabriqués (verbatim/chiffres inventés)
+- 4 attributions/dates fausses
+
+**Corrections appliquées** (14 notes, 24 modifs) :
+- **Modifiées** :
+  - `amanda-askell-prompt-engineering.md` : A8/A9 attribution claude-character → TIME jan 2026 (verifié WebFetch), A11 soul document "~30 000 mots" → "80 pages / 35 000+ tokens" (officiel Anthropic), tweet update Aug 2025 ajouté
+  - `System Prompt Amanda Askell.md` : date "mi-avril 2026" → "août 2025"
+  - `System Prompt Claude Code.md` : Piebald "157 versions, v2.1.114" → "186+ versions, v2.1.149"
+  - `over-specification-paradox.md` : Sculpting paper attribution "Mikinka UCL" → **Imran Khan** (indépendant), ajout finding GSM8K (Sculpting nuit gpt-5)
+  - `Adaptive Thinking.md` : "surpasse systématiquement" → "reliably outperforms" (verbatim), snippet interleaved complété (2e phrase ajoutée), distinction deprecated 4.6 vs removed 4.7
+  - `Effort Levels Guide.md` : "toujours configurer 64k+" → "Anthropic recommande de partir de 64k (à tuner)"
+  - `opus-47-design-defaults.md` : précision "version COURTE 4.7" + note version longue pour 4.5/4.6
+  - `outcome-first-prompting.md` : verbatim OpenAI fabriqué remplacé par canonique, structure 5 → 7 headers OpenAI documentée
+  - `deprecated-techniques-2026.md` : verbatim OpenAI corrigé, "Let's think step by step" sourcé Kojima 2022 (PAS Wei 2022), section "prefilled erreur 400" → "no longer supported" (verbatim Anthropic), **section ALL-CAPS doctrine inversée** (Anthropic dit "dial back aggressive language"), markdown excessif verbatim canonique ajouté, sections 2-4 reformulées en heuristiques sourçables
+  - `forge-prompt-machine.md` : disclaimer source FORGE v3 non-publiable, principe 7 "15 échanges" inventé retiré → Lost in the Middle (Liu 2024)
+  - `prompting-chat-cowork-code.md` : "technique la plus efficace" → "technique recommandée"
+  - `System Prompt Design.md` : sources ajoutées (claude-character + askell)
+  - `chain-of-thought.md` : sources canoniques (Wei 2022 + Kojima 2022 distinction critique)
+  - `few-shot-prompting.md` : source canonique Brown 2020 GPT-3 paper
+
+**Sources** : audit méthode validée [[feedback_audit_thematique_methode]], méthode A→B→C→D→E [[methode-analyser-repo]], 6 sub-agents parallèles par cluster + 4 self-verify WebFetch (UCL 2601.00880 ✅, Sculpting 2510.22251 attribution fausse, OpenAI GPT-5.5 guide, Anthropic claude-character + best practices + messages API). Pattern récidiviste tweet/paraphrase verbatim non vérifiée confirmé ([[feedback_tweet_hype_paraphrase_pattern]] 5e occurrence).
+
+**Outputs audit** : `output/audit-vault-thematique/02-prompt-engineering/` (A à D + 6 rapports clusters).
+
 ## 2026-05-23 — Audit dogfooding forge (propagation pivot doctrinal)
 
 Audit transverse : forge respecte-t-il sa propre doctrine canonique vault post-pivot 23 mai ?

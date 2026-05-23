@@ -10,7 +10,7 @@ aliases:
   - "interleaved thinking"
 domaine: technique
 type: technique
-derniere-maj: 2026-05-18
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-7"
@@ -22,7 +22,7 @@ tags:
 
 ## Description
 
-Mode de réflexion de Claude qui calibre dynamiquement **quand** et **combien** penser selon deux facteurs : le paramètre `effort` et la complexité de la query. En evals internes Anthropic, adaptive thinking surpasse systématiquement extended thinking avec `budget_tokens`.
+Mode de réflexion de Claude qui calibre dynamiquement **quand** et **combien** penser selon deux facteurs : le paramètre `effort` et la complexité de la query. En evals internes Anthropic, adaptive thinking *reliably outperforms* extended thinking avec `budget_tokens` ("surpasse de manière fiable" — verbatim Anthropic, "systématiquement" était une sur-traduction).
 
 ## Configuration API
 
@@ -39,7 +39,7 @@ client.messages.create(
 ## Comportement
 
 - **Off par défaut** — `thinking: {type: "adaptive"}` explicite requis
-- `budget_tokens` fonctionnel mais **déprécié** sur 4.6/Sonnet 4.6 — sera retiré dans un futur modèle
+- `budget_tokens` : **deprecated sur Opus 4.6 / Sonnet 4.6** (fonctionnel mais à migrer), **removed sur Opus 4.7** (erreur 400 si passé). Migration officielle vers `effort` (cf migration guide Anthropic).
 - Sur queries simples qui ne nécessitent pas de thinking → répond directement
 - Sur queries complexes → raisonne en profondeur
 
@@ -50,9 +50,9 @@ Le triggering est **promptable**. Si le modèle pense trop souvent (system promp
 Thinking adds latency and should only be used when it will meaningfully improve answer quality — typically for problems that require multi-step reasoning. When in doubt, respond directly.
 ```
 
-Pour guider le thinking interleaved (après tool results) :
+Pour guider le thinking interleaved (après tool results) — verbatim complet Anthropic (corrigé 2026-05-23, version forge précédente tronquée) :
 ```text
-After receiving tool results, carefully reflect on their quality and determine optimal next steps before proceeding.
+After receiving tool results, carefully reflect on their quality and determine optimal next steps before proceeding. Use your thinking to plan and iterate based on this new information, and then take the best next action.
 ```
 
 ## Bonnes pratiques (Anthropic)

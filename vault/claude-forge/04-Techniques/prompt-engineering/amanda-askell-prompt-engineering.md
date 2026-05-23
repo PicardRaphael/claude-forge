@@ -10,7 +10,7 @@ aliases:
   - "askell techniques"
 domaine: technique
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://x.com/AmandaAskell/status/1866207266761760812"
@@ -24,7 +24,7 @@ tags:
 
 ## Description
 
-Amanda Askell est la philosophe d'Anthropic qui dirige l'equipe "personality alignment" et a ecrit le "soul document" de Claude (~30 000 mots). Time 100 AI 2024.
+Amanda Askell est la philosophe d'Anthropic qui dirige l'equipe "personality alignment" et a ecrit le "soul document" de Claude (80 pages, 35 000+ tokens — chiffre officiel Anthropic 2025-12-29 ; "~30 000 mots" parfois cité presse = approximation). Time 100 AI 2024.
 
 ## 1. Test-Driven Development pour System Prompts
 
@@ -105,10 +105,12 @@ Principes du [blog post Claude Character](https://www.anthropic.com/research/cla
 - Donner les **raisons** des comportements, pas juste les comportements
 
 > "Instead of just saying, 'here's a bunch of behaviors that we want,' we're hoping that if you give models the reasons why you want these behaviors, it's going to generalize more effectively in new contexts."
+> — Interview TIME (jan 2026) — verbatim absent de anthropic.com/research/claude-character (attribution forge corrigée 2026-05-23)
 
 ## 12. Contre l'engagement-bait
 
 > "If we think about people who are just trying to engage us, I don't think we often think of those people as good people. We think our friends are good because they tell us what we need to hear."
+> — ⚠️ Single source : attribution à confirmer (absent de claude-character vérifié 2026-05-23, probablement interview presse ou podcast)
 
 ## 13. Externaliser son cerveau
 
@@ -141,6 +143,7 @@ A chaque creation de system prompt, skill, agent description, ou instructions pe
 - [Simon Willison tag](https://simonwillison.net/tags/amanda-askell/)
 - [Tweet "You are a" (juin 2025)](https://x.com/AmandaAskell/status/1935410853903483328)
 - [Tweet soul document (dec 2025)](https://x.com/AmandaAskell/status/1995610567923695633)
+- [Tweet update system prompt (août 2025)](https://x.com/AmandaAskell/status/1953147658031513860) — Amanda update system prompt claude.ai "en collaboration avec Claude"
 
 ## Liens
 

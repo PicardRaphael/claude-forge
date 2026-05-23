@@ -10,7 +10,7 @@ aliases:
   - "prompting Opus 4.7"
 domaine: prompting
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
@@ -65,7 +65,7 @@ Court. Claude demandera des precisions si besoin.
 |--------|--------------|
 | Style de prompt | Brief de delegation : livrable, definition de "termine", contraintes, contexte |
 | Micro-etapes | NE PAS micro-detailler ("ouvre le fichier, copie la colonne B"). Decrire le RESULTAT |
-| Socratique | Technique la plus efficace : "Avant de commencer, quelles questions tu as ?" |
+| Socratique | Technique recommandée : "Avant de commencer, quelles questions tu as ?" (superlative "la plus efficace" retiré 2026-05-23 — pas de mesure publique citable) |
 | Instructions globales | Identite + voix + regles anti-slop dans les instructions globales Cowork. Plus impactant que changer de modele |
 | Memoire | Persiste dans les Projets, pas dans les sessions standalone |
 | Sous-agents | Se lancent automatiquement pour les sous-taches independantes |

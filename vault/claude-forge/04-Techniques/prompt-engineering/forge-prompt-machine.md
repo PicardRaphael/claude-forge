@@ -10,7 +10,7 @@ aliases:
   - "checklist prompt skill"
 domaine: technique
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "FORGE v3 — Theo Haddad, CEO BellumAI et SalesConnect"
@@ -24,7 +24,9 @@ tags:
 
 ## Contexte
 
-FORGE est un system prompt de Theo Haddad (BellumAI) concu pour generer des prompts optimises pour Claude. Version 3, orientee production (pas de bavardage, chaque reponse = un livrable).
+FORGE est un system prompt de **Theo Haddad** (Founder BellumAI + SalesConnect — personne vérifiée publique, LinkedIn) concu pour generer des prompts optimises pour Claude. Version 3, orientee production (pas de bavardage, chaque reponse = un livrable).
+
+> ⚠️ **Source FORGE v3 non publiable** : le system prompt original n'est pas publiquement diffusé. Les 12 principes ci-dessous sont une **synthèse forge** dérivée des recommandations Haddad croisées avec Askell + Anthropic docs. Chaque principe est individuellement canonique (sourçable), mais l'attribution "12 principes FORGE" est forge-curated, pas verbatim BellumAI.
 
 Cette note extrait les principes utiles pour la creation de **skills, agents, rules et prompts** dans Claude Code, croises avec les pratiques [[amanda-askell-prompt-engineering]] et Anthropic.
 
@@ -76,9 +78,11 @@ Sans instruction de concision, Claude produit des reponses longues avec des form
 
 ### 7. Gestion de la memoire conversationnelle
 
-Au-dela de 15 echanges, Claude oublie des decisions.
+La performance de raisonnement des LLM se dégrade quand l'information critique est enfouie dans un long contexte — phénomène "Lost in the Middle" (Liu et al 2024, [arxiv 2307.03172](https://arxiv.org/abs/2307.03172)). Mesure faite en tokens/positions, **pas en tours conversationnels**. Voir [[Context Engineering]].
 
-**Application skills/agents :** Pour les workflows longs, inclure un mecanisme de recap. Pattern : "Avant de continuer, recapitule les decisions prises jusqu'ici." Moins pertinent pour les skills courtes mais critique pour les agents longs (strategic-advisor, backlog-triage en mode lot).
+**Application skills/agents :** Pour les workflows longs, inclure un mecanisme de recap pour ramener les décisions critiques en début/fin de contexte (zones haute attention). Pattern : "Avant de continuer, recapitule les decisions prises jusqu'ici." Critique pour les agents longs (strategic-advisor, backlog-triage en mode lot).
+
+> ⚠️ Correction 2026-05-23 : chiffre "15 échanges = oubli décisions" précédemment cité ici était **inventé** — Lost in the Middle parle de positions/tokens, pas de tours conversationnels.
 
 ### 8. Anti-hallucination explicite
 

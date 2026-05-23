@@ -10,7 +10,7 @@ aliases:
   - "over specification"
 domaine: technique
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://arxiv.org/abs/2601.00880"
@@ -35,13 +35,15 @@ Au-delà de 50.9% du niveau de spécification optimal :
 
 ## Transition Guardrail → Handcuff
 
-Papier connexe "Sculpting" (arXiv 2510.22251) :
+Papier "You Don't Need Prompt Engineering Anymore: The Prompting Inversion" (arXiv 2510.22251, **Imran Khan**, indépendant, oct 2025) — concept "Sculpting" :
 
-> Les contraintes qui aident les modèles mid-tier causent de l'**hyper-littéralisme** sur les modèles frontier.
+> Les contraintes qui aident les modèles mid-tier causent de l'**hyper-literalism** sur les modèles avancés.
 
-Ce qui protège un GPT-3.5 ou Claude Sonnet contre les dérives devient une contrainte qui empêche un Opus 4.7 ou GPT-5.x de trouver de meilleures solutions.
+Ce qui protège un GPT-4o-mini contre les dérives devient une contrainte qui empêche un gpt-5 (ou Opus 4.7) de trouver de meilleures solutions. Mesuré sur GSM8K : Sculpting améliore gpt-4o (97% vs 93%) mais NUIT gpt-5 (94% vs 96.36% baseline).
 
-**Guardrail** (modèles standard) → **Handcuff** (modèles frontier) = même règle, effet inverse.
+**Guardrail** (modèles standard) → **Handcuff** (modèles avancés) = même règle, effet inverse.
+
+> ⚠️ Correction 2026-05-23 : attribution forge précédente "Mikinka UCL" pour ce paper était fausse — Sculpting paper = **Imran Khan (indépendant)**, distinct du paper UCL Mikinka 2601.00880.
 
 ## Implications pratiques
 

@@ -10,7 +10,7 @@ aliases:
   - "specification par outcome"
 domaine: technique
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 sources:
   - "https://developers.openai.com/api/docs/guides/prompt-guidance"
@@ -23,14 +23,27 @@ tags:
 
 Technique recommandée par OpenAI dans le GPT-5.5 Prompting Guide (avril 2026). Au lieu de prescrire un processus étape par étape, on définit ce que le modèle doit atteindre, en laissant le modèle choisir le chemin.
 
-> "The prompt patterns you spent months perfecting for GPT-5.2 may be actively making GPT-5.5 worse."
-> — OpenAI GPT-5.5 Prompting Guide, avril 2026
+> "Legacy prompts often over-specify the process because earlier models needed more help staying on track. With GPT-5.5, that can add noise, narrow the model's search space, or lead to overly mechanical answers."
+> — [OpenAI GPT-5.5 Prompting Guide](https://developers.openai.com/api/docs/guides/prompt-guidance) (verbatim canonique — version forge précédente "The prompt patterns you spent months perfecting for GPT-5.2..." était fabriquée, corrigée 2026-05-23)
 
 Renverse l'approche dominante 2023-2025 (chain-of-thought, step-by-step instructions).
 
 ## Structure d'un prompt Outcome-First
 
-Un prompt efficace pour GPT-5.5+ contient ces 5 éléments, dans cet ordre :
+### Structure officielle OpenAI (7 headers)
+
+Le doc OpenAI propose une structure de 7 headers :
+1. `Role`
+2. `# Personality`
+3. `# Goal`
+4. `# Success criteria`
+5. `# Constraints`
+6. `# Output`
+7. `# Stop rules`
+
+### Synthèse forge (5 éléments)
+
+Synthèse pratique pour usage courant (paraphrase forge, pas verbatim OpenAI) :
 
 1. **Outcome / état final** — Quel résultat exact est attendu ?
 2. **Critères de succès** — Comment évaluer que c'est réussi ?

@@ -8,7 +8,7 @@ aliases:
   - "in-context learning"
   - "few shot examples"
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-23
 auteur: claude
 tags:
   - "#type/technique"
@@ -18,6 +18,10 @@ tags:
 ## Principe
 
 Inclure 2-5 paires input/output dans le prompt pour montrer le format attendu. Le modèle apprend le pattern et le reproduit.
+
+## Source canonique
+
+Brown et al 2020 — *Language Models are Few-Shot Learners* ([arxiv 2005.14165](https://arxiv.org/abs/2005.14165)) — paper GPT-3 qui popularise le few-shot / in-context learning.
 
 ## Quand utiliser
 
