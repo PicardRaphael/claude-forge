@@ -1,6 +1,6 @@
 ---
 titre: Context Actuel
-resume: "Working memory dynamique — mis à jour par /done, lu par /recap. Session 2026-05-24 tour 2 : propagation meta-commentary-detector hook sur ia_back (TS) + neo_ia (Python). Regex refiné (Option E lookahead) après DA. Cross-repo guard ajouté."
+resume: "Working memory dynamique — mis à jour par /done, lu par /recap. Session 2026-05-24 tour 3 marathon (40+ tours) : workflow sub-agents enforcement + delegate-guard fix + 36 frontmatters wildcard MCP + vault enrichi."
 aliases:
   - "context actuel"
   - "contexte courant"
@@ -15,59 +15,62 @@ tags:
   - "#type/context"
   - "#meta/working-memory"
 ---
+
 ## Phase actuelle
 
-Hook `meta-commentary-detector` déployé en production sur les 3 repos forge (claude-forge Python, ia_back TS, neo_ia Python uv). Regex Option E (lookahead syntaxique) après DA — autorise backtick/chevron/accolade/bracket simple, bloque texte libre/wikilink/URL.
+Chantier majeur 24 mai 2026 marathon (40+ tours) terminé et pushé sur 3 repos. Workflow sub-agents enforcement aligné doctrine Anthropic 2026 (Thariq, AskUserQuestion limitation, wildcard MCP). 8 chantiers cohérents shippés ensemble : delegate-guard fix + 14 frontmatters MCP forge + pattern ESCALADE/AMBIGUÏTÉ sur 15 sub-agents + hook escalade-detector + 10 skills directives + plugin feature-dev + /spec HTML + notes canoniques enrichies.
 
-## Dernière session (2026-05-24 tour 2)
+## Dernière session (2026-05-24 tour 3 — marathon)
 
 ### Décisions prises
 
-- **Option E DA retenue** vs Option A advisor : lookahead syntaxique plus robuste que capitalisation
-- **Port TS complet pour ia_back** (~195 L) au lieu de violer `feedback_hooks_same_stack` — stack bun cohérent
-- **Cross-repo guard ajouté au hook claude-forge** : `is_inside_forge()` comme delegate-guard.py
-- **Self-exclusion ajoutée** : detector + tests dans EXCLUDED_SUFFIXES (anti-catch-22)
-- **Audit empirique AVANT propagation** : grep 9 patterns → 2 FP identifiés, regex affiné
-- **neo_ia** : copie hook Python + adaptation commande `uv run python` (pas `py`)
+- **Patch delegate-guard.py** : lecture stdin `agent_type` au lieu d'env var dead code → sub-agents éditeurs peuvent enfin bypasser
+- **Pattern AMBIGUÏTÉ DÉTECTÉE** sur 15 sub-agents (vault canonique `anti-reentrance-sub-agents-pattern-escalade` étendu — AskUserQuestion ne marche pas en sub-agent, issue Anthropic #18721)
+- **Wildcard `mcp__server__*`** sur 36 frontmatters (14 forge + 9 neo_ia + 13 ia_back) — syntaxe Anthropic officielle vérifiée verbatim
+- **Formule directive skills** `ALWAYS invoke when X. DO NOT Y` sur 10 skills critiques (audit communautaire 214 skills = 73% silencieusement cassées sans formule)
+- **Hook SubagentStop escalade-detector** créé : Python neo_ia + TS ia_back, non-bloquant, doctrine 22 mai préservée
+- **Plugin feature-dev Anthropic** activé sur neo_ia + ia_back (Raphael l'a installé via /plugin install)
+- **/spec étendue option HTML** : Thariq Shihipar pattern (HTML > Markdown 17/20 pour plans/specs)
+- **CLAUDE.md ligne 13** : instruction forçant consultation vault AVANT toute proposition (anti-pattern 40 tours sans vault)
+- **5 lignes Karpathy ouverture** CLAUDE.md préservées
+- **Doctrine 22 mai préservée** : pas de retour workflow gates. Enforcement = advisory + skills directives + sub-agents qui escaladent
 
-### En cours
+### En cours / shipped
 
-- **Hook actif en prod sur 3 repos** : claude-forge (Python), ia_back (TS bun), neo_ia (Python uv)
-- **Tests** : 21/21 Python, 14/14 TS
-- **Audit ia_back + neo_ia** : 0 violation après refinement
+- 3 commits push 3 repos (forge `28ad3ff` GitHub, neo_ia `749d381` Bitbucket, ia_back `8751171` Bitbucket)
+- ~80 fichiers modifiés / créés, ~1500 lignes shipped
+- 4 nouveaux feedbacks mémoire (askuserquestion, mcp-wildcard, self-modification, sub-agent-invente)
+- 6 notes vault forge enrichies (4 canoniques + 2 erreurs + 1 nouvelle html-vs-markdown-thariq)
 
 ### Prochaines étapes
 
-- Tester hook en condition réelle (edit avec `Source : Karpathy` → doit bloquer exit 2)
-- Surveiller faux positifs émergents pendant 1-2 semaines
-- **Décision à prendre** : trou architectural delegate-guard (sub-agents contournent via Bash). Mini-DA dédié.
-- **Proposition Jarvis ouverte** : audit autres hooks claude-forge — grep `SCOPED_PATTERNS` sans `is_inside_forge` pour détecter trous similaires
+- **Test comportemental** : lancer une vraie feature dans neo_ia ou ia_back pour vérifier que le pipeline architect→dev→/go fonctionne avec ESCALADE en cas d'ambiguïté
+- **Mesure efficacité formule directive skills** : observer si auto-invocation passe de ~50% à > 80% sur add-endpoint / create-tool / create-agent
+- **Capitaliser apprentissages méta** : 4 nouveaux feedbacks créés ce soir, en consulter avant chaque session future
 
 ## Fils ouverts
 
-- **Critique DA `critique-2026-05-24-regex-source-faux-positifs`** : sauvegardée vault via Write fallback (MCP create_note silent fail)
-- **MCP forge-brain instable** : `create_note` + `search_brain` ont échoué silencieusement plusieurs fois cette session
-- **MEMORY.md à ~25.7 KB** (>limite 24.4) : 3 nouveaux feedback ajoutés. Purge trimestrielle nécessaire.
+- **Plugin feature-dev usage réel** : utiliser le pipeline 7 phases sur une vraie feature pour comparer avec /spec custom
+- **Token cost MCP audit** : si Raphael s'inquiète des tokens, faire mesure réelle nombre MCP servers actifs vs Thariq seuil "50-100 tools = modèle se perd"
+- **Format HTML pour autres docs** : Knowledge/decisions/ADR-NNN-X.html ? lojii/docs/design-system.html ? — à explorer si pertinent
+- **Forge méta-framework** vs neo_ia/ia_back applicatif : la différence est claire (forge = framework Claude Code, neo_ia/ia_back = produits). Pas de propagation aveugle entre les 3.
 
-## Métriques session tour 2
+## Apprentissages méta
 
-- **3 commits** : `d07f8fa` (claude-forge), `3fb9686` (ia_back), `86dbf4f` (neo_ia)
-- **2 nouveaux fichiers hook** : `meta-commentary-detector.ts` (ia_back), `.py` (neo_ia)
-- **2 patches successifs sur regex source-label** (capitalisation rejetée → lookahead → bug fix `[ \t]+`)
-- **3 nouvelles feedback memory** : `hook_scope_per_repo`, `hook_self_blocking_catch22`, `regex_lookahead_greedy_trap`
-
-## Patterns émergeant cette session
-
-- **Pattern méta hook scope** : tout hook avec scope par chemin DOIT vérifier scope par repo
-- **Pattern méta self-blocking** : tout hook qui détecte des patterns DOIT s'auto-exclure
-- **Pattern méta regex enforcement** : `\s*` greedy + lookahead = backtrack vicieux. Préférer `[ \t]+`
-- **Préférence Raphael confirmée** : "DA + advisor disent quoi ?" sur décisions techniques non-triviales
+- **Vault consultation est un RÉFLEXE** — Raphael l'a forcé à 40 tours en l'inscrivant dans CLAUDE.md ligne 13. Pattern récurrent à briser.
+- **Sub-agents inventent des refus** : pattern `feedback_sub_agent_invente_classifier` capitalisé. Toujours demander verbatim error, jamais paraphrase.
+- **Self-modification = cross-dispatch** : pour modifier agent-creator, dispatcher skill-creator. Pattern `feedback_self_modification_agent_cross_dispatch` capitalisé.
+- **Wildcard MCP token cost = négligeable** : le vrai risque token = nombre MCP servers actifs (Thariq).
 
 ## Liens
 
-[[Raphael-Picard|Raphael Picard]]
-[[Claude-Forge|Claude-Forge]]
-[[comment-creer-hook]]
-[[erreur-meta-commentaires-composants]]
-[[critique-2026-05-24-regex-source-faux-positifs]]
-[[critique-2026-05-24-meta-commentaires-doctrine]]
+- [[Raphael Picard]]
+- [[claude-forge]]
+- [[anti-reentrance-sub-agents-pattern-escalade]]
+- [[html-vs-markdown-thariq]]
+- [[comment-creer-agent]] (sections AJOUT 24 mai)
+- [[comment-creer-hook]] (section AJOUT 24 mai)
+- [[comment-creer-skill]] (section AJOUT 24 mai)
+- [[workflow-claude-code-optimal]] (pipeline ADR enrichi)
+- [[erreur-delegate-guard-env-var-vs-stdin]]
+- [[raisonnement-22mai-doctrine-vs-enforcement]] (doctrine préservée)

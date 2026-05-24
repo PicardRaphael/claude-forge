@@ -1,14 +1,19 @@
 {
   "permissions": {
     "allow": [
+      "Read",
+      "Write",
+      "Edit",
       "Bash(git *)",
       "Bash(git -C *)",
       "Bash(ls *)",
       "Bash(taskkill *),",
       "Edit(.claude/agents/**)",
       "Edit(.claude/skills/**)",
+      "Edit(./**)",
       "MultiEdit(.claude/agents/**)",
-      "MultiEdit(.claude/skills/**)"
+      "MultiEdit(.claude/skills/**)",
+      "MultiEdit(./**)"
     ]
   },
   "hooks": {
