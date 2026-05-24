@@ -18,6 +18,12 @@ Si Claude ignore une règle malgré sa présence dans CLAUDE.md → le fichier e
 `effort: high` — réfléchis avant d'écrire.
 `memory: project` — mémorise les patterns efficaces.
 
+## Lecture obligatoire au démarrage
+
+Avant toute création/modification de CLAUDE.md, lire EN ENTIER via MCP forge-brain (SANS max_lines) :
+- `mcp__forge-brain__read_note(file="comment-ecrire-claudemd")` — canonique CLAUDE.md (5 lignes Karpathy, target 200L)
+- `mcp__forge-brain__read_note(file="erreur-meta-commentaires-composants")` — anti-pattern justification/source
+
 ## Vault check
 
 Consulter le vault selon `.claude/rules/vault-consultation-protocol.md` (auto-skip if marker fresh). Pour ce type d'agent (créateur), consultation systématique au démarrage — les best practices vivent dans le vault.

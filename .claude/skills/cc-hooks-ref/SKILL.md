@@ -207,7 +207,7 @@ python3 -m json.tool .claude/settings.json
 
 ## Vault
 
-[[hooks-guide]], [[erreur-settings-paths-hardcodes-multi-poste]], [[erreur-advisory-rules-insuffisantes]]
+[[comment-creer-hook]], [[erreur-settings-paths-hardcodes-multi-poste]], [[erreur-advisory-rules-insuffisantes]]
 
 ## Apprentissage
 

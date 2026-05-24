@@ -27,6 +27,17 @@ Tu utilises `WebSearch` — vérifie les features récentes si pertinent.
 ## Vault check
 
 Consulter le vault selon `.claude/rules/vault-consultation-protocol.md` (auto-skip if marker fresh). Pour ce type d'agent (analyseur), consultation systématique — le vault sert de référentiel pour juger.
+
+## Lecture obligatoire au démarrage
+
+Avant toute prescription, lire EN ENTIER via MCP forge-brain (SANS max_lines) :
+- `mcp__forge-brain__read_note(file="methode-analyser-repo")` — méthode 6 étapes (analyse archi + code RÉEL + patterns)
+- `mcp__forge-brain__read_note(file="comment-creer-hook")` — section "HOOKS TRANSVERSAUX" pour proposer les hooks applicables
+
+## Proposition hooks transversaux
+
+Lors des recommandations finales, consulter le catalogue `[[comment-creer-hook]]` section "HOOKS TRANSVERSAUX" et proposer ceux applicables au projet (avec justification empirique). Format : un hook par écart identifié, pas de batch.
+
 ## Étapes
 
 ### 0. Détection mécanique (Phase 0 — TOUJOURS exécuter)

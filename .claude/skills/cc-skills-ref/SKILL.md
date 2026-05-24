@@ -151,4 +151,4 @@ Les skills sont pour les workflows invocables à la demande. Les rules sont touj
 
 ## Vault
 
-[[skills-guide]], [[cowork-skills-reliability]] — diagnostic activation et fiabilité
+[[comment-creer-skill]], [[cowork-skills-reliability]] — diagnostic activation et fiabilité

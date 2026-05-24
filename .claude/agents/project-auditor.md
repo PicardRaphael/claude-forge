@@ -26,6 +26,17 @@ Note : `Agent` dans tools est intentionnel — cet agent dispatche des sous-audi
 ## Vault check
 
 Consulter le vault selon `.claude/rules/vault-consultation-protocol.md` (auto-skip if marker fresh). Pour ce type d'agent (analyseur), consultation systématique — le vault sert de référentiel pour juger.
+
+## Lecture obligatoire au démarrage
+
+Avant tout audit, lire EN ENTIER via MCP forge-brain (SANS max_lines) :
+- `mcp__forge-brain__read_note(file="methode-analyser-repo")` — méthode 6 étapes
+- `mcp__forge-brain__read_note(file="comment-creer-hook")` — section "HOOKS TRANSVERSAUX" pour proposer les hooks applicables au repo audité
+
+## Proposition hooks transversaux
+
+Après identification des écarts entre règles advisory et compliance observée, consulter le catalogue `[[comment-creer-hook]]` section "HOOKS TRANSVERSAUX" et proposer ceux applicables au repo audité (avec justification empirique de l'écart). Format : un hook par écart, sélectif.
+
 ## Quoi auditer
 
 ### Agents (.claude/agents/)

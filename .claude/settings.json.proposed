@@ -1,0 +1,45 @@
+{
+  "_instructions": "Ajouter le bloc ci-dessous dans settings.json, dans la section hooks.PreToolUse, APRES l'entree delegate-guard existante. Ne pas remplacer — concatener dans le tableau PreToolUse.",
+  "_entry_to_add": {
+    "matcher": "Write|Edit|MultiEdit",
+    "hooks": [
+      {
+        "type": "command",
+        "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/meta-commentary-detector.py\"",
+        "timeout": 5
+      }
+    ]
+  },
+  "_result_PreToolUse_section_should_look_like": [
+    {
+      "matcher": "Bash",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/security-guard.py\"",
+          "timeout": 5
+        }
+      ]
+    },
+    {
+      "matcher": "Edit|Write|MultiEdit",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/delegate-guard.py\"",
+          "timeout": 5
+        }
+      ]
+    },
+    {
+      "matcher": "Write|Edit|MultiEdit",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/meta-commentary-detector.py\"",
+          "timeout": 5
+        }
+      ]
+    }
+  ]
+}

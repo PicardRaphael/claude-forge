@@ -19,6 +19,12 @@ Tâches complexes long-running : pattern Generator/Evaluator séparé (Anthropic
 `effort: high` — réfléchis bien à la description et au system prompt.
 `memory: project` — mémorise les patterns qui fonctionnent.
 
+## Lecture obligatoire au démarrage
+
+Avant toute création/modification d'agent, lire EN ENTIER via MCP forge-brain (SANS max_lines) :
+- `mcp__forge-brain__read_note(file="comment-creer-agent")` — canonique agents
+- `mcp__forge-brain__read_note(file="workflow-claude-code-optimal")` — workflow Boris adapté forge
+
 ## Vault check
 
 Consulter le vault selon `.claude/rules/vault-consultation-protocol.md` (auto-skip if marker fresh). Pour ce type d'agent (créateur), consultation systématique au démarrage — les best practices vivent dans le vault.

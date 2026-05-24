@@ -14,6 +14,18 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-24 (tour 2) — Innovations doctrine meta + auto-injection canonique
+
+- **Modifiée** : [[comment-ecrire-claudemd]] — section "Tradeoff Karpathy NON inclus" + "Coexistence avec Critiques < ligne 25" simplifiée. 8 éléments Karpathy avancés au lieu de 6 (+ senior engineer test, + seuil 200→50 lignes).
+- **Modifiée** : [[comment-creer-hook]] — nouvelle section "HOOKS TRANSVERSAUX — Catalogue à proposer en audit repo" (6 hooks réutilisables avec cas d'usage).
+- **Modifiée** : [[methode-analyser-repo]] — étape 7 "Proposer hooks transversaux applicables" ajoutée.
+- **Ajoutée** : [[critique-2026-05-24-meta-commentaires-doctrine]] — verdict DA VALIDER AVEC AMENDEMENTS + 7 infractions documentées + 6 amendements.
+- **claude-forge/CLAUDE.md** : 7 infractions meta-commentaires purgées (L3, L51, L54, L55, L74, L87, L99) en 2 passes. Version 3.2.
+- **Hook créé** : `.claude/hooks/meta-commentary-detector.py` (PreToolUse Write|Edit|MultiEdit) — 9 patterns, exclusions vault, désambiguïsation ≤3 mots. Tests 15/15. Settings.json.proposed à coller manuellement par Raphael.
+- **6 agents patchés** : skill-creator, agent-creator, hook-creator, claudemd-optimizer, project-auditor, project-analyzer reçoivent section "Lecture obligatoire au démarrage" avec `read_note` SANS max_lines des canoniques correspondantes (innovation #2 auto-injection).
+- **3 wikilinks morts fixés** : `[[skills-guide]]` → `[[comment-creer-skill]]`, `[[agents-orchestration]]` → `[[comment-creer-agent]]`, `[[hooks-guide]]` → `[[comment-creer-hook]]` dans cc-*-ref/SKILL.md.
+- **Anthropic vérifié** : `claude-for-legal/CLAUDE.md` zéro meta-commentaire → doctrine forge alignée.
+
 ## 2026-05-24 — 5 lignes Karpathy en ouverture + anti-pattern meta-commentaires
 
 - **Modifiées** : [[comment-ecrire-claudemd]] — ajout section "5 LIGNES D'OUVERTURE OBLIGATOIRES" en tête + 8 éléments Karpathy additionnels au corps niveau avancé (match style, dead code orphelin vs unrelated, plan format `[Step] → verify`, transformations tâches→goals, senior engineer test, seuil 200→50 lignes, critère succès auto-évaluable).

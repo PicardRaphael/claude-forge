@@ -309,6 +309,42 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (hook sécu criti
 
 ---
 
+## HOOKS TRANSVERSAUX — Catalogue à proposer en audit repo
+
+Catalogue de hooks réutilisables cross-repo. Lors d'un audit `.claude/` (via `project-auditor`, `project-analyzer`, `cc-advisor`), proposer ces hooks au repo audité si applicable et absent.
+
+| Hook | Cas d'usage | Quand proposer en audit |
+|------|-------------|-------------------------|
+| `meta-commentary-detector.py` | Bloque justifications/sources/attributions dans CLAUDE.md, skills, agents, hooks, rules. Convertit doctrine "pas de meta" en enforcement 100%. | Tout repo avec CLAUDE.md > 50L OU vault canonique séparé |
+| `delegate-guard.py` | Force délégation aux agents spécialisés (skill-creator, agent-creator, hook-creator, claudemd-optimizer) sur édit direct. | Tout repo avec >5 skills OU >5 agents |
+| `repo-scope-guard.py` | Empêche Bash `cd ../../autre-repo`. Sécurité scope cross-repo. | Repos voisins partageant un dossier parent (ex: neot-v2/*) |
+| `vault-query-guard.py` | Bloque Write si vault canonique pas consulté récemment (60min marker). | Repos avec vault canonique externe (forge-brain, neoteem-brain) |
+| `credentials-detector` (lint pattern) | Grep secrets connus avant Write/Edit. | TOUT repo sans exception |
+| `multiedit-triplet-checker` | Vérifie matcher `Write|Edit|MultiEdit` complet dans settings.json. | Repos avec hooks PreToolUse existants (audit de cohérence) |
+
+### Comment proposer en audit
+
+Après identification d'un écart entre règle advisory et compliance observée :
+
+```
+Tu as une règle X en CLAUDE.md/skill mais pas de hook qui l'enforce.
+Veux-tu ajouter un hook `<nom>` qui transforme advisory → 100% ?
+Précédent : repo Y l'utilise depuis Z. Coût : ~N lignes Python + entry settings.json.
+```
+
+Format : présenter UN hook par écart identifié, avec justification empirique. Pas de batch "tiens, ajoute ces 6 hooks". Sélectif.
+
+### Anti-patterns proposition hooks transversaux
+
+- ❌ Proposer un hook workflow agentique (cf doctrine 22 mai)
+- ❌ Proposer un hook sans avoir vu l'écart empirique (proposition pour proposition)
+- ❌ Proposer N hooks d'un coup (batch overwhelm)
+- ❌ Ne PAS proposer alors qu'un trou évident existe (régression de la posture Jarvis)
+
+### Référence forge
+
+Source canonique du catalogue : cette section. Pour le détail d'implémentation de chaque hook, voir `.claude/hooks/<nom>.py` du repo claude-forge (référence) ou la note dédiée si elle existe.
+
 ## ANTI-PATTERNS
 
 ### Doctrinaux (22 mai 2026 forge)

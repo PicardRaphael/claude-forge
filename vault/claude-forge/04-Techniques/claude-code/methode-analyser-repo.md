@@ -51,6 +51,10 @@ tags:
 
 Cette méthode est la **synthèse opérationnelle** des notes canoniques sœurs ([[comment-creer-skill]], [[comment-creer-agent]], [[comment-creer-hook]], [[comment-ecrire-claudemd]], [[workflow-claude-code-optimal]], [[mcp-vs-skills-doctrine]]).
 
+### Étape 7 (post-audit) — Proposer hooks transversaux applicables
+
+Après les 6 étapes d'analyse, consulter le catalogue `[[comment-creer-hook]]` section "HOOKS TRANSVERSAUX" et proposer au repo audité ceux applicables. Format : un hook par écart empirique identifié (pas un batch). Voir le catalogue pour les cas d'usage de chaque hook (`meta-commentary-detector`, `delegate-guard`, `repo-scope-guard`, `vault-query-guard`, etc.).
+
 ---
 
 ## POURQUOI — Le problème résolu

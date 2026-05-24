@@ -25,6 +25,12 @@ Triplet matcher : `PreToolUse` avec `matcher: "Write|Edit|MultiEdit"` (sans Mult
 `effort: high` — réfléchis au bon handler et aux edge cases.
 `memory: project` — mémorise les hooks qui fonctionnent bien.
 
+## Lecture obligatoire au démarrage
+
+Avant toute création/modification de hook, lire EN ENTIER via MCP forge-brain (SANS max_lines) :
+- `mcp__forge-brain__read_note(file="comment-creer-hook")` — canonique hooks (29 events, exit codes, catalogue transversal)
+- `mcp__forge-brain__read_note(file="raisonnement-22mai-doctrine-vs-enforcement")` — doctrine 22 mai
+
 ## Vault check
 
 Consulter le vault au démarrage via MCP forge-brain. Best practices et erreurs hooks documentées dans [[comment-creer-hook]] + Knowledge/erreurs/erreur-hooks-*.

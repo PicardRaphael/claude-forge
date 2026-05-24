@@ -114,4 +114,4 @@ hooks:
 
 ## Vault
 
-[[agents-orchestration]], [[context-management]] — isolation, orchestration patterns, worktree usage.
+[[comment-creer-agent]], [[context-management]] — isolation, orchestration patterns, worktree usage.

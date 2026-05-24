@@ -52,7 +52,7 @@ Pivot doctrinal complet : **[[raisonnement-22mai-doctrine-vs-enforcement]]**
 
 - **Hooks** : lint / security / scope UNIQUEMENT. **JAMAIS workflow agentique** (architect-first, TDD strict, commit gates, markers TTL).
 - **Effort** : `high` partout par défaut. `xhigh` RÉSERVÉ aux 3 rôles : architect / dev-lead / refactor-pg. `max` toujours disponible mai 2026 mais prone overthinking — utiliser avec prudence.
-- **Modèles** : Sonnet exécution, Opus jugement (validé 21 mai).
+- **Modèles** : Sonnet exécution, Opus jugement.
 - **DA** : CONDITIONNEL ciblé sur livrables majeurs (skill réutilisée, agent orchestrant, archi). **Pas systématique**.
 - **Advisor** : AVANT travail substantiel (pas après). Après exploration, avant d'écrire / proposer.
 
@@ -84,7 +84,7 @@ Pivot doctrinal complet : **[[raisonnement-22mai-doctrine-vs-enforcement]]**
 
 JAMAIS invoquer plugin externe si skill forge couvre le sujet.
 
-## Vault forge-brain (pattern Karpathy strict depuis 22 mai)
+## Vault forge-brain
 
 - **3 layers** : `raw/` (sources immuables) + `wiki/` (LLM-owned 00-Hub à 07-Prompts + Knowledge) + `SCHEMA.md` (conventions)
 - **Fichiers obligatoires** : `index.md` (orientation LLM content-oriented), `log.md` (append-only format `## [YYYY-MM-DD] action | titre`), `CHANGELOG.md` (narration prosaique)
@@ -96,7 +96,7 @@ JAMAIS invoquer plugin externe si skill forge couvre le sujet.
 
 - SKILL.md < 500L, déporter détail dans `references/`. Pas de `README.md` dans dossier skill
 - `name` YAML = nom exact du dossier (kebab-case)
-- Sweet spot CLAUDE.md / prompts agents : 150-300 mots. Au-delà, dégradation quadratique (UCL 2601.00880)
+- Sweet spot CLAUDE.md / prompts agents : 150-300 mots. Au-delà, dégradation quadratique.
 - Si info potentiellement datée → `cc-news` | CC v2.1.138
 - DA : vérifier résultat COMPLET avant d'annoncer "validé". Tronqué = relancer
 - learning-reminder : JAMAIS répondre "rien à sauvegarder" par facilité — vérifier réellement

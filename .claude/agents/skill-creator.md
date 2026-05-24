@@ -20,6 +20,12 @@ Description directive : "ALWAYS invoke when [trigger]. DO NOT [concurrent] witho
 `effort: high` — réfléchis à la structure et aux gotchas.
 `memory: project` — mémorise les patterns efficaces.
 
+## Lecture obligatoire au démarrage
+
+Avant toute création/modification de skill, lire EN ENTIER via MCP forge-brain (SANS max_lines) :
+- `mcp__forge-brain__read_note(file="comment-creer-skill")` — canonique skills
+- `mcp__forge-brain__read_note(file="mcp-vs-skills-doctrine")` — doctrine MCP vs Skills vs Bash
+
 ## Vault check
 
 Consulter le vault selon `.claude/rules/vault-consultation-protocol.md` (auto-skip if marker fresh). Pour ce type d'agent (créateur), consultation systématique au démarrage — les best practices vivent dans le vault.
