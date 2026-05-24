@@ -603,3 +603,21 @@ Pattern transposable à TOUT serveur MCP :
 
 - [Anthropic Permissions docs section MCP](https://code.claude.com/docs/en/permissions#mcp)
 - [Anthropic Permission rule syntax](https://code.claude.com/docs/en/permissions#permission-rule-syntax)
+
+
+### Précision token cost (24 mai 2026)
+
+**Risque token réel ≠ syntaxe `tools:` frontmatter.**
+
+| Niveau | Impact token | Source |
+|--------|-------------|--------|
+| Liste vs wildcard dans `tools:` agent | **Négligeable** (~40 chars diff) | Frontmatter parsé une fois |
+| Ajouter un MCP server à `.mcp.json` / `mcpServers` | **Énorme** (toutes les tool defs chargées en context principal) | Anthropic docs |
+| 50+ tools cumulés MCP toutes sources | **"le modèle se perd"** | [[Thariq Shihipar]] verbatim |
+
+**Conséquence pour forge** :
+- Wildcard `mcp__forge-brain__*` (21 outils) **OK** — pas plus coûteux que lister 5 outils dans `tools:`. Les définitions des 21 outils sont chargées **une fois** au démarrage du MCP server (whether listed in agent or not).
+- Garder le nombre de MCP servers actifs **modeste** (≤ 5-7 sur un repo) — c'est là que se joue le vrai coût.
+- Si un MCP server a > 20 outils, considérer un split (ex: `forge-brain-read` + `forge-brain-write`) plutôt que limiter via `tools:` du sub-agent.
+
+**Anti-pattern** : croire que lister 3 outils explicites au lieu de wildcard "économise des tokens". Faux — économise des chars frontmatter (négligeable). Le payload tools defs reste identique.
