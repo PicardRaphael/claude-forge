@@ -8,7 +8,7 @@ aliases:
   - "personnalités AI"
   - "équipe Claude Code"
 type: index
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 tags:
   - "#type/index"
@@ -47,9 +47,18 @@ tags:
 - [[David Shapiro]] — ACE Framework, cognitive architecture
 - [[Div Garg]] — MultiOn founder, browser agents
 
-## Industrie (`05-Leaders/industrie/`)
-- [[tobi-lutke]] — CEO Shopify, créateur qmd (BM25+vector+rerank CLI+MCP) — recommandé par Karpathy
-- [[Dario Amodei]] · [[Sam Altman]] · [[Arthur Mensch]] · [[Liang Wenfeng]] · [[Chip Huyen]] · [[Ethan Mollick]]
+## Prompt Engineering (`05-Leaders/prompt/`)
+- [[Amanda Askell]] — Anthropic, prompt engineering canonique
+- [[Sander Schulhoff]] — Prompt Engineering Guide
+- [[Riley Goodside]] — Scale AI, prompt injection
+- [[Elvis Saravia]] — DAIR.AI, Prompt Engineering Guide
+- [[Jason Wei]] — Few-shot CoT (Google Brain → OpenAI)
+- [[Denny Zhou]] — DeepMind, reasoning
+- [[Takeshi Kojima]] — Zero-shot CoT "Let's think step by step"
+- [[Imran Khan]] — Sculpting prompts (arXiv 2510.22251)
+- [[Anthony Mikinka]] — UCL (arXiv 2601.00880)
+- [[Yann LeCun]] — Meta, critique LLM
+
 ## Fine-Tuning (`05-Leaders/fine-tuning/`)
 - [[Daniel Han]] — Unsloth, fine-tuning 2-30x plus rapide
 - [[Edward Hu]] — LoRA, μTransfer
@@ -74,14 +83,26 @@ tags:
 - [[Nils Reimers]] — Sentence-BERT, BEIR, Cohere
 - [[Omar Khattab]] — ColBERT, DSPy, MIT
 ## Industrie (`05-Leaders/industrie/`)
-- [[Arthur Mensch]] — CEO Mistral AI
-- [[Chip Huyen]] — AI Engineering, ML systems production
-- [[Ethan Mollick]] — Wharton, Co-Intelligence, One Useful Thing
-- [[Liang Wenfeng]] — CEO DeepSeek, GRPO
-- [[Sam Altman]] — CEO OpenAI
+- [[tobi-lutke]] — CEO Shopify, créateur qmd (BM25+vector+rerank CLI+MCP) — recommandé par Karpathy
 - [[Dario Amodei]] — CEO Anthropic, AI safety, RSP
+- [[Sam Altman]] — CEO OpenAI
+- [[Arthur Mensch]] — CEO Mistral AI
+- [[Liang Wenfeng]] — CEO DeepSeek, GRPO
+- [[Chip Huyen]] — AI Engineering, ML systems production
+- [[Ethan Mollick]] — Wharton, Co-Intelligence
+- [[Demis Hassabis]] — CEO DeepMind, Nobel 2024 (AlphaFold)
+- [[Ilya Sutskever]] — Co-fondateur SSI, ex-OpenAI
+- [[Geoffrey Hinton]] — "Godfather of AI", Nobel 2024
+- [[Yoshua Bengio]] — Mila, AI safety
+- [[Reid Hoffman]] — LinkedIn co-founder, Inflection AI
+- [[Allie K Miller]] — AI business adoption, ex-AWS
+
 ## À créer
-Amanda Askell · Alex Albert · Elon Musk · Yann LeCun · Patrick Lewis · Rafael Rafailov
+- Jarred Sumner — Bun creator, acquis Anthropic, @jaraboron
+- Elon Musk
 
 ## Liens
 
+- [[Home]]
+- [[MOC-Claude-Code]]
+- [[MOC-Industrie]]

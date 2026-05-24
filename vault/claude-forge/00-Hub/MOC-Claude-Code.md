@@ -8,14 +8,13 @@ aliases:
   - "index claude code"
   - "CC features map"
 type: index
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources: []
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
-
 # Claude Code
 
 ## ⭐ Notes canoniques chantier 22 mai 2026 (source de vérité actionnable)
@@ -95,3 +94,7 @@ Auto Mode · Effort Levels · Worktrees · Skills System · Hooks System · Agen
 
 - [[Brad-Abrams]] — Product Lead Anthropic, créateur Advisor Strategy (CwC SF avec Mario Rodriguez GitHub)
 - [[Mitchell-Hashimoto]] — popularisateur "harness engineering" (5 fév 2026)
+
+## Synthèses
+
+- [[outils-portabilite-forge]] — Liste des outils CLI à installer quand on utilise claude-forge depuis un nouveau PC : defuddle, yt-dlp, obsidian-cli, node, python.

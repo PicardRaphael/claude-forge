@@ -6,7 +6,7 @@ aliases:
 - patterns Claude Code
 - prompt engineering techniques
 auteur: claude
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 resume: 'Index des techniques : prompt engineering, context engineering, patterns,
   anti-patterns'
 tags:
@@ -126,3 +126,7 @@ type: index
 - [[pattern-github-spec-kit]] — Framework 93K stars, 6 commandes, Constitution.md
 - [[pattern-gsd-framework]] — GSD 59K stars, contexte frais par agent, plans = prompts
 - [[feature-dev-plugin]] — Plugin officiel Anthropic 7 phases, 3 types d'agents en //
+
+## Synthèses
+
+- [[techniques-inedites]] — Combinaisons innovantes que personne ne fait encore, issues du croisement de 10 rapports de recherche RAG + Agents IA 2026.

@@ -1,13 +1,14 @@
 ---
 titre: "Effort Levels Guide"
 resume: "5 niveaux d'effort Claude — strict respect sur Opus 4.7, risque under-thinking à low, 64k tokens requis à xhigh/max"
-aliases: ["effort levels", "effort", "niveaux effort claude", "xhigh effort", "effort guide claude code", "effort parameter", "effort level best practice", "effort xhigh high medium low", "effort opus sonnet", "effort coding agentique", "task horizon effort", "claude effort config", "effort level recommendation"]
+aliases:
   - "effort levels"
   - "effort"
   - "niveaux effort claude"
   - "xhigh effort"
   - "effort guide claude code"
   - "effort parameter"
+  - "effort level best practice"
 domaine: technique
 type: technique
 derniere-maj: 2026-05-23

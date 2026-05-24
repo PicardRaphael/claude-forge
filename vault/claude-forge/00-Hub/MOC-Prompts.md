@@ -8,14 +8,13 @@ aliases:
   - "system prompts collection"
   - "templates prompts"
 type: index
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-24
 auteur: claude
 sources: []
 tags:
   - "#type/index"
   - "#domaine/prompt-engineering"
 ---
-
 # Prompts
 
 ## System Prompts
@@ -56,3 +55,8 @@ Prompts réutilisables pour tâches courantes.
 
 ## Liens
 
+
+
+## Méta-prompts
+
+- [[_META-GENERATOR]] — Méta-prompt générateur de bibliothèque d'analyses (24 mai 2026)

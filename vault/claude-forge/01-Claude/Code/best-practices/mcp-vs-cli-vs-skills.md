@@ -1,6 +1,6 @@
 ---
-titre: "MCP vs CLI vs Skills — Quand utiliser quoi"
-resume: "Comparaison MCP vs CLI vs Skills pour Claude Code — matrice de decision 5 criteres, benchmarks tokens et fiabilite, consensus skills-first de Willison et Boris"
+titre: "MCP vs CLI vs Skills — Quand utiliser quoi (DOUBLON)"
+resume: "DOUBLON de [[mcp-vs-skills-doctrine]] canonique (23 mai 2026). Conserve benchmarks tokens/fiabilité uniques (MindStudio, systemprompt.io). Voir doctrine canonique pour décisions actuelles."
 aliases:
   - "MCP vs CLI"
   - "skills vs MCP"
@@ -9,7 +9,9 @@ aliases:
   - "MCP ou CLI"
 domaine: claude-code
 type: technique
-derniere-maj: 2026-05-14
+statut: doublon
+canonique: "[[mcp-vs-skills-doctrine]]"
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://simonwillison.net/2025/Oct/16/claude-skills/"
@@ -19,7 +21,12 @@ tags:
   - "#type/technique"
   - "#domaine/claude-code"
   - "#domaine/mcp"
+  - "#statut/doublon"
 ---
+
+> ⚠️ **DOUBLON** — Note canonique : [[mcp-vs-skills-doctrine]] (doctrine 23 mai 2026, plus complète 348L).
+>
+> Cette note est préservée pour ses **benchmarks tokens/fiabilité uniques** (MindStudio + systemprompt.io) et ses backlinks historiques. Pour les décisions actuelles, consulter la canonique.
 
 ## Position des leaders
 
