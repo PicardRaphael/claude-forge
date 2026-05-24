@@ -1,11 +1,112 @@
 """MCP tools for forge-brain vault — backed by SQLite FTS5."""
 
+import logging
 import re
 from pathlib import Path
 from src.database import BrainDB
-from src.indexer import parse_note
+from src.indexer import parse_note, _WIKILINK_RE
 
 import yaml
+
+log = logging.getLogger(__name__)
+
+
+_WINDOWS_ABS_RE = re.compile(r"^[A-Za-z]:[/\\]")
+
+# Folders excluded from lint_vault (Karpathy immutable + system folders + templates)
+_LINT_EXCLUDE_PREFIXES = ("raw/", "Templates/", ".obsidian/", ".claude/", "Archive/")
+
+# Markdown code block / inline code masking: protect [[...]] inside code from rewrite
+_CODE_FENCE_RE = re.compile(r"^```[^\n]*\n.*?^```", re.MULTILINE | re.DOTALL)
+_INLINE_CODE_RE = re.compile(r"`[^`\n]+`")
+
+
+def _rewrite_wikilinks(content: str, old_stem: str, new_stem: str) -> tuple[str, int]:
+    """Rewrite [[old_stem]] -> [[new_stem]] preserving variants:
+    - [[stem]], [[stem|alias]], [[stem#section]], [[stem|alias#section]]
+    - ![[stem]] (embeds, leading ! preserved)
+    - [[Stem]] (case-insensitive match — Obsidian resolves case-insensitive)
+
+    SKIPS wikilinks inside code blocks (``` fences) and inline code (`...`).
+    Returns (new_content, count_rewritten).
+    """
+    if old_stem == new_stem:
+        return content, 0
+
+    # Mask code blocks and inline code with placeholders so the rewrite skips them
+    masked_segments: list[str] = []
+
+    def mask(match):
+        masked_segments.append(match.group(0))
+        return f"\x00CODE{len(masked_segments) - 1}\x00"
+
+    masked = _CODE_FENCE_RE.sub(mask, content)
+    masked = _INLINE_CODE_RE.sub(mask, masked)
+
+    # Case-insensitive match on the stem only (preserves the rest of the wikilink)
+    pattern = re.compile(
+        r"(?P<bang>!?)\[\[(?P<stem>" + re.escape(old_stem) + r")(?P<rest>[\]|#])",
+        re.IGNORECASE,
+    )
+
+    count = 0
+
+    def replace(m):
+        nonlocal count
+        count += 1
+        return f"{m.group('bang')}[[{new_stem}{m.group('rest')}"
+
+    rewritten = pattern.sub(replace, masked)
+
+    # Unmask
+    for i, segment in enumerate(masked_segments):
+        rewritten = rewritten.replace(f"\x00CODE{i}\x00", segment)
+
+    return rewritten, count
+
+
+
+def _normalize_path(vault: Path, path: str) -> tuple[str, str | None]:
+    """Strip vault prefix if user passed it accidentally. Reject absolute paths.
+
+    Returns (normalized_relative_path, warning_or_None).
+    Raises ValueError on absolute paths not matching the vault root (security: prevents
+    writing outside the vault if a caller passes `C:\\foo\\bar.md`).
+    """
+    p = path.replace("\\", "/")
+
+    # Reject Windows absolute path unless it points inside the vault
+    if _WINDOWS_ABS_RE.match(p):
+        try:
+            vault_abs = vault.resolve()
+            abs_p = Path(p).resolve()
+            rel = abs_p.relative_to(vault_abs)
+            return str(rel).replace("\\", "/"), f"Absolute path resolved to vault-relative '{rel}'"
+        except (ValueError, OSError):
+            raise ValueError(f"Absolute path outside vault refused: {path}")
+
+    # Reject Unix absolute path that's not stripping to a known vault prefix
+    if p.startswith("/"):
+        # Try to strip to find vault path inside it
+        vault_abs_str = str(vault.resolve()).replace("\\", "/")
+        if p.startswith(vault_abs_str + "/"):
+            return p[len(vault_abs_str) + 1:], f"Absolute path stripped to vault-relative"
+        # Otherwise just strip leading slashes (legacy permissive behavior)
+        p = p.lstrip("/")
+
+    vault_name = vault.name
+    vault_parent = vault.parent.name
+    prefixes = [
+        f"{vault_parent}/{vault_name}/",
+        f"{vault_name}/",
+        f"./{vault_parent}/{vault_name}/",
+        f"./{vault_name}/",
+    ]
+    for prefix in prefixes:
+        if p.startswith(prefix):
+            normalized = p[len(prefix):]
+            return normalized, f"Path prefix '{prefix}' stripped (passed absolute, expected vault-relative)"
+    return p, None
 
 
 class BrainTools:
@@ -45,10 +146,14 @@ class BrainTools:
         return content
 
     def read_note_by_path(self, path: str) -> str:
-        full_path = self._vault / path
+        normalized, warning = _normalize_path(self._vault, path)
+        full_path = self._vault / normalized
         if not full_path.exists():
-            return f"Fichier introuvable: {path}"
-        return full_path.read_text(encoding="utf-8", errors="replace")
+            return f"Fichier introuvable: {normalized}"
+        content = full_path.read_text(encoding="utf-8", errors="replace")
+        if warning:
+            return f"[WARN] {warning}\n\n{content}"
+        return content
 
     def get_backlinks(self, file: str) -> str:
         backlinks = self._db.get_backlinks(file)
@@ -71,19 +176,25 @@ class BrainTools:
         return value
 
     def create_note(self, path: str, content: str, username: str = "anonymous") -> str:
-        full_path = self._vault / path
+        normalized, prefix_warning = _normalize_path(self._vault, path)
+        full_path = self._vault / normalized
         if full_path.exists():
-            return f"Note existe deja: {path}"
+            return f"Note existe deja: {normalized}"
         full_path.parent.mkdir(parents=True, exist_ok=True)
         full_path.write_text(content, encoding="utf-8")
-        parsed = parse_note(full_path.stem, path, content)
-        alias_warning = ""
+        parsed = parse_note(full_path.stem, normalized, content)
+        warnings = []
+        if prefix_warning:
+            warnings.append(prefix_warning)
         if len(parsed.aliases) < 4:
-            alias_warning = f" WARNING: seulement {len(parsed.aliases)} aliases (minimum recommande: 4)"
+            warnings.append(f"seulement {len(parsed.aliases)} aliases (minimum recommande: 4)")
+        warnings.extend(parsed.lint_warnings)
         self._db.index_note(parsed, full_path.stat().st_mtime)
         if self._git and self._git._cfg.auto_commit:
-            self._git.commit_file(path, username, "create", full_path.stem)
-        return f"Note creee: {path}{alias_warning}"
+            self._git.commit_file(normalized, username, "create", full_path.stem)
+        if warnings:
+            return f"Note creee: {normalized}\nWARN: " + " | ".join(warnings)
+        return f"Note creee: {normalized}"
 
     def append_note(self, file: str, content: str, username: str = "anonymous") -> str:
         path = self._db.resolve_note(file)
@@ -188,6 +299,242 @@ class BrainTools:
         lines.append("|---------|-------|")
         for f in folders:
             lines.append(f"| {f['folder']} | {f['cnt']} |")
+        return "\n".join(lines)
+
+    def delete_note(self, file: str, force: bool = False, username: str = "anonymous") -> str:
+        """Supprime une note du vault et de l'index. Refuse si backlinks > 0 sauf force=True.
+
+        Args:
+            file: nom de la note ou alias
+            force: si True, supprime meme si des notes pointent vers elle (wikilinks brises)
+        """
+        path = self._db.resolve_note(file)
+        if not path:
+            return f"Note '{file}' introuvable."
+        backlinks = self._db.get_backlinks(file)
+        if backlinks and not force:
+            sources = ", ".join(bl["file_stem"] for bl in backlinks[:5])
+            return (
+                f"REFUS: {len(backlinks)} backlinks vers '{file}' "
+                f"(ex: {sources}). Utiliser force=True pour supprimer quand meme "
+                f"(wikilinks deviendront brises)."
+            )
+        full_path = self._vault / path
+        file_existed = full_path.exists()
+        if file_existed:
+            full_path.unlink()
+        self._db.delete_note(path)
+        if self._git and self._git._cfg.auto_commit and file_existed:
+            self._git.commit_file(path, username, "delete", full_path.stem)
+        msg = f"Note supprimee: {path}"
+        if not file_existed:
+            msg += " (WARN: entree DB nettoyee, fichier physique absent)"
+        if force and backlinks:
+            sources_full = ", ".join(bl["file_stem"] for bl in backlinks[:10])
+            extra = f" (+ {len(backlinks) - 10})" if len(backlinks) > 10 else ""
+            msg += (
+                f"\nWARN: {len(backlinks)} wikilinks maintenant BRISES dans : {sources_full}{extra}. "
+                f"Lancer lint_vault() pour cartographier."
+            )
+        return msg
+
+    def move_note(self, file: str, new_path: str, update_wikilinks: bool = True, username: str = "anonymous") -> str:
+        """Deplace une note vers un nouveau chemin et met a jour wikilinks dans les backlinks.
+
+        Args:
+            file: nom de la note ou alias
+            new_path: chemin de destination (relatif au vault, ex: "Archive/old-note.md")
+            update_wikilinks: si True, parcourt les backlinks et met a jour les wikilinks pointant
+                              vers l'ancien stem si le nouveau stem differe. Default True.
+
+        Wikilinks geres: [[stem]], [[stem|alias]], [[stem#section]], [[stem|alias#section]],
+        ![[stem]] (embeds), [[Stem]] (case-insensitive), self-links dans la note deplacee.
+        NOT geres: wikilinks dans blocs code (preserves volontairement, content litteral).
+        Les wikilinks utilisant un ALIAS de la note (et non son stem) ne sont PAS modifies
+        car ils restent valides via la resolution alias->note du MCP.
+        """
+        path = self._db.resolve_note(file)
+        if not path:
+            return f"Note '{file}' introuvable."
+        normalized_new, prefix_warning = _normalize_path(self._vault, new_path)
+        if not normalized_new.endswith(".md"):
+            return f"REFUS: new_path doit terminer par .md (recu: {normalized_new})"
+        old_full = self._vault / path
+        new_full = self._vault / normalized_new
+        if new_full.exists():
+            return f"REFUS: la destination existe deja: {normalized_new}"
+        if not old_full.exists():
+            return f"Note '{file}' indexee mais fichier source manquant: {path}"
+
+        old_stem = old_full.stem
+        new_stem = new_full.stem
+
+        # B4 fix: capture backlinks BEFORE any DB mutation (atomicity)
+        backlinks_snapshot = self._db.get_backlinks(old_stem) if old_stem != new_stem else []
+
+        # Move file on disk
+        new_full.parent.mkdir(parents=True, exist_ok=True)
+        old_full.rename(new_full)
+
+        # Re-index moved note
+        content = new_full.read_text(encoding="utf-8", errors="replace")
+
+        # B1 self-link fix: rewrite wikilinks inside moved note BEFORE indexing
+        self_link_count = 0
+        if update_wikilinks and old_stem != new_stem:
+            content_rewritten, self_link_count = _rewrite_wikilinks(content, old_stem, new_stem)
+            if self_link_count > 0:
+                new_full.write_text(content_rewritten, encoding="utf-8")
+                content = content_rewritten
+
+        parsed = parse_note(new_stem, normalized_new, content)
+        # Old path needs to be removed from index first
+        self._db.delete_note(path)
+        self._db.index_note(parsed, new_full.stat().st_mtime)
+
+        # Update wikilinks in backlink notes if stem changed
+        updated_files = []
+        skipped_codeblock = 0
+        if update_wikilinks and old_stem != new_stem:
+            for bl in backlinks_snapshot:
+                bl_stem = bl["file_stem"]
+                bl_path = self._db.resolve_note(bl_stem)
+                if not bl_path or bl_path == normalized_new:
+                    continue
+                bl_full = self._vault / bl_path
+                if not bl_full.exists():
+                    continue
+                bl_content = bl_full.read_text(encoding="utf-8", errors="replace")
+                new_content, rewrite_count = _rewrite_wikilinks(bl_content, old_stem, new_stem)
+                if rewrite_count > 0:
+                    bl_full.write_text(new_content, encoding="utf-8")
+                    bl_parsed = parse_note(bl_stem, bl_path, new_content)
+                    self._db.index_note(bl_parsed, bl_full.stat().st_mtime)
+                    updated_files.append(bl_stem)
+
+        if self._git and self._git._cfg.auto_commit:
+            self._git.commit_file(normalized_new, username, "move", new_stem)
+
+        msg = f"Note deplacee: {path} -> {normalized_new}"
+        if prefix_warning:
+            msg += f"\n[WARN] {prefix_warning}"
+        if self_link_count:
+            msg += f"\nSelf-links reecrits: {self_link_count}"
+        if updated_files:
+            msg += f"\nWikilinks mis a jour dans {len(updated_files)} notes: {', '.join(updated_files[:10])}"
+            if len(updated_files) > 10:
+                msg += f" (+ {len(updated_files) - 10} autres)"
+        # Warn if aliases of the moved note still contain the old stem
+        if old_stem != new_stem and old_stem in parsed.aliases:
+            msg += f"\nWARN: l'ancien stem '{old_stem}' est encore dans les aliases de la note deplacee. Considere update_property aliases."
+        return msg
+
+    def lint_vault(self, limit: int = 50) -> str:
+        """Detecte les problemes de qualite dans le vault.
+
+        Checks:
+        - Notes avec aliases < 4 (standard forge)
+        - Notes orphelines (0 backlink ET 0 wikilink sortant)
+        - Notes sans tag
+        - Notes avec frontmatter YAML casse (lint_warnings de parse_note)
+        - Wikilinks brises (cibles inexistantes)
+
+        Args:
+            limit: nombre max de problemes par categorie (default 50)
+        """
+        rows = self._db._conn.execute(
+            "SELECT n.id, n.file_stem, n.path, n.frontmatter FROM notes n"
+        ).fetchall()
+
+        low_aliases = []
+        no_tags = []
+        orphans = []
+        broken_yaml = []
+        broken_wikilinks = []
+
+        # Build sets for fast lookup
+        all_stems = set()
+        all_aliases_to_stem = {}
+        for r in rows:
+            all_stems.add(r["file_stem"])
+        alias_rows = self._db._conn.execute("SELECT a.alias, n.file_stem FROM aliases a JOIN notes n ON n.id = a.note_id").fetchall()
+        for ar in alias_rows:
+            all_aliases_to_stem[ar["alias"]] = ar["file_stem"]
+
+        for r in rows:
+            note_id = r["id"]
+            stem = r["file_stem"]
+            path = r["path"]
+
+            # Karpathy layer 1 (immutable) + folders intentionally outside lint scope
+            if any(path.startswith(p) for p in _LINT_EXCLUDE_PREFIXES):
+                continue
+
+            # Aliases count
+            alias_count = self._db._conn.execute(
+                "SELECT COUNT(*) FROM aliases WHERE note_id = ?", (note_id,)
+            ).fetchone()[0]
+            if alias_count < 4:
+                low_aliases.append({"stem": stem, "path": path, "count": alias_count})
+
+            # Tags count
+            tag_count = self._db._conn.execute(
+                "SELECT COUNT(*) FROM tags WHERE note_id = ?", (note_id,)
+            ).fetchone()[0]
+            if tag_count == 0:
+                no_tags.append({"stem": stem, "path": path})
+
+            # Backlinks + wikilinks
+            backlink_count = self._db._conn.execute(
+                "SELECT COUNT(DISTINCT source_id) FROM links WHERE target = ?", (stem,)
+            ).fetchone()[0]
+            wikilink_count = self._db._conn.execute(
+                "SELECT COUNT(*) FROM links WHERE source_id = ?", (note_id,)
+            ).fetchone()[0]
+            if backlink_count == 0 and wikilink_count == 0:
+                orphans.append({"stem": stem, "path": path})
+
+            # YAML lint via re-parse (catches duplicated aliases)
+            full_path = self._vault / path
+            if full_path.exists():
+                try:
+                    content = full_path.read_text(encoding="utf-8", errors="replace")
+                    parsed = parse_note(stem, path, content)
+                    if parsed.lint_warnings:
+                        broken_yaml.append({"stem": stem, "path": path, "warnings": parsed.lint_warnings})
+                except Exception as e:
+                    broken_yaml.append({"stem": stem, "path": path, "warnings": [str(e)]})
+
+            # Broken wikilinks
+            outgoing = self._db._conn.execute(
+                "SELECT target FROM links WHERE source_id = ?", (note_id,)
+            ).fetchall()
+            for link in outgoing:
+                target = link["target"]
+                if target not in all_stems and target not in all_aliases_to_stem:
+                    broken_wikilinks.append({"source": stem, "target": target})
+
+        lines = ["# Lint vault forge-brain", ""]
+        lines.append(f"## Notes avec aliases < 4 ({len(low_aliases)} total, top {min(limit, len(low_aliases))})")
+        for item in low_aliases[:limit]:
+            lines.append(f"- [[{item['stem']}]] ({item['count']} aliases) — {item['path']}")
+        lines.append("")
+        lines.append(f"## Notes sans tag ({len(no_tags)} total, top {min(limit, len(no_tags))})")
+        for item in no_tags[:limit]:
+            lines.append(f"- [[{item['stem']}]] — {item['path']}")
+        lines.append("")
+        lines.append(f"## Notes orphelines — 0 backlink + 0 wikilink ({len(orphans)} total, top {min(limit, len(orphans))})")
+        for item in orphans[:limit]:
+            lines.append(f"- [[{item['stem']}]] — {item['path']}")
+        lines.append("")
+        lines.append(f"## Frontmatter YAML casse ({len(broken_yaml)} total)")
+        for item in broken_yaml[:limit]:
+            warns = "; ".join(item["warnings"])
+            lines.append(f"- [[{item['stem']}]] — {warns}")
+        lines.append("")
+        lines.append(f"## Wikilinks brises — cible inexistante ({len(broken_wikilinks)} total, top {min(limit, len(broken_wikilinks))})")
+        for item in broken_wikilinks[:limit]:
+            lines.append(f"- [[{item['source']}]] -> [[{item['target']}]] (n'existe pas)")
         return "\n".join(lines)
 
     def update_property(self, file: str, name: str, value: str, username: str = "anonymous") -> str:
@@ -342,3 +689,36 @@ def register_tools(mcp, tools: BrainTools):
             value: nouvelle valeur
         """
         return tools.update_property(file, name, value)
+
+    @mcp.tool()
+    def delete_note(file: str, force: bool = False) -> str:
+        """Supprime une note du vault et de l'index. Refuse si backlinks > 0 sauf force=True.
+
+        Args:
+            file: nom de la note ou alias
+            force: si True, supprime meme si des notes pointent vers elle (wikilinks deviendront brises)
+        """
+        return tools.delete_note(file, force)
+
+    @mcp.tool()
+    def move_note(file: str, new_path: str, update_wikilinks: bool = True) -> str:
+        """Deplace une note vers un nouveau chemin. Met a jour les wikilinks dans les backlinks
+        si le stem change.
+
+        Args:
+            file: nom de la note ou alias
+            new_path: chemin de destination relatif au vault (ex: "Archive/old-note.md")
+            update_wikilinks: si True, parcourt les backlinks et remplace [[old-stem]] -> [[new-stem]]
+                              (gere les variantes [[stem|alias]] et [[stem#section]]). Default True.
+        """
+        return tools.move_note(file, new_path, update_wikilinks)
+
+    @mcp.tool()
+    def lint_vault(limit: int = 50) -> str:
+        """Detecte les problemes de qualite dans le vault (aliases<4, orphelines, sans tag,
+        YAML casse, wikilinks brises). Layer raw/ exclu (Karpathy immutable).
+
+        Args:
+            limit: nombre max de problemes par categorie (default 50)
+        """
+        return tools.lint_vault(limit)

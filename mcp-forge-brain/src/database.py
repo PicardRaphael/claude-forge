@@ -263,15 +263,20 @@ class BrainDB:
         return [r["file_stem"] for r in results]
 
     def get_backlinks(self, file_stem: str) -> list[dict]:
-        # Exact match first, then substring match for partial wikilinks
+        # Case-insensitive exact match (Obsidian resolves [[Alpha]] -> alpha.md)
+        # + substring match for partial wikilinks
+        # Use LOWER() on both sides; for the # variant, normalize the link target
+        # by truncating before # to compare stems.
         rows = self._conn.execute(
             "SELECT n.file_stem, COUNT(*) as count "
             "FROM links l "
             "JOIN notes n ON n.id = l.source_id "
-            "WHERE l.target = ? OR l.target LIKE ? "
+            "WHERE LOWER(l.target) = LOWER(?) "
+            "   OR LOWER(SUBSTR(l.target, 1, INSTR(l.target, '#') - 1)) = LOWER(?) "
+            "   OR LOWER(l.target) LIKE LOWER(?) "
             "GROUP BY n.file_stem "
             "ORDER BY count DESC",
-            (file_stem, f"%-{file_stem}%"),
+            (file_stem, file_stem, f"%-{file_stem}%"),
         ).fetchall()
         return [dict(row) for row in rows]
 
