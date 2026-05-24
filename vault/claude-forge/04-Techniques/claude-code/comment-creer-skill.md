@@ -478,3 +478,19 @@ Section identique dans [[comment-creer-agent]] (AJOUT 24 mai suite) pour le cham
 ### Sources
 
 - [Anthropic Permissions docs section MCP](https://code.claude.com/docs/en/permissions#mcp)
+
+
+---
+
+## AJOUT 24 mai 2026 (suite 2) — Pattern MCP brief-then-direct
+
+Pour les skills qui ont `mcp__server__*` dans `allowed-tools:` et qui sont **invoquées par sub-agents** (pas par session principale directement), le pattern s'applique aussi :
+
+- Session principale qui dispatch le sub-agent → brief enrichi avec contexte MCP
+- Sub-agent invoque la skill avec le contexte
+- Skill exécute + peut re-consulter MCP en filet si besoin (terme non couvert)
+
+Section body standardisée identique à celle des agents — voir [[pattern-mcp-brief-then-direct]] pour template complet.
+
+Skills concernées forge : `forge-brain`, `done`, `cc-news`, `reasoning-cache`, `recap`, `skill-evolve`, `forge-review`, `obsidian-markdown`.
+Skills concernées neo_ia/ia_back : toutes celles qui ont des MCP dans allowed-tools (typiquement context7, postgres, langfuse).

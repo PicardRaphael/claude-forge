@@ -385,3 +385,28 @@ Aliases déclarés en frontmatter (10) :
 ---
 
 **Fin note canonique `mcp-vs-skills-doctrine.md`** — révisée 23 mai 2026 post-audit thématique vault.
+
+
+---
+
+## AJOUT 24 mai 2026 — Pattern MCP brief-then-direct (orchestration)
+
+La doctrine MCP/Skills/CLI capture **où vit l'info**. Le pattern [[pattern-mcp-brief-then-direct]] capture **qui consulte quand**.
+
+### Combinaison
+
+| Pattern | Question répondue |
+|---------|------------------|
+| **MCP vs Skills vs CLI** | Où ranger ce savoir ? (data vs how-to vs exploration) |
+| **Brief-then-direct** | Qui consulte ce MCP et quand ? |
+
+### Application
+
+Avant de dispatcher un sub-agent qui doit consulter un MCP :
+1. **Session principale** consulte le MCP en amont (extraction ciblée)
+2. **Brief enrichi** au sub-agent avec synthèse
+3. **Sub-agent** exécute avec contexte fourni, filet MCP direct en cas de doute non couvert
+
+Évite l'anti-pattern : N sub-agents qui consultent le même MCP en parallèle redondant (coût × N).
+
+Détail complet + transposition cross-MCP (forge-brain, obsidian-brain, postgres, langfuse, context7) : [[pattern-mcp-brief-then-direct]].

@@ -621,3 +621,38 @@ Pattern transposable à TOUT serveur MCP :
 - Si un MCP server a > 20 outils, considérer un split (ex: `forge-brain-read` + `forge-brain-write`) plutôt que limiter via `tools:` du sub-agent.
 
 **Anti-pattern** : croire que lister 3 outils explicites au lieu de wildcard "économise des tokens". Faux — économise des chars frontmatter (négligeable). Le payload tools defs reste identique.
+
+
+---
+
+## AJOUT 24 mai 2026 (suite 2) — Pattern MCP brief-then-direct
+
+**Source canonique** : [[pattern-mcp-brief-then-direct]] (nouvelle note 24 mai).
+
+### Body section standardisée à inclure dans tout sub-agent ayant accès MCP
+
+```markdown
+## MCP — accès direct (filet de sécurité)
+
+Tu reçois normalement un brief enrichi de la session principale avec les éléments MCP pertinents déjà extraits (vault, DB, docs, traces).
+
+**Si pendant l'exécution tu rencontres un doute non couvert par ton brief** (terme inconnu, décision technique conflictuelle, pattern incertain, valeur précise non fournie), tu peux re-consulter directement le MCP via `mcp__<server>__*`.
+
+**Pas systématique** — la session principale t'a déjà briefé. C'est un filet de sécurité, pas une exploration parallèle. Anti-pattern : scanner par réflexe (coût tokens × N agents).
+
+**Quand l'utiliser** :
+- ✅ Terme/acronyme non défini dans le brief
+- ✅ Conflit entre 2 approches mentionnées
+- ✅ Valeur précise nécessaire (ex : type colonne DB)
+- ❌ Re-vérifier ce que le brief dit clairement
+- ❌ "Au cas où" sans déclencheur précis
+```
+
+### Côté session principale — brief enrichi obligatoire
+
+Avant tout dispatch de sub-agent ayant accès MCP :
+1. Consulter MCP pertinent (vault canoniques + feedbacks + erreurs + DB schéma + docs)
+2. Synthétiser dans le prompt (puces ciblées, wikilinks aux notes lues)
+3. Préciser le scope du filet ("filet : mcp__forge-brain__* si doute sur X")
+
+Cf [[pattern-mcp-brief-then-direct]] pour exemples concrets + transposition cross-MCP (obsidian-brain, postgres, langfuse, context7).

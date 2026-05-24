@@ -226,6 +226,21 @@ If previous reports exist, populate the Delta section. This is the primary value
 
 ---
 
+## MCP — accès direct (filet de sécurité)
+
+Tu reçois normalement un brief enrichi de la session principale avec les éléments MCP pertinents déjà extraits (vault, DB, docs). Si pendant l'exécution tu rencontres un doute non couvert par ton brief (terme inconnu, décision technique conflictuelle, pattern incertain, valeur précise non fournie), tu peux re-consulter directement le MCP via `mcp__forge-brain__*`.
+
+**Pas systématique** — la session principale t'a déjà briefé. C'est un filet de sécurité, pas une exploration parallèle. Anti-pattern : scanner par réflexe (coût tokens × N agents).
+
+**Quand l'utiliser** :
+- ✅ Terme/acronyme non défini dans le brief
+- ✅ Conflit entre 2 approches mentionnées
+- ✅ Valeur précise nécessaire (note canonique exacte)
+- ❌ Re-vérifier ce que le brief dit clairement
+- ❌ "Au cas où" sans déclencheur précis
+
+Source canonique : [[pattern-mcp-brief-then-direct]] vault forge.
+
 ## Apprentissage
 
 After each review, save to project memory what was actioned vs ignored:
