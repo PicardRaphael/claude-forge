@@ -2,7 +2,7 @@
 titre: "Hooks qui forcent un workflow agentique = anti-pattern Anthropic"
 type: knowledge
 domaine: claude-code
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-24
 aliases:
   - "erreur hooks workflow enforcement"
   - "ne pas forcer architect par hook"
@@ -17,7 +17,7 @@ tags:
   - "#technique/agents"
 sources:
   - "Session 22 mai 2026 — refonte ia_back + neo_ia"
-  - "[[Boris-Cherny]]"
+  - "[[Boris Cherny]]"
   - "Anthropic Agent SDK overview"
   - "[[raisonnement-22mai-doctrine-vs-enforcement]]"
 ---
@@ -106,7 +106,7 @@ Si oui à au moins une → l'erreur est en train d'être refaite.
 ## Liens
 
 - [[raisonnement-22mai-doctrine-vs-enforcement]] — décisions complètes
-- [[Boris-Cherny]]
+- [[Boris Cherny]]
 - [[comment-creer-hook]]
 - [[workflow-claude-code-optimal]]
 - [[erreur-pipeline-trop-long-frustration]] — symptôme utilisateur

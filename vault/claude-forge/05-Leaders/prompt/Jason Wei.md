@@ -11,7 +11,7 @@ aliases:
 domaine: prompt-engineering
 type: leader
 affiliation: "Meta Superintelligence Labs (ex-OpenAI, ex-Google Brain)"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://www.jasonwei.net/"
@@ -77,4 +77,4 @@ Pour ses propres papers et travaux = single source. Pour des claims génériques
 - [[Denny Zhou]] — co-auteur CoT, Self-Consistency, ToT
 - [[Takeshi Kojima]] — zero-shot CoT (distinction)
 - [[Shunyu Yao]] — Tree of Thoughts, ReAct
-- [[MOC-Leaders-Prompt]]
+- [[MOC-Leaders]]

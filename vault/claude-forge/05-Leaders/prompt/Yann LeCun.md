@@ -11,7 +11,7 @@ aliases:
 domaine: prompt-engineering
 type: leader
 affiliation: "AMI Labs (ex-Meta, NYU)"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://en.wikipedia.org/wiki/Yann_LeCun"
@@ -80,4 +80,4 @@ Avec Sam Altman / OpenAI / Anthropic sur la voie vers l'AGI. Avec Mark Zuckerber
 - [[Demis Hassabis]] — DeepMind
 - [[Amanda Askell]] — position opposée (LLM-centric prompt engineering)
 - [[deprecated-techniques-2026]] — convergence sur "process-first deprecated"
-- [[MOC-Leaders-Prompt]]
+- [[MOC-Leaders]]

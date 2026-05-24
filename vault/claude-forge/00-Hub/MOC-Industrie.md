@@ -31,7 +31,7 @@ tags:
 - [[Managed Agents]] — Beta publique, $0.08/session-hour, Agent Memory public beta
 - [[Claude Design]] — Plugin Anthropic Labs, text-to-prototype (17 avril)
 - Dispatch — Sessions CC + Computer Use
-- Project Glasswing — Mythos Preview, zero-day autonomous, $100M credits (voir [[Claude Mythos Preview]])
+- Project Glasswing — Mythos Preview, zero-day autonomous, $100M credits (voir [[claude-mythos-preview]])
 - Web Search GA — Plus de beta header requis, dynamic filtering
 - [[Claude Security]] — Beta publique enterprise, scans planifiés, Opus 4.7 (1er mai)
 - [[Code with Claude Conference]] — 1ère conference dev : SF 6 mai, Londres 19 mai, Tokyo 10 juin

@@ -10,7 +10,7 @@ aliases:
 domaine: industrie
 type: leader
 affiliation: "Open Machine (CEO)"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://www.alliekmiller.com/"
@@ -65,4 +65,4 @@ Pour claims techniques (prompt engineering, training LLM, etc.) = 4+ sources (pa
 
 - [[Reid Hoffman]] — autre voix business AI
 - [[Ethan Mollick]] — pendant académique workplace AI
-- [[MOC-Leaders-Industrie]]
+- [[MOC-Leaders]]

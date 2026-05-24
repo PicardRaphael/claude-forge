@@ -10,7 +10,7 @@ aliases:
 domaine: prompt-engineering
 type: leader
 affiliation: "Google DeepMind (ex-Scale AI)"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://thegradientpub.substack.com/p/riley-goodside-the-art-and-craft"
@@ -66,4 +66,4 @@ Pour ses propres découvertes (glitch tokens, prompts spécifiques) = single sou
 - [[Amanda Askell]] — pendant Anthropic
 - [[Sander Schulhoff]] — pendant Learn Prompting/recherche
 - [[Simon Willison]] — communauté prompt eng / blog
-- [[MOC-Leaders-Prompt]]
+- [[MOC-Leaders]]

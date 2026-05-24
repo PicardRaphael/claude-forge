@@ -48,7 +48,7 @@ Cron jobs cloud : "Every night at 2am, pull top bug from Linear, attempt fix, op
 - **Boris Cherny** — Demo multi-agent live (agents pick up GitHub issues → fix → PR → review)
 - **Mahesh Murag** — Memory and Dreaming for self-learning agents
 - **Dickson Tsai** — What's new in Claude Code
-- **Mario Rodriguez & [[Brad-Abrams]]** — Caching, harnesses, advisors at GitHub scale ([[Advisor Strategy]] : executor Haiku + advisor Opus, "close to Opus-level intelligence at much lower prices")
+- **Mario Rodriguez & [[Brad-Abrams]]** — Caching, harnesses, advisors at GitHub scale (**Advisor Strategy** cf [[Brad-Abrams]] : executor Haiku + advisor Opus, "close to Opus-level intelligence at much lower prices")
 - **Jarred Sumner** — Co-demo avec Boris
 
 ## Impact token spend

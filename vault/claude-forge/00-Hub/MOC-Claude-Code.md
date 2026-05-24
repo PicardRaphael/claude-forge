@@ -63,15 +63,19 @@ Auto Mode · Effort Levels · Worktrees · Skills System · Hooks System · Agen
 - [[workflow-claude-code-optimal]] — Synthèse Boris, Erik, Thariq, Cat Wu, Karpathy
 - [[mcp-vs-cli-vs-skills]] — Quand MCP, quand CLI, quand skill : matrice de décision
 
-## Agents forge (fiches)
+## Agents forge
 
-- [[Agent — agent-creator]] — Crée/modifie les agents Claude Code
-- [[Agent — claudemd-optimizer]] — Optimise les CLAUDE.md
-- [[Agent — hook-creator]] — Crée/modifie les hooks
-- [[Agent — skill-creator]] — Crée/modifie les skills
-- [[Agent — project-analyzer]] — Analyse de projet complet
-- [[Agent — project-auditor]] — Audit config .claude/
-- [[Agent — self-updater]] — Mise à jour skills de référence
+Les agents vivent dans `.claude/agents/` (hors vault, gérés directement par Claude Code) :
+- `agent-creator` — Crée/modifie les agents Claude Code (pink)
+- `claudemd-optimizer` — Optimise les CLAUDE.md (pink)
+- `hook-creator` — Crée/modifie les hooks (pink)
+- `skill-creator` — Crée/modifie les skills (pink)
+- `project-analyzer` — Analyse projet complet (purple)
+- `project-auditor` — Audit config .claude/ (purple)
+- `self-updater` — Maintenance skills de référence (cyan)
+- `devils-advocate` — Critique livrables majeurs (red)
+
+Convention couleurs : voir [[agents-color-convention]].
 
 ## Dépréciations
 

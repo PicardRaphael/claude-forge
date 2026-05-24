@@ -10,7 +10,7 @@ aliases:
 domaine: industrie
 type: leader
 affiliation: "Université de Montréal / MILA"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://en.wikipedia.org/wiki/Yoshua_Bengio"
@@ -62,4 +62,4 @@ Co-signataire de lettres ouvertes sur AI risks. Témoignage devant le Sénat am�
 - [[Geoffrey Hinton]] — co-Turing Award
 - [[Yann LeCun]] — co-Turing Award, position alternative
 - [[Demis Hassabis]] — co-Princess of Asturias 2022
-- [[MOC-Leaders-Industrie]]
+- [[MOC-Leaders]]

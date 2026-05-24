@@ -11,7 +11,7 @@ aliases:
 domaine: prompt-engineering
 type: leader
 affiliation: "Matsuo-Iwasawa Lab, University of Tokyo"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://arxiv.org/abs/2205.11916"
@@ -68,4 +68,4 @@ Beaucoup de notes attribuent "Let's think step by step" à Wei et al 2022 — c'
 - [[Jason Wei]] — paper CoT few-shot (à ne pas confondre)
 - [[Denny Zhou]] — Reasoning Team Google DeepMind
 - [[chain-of-thought]] — note technique vault
-- [[MOC-Leaders-Prompt]]
+- [[MOC-Leaders]]

@@ -11,7 +11,7 @@ aliases:
 domaine: prompt-engineering
 type: leader
 affiliation: "Learn Prompting / HackAPrompt"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://learnprompting.org/about"
@@ -71,4 +71,4 @@ Hors de son scope : règle 4+ sources comme tout externe.
 - [[Elvis Saravia]] — pendant DAIR.AI / promptingguide.ai
 - [[Riley Goodside]] — historique prompt engineering
 - [[The Prompt Report]]
-- [[MOC-Leaders-Prompt]]
+- [[MOC-Leaders]]

@@ -2,7 +2,7 @@
 titre: "Doctrine vs enforcement — refonte hooks workflow ia_back + neo_ia"
 type: knowledge
 domaine: claude-code
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 aliases:
   - "doctrine vs enforcement 22 mai"
   - "refonte hooks workflow mai 2026"
@@ -20,7 +20,7 @@ tags:
   - "#technique/agents"
 sources:
   - "Session 22 mai 2026 — friction 6× développement feature"
-  - "[[Boris-Cherny]] — Latent Space podcast, Pragmatic Engineer"
+  - "[[Boris Cherny]] — Latent Space podcast, Pragmatic Engineer"
   - "[[Thariq]] — Anthropic skills/sessions"
   - "Anthropic Agent SDK overview (Sep 2025)"
   - "[[critique-2026-05-21-refonte-hooks-16-vers-6]]"
@@ -141,13 +141,13 @@ Le feedback est donc révisé (pas supprimé) avec ce scope. Sans cette révisio
 
 ## Liens
 
-- [[Boris-Cherny]] — créateur Claude Code, doctrine thinnest wrapper
+- [[Boris Cherny]] — créateur Claude Code, doctrine thinnest wrapper
 - [[Thariq]] — Anthropic, skills et sessions
 - [[critique-2026-05-21-refonte-hooks-16-vers-6]] — étape précédente (16→6 hooks)
 - [[raisonnement-kill-tdd-strict-hooks-mai-2026]] — kill TDD strict 21 mai
 - [[erreur-pipeline-trop-long-frustration]] — symptôme côté utilisateur
 - [[workflow-claude-code-optimal]] — pipeline pratique post-refonte
-- [[claude-code-hooks]] (à créer/update) — guide hooks
+- [[comment-creer-hook]] — guide hooks
 - [[agents-color-convention]] — architect-quick + architect-deep = blue
 
 ## Sources web (recherche 22 mai 2026)

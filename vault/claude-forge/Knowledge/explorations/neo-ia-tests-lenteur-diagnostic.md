@@ -120,5 +120,5 @@ L'historique git montre le pattern :
 ## Liens
 
 - [[neoia-test-infrastructure]]
-- [[boris-thariq-bestpractices]]
+- [[workflow-claude-code-optimal]]
 - Vault `Knowledge/erreurs/` (à créer après application : `erreur-clean-caches-autouse.md`)

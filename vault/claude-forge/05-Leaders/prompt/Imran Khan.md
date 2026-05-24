@@ -10,7 +10,7 @@ aliases:
 domaine: prompt-engineering
 type: leader
 affiliation: "Independent Researcher"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://arxiv.org/abs/2510.22251"
@@ -59,4 +59,4 @@ Source primaire **single source acceptable** sur :
 - [[Anthony Mikinka]] — paper UCL distinct (arxiv 2601.00880)
 - [[over-specification-paradox]] — note vault avec Sculpting
 - [[deprecated-techniques-2026]] — concepts liés
-- [[MOC-Leaders-Prompt]]
+- [[MOC-Leaders]]

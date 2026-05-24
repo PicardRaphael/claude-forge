@@ -11,7 +11,7 @@ aliases:
 domaine: industrie
 type: leader
 affiliation: "Google DeepMind (CEO)"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://deepmind.google/about/"
@@ -63,4 +63,4 @@ Approche unique : "AI is the most profound technology humanity has ever develope
 - [[Yann LeCun]] — co-Princess of Asturias 2022
 - [[Yoshua Bengio]] — co-Princess of Asturias 2022
 - [[Denny Zhou]] — Research Scientist Google DeepMind
-- [[MOC-Leaders-Industrie]]
+- [[MOC-Leaders]]

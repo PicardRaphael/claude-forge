@@ -11,7 +11,7 @@ aliases:
 domaine: prompt-engineering
 type: leader
 affiliation: "DAIR.AI"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://www.promptingguide.ai/"
@@ -73,4 +73,4 @@ Largement convergent avec autres sources (Schulhoff, Anthropic, OpenAI). Bonne r
 - [[Sander Schulhoff]] — pendant Learn Prompting
 - [[Amanda Askell]] — prompt engineering Anthropic
 - [[Lilian Weng]] — blog posts agents et prompts
-- [[MOC-Leaders-Prompt]]
+- [[MOC-Leaders]]

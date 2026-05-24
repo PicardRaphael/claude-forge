@@ -11,7 +11,7 @@ aliases:
 domaine: industrie
 type: leader
 affiliation: "Greylock Partners / Inflection AI board"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://www.linkedin.com/in/reidhoffman/"
@@ -71,4 +71,4 @@ Pour claims techniques prompt engineering = 4+ sources (pas son scope expert tec
 - [[Ethan Mollick]] — co-podcast
 - [[Sam Altman]] — OpenAI investor relation
 - [[Dario Amodei]] — Anthropic
-- [[MOC-Leaders-Industrie]]
+- [[MOC-Leaders]]

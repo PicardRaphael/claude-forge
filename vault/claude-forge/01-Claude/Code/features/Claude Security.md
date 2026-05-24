@@ -54,6 +54,6 @@ Accenture, BCG, Deloitte, Infosys, PwC
 
 ## Liens
 
-- [[Claude Mythos Preview]]
+- [[claude-mythos-preview]]
 - [[Project Glasswing]]
 - [[MOC-Claude-Code]]

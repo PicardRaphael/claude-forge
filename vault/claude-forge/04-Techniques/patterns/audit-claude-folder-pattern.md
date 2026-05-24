@@ -2,7 +2,7 @@
 titre: "Pattern audit complet .claude/ d'un repo — 4 auditeurs parallèles + vérif empirique"
 type: technique
 domaine: claude-code
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-24
 auteur: claude
 aliases:
   - audit claude folder pattern
@@ -67,7 +67,7 @@ Lancer 4 `project-auditor` avec `run_in_background: true` :
 3. **Hooks + settings.json** — Stack same-stack, pipeline markers complet, matcher MultiEdit, orphelins
 4. **Rules + CLAUDE.md** — Frontmatter description obligatoire, compteurs cohérents, sweet spot <150L
 
-Checklist par auditeur : voir [[boris-thariq-bestpractices]] pour les standards.
+Checklist par auditeur : voir [[workflow-claude-code-optimal]] pour les standards.
 
 ### Phase 2 — Vérification empirique des claims (CRITIQUE)
 
@@ -143,7 +143,7 @@ git push
 
 ## Gotchas (highest-signal)
 
-- **Matcher `Write|Edit` sans MultiEdit** = trou architectural (voir [[multiedit-matcher-blind-spot-hooks]])
+- **Matcher `Write|Edit` sans MultiEdit** = trou architectural (cf feedback `multiedit-matcher-blind-spot-hooks`)
 - **Stack drift** : code migré ≠ prompts migrés. Grep stack OLD vs NEW (Drizzle→postgres.js sur ia_back : 17 fichiers contaminés découverts)
 - **Decisions cross-repo** : pas de propagation automatique. Renaming neo_ia 22 mai (cto-mindset, outcomes-after-architect) à refaire sur ia_back
 - **`allowed-tools: Agent` dans skill** = INVALIDE. Utiliser `Task` pour invoquer subagent
@@ -164,7 +164,7 @@ git push
 
 ## Liens
 
-- [[boris-thariq-bestpractices]] — Standards Anthropic
+- [[workflow-claude-code-optimal]] — Standards Anthropic
 - [[feedback_audit_repo_method]] — Mémoire forge méthode
 - [[feedback_auditor_false_positives]] — Vérif empirique claims
 - [[feedback_multiedit_matcher_blind_spot]] — Gotcha matcher

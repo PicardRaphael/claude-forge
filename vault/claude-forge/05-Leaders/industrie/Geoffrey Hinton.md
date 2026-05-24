@@ -11,7 +11,7 @@ aliases:
 domaine: industrie
 type: leader
 affiliation: "University of Toronto Emeritus (ex-Google)"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://en.wikipedia.org/wiki/Geoffrey_Hinton"
@@ -76,4 +76,4 @@ Fortune 2024 : *"He's proud his student fired OpenAI boss Sam Altman."* (référ
 - [[Yann LeCun]] — co-Turing Award, position alternative (world models)
 - [[Yoshua Bengio]] — co-Turing Award
 - [[Ilya Sutskever]] — ex-doctorant, cofondateur OpenAI
-- [[MOC-Leaders-Industrie]]
+- [[MOC-Leaders]]

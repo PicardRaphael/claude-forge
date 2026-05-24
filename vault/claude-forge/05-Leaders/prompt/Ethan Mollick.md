@@ -10,7 +10,7 @@ aliases:
 domaine: prompt-engineering
 type: leader
 affiliation: "The Wharton School (University of Pennsylvania)"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://www.linkedin.com/in/emollick"
@@ -72,4 +72,4 @@ Pour techniques prompt engineering générique = 4+ sources (pas son scope exper
 - [[Reid Hoffman]] — co-podcast Prompt and Process
 - [[Amanda Askell]] — pendant Anthropic
 - [[Sander Schulhoff]] — pendant Learn Prompting
-- [[MOC-Leaders-Prompt]]
+- [[MOC-Leaders]]

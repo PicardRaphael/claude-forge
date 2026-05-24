@@ -11,7 +11,7 @@ aliases:
 domaine: industrie
 type: leader
 affiliation: "Safe Superintelligence Inc (SSI)"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://en.wikipedia.org/wiki/Ilya_Sutskever"
@@ -67,4 +67,4 @@ Aligné Hinton sur l'AI safety. Préoccupé par les risques existentiels. Vision
 - [[Geoffrey Hinton]] — directeur de thèse, AlexNet
 - [[Sam Altman]] — co-fondateur OpenAI, conflit board 2023
 - [[Dario Amodei]] — ex-collègue OpenAI (parti fonder Anthropic)
-- [[MOC-Leaders-Industrie]]
+- [[MOC-Leaders]]

@@ -22,7 +22,7 @@ tags:
 - [[Opus 4.7]] — SWE-bench 87.6%, adaptive thinking, xhigh par défaut
 - [[Sonnet 4.6]] — Exécution forge, effort high obligatoire
 - [[Haiku 4.5]] — Rapide, léger, faible coût
-- [[Claude Mythos Preview]] — SWE-bench 93.9%, zero-day autonome, Project Glasswing only
+- [[claude-mythos-preview]] — SWE-bench 93.9%, zero-day autonome, Project Glasswing only
 
 ## OpenAI
 

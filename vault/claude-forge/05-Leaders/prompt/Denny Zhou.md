@@ -10,7 +10,7 @@ aliases:
 domaine: prompt-engineering
 type: leader
 affiliation: "Google DeepMind"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://dennyzhou.github.io/"
@@ -89,4 +89,4 @@ Source primaire **single source acceptable** sur :
 - [[Jason Wei]] — co-auteur CoT et Self-Consistency
 - [[Takeshi Kojima]] — zero-shot CoT
 - [[Shunyu Yao]] — ToT, ReAct
-- [[MOC-Leaders-Prompt]]
+- [[MOC-Leaders]]

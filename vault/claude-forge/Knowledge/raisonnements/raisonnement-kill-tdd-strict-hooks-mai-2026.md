@@ -171,4 +171,4 @@ La vraie best practice Anthropic : **1 test à la fois en boucle red-green court
 - [[erreur-pipeline-trop-long-frustration]] — erreur déclencheur 21 mai
 - [[raisonnement-22mai-doctrine-vs-enforcement]] — bug marker initial (3 root causes)
 - [[raisonnement-revirement-pipeline-mai-2026]] — pivot précédent 22 mai
-- [[boris-thariq-bestpractices]]
+- [[workflow-claude-code-optimal]]

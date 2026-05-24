@@ -7,7 +7,7 @@ aliases:
   - "advisor strategy auteur"
   - "product lead claude"
   - "Bradley Abrams"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 type: leader
 sources:
@@ -80,5 +80,5 @@ Session standalone "Claude Platform" — prompt caching, structured outputs, too
 - [[comment-creer-agent]] — Advisor Strategy documentée
 - [[workflow-claude-code-optimal]] — pattern intégré workflow
 - [[mcp-vs-skills-doctrine]] — Skills doctrine
-- [[Mario-Rodriguez]] — GitHub CPO, co-talk CwC SF
+- **Mario Rodriguez** (GitHub CPO) — co-talk CwC SF
 - [[Code with Claude 2026]] — événement

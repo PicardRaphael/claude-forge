@@ -11,7 +11,7 @@ aliases:
 domaine: prompt-engineering
 type: leader
 affiliation: "Indépendant (affiliation UCL retirée — non attestée par l'arXiv)"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://arxiv.org/abs/2601.00880"
@@ -64,4 +64,4 @@ Source primaire **single source acceptable** sur :
 - [[Imran Khan]] — paper Sculpting distinct (arxiv 2510.22251)
 - [[over-specification-paradox]] — note vault avec UCL
 - [[deprecated-techniques-2026]] — paradoxe sur-spécification
-- [[MOC-Leaders-Prompt]]
+- [[MOC-Leaders]]
