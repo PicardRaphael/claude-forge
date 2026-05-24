@@ -82,6 +82,56 @@ Les 5 lignes Karpathy adressent des **failure modes universels** (silent assumpt
 
 ❌ **Les mettre après une intro projet** — perd l'effet "première chose lue". Avant tout, sauf le titre H1 et la phrase-résumé du projet.
 
+### Tradeoff Karpathy — NON inclus dans les CLAUDE.md (décision 24 mai 2026)
+
+Karpathy original verbatim : *"These guidelines bias toward caution over speed. For trivial tasks, use judgment."*
+
+**Décision Raphael 24 mai 2026** : ne PAS ajouter ce tradeoff dans les CLAUDE.md forge. Raison : bruit visuel sans gain — Claude applique déjà du jugement sur tâches triviales sans qu'on lui dise, et le rappel dilue le signal des 5 lignes. La soupape vit ailleurs (jugement runtime), pas dans la doctrine écrite.
+
+### Coexistence avec "Critiques < ligne 25"
+
+Les 5 lignes Karpathy (7 lignes consommées : 5 puces + 1 ligne vide avant + 1 ligne vide après) ne comptent PAS dans le budget des Critiques < ligne 25. Le seuil "< ligne 25" s'applique aux critiques projet-spécifiques (auto-mode classifier, MCP rules, gotchas Windows, etc.) qui suivent.
+
+Pas besoin d'expliciter cette coexistence dans chaque CLAUDE.md cible — la règle vit dans cette canonique, point. Toute modif future qui rajoute du contenu d'ouverture devra recalculer le budget.
+
+### 8 éléments Karpathy additionnels — corps niveau avancé
+
+Ces éléments du verbatim Karpathy NE figurent PAS dans les 5 lignes (limite cognitive) mais doivent vivre dans le corps des CLAUDE.md des projets qui visent niveau avancé/expert :
+
+1. **Match existing style** : *"Match existing style, even if you'd do it differently"* (§3) — anti-pattern fréquent : Claude réécrit dans son style préféré ignorant les conventions locales.
+
+2. **Dead code orphelin issu de TES changements** : *"Remove imports/variables/functions that YOUR changes made unused"* (§3) — nettoie ton propre sillage, pas plus.
+
+3. **Dead code pré-existant** : *"Don't remove pre-existing dead code unless asked. If you notice unrelated dead code, mention it - don't delete it"* (§3) — signaler, pas supprimer. Distinction subtile mais cruciale (anti-scope-creep).
+
+4. **Plan format opérationnel** pour multi-étapes :
+   ```
+   1. [Step] → verify: [check]
+   2. [Step] → verify: [check]
+   3. [Step] → verify: [check]
+   ```
+   Opérationnalise la ligne 3 des 5 (`Définis <done> avant de commencer`). Chaque step a son critère de vérif.
+
+5. **Transformation tâches vagues → goals vérifiables** (§4) :
+   - "Add validation" → "Write tests for invalid inputs, then make them pass"
+   - "Fix the bug" → "Write a test that reproduces it, then make it pass"
+   - "Refactor X" → "Ensure tests pass before and after"
+
+6. **Senior engineer test** (§2 verbatim Karpathy, self-check actionnable) :
+   > *"Would a senior engineer say this is overcomplicated? If yes, simplify."*
+
+   Plus opérationnel que "Code minimum" abstrait. Cité dans les blogs comme LA ligne qui change la décision "garder vs rewrite".
+
+7. **Seuil 200→50 lignes** (§2 verbatim Karpathy, threshold numérique) :
+   > *"If you write 200 lines and it could be 50, rewrite it."*
+
+   Distinct de "Code minimum" (qualitatif) : règle numérique concrète. Karpathy a le même pattern dans ses observations 26 jan 2026 : *"implement a bloated construction over 1000 lines when 100 would do"*.
+
+8. **Critère de succès auto-évaluable** (verbatim Karpathy clôture) :
+   > *"These guidelines are working if: fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes."*
+
+   Utile comme signal d'audit mensuel `/forge-review` : si on observe l'inverse (diffs gonflés, rewrites fréquents, questions post-mortem), les 5 lignes ne sont pas appliquées.
+
 ---
 
 > ⚠️ **Ordre canonique pour TOUTE création/modification de CLAUDE.md** : suivre A→B→C→D→E (analyser réel → lire canoniques EN ENTIER → croiser → plan d'écarts → exécuter). Cf [[methode-analyser-repo]] section **ORDRE CANONIQUE**. Pas de prescription avant analyse du réel.

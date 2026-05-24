@@ -7,12 +7,26 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-05-24 — 5 lignes Karpathy en ouverture + anti-pattern meta-commentaires
+
+- **Modifiées** : [[comment-ecrire-claudemd]] — ajout section "5 LIGNES D'OUVERTURE OBLIGATOIRES" en tête + 8 éléments Karpathy additionnels au corps niveau avancé (match style, dead code orphelin vs unrelated, plan format `[Step] → verify`, transformations tâches→goals, senior engineer test, seuil 200→50 lignes, critère succès auto-évaluable).
+- **Ajoutée** : [[erreur-meta-commentaires-composants]] (Knowledge/erreurs/) — anti-pattern de justification/source/meta dans le contenu directif d'un composant (hook, agent, skill, CLAUDE.md, rule). Le pourquoi vit dans le vault canonique.
+- **Source** : verbatim [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) — 100K+ stars Q1 2026, distillation Karpathy 26 jan 2026 sur LLM coding pitfalls.
+- **CLAUDE.md propagés** (5 lignes Karpathy en tête) :
+  - `claude-forge/CLAUDE.md` (via sub-agent claudemd-optimizer)
+  - `neot-v2/ia_back/CLAUDE.md`
+  - `neot-v2/neo_ia/CLAUDE.md`
+- **Non propagés** :
+  - `neot-v2/neoteem-brain/CLAUDE.md` : vault Obsidian, principes "diff minimal / code minimum" peu pertinents pour un repo de notes.
+  - `neot-v2/neo_ia/packages/CLAUDE.md` : sous-CLAUDE.md additif, esprit "5 lignes en tête" pour les CLAUDE.md racine uniquement.
+- **Décision additionnelle** : PAS de ligne italique tradeoff sous les 5 lignes (bruit visuel, dilue le signal — anti-pattern formalisé dans [[erreur-meta-commentaires-composants]]).
 
 ## 2026-05-23 — Audit thématique 07 leaders/modèles/industrie/concurrents : ~40 notes patchées sur 98 auditées (135 claims)
 

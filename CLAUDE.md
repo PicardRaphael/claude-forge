@@ -1,6 +1,12 @@
 # claude-forge
 
-**Créé : 31 mars 2026 | Dernière mise à jour : 2026-05-23 | Version : 3.1 (post-pivot 22 mai + audit dogfooding 23 mai)**
+**Créé : 31 mars 2026 | Dernière mise à jour : 2026-05-24 | Version : 3.2 (5 lignes Karpathy en ouverture)**
+
+- Si ambigu : Demande. Ne choisis pas en silence.
+- Diff minimal. Touche uniquement ce qui est demandé.
+- Définis `<done>` avant de commencer (1 ligne suffit).
+- Vérifie dans le code latest. Jamais d'hypothèse.
+- Code minimum ; pas de feature spéculative.
 
 ## ⚠️ Critiques (< ligne 25)
 
