@@ -1,7 +1,7 @@
 ---
 name: agent-creator
 description: Use when the user wants to CREATE or MODIFY a Claude Code subagent. Use PROACTIVELY when the user says "crée un agent qui", "j'ai besoin d'un agent pour", or when cc-advisor recommends an agent.
-tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch
+tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__get_backlinks
 model: sonnet
 effort: high
 permissionMode: acceptEdits

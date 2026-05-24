@@ -10,6 +10,7 @@
 
 ## ⚠️ Critiques (< ligne 25)
 
+- **AVANT toute proposition / recherche web / refonte** : `mcp__forge-brain__search_brain` sur le sujet. Le vault contient probablement déjà la réponse. Coût ~50 tokens, gain énorme. Anti-pattern 24 mai 2026 : 40 tours sans une seule consultation vault.
 - **Auto-mode classifier hard block** sur `.claude/settings.json` (self-modification protection Anthropic) : édition manuelle Raphael requise pour modifs hooks/permissions. Workaround agent = générer `.proposed`.
 - **JAMAIS `$ARGUMENTS` dans backticks shell** : substitution littérale casse quoting (Windows particulièrement).
 - **Hooks Windows : `py` launcher**, jamais chemin Python en dur (cross-machine). Jamais `C:\Users\...` (Bash mange `\`)

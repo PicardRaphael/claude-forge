@@ -1,7 +1,7 @@
 ---
 name: hook-creator
 description: Use when the user wants to CREATE or MODIFY a Claude Code hook. Use PROACTIVELY when the user wants automatic formatting, notifications, blocking dangerous actions, or anything triggered automatically on lifecycle events. Also suggests /loop or /schedule when more appropriate.
-tools: Read, Write, Edit, Glob, Grep, Bash
+tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__get_backlinks
 model: sonnet
 effort: high
 permissionMode: acceptEdits

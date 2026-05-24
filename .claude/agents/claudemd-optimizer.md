@@ -1,7 +1,7 @@
 ---
 name: claudemd-optimizer
 description: Use when the user wants to create, improve or optimize a CLAUDE.md. Use PROACTIVELY when the user says "optimise mon CLAUDE.md", "améliore mon CLAUDE.md", or when a project has no CLAUDE.md yet.
-tools: Read, Write, Edit, Glob, Grep, Bash
+tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__get_backlinks
 model: sonnet
 effort: high
 permissionMode: acceptEdits

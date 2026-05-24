@@ -75,9 +75,12 @@ def required_agent(norm_path: str) -> str | None:
     return None
 
 
-def agent_bypass_active(expected_agent: str) -> bool:
-    claude_agent = os.environ.get("CLAUDE_AGENT", "")
+def agent_bypass_active(expected_agent: str, data: dict) -> bool:
     allowed = {"skill-creator", "agent-creator", "hook-creator", "claudemd-optimizer"}
+    agent_type = data.get("agent_type", "")
+    if agent_type in allowed:
+        return True
+    claude_agent = os.environ.get("CLAUDE_AGENT", "")
     return claude_agent in allowed
 
 
@@ -111,7 +114,7 @@ def main() -> None:
         if agent is None:
             sys.exit(0)
 
-        if agent_bypass_active(agent):
+        if agent_bypass_active(agent, data):
             sys.exit(0)
 
         if tool_name == "Edit" and is_typo_edit(tool_input):

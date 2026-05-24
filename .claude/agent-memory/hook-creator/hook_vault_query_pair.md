@@ -1,19 +1,25 @@
 ---
 name: vault-query-pair-hooks
-description: Paire tracker+guard pour forcer la query forge-brain avant tout Write sur vault/output/.claude/skills/.claude/agents
+description: DEPRECATED 2026-05-22 — paire tracker+guard supprimee (anti-pattern workflow gate per doctrine 22 mai). Conserve a titre historique.
 type: project
+deprecated: 2026-05-22
 ---
 
-Deux hooks complémentaires déployés le 2026-05-06 :
+**STATUT : DEPRECATED — hooks supprimes le 22 mai 2026.**
 
-- `vault-query-tracker.py` (PostToolUse Read|Grep|Glob|Skill) — écrit un marker ISO timestamp dans `.claude/.session-vault-queried` si le tool cible vault/, memory/, Knowledge/, forge-brain, 04-Techniques/, 07-Prompts/.
-- `vault-query-guard.py` (PreToolUse Write) — bloque avec exit 2 tout Write vers vault/, output/, .claude/skills/, .claude/agents/ si le marker est absent ou > 60 min.
+Raison : la paire `vault-query-tracker.py` + `vault-query-guard.py` etait un workflow gate (bloque Write si marker absent). La doctrine 22 mai 2026 reserve les hooks a lint/test/security ; cf [[raisonnement-22mai-doctrine-vs-enforcement]]. Le couple a ete supprime au meme titre que `architect-guard`, `commit-guard`, `dispatch-guard`.
 
-**Why:** Les advisory rules (check-before-create, forge-brain-proactive) avaient un taux d'échec documenté. Failure #8 dans feedback_major_mistakes. Les hooks sont déterministes.
+Conserve a titre historique pour les hook-creator qui auditeraient des repos plus anciens.
 
-**How to apply:**
-- Marker path hardcodé en absolu : `.claude/.session-vault-queried`
-- Bypass : `CLAUDE_AGENT` dans `{skill-creator, agent-creator, hook-creator, claudemd-optimizer}` → exit 0
-- Fail-open uniquement sur stdin parse error — marker absent = BLOCK (pas fail-open)
-- `.claude/.session-vault-queried` ajouté au `.gitignore` racine
-- Pour Skill tool : sérialiser tout `tool_input` en JSON string (field name variable selon CC version)
+---
+
+## Description historique (2026-05-06 -> 2026-05-22)
+
+Deux hooks complementaires :
+
+- `vault-query-tracker.py` (PostToolUse Read|Grep|Glob|Skill) — ecrit un marker ISO timestamp dans `.claude/.session-vault-queried` si le tool cible vault/, memory/, Knowledge/, forge-brain, 04-Techniques/, 07-Prompts/.
+- `vault-query-guard.py` (PreToolUse Write) — bloque avec exit 2 tout Write vers vault/, output/, .claude/skills/, .claude/agents/ si le marker etait absent ou > 60 min.
+
+**Why historique :** les advisory rules (check-before-create, forge-brain-proactive) avaient un taux d'echec documente. Failure #8 dans feedback_major_mistakes.
+
+**Cause du retrait :** sur-enforcement workflow != lint/security. Voir doctrine 22 mai.

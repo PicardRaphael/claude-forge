@@ -6,9 +6,9 @@ description: "Centralizes vault forge-brain consultation protocol referenced by 
 
 Cette rule centralise le protocole de consultation du vault forge-brain pour les agents. Elle est référencée par chaque agent au lieu d'être copiée-collée. Objectif : DRY + facilité de mise à jour.
 
-## Vault check (auto-skip if marker fresh)
+## Vault check (advisory)
 
-Le hook `vault-query-guard` BLOQUE les Write si le vault n'a pas été consulté récemment. Si le prompt d'invocation contient déjà des infos du vault, l'étape est satisfaite automatiquement (marker fresh).
+Avant Write/Edit substantiel sur un composant `.claude/` ou une note vault, consulter le vault via MCP forge-brain. Pas d'enforcement par hook : la doctrine 22 mai 2026 réserve les hooks à lint/test/security ([[raisonnement-22mai-doctrine-vs-enforcement]]). Si le prompt d'invocation contient déjà des infos du vault, l'étape est satisfaite.
 
 ## Outils MCP à utiliser
 
@@ -45,5 +45,5 @@ Chaque agent référence ce protocole en 2 lignes au lieu de copier-coller 20 li
 ```markdown
 ## Vault check
 
-Consulter le vault selon `.claude/rules/vault-consultation-protocol.md` (auto-skip if marker fresh).
+Consulter le vault selon `.claude/rules/vault-consultation-protocol.md` (advisory, pas de hook bloquant).
 ```

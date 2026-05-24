@@ -562,3 +562,61 @@ Voir [[programmatic-tool-calling]] — note canonique dédiée avec :
 - [[programmatic-tool-calling]] — note canonique forge
 
 `derniere-maj` à mettre à jour après ce ajout.
+
+
+---
+
+## AJOUT 24 mai 2026 — Pipeline complet feature majeure (spec-driven + ADR + escalade)
+
+Stack de pratiques cohérent issu du chantier 24 mai (recherche web + audit vault + déploiement neo_ia/ia_back).
+
+### Pipeline canonique pour feature M/L
+
+```
+1. /spec <idée floue>
+     ↓ (interview AskUserQuestion → SPEC.md / BRIEF.md persistant)
+     ↓ output : TODO/feature-<slug>/SPEC.md + BRIEFs
+2. /plugin feature-dev (optionnel, Anthropic officiel)
+     ↓ 7 phases : Discovery → Exploration → Clarifying → Architecture → Implementation → Quality Review → Summary
+     ↓ 3 agents en // : code-explorer, code-architect, code-reviewer
+3. Boucle TDD via session principale orchestrant sub-agents :
+     test-writer → dev/dev-* → code-reviewer
+     - sub-agents qui détectent AMBIGUÏTÉ → emit ESCALADE structuré → session principale appelle AskUserQuestion → re-dispatch
+     - sub-agents qui détectent hors-scope → emit ESCALADE REQUISE → session principale spawn agent recommandé
+4. /go (Boris pattern)
+     ↓ typecheck + tests + code-reviewer dispatch + changelog + commit + push
+```
+
+### Pipeline canonique pour fix rapide (bypass /spec)
+
+```
+1. Description user directe
+2. Session principale → dev (sans architect si trivial)
+3. /go (typecheck + tests + reviewer + commit)
+```
+
+### Innovations 24 mai déployées
+
+1. **Pattern AMBIGUÏTÉ DÉTECTÉE** dans 15 sub-agents (neo_ia + ia_back + forge devils-advocate). Verbatim limitation Anthropic : `AskUserQuestion` ne marche pas dans sub-agent → escalade structurée vers main agent.
+2. **Hook SubagentStop `escalade-detector`** (neo_ia .py + ia_back .ts) : détecte markers d'escalade, imprime suggestion stderr, non-bloquant (doctrine 22 mai respectée).
+3. **Formule directive descriptions skills** : `ALWAYS invoke when X. DO NOT Y without invoking first.` Appliquée sur 10 skills critiques pour reliability auto-invocation > 50%.
+4. **Plugin feature-dev Anthropic officiel** : `/plugin install feature-dev@claude-plugins-official` sur les 2 repos pour pipeline 7 phases Anthropic.
+
+### Couches d'enforcement (doctrine 22 mai préservée)
+
+| Couche | Outil | Force |
+|--------|-------|-------|
+| Advisory | CLAUDE.md, rules, descriptions skills directives | ~80% compliance |
+| Deterministic (lint/test/security) | hooks PreToolUse lint, /go pre-commit | 100% sur ce qu'il détecte |
+| Observability | hooks SubagentStop (escalade-detector, agent-metrics-logger) | passive |
+| **NEVER** | hooks workflow agentique (architect-guard, commit-guard) | INTERDIT doctrine 22 mai |
+
+### Sources
+
+- [[pattern-spec-driven-development]] — Pipeline Thariq
+- [[feature-dev-plugin]] — Plugin Anthropic
+- [[anti-reentrance-sub-agents-pattern-escalade]] — Pattern hors-scope
+- [[raisonnement-22mai-doctrine-vs-enforcement]] — Doctrine 22 mai préservée
+- [[cowork-skills-reliability]] — Formule directive
+- [[comment-creer-agent]] (section AjOUT 24 mai) — AskUserQuestion limitation
+- [[comment-creer-hook]] (section AJOUT 24 mai) — SubagentStop suggester pattern

@@ -4,7 +4,11 @@
       "Bash(git *)",
       "Bash(git -C *)",
       "Bash(ls *)",
-      "Bash(taskkill *)"
+      "Bash(taskkill *),",
+      "Edit(.claude/agents/**)",
+      "Edit(.claude/skills/**)",
+      "MultiEdit(.claude/agents/**)",
+      "MultiEdit(.claude/skills/**)"
     ]
   },
   "hooks": {

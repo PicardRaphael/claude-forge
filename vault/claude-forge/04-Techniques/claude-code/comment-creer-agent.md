@@ -489,3 +489,59 @@ Voir [[programmatic-tool-calling]] — note canonique avec config API, métrique
 ## Anti-patterns
 
 - [[erreur-seuils-canoniques-agents-inventes-2026-05-22]] — 4/5 seuils "canoniques" agents Claude Code cités dans le vault étaient des mythes (extrapolations, confusion). Seuls CLAUDE.md<200L et SKILL.md<500L sont vraiment canoniques.
+
+
+---
+
+## AJOUT 24 mai 2026 — AskUserQuestion ne fonctionne PAS en sub-agent
+
+**Verbatim Anthropic** (GitHub issue [#18721](https://github.com/anthropics/claude-code/issues/18721)) :
+
+> "The `AskUserQuestion` tool is currently unavailable within a subagent context. If a subagent encounters a decision point requiring human input, it cannot prompt the user directly."
+
+**Conséquence pratique** :
+- ❌ Ajouter `AskUserQuestion` au frontmatter `tools:` d'un sub-agent ne suffit PAS — le tool est ignoré
+- ✅ **Pattern correct** : sub-agent retourne output structuré, session principale appelle `AskUserQuestion`
+
+### Pattern AMBIGUÏTÉ DÉTECTÉE (à inclure dans body de chaque sub-agent dev/architect/test-writer/code-reviewer/api-designer)
+
+```markdown
+## Si AMBIGU détecté — STOP + format ESCALADE
+
+Tu ne peux PAS appeler `AskUserQuestion` directement (limitation Anthropic sub-agents — issue #18721). Si tu rencontres une ambiguïté (specs floues, options multiples valides, contraintes contradictoires, breaking change détecté), tu **arrêtes immédiatement** et retournes ce format structuré à la session principale qui, elle, peut appeler AskUserQuestion :
+
+\`\`\`markdown
+## AMBIGUÏTÉ DÉTECTÉE — escalade session principale
+
+**Contexte** : <ce que tu as compris de la tâche>
+**Ambiguïté** : <ce qui n'est pas clair>
+**Options identifiées** :
+  (1) <option 1 avec tradeoffs>
+  (2) <option 2 avec tradeoffs>
+**Ta recommandation** : <option N + raison courte>
+**Question pour l'utilisateur** : <formulation courte et claire à poser via AskUserQuestion>
+**État actuel** : <fichiers touchés jusqu'ici, branche, dirty/clean>
+\`\`\`
+
+La session principale lit ce bloc, invoque `AskUserQuestion`, te re-dispatche avec la réponse.
+
+**Pas de devinette.** Mieux vaut escalader 2 fois que produire du code sur une mauvaise interprétation.
+```
+
+### Différence avec ESCALADE REQUISE (hors-scope)
+
+Pattern jumeau de [[anti-reentrance-sub-agents-pattern-escalade]] :
+- **ESCALADE REQUISE** = hors-scope (autre agent doit prendre la suite)
+- **AMBIGUÏTÉ DÉTECTÉE** = info manquante (user doit clarifier)
+
+Les deux escaladent vers session principale qui orchestre. Aucun ne nécessite `AskUserQuestion` dans le sub-agent.
+
+### Application dans repos forge
+
+Déployé 24 mai 2026 sur 15 sub-agents (9 neo_ia + 5 ia_back + 1 forge devils-advocate). Hook `SubagentStop` `escalade-detector` (neo_ia .py + ia_back .ts) détecte les markers et imprime suggestion en stderr (non-bloquant, pattern Anthropic "hooks suggest, humans approve").
+
+### Sources
+
+- [GitHub issue #18721 AskUserQuestion subagent limitation](https://github.com/anthropics/claude-code/issues/18721)
+- [[anti-reentrance-sub-agents-pattern-escalade]] — pattern jumeau hors-scope
+- [[pattern-spec-driven-development]] — workflow Thariq interview AskUserQuestion (en SESSION PRINCIPALE)

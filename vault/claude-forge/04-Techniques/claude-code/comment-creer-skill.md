@@ -387,3 +387,55 @@ Aliases déclarés en frontmatter (10) :
 ## Gotchas
 
 - [[erreur-subagent-bypass-delegate-guard]] — Quand skill-creator est instruit d'éditer un SKILL.md, il peut tenter de contourner le hook delegate-guard via staging file. Anti-pattern : sub-agents cherchent des bypass.
+
+
+---
+
+## AJOUT 24 mai 2026 — Reliability auto-invocation ~50% sans formule directive
+
+**Verbatim audit communautaire** (214 skills audités, [DEV.to](https://dev.to/thestack_ai/i-audited-214-claude-code-skills-73-were-silently-broken-2m9a)) :
+
+> "73% silencieusement cassées — jamais déclenchées. Même avec YAML valide, le déclenchement autonome atteint ~50% de succès."
+
+### Causes top 3 d'échec d'activation
+
+| Cause | Fréquence |
+|-------|-----------|
+| Descriptions vagues sans phrases de déclenchement | 68% |
+| Descriptions < 20 mots | 41% |
+| Collision entre skills (descriptions qui se chevauchent) | ~15% |
+
+### Formule directive (Anthropic-validée)
+
+```
+ALWAYS invoke when [trigger]. <description essentielle>. DO NOT [action concurrente] without invoking first.
+```
+
+**Exemple appliqué 24 mai 2026 sur 10 skills critiques ia_back + neo_ia** :
+
+```yaml
+# AVANT (passif)
+description: Complete procedure to add a new REST endpoint. Use when user says 'ajoute un endpoint'...
+
+# APRÈS (directif)
+description: ALWAYS invoke when user says 'ajoute un endpoint', 'crée une route', 'new endpoint'. Complete procedure to add a new REST endpoint with Zod schemas, Hono routes, postgres.js queries, and tests. DO NOT write endpoint code without invoking first.
+```
+
+### Contraintes critiques
+
+- **≤ 1024 chars** : limite frontmatter Anthropic (au-delà tronquée)
+- **≤ 250 chars idéal** : limite pratique auto-invocation (`/skills` reminder injecté à chaque turn tronque)
+- **Triggers concrets** : phrases utilisateur exactes (FR + EN), pas marketing copy
+- **Bad** : "A powerful Git automation skill."
+- **Good** : "ALWAYS invoke when user wants to commit changes, write a commit message, or open a PR. DO NOT use git commands manually without invoking first."
+
+### Le pattern le plus fiable : hook Skill Activation
+
+Quand auto-invocation reste à ~50% malgré description parfaite, hook `UserPromptSubmit` qui injecte `Use Skill(name)` dans le prompt avant que Claude le voie. **Garantie 100% activation**. Voir [[cowork-skills-reliability]] section "Skill Activation Hook".
+
+### Sources
+
+- [Audit 214 skills communautaires](https://dev.to/thestack_ai/i-audited-214-claude-code-skills-73-were-silently-broken-2m9a)
+- [Why Claude Code Skills Don't Trigger](https://dev.to/lizechengnet/why-claude-code-skills-dont-trigger-and-how-to-fix-them-in-2026-o7h)
+- [[cowork-skills-reliability]] — checklist 9 étapes diagnostic
+- [Skills docs Anthropic](https://code.claude.com/docs/en/skills)

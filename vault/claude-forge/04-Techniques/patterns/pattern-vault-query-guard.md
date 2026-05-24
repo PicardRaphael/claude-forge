@@ -19,9 +19,12 @@ tags:
   - "#type/technique"
   - "#domaine/claude-code"
   - "#domaine/neoteem"
+deprecated: 2026-05-22
 ---
-
 # Pattern Vault Query Guard
+
+> ⚠️ **DEPRECATED 2026-05-22** — Ce pattern est un workflow gate (bloque Write si marker absent), considéré comme anti-pattern par la doctrine 22 mai 2026 (hooks réservés à lint/test/security, jamais workflow). Hooks `vault-query-tracker.py` et `vault-query-guard.py` supprimés du repo claude-forge le 22 mai 2026, au même titre que `architect-guard`, `commit-guard`, `dispatch-guard`. Cf [[raisonnement-22mai-doctrine-vs-enforcement]] et [[erreur-delegate-guard-env-var-vs-stdin]] pour le contexte complet. **Note conservée à titre historique** — ne pas redéployer.
+
 
 ## Description
 

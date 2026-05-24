@@ -2,7 +2,7 @@
 name: cc-news
 description: Use this skill when the user asks about recent Claude Code updates, new features, AI industry news, or when any information might be outdated. Use PROACTIVELY when the user asks "quoi de neuf", "est-ce que X existe maintenant", or when knowledge seems stale. Date de reference : 21 mai 2026 (v2.1.140 + Code with Claude London).
 user-invokable: true
-allowed-tools: WebSearch, WebFetch, Read, Write, Agent
+allowed-tools: WebSearch, WebFetch, Read, Write, Agent, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__create_note, mcp__forge-brain__append_note, mcp__forge-brain__update_property
 argument-hint: "domaine ou sujet (ex: rag, agents, fine-tuning, concurrents, claude-code, prompt, tout)"
 skills:
   - x-read

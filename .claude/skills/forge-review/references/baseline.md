@@ -58,7 +58,6 @@ Last updated: 2026-05-08
 | Item | Expected | Rationale |
 |------|----------|-----------|
 | Delegate guard | `delegate-guard.py` | Block direct edits to protected files |
-| Vault query guard | `vault-query-guard.py` or equivalent | Block writes without vault query |
 | Learning reminder | `learning-reminder.py` or equivalent | Periodic memory compounding prompt |
 | Session health | `session-health.py` or equivalent | Session quality monitoring |
 

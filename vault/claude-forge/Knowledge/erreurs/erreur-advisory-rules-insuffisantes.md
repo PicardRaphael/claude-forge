@@ -65,3 +65,21 @@ Ce pattern est déployé 3 fois dans forge :
 - [[raisonnement-22mai-doctrine-vs-enforcement]]
 - [[pattern-vault-query-guard]]
 - [[harness-engineering]] — Martin Fowler formalise : contraintes déterministes > prompts advisory
+
+
+---
+
+## ADDENDUM 2026-05-24 — Fix proposé est obsolète post 22 mai
+
+Cette note recommandait à l'origine la création des hooks `vault-query-tracker.py` + `vault-query-guard.py` comme fix de l'insuffisance des advisory rules. **Ce fix est désormais obsolète** :
+
+- La doctrine 22 mai 2026 (cf [[raisonnement-22mai-doctrine-vs-enforcement]]) a supprimé ces hooks (workflow gate considéré anti-pattern, hooks réservés à lint/test/security).
+- La paire `vault-query-tracker` + `vault-query-guard` a été retirée de claude-forge le 22 mai.
+- La note canonique [[pattern-vault-query-guard]] est marquée `deprecated: 2026-05-22`.
+
+**Le problème de fond identifié ici (advisory rules ignorées sous pression) reste valide**, mais le fix n'est plus "hook bloquant" — c'est désormais :
+1. Frontmatter `tools:` correctement déclaré (cf [[erreur-delegate-guard-env-var-vs-stdin]] — sub-agent ne peut appeler MCP que si tools déclarés)
+2. Body agent qui référence explicitement la skill `forge-brain` quand pertinent
+3. Discipline session principale (pas d'enforcement workflow)
+
+Référence canonique : [[methode-pivoter-doctrine]] (checklist post-pivot pour ne pas laisser de résidu doctrinal type 1).

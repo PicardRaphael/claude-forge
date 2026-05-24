@@ -515,3 +515,54 @@ Aliases déclarés en frontmatter (10) :
 ## Critiques DA
 
 - [[critique-2026-05-22-guard-ddl-ban]] — Verdict KEEP sur guard-ddl-ban.py avec 3 corrections mineures. Différenciation clé : gate security légitime (DDL prod = irréversible) ≠ workflow agentique sur méta-doctrine.
+
+
+---
+
+## AJOUT 24 mai 2026 — Pattern SubagentStop suggesteur "hooks suggest, humans approve"
+
+**Verbatim Anthropic** (PubNub Part II + doctrine officielle) :
+
+> "Hooks suggest, humans approve: the hook prints 'Use the architect-review subagent on X.' A human pastes it to proceed, preventing runaway chains and forcing a quick glance."
+
+### Pattern d'usage
+
+Hook `SubagentStop` qui **détecte** des signaux dans la sortie du sub-agent et **imprime en stderr** une suggestion non-bloquante (exit 0). La session principale voit, décide.
+
+**Cas d'usage** :
+- Détecter `## ESCALADE REQUISE` ou `## AMBIGUÏTÉ DÉTECTÉE` dans la sortie sub-agent → suggérer action suivante
+- Compter le nombre d'invocations sub-agent par type → métriques observability
+- Lire un fichier d'état (queue.json, STATUS) → suggérer prochain agent du pipeline
+
+### Implémentation déployée 24 mai 2026
+
+- **neo_ia** : `.claude/hooks/escalade-detector.py` (Python) — détecte 3 markers, écrit suggestion stderr
+- **ia_back** : `.claude/hooks/escalade-detector.ts` (Bun/TypeScript) — équivalent
+- Settings.json : enregistrement dans `SubagentStop` (async possible, non-bloquant obligatoire)
+
+### Anti-pattern
+
+❌ **SubagentStop bloquant** (exit 2) = workflow gate déguisé, viole doctrine 22 mai. Le hook DOIT être exit 0 toujours.
+❌ **Forcer l'invocation du prochain sub-agent** depuis le hook = anti-pattern. Le hook suggère, l'humain (ou la session principale qui lit le stderr) décide.
+
+### Configuration settings.json type
+
+```json
+"SubagentStop": [
+  {
+    "hooks": [
+      {
+        "type": "command",
+        "command": "uv run python .claude/hooks/escalade-detector.py"
+      }
+    ]
+  }
+]
+```
+
+### Sources
+
+- [PubNub Best Practices Part II](https://www.pubnub.com/blog/best-practices-claude-code-subagents-part-two-from-prompts-to-pipelines/) — Pipeline architect → implementer avec SubagentStop suggester
+- [Anthropic Hooks reference](https://code.claude.com/docs/en/hooks)
+- [[anti-reentrance-sub-agents-pattern-escalade]] — Format markers détectés
+- [[raisonnement-22mai-doctrine-vs-enforcement]] — doctrine non-bloquante respectée

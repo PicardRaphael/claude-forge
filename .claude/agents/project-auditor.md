@@ -4,7 +4,7 @@ description: Use when asked to audit, analyze, or review a project's .claude/ se
 model: opus
 effort: high
 permissionMode: plan
-tools: Read, Write, Edit, Glob, Grep, Bash, Agent
+tools: Read, Write, Edit, Glob, Grep, Bash, Agent, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__get_backlinks
 skills:
   - cc-agents-ref
   - cc-skills-ref

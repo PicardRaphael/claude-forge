@@ -1,7 +1,7 @@
 ---
 name: skill-creator
 description: Use when the user wants to CREATE, MODIFY or OPTIMIZE a Claude Code skill or slash command. Use PROACTIVELY when the user says "crée une skill", "optimise cette skill", "j'ai besoin d'une commande /X", or when cc-advisor recommends a skill.
-tools: Read, Write, Edit, Glob, Grep, Bash
+tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__get_backlinks
 model: sonnet
 effort: high
 permissionMode: acceptEdits

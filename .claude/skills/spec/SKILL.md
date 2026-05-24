@@ -129,6 +129,60 @@ Inclure TDD pipeline (architect → test-writer red → dev → refactor → cod
 
 ---
 
+## Format HTML alternatif (Thariq Shihipar — Anthropic mai 2026)
+
+Pour features L/XL avec besoin de visuel (mockups, diagrammes, comparaisons), proposer en **bonus** un fichier `plan.html` interactif en plus du `SPEC.md` Markdown.
+
+**Quand proposer HTML** :
+- Feature L/XL multi-repo (taille déterminée Phase 1)
+- Spec destinée à review humaine collaborative (Raphael + équipe)
+- Besoin de mockups UI / diagrammes architecture / comparaison d'approches side-by-side
+- Document persistant qui sera relu plusieurs fois
+
+**Quand garder Markdown seul** :
+- Feature M mono-repo (default)
+- Spec consommée par un autre LLM sans humain dans la boucle
+- Document court (< 50 lignes)
+- Diff git fortement nécessaire (HTML diff = bruit)
+
+**Si Phase 1 détermine taille L/XL** → en Phase 4 (génération) : produire `SPEC.md` **ET** `plan.html` (single file, CSS inline, sections scrollables, mockups CSS si UI touchée).
+
+**Template HTML minimal** :
+
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Plan — feature-<slug></title>
+<style>
+  body { font-family: system-ui; max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem; line-height: 1.6; }
+  section { border-left: 3px solid #4f46e5; padding: 0.5rem 1rem; margin: 1.5rem 0; background: #f9fafb; }
+  .risk-low { background: #d1fae5; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; }
+  .risk-med { background: #fef3c7; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; }
+  .risk-high { background: #fee2e2; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; }
+  .mockup { border: 2px dashed #cbd5e1; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+  pre { background: #1e293b; color: #f1f5f9; padding: 1rem; border-radius: 6px; overflow-x: auto; }
+  nav { position: sticky; top: 0; background: white; padding: 1rem; border-bottom: 1px solid #e5e7eb; }
+</style>
+</head>
+<body>
+<nav>
+  <a href="#vision">Vision</a> · <a href="#archi">Architecture</a> · <a href="#tasks">Tâches</a> · <a href="#risks">Risques</a>
+</nav>
+<h1>Feature — <slug></h1>
+<section id="vision"><h2>Vision</h2><!-- ... --></section>
+<section id="archi"><h2>Architecture</h2><!-- mockup/diagramme --></section>
+<section id="tasks"><h2>Tâches par vague</h2><!-- ... --></section>
+<section id="risks"><h2>Risques</h2><!-- <span class="risk-high">HIGH</span> ... --></section>
+</body>
+</html>
+```
+
+Référence canonique : [[html-vs-markdown-thariq]]
+
+---
+
 ## Apprentissage
 
 - 2026-05-20 : fusion `/spec` + `/decompose-ticket` en skill unifiée. Cause : duplication cross-repo générait drift, instruction STOP noyée en gotcha causait bug Jérôme (dev direct sans SPEC, touche neo_ia depuis ia_back). Fix : STOP CRITIQUE en gras ligne 1, gate AskUserQuestion obligatoire, Phase 5 conditionnel XL.
