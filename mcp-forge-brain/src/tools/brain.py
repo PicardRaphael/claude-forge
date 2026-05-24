@@ -483,6 +483,211 @@ class BrainTools:
             msg += f"\nWARN: l'ancien stem '{old_stem}' est encore dans les aliases de la note deplacee. Considere update_property aliases."
         return msg
 
+    def bulk_update_property(
+        self,
+        files: list[str],
+        name: str,
+        value: str,
+        username: str = "anonymous",
+    ) -> str:
+        """Met a jour la meme propriete sur N notes en 1 appel (economie round-trips LLM).
+
+        Args:
+            files: liste de noms/aliases de notes
+            name: nom propriete frontmatter
+            value: nouvelle valeur
+
+        Cas d'usage : update `derniere-maj` sur 16 leaders apres audit = 1 appel au lieu de 16.
+        """
+        if not isinstance(files, list):
+            return "REFUS: files doit etre une liste de noms."
+        if not files:
+            return "REFUS: liste files vide."
+        updated = []
+        failed = []
+        for file in files:
+            try:
+                result = self.update_property(file, name, value, username)
+                if "introuvable" in result:
+                    failed.append({"file": file, "reason": "introuvable"})
+                else:
+                    updated.append(file)
+            except Exception as e:
+                failed.append({"file": file, "reason": str(e)})
+        msg = f"Bulk update: {len(updated)}/{len(files)} notes mises a jour ({name} = {value})"
+        if updated:
+            msg += f"\nOK: {', '.join(updated[:10])}"
+            if len(updated) > 10:
+                msg += f" (+ {len(updated) - 10})"
+        if failed:
+            msg += f"\nECHEC ({len(failed)}): " + ", ".join(f"{f['file']}({f['reason']})" for f in failed[:5])
+        return msg
+
+    def read_section(self, file: str, heading: str, include_subsections: bool = True) -> str:
+        """Lit UNE section d'une note (header markdown jusqu'au prochain header de meme niveau).
+
+        Args:
+            file: nom de la note ou alias
+            heading: header complet exact (ex: "## COMMENT", "### Workflow")
+            include_subsections: si True, inclut sous-headers
+
+        Cas d'usage : CHANGELOG 62k chars, section "2026-05-24" = ~2k chars.
+        """
+        path = self._db.resolve_note(file)
+        if not path:
+            return f"Note '{file}' introuvable."
+        full_path = self._vault / path
+        if not full_path.exists():
+            return f"Note '{file}' indexee mais fichier manquant: {path}"
+        content = full_path.read_text(encoding="utf-8", errors="replace")
+        lines = content.splitlines(keepends=True)
+
+        heading_stripped = heading.strip()
+        if not heading_stripped.startswith("#"):
+            return f"REFUS: heading doit commencer par # (recu: {heading})"
+        level = len(heading_stripped) - len(heading_stripped.lstrip("#"))
+
+        out: list[str] = []
+        in_section = False
+        for line in lines:
+            line_no_nl = line.rstrip("\n")
+            if not in_section:
+                if line_no_nl == heading_stripped:
+                    in_section = True
+                    out.append(line)
+                    continue
+            else:
+                if line_no_nl.startswith("#"):
+                    line_level = len(line_no_nl) - len(line_no_nl.lstrip("#"))
+                    if line_level <= level:
+                        break
+                    if not include_subsections and line_level > level:
+                        break
+                out.append(line)
+
+        if not out:
+            return f"Heading '{heading}' introuvable dans: {path}"
+        return "".join(out)
+
+    def read_note_resolved(self, file: str, depth: int = 1) -> str:
+        """Lit une note et resout les embeds ![[X]] recursivement (inline le contenu).
+
+        Args:
+            file: nom de la note ou alias
+            depth: profondeur max (1 = embeds top-level)
+
+        Cas d'usage : MOC qui embed 5 notes -> 1 read = 6 notes en contexte LLM.
+        """
+        path = self._db.resolve_note(file)
+        if not path:
+            return f"Note '{file}' introuvable."
+        return self._resolve_embeds(path, depth, visited=set())
+
+    def _resolve_embeds(self, path: str, depth: int, visited: set) -> str:
+        if path in visited:
+            return f"[CYCLE: {path} deja inclus]"
+        visited.add(path)
+        full_path = self._vault / path
+        if not full_path.exists():
+            return f"[FICHIER MANQUANT: {path}]"
+        content = full_path.read_text(encoding="utf-8", errors="replace")
+        if depth <= 0:
+            return content
+
+        embed_re = re.compile(r"!\[\[([^\]|#]+)(?:#([^\]|]+))?(?:\|[^\]]+)?\]\]")
+
+        def replace_embed(match):
+            target_stem = match.group(1).strip()
+            section = match.group(2).strip() if match.group(2) else None
+            target_path = self._db.resolve_note(target_stem)
+            if not target_path:
+                return match.group(0)
+            if section:
+                inner = self.read_section(target_stem, f"## {section}")
+                if "introuvable" in inner:
+                    inner = self.read_section(target_stem, f"# {section}")
+            else:
+                inner = self._resolve_embeds(target_path, depth - 1, visited.copy())
+            return f"\n<!-- EMBED: {target_stem} -->\n{inner}\n<!-- /EMBED: {target_stem} -->\n"
+
+        return embed_re.sub(replace_embed, content)
+
+    def find_by_property(
+        self,
+        name: str,
+        value: str = "",
+        comparator: str = "eq",
+        folder: str = "",
+        limit: int = 50,
+    ) -> str:
+        """Cherche les notes dont une propriete frontmatter satisfait une condition.
+
+        Args:
+            name: nom de la propriete (ex: "derniere-maj", "type", "auteur")
+            value: valeur de comparaison (ex: "2026-05-24", "knowledge", "claude")
+            comparator: "eq" (egal), "ne" (different), "lt", "gt", "contains", "missing", "present"
+            folder: prefixe path optionnel (ex: "Knowledge/erreurs")
+            limit: nombre max de resultats
+
+        Cas d'usage :
+        - find_by_property("derniere-maj", "2026-04-24", "lt") -> notes stales
+        - find_by_property("type", "deprecation") -> toutes les notes deprecations
+        - find_by_property("statut", "doublon") -> tous les doublons marques
+        - find_by_property("sources", comparator="missing") -> notes sans sources frontmatter
+        """
+        if comparator not in ("eq", "ne", "lt", "gt", "contains", "missing", "present"):
+            return f"REFUS: comparator invalide '{comparator}'. Valides: eq, ne, lt, gt, contains, missing, present"
+
+        rows = self._db._conn.execute(
+            "SELECT file_stem, path, frontmatter FROM notes "
+            "WHERE path LIKE ? ORDER BY file_stem",
+            (f"{folder}%" if folder else "%",),
+        ).fetchall()
+
+        matches = []
+        for r in rows:
+            fm_raw = r["frontmatter"] or ""
+            try:
+                fm = yaml.safe_load(fm_raw) if fm_raw else {}
+                if not isinstance(fm, dict):
+                    fm = {}
+            except yaml.YAMLError:
+                fm = {}
+
+            actual = fm.get(name)
+            actual_str = "" if actual is None else (
+                ", ".join(str(v) for v in actual) if isinstance(actual, list) else str(actual)
+            )
+
+            match = False
+            if comparator == "missing":
+                match = actual is None or actual_str == ""
+            elif comparator == "present":
+                match = actual is not None and actual_str != ""
+            elif actual is None:
+                continue
+            elif comparator == "eq":
+                match = actual_str == value
+            elif comparator == "ne":
+                match = actual_str != value
+            elif comparator == "contains":
+                match = value.lower() in actual_str.lower()
+            elif comparator in ("lt", "gt"):
+                match = (actual_str < value) if comparator == "lt" else (actual_str > value)
+
+            if match:
+                matches.append({"stem": r["file_stem"], "path": r["path"], "value": actual_str})
+                if len(matches) >= limit:
+                    break
+
+        if not matches:
+            scope = f" dans '{folder}'" if folder else ""
+            return f"Aucune note avec {name} {comparator} '{value}'{scope}."
+        lines = [f"# Notes avec {name} {comparator} '{value}' ({len(matches)} resultats)\n"]
+        for m in matches:
+            lines.append(f"- [[{m['stem']}]] ({m['path']}) — {name}: {m['value'][:80]}")
+        return "\n".join(lines)
+
     def lint_vault(self, limit: int = 50) -> str:
         """Detecte les problemes de qualite dans le vault.
 
@@ -799,6 +1004,70 @@ def register_tools(mcp, tools: BrainTools):
             limit: nombre max de problemes par categorie (default 50)
         """
         return tools.lint_vault(limit)
+
+    @_tool
+    def bulk_update_property(files: list[str], name: str, value: str) -> str:
+        """Met a jour la meme propriete sur N notes en 1 appel (economie round-trips LLM).
+
+        Args:
+            files: liste de noms/aliases (ex: ["alpha", "bravo", ...])
+            name: nom propriete frontmatter
+            value: nouvelle valeur
+
+        Cas d'usage : update derniere-maj sur 16 leaders apres audit = 1 appel au lieu de 16.
+        """
+        return tools.bulk_update_property(files, name, value)
+
+    @_tool
+    def read_section(file: str, heading: str, include_subsections: bool = True) -> str:
+        """Lit UNE section d'une note (header markdown jusqu'au prochain header de meme niveau).
+
+        Args:
+            file: nom de la note ou alias
+            heading: header complet exact (ex: "## COMMENT", "### Workflow")
+            include_subsections: si True, inclut sous-headers
+
+        Cas d'usage : CHANGELOG 62k chars, section "2026-05-24" = ~2k chars (economie 30x).
+        """
+        return tools.read_section(file, heading, include_subsections)
+
+    @_tool
+    def read_note_resolved(file: str, depth: int = 1) -> str:
+        """Lit une note ET resout les embeds ![[X]] recursivement (inline contenu).
+
+        Args:
+            file: nom de la note ou alias
+            depth: profondeur max recursion (1 = embeds top-level, 2 = embeds dans embeds)
+
+        Cas d'usage : MOC qui embed 5 sous-notes -> 1 appel = 6 notes en contexte LLM.
+        Cycles detectes (CYCLE: X). Fichiers manquants signales (FICHIER MANQUANT: X).
+        """
+        return tools.read_note_resolved(file, depth)
+
+    @_tool
+    def find_by_property(
+        name: str,
+        value: str = "",
+        comparator: str = "eq",
+        folder: str = "",
+        limit: int = 50,
+    ) -> str:
+        """Cherche notes dont une propriete frontmatter satisfait une condition (Dataview-equiv pour LLM).
+
+        Args:
+            name: nom propriete frontmatter (ex: "derniere-maj", "type", "statut")
+            value: valeur (vide si comparator=missing/present)
+            comparator: eq | ne | lt | gt | contains | missing | present
+            folder: prefixe path optionnel (ex: "05-Leaders/prompt")
+            limit: max resultats (default 50)
+
+        Exemples :
+        - notes stales : find_by_property("derniere-maj", "2026-04-24", "lt")
+        - tous doublons : find_by_property("statut", "doublon")
+        - notes sans sources : find_by_property("sources", comparator="missing")
+        - type erreur : find_by_property("type", "erreur", folder="Knowledge/erreurs")
+        """
+        return tools.find_by_property(name, value, comparator, folder, limit)
 
     @_tool
     def usage_stats(days: int = 7) -> str:
