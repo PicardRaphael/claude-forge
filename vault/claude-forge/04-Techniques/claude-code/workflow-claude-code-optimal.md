@@ -474,8 +474,8 @@ Aliases déclarés en frontmatter (12) :
 - [[Noah Zweben]]
 - [[Daisy Hollman]]
 - [[Jeremy Hadfield]]
-- [[Fiona Fung]]
-- [[Ami Vora]]
+- Fiona Fung (Head of Engineering Anthropic) — fiche à créer
+- Ami Vora (Chief Product Officer Anthropic) — fiche à créer
 - [[Erik Schluntz]]
 - [[Justin Young]]
 - [[Thariq Shihipar]]

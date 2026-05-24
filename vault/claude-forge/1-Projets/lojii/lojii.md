@@ -31,12 +31,12 @@ Application frontend de gestion immobilière (locatif + copropriété) développ
 
 | Tech | Version | Rôle |
 |------|---------|------|
-| [[Vue]] | 3.5.13 | Framework frontend |
-| [[Vuetify]] | 3.7.17 | UI Material Design |
-| [[Vite]] | 6.2.1 | Build + dev HTTPS |
-| [[Pinia]] | 3.0.1 | State management (29 stores) |
+| Vue | 3.5.13 | Framework frontend |
+| Vuetify | 3.7.17 | UI Material Design |
+| Vite | 6.2.1 | Build + dev HTTPS |
+| Pinia | 3.0.1 | State management (29 stores) |
 | Vue Router | 4.5.0 | Hash history routing |
-| [[Tiptap]] | 3.20.1 | Rich text editor (6 packages) |
+| Tiptap | 3.20.1 | Rich text editor (6 packages) |
 | TinyMCE | 6 (CDN) | Rich text editor legacy |
 | Chart.js + vue-chartjs | 4.4.8 / 5.3.2 | Graphiques |
 | @vueuse/core | 14.1.0 | Composables utils |

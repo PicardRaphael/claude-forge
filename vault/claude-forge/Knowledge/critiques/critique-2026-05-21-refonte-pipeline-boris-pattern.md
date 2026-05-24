@@ -9,7 +9,7 @@ aliases:
   - critique pipeline agentic mai 2026
 type: knowledge
 domaine: claude-code
-derniere-maj: 2026-05-21
+derniere-maj: 2026-05-24
 auteur: devils-advocate
 tags:
   - "#type/knowledge"
@@ -76,5 +76,5 @@ Boris solo + expert + session interactive. Neoteem 2-3 devs + sub-agents + sessi
 - [[feedback_enforce_not_advise]] — advisory 80% → hook 100% immediatement
 - [[feedback_workaround_sediment]] — autouse global devient dette permanente
 - [[feedback_devlead_vs_devapp]] — cross-app modifs critiques
-- [[markers-pipeline-must-be-complete]] — guard+writer+reset les 3 obligatoires
-- [[hooks-enforcement-pattern]]
+- markers-pipeline-must-be-complete — concept obsolète post-pivot 22 mai, voir [[raisonnement-22mai-doctrine-vs-enforcement]]
+- hooks-enforcement-pattern — concept obsolète post-pivot 22 mai, voir [[raisonnement-22mai-doctrine-vs-enforcement]]

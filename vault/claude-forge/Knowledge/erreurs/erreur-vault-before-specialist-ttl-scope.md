@@ -7,7 +7,7 @@ aliases:
   - hook vault TTL anti-pattern
   - is_specialist faux positifs
 resume: Le hook vault-before-specialist.py de claude-forge avait un TTL 60min sur son marker (viole marker-ttl-antipattern), un scope de 10 agents dont 6 hors-rule, et is_specialist regardait le prompt produisant des faux positifs
-derniere-maj: 2026-05-21
+derniere-maj: 2026-05-24
 tags:
   - "#type/erreur"
   - "#erreur/hook"
@@ -21,7 +21,7 @@ tags:
 
 Raphael a observé que devil's advocate et advisor (côté claude-forge) appelaient le MCP forge-brain trop souvent, coûtant des tokens. En investiguant, le hook `vault-before-specialist.py` montrait 4 défauts compoundés :
 
-1. **TTL 60min sur le marker** — chaque session > 1h voyait son marker expirer, re-déclenchant un vault check au milieu d'un workflow
+1. **TTL 60min sur le marker** — chaque session > 1h voyait son marker expirer, re-déclenchant un vault check au milieu d'un workflow (viole feedback : marker-ttl-antipattern)
 2. **Scope = 10 agents** dont 6 ne créent rien dans `.claude/` (devils-advocate, project-analyzer, project-auditor, vault-maintainer, python-dev, self-updater)
 3. **`is_specialist()`** matchait le nom d'agent dans le `prompt`/`description` → faux positifs garantis (mentionner "skill-creator" dans un prompt à general-purpose bloquait le dispatch)
 4. **Pas de SessionStart reset** — un marker traînait potentiellement de session précédente
@@ -29,7 +29,7 @@ Raphael a observé que devil's advocate et advisor (côté claude-forge) appelai
 ## Pourquoi c'était une erreur
 
 Le hook a accompli sa mission éducative (3+ erreurs en prod historiques de skills/agents créés sans vault check). Mais il avait dérivé en "ceinture+bretelles+sangle" :
-- Le TTL 60min violait directement `marker-ttl-antipattern` documenté par Raphael lui-même
+- Le TTL 60min violait directement feedback : marker-ttl-antipattern documenté par Raphael lui-même
 - Les 6 agents hors-scope (analyse, audit, critique, dev Python) n'ont aucune raison d'être bloqués par check-before-create (rule qui vise skill/agent/hook/rule/prompt — pas analyse)
 - Le matching dans le prompt produisait du blocage sur le mauvais signal
 
@@ -67,10 +67,10 @@ En investiguant, j'ai aussi compris que les 54k tokens consommés au tour 1 de c
 
 ## Liens
 
-- [[marker-ttl-antipattern]]
+- feedback : marker-ttl-antipattern
 - [[delegate-guard-pattern]]
 - [[workflow-claude-code-optimal]]
-- [[enforce-not-advise]]
+- feedback : enforce-not-advise
 - [[raisonnement-22mai-doctrine-vs-enforcement]]
 - [[erreur-advisory-rules-insuffisantes]]
 - [[erreur-architect-neo_ia-fouille-bdd]]

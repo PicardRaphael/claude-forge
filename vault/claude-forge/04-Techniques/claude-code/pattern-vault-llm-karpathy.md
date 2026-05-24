@@ -12,7 +12,7 @@ aliases:
   - "qmd tobi lutke"
   - "agentic engineering memory"
   - "compounding wiki"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 type: pattern
 sources:
@@ -212,7 +212,7 @@ Quand le LLM cherche un sujet, il commence par `index.md` pour s'orienter.
 
 ## [2026-05-22] note-updated | erreur-hooks-workflow
 - Doctrine 22 mai inversée
-- Liens : [[raisonnement-22mai]]
+- Liens : [[raisonnement-22mai-doctrine-vs-enforcement]]
 
 ## [2026-05-21] vault-audit | refonte doctrine
 - 8 notes supprimées
@@ -462,7 +462,7 @@ Aliases déclarés en frontmatter (10) :
 - [[forge-review]] — slash command audit mensuel
 
 ### Knowledge / refs liées
-- [[audit-mcp-forge-brain]] — 11 outils + 4 forces uniques
+- audit-mcp-forge-brain — 11 outils + 4 forces uniques (note à créer)
 - [[feedback_use_obsidian_cli]] — révisé : MCP uniquement
 - [[feedback_vault_quality_standard]] — standard 4-6 aliases
 - [[feedback_vault_query_before_create]] — hook bloque write sans vault check

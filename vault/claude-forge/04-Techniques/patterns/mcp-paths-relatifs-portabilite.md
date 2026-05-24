@@ -9,7 +9,7 @@ aliases:
   - "claude code mcp portabilité"
 domaine: claude-code
 type: technique
-derniere-maj: 2026-05-20
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "Session 2026-05-20 — fix .mcp.json ia_back paths absolus Jérôme"
@@ -119,6 +119,6 @@ Pattern correct : `"args": ["./wrapper.mjs", "${PG_CONNECTION_STRING}"]` avec `.
 ## Liens
 
 - [[erreur-password-postgres-clair-mcp-json]] — Erreur sécu connexe découverte
-- [[ia-back-project]] — Application concrète
+- **ia_back** (Neoteem) — Application concrète
 - [[comment-creer-hook]] — Enforcement déterministe
 - [[harness-engineering]] — Pattern foundational

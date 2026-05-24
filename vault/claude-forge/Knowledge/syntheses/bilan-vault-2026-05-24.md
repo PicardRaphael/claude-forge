@@ -17,7 +17,7 @@ tags:
   - "#sujet/audit-thematique"
 sources:
   - "Audit dispatch 6 clusters parallèles read-only via MCP forge-brain"
-  - "Méthode A→B→C→D→E [[sequence-canonique-modification]]"
+  - "Méthode A→B→C→D→E .claude/rules/sequence-canonique-modification.md"
   - "Pattern [[pattern-vault-llm-karpathy]] (3-layers validation)"
 ---
 
@@ -189,7 +189,7 @@ Peu de wikilinks brisés majeurs (aucun crash). Quelques candidats :
 
 - [[pattern-vault-llm-karpathy]] — pattern canonique 3-layers validé
 - [[methode-analyser-repo]] — séquence A→B→C→D→E appliquée
-- [[sequence-canonique-modification]] — méthode source canonique
+- `.claude/rules/sequence-canonique-modification.md` — méthode source canonique (rule, hors vault)
 - [[methode-pivoter-doctrine]] — checklist post-pivot
 - [[SCHEMA]] — conventions vault
 - [[index]] — index content-oriented

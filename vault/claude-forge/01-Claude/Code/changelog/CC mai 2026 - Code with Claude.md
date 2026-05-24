@@ -18,7 +18,7 @@ aliases:
   - "v2.1.140"
 domaine: claude-code
 type: changelog
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://www.anthropic.com/news"
@@ -176,7 +176,7 @@ Pipeline recommandé tâches M/L/XL, conditionnel (skip selon taille). Détail d
 
 - [[CHANGELOG]] section "Audit thématique vault Claude Code" (23 mai 2026)
 - [[comparaison-skill-anthropic-claude-code-setup]]
-- [[sequence-canonique-modification]] — rule transverse créée
+- `.claude/rules/sequence-canonique-modification.md` — rule transverse créée (hors vault)
 - [[methode-analyser-repo]] — pipeline architect/dev/reviewer/test explicité
 - [[Brad-Abrams]] — fiche leader créée
 - [[Mitchell-Hashimoto]] — fiche leader créée

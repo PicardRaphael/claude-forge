@@ -12,7 +12,7 @@ aliases:
   - "tools bash code-gen tradeoffs"
   - "lethal trifecta willison"
   - "compute allocator"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 type: technique
 sources:
@@ -363,7 +363,7 @@ Aliases déclarés en frontmatter (10) :
 - [[Tobi Lutke]]
 - [[Andrej Karpathy]]
 - [[Simon Willison]]
-- [[Armin Ronacher]]
+- Armin Ronacher — créateur Flask, blog lucumr.pocoo.org (fiche à créer)
 
 ### Knowledge / erreurs liées
 - [[erreur-password-postgres-clair-mcp-json]]
@@ -379,7 +379,7 @@ Aliases déclarés en frontmatter (10) :
 
 ### Forge custom
 - [[forge-brain-proactive]] — rule MCP forge-brain obligatoire
-- [[audit-mcp-forge-brain]] — audit technique 11 outils
+- audit-mcp-forge-brain — audit technique 11 outils (note à créer)
 - [[obsidian-markdown]] — skill format wikilinks/frontmatter
 
 ---

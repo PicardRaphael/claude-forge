@@ -9,7 +9,7 @@ aliases:
   - "connection string mcp clair"
 domaine: securite
 type: erreur
-derniere-maj: 2026-05-20
+derniere-maj: 2026-05-24
 auteur: claude
 tags:
   - "#type/erreur"
@@ -91,5 +91,5 @@ Ou mieux : utiliser un secret manager (Doppler, 1Password CLI, vault) avec injec
 ## Liens
 
 - [[auto-mode-classifier]] — Le classifier qui a bloqué le push
-- [[ia-back-project]] — Repo concerné
+- **ia_back** (Neoteem) — Repo concerné
 - [[harness-engineering]] — Enforcement > advisory

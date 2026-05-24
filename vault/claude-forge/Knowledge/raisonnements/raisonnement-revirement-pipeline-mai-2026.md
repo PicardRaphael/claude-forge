@@ -11,7 +11,7 @@ tags:
   - "#domaine/claude-code"
   - "#technique/agents"
 resume: "Capture du raisonnement multi-étapes — la session a commencé sur retire architect (frustration 4h/feature), DA a démoli, on a pivoté vers rends architect rapide puis pipeline conditionnel. Précieux pour comprendre POURQUOI"
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-24
 auteur: claude
 type: raisonnement
 sources:
@@ -155,5 +155,5 @@ Voir `[[workflow-claude-code-optimal]]` pour la recette complète.
 - [[erreur-pipeline-trop-long-frustration]] — l'erreur de départ
 - [[workflow-claude-code-optimal]] — pattern précédent compatible
 - [[workflow-claude-code-optimal]] — Boris pur (référence)
-- [[advisor-da-before-proposing]] (mémoire) — confirmé une fois de plus
-- [[measure-before-optimize-tests]] (mémoire) — confirmé sur fusion hooks
+- feedback : advisor-da-before-proposing (mémoire) — confirmé une fois de plus
+- feedback : measure-before-optimize-tests (mémoire) — confirmé sur fusion hooks

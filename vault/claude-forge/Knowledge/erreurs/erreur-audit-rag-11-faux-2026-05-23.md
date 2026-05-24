@@ -9,12 +9,12 @@ aliases:
   - "patterns erreurs audit"
 type: erreur
 domaine: ia
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
-  - "[[A-inventaire-claims]]"
-  - "[[D-synthese-croisement]]"
-  - "[[F-rapport-final]]"
+  - "output/audit-rag/A-inventaire-claims (artefact audit, hors vault)"
+  - "output/audit-rag/D-synthese-croisement (artefact audit, hors vault)"
+  - "output/audit-rag/F-rapport-final (artefact audit, hors vault)"
 tags:
   - "#type/erreur"
   - "#domaine/rag"
@@ -86,9 +86,9 @@ Si non corrigées, ces 11 erreurs auraient :
 
 ## Liens
 
-- [[A-inventaire-claims]] — inventaire 78 claims dédupliquées
-- [[D-synthese-croisement]] — classification Type 1/2/3 complète
-- [[F-rapport-final]] — rapport final audit
+- A-inventaire-claims — inventaire 78 claims dédupliquées (artefact audit `output/`, hors vault)
+- D-synthese-croisement — classification Type 1/2/3 complète (artefact audit `output/`, hors vault)
+- F-rapport-final — rapport final audit (artefact audit `output/`, hors vault)
 - [[erreur-22-claims-fausses-vault-claude-code-2026-05-23]] — audit précédent (Claude Code)
 - [[feedback_tweet_hype_paraphrase_pattern]] — pattern paraphrase Karpathy récurrent
 - [[feedback_audit_thematique_methode]] — méthode 6 étapes validée

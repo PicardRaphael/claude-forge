@@ -10,7 +10,7 @@ aliases:
   - nomenclature lojii
   - IHM lojii blocs
 type: knowledge
-derniere-maj: 2026-05-13
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "Architecture Full Web.pdf (Denis THEVENOT, 22/03/2024, maj 30/10/2025)"
@@ -71,4 +71,4 @@ Meta route pour ecrans Chromium WinDev : `meta: { hideMenu: true, hideIhm: true 
 ## Liens
 
 - [[lojii]] — projet frontend
-- [[windev-front]] — application desktop a migrer
+- windev-front — application desktop a migrer (note à créer)

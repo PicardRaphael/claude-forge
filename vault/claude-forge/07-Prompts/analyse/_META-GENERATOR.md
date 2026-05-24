@@ -8,13 +8,13 @@ aliases:
   - "biblioteque-prompts-jarvis"
   - "meta-generator-analyse"
   - "prompts-library-generator"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 type: meta-prompt
 domaine: claude-code
 statut: draft-en-attente-execution
 sources:
   - "[[methode-analyser-repo]]"
-  - "[[sequence-canonique-modification]]"
+  - ".claude/rules/sequence-canonique-modification.md"
   - "[[methode-pivoter-doctrine]]"
   - "[[comparaison-skill-anthropic-claude-code-setup]]"
   - "[[pattern-vault-llm-karpathy]]"
@@ -187,7 +187,7 @@ type: prompt
 domaine: <claude-code | rag | agents-ia | etc.>
 sources:
   - "[[methode-analyser-repo]]"
-  - "[[sequence-canonique-modification]]"
+  - ".claude/rules/sequence-canonique-modification.md"
 tags:
   - "#type/prompt"
   - "#sujet/analyse"
@@ -203,7 +203,7 @@ tags:
 
 | Si l'utilisateur demande... | Lire EN ENTIER via `mcp__forge-brain__read_note` SANS max_lines | Pourquoi |
 |------------------------------|----------------------------------------------------------------|----------|
-| <cas 1> | `[[note-canonique]]` | <raison> |
+| <cas 1> | `note-canonique` (référence à une note vault) | <raison> |
 | ... | ... | ... |
 
 (Customiser cette table selon le scope du prompt)
@@ -244,7 +244,7 @@ tags:
 
 ## Wikilinks
 - [[methode-analyser-repo]]
-- [[sequence-canonique-modification]]
+- `.claude/rules/sequence-canonique-modification.md`
 \`\`\`
 
 ### Règles de génération critiques
@@ -313,7 +313,7 @@ Méta-prompt rédigé fin de session longue. Risque d'erreur de design qui se pr
 ## Wikilinks
 
 - [[methode-analyser-repo]]
-- [[sequence-canonique-modification]]
+- `.claude/rules/sequence-canonique-modification.md`
 - [[methode-pivoter-doctrine]]
 - [[comparaison-skill-anthropic-claude-code-setup]]
 - [[pattern-vault-llm-karpathy]]

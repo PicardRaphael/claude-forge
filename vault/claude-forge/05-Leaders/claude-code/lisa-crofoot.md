@@ -8,7 +8,7 @@ aliases:
   - "anthropic lisa"
   - "research pm anthropic"
   - "lisa anthropic scaffolding"
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://www.youtube.com/watch?v=AgQ4cwL5eOM"
@@ -32,7 +32,7 @@ tags:
 
 Lisa Crofoot porte **la doctrine officielle Anthropic sur le rôle du scaffolding** dans les agents — c'est-à-dire tout ce qui n'est pas le modèle lui-même : hooks, rules, agents, prompts système, decision logic externe.
 
-Sa thèse, formulée à Code with Claude London 19 mai 2026, est devenue la **référence canonique pour la doctrine "thinnest wrapper"** (cf. [[reference-anthropic-thinnest-wrapper]]) et **a directement inspiré la refonte du 22 mai 2026** sur les repos ia_back et neo_ia (suppression de 7 hooks workflow par repo).
+Sa thèse, formulée à Code with Claude London 19 mai 2026, est devenue la **référence canonique pour la doctrine "thinnest wrapper"** (note `reference-anthropic-thinnest-wrapper` à créer) et **a directement inspiré la refonte du 22 mai 2026** sur les repos ia_back et neo_ia (suppression de 7 hooks workflow par repo).
 
 Elle est aussi la source canonique sur :
 - La **capability curve** Anthropic (8 frontier models en 12 mois : Sonnet 3 → Opus 4.7 + Mythos preview)
@@ -55,7 +55,7 @@ Elle est aussi la source canonique sur :
 3. Anti-pattern : encoder dans des hooks la structure d'un repo, des paths, des patterns workflow — ils deviennent obsolètes au prochain refacto
 4. Pattern correct : **hooks = lint / security / scope** uniquement, **JAMAIS workflow**
 
-Cette doctrine a été **appliquée le 22 mai 2026** sur les repos Neoteem (cf. [[raisonnement-22mai-doctrine-vs-enforcement]] et [[session-22mai-refonte-hooks]]).
+Cette doctrine a été **appliquée le 22 mai 2026** sur les repos Neoteem (cf. [[raisonnement-22mai-doctrine-vs-enforcement]] et note `session-22mai-refonte-hooks` à créer).
 
 ### 2. Catégorie 5 des 9 catégories Thariq — "Harness Engineering / Scaffolding"
 
@@ -108,7 +108,7 @@ La doctrine Lisa Crofoot a directement déclenché la **refonte du 22 mai 2026**
 - **Suppression de 7 hooks workflow** par repo (ia_back, neo_ia)
 - Rétablissement de la règle : hooks = **lint/security/scope** UNIQUEMENT, JAMAIS workflow
 - Révision de `feedback_enforce_not_advise` (chantier 22 mai)
-- Voir [[raisonnement-22mai-doctrine-vs-enforcement]] et [[session-22mai-refonte-hooks]]
+- Voir [[raisonnement-22mai-doctrine-vs-enforcement]] et note `session-22mai-refonte-hooks` (à créer)
 
 ## CORRECTIONS D'ATTRIBUTION (chantier 22 mai 2026)
 

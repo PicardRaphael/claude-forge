@@ -10,7 +10,7 @@ aliases:
   - living specification
 domaine: development
 type: technique
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 sources:
   - "https://www.dbreunig.com/2026/03/04/the-spec-driven-development-triangle.html"
   - "https://github.com/dbreunig/plumb"
@@ -96,6 +96,6 @@ Actuellement au niveau **spec-first** (Böckeler). Évolution vers spec-anchored
 - [[MOC-Techniques]]
 - [[pattern-spec-driven-development]]
 - [[pattern-spec-skill-deployment]]
-- [[Drew Breunig]]
+- Drew Breunig — créateur SDD triangle + outil Plumb (fiche à créer)
 - [[Birgitta Böckeler]]
-- [[Heeki Park]]
+- Heeki Park (AWS) — auteur Medium SDD avec Claude Code (fiche à créer)

@@ -377,7 +377,7 @@ Aliases déclarés en frontmatter (10) :
 - [[skill-creator]] — agent forge dédié
 - [[devils-advocate-pipeline]] — rule DA après création
 - [[forge-brain-proactive]] — rule vault check
-- [[check-before-create]] — rule pré-création
+- `.claude/rules/check-before-create.md` — rule pré-création (hors vault)
 
 ---
 

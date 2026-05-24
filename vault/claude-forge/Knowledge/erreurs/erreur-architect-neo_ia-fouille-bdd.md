@@ -8,7 +8,7 @@ aliases:
   - repo-scope-guard origine
   - bdd interdit neo_ia
 resume: L'architect agent de neo_ia est allé fouiller dans le repo bdd voisin alors que sa source de vérité externe doit être ia_back uniquement, le contexte BDD passant par le MCP neo-brain-dev-ia
-derniere-maj: 2026-05-21
+derniere-maj: 2026-05-24
 tags:
   - "#type/erreur"
   - "#erreur/agent"
@@ -31,18 +31,18 @@ Pendant une session sur neo_ia, l'architect agent a commencé à explorer le rep
 
 ## La solution déployée (2026-05-21)
 
-Triple couverture (pattern [[enforce-not-advise]]) :
+Triple couverture (pattern feedback : enforce-not-advise) :
 
 ### 1. Rule `repo-scope.md`
 `neo_ia/.claude/rules/repo-scope.md` — frontière déclarée. neo_ia + ia_back = libres ; tous les autres repos voisins = bloqués par défaut. Autorisation par phrase naturelle dans le prompt ("autorisé bdd", "regarde bdd", "check bdd", "accès bdd").
 
 ### 2. Patch top-of-file de `architect.md`
-Section `## ⛔ SCOPE REPO — RÈGLE ABSOLUE` insérée ligne 22 (avant ligne 25, voir [[critical-instructions-top-of-file]]) — rappel explicite que bdd est interdit, contexte BDD = MCP neo-brain-dev-ia.
+Section `## ⛔ SCOPE REPO — RÈGLE ABSOLUE` insérée ligne 22 (avant ligne 25, voir feedback : critical-instructions-top-of-file) — rappel explicite que bdd est interdit, contexte BDD = MCP neo-brain-dev-ia.
 
 ### 3. Trois hooks Python
 - `auth-detector.py` (UserPromptSubmit) — regex sur le prompt, pose marker `.claude/.repo-auth-<repo>` (whitelist dynamique = dossiers réels de neot-v2/)
 - `repo-scope-guard.py` (PreToolUse sur Read|Grep|Glob|Bash|Write|Edit|MultiEdit) — résout path absolu via `pathlib.Path.resolve()`, bloque exit 2 si repo hors scope ET marker absent
-- `auth-cleanup.py` (SessionStart) — supprime tous les markers au démarrage (PAS de TTL, [[marker-ttl-antipattern]])
+- `auth-cleanup.py` (SessionStart) — supprime tous les markers au démarrage (PAS de TTL, feedback : marker-ttl-antipattern)
 
 ## Pattern réutilisable
 
@@ -70,9 +70,9 @@ Cette solution est composée à partir de trois patterns vault existants :
 - [[delegate-guard-pattern]]
 - [[prompt-rewriter-pattern]]
 - [[workflow-claude-code-optimal]]
-- [[marker-ttl-antipattern]]
-- [[critical-instructions-top-of-file]]
-- [[enforce-not-advise]]
+- feedback : marker-ttl-antipattern
+- feedback : critical-instructions-top-of-file
+- feedback : enforce-not-advise
 - [[erreur-advisory-rules-insuffisantes]]
 - [[neo_ia]]
 
@@ -80,4 +80,4 @@ Cette solution est composée à partir de trois patterns vault existants :
 
 L'erreur n'était pas dans l'architect (il a fait son job, il a cherché du contexte). L'erreur était dans la **config de l'agent** : on lui a donné Read+Grep+Bash sans définir où il a le droit de regarder. Quand un agent fait quelque chose qu'on ne veut pas, le bon réflexe = chercher quel garde-fou manque, pas blâmer l'agent.
 
-Devil's advocate a aussi soulevé pendant cette même session que le hook `vault-before-specialist.py` de claude-forge a un TTL 60min qui viole [[marker-ttl-antipattern]] — dette notée pour session dédiée.
+Devil's advocate a aussi soulevé pendant cette même session que le hook `vault-before-specialist.py` de claude-forge a un TTL 60min qui viole feedback : marker-ttl-antipattern — dette notée pour session dédiée.

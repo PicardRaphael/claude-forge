@@ -448,7 +448,7 @@ Aliases déclarés en frontmatter (10) :
 ### Fiches leaders (à créer)
 - [[Birgitta Böckeler]]
 - [[Mitchell Hashimoto]]
-- [[Trail of Bits config publique]]
+- Trail of Bits config publique — note canonique forge sur leur setup (à créer)
 
 ### Knowledge / erreurs / refs
 - [[raisonnement-22mai-doctrine-vs-enforcement]]

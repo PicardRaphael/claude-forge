@@ -422,7 +422,7 @@ Aliases déclarés en frontmatter (10) :
 - [[Brad Abrams]]
 - [[Noah Zweben]]
 - [[Daisy Hollman]]
-- [[Fiona Fung]]
+- Fiona Fung (Head of Engineering Anthropic) — fiche à créer
 - [[Jeremy Hadfield]]
 - [[Erik Schluntz]]
 - [[Birgitta Böckeler]]

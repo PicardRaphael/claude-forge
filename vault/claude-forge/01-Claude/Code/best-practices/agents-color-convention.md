@@ -9,7 +9,7 @@ aliases:
   - "palette agents"
   - "color standard agents"
 type: best-practice
-derniere-maj: 2026-05-21
+derniere-maj: 2026-05-24
 auteur: claude
 tags:
   - "#type/best-practice"
@@ -46,7 +46,7 @@ Standard appliqué sur tous les repos Neoteem (claude-forge, ia_back, neo_ia).
 
 ## Contexte
 
-Adopté le 2026-05-21 après constat que les couleurs étaient incohérentes entre repos (architect purple/blue, test-writer green/yellow). Le problème était visible dans [[Claude-Desktop]] : les tâches en arrière-plan affichent un point coloré mais pas le nom de l'agent explicitement.
+Adopté le 2026-05-21 après constat que les couleurs étaient incohérentes entre repos (architect purple/blue, test-writer green/yellow). Le problème était visible dans [[Claude Desktop]] : les tâches en arrière-plan affichent un point coloré mais pas le nom de l'agent explicitement.
 
 ## Liens
 

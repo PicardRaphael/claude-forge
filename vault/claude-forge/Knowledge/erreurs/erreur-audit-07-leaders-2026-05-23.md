@@ -6,7 +6,7 @@ aliases:
   - "erreur audit thématique leaders modeles industrie"
   - "audit 07 2026-05-23"
 type: erreur
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 tags:
   - "#type/erreur"
@@ -93,7 +93,7 @@ Autres cas : Sutskever CEO SSI depuis juillet 2025 (pas 2024), Edward Hu statut 
 
 Détectés : Harrison Chase (agents+rag), Jerry Liu (agents+rag), Ethan Mollick (industrie+prompt), Hashimoto (claude-code+agents).
 
-**Décision** : marquer canonique vs doublon plutôt que supprimer (préserve backlinks `[[Name]]` wikilink resolution Obsidian).
+**Décision** : marquer canonique vs doublon plutôt que supprimer (préserve backlinks wikilink resolution Obsidian, format `[[Nom-leader]]`).
 
 **Pattern à éviter** : avant de créer une fiche leader dans un dossier domaine, vérifier qu'elle n'existe pas dans un autre dossier domaine. Si oui, mettre canonique dans le dossier du scope **primaire** du leader (LangChain Harrison Chase = agents, pas RAG).
 

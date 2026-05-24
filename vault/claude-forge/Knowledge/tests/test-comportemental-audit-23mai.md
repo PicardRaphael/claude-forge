@@ -7,7 +7,7 @@ aliases:
   - "behavioral test audit 23mai"
   - "validation doctrine post-pivot"
   - "test 6 corrections doctrinales"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 type: test
 tags:
@@ -99,7 +99,7 @@ grep -l "Angela Jiang\|25+ events\|max déprécié\|Init.*Opus.*Coding.*Sonnet\|
 - [[Brad Abrams]]
 - [[Justin Young]]
 - [[Simon Willison]]
-- [[Mario Rodriguez]]
+- Mario Rodriguez (GitHub CPO) — fiche à créer
 - [[Cat Wu]]
 - [[Boris Cherny]]
 

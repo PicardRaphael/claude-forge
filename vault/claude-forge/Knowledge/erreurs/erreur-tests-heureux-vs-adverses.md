@@ -7,7 +7,7 @@ aliases:
   - tests PASS faux validation
   - cas adverses non testes
 resume: J'ai proclamé "tests 8/8 PASS validés" sur le hook repo-scope-guard alors que je n'avais testé que des cas évidents (Read bdd direct) sans tester les bypass (Glob pattern, Write/Edit, Bash exotique). Le DA a trouvé 3 bloquants en lisant le code.
-derniere-maj: 2026-05-21
+derniere-maj: 2026-05-24
 tags:
   - "#type/erreur"
   - "#erreur/process"
@@ -68,13 +68,13 @@ En vérifiant les tests, j'ai aussi commis l'erreur de capturer l'exit code via 
 
 ## Liens
 
-- [[claim-security-must-be-provable]]
-- [[test-everything]]
-- [[verify-exhaustive-claims]]
-- [[audit-claims-after-brief]]
+- feedback : claim-security-must-be-provable
+- feedback : test-everything
+- feedback : verify-exhaustive-claims
+- feedback : audit-claims-after-brief
 - [[erreur-architect-neo_ia-fouille-bdd]]
 - [[erreur-vault-before-specialist-ttl-scope]]
-- [[enforce-not-advise]]
+- feedback : enforce-not-advise
 
 ## Méta — leçon Jarvis renforcée
 

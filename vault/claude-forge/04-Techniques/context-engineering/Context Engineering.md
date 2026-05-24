@@ -10,7 +10,7 @@ aliases:
   - "context engineering 2026"
 domaine: technique
 type: technique
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://x.com/karpathy/status/1937902205765607626"
@@ -54,7 +54,7 @@ Le chiffre "sweet spot 150-300 mots" cité dans des guides tiers (The AI Corner 
 
 ## Leak Claude Code — révélation d'architecture
 
-Le leak du code source Claude Code (31 mars 2026, **512K+ lignes / 1900 fichiers TypeScript, 59.8 MB source map**) a révélé l'architecture de context engineering Anthropic : assemblage dynamique conditionnel du system prompt, deferred tools, compaction. Voir [[claude-code-source-leak]].
+Le leak du code source Claude Code (31 mars 2026, **512K+ lignes / 1900 fichiers TypeScript, 59.8 MB source map**) a révélé l'architecture de context engineering Anthropic : assemblage dynamique conditionnel du system prompt, deferred tools, compaction. Voir note `claude-code-source-leak` (à créer).
 
 ## Liens
 

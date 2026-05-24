@@ -70,5 +70,5 @@ Hors de son scope : règle 4+ sources comme tout externe.
 - [[Amanda Askell]] — pendant Anthropic
 - [[Elvis Saravia]] — pendant DAIR.AI / promptingguide.ai
 - [[Riley Goodside]] — historique prompt engineering
-- [[The Prompt Report]]
+- The Prompt Report — note dédiée (à créer)
 - [[MOC-Leaders]]
