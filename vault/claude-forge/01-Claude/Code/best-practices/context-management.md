@@ -1,15 +1,16 @@
 ---
 titre: "Context Management Claude Code — /clear, /compact, compaction, subagents"
 resume: "Gestion du contexte Claude Code — le context window est la contrainte fondamentale, patterns /clear et /compact, 3 primitives de compaction, subagents pour isolation"
-aliases: ["context management claude code", "gestion contexte claude code", "clear compact compaction subagents", "session management claude code", "context window claude code", "compaction threshold", "auto compact claude code", "context saturation signes"]
+aliases:
   - "context management CC"
   - "gestion contexte claude code"
   - "context engineering CC"
   - "/clear /compact guide"
   - "compaction claude code"
+  - "session management claude code"
 domaine: claude-code
 type: technique
-derniere-maj: 2026-05-14
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"

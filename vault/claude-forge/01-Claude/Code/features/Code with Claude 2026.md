@@ -1,14 +1,15 @@
 ---
 titre: "Code with Claude 2026 — Résumé conférence Anthropic (6 mai 2026)"
 resume: "Conférence développeur Anthropic SF : SpaceX Colossus (220K GPUs, limites doublées), Dreaming, Outcomes (grader séparé), Multi-agent orchestration (lead→specialists), Routines (cron cloud). Pas de nouveau modèle"
-aliases: ["code with claude 2026", "code with claude SF", "anthropic developer conference 2026", "code with claude announcements", "CwC 2026", "code with claude london", "task horizon", "higher order prompts", "keynote anthropic mai 2026", "cwc london 2026", "cwc sf 2026"]
+aliases:
   - "code with claude 2026"
   - "code with claude SF"
   - "anthropic developer conference 2026"
   - "code with claude announcements"
   - "CwC 2026"
+  - "cwc london 2026"
 type: feature
-derniere-maj: 2026-05-11
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://www.youtube.com/watch?v=0ZyqYPBQ7nc"

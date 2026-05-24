@@ -8,14 +8,15 @@ aliases:
   - "createur DPO"
 role: "PhD Researcher"
 affiliation: "Stanford University"
-derniere-maj: 2026-05-15
+derniere-maj: 2026-05-24
 auteur: claude
-sources: []
+sources:
+  - "https://arxiv.org/abs/2305.18290"
+  - "https://cs.stanford.edu/people/rafailov/"
 tags:
   - "#type/leader"
   - "#domaine/fine-tuning"
 ---
-
 ## Profil
 
 Chercheur a Stanford, premier auteur du papier DPO (Direct Preference Optimization, 2023). DPO est devenu la methode d'alignment dominante, remplacant RLHF dans la plupart des pipelines.

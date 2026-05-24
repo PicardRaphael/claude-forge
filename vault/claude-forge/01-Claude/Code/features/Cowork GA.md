@@ -7,13 +7,13 @@ aliases:
   - "cowork GA"
   - "claude desktop pro"
   - "cowork enterprise"
-type: knowledge
-derniere-maj: 2026-05-08
+type: feature
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://9to5mac.com/2026/04/09/anthropic-scales-up-with-enterprise-features-for-claude-cowork-and-managed-agents/"
 tags:
-  - "#type/knowledge"
+  - "#type/feature"
   - "#domaine/industrie"
 ---
 

@@ -13,16 +13,17 @@ aliases:
 role: "Co-founder & Head of Post-Training, Nous Research"
 domaine: ia
 type: leader
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-24
 auteur: claude
-sources: []
+sources:
+  - "https://x.com/Teknium1"
+  - "https://nousresearch.com/"
 tags:
   - "#type/leader"
   - "#domaine/ia"
   - "#domaine/fine-tuning"
   - "#domaine/open-source"
 ---
-
 ## Profil
 
 Co-fondateur et Head of Post-Training chez Nous Research. Pseudonyme. Ex-Stability AI.

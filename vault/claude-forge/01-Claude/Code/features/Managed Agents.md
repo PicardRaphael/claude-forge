@@ -7,13 +7,13 @@ aliases:
   - "managed agents beta"
   - "agents geres"
   - "anthropic cloud agents"
-type: knowledge
-derniere-maj: 2026-05-08
+type: feature
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://siliconangle.com/2026/04/08/anthropic-launches-claude-managed-agents-speed-ai-agent-development/"
 tags:
-  - "#type/knowledge"
+  - "#type/feature"
   - "#domaine/industrie"
 ---
 

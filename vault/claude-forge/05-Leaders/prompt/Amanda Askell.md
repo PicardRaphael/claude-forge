@@ -8,14 +8,15 @@ aliases:
   - "askell anthropic"
 role: "Researcher — Alignment & Character"
 affiliation: "Anthropic"
-derniere-maj: 2026-05-15
+derniere-maj: 2026-05-24
 auteur: claude
-sources: []
+sources:
+  - "https://x.com/AmandaAskell"
+  - "https://www.anthropic.com/team/amanda-askell"
 tags:
   - "#type/leader"
   - "#domaine/prompt-engineering"
 ---
-
 ## Profil
 
 Chercheuse chez Anthropic. Experte en alignment, character design, et prompt engineering. Autrice des principes de design du system prompt Claude (TDD prompts, anti-filler, disposition vs regles). Formatrice interne Anthropic sur le prompting avance.

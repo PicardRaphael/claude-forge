@@ -24,9 +24,7 @@ tags:
 type: leader
 ---
 
-## ⚠️ FICHE DOUBLON — voir canonique [[Harrison Chase]] (agents/)
-
-Cette fiche est conservée pour le contexte RAG. La fiche **canonique** est `05-Leaders/agents/Harrison Chase.md` (scope primaire = agents/LangGraph). Décision audit thème 07 (23 mai 2026).
+> **Fiche canonique.** Doublon contextuel agents/ : `05-Leaders/agents/Harrison Chase.md` (inversion 24 mai 2026 — cette fiche est plus complète).
 
 ## Profil
 

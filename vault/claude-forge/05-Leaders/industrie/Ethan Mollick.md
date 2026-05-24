@@ -12,8 +12,10 @@ aliases:
   - "practical AI adoption"
 role: "Associate Professor"
 affiliation: "Wharton School, University of Pennsylvania"
-derniere-maj: 2026-05-08
+derniere-maj: 2026-05-24
 auteur: claude
+statut: doublon
+canonique: "[[Ethan Mollick]]"
 sources:
   - "https://www.oneusefulthing.org/"
 tags:
@@ -22,6 +24,10 @@ tags:
   - "#domaine/agents"
 type: ""
 ---
+
+## ⚠️ FICHE DOUBLON — voir canonique [[Ethan Mollick]] (prompt/)
+
+Cette fiche est conservée pour le contexte industrie/workplace AI. La fiche **canonique** est `05-Leaders/prompt/Ethan Mollick.md` (plus complète). Inversion audit 24 mai 2026.
 
 ## Profil
 

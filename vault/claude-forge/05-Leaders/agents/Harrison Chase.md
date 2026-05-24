@@ -12,8 +12,10 @@ aliases:
   - "agent orchestration"
 role: "Fondateur & CEO LangChain"
 affiliation: "LangChain"
-derniere-maj: 2026-05-08
+derniere-maj: 2026-05-24
 auteur: claude
+statut: doublon
+canonique: "[[Harrison Chase]]"
 sources:
   - "https://blog.langchain.com"
   - "https://sequoiacap.com/podcast/training-data-harrison-chase/"
@@ -23,6 +25,10 @@ tags:
   - "#domaine/rag"
 type: leader
 ---
+## ⚠️ FICHE DOUBLON — voir canonique [[Harrison Chase]] (rag/)
+
+Cette fiche est conservée pour le contexte agents/LangGraph. La fiche **canonique** est `05-Leaders/rag/Harrison Chase.md` (plus complète). Inversion audit 24 mai 2026.
+
 ## Profil
 
 Fondateur & CEO de LangChain (oct 2022). Harvard alumnus. DeepLearning.AI instructor. Host conférence **Interrupt 2026** (Agent Conference). Son premier prototype GPT (début 2022) était déjà du RAG — chat avec données Notion/Slack.

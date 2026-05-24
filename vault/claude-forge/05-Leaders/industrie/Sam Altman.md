@@ -12,15 +12,16 @@ aliases:
   - "AI commercialization"
 role: "CEO OpenAI"
 affiliation: "OpenAI"
-derniere-maj: 2026-05-08
+derniere-maj: 2026-05-24
 auteur: claude
-sources: []
+sources:
+  - "https://x.com/sama"
+  - "https://openai.com/blog"
 tags:
   - "#type/leader"
   - "#domaine/industrie"
 type: ""
 ---
-
 ## Profil
 
 CEO d'OpenAI. Figure la plus médiatisée de l'industrie IA.

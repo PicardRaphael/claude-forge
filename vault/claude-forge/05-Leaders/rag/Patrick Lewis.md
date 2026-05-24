@@ -8,14 +8,15 @@ aliases:
   - "auteur papier RAG"
 role: "Research Scientist"
 affiliation: "Cohere (ex-Meta AI)"
-derniere-maj: 2026-05-15
+derniere-maj: 2026-05-24
 auteur: claude
-sources: []
+sources:
+  - "https://arxiv.org/abs/2005.11401"
+  - "https://cohere.com"
 tags:
   - "#type/leader"
   - "#domaine/rag"
 ---
-
 ## Profil
 
 Co-auteur du papier fondateur "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks" (2020, Meta AI / FAIR). Pionnier du paradigme RAG. Actuellement chez Cohere.

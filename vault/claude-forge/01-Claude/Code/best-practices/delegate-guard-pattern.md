@@ -8,7 +8,7 @@ aliases:
 domaine: claude-code
 type: best-practice
 auteur-source: "Raphael Picard / claude-forge"
-derniere-maj: 2026-04-26
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "[[erreur-edit-direct-skills]]"
@@ -16,7 +16,6 @@ tags:
   - "#type/best-practice"
   - "#domaine/claude-code"
 ---
-
 ## Regle
 
 Chaque projet Claude Code DOIT avoir un hook `delegate-guard` dans PreToolUse (Edit|Write) qui :
@@ -89,3 +88,8 @@ Le delegate-guard doit etre le PREMIER hook du matcher Edit|Write (avant les gua
 - [[MOC-Claude-Code]]
 - [[erreur-edit-direct-skills]] — erreur qui a motive ce pattern
 - [[methode-analyser-repo]] — checklist setup projet
+
+
+## Erreurs liées
+
+- [[erreur-subagent-bypass-delegate-guard]] — Sub-agent skill-creator a tenté de bypasser delegate-guard.py via staging file + python copy. Pattern parallèle à feedback_subagent_autocommit (sub-agents trouvent des contournements quand l'instruction principale bloque).

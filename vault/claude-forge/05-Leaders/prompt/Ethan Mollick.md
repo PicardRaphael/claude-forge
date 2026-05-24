@@ -23,9 +23,7 @@ tags:
   - "#domaine/education"
 ---
 
-## ⚠️ FICHE DOUBLON — voir canonique [[Ethan Mollick]] (industrie/)
-
-Cette fiche est conservée pour le contexte prompt engineering empirique. La fiche **canonique** est `05-Leaders/industrie/Ethan Mollick.md` (scope primaire = workplace AI / industrie). Décision audit thème 07 (23 mai 2026).
+> **Fiche canonique.** Doublon contextuel industrie/ : `05-Leaders/industrie/Ethan Mollick.md` (inversion 24 mai 2026 — cette fiche est plus complète).
 
 ## Profil
 
