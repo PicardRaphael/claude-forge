@@ -12,7 +12,7 @@ aliases:
   - "configuration CLAUDE.md"
   - "200 lignes CLAUDE.md"
   - "anti-patterns CLAUDE.md"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 type: technique
 sources:
@@ -21,6 +21,7 @@ sources:
   - "Pragmatic Engineer interview Boris Cherny"
   - "Code with Claude London keynote 19 mai 2026"
   - "github.com/anthropics/claude-for-legal/CLAUDE.md"
+  - "github.com/multica-ai/andrej-karpathy-skills (ex-forrestchang) — distillation Karpathy 100K+ stars"
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
@@ -31,6 +32,55 @@ tags:
 # Comment écrire un CLAUDE.md parfait
 
 > Note canonique forge — doctrine Anthropic mai 2026, validée verbatim sur sources officielles.
+
+---
+
+## 5 LIGNES D'OUVERTURE OBLIGATOIRES — top de tout CLAUDE.md forge
+
+**Règle absolue depuis 24 mai 2026** : tout CLAUDE.md écrit sous gouvernance forge (claude-forge, ia_back, neo_ia, neoteem-brain, bdd, lojii, etc.) DOIT commencer par ces 5 lignes verbatim, AVANT toute autre section (avant même les "Critiques < ligne 25") :
+
+```markdown
+- Si ambigu : Demande. Ne choisis pas en silence.
+- Diff minimal. Touche uniquement ce qui est demandé.
+- Définis <done> avant de commencer (1 ligne suffit).
+- Vérifie dans le code latest. Jamais d'hypothèse.
+- Code minimum ; pas de feature spéculative.
+```
+
+**Pourquoi ces 5 lignes spécifiquement** : condensation francophone des 4 principes Karpathy (Think Before / Simplicity First / Surgical Changes / Goal-Driven Execution) + extension forge "vérifie le code latest" (anti-hypothèse-mémoire-stale, cf [[feedback_gotchas_line_numbers_verifies]]).
+
+Karpathy verbatim 26 janvier 2026 :
+> *"They don't manage their confusion, don't seek clarifications, don't surface inconsistencies, don't present tradeoffs, don't push back when they should. They really like to overcomplicate code and APIs, bloat abstractions, don't clean up dead code... implement a bloated construction over 1000 lines when 100 would do."*
+
+Ces 5 lignes sont la contre-mesure directe à ce pattern.
+
+### Mapping forge ⨯ Karpathy
+
+| Ligne forge | Principe Karpathy origine | Verbatim source |
+|-------------|---------------------------|-----------------|
+| Si ambigu : Demande | §1 Think Before Coding | *"If unclear, stop. Name what's confusing. Ask."* |
+| Diff minimal | §3 Surgical Changes | *"Every changed line should trace directly to the user's request."* |
+| Définis `<done>` avant de commencer | §4 Goal-Driven Execution | *"Define success criteria. Loop until verified."* |
+| Vérifie le code latest | Extension forge | Anti-doctrine-drift + anti-mémoire-stale (spécifique forge) |
+| Code minimum, pas de feature spéculative | §2 Simplicity First | *"Minimum code that solves the problem. Nothing speculative."* |
+
+### Source virale
+
+[multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) (ex-`forrestchang/andrej-karpathy-skills`) — repo 100K+ stars Q1 2026, distillé par Forrest Chang à partir des observations Karpathy publiées le 26 janvier 2026. Pic viral : 5 828 stars en une journée (13 avril 2026), 2e repo le plus starré de la planète ce jour-là.
+
+**NB importante** : pas endorsé personnellement par Karpathy publiquement — fan project. Mais devenu la référence communautaire de facto, citée même par Anthropic en interne (Code with Claude London 19 mai 2026).
+
+### Pourquoi en TÊTE (avant les Critiques < ligne 25)
+
+Les 5 lignes Karpathy adressent des **failure modes universels** (silent assumptions, overcomplication, edits adjacents) qui se manifestent AVANT que Claude lise la section "Critiques". Les placer en tête = première chose lue = première chose appliquée. Les critiques projet-spécifiques (auto-mode classifier, MCP forge-brain, etc.) restent juste après mais conservent leur garantie < ligne 25.
+
+### Anti-pattern à éviter
+
+❌ **Paraphraser ces 5 lignes** "pour adapter au projet" — la formulation forge est calibrée. Modifier le wording = perdre le signal. Soit on les met verbatim, soit on les omet (et on explique pourquoi).
+
+❌ **Ajouter des lignes 6, 7, 8** au même bloc — 5 lignes = limite cognitive d'ouverture. Si plus de règles universelles émergent, créer un nouveau bloc plus bas, pas étendre celui-ci.
+
+❌ **Les mettre après une intro projet** — perd l'effet "première chose lue". Avant tout, sauf le titre H1 et la phrase-résumé du projet.
 
 ---
 
