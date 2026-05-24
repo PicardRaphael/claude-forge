@@ -137,6 +137,44 @@ def test_legitimate_vault_path_excluded() -> None:
     assert_passes("vault path excluded from scope", content, path=path)
 
 
+# --- Option E lookahead syntactic tests (added 2026-05-24 after DA on FP) ---
+
+def test_legitimate_source_code_reference_backtick() -> None:
+    """Source : `path/file.py` — code reference must pass (backtick lookahead)."""
+    content = "Référence : `packages/shared_utils/engine/interrupts.py`.\nSource : `path/to/file.py`\n"
+    assert_passes("Source : `code` reference", content)
+
+
+def test_legitimate_source_enum_format() -> None:
+    """Source : [MCP | Schema | CSV] — directive format must pass (bracket lookahead)."""
+    content = "Source : [MCP | Schema | CSV]\n"
+    assert_passes("Source : [enum|format] directive", content)
+
+
+def test_legitimate_source_placeholder() -> None:
+    """Source : <fichier> — placeholder must pass (chevron lookahead)."""
+    content = "Source : <fichier-source>\n"
+    assert_passes("Source : <placeholder>", content)
+
+
+def test_adversarial_source_wikilink_attribution() -> None:
+    """Source : [[wikilink]] = attribution wikilink — must block (double-bracket)."""
+    content = "Appliquer X.\nSource : [[karpathy-pattern]]\n"
+    assert_blocks("Source : [[wikilink]] attribution", content)
+
+
+def test_adversarial_source_url_attribution() -> None:
+    """Source : https://... = URL attribution — must block."""
+    content = "Appliquer X.\nSource : https://example.com/doc\n"
+    assert_blocks("Source : URL attribution", content)
+
+
+def test_adversarial_source_author_name() -> None:
+    """Source : Karpathy = free-text author attribution — must block."""
+    content = "Appliquer X.\nSource : Karpathy\n"
+    assert_blocks("Source : Karpathy free text", content)
+
+
 # --- Bypass attempt ---
 
 def test_bypass_python_comment_with_source() -> None:
@@ -194,6 +232,13 @@ if __name__ == "__main__":
         test_legitimate_vault_path_excluded,
         test_bypass_python_comment_with_source,
         test_scope_detection,
+        # Option E lookahead syntactic tests (2026-05-24)
+        test_legitimate_source_code_reference_backtick,
+        test_legitimate_source_enum_format,
+        test_legitimate_source_placeholder,
+        test_adversarial_source_wikilink_attribution,
+        test_adversarial_source_url_attribution,
+        test_adversarial_source_author_name,
     ]
 
     for test_fn in tests:

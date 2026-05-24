@@ -17,6 +17,17 @@ import sys
 from pathlib import Path
 
 
+# Hook scope: only files inside claude-forge (parent of .claude/hooks/)
+FORGE_PROJECT_DIR = str(Path(__file__).resolve().parent.parent.parent).replace("\\", "/").lower()
+
+
+def is_inside_forge(path: str) -> bool:
+    """True if file is inside the claude-forge project directory."""
+    norm = path.replace("\\", "/").lower()
+    return norm.startswith(FORGE_PROJECT_DIR)
+
+
+
 # ---------------------------------------------------------------------------
 # File scope
 # ---------------------------------------------------------------------------
@@ -30,7 +41,11 @@ EXCLUDED_PREFIXES = (
     "references/",
     "references\\",
 )
-EXCLUDED_SUFFIXES = ("RECAP.md", "recap.md", "CHANGELOG.md", "changelog.md")
+EXCLUDED_SUFFIXES = (
+    "RECAP.md", "recap.md", "CHANGELOG.md", "changelog.md",
+    "meta-commentary-detector.py",
+    "test_meta_commentary_detector.py",
+)
 
 # Files that MUST be scanned — scope match (after exclusions pass)
 SCOPED_PATTERNS = (
@@ -99,8 +114,13 @@ PATTERNS: list[tuple[str, re.Pattern]] = [
     ("italicized-tradeoff", re.compile(
         r"(?m)^[ \t]*-[ \t]+.+\n[ \t]*\*[^*\n]{20,}\*[ \t]*$"
     )),
-    # 2a. Source: label
-    ("source-label", re.compile(r"(?m)^\s*Source\s*:", re.IGNORECASE)),
+    # 2a. Source: label - lookahead syntactic: blocks free-text attributions only
+    #     Allows: backtick code, <placeholder>, {var}, [enum|format]
+    #     Blocks: Karpathy, Boris Cherny, [[wikilink]], https://url
+    ("source-label", re.compile(
+        r"(?m)^[ \t]*Source\s*:[ \t]+(?![`<{]|\[(?!\[))",
+        re.IGNORECASE
+    )),
     # 2b. Cf doctrine
     ("cf-doctrine", re.compile(r"\bCf doctrine\b", re.IGNORECASE)),
     # 2c. D'après (straight apostrophe, typographic left/right)
@@ -417,6 +437,10 @@ def main() -> None:
         file_path = tool_input.get("file_path", "")
 
         if not file_path:
+            sys.exit(0)
+
+        # Cross-repo guard: only enforce within claude-forge
+        if not is_inside_forge(file_path):
             sys.exit(0)
 
         if not is_in_scope(file_path):
