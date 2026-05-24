@@ -1,7 +1,7 @@
 ---
 name: done
 description: End-of-session metacognition -- extracts decisions, facts, preferences, and errors from the current conversation, updates vault and memory automatically. Use when the user types /done or at session end.
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__create_note, mcp__forge-brain__append_note, mcp__forge-brain__update_property
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__*
 user-invokable: true
 ---
 

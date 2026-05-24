@@ -3,7 +3,7 @@ name: skill-evolve
 description: Analyzes a Claude Code SKILL.md effectiveness and proposes concrete improvements based on execution patterns, cross-pollination with other skills, and vault techniques. Use when optimizing a skill, running a maintenance sweep, or when the user says "evolve skill", "améliore la skill", "skill-evolve", or "sweep skills".
 argument-hint: "[skill-name | all]"
 user-invokable: true
-allowed-tools: Read, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note
+allowed-tools: Read, Glob, Grep, Bash, mcp__forge-brain__*
 model: sonnet
 effort: high
 ---

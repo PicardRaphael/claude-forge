@@ -545,3 +545,61 @@ Déployé 24 mai 2026 sur 15 sub-agents (9 neo_ia + 5 ia_back + 1 forge devils-a
 - [GitHub issue #18721 AskUserQuestion subagent limitation](https://github.com/anthropics/claude-code/issues/18721)
 - [[anti-reentrance-sub-agents-pattern-escalade]] — pattern jumeau hors-scope
 - [[pattern-spec-driven-development]] — workflow Thariq interview AskUserQuestion (en SESSION PRINCIPALE)
+
+
+---
+
+## AJOUT 24 mai 2026 (suite) — Wildcard MCP `mcp__server__*` dans `tools:`
+
+**Verbatim Anthropic docs** ([code.claude.com/docs/en/permissions](https://code.claude.com/docs/en/permissions) section MCP) :
+
+> * `mcp__puppeteer` matches any tool provided by the `puppeteer` server
+> * `mcp__puppeteer__*` wildcard syntax that also matches all tools from the `puppeteer` server
+> * `mcp__puppeteer__puppeteer_navigate` matches the `puppeteer_navigate` tool provided by the `puppeteer` server
+
+### Application forge
+
+Au lieu de lister explicitement chaque outil MCP forge-brain (21 outils en mai 2026 — search_brain, read_note, list_notes, find_by_property, get_backlinks, get_tags, vault_stats, lint_vault, read_section, read_note_resolved, get_property, create_note, append_note, insert_section, update_note, update_property, bulk_update_property, move_note, delete_note, usage_stats, read_note_by_path), utiliser **un seul token wildcard** :
+
+```yaml
+# ❌ AVANT (restrictif, oublie potentiel)
+tools: Read, Write, Edit, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__get_backlinks
+
+# ✅ APRÈS (wildcard syntaxe Anthropic officielle)
+tools: Read, Write, Edit, Bash, mcp__forge-brain__*
+```
+
+### Avantages
+
+- **Pas d'oubli** : si Anthropic ajoute des outils au MCP, l'agent y accède automatiquement
+- **Plus court** : 1 token au lieu de 7-10 (gain frontmatter token budget)
+- **Sémantiquement plus juste** : "cet agent peut interagir avec le vault" plutôt que "cet agent peut faire ces 3 actions précises"
+
+### Quand préférer le wildcard `mcp__server__*`
+
+- Sub-agent qui doit lire ET écrire dans le vault (ex: vault-maintainer)
+- Sub-agent qui pourrait nécessiter outil non anticipé au moment de l'écriture (la majorité)
+- Skill /spec ou /done qui orchestre plusieurs étapes vault
+
+### Quand préférer la liste explicite
+
+- Sub-agent **read-only** sur le vault → lister uniquement `mcp__forge-brain__search_brain, mcp__forge-brain__read_note` (et ajouter `disallowedTools: Write, Edit` pour sécu)
+- Agent sécu-critique où chaque tool doit être justifié (ex: agent qui n'a PAS le droit de `delete_note`)
+- Documentation explicite "cet agent ne fait QUE X et Y"
+
+### Application 24 mai 2026
+
+Tous les 14 agents+skills forge convertis du listing explicite (3-7 tools) vers `mcp__forge-brain__*`. Gain principal : vault-maintainer (7 outils listés → 1 wildcard).
+
+### Wildcard pour d'autres MCP
+
+Pattern transposable à TOUT serveur MCP :
+- `mcp__context7__*` (au lieu de `mcp__context7__resolve-library-id, mcp__context7__query-docs`)
+- `mcp__docs-langchain__*`
+- `mcp__obsidian-brain__*` (neoteem-brain)
+- etc.
+
+### Sources
+
+- [Anthropic Permissions docs section MCP](https://code.claude.com/docs/en/permissions#mcp)
+- [Anthropic Permission rule syntax](https://code.claude.com/docs/en/permissions#permission-rule-syntax)

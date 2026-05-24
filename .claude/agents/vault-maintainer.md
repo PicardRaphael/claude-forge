@@ -1,7 +1,7 @@
 ---
 name: vault-maintainer
 description: Use PROACTIVELY after vault modifications, cc-news capitalisation, or note creation. Ensures forge-brain vault quality matches neoteem-brain standards. Input must include list of modified note paths or trigger context (after cc-news, after note creation).
-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__get_backlinks, mcp__forge-brain__get_property, mcp__forge-brain__update_property, mcp__forge-brain__list_notes, mcp__forge-brain__get_tags
+tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__*
 model: sonnet
 effort: high
 color: cyan

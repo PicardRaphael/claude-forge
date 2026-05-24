@@ -439,3 +439,42 @@ Quand auto-invocation reste à ~50% malgré description parfaite, hook `UserProm
 - [Why Claude Code Skills Don't Trigger](https://dev.to/lizechengnet/why-claude-code-skills-dont-trigger-and-how-to-fix-them-in-2026-o7h)
 - [[cowork-skills-reliability]] — checklist 9 étapes diagnostic
 - [Skills docs Anthropic](https://code.claude.com/docs/en/skills)
+
+
+---
+
+## AJOUT 24 mai 2026 (suite) — Wildcard MCP `mcp__server__*` dans `allowed-tools:`
+
+**Verbatim Anthropic docs** ([code.claude.com/docs/en/permissions](https://code.claude.com/docs/en/permissions) section MCP) :
+
+> * `mcp__puppeteer__*` wildcard syntax that also matches all tools from the `puppeteer` server
+
+### Application forge
+
+Pour skills qui accèdent au vault forge-brain, utiliser **wildcard** au lieu de lister 5-7 outils :
+
+```yaml
+# ❌ AVANT
+allowed-tools: Read, Write, Edit, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__create_note, mcp__forge-brain__append_note, mcp__forge-brain__update_property
+
+# ✅ APRÈS
+allowed-tools: Read, Write, Edit, Bash, mcp__forge-brain__*
+```
+
+### Bénéfices identiques aux agents
+
+- Pas d'oubli si MCP évolue (21 outils en mai 2026, plus à venir)
+- Token budget frontmatter optimisé
+- Sémantiquement plus juste
+
+### Application 24 mai 2026
+
+6 skills forge converties au wildcard : cc-news, done, reasoning-cache, forge-review, recap, skill-evolve. Plus la skill `/spec` (3 repos) qui avait déjà besoin d'accès large.
+
+### Voir aussi
+
+Section identique dans [[comment-creer-agent]] (AJOUT 24 mai suite) pour le champ `tools:` des agents — même syntaxe wildcard, même justification.
+
+### Sources
+
+- [Anthropic Permissions docs section MCP](https://code.claude.com/docs/en/permissions#mcp)
