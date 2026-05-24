@@ -1,6 +1,6 @@
 ---
 name: forge-brain
-allowed-tools: mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__get_backlinks, mcp__forge-brain__get_tags, mcp__forge-brain__get_property, mcp__forge-brain__list_notes, mcp__forge-brain__vault_stats, mcp__forge-brain__create_note, mcp__forge-brain__append_note, mcp__forge-brain__update_property
+allowed-tools: mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__read_note_resolved, mcp__forge-brain__get_backlinks, mcp__forge-brain__get_tags, mcp__forge-brain__get_property, mcp__forge-brain__find_by_property, mcp__forge-brain__list_notes, mcp__forge-brain__vault_stats, mcp__forge-brain__lint_vault, mcp__forge-brain__usage_stats, mcp__forge-brain__create_note, mcp__forge-brain__append_note, mcp__forge-brain__insert_section, mcp__forge-brain__update_note, mcp__forge-brain__update_property, mcp__forge-brain__bulk_update_property, mcp__forge-brain__move_note, mcp__forge-brain__delete_note
 description: Search, read, and write to the forge-brain Obsidian vault — persistent infinite memory for AI tools, techniques, prompts, industry news, mistakes, and everything learned. Use PROACTIVELY at session start, before creating any skill/agent/hook/prompt, before answering technical questions, after cc-news, and after significant mistakes. ALWAYS invoke when the user asks about vault content, past decisions, or knowledge base.
 ---
 
@@ -28,23 +28,60 @@ Knowledge base Obsidian de claude-forge. Stocke tout ce que j'apprends : Claude 
 Le MCP forge-brain (auto-start SessionStart, port 8091) est le SEUL moyen d'accès au vault.
 Ne JAMAIS utiliser la CLI Obsidian, Grep, Read ou Glob brut sur le vault.
 
-### Outils MCP
+### Outils MCP — Lecture
 
-| Outil | Usage |
-|-------|-------|
-| `search_brain(query, limit)` | Recherche full-text FTS5 |
-| `read_note(file)` | Lire par nom ou alias |
-| `read_note_by_path(path)` | Lire par chemin exact |
-| `get_backlinks(file)` | Naviguer le graphe |
-| `get_tags()` | Vue structurelle |
-| `get_property(file, name)` | Lire propriété frontmatter |
-| `list_notes(folder, limit)` | Lister notes d'un dossier |
-| `vault_stats()` | Stats vault complètes |
-| `create_note(path, content)` | Créer une note |
-| `append_note(file, content)` | Ajouter à une note |
-| `update_property(file, name, value)` | Modifier propriété |
+| Outil | Usage | Quand utiliser |
+|-------|-------|----------------|
+| `search_brain(query, limit, context)` | FTS5 BM25 pondéré file_stem:10 / aliases:8 / content:1 | Chercher info, défaut exploration |
+| `read_note(file)` | **Lit la note ENTIÈRE** (frontmatter + body) | **Défaut pour lire une note** — pas de troncature |
+| `read_note(file, offset, limit_chars)` | Pagination char-based | UNIQUEMENT si note > 50k chars (CHANGELOG, log) |
+| `read_section(file, heading)` | Lit UNE section (header → prochain header même niveau) | Économie tokens 30x sur grosses notes (CHANGELOG) |
+| `read_note_resolved(file, depth=1)` | Note + inline embeds récursivement | MOC avec embeds — 1 appel = N+1 notes en contexte |
+| `read_note_by_path(path)` | Lire par chemin exact | Quand on a le path complet (pas le stem) |
+| `get_backlinks(file)` | Notes pointant vers (case-insensitive) | Navigation graphe, audit orphelines |
+| `get_tags()` | Tags triés par fréquence | Vue structurelle |
+| `get_property(file, name)` | 1 propriété frontmatter | Vérif derniere-maj/type sur 1 note |
+| `find_by_property(name, value, comparator, folder, limit)` | **Dataview-equivalent** : query frontmatter | Notes stales (`lt` date), doublons (`eq`), sources vides (`missing`). Comparateurs : eq/ne/lt/gt/contains/missing/present |
+| `list_notes(folder, limit)` | Inventaire notes d'un dossier | Audit par cluster |
+| `vault_stats()` | Stats vault complètes | Photo globale |
+| `lint_vault(limit)` | Détecte aliases<4, orphelines, sans tag, YAML cassé, wikilinks brisés | Audit qualité vault |
+| `usage_stats(days)` | Agrégation calls/total_ms/errors par tool | Décisions pruning outils MCP |
 
-### Écriture — format Obsidian Flavored Markdown
+### Outils MCP — Écriture
+
+| Outil | Usage | Quand utiliser |
+|-------|-------|----------------|
+| `create_note(path, content)` | Créer note | Capitaliser info |
+| `append_note(file, content)` | Ajouter à la fin | Étoffer note existante |
+| `insert_section(file, marker, content, position)` | Insérer avant/après un header | Insertion ciblée |
+| `update_note(file, content)` | **Remplace EN ENTIER** | Refonte complète (rare) |
+| `update_property(file, name, value)` | 1 prop sur 1 note | Update ciblé |
+| `bulk_update_property(files, name, value)` | **Même prop sur N notes en 1 appel** | Pattern audit : derniere-maj 16 leaders = 1 appel |
+
+### Outils MCP — Move / Delete
+
+| Outil | Usage | Quand utiliser |
+|-------|-------|----------------|
+| `move_note(file, new_path, update_wikilinks=True)` | Déplace + réécrit wikilinks dans backlinks si stem change | Rename + déplacement atomique safe |
+| `delete_note(file, force=False)` | Refuse si backlinks > 0 sauf force. `force=True` rapporte wikilinks brisés | Cleanup safe |
+
+### Matrice décision rapide
+
+| Tâche | Outil prioritaire |
+|-------|-------------------|
+| Chercher info | `search_brain` |
+| Lire 1 note complète | `read_note(file)` |
+| Lire section précise | `read_section(file, heading)` |
+| Lire MOC avec embeds | `read_note_resolved(file)` |
+| Lire grosse note par morceaux | `read_note(file, offset, limit_chars)` |
+| Trouver notes par frontmatter | `find_by_property` |
+| Update prop sur 1 note | `update_property` |
+| Update prop sur N notes | `bulk_update_property` |
+| Renommer + rewriting | `move_note` |
+| Supprimer safe | `delete_note` |
+| Audit qualité vault | `lint_vault` |
+| Mesurer usage outils | `usage_stats(days=7)` |
+### Format Obsidian Flavored Markdown
 
 Quand on CRÉE une note via MCP `create_note`, le contenu doit respecter la skill `obsidian-markdown` :
 - Frontmatter YAML (titre, resume, aliases 4-6, type, derniere-maj, tags)
