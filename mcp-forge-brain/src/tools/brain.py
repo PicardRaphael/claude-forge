@@ -16,6 +16,38 @@ _WINDOWS_ABS_RE = re.compile(r"^[A-Za-z]:[/\\]")
 # Folders excluded from lint_vault (Karpathy immutable + system folders + templates)
 _LINT_EXCLUDE_PREFIXES = ("raw/", "Templates/", ".obsidian/", ".claude/", "Archive/")
 
+# Wikilink targets ignored as broken (structural false-positives)
+_LINT_EXCLUDE_WIKILINK_PREFIXES = (
+    "feedback_",      # memory/feedback_* live outside vault (perso memory)
+    "reference_",     # same
+    "user_",          # same
+    "project_",       # same
+)
+_LINT_EXCLUDE_WIKILINK_EXACT = {
+    # Example wikilinks cited in methodo notes as syntax demo
+    "note", "note a", "note b", "note c", "note 1", "note 2", "note 3", "note 4",
+    "erreur-foo", "raisonnement-<date>-<sujet>", "wikilink", "nom de note",
+    "claude.md", "memory",
+    # Self-references in _index (relative paths Obsidian doesn't resolve)
+    # filtered via path-strip in caller
+    # Agents living in .claude/agents/ (outside vault)
+    "agent-creator", "skill-creator", "hook-creator", "claudemd-optimizer",
+    "project-auditor", "project-analyzer", "self-updater", "vault-maintainer",
+    "devils-advocate", "devils-advocate-pipeline", "outcomes-grader", "python-dev",
+    "expand", "forge-review", "changelog-vault", "obsidian-markdown",
+    "forge-brain-proactive",
+}
+
+
+def _is_lint_excluded_wikilink(stem_lower: str) -> bool:
+    """Check if a wikilink target is a structural false-positive."""
+    if stem_lower in _LINT_EXCLUDE_WIKILINK_EXACT:
+        return True
+    for prefix in _LINT_EXCLUDE_WIKILINK_PREFIXES:
+        if stem_lower.startswith(prefix):
+            return True
+    return False
+
 # Markdown code block / inline code masking: protect [[...]] inside code from rewrite
 _CODE_FENCE_RE = re.compile(r"^```[^\n]*\n.*?^```", re.MULTILINE | re.DOTALL)
 _INLINE_CODE_RE = re.compile(r"`[^`\n]+`")
@@ -452,14 +484,14 @@ class BrainTools:
         broken_yaml = []
         broken_wikilinks = []
 
-        # Build sets for fast lookup
-        all_stems = set()
-        all_aliases_to_stem = {}
+        # Build sets for fast lookup (case-insensitive — Obsidian resolves both ways)
+        all_stems_lower = set()
+        all_aliases_lower = set()
         for r in rows:
-            all_stems.add(r["file_stem"])
-        alias_rows = self._db._conn.execute("SELECT a.alias, n.file_stem FROM aliases a JOIN notes n ON n.id = a.note_id").fetchall()
+            all_stems_lower.add(r["file_stem"].lower())
+        alias_rows = self._db._conn.execute("SELECT a.alias FROM aliases a").fetchall()
         for ar in alias_rows:
-            all_aliases_to_stem[ar["alias"]] = ar["file_stem"]
+            all_aliases_lower.add(ar["alias"].lower())
 
         for r in rows:
             note_id = r["id"]
@@ -468,6 +500,9 @@ class BrainTools:
 
             # Karpathy layer 1 (immutable) + folders intentionally outside lint scope
             if any(path.startswith(p) for p in _LINT_EXCLUDE_PREFIXES):
+                continue
+            # log.md is append-only Karpathy trace — may reference deleted notes (historic)
+            if stem == "log":
                 continue
 
             # Aliases count
@@ -511,7 +546,17 @@ class BrainTools:
             ).fetchall()
             for link in outgoing:
                 target = link["target"]
-                if target not in all_stems and target not in all_aliases_to_stem:
+                # Normalize: strip #section, strip leading folder paths, lowercase
+                stem_only = target.split("#", 1)[0]
+                if "/" in stem_only:
+                    stem_only = stem_only.rsplit("/", 1)[-1]
+                stem_only_lower = stem_only.lower().strip()
+                if not stem_only_lower:
+                    continue  # pure #section ref to current note
+                # Skip known structural false-positives
+                if _is_lint_excluded_wikilink(stem_only_lower):
+                    continue
+                if stem_only_lower not in all_stems_lower and stem_only_lower not in all_aliases_lower:
                     broken_wikilinks.append({"source": stem, "target": target})
 
         lines = ["# Lint vault forge-brain", ""]
