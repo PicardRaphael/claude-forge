@@ -1,5 +1,7 @@
 # Méta-prompt — Générer la bibliothèque complète de prompts d'analyse réutilisables
 
+> **Version 2 — révisée 25 mai 2026** : intégration apports session MCP forge-brain v1.3 + lecture code RÉEL obligatoire + catégorie 7 Vault/MCP + 5 règles génération critiques ajoutées (10-14) + table navigation enrichie.
+
 > **Quoi** : prompt unique qui, exécuté dans une session Claude Code, lit le vault forge-brain en entier et **génère automatiquement** une bibliothèque de prompts d'analyse réutilisables dans `vault/claude-forge/07-Prompts/analyse/`.
 >
 > **Pourquoi** : routine higher-order Boris ("I prompt Claude → I create a routine that prompts Claude"). Une fois la bibliothèque générée, Raphael copie-colle un prompt + met le chemin du repo/skill/agent à analyser, et la séquence A→B→C→D→E + doctrine post-23 mai s'applique automatiquement.
@@ -33,14 +35,17 @@ Tu es Jarvis dans claude-forge. Ta mission : générer une bibliothèque complè
 </role>
 
 <contexte>
-Le vault forge-brain contient la doctrine canonique post-audit 23 mai 2026 :
-- Notes canoniques `04-Techniques/claude-code/*` (8 notes + leaders Brad-Abrams + Mitchell-Hashimoto)
+Le vault forge-brain contient la doctrine canonique post-audit 23 mai 2026 + apports session 24-25 mai 2026 :
+- Notes canoniques `04-Techniques/claude-code/*` (8 notes 22 mai + leaders Brad-Abrams + Mitchell-Hashimoto)
+- Note canonique `04-Techniques/patterns/mcp-vault-llm-design.md` (créée 25 mai : recette MCP vault LLM-optimisé, 9 ops Karpathy + LLM-specific, 7 défenses critiques)
 - Rules `.claude/rules/` (sequence-canonique-modification.md = séquence A→B→C→D→E obligatoire)
-- Mémoire forge `feedback_audit_thematique_methode` + `feedback_anthropic_single_source` (scoped) + `feedback_regle_scope_pas_universelle`
-- Pattern Karpathy LLM Wiki (3-layers / index.md / log.md / append-only)
+- Mémoire forge récente : `feedback_da_dicte_tests_adverses` (tests adverses obligatoires sur code rewriting/destructif), `feedback_subagent_audit_category_error` (vérifier source de vérité avant mass-fix), `feedback_5_lignes_karpathy_ouverture` (5 lignes Karpathy verbatim TOP de tout CLAUDE.md forge), `feedback_pas_de_meta_commentaire_doctrine` (zéro meta-commentaire dans composants), `feedback_80_percent_confidence_ship` (80%+ convergence = ship avec tests adverses), `feedback_delegate_guard_env_var_blocked` (matrice classifier par fichier)
+- Pattern Karpathy LLM Wiki (3-layers raw/wiki/schema + index.md + log.md + CHANGELOG.md)
+- MCP forge-brain v1.3 : 19 outils (8 LLM-optim ajoutés 24-25 mai)
 
 La doctrine validée :
 - Séquence A→B→C→D→E pour toute analyse/modification/optimisation
+- **Étape 1 enrichie** : pas que metadata — lire 3-5 fichiers code RÉEL par couche + grep patterns récurrents + comprendre frontières (cf [[methode-analyser-repo]] section 1a-1d)
 - Sub-agents par CLUSTER (pas par note)
 - Checkpoint write A-inventaire AVANT phase B
 - Self-verify FAUX fort impact AVANT phase D
@@ -52,6 +57,10 @@ La doctrine validée :
 - 9 catégories Thariq (post Anthropic mars 2026)
 - Pipeline architect→dev→reviewer→test conditionnel
 - description SKILL.md ~250 chars auto-trigger
+- **5 lignes Karpathy obligatoires** au top de tout CLAUDE.md forge (Si ambigu / Diff minimal / done / Vérifie code latest / Code minimum)
+- **Tests adverses obligatoires** sur tout code rewriting/destructif (DA pattern, cf 4 silent data loss move_note sauvés 25 mai)
+- **Matrice classifier par fichier** : SKILL.md/agents = bypass `CLAUDE_AGENT=X py script.py` marche. CLAUDE.md/settings.json = classifier Anthropic bloque même bypass (édit manuel)
+- **MCP vault LLM-optim** : 19 outils (read_section / read_note_resolved / find_by_property / bulk_update_property / move_note / delete_note / lint_vault / usage_stats) vs CLI Obsidian humain
 </contexte>
 
 <tache>
@@ -59,11 +68,22 @@ Générer une bibliothèque de prompts d'analyse dans `vault/claude-forge/07-Pro
 
 ## Phase 1 — Inventaire (analyser le vault)
 
-1. `mcp__forge-brain__read_note` SANS max_lines sur les 8 notes canoniques claude-code + `methode-pivoter-doctrine` + `comparaison-skill-anthropic-claude-code-setup`
+1. `mcp__forge-brain__read_note` SANS max_lines sur :
+   - 8 notes canoniques claude-code 22 mai
+   - `methode-pivoter-doctrine`, `comparaison-skill-anthropic-claude-code-setup`
+   - **AJOUTÉ 25 mai** : `mcp-vault-llm-design` (recette MCP vault LLM-optim)
+   - **AJOUTÉ 25 mai** : `pattern-vault-llm-karpathy`
 2. `mcp__forge-brain__list_notes(folder="04-Techniques/")` + `list_notes(folder="07-Prompts/")` + `list_notes(folder="Knowledge/")`
 3. `mcp__forge-brain__read_note("MOC-Claude-Code")` + `read_note("MOC-Techniques")`
-4. `Read` les rules `.claude/rules/sequence-canonique-modification.md` + `comportement-proactif.md`
-5. Lire les feedback mémoire forge cités dans le contexte
+4. `Read` les rules `.claude/rules/sequence-canonique-modification.md` + `comportement-proactif.md` + `forge-brain-proactive.md`
+5. Lire les feedback mémoire forge cités dans le contexte, en particulier les 6 récents (24-25 mai) :
+   - `feedback_da_dicte_tests_adverses`
+   - `feedback_subagent_audit_category_error`
+   - `feedback_5_lignes_karpathy_ouverture`
+   - `feedback_pas_de_meta_commentaire_doctrine`
+   - `feedback_80_percent_confidence_ship`
+   - `feedback_delegate_guard_env_var_blocked`
+6. **AJOUTÉ 25 mai** — `mcp__forge-brain__usage_stats(days=30)` si données disponibles, pour identifier outils MCP réellement utilisés vs morts.
 
 ## Phase 2 — Identifier les catégories de prompts à générer
 
@@ -106,6 +126,12 @@ Générer une bibliothèque de prompts d'analyse dans `vault/claude-forge/07-Pro
 - `recap-session` — résumer ce qu'on a fait dans une session pour reprise
 - `done-session` — capitalisation fin de session (decisions, faits, erreurs)
 - `dream-cross-sessions` — équivalent Anthropic Dreaming sur le vault forge
+
+### Catégorie 7 — Vault Karpathy / MCP (AJOUTÉ 25 mai)
+- `auditer-vault-karpathy` — audit vault complet (notes + MCP qui le sert + 3-layers + écart vs forge-brain v1.3). Cf [[mcp-vault-llm-design]] et [[pattern-vault-llm-karpathy]].
+- `creer-vault-karpathy` — scaffold nouveau vault from scratch (raw/wiki/schema + 4 fichiers obligatoires : SCHEMA.md / index.md / log.md / CHANGELOG.md)
+- `creer-mcp-vault-llm-optim` — fork mcp-forge-brain pour nouveau vault. Recette complète : [[mcp-vault-llm-design]]
+- `porter-outils-mcp-v13` — port code v1.3 (8 outils LLM-optim) vers un MCP vault existant : read_section, read_note_resolved, find_by_property, bulk_update_property, move_note, delete_note, lint_vault, usage_stats + pagination read_note
 
 **Découvrir d'autres catégories en lisant le vault.** Si tu identifies un pattern d'analyse récurrent dans le vault que je n'ai pas listé → propose-le à Raphael avant de le créer.
 
@@ -213,6 +239,11 @@ tags:
 7. **advisor() AVANT vague 3** ET avant rapport final
 8. **Mode obligatoire : présenter UN prompt, valider, suivant**
 9. **Table de navigation vault OBLIGATOIRE** dans chaque prompt généré (voir ci-dessous)
+10. **AJOUTÉ 25 mai — Lecture code RÉEL obligatoire** : tout prompt d'audit/analyse repo doit imposer (étape 1) la lecture de 3-5 fichiers exemples par couche + grep patterns récurrents. Pas que package.json/README. Référence : [[methode-analyser-repo]] section 1a-1d.
+11. **AJOUTÉ 25 mai — Tests adverses obligatoires** : tout prompt qui génère du code rewriting/destructif (move, refactor, mass-fix) doit imposer DA pattern + tests cas adverses (self-link, edge cases, code blocks, case-insensitive). Référence : `feedback_da_dicte_tests_adverses` + `feedback_subagent_audit_category_error`.
+12. **AJOUTÉ 25 mai — 5 lignes Karpathy** : tout prompt qui génère/modifie un CLAUDE.md doit imposer les 5 lignes verbatim au top (Si ambigu / Diff minimal / done / Vérifie code latest / Code minimum). Référence : `feedback_5_lignes_karpathy_ouverture`.
+13. **AJOUTÉ 25 mai — Matrice classifier par fichier** : tout prompt qui touche fichiers protégés doit mentionner que SKILL.md/agents = bypass `CLAUDE_AGENT=X py script.py` marche, CLAUDE.md/settings.json = édit manuel Raphael. Référence : `feedback_delegate_guard_env_var_blocked`.
+14. **AJOUTÉ 25 mai — Outils MCP v1.3 préférés** : tout prompt qui touche vault doit préférer outils v1.3 quand applicable (lint_vault, find_by_property, bulk_update_property, move_note, read_section). Pas update_property×N quand bulk_update_property×1 dispo. Référence : [[mcp-vault-llm-design]].
 
 ### Table de navigation vault — OBLIGATOIRE dans chaque prompt généré
 
@@ -232,6 +263,10 @@ Chaque prompt généré DOIT inclure, juste après `<contexte>`, une table de na
 | Comparer avec skill officielle Anthropic | `[[comparaison-skill-anthropic-claude-code-setup]]` | 3 bits utiles repris (commandes bash, tables signal→outil) |
 | Vérifier conventions agents (couleurs) | `.claude/rules/agents-color-convention.md` | 8 couleurs cross-repo forge |
 | Vérifier scope rule séquence canonique | `.claude/rules/sequence-canonique-modification.md` | A→B→C→D→E obligatoire création/modif/optim |
+| Auditer/créer un MCP vault LLM-optim | `[[mcp-vault-llm-design]]` | 9 ops (Karpathy + LLM-specific) + 7 défenses critiques + recette complète v1.3 |
+| Auditer/créer un vault Karpathy | `[[pattern-vault-llm-karpathy]]` + `[[mcp-vault-llm-design]]` | 3-layers raw/wiki/schema + 4 fichiers obligatoires |
+| Tests adverses sur code rewriting | `feedback_da_dicte_tests_adverses` (mémoire) | Self-link / embeds / case-insensitive / code blocks (4 silent data loss sauvés 25 mai) |
+| Pivot doctrinal sans drift | `[[methode-pivoter-doctrine]]` | Checklist 5 étapes anti-régression |
 
 **Adaptation par prompt** : chaque prompt généré customise cette table selon son scope (audit-skill garde les lignes skill+vault doctrine, audit-RAG remplace par les notes RAG du vault, etc.).
 

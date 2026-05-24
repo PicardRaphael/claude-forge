@@ -208,9 +208,12 @@ Le pipeline canonique recommandé pour les tâches M/L/XL :
 
 ## COMMENT — Grille 6 étapes
 
-### Étape 1 — Scanner l'architecture
+### Étape 1 — Scanner l'architecture ET lire du code RÉEL
 
-**Observer** :
+> **Pas que les metadata.** Le piège classique : se contenter de package.json + README + git log. C'est insuffisant pour ne pas inventer. **3-5 fichiers exemples par couche** sont obligatoires (échantillon, pas exhaustivité).
+
+#### 1a — Observer la topologie (metadata)
+
 - **Stack** : langages + versions (Python, TypeScript, Vue, Rust, etc.)
 - **Structure** : mono-repo / microservices / monorepo workspaces
 - **Database** : type (PostgreSQL, SQLite, etc.), nombre de DB, migrations
@@ -220,15 +223,59 @@ Le pipeline canonique recommandé pour les tâches M/L/XL :
 - **Taille codebase** : LOC, nombre de fichiers, profondeur
 - **MCP existants** : `.mcp.json` ou équivalent
 - **`.claude/` existant** : audit ce qui est déjà là
+- **Architecture documentée** : `ARCHITECTURE.md`, `docs/`, `CONTRIBUTING.md` si présents
 
 **Outils** :
 - `Glob` pour structure
 - `Read package.json / pyproject.toml / Cargo.toml`
-- `Read README.md` pour intent
-- `git log --oneline -50` pour activité
+- `Read README.md` + `ARCHITECTURE.md` + `docs/` pour intent
+- `git log --oneline -50` pour activité + style commits
 - `tree -L 3` ou `Glob '**/*'` pour topologie
 
-**Sortie** : note technique 1 page max avec stack + topologie + signaux forts.
+#### 1b — Lire du code RÉEL (échantillonnage représentatif)
+
+**OBLIGATOIRE** : pas que les metadata. Lire **3-5 fichiers exemples par couche** :
+- 1 route / endpoint
+- 1 service / business logic
+- 1 modèle / schema
+- 1 test (pour comprendre style + assertions)
+- 1 utilitaire transverse
+
+**Comment choisir l'échantillon** :
+- Représentatif (le plus typique, pas l'exception)
+- Récent (dernières features, pas du legacy)
+- Cross-couches (pas tout dans `routes/`)
+
+**Outils** : `Read` les 3-5 fichiers identifiés. **Lecture intégrale** (pas extraits).
+
+#### 1c — Grep patterns récurrents (conventions implicites)
+
+Avant de proposer des conventions dans CLAUDE.md, observer ce qui EST déjà fait :
+- **Naming** : `camelCase` vs `snake_case` vs `kebab-case` selon couche
+- **Error handling** : try/except patterns, custom exceptions, error wrappers
+- **Logging** : console.log vs logger structuré, niveaux utilisés
+- **Mocking** : MagicMock vs vraie DB en test
+- **Async** : async/await vs callbacks vs Promises
+
+**Outils** :
+- `Grep` pour patterns récurrents (ex: `grep -r "raise.*Error" --type=py`)
+- `Grep` imports communs (ex: stack OLD vs NEW — cf `feedback_drizzle_postgresjs_drift`)
+
+#### 1d — Comprendre les frontières
+
+- **Mono-repo workspace** : où sont les libs partagées ? Les apps ?
+- **Microservices** : points de couplage (RPC, queue, DB partagée) ?
+- **Modules** : qui dépend de qui ? Circular deps ?
+
+#### Sortie étape 1
+
+Note technique 1-2 pages max :
+- Stack + topologie + signaux forts (1a)
+- 3-5 fichiers lus avec ce qu'on a compris (1b)
+- Patterns récurrents observés (1c)
+- Frontières + dépendances (1d)
+
+**Anti-pattern** : se contenter de 1a. Si tu ne peux pas citer 1 ligne de code réel observée, étape 1 incomplète.
 
 ### Étape 2 — Identifier les rôles dev récurrents (pipeline standard)
 
