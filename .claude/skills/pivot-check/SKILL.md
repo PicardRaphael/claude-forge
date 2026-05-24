@@ -1,6 +1,6 @@
 ---
 name: pivot-check
-description: "ALWAYS invoke after correcting a canonical note in vault/claude-forge/04-Techniques/claude-code/ or when the user types /pivot-check. DO NOT declare a doctrinal pivot complete without invoking first. Detects Type 1 drift (residual obsolete claims) via grep cross-files."
+description: "Detects Type 1 doctrinal drift (residual obsolete claims) after correcting a canonical note. Invoke when the user types /pivot-check, or when starting a session that follows a vault canonical edit. Advisory only — reports drifts, never auto-applies fixes."
 user-invokable: true
 effort: high
 memory: project
@@ -43,6 +43,8 @@ Lancer Grep sur chaque terme obsolete dans ces cibles :
 | `vault/claude-forge/05-Leaders/**` | Fiches biographiques |
 | `memory/MEMORY.md` | Index memoire |
 | `memory/feedback_*.md` | Feedbacks archives |
+| `**/RECAP.md` | Session recaps qui figent du contexte obsolete |
+| `.claude/agent-memory/*/MEMORY.md` | Memoires per-agent — **principale source du drift** observe sur neo_ia 22 mai |
 
 **Paralleliser les Grep** — lancer toutes les cibles en parallele, pas sequentiellement.
 
@@ -82,12 +84,19 @@ Si l'utilisateur confirme les fixes, deleguer aux specialistes :
 
 Le hook `delegate-guard.py` bloque les edits directs sur SKILL.md, agents et CLAUDE.md — deleguer est obligatoire, pas optionnel.
 
-### Etape 6 — Capitalisation vault
+### Etape 6 — Capitalisation vault (SUGGÉRÉE, pas automatique)
 
-Apres application des fixes :
+⚠️ **Doctrine 22 mai** : cette skill est ADVISORY pure. Elle ne capitalise PAS automatiquement — elle SUGGÈRE à l'utilisateur de :
+
 1. Mettre a jour `vault/claude-forge/CHANGELOG.md` (cf `.claude/rules/changelog-vault.md`)
 2. Append dans `vault/claude-forge/log.md` : `## [YYYY-MM-DD] pivot-check | <pivot-name>`
 3. Si le drift s'est reproduit — creer/mettre a jour `Knowledge/erreurs/<pivot-name>.md`
+
+C'est à l'utilisateur (ou la session principale) d'exécuter ces actions. La skill rapporte + recommande, ne fait pas.
+
+### Etape 7 — Propagation cross-repo (recommandation)
+
+Si le pivot concerne une note canonique qui peut être référencée dans `ia_back` ou `neo_ia`, recommander à l'utilisateur de relancer /pivot-check dans ces repos depuis leur racine respective. Cette skill ne peut PAS scanner cross-repo elle-même (scope local), mais elle DOIT le signaler.
 
 ## ANTI-PATTERNS
 
@@ -119,3 +128,4 @@ Apres chaque invocation, noter dans la memoire projet :
 Patterns observes a coder ici au fil des sessions :
 - `05-Leaders/` = exclusion structurelle, ne flagger que les affirmations doctrinales
 - `CHANGELOG.md` vault = archive narrative, ne jamais modifier
+- **Pivot neo_ia 22 mai 2026** : doctrine pivotée dans rules MAIS pas dans `.claude/agent-memory/*/MEMORY.md` → drift silencieux. C'est CE cas qui motive la skill. Ne JAMAIS skipper `agent-memory/` du périmètre.
