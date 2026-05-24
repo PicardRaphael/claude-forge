@@ -57,6 +57,6 @@ Prompts réutilisables pour tâches courantes.
 
 
 
-## Méta-prompts
+## Prompts d'audit
 
-- [[_META-GENERATOR]] — Méta-prompt générateur de bibliothèque d'analyses (24 mai 2026)
+- [[self-audit-doctrine-session]] — Self-audit post-mortem session : check Claude a respecté doctrine forge (7 checks evidence-based)

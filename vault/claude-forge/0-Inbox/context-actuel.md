@@ -47,7 +47,7 @@ MCP forge-brain v1.3 livré et documenté. Vault forge-brain assaini (348 notes,
 
 ## Fils ouverts
 
-- **`_META-GENERATOR.md`** (07-Prompts/analyse/) : Raphael a dit "je le fais après" — exécution méta-prompt génération bibliothèque ~25 prompts pending
+- **Meta-prompt bibliothèque abandonné 25 mai** : verdict advisor "29 prompts = overhead, 5 max sur cas à risque". Décision : pas de bibliothèque. À la place → [[self-audit-doctrine-session]] (1 prompt post-mortem)
 - **5 brisés vault résiduels** : faux positifs structurels (exemples syntaxiques, notes pas créées, addy-osmani.md fichier inexistant flag par lint) — acceptables
 - **CLAUDE.md modifié hors session** : version downgrade (3.2 sans suffixe) + suppression refs Karpathy raisonnement-22mai + claim doctrine. Restauré par git checkout cette session mais re-modifié par autre process (hook meta-commentary-detector.py orphelin observé). À investiguer prochaine session.
 - **Anthropic $900B négociation** (Bloomberg 12 mai) : deal non finalisé, à actualiser
