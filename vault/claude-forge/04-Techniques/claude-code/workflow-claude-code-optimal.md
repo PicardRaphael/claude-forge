@@ -14,7 +14,7 @@ aliases:
   - "compute allocator"
   - "comment automatiser claude code"
   - "automation workflow"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 type: technique
 sources:
@@ -29,6 +29,8 @@ tags:
   - "#sujet/workflow"
   - "#doctrine/2026"
 ---
+<!-- TODO 2026-05-24: note >500L — extraction sections vers references/ -->
+
 # Workflow Claude Code optimal pour tout repo (mai 2026)
 
 > Note canonique forge — workflow optimal pour utiliser Claude Code selon doctrine Anthropic mai 2026.

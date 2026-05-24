@@ -16,7 +16,7 @@ aliases:
   - "automate repo setup"
   - "automatiser projet claude code"
   - "pipeline architect dev test"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 type: technique
 sources:
@@ -32,6 +32,7 @@ tags:
   - "#sujet/methode"
   - "#meta"
 ---
+<!-- TODO 2026-05-24: note >500L — extraction sections vers references/ -->
 
 # Méthode pour analyser un repo et proposer config Claude Code optimale
 

@@ -12,7 +12,7 @@ aliases:
   - pydantic ai stack
 domaine: ia
 type: technique
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://github.com/langchain-ai/langgraph"
@@ -26,6 +26,8 @@ tags:
   - "#domaine/python"
   - "#domaine/stacks"
 ---
+<!-- TODO 2026-05-24: note >500L — extraction sections vers references/ -->
+
 ## Decision rapide
 
 Pour choisir le framework agent → [[agents-frameworks]] | [[index-architectures]]

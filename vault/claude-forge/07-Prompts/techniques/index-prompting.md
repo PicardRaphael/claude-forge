@@ -9,13 +9,12 @@ aliases:
   - "prompting guide"
   - "prompt technique selector"
 type: index
-derniere-maj: 2026-05-10
+derniere-maj: 2026-05-24
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/prompt-engineering"
 ---
-
 ## Par objectif
 
 | Je veux... | Technique | Note |
@@ -61,3 +60,8 @@ tags:
 - [[MOC-Techniques]]
 - [[amanda-askell-prompt-engineering]]
 - [[Context Engineering]]
+
+
+## Erreurs
+
+- [[erreur-4-fabrications-vault-prompt-engineering-2026-05-23]] — Audit thématique prompt engineering vault : 4 verbatim/chiffres fabriqués + 4 attributions fausses sur 17 notes. Pattern récurrent tweet-paraphrase-non-vérifiée (5e occurrence en 2 jours).

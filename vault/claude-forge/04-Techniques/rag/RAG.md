@@ -10,7 +10,7 @@ aliases:
   - RAG system
 domaine: ia
 type: index
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://arxiv.org/abs/2005.11401"
@@ -20,7 +20,6 @@ tags:
   - "#domaine/ia"
   - "#domaine/rag"
 ---
-
 ## Vue d'ensemble
 
 Le RAG (Retrieval-Augmented Generation) combine la recherche d'information dans une base de connaissances avec la génération par LLM. Introduit en **mai 2020 (NeurIPS 2020)** par **12 co-auteurs** dont [[Patrick Lewis]], Ethan Perez et [[Douwe Kiela]] (Meta/FAIR, UCL, NYU), c'est l'architecture IA la plus déployée en 2026.
@@ -103,3 +102,8 @@ Les benchmarks (FloTorch 2026, Chroma Research, NAACL 2025 Vectara) confirment d
 - [[Andrej Karpathy]] — pattern wiki-LLM cumulatif ([[pattern-vault-llm-karpathy]]) : *"Obsidian is the IDE; the LLM is the programmer; the wiki is the codebase."* (Gist 4 avril 2026). Karpathy contraste le **wiki cumulatif** avec la **synthèse RAG stateless** (NotebookLM, ChatGPT file uploads) — différence philosophique, pas remplacement technique.
 - [[sqlite-fts5-vault]] — Technique FTS5 utilisée dans notre MCP vault
 - [[mcp-obsidian-brain-v2]] — Notre implémentation MCP de recherche vault
+
+
+## Synthèses
+
+- [[rag-obsidian-claude-video-analyse]] — Analyse critique du pipeline RAG 5 phases (extraction, chunking, vectorisation, MCP, routage local) proposé dans une vidéo YouTube, comparé aux best practices 2026.

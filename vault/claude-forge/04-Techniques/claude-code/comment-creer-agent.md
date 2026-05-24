@@ -12,7 +12,7 @@ aliases:
   - "convention couleurs agents"
   - "frontmatter agent"
   - "sonnet opus split"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 type: technique
 sources:
@@ -484,3 +484,8 @@ Voir [[programmatic-tool-calling]] — note canonique avec config API, métrique
 - [[programmatic-tool-calling]] — note canonique forge
 
 `derniere-maj` à mettre à jour après ce ajout.
+
+
+## Anti-patterns
+
+- [[erreur-seuils-canoniques-agents-inventes-2026-05-22]] — 4/5 seuils "canoniques" agents Claude Code cités dans le vault étaient des mythes (extrapolations, confusion). Seuls CLAUDE.md<200L et SKILL.md<500L sont vraiment canoniques.

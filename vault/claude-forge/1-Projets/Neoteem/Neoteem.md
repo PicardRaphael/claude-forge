@@ -8,14 +8,13 @@ aliases:
   - boulot
 type: context
 status: active
-derniere-maj: 2026-05-09
+derniere-maj: 2026-05-24
 auteur: claude
 tags:
   - "#type/context"
   - "#type/projet"
   - "#projet/neoteem"
 ---
-
 ## Description
 
 Entreprise où [[Raphael-Picard|Raphael]] travaille comme Lead Ingénieur IA & Architecte Solutions depuis novembre 2025 (CDI remote).
@@ -49,3 +48,8 @@ Python (FastAPI), TypeScript, Gemini (Vertex AI), Claude, PostgreSQL, pgvector, 
 
 - [[Raphael-Picard|Raphael Picard]]
 - [[Claude-Forge|Claude-Forge]]
+
+
+## Stratégie
+
+- [[neoteem-agentic-engineering-mapping]] — Validation externe du workflow Neoteem par le framework Karpathy (Sequoia AI Ascent 2026). Mapping complet neo_ia + ia_back + forge vs concepts Software 3.0.

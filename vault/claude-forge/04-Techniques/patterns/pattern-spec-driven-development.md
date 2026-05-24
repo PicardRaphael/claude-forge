@@ -11,7 +11,7 @@ aliases:
   - planning first development
 domaine: claude-code
 type: technique
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
@@ -231,3 +231,7 @@ docs/
 - **Quellit AI** — transforme acceptance criteria en test suites complètes
 - **VSDD** (Verified SDD) — Builder et Adversary utilisent des modèles DIFFÉRENTS pour blind-spot diversity
 - **Spine Pattern** — meta-repo au-dessus des repos de code, ne contient que markdown + task files. Coordination multi-repo sans duplication
+
+## Critiques
+
+- [[critique-2026-05-21-brief-distant-template-spec]] — Verdict devil's advocate sur la refonte BRIEF producteur/consommateur de /spec : 3 bloquants identifiés (asymétrie rôles, duplication contrat, advisory vs hook) → fix appliqué.

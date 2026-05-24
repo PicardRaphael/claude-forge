@@ -10,14 +10,13 @@ aliases:
   - neomail
 type: context
 status: active
-derniere-maj: 2026-05-09
+derniere-maj: 2026-05-24
 auteur: claude
 tags:
   - "#type/context"
   - "#type/projet"
   - "#projet/neo-ia"
 ---
-
 ## Description
 
 Monorepo LLM assistants B2B de [[Neoteem|Neoteem]]. 3 apps : NeoChat (agents ReAct), NeoDoc (RAG Vertex AI Search), NeoMail (classification + draft). Projet principal de Raphael.
@@ -72,3 +71,12 @@ Suppression de 7 hooks workflow (architect-guard, commit-guard, dispatch-guard, 
 Hooks restants (8) : `repo-scope-guard`, `guard-pytest-scope`, `auth-detector`, `auth-cleanup`, `on-push-notify`, `session-health`, `spec-brief-boundary-guard`, + ruff format/check inline. Tous = lint/test/security/observabilité légitimes selon doctrine Anthropic.
 
 Voir [[raisonnement-22mai-doctrine-vs-enforcement]].
+
+
+## Critiques
+
+- [[critique-2026-05-22-audit-neo_ia]] — DA audit consolidé neo_ia. 3 bloquants manqués dont 1 sécurité critique (password Postgres en clair commit ffb5963). VERDICT REVISE.
+
+## Explorations
+
+- [[neo-ia-tests-lenteur-diagnostic]] — Diagnostic root cause de la lenteur des tests neo_ia : clean_caches autouse + log_cli + absence de pytest-xdist + pytest 9 incompatible options.

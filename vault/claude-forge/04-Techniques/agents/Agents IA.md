@@ -10,7 +10,7 @@ aliases:
   - autonomous agents
 domaine: ia
 type: index
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 sources:
   - "https://www.anthropic.com/research/building-effective-agents"
@@ -21,7 +21,6 @@ tags:
   - "#domaine/ia"
   - "#domaine/agents"
 ---
-
 ## Vue d'ensemble
 
 Marche agents IA : **$7.84B en 2025, projete $52.62B en 2030** (MarketsandMarkets). Gartner : **40% des apps enterprise auront des agents task-specific fin 2026**. Claude Code seul genere **4% des commits publics** sur GitHub et **$2B+ revenus annuels** pour Anthropic.
@@ -122,3 +121,8 @@ Production utilise les deux. MCP resout agent→tool, A2A resout agent→agent.
 - [[David Shapiro]] — ACE Framework, architecture cognitive
 - [[Div Garg]] — MultiOn, agents web autonomes
 - [[Dario Amodei]] — CEO Anthropic, cadre securite agents (RSP, ASL levels)
+
+
+## Erreurs documentées
+
+- [[agents-ia-22-claims-fausses-2026-05-23]] — Audit thématique vault 04-Techniques/agents et chatbot : 130 claims auditées, 20 NON CANONIQUES corrigées + 46 partielles requalifiées, 17 notes mises à jour. Mythes principaux : seuils 6-8 ops, scopes memory inventés, attribution Bockeler vs Fowler.

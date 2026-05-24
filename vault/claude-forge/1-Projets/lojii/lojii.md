@@ -9,7 +9,7 @@ aliases:
   - gestion locative frontend
   - neofront lojii
 type: context
-derniere-maj: 2026-05-13
+derniere-maj: 2026-05-24
 auteur: claude
 tags:
   - "#type/context"
@@ -19,7 +19,6 @@ tags:
   - "#tech/vuetify"
   - "#tech/pinia"
 ---
-
 ## Vue d'ensemble
 
 Application frontend de gestion immobilière (locatif + copropriété) développée par [[Neoteem]]. Client lourd embarqué dans un Chromium WinDev + mode web.
@@ -152,3 +151,12 @@ Documentation complète dans le vault neoteem-brain : `03-Apps/neofront/windev-f
 - [[neo_ia]] — Monorepo Python agents IA
 - [[Neoteem]] — Entreprise
 - [[Raphael-Picard]] — Lead IA
+
+
+## Questions ouvertes
+
+- [[question-idor-coproprietes-conseil-syndical]] — Security-auditor ia_back a détecté un IDOR : auth présente mais aucun contrôle de scope par copropriété. Un utilisateur authentifié peut accéder aux données d'une autre copro.
+
+## Architecture
+
+- [[architecture-full-web-charte]] — Document officiel Denis THEVENOT : conventions Vue 3/Vuetify 3, IHM 4 blocs, routing 3 niveaux, stores Pinia $prefix, eventBus, nomenclature, roadmap WinDev→Vue3.

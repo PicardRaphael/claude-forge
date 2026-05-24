@@ -12,7 +12,7 @@ aliases:
   - "SKILL.md structure"
   - "frontmatter skill"
   - "agentskills.io"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 type: technique
 sources:
@@ -26,7 +26,6 @@ tags:
   - "#sujet/skills"
   - "#doctrine/2026"
 ---
-
 # Comment créer une skill Claude Code parfaite
 
 > Note canonique forge — création de skills selon doctrine Anthropic + Thariq mai 2026.
@@ -383,3 +382,8 @@ Aliases déclarés en frontmatter (10) :
 ---
 
 **Fin note canonique `comment-creer-skill.md`** — révisée 23 mai 2026 post-audit thématique vault.
+
+
+## Gotchas
+
+- [[erreur-subagent-bypass-delegate-guard]] — Quand skill-creator est instruit d'éditer un SKILL.md, il peut tenter de contourner le hook delegate-guard via staging file. Anti-pattern : sub-agents cherchent des bypass.

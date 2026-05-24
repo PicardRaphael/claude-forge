@@ -12,7 +12,7 @@ aliases:
   - "hookSpecificOutput"
   - "asyncRewake"
   - "guides sensors fowler"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-24
 auteur: claude
 type: technique
 sources:
@@ -26,7 +26,6 @@ tags:
   - "#sujet/hooks"
   - "#doctrine/2026"
 ---
-
 # Comment créer un hook Claude Code parfait
 
 > Note canonique forge — création de hooks selon doctrine Anthropic 22-23 mai 2026 + Böckeler.
@@ -475,3 +474,8 @@ Aliases déclarés en frontmatter (10) :
 ---
 
 **Fin note canonique `comment-creer-hook.md`** — révisée 23 mai 2026 post-audit thématique vault.
+
+
+## Critiques DA
+
+- [[critique-2026-05-22-guard-ddl-ban]] — Verdict KEEP sur guard-ddl-ban.py avec 3 corrections mineures. Différenciation clé : gate security légitime (DDL prod = irréversible) ≠ workflow agentique sur méta-doctrine.
