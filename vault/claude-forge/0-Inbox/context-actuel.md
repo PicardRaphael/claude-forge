@@ -15,7 +15,6 @@ tags:
   - "#type/context"
   - "#meta/working-memory"
 ---
-
 ## Phase actuelle
 
 Hook `meta-commentary-detector` déployé en production sur les 3 repos forge (claude-forge Python, ia_back TS, neo_ia Python uv). Regex Option E (lookahead syntaxique) après DA — autorise backtick/chevron/accolade/bracket simple, bloque texte libre/wikilink/URL.
