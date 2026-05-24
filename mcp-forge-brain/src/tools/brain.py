@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 from src.database import BrainDB
 from src.indexer import parse_note, _WIKILINK_RE
+from src.usage_log import log_call, stats as _compute_usage_stats
 
 import yaml
 
@@ -159,7 +160,15 @@ class BrainTools:
                 lines.append(f"- {r['file_stem']} ({r['path']})")
         return "\n".join(lines)
 
-    def read_note(self, file: str, max_lines: int = 0) -> str:
+    def read_note(self, file: str, max_lines: int = 0, offset: int = 0, limit_chars: int = 0) -> str:
+        """Lit une note. Pagination optionnelle pour grosses notes (CHANGELOG, log).
+
+        Args:
+            file: nom de la note ou alias
+            max_lines: tronquer apres N lignes (legacy)
+            offset: nombre de caracteres a sauter au debut (pagination)
+            limit_chars: nombre max de caracteres a retourner (pagination)
+        """
         path = self._db.resolve_note(file)
         if not path:
             suggestions = self._db.suggest_notes(file, limit=5)
@@ -171,6 +180,19 @@ class BrainTools:
         if not full_path.exists():
             return f"Note '{file}' indexee mais fichier manquant: {path}"
         content = full_path.read_text(encoding="utf-8", errors="replace")
+        total_chars = len(content)
+
+        # Char-based pagination (priority over max_lines if both set)
+        if offset > 0 or limit_chars > 0:
+            if offset >= total_chars:
+                return f"offset={offset} depasse la taille de la note ({total_chars} chars)."
+            end = offset + limit_chars if limit_chars > 0 else total_chars
+            chunk = content[offset:end]
+            header = f"[chars {offset}-{min(end, total_chars)}/{total_chars}]\n"
+            if end < total_chars:
+                header += f"[suite : appeler avec offset={end}, limit_chars={limit_chars}]\n"
+            return header + "\n" + chunk
+
         if max_lines > 0:
             lines = content.split("\n")
             if len(lines) > max_lines:
@@ -611,9 +633,17 @@ class BrainTools:
 
 
 def register_tools(mcp, tools: BrainTools):
-    """Register all brain tools on the MCP server."""
+    """Register all brain tools on the MCP server.
 
-    @mcp.tool()
+    All tools wrapped with usage_log.log_call() automatically (via _tool decorator below).
+    """
+
+    def _tool(fn):
+        """Wrap fn with log_call before registering with @mcp.tool()."""
+        wrapped = log_call(fn.__name__)(fn)
+        return mcp.tool()(wrapped)
+
+    @_tool
     def search_brain(query: str, limit: int = 5, context: bool = True) -> str:
         """Recherche dans le vault forge-brain.
 
@@ -624,17 +654,19 @@ def register_tools(mcp, tools: BrainTools):
         """
         return tools.search_brain(query, limit, context)
 
-    @mcp.tool()
-    def read_note(file: str, max_lines: int = 0) -> str:
+    @_tool
+    def read_note(file: str, max_lines: int = 0, offset: int = 0, limit_chars: int = 0) -> str:
         """Lit une note par son nom ou alias (resolution wikilink).
 
         Args:
             file: nom de la note ou alias (ex: "Raphael-Picard", "Claude-Forge", "vibe coding")
-            max_lines: si > 0, tronque la note apres N lignes (economise des tokens)
+            max_lines: si > 0, tronque la note apres N lignes (legacy)
+            offset: pagination char-based, sauter N chars depuis le debut (utile pour CHANGELOG, log)
+            limit_chars: pagination char-based, retourner max N chars
         """
-        return tools.read_note(file, max_lines)
+        return tools.read_note(file, max_lines, offset, limit_chars)
 
-    @mcp.tool()
+    @_tool
     def read_note_by_path(path: str) -> str:
         """Lit une note par son chemin exact dans le vault.
 
@@ -643,7 +675,7 @@ def register_tools(mcp, tools: BrainTools):
         """
         return tools.read_note_by_path(path)
 
-    @mcp.tool()
+    @_tool
     def get_backlinks(file: str) -> str:
         """Liste les notes qui pointent vers cette note.
 
@@ -652,12 +684,12 @@ def register_tools(mcp, tools: BrainTools):
         """
         return tools.get_backlinks(file)
 
-    @mcp.tool()
+    @_tool
     def get_tags() -> str:
         """Liste tous les tags du vault tries par frequence."""
         return tools.get_tags()
 
-    @mcp.tool()
+    @_tool
     def get_property(file: str, name: str) -> str:
         """Lit une propriete du frontmatter YAML d'une note.
 
@@ -667,7 +699,7 @@ def register_tools(mcp, tools: BrainTools):
         """
         return tools.get_property(file, name)
 
-    @mcp.tool()
+    @_tool
     def create_note(path: str, content: str) -> str:
         """Cree une nouvelle note dans le vault.
 
@@ -677,7 +709,7 @@ def register_tools(mcp, tools: BrainTools):
         """
         return tools.create_note(path, content)
 
-    @mcp.tool()
+    @_tool
     def append_note(file: str, content: str) -> str:
         """Ajoute du contenu a la fin d'une note existante.
 
@@ -687,7 +719,7 @@ def register_tools(mcp, tools: BrainTools):
         """
         return tools.append_note(file, content)
 
-    @mcp.tool()
+    @_tool
     def update_note(file: str, content: str) -> str:
         """Remplace EN ENTIER le contenu d'une note existante (frontmatter + body).
 
@@ -697,7 +729,7 @@ def register_tools(mcp, tools: BrainTools):
         """
         return tools.update_note(file, content)
 
-    @mcp.tool()
+    @_tool
     def insert_section(file: str, marker: str, content: str, position: str = "after") -> str:
         """Insere du contenu avant/apres une section markdown reperee par son header exact.
 
@@ -709,7 +741,7 @@ def register_tools(mcp, tools: BrainTools):
         """
         return tools.insert_section(file, marker, content, position)
 
-    @mcp.tool()
+    @_tool
     def list_notes(folder: str = "", limit: int = 50) -> str:
         """Liste les notes d'un dossier du vault.
 
@@ -719,12 +751,12 @@ def register_tools(mcp, tools: BrainTools):
         """
         return tools.list_notes(folder, limit)
 
-    @mcp.tool()
+    @_tool
     def vault_stats() -> str:
         """Statistiques du vault : nombre de notes, tags, wikilinks, aliases, repartition par dossier."""
         return tools.vault_stats()
 
-    @mcp.tool()
+    @_tool
     def update_property(file: str, name: str, value: str) -> str:
         """Modifie une propriete du frontmatter YAML d'une note.
 
@@ -735,7 +767,7 @@ def register_tools(mcp, tools: BrainTools):
         """
         return tools.update_property(file, name, value)
 
-    @mcp.tool()
+    @_tool
     def delete_note(file: str, force: bool = False) -> str:
         """Supprime une note du vault et de l'index. Refuse si backlinks > 0 sauf force=True.
 
@@ -745,7 +777,7 @@ def register_tools(mcp, tools: BrainTools):
         """
         return tools.delete_note(file, force)
 
-    @mcp.tool()
+    @_tool
     def move_note(file: str, new_path: str, update_wikilinks: bool = True) -> str:
         """Deplace une note vers un nouveau chemin. Met a jour les wikilinks dans les backlinks
         si le stem change.
@@ -758,7 +790,7 @@ def register_tools(mcp, tools: BrainTools):
         """
         return tools.move_note(file, new_path, update_wikilinks)
 
-    @mcp.tool()
+    @_tool
     def lint_vault(limit: int = 50) -> str:
         """Detecte les problemes de qualite dans le vault (aliases<4, orphelines, sans tag,
         YAML casse, wikilinks brises). Layer raw/ exclu (Karpathy immutable).
@@ -767,3 +799,21 @@ def register_tools(mcp, tools: BrainTools):
             limit: nombre max de problemes par categorie (default 50)
         """
         return tools.lint_vault(limit)
+
+    @_tool
+    def usage_stats(days: int = 7) -> str:
+        """Aggregate usage des outils MCP sur les N derniers jours (depuis logs/usage.jsonl).
+
+        Args:
+            days: fenetre de jours (default 7)
+        """
+        stats = _compute_usage_stats(days)
+        if not stats:
+            return f"Aucun usage enregistre sur les {days} derniers jours."
+        lines = [f"# Usage MCP forge-brain — {days} derniers jours\n"]
+        lines.append("| Tool | Calls | Total ms | Errors | Avg result chars |")
+        lines.append("|------|-------|----------|--------|------------------|")
+        sorted_tools = sorted(stats.items(), key=lambda kv: -kv[1]["calls"])
+        for tool, s in sorted_tools:
+            lines.append(f"| {tool} | {s['calls']} | {s['total_ms']} | {s['errors']} | {s['avg_result_chars']} |")
+        return "\n".join(lines)

@@ -15,6 +15,7 @@ from src.database import BrainDB
 from src.watcher import VaultWatcher
 from src.git_sync import GitSync
 from src.tools.brain import BrainTools, register_tools
+from src import usage_log
 
 logger = logging.getLogger("obsidian-brain")
 
@@ -27,6 +28,10 @@ def create_app(config_path: Path | None = None) -> FastMCP:
 
     db = BrainDB(cfg.db_path, cfg.fts.weights)
     db.create_schema()
+
+    # Configure usage logging — store next to the MCP install (mcp-forge-brain/logs/)
+    mcp_install_dir = Path(__file__).parent.parent
+    usage_log.configure(mcp_install_dir / "logs")
 
     watcher = VaultWatcher(cfg.vault_path, db, cfg.excluded_dirs)
     git_sync = GitSync(cfg.vault_path, cfg.git)
