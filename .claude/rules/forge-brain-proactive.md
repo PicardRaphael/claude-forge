@@ -12,21 +12,32 @@ Le vault forge-brain est la mémoire infinie. L'interroger est un RÉFLEXE, pas 
 Le MCP `forge-brain` (auto-start via hook SessionStart, port 8091) est le SEUL moyen d'accès au vault.
 Ne JAMAIS utiliser Grep/Read/Glob brut sur le vault. Ne JAMAIS utiliser la CLI Obsidian.
 
-### Outils MCP disponibles
+### Outils MCP — 19 disponibles (v1.3)
 
-| Outil | Usage |
-|-------|-------|
-| `search_brain(query, limit)` | Recherche full-text FTS5 sur tout le vault |
-| `read_note(file)` | Lire une note par nom ou alias |
-| `read_note_by_path(path)` | Lire par chemin exact |
-| `get_backlinks(file)` | Naviguer le graphe de liens |
-| `get_tags()` | Vue structurelle par tags |
-| `get_property(file, name)` | Lire une propriété frontmatter |
-| `list_notes(folder, limit)` | Lister les notes d'un dossier |
-| `vault_stats()` | Stats vault (notes, tags, wikilinks, aliases) |
-| `create_note(path, content)` | Créer une note |
-| `append_note(file, content)` | Ajouter du contenu à une note |
-| `update_property(file, name, value)` | Modifier une propriété frontmatter |
+**Lecture** :
+- `search_brain(query, limit, context)` — FTS5 BM25 (file_stem:10 / aliases:8 / content:1)
+- `read_note(file)` — **lit la note ENTIÈRE par défaut**
+- `read_note(file, offset, limit_chars)` — pagination char-based (uniquement si > 50k chars)
+- `read_section(file, "## H")` — UNE section (économie 30x tokens sur CHANGELOG)
+- `read_note_resolved(file, depth=1)` — inline embeds `![[X]]` récursivement
+- `read_note_by_path(path)` — par chemin exact
+- `get_backlinks(file)` — case-insensitive
+- `get_tags()`, `get_property(file, name)`, `list_notes(folder, limit)`, `vault_stats()`
+- `find_by_property(name, value, comparator, folder, limit)` — Dataview-equivalent (eq/ne/lt/gt/contains/missing/present)
+- `lint_vault(limit)` — audit qualité (5 catégories)
+- `usage_stats(days)` — agrégation calls par tool
+
+**Écriture** (indexation auto) :
+- `create_note(path, content)`, `append_note(file, content)`, `insert_section(file, marker, content, position)`
+- `update_note(file, content)` — remplace EN ENTIER (rare)
+- `update_property(file, name, value)` — 1 prop sur 1 note
+- `bulk_update_property(files: list, name, value)` — **N notes en 1 appel** (économie round-trips)
+
+**Move / Delete** (atomique + rewriting auto) :
+- `move_note(file, new_path)` — rename + wikilinks dans backlinks (gère embeds, casse, code blocks)
+- `delete_note(file, force=False)` — refuse si backlinks > 0 sauf force
+
+Matrice de décision complète : voir skill `forge-brain` et note canonique [[mcp-vault-llm-design]].
 
 ### Fallback (MCP crash uniquement)
 
