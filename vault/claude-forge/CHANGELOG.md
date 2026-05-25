@@ -7,12 +7,23 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-05-24
+derniere-maj: 2026-05-25
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-05-25 — Casquette responsable-ia : formation exhaustive 8 axes
+
+- **Créée** : casquette complète `2-Casquettes/responsable-ia/` (11 sous-dossiers thématiques)
+- **Hubs créés** (10 index.md riches) : index racine, log, reunions, management, strategie, communication, priorisation, tickets, documentation, gouvernance, veille, templates, frameworks
+- **Notes atomiques réunions (7)** : stand-up walking-the-board, sprint planning IA spike, sprint review demo eval, retrospective formats rotation, post-mortem blameless SRE, CODIR 6-pager Bezos, réunion client hype management, techniques ADR/RFC, facilitation Liberating Structures, async-first GitLab/Basecamp
+- **Source** : recherche web 8 sub-agents parallèles (3000-4000 mots chacun, sourcés URLs) sur management équipe IA, rituels agiles, rédaction tickets, stratégie IA/gouvernance, communication direction non-tech, priorisation roadmap, comptes rendus, veille
+- **Cibles** : Raphael Lead IA Neoteem (proptech, équipe 1-5, première fois rôle) — douleurs comm direction + priorisation
+- **Cheat sheet exhaustive** : 70+ frameworks référencés (Amazon 6-pager, PR-FAQ, SCQA, BLUF, ADR Nygard, DACI, RICE, WSJF, GIST, OKR, SBI, BICEPS, Crucial Conversations, Liberating Structures, AI Act EU, NIST RMF, OWASP LLM Top 10, etc.)
+- **Templates prêts à coller** : 6-pager, weekly update BLUF, ADR Nygard, postmortem blameless, CR réunion, spike Jira, DACI, PR-FAQ
+- **Plan apprentissage 90 jours** structuré dans index racine
 
 ## 2026-05-24 (tour 2) — Innovations doctrine meta + auto-injection canonique
 
