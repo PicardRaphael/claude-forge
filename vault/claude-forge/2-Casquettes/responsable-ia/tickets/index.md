@@ -18,22 +18,22 @@ tags:
 
 Stack : Jira + Confluence + Figma + Bitbucket. Tous les templates sont en **Markdown Jira** (rendu natif).
 
-## Les 12 templates canoniques
+## Les 12 templates canoniques (tous inline dans cette note)
 
-| Template | Note atomique | Pour |
+| Template | Section | Pour |
 |---|---|---|
-| User Story DEV | [[template-user-story-dev]] | Dev classique |
-| Bug Report | [[template-bug-report]] | Bug avec steps to reproduce |
-| Design brief | [[template-design-brief-figma]] | Design avec WCAG + breakpoints |
-| Spike R&D | [[template-spike-ia]] | Recherche timeboxée |
-| Train model | [[template-train-model]] | Entraînement avec baseline + cible |
-| Deploy model | [[template-deploy-model-canary]] | Déploiement avec rollback plan |
-| Data contract | [[template-data-contract]] | Pipeline avec SLA + schema |
-| Prompt change | [[template-prompt-change-eval]] | Modif prompt avec regression test |
-| Agent / outil LLM | [[template-agent-llm-guardrails]] | Agent avec guardrails + observability |
-| Initiative/Epic/Story | [[hierarchie-atlassian-initiative-epic-story]] | Hiérarchie produit |
-| DoR / DoD | [[definition-of-ready-done]] | Definition of Ready/Done |
-| Custom fields IA | [[custom-fields-jira-ia]] | Fields Jira spécifiques IA |
+| User Story DEV | [User Stories INVEST](#user-stories--invest-bill-wake-2003) | Dev classique |
+| Bug Report | [Templates phares](#templates-phares--versions-inline) | Bug avec steps to reproduce |
+| Design brief | inline ci-dessous | Design WCAG + breakpoints |
+| Spike R&D | [Template SPIKE R&D](#template-spike-rd-le-plus-important-pour-équipe-ia) | Recherche timeboxée |
+| Train model | [Template TRAIN MODEL](#template-train-model) | Entraînement baseline + cible |
+| Deploy model | inline ci-dessous | Déploiement rollback plan |
+| Data contract | inline ci-dessous | Pipeline SLA + schema |
+| Prompt change | inline ci-dessous | Modif prompt + regression |
+| Agent / outil LLM | inline ci-dessous | Agent guardrails + observability |
+| Initiative/Epic/Story | [Hiérarchie Atlassian](#hiérarchie-atlassian-native) | Hiérarchie produit |
+| DoR / DoD | [DoR vs DoD](#definition-of-ready-vs-definition-of-done) | Definition of Ready/Done |
+| Custom fields IA | [Custom fields](#custom-fields-jira-spécifiques-ia-recommandation) | Fields Jira IA |
 
 ## User Stories — INVEST (Bill Wake, 2003)
 

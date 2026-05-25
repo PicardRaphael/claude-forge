@@ -50,28 +50,29 @@ tags:
                                                 comité IA
 ```
 
-## Plan d'apprentissage 90 jours (proposition)
+## Plan d'apprentissage 90 jours
 
-### J0-30 — Fondamentaux
-1. Lire [[management/1-on-1-cadre-canonique]] + [[management/feedback-sbi-radical-candor]]
-2. Lire [[communication/parler-non-tech-vulgarisation]] + [[communication/amazon-6-pager-canonique]]
-3. Mettre en place un 1:1 hebdo structuré avec chaque membre équipe
-4. Lire [[strategie/ai-act-eu-cheatsheet]] pour cadrer la conformité Neoteem
-5. Identifier 3 livres prioritaires dans [[veille/livres-ranking-debutant]]
+### J0-30 — Fondamentaux (1 action par semaine)
+1. Lire [[management/index]] + mettre en place 1:1 hebdo structuré avec chaque membre équipe
+2. Lire [[communication/index]] + adopter format BLUF pour tout email > 3 lignes
+3. Lire [[strategie/index]] section AI Act + classifier les cas d'usage Loji (NeoChat, NeoDocs, scoring locataire)
+4. Lire [[veille/index]] et souscrire aux 5 newsletters tier S
 
 ### J30-60 — Outillage & rituels
-1. Implémenter un decision log Confluence (cf [[documentation/adr-michael-nygard]])
-2. Adopter framework de priorisation (RICE ou WSJF) — voir [[priorisation/frameworks-comparatif]]
-3. Refondre tes templates Jira IA (cf [[tickets/templates-jira-ia]])
-4. Première présentation CODIR format 6-pager (cf [[templates/exec-summary-6-pager]])
-5. Premier post-mortem blameless si incident (cf [[reunions/post-mortem-google-sre]])
+1. Implémenter decision log Confluence (cf [[documentation/index]] section ADR Nygard)
+2. Adopter RICE ou WSJF pour le backlog IA (cf [[priorisation/index]])
+3. Première présentation CODIR format 6-pager (cf [[reunions/codir-6-pager-bezos]] + template inline dans [[templates/index]])
+4. Premier post-mortem blameless si incident (cf [[reunions/post-mortem-blameless-sre]])
 
 ### J60-90 — Stratégie & rayonnement
-1. Écrire ta roadmap IA Now/Next/Later (cf [[priorisation/roadmap-now-next-later]])
-2. Politique IA interne (cf [[gouvernance/ai-usage-policy-interne]])
-3. OKR équipe IA Q+1 (cf [[priorisation/okr-equipe-ia]])
-4. Routine veille hebdo formalisée (cf [[veille/routine-hebdo-2h]])
-5. Identifier un mentor externe (cf [[veille/mentorat-coaching]])
+1. Écrire roadmap IA Now/Next/Later (cf [[priorisation/index]])
+2. AI Acceptable Use Policy v1 (cf [[gouvernance/index]])
+3. OKR équipe IA Q+1 (cf [[priorisation/index]])
+4. Identifier mentor externe via Plato ou MentorCruise (cf [[veille/index]])
+
+## Dimension TECHNIQUE IA — où trouver le savoir
+
+Le vault forge-brain contient déjà 100+ notes techniques dans `04-Techniques/`. La casquette pointe vers elles via [[technique-ia/index]] (carte d'orientation Lead IA Neoteem).
 
 ## Posture & valeurs (à incarner)
 

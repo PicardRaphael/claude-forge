@@ -17,58 +17,51 @@ tags:
 
 Tous les templates de la casquette responsable-ia, regroupés ici pour copier-coller direct dans Confluence/Jira.
 
-## Communication direction
+## Communication direction (templates inline ci-dessous)
 
-| Template | Source | Quand |
+| Template | Section dans cette note | Quand |
 |---|---|---|
-| **6-pager Amazon** | [[exec-6-pager-template]] | Décision CODIR (budget, go/no-go) |
-| **PR-FAQ** | [[pr-faq-template]] | Proposer feature IA avant build |
-| **Status report hebdo BLUF** | [[weekly-update-bluf-template]] | Vendredi 17h, COO direct |
-| **Status report mensuel RAG** | [[status-monthly-rag-template]] | Comex mensuel |
-| **Exec summary postmortem** | [[exec-postmortem-summary-template]] | Incident IA majeur |
-| **Business case 1 page** | [[business-case-1-page-template]] | Demande budget |
+| **6-pager Amazon** | [6-pager](#6-pager-à-dupliquer-dans-confluence) | Décision CODIR (budget, go/no-go) |
+| **PR-FAQ** | [PR-FAQ](#pr-faq-amazon) | Proposer feature IA avant build |
+| **Weekly update BLUF** | [Weekly update](#weekly-update-bluf-slackemail-vendredi-17h) | Vendredi 17h, COO direct |
+| **Postmortem exec summary** | [Postmortem](#postmortem-blameless) | Incident IA majeur |
+
+Notes connexes détaillées :
+- [[../communication/pr-faq-amazon-working-backwards]]
+- [[../communication/scqa-pyramid-principle-minto]]
+- [[../communication/bluf-bottom-line-up-front]]
+- [[../communication/hype-ia-cadrage-kozyrkov]]
+- [[../communication/parler-non-tech-vulgarisation]]
+- [[../reunions/codir-6-pager-bezos]]
 
 ## Réunions
 
-| Template | Source |
-|---|---|
-| **CR de réunion** | [[../documentation/index]] |
-| **Postmortem blameless** | [[../reunions/post-mortem-blameless-sre]] |
-| **Rétrospective avec suivi N-1** | [[retro-template]] |
-| **Agenda type 1:1** | [[1-on-1-agenda-template]] |
+- CR de réunion → [[../documentation/index]]
+- Postmortem blameless → [[../reunions/post-mortem-blameless-sre]]
+- Rétrospective → [[../reunions/retrospective-formats-rotation]]
+- Agenda 1:1 → [[../management/1-on-1-cadre-canonique]]
 
-## Décisions
+## Décisions (templates inline ci-dessous)
 
-| Template | Source |
+| Template | Section dans cette note |
 |---|---|
-| **ADR Nygard** | [[adr-nygard-template]] |
-| **MADR (avec alternatives détaillées)** | [[adr-madr-template]] |
-| **Y-Statement** | [[adr-y-statement-template]] |
-| **RFC** | [[rfc-template]] |
-| **DACI** | [[daci-template]] |
+| **ADR Nygard** | [ADR Nygard](#adr-nygard-bitbucket-docsadradr-nnnmd) |
+| **DACI** | [DACI](#daci) |
+| **RFC / MADR / Y-Statement** | Décrits dans [[../documentation/index]] et [[../reunions/techniques-adr-rfc]] |
 
 ## Tickets Jira IA
 
-| Template | Source |
-|---|---|
-| **User Story** | [[../tickets/index]] |
-| **Bug Report** | [[../tickets/index]] |
-| **Design brief Figma** | [[../tickets/index]] |
-| **Spike R&D** | [[../tickets/index]] |
-| **Train model** | [[../tickets/index]] |
-| **Deploy model** | [[../tickets/index]] |
-| **Data contract** | [[../tickets/index]] |
-| **Prompt change avec eval** | [[../tickets/index]] |
-| **Agent / outil LLM** | [[../tickets/index]] |
+Tous les templates Jira inline dans [[../tickets/index]] :
+User Story, Bug Report, Design brief Figma, Spike R&D, Train model, Deploy model, Data contract, Prompt change avec eval, Agent / outil LLM.
 
 ## Documentation IA
 
 | Template | Source |
 |---|---|
-| **Model card** (Mitchell et al.) | [[model-card-template]] |
-| **Eval suite report** | [[eval-suite-report-template]] |
-| **Experiment log** | [[experiment-log-template]] |
-| **Runbook incident IA** | [[runbook-incident-ia-template]] |
+| **Model card** (Mitchell et al.) | voir [[../technique-ia/index]] |
+| **Eval suite report** | voir [[../technique-ia/index]] |
+| **Experiment log** | voir [[../technique-ia/index]] |
+| **Runbook incident IA** | voir [[../technique-ia/index]] et [[../reunions/post-mortem-blameless-sre]] |
 
 ## Templates phares — versions inline
 
