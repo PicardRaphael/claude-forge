@@ -13,6 +13,12 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-25 (tour 2) — Audit ia_back quartet forge + 4 vagues parallèles
+
+- **Créée** : [[audit-ia-back-25mai-quartet]] dans `Knowledge/syntheses/` — synthèse complète (verdicts, 4 vagues, comparaison neo_ia, apprentissages pattern)
+- **Source** : Session forge 25 mai 2026 — premier déploiement quartet sur ia_back après neo_ia matin
+- **Résultats ia_back** : commit `fdeee72` pushed develop, -280 LOC, +5 fichiers, 0 régression, 18 agents refactored via wikilink rules (308L économisées via script Python ponctuel)
+- **Apprentissages** : refactor masse via script Python > Edit séquentiels (10+ fichiers), false positives auditor nécessitent vérif empirique, codebase-scanner détecte drifts invisibles dans `.claude/`
 
 ## 2026-05-25 — Casquette responsable-ia : formation exhaustive 8 axes
 
