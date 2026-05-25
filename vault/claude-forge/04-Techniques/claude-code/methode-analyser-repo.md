@@ -16,7 +16,7 @@ aliases:
   - "automate repo setup"
   - "automatiser projet claude code"
   - "pipeline architect dev test"
-derniere-maj: 2026-05-24
+derniere-maj: 2026-05-25
 auteur: claude
 type: technique
 sources:
@@ -431,6 +431,19 @@ Déploiement (via skill-creator, agent-creator, hook-creator, claudemd-optimizer
 ---
 
 ## APPELS — Composants mobilisés
+## QUARTET D'AGENTS FORGE — Pattern d'invocation validé 25 mai 2026
+
+Pour appliquer cette méthode sur un repo, dispatcher en PARALLÈLE le quartet forge :
+
+| Agent | Scope |
+|-------|-------|
+| `project-analyzer` | Vue projet haut niveau + recommandations |
+| `project-auditor` × N (1 par cluster `.claude/`) | Audit `.claude/` agents/skills/hooks/rules+CLAUDE.md |
+| `codebase-scanner` | Étapes 1b/1c/1d/5 (code applicatif réel) |
+| `devils-advocate` | Critique livrables majeurs (conditionnel) |
+
+Soit typiquement **5 sub-agents en parallèle** (4 project-auditor par cluster + 1 codebase-scanner). Cf [[quartet-analyse-multi-repo]] + [[audit-puis-vagues-paralleles]] pour le détail orchestration + vagues d'application.
+
 
 - [[comment-creer-skill]] — pour chaque skill proposée étape 5
 - [[comment-creer-agent]] — pour chaque agent proposé étape 3
