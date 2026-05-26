@@ -12,7 +12,7 @@ aliases:
   - "SKILL.md structure"
   - "frontmatter skill"
   - "agentskills.io"
-derniere-maj: 2026-05-24
+derniere-maj: 2026-05-26
 auteur: claude
 type: technique
 sources:
@@ -355,6 +355,7 @@ Aliases déclarés en frontmatter (10) :
 - [[methode-analyser-repo]]
 - [[mcp-vs-skills-doctrine]]
 - [[pattern-vault-llm-karpathy]]
+- [[eval-pattern-anthropic-skill-creator]]
 
 ### Fiches leaders (à créer)
 - [[Thariq Shihipar]]
@@ -494,3 +495,43 @@ Section body standardisée identique à celle des agents — voir [[pattern-mcp-
 
 Skills concernées forge : `forge-brain`, `done`, `cc-news`, `reasoning-cache`, `recap`, `skill-evolve`, `forge-review`, `obsidian-markdown`.
 Skills concernées neo_ia/ia_back : toutes celles qui ont des MCP dans allowed-tools (typiquement context7, postgres, langfuse).
+
+
+---
+
+## AJOUT 26 mai 2026 — Pattern eval Anthropic (skills critiques)
+
+Plugin officiel `anthropics/claude-plugins-official/plugins/skill-creator` introduit une infra eval A/B absente de forge. Détails complets : [[eval-pattern-anthropic-skill-creator]].
+
+### Architecture A/B
+
+```
+<skill-name>-workspace/
+└── iteration-1/
+    ├── eval-name/
+    │   ├── with_skill/outputs/      # Run AVEC la skill
+    │   ├── without_skill/outputs/   # Run SANS (baseline)
+    │   ├── grading.json             # assertions[] passed + evidence
+    │   └── timing.json              # tokens + duration_ms
+    └── benchmark.json               # agrégat
+```
+
+### Workflow itératif (5 étapes)
+
+1. Spawner simultanément runs `with_skill` ET `baseline`
+2. Rédiger assertions pendant les runs
+3. Grader → agréger → analyser (`benchmark.json`)
+4. Lire `feedback.json` → améliorer skill
+5. Recommencer jusqu'à convergence
+
+### Quand utiliser
+
+**Skills CRITIQUES uniquement (5-6 max)** — pas systématique. Critères : skill réutilisée cross-repos, skill de scaffolding haut-impact, skill sécu. Pour skills basiques : pas d'eval formelle.
+
+### Gap mesurable forge
+
+`outcomes-grader` + `outcomes-test` forge = notation d'un livrable contre RUBRIC.md → **évaluation ponctuelle**. Pattern Anthropic = **benchmark itératif A/B** avec baseline explicite, timing, et boucle d'optimisation. Gap = pas de mesure de delta avant/après skill.
+
+### Décision forge : PAS de skill `/skill-eval`
+
+`run_loop.py` + viewer HTML = dépendances Python lourdes + maintenance. Pour skills critiques (5-6), faire l'éval **manuellement** en suivant ce pattern lors de `/skill-evolve`. Si forge passe à 100+ skills → reconsidérer.

@@ -7,12 +7,27 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-05-25
+derniere-maj: 2026-05-26
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-26 — Veille 11 plugins officiels Anthropic + enrichissements canoniques
+
+- **Créées (3)** :
+  - [[plugins-officiels-veille-2026-05-26]] dans `04-Techniques/claude-code/` — synthèse comparative 11 plugins (hookify, skill-creator, agent-sdk-dev, code-review, mcp-server-dev, remember, atomic-agents, pydantic-ai, sourcegraph, data-engineering, forge-skills). 2 ADAPT, 3 REFERENCE, 6 SKIP.
+  - [[anti-pattern-hookify-workflow-hooks]] dans `04-Techniques/claude-code/` — documente violation doctrine 22 mai par patterns `event: stop` + transcript conditions
+  - [[eval-pattern-anthropic-skill-creator]] dans `04-Techniques/claude-code/` — pattern A/B `with_skill/baseline` + `run_loop.py` + viewer HTML. Gap vs outcomes-grader documenté.
+- **Modifiées (2)** :
+  - [[analyse-plugin-claude-code-setup]] — section veille 26 mai
+  - [[comparaison-skill-anthropic-claude-code-setup]] — confirmation doctrine "on absorbe pas dans skill forge"
+- **Enrichies (2 canoniques via skill-creator)** :
+  - [[comment-creer-skill]] — section pattern eval Anthropic
+  - [[da-blocking-arbitrage]] (skill) — confidence scoring 0-100 + seuil 80 (emprunté code-review Boris Cherny)
+- **Source** : Demande Raphael 26 mai, marketplace.json 203 plugins, advisor + AskUserQuestion arbitrages
+- **Doctrine reconduite** : aucune nouvelle skill forge créée, single source of truth = vault canonique
+
 ## 2026-05-25 (tour 2) — Audit ia_back quartet forge + 4 vagues parallèles
 
 - **Créée** : [[audit-ia-back-25mai-quartet]] dans `Knowledge/syntheses/` — synthèse complète (verdicts, 4 vagues, comparaison neo_ia, apprentissages pattern)

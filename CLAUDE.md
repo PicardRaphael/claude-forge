@@ -1,6 +1,6 @@
 # claude-forge
 
-**Créé : 31 mars 2026 | Dernière mise à jour : 2026-05-24 | Version : 3.2 (5 lignes Karpathy en ouverture)**
+**Créé : 31 mars 2026 | Dernière mise à jour : 2026-05-26 | Version : 3.3 (permissions totales + doctrine effort calibrée)**
 
 - Si ambigu : Demande. Ne choisis pas en silence.
 - Diff minimal. Touche uniquement ce qui est demandé.
@@ -10,11 +10,13 @@
 
 ## ⚠️ Critiques (< ligne 25)
 
+- **Permissions cross-repo TOTALES** : Read/Write/Edit/Bash/MCP partout (forge, ia_back, neo_ia, neoteem-brain, lojii, neofront). Cross-repo OK depuis forge. **INTERDIT sauf demande explicite Raphael : `rm -rf`, `git branch -D`, suppression branches, force push main**.
 - **AVANT toute proposition / recherche web / refonte** : consulter le vault via MCP `mcp__forge-brain__*` (21 outils — search_brain, read_note, list_notes, find_by_property, get_backlinks, etc.). Le vault contient probablement déjà la réponse. Anti-pattern 24 mai 2026 : 40 tours sans une seule consultation vault.
 - **Auto-mode classifier hard block** sur `.claude/settings.json` (self-modification protection Anthropic) : édition manuelle Raphael requise pour modifs hooks/permissions. Workaround agent = générer `.proposed`.
 - **JAMAIS `$ARGUMENTS` dans backticks shell** : substitution littérale casse quoting (Windows particulièrement).
 - **Hooks Windows : `py` launcher**, jamais chemin Python en dur (cross-machine). Jamais `C:\Users\...` (Bash mange `\`)
 - **MCP forge-brain UNIQUEMENT pour accès vault** : jamais Grep/Read/Glob/CLI Obsidian brut.
+- **Workflow par défaut = langage naturel** : Raphael parle, session principale orchestre (feature → /spec → architect → dev → reviewer → grader). Slash commands optionnels.
 
 ## Contrat Jarvis
 
@@ -52,7 +54,7 @@ Vault path : `vault/claude-forge/04-Techniques/claude-code/`
 Pivot doctrinal complet : **[[raisonnement-22mai-doctrine-vs-enforcement]]**
 
 - **Hooks** : lint / security / scope UNIQUEMENT. **JAMAIS workflow agentique** (architect-first, TDD strict, commit gates, markers TTL).
-- **Effort** : `high` partout par défaut. `xhigh` RÉSERVÉ aux 3 rôles : architect / dev-lead / refactor-pg. `max` toujours disponible mai 2026 mais prone overthinking — utiliser avec prudence.
+- **Effort calibré (doctrine 26 mai 2026)** : `xhigh` pour exploration agentique multi-tours profonde (architect-deep, dev-lead, refactor-pg-function, project-auditor, project-analyzer). `high` pour comparatif structuré (graders, reviewers, designers, conseil). Sonnet supporte aussi effort — `medium` pour scan/maintenance/inspection mécanique (codebase-scanner Haiku candidate). `max` jamais en frontmatter, seulement ponctuel si mur. Doctrine Anthropic "xhigh partout" = biais tokens illimités, calibrer par TYPE de tâche réelle.
 - **Modèles** : Sonnet exécution, Opus jugement.
 - **DA** : CONDITIONNEL ciblé sur livrables majeurs (skill réutilisée, agent orchestrant, archi). **Pas systématique**.
 - **Advisor** : AVANT travail substantiel (pas après). Après exploration, avant d'écrire / proposer.

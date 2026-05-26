@@ -6,7 +6,7 @@ aliases:
   - "claude-code-setup vs forge"
   - "automation recommender comparaison"
   - "skill officielle vs vault forge"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-05-26
 auteur: claude
 type: comparaison
 sources:
@@ -17,7 +17,6 @@ tags:
   - "#domaine/claude-code"
   - "#meta"
 ---
-
 # Comparaison skill officielle Anthropic `claude-code-setup` vs vault forge
 
 > Note méta — pourquoi le vault forge n'absorbe pas la skill officielle, et quels 3 bits valait la peine de reprendre.
@@ -161,3 +160,17 @@ Skill officielle clarifie quand recommander quoi. Le vault forge l'a déjà dans
 - Plugin officiel : `~/.claude/plugins/cache/claude-plugins-official/claude-code-setup/1.0.0/`
 - Skill : `claude-automation-recommender/SKILL.md`
 - References : `references/mcp-servers.md`, `references/skills-reference.md`, `references/hooks-patterns.md`, `references/subagent-templates.md`, `references/plugins-reference.md`
+
+
+## Update 26 mai 2026 — veille étendue 11 plugins
+
+Pattern absorption confirmé sur 11 plugins additionnels (cf [[plugins-officiels-veille-2026-05-26]]).
+
+**Pattern doctrine reconduit** : *"On absorbe pas le plugin officiel dans une nouvelle skill forge"* — appliqué aux 11 plugins :
+- 6 SKIP (stack non-match ou anti-pattern)
+- 3 REFERENCE (notes vault, pas de skill forge)
+- 2 ADAPT (enrichissement canonique existant, pas nouvelle skill)
+  - skill-creator eval pattern → enrichi [[comment-creer-skill]]
+  - code-review confidence scoring → enrichi [[da-blocking-arbitrage]]
+
+**Aucune nouvelle skill forge créée** — doctrine respectée. Single source of truth = vault canonique.
