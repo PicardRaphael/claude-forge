@@ -275,3 +275,19 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - Table FTS5 separee session_messages (concerns vs notes_fts), watcher incremental mtime, eager au boot mesure 2.68s (243 transcripts, 15858 messages, subagents exclus configurables)
 - Tests : test_sessions_indexer.py (18) + test_sessions_search.py (19) = 37, ~60% adverse, 0 regression (244 verts : 101 hooks + 143 MCP)
 - Capitalise note canonique [[ajouter-source-donnees-mcp-forge-brain]] ; roadmap A1 FAIT ; CLAUDE.md + forge-brain-proactive + skill forge-brain MAJ 22 outils
+
+## [2026-05-27] Ingest | Mémoire portable — claude-forge self-contained
+- Migration mémoire ~/.claude/projects/<repo>/memory/ -> <repo>/memory/ (240 fichiers versionnés). Mécanisme : autoMemoryDirectory (user-scope, par machine) ; contenu suit le clone, pointeur local
+- ADR actée [[decision-memoire-dans-le-repo]] (remplace l'ADR en attente) ; [[decision-settings-global-modification-manuelle]]
+- Audit confidentialité empirique : mdp PostgreSQL prod + IP serveur committés en clair (GitHub claude-forge + Bitbucket ia_back). Redactés de HEAD dans 5 fichiers (2 memory + 3 vault). TODO P0 [[todo-rotation-password-postgres-prod]] (rotation = seul fix réel)
+- Réconcilié dossier résiduel .claude/projects/ (3 fichiers obsolètes d'essai antérieur, git rm)
+- Feedback [[claude-forge-self-contained-rien-hors-clone]] ; baseline tests vérifié empiriquement 244 (143 MCP + 101 hooks)
+- EN ATTENTE test natif (autoMemoryDirectory appliqué à la main) avant adaptation /done /recap session-reminder.py install-forge
+
+## [2026-05-27] Build | Mémoire portable étape 7-9 — composants adaptés + doctrine path
+- Pivot du mécanisme : autoMemoryDirectory (cassé en multi-repos) -> `@memory/MEMORY.md` dans CLAUDE.md versionné (L100). Test @import validé empiriquement (231 lignes chargées depuis `<repo>/memory/`)
+- Découverte non anticipée : l'@import AJOUTE une source, ne remplace pas l'auto-memory native. Double-source transitoire (231L repo vs 229L native tronquée) acceptée comme dette tracée. Feedback [[import-ajoute-pas-remplace-automemory]]
+- 5 composants adaptés : /done (bloc PROJECT_ID supprimé, dédup+écriture via git rev-parse), /recap (dépendance $(claude-project-id) éliminée), session-reminder.py (glob ~/.claude/projects/* -> chemin déterministe __file__), install-forge (section Mémoire portable), CLAUDE.md (session précédente)
+- Doctrine 4-contextes de résolution de path capitalisée : note canonique [[resolution-path-3-contextes]] (skill=git rev-parse, hook=__file__, settings=${CLAUDE_PROJECT_DIR} expansion harness, .mcp.json=relatif) + amendements [[comment-creer-skill]] et [[comment-creer-hook]] wikilinkés
+- Test cross-machine probant (clone C:\temp\forge-test lit sa propre mémoire via __file__ et git rev-parse, pas l'origine). 244 tests verts, 0 régression
+- Raisonnement [[architecture-decision-memoire-portable-import]] enrichi du résultat de test. Suivant = DA sur A1×A3 en session dédiée

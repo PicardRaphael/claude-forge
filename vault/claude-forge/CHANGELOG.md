@@ -13,6 +13,29 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-27 — Mémoire portable (étape 7-9) : composants adaptés + doctrine résolution de path
+
+- **Ajoutées (1)** :
+  - [[resolution-path-3-contextes]] (04-Techniques/patterns) — note canonique : table empirique des 4 contextes de résolution de path (skill = `git rev-parse`, hook = `__file__`, settings command = `${CLAUDE_PROJECT_DIR}` expansion harness, .mcp.json = paths relatifs), avec preuve par ligne (27 mai).
+- **Modifiées (3, amendements wikilinkés)** :
+  - [[comment-creer-skill]] — AJOUT 27 mai : résolution path skill = `git rev-parse`, jamais `${CLAUDE_PROJECT_DIR}` (vide en skill). Wikilink vers note canonique.
+  - [[comment-creer-hook]] — AJOUT 27 mai : résolution path hook = `__file__`, jamais `os.environ["CLAUDE_PROJECT_DIR"]`. Robuste au cwd. Wikilink vers note canonique.
+  - [[architecture-decision-memoire-portable-import]] — résultat du test de validation (@import OK + double-source native non anticipée).
+- **Composants `.claude/` adaptés (hors vault)** : skills `/done` (bloc PROJECT_ID supprimé, dédup+écriture → `$(git rev-parse)/memory`), `/recap` (lecture feedbacks → repo, dépendance `$(claude-project-id)` éliminée), `/install-forge` (section "Mémoire portable"), hook `session-reminder.py` (`glob ~/.claude/projects/*` → chemin déterministe `__file__`).
+- **Mémoire** : feedback `import-ajoute-pas-remplace-automemory` (double-source transitoire, divergence 231/229).
+- **Source** : session Mémoire Portable étape 7-9 (relais). Asymétrie 3 contextes de résolution de path découverte et capitalisée. Double-source transitoire acceptée comme dette tracée.
+
+---
+## 2026-05-27 — Mémoire portable : claude-forge self-contained
+
+- **Ajoutées (3)** :
+  - [[decision-memoire-dans-le-repo]] (Knowledge/decisions) — ADR actée : mémoire versionnée dans `<repo>/memory/`, chargée nativement via `autoMemoryDirectory` (user-scope, par machine). Remplace l'ADR en attente.
+  - [[todo-rotation-password-postgres-prod]] (Knowledge/decisions) — TODO P0 : mot de passe PostgreSQL prod committé en clair (GitHub claude-forge + Bitbucket ia_back), redacté de HEAD mais présent dans l'historique. Rotation = seul fix réel.
+  - [[decision-settings-global-modification-manuelle]] (Knowledge/decisions) — ADR : modifs `~/.claude/settings.json` = manuelles via diff fourni (hard-block classifier).
+- **Modifiées (3, redaction sécu)** : `critique-2026-05-22-audit-neo_ia`, `critique-session-2026-05-20-running-notes-decompose-xread-mcp`, `erreur-password-postgres-clair-mcp-json` — secret PostgreSQL prod + IP serveur remplacés par `[REDACTED]` + mention de nettoyage rétroactif.
+- **Mémoire** : feedback `claude-forge-self-contained-rien-hors-clone` ; amendement `verify-exhaustive-claims` (validation empirique baseline tests 244). Migration de 240 fichiers mémoire vers `<repo>/memory/` (versionné).
+- **Source** : session Mémoire Portable — dernière faille de portabilité de claude-forge fermée. Audit confidentialité empirique : 1 secret prod détecté + redacté. ADR en attente [[adr-memoire-hors-repo-non-portable]] transformée en décision actée.
+
 ## 2026-05-27 — Phase 4 A1 : recherche transcripts session (MCP search_sessions)
 
 - **Ajoutées** : [[ajouter-source-donnees-mcp-forge-brain]] (04-Techniques/claude-code/) — pattern canonique pour brancher une nouvelle source de données indexable sur le MCP forge-brain.

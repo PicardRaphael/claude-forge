@@ -56,3 +56,8 @@ Décision d'architecture (où vit la mémoire, comment la sync) ≠ feature A1 (
 
 - [[mcp-alias-ambigu-chemin-exact]] — feedback mémoire durci la même session (le bug qui a révélé le constat)
 - [[pattern-vault-llm-karpathy]] — le vault, lui, est portable car dans le repo
+
+
+## Mise à jour — test de validation (27 mai 2026)
+
+L'option 4 (migration via @import dans CLAUDE.md versionné) a été IMPLÉMENTÉE et TESTÉE. L'@import charge bien la mémoire portable du repo. **Mais le risque de divergence redouté dans les options 2 et 3 s'est matérialisé sur l'option 4 aussi** : l'auto-memory native (`~/.claude/projects/`) reste injectée en parallèle, tronquée et divergente (231 L repo vs 229 L native). L'@import ajoute une source, ne remplace pas la native. **Reste à faire pour clore l'ADR** : désactiver/vider l'auto-memory native afin d'obtenir la single source. Cf [[import-ajoute-pas-remplace-automemory]] + résultat détaillé dans [[architecture-decision-memoire-portable-import]].
