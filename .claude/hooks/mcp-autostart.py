@@ -3,8 +3,6 @@
 SessionStart hook — auto-démarre le MCP forge-brain si le port 8091 ne répond pas.
 Toujours exit 0, jamais bloquant.
 """
-import json
-import os
 import socket
 import subprocess
 import sys
