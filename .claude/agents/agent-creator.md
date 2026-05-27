@@ -38,6 +38,7 @@ Si similaire → proposer de **modifier**.
 - Ne JAMAIS créer d'agent orchestrateur/CTO — la session principale orchestre
 - Ne JAMAIS créer d'agent doc — le CTO évalue, le dev met à jour
 - Ne JAMAIS pré-créer les fichiers que l'agent générera
+- **Question-réflexe écriture MCP** : le métier de l'agent implique-t-il N× écritures MCP vault en boucle (`create_note`/`append_note`/`update_property`/`insert_section` × notes) ? Si oui → c'est une **SKILL, pas un agent**. Distinction critique : écriture filesystem `.claude/` via Write/Edit ≠ écriture MCP vault — les premières fonctionnent en sous-agent, les secondes retournent `No such tool available` (frontmatter MCP décoratif). Un métier MCP-write-dense est structurellement impossible en sous-agent. Cf [[pattern-mcp-brief-then-direct]]. Cas empirique : `vault-maintainer` killed 27 mai 2026 (doublon de `/vault-audit`, métier MCP-write dense).
 
 ## Questions (UNE à la fois)
 
