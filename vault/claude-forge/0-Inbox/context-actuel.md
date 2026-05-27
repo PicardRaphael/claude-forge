@@ -10,31 +10,33 @@ tags: ["#type/context", "#meta/working-memory"]
 ---
 
 ## Phase actuelle
-Mémoire portable FAIT (architecture @import validée empiriquement — 231 lignes MEMORY.md chargé depuis `<repo>/memory/`, 5 composants adaptés, doctrine 4-contextes capitalisée, double-source transitoire acceptée). Suivant = DA sur A1×A3 (compounding rétroactif) en session dédiée.
+Audit transverse conformité doctrinale claude-forge TERMINÉ — 78 composants audités (11 agents, 47 skills, 9 hooks, 10 rules, CLAUDE.md), 5 résidus corrigés (94% conformes d'emblée). 244 tests verts. Pas de commit (Raphael décide). Suivant = régénération SELF_PORTRAIT.
 
 ## Dernière session (2026-05-27)
 ### Décisions prises
-- Résolution de path par contexte (4 mécanismes) : skill = `$(git rev-parse --show-toplevel)`, hook = `__file__`, settings command = `${CLAUDE_PROJECT_DIR}` (expansion harness), .mcp.json = paths relatifs. `${CLAUDE_PROJECT_DIR}` vide en skill, non garanti en hook → vérifié empiriquement.
-- Hook `session-reminder.py` : `__file__` choisi (pas `os.environ`, pas `git rev-parse`) — déterministe, robuste au cwd (testé depuis /tmp).
-- Double-source transitoire (auto-memory native + @import) acceptée comme dette tracée. Désactivation native = TODO différé (déclencheur : pollution contexte problématique ou avant communication externe studio).
-- Comportement /done pendant transition = écrit UNIQUEMENT dans `<repo>/memory/` (pas dans les deux).
-- Méthode capitalisée : cartographie exhaustive (grep) du fichier cible AVANT toute délégation à un creator (feedback mémoire `cartographie-exhaustive-avant-delegation`).
+- **Audit transverse 9 critères** (mémoire, path resolution, dépendances fragiles, meta-commentaire, frontmatter↔body, doctrine, code mort, wikilinks, chemins portables). Méthode A→B→C→D→E avec STOP étape D. Cartographie exhaustive : grep patterns suspects + passage du hook `meta-commentary-detector` en scan sur tout son scope (oracle de classification) + pyflakes hooks + croisement wikilinks ⨯ existence vault MCP.
+- **5 non-conformités corrigées** (toutes triviales, déléguées) : `agent-creator.md:17` wikilink mort `[[agents-orchestration]]`→`[[agents-architecture]]` ; `responsable-ia.md:8` `color: pink`→`purple` (pink réservé méta-créateurs) ; `notes/SKILL.md:12` `Source :`→`Référence :` (attribution-source) ; `mcp-brief-then-direct/SKILL.md:70` retrait `(validé 26 mai 2026)` ; `mcp-autostart.py:6-7` imports orphelins `json`/`os`.
+- **Cas ambigus tranchés = garder** : `cc-features-ref:95` (`~/.claude/projects/` = doc feature native CC, fait exact) ; `tip #1` dans `cc-*-ref` (skills documentaires, hook les exempte) ; `(Boris)`/`(Anthropic)` parenthèses ≤3 mots (tolérées doctrine + hook).
+- **Délégation forcée respectée** : skill-creator pour les 2 SKILL.md + cross-dispatch sur les 2 agents (self-mod agent-creator), hook-creator pour le hook. Vérif grep/hook/pyflakes empirique post chaque dispatch.
 
 ### En cours
-Rien en cours. Étapes 7-9 livrées (NON commitées — Raphael décide granularité/ordre/push). 244 tests verts (101 hooks + 143 MCP), 0 régression. Test cross-machine probant (clone C:\temp\forge-test lit sa propre mémoire).
+Rien. 5 corrections appliquées et vérifiées, 244 tests verts. **Pas de commit lancé** (Raphael décide du découpage).
 
 ### Prochaines étapes
-- **DA sur A1×A3 (compounding rétroactif)** en session dédiée `/clear` : chercher dans les transcripts (A1) les apprentissages jamais capitalisés et les proposer (A3). Risque faux positifs + coût LLM scan rétroactif. Détail [[idee-compounding-retroactif]].
+- **Régénérer le SELF_PORTRAIT** (proposition Jarvis — l'audit a confirmé le setup propre, base saine pour le portrait).
+- Commits de l'audit (5 fichiers : 2 agents, 2 skills, 1 hook + memory feedback + MEMORY.md + context-actuel + CHANGELOG + log).
+- Valider empiriquement le pivot `/recall-uncaptured` si l'intuition se présente.
 - TODO différé : désactiver l'auto-memory native pour single-source (clé settings global, hard-block classifier → modif manuelle).
-- A2 (skill skills-lifecycle, P2) si le besoin se confirme.
 
 ## Fils ouverts
 - **Double-source mémoire transitoire** : auto-memory native (`~/.claude/projects/`) encore injectée en parallèle de l'@import. Dette tracée, désactivation différée. Cf [[import-ajoute-pas-remplace-automemory]].
+- **A1×A3 tué** : ne pas réouvrir le scan rétroactif systématique sans nouvelle donnée infirmant le 0/12. Cf [[idee-compounding-retroactif]] (statut TUÉE).
 - Détection contradictions vault (extension lint_vault, gap léger Hermes `contradict`) — non priorisé.
 - HERMES_ARCHITECTURE.md reste dans C:\temp\hermes-audit\ (artefact local, non versionné).
 
 ## Liens
 [[2-Casquettes/Raphael-Picard|Raphael Picard]]
 [[1-Projets/Claude-Forge/Claude-Forge|Claude-Forge]]
-[[phase-4-comparaison-hermes-roadmap]]
-[[ajouter-source-donnees-mcp-forge-brain]]
+[[resolution-path-3-contextes]]
+[[erreur-meta-commentaires-composants]]
+[[critique-2026-05-27-compounding-retroactif]]
