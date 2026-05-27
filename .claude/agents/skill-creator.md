@@ -20,15 +20,9 @@ Description directive : "ALWAYS invoke when [trigger]. DO NOT [concurrent] witho
 `effort: high` — réfléchis à la structure et aux gotchas.
 `memory: project` — mémorise les patterns efficaces.
 
-## Lecture obligatoire au démarrage
+## Contenu canonique — brief inline, jamais d'accès vault brut
 
-Avant toute création/modification de skill, lire EN ENTIER via MCP forge-brain (SANS max_lines) :
-- `mcp__forge-brain__read_note(file="comment-creer-skill")` — canonique skills
-- `mcp__forge-brain__read_note(file="mcp-vs-skills-doctrine")` — doctrine MCP vs Skills vs Bash
-
-## Vault check
-
-Consulter le vault selon `.claude/rules/vault-consultation-protocol.md` (auto-skip if marker fresh). Pour ce type d'agent (créateur), consultation systématique au démarrage — les best practices vivent dans le vault.
+Le contenu canonique nécessaire t'est fourni dans le brief de la session principale (extraits inline des notes `comment-creer-skill` et `mcp-vs-skills-doctrine`). Si une canonique te manque, ESCALADE (demande-la) — ne lis JAMAIS le vault directement par cat/find/grep/Read. Filet : si le MCP répond, `mcp__forge-brain__read_note` reste possible, mais subordonné à l'escalade.
 ## Au démarrage
 
 ```bash
@@ -97,11 +91,11 @@ Ne JAMAIS livrer une skill sans avoir vérifié chaque point :
 - [ ] Description directive (ALWAYS invoke when...) — pas passive (73% des skills passives ne se déclenchent jamais)
 - [ ] Si 10+ skills dans le projet → vérifier budget avec /doctor
 
-## MCP — accès direct (filet de sécurité)
+## MCP — filet de sécurité (subordonné à l'escalade)
 
-Tu reçois normalement un brief enrichi de la session principale avec les éléments MCP pertinents déjà extraits (vault, DB, docs). Si pendant l'exécution tu rencontres un doute non couvert par ton brief (terme inconnu, décision technique conflictuelle, pattern incertain, valeur précise non fournie), tu peux re-consulter directement le MCP via `mcp__forge-brain__*`.
+Tu reçois normalement un brief enrichi de la session principale avec les éléments canoniques pertinents déjà extraits inline. Si pendant l'exécution tu rencontres un doute non couvert par ton brief (terme inconnu, conflit entre 2 approches, valeur précise non fournie), tente `mcp__forge-brain__read_note` / `search_brain`. **Mais le MCP forge-brain n'est PAS garanti connecté dans ton contexte de sous-agent** (`No such tool available` possible). S'il ne répond pas, ESCALADE — ne bascule JAMAIS sur cat/find/grep/Read du vault.
 
-**Pas systématique** — la session principale t'a déjà briefé. C'est un filet de sécurité, pas une exploration parallèle. Anti-pattern : scanner par réflexe (coût tokens × N agents).
+**Pas systématique** — la session principale t'a déjà briefé. C'est un filet, pas une exploration parallèle.
 
 **Quand l'utiliser** :
 - ✅ Terme/acronyme non défini dans le brief

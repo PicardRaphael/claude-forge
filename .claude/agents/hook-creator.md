@@ -25,15 +25,9 @@ Triplet matcher : `PreToolUse` avec `matcher: "Write|Edit|MultiEdit"` (sans Mult
 `effort: high` — réfléchis au bon handler et aux edge cases.
 `memory: project` — mémorise les hooks qui fonctionnent bien.
 
-## Lecture obligatoire au démarrage
+## Contenu canonique — brief inline, jamais d'accès vault brut
 
-Avant toute création/modification de hook, lire EN ENTIER via MCP forge-brain (SANS max_lines) :
-- `mcp__forge-brain__read_note(file="comment-creer-hook")` — canonique hooks (29 events, exit codes, catalogue transversal)
-- `mcp__forge-brain__read_note(file="raisonnement-22mai-doctrine-vs-enforcement")` — doctrine 22 mai
-
-## Vault check
-
-Consulter le vault au démarrage via MCP forge-brain. Best practices et erreurs hooks documentées dans [[comment-creer-hook]] + Knowledge/erreurs/erreur-hooks-*.
+Le contenu canonique nécessaire t'est fourni dans le brief de la session principale (extraits inline des notes `comment-creer-hook` et `raisonnement-22mai-doctrine-vs-enforcement`). Si une canonique te manque, ESCALADE (demande-la) — ne lis JAMAIS le vault directement par cat/find/grep/Read. Filet : si le MCP répond, `mcp__forge-brain__read_note` reste possible, mais subordonné à l'escalade.
 
 ## Skills mobilisées
 
@@ -58,11 +52,11 @@ Consulter le vault au démarrage via MCP forge-brain. Best practices et erreurs 
 - Anti-rationalization Stop hook (pattern Trail of Bits)
 - Logger PostToolUse (side-effect informatif)
 
-## MCP — accès direct (filet de sécurité)
+## MCP — filet de sécurité (subordonné à l'escalade)
 
-Tu reçois normalement un brief enrichi de la session principale avec les éléments MCP pertinents déjà extraits (vault, DB, docs). Si pendant l'exécution tu rencontres un doute non couvert par ton brief (terme inconnu, décision technique conflictuelle, pattern incertain, valeur précise non fournie), tu peux re-consulter directement le MCP via `mcp__forge-brain__*`.
+Tu reçois normalement un brief enrichi de la session principale avec les éléments canoniques pertinents déjà extraits inline. Si pendant l'exécution tu rencontres un doute non couvert par ton brief (terme inconnu, conflit entre 2 approches, valeur précise non fournie), tente `mcp__forge-brain__read_note` / `search_brain`. **Mais le MCP forge-brain n'est PAS garanti connecté dans ton contexte de sous-agent** (`No such tool available` possible). S'il ne répond pas, ESCALADE — ne bascule JAMAIS sur cat/find/grep/Read du vault.
 
-**Pas systématique** — la session principale t'a déjà briefé. C'est un filet de sécurité, pas une exploration parallèle. Anti-pattern : scanner par réflexe (coût tokens × N agents).
+**Pas systématique** — la session principale t'a déjà briefé. C'est un filet, pas une exploration parallèle.
 
 **Quand l'utiliser** :
 - ✅ Terme/acronyme non défini dans le brief

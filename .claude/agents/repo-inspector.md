@@ -34,11 +34,9 @@ skills:
 | "scan le code", "patterns du codebase", "étape 1b/1c/1d/5" | `scan` |
 | Ambigu ou 2+ signaux | ESCALADE — demander mode explicite |
 
-## Vault check + Lecture obligatoire
+## Contenu canonique — brief inline, jamais d'accès vault brut
 
-Avant tout travail substantiel, lire EN ENTIER via MCP forge-brain (SANS max_lines) :
-- `read_note("methode-analyser-repo")` — méthode 6 étapes + ordre canonique A→B→C→D→E
-- `read_note("comment-creer-hook")` — section "HOOKS TRANSVERSAUX" (mode audit uniquement)
+Le contenu canonique nécessaire (`methode-analyser-repo`, `comment-creer-hook` section HOOKS TRANSVERSAUX en mode audit, et les canoniques creator pour comparaison) t'est fourni dans le brief de la session principale, extraits inline. Si une canonique te manque, ESCALADE (demande-la) — ne lis JAMAIS le vault directement par cat/find/grep/Read. Filet : si le MCP répond, `read_note` reste possible, mais subordonné à l'escalade.
 
 ---
 
@@ -96,8 +94,7 @@ Audite la configuration `.claude/` d'un repo et produit un rapport avec correcti
 
 ### Audit qualité-design transverse (OBLIGATOIRE)
 
-Comparer TOUJOURS aux canoniques via MCP forge-brain :
-- `read_note("comment-creer-skill")`, `read_note("comment-creer-agent")`, `read_note("comment-creer-hook")`, `read_note("raisonnement-22mai-doctrine-vs-enforcement")`
+Comparer TOUJOURS aux canoniques fournies inline dans le brief (`comment-creer-skill`, `comment-creer-agent`, `comment-creer-hook`, `raisonnement-22mai-doctrine-vs-enforcement`). Si une te manque, ESCALADE — ne cat/grep/Read jamais le vault. Filet MCP `read_note` si connecté, subordonné à l'escalade.
 
 | Check transverse | Critère |
 |---|---|
@@ -285,11 +282,12 @@ Input manquant : [ce que la session principale doit fournir]
 Action : STOP — attente instruction session principale
 ```
 
-## MCP — filet de sécurité
+## MCP — filet de sécurité (subordonné à l'escalade)
 
-Si doute non couvert par le brief (terme inconnu, conflit entre approches, valeur précise) :
-- ✅ `read_note("...")` pour note canonique exacte
+Si doute non couvert par le brief (terme inconnu, conflit entre approches, valeur précise), tente `read_note(...)`. **Mais le MCP forge-brain n'est PAS garanti connecté dans ton contexte de sous-agent** (`No such tool available` possible). S'il ne répond pas, ESCALADE — ne bascule JAMAIS sur cat/find/grep/Read du vault.
+- ✅ `read_note("...")` pour note canonique exacte si le MCP répond
 - ❌ Scanner par réflexe sans déclencheur précis
+- ❌ cat/find/grep/Read du vault en fallback
 
 ## Apprentissage
 

@@ -19,15 +19,10 @@ Tâches complexes long-running : pattern Generator/Evaluator séparé (Anthropic
 `effort: high` — réfléchis bien à la description et au system prompt.
 `memory: project` — mémorise les patterns qui fonctionnent.
 
-## Lecture obligatoire au démarrage
+## Contenu canonique — brief inline, jamais d'accès vault brut
 
-Avant toute création/modification d'agent, lire EN ENTIER via MCP forge-brain (SANS max_lines) :
-- `mcp__forge-brain__read_note(file="comment-creer-agent")` — canonique agents
-- `mcp__forge-brain__read_note(file="workflow-claude-code-optimal")` — workflow Boris adapté forge
+Le contenu canonique nécessaire t'est fourni dans le brief de la session principale (extraits inline des notes `comment-creer-agent` et `workflow-claude-code-optimal`). Si une canonique te manque, ESCALADE (demande-la) — ne lis JAMAIS le vault directement par cat/find/grep/Read. Filet : si le MCP répond, `mcp__forge-brain__read_note` reste possible, mais subordonné à l'escalade.
 
-## Vault check
-
-Consulter le vault selon `.claude/rules/vault-consultation-protocol.md` (auto-skip if marker fresh). Pour ce type d'agent (créateur), consultation systématique au démarrage — les best practices vivent dans le vault.
 ## Au démarrage
 
 ```bash
@@ -81,11 +76,11 @@ Ne JAMAIS livrer un agent sans avoir vérifié chaque point :
 - [ ] Section Apprentissage ou `memory: project` documenté
 - [ ] Pipeline qualité : vérifier que routing.md prévoit des gates post-agent (reviewer, impact-analyzer)
 
-## MCP — accès direct (filet de sécurité)
+## MCP — filet de sécurité (subordonné à l'escalade)
 
-Tu reçois normalement un brief enrichi de la session principale avec les éléments MCP pertinents déjà extraits (vault, DB, docs). Si pendant l'exécution tu rencontres un doute non couvert par ton brief (terme inconnu, décision technique conflictuelle, pattern incertain, valeur précise non fournie), tu peux re-consulter directement le MCP via `mcp__forge-brain__*`.
+Tu reçois normalement un brief enrichi de la session principale avec les éléments canoniques pertinents déjà extraits inline. Si pendant l'exécution tu rencontres un doute non couvert par ton brief (terme inconnu, conflit entre 2 approches, valeur précise non fournie), tente `mcp__forge-brain__read_note` / `search_brain`. **Mais le MCP forge-brain n'est PAS garanti connecté dans ton contexte de sous-agent** (`No such tool available` possible). S'il ne répond pas, ESCALADE — ne bascule JAMAIS sur cat/find/grep/Read du vault.
 
-**Pas systématique** — la session principale t'a déjà briefé. C'est un filet de sécurité, pas une exploration parallèle. Anti-pattern : scanner par réflexe (coût tokens × N agents).
+**Pas systématique** — la session principale t'a déjà briefé. C'est un filet, pas une exploration parallèle.
 
 **Quand l'utiliser** :
 - ✅ Terme/acronyme non défini dans le brief
