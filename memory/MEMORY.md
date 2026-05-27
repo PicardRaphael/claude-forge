@@ -1,6 +1,8 @@
 # Memory Index
 
 ## Feedback
+- [audit-transverse-periodique-hooks-gardes-ecriture](feedback_audit_transverse_periodique_hooks_gardes_ecriture.md) — Hooks = gardes en ÉCRITURE, pas scanners périodiques. Composant pré-hook garde ses résidus. Audit transverse ponctuel nécessaire même quand un hook veille. Passer le hook en scan sur tout son scope = oracle de classification. (27 mai)
+- [plan-commits-vs-working-tree-reel](feedback_plan_commits_vs_working_tree_reel.md) — Plan de commits précis ⨯ working tree avec fichiers hors-scope (résidus session antérieure, déjà M au démarrage, fichier du plan non modifié) = git status AVANT, isoler le hors-scope dans un commit dédié, signaler l'écart. Jamais noyer ni exécuter à l'aveugle. (27 mai)
 - [da-probe-empirique-avant-verdict](feedback_da_probe_empirique_avant_verdict.md) — DA sur idée-produit à prémisse falsifiable = mesurer AVANT de débattre garde-fous. (c) tuer si échec de prémisse (0 hit = puits sec), (b) garde-fous si échec de calibration (bruit modulable). Sinon verdict = opinion. (27 mai)
 - [cartographie-exhaustive-avant-delegation](feedback_cartographie_exhaustive_avant_delegation.md) — Avant déléguer modif à un creator : grep EXHAUSTIF du fichier cible (pas 2-3 lignes supposées), classer actif/descriptif, brief complet. Sinon patch partiel. En amont (délégation) vs verify-exhaustive-claims en aval (déclaration). (27 mai)
 - [import-ajoute-pas-remplace-automemory](feedback_import_ajoute_pas_remplace_automemory.md) — @import CLAUDE.md AJOUTE une source mémoire, ne remplace PAS l'auto-memory native ~/.claude/projects/. Coexistence + divergence (test 27 mai : 231L repo vs 229L native tronquée). Désactiver la native pour single source
