@@ -28,7 +28,7 @@ Quand tu crées ou modifies des notes dans le vault, utiliser la skill **obsidia
 | Type d'agent | Vault |
 |---|---|
 | Créateurs (skill/agent/hook/claudemd) | Systématique au démarrage — best practices vivent dans le vault |
-| Analyseurs (project-auditor, project-analyzer) | Systématique — référentiel pour juger |
+| Analyseurs (repo-inspector tous modes) | Systématique — référentiel pour juger |
 | Exécutants (python-dev, self-updater) | Si sujet nouveau ou doute sur prior art |
 | devils-advocate | Voir son propre prompt (conditionnel ciblé, max 2 requêtes) |
 

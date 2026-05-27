@@ -12,7 +12,7 @@ Le vault forge-brain est la mémoire infinie. L'interroger est un RÉFLEXE, pas 
 Le MCP `forge-brain` (auto-start via hook SessionStart, port 8091) est le SEUL moyen d'accès au vault.
 Ne JAMAIS utiliser Grep/Read/Glob brut sur le vault. Ne JAMAIS utiliser la CLI Obsidian.
 
-### Outils MCP — 19 disponibles (v1.3)
+### Outils MCP — 21 disponibles (v1.3)
 
 **Lecture** :
 - `search_brain(query, limit, context)` — FTS5 BM25 (file_stem:10 / aliases:8 / content:1)

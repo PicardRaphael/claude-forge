@@ -6,57 +6,68 @@ Créé le : 31 mars 2026
 
 ## Ce que c'est
 
-Un projet standalone installé dans `~/.claude/` qui t'assiste dans TOUS tes autres projets Claude Code.
-Il conseille, crée, optimise et reste à jour automatiquement.
+Un studio méta-Claude Code : 11 agents, 47 skills, 9 hooks, 10 rules et un vault de connaissances (forge-brain) interrogeable par MCP. Il conseille, fabrique de la config Claude Code conforme pour tous tes projets, et capitalise chaque leçon apprise.
+
+Pour une cartographie exhaustive (architecture, inventaire, sécurité, FAQ), voir **`CLAUDE_FORGE_SELF_PORTRAIT.md`**.
 
 ## Structure
 
 ```
 claude-forge/
-└── .claude/
-    ├── CLAUDE.md                          ← mémoire et règles du studio
-    │
-    ├── agents/
-    │   ├── project-analyzer.md            ← analyse un projet, propose tout
-    │   ├── claudemd-optimizer.md          ← crée/optimise les CLAUDE.md
-    │   ├── agent-creator.md               ← crée/modifie des agents
-    │   ├── skill-creator.md               ← crée/modifie des skills
-    │   └── hook-creator.md               ← crée/modifie des hooks
-    │
-    └── skills/
-        ├── cc-advisor/SKILL.md            ← conseille le bon composant à créer
-        ├── analyze-project/SKILL.md       ← /analyze-project <path> slash command
-        ├── cc-features-ref/SKILL.md       ← référence toutes les features 2026
-        ├── cc-agents-ref/SKILL.md         ← référence format agents
-        ├── cc-skills-ref/SKILL.md         ← référence format skills
-        ├── cc-hooks-ref/SKILL.md          ← référence format hooks
-        └── cc-news/SKILL.md               ← cherche les dernières nouveautés
+├── CLAUDE.md                  Contrat Jarvis + doctrine (source d'autorité)
+├── .mcp.json                  Déclare le MCP forge-brain (HTTP :8091)
+├── install.bat                Setup des prérequis CLI (Windows)
+│
+├── .claude/
+│   ├── settings.json          Permissions + câblage des 9 hooks
+│   ├── agents/                11 agents (créateurs, repo-inspector, devils-advocate…)
+│   ├── skills/                47 skills (cc-advisor, cc-news, forge-brain, /recap, /done…)
+│   ├── hooks/                 9 hooks Python (delegate-guard, security-guard, meta-commentary…)
+│   ├── rules/                 10 rules de routing + doctrine
+│   └── agent-memory/          mémoire par agent (project scope)
+│
+├── mcp-forge-brain/           Serveur MCP maison (FastMCP + SQLite FTS5, 21 outils)
+├── vault/claude-forge/        Le "cerveau" — vault Obsidian (~412 notes)
+├── ia-lead-neoteem/           Plugin Cowork (7 skills Responsable IA)
+└── scripts/                   .bat de tâches planifiées (cc-news, forge-review, vault-audit)
 ```
+
+### Agents clés
+
+- `repo-inspector` — analyse / audit / scan d'un repo (mode=analyze|audit|scan)
+- `agent-creator` / `skill-creator` / `hook-creator` / `claudemd-optimizer` — créateurs spécialisés
+- `devils-advocate` — critique adversariale avant ship d'un livrable majeur
+- `python-dev` — implémentation Python en TDD
+- `responsable-ia` — casquette Lead IA Neoteem (CODIR, AI Act, roadmap, Loji)
 
 ## Installation
 
-```bash
-# Copier dans ~/.claude/ pour l'avoir dans TOUS tes projets
-cp -r .claude/* ~/.claude/
+```bat
+:: 1. Installer les prérequis CLI (Node, defuddle, yt-dlp, fastmcp…)
+install.bat
 
-# Vérifier
-claude /agents
-claude /skills
+:: 2. Dépendances du serveur MCP
+cd mcp-forge-brain && pip install -e .
+
+:: 3. Déployer globalement dans %USERPROFILE%\.claude\ (ou via la skill /install-forge)
+xcopy /E /I .claude %USERPROFILE%\.claude
 ```
+
+Vérifier : `/self-check` (cohérence interne), `/forge-status` (source vs installé). Le MCP forge-brain démarre seul au SessionStart (port 8091).
 
 ## Utilisation
 
 ```bash
-# Analyser un projet complet
-/analyze-project /path/to/mon-projet
+# Reprise de contexte
+/recap
 
-# Analyser plusieurs projets en parallèle
-/batch "Run /analyze-project on: /path/neochat, /path/neodoc, /path/neomail"
+# Analyser un projet et proposer une config CC
+"Analyse mon repo /path/to/projet et propose la config Claude Code"
 
 # Besoin flou → le conseiller décide
 "J'ai besoin d'automatiser mes PRs"
 
-# Créer un composant
+# Créer un composant (délégué aux créateurs spécialisés)
 "Crée un agent qui audite mon codebase"
 "Je veux une skill /commit pour mon projet"
 "J'ai besoin d'un hook de formatage Python"
@@ -65,17 +76,21 @@ claude /skills
 "Optimise mon CLAUDE.md"
 "Améliore cette skill"
 
-# Rester à jour
+# Veille
 "Quoi de neuf dans Claude Code ?"
+
+# Capitalisation fin de session
+/done
 ```
 
 ## Modèles utilisés
 
-- `opus + effort:max` → project-analyzer (analyse complexe + thinking)
-- `sonnet + effort:high` → creators (génération réfléchie)
+- `opus + effort:high` → jugement (devils-advocate, outcomes-grader, responsable-ia)
+- `opus + effort:xhigh` → exploration agentique profonde (repo-inspector)
+- `sonnet + effort:high` → exécution / création (creators, python-dev)
 - `haiku` → tâches rapides
 
 ## Mise à jour
 
-La skill `cc-news` vérifie automatiquement les nouveautés post 31 mars 2026
-et met à jour la mémoire du projet.
+La skill `cc-news` vérifie les nouveautés Claude Code et capitalise dans le vault.
+L'agent `self-updater` met à jour les skills de référence `cc-*-ref` quand une feature change.

@@ -1,6 +1,6 @@
 ---
 name: audit-thematique-clusters
-description: Use when auditing forge or any .claude/ setup across multiple themes (skills/agents/hooks/rules/CLAUDE.md). Dispatch project-auditor or specialized sub-agents PER CLUSTER (not all at once), checkpoint A before B, self-verify before declaring done.
+description: Use when auditing forge or any .claude/ setup across multiple themes (skills/agents/hooks/rules/CLAUDE.md). Dispatch repo-inspector (mode=audit) or specialized sub-agents PER CLUSTER (not all at once), checkpoint A before B, self-verify before declaring done.
 allowed-tools: Read, Grep, Glob, Bash, mcp__forge-brain__read_note, mcp__forge-brain__search_brain
 model: sonnet
 effort: high
@@ -40,7 +40,7 @@ output/audit-<theme>/A-inventaire-claims.md
 
 ### Phase B — Dispatch clusters thématiques
 
-**5-8 sous-agents `project-auditor` en parallèle**, un par cluster. Chaque sous-agent reçoit :
+**5-8 sous-agents `repo-inspector` (mode=audit) en parallèle**, un par cluster. Chaque sous-agent reçoit :
 1. La liste verbatim des claims de son cluster
 2. Les URLs / sources candidates pré-identifiées
 3. Format de sortie imposé (FAUX/VRAI/PARTIEL + justification)
@@ -113,7 +113,7 @@ Au-delà de ~10 clusters, le coût de coordination dépasse le gain de parallél
 ## Référence
 
 Memory sources : `feedback_audit_thematique_methode`, `feedback_audit_repo_method`
-Pattern 4 auditeurs parallèles : `.claude/agents/project-auditor.md`
+Pattern 4 auditeurs parallèles : `.claude/agents/repo-inspector.md` (mode=audit)
 
 ---
 

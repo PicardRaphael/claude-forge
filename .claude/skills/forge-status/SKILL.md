@@ -33,7 +33,7 @@ Pour chaque composant :
 
 | Composant | Type | Source | Installé | Status |
 |-----------|------|--------|----------|--------|
-| project-analyzer | agent | oui | oui | synced/outdated |
+| repo-inspector | agent | oui | oui | synced/outdated |
 
 Résumé : X synced, Y outdated, Z non installés
 

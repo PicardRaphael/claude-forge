@@ -5,7 +5,7 @@ description: "Canonical A→B→C→D→E sequence for ANY create/modify/optimiz
 # Séquence canonique pour TOUTE création/modification/OPTIMISATION de composant — OBLIGATOIRE
 
 Quand tu :
-- **Analyses** un repo (project-auditor, project-analyzer, cc-advisor)
+- **Analyses** un repo (repo-inspector, cc-advisor)
 - **Crées** un skill / agent / hook / CLAUDE.md / rule
 - **Modifies** ou **OPTIMISES** un composant existant (skill-evolve, evolve, skill-creator quand il modifie, etc.)
 
@@ -122,11 +122,12 @@ Exécution via agents spécialisés ou Edit/Write selon contexte. Capitaliser ap
 - `evolve` : analyser un projet et proposer des évolutions
 
 ### Analyse
-- `project-analyzer` : "j'ai un projet X / URL GitHub"
-- `project-auditor` : audit `.claude/` d'un repo
+- `repo-inspector` (mode=analyze) : "j'ai un projet X / URL GitHub"
+- `repo-inspector` (mode=audit) : audit `.claude/` d'un repo
+- `repo-inspector` (mode=scan) : scan du code applicatif réel (patterns récurrents)
 - `cc-advisor` : besoin flou / "comment automatiser X"
 - `spec` : transformer un ticket en spec structurée
-- `analyze-project` : analyse projet
+- `analyze-project` : analyse projet (skill slash command)
 
 ### Session principale
 - Quand l'utilisateur dit : "analyse mon repo", "propose config CC", "optimise cette skill", "améliore cet agent", "crée un hook pour X"

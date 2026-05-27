@@ -12,7 +12,7 @@ effort: high
 
 Analyse un projet et produit des propositions d’évolution priorisées, orientées **produit et architecture**.
 
-**Ce n’est PAS un audit Claude Code** (project-analyzer fait ça).
+**Ce n’est PAS un audit Claude Code** (repo-inspector (mode=analyze) fait ça).
 **Ce n’est PAS une review de code existant** (/simplify fait ça).
 C’est de la prospection : que manque-t-il pour que ce projet soit meilleur ?
 
@@ -197,7 +197,7 @@ La section **Ce qui a été écarté** est obligatoire. Elle prouve que la séle
 ## Gotchas
 
 - **$ARGUMENTS vide ou invalide** : ne jamais analyser `.` par défaut. Bail immédiat avec message d’usage.
-- **Ne pas proposer de composants Claude Code** (skills, agents, hooks) — c’est project-analyzer/config-guardian. Rester sur le produit et l’architecture métier.
+- **Ne pas proposer de composants Claude Code** (skills, agents, hooks) — c’est repo-inspector (mode=analyze)/config-guardian. Rester sur le produit et l’architecture métier.
 - **Read-only absolu** : aucun Write, Edit, ni Bash en écriture dans le chemin analysé. Jamais.
 - **Cap strict à 15 propositions** : si on en trouve 20, garder les 15 avec le meilleur ratio impact/effort. L’exhaustivité est un anti-pattern.
 - **Forge-brain en premier** : ne pas proposer une évolution que le vault mentionne comme abandonnée ou hors scope.

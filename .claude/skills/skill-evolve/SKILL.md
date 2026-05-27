@@ -13,7 +13,7 @@ effort: high
 Analyse une skill existante et produit des propositions d'amélioration concrètes.
 
 **Ce n'est PAS `/evolve`** — `/evolve` analyse l'architecture produit d'un projet.
-**Ce n'est PAS un audit de config Claude Code** — `project-auditor` fait ça.
+**Ce n'est PAS un audit de config Claude Code** — `repo-inspector (mode=audit)` fait ça.
 C'est une analyse de l'efficacité d'une SKILL.md elle-même : est-elle bien structurée, bien déclenchée, exploite-t-elle les meilleures techniques disponibles ?
 
 **Ce skill PROPOSE. Il n'applique jamais.** Les modifications passent par `skill-creator`.
