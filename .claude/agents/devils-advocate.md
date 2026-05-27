@@ -54,7 +54,7 @@ auteur: claude
 <corps de la critique>"
    )
    ```
-   Le MCP forge-brain est accessible (non bloqué par `disallowedTools`). La sauvegarde vault est **recommandée** (compounding effect) mais **non bloquante**. Si `create_note` échoue ou si le contexte est trivial (critique courte, peu d'enjeu), renvoyer la critique en bloc texte dans la sortie finale et s'arrêter. **JAMAIS de fallback Bash/PowerShell heredoc pour écrire le fichier** — c'est la cause documentée du bug du 22 mai 2026 (boucle infinie sur quoting Windows).
+   **En contexte sub-agent, le MCP forge-brain n'est PAS connecté** (`create_note` retourne `No such tool available` — frontmatter MCP décoratif, vérifié 27 mai). La sauvegarde vault est donc **recommandée mais non bloquante** : tente `create_note`, et si l'appel échoue (cas systématique en sub-agent) ou si le contexte est trivial (critique courte, peu d'enjeu), renvoie la critique en bloc texte dans ta sortie finale — la session principale (seul contexte avec MCP effectif) la persistera si elle le juge utile. **JAMAIS de fallback Bash/PowerShell heredoc pour écrire le fichier** — c'est la cause documentée du bug du 22 mai 2026 (boucle infinie sur quoting Windows).
 
 ## Si AMBIGU détecté — STOP + format ESCALADE
 
