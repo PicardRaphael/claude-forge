@@ -29,3 +29,8 @@ data/
 # x-read downloaded media (large binaries, not part of repo)
 .claude/skills/x-read/downloads/
 mcp-forge-brain/logs/
+
+# Memoire portable — versionnee par defaut, sauf items marques prives
+memory/.consolidate-lock
+memory/private/
+memory/*-private.md
