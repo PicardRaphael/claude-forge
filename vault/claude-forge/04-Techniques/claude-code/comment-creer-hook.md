@@ -12,7 +12,7 @@ aliases:
   - "hookSpecificOutput"
   - "asyncRewake"
   - "guides sensors fowler"
-derniere-maj: 2026-05-24
+derniere-maj: 2026-05-27
 auteur: claude
 type: technique
 sources:
@@ -249,6 +249,27 @@ Réveille la session à un timing futur. Utile pour scheduling, polling externe.
 Pour les hooks PreToolUse sur les modifications de fichiers, **TOUJOURS** matcher `Write|Edit|MultiEdit`. Sans `MultiEdit`, trou architectural (cf [[feedback_multiedit_matcher_blind_spot]]).
 
 ### Étape 5 — Tests adverses
+#### Ratio adverse/happy ≥ 3:1 pour hooks sécu/contrôle
+
+Un hook de sécurité ou de contrôle (security-guard, delegate-guard, scope-guard) DOIT avoir une suite de tests **majoritairement adverse** : ≥ 75% de tentatives de bypass, ≤ 25% de happy path. Le happy path seul est trompeur — il prouve que le légitime passe, jamais que l'illégitime est bloqué.
+
+**Piège du 3:1 artificiel** : ne pas gonfler le ratio avec des tests hors-scope. Un hook ne promet de couvrir qu'un périmètre déclaré. Tester 30 patterns que le hook n'a jamais prétendu attraper (ex : `dd`, `mkfs`, base64 sur un security-guard qui ne couvre que 6 regex `rm`/`git`) = 30 confirmations sans valeur. Le vrai 3:1 = **≥ 3 variations de bypass par pattern réellement claimed**.
+
+**Trois catégories de tests à distinguer** :
+| Catégorie | Compte dans le 3:1 ? | Exemple |
+|-----------|---------------------|---------|
+| Adverse in-scope (false negative tenté) | OUI | espaces multiples, tabs, ordre des flags, casse, chemin équivalent |
+| Adverse in-scope (false positive / over-block) | OUI | commande légitime que le regex trop large bloque |
+| Caractérisation de bug/faiblesse | OUI (épingle le comportement, ne le masque PAS) | substring match qui accorde un bypass indu |
+| Happy path | NON (≤ 25%) | commande bénigne passe, légitime passe |
+| Gap hors-scope (connu, volontaire) | NON — **un seul** test énumérant | patterns non couverts par design |
+
+**Caractérisation, pas masquage** : si un test révèle un vrai bug dans le hook, NE PAS l'aplatir pour faire passer le test. Épingler le comportement ACTUEL (`assert ok is True  # current buggy behavior`), documenter pourquoi dans le docstring, et lister le bug dans le résumé. Quand le hook est durci, on inverse l'assertion.
+
+**Docstring de scope obligatoire** : en tête du fichier de test, lister (1) le périmètre déclaré du hook, (2) ce que les tests NE vérifient PAS (gaps hors-scope), pour qu'un futur lecteur sache que l'omission est délibérée.
+
+**Testabilité** : un hook doit exposer sa logique en fonctions pures importables (`is_dangerous`, `required_agent`) avec le traitement stdin dans un `main()` gardé par `if __name__ == "__main__"`. Sinon `importlib` déclenche les effets de bord (lecture stdin, `sys.exit`) à l'import. Référence : `delegate-guard.py` (structuré) vs security-guard avant refactor 27 mai (logique au niveau module → non importable).
+
 Tester :
 - Cas heureux (le hook laisse passer ce qui doit passer)
 - Cas adverses (le hook bloque ce qui doit être bloqué)
@@ -311,7 +332,7 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (hook sécu criti
 
 ## HOOKS TRANSVERSAUX — Catalogue à proposer en audit repo
 
-Catalogue de hooks réutilisables cross-repo. Lors d'un audit `.claude/` (via `project-auditor`, `project-analyzer`, `cc-advisor`), proposer ces hooks au repo audité si applicable et absent.
+Catalogue de hooks réutilisables cross-repo. Lors d'un audit `.claude/` (via `repo-inspector` mode=audit/analyze, `cc-advisor`), proposer ces hooks au repo audité si applicable et absent.
 
 | Hook | Cas d'usage | Quand proposer en audit |
 |------|-------------|-------------------------|

@@ -233,3 +233,11 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - Decision P2.6 : skills cc-*-ref user-invokable:false = MAINTENIR (non orphelines, referencees body createurs)
 - Tests pytest 90/90 PASSED (69 MCP + 21 hooks, 0 echec)
 - Creee : [[erreur-deny-global-ecrase-allow-projet]]
+
+## [2026-05-27] tests-adverses | Phase 2 hooks critiques (security-guard + delegate-guard)
+- test_security_guard.py : 26 tests, ratio adverse/happy 5.3:1 (in-scope bypass + 5 false-negatives prouves : uppercase/tilde/$HOME/glob/relatif)
+- test_delegate_guard.py : 28 tests, ratio 8:1 (path tricks, impostors agent_type/agent_id, smuggle typo)
+- Refactor security-guard : main() garde (testabilite, comportement detection inchange)
+- Bug caracterise : delegate-guard L143-145 substring match agent_id = bypass indu (surface faible, agent_id fixe harness)
+- Capitalisation [[comment-creer-hook]] etape 5 : regle ratio >=3:1 + piege 3:1 artificiel + caracterisation bug
+- Tests repo : 90 -> 122 PASSED
