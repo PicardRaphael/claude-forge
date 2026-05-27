@@ -4,6 +4,7 @@
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
   "permissions": {
+    "defaultMode": "acceptEdits",
     "allow": [
       "Read",
       "Write",
@@ -11,13 +12,25 @@
       "Bash(git *)",
       "Bash(git -C *)",
       "Bash(ls *)",
-      "Bash(taskkill *),",
+      "Bash(taskkill *)",
       "Edit(.claude/agents/**)",
       "Edit(.claude/skills/**)",
       "Edit(./**)",
       "MultiEdit(.claude/agents/**)",
       "MultiEdit(.claude/skills/**)",
       "MultiEdit(./**)"
+    ],
+    "ask": [
+      "Bash(rm *)",
+      "Bash(rmdir *)",
+      "Bash(del *)",
+      "Bash(git rm *)",
+      "Bash(git branch -D *)",
+      "Bash(git branch -d *)",
+      "Bash(git push *--force*)",
+      "Bash(git push *-f*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean *)"
     ]
   },
   "hooks": {
