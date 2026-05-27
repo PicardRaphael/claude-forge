@@ -47,4 +47,20 @@ Issue de la Phase 4 (comparaison Hermes). Le seul gap mémoire vraiment net de H
 
 ## Statut
 
-Idée, non planifiée. Prérequis : A1 implémenté. À mûrir après A1+A3.
+**TUÉE telle que formulée (DA 2026-05-27).** Voir verdict ci-dessous. Survit : pivot `/recall-uncaptured <topic>` on-demand, à valider empiriquement.
+
+---
+
+## ⚠️ Verdict DA (2026-05-27) — TUÉE telle que formulée
+
+Devils-advocate complet : [[critique-2026-05-27-compounding-retroactif]].
+
+**Verdict (c) : la prémisse échoue, pas l'heuristique.** Probe empirique sur les 123 transcripts (9631 messages) : échantillon de 12 hits sur la slice la plus chargée en signal (`erreur|decision|pivot`) → **0/12 capitalisable ET nouveau**. ~8/12 bruit opérationnel/méta, ~4/12 déjà capitalisé (l'assistant cite souvent la note existante). Le puits est sec — aucun resserrement d'heuristique ne ramène du contenu qui n'existe pas.
+
+**Risque structurel n°1 = circularité (C5)** : l'indexeur garde les messages `/done` (blocs proposés + validations + "rien à sauvegarder") en texte plein → ils remontent comme faux "apprentissages non capitalisés". By-design, pas un edge case.
+
+**NE PAS réouvrir le scan rétroactif systématique à /done sans nouvelle donnée infirmant le 0/12.**
+
+### Ce qui survit — pivot `/recall-uncaptured <topic>` on-demand
+
+Design différent (pas un garde-fou) : Raphael invoque sur un topic qu'il a en tête → `search_sessions(topic, since=...)` (A1 déjà livré) + résumé + gate `[v]/[m]/[i]` (A3). ~30 min. Sidestep les 4 risques. À valider empiriquement (≥1 capitalisation utile sur ~5 invocations, sinon tuer). Le 0/12 mesure le scan **aveugle**, pas le rappel **dirigé** — d'où la validation empirique avant build.
