@@ -10,7 +10,7 @@ tags: ["#type/context", "#meta/working-memory"]
 ---
 
 ## Phase actuelle
-Audit transverse conformité doctrinale claude-forge TERMINÉ — 78 composants audités (11 agents, 47 skills, 9 hooks, 10 rules, CLAUDE.md), 5 résidus corrigés (94% conformes d'emblée). 244 tests verts. Pas de commit (Raphael décide). Suivant = régénération SELF_PORTRAIT.
+Audit transverse conformité doctrinale claude-forge TERMINÉ — 78 composants audités (11 agents, 47 skills, 9 hooks, 10 rules, CLAUDE.md), 5 résidus corrigés (94% conformes d'emblée). 244 tests verts. 6 commits poussés sur main (5 audit + 1 résidu fermé). /done effectué (1 feedback méta nouveau). Suivant = **régénération SELF_PORTRAIT** (session fraîche après /clear).
 
 ## Dernière session (2026-05-27)
 ### Décisions prises
@@ -18,6 +18,7 @@ Audit transverse conformité doctrinale claude-forge TERMINÉ — 78 composants 
 - **5 non-conformités corrigées** (toutes triviales, déléguées) : `agent-creator.md:17` wikilink mort `[[agents-orchestration]]`→`[[agents-architecture]]` ; `responsable-ia.md:8` `color: pink`→`purple` (pink réservé méta-créateurs) ; `notes/SKILL.md:12` `Source :`→`Référence :` (attribution-source) ; `mcp-brief-then-direct/SKILL.md:70` retrait `(validé 26 mai 2026)` ; `mcp-autostart.py:6-7` imports orphelins `json`/`os`.
 - **Cas ambigus tranchés = garder** : `cc-features-ref:95` (`~/.claude/projects/` = doc feature native CC, fait exact) ; `tip #1` dans `cc-*-ref` (skills documentaires, hook les exempte) ; `(Boris)`/`(Anthropic)` parenthèses ≤3 mots (tolérées doctrine + hook).
 - **Délégation forcée respectée** : skill-creator pour les 2 SKILL.md + cross-dispatch sur les 2 agents (self-mod agent-creator), hook-creator pour le hook. Vérif grep/hook/pyflakes empirique post chaque dispatch.
+- **/done — pattern méta capitalisé** : re-violation 3× du feedback `mcp-alias-ambigu-chemin-exact` (`append_note` par alias → mauvais fichier `log.md`). Nouveau feedback [[feedback-reviole-3x-regle-insuffisante]] : feedback re-violé ≥3× = la règle écrite ne suffit pas, formuler un réflexe pré-action ou un garde-fou hook (candidat : garde scope sur `append_note(stem multi-dossier)`).
 
 ### En cours
 Rien. 5 corrections appliquées et vérifiées, 244 tests verts. **Pas de commit lancé** (Raphael décide du découpage).
