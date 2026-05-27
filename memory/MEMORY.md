@@ -1,6 +1,7 @@
 # Memory Index
 
 ## Feedback
+- [brief-premisse-fausse-verifier-avant-executer](feedback_brief_premisse_fausse_verifier_avant_executer.md) — Un brief de mission peut poser une prémisse factuelle fausse (fichier ciblé, chiffre, état repo). Vérifier matériellement AVANT d'exécuter ; si fausse, surfacer + ré-arbitrer le périmètre via AskUserQuestion, jamais exécuter littéralement. Cas : brief "nettoyer settings.json 66L ad-hoc" → dette réelle dans settings.local.json gitignored, settings.json discipliné. (27 mai)
 - [llm-lit-court-homogene-pas-couche-deterministe](feedback_llm_lit_court_homogene_pas_couche_deterministe.md) — Couche déterministe (Python, Jaccard, regex) par-dessus une lecture LLM possible d'un corpus COURT + HOMOGÈNE (MEMORY.md 244L) = enforcement-théâtre + dette tests, sans signal nouveau. Le LLM lit tout en un coup et regroupe sémantiquement mieux. Mesurer que le LLM RATE avant de construire l'aide. (27 mai)
 - [diagnostic-empirique-avant-affirmer-une-garde](feedback_diagnostic_empirique_avant_affirmer_garde.md) — Avant d'ÉCRIRE dans un fichier doctrinal (CLAUDE.md, canonique, settings, hook) qu'une garde existe (deny/hook/permission), la vérifier matériellement (parse JSON 4 couches + grep hooks) et CITER la preuve. JAMAIS inférer une garde depuis un comportement. Cas : "deny merge intentionnel" écrit sans vérif → faux ~6h. (27 mai)
 - [densite-mcp-write-vs-filesystem](feedback_densite_mcp_write_vs_filesystem.md) — Critère "densité MCP write" (KILL/PIVOT agent→skill) = écritures MCP VAULT en boucle SEULES. Write/Edit filesystem (.claude/, code) marchent en sous-agent → hors critère. Grep `mcp__forge-brain__(create_note|...)` pas juste Write|Edit, sinon faux candidats KILL. Audit 27 mai : 0/10 agents. (27 mai)
@@ -207,6 +208,7 @@
 - [raphael-picard-full-profile](user_raphael_profile.md) — Profil holistique : Lead IA Neoteem, 36 ans, parcours atypique, gamer, vision expert IA reconnu
 
 ## Reference
+- [enableallprojectmcp-couvre-tool-level](reference_enableallprojectmcp_couvre_tool_level.md) — enableAllProjectMcpServers:true + serveur dans .mcp.json auto-approuve les outils MCP au niveau TOOL sans prompt. Lister mcp__server__tool dans permissions.allow = redondant. Vérifié empiriquement (retrait list_notes → appel OK sans prompt, 27 mai). Distinct de mcp-wildcard (frontmatter agent/skill).
 - [seuils-canoniques-agents-mythes-2026-05-22](reference_seuils_canoniques_agents_mythes.md) — Seuls CLAUDE.md<200L et SKILL.md<500L canoniques. Le reste = mythes
 - [bashrc-bind-warnings-non-interactive](reference_bashrc_bind_warnings.md) — Warnings bind readline sans garde `[[ $- == *i* ]]`
 - [python-windows-cross-machine](reference_python_windows_cross_machine.md) — Hooks Windows : py launcher, path absolu, antislashes JSON
