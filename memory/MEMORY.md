@@ -92,6 +92,7 @@
 - [test-writer-systematic](feedback_test_writer_systematic.md) — RÉVISÉ 22 mai : MAX 3 tests/comportement, REFACTOR supprimée, effort high
 - [tweet-hype-paraphrase-non-verifiee-pattern](feedback_tweet_hype_paraphrase_pattern.md) — Tweets tiers paraphrasant Anthropic = non vérifié. WebFetch docs avant capitaliser
 - [use-brain-skills-not-grep](feedback_use_brain_skills.md) — Questions métier = skills neo-brain (MCP), jamais grep manuel sur vault/SQL
+- [vault-cat-guard-faux-positif-memory](feedback_vault_cat_guard_faux_positif_memory.md) — Hook vault-cat-guard bloque cat memory/ si commande contient "vault". Edit pas Bash
 - [vault-quality-standard](feedback_vault_quality_standard.md) — Vault forge-brain = standard neoteem-brain : 5-6 aliases, wikilinks, templates
 - [verify-exhaustive-claims](feedback_verify_exhaustive_claims.md) — Grep de validation AVANT toute déclaration exhaustive (zéro, tous, aucun, complet)
 - [webfetch-avant-subagents-audit](feedback_webfetch_avant_subagents_audit.md) — Avant dispatch audit thématique : 3-4 WebFetch directs sur sources suspectes
