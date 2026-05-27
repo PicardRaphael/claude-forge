@@ -10,15 +10,39 @@ Nombre de queries : 18 — **Découper sur 2 agents** (Agent A + Agent B)
 3. `https://code.claude.com/docs/en/changelog`
 4. `https://howborisusesclaudecode.com`
 
-## Équipe Claude Code
+<!-- SYNC:leaders:start — généré par scripts/sync-leaders.py, NE PAS éditer à la main -->
+
+## Leaders canonisés (15) — vault 05-Leaders/claude-code/
 
 | Personne | Rôle | Sources |
 |----------|------|---------|
-| **Boris Cherny** (@bcherny) | Créateur de Claude Code | x.com/bcherny, threads.com/@boris_cherny |
-| **Cat Wu** (@_catwu) | Head of Product Claude Code | x.com/_catwu |
-| **Lydia Hallie** (@lydiahallie) | Claude Code team | x.com/lydiahallie |
-| **Noah Zweben** (@noahzweben) | Claude Code team | x.com/noahzweben |
-| **Thariq Shihipar** (@trq212) | Skills author, Claude Code team | x.com/trq212, linkedin.com/in/thariq |
+| **Affaan Mustafa** | Affaan Mustafa — Grand Prize Anthropic Hacker Marathon 2026 avec Everything Claude Code… | — |
+| **Alex Albert** | Head of Claude Relations | — |
+| **Angela Jiang** | Anthropic Claude Platform, keynote Code with Claude London 19 mai 2026, vision Self-bui… | www.youtube.com, www.technologyreview.com |
+| **Boris Cherny** (@bcherny) | Creator of Claude Code | howborisusesclaudecode.com, x.com |
+| **Brad Abrams** (@brada) | Product Management Lead Claude chez Anthropic, ex-Google/Microsoft. Créateur de l'Advis… | www.linkedin.com, x.com |
+| **Cat Wu** (@_catwu) | Head of Product Claude Code + Cowork chez Anthropic, co-pilote du produit avec Boris Ch… | www.youtube.com, every.to |
+| **Daisy Hollman** | Member of Technical Staff (MTS) | www.youtube.com, www.youtube.com |
+| **Erik Schluntz** (@ErikSchluntz) | Member of Technical Staff & Co-founder | youtube.com, x.com |
+| **Jeremy Hadfield** | Anthropic — Claude Code team | www.youtube.com, www.technologyreview.com |
+| **Justin Young** | Member of Technical Staff (MTS) | www.anthropic.com, github.com |
+| **Lisa Crofoot** | Research PM Anthropic, doctrine 'scaffolding holds Claude back' (Code with Claude Londo… | www.youtube.com, www.technologyreview.com |
+| **Lydia Hallie** (@lydiahallie) | Claude Code team | x.com, frontendmasters.com |
+| **Mitchell Hashimoto** | Co-founder HashiCorp, créateur Ghostty. A popularisé le terme 'harness engineering' (5… | mitchellh.com, ghostty.org |
+| **Noah Zweben** | Anthropic — Engineering | Code with Claude London, 19 mai 2026 |
+| **Thariq Shihipar** (@trq212) | Skills Author, Claude Code team | x.com, linkedin.com |
+
+> Bloc généré depuis le vault. Pour ajouter/retirer un leader : créer/supprimer la fiche dans `05-Leaders/claude-code/` puis relancer `py scripts/sync-leaders.py`.
+> Les leaders sans handle (`@`) sont en mode dégradé — compléter les queries à la main.
+
+<!-- SYNC:leaders:end -->
+
+## Watchlist signaux non canonisés
+
+> Cibles suivies par cc-news mais sans fiche vault dédiée. Section éditable à la main, **jamais touchée par le sync**. Promouvoir en fiche `05-Leaders/claude-code/` quand mérité.
+
+| Personne | Rôle | Sources |
+|----------|------|---------|
 | **Jarred Sumner** (@jaraboron) | Bun creator, acquis par Anthropic | x.com/jaraboron |
 | **Felix Rieseberg** (@felixrieseberg) | Claude Code contributor | x.com/felixrieseberg |
 

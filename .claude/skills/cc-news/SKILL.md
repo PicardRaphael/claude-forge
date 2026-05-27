@@ -134,6 +134,22 @@ Si une source à analyser est une URL X.com/Twitter (`https://x.com/...` ou `htt
 Règle : **1 concept = 1 note atomique**. Mettre à jour les MOCs. Mettre à jour `derniere-maj`.
 Voir skill `forge-brain` pour le format complet et les outils MCP.
 
+## Sync des leaders depuis le vault (maintenance)
+
+Les listes de leaders dans chaque `references/domain-*.md` sont générées par `scripts/sync-leaders.py` à partir des fiches `vault/claude-forge/05-Leaders/<domaine>/`. Le vault est la SOURCE UNIQUE — ne pas éditer le bloc entre les marqueurs `<!-- SYNC:leaders:start -->` et `<!-- SYNC:leaders:end -->` à la main (écrasé au prochain sync).
+
+Relancer après avoir ajouté ou supprimé une fiche dans `05-Leaders/<domaine>/` :
+
+```bash
+py .claude/skills/cc-news/scripts/sync-leaders.py          # tous les domaines
+py .claude/skills/cc-news/scripts/sync-leaders.py --domain rag   # un domaine
+py .claude/skills/cc-news/scripts/sync-leaders.py --check        # dry-run, sans écrire
+```
+
+Mapping domaine → dossier vault : `domain-claude-code` → `claude-code`, `domain-agents` → `agents`, `domain-rag` → `rag`, `domain-finetuning` → `fine-tuning`, `domain-prompt-engineering` → `prompt`, `domain-concurrents` → `industrie`. `domain-discovery` n'a pas de leaders (pas synced).
+
+**Handles X manquants** : le script ne peut injecter un `@handle` que si un lien `x.com/` est présent dans la fiche vault. Les leaders sans handle apparaissent sans `@` — leurs queries sont à compléter à la main. Dette tracée, pas un bug.
+
 ## MCP — accès direct (filet de sécurité)
 
 Tu reçois normalement un brief enrichi de la session principale avec les éléments MCP pertinents déjà extraits (vault, DB, docs). Si pendant l'exécution tu rencontres un doute non couvert par ton brief (terme inconnu, décision technique conflictuelle, pattern incertain, valeur précise non fournie), tu peux re-consulter directement le MCP via `mcp__forge-brain__*`.
@@ -160,3 +176,4 @@ Source canonique : [[pattern-mcp-brief-then-direct]] vault forge.
 - **Si un agent ne retourne rien** — relancer le domaine individuellement plutôt que l'ignorer. Un scan incomplet doit être signalé.
 - **X/Twitter inaccessible via Defuddle/WebFetch** — toujours déléguer à la skill `x-read` (utilise cookies du compte authentifié). Si x-read pas dispo → demander coller le contenu à l'utilisateur, ne pas abandonner la source.
 - **Étape 8 sélective** — invoquer `doctrine-impact-check` seulement sur findings majeurs (leader/Anthropic), jamais sur tout finding (anti-cascade fatigue de validation).
+- **Ne pas éditer manuellement le bloc SYNC** — le bloc `<!-- SYNC:leaders:start/end -->` dans les domain-*.md est géré par `scripts/sync-leaders.py`. Toute édition manuelle sera écrasée au prochain sync.
