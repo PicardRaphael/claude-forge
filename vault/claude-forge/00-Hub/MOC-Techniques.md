@@ -32,6 +32,7 @@ type: index
 - [[opus-47-design-defaults]] — Style visuel persistant Opus 4.7 + 2 contre-mesures
 
 ## Patterns
+- [[architecture-decision-memoire-portable-import]] — Raisonnement : mémoire portable cross-machine via @import CLAUDE.md (pivot depuis autoMemoryDirectory cassé en multi-repos). Mécanisme orthogonal > réglage global.
 
 - Knowledge-First Routing — Brain avant code
 - Fleet Commander — Boris, parallélisme worktrees
