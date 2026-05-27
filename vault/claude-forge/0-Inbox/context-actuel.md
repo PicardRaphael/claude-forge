@@ -10,7 +10,7 @@ tags: ["#type/context", "#meta/working-memory"]
 ---
 
 ## Phase actuelle
-**Chantier A étape 2b — fix structurel MCP décoratif sub-agent : LIVRÉ (2026-05-27).** Bug structurel résolu par enforcement + briefs durcis. 2 hooks de garde créés (`vault-cat-guard`, `mcp-alias-guard`), 6 creators durcis (directive « lire via MCP » → brief inline + ESCALADE), canoniques amendées. Tests 170 verts (101 baseline + 69 nouveaux). Commits non lancés — en attente validation groupée. Suivant possible = sync leaders / nettoyage permissions / autre chantier.
+**Chantier A étapes 2b + 3 — LIVRÉES et POUSSÉES (2026-05-27).** 2b = fix structurel MCP décoratif sub-agent (2 hooks de garde `vault-cat-guard`/`mcp-alias-guard`, 6 creators durcis, canoniques amendées). Étape 3 = durcissement hooks suite à usage réel (segmentation chaînage vault-cat-guard + matcher PowerShell security-guard + audit transverse). Tests 180 verts. Tout poussé sur main (jusqu'à `d9107b7`). **Prochaine étape décidée : cas spéciaux `vault-maintainer` + `devils-advocate`** (agents dont le métier est d'écrire/lire le vault → pattern brief-inline inapplicable tel quel).
 
 ## Dernière session (2026-05-27) — Chantier A
 ### Décisions prises
