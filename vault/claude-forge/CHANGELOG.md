@@ -13,6 +13,21 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-27 — Phase 4 : comparaison Hermes Agent vs claude-forge
+
+## 2026-05-27 — Phase 4 : capitalisation post-session
+
+- **Ajoutées (1)** :
+  - [[idee-compounding-retroactif]] (0-Inbox) — piste produit issue de Phase 4 : croisement A1×A3 (chercher les transcripts non capitalisés à /done et les proposer). Capacité qu'aucun agent (Hermes ni forge) n'a. Liée depuis la roadmap.
+- **Mémoire** : feedback `comparaison-concurrentielle-code-vs-marketing` — comparer un concurrent = lire le code cloné, tester l'hypothèse de positionnement (souvent fausse).
+- **Source** : Stop hook learning-reminder, métacognition fin de Phase 4.
+
+- **Ajoutées (3)** :
+  - [[phase-4-comparaison-hermes-roadmap]] (0-Inbox) — audit code source Hermes Agent (Nous Research, 169k stars), matrice comparative axes prioritaires + plan d'action 3 catégories (combler/décliner/acquis).
+  - [[adr-gaps-hermes-declines-phase-4]] (Knowledge/raisonnements) — ADR consolidée des 6 gaps Hermes déclinés, chacun avec déclencheur de réactivation.
+  - [[avantages-acquis-claude-forge-vs-hermes]] (Knowledge/syntheses) — selling points vérifiés (mémoire graphe, delegate-guard bloquant, doctrine versionnée, capitalisation tracée) pour comm externe.
+- **Source** : Phase 4, lecture code source réel (chemins+lignes), critère de pertinence use case synchrone. Verdict : claude-forge strictement supérieur sur mémoire structurée / conformité / traçabilité ; Hermes supérieur sur recherche transcripts + lifecycle skills + vitesse capitalisation autonome.
+
 ## 2026-05-27 — Pattern méta : pas de symétrie artificielle en priorisation
 
 - **Modifiées (1)** :
