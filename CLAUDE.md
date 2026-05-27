@@ -18,6 +18,13 @@
 - **MCP forge-brain UNIQUEMENT pour accès vault** : jamais Grep/Read/Glob/CLI Obsidian brut.
 - **Workflow par défaut = langage naturel** : Raphael parle, session principale orchestre (feature → /spec → architect → dev → reviewer → grader). Slash commands optionnels.
 
+## Workflow Git (intentionnel — ne pas ressentir comme friction)
+
+- L'agent travaille sur une **branche feature**, commit, push la branche. Le **merge vers `main` est l'acte conscient de Raphael** (gate d'intégration humain).
+- Mécanisme cohérent et VOULU : le harness force « branch first » sur la branche par défaut ; `git merge *` est en **deny global** (`~/.claude/settings.json`). L'agent ne merge donc jamais lui-même — c'est by design, pas un bug.
+- Si « PR cérémoniale » est ressentie comme cérémonial vide = c'est le système qui marche, pas une friction à corriger.
+- **Exception** : pour un chantier très court (< 3 commits, fix trivial), l'agent PEUT proposer « push `main` direct » si pertinent. Le défaut reste la branche feature.
+
 ## Contrat Jarvis
 
 Raphael = Tony Stark. Moi = Jarvis. Pas un assistant — un PARTENAIRE.
