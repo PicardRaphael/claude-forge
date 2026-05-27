@@ -347,3 +347,15 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - Référence morte nettoyée : `comportement-proactif.md` (routing), `pivot-check/SKILL.md` (tableau), canoniques [[agents-color-convention]] (liste cyan) + [[pattern-vault-llm-karpathy]] (4 mentions)
 - Pattern méta capitalisé : append [[pattern-mcp-brief-then-direct]] section "Exception : doublon révèle un agent mort-né (KILL > faire marcher)". Critère : agents = écritures MCP rares, skills = écritures MCP denses
 - Méthode A→B→C→D→E + advisor (3 appels) + 2 AskUserQuestion (arbitrage par agent). Commits non lancés (Raphael décide du découpage en 7)
+
+## [2026-05-27] chantier | Chantier C — sync leaders vault↔cc-news (visibilité livrée, chasse tracée)
+
+- Diagnostic empirique : la prémisse « double-source à dédupliquer + runtime fetch » était partiellement fausse. domain-*.md = PLAN DE CHASSE (leaders + sources directes + queries + capitalisation), pas un catalogue. Divergence **bidirectionnelle** : ~36 fiches vault absentes des plans, ~14 cibles chassées sans fiche. `find_by_property(type=leader)` cassé (63/80, frontmatter incohérent) → seul `list_notes(folder)` fiable
+- Décision (3 arbitrages Raphael) : (1) script `sync-leaders.py` à la MAINTENANCE pas au runtime, (2) section « Watchlist signaux non canonisés » séparée et jamais touchée par le sync, (3) handles en mode dégradé + dette tracée (pas de normalisation des 80 frontmatters)
+- Créé `.claude/skills/cc-news/scripts/sync-leaders.py` : régénère le bloc Leaders entre marqueurs `<!-- SYNC:leaders:start/end -->` depuis `list_notes(05-Leaders/<dom>)`. Idempotent (round-trip vérifié). Lecture vault en `open()`/`glob()` direct (équivalent hook, non bloqué par vault-cat-guard). Report `[!] Leaders synced SANS query` = nouveaux entrants à chasser (la moitié non livrée, mesurée)
+- Migration manuelle one-shot des 6 domain-*.md : tables Leaders → marqueurs + section Watchlist (rag→industrie/, agents+concurrents avec cibles sans fiche, claude-code/Écosystème préservé). Mapping concurrents→industrie acté (pas de dossier vault concurrents)
+- Handle d'orga faux (`@JinaAI_` pour Han Xiao) → denylist `ORG_HANDLES`. 38/39 handles synced corrects
+- SKILL.md cc-news : section « Sync des leaders depuis le vault » + gotcha (via skill-creator, 163→179L)
+- Créé note canonique [[pattern-vault-source-unique-sync-mecanique]] (04-Techniques/patterns)
+- **Dette résiduelle tracée** : queries cc-news non régénérées (~50 leaders synced sans query) — à compléter à froid ; normalisation `handle_x` des 80 fiches ; report unhunted léger sur-signal (Harrison Chase via « LangChain »)
+- Méthode A→B→C→D→E + advisor (3 appels, dont 1 qui a rattrapé le gap visibilité≠chasse) + 3 AskUserQuestion. Pas de commit (Raphael décide du découpage)

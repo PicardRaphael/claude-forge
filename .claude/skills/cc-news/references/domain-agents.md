@@ -1,7 +1,7 @@
 # Domaine — Agents IA & Automation
 
 Couvre : frameworks agents, patterns agentic, multi-agent systems, browser automation, MCP servers.
-Nombre de queries : 14 — **Découper sur 2 agents** (Agent A + Agent B)
+Nombre de queries : 22 — **Découper sur 3 agents** (Agent A + Agent B + Agent C)
 
 ## Sources directes
 
@@ -11,36 +11,55 @@ Nombre de queries : 14 — **Découper sur 2 agents** (Agent A + Agent B)
 - `latent.space`
 - `oneusefulthing.org`
 
-## Leaders Agents IA & Automation
+<!-- SYNC:leaders:start — généré par scripts/sync-leaders.py, NE PAS éditer à la main -->
+
+## Leaders canonisés (16) — vault 05-Leaders/agents/
 
 | Personne | Rôle | Sources |
 |----------|------|---------|
-| **Shunyu Yao** (@ysymyth) | ReAct, Tree of Thoughts, Chief AI Scientist Tencent | ysymyth.github.io |
-| **Andrew Ng** (@AndrewYNg) | DeepLearning.AI, 4 agentic design patterns | x.com/AndrewYNg, deeplearning.ai |
-| **Lilian Weng** (@lilianweng) | OpenAI VP Research, Lil'Log (canonical agent posts) | lilianweng.github.io |
-| **Jim Fan** (@DrJimFan) | NVIDIA Voyager/GROOT, Foundation Agent | x.com/DrJimFan |
-| **Simon Willison** (@simonw) | Agentic Engineering Patterns, LLM CLI | simonwillison.net |
-| **Joao Moura** (@joaomdmoura) | CrewAI founder | x.com/joaomdmoura, crewai.com/blog |
-| **Ethan Mollick** (@emollick) | One Useful Thing, Equation of Agentic Work | oneusefulthing.org |
+| **Addy Osmani** | Engineering lead Google Chrome, formalise le concept d'Agent Harness Engineering : la v… | addyosmani.com, www.oreilly.com |
+| **Andrej Karpathy** | AI researcher, educator | github.com |
+| **Andrew Ng** (@AndrewYNg) | Fondateur DeepLearning.AI, AI Fund | www.deeplearning.ai |
+| **Chi Wang** | Founder AutoGen/AG2, Research Scientist Google DeepMind | www.microsoft.com, methodlab.ai |
+| **David Shapiro** | AI Researcher, Creator ACE Framework | arxiv.org, github.com |
+| **Div Garg** | Founder & CEO MultiOn | divyanshgarg.com, www.cognitiverevolution.ai |
+| **Harrison Chase** | Fondateur & CEO LangChain | blog.langchain.com, sequoiacap.com |
+| **Jerry Liu** | Co-fondateur & CEO LlamaIndex | www.llamaindex.ai, venturebeat.com |
+| **Jim Fan** (@DrJimFan) | Director of AI & Distinguished Scientist | jimfan.me, x.com |
+| **João Moura** | Founder & CEO CrewAI | blog.crewai.com, www.crewai.com |
+| **Lilian Weng** (@lilianweng) | VP Research | lilianweng.github.io |
+| **Martin Fowler & Birgitta Böckeler** | martinfowler.com publie 2 avril 2026 la taxonomie Guides+Sensors (Böckeler, Thoughtwork… | martinfowler.com |
+| **Mitchell Hashimoto** | Créateur Ghostty + ex-fondateur HashiCorp. A nommé harness engineering le 5 février 202… | mitchellh.com, github.com |
+| **Shunyu Yao** | Chief AI Scientist | ysymyth.github.io, arxiv.org |
+| **Simon Willison** (@simonw) | Développeur indépendant | simonwillison.net, github.com |
+| **Yohei Nakajima** | General Partner Untapped Capital, Creator BabyAGI | yoheinakajima.com, www.cognitiverevolution.ai |
+
+> Bloc généré depuis le vault. Pour ajouter/retirer un leader : créer/supprimer la fiche dans `05-Leaders/agents/` puis relancer `py scripts/sync-leaders.py`.
+> Les leaders sans handle (`@`) sont en mode dégradé — compléter les queries à la main.
+
+<!-- SYNC:leaders:end -->
+
+## Watchlist signaux non canonisés
+
+> Cibles suivies par cc-news mais sans fiche vault dédiée (ou fichées dans un autre domaine). Section éditable à la main, **jamais touchée par le sync**. Promouvoir un signal en fiche `05-Leaders/agents/` quand il le mérite.
+
+| Personne | Rôle | Sources |
+|----------|------|---------|
 | **Swyx** (@swyx) | Latent Space podcast, AI Engineer conferences | latent.space |
 | **Matt Shumer** (@mattshumer_) | HyperWrite, "Something Big Is Happening" | x.com/mattshumer_ |
-| **Chi Wang** (@sonichi) | AutoGen/AG2 creator, Google DeepMind | github.com/sonichi |
-| **Yohei Nakajima** (@yaboron) | BabyAGI creator, GP Untapped Capital | yoheinakajima.com |
-| **Dario Amodei** | CEO Anthropic, RSP, AI safety | darioamodei.com |
-| **David Shapiro** (@daveshap) | ACE Framework, cognitive architecture | github.com/daveshap |
-| **Div Garg** (@div99) | MultiOn founder, browser agents | divyanshgarg.com |
+| **Dario Amodei** | CEO Anthropic, RSP, AI safety (fiche vault en `industrie/`) | darioamodei.com |
 
 ## Queries à exécuter
 
 ### Agent A — Leaders + Frameworks
 
 ```
-@ysymyth ReAct agents
+@ysymyth Shunyu Yao ReAct agents
 Andrew Ng agentic AI DeepLearning
 @lilianweng LLM agents blog
 @DrJimFan NVIDIA agents robotics
 Simon Willison agentic engineering patterns
-CrewAI new features changelog
+CrewAI João Moura new features changelog
 @emollick AI agents work
 ```
 
@@ -52,8 +71,21 @@ OpenAI Agents SDK new features
 Google ADK A2A protocol agents
 AutoGen AG2 Microsoft multi-agent
 Claude Managed Agents Cowork Dispatch
-browser automation AI Stagehand Playwright MCP
+browser automation AI Div Garg MultiOn Stagehand Playwright MCP
 MCP servers new popular tools
+```
+
+### Agent C — Leaders agents complémentaires
+
+```
+Addy Osmani agent harness engineering ratchet
+Andrej Karpathy software agents coding
+David Shapiro ACE Framework cognitive architecture
+@hwchase17 LangChain LangGraph agents
+Jerry Liu LlamaIndex agentic workflow
+Mitchell Hashimoto harness engineering
+Martin Fowler Birgitta Böckeler guides sensors agents taxonomy
+Yohei Nakajima BabyAGI new
 ```
 
 ## Capitalisation vault

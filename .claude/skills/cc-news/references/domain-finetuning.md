@@ -3,26 +3,41 @@
 Couvre : LoRA, QLoRA, GGUF, fine-tuning frameworks, quantization, post-training, local inference.
 Nombre de queries : 20 — **Découper sur 2 agents** (Agent A + Agent B)
 
-## Leaders Fine-tuning & Local AI
+<!-- SYNC:leaders:start — généré par scripts/sync-leaders.py, NE PAS éditer à la main -->
+
+## Leaders canonisés (15) — vault 05-Leaders/fine-tuning/
 
 | Personne | Rôle | Sources |
 |----------|------|---------|
-| **Edward Hu** (@edwardjhu) | Inventeur de LoRA, PhD sous Yoshua Bengio (Mila) | x.com/edwardjhu, edwardjhu.com |
-| **Tim Dettmers** (@Tim_Dettmers) | Créateur QLoRA & bitsandbytes, CMU/AI2 | x.com/Tim_Dettmers, timdettmers.com |
-| **Sebastian Raschka** (@rasbt) | "Build a Large Language Model (From Scratch)", Lightning AI | x.com/rasbt, sebastianraschka.com, magazine.sebastianraschka.com |
-| **Maxime Labonne** (@maximelabonne) | LLM Course (70K+ stars), Head of Post-Training Liquid AI | x.com/maximelabonne, mlabonne.github.io/blog |
-| **Daniel Han** (@danielhanchen) | CEO Unsloth AI (YC S24), 2-30x faster fine-tuning | x.com/danielhanchen, unsloth.ai |
-| **Georgi Gerganov** (@ggerganov) | Créateur llama.cpp & GGUF, acquis par HuggingFace (fév 2026) | x.com/ggerganov, github.com/ggml-org/llama.cpp |
-| **Tri Dao** | FlashAttention (1→4), Chief Scientist Together AI | tridao.me |
-| **Nathan Lambert** (@natolambert) | Post-Training Lead AI2, auteur du premier textbook RLHF | x.com/natolambert, interconnects.ai |
-| **Wing Lian** (@winglian) | Créateur Axolotl, framework fine-tuning le plus complet | x.com/winglian, github.com/axolotl-ai-cloud/axolotl |
-| **Philipp Schmid** (@_philschmid) | Ex-HuggingFace → Google DeepMind, guides fine-tuning référence | x.com/_philschmid, philschmid.de |
-| **Song Han** (@songhan_mit) | AWQ (MLSys Best Paper), MIT Han Lab, TinyML | x.com/songhan_mit, hanlab.mit.edu |
-| **Teknium** (@Teknium1) | Nous Research, Hermes models, communauté fine-tuning open-source | x.com/Teknium1 |
-| **Hamel Husain** (@HamelHusain) | Mastering LLMs course, Parlance Labs | x.com/HamelHusain, maven.com/parlance-labs/fine-tuning |
-| **Yaowei Zheng (hiyouga)** | LlamaFactory (65K+ stars), ByteDance | github.com/hiyouga/LLaMA-Factory |
-| **Arthur Mensch** | CEO Mistral AI, champion open-source AI sovereignty | mistral.ai |
-| **Liang Wenfeng** | Fondateur DeepSeek, GRPO, modèles open-source frontier à coût minimal | deepseek.com |
+| **Daniel Han** (@danielhanchen) | CEO Unsloth AI | unsloth.ai, github.com |
+| **Edward Hu** (@edwardjhu) | Founder Compute Exchange (stealth) — ex-PhD Mila | edwardjhu.com, arxiv.org |
+| **Georgi Gerganov** (@ggerganov) | Software Engineer / Creator llama.cpp | en.wikipedia.org, github.com |
+| **Hamel Husain** (@HamelHusain) | Founder Parlance Labs | maven.com |
+| **Maxime Labonne** (@maximelabonne) | Staff ML Scientist / Head of Post-Training, Liquid AI | github.com, mlabonne.github.io |
+| **Nathan Lambert** (@natolambert) | Senior Research Scientist / Post-Training Lead, AI2 | www.interconnects.ai |
+| **Philipp Schmid** (@_philschmid) | Google DeepMind (ex-HuggingFace Technical Lead) | www.philschmid.de |
+| **Rafael Rafailov** | PhD Researcher | arxiv.org, cs.stanford.edu |
+| **Sebastian Raschka** (@rasbt) | LLM Research Engineer Lightning AI / Prof UW-Madison | sebastianraschka.com, magazine.sebastianraschka.com |
+| **Song Han** (@songhan_mit) | Associate Professor MIT EECS | hanlab.mit.edu |
+| **Teknium** (@Teknium1) | Co-founder & Head of Post-Training, Nous Research | x.com, nousresearch.com |
+| **Tim Dettmers** (@Tim_Dettmers) | Assistant Professor CMU / Research Scientist AI2 | timdettmers.com, github.com |
+| **Tri Dao** | Chief Scientist, Together AI | tridao.me, tridao.me |
+| **Wing Lian** (@winglian) | Creator Axolotl | github.com |
+| **Yaowei Zheng (hiyouga)** | Creator LLaMA-Factory / ByteDance | github.com |
+
+> Bloc généré depuis le vault. Pour ajouter/retirer un leader : créer/supprimer la fiche dans `05-Leaders/fine-tuning/` puis relancer `py scripts/sync-leaders.py`.
+> Les leaders sans handle (`@`) sont en mode dégradé — compléter les queries à la main.
+
+<!-- SYNC:leaders:end -->
+
+## Watchlist signaux non canonisés
+
+> Cibles suivies par cc-news mais fichées dans un autre domaine vault. Section éditable à la main, **jamais touchée par le sync**.
+
+| Personne | Rôle | Sources |
+|----------|------|---------|
+| **Arthur Mensch** | CEO Mistral AI, champion open-source AI sovereignty (fiche vault en `industrie/`) | mistral.ai |
+| **Liang Wenfeng** | Fondateur DeepSeek, GRPO, modèles open-source frontier à coût minimal (fiche vault en `industrie/`) | deepseek.com |
 
 ## Queries à exécuter
 
@@ -47,12 +62,12 @@ Philipp Schmid fine-tuning tutorial
 Song Han AWQ quantization MIT
 Teknium Nous Research Hermes
 Hamel Husain Mastering LLMs
-LlamaFactory hiyouga update
+LlamaFactory hiyouga Yaowei Zheng update
 Mistral AI Arthur Mensch open-source
 DeepSeek Liang Wenfeng new model
 Unsloth vs Axolotl vs LlamaFactory benchmark
 best open source model fine-tuning
-LoRA QLoRA DoRA ORPO DPO GRPO new technique
+LoRA QLoRA DoRA ORPO DPO (Rafael Rafailov) GRPO new technique
 vLLM SGLang llama.cpp inference benchmark
 ```
 

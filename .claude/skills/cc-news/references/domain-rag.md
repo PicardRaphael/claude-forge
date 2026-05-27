@@ -1,7 +1,7 @@
 # Domaine — RAG & Embeddings
 
 Couvre : Retrieval-Augmented Generation, embeddings, rerankers, vector databases, techniques retrieval.
-Nombre de queries : 11 (acceptable pour 1 agent, splitter si perte de focus)
+Nombre de queries : 16 — **Découper sur 2 agents** (Agent A + Agent B)
 
 ## Sources directes
 
@@ -12,34 +12,61 @@ Nombre de queries : 11 (acceptable pour 1 agent, splitter si perte de focus)
 - `contextual.ai/blog`
 - `sbert.net`
 
-## Leaders RAG & Embeddings
+<!-- SYNC:leaders:start — généré par scripts/sync-leaders.py, NE PAS éditer à la main -->
+
+## Leaders canonisés (10) — vault 05-Leaders/rag/
 
 | Personne | Rôle | Sources |
 |----------|------|---------|
-| **Jonas Roman** (@JonasRoman) | RAG en production, ex-Mistral AI (FR) | youtube.com/@JonasRoman-t5t, lagentia.fr |
-| **Omar Khattab** (@lateinteraction) | ColBERT, DSPy, MIT | x.com/lateinteraction |
-| **Jerry Liu** (@jerryjliu0) | LlamaIndex founder | x.com/jerryjliu0, llamaindex.ai/blog |
-| **Harrison Chase** (@hwchase17) | LangChain founder (contexte RAG) | blog.langchain.com |
-| **Han Xiao** (@haborosc) | Jina AI/Elastic, late chunking | x.com/haborosc, jina.ai/news |
-| **Chip Huyen** (@chiphuyen) | AI Engineering author | x.com/chiphuyen, huyenchip.com |
-| **Nils Reimers** | Sentence-BERT, Cohere VP Search | sbert.net |
-| **Douwe Kiela** | RAG original paper co-author, Contextual AI CEO | contextual.ai/blog |
-| **James Briggs** (@jamescalam) | Aurelio AI, RAG tutorials | youtube.com/@jamesbriggs, pinecone.io/learn/series/rag/ |
+| **Douwe Kiela** | CEO & co-fondateur Contextual AI | contextual.ai, en.wikipedia.org |
+| **Greg Kamradt** | Créateur indépendant | gregkamradt.com, github.com |
+| **Han Xiao** | VP of AI, Elastic (fondateur Jina AI) | jina.ai, hanxiao.io |
+| **Harrison Chase** (@hwchase17) | Co-fondateur & CEO LangChain | www.langchain.com, twitter.com |
+| **James Briggs** | Fondateur Aurelio AI | www.youtube.com, www.pinecone.io |
+| **Jerry Liu** (@jerryjliu0) | Co-fondateur & CEO LlamaIndex | www.llamaindex.ai, twitter.com |
+| **Jonas Roman** | Fondateur Lagentia.fr, AI Engineer | www.youtube.com, lagentia.fr |
+| **Nils Reimers** | VP of AI Search | www.nils-reimers.de, sbert.net |
+| **Omar Khattab** (@lateinteraction) | Assistant Professor MIT EECS & CSAIL | omarkhattab.com, x.com |
+| **Patrick Lewis** | Research Scientist | arxiv.org, cohere.com |
+
+> Bloc généré depuis le vault. Pour ajouter/retirer un leader : créer/supprimer la fiche dans `05-Leaders/rag/` puis relancer `py scripts/sync-leaders.py`.
+> Les leaders sans handle (`@`) sont en mode dégradé — compléter les queries à la main.
+
+<!-- SYNC:leaders:end -->
+
+## Watchlist signaux non canonisés
+
+> Cibles suivies par cc-news mais sans fiche vault dédiée. Section éditable à la main, **jamais touchée par le sync**. Promouvoir un signal en fiche `05-Leaders/rag/` quand il le mérite.
+
+| Personne | Rôle | Sources |
+|----------|------|---------|
+| **Chip Huyen** (@chiphuyen) | AI Engineering author (fiche vault en `industrie/`) | x.com/chiphuyen, huyenchip.com |
 
 ## Queries à exécuter
 
+### Agent A — Techniques + outils
+
 ```
-Jonas Roman RAG production
 @lateinteraction ColBERT DSPy new features
-LlamaIndex new features agentic RAG
-Jina AI embeddings reranker new model
+Jina AI Han Xiao embeddings reranker new model
 Cohere embed rerank new features
-@chiphuyen AI engineering RAG
-Contextual AI RAG 2.0
+Contextual AI Douwe Kiela RAG 2.0
 MTEB v2 embedding benchmark new leader
-@jamescalam RAG tutorial
 pgvector OR Qdrant OR Pinecone OR Weaviate new features
 new RAG technique pattern (GraphRAG, RAPTOR, CRAG, corrective)
+```
+
+### Agent B — Leaders
+
+```
+Jonas Roman RAG production
+@chiphuyen AI engineering RAG
+@jamescalam RAG tutorial
+@hwchase17 LangChain RAG
+@jerryjliu0 LlamaIndex agentic RAG
+Greg Kamradt evals AI benchmark
+Patrick Lewis RAG research Cohere
+Nils Reimers Cohere embed reranker
 ```
 
 ## Capitalisation vault

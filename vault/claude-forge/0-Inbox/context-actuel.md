@@ -10,6 +10,11 @@ tags: ["#type/context", "#meta/working-memory"]
 ---
 
 ## Phase actuelle
+**Chantier C — sync leaders vault↔cc-news : COMPLET (2026-05-27).** Visibilité ET chasse livrées. Script `sync-leaders.py` (régénère le bloc « Leaders canonisés » des 6 `domain-*.md` depuis `list_notes(05-Leaders/<dom>)` entre marqueurs SYNC, idempotent, lecture vault `open()` direct = équivalent hook). 6 domain-*.md migrés (marqueurs + section « Watchlist signaux non canonisés »). Note canonique [[pattern-vault-source-unique-sync-mecanique]]. **Dette demi-fix RÉSOLUE** : queries cc-news complétées à froid pour tous les leaders synced → report `[!]` du script désormais VIDE (vérifié). Orchestration cc-news passée de 11 à 16 agents (claude-code/agents/concurrents = 3 agents, rag/prompt passés à 2). 5 commits Chantier C poussés sur branche `chantier-c-sync-leaders` + 2 commits complétion queries. **Seule dette restante = normalisation `handle_x` des 80 fiches** (chantier d'auteur séparé, mode dégradé en attendant — déclencheur tracé). 176 hooks + 143 MCP verts. À commiter (complétion queries).
+
+---
+
+### Chantier A étapes 2b + 3 + cas spéciaux — LIVRÉES (2026-05-27, antérieur)
 **Chantier A étapes 2b + 3 + cas spéciaux — LIVRÉES (2026-05-27).** 2b = fix structurel MCP décoratif sub-agent (2 hooks de garde `vault-cat-guard`/`mcp-alias-guard`, 6 creators durcis, canoniques amendées). Étape 3 = durcissement hooks suite à usage réel. **Cas spéciaux `vault-maintainer` + `devils-advocate` = FAIT** : dette structurelle MCP décoratif sub-agent entièrement résolue. `vault-maintainer` KILLÉ (doublon de la skill `/vault-audit` qui tourne en session principale avec MCP effectif ; trigger proactif porté dans `/vault-audit` ; exemption hook `vault-cat-guard` retirée). `devils-advocate` GARDÉ + brief clarifié (cause structurelle MCP décoratif explicitée ; mode dégradé texte confirmé — 23/24 critiques persistées empiriquement). Pattern méta capitalisé dans [[pattern-mcp-brief-then-direct]] (KILL > faire marcher quand doublon ; agents = écritures rares, skills = écritures MCP denses). Tests hooks 176 verts (180→176 = suppression mécanisme exemption). À commiter (7 commits groupés par concern).
 
 ## Dernière session (2026-05-27) — Chantier A
@@ -75,6 +80,7 @@ La doctrine forge a évolué par **signal externe natif** (MCP CC déconnecté e
 - **A1×A3 tué** : ne pas réouvrir le scan rétroactif systématique sans nouvelle donnée infirmant le 0/12. Cf [[idee-compounding-retroactif]] (TUÉE).
 - **Paquet 2 Chantier A (C4-C7)** : différés, à évaluer après usage réel du Paquet 1. Reformulations capitalisées dans les TODO de `doctrine-impact-check`.
 - **TODO P0** : rotation password PostgreSQL prod (secret redacté mais pas tourné). Cf [[todo-rotation-password-postgres-prod]].
+- **Chantier C — normalisation `handle_x`** (seule dette restante) : les handles X ne sont pas un champ structuré du frontmatter des 80 fiches `05-Leaders/`. Le script `sync-leaders.py` injecte seulement les handles `x.com/` explicites (mode dégradé, denylist orga `@JinaAI_`). Chantier d'auteur séparé ~1-2h. Déclencheur : soit le script génère trop de leaders sans handle gênant, soit session « qualité frontmatter vault ». La chasse opérationnelle (queries) est CLOSE (report `[!]` vide). Cf [[pattern-vault-source-unique-sync-mecanique]].
 - **README périmé** (21 outils / 412 notes) — session dédiée.
 
 ## Liens
