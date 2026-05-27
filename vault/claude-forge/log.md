@@ -291,3 +291,9 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - Doctrine 4-contextes de résolution de path capitalisée : note canonique [[resolution-path-3-contextes]] (skill=git rev-parse, hook=__file__, settings=${CLAUDE_PROJECT_DIR} expansion harness, .mcp.json=relatif) + amendements [[comment-creer-skill]] et [[comment-creer-hook]] wikilinkés
 - Test cross-machine probant (clone C:\temp\forge-test lit sa propre mémoire via __file__ et git rev-parse, pas l'origine). 244 tests verts, 0 régression
 - Raisonnement [[architecture-decision-memoire-portable-import]] enrichi du résultat de test. Suivant = DA sur A1×A3 en session dédiée
+
+## [2026-05-27] Query | DA compounding rétroactif (A1×A3) — idée tuée par probe empirique
+- Devils-advocate sur le croisement A1×A3 (scanner les transcripts passés à /done). Méthode A→B→C→D→E + probe empirique sur 123 transcripts / 9631 messages via parseur réel `sessions_indexer`
+- Donnée décisive : échantillon 12 hits sur la slice la plus chargée (`erreur|decision|pivot`) = 0/12 capitalisable-ET-nouveau (~8 bruit, ~4 déjà capitalisé). Verdict (c) tuer — échec de prémisse, pas de calibration
+- Risque structurel n°1 = circularité C5 : l'indexeur garde les messages /done en clair (135 msg / 1,4% citent déjà un feedback_*.md) → ils remontent comme faux apprentissages. By-design
+- Pivot retenu : `/recall-uncaptured <topic>` on-demand (design différent, pas garde-fou), à valider empiriquement. Note [[critique-2026-05-27-compounding-retroactif]], idée [[idee-compounding-retroactif]] amendée, feedback [[da-probe-empirique-avant-verdict]]

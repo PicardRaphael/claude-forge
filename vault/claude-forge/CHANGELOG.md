@@ -13,6 +13,14 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-27 — DA compounding rétroactif (A1×A3) : idée tuée par probe empirique
+
+- **Ajoutées (1)** :
+  - [[critique-2026-05-27-compounding-retroactif]] (Knowledge/critiques) — devils-advocate sur le croisement A1×A3 (scanner les transcripts passés à /done pour rattraper les apprentissages non capitalisés). Verdict (c) **tué** : probe empirique sur 123 transcripts / 9631 messages → échantillon 12 hits sur la slice la plus chargée (`erreur|decision|pivot`) = **0/12 capitalisable-ET-nouveau**. Risque structurel n°1 = circularité C5 (l'indexeur garde les messages /done en clair → ils remontent comme faux apprentissages). Pivot retenu : `/recall-uncaptured <topic>` on-demand, à valider empiriquement (27 mai).
+- **Modifiées (1)** :
+  - [[idee-compounding-retroactif]] (0-Inbox) — statut passé à TUÉE + verdict DA appendé (préserve le 0/12 pour ne pas réouvrir le sujet sans nouvelle donnée).
+- **Source** : session DA Phase 4, mission "challenger A1×A3 avant tout build". Méthode A→B→C→D→E + probe empirique (parseur réel `sessions_indexer`).
+
 ## 2026-05-27 — Mémoire portable (étape 7-9) : composants adaptés + doctrine résolution de path
 
 - **Ajoutées (1)** :
