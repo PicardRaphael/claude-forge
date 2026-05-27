@@ -311,3 +311,10 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - Section Hermes déplacée du corps vers annexe B condensée (choix Raphael) : corps décrit forge en lui-même, pointeur [[phase-4-comparaison-hermes-roadmap]]
 - Dette double-source mémoire tracée (section 12, déclencheur explicite) ; A3/A1 livrés + A1×A3 tué reflétés section 8 ; doctrine 4-contextes [[resolution-path-3-contextes]] + mémoire portable [[decision-memoire-dans-le-repo]] section 9
 - Méthode A→B→C→D→E avec STOP étape D + advisor() avant écriture. Mis à jour [[context-actuel]] + [[CHANGELOG]]. Pas de commit (Raphael décide du découpage)
+
+## [2026-05-27] chantier | Pont veille→doctrine Paquet 1 livré (Chantier A)
+- Créé note canonique [[doctrine-vivante]] (04-Techniques/claude-code) — moteur externe d'évolution doctrinale (signal externe, pas seulement erreur interne), 3 verdicts (INFO/DOCTRINE_PIVOT_CANDIDATE/DOCTRINE_REINFORCE), gate humaine non négociable, scan aveugle interdit (lien probe 0/12 [[critique-2026-05-27-compounding-retroactif]])
+- Créé skill `doctrine-impact-check` (156L, opus) — opérationnalise [[doctrine-vivante]] : croise un finding dirigé avec les canoniques, brouillon argumenté + gate [v]/[m]/[i], n'appelle jamais [[methode-pivoter-doctrine]] directement. 3 TODO différés (C5/C6/C7)
+- Ajouté étape 8 à skill `cc-news` : invoque doctrine-impact-check sur findings MAJEURS (leader/Anthropic) only, anti-cascade
+- Bug découvert en cours : MCP forge-brain décoratif en sub-agent (`No such tool available`, confirmé 2 agents skill-creator + hook-creator) → dette étape 2b (fix briefs 6 creators + hook vault-cat-guard + note canonique subagent-mcp-non-herite). Workaround appliqué = mcp-brief-then-direct inline
+- Méthode A→B→C→D→E + advisor avant conception, 2 paquets (Core livré, C4-C7 différés). Pas de commit auto (Raphael décide)

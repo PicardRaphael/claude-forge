@@ -13,6 +13,14 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-27 — Chantier A : pont veille→doctrine (Paquet 1 livré)
+
+- **Ajoutées (1)** :
+  - [[doctrine-vivante]] (04-Techniques/claude-code) — note canonique posant le principe : la doctrine forge évolue par signal externe à fort crédit (Anthropic, leaders), pas seulement par erreur interne. 3 verdicts (INFO / DOCTRINE_PIVOT_CANDIDATE / DOCTRINE_REINFORCE), gate humaine non négociable, scan aveugle interdit (lien probe 0/12).
+- **Hors vault (.claude/skills/)** :
+  - Skill `doctrine-impact-check` créée (156L, opus) — opérationnalise [[doctrine-vivante]] : croise un finding dirigé avec les canoniques, produit un verdict + brouillon argumenté + gate `[v]/[m]/[i]`. N'appelle jamais [[methode-pivoter-doctrine]] directement. 3 TODO différés (C5 fraîcheur triggered-by-event, C6 ligne méta-doctrine, C7 arbitrage conflits).
+  - Skill `cc-news` — étape 8 ajoutée : invoque `doctrine-impact-check` sur les findings MAJEURS (leader/Anthropic) uniquement, anti-cascade.
+- **Source** : Chantier A, méthode A→B→C→D→E, 2 paquets (Core C1+C2+C3 livré ; C4-C7 différés à évaluer après usage). Bug MCP décoratif sub-agent découvert en cours → dette étape 2b tracée dans [[context-actuel]].
 ## 2026-05-27 — SELF_PORTRAIT régénéré (post Mémoire Portable + DA + Audit transverse + Veille)
 
 - **Modifiées (1)** :
