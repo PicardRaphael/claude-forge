@@ -12,7 +12,7 @@ aliases:
   - "SKILL.md structure"
   - "frontmatter skill"
   - "agentskills.io"
-derniere-maj: 2026-05-26
+derniere-maj: 2026-05-27
 auteur: claude
 type: technique
 sources:
@@ -535,3 +535,27 @@ Plugin officiel `anthropics/claude-plugins-official/plugins/skill-creator` intro
 ### Décision forge : PAS de skill `/skill-eval`
 
 `run_loop.py` + viewer HTML = dépendances Python lourdes + maintenance. Pour skills critiques (5-6), faire l'éval **manuellement** en suivant ce pattern lors de `/skill-evolve`. Si forge passe à 100+ skills → reconsidérer.
+
+---
+
+## AJOUT 27 mai 2026 — Pattern "skill qui propose un diff à valider"
+
+Une skill de capitalisation (ou toute skill qui produit du contenu durable) peut PROPOSER des blocs prêts-à-écrire (diff visible) au lieu de demander à l'utilisateur de tout rédiger. Mais l'écriture reste sous gate humaine explicite, item par item.
+
+### Le pattern
+
+1. Détecter les items capitalisables (après filtre anti-bruit).
+2. Vérifier les doublons (`search_brain`) AVANT de proposer — doublon → bloc d'AMENDEMENT (`read_note` + passage à ajouter), pas une création.
+3. Générer le bloc prêt-à-écrire au format cible (feedback MEMORY.md / note vault Obsidian / ADR).
+4. Présenter chaque bloc : type + chemin cible + contenu, puis `[v]alider / [m]odifier / [i]gnorer`.
+5. Écrire SEULEMENT après validation explicite.
+
+### Pourquoi ce pattern (vs écriture auto)
+
+Importe la COUVERTURE (proposer auto, rattraper ce qu'on oublie de capitaliser) sans céder le CONTRÔLE (humain valide avant écriture). La proposition réduit l'effort cognitif sans retirer la décision. Différence clé vs un background review qui écrit en silence : le diff est relu, jamais un overwrite silencieux. Anti sur-généralisation : 1 occurrence = item ponctuel, jamais une "règle". "Rien à proposer" est une réponse honnête valide.
+
+Référence d'implémentation : skill `done` (étapes 3 génération de blocs + 4 boucle de validation). Croisement Phase 4 Hermes.
+
+### Corollaire — skill de jugement LLM n'est pas testable unitairement
+
+Une skill qui orchestre du jugement LLM (métacognition, capitalisation, arbitrage) n'a pas de test unitaire pertinent : un smoke test ne validerait que le parsing YAML, pas la skill. La validation se fait par **exécution réelle sur un cas représentatif** (ex : lancer `/done` sur une session ayant produit ≥1 apprentissage, vérifier que les blocs proposés sont corrects et que rien n'est écrit sans validation). Ce n'est pas de la dette tracée — c'est un choix de design assumé. Distinguer du code déterministe (scripts/ de skill, hooks, MCP) qui lui doit être testé, avec ratio adverse pour les composants critiques.
