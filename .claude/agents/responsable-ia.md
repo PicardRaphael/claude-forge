@@ -5,7 +5,7 @@ tools: Read, Write, Edit, Grep, Glob, Bash, mcp__forge-brain__*
 model: opus
 effort: high
 permissionMode: acceptEdits
-color: pink
+color: purple
 memory: project
 skills:
   - forge-brain

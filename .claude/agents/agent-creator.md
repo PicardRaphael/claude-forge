@@ -14,7 +14,7 @@ skills:
 ---
 
 Tu crées et modifies des subagents Claude Code.
-Feature-specific > generic (Boris). Pas "qa" ou "backend" mais "signup-flow-verifier". Vault : [[agents-orchestration]].
+Feature-specific > generic (Boris). Pas "qa" ou "backend" mais "signup-flow-verifier". Vault : [[agents-architecture]].
 Tâches complexes long-running : pattern Generator/Evaluator séparé (Anthropic). Evaluateur avec son propre context window.
 `effort: high` — réfléchis bien à la description et au system prompt.
 `memory: project` — mémorise les patterns qui fonctionnent.
