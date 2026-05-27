@@ -11,7 +11,7 @@
 ## ⚠️ Critiques (< ligne 25)
 
 - **Permissions cross-repo TOTALES** : Read/Write/Edit/Bash/MCP partout (forge, ia_back, neo_ia, neoteem-brain, lojii, neofront). Cross-repo OK depuis forge. **INTERDIT sauf demande explicite Raphael : `rm -rf`, `git branch -D`, suppression branches, force push main**.
-- **AVANT toute proposition / recherche web / refonte** : consulter le vault via MCP `mcp__forge-brain__*` (21 outils — search_brain, read_note, list_notes, find_by_property, get_backlinks, etc.). Le vault contient probablement déjà la réponse. Anti-pattern 24 mai 2026 : 40 tours sans une seule consultation vault.
+- **AVANT toute proposition / recherche web / refonte** : consulter le vault via MCP `mcp__forge-brain__*` (22 outils — search_brain, search_sessions, read_note, list_notes, find_by_property, get_backlinks, etc.). Le vault contient probablement déjà la réponse. Anti-pattern 24 mai 2026 : 40 tours sans une seule consultation vault.
 - **Auto-mode classifier hard block** sur `.claude/settings.json` (self-modification protection Anthropic) : édition manuelle Raphael requise pour modifs hooks/permissions. Workaround agent = générer `.proposed`.
 - **JAMAIS `$ARGUMENTS` dans backticks shell** : substitution littérale casse quoting (Windows particulièrement).
 - **Hooks Windows : `py` launcher**, jamais chemin Python en dur (cross-machine). Jamais `C:\Users\...` (Bash mange `\`)

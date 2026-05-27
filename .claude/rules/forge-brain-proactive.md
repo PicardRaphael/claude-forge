@@ -12,10 +12,11 @@ Le vault forge-brain est la mémoire infinie. L'interroger est un RÉFLEXE, pas 
 Le MCP `forge-brain` (auto-start via hook SessionStart, port 8091) est le SEUL moyen d'accès au vault.
 Ne JAMAIS utiliser Grep/Read/Glob brut sur le vault. Ne JAMAIS utiliser la CLI Obsidian.
 
-### Outils MCP — 21 disponibles (v1.3)
+### Outils MCP — 22 disponibles (v1.4)
 
 **Lecture** :
-- `search_brain(query, limit, context)` — FTS5 BM25 (file_stem:10 / aliases:8 / content:1)
+- `search_brain(query, limit, context)` — FTS5 BM25 (file_stem:10 / aliases:8 / content:1) — vault CAPITALISÉ
+- `search_sessions(query, limit, project, role, since)` — FTS5 sur transcripts session bruts NON capitalisés (`~/.claude/projects/*.jsonl`). Pour "qu'a-t-on dit la semaine dernière sur X". Complément de search_brain.
 - `read_note(file)` — **lit la note ENTIÈRE par défaut**
 - `read_note(file, offset, limit_chars)` — pagination char-based (uniquement si > 50k chars)
 - `read_section(file, "## H")` — UNE section (économie 30x tokens sur CHANGELOG)
