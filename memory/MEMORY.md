@@ -1,6 +1,7 @@
 # Memory Index
 
 ## Feedback
+- [subagent-mcp-non-connecte-brief-inline](feedback_subagent_mcp_non_connecte_brief_inline.md) — MCP frontmatter d'un sub-agent = décoratif (non connecté en contexte, `No such tool available`). Brief "lis via MCP" → le sub-agent cat le vault. Fournir le contenu inline + interdiction vault + ESCALADE. Confirmé 2 agents (skill-creator, hook-creator). (27 mai)
 - [ecart-consigne-chiffree-surfacer](feedback_ecart_consigne_chiffree_surfacer.md) — Écart à une consigne explicite et chiffrée (longueur cible, nombre, deadline, budget) = surfacer pour arbitrage avec cause + option de correction, jamais juger "acceptable" en silence. La cible appartient à Raphael. Distinct de pas-de-symetrie (auto-priorisation interne). (27 mai)
 - [feedback-reviole-3x-regle-insuffisante](feedback_feedback_reviole_3x_regle_insuffisante.md) — Feedback comportemental re-violé ≥3× malgré présence en contexte = la règle écrite ne suffit pas. Ne pas juste ré-enrichir : formuler un réflexe pré-action OU garde-fou structurel (hook scope). Enrichir sans changer le comportement = boucle. (27 mai)
 - [audit-transverse-periodique-hooks-gardes-ecriture](feedback_audit_transverse_periodique_hooks_gardes_ecriture.md) — Hooks = gardes en ÉCRITURE, pas scanners périodiques. Composant pré-hook garde ses résidus. Audit transverse ponctuel nécessaire même quand un hook veille. Passer le hook en scan sur tout son scope = oracle de classification. (27 mai)

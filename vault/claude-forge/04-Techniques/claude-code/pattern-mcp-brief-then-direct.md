@@ -298,3 +298,15 @@ Pas de re-recherche schéma DB par `dev` — déjà fourni.
 ---
 
 **Fin note canonique `pattern-mcp-brief-then-direct.md`** — créée 24 mai 2026, chantier marathon tour 3.
+
+## AJOUT 27 mai 2026 — Cause-racine empirique : MCP sub-agent NON connecté (`No such tool available`)
+
+Ce pattern n'est pas qu'une optimisation tokens — c'est une **nécessité structurelle**. Vérifié empiriquement (Chantier A, 27 mai 2026) : le `mcp__server__*` listé dans le `tools:` d'un sub-agent est **décoratif**. Le serveur MCP n'est PAS connecté dans le contexte d'exécution du sub-agent : l'appel `mcp__forge-brain__read_note(...)` retourne `No such tool available`. Confirmé sur 2 agents (skill-creator, hook-creator).
+
+Conséquence : un sub-agent à qui on ordonne « lire les canoniques via MCP » sans fournir le contenu fallback sur `cat`/`find` du vault → viole la doctrine MCP-only ([[forge-brain-proactive]]).
+
+**Règle architecturale** : la session principale est le SEUL contexte avec accès MCP effectif. Tout brief sub-agent impliquant le vault contient les extraits inline + « JAMAIS cat/find/grep/Read le vault ; si manque, ESCALADE ». Ne JAMAIS écrire « lis via MCP » dans un brief sub-agent.
+
+Enforcement structurel proposé (défense en profondeur) : hook `vault-cat-guard` (PreToolUse Bash, bloque cat/find/grep sur `vault/`). Cf [[comment-creer-hook]] catalogue transversal.
+
+Lié : [[anti-reentrance-sub-agents-pattern-escalade]] (le sub-agent ne peut pas non plus invoquer Agent — même classe de limitation contextuelle).

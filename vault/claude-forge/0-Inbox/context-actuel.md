@@ -39,11 +39,14 @@ Le frontmatter `tools: ... mcp__forge-brain__*` d'un sub-agent est **décoratif*
 - **1 sain** : `outcomes-grader`.
 
 ### Composants à créer/modifier en 2b
-1. Note canonique vault `subagent-mcp-non-herite` (04-Techniques/claude-code) — la règle architecturale ci-dessus.
+1. ~~Note canonique `subagent-mcp-non-herite`~~ → FAIT autrement : cause-racine capitalisée en **amendement de [[pattern-mcp-brief-then-direct]]** (section AJOUT 27 mai) + feedback mémoire `subagent-mcp-non-connecte-brief-inline`. Pas de nouvelle note (évite doublon).
 2. Amender briefs des 6 creators : remplacer « lire EN ENTIER via MCP » par « contenu canonique fourni dans le brief ; si manque, ESCALADE ; JAMAIS cat/find/grep/Read sur le vault ».
 3. Hook `vault-cat-guard` (proposition Jarvis validée) — PreToolUse Bash, bloque cat/find/grep sur `vault/` (enforcement structurel, défense en profondeur ; doctrine hooks 22 mai = scope/sécurité OK).
 4. Amender canoniques creator ([[comment-creer-skill]], [[comment-creer-agent]], [[comment-creer-hook]]) avec la règle.
 5. MAJ CLAUDE.md éventuelle si jugé assez structurant.
+
+### Note d'attention — hook mcp-alias (4e re-violation aujourd'hui)
+Le pattern `mcp-alias-ambigu-chemin-exact` re-violé 4× le 27 mai (dont ce /done : `append_note(file="log vault")` malgré la RÈGLE FERME interdisant tout alias sur stem multi-dossier). Seuil garde-fou hook atteint (cf [[feedback_feedback_reviole_3x_regle_insuffisante]]). À considérer en 2b / session future : hook PreToolUse sur `mcp__forge-brain__append_note` vérifiant l'unicité du stem dans le vault avant écriture (erreur si log/index/CHANGELOG multi-dossiers). Distinct de vault-cat-guard. Pas maintenant (anti-fragmentation), tracé.
 
 ### Dépendance circulaire à résoudre
 Pour modifier `agent-creator` on cross-dispatch via `skill-creator` (pattern self_modification_agent_cross_dispatch) — mais `skill-creator` est l'agent buggé. Résolution : **fixer skill-creator EN PREMIER** via le pattern brief-inline (ou édition directe par la session principale en exception assumée, car on fixe skill-creator lui-même). Puis skill-creator durci fixe les autres.
