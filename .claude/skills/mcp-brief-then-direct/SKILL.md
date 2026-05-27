@@ -67,6 +67,6 @@ Le classifier bloque self-modification forge → forge, mais autorise cross-repo
 
 ## Apprentissage
 
-- will-auditor.md créé avec `mcp__forge-brain__read_note` verbatim dans body → fonctionnel cross-repo malgré skills décoratives (validé 26 mai 2026)
+- will-auditor.md créé avec `mcp__forge-brain__read_note` verbatim dans body → fonctionnel cross-repo malgré skills décoratives
 - 3/4 migrations Haiku cross-repo réussies via path absolu (ia_back, neo_ia) — seule forge→forge a échoué (self-modification)
 - Pattern source canonique : [[pattern-mcp-brief-then-direct]] vault forge

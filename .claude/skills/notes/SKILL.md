@@ -9,7 +9,7 @@ user-invokable: true
 # Notes — Running Implementation Notes
 
 Initialise un fichier `implementation-notes` pré-rempli avec les 4 sections du pattern Thariq.
-Source : [[running-implementation-notes]] (vault `04-Techniques/patterns/`)
+Référence : [[running-implementation-notes]] (vault `04-Techniques/patterns/`)
 
 ## Étapes
 
