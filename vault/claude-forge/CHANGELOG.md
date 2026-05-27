@@ -13,6 +13,14 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-27 — Doctrine git corrigée : le deny `git merge` global n'a jamais existé (hypothèse C)
+
+- **Diagnostic empirique 5 couches** : aucun deny `git merge` nulle part. `~/.claude/settings.json` = 12 entrées deny toutes destructives OS (`rm -rf`, `format`, `mkfs`, `shutdown`, `taskkill`, `kill -9`), zéro git. `settings.local.json` global absent. Repo `.claude/settings.json` + `.local.json` = vides. `grep -i merge .claude/hooks/` = aucun match. Le « branch first » est NATIF au harness Claude Code, pas une permission.
+- **Cause** : le claim « `git merge *` en deny global » écrit le matin même (commit `b6731d4`) était une rationalisation a posteriori sur un symptôme observé (agent sur branche par défaut), sans vérification du settings. Doctrine fausse documentée ~6h.
+- **Correction** : section CLAUDE.md `## Workflow Git (intentionnel)` → `## Workflow Git (convention)` (via claudemd-optimizer). « Convention humaine de discipline, pas verrou technique » — preuve empirique citée dans la formulation.
+- **Capitalisation** : feedback mémoire `diagnostic-empirique-avant-affirmer-une-garde` (vérifier matériellement une garde avant de l'écrire dans un artefact doctrinal + citer la preuve). Leçon méta dans [[context-actuel]] : l'inférence fausse a traversé agent + humain + advisor sans demande de preuve.
+- **Source** : divergence détectée lors du merge agent de la session audit transverse (le merge a marché → rien à contourner → le deny n'existait pas).
+
 ## 2026-05-27 — Audit transverse densité MCP write des 10 agents (flotte saine confirmée)
 
 - **Audit (lecture seule)** : les 10 agents restants (post-KILL `vault-maintainer`) classés selon densité d'écriture MCP vault. Résultat **0 candidat KILL/PIVOT** — `vault-maintainer` était bien le cas isolé. 5 rare (4 créateurs + responsable-ia), 4 spécial (repo-inspector/outcomes-grader read-only, python-dev/self-updater écriture filesystem), 1 rare/dégradé (devils-advocate, 1 `create_note` non bloquant).

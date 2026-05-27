@@ -351,6 +351,14 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 ## [2026-05-27] chantier | Chantier C — sync leaders vault↔cc-news (visibilité livrée, chasse tracée)
 
 ## [2026-05-27] audit | Audit transverse densité MCP write des 10 agents — flotte saine 0 candidat
+
+## [2026-05-27] correction | Doctrine git — deny merge global réfuté empiriquement (5 couches)
+- Correction du claim CLAUDE.md L24 « `git merge *` en deny global » écrit le matin (commit `b6731d4`) sans vérification — hypothèse C confirmée : le deny n'a jamais existé
+- Diagnostic 5 couches : `~/.claude/settings.json` (12 deny tous OS destructifs, 0 git), settings.local.json global absent, repo `.claude/settings.json` + `.local.json` vides, `grep -i merge .claude/hooks/` aucun match. « branch first » = natif harness, pas permission
+- note-updated CLAUDE.md : section `## Workflow Git (intentionnel)` → `## Workflow Git (convention)` via claudemd-optimizer (convention humaine, pas verrou ; preuve empirique citée dans la formulation)
+- Capitalisation feedback mémoire `diagnostic-empirique-avant-affirmer-une-garde` (distinct de [[verify-empirique-avant-affirmation-session]] : ici écriture durable d'une garde dans artefact doctrinal)
+- Leçon méta tracée [[context-actuel]] : inférence fausse non détectée ~6h car agent + humain + advisor l'ont acceptée sans demander la preuve. Vérif garde = responsabilité de toute la chaîne
+- Append-only respecté : action `correction` référençant l'entrée initiale (cf convention log n°1)
 - 10 agents classés selon densité écriture MCP vault (critère KILL vault-maintainer). Résultat : 0 candidat KILL/PIVOT, vault-maintainer était le cas isolé
 - Distinction clé révélée : écriture MCP vault (`No such tool available` en sub-agent) ≠ écriture filesystem `.claude/` via Write/Edit (fonctionne). 4 créateurs écrivent beaucoup sur le filesystem (MCP = lecture canoniques) → rare, pas dense. Confondre = 4 faux candidats KILL
 - Classement : 5 rare (agent/skill/claudemd/hook-creator + responsable-ia), 4 spécial (repo-inspector/outcomes-grader read-only, python-dev/self-updater filesystem), 1 rare/dégradé (devils-advocate 1 create_note)
