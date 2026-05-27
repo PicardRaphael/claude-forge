@@ -13,11 +13,13 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
-## 2026-05-27 — Phase 2 tests adverses hooks critiques
+## 2026-05-27 — Phase 2 tests adverses hooks critiques + fix bugs
 
+- **Créées (1)** :
+  - [[bug-caracterise-fix-trivial-vs-couteux]] dans `04-Techniques/patterns/` — pattern décisionnel : fix trivial = immédiat, fix coûteux = feedback pour phase dédiée.
 - **Modifiées (1)** :
   - [[comment-creer-hook]] — étape 5 enrichie : règle "ratio adverse/happy ≥ 3:1 pour hooks sécu/contrôle" + piège du 3:1 artificiel + caractérisation de bug + testabilité (main() gardé). Réf agent fantôme corrigée (project-auditor → repo-inspector).
-- **Source** : Phase 2 forge — suites adverses test_security_guard.py (26 tests, 5.3:1) + test_delegate_guard.py (28 tests, 8:1). 2 bugs trouvés et caractérisés : security-guard non testable (refactor main()), delegate-guard substring match agent_id. Tests hooks passés de 21 à 75, total repo 122/122 PASSED.
+- **Source** : Phase 2 forge — suites adverses test_security_guard.py (26 tests, 5.3:1) + test_delegate_guard.py (29 tests, 8:1). 2 bugs trouvés ET CORRIGÉS : security-guard non testable (refactor main()), delegate-guard substring match agent_id (durci en exact-match, test caractérisé inversé en regression guard). Tests hooks 21 → 76, total repo 123/123 PASSED.
 
 ## 2026-05-27 — Phase 1 nettoyage claude-forge
 

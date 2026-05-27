@@ -241,3 +241,10 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - Bug caracterise : delegate-guard L143-145 substring match agent_id = bypass indu (surface faible, agent_id fixe harness)
 - Capitalisation [[comment-creer-hook]] etape 5 : regle ratio >=3:1 + piege 3:1 artificiel + caracterisation bug
 - Tests repo : 90 -> 122 PASSED
+
+## [2026-05-27] fix | delegate-guard substring agent_id durci + pattern fix-trivial
+- Fix delegate-guard via hook-creator : suppression substring match agent_id (L143-145), exact-match conserve
+- Test caracterise inverse en regression guard (test_agent_id_substring_does_not_grant_bypass), pas supprime
+- E2E verifie : faux bypass substring -> bloque (exit 2), bypass legit -> passe (exit 0)
+- Creee : [[bug-caracterise-fix-trivial-vs-couteux]] (pattern decisionnel fix immediat vs phase dediee)
+- Tests repo : 122 -> 123 PASSED
