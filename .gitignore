@@ -12,6 +12,7 @@ __pycache__/
 .claude/.skill-recommendations-session
 .claude/.vault-write-count
 .claude/settings.local.json
+.claude/_backups/
 .obsidian/
 vault/.obsidian/
 vault/claude-forge/.obsidian/
