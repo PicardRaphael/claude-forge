@@ -71,13 +71,10 @@ Chaque item qui passe le filtre devient **candidat a un bloc de proposition** ge
 
 Pour chaque item non-filtre, verifier si un feedback memoire couvre deja ce point.
 
-Scoper au projet courant uniquement -- le wildcard `*/` lirait les feedbacks de TOUS les projets :
+Scoper au projet courant uniquement -- la memoire est dans `<repo>/memory/` :
 ```bash
-# Deriver le project-id du dossier courant
-PROJECT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
-# Le project-id encode remplace / et espaces par -
-PROJECT_ID=$(echo "$PROJECT_ROOT" | sed 's|[/:\\]|-|g; s| |-|g; s|^-||')
-ls ~/.claude/projects/*${PROJECT_ID}*/memory/feedback_*.md 2>/dev/null | head -20
+MEMORY_DIR="$(git rev-parse --show-toplevel)/memory"
+ls "$MEMORY_DIR"/feedback_*.md 2>/dev/null | head -20
 ```
 
 Si un feedback existant couvre deja l'item : **mettre a jour** le fichier existant, ne pas creer de doublon.
@@ -116,7 +113,7 @@ metadata:
 **How to apply:** <quand cette regle s'applique>
 ```
 
-Chemin cible : `~/.claude/projects/<project-id>/memory/feedback_<slug>.md`
+Chemin cible : `<repo>/memory/feedback_<slug>.md` (resolu via `$MEMORY_DIR` = `$(git rev-parse --show-toplevel)/memory`)
 Ligne MEMORY.md a ajouter : `- [Titre lisible](feedback_<slug>.md) -- description (~150 chars)`
 
 ### Type 2 -- Bloc note vault
@@ -186,8 +183,8 @@ Chemin cible : [chemin complet]
 - `i` --> ne rien ecrire, passer au suivant
 
 **Ecriture memoire** (apres `v` ou `m`) :
-- `Write` le fichier `feedback_<slug>.md` (jamais obsidian create)
-- Lire MEMORY.md, verifier absence de doublon, puis ajouter la ligne index en section appropriee
+- `Write` le fichier dans `$MEMORY_DIR/feedback_<slug>.md` ou resoudre `$MEMORY_DIR` = `$(git rev-parse --show-toplevel)/memory` (jamais obsidian create, jamais ~/.claude/projects/)
+- Lire `$MEMORY_DIR/MEMORY.md`, verifier absence de doublon, puis ajouter la ligne index en section appropriee
 
 **Ecriture vault** (apres `v` ou `m`) :
 - `Write` la note vault (jamais CLI Obsidian -- colons YAML cassent le parser)
@@ -268,7 +265,7 @@ Cette note est la **working memory** -- ce que Jarvis doit savoir au reveil. `/r
 - **Aucun fichier transcript** -- la conversation est dans le contexte courant. Ne pas chercher de `conversation.txt` ou equivalent.
 - **Filtre OBLIGATOIRE** -- code patterns, git history, fix recipes sont hors scope memoire. Les inclure pollue le signal.
 - **Ne rien inventer** -- si la session etait courte, il peut n'y avoir aucun item. "Rien a memoriser cette session" est une reponse valide.
-- **Chemins memoire non hardcodes** -- utiliser `git rev-parse --show-toplevel` pour deduire le project-id, jamais un chemin Windows en dur.
+- **Chemins memoire = `$(git rev-parse --show-toplevel)/memory/`** -- JAMAIS `~/.claude/projects/` (emplacement natif, on s'en eloigne) ni `${CLAUDE_PROJECT_DIR}` (vide dans une skill -- non injecte par le harness dans le shell, seulement dans les hooks).
 - **`Write` pour les notes vault, jamais `obsidian create`** -- les deux-points dans le frontmatter YAML cassent le parser CLI (exit 127).
 - **MEMORY.md < 200 lignes** -- si l'index approche la limite, mentionner dans le rapport.
 - **Conflit = proposition, pas action unilaterale** -- si un item contredit une note existante, proposer la mise a jour plutot qu'ecraser.
