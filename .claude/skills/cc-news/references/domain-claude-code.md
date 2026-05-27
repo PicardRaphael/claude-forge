@@ -84,6 +84,17 @@ Claude Cowork OR Dispatch new features
 anthropic Agent Teams claude code
 ```
 
+### Agent C — Équipe élargie Anthropic (postent moins souvent)
+```
+Brad Abrams Anthropic Claude product
+@ErikSchluntz Claude Code agents
+@alexalbert__ Claude Code
+Angela Jiang OR Lisa Crofoot Anthropic Code with Claude
+Jeremy Hadfield OR Daisy Hollman OR Justin Young Anthropic
+Mitchell Hashimoto harness engineering Ghostty
+Affaan Mustafa Everything Claude Code ECC
+```
+
 ## Note agent
 Si $ARGUMENTS est fourni, ajouter une query spécifique :
 ```

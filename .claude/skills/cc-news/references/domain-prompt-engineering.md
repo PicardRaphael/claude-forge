@@ -1,7 +1,7 @@
 # Domaine — Prompt Engineering & Techniques
 
 Couvre : techniques de prompting, context engineering, guides officiels, papers académiques, prompt injection defense.
-Nombre de queries : 10 (acceptable pour 1 agent, splitter si perte de focus)
+Nombre de queries : 15 — **Découper sur 2 agents** (Agent A + Agent B)
 
 ## Sources officielles
 
@@ -42,6 +42,8 @@ Nombre de queries : 10 (acceptable pour 1 agent, splitter si perte de focus)
 
 ## Queries à exécuter
 
+### Agent A — Guides officiels + techniques
+
 ```
 Amanda Askell prompt engineering Claude
 Alex Albert Claude prompt techniques
@@ -50,9 +52,19 @@ OpenAI GPT-5 prompting best practices
 Gemini prompt engineering new techniques
 "context engineering" OR "harness engineering"
 prompt injection defense techniques
-new prompt techniques academic papers
-@emollick prompt engineering
 "adaptive thinking" Claude
+```
+
+### Agent B — Chercheurs + papers
+
+```
+@emollick prompt engineering
+Jason Wei chain-of-thought emergent abilities
+Denny Zhou reasoning LLM DeepMind
+Sander Schulhoff Learn Prompting HackAPrompt
+Riley Goodside prompt engineering
+new prompt techniques academic papers (Kojima, Khan, Mikinka, Saravia)
+Yann LeCun world models LLM critique
 ```
 
 ## Capitalisation vault

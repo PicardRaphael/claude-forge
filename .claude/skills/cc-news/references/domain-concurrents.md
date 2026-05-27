@@ -1,7 +1,7 @@
 # Domaine — Concurrents (Modèles & Produits Coding)
 
 Couvre : OpenAI, Google/Gemini, Cursor, GitHub Copilot, xAI/Grok, leaders industrie visionnaires.
-Nombre de queries : 21 — **Découper sur 2 agents** (Agent A + Agent B)
+Nombre de queries : 29 — **Découper sur 3 agents** (Agent A + Agent B + Agent C)
 
 ## Changelogs concurrents
 
@@ -97,6 +97,19 @@ Elon Musk xAI announcements
 Andrej Karpathy AI coding software
 Yann LeCun AI agents world models AMI Labs
 Logan Kilpatrick Google AI Studio
+```
+
+### Agent C — Leaders industrie (vault 05-Leaders/industrie/)
+
+```
+@sama OR Dario Amodei frontier lab announcements
+Arthur Mensch Mistral AI open-source sovereignty
+Liang Wenfeng DeepSeek new model GRPO
+Demis Hassabis DeepMind research
+@chiphuyen AI engineering OR @emollick AI work
+Ilya Sutskever SSI safe superintelligence
+Geoffrey Hinton OR Yoshua Bengio AI safety risk
+Reid Hoffman OR Allie K Miller OR Tobi Lütke AI business
 ```
 
 ## Capitalisation vault

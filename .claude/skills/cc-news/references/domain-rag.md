@@ -1,7 +1,7 @@
 # Domaine — RAG & Embeddings
 
 Couvre : Retrieval-Augmented Generation, embeddings, rerankers, vector databases, techniques retrieval.
-Nombre de queries : 11 (acceptable pour 1 agent, splitter si perte de focus)
+Nombre de queries : 16 — **Découper sur 2 agents** (Agent A + Agent B)
 
 ## Sources directes
 
@@ -44,18 +44,29 @@ Nombre de queries : 11 (acceptable pour 1 agent, splitter si perte de focus)
 
 ## Queries à exécuter
 
+### Agent A — Techniques + outils
+
 ```
-Jonas Roman RAG production
 @lateinteraction ColBERT DSPy new features
-LlamaIndex new features agentic RAG
-Jina AI embeddings reranker new model
+Jina AI Han Xiao embeddings reranker new model
 Cohere embed rerank new features
-@chiphuyen AI engineering RAG
-Contextual AI RAG 2.0
+Contextual AI Douwe Kiela RAG 2.0
 MTEB v2 embedding benchmark new leader
-@jamescalam RAG tutorial
 pgvector OR Qdrant OR Pinecone OR Weaviate new features
 new RAG technique pattern (GraphRAG, RAPTOR, CRAG, corrective)
+```
+
+### Agent B — Leaders
+
+```
+Jonas Roman RAG production
+@chiphuyen AI engineering RAG
+@jamescalam RAG tutorial
+@hwchase17 LangChain RAG
+@jerryjliu0 LlamaIndex agentic RAG
+Greg Kamradt evals AI benchmark
+Patrick Lewis RAG research Cohere
+Nils Reimers Cohere embed reranker
 ```
 
 ## Capitalisation vault

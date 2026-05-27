@@ -42,7 +42,7 @@ Puis consulter le vault forge-brain pour vérifier ce qui est déjà documenté 
 | "prompt" ou "prompting" | Read references/domain-prompt-engineering.md → exécuter ses queries |
 | sujet spécifique (ex: "GPT-5.5") | search_brain(sujet) puis WebSearch sur les domaines pertinents |
 
-## Orchestration complète (11 agents parallèles)
+## Orchestration complète (16 agents parallèles)
 
 Avant de lancer les agents, faire `search_brain("recent")` pour obtenir les notes récentes du vault.
 Passer les titres des notes récentes dans le prompt de l'Agent Discovery pour qu'il filtre les doublons.
@@ -62,8 +62,17 @@ Agent 1b : "Read .claude/skills/cc-news/references/domain-claude-code.md
              Execute ONLY the queries under heading '### Agent B — Plugins + Écosystème'.
              Return findings as bullet list with source URLs."
 
-Agent 2  : "Read .claude/skills/cc-news/references/domain-rag.md
-             Execute all queries in the file. Return findings as bullet list with source URLs. Max 11 queries."
+Agent 1c : "Read .claude/skills/cc-news/references/domain-claude-code.md
+             Execute ONLY the queries under heading '### Agent C — Équipe élargie Anthropic (postent moins souvent)'.
+             Return findings as bullet list with source URLs."
+
+Agent 2a : "Read .claude/skills/cc-news/references/domain-rag.md
+             Execute ONLY the queries under heading '### Agent A — Techniques + outils'.
+             Return findings as bullet list with source URLs."
+
+Agent 2b : "Read .claude/skills/cc-news/references/domain-rag.md
+             Execute ONLY the queries under heading '### Agent B — Leaders'.
+             Return findings as bullet list with source URLs."
 
 Agent 3a : "Read .claude/skills/cc-news/references/domain-agents.md
              Execute ONLY the queries under heading '### Agent A — Leaders + Frameworks'.
@@ -71,6 +80,10 @@ Agent 3a : "Read .claude/skills/cc-news/references/domain-agents.md
 
 Agent 3b : "Read .claude/skills/cc-news/references/domain-agents.md
              Execute ONLY the queries under heading '### Agent B — Produits + MCP'.
+             Return findings as bullet list with source URLs."
+
+Agent 3c : "Read .claude/skills/cc-news/references/domain-agents.md
+             Execute ONLY the queries under heading '### Agent C — Leaders agents complémentaires'.
              Return findings as bullet list with source URLs."
 
 Agent 4a : "Read .claude/skills/cc-news/references/domain-finetuning.md
@@ -89,8 +102,17 @@ Agent 5b : "Read .claude/skills/cc-news/references/domain-concurrents.md
              Execute ONLY the queries under heading '### Agent B — Cursor + Copilot + xAI + Leaders'.
              Return findings as bullet list with source URLs."
 
-Agent 6  : "Read .claude/skills/cc-news/references/domain-prompt-engineering.md
-             Execute all queries in the file. Return findings as bullet list with source URLs. Max 10 queries."
+Agent 5c : "Read .claude/skills/cc-news/references/domain-concurrents.md
+             Execute ONLY the queries under heading '### Agent C — Leaders industrie (vault 05-Leaders/industrie/)'.
+             Return findings as bullet list with source URLs."
+
+Agent 6a : "Read .claude/skills/cc-news/references/domain-prompt-engineering.md
+             Execute ONLY the queries under heading '### Agent A — Guides officiels + techniques'.
+             Return findings as bullet list with source URLs."
+
+Agent 6b : "Read .claude/skills/cc-news/references/domain-prompt-engineering.md
+             Execute ONLY the queries under heading '### Agent B — Chercheurs + papers'.
+             Return findings as bullet list with source URLs."
 
 Agent 7  : "Read .claude/skills/cc-news/references/domain-discovery.md
              Execute all queries in the file. Return findings as bullet list with source URLs. Max 7 queries.
@@ -168,7 +190,7 @@ Source canonique : [[pattern-mcp-brief-then-direct]] vault forge.
 ## Gotchas
 
 - **Max 6-8 queries par agent** — au-delà l'agent perd le fil. Les reference files sont conçus pour respecter ce budget.
-- **fine-tuning + concurrents + agents + claude-code = 2 agents chacun** — ces domaines dépassent 8 queries ; l'orchestration complète utilise 11 agents (pas 6) pour cette raison.
+- **fine-tuning = 2 agents ; rag + prompt = 2 agents chacun ; claude-code + agents + concurrents = 3 agents chacun** — ces domaines dépassent 8 queries ; l'orchestration complète utilise 16 agents (pas 6) pour cette raison.
 - **Vault AVANT de chercher** — éviter de re-chercher ce qui est documenté avec un `derniere-maj` récent.
 - **Capitaliser APRÈS le scan** — l'étape 7 est obligatoire, pas optionnelle.
 - **Modèle vs produit vs industrie** — GPT-5.5 → `03-Modeles/`. Feature Codex CLI → `02-Concurrents/`. Acquisition/funding → `06-Industrie/`. Ne pas tout mettre dans Concurrents.

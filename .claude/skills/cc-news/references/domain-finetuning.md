@@ -62,12 +62,12 @@ Philipp Schmid fine-tuning tutorial
 Song Han AWQ quantization MIT
 Teknium Nous Research Hermes
 Hamel Husain Mastering LLMs
-LlamaFactory hiyouga update
+LlamaFactory hiyouga Yaowei Zheng update
 Mistral AI Arthur Mensch open-source
 DeepSeek Liang Wenfeng new model
 Unsloth vs Axolotl vs LlamaFactory benchmark
 best open source model fine-tuning
-LoRA QLoRA DoRA ORPO DPO GRPO new technique
+LoRA QLoRA DoRA ORPO DPO (Rafael Rafailov) GRPO new technique
 vLLM SGLang llama.cpp inference benchmark
 ```
 

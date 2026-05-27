@@ -1,7 +1,7 @@
 # Domaine — Agents IA & Automation
 
 Couvre : frameworks agents, patterns agentic, multi-agent systems, browser automation, MCP servers.
-Nombre de queries : 14 — **Découper sur 2 agents** (Agent A + Agent B)
+Nombre de queries : 22 — **Découper sur 3 agents** (Agent A + Agent B + Agent C)
 
 ## Sources directes
 
@@ -54,12 +54,12 @@ Nombre de queries : 14 — **Découper sur 2 agents** (Agent A + Agent B)
 ### Agent A — Leaders + Frameworks
 
 ```
-@ysymyth ReAct agents
+@ysymyth Shunyu Yao ReAct agents
 Andrew Ng agentic AI DeepLearning
 @lilianweng LLM agents blog
 @DrJimFan NVIDIA agents robotics
 Simon Willison agentic engineering patterns
-CrewAI new features changelog
+CrewAI João Moura new features changelog
 @emollick AI agents work
 ```
 
@@ -71,8 +71,21 @@ OpenAI Agents SDK new features
 Google ADK A2A protocol agents
 AutoGen AG2 Microsoft multi-agent
 Claude Managed Agents Cowork Dispatch
-browser automation AI Stagehand Playwright MCP
+browser automation AI Div Garg MultiOn Stagehand Playwright MCP
 MCP servers new popular tools
+```
+
+### Agent C — Leaders agents complémentaires
+
+```
+Addy Osmani agent harness engineering ratchet
+Andrej Karpathy software agents coding
+David Shapiro ACE Framework cognitive architecture
+@hwchase17 LangChain LangGraph agents
+Jerry Liu LlamaIndex agentic workflow
+Mitchell Hashimoto harness engineering
+Martin Fowler Birgitta Böckeler guides sensors agents taxonomy
+Yohei Nakajima BabyAGI new
 ```
 
 ## Capitalisation vault
