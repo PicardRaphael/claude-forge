@@ -1,4 +1,4 @@
----
+﻿---
 titre: "Comment créer une skill Claude Code parfaite"
 resume: "Note canonique pour créer une skill Claude Code selon les 9 catégories Thariq (post Anthropic mars 2026), structure progressive disclosure, frontmatter trigger 3e personne, < 500L SKILL.md, limite pratique description ~250 chars pour auto-invocation, agentskills.io spec ouverte."
 aliases:
@@ -484,7 +484,6 @@ Section identique dans [[comment-creer-agent]] (AJOUT 24 mai suite) pour le cham
 ---
 
 ## AJOUT 24 mai 2026 (suite 2) — Pattern MCP brief-then-direct
-
 Pour les skills qui ont `mcp__server__*` dans `allowed-tools:` et qui sont **invoquées par sub-agents** (pas par session principale directement), le pattern s'applique aussi :
 
 - Session principale qui dispatch le sub-agent → brief enrichi avec contexte MCP
@@ -495,6 +494,15 @@ Section body standardisée identique à celle des agents — voir [[pattern-mcp-
 
 Skills concernées forge : `forge-brain`, `done`, `cc-news`, `reasoning-cache`, `recap`, `skill-evolve`, `forge-review`, `obsidian-markdown`.
 Skills concernées neo_ia/ia_back : toutes celles qui ont des MCP dans allowed-tools (typiquement context7, postgres, langfuse).
+
+
+## AJOUT 27 mai 2026 — Brief sub-agent et accès vault : cause-racine empirique
+
+Le pattern brief-then-direct n'est pas qu'une optimisation tokens : c'est une **nécessité structurelle**. Vérifié empiriquement (Chantier A étape 2b, 27 mai 2026) : le `mcp__forge-brain__*` du `tools:`/`allowed-tools:` d'un sub-agent est **décoratif** — le serveur MCP n'est PAS connecté dans son contexte (`No such tool available`). Un sub-agent à qui on ordonne « lire les canoniques via MCP » fallback sur `cat`/`find`/`grep`/`Read` du vault → viole la doctrine MCP-only.
+
+**Règle pour skill-creator** : ne JAMAIS écrire « lis via MCP » dans le body d'un creator. Écrire « le contenu canonique te vient inline dans le brief ; sinon ESCALADE ; jamais cat/find/grep/Read le vault ». Filet MCP subordonné à l'escalade.
+
+Enforcement structurel : hook `vault-cat-guard.py` (PreToolUse Bash|Read) bloque l'accès brut au vault. Voir [[hook-intercepte-mcp-et-read-tools]] (preuve que PreToolUse intercepte MCP + Read) et [[pattern-mcp-brief-then-direct]] (cause-racine complète).
 
 
 ---

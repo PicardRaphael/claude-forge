@@ -1,4 +1,4 @@
----
+﻿---
 titre: "Comment créer un hook Claude Code parfait"
 resume: "Note canonique pour créer un hook Claude Code — 29 events officiels (docs Anthropic), timeouts par type (600s/30s/60s), exit codes 0/1/2, hookSpecificOutput, doctrine 'If a rule must hold every time, make it a hook'. Lint/security/scope OUI, workflow NON (doctrine 22 mai)."
 aliases:
@@ -592,7 +592,6 @@ Hook `SubagentStop` qui **détecte** des signaux dans la sortie du sub-agent et 
 ---
 
 ## AJOUT 27 mai 2026 — Résolution de path dans un hook : `__file__`, jamais `os.environ["CLAUDE_PROJECT_DIR"]`
-
 Quand un hook Python doit résoudre la racine du repo (pour cibler `<repo>/memory/`, lire un fichier du repo, etc.), le mécanisme correct est `__file__` :
 
 ```python
@@ -608,3 +607,10 @@ repo_root = os.path.dirname(_CLAUDE_DIR)                 # <repo>/
 Distinct de [[reference_agent_type_hook_detection]] (détection du TYPE d'agent via stdin JSON) — ici il s'agit de résolution de CHEMIN. Table complète des 4 contextes : [[resolution-path-3-contextes]].
 
 Appliqué 27 mai : hook `session-reminder.py` migré de `glob.glob("~/.claude/projects/*/...")` vers chemin déterministe `__file__`-based (chantier mémoire portable, cf [[architecture-decision-memoire-portable-import]]).
+
+## AJOUT 27 mai 2026 — Brief sub-agent et accès vault
+
+Un sub-agent ne peut pas lire le vault : le `mcp__forge-brain__*` de son frontmatter est décoratif (MCP non connecté en sous-agent, `No such tool available` — vérifié Chantier A 27 mai). Tout brief sub-agent impliquant le vault contient les extraits canoniques **inline** + « si manque, ESCALADE ; jamais cat/find/grep/Read le vault ». Ne jamais écrire « lis via MCP » dans le body d'un creator.
+
+Enforcement : hook `vault-cat-guard.py` (PreToolUse Bash|Read) bloque l'accès brut au vault dans les 2 contextes, exempte vault-maintainer. Preuve d'interception : [[hook-intercepte-mcp-et-read-tools]]. Cause-racine complète : [[pattern-mcp-brief-then-direct]].
+
