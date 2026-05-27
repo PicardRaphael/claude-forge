@@ -50,7 +50,7 @@ find vault/claude-forge -name "*.md" ! -path "*/Templates/*" -mtime -7   -printf
 #### Collecte 3 — Derniers feedbacks mémoire
 
 ```bash
-ls -lt ~/.claude/projects/$(claude-project-id)/memory/feedback_*.md 2>/dev/null | head -5
+ls -lt "$(git rev-parse --show-toplevel)/memory"/feedback_*.md 2>/dev/null | head -5
 ```
 
 #### Collecte 3b — Dernières erreurs vault
@@ -155,7 +155,7 @@ La **Suggestion** se déduit des signaux observés :
 - **Suggestion = descriptive, pas prescriptive** — "Activité récente sur X" et non "Vous devriez faire Y"
 - **Parallélisation obligatoire** — collectes en séquentiel = > 10 secondes. Toute la phase 1 dans un seul round de tool_use
 - **Read-only absolu** — aucun Write, Edit. Si delegate-guard bloque, une modification a été tentée par erreur
-- **Chemin mémoire fixe** — `~/.claude/projects/<project-id>` spécifique à cette machine. Si `ls` échoue : afficher "mémoire non accessible" sans erreur fatale
+- **Chemin mémoire portable** — `$(git rev-parse --show-toplevel)/memory/` (versionné, suit le clone). JAMAIS `${CLAUDE_PROJECT_DIR}` (vide dans une skill). Si `ls` échoue : afficher "mémoire non accessible" sans erreur fatale
 
 ## MCP — accès direct (filet de sécurité)
 
