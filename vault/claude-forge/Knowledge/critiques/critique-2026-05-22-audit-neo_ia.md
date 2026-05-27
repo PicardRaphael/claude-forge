@@ -22,15 +22,17 @@ resume: DA audit consolide neo_ia. 3 bloquants manques dont 1 securite critique 
 
 ## 🔴 BLOQUANT SECU CONFIRME (manque MAJEUR des 4 auditeurs)
 
+> NOTE : note rétroactivement nettoyée le 2026-05-27 (audit Mémoire Portable). Secret réel (mdp PostgreSQL prod + IP serveur) remplacé par `[REDACTED]`. Le constat de sécurité reste valide. Rotation du mdp = seul fix réel, suivie dans [[todo-rotation-password-postgres-prod]].
+
 Fichier `.mcp.json.postgres-optional` commit `ffb5963` versionne :
-- Password Postgres en clair : `WLhOI8B6FBbHJglWp0q1bBJWh@35.233.73.24:5432/test`
+- Password Postgres en clair : `[REDACTED]@[REDACTED]:5432/test`
 - TLS verification desactivee : `NODE_TLS_REJECT_UNAUTHORIZED=0`
 - Paths vers certs `.crt/.key` dans ia_back
 
 Match exact feedback memoire `secret-in-mcp-json-never`. Auto-mode classifier signalerait.
 
 **Action immediate** : 
-1. Rotate le password sur instance 35.233.73.24
+1. Rotate le password sur l'instance PostgreSQL prod (IP [REDACTED])
 2. `git rm --cached .mcp.json.postgres-optional` + `.gitignore`
 3. `git filter-repo` ou BFG pour purger l'historique
 4. Migrer vers env vars : `${POSTGRES_PASSWORD}` dans le template

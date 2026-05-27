@@ -67,7 +67,7 @@ C'est du read-only **par discipline**, pas par construction.
 
 ## Bloquant 3 — MCP postgres password leak : rotation URGENTE
 
-Auto-classifier a bloqué le push à raison. Password `WLhOI8B6FBbHJglWp0q1bBJWh` est dans l'historique git ia_back (chez Jérôme + clones équipe).
+Auto-classifier a bloqué le push à raison. Password `[REDACTED]` est dans l'historique git ia_back (chez Jérôme + clones équipe). [Note rétroactive 2026-05-27 : secret retiré lors de l'audit Mémoire Portable ; rotation suivie dans [[todo-rotation-password-postgres-prod]].]
 
 **Plan d'action priorisé** :
 1. Rotation immédiate du password PostgreSQL `test`
@@ -82,7 +82,7 @@ Auto-classifier a bloqué le push à raison. Password `WLhOI8B6FBbHJglWp0q1bBJWh
 - **Session 4-en-1 fragile** : 30+ tours, pattern fourre-tout. Preuve directe = 3 erreurs avec même signature "fin de session fatiguée".
 - **`/decompose-ticket` dupliqué cross-repo** : drift garanti. Single-source-of-truth dans claude-forge + symlink/install dans repos serait plus propre.
 - **Pas de politique purge `.claude/skills/x-read/downloads/`** : croîtra silencieusement.
-- **MCP postgres IP publique `35.233.73.24`** : si l'IP change (failover GCP), tous les repos cassent silencieusement.
+- **MCP postgres IP publique `[REDACTED]`** : si l'IP change (failover GCP), tous les repos cassent silencieusement.
 
 ## Nitpicks
 

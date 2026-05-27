@@ -20,6 +20,8 @@ sources:
   - "Session 2026-05-20 — config MCP postgres ia_back"
 ---
 
+> NOTE : note rétroactivement nettoyée le 2026-05-27 (audit Mémoire Portable). Le secret réel (mot de passe PostgreSQL prod + IP serveur) a été retiré et remplacé par `[REDACTED]`. La leçon reste valide. Rotation du mot de passe = seul fix réel, suivie dans [[todo-rotation-password-postgres-prod]].
+
 ## Ce qui s'est passé
 
 Configuration du MCP postgres dans `ia_back/.mcp.json` :
@@ -30,7 +32,7 @@ Configuration du MCP postgres dans `ia_back/.mcp.json` :
     "postgres": {
       "args": [
         "./mcp-postgres-wrapper.mjs",
-        "postgresql://postgres:WLhOI8B6FBbHJglWp0q1bBJWh@35.233.73.24:5432/test"
+        "postgresql://postgres:[REDACTED]@[REDACTED]:5432/test"
       ]
     }
   }
@@ -47,7 +49,7 @@ Au moment du `git push`, **le auto-mode classifier Claude a refusé** le push :
 
 1. **Credentials dans git** = compromis pour toujours dans l'historique (même si on les retire après)
 2. **Repo Bitbucket** = accessible à toute l'équipe Neoteem + ex-collaborateurs + automatisation CI
-3. **35.233.73.24** = IP publique du serveur PostgreSQL = surface d'attaque exposée
+3. **L'IP publique du serveur PostgreSQL** (retirée, cf note ci-dessous) = surface d'attaque exposée
 4. **User `postgres`** = compte superuser de la DB
 5. **Pattern propagé** : chaque dev qui clone le repo a la string en local — multiplie les surfaces de fuite
 
