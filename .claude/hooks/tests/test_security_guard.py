@@ -2,7 +2,9 @@
 """Adversarial + characterization tests for security-guard.py.
 
 SCOPE DECLARED BY THE HOOK (security-guard.py:8-15):
-  The hook blocks ONLY these 6 patterns on the Bash tool:
+  Wired on matcher "Bash|PowerShell" (settings.json) — covers both shells since
+  is_dangerous works on the command string, identical across shells.
+  The hook blocks ONLY these 6 patterns:
     1. rm -rf <path starting with />        (and flag-order variant -fr)
     2. git push ... --force
     3. git push ... -f
@@ -204,6 +206,36 @@ def test_happy_git_status_passes():
 def test_happy_rm_single_file_passes():
     """rm of a single temp file (no -rf, no /) → passes."""
     assert_passes("rm tempfile", RM + " tempfile.txt")
+
+
+# ===========================================================================
+# CROSS-SHELL — git patterns must block regardless of shell tool
+# (regression guard for the PowerShell blind spot found 27 May 2026: the hook
+#  was wired on matcher "Bash" only, so a `git push --force` issued via the
+#  PowerShell tool bypassed it. Fix = matcher "Bash|PowerShell" in settings.json.
+#  is_dangerous works on the command STRING, which is identical across shells —
+#  these tests pin that the git patterns are shell-agnostic.)
+# ===========================================================================
+
+def test_cross_shell_git_force_string_blocks():
+    """A git push --force command string blocks no matter which shell issued it
+    (Bash or PowerShell produce the same string). The matcher now routes both."""
+    assert_blocks("git push --force (PowerShell-issued, same string)", "git push origin main --force")
+
+
+def test_cross_shell_git_reset_hard_string_blocks():
+    assert_blocks("git reset --hard (PowerShell-issued)", "git reset --hard")
+
+
+def test_documented_gap_powershell_native_destructive():
+    """Documented gap (NOT created by the matcher fix): PowerShell-NATIVE
+    destructive cmdlets (Remove-Item -Recurse -Force, Stop-Process, Clear-Content)
+    are NOT covered — security-guard's patterns target POSIX/git syntax only.
+    Their Bash equivalents (rm -rf relative, etc.) are equally uncovered, so this
+    is a pre-existing scope gap, distinct from the matcher blind spot. Tracked in
+    context-actuel as a separate dedicated-session item."""
+    pinned = "Remove-Item -Recurse -Force C:" + chr(92) + "x"
+    assert_passes("Remove-Item -Recurse -Force (PS-native gap, tracked)", pinned)
 
 
 # ===========================================================================
