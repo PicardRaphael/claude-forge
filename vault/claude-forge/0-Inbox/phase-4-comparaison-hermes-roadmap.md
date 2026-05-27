@@ -13,10 +13,15 @@ tags:
   - "#projet/claude-forge"
   - "#concurrent/hermes"
 ---
-
 # Phase 4 — Comparaison Hermes Agent vs claude-forge
 
 Lien : [[methode-analyser-repo]], [[workflow-claude-code-optimal]], [[comment-creer-skill]]
+
+## Statut d'implémentation
+
+- **A3 — Capitalisation proactive à /done** : FAIT (2026-05-27). Skill `done` enrichie via skill-creator. 5 triggers de la spec mappés sur 3 types de blocs (feedback mémoire / note vault / ADR). Gate de validation `[v]/[m]/[i]` par item, aucune écriture sans validation. Pas de tests unitaires (skill de jugement LLM, validation = exécution réelle). Capitalisé : [[capitalisation-proposee-pas-auto]] (feedback mémoire), amendement [[comment-creer-skill]].
+- **A1 — Recherche transcripts session** : à faire (P1).
+- **A2 — Lifecycle / usage tracking skills** : à faire (P2).
 
 ## Contexte et critère de pertinence
 
