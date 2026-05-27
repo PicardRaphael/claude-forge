@@ -35,7 +35,7 @@ Standard appliqué sur tous les repos Neoteem (claude-forge, ia_back, neo_ia).
 | **green** | Développement | dev, dev-neochat, dev-neodoc, dev-neomail, dev-shared-tools, python-dev, performance-engineer |
 | **blue** | Architecture / Design | architect, api-designer, db-inspector |
 | **purple** | Analyse / Stratégie | project-analyzer, project-auditor, schema-mapper, dev-lead, codebase-analyst |
-| **cyan** | Infra / Maintenance | self-updater, vault-maintainer, refactor-pg-function, repo-functions-analyzer |
+| **cyan** | Infra / Maintenance | self-updater, refactor-pg-function, repo-functions-analyzer |
 | **pink** | Meta-créateurs (forge) | agent-creator, skill-creator, hook-creator, claudemd-optimizer |
 
 ## Comment choisir la couleur d'un nouvel agent

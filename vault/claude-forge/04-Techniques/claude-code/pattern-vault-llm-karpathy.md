@@ -173,7 +173,7 @@ Propose corrections → humain valide
 Met à jour log.md (action de lint)
 ```
 
-**Tooling forge** : skills `/vault-audit`, `vault-maintainer` agent, `/forge-review` mensuel.
+**Tooling forge** : skills `/vault-audit`, `/forge-review` mensuel.
 
 ---
 
@@ -260,7 +260,7 @@ Quand le LLM cherche un sujet, il commence par `index.md` pour s'orienter.
 
 **Tooling custom MCP** :
 - MCP custom pour le vault (FTS5 + alias expansion + content-hash watcher)
-- Agents dédiés maintenance (vault-maintainer, project-auditor)
+- Agents dédiés maintenance (project-auditor) + skill `/vault-audit`
 - Skills dédiées format (obsidian-markdown)
 - Pipeline news → capitalisation atomique systématique
 - Sous-dossiers Knowledge structurés (erreurs / critiques / raisonnements / reviews)
@@ -283,7 +283,7 @@ Quand le LLM cherche un sujet, il commence par `index.md` pour s'orienter.
 - 4 forces uniques : fallback search 4-strat, alias expansion FR avec stem variants, content-hash short-circuit watcher, BM25 pondéré 10/1/8
 
 ### Agents forge mobilisés
-- `vault-maintainer` (lint, dédoublonnage)
+- `/vault-audit` (lint, dédoublonnage — skill session principale, MCP effectif)
 - `project-auditor` (audit cohérence)
 - `devils-advocate` (critique avant livraison)
 
@@ -457,7 +457,7 @@ Aliases déclarés en frontmatter (10) :
 - [[forge-brain-proactive]] — rule vault check MCP obligatoire
 - [[changelog-vault]] — rule CHANGELOG vault
 - [[obsidian-markdown]] — skill format vault
-- [[vault-maintainer]] — agent vault audit
+- [[vault-audit]] — skill vault audit (lint/dédoublonnage, session principale)
 - [[project-auditor]] — agent audit
 - [[forge-review]] — slash command audit mensuel
 

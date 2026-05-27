@@ -310,3 +310,29 @@ Conséquence : un sub-agent à qui on ordonne « lire les canoniques via MCP » 
 Enforcement structurel proposé (défense en profondeur) : hook `vault-cat-guard` (PreToolUse Bash, bloque cat/find/grep sur `vault/`). Cf [[comment-creer-hook]] catalogue transversal.
 
 Lié : [[anti-reentrance-sub-agents-pattern-escalade]] (le sub-agent ne peut pas non plus invoquer Agent — même classe de limitation contextuelle).
+
+## AJOUT 27 mai 2026 (suite) — Exception : quand le doublon révèle un agent mort-né (KILL > faire marcher)
+
+Le pattern brief-inline rend le MCP en sous-agent inutile pour la **lecture** (on fournit les extraits). Mais il ne résout PAS le cas d'un agent dont le métier est l'**écriture MCP dense**. Diagnostic posé sur 2 cas spéciaux (session 27 mai, cas spéciaux Chantier A) :
+
+### Critère discriminant : densité d'écriture MCP
+
+| Métier de l'agent | Survit au contexte sous-agent ? | Verdict |
+|---|---|---|
+| **Analyse + 0-1 écriture** (devils-advocate : critique + 1 `create_note`) | OUI — mode dégradé viable (renvoyer le livrable en texte, la session principale persiste si utile) | Garder en agent, brief clarifié |
+| **N× écriture MCP en boucle** (vault-maintainer : `update_property` × notes + MOC + backlinks) | NON — le métier EST impossible (MCP décoratif = `No such tool available` sur chaque write) | Candidat KILL |
+
+### Règle : avant de "faire marcher", chercher le doublon
+
+Un agent au métier MCP-write-dense ne se "fait pas marcher" en sous-agent (β orchestré = la session principale devrait rejouer toute la logique de correction à partir d'un rapport markdown — absurde). La bonne question est : **existe-t-il déjà une skill qui couvre ce métier en session principale (MCP effectif) ?**
+
+- **Cas vault-maintainer (KILL, 27 mai)** : son métier (aliases, MOC, frontmatter, backlinks, dédoublonnage) était **déjà couvert** par `/vault-audit` — une skill qui tourne en session principale (MCP effectif) + script Python déterministe. Aucune invocation historique via le tool `Agent`. Verdict : **doublon mort-né → KILL**, pas architecture spéciale. Le seul apport unique (trigger proactif "after cc-news / note creation") a été porté dans la description de `/vault-audit`. L'exemption hook `vault-cat-guard` a été retirée (surface réduite, MCP-only plus strict).
+
+### Principe de design qui en découle
+
+> **Agents = analyse + écritures MCP rares** (survivent au mode dégradé sous-agent).
+> **Skills = écritures MCP denses** (tournent en session principale, MCP effectif).
+
+Un composant dont la valeur est `N× MCP-write` est structurellement une **skill**, pas un agent. Si on hésite à le créer en agent "parce qu'il doit écrire beaucoup dans le vault/la DB", c'est le signal qu'il doit être une skill.
+
+Lié : [[anti-reentrance-sub-agents-pattern-escalade]] (même classe — limitation contextuelle du sous-agent), [[mcp-vs-skills-doctrine]] (distinction MCP/skills renforcée par ce critère).

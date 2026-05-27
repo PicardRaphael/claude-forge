@@ -691,3 +691,12 @@ Cas de figure : un creator (ex `agent-creator`) est le **verrou de bootstrap** E
 
 Cas d'école empirique : Chantier A étape 2b (27 mai 2026), durcissement MCP des 6 creators — `agent-creator` durci en premier par ce mécanisme, puis les 5 autres en cascade via `agent-creator` durci. Voir aussi [[hook-intercepte-mcp-et-read-tools]] section exceptions delegate-guard.
 
+
+## AJOUT 27 mai 2026 (suite) — Agent ou skill ? Le critère de densité d'écriture MCP
+
+**Question-réflexe avant toute création d'agent** : ton composant doit-il faire N× écritures MCP (vault, base, fichiers) en boucle ?
+
+- **Oui → SKILL** (tourne en session principale, MCP effectif), pas agent. En sous-agent le MCP est décoratif (`No such tool available`) : un métier d'écriture MCP dense y est littéralement impossible.
+- **Non (analyse + 0-1 écriture rare) → agent OK.** Le mode dégradé (renvoyer le livrable en texte, la session principale persiste) reste viable.
+
+Cas empirique : `vault-maintainer` killé le 27 mai 2026 — doublon mort-né de la skill `/vault-audit` (qui fait le même métier de maintenance vault en session principale, MCP effectif). Cf [[pattern-mcp-brief-then-direct]] section "Exception : quand le doublon révèle un agent mort-né (KILL > faire marcher)".
