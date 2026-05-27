@@ -262,3 +262,9 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - Pattern meta observe 2x (Phase 2 ratio 3:1 artificiel, Phase 3 advisor 1 P0 / 5 axes)
 - Test de discrimination : risque reel/present vs theorique, impact maximal vs cosmetique
 - Capitalise aussi en feedback memoire [[feedback_pas_de_symetrie_artificielle_priorisation]]
+
+## [2026-05-27] note-updated | comment-creer-skill : pattern skill propose un diff a valider (A3)
+- Ajout section "Pattern skill qui propose un diff a valider" + corollaire skill de jugement LLM non testable unitairement
+- Skill done enrichie via skill-creator (304->310L) : generation de blocs + boucle validation [v]/[m]/[i]
+- Roadmap Phase 4 : A3 marque FAIT (statut d'implementation)
+- Capitalise en feedback memoire [[capitalisation-proposee-pas-auto]]

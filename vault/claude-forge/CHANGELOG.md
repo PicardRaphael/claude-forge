@@ -13,6 +13,15 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-27 — Phase 4 A3 : capitalisation proactive à /done
+
+- **Modifiées (2)** :
+  - [[comment-creer-skill]] (04-Techniques/claude-code) — ajout section "Pattern skill qui propose un diff à valider" + corollaire "skill de jugement LLM n'est pas testable unitairement".
+  - [[phase-4-comparaison-hermes-roadmap]] (0-Inbox) — section Statut d'implémentation : A3 marqué FAIT, A1/A2 à faire.
+- **Composant** : skill `.claude/skills/done/SKILL.md` enrichie via skill-creator (304→310L) — génération de blocs prêts-à-écrire (feedback/note vault/ADR) + boucle de validation `[v]/[m]/[i]`, aucune écriture sans validation.
+- **Mémoire** : feedback `capitalisation-proposee-pas-auto` — proposer le diff, jamais auto-écrire.
+- **Source** : implémentation gap A3 roadmap Phase 4 (croisement Jarvis : couverture Hermes + contrôle forge).
+
 ## 2026-05-27 — Phase 4 : comparaison Hermes Agent vs claude-forge
 
 ## 2026-05-27 — Phase 4 : capitalisation post-session
