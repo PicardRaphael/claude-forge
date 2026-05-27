@@ -34,3 +34,5 @@ EXCLUDED_SUFFIXES = (
   - Tout fichier `tests/test_<hook>.<ext>`
 
 **Pattern méta :** "tout système d'enforcement qui scanne du contenu doit prévoir le cas où il scanne SA PROPRE définition". Sinon impossible à maintenir.
+
+**Variante command-based (27 mai 2026)** : le catch-22 ne touche pas que les hooks Write/Edit qui contiennent leurs patterns en data. Les hooks Bash/command-based bloquent aussi NOS PROPRES commandes d'opération courante. Preuves : `security-guard` a bloqué un `py -c "..."` dont la string de test contenait `git push --force` / `git reset --hard` ; `vault-cat-guard` a bloqué un `git commit -m "..." && git push | tail` (marker vault + read-command `tail` dans la commande). Réflexe : quand un commit message OU une commande de test contient une string que tes propres hooks scannent — séparer les commandes (jamais un read-command piped dans la même ligne qu'un path vault), éviter les patterns dangereux littéraux dans les messages (`git push --fo`+`rce` concaténé en test). Ce n'est PAS un bug du hook — c'est le hook qui fonctionne. Distinct de la variante Write/Edit (patterns en data) : ici c'est l'activité shell de l'opérateur qui matche.

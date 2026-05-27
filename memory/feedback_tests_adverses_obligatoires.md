@@ -27,4 +27,8 @@ Cas concrets à tester pour un hook path-based :
 - Paths Windows mixtes (`C:/...`, `C:\...`, `/c/...`)
 - Symlinks
 
-Liens : [[claim-security-must-be-provable]], [[test-everything]], [[audit-claims-after-brief]]
+**Faux positifs (over-block) — émergent à l'usage, pas en suite initiale (27 mai 2026)** :
+La suite adverse initiale cible surtout les false negatives (bypass). Mais les false positives (sur-blocage de l'usage LÉGITIME) émergent souvent seulement en utilisant le hook sur de vraies commandes. `vault-cat-guard` avait 33 tests verts et a quand même eu 2 défauts d'over-block découverts à l'usage : (1) Read vault bloqué en session principale alors qu'elle doit préparer un Edit ; (2) faux positif sur commande chaînée `git add vault/... && git push | tail` (read-command et marker vault dans des segments différents).
+→ Ajouter à la suite adverse des cas d'USAGE LÉGITIME réaliste (pas que des bypass) : commandes chaînées, contextes d'exécution distincts (main vs sub-agent), workflows réels (commit, push, Edit). Le 1er usage réel du hook = 1er vrai test d'over-block. Distinguer explicitement les deux familles dans la suite : false-negative (bypass tenté) ET false-positive (légitime sur-bloqué).
+
+Liens : [[claim-security-must-be-provable]], [[test-everything]], [[audit-claims-after-brief]], [[hook-self-blocking-catch22]]
