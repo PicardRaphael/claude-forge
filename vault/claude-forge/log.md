@@ -248,3 +248,11 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - E2E verifie : faux bypass substring -> bloque (exit 2), bypass legit -> passe (exit 0)
 - Creee : [[bug-caracterise-fix-trivial-vs-couteux]] (pattern decisionnel fix immediat vs phase dediee)
 - Tests repo : 122 -> 123 PASSED
+
+## [2026-05-27] chantier | Phase 3 renforcement (audit 5 axes + tests coeur)
+- Audit 5 axes (vitrine, tests, portabilite, versioning, ADR). Advisor : 1 seul P0 reel.
+- P0 : tests coeur MCP search() 4 strategies + resolve 3 tiers + suggest/tags/property (test_search 18, test_resolve 19). MCP 69 -> 106.
+- P1 : tests logique hooks session-health (seuils 2/20/40) + skill-activation (word-boundary). Hooks 76 -> 101.
+- Caracterise : resolve_note tier 2 substring bat tier 3 prefixe (pinne, pas un bug).
+- Creees : [[phase-3-renforcement-audit]] (0-Inbox, matrice) + [[decision-renforcements-differes-phase-3]] (ADR P2/P3 + declencheurs).
+- Tests repo : 145 -> 207 PASSED. 0 regression.

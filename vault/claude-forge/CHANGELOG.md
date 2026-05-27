@@ -13,6 +13,15 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-27 — Phase 3 renforcement (audit 5 axes + tests cœur MCP/hooks)
+
+- **Créées (2)** :
+  - [[phase-3-renforcement-audit]] dans `0-Inbox/` — matrice de priorisation des 5 axes (source de vérité).
+  - [[decision-renforcements-differes-phase-3]] dans `Knowledge/raisonnements/` — ADR des P2/P3 différés + déclencheurs de réactivation.
+- **Code** : +37 tests MCP (`test_search.py` 18, `test_resolve.py` 19 — couvre `search` 4 stratégies FTS5/BM25, alias expansion, resolve 3 tiers, suggest/tags/property) ; +25 tests hooks (`test_session_health.py` 12, `test_skill_activation.py` 13). 69→106 MCP, 76→101 hooks. 0 régression.
+- **Caractérisation** : `resolve_note` tier 2 (substring) bat tier 3 (préfixe) — pinné, pas un bug.
+- **Source** : phase 3 renforcement absolu avant comparaison Hermes. Advisor : un seul P0 (cœur MCP non testé), reste P2/P3 capitalisé.
+
 ## 2026-05-27 — Phase 2 tests adverses hooks critiques + fix bugs
 
 - **Créées (1)** :
