@@ -13,6 +13,12 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-27 — Phase 4 A1 : recherche transcripts session (MCP search_sessions)
+
+- **Ajoutées** : [[ajouter-source-donnees-mcp-forge-brain]] (04-Techniques/claude-code/) — pattern canonique pour brancher une nouvelle source de données indexable sur le MCP forge-brain.
+- **Modifiées** : roadmap Phase 4 (A1 marqué FAIT). Rule `forge-brain-proactive.md` (22 outils, ajout search_sessions). CLAUDE.md (22 outils, via claudemd-optimizer). Skill `forge-brain` (allowed-tools + 2 matrices, via skill-creator).
+- **Source** : implémentation A1 — 22e outil MCP `search_sessions`. Code : `mcp-forge-brain/src/sessions_{indexer,db,watcher}.py` + `tools/brain.py`. 37 tests (~60% adverse), 0 régression (244 verts). Scan initial mesuré 2.68s (243 transcripts, 15858 messages, subagents exclus configurables).
+
 ## 2026-05-27 — Phase 4 A3 : capitalisation proactive à /done
 
 - **Modifiées (2)** :

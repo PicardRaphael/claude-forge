@@ -268,3 +268,10 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - Skill done enrichie via skill-creator (304->310L) : generation de blocs + boucle validation [v]/[m]/[i]
 - Roadmap Phase 4 : A3 marque FAIT (statut d'implementation)
 - Capitalise en feedback memoire [[capitalisation-proposee-pas-auto]]
+
+## [2026-05-27] Ingest | Phase 4 A1 — MCP search_sessions (recherche transcripts session)
+- 22e outil forge-brain : `search_sessions(query, limit, project, role, since)` — FTS5 sur ~/.claude/projects/*.jsonl bruts non capitalises
+- Code : mcp-forge-brain/src/sessions_indexer.py + sessions_db.py + sessions_watcher.py ; methode + @_tool dans src/tools/brain.py ; config sessions.{enabled,path,include_subagents}
+- Table FTS5 separee session_messages (concerns vs notes_fts), watcher incremental mtime, eager au boot mesure 2.68s (243 transcripts, 15858 messages, subagents exclus configurables)
+- Tests : test_sessions_indexer.py (18) + test_sessions_search.py (19) = 37, ~60% adverse, 0 regression (244 verts : 101 hooks + 143 MCP)
+- Capitalise note canonique [[ajouter-source-donnees-mcp-forge-brain]] ; roadmap A1 FAIT ; CLAUDE.md + forge-brain-proactive + skill forge-brain MAJ 22 outils
