@@ -62,6 +62,7 @@ type: index
 - [[architecture-cerveau-obsidian-mcp]] — Architecture cerveau Obsidian + MCP pour mémoire persistante IA
 
 ## Architecture Hooks
+- [[hooks-conformite-audit-passif-continu]] — Hook de conformité = audit passif permanent. Un blocage sur action légitime révèle souvent une dette préexistante. Ne jamais contourner, nettoyer dans la même passe.
 
 - [[raisonnement-22mai-doctrine-vs-enforcement]] — TTL sur markers = blocage, existence seule + SessionStart reset
 - [[workflow-claude-code-optimal]] — SessionStart reset → architect → dev → code-reviewer → /go → pipeline-reset

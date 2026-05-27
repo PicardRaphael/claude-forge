@@ -67,6 +67,17 @@ Anti-patterns concrets à JAMAIS reproduire dans hook, agent, skill, CLAUDE.md, 
 - **Commentaire WHY non-obvious dans code** : si un hook contient un workaround spécifique d'une lib, 1 ligne de commentaire OK (cf règle CLAUDE.md générale "WHY non-obvious"). MAIS pas pour justifier une doctrine.
 - **Description frontmatter** : c'est un trigger (« quand utiliser »), pas une justification. Reste actionnable.
 
+## Distinction attribution-source vs label-structurel
+
+Toute occurrence d'un nom propre (Boris, Anthropic, Karpathy) dans un composant n'est PAS une violation. Distinguer deux usages :
+
+- **Attribution-source (INTERDITE)** : pose un nom externe comme JUSTIFICATION d'une directive. Format typique `directive = source/tip`. Exemples : `"Give Claude a way to verify its output" = tip #1 Boris`, `Doctrine Anthropic "xhigh partout" = biais tokens illimités`. Le `= X` légitime la règle par une autorité → le pourquoi doit vivre dans le vault, pas dans le composant. À retirer (garder la directive nue).
+- **Label structurel (AUTORISÉ)** : utilise un nom comme ÉTIQUETTE de section pour la navigation. Exemples : `## Workflow Boris`, `## Doctrine pivot 22 mai 2026`. C'est un repère de structure, pas une justification. À garder.
+
+Test : si on retire le nom, perd-on de l'information actionnable ? Pour un label de section, non (c'est juste un repère) → garder. Pour une attribution-source, la directive reste entière sans le `= source` → retirer le `= source`.
+
+Le hook `meta-commentary-detector` ne bloque QUE les attributions-source (pattern `= tip/source/d'après` en fin de ligne directive), pas les titres de section. Cohérent avec cette distinction. Cf faux positifs déjà corrigés dans [[critique-2026-05-24-regex-source-faux-positifs]].
+
 ## Test simple
 
 Si la phrase ajoutée commence par :
