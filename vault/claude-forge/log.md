@@ -385,3 +385,12 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - Backup hors-versionné `.claude/_backups/settings.local.<TS>.json.bak` (+ `.claude/_backups/` ajouté .gitignore). JSON valide post-modif, tests workflow git/cross-repo/MCP OK
 - Chiffre de base corrigé honnêtement : cartographie A annonçait « 51 » (estimation visuelle), `comm` sur backup = 48 réelles. 48−25−13+1(read_note_by_path conservé)... net = 11 finales
 - Capitalisation : feedback [[brief-premisse-fausse-verifier-avant-executer]] + reference [[enableallprojectmcp-couvre-tool-level]]. settings.local.json gitignored = AUCUN commit pour lui ; seul le versionné (.gitignore + vault + memory) sera commité. Méthode A→B→C→D→E + advisor + 2 AskUserQuestion. Tests baseline 319 inchangés
+
+## [2026-05-27] clean-memory | MEMORY.md hiérarchisé tier-1/tier-2 (Levier A + C)
+- Déclencheur empirique [[pattern-maintenance-hybride-corpus-accumulatif]] : MEMORY.md a franchi 40k chars (42.5k mesurés). Clean-memory agressif, cible chiffrée
+- **Levier A** : 112 résumés d'index >80 chars raccourcis (médiane 84→~70). Script Python ponctuel idempotent (slug→résumé) plutôt que 112 Edits ([[refactor-masse-script-python-regex]])
+- **Levier C** : split mécanique tier-1 (cité ≥1 OU stratégique) / tier-2 (non cité). 97 tier-1 dans MEMORY.md + 96 tier-2 dans `memory/_index_archive.md`. Pointeur explicite. Critère « créé <60j » abandonné (corpus 1 semaine = inopérant), citation retenue
+- **Résultat : MEMORY.md 42470 → 21493 chars (−49%)**, ~5-6k tokens/session économisés (chargé via @import)
+- 1 archivage réel : `use-obsidian-cli` → `_archive/2026-05/` (obsolescence doctrinale, contredit MCP UNIQUEMENT). 2 wikilinks corrigés dans cette note ([[pattern-vault-llm-karpathy]]). 1 lien mort retiré (`checklist_before_modify`, entrée fabriquée)
+- Bug script attrapé empiriquement : regex lowercase excluait `feedback_git_C_pas_cd.md` (C majuscule) → restauré. 6e occurrence [[feedback_mcp_alias_ambigu_chemin_exact]] (hook a bloqué l'append_note alias `log`)
+- Propagation TRACÉE (session post-/clear) : skill /clean-memory + CLAUDE.md règle tokens + skill capitalisation résumé court + hook `memory-size-watcher` seuil 38k. Cf [[context-actuel]]

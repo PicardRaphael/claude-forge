@@ -77,3 +77,12 @@ Chaque entrée trace : quand, quoi, pourquoi, où (chemin archive), comment roll
 - **Méta-feedback** : feedback_jarvis_innovator.md (édité en place, alias `bras-droit-proactif` ajouté).
 - **Index MEMORY.md** : entrée `bras-droit-proactif` retirée / entrée `jarvis-innovator-mindset` mise à jour (mention bras droit).
 - **Rollback** : git mv feedback_bras_droit.md depuis _archive/2026-05/ vers memory/, retirer la mention bras-droit du jarvis-innovator, restaurer la ligne index `bras-droit-proactif`.
+
+## [2026-05-27] archive — use-obsidian-cli (obsolescence doctrinale)
+- **Fichiers** : feedback_use_obsidian_cli → memory/_archive/2026-05/feedback_use_obsidian_cli.md
+- **Raison** : obsolescence doctrinale — le feedback disait « TOUJOURS utiliser la CLI Obsidian », la doctrine actuelle (CLAUDE.md + rule `forge-brain-proactive.md`) impose « accès vault = MCP forge-brain UNIQUEMENT, jamais CLI Obsidian ni Grep/Read/Glob brut ». Contradiction frontale. Critère D du pattern-maintenance-hybride satisfait (obsolescence prouvée par absorption doctrinale, pas seulement non-cité).
+- **Méta-feedback** : néant. Doctrine vivante = CLAUDE.md section vault + `.claude/rules/forge-brain-proactive.md`.
+- **Index MEMORY.md** : entrée `use-obsidian-cli` retirée (était section Feedback).
+- **Wikilinks corrigés** : 2 occurrences dans `vault/claude-forge/04-Techniques/claude-code/pattern-vault-llm-karpathy.md` (gotcha tooling + refs liées) — wikilink `[[feedback_use_obsidian_cli]]` retiré, remplacé par mention texte non-liée (sens anti-pattern CLI préservé, évite wikilink mort).
+- **Body** : marker `[DEPRECATED — 2026-05-27]` ajouté en tête du fichier archivé.
+- **Rollback** : git mv depuis _archive/2026-05/ vers memory/, retirer le marker DEPRECATED, ré-ajouter ligne index, restaurer les 2 wikilinks vault — déconseillé (cœur obsolète).

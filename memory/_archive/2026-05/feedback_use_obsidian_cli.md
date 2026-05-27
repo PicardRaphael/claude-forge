@@ -4,6 +4,8 @@ description: TOUJOURS utiliser obsidian CLI (search, backlinks, tags, property:s
 type: feedback
 originSessionId: 00ed39aa-17db-4d58-bcdc-ef097926d20a
 ---
+> **[DEPRECATED — 2026-05-27]** Remplacé par la doctrine MCP forge-brain : accès vault = `mcp__forge-brain__*` UNIQUEMENT, jamais CLI Obsidian ni Grep/Read/Glob brut. Voir CLAUDE.md section vault + rule `forge-brain-proactive.md`. Conservé pour historique — ce conseil contredit la doctrine actuelle.
+
 TOUJOURS utiliser la CLI Obsidian pour interagir avec le vault forge-brain, pas Glob/Read/Write brut.
 
 **Why:** Le vault est un graphe de connaissance, pas un filesystem. Read/Write/Glob ignorent les backlinks, tags, recherche indexée, propriétés. La CLI donne accès à tout ça. neoteem-brain utilise le MCP obsidian-brain (SQLite FTS5) — encore mieux. Raphael a constaté que je n'utilise jamais la CLI malgré qu'elle soit configurée et fonctionnelle (v1.12.7).

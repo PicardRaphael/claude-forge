@@ -403,7 +403,7 @@ Quand le LLM cherche un sujet, il commence par `index.md` pour s'orienter.
 - **qmd CLI ET MCP** — Karpathy expose les deux, pas opposition (cf [[mcp-vs-skills-doctrine]])
 - **MCP forge-brain auto-start SessionStart** port 8091
 - **JAMAIS Grep/Read brut sur vault** — MCP uniquement (cf [[forge-brain-proactive]])
-- **JAMAIS CLI Obsidian** (cf [[feedback_use_obsidian_cli]] — révisé)
+- **JAMAIS CLI Obsidian** (doctrine MCP forge-brain uniquement — feedback `use-obsidian-cli` archivé 27 mai car obsolète)
 
 ### Pièges Obsidian
 - **Web Clipper** : peut altérer le HTML sur certains sites, vérifier le markdown produit
@@ -463,7 +463,7 @@ Aliases déclarés en frontmatter (10) :
 
 ### Knowledge / refs liées
 - audit-mcp-forge-brain — 11 outils + 4 forces uniques (note à créer)
-- [[feedback_use_obsidian_cli]] — révisé : MCP uniquement
+- `use-obsidian-cli` — archivé 27 mai (obsolète) : accès vault = MCP forge-brain uniquement
 - [[feedback_vault_quality_standard]] — standard 4-6 aliases
 - [[feedback_vault_query_before_create]] — hook bloque write sans vault check
 

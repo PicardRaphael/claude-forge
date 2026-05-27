@@ -13,6 +13,12 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-27 — Mémoire : MEMORY.md hiérarchisé tier-1/tier-2, divisé par deux
+
+L'index mémoire `MEMORY.md` a franchi le seuil empirique de 40k chars (mesuré à 42.5k) — le déclencheur du pattern de maintenance hybride canonisé le matin même s'est appliqué à lui-même. Plutôt qu'un nettoyage cosmétique réactif, deux leviers structurels. Levier A : les 112 résumés d'index dépassant 80 caractères raccourcis radicalement (le slug porte déjà le concept, le résumé ne fait que compléter l'actionnable, le détail vit dans le fichier feedback). Levier C : hiérarchisation à deux niveaux — les 97 feedbacks cités au moins une fois ou jugés stratégiques (axes innovation MCP, contrat Jarvis, méta-doctrines fraîches de la journée) restent visibles dans `MEMORY.md` ; les 96 non cités partent dans un nouveau `memory/_index_archive.md`, chargé uniquement si une recherche le déclenche, avec un pointeur explicite depuis l'index principal.
+
+Le critère « créé depuis moins de 60 jours » du brief initial a été abandonné après mesure : le corpus entier datant d'une seule semaine, il classait 194 feedbacks sur 194 en tier-1 et ne triait rien — surfacé à Raphael avant exécution plutôt que d'appliquer une consigne inopérante. Le critère retenu est la citation entrante (mécanique, vérifiable par grep), 44 % des feedbacks étant cités. Résultat : `MEMORY.md` passe de 42470 à 21493 caractères (−49 %), soit environ 5 à 6k tokens économisés à chaque session puisqu'il est chargé via `@import`. Un feedback obsolète (`use-obsidian-cli`, qui prônait la CLI Obsidian là où la doctrine actuelle impose le MCP) archivé pour de bon, ses deux wikilinks corrigés dans la note canonique Karpathy. Propagation de l'outillage (skill `/clean-memory`, règle tokens dans CLAUDE.md, hook de surveillance de taille à 38k) tracée pour une session dédiée post-`/clear`.
+
 ## 2026-05-27 — Hygiène permissions : settings.local.json épuré de 48 à 11 entrées allow
 
 Palier d'hygiène repo. Le brief visait `settings.json` (« ~66 lignes de permissions ad-hoc accumulées »), mais la cartographie empirique a renversé la prémisse : le fichier versionné est discipliné — 11 hooks tous vivants, chaque permission tracée en commit, seulement 23 lignes de permissions sur 163. La vraie dette ad-hoc vivait dans `settings.local.json` (gitignored, perso), que le brief ne mentionnait même pas. Arbitrage de périmètre via AskUserQuestion → on cible le local seul, on ne touche pas le versionné.
