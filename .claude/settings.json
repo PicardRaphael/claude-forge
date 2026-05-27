@@ -10,7 +10,6 @@
       "Write",
       "Edit",
       "Bash(git *)",
-      "Bash(git -C *)",
       "Bash(ls *)",
       "Bash(taskkill *)",
       "Edit(.claude/agents/**)",
