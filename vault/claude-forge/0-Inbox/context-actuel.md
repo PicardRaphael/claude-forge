@@ -18,6 +18,7 @@ Mémoire portable FAIT (architecture @import validée empiriquement — 231 lign
 - Hook `session-reminder.py` : `__file__` choisi (pas `os.environ`, pas `git rev-parse`) — déterministe, robuste au cwd (testé depuis /tmp).
 - Double-source transitoire (auto-memory native + @import) acceptée comme dette tracée. Désactivation native = TODO différé (déclencheur : pollution contexte problématique ou avant communication externe studio).
 - Comportement /done pendant transition = écrit UNIQUEMENT dans `<repo>/memory/` (pas dans les deux).
+- Méthode capitalisée : cartographie exhaustive (grep) du fichier cible AVANT toute délégation à un creator (feedback mémoire `cartographie-exhaustive-avant-delegation`).
 
 ### En cours
 Rien en cours. Étapes 7-9 livrées (NON commitées — Raphael décide granularité/ordre/push). 244 tests verts (101 hooks + 143 MCP), 0 régression. Test cross-machine probant (clone C:\temp\forge-test lit sa propre mémoire).
