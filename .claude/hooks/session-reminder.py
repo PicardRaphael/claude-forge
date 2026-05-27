@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Display a reminder of recent project memory at session start."""
-import glob
 import os
 import sys
 import tempfile
@@ -25,13 +24,9 @@ for marker_name in [
             pass
 
 def find_latest_memory():
-    pattern = os.path.expanduser("~/.claude/projects/*/memory/MEMORY.md")
-    local_pattern = ".claude/projects/*/memory/MEMORY.md"
-    candidates = glob.glob(pattern) + glob.glob(local_pattern)
-    if not candidates:
-        return None
-    candidates.sort(key=lambda f: os.path.getmtime(f), reverse=True)
-    return candidates[0]
+    repo_root = os.path.dirname(_CLAUDE_DIR)
+    memory_file = os.path.join(repo_root, "memory", "MEMORY.md")
+    return memory_file if os.path.exists(memory_file) else None
 
 try:
     memory_file = find_latest_memory()
