@@ -12,7 +12,7 @@ aliases:
   - "convention couleurs agents"
   - "frontmatter agent"
   - "sonnet opus split"
-derniere-maj: 2026-05-24
+derniere-maj: 2026-05-27
 auteur: claude
 type: technique
 sources:
@@ -93,6 +93,19 @@ maxTurns: <nombre, optionnel>
 ```
 
 ### Règles frontmatter critiques
+### Frontmatter vs body : alignement obligatoire
+
+**Le frontmatter fait foi. Le body ne doit JAMAIS le contredire.**
+
+- Un champ frontmatter (`effort`, `model`, `memory`, `permissionMode`, etc.) est la source de vérité unique pour sa valeur.
+- Le body de l'agent NE DOIT PAS re-commenter ni re-justifier un champ frontmatter (ex : ligne `effort: xhigh — la pensée adversariale exige une profondeur maximale`). C'est à la fois redondant et une source de drift quand l'un évolue sans l'autre.
+- Double faute classique : le body affirme une valeur (`xhigh`) que le frontmatter dément (`high`). Le composant se contredit lui-même.
+- Le **pourquoi** d'un choix de frontmatter vit dans le vault (cette note, CLAUDE.md), pas dans le body de l'agent — cf [[feedback_pas_de_meta_commentaire_doctrine]]. Le hook `meta-commentary-detector` bloque ce type de commentaire doctrinal.
+
+**Règle de vérification** : après toute modification d'agent, `grep` la valeur du champ frontmatter dans le body. Si elle apparaît avec une justification → la supprimer. Le frontmatter parle, le body se tait.
+
+Cas réel 27 mai 2026 : `devils-advocate.md` avait `effort: high` en frontmatter mais le body affirmait `effort: xhigh`. Fix = suppression des 2 lignes de body, frontmatter conservé.
+
 
 1. **`name`** = nom du fichier sans `.md`, kebab-case
 2. **`description`** = trigger directive 3e personne (comme skills)
