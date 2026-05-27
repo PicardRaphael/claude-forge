@@ -224,3 +224,12 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - Type 3 (4 cas) : torchtune no longer maintained, TGI archive 21 mars 2026, EU AI Act delay mai 2026, Lamini scoping case study
 - Creee : [[erreur-audit-fine-tuning-2026-05-23]]
 - Liens : [[fine-tuning-techniques-peft]] [[fine-tuning-alignment]] [[fine-tuning-frameworks]] [[fine-tuning-infrastructure]] [[fine-tuning-models]] [[fine-tuning-privacy]] [[fine-tuning-datasets]] [[fine-tuning-evaluation]] [[rag-vs-fine-tuning]]
+
+## [2026-05-27] cleanup | Phase 1 forge (DA effort, EXAMPLES upstream, settings, doc, tests)
+- Fix effort devils-advocate : body xhigh supprime, frontmatter high fait foi
+- Capitalisation [[comment-creer-agent]] section "Frontmatter vs body : alignement obligatoire"
+- Restauration json-canvas/references/EXAMPLES.md verbatim depuis upstream kepano/obsidian-skills (pas de fabrication)
+- Coquille settings.json Bash(taskkill *) + bloc ask operations destructives
+- Decision P2.6 : skills cc-*-ref user-invokable:false = MAINTENIR (non orphelines, referencees body createurs)
+- Tests pytest 90/90 PASSED (69 MCP + 21 hooks, 0 echec)
+- Creee : [[erreur-deny-global-ecrase-allow-projet]]

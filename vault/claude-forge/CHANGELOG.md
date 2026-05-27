@@ -7,12 +7,20 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-05-26
+derniere-maj: 2026-05-27
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-27 — Phase 1 nettoyage claude-forge
+
+- **Ajoutées (1)** :
+  - [[erreur-deny-global-ecrase-allow-projet]] dans `Knowledge/erreurs/` — deny global `~/.claude/settings.json` écrase allow projet (précédence + diagnostic)
+- **Modifiées (1)** :
+  - [[comment-creer-agent]] — section "Frontmatter vs body : alignement obligatoire" (le frontmatter fait foi, le body ne le contredit jamais)
+- **Source** : Phase 1 nettoyage forge (fix effort devils-advocate, restauration EXAMPLES.md upstream, coquille settings, décision skills cc-*-ref, tests 90/90 PASSED)
+
 ## 2026-05-26 — Veille 11 plugins officiels Anthropic + enrichissements canoniques
 
 - **Créées (3)** :
