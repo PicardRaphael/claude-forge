@@ -587,3 +587,24 @@ Hook `SubagentStop` qui **détecte** des signaux dans la sortie du sub-agent et 
 - [Anthropic Hooks reference](https://code.claude.com/docs/en/hooks)
 - [[anti-reentrance-sub-agents-pattern-escalade]] — Format markers détectés
 - [[raisonnement-22mai-doctrine-vs-enforcement]] — doctrine non-bloquante respectée
+
+
+---
+
+## AJOUT 27 mai 2026 — Résolution de path dans un hook : `__file__`, jamais `os.environ["CLAUDE_PROJECT_DIR"]`
+
+Quand un hook Python doit résoudre la racine du repo (pour cibler `<repo>/memory/`, lire un fichier du repo, etc.), le mécanisme correct est `__file__` :
+
+```python
+_HOOK_DIR = os.path.dirname(os.path.abspath(__file__))  # .claude/hooks/
+_CLAUDE_DIR = os.path.dirname(_HOOK_DIR)                 # .claude/
+repo_root = os.path.dirname(_CLAUDE_DIR)                 # <repo>/
+```
+
+**JAMAIS `os.environ["CLAUDE_PROJECT_DIR"]`** : non garanti peuplé dans le process du hook (prior art forge : `grep CLAUDE_PROJECT_DIR .claude/hooks/` → 0 match, tous les hooks utilisent `__file__` ou stdin JSON). L'expansion de `${CLAUDE_PROJECT_DIR}` dans la string `command` de settings.json n'implique PAS sa présence dans `os.environ` du process enfant — les deux sont indépendants.
+
+`__file__` est aussi supérieur à `git rev-parse` pour un hook : **robuste au cwd**. Un hook peut être déclenché avec un cwd imprévisible ; `__file__` pointe toujours vers l'emplacement réel du script (prouvé 27 mai : `session-reminder.py` lancé depuis `/tmp` trouve quand même sa mémoire, là où `git rev-parse` aurait échoué hors-repo).
+
+Distinct de [[reference_agent_type_hook_detection]] (détection du TYPE d'agent via stdin JSON) — ici il s'agit de résolution de CHEMIN. Table complète des 4 contextes : [[resolution-path-3-contextes]].
+
+Appliqué 27 mai : hook `session-reminder.py` migré de `glob.glob("~/.claude/projects/*/...")` vers chemin déterministe `__file__`-based (chantier mémoire portable, cf [[architecture-decision-memoire-portable-import]]).

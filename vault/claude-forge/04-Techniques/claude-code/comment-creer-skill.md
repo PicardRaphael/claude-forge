@@ -559,3 +559,20 @@ Référence d'implémentation : skill `done` (étapes 3 génération de blocs + 
 ### Corollaire — skill de jugement LLM n'est pas testable unitairement
 
 Une skill qui orchestre du jugement LLM (métacognition, capitalisation, arbitrage) n'a pas de test unitaire pertinent : un smoke test ne validerait que le parsing YAML, pas la skill. La validation se fait par **exécution réelle sur un cas représentatif** (ex : lancer `/done` sur une session ayant produit ≥1 apprentissage, vérifier que les blocs proposés sont corrects et que rien n'est écrit sans validation). Ce n'est pas de la dette tracée — c'est un choix de design assumé. Distinguer du code déterministe (scripts/ de skill, hooks, MCP) qui lui doit être testé, avec ratio adverse pour les composants critiques.
+
+
+---
+
+## AJOUT 27 mai 2026 — Résolution de path dans une skill : `git rev-parse`, jamais `${CLAUDE_PROJECT_DIR}`
+
+Quand une skill doit résoudre la racine du repo (pour cibler `<repo>/memory/`, `<repo>/docs/`, etc.) dans un bloc Bash, le mécanisme correct est :
+
+```bash
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+```
+
+**JAMAIS `${CLAUDE_PROJECT_DIR}`** : cette variable du harness est **vide dans le shell lancé par une skill** (vérifié empiriquement 27 mai : `echo "[$CLAUDE_PROJECT_DIR]"` → `[]`). Elle n'est peuplée que dans la string `command` de settings.json (expansion harness), pas dans l'environnement du process. Utiliser `${CLAUDE_PROJECT_DIR}/memory` dans une skill produit un chemin `/memory` faux et silencieux.
+
+Table complète des 4 contextes (skill / hook / settings / .mcp.json) avec preuve par ligne : [[resolution-path-3-contextes]].
+
+Appliqué 27 mai : skills `/done` et `/recap` migrées vers `$(git rev-parse --show-toplevel)/memory` (chantier mémoire portable, cf [[architecture-decision-memoire-portable-import]]).
