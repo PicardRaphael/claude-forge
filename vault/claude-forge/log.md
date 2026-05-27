@@ -339,3 +339,11 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - Ajouté étape 8 à skill `cc-news` : invoque doctrine-impact-check sur findings MAJEURS (leader/Anthropic) only, anti-cascade
 - Bug découvert en cours : MCP forge-brain décoratif en sub-agent (`No such tool available`, confirmé 2 agents skill-creator + hook-creator) → dette étape 2b (fix briefs 6 creators + hook vault-cat-guard + note canonique subagent-mcp-non-herite). Workaround appliqué = mcp-brief-then-direct inline
 - Méthode A→B→C→D→E + advisor avant conception, 2 paquets (Core livré, C4-C7 différés). Pas de commit auto (Raphael décide)
+## [2026-05-27] kill | vault-maintainer supprimé (doublon /vault-audit) + cas spéciaux MCP décoratif résolus
+- KILL agent `vault-maintainer` : doublon fonctionnel de la skill `/vault-audit` (session principale, MCP effectif + script Python déterministe). Métier MCP-write impossible en sub-agent (MCP décoratif `No such tool available`). Archive `agent-memory/vault-maintainer/` préservée
+- Trigger proactif "after cc-news / note creation" porté dans la description de `/vault-audit` (via skill-creator)
+- Exemption `vault-maintainer` retirée du hook `vault-cat-guard.py` + tests adaptés (via hook-creator). Surface d'exemption nulle = MCP-only plus strict. Tests hooks 180→176 verts (suppression mécanisme exemption)
+- `devils-advocate` GARDÉ : métier = analyse + 0-1 write → mode dégradé viable. Brief clarifié (cause structurelle MCP décoratif sub-agent explicitée, via agent-creator). 23/24 critiques persistées empiriquement
+- Référence morte nettoyée : `comportement-proactif.md` (routing), `pivot-check/SKILL.md` (tableau), canoniques [[agents-color-convention]] (liste cyan) + [[pattern-vault-llm-karpathy]] (4 mentions)
+- Pattern méta capitalisé : append [[pattern-mcp-brief-then-direct]] section "Exception : doublon révèle un agent mort-né (KILL > faire marcher)". Critère : agents = écritures MCP rares, skills = écritures MCP denses
+- Méthode A→B→C→D→E + advisor (3 appels) + 2 AskUserQuestion (arbitrage par agent). Commits non lancés (Raphael décide du découpage en 7)

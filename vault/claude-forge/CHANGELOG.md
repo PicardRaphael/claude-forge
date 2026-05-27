@@ -920,3 +920,17 @@ Refonte complète du vault forge-brain pour en faire une **source de vérité ac
   - `1-Projets/Neoteem/ia_back/ia_back.md` (refonte hooks 22 mai)
   - `1-Projets/Neoteem/neo_ia/neo_ia.md` (refonte hooks 22 mai)
 - **Source** : friction 6× développement feature, recherche web Anthropic 2026 (Agent SDK "Claude decides when to invoke", Boris "thinnest wrapper")
+
+## 2026-05-27 — KILL vault-maintainer + résolution cas spéciaux MCP décoratif
+
+Suite des étapes 2b/3 (fix structurel MCP décoratif sub-agent), traitement des 2 derniers cas spéciaux qui restaient en dette : les agents dont le métier touche le vault.
+
+**Diagnostic empirique.** Le MCP forge-brain étant décoratif en contexte sub-agent (`No such tool available`, confirmé 27 mai), deux agents posaient question. `vault-maintainer` (métier = N× écritures MCP : aliases, MOC, frontmatter, backlinks) ne peut littéralement pas faire son travail en sub-agent. `devils-advocate` (métier = analyse + au plus 1 `create_note`) fonctionne en mode dégradé déjà prévu par son brief.
+
+**vault-maintainer — KILL.** L'agent était un doublon fonctionnel de la skill `/vault-audit`, qui couvre la même checklist mais tourne en session principale (MCP effectif) avec un script Python déterministe. Aucune invocation historique via le tool Agent. Verdict : suppression. Son seul apport unique — le déclenchement proactif après cc-news / création de note — a été porté dans la description de `/vault-audit`. L'exemption qui lui était réservée dans le hook `vault-cat-guard` a été retirée (surface d'exemption nulle, doctrine MCP-only plus stricte). L'archive `agent-memory/vault-maintainer/` est conservée.
+
+**devils-advocate — gardé, brief clarifié.** Son brief disait déjà que la sauvegarde vault est non bloquante (sinon critique en texte). On a précisé la cause exacte (échec structurel du MCP en sub-agent, pas aléatoire) et confirmé empiriquement que la persistance marche : 23 critiques dans `Knowledge/critiques/` pour ~24 invocations.
+
+**Pattern de design dégagé.** Un composant dont la valeur est `N× écriture MCP` est structurellement une skill (session principale, MCP effectif), pas un agent. Les agents survivent au contexte sub-agent quand leur métier est l'analyse plus des écritures rares. Capitalisé en amendement de [[pattern-mcp-brief-then-direct]].
+
+Tests hooks 176 verts (180→176, suppression du mécanisme d'exemption testé). Méthode A→B→C→D→E, advisor, arbitrage par agent.
