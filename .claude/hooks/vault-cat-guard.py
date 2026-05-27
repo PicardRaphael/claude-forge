@@ -23,8 +23,6 @@ Context-dependent blocking:
     ambiguous-stem note like log.md — see feedback_mcp_alias_ambigu_chemin_exact),
     and it has the MCP. A sub-agent reading the vault by Read is the fragile
     fallback we forbid.
-  Exemption (all contexts): vault-maintainer — its job is to read/write the vault.
-
 Exit 2 blocks. Fail-open (exit 0) on any parse error.
 """
 import json
@@ -40,9 +38,6 @@ FORGE_PROJECT_DIR = str(Path(__file__).resolve().parent.parent.parent).replace("
 
 # Vault marker present in every vault path
 VAULT_MARKER = "vault/claude-forge"
-
-# Agents allowed to access the vault directly (their job requires it)
-EXEMPT_AGENTS = {"vault-maintainer"}
 
 # Bash read commands that would dump vault content
 READ_COMMANDS = (
@@ -158,11 +153,6 @@ def active_agent(data: dict) -> str:
     return ""
 
 
-def is_exempt(data: dict) -> bool:
-    """True if the active agent is allowed to access the vault directly."""
-    return active_agent(data) in EXEMPT_AGENTS
-
-
 def violation(tool_name: str, tool_input: dict) -> tuple[str, str] | None:
     """Return (kind, target) if this call accesses the vault raw, else None.
 
@@ -183,14 +173,12 @@ def violation(tool_name: str, tool_input: dict) -> tuple[str, str] | None:
 
 
 def should_block(kind: str, data: dict) -> bool:
-    """Apply the context rule. vault-maintainer is never blocked.
+    """Apply the context rule.
 
     - "dump" (Bash/PowerShell content dump): blocked in BOTH contexts.
     - "read" (Read tool): blocked in SUB-AGENT only; the main session legitimately
       Reads the vault to prepare an Edit and has the MCP.
     """
-    if is_exempt(data):
-        return False
     if kind == "dump":
         return True
     if kind == "read":

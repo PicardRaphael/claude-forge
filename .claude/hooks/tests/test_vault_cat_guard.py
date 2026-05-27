@@ -12,14 +12,14 @@ SCOPE DECLARED BY THE HOOK (vault-cat-guard.py docstring):
     - dump (Bash/PowerShell): blocked in BOTH contexts (main + sub-agent)
     - read (Read tool): blocked in SUB-AGENT only — main session legitimately
       Reads the vault to prepare an Edit (exact-path edit of ambiguous-stem note)
-  Exemption (all contexts): vault-maintainer. Exit 2 blocks. Fail-open on errors.
+  Exit 2 blocks. Fail-open on errors.
 
 WHAT THESE TESTS VERIFY:
   - Vault reads detected for Read and for each read command (Bash + PowerShell),
     across path separators and casing (adversarial).
   - Non-vault reads pass (false-positive guard).
   - Context rule: Read blocked in sub-agent, allowed in main session; dump blocked
-    in both. vault-maintainer exempt everywhere.
+    in both. No agent exemptions.
   - Write-class tools / MCP calls are not this hook's business (out of scope).
 
 WHAT THESE TESTS DO *NOT* VERIFY (out-of-scope by design):
@@ -48,7 +48,6 @@ references_vault = _mod.references_vault
 bash_reads_vault = _mod.bash_reads_vault
 violation = _mod.violation
 should_block = _mod.should_block
-is_exempt = _mod.is_exempt
 active_agent = _mod.active_agent
 READ_COMMANDS = _mod.READ_COMMANDS
 
@@ -212,25 +211,8 @@ def test_violation_write_tool_ignored():
 
 
 # --------------------------------------------------------------------------
-# exemption — vault-maintainer allowed, others blocked
+# active_agent — baseline
 # --------------------------------------------------------------------------
-
-def test_exempt_vault_maintainer_agent_type():
-    assert is_exempt({"agent_type": "vault-maintainer"}) is True
-
-
-def test_exempt_vault_maintainer_agent_id():
-    assert is_exempt({"agent_id": "vault-maintainer"}) is True
-
-
-def test_not_exempt_skill_creator():
-    assert is_exempt({"agent_type": "skill-creator"}) is False
-
-
-def test_not_exempt_main_session():
-    # no agent fields → main session → NOT exempt (blocked, has MCP)
-    assert is_exempt({}) is False
-
 
 def test_active_agent_empty_main_session():
     assert active_agent({}) == ""
@@ -282,13 +264,14 @@ def test_should_block_read_subagent_blocked():
     assert should_block("read", {"agent_type": "skill-creator"}) is True
 
 
-def test_should_block_read_vault_maintainer_allowed():
-    assert should_block("read", {"agent_type": "vault-maintainer"}) is False
+def test_should_block_read_former_exempt_now_blocked():
+    # No more exemption: a sub-agent reading the vault is blocked like any other
+    assert should_block("read", {"agent_type": "vault-maintainer"}) is True
 
 
-def test_should_block_dump_vault_maintainer_allowed():
-    # vault-maintainer exempt even for dumps (its job is the vault)
-    assert should_block("dump", {"agent_type": "vault-maintainer"}) is False
+def test_should_block_dump_former_exempt_now_blocked():
+    # No more exemption: dumps blocked in all contexts, no agent escapes
+    assert should_block("dump", {"agent_type": "vault-maintainer"}) is True
 
 
 # --------------------------------------------------------------------------
@@ -340,13 +323,14 @@ def test_e2e_non_vault_passes_exit0():
     assert rc == 0
 
 
-def test_e2e_vault_maintainer_exempt_exit0():
+def test_e2e_former_exempt_agent_read_subagent_blocked_exit2():
+    # vault-maintainer removed: no exemption — a sub-agent Read of the vault blocks
     rc = _run_hook({
         "tool_name": "Read",
         "tool_input": {"file_path": "vault/claude-forge/log.md"},
         "agent_type": "vault-maintainer",
     })
-    assert rc == 0
+    assert rc == 2
 
 
 def test_e2e_malformed_stdin_fail_open():
