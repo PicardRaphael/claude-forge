@@ -13,6 +13,15 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-27 — Chantier C : sync leaders vault↔cc-news (single source of truth)
+
+- **Ajoutées (1)** : [[pattern-vault-source-unique-sync-mecanique]] (04-Techniques/patterns) — pattern forge : quand une liste vit dans le vault ET dans une skill consommatrice, le dossier vault est la source unique et un script régénère le bloc consommateur à la maintenance (entre marqueurs, idempotent, report des écarts non couverts), jamais au runtime.
+- **Hors vault (.claude/skills/cc-news/)** : script `scripts/sync-leaders.py` créé — régénère le bloc « Leaders canonisés » des 6 `references/domain-*.md` depuis `list_notes(05-Leaders/<domaine>)`. Les 6 domain-*.md migrés (table Leaders → marqueurs SYNC + section « Watchlist signaux non canonisés » pour les cibles chassées sans fiche vault). SKILL.md cc-news documenté (163→179L). Mapping concurrents→industrie acté.
+- **Diagnostic** : divergence bidirectionnelle mesurée (~36 fiches vault hors plans de chasse, ~14 cibles chassées sans fiche). `find_by_property(type=leader)` cassé (63/80) → `list_notes(folder)` seul fiable.
+- **Dette tracée** : queries cc-news non régénérées (~50 leaders synced sans query, listés par le report `[!]` du script) — à compléter à froid ; normalisation `handle_x` des 80 fiches (mode dégradé : seuls les handles `x.com/` explicites injectés, denylist orga pour Han Xiao).
+- **Source** : Chantier C, méthode A→B→C→D→E + 3 AskUserQuestion (mécanisme sync / divergence / handles) + advisor (rattrape le gap visibilité≠chasse).
+
+---
 ## 2026-05-27 — Étape 3 : durcissement hooks (faux positif chaînage + angle mort PowerShell)
 
 - **Hooks `.claude/` (hors vault)** : `vault-cat-guard.py` corrigé — segmentation de la commande sur `&&`/`||`/`;`/`|` avant détection ; un read-command et le marker vault doivent co-occurrer dans le MÊME segment (faux positif `git add "vault/..." && git push | tail` résolu). `security-guard.py` matcher `Bash` → `Bash|PowerShell` (angle mort : git push --force via PowerShell contournait le garde). 180 tests verts.
