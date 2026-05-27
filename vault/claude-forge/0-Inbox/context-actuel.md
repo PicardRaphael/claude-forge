@@ -10,7 +10,7 @@ tags: ["#type/context", "#meta/working-memory"]
 ---
 
 ## Phase actuelle
-**Chantier A — pont veille→doctrine : Paquet 1 LIVRÉ.** Le pont pull-based est opérationnel : un finding majeur de cc-news → étape 8 invoque `doctrine-impact-check` → croisement avec les canoniques → verdict (INFO / DOCTRINE_PIVOT_CANDIDATE / DOCTRINE_REINFORCE) → gate humaine `[v]/[m]/[i]`. Dirigé, jamais aveugle. Suivant immédiat = **étape 2b — fix structurel du bug MCP décoratif sub-agent** (chantier-bug né en cours de route, dette tracée ci-dessous).
+**Chantier A étape 2b — fix structurel MCP décoratif sub-agent : LIVRÉ (2026-05-27).** Bug structurel résolu par enforcement + briefs durcis. 2 hooks de garde créés (`vault-cat-guard`, `mcp-alias-guard`), 6 creators durcis (directive « lire via MCP » → brief inline + ESCALADE), canoniques amendées. Tests 170 verts (101 baseline + 69 nouveaux). Commits non lancés — en attente validation groupée. Suivant possible = sync leaders / nettoyage permissions / autre chantier.
 
 ## Dernière session (2026-05-27) — Chantier A
 ### Décisions prises
@@ -27,9 +27,23 @@ Rien en suspens sur le Paquet 1. 4 commits poussés sur main (C1 note, C2 skill,
 1. **/done + /clear**, puis **étape 2b — fix structurel MCP décoratif** (session continue ou dédiée).
 2. Évaluer Paquet 2 (C4-C7) après 2-3 semaines d'usage réel du pont.
 
-## DETTE TRACÉE — étape 2b : fix MCP décoratif sub-agent (À TRAITER, NE PAS SUPPRIMER)
+## ÉTAPE 2b — RÉSOLUE (2026-05-27)
 
-### Cause racine (fait empirique confirmé)
+**Livré** : 2 hooks de garde (`vault-cat-guard.py` matcher Bash|Read|PowerShell ; `mcp-alias-guard.py` matcher append_note) + 6 creators durcis (agent-creator en premier par bypass `.new`+`mv`, puis cascade via agent-creator) + 3 canoniques amendées (comment-creer-skill/agent/hook) + note `hook-intercepte-mcp-et-read-tools` + section bypass dans comment-creer-agent. Tests 170 verts (101 baseline + 46 vault-cat-guard + 23 mcp-alias-guard).
+
+**Décisions empiriques de la session** :
+- PreToolUse intercepte les tools MCP, Read ET PowerShell (3 probes confirmés). Capitalisé : [[hook-intercepte-mcp-et-read-tools]].
+- vault-cat-guard : Bash/PowerShell dumps bloqués 2 contextes ; Read bloqué sub-agent uniquement (main session Read le vault légitimement pour préparer un Edit) ; vault-maintainer exempt.
+- mcp-alias-guard : append_note uniquement (4 violations toutes sur append_note, pas d'extension spéculative).
+
+**DETTE RÉSIDUELLE (déclencheurs de réactivation)** :
+- **Cas spéciaux `vault-maintainer` + `devils-advocate`** : leur métier EST d'écrire/lire le vault → pattern brief-inline inapplicable tel quel. Non traités cette session (anti-fragmentation). Déclencheur : prochain besoin empirique de les déléguer en sub-agent écrivant le vault, OU investigation dédiée « comment garantir un contexte MCP effectif pour ces agents ».
+- ~~Trou PowerShell vault-cat-guard~~ → FERMÉ cette session (matcher Bash|Read|PowerShell, vérifié empiriquement : Get-Content vault bloqué).
+- **Audit transverse « trou PowerShell » sur hooks PreToolUse Bash-only** (proposition Jarvis validée) : `security-guard.py` (matcher `Bash` seul) et autres hooks Bash-only ont-ils le même angle mort PowerShell sur Windows ? Un attaquant/agent pourrait contourner un security-guard via PowerShell. ~15 min de vérif, candidat session courte. Déclencheur : prochaine session courte disponible OU avant durcissement sécu.
+
+---
+
+### Archive — Cause racine (fait empirique confirmé)
 Le frontmatter `tools: ... mcp__forge-brain__*` d'un sub-agent est **décoratif** : le serveur MCP n'est PAS connecté dans le contexte d'exécution du sub-agent. Preuve : 2 agents testés (skill-creator observé cat le vault ; hook-creator → `No such tool available: mcp__forge-brain__read_note`). Conséquence : un sub-agent à qui on ordonne « lis les canoniques via MCP » mais sans MCP réel fallback sur `cat`/`find` du vault (viole la doctrine MCP-only). **Règle architecturale : la session principale est le seul contexte avec MCP effectif. Tout brief sub-agent impliquant le vault contient les extraits inline, jamais « lis via MCP ».**
 
 ### Périmètre (audit transverse des 11 agents fait)
@@ -45,7 +59,7 @@ Le frontmatter `tools: ... mcp__forge-brain__*` d'un sub-agent est **décoratif*
 4. Amender canoniques creator ([[comment-creer-skill]], [[comment-creer-agent]], [[comment-creer-hook]]) avec la règle.
 5. MAJ CLAUDE.md éventuelle si jugé assez structurant.
 
-### Note d'attention — hook mcp-alias (4e re-violation aujourd'hui)
+### Note d'attention — hook mcp-alias → RÉSOLU 2b (mcp-alias-guard.py créé)
 Le pattern `mcp-alias-ambigu-chemin-exact` re-violé 4× le 27 mai (dont ce /done : `append_note(file="log vault")` malgré la RÈGLE FERME interdisant tout alias sur stem multi-dossier). Seuil garde-fou hook atteint (cf [[feedback_feedback_reviole_3x_regle_insuffisante]]). À considérer en 2b / session future : hook PreToolUse sur `mcp__forge-brain__append_note` vérifiant l'unicité du stem dans le vault avant écriture (erreur si log/index/CHANGELOG multi-dossiers). Distinct de vault-cat-guard. Pas maintenant (anti-fragmentation), tracé.
 
 ### Dépendance circulaire à résoudre

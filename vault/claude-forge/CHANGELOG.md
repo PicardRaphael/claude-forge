@@ -13,6 +13,14 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-27 — Chantier A étape 2b : fix structurel MCP décoratif sub-agent
+
+- **Ajoutées (1)** : `01-Claude/Code/best-practices/hook-intercepte-mcp-et-read-tools.md` — preuve empirique que PreToolUse intercepte les tools MCP, Read et PowerShell ; méthode de probe ; section exceptions delegate-guard (bypass `.new`+`mv`).
+- **Modifiées (3)** : `comment-creer-skill`, `comment-creer-agent`, `comment-creer-hook` — section « Brief sub-agent et accès vault » (cause-racine MCP décoratif + interdiction accès brut + wikilinks). `comment-creer-agent` reçoit en plus la section « Self-modification d'un creator buggé via bypass de matcher ».
+- **Hooks `.claude/` (hors vault)** : 2 hooks de garde créés — `vault-cat-guard.py` (bloque cat/grep/Read brut du vault ; Bash/PowerShell 2 contextes, Read sub-agent only, exempt vault-maintainer) et `mcp-alias-guard.py` (bloque append_note sur stem ambigu). 6 creators durcis. 170 tests verts.
+- **Source** : Chantier A étape 2b — bug MCP décoratif confirmé empiriquement, fix par enforcement structurel + briefs inline durcis.
+
+---
 ## 2026-05-27 — Chantier A : pont veille→doctrine (Paquet 1 livré)
 
 - **Ajoutées (1)** :

@@ -7,7 +7,7 @@ aliases:
   - "log append-only"
   - "trace vault forge"
   - "vault operations log"
-derniere-maj: 2026-05-22
+derniere-maj: 2026-05-27
 auteur: claude
 type: log
 tags:
@@ -36,6 +36,18 @@ tags:
 - `chantier` — chantier nomme (multi-actions groupees)
 
 ---
+
+## [2026-05-27] chantier | Étape 2b — fix structurel MCP décoratif sub-agent
+- Créé hook `.claude/hooks/vault-cat-guard.py` : bloque accès brut vault (cat/grep/find/Get-Content/Read). Bash/PowerShell 2 contextes, Read sub-agent only, exempt vault-maintainer. 46 tests
+- Créé hook `.claude/hooks/mcp-alias-guard.py` : bloque `append_note(file=<stem ambigu>)` (log/index/CHANGELOG multi-dossiers). 23 tests
+- Enregistré les 2 hooks dans `settings.json` (matchers `Bash|Read|PowerShell` et `mcp__forge-brain__append_note`)
+- Durci 6 creators (`agent-creator` édit direct via bypass `.new`+`mv`, puis `skill-creator`/`hook-creator`/`claudemd-optimizer`/`repo-inspector`/`responsable-ia` en cascade via agent-creator) : directive « lire EN ENTIER via MCP » → brief inline + ESCALADE + interdiction accès vault brut
+- note-created `01-Claude/Code/best-practices/hook-intercepte-mcp-et-read-tools.md` (preuve PreToolUse intercepte MCP/Read/PowerShell + méthode probe + exceptions delegate-guard)
+- note-updated `comment-creer-skill` / `comment-creer-agent` / `comment-creer-hook` : section Brief sub-agent et accès vault ; + section bypass self-modification dans comment-creer-agent
+- Empirique : 3 probes (matcher MCP, Read, PowerShell tous interceptés) ; vault-cat-guard a bloqué mes propres Read/PowerShell sur le vault en conditions réelles (preuve fonctionnelle)
+- Tests : 170 verts (101 baseline + 69 nouveaux). Zéro régression
+- Dette résiduelle : cas spéciaux vault-maintainer + devils-advocate (métier = écrire le vault) reportés
+- Méthode : A→B→C→D→E + advisor (4 appels) + AskUserQuestion (2 STOP arbitrage). Commits non lancés, validation groupée demandée
 
 ## [2026-05-23] chantier | Audit dogfooding forge — propagation pivot doctrinal 23 mai
 - Détecté : forge ne respectait pas sa propre doctrine canonique vault sur 9 points (Type 1 doctrinal + 1 Type 3 structurel)
