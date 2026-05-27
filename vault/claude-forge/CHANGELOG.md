@@ -13,6 +13,14 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-27 — SELF_PORTRAIT régénéré (post Mémoire Portable + DA + Audit transverse + Veille)
+
+- **Modifiées (1)** :
+  - [[context-actuel]] (0-Inbox) — phase actuelle = SELF_PORTRAIT régénéré, métriques unifiées, suivant = Chantier A pont veille→doctrine.
+- **Hors vault (racine repo)** :
+  - `CLAUDE_FORGE_SELF_PORTRAIT.md` régénéré (630L) en update chirurgical par delta de section (pas rewrite). Métriques remesurées et unifiées sur source unique (`vault_stats`) : 302 commits, 244 tests (101 hooks + 143 MCP), 22 outils MCP, 430 notes, 193 feedbacks. Nouvelle section 8bis "Système de veille" (cc-news + 80 leaders + 3 chantiers A/B/C). Section Hermes déplacée en annexe B condensée. Dette double-source mémoire tracée (section 12). A3/A1 livrés + A1×A3 tué reflétés en section 8.
+- **Source** : session dédiée post-/clear, mission régénération SELF_PORTRAIT. Méthode A→B→C→D→E avec STOP étape D + advisor avant écriture. Ancien portrait (commit `4332182`, même jour) périmé sur métriques (262 commits/207 tests) et 3 valeurs de notes divergentes (412/412/417).
+
 ## 2026-05-27 — DA compounding rétroactif (A1×A3) : idée tuée par probe empirique
 
 - **Ajoutées (1)** :
