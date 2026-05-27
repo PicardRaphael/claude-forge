@@ -1,8 +1,10 @@
 # CLAUDE_FORGE — Self-Portrait
 
-Document d'auto-cartographie exhaustive. Date de génération : 2026-05-27. État du repo : branche `main`, 245 commits, dernier commit `8277279` (2026-05-26).
+Document d'auto-cartographie exhaustive. Date de génération : 2026-05-27 (régénéré post-Phase 4). État du repo : branche `main`, 262 commits, dernier commit `becd80a` (2026-05-27).
 
 Remarque méthodologique : les numéros de ligne des composants `.claude/` ont été relevés en grande partie par sous-agents de lecture puis recoupés par échantillonnage (spot-check). Quand une affirmation provient d'une lecture indirecte non revérifiée caractère par caractère, c'est signalé. Les hooks, le `settings.json`, le code MCP et les métriques git ont été lus directement.
+
+**Identité recentrée (Phase 4)** : claude-forge n'est PAS un agent autonome. C'est un studio de **mémoire et apprentissage parfaits en session synchrone** — Raphael travaille TOUJOURS avec Claude, jamais en le laissant tourner seul. La thèse n'est pas l'automatisation sans surveillance (cf. Hermes Agent, comparé en Phase 4) mais le compounding maximal sous contrôle humain : une erreur faite une fois jamais deux, une décision tracée et réutilisée, un pattern capitalisé en doctrine, le tout validé par Raphael avant écriture. Voir section 16 (Avantages acquis vs Hermes) et [[avantages-acquis-claude-forge-vs-hermes]].
 
 ---
 
@@ -15,7 +17,7 @@ Remarque méthodologique : les numéros de ligne des composants `.claude/` ont �
 - **Créé le** : 31 mars 2026 (`CLAUDE.md:3`) ; premier commit git 2026-04-03 (`aab5cd4` "Initial commit: claude-forge - assistant personnel Claude Code").
 
 **Pitch en une phrase**
-claude-forge est le méta-outillage Claude Code personnel de Raphael : un ensemble d'agents, skills, hooks, rules et un vault de connaissances qui conseillent, créent, optimisent et capitalisent sur l'usage de Claude Code à travers tous ses projets.
+claude-forge est le méta-outillage Claude Code personnel de Raphael : un ensemble d'agents, skills, hooks, rules et un vault de connaissances qui conseillent, créent, optimisent et capitalisent sur l'usage de Claude Code à travers tous ses projets — au service d'une mémoire et d'un apprentissage parfaits en session synchrone, pas d'un agent qui tourne seul.
 
 **Pitch en un paragraphe**
 claude-forge est un projet "studio" qui ne produit pas d'application : il produit de la configuration Claude Code (agents, skills, hooks, CLAUDE.md) pour d'autres projets, et accumule la doctrine d'usage de Claude Code dans un vault Obsidian (`forge-brain`, 412 notes) interrogeable via un serveur MCP maison. Sa thèse centrale est le *compounding* : chaque erreur, chaque décision, chaque technique apprise est capitalisée dans le vault ou la mémoire pour ne jamais être réapprise. Il incarne une relation "Tony Stark / Jarvis" (`CLAUDE.md` section "Contrat Jarvis") où Claude est un partenaire proactif, pas un exécutant. Techniquement, c'est du Python (hooks + serveur MCP FastMCP/SQLite-FTS5) orchestré par des fichiers Markdown, ciblé Windows, portable cross-machine via le `py` launcher.
@@ -542,6 +544,9 @@ La boucle de feedback est explicite et outillée :
 - Agent : nouveau besoin via agent-creator, ou correction après audit.
 - CLAUDE.md : après chaque erreur comportementale, audit mensuel via `/forge-review`.
 
+**Self-improvement : contrôle vs autonomie (comparaison Hermes, Phase 4)**
+La différence de fond avec un agent self-improving autonome (Hermes Agent : fork LLM toutes les 10 itérations qui crée/réécrit des skills automatiquement, sans validation, notification après coup) est doctrinale : claude-forge place **Raphael dans la boucle avant écriture**. Le hook `learning-reminder` rappelle, Raphael réfléchit et capitalise. Conséquences pour le use case synchrone : capitalisation tracée (git, diff, CHANGELOG, log.md append-only), correctible en amont, avec le *pourquoi* et un *déclencheur de réactivation* — pas seulement la règle. Le prix : pas de couverture automatique (ce que Raphael oublie de capitaliser n'est pas rattrapé). Gap réel identifié en Phase 4, à combler par une capitalisation *proposée* (pas auto-appliquée) à `/done` — voir [[phase-4-comparaison-hermes-roadmap]] plan A3.
+
 ---
 
 ## 9. Portabilité
@@ -616,12 +621,15 @@ Le CLAUDE.md précise le périmètre réel : permissions cross-repo TOTALES (Rea
 
 ## 13. Métriques (git)
 
-- **Commits total** : 245
+- **Commits total** : 262
 - **Premier commit** : 2026-04-03 (`aab5cd4`)
-- **Dernier commit** : 2026-05-26 (`8277279`)
+- **Dernier commit** : 2026-05-27 (`becd80a`)
 - **Période** : ~8 semaines
-- **Fréquence par mois** : avril 2026 = 58 commits, mai 2026 = 187 commits (accélération forte en mai)
-- **Auteurs** : Raphael Picard uniquement (227 "Raphael Picard" + 18 "Raphael PICARD" = 245)
+- **Tests** : **207 verts** (101 hooks + 106 MCP), 0 régression. Progression Phase 1→3 : 90 → 207 (+130%). Mesuré 2026-05-27.
+- **Vault forge-brain** : 417 notes, 2717 wikilinks, 2462 aliases (graphe de connaissances, pas liste plate).
+- **Inventaire** : 11 agents, 47 skills, 9 hooks, 10 rules.
+- **Fréquence par mois** : avril 2026 = 58 commits, mai 2026 = accélération forte (chantiers tests + capitalisation).
+- **Auteurs** : Raphael Picard uniquement (casse variable "Raphael Picard" / "Raphael PICARD" = même personne).
 - **Fichiers les plus modifiés** :
   1. `vault/claude-forge/CHANGELOG.md` (40)
   2. `vault/claude-forge/0-Inbox/context-actuel.md` (37)
@@ -691,5 +699,28 @@ Non trivial. La densité doctrinale (10 rules, 47 skills, ~166 entrées de mémo
 - **`output/` et `data/`** : cycle de vie désormais documenté (section 12, P3.7) — répertoires jetables/régénérables gitignorés. Contenu non analysé fichier par fichier (hors périmètre versionné).
 - **Incohérence effort devils-advocate** : RÉSOLUE 2026-05-27 (confirmée par lecture directe, body corrigé). Cf section 12.
 - **`ia-lead-neoteem`** : plugin Cowork inventorié (7 skills) mais le contenu de ses SKILL.md n'a pas été lu en détail.
-- **Tests** : exécutés 2026-05-27 (pytest 9.0.3, Python 3.14.2) — **123/123 PASSED** (69 dans `mcp-forge-brain/tests/` + 54 dans `.claude/hooks/tests/`). 0 échec. Phase 2 (27 mai) a ajouté des suites adverses : `test_security_guard.py` (26 tests, ratio 5.3:1) et `test_delegate_guard.py` (29 tests, ratio 8:1, dont 1 regression guard sur le bug substring corrigé), portant la couverture hooks de 1 à 3 fichiers. Couverture encore partielle : 6 hooks restent sans tests (learning-reminder, session-health, skill-activation, proactivity-reminder, session-reminder, mcp-autostart) — ce sont des side-effects non-bloquants (notif, injection contexte), risque faible. Côté MCP, les tests couvrent indexer, find_by_property, lint_vault, move/delete_note, path normalization, read pagination, usage log, bulk/section/resolved.
+- **Tests** : exécutés 2026-05-27 — **207 PASSED** (101 dans `.claude/hooks/tests/` + 106 dans `mcp-forge-brain/tests/`). 0 échec. Phase 3 a porté la couverture hooks à 5 fichiers critiques (delegate-guard, security-guard, session-health, skill-activation, meta-commentary-detector) et le cœur MCP (search 4 stratégies FTS5/BM25, resolve, suggest, tags, property). Restent sans tests : side-effects non-bloquants (proactivity-reminder, session-reminder, mcp-autostart, learning-reminder) — risque faible. 2 bugs caractérisés ET fixés en Phase 2 (substring delegate-guard, ordre test). Ratio adverse ≥3:1 sur les hooks sécu.
+
+---
+
+## 16. Avantages acquis vs Hermes Agent (Phase 4)
+
+Comparaison code source réel (2026-05-27) avec Hermes Agent (Nous Research, 169 296 stars, MIT, agent autonome multi-canal). Source : `C:\temp\hermes-audit\HERMES_ARCHITECTURE.md`, [[phase-4-comparaison-hermes-roadmap]].
+
+**Verdict sur les axes prioritaires (mémoire / apprentissage / compounding)** : claude-forge gagne 8 axes, Hermes 3, 1 égalité doctrinale. claude-forge est **strictement supérieur sur la mémoire structurée, la conformité par construction, la doctrine versionnée, la traçabilité et la capitalisation décisionnelle**. Hermes mise sur l'automatisation autonome ; forge sur le contrôle structuré.
+
+**Avantages acquis (vérifiés code)** :
+- Mémoire cross-projet = graphe (417 notes / 2717 wikilinks / MCP FTS5 BM25) vs Hermes MEMORY.md plat 2200 caractères.
+- Conformité par construction : `delegate-guard.py` bloque (exit 2) — Hermes a zéro équivalent (`file_safety` est "NOT a security boundary", terminal contourne tout).
+- Doctrine versionnée + anti-drift (v3.3 + methode-pivoter-doctrine + pivot-check) vs politiques narratives Hermes.
+- Capitalisation décisionnelle = règle + pourquoi + déclencheur, versionnée git, vs Hermes overwrite atomique sans historique.
+- Humain dans la boucle by design (cohérent use case synchrone).
+
+**Où Hermes gagne (honnêteté)** :
+- `session_search` : recherche dans les transcripts de sessions passées (capacité mémoire que forge n'a pas en natif) — gap A1, P1.
+- Lifecycle/usage tracking des skills (curator stale→archive→prune) — gap A2, P2.
+- Vitesse de capitalisation (background review automatique) — à importer en mode *proposé* (gap A3, P1).
+- Ambition self-improvement (GEPA) — mais POC Phase 1/5 hors runtime, décliné (cf [[adr-gaps-hermes-declines-phase-4]]).
+
+**Gaps Hermes déclinés** (6, tous avec déclencheur de réactivation dans [[adr-gaps-hermes-declines-phase-4]]) : triggers async, background review autonome, self-evolution GEPA, Skills Hub public, sécurité supply-chain, communauté/portabilité/onboarding. Tous structurellement non pertinents pour le use case synchrone — asymétrie assumée, pas un déficit.
 - **Bugs trouvés Phase 2 (caractérisés, non masqués, tous deux CORRIGÉS)** : (1) `security-guard.py` n'avait pas de `main()` gardé → non testable par import ; corrigé (refactor minimal, comportement inchangé). (2) `delegate-guard.py` faisait un substring match sur `agent_id` → accordait le bypass à tout agent_id contenant un nom de spécialiste ; surface d'attaque faible (`agent_id` fixé par le harness) ; corrigé 2026-05-27 (suppression du substring, exact-match conservé), test de caractérisation inversé en regression guard `test_agent_id_substring_does_not_grant_bypass`. Vérifié E2E : faux bypass substring désormais bloqué (exit 2).
