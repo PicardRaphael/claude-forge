@@ -9,7 +9,7 @@ Protected targets (ONLY inside claude-forge project):
 Exceptions (bypass in order — first match wins):
   1. File is outside the claude-forge project directory → always allowed
   2. data.get("agent_type") contains a specialist → bypass
-  3. data.get("agent_id") contains a specialist name → bypass
+  3. data.get("agent_id") equals a specialist name → bypass
   4. CLAUDE_AGENT env var contains a specialist → bypass (legacy fallback)
   5. transcript_path present AND parsing reveals active sub-agent specialist → bypass
   6. Edit tool with both old_string and new_string < 20 chars → typo pass-through (warning)
@@ -139,11 +139,6 @@ def agent_bypass_active(data: dict) -> tuple[bool, str]:
     agent_id = data.get("agent_id", "")
     if agent_id in ALLOWED_SPECIALISTS:
         return True, f"agent_id={agent_id!r}"
-    # Also check if agent_id contains a specialist name as substring
-    for specialist in ALLOWED_SPECIALISTS:
-        if specialist in agent_id:
-            return True, f"agent_id contains {specialist!r} (agent_id={agent_id!r})"
-
     # Source 3: CLAUDE_AGENT env var (legacy fallback — always dead code per vault, kept for safety)
     claude_agent = os.environ.get("CLAUDE_AGENT", "")
     if claude_agent in ALLOWED_SPECIALISTS:

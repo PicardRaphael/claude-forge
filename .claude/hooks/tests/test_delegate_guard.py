@@ -17,7 +17,8 @@ WHAT THESE TESTS VERIFY:
   - Protected paths are detected across path variants (separators, casing,
     nesting) — adversarial path tricks.
   - Bypass logic: legitimate specialists pass; non-specialists are blocked.
-  - Known WEAKNESS (substring match on agent_id) is characterized, not hidden.
+  - Regression guard: the former substring-match-on-agent_id bug (fixed
+    2026-05-27) stays fixed — exact match only.
 
 WHAT THESE TESTS DO *NOT* VERIFY (out-of-scope by design):
   - Bash bypasses (echo > file, sed -i, tee, cp, python -c open(...,'w')):
@@ -189,20 +190,29 @@ def test_bypass_claude_agent_env_impostor():
 
 
 # ===========================================================================
-# KNOWN WEAKNESS (characterized, NOT hidden) — substring match on agent_id
+# REGRESSION GUARD — substring match on agent_id was a bug, now fixed
 # ===========================================================================
 
-def test_weakness_agent_id_substring_grants_bypass():
-    """BUG (characterized): delegate-guard.py L143-145 uses substring match on
-    agent_id. An arbitrary agent_id CONTAINING a specialist name as substring
-    is granted bypass. agent_id is set by the Anthropic harness (not user-
-    controllable), so the practical attack surface is low — but the substring
-    match is a real over-permissive bug. This test pins the CURRENT behavior;
-    when the hook is hardened to exact-match, flip this assertion.
+def test_agent_id_substring_does_not_grant_bypass():
+    """REGRESSION GUARD: an agent_id that merely CONTAINS a specialist name as
+    substring must NOT grant bypass — only an exact match does.
+
+    History: until 2026-05-27, delegate-guard had a substring match on agent_id
+    that granted bypass to any agent_id containing a specialist name (e.g.
+    'totally-unrelated-skill-creator-suffix'). Attack surface was low (agent_id
+    is set by the Anthropic harness, not user-controllable) but the match was
+    over-permissive. Hardened to exact-match. This test pins the FIXED behavior;
+    if it ever fails, the substring bug has been reintroduced.
     """
-    ok, src = agent_bypass_active({"agent_id": "totally-unrelated-skill-creator-suffix"})
-    assert ok is True  # current (buggy) behavior
-    assert "contains" in src
+    ok, _src = agent_bypass_active({"agent_id": "totally-unrelated-skill-creator-suffix"})
+    assert ok is False  # fixed: substring no longer bypasses
+
+
+def test_agent_id_exact_match_still_grants_bypass():
+    """Companion to the regression guard: an EXACT agent_id match still bypasses."""
+    ok, src = agent_bypass_active({"agent_id": "skill-creator"})
+    assert ok is True
+    assert "agent_id=" in src
 
 
 # ===========================================================================
