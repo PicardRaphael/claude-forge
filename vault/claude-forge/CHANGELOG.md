@@ -13,6 +13,14 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-27 — Audit transverse densité MCP write des 10 agents (flotte saine confirmée)
+
+- **Audit (lecture seule)** : les 10 agents restants (post-KILL `vault-maintainer`) classés selon densité d'écriture MCP vault. Résultat **0 candidat KILL/PIVOT** — `vault-maintainer` était bien le cas isolé. 5 rare (4 créateurs + responsable-ia), 4 spécial (repo-inspector/outcomes-grader read-only, python-dev/self-updater écriture filesystem), 1 rare/dégradé (devils-advocate, 1 `create_note` non bloquant).
+- **Nuance révélée** : le critère cible l'**écriture MCP vault** seule (`No such tool available` en sous-agent), PAS l'écriture filesystem `.claude/` via Write/Edit (qui fonctionne). Les 4 créateurs écrivent beaucoup mais sur le filesystem, leur `mcp__forge-brain__*` sert à la lecture des canoniques. Confondre les deux aurait produit 4 faux candidats KILL.
+- **Prévention structurelle** : ajout d'une question-réflexe dans `.claude/agents/agent-creator.md` (section « Avant de créer ») — « métier = N× écritures MCP vault en boucle ? → SKILL pas agent ». Ancre le critère en prévention plutôt qu'en audit récurrent (doctrine « gardes en écriture > scanners périodiques »).
+- **Capitalisation** : note canonique [[pattern-mcp-brief-then-direct]] enrichie (tableau write MCP vault vs filesystem + résultat audit 0/10) ; feedback mémoire `densite-mcp-write-vs-filesystem`.
+- **Source** : proposition Jarvis tracée au KILL vault-maintainer. Méthode A→B→C→D→E + advisor + STOP étape D. Merge agent (deny `git merge` absent des permissions globales, vérifié empiriquement).
+
 ## 2026-05-27 — Chantier C : sync leaders vault↔cc-news (single source of truth)
 
 - **Ajoutées (1)** : [[pattern-vault-source-unique-sync-mecanique]] (04-Techniques/patterns) — pattern forge : quand une liste vit dans le vault ET dans une skill consommatrice, le dossier vault est la source unique et un script régénère le bloc consommateur à la maintenance (entre marqueurs, idempotent, report des écarts non couverts), jamais au runtime.
