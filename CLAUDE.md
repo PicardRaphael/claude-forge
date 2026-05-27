@@ -54,7 +54,7 @@ Vault path : `vault/claude-forge/04-Techniques/claude-code/`
 Pivot doctrinal complet : **[[raisonnement-22mai-doctrine-vs-enforcement]]**
 
 - **Hooks** : lint / security / scope UNIQUEMENT. **JAMAIS workflow agentique** (architect-first, TDD strict, commit gates, markers TTL).
-- **Effort calibré (doctrine 26 mai 2026)** : `xhigh` pour exploration agentique multi-tours profonde (architect-deep, dev-lead, refactor-pg-function, project-auditor, project-analyzer). `high` pour comparatif structuré (graders, reviewers, designers, conseil). Sonnet supporte aussi effort — `medium` pour scan/maintenance/inspection mécanique (codebase-scanner Haiku candidate). `max` jamais en frontmatter, seulement ponctuel si mur. Doctrine Anthropic "xhigh partout" = biais tokens illimités, calibrer par TYPE de tâche réelle.
+- **Effort calibré (doctrine 26 mai 2026)** : `xhigh` pour exploration agentique multi-tours profonde (architect-deep, dev-lead, refactor-pg-function, project-auditor, project-analyzer). `high` pour comparatif structuré (graders, reviewers, designers, conseil). Sonnet supporte aussi effort — `medium` pour scan/maintenance/inspection mécanique (codebase-scanner Haiku candidate). `max` jamais en frontmatter, seulement ponctuel si mur. Calibrer par TYPE de tâche réelle.
 - **Modèles** : Sonnet exécution, Opus jugement.
 - **DA** : CONDITIONNEL ciblé sur livrables majeurs (skill réutilisée, agent orchestrant, archi). **Pas systématique**.
 - **Advisor** : AVANT travail substantiel (pas après). Après exploration, avant d'écrire / proposer.
@@ -74,7 +74,7 @@ Pivot doctrinal complet : **[[raisonnement-22mai-doctrine-vs-enforcement]]**
 - **/compact "garder le plan"** proactif à 70%
 - **Document & Clear** — dump plan dans un .md, /clear, nouvelle session lit le .md
 - **Délégation subagents pour recherche** — garder contexte principal propre
-- **"Give Claude a way to verify its output"** = tip #1 Boris
+- **"Give Claude a way to verify its output"**
 - **Compounding** — après chaque erreur, ajouter ici ou mémoire ou vault Knowledge
 
 ## Priorité des sources
@@ -94,6 +94,17 @@ JAMAIS invoquer plugin externe si skill forge couvre le sujet.
 - **Accès** : MCP forge-brain UNIQUEMENT (port 8091, FTS5, auto-start SessionStart)
 - **Format écriture** : skill `obsidian-markdown` (wikilinks, frontmatter, 4-6 aliases min, 2+ wikilinks)
 - JAMAIS Grep/Read/Glob/CLI Obsidian brut sur le vault
+
+## Mémoire
+
+@memory/MEMORY.md
+
+- **Emplacement** : `<repo>/memory/` (versionné git, portable cross-machine) — PAS `~/.claude/projects/`
+- **Lecture** : la ligne `@memory/MEMORY.md` ci-dessus charge `memory/MEMORY.md` à chaque session (résolution relative au fichier)
+- **Écriture** : /done écrit les feedbacks dans `<repo>/memory/` (chemin via `git rev-parse --show-toplevel`)
+- **Confidentialité** : items sensibles dans `memory/private/` ou `memory/*-private.md` (gitignored)
+- **1re session après clone** : dialogue d'approbation des imports — ne pas décliner, sinon imports désactivés silencieusement
+- Référence : [[decision-memoire-dans-le-repo]]
 
 ## Gotchas
 
