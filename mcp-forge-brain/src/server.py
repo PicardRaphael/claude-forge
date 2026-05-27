@@ -9,10 +9,14 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+import time
+
 from fastmcp import FastMCP
 from src.config import load_config
 from src.database import BrainDB
 from src.watcher import VaultWatcher
+from src.sessions_db import SessionDB
+from src.sessions_watcher import SessionWatcher
 from src.git_sync import GitSync
 from src.tools.brain import BrainTools, register_tools
 from src import usage_log
@@ -35,7 +39,18 @@ def create_app(config_path: Path | None = None) -> FastMCP:
 
     watcher = VaultWatcher(cfg.vault_path, db, cfg.excluded_dirs)
     git_sync = GitSync(cfg.vault_path, cfg.git)
-    brain_tools = BrainTools(db, cfg.vault_path, git_sync)
+
+    # --- Sessions transcript index (optional) ---
+    sessions_db = None
+    sessions_watcher = None
+    if cfg.sessions.enabled:
+        sessions_db = SessionDB(db._conn)  # noqa: SLF001 — share the vault connection
+        sessions_db.create_schema()
+        sessions_watcher = SessionWatcher(
+            cfg.sessions.path, sessions_db, cfg.sessions.include_subagents
+        )
+
+    brain_tools = BrainTools(db, cfg.vault_path, git_sync, sessions_db)
 
     # --- Initial vault index ---
     logger.info("Indexing vault: %s", cfg.vault_path)
@@ -44,6 +59,18 @@ def create_app(config_path: Path | None = None) -> FastMCP:
         "Indexed: %d added, %d modified, %d deleted",
         result.added, result.modified, result.deleted,
     )
+
+    # --- Initial sessions index (eager, with timing) ---
+    if sessions_watcher is not None:
+        logger.info("Indexing sessions: %s", cfg.sessions.path)
+        t0 = time.monotonic()
+        s_result = sessions_watcher.scan()
+        elapsed = time.monotonic() - t0
+        logger.info(
+            "Sessions indexed in %.2fs: %d files (+%d ~%d -%d), %d messages",
+            elapsed, s_result.added + s_result.modified,
+            s_result.added, s_result.modified, s_result.deleted, s_result.messages,
+        )
 
     # --- Lifespan: background loops (watcher poll, git pull, git push) ---
     @asynccontextmanager
@@ -63,6 +90,19 @@ def create_app(config_path: Path | None = None) -> FastMCP:
                         )
                 except Exception:
                     logger.exception("Watcher poll error")
+
+        async def _poll_sessions():
+            while True:
+                await asyncio.sleep(cfg.watcher.poll_interval_seconds)
+                try:
+                    r = sessions_watcher.scan()
+                    if r.added or r.modified or r.deleted:
+                        logger.info(
+                            "Sessions watcher: +%d ~%d -%d (%d msgs)",
+                            r.added, r.modified, r.deleted, r.messages,
+                        )
+                except Exception:
+                    logger.exception("Sessions poll error")
 
         async def _git_pull():
             while True:
@@ -89,6 +129,8 @@ def create_app(config_path: Path | None = None) -> FastMCP:
                     logger.exception("Git push error")
 
         tasks.append(asyncio.create_task(_poll_watcher()))
+        if sessions_watcher is not None:
+            tasks.append(asyncio.create_task(_poll_sessions()))
         tasks.append(asyncio.create_task(_git_pull()))
         tasks.append(asyncio.create_task(_git_push()))
         logger.info(

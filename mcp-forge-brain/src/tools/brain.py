@@ -143,10 +143,34 @@ def _normalize_path(vault: Path, path: str) -> tuple[str, str | None]:
 
 
 class BrainTools:
-    def __init__(self, db: BrainDB, vault_path: Path, git_sync=None):
+    def __init__(self, db: BrainDB, vault_path: Path, git_sync=None, sessions_db=None):
         self._db = db
         self._vault = vault_path
         self._git = git_sync
+        self._sessions = sessions_db
+
+    def search_sessions(
+        self,
+        query: str,
+        limit: int = 20,
+        project: str = "",
+        role: str = "",
+        since: str = "",
+    ) -> str:
+        if self._sessions is None:
+            return "Recherche transcripts desactivee (sessions.enabled=false dans config.yaml)."
+        results = self._sessions.search(query, limit=limit, project=project, role=role, since=since)
+        if not results:
+            return f"Aucun message de session trouve pour '{query}'."
+        lines = []
+        for r in results:
+            ts = (r.get("timestamp") or "")[:19]
+            lines.append(
+                f"### [{r['role']}] {ts} — {r['project']}\n"
+                f"{r['snippet']}\n"
+                f"_session {r['session_id'][:8]} · {r['path']}_\n"
+            )
+        return "\n".join(lines)
 
     def search_brain(self, query: str, limit: int = 5, context: bool = True) -> str:
         results = self._db.search(query, limit=limit, context=context)
@@ -1086,3 +1110,26 @@ def register_tools(mcp, tools: BrainTools):
         for tool, s in sorted_tools:
             lines.append(f"| {tool} | {s['calls']} | {s['total_ms']} | {s['errors']} | {s['avg_result_chars']} |")
         return "\n".join(lines)
+
+    @_tool
+    def search_sessions(
+        query: str,
+        limit: int = 20,
+        project: str = "",
+        role: str = "",
+        since: str = "",
+    ) -> str:
+        """Recherche dans l'historique brut des sessions Claude Code passees (transcripts .jsonl).
+
+        Complement de search_brain : search_brain cherche le savoir CAPITALISE dans le vault,
+        search_sessions cherche ce qui s'est dit en conversation mais n'a pas ete capitalise
+        ("qu'a-t-on dit la semaine derniere sur X").
+
+        Args:
+            query: terme de recherche (FTS plein-texte sur le contenu des messages)
+            limit: nombre max de resultats (default 20)
+            project: filtre par nom de projet encode (ex: "claude-forge", "ia-back"). Vide = tous.
+            role: filtre par role ("user" ou "assistant"). Vide = les deux.
+            since: filtre temporel ISO (ex: "2026-05-20"). Vide = pas de borne.
+        """
+        return tools.search_sessions(query, limit, project, role, since)

@@ -33,6 +33,13 @@ class FTSConfig:
 
 
 @dataclass
+class SessionsConfig:
+    enabled: bool = False
+    path: Path = field(default_factory=lambda: Path.home() / ".claude" / "projects")
+    include_subagents: bool = False
+
+
+@dataclass
 class AppConfig:
     vault_path: Path = field(default_factory=lambda: Path("/data/neoteem-brain"))
     db_path: Path = field(default_factory=lambda: Path("/data/brain.db"))
@@ -40,6 +47,7 @@ class AppConfig:
     git: GitConfig = field(default_factory=GitConfig)
     watcher: WatcherConfig = field(default_factory=WatcherConfig)
     fts: FTSConfig = field(default_factory=FTSConfig)
+    sessions: SessionsConfig = field(default_factory=SessionsConfig)
     excluded_dirs: list[str] = field(
         default_factory=lambda: [
             ".obsidian", ".claude", "Templates", "Daily",
@@ -57,6 +65,9 @@ def load_config(path: Path) -> AppConfig:
     watcher_raw = raw.get("watcher", {})
     fts_raw = raw.get("fts", {})
     weights_raw = fts_raw.get("weights", {})
+    sessions_raw = dict(raw.get("sessions", {}))
+    if "path" in sessions_raw:
+        sessions_raw["path"] = Path(sessions_raw["path"]).expanduser()
     return AppConfig(
         vault_path=Path(raw["vault_path"]),
         db_path=Path(raw["db_path"]),
@@ -64,6 +75,7 @@ def load_config(path: Path) -> AppConfig:
         git=GitConfig(**git_raw),
         watcher=WatcherConfig(**watcher_raw),
         fts=FTSConfig(weights=FTSWeights(**weights_raw)),
+        sessions=SessionsConfig(**sessions_raw),
         excluded_dirs=raw.get("excluded_dirs", [
             ".obsidian", ".claude", "Templates", "Daily",
             "plugin", "claude-chat-plugins", "doc", "mcp-obsidian-brain",

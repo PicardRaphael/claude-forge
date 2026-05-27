@@ -12,6 +12,11 @@ git:
 watcher:
   poll_interval_seconds: 30
 
+sessions:
+  enabled: true
+  path: ~/.claude/projects
+  include_subagents: false
+
 fts:
   weights:
     file_stem: 10.0
