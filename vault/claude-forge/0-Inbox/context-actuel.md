@@ -10,25 +10,25 @@ tags: ["#type/context", "#meta/working-memory"]
 ---
 
 ## Phase actuelle
-**Système de maintenance MEMORY.md — LIVRÉ (2026-05-27).** Chantier A (fondation + dette) + Chantier B (skill `/clean-memory`) + run réel (3 fusions). Couche Python Jaccard initialement prévue puis **coupée** (verdict advisor + preuve : 10 orphelins détectés sans Jaccard = enforcement-théâtre sur corpus court/homogène). MEMORY.md 246→243L, feedbacks racine 196→193, 10 fichiers archivés dans `_archive/2026-05/`. Mergé sur main (`116246a`), branche `chantier-memory-maintenance` supprimée. 319 tests verts (176 hooks + 143 MCP) inchangés. Note canonique [[pattern-maintenance-hybride-corpus-accumulatif]] créée.
+**Hygiène permissions `settings.local.json` — LIVRÉ (2026-05-27), commits en attente validation Raphael.** Épuration du fichier perso gitignored : 48→11 entrées allow. Le brief visait `settings.json` versionné mais celui-ci est discipliné (11 hooks vivants, 0 orphelin) — la dette ad-hoc était dans le local. 25 SAFE remove + 13 MCP redondants (couverts par `enableAllProjectMcpServers:true` au niveau tool, prouvé empiriquement). Backup `.claude/_backups/` (gitignored). settings.json versionné NON touché (option 2). 319 tests baseline inchangés (audit, rien côté tests).
 
-## Dernière session (2026-05-27) — Maintenance MEMORY.md
+## Dernière session (2026-05-27) — Nettoyage permissions settings.local.json
 ### Décisions prises
-- **Couper la couche Python Jaccard** (Q1) : sur corpus court+homogène, le LLM regroupe sémantiquement mieux qu'une heuristique lexicale. Chantier C (Python) tracé conditionnel — réactiver SEULEMENT si l'usage de `/clean-memory` montre que le LLM rate systématiquement des clusters. Capitalisé : [[llm-lit-court-homogene-pas-couche-deterministe]].
-- **Architecture archive 3 niveaux** : `MEMORY.md` (canonique vivante) + `_archive/YYYY-MM/` (append-only sacré, `git mv`) + `MEMORY-archive-log.md` (journal append-only, rollback par opération).
-- **Skill `/clean-memory`** (309L, 0 script) : analyse LLM 4 sections (A doublons / B amendements / C ambigus à NE PAS fusionner / D dormants) + gate humain `[v]/[m]/[i]` par section (`[m]` anti tout-ou-rien). Section D : non-cité = nécessaire mais NON suffisant (57% du vault non wikilinké = la norme).
-- **3 fusions validées** : A1 `verifier-claims-empiriquement` (audit-claims + sub-agent-claim, aliases pour 8+2 backlinks), A2 `tests-adverses-hooks-secu` (obligatoires + ratio-3-1, 3 backlinks), A3 `jarvis-innovator` absorbe `bras-droit`. A4 ignoré (parent/spécialisation), C1/C2 séparés (3 angles distincts / prescriptions opposées).
-- **10 orphelins traités** (Chantier A) : 5 archivés (obsolètes doctrine 22 mai + cross-repo + hook supprimé) + 5 ré-indexés.
+- **Périmètre : local seul** (AskUserQuestion). Le brief désignait `settings.json` mais la cartographie A a renversé la prémisse : versionné = discipliné, dette dans `settings.local.json`. Capitalisé : [[brief-premisse-fausse-verifier-avant-executer]].
+- **13 MCP retirés après test empirique** (pas par inférence) : retrait `list_notes` + appel → succès sans prompt → `enableAllProjectMcpServers:true` couvre au tool-level. Capitalisé : [[enableallprojectmcp-couvre-tool-level]].
+- **Backup hors-versionné** `.claude/_backups/` (choix Raphael : incohérent d'archiver un fichier perso gitignored dans memory/ versionné).
 
 ### Faits empiriques
-- En mémoire `memory/`, pas de résolveur Obsidian : un `[[slug]]` est du texte. « Préserver un backlink » = mettre l'ancien slug en `aliases:` du méta (findability par grep/recall), pas une vraie résolution.
-- `Measure-Object -Line` (PowerShell) peut sous-compter vs `wc -l` (SKILL.md : 219 vs 309). La "2e occurrence sub-agent-claim-sans-empirie" annoncée s'est révélée un FAUX POSITIF de ma part (le sub-agent avait raison, 309L) — instance de [[subagent-audit-category-error]]. Rien à tracker.
+- Le chiffre de base réel était **48** entrées (le « 51 » de ma cartographie A était une estimation visuelle erronée, corrigée par `comm` sur le backup). Corrigé honnêtement plutôt que propagé — c'est exactement le sujet du feedback capitalisé.
+- **Re-sédimentation MCP observée** : le harness ré-ajoute l'entrée tool au `allow` après chaque appel MCP (`search_brain`, `append_note` ré-apparus en cours de session). Le retrait réduit le bruit à l'instant T mais certaines repoussent à l'usage. Pas une régression (0 prompt), nettoyage périodique cosmétique.
+- Les `cp outcomes-test → ia_back/neo_ia` étaient des one-shot mortes (fichiers cibles vérifiés présents = déploiement terminé).
 
 ### Prochaines étapes
-1. **/clear**, puis bilan suite du plan global.
-2. `/clean-memory` réutilisable à la demande (ou périodiquement) sur MEMORY.md.
+1. **Validation Raphael** des modifs versionnées (.gitignore + vault CHANGELOG/log + memory) → commits groupés. settings.local.json gitignored = aucun commit.
+2. **/clear**, puis suite du plan global.
 
 ## Fils ouverts (repris des sessions antérieures, toujours valides)
+- **Dette tracée — Re-sédimentation MCP settings.local** : observation 1-2 sessions futures pour mesurer empiriquement. Si entrées `mcp__forge-brain__*` repoussent dans le `allow` → investigation watcher comportement harness. Si elles ne repoussent pas → soldé (effet de bord du watcher en session active). Cf [[enableallprojectmcp-couvre-tool-level]].
 - **Dette MCP alias ambigu** — 5e occurrence (27 mai). Hook `mcp-alias-guard.py` ne matche que `append_note` → étendre à `insert_section`/`read_section`/`update_note`. Réactiver si 6e occurrence ou si on traite la dette PowerShell cmdlets. Cf [[feedback_mcp_alias_ambigu_chemin_exact]].
 - **GAP sécu cmdlets PowerShell-natifs destructeurs** : `security-guard.py` ne couvre que POSIX/git. `Remove-Item -Recurse -Force`, `Stop-Process`, `Clear-Content` non détectés. Déclencheur : session sécu dédiée ou incident.
 - **Candidature hook `doctrinal-claim-guard`** (tracée, 1re occurrence) : warning PreToolUse sur affirmation de garde non prouvée dans CLAUDE.md/vault. Réactiver à la 2e occurrence. Cf [[feedback_diagnostic_empirique_avant_affirmer_garde]].

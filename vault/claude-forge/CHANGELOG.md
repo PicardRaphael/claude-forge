@@ -13,6 +13,14 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-27 — Hygiène permissions : settings.local.json épuré de 48 à 11 entrées allow
+
+Palier d'hygiène repo. Le brief visait `settings.json` (« ~66 lignes de permissions ad-hoc accumulées »), mais la cartographie empirique a renversé la prémisse : le fichier versionné est discipliné — 11 hooks tous vivants, chaque permission tracée en commit, seulement 23 lignes de permissions sur 163. La vraie dette ad-hoc vivait dans `settings.local.json` (gitignored, perso), que le brief ne mentionnait même pas. Arbitrage de périmètre via AskUserQuestion → on cible le local seul, on ne touche pas le versionné.
+
+Sur 48 entrées allow réelles (le « 51 » initial était une estimation visuelle, corrigée par `comm` sur le backup) : 25 supprimées en SAFE remove (doublons du versionné, l'anti-pattern `cd && git` qui contredit la doctrine `git -C`, 18 commandes one-shot mortes dont les `cp outcomes-test` d'un déploiement déjà fait, et un `Read` à double-slash résiduel), puis 13 entrées MCP `mcp__forge-brain__*`. Ces dernières étaient en arbitrage : un test empirique (retirer `list_notes`, l'appeler, observer) a prouvé que `enableAllProjectMcpServers: true` couvre les outils au niveau tool sans prompt — donc redondantes. Nuance observée en direct : le harness re-persiste l'entrée tool dans le allow après chaque appel MCP (re-sédimentation cosmétique à re-nettoyer périodiquement, pas une régression).
+
+Backup hors-versionné dans `.claude/_backups/` (ajouté au .gitignore). `settings.local.json` étant gitignored, aucun commit ne le concerne — seuls le .gitignore, le vault et la mémoire sont versionnés. Deux apprentissages capitalisés : un brief peut poser une prémisse factuelle fausse (vérifier le périmètre réel avant d'exécuter), et la couverture tool-level d'`enableAllProjectMcpServers`.
+
 ## 2026-05-27 — Doctrine git corrigée : le deny `git merge` global n'a jamais existé (hypothèse C)
 
 - **Diagnostic empirique 5 couches** : aucun deny `git merge` nulle part. `~/.claude/settings.json` = 12 entrées deny toutes destructives OS (`rm -rf`, `format`, `mkfs`, `shutdown`, `taskkill`, `kill -9`), zéro git. `settings.local.json` global absent. Repo `.claude/settings.json` + `.local.json` = vides. `grep -i merge .claude/hooks/` = aucun match. Le « branch first » est NATIF au harness Claude Code, pas une permission.
