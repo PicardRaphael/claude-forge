@@ -61,6 +61,8 @@ Eliminer de chaque liste :
 - Tout ce qui est deja documente dans CLAUDE.md
 - Details ephemeres de la session courante sans valeur future
 
+Chaque item qui passe le filtre devient **candidat a un bloc de proposition** genere a l'etape 3.
+
 ---
 
 ## Etape 2 -- Verification de coherence
@@ -92,96 +94,105 @@ Si une note existante couvre l'item : **signaler le conflit** et proposer une mi
 
 ---
 
-## Etape 3 -- Mise a jour memoire
+## Etape 3 -- Generation des blocs de proposition
 
-### 3a -- Localiser le dossier memoire
+Pour chaque item qui a passe le filtre et n'est pas un doublon (verifie a l'etape 2), generer un **bloc pret-a-ecrire** selon son type.
 
-```bash
-git rev-parse --show-toplevel 2>/dev/null
-```
+Mapping des items vers les 3 types de blocs : erreur technique → feedback ; bug non fixe → feedback ; preference detectee → feedback ; decision structurante / pivot / trade-off → ADR ; fait technique non documente → note vault.
 
-Le dossier memoire est a :
-`~/.claude/projects/<project-id-encode>/memory/`
+### Type 1 -- Bloc feedback memoire
 
-Ou `<project-id-encode>` = chemin du projet avec `/` et espaces replaces par `-`
-(ex : `C--Users-raphael-picard-neote-Documents-claude-forge`).
-
-Si le chemin n'est pas accessible : noter "memoire non accessible" et continuer avec le vault.
-
-### 3b -- Creer ou mettre a jour les fichiers memoire
-
-Pour chaque item retenu :
-
-**Feedback** (preferences, erreurs a eviter) -> `feedback_<sujet>.md`
-**Projet** (decisions, contexte en cours) -> `project_<sujet>.md`
-**Reference** (faits techniques reutilisables) -> `reference_<sujet>.md`
-
-Format obligatoire :
 ```markdown
 ---
-name: <nom court>
-description: <une ligne -- ce que ce fichier contient>
-type: feedback | project | reference
+name: <slug-kebab>
+description: "<1 ligne specifique>"
+metadata:
+  type: feedback
 ---
 
-<contenu>
+<fait ou regle>
 
 **Why:** <raison -- incident passe, preference forte, contrainte>
 **How to apply:** <quand cette regle s'applique>
 ```
 
-Regle dedoublonnage : avant de creer un nouveau fichier, verifier qu'aucun fichier existant ne couvre deja ce sujet.
+Chemin cible : `~/.claude/projects/<project-id>/memory/feedback_<slug>.md`
+Ligne MEMORY.md a ajouter : `- [Titre lisible](feedback_<slug>.md) -- description (~150 chars)`
 
-### 3c -- Mettre a jour MEMORY.md
+### Type 2 -- Bloc note vault
 
-Si un nouveau fichier a ete cree, ajouter **une seule ligne** dans la section appropriee de MEMORY.md :
+Utiliser la syntaxe Obsidian (wikilinks `[[Note]]`, frontmatter complet, aliases 4-6, tags 2+).
+
+```markdown
+---
+titre: "<Titre lisible>"
+resume: "<1 phrase specifique>"
+aliases: ["<alias1>", "<alias2>", "<alias3>", "<alias4>"]
+type: erreur | technique | knowledge
+derniere-maj: YYYY-MM-DD
+auteur: claude
+tags: ["#type/<type>", "#domaine/<domaine>"]
+---
+
+<body avec wikilinks vers notes liees>
 ```
-- [nom-lisible](nom-fichier.md) -- description courte en une ligne (~150 chars max)
+
+Chemin cible selon le contenu : erreur → `vault/claude-forge/Knowledge/erreurs/<slug>.md` ; fait technique → `vault/claude-forge/04-Techniques/<sous-dossier>/<slug>.md` ; synthese → `vault/claude-forge/Knowledge/syntheses/<slug>.md`.
+
+Si une note similaire existe (detectee a l'etape 2b), le bloc propose est un **amendement** : lire la note existante via `read_note`, proposer uniquement le passage a ajouter.
+
+### Type 3 -- Bloc ADR (arbitrage / pivot / decision structurante)
+
+```markdown
+## Statut : accepte | <date>
+
+## Contexte
+<situation qui a force la decision>
+
+## Options envisagees
+<liste des alternatives>
+
+## Decision
+<choix retenu>
+
+## Consequences
+<impacts previsibles>
+
+## Declencheur de reactivation
+<conditions qui justifieraient de revoir cette decision>
 ```
 
-Lire MEMORY.md avant de modifier pour verifier qu'aucun doublon n'existe.
+Chemin cible : `vault/claude-forge/Knowledge/decisions/decision-<slug>.md` (ou `Knowledge/raisonnements/` si c'est un raisonnement multi-etapes plutot qu'une decision tranchee).
 
 ---
 
-## Etape 4 -- Mise a jour vault (si applicable)
+## Etape 4 -- Boucle de validation item par item
 
-Vault a mettre a jour seulement si les faits ou erreurs sont **reutilisables au-dela de cette session** et **non couverts par une note existante**.
+Presenter chaque bloc **un par un**. Ne rien ecrire avant validation explicite.
 
-### Seuil pour creer une note vault
+Pour chaque bloc :
 
-Creer une note vault si :
-- Une erreur est susceptible de se reproduire dans d'autres projets
-- Un fait technique est une decouverte non-documentee (feature, limitation, pattern)
-- Une exploration a produit un resultat non-evident
-
-Ne pas creer de note vault si :
-- L'info est specifique a une decision ponctuelle
-- Elle sera obsolete en < 7 jours
-- Elle est deja dans MEMORY.md
-
-### Creer une note vault
-
-Lire le template approprie avant de creer :
-```bash
-cat vault/claude-forge/Templates/knowledge.md 2>/dev/null
+```
+Type : [feedback / note vault / ADR]
+Chemin cible : [chemin complet]
+---
+[contenu du bloc]
+---
+[v]alider tel quel  [m]odifier puis valider  [i]gnorer
 ```
 
-Chemin selon le type :
-- Erreur -> `vault/claude-forge/Knowledge/erreurs/<slug>.md`
-- Fait technique -> `vault/claude-forge/04-Techniques/<sous-dossier>/<slug>.md`
-- Synthese -> `vault/claude-forge/Knowledge/syntheses/<slug>.md`
-- Contexte projet (decision, etat) -> `vault/claude-forge/1-Projets/<nom-projet>/<slug>.md` (template `context-projet`)
-- Contexte casquette (preference vie) -> `vault/claude-forge/2-Casquettes/<slug>.md` (template `context-casquette`)
-- Capture rapide (a trier) -> `vault/claude-forge/0-Inbox/<slug>.md`
+- `v` --> ecrire immediatement, passer au suivant
+- `m` --> attendre la version modifiee par l'utilisateur, puis ecrire, passer au suivant
+- `i` --> ne rien ecrire, passer au suivant
 
-**Creer avec `Write`** (jamais `obsidian create` -- les colons YAML cassent le parser CLI).
+**Ecriture memoire** (apres `v` ou `m`) :
+- `Write` le fichier `feedback_<slug>.md` (jamais obsidian create)
+- Lire MEMORY.md, verifier absence de doublon, puis ajouter la ligne index en section appropriee
 
-Mettre a jour `derniere-maj` apres creation :
-```
-forge-brain:update_property  file="<nom-note>"  name="derniere-maj"  value="YYYY-MM-DD"
-```
-
-Lier au MOC correspondant si une note vault est creee.
+**Ecriture vault** (apres `v` ou `m`) :
+- `Write` la note vault (jamais CLI Obsidian -- colons YAML cassent le parser)
+- `forge-brain:update_property  file="<nom-note>"  name="derniere-maj"  value="YYYY-MM-DD"`
+- Lier au MOC correspondant si note creee
 
 ---
 
@@ -192,22 +203,13 @@ Afficher un resume structure :
 ```
 ## Session Done -- [date du jour]
 
-### Decisions (N)
-- [decision] --> memorisee dans [feedback_xxx.md] / non memorisee (specifique)
-
-### Faits appris (N)
-- [fait] --> vault [note] / memoire [reference_xxx.md] / deja documente
-
-### Preferences detectees (N)
-- [preference] --> [feedback_xxx.md] mis a jour / cree
-
-### Erreurs (N)
-- [erreur] --> [feedback_xxx.md] + vault [Knowledge/erreurs/xxx.md]
+### Blocs proposes : N
+- Valides : N  |  Modifies : N  |  Ignores : N
 
 ### Memoire
 - Crees : [liste fichiers]
 - Mis a jour : [liste fichiers]
-- Ignores (doublons) : [N items]
+- Ignores (doublons ou [i]) : [N items]
 
 ### Vault
 - Crees : [liste notes]
@@ -275,6 +277,10 @@ Cette note est la **working memory** -- ce que Jarvis doit savoir au reveil. `/r
 - **Auto-trigger inexistant** -- cette skill ne s'auto-declenche pas en fin de session. Un Stop hook separe serait necessaire (hors scope).
 - **`/done` != `/recap`** -- `/recap` = snapshot etat du projet en DEBUT de session (git, vault, memoire). `/done` = metacognition en FIN de session (extraction et capitalisation de ce qui s'est passe). Les deux sont complementaires, pas redondants.
 - **Deduplication avant ecriture** -- toujours lire MEMORY.md et les feedbacks existants avant de creer un nouveau fichier memoire.
+- **Sur-generalisation** -- 1 seule occurrence = feedback ponctuel. Ne jamais formuler une regle a partir d'un seul evenement.
+- **Doublon detecte = amendement, pas creation** -- si search_brain retourne une note similaire, lire la note via `read_note`, proposer un ajout, pas un nouveau fichier.
+- **"Rien a proposer" est valide** -- si la session n'a rien produit de capitalisable, le dire honnetement. Ne pas forcer des blocs.
+- **Jamais d'ecriture sans validation explicite** -- la gate [v]/[m]/[i] est obligatoire pour chaque bloc. L'humain est dans la boucle.
 
 ---
 
