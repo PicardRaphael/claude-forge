@@ -6,6 +6,7 @@ allowed-tools: WebSearch, WebFetch, Read, Write, Agent, mcp__forge-brain__*
 argument-hint: "domaine ou sujet (ex: rag, agents, fine-tuning, concurrents, claude-code, prompt, tout)"
 skills:
   - x-read
+  - doctrine-impact-check
 ---
 
 # cc-news — Veille IA & Claude Code
@@ -109,6 +110,7 @@ Synthétiser avec le format de references/format-reponse.md.
 5. Vérifier les dépréciations et breaking changes
 6. Résumer les nouveautés à l'utilisateur (format references/format-reponse.md)
 7. **Capitaliser dans le vault forge-brain** (obligatoire, pas optionnel) — Si une nouvelle version CC est découverte, mettre à jour la date de référence et la version dans ce SKILL.md (ligne 3 description + ligne 11 body).
+8. **Doctrine impact check** (sur les findings MAJEURS uniquement) — Pour chaque finding majeur d'un leader reconnu (05-Leaders/) ou d'Anthropic officiel issu de ce run, invoquer la skill `doctrine-impact-check` avec le finding (claim + source + URL) pour le croiser avec la doctrine canonique forge. PAS pour tout finding (anti-cascade : un run cc-news peut produire 30 findings, seuls les findings à fort crédit qui touchent une doctrine méritent le croisement). La skill produit un verdict INFO / DOCTRINE_PIVOT_CANDIDATE / DOCTRINE_REINFORCE avec gate humaine `[v]/[m]/[i]`.
 
 ### Fallback X/Twitter
 
@@ -157,3 +159,4 @@ Source canonique : [[pattern-mcp-brief-then-direct]] vault forge.
 - **Ne pas hardcoder l'année dans les queries** — les reference files n'ont pas "2026" dans leurs queries ; la date de référence dans ce fichier suffit.
 - **Si un agent ne retourne rien** — relancer le domaine individuellement plutôt que l'ignorer. Un scan incomplet doit être signalé.
 - **X/Twitter inaccessible via Defuddle/WebFetch** — toujours déléguer à la skill `x-read` (utilise cookies du compte authentifié). Si x-read pas dispo → demander coller le contenu à l'utilisateur, ne pas abandonner la source.
+- **Étape 8 sélective** — invoquer `doctrine-impact-check` seulement sur findings majeurs (leader/Anthropic), jamais sur tout finding (anti-cascade fatigue de validation).
