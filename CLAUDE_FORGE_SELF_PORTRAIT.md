@@ -601,19 +601,16 @@ Le CLAUDE.md précise le périmètre réel : permissions cross-repo TOTALES (Rea
 
 ## 12. Points faibles / zones floues
 
-- **Drift documentaire majeur — agents fantômes** : `project-analyzer`, `project-auditor` et `codebase-scanner` ont été supprimés le 2026-05-26 (commit `8277279`), fusionnés dans `repo-inspector`. MAIS :
-  - Les rules `comportement-proactif.md` et `sequence-canonique-modification.md` (injectées via CLAUDE.md) référencent encore abondamment `project-analyzer`, `project-auditor`, `codebase-scanner`, le "quartet", et `analyze-project` comme s'ils existaient. Idem `config-guardian` / `cross-repo-propagation` mentionnent project-auditor.
-  - Les dossiers `.claude/agent-memory/project-analyzer/` et `project-auditor/` subsistent (mémoire orpheline).
-  - C'est l'incohérence la plus importante du repo : la doctrine de routing pointe vers des agents inexistants.
-- **Discordance du nombre d'outils MCP** : CLAUDE.md dit "21", `forge-brain-proactive.md` dit "19 outils v1.3", le code en expose 21. La doc se contredit.
-- **README obsolète** : `README.md` décrit 5 agents et 7 skills (état d'avril) alors qu'il y en a 11 et 47 ; il propose `cp -r` (Unix) sur un projet Windows ; il mentionne `project-analyzer` supprimé et `/batch` (commande non vérifiée). La doc de surface ne reflète plus le repo.
-- **Skills jamais clairement invoquées** : les 7 skills `cc-*-ref` sont en `user-invokable: false` — elles dépendent entièrement de leur description pour être chargées (risque d'orphelinat de facto, cf `memory/feedback_non_invokable_skills_orphan.md`). `python-ref` est aussi `false`.
-- **Assets référencés manquants** : `json-canvas/SKILL.md` référence `references/EXAMPLES.md` qui n'existe pas dans le dossier.
-- **Coquille permissions** : `Bash(taskkill *),` (virgule parasite) dans settings.json.
-- **Incohérence frontmatter devils-advocate (confirmée)** : le frontmatter déclare `effort: high` (ligne 10) mais le body affirme `effort: xhigh` (ligne 21 : "la pensée adversariale exige une profondeur maximale"). Le frontmatter fait foi → l'agent tourne en `high`, le body est trompeur.
-- **`.pyc` versionnés (confirmé)** : 2 fichiers `__pycache__` sont trackés par git malgré le `.gitignore` (probablement ajoutés avant la règle d'exclusion). À retirer via `git rm --cached`.
+- **[RÉSOLU 2026-05-26, commit `8277279` + fix conformité] Drift documentaire — agents fantômes** : `project-analyzer`, `project-auditor` et `codebase-scanner` ont été fusionnés dans `repo-inspector` (modes analyze/audit/scan). Les rules `comportement-proactif.md`, `sequence-canonique-modification.md`, `vault-consultation-protocol.md` et `forge-review/references/baseline.md` ont été corrigées ; les dossiers `agent-memory/project-analyzer/` et `project-auditor/` migrés vers `repo-inspector/`. Plus aucune référence aux agents supprimés dans les fichiers vivants.
+- **[RÉSOLU 2026-05-26] Discordance du nombre d'outils MCP** : `forge-brain-proactive.md` aligné sur 21 outils (cohérent avec CLAUDE.md et le code).
+- **[RÉSOLU 2026-05-26] README obsolète** : réécrit — 11 agents / 47 skills, install Windows (xcopy), pointeur vers ce self-portrait, plus aucune mention de `project-analyzer` ni `/batch`.
+- **[RÉSOLU 2026-05-27, P2.6] Skills `cc-*-ref` en `user-invokable: false`** : décision = MAINTENIR. Investigation : les 6 skills `cc-*-ref` (+ `python-ref`) ne sont PAS orphelines — chacune est référencée dans 2 à 4 agents créateurs (agent-creator, skill-creator, hook-creator, claudemd-optimizer, self-updater, repo-inspector) à la fois en frontmatter `skills:` ET dans le body avec instruction d'usage, plus auto-trigger via descriptions fortes ("ALWAYS load when…"). `user-invokable: false` est le réglage canonique correct pour une bibliothèque de référence chargée par un parent — les basculer en `true` serait une régression (l'utilisateur ne tape pas `/cc-agents-ref`). Doctrine déjà capitalisée dans `comment-creer-skill` + `mcp-vs-skills-doctrine`.
+- **[RÉSOLU 2026-05-27, P1.4] Asset référencé manquant** : `json-canvas/SKILL.md` L239 référençait `references/EXAMPLES.md`, absent de notre copie. Restauré verbatim depuis l'upstream `kepano/obsidian-skills` (6476 octets, identique) — pas de fabrication locale.
+- **[RÉSOLU 2026-05-27, P0.2] Coquille permissions** : virgule parasite `Bash(taskkill *),` retirée dans settings.json.
+- **[RÉSOLU 2026-05-27, P0.1] Incohérence frontmatter devils-advocate** : le body affirmait `effort: xhigh` contre `effort: high` en frontmatter. Lignes de body supprimées (le frontmatter fait foi). Règle "frontmatter vs body : alignement obligatoire" capitalisée dans `comment-creer-agent`.
+- **[FAUX POSITIF — non reproduit 2026-05-27] `.pyc` versionnés** : `git ls-files` ne retourne aucun `.pyc`. Les fichiers `__pycache__` du snapshot initial étaient déjà dé-trackés (staged `D`) puis poussés dans `2cef483`. Le `.gitignore` couvre `__pycache__/` et `*.pyc`. Rien à faire.
 - **Dépendances minimes, pas obsolètes** : fastmcp>=2.0, pyyaml>=6.0 — récentes. Pas de dette de dépendances détectée.
-- **Question ouverte** : `data/`, `output/` contiennent des artefacts non documentés dans le README (claude-switcher, feedback-triage-plugin…). Leur cycle de vie (gardés ? jetables ?) n'est pas spécifié.
+- **[RÉSOLU 2026-05-27, P3.7] `data/` et `output/`** : les deux sont gitignorés (`.gitignore` L19, L26) — **jetables/régénérables, jamais versionnés**. `output/` = livrables de travail ad-hoc que forge fabrique pour d'autres repos de l'écosystème (claude-switcher, feedback-triage-plugin, support-lojii-plugin, audits, scripts de vérif) ; on peut les déplacer vers leur repo cible ou les supprimer une fois livrés. `data/` = répertoire de sortie par défaut du twitter-api-client (skill `x-read`) : IDs de tweets et comptes téléchargés, purgeable à tout moment.
 
 ---
 
@@ -691,7 +688,7 @@ Non trivial. La densité doctrinale (10 rules, 47 skills, ~166 entrées de mémo
 
 - **Numéros de ligne via sous-agents** : la majorité des line refs des agents/skills proviennent de lectures par sous-agents, recoupées par échantillonnage (devils-advocate:62-82 vérifié exact). Non revérifiées caractère par caractère pour les 11 agents et 47 skills.
 - **README `/batch`** : commande mentionnée dans le README ; pas de skill `batch` dans forge (le mot apparaît dans plusieurs SKILL.md mais comme concept, pas comme commande définie). Probablement une commande Claude Code native référencée en avril, ou obsolète.
-- **`output/` et `data/`** : contenu listé mais non analysé en profondeur (gitignored, hors périmètre versionné). Leur rôle exact et leur cycle de vie ne sont pas documentés.
-- **Incohérence effort devils-advocate** : signalée par un sous-agent (body "xhigh" vs frontmatter "high"), non confirmée par lecture directe.
+- **`output/` et `data/`** : cycle de vie désormais documenté (section 12, P3.7) — répertoires jetables/régénérables gitignorés. Contenu non analysé fichier par fichier (hors périmètre versionné).
+- **Incohérence effort devils-advocate** : RÉSOLUE 2026-05-27 (confirmée par lecture directe, body corrigé). Cf section 12.
 - **`ia-lead-neoteem`** : plugin Cowork inventorié (7 skills) mais le contenu de ses SKILL.md n'a pas été lu en détail.
 - **Tests** : 9 fichiers de tests pytest dans `mcp-forge-brain/tests/` + 1 dans `.claude/hooks/tests/`, non exécutés ici (état pass/fail non vérifié).
