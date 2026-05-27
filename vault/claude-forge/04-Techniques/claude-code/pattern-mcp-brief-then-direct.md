@@ -336,3 +336,20 @@ Un agent au métier MCP-write-dense ne se "fait pas marcher" en sous-agent (β o
 Un composant dont la valeur est `N× MCP-write` est structurellement une **skill**, pas un agent. Si on hésite à le créer en agent "parce qu'il doit écrire beaucoup dans le vault/la DB", c'est le signal qu'il doit être une skill.
 
 Lié : [[anti-reentrance-sub-agents-pattern-escalade]] (même classe — limitation contextuelle du sous-agent), [[mcp-vs-skills-doctrine]] (distinction MCP/skills renforcée par ce critère).
+
+## AJOUT 27 mai 2026 (suite 2) — Précision audit transverse : write MCP vault ≠ write filesystem
+
+Audit transverse densité MCP write des 10 agents restants (post-KILL vault-maintainer, 27 mai) : **0 candidat KILL/PIVOT**. Flotte saine, vault-maintainer était le cas isolé.
+
+Le critère de densité capté par l'audit a révélé une nuance à expliciter : **seule l'écriture MCP vault compte**, pas l'écriture filesystem.
+
+| Écriture | Marche en sous-agent ? | Compte pour le critère "dense" ? |
+|---|---|---|
+| `mcp__forge-brain__create_note/append_note/update_property/...` (vault) | NON (`No such tool available`) | OUI — c'est le critère |
+| `Write`/`Edit` filesystem (`.claude/`, code, skills) | OUI | NON — hors critère |
+
+Les 4 créateurs (agent-creator, skill-creator, claudemd-optimizer, hook-creator) écrivent BEAUCOUP — mais sur le **filesystem** (`.claude/`), et leur `mcp__forge-brain__*` sert à la **lecture** des canoniques (`read_note`). Donc classés **rare**, pas dense. Confondre les deux aurait produit 4 faux candidats KILL.
+
+**Règle de mesure** : grep le préfixe exact `mcp__forge-brain__(create_note|append_note|update_note|update_property|insert_section|bulk_update_property|move_note|delete_note)` dans le corps de l'agent — pas juste `Write|Edit`. Seul ce pattern, en boucle (× N notes), déclenche KILL/PIVOT.
+
+Corollaire (prévention > audit récurrent) : le critère étant rare (1 cas sur 11 agents historiques), mieux vaut l'ancrer comme question-réflexe de création dans `agent-creator` (« métier = N× write MCP vault ? → skill, pas agent ») qu'en audit périodique. Conforme à « gardes en écriture > scanners périodiques ».
