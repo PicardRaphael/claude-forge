@@ -19,7 +19,6 @@ tags:
   - "#sujet/hooks"
   - "#sujet/mcp"
 ---
-
 # PreToolUse intercepte les tools MCP et Read
 
 ## Fait empirique
@@ -40,7 +39,7 @@ Pattern réutilisable pour vérifier l'interception d'un tool inconnu :
 3. Déclencher l'outil cible une fois.
 4. Lire le log : si `FIRED` apparaît avec le bon `tool_name`, le matcher fonctionne.
 
-Bonus observé : `settings.local.json` est relu **à chaud** (le hook a fité dans la session courante sans redémarrage). Les `settings.json` sont en général chargés au boot — comportement à ne pas généraliser.
+Bonus observé : `settings.local.json` EST relu **à chaud** (le hook a fité dans la session courante sans redémarrage). Affiné le 27 mai en cours de session 2b : `settings.json` l'est AUSSI — `vault-cat-guard` enregistré dans `settings.json` a bloqué les Read/Bash/PowerShell de la session courante immédiatement après son enregistrement, et son ajustement (Read autorisé en session principale) a pris effet sans redémarrage. Donc `settings.json` ET `settings.local.json` sont relus à chaud sur cette version CC. Converge avec [[erreur-deny-global-ecrase-allow-projet]] (deny relu à chaud). Prudence : comportement de version, à re-vérifier si CC change.
 
 ## Stdin reçu (session principale, append_note)
 
