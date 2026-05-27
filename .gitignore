@@ -14,6 +14,7 @@ __pycache__/
 .claude/settings.local.json
 .obsidian/
 vault/.obsidian/
+vault/claude-forge/.obsidian/
 
 # Output local (livrables de travail, audits ad-hoc)
 output/
