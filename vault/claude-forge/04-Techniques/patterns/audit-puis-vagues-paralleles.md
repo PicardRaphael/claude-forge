@@ -7,7 +7,7 @@ aliases:
   - "5 axes audit + 4 vagues fix"
   - "audit massif execution"
   - "vague parallele fix audit"
-derniere-maj: 2026-05-25
+derniere-maj: 2026-05-27
 auteur: claude
 type: technique
 sources:
@@ -21,7 +21,6 @@ tags:
   - "#sujet/orchestration"
   - "#pattern/audit"
 ---
-
 # Méthode audit + vagues d'application parallèles
 
 ## QUOI
@@ -96,6 +95,23 @@ Ne jamais relayer un rapport sans vérification.
 | **P1** | Déduplication massive / consolidation / SSOT | doublons agents/rules, single source of truth violée |
 | **P2** | Polish / cohérence / metadata | descriptions trop longues, metadata.category manquante |
 | **P3** | Capitalisation / nouvelles features | skills code-gen, hooks lint sur boundaries observées |
+
+### Phase 3bis — Pas de symétrie artificielle entre axes
+
+Un audit à N axes n'impose PAS un P0/P1 par axe. Prioriser sur l'impact réel, sans complexe : un audit de 5 axes peut légitimement n'avoir **qu'un seul P0** si un seul axe porte un risque réel et présent. Les autres axes vont en P2/P3 capitalisé — différés, pas oubliés (avec leur déclencheur de réactivation).
+
+**Le piège** : distribuer du P0/P1 sur tous les axes pour l'équilibre visuel. C'est de la symétrie artificielle — elle gonfle le travail sur des trous théoriques et dilue l'effort sur le vrai risque.
+
+**Test de discrimination** avant de classer un axe en P0/P1 :
+- Le risque est-il **réel et présent**, ou théorique/anticipé ? (théorique → P2/P3 + déclencheur)
+- L'impact d'une régression silencieuse est-il maximal (cœur produit) ou cosmétique ?
+- Suis-je en train de classer cet axe haut **parce qu'il le mérite**, ou pour ne pas laisser un axe "vide" ?
+
+**Observé 2 fois** :
+- Phase 2 (27 mai) : faux ratio 3:1 de tests adverses corrigé en 5.3:1 et 8:1 réels — ne pas padder avec des cas hors-scope pour atteindre un quota.
+- Phase 3 (27 mai) : 5 axes audités, advisor a tranché net sur 1 seul P0 (cœur MCP non testé). Le reste P2/P3 avec déclencheurs — voir [[decision-renforcements-differes-phase-3]].
+
+Corollaire : capitaliser franchement les P2/P3 (note ADR avec déclencheurs) vaut mieux qu'un P1 bâclé pour la symétrie. Cf [[bug-caracterise-fix-trivial-vs-couteux]] (trivial = fix now, coûteux = phase dédiée) appliqué à l'échelle d'un axe.
 
 ### Phase 4 — Exécution vague par vague
 

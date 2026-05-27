@@ -256,3 +256,9 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - Caracterise : resolve_note tier 2 substring bat tier 3 prefixe (pinne, pas un bug).
 - Creees : [[phase-3-renforcement-audit]] (0-Inbox, matrice) + [[decision-renforcements-differes-phase-3]] (ADR P2/P3 + declencheurs).
 - Tests repo : 145 -> 207 PASSED. 0 regression.
+
+## [2026-05-27] note-updated | audit-puis-vagues-paralleles : section Phase 3bis symetrie artificielle
+- Ajout section "Phase 3bis — Pas de symetrie artificielle entre axes" dans la canonique audit/priorisation
+- Pattern meta observe 2x (Phase 2 ratio 3:1 artificiel, Phase 3 advisor 1 P0 / 5 axes)
+- Test de discrimination : risque reel/present vs theorique, impact maximal vs cosmetique
+- Capitalise aussi en feedback memoire [[feedback_pas_de_symetrie_artificielle_priorisation]]

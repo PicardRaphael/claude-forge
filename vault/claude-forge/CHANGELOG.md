@@ -13,6 +13,12 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-27 — Pattern méta : pas de symétrie artificielle en priorisation
+
+- **Modifiées (1)** :
+  - [[audit-puis-vagues-paralleles]] — ajout section "Phase 3bis — Pas de symétrie artificielle entre axes" : un audit de N axes peut n'avoir qu'un seul P0, prioriser sur l'impact réel sans forcer un P0/P1 par axe. Test de discrimination + 2 occurrences (Phase 2 ratio 3:1 artificiel, Phase 3 advisor 1 P0 / 5 axes).
+- **Source** : pattern méta observé sur 2 phases consécutives (27 mai). Capitalisé aussi en mémoire feedback.
+
 ## 2026-05-27 — Phase 3 renforcement (audit 5 axes + tests cœur MCP/hooks)
 
 - **Créées (2)** :
