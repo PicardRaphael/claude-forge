@@ -10,95 +10,38 @@ tags: ["#type/context", "#meta/working-memory"]
 ---
 
 ## Phase actuelle
-**Audit transverse densité MCP write des 10 agents : COMPLET (2026-05-27).** Suite KILL vault-maintainer, vérification que c'était le cas isolé. Résultat : **flotte saine, 0 candidat KILL/PIVOT**. Critère affiné — l'écriture MCP vault dense (`No such tool available` en sub-agent) déclenche le pivot agent→skill, PAS l'écriture filesystem `.claude/` via Write/Edit (qui fonctionne en sub-agent). Les 4 créateurs écrivent beaucoup mais sur le filesystem ; leur `mcp__forge-brain__*` = lecture canoniques → classés rare. Prévention structurelle : question-réflexe ajoutée dans [[agent-creator]] (« métier = N× write MCP vault ? → SKILL »). Capitalisé : [[pattern-mcp-brief-then-direct]] (tableau vault vs filesystem) + feedback `densite-mcp-write-vs-filesystem`. **Mergé sur main par l'agent** (autorisation explicite Raphael). 176 hooks + 143 MCP inchangés (audit lecture).
+**Système de maintenance MEMORY.md — LIVRÉ (2026-05-27).** Chantier A (fondation + dette) + Chantier B (skill `/clean-memory`) + run réel (3 fusions). Couche Python Jaccard initialement prévue puis **coupée** (verdict advisor + preuve : 10 orphelins détectés sans Jaccard = enforcement-théâtre sur corpus court/homogène). MEMORY.md 246→243L, feedbacks racine 196→193, 10 fichiers archivés dans `_archive/2026-05/`. Mergé sur main (`116246a`), branche `chantier-memory-maintenance` supprimée. 319 tests verts (176 hooks + 143 MCP) inchangés. Note canonique [[pattern-maintenance-hybride-corpus-accumulatif]] créée.
 
-> ✅ Divergence doctrine↔réel RÉSOLUE (27 mai) — hypothèse C confirmée : le deny global `git merge *` n'a **jamais existé**. Diagnostic empirique 5 couches (parse JSON `~/.claude/settings.json` = 12 deny tous destructifs OS, zéro git ; settings.local.json global absent ; repo `.claude/settings.json` + `.local.json` vides ; `grep -i merge .claude/hooks/` = aucun match). Le « branch first » est NATIF au harness, pas une permission. Le claim « deny global » écrit ce matin (commit `b6731d4`) était une rationalisation a posteriori sur un symptôme. **CLAUDE.md reformulé** (section `## Workflow Git (convention)`, via claudemd-optimizer) : convention humaine, pas verrou. Feedback `diagnostic-empirique-avant-affirmer-une-garde` créé.
->
-> **Leçon méta** : l'inférence fausse n'a été corrigée par personne pendant ~6h parce que les TROIS acteurs de la chaîne l'ont acceptée sans demander la preuve — l'agent qui a écrit, Raphael qui a validé, l'advisor (Opus) qui a revu. La vérification empirique d'une garde est une responsabilité de TOUTE la chaîne (écrivain + valideur humain + reviewer advisor), pas seulement de l'agent qui écrit. À distiller en doctrine collective si le signal se répète.
-
-> ⚠️ Dette structurelle MCP alias ambigu — 5e occurrence (27 mai, `insert_section(file="log vault")`). Le hook `mcp-alias-guard.py` ne matche que `append_note` → `insert_section`/`read_section`/`update_note` par alias passent à travers. Réactiver candidature : étendre le matcher de `mcp-alias-guard.py` à `mcp__forge-brain__insert_section` (+ read_section, update_note). À arbitrer en session future si 6e occurrence OU si on traite la dette PowerShell (cmdlets PS-natifs destructeurs non couverts) tracée plus tôt — les deux sont des extensions de matcher de hook existant. Cf [[feedback_mcp_alias_ambigu_chemin_exact]], [[feedback_feedback_reviole_3x_regle_insuffisante]].
-
-> 💡 Candidature hook `doctrinal-claim-guard` (tracée, PAS construite — 1re occurrence). Pattern : warning non bloquant PreToolUse `Write|Edit` sur `CLAUDE.md`/`vault/**` détectant une affirmation de garde (« en deny global », « bloqué par hook », « protégé par permission ») → rappelle « as-tu cité la preuve empirique ? » (même mécanisme que [[meta-commentary-detector]]). Auto-challenge DA appliqué : 1re occurrence = feedback ponctuel suffit ([[feedback_sur-généralisation]]) ; calibration risquée (faux positifs sur gardes légitimes prouvées partout dans CLAUDE.md). **Déclencheur de réactivation** : 2e occurrence d'une affirmation de garde non vérifiée dans un artefact doctrinal (CLAUDE.md, note canonique, rule, feedback) OU décision de Raphael d'industrialiser la prévention. Cf [[feedback_diagnostic_empirique_avant_affirmer_garde]].
-
-**Chantier C — sync leaders vault↔cc-news : COMPLET (2026-05-27).** Visibilité ET chasse livrées. Script `sync-leaders.py` (régénère le bloc « Leaders canonisés » des 6 `domain-*.md` depuis `list_notes(05-Leaders/<dom>)` entre marqueurs SYNC, idempotent, lecture vault `open()` direct = équivalent hook). 6 domain-*.md migrés (marqueurs + section « Watchlist signaux non canonisés »). Note canonique [[pattern-vault-source-unique-sync-mecanique]]. **Dette demi-fix RÉSOLUE** : queries cc-news complétées à froid pour tous les leaders synced → report `[!]` du script désormais VIDE (vérifié). Orchestration cc-news passée de 11 à 16 agents (claude-code/agents/concurrents = 3 agents, rag/prompt passés à 2). **MERGÉ sur main** (`bf00b6f`), branche `chantier-c-sync-leaders` supprimée. **Seule dette restante = normalisation `handle_x` des 80 fiches** (chantier d'auteur séparé, mode dégradé en attendant — déclencheur tracé). 176 hooks + 143 MCP verts.
-
-**Doctrine git explicitée (27 mai)** : ajout section `## Workflow Git (intentionnel)` dans CLAUDE.md — branche feature + merge humain est BY DESIGN (harness branch-first + `git merge *` deny global = gate intégration humain conscient), pas un cérémonial à corriger. Exception chantier court <3 commits. Déclenché par une conformité aveugle de ma part (branche réflexe sur travail solo testé) → fix = expliciter, pas inverser. 2 feedbacks méta : [[conformite-aveugle-regle-generique]] + [[visibilite-vs-consommation-demi-fix]].
-
----
-
-### Chantier A étapes 2b + 3 + cas spéciaux — LIVRÉES (2026-05-27, antérieur)
-**Chantier A étapes 2b + 3 + cas spéciaux — LIVRÉES (2026-05-27).** 2b = fix structurel MCP décoratif sub-agent (2 hooks de garde `vault-cat-guard`/`mcp-alias-guard`, 6 creators durcis, canoniques amendées). Étape 3 = durcissement hooks suite à usage réel. **Cas spéciaux `vault-maintainer` + `devils-advocate` = FAIT** : dette structurelle MCP décoratif sub-agent entièrement résolue. `vault-maintainer` KILLÉ (doublon de la skill `/vault-audit` qui tourne en session principale avec MCP effectif ; trigger proactif porté dans `/vault-audit` ; exemption hook `vault-cat-guard` retirée). `devils-advocate` GARDÉ + brief clarifié (cause structurelle MCP décoratif explicitée ; mode dégradé texte confirmé — 23/24 critiques persistées empiriquement). Pattern méta capitalisé dans [[pattern-mcp-brief-then-direct]] (KILL > faire marcher quand doublon ; agents = écritures rares, skills = écritures MCP denses). Tests hooks 176 verts (180→176 = suppression mécanisme exemption). À commiter (7 commits groupés par concern).
-
-## Dernière session (2026-05-27) — Chantier A
+## Dernière session (2026-05-27) — Maintenance MEMORY.md
 ### Décisions prises
-- **Cadrage 2 paquets** (advisor + arbitrage Raphael) : Core = C1+C2+C3 (livré). C4-C7 = différés, à évaluer après usage réel (éviter le format-zombie / piège du scan A1×A3 tué).
-- **C1** [[doctrine-vivante]] : note canonique posant le moteur EXTERNE d'évolution doctrinale (extension de « CLAUDE.md DOIT évoluer », du local interne au global externe). Gate humaine non négociable, scan aveugle interdit (lien 0/12).
-- **C2** skill `doctrine-impact-check` (156L, opus, description 225 chars) : brouillon argumenté + gate `[v]/[m]/[i]`, n'appelle JAMAIS methode-pivoter-doctrine directement (décision Raphael : gate humaine maximale). 3 TODO différés capitalisés dans le body (C5 fraîcheur triggered-by-event, C6 ligne méta-doctrine, C7 arbitrage conflits).
-- **C3** `cc-news` étape 8 : doctrine-impact-check sur findings MAJEURS uniquement (anti-cascade).
-- **Bug MCP décoratif sub-agent** découvert et confirmé empiriquement (verdict, pas inférence) → fix structurel reporté en session dédiée (anti-fragmentation).
+- **Couper la couche Python Jaccard** (Q1) : sur corpus court+homogène, le LLM regroupe sémantiquement mieux qu'une heuristique lexicale. Chantier C (Python) tracé conditionnel — réactiver SEULEMENT si l'usage de `/clean-memory` montre que le LLM rate systématiquement des clusters. Capitalisé : [[llm-lit-court-homogene-pas-couche-deterministe]].
+- **Architecture archive 3 niveaux** : `MEMORY.md` (canonique vivante) + `_archive/YYYY-MM/` (append-only sacré, `git mv`) + `MEMORY-archive-log.md` (journal append-only, rollback par opération).
+- **Skill `/clean-memory`** (309L, 0 script) : analyse LLM 4 sections (A doublons / B amendements / C ambigus à NE PAS fusionner / D dormants) + gate humain `[v]/[m]/[i]` par section (`[m]` anti tout-ou-rien). Section D : non-cité = nécessaire mais NON suffisant (57% du vault non wikilinké = la norme).
+- **3 fusions validées** : A1 `verifier-claims-empiriquement` (audit-claims + sub-agent-claim, aliases pour 8+2 backlinks), A2 `tests-adverses-hooks-secu` (obligatoires + ratio-3-1, 3 backlinks), A3 `jarvis-innovator` absorbe `bras-droit`. A4 ignoré (parent/spécialisation), C1/C2 séparés (3 angles distincts / prescriptions opposées).
+- **10 orphelins traités** (Chantier A) : 5 archivés (obsolètes doctrine 22 mai + cross-repo + hook supprimé) + 5 ré-indexés.
 
-### En cours
-Rien en suspens sur le Paquet 1. 4 commits poussés sur main (C1 note, C2 skill, C3 cc-news, doc vault). Working tree à vérifier propre après push.
+### Faits empiriques
+- En mémoire `memory/`, pas de résolveur Obsidian : un `[[slug]]` est du texte. « Préserver un backlink » = mettre l'ancien slug en `aliases:` du méta (findability par grep/recall), pas une vraie résolution.
+- `Measure-Object -Line` (PowerShell) peut sous-compter vs `wc -l` (SKILL.md : 219 vs 309). La "2e occurrence sub-agent-claim-sans-empirie" annoncée s'est révélée un FAUX POSITIF de ma part (le sub-agent avait raison, 309L) — instance de [[subagent-audit-category-error]]. Rien à tracker.
 
 ### Prochaines étapes
-1. **/done + /clear**, puis **étape 2b — fix structurel MCP décoratif** (session continue ou dédiée).
-2. Évaluer Paquet 2 (C4-C7) après 2-3 semaines d'usage réel du pont.
+1. **/clear**, puis bilan suite du plan global.
+2. `/clean-memory` réutilisable à la demande (ou périodiquement) sur MEMORY.md.
 
-## ÉTAPE 2b — RÉSOLUE (2026-05-27)
-
-**Livré** : 2 hooks de garde (`vault-cat-guard.py` matcher Bash|Read|PowerShell ; `mcp-alias-guard.py` matcher append_note) + 6 creators durcis (agent-creator en premier par bypass `.new`+`mv`, puis cascade via agent-creator) + 3 canoniques amendées (comment-creer-skill/agent/hook) + note `hook-intercepte-mcp-et-read-tools` + section bypass dans comment-creer-agent. Tests 170 verts (101 baseline + 46 vault-cat-guard + 23 mcp-alias-guard).
-
-**Décisions empiriques de la session** :
-- PreToolUse intercepte les tools MCP, Read ET PowerShell (3 probes confirmés). Capitalisé : [[hook-intercepte-mcp-et-read-tools]].
-- vault-cat-guard : Bash/PowerShell dumps bloqués 2 contextes ; Read bloqué sub-agent uniquement (main session Read le vault légitimement pour préparer un Edit) ; vault-maintainer exempt.
-- mcp-alias-guard : append_note uniquement (4 violations toutes sur append_note, pas d'extension spéculative).
-
-**DETTE RÉSIDUELLE (déclencheurs de réactivation)** :
-- ~~**Cas spéciaux `vault-maintainer` + `devils-advocate`**~~ → RÉSOLU (27 mai, session dédiée). `vault-maintainer` KILLÉ (doublon `/vault-audit`, métier MCP-write impossible en sub-agent) ; `devils-advocate` gardé + brief clarifié (mode dégradé texte, métier = analyse + 0-1 write). Pattern méta : agents = écritures rares, skills = écritures MCP denses → [[pattern-mcp-brief-then-direct]].
-- ~~Trou PowerShell vault-cat-guard~~ → FERMÉ cette session (matcher Bash|Read|PowerShell, vérifié empiriquement : Get-Content vault bloqué).
-- ~~Audit transverse « trou PowerShell » sur hooks PreToolUse Bash-only~~ → FAIT (étape 3, 27 mai). Cartographie : `security-guard.py` était le seul `Bash`-only vulnérable (les 5 patterns git contournables via tool PowerShell) → matcher passé à `Bash|PowerShell`. `vault-cat-guard` déjà fermé (2b). `delegate-guard`/`meta-commentary-detector` = matchers Edit|Write|MultiEdit, hors sujet. `mcp-alias-guard` = MCP.
-- **GAP résiduel sécu — cmdlets PowerShell-natifs destructeurs** (tracé séparément, distinct de l'angle mort matcher) : `security-guard.py` ne couvre que la syntaxe POSIX/git. `Remove-Item -Recurse -Force`, `Stop-Process`, `Clear-Content` ne sont PAS détectés (leur équivalent Bash `rm -rf` relatif ne l'est pas non plus → gap pré-existant de scope). Déclencheur : session sécu dédiée OU incident. ~30 min : ajouter patterns cmdlets PS + équivalents Bash manquants.
-- **Skill `/probe-tool`** (proposition Jarvis — verdict : TRACER, ne PAS builder maintenant). Opérationnaliserait le pattern probe utilisé 2× le 27 mai (stub log stdin → settings.local matcher → déclencher → lire log → nettoyer). Refusée maintenant : 2 probes en 14 sessions ≈ 2-3×/an → risque skill-zombie ; cohérence avec le kill de C4 (« signal d'usage requis ») ; pattern déjà capitalisé en prose dans [[hook-intercepte-mcp-et-read-tools]]. Déclencheurs de réactivation : (a) 3 probes en 1 mois, OU (b) 3+ nouveaux MCP servers métier sur peu de temps, OU (c) évolution majeure CC changeant les formats stdin/events → re-vérif systématique.
-
----
-
-### Archive — Cause racine (fait empirique confirmé)
-Le frontmatter `tools: ... mcp__forge-brain__*` d'un sub-agent est **décoratif** : le serveur MCP n'est PAS connecté dans le contexte d'exécution du sub-agent. Preuve : 2 agents testés (skill-creator observé cat le vault ; hook-creator → `No such tool available: mcp__forge-brain__read_note`). Conséquence : un sub-agent à qui on ordonne « lis les canoniques via MCP » mais sans MCP réel fallback sur `cat`/`find` du vault (viole la doctrine MCP-only). **Règle architecturale : la session principale est le seul contexte avec MCP effectif. Tout brief sub-agent impliquant le vault contient les extraits inline, jamais « lis via MCP ».**
-
-### Périmètre (audit transverse des 11 agents fait)
-- **6 bugs latents francs** (MCP frontmatter + ordre systématique de lecture vault) : `skill-creator` (confirmé), `agent-creator`, `hook-creator` (confirmé), `claudemd-optimizer`, `repo-inspector` (le plus exposé, 2 blocs lecture), `responsable-ia`.
-- **2 cas spéciaux ISOLÉS** (pattern brief-inline ne s'applique pas — leur métier EST d'écrire dans le vault) : `vault-maintainer`, `devils-advocate` (create_note dur). Traiter en note de dette dédiée avec déclencheur « rencontrer un cas où l'un doit être délégué en sub-agent et écrire dans le vault ».
-- **2 risques faibles** : `self-updater` (consigne vault sans MCP dans tools), `python-dev` (conditionnel).
-- **1 sain** : `outcomes-grader`.
-
-### Composants à créer/modifier en 2b
-1. ~~Note canonique `subagent-mcp-non-herite`~~ → FAIT autrement : cause-racine capitalisée en **amendement de [[pattern-mcp-brief-then-direct]]** (section AJOUT 27 mai) + feedback mémoire `subagent-mcp-non-connecte-brief-inline`. Pas de nouvelle note (évite doublon).
-2. Amender briefs des 6 creators : remplacer « lire EN ENTIER via MCP » par « contenu canonique fourni dans le brief ; si manque, ESCALADE ; JAMAIS cat/find/grep/Read sur le vault ».
-3. Hook `vault-cat-guard` (proposition Jarvis validée) — PreToolUse Bash, bloque cat/find/grep sur `vault/` (enforcement structurel, défense en profondeur ; doctrine hooks 22 mai = scope/sécurité OK).
-4. Amender canoniques creator ([[comment-creer-skill]], [[comment-creer-agent]], [[comment-creer-hook]]) avec la règle.
-5. MAJ CLAUDE.md éventuelle si jugé assez structurant.
-
-### Note d'attention — hook mcp-alias → RÉSOLU 2b (mcp-alias-guard.py créé)
-Le pattern `mcp-alias-ambigu-chemin-exact` re-violé 4× le 27 mai (dont ce /done : `append_note(file="log vault")` malgré la RÈGLE FERME interdisant tout alias sur stem multi-dossier). Seuil garde-fou hook atteint (cf [[feedback_feedback_reviole_3x_regle_insuffisante]]). À considérer en 2b / session future : hook PreToolUse sur `mcp__forge-brain__append_note` vérifiant l'unicité du stem dans le vault avant écriture (erreur si log/index/CHANGELOG multi-dossiers). Distinct de vault-cat-guard. Pas maintenant (anti-fragmentation), tracé.
-
-### Dépendance circulaire à résoudre
-Pour modifier `agent-creator` on cross-dispatch via `skill-creator` (pattern self_modification_agent_cross_dispatch) — mais `skill-creator` est l'agent buggé. Résolution : **fixer skill-creator EN PREMIER** via le pattern brief-inline (ou édition directe par la session principale en exception assumée, car on fixe skill-creator lui-même). Puis skill-creator durci fixe les autres.
-
-### Méta — alignement doctrine-vivante
-La doctrine forge a évolué par **signal externe natif** (MCP CC déconnecté en sub-agent) le jour même de la création de [[doctrine-vivante]] : illustration vivante du principe (la doctrine challengée par le monde, pas seulement par l'erreur interne).
-
-## Fils ouverts
-- **Double-source mémoire transitoire** : auto-memory native encore injectée en parallèle de l'@import. Dette tracée. Cf [[import-ajoute-pas-remplace-automemory]].
-- **A1×A3 tué** : ne pas réouvrir le scan rétroactif systématique sans nouvelle donnée infirmant le 0/12. Cf [[idee-compounding-retroactif]] (TUÉE).
-- **Paquet 2 Chantier A (C4-C7)** : différés, à évaluer après usage réel du Paquet 1. Reformulations capitalisées dans les TODO de `doctrine-impact-check`.
+## Fils ouverts (repris des sessions antérieures, toujours valides)
+- **Dette MCP alias ambigu** — 5e occurrence (27 mai). Hook `mcp-alias-guard.py` ne matche que `append_note` → étendre à `insert_section`/`read_section`/`update_note`. Réactiver si 6e occurrence ou si on traite la dette PowerShell cmdlets. Cf [[feedback_mcp_alias_ambigu_chemin_exact]].
+- **GAP sécu cmdlets PowerShell-natifs destructeurs** : `security-guard.py` ne couvre que POSIX/git. `Remove-Item -Recurse -Force`, `Stop-Process`, `Clear-Content` non détectés. Déclencheur : session sécu dédiée ou incident.
+- **Candidature hook `doctrinal-claim-guard`** (tracée, 1re occurrence) : warning PreToolUse sur affirmation de garde non prouvée dans CLAUDE.md/vault. Réactiver à la 2e occurrence. Cf [[feedback_diagnostic_empirique_avant_affirmer_garde]].
+- **Double-source mémoire transitoire** : auto-memory native encore injectée en parallèle de l'@import. Cf [[import-ajoute-pas-remplace-automemory]].
+- **A1×A3 tué** : ne pas réouvrir le scan rétroactif sans donnée infirmant le 0/12. Cf [[idee-compounding-retroactif]] (TUÉE).
+- **Paquet 2 Chantier A (C4-C7)** : différés, à évaluer après usage réel du pont doctrine-vivante.
 - **TODO P0** : rotation password PostgreSQL prod (secret redacté mais pas tourné). Cf [[todo-rotation-password-postgres-prod]].
-- **Chantier C — normalisation `handle_x`** (seule dette restante) : les handles X ne sont pas un champ structuré du frontmatter des 80 fiches `05-Leaders/`. Le script `sync-leaders.py` injecte seulement les handles `x.com/` explicites (mode dégradé, denylist orga `@JinaAI_`). Chantier d'auteur séparé ~1-2h. Déclencheur : soit le script génère trop de leaders sans handle gênant, soit session « qualité frontmatter vault ». La chasse opérationnelle (queries) est CLOSE (report `[!]` vide). Cf [[pattern-vault-source-unique-sync-mecanique]].
+- **Chantier C — normalisation `handle_x`** des 80 fiches `05-Leaders/` (chantier d'auteur ~1-2h, mode dégradé en attendant). Cf [[pattern-vault-source-unique-sync-mecanique]].
 - **README périmé** (21 outils / 412 notes) — session dédiée.
 
 ## Liens
 [[2-Casquettes/Raphael-Picard|Raphael Picard]]
 [[1-Projets/Claude-Forge/Claude-Forge|Claude-Forge]]
+[[pattern-maintenance-hybride-corpus-accumulatif]]
+[[llm-lit-court-homogene-pas-couche-deterministe]]
 [[doctrine-vivante]]
-[[critique-2026-05-27-compounding-retroactif]]
-[[methode-pivoter-doctrine]]
-[[resolution-path-3-contextes]]
