@@ -73,26 +73,44 @@ def references_vault(text: str) -> bool:
     return VAULT_MARKER in normalize(text)
 
 
-def bash_reads_vault(command: str) -> bool:
-    """True if the Bash command is a read command targeting the vault.
+# Chain operators that split a command line into independent segments.
+# ORDER MATTERS in this alternation: longer operators first so "&&" matches
+# before "&" and "||" before "|" (re.split alternates left-to-right per position).
+# A single "&" (e.g. "2>&1") is NOT a separator — it stays inside its segment.
+_SEGMENT_SPLIT = re.compile(r"&&|\|\||;|\|")
 
-    A command references the vault if VAULT_MARKER appears anywhere in it AND a
-    known read command token is present. We keep this conservative: the vault
-    marker must be present (covers write-tools that the MCP guard / other guards
-    own; this guard only cares about raw reads).
+
+def _segments(command: str) -> list[str]:
+    """Split a shell command line into independent segments on &&, ||, ;, |.
+
+    A read of the vault is only a violation when a read command AND the vault
+    marker appear in the SAME segment. Splitting first prevents false positives
+    like `git add "vault/..." && git push 2>&1 | tail -3` (vault in segment 1,
+    tail in segment 3 — different segments, no raw read).
     """
-    norm = normalize(command)
+    return _SEGMENT_SPLIT.split(command)
+
+
+def _segment_reads_vault(segment: str) -> bool:
+    """True if a single segment contains both a read command and the vault marker."""
+    norm = normalize(segment)
     if VAULT_MARKER not in norm:
         return False
-    # Tokenize on shell-ish boundaries; check first token of each pipe segment
-    # and any token equal to a read command.
-    tokens = re.split(r"[\s|;&()]+", norm)
-    for tok in tokens:
-        # strip leading path (e.g. /usr/bin/grep -> grep)
-        base = tok.rsplit("/", 1)[-1]
+    for tok in re.split(r"[\s()]+", norm):
+        base = tok.rsplit("/", 1)[-1]  # /usr/bin/grep -> grep
         if base in READ_COMMANDS:
             return True
     return False
+
+
+def bash_reads_vault(command: str) -> bool:
+    """True if any chain segment is a read command targeting the vault.
+
+    Segmentation on &&/||/;/| first, then per-segment check: a read command and
+    the vault marker must co-occur in the SAME segment to be a violation. This
+    guard only cares about raw content reads of the vault (cat/grep/Get-Content...).
+    """
+    return any(_segment_reads_vault(seg) for seg in _segments(command))
 
 
 def detect_subagent_from_transcript(transcript_path: str) -> str | None:

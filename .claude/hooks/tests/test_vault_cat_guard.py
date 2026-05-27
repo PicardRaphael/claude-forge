@@ -136,6 +136,51 @@ def test_bash_git_on_vault_passes():
 
 
 # --------------------------------------------------------------------------
+# chained commands — read-command and vault marker must be in the SAME segment
+# (regression guard for the false positive found 27 May 2026: git add vault/...
+#  && git push | tail was wrongly blocked because tail + vault marker co-occurred
+#  across different segments)
+# --------------------------------------------------------------------------
+
+def test_chained_git_add_vault_then_push_pipe_tail_passes():
+    # vault marker in segment 1 (git add), tail in segment 3 (git push | tail)
+    # → different segments → NOT a raw read → must PASS
+    cmd = 'git add "vault/claude-forge/x.md" && git push 2>&1 | tail -3'
+    assert bash_reads_vault(cmd) is False
+
+
+def test_chained_cat_vault_pipe_head_blocked():
+    # cat + vault marker in the SAME segment → dump → must BLOCK
+    assert bash_reads_vault("cat vault/claude-forge/log.md | head") is True
+
+
+def test_chained_git_log_pipe_grep_vault_blocked():
+    # grep + vault marker in the SAME (piped) segment → raw grep of vault → BLOCK
+    assert bash_reads_vault("git log | grep vault/claude-forge/foo") is True
+
+
+def test_chained_cat_readme_then_cat_vault_blocked():
+    # dump in segment 2 (cat vault/...) → BLOCK
+    assert bash_reads_vault("cat README.md && cat vault/claude-forge/x.md") is True
+
+
+def test_chained_echo_vault_marker_no_read_command_passes():
+    # marker present but no READ_COMMAND in that segment (echo) → PASS
+    assert bash_reads_vault("cat README.md && echo vault/claude-forge/foo") is False
+
+
+def test_chained_echo_marker_pipe_cat_passes():
+    # echo "vault/..." | cat — marker in segment 1 (echo, not a read cmd),
+    # cat in segment 2 (no marker). cat reads stdin, not the file → PASS.
+    assert bash_reads_vault('echo "vault/claude-forge" | cat') is False
+
+
+def test_redirect_2to1_not_treated_as_segment_separator():
+    # single & in 2>&1 must NOT split the segment — cat+vault stay together → BLOCK
+    assert bash_reads_vault("cat vault/claude-forge/log.md 2>&1") is True
+
+
+# --------------------------------------------------------------------------
 # violation — tool dispatch
 # --------------------------------------------------------------------------
 
