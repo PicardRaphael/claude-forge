@@ -1,6 +1,6 @@
 ---
 name: forge-brain
-allowed-tools: mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__read_note_resolved, mcp__forge-brain__get_backlinks, mcp__forge-brain__get_tags, mcp__forge-brain__get_property, mcp__forge-brain__find_by_property, mcp__forge-brain__list_notes, mcp__forge-brain__vault_stats, mcp__forge-brain__lint_vault, mcp__forge-brain__usage_stats, mcp__forge-brain__create_note, mcp__forge-brain__append_note, mcp__forge-brain__insert_section, mcp__forge-brain__update_note, mcp__forge-brain__update_property, mcp__forge-brain__bulk_update_property, mcp__forge-brain__move_note, mcp__forge-brain__delete_note
+allowed-tools: mcp__forge-brain__search_brain, mcp__forge-brain__search_sessions, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__read_note_resolved, mcp__forge-brain__get_backlinks, mcp__forge-brain__get_tags, mcp__forge-brain__get_property, mcp__forge-brain__find_by_property, mcp__forge-brain__list_notes, mcp__forge-brain__vault_stats, mcp__forge-brain__lint_vault, mcp__forge-brain__usage_stats, mcp__forge-brain__create_note, mcp__forge-brain__append_note, mcp__forge-brain__insert_section, mcp__forge-brain__update_note, mcp__forge-brain__update_property, mcp__forge-brain__bulk_update_property, mcp__forge-brain__move_note, mcp__forge-brain__delete_note
 description: Search, read, and write to the forge-brain Obsidian vault — persistent infinite memory for AI tools, techniques, prompts, industry news, mistakes, and everything learned. Use PROACTIVELY at session start, before creating any skill/agent/hook/prompt, before answering technical questions, after cc-news, and after significant mistakes. ALWAYS invoke when the user asks about vault content, past decisions, or knowledge base.
 ---
 
@@ -32,7 +32,8 @@ Ne JAMAIS utiliser la CLI Obsidian, Grep, Read ou Glob brut sur le vault.
 
 | Outil | Usage | Quand utiliser |
 |-------|-------|----------------|
-| `search_brain(query, limit, context)` | FTS5 BM25 pondéré file_stem:10 / aliases:8 / content:1 | Chercher info, défaut exploration |
+| `search_brain(query, limit, context)` | FTS5 BM25 pondéré file_stem:10 / aliases:8 / content:1 | Chercher info CAPITALISÉE (vault), défaut exploration |
+| `search_sessions(query, limit, project, role, since)` | FTS5 sur transcripts session BRUTS non capitalisés | "Qu'a-t-on dit sur X" — complément search_brain, historique conversationnel |
 | `read_note(file)` | **Lit la note ENTIÈRE** (frontmatter + body) | **Défaut pour lire une note** — pas de troncature |
 | `read_note(file, offset, limit_chars)` | Pagination char-based | UNIQUEMENT si note > 50k chars (CHANGELOG, log) |
 | `read_section(file, heading)` | Lit UNE section (header → prochain header même niveau) | Économie tokens 30x sur grosses notes (CHANGELOG) |
@@ -70,6 +71,7 @@ Ne JAMAIS utiliser la CLI Obsidian, Grep, Read ou Glob brut sur le vault.
 | Tâche | Outil prioritaire |
 |-------|-------------------|
 | Chercher info | `search_brain` |
+| Chercher dans l'historique de session brut | `search_sessions` |
 | Lire 1 note complète | `read_note(file)` |
 | Lire section précise | `read_section(file, heading)` |
 | Lire MOC avec embeds | `read_note_resolved(file)` |
