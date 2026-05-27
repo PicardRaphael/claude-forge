@@ -1,6 +1,7 @@
 # Memory Index
 
 ## Feedback
+- [visibilite-vs-consommation-demi-fix](feedback_visibilite_vs_consommation_demi_fix.md) — Rendre une donnée VISIBLE (liste synced) ≠ rendre le CONSOMMATEUR capable de l'utiliser (queries). Sync qui met à jour la liste mais pas le code/process qui la consomme = moitié cosmétique. Tracer donnée→consommateur→usage avant de déclarer FAIT. (Chantier C cc-news, 27 mai)
 - [insert-section-apres-ligne-header-pas-section](feedback_insert_section_apres_ligne_header.md) — MCP insert_section(after) insère après la LIGNE du header, pas après le contenu de la section → casse la structure (corps déplacé sous la nouvelle section). Vérifier via read_section, ou viser dernière ligne de la section qui précède / insérer `before`. (27 mai)
 - [subagent-mcp-non-connecte-brief-inline](feedback_subagent_mcp_non_connecte_brief_inline.md) — MCP frontmatter d'un sub-agent = décoratif (non connecté en contexte, `No such tool available`). Brief "lis via MCP" → le sub-agent cat le vault. Fournir le contenu inline + interdiction vault + ESCALADE. Confirmé 2 agents (skill-creator, hook-creator). (27 mai)
 - [ecart-consigne-chiffree-surfacer](feedback_ecart_consigne_chiffree_surfacer.md) — Écart à une consigne explicite et chiffrée (longueur cible, nombre, deadline, budget) = surfacer pour arbitrage avec cause + option de correction, jamais juger "acceptable" en silence. La cible appartient à Raphael. Distinct de pas-de-symetrie (auto-priorisation interne). (27 mai)
