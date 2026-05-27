@@ -13,6 +13,14 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-27 — Étape 3 : durcissement hooks (faux positif chaînage + angle mort PowerShell)
+
+- **Hooks `.claude/` (hors vault)** : `vault-cat-guard.py` corrigé — segmentation de la commande sur `&&`/`||`/`;`/`|` avant détection ; un read-command et le marker vault doivent co-occurrer dans le MÊME segment (faux positif `git add "vault/..." && git push | tail` résolu). `security-guard.py` matcher `Bash` → `Bash|PowerShell` (angle mort : git push --force via PowerShell contournait le garde). 180 tests verts.
+- **Découverts par usage réel** : 2 failles de `vault-cat-guard` émergées en l'utilisant (sur-blocage Read main → corrigé 2b ; faux positif commandes chaînées → corrigé étape 3). Audit transverse PowerShell : seul `security-guard` vulnérable parmi les hooks Bash-only.
+- **Dette tracée** : cmdlets PowerShell-natifs destructeurs (Remove-Item/Stop-Process) non couverts par security-guard — session sécu dédiée.
+- **Source** : usage réel du hook 2b + proposition Jarvis audit PowerShell validée.
+
+---
 ## 2026-05-27 — Chantier A étape 2b : fix structurel MCP décoratif sub-agent
 
 - **Ajoutées (1)** : `01-Claude/Code/best-practices/hook-intercepte-mcp-et-read-tools.md` — preuve empirique que PreToolUse intercepte les tools MCP, Read et PowerShell ; méthode de probe ; section exceptions delegate-guard (bypass `.new`+`mv`).

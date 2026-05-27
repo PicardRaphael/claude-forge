@@ -37,6 +37,15 @@ tags:
 
 ---
 
+## [2026-05-27] chantier | Étape 3 — durcissement hooks (faux positif chaînage + angle mort PowerShell)
+- Corrigé `vault-cat-guard.py` : segmentation sur &&/||/;/| avant détection — read-command + marker vault doivent co-occurrer dans le MÊME segment. Faux positif `git add "vault/..." && git push | tail` résolu (découvert en commitant l'étape 2b)
+- Corrigé `security-guard.py` : matcher `Bash` → `Bash|PowerShell` (angle mort — git push --force via PowerShell contournait le garde). Code is_dangerous déjà cross-shell, fix = routing
+- Audit transverse PowerShell sur hooks PreToolUse Bash-only : seul security-guard vulnérable (vault-cat-guard fermé 2b ; delegate-guard/meta = Edit|Write|MultiEdit hors sujet ; mcp-alias = MCP)
+- note-updated `hook-intercepte-mcp-et-read-tools` : settings.json relu à chaud confirmé empiriquement
+- Tests : 180 verts (170 + 7 chaînage + 3 cross-shell). Dette tracée : cmdlets PS-natifs destructeurs (Remove-Item) non couverts
+- Méta : 2 failles de vault-cat-guard découvertes par usage réel (sur-blocage Read main en 2b + faux positif chaînage en 3). Pattern « les vrais faux positifs émergent à l'usage »
+- Méthode : A→B→C→D→E + advisor + 2 AskUserQuestion (fix security-guard + verdict /probe-tool)
+
 ## [2026-05-27] chantier | Étape 2b — fix structurel MCP décoratif sub-agent
 - Créé hook `.claude/hooks/vault-cat-guard.py` : bloque accès brut vault (cat/grep/find/Get-Content/Read). Bash/PowerShell 2 contextes, Read sub-agent only, exempt vault-maintainer. 46 tests
 - Créé hook `.claude/hooks/mcp-alias-guard.py` : bloque `append_note(file=<stem ambigu>)` (log/index/CHANGELOG multi-dossiers). 23 tests
