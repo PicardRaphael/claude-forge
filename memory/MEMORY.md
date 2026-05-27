@@ -1,6 +1,7 @@
 # Memory Index
 
 ## Feedback
+- [llm-lit-court-homogene-pas-couche-deterministe](feedback_llm_lit_court_homogene_pas_couche_deterministe.md) — Couche déterministe (Python, Jaccard, regex) par-dessus une lecture LLM possible d'un corpus COURT + HOMOGÈNE (MEMORY.md 244L) = enforcement-théâtre + dette tests, sans signal nouveau. Le LLM lit tout en un coup et regroupe sémantiquement mieux. Mesurer que le LLM RATE avant de construire l'aide. (27 mai)
 - [diagnostic-empirique-avant-affirmer-une-garde](feedback_diagnostic_empirique_avant_affirmer_garde.md) — Avant d'ÉCRIRE dans un fichier doctrinal (CLAUDE.md, canonique, settings, hook) qu'une garde existe (deny/hook/permission), la vérifier matériellement (parse JSON 4 couches + grep hooks) et CITER la preuve. JAMAIS inférer une garde depuis un comportement. Cas : "deny merge intentionnel" écrit sans vérif → faux ~6h. (27 mai)
 - [densite-mcp-write-vs-filesystem](feedback_densite_mcp_write_vs_filesystem.md) — Critère "densité MCP write" (KILL/PIVOT agent→skill) = écritures MCP VAULT en boucle SEULES. Write/Edit filesystem (.claude/, code) marchent en sous-agent → hors critère. Grep `mcp__forge-brain__(create_note|...)` pas juste Write|Edit, sinon faux candidats KILL. Audit 27 mai : 0/10 agents. (27 mai)
 - [conformite-aveugle-regle-generique](feedback_conformite_aveugle_regle_generique.md) — Appliquer/«corriger» une règle générique (harness, doctrine) sans juger le contexte = conformité aveugle (pendant workflow de «scan aveugle interdit»). Garde refusée = LIRE son intention (settings/code) avant de contourner ou inverser. Souvent intentionnelle → expliciter, pas inverser. (branche feature + deny merge, 27 mai)
@@ -23,7 +24,6 @@
 - [pas-de-symetrie-artificielle-priorisation](feedback_pas_de_symetrie_artificielle_priorisation.md) — Audit multi-axes : ne PAS distribuer P0/P1 par axe pour l'équilibre. Impact réel sans complexe — N axes peuvent n'avoir qu'1 P0. Reste P2/P3 capitalisé + déclencheur. Observé Phase 2+3 (27 mai)
 - [test-echoue-hypothese-vs-bug](feedback_test_echoue_hypothese_vs_bug.md) — Test rouge ≠ toujours bug. Assert peut encoder une hypothèse erronée du testeur sur l'ordre du code. Lire le code AVANT de le "réparer". Comportement réel cohérent = corriger le test (caractérisation) (27 mai)
 - [bug-caracterise-fix-trivial-vs-couteux](feedback_bug_caracterise_fix_trivial_vs_couteux.md) — Bug caractérisé = arbitrer tout de suite. Trivial (isolé/<10L/testé) = fix immédiat + inverser test en regression guard. Coûteux = feedback + phase dédiée. Jamais en flou (27 mai)
-- [tests-adverses-ratio-3-1-hooks-secu](feedback_tests_adverses_ratio_3_1.md) — Hooks sécu/contrôle = tests ≥3:1 adverse/happy. Pas de 3:1 artificiel hors-scope. Caractériser les bugs (épingler, pas masquer). Docstring de scope (27 mai)
 - [delegate-guard-substring-agent-id-bug](feedback_delegate_guard_substring_agent_id_bug.md) — delegate-guard L143-145 substring match sur agent_id = bypass indu. Durcir en exact-match. Surface faible (agent_id fixé harness) mais code incorrect (27 mai)
 - [mcp-alias-ambigu-chemin-exact](feedback_mcp_alias_ambigu_chemin_exact.md) — MCP forge-brain append_note/read par alias court (log/index/CHANGELOG) résout vers mauvais fichier si stem partagé. Chemin exact ou alias unique. Lire le chemin retourné (27 mai)
 - [frontmatter-fait-foi-body-se-tait](feedback_frontmatter_fait_foi_body_se_tait.md) — Frontmatter agent/skill fait foi. Body ne re-commente/contredit jamais un champ (effort, model). Grep le champ dans le body après modif (27 mai)
@@ -42,7 +42,6 @@
 - [regex-lookahead-greedy-trap](feedback_regex_lookahead_greedy_trap.md) — \s* greedy + lookahead = backtrack faux positif. Forcer [ \t]+ avant lookahead
 - [da-blocking-must-block-pre-ship](feedback_da_blocking_must_block.md) — Verdict DA BLOCKING >= 1 doit bloquer ship/promulgation. PARTIAL fix != PASS. Arbitrage user explicite obligatoire
 - [glissement-jarvis-executant-sessions-longues](feedback_glissement_jarvis_executant.md) — Sessions >10 échanges = glissement exécutant. Auto-check tous 3 échanges "ai-je proposé en marge ?"
-- [sub-agent-claim-sans-empirie-verifier-post-dispatch](feedback_sub_agent_claim_sans_empirie.md) — Sub-agents éditeurs claim sans empirie. TOUJOURS grep/diff post-dispatch session principale
 - [proposed-files-antipattern-supprimer-apres-application](feedback_proposed_files_antipattern.md) — `.proposed` = transitoire. Supprimer après application. Essayer édition directe AVANT
 - [innovations-24mai-doctrine-meta-canonique](feedback_innovations_24mai_doctrine.md) — Innovations 24 mai : hook meta-commentary-detector (enforcement 100%) + auto-injection canonique read_note dans 6 agents créateurs/analyseurs
 - [askuserquestion-sub-agent-impossible](feedback_askuserquestion_sub_agent_pattern.md) — AskUserQuestion ne marche PAS en sub-agent. Pattern = ESCALADE structurée vers session principale
@@ -96,7 +95,6 @@
 - [pipeline-quality-gates](feedback_pipeline_quality_gates.md) — RÉVISÉ 22 mai : gates CONDITIONNELLES, 5 étapes CRUD
 - [never-commit-foreign-repos](feedback_never_commit_foreign_repos.md) — Pas de git autonome dans repos externes, OK si demande explicite
 - [subagent-autocommit-violation](feedback_subagent_autocommit.md) — Sub-agents committent malgré instruction fin de prompt. Mettre TOP gras + git log post-agent
-- [bras-droit-proactif](feedback_bras_droit.md) — Proposer améliorations, mettre à jour mémoire, poser questions proactivement
 - [franc-parler-obligatoire](feedback_franc_parler.md) — Être franc, dire non quand c'est mauvais, toujours proposer alternative
 - [org-blocks-github](feedback_no_github_cloud.md) — Orga Team bloque GitHub, pas de triggers cloud, tout en local Task Scheduler
 - [neoteem-brain-correct-path](feedback_neoteem_brain_path.md) — neoteem-brain = neot-v2/neoteem-brain, PAS Documents/neoteem-brain
@@ -140,14 +138,14 @@
 - [secret-in-mcp-json-never](feedback_secret_in_mcp_json.md) — JAMAIS credentials clair dans .mcp.json/configs versionnés
 - [session-multi-chantiers-piege](feedback_session_multi_chantiers.md) — JAMAIS 4+ chantiers indépendants dans une session, fin de session fatiguée = erreurs
 - [claim-security-must-be-provable](feedback_claim_security_must_be_provable.md) — Claim sécu ("read-only") prouvable par code, sinon "by discipline" pas "by construction"
-- [audit-claims-after-brief](feedback_audit_claims_after_brief.md) — Vérifier empiriquement (ls/cat/grep) les claims "X créé/modifié" des sub-agents avant relayage
+- [verifier-claims-empiriquement](feedback_verifier_claims_empiriquement.md) — Tout claim "X créé/modifié/fixé" — le mien en fin de tâche OU celui d'un sub-agent éditeur — vérifié empiriquement (ls/cat/grep/diff/test) AVANT de relayer. Le claim vient de l'intention, pas de l'état réel post-edit. (fusion audit-claims + sub-agent-claim, 27 mai)
 - [critical-instructions-top-of-file](feedback_critical_instructions_top_of_file.md) — Instructions critiques (STOP, interdit) en haut <L25 en gras, JAMAIS en gotcha de fin
 - [da-failure-decision-protocol](feedback_da_failure_options.md) — DA échoue (529/timeout) : relancer 1×, sinon advisor, sinon STOP
 - [advisor-da-web-search](feedback_advisor_da_web_search.md) — Rechercher web AVANT advisor/DA si fait technique incertain
 - [measure-before-optimize-tests](feedback_measure_before_optimize.md) — Avant optim tests, mesurer --durations sur 1 fichier : "trop de tests" vs "chaque test lent"
 - [workaround-becomes-sediment](feedback_workaround_sediment.md) — Fix urgent autouse global = dette permanente sans log. Grep autouse conftest racine
 - [spec-brief-distant-repo-scope](feedback_spec_brief_diagnostic.md) — BRIEF distant = CONTRAT + ce que JE fais, JAMAIS fichiers/internes du repo distant
-- [tests-adverses-obligatoires](feedback_tests_adverses_obligatoires.md) — Hooks sécu : tester cas adverses bypass, DA AVANT push, capturer $? immédiat
+- [tests-adverses-hooks-secu](feedback_tests_adverses_hooks_secu.md) — Hook sécu/enforcement = suite MAJORITAIREMENT adverse (≥3:1 bypass/happy), DA AVANT push, caractériser les bugs (épingler, pas masquer), docstring de scope, + cas d'usage légitime réaliste pour les false-positives à l'usage. (fusion obligatoires + ratio-3-1, 27 mai)
 - [recurring-meta-anti-pattern](feedback_recurring_meta_anti_pattern.md) — Workaround ≥ 2 fois = bug. AVANT refonte structurelle, lister cran 1/2/3
 - [doctrine-drift-silent-regression](feedback_doctrine_drift_pattern.md) — Doctrine rules annulée par MEMORY/RECAP non purgés. Solution = [[methode-pivoter-doctrine]]
 - [methode-abcde-carte-pas-verdict](feedback_methode_abcde_carte_pas_verdict.md) — N1 statique = CARTE pas VERDICT. N2 transcripts = verdict
@@ -181,13 +179,18 @@
 - [test-writer-systematic](feedback_test_writer_systematic.md) — RÉVISÉ 22 mai : MAX 3 tests/comportement, REFACTOR supprimée, effort high
 - [delegate-guard-env-var-blocked](feedback_delegate_guard_env_var_blocked.md) — Bypass CLAUDE_AGENT impossible auto-mode. Edit manuel ou Shift+Tab
 - [secu-calibrage-pragmatique](feedback_secu_calibrage_pragmatique.md) — Risque sécu base test OK si remédiation coûteuse. JAMAIS secret commité
-- [jarvis-innovator-mindset](feedback_jarvis_innovator.md) — CONTRAT JARVIS : partenaire, anticiper, innover, évoluer, franc, autonome
+- [jarvis-innovator-mindset](feedback_jarvis_innovator.md) — CONTRAT JARVIS : partenaire (bras droit), anticiper, innover, évoluer, franc, autonome, proposer proactivement sur tous les repos. (absorbe bras-droit-proactif, 27 mai)
 - [forge-is-personal](feedback_forge_is_personal.md) — Forge = PERSONNEL, généraliste. Pas Jira, pas focus repos pro sauf demande
 - [da-bash-write-disguised](feedback_da_bash_write.md) — Bash cat/heredoc = write déguisé, échoue silencieux si disallowedTools Write/Edit
 - [python-path-windows-hooks](feedback_python_path_windows.md) — Windows : chemin absolu Python313 dans hooks, jamais "python" seul
 - [present-before-build](feedback_present_before_build.md) — Présenter le plan AVANT construire, jamais créer sans validation Raphael
 - [enforce-not-advise](feedback_enforce_not_advise.md) — RÉVISÉ 22 mai : hooks = lint/sécu/scope, JAMAIS workflow
 - [behavioral-test-after-setup](feedback_behavioral_test_pattern.md) — Après setup/audit/modif massive, prompt test comportemental PASS/FAIL
+- [git-log-before-resume](feedback_git_log_before_resume.md) — Avant de finir/reprendre une tâche audit/chantier, TOUJOURS git log --oneline -10 d'abord. Commit avec message qui matche = travail déjà fait
+- [spec-must-stop-at-specs](feedback_spec_must_stop_at_specs.md) — /spec doit STOP après génération des fichiers TODO/feature-X/ — jamais développer, jamais appeler /go, jamais toucher au code applicatif ni à d'autres repos
+- [skill-creator-bypass-via-bash](feedback_skill_creator_bypass_via_bash.md) — Technique robuste pour écrire SKILL.md depuis l'agent skill-creator quand le Write tool est bloqué par delegate-guard
+- [automemorydirectory-absolu-casse-multiprojet](feedback_automemorydirectory_absolu_casse_multiprojet.md) — autoMemoryDirectory en chemin ABSOLU est global et fusionne les mémoires de TOUS les projets — casse le scoping multi-repos. CC scope déjà par projet (~/.claude/projects/<encoded>/memory/). Voie élégante = variable projet si supportée
+- [webfetch-avant-subagents-audit](feedback_webfetch_avant_subagents_audit.md) — AVANT dispatch sub-agents audit thématique, faire 3-4 WebFetch directs sur sources primaires suspectes (arXiv incohérents, verbatim magique, chiffres trop précis). Kill fabrications en 3 min, évite 6 sub-agents qui chassent des fantômes
 
 ## Project
 - [claude-desktop-profiles](project_desktop_profiles.md) — Config Claude Desktop par rôle Neoteem, skill dédiée, output/
