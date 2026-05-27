@@ -80,7 +80,7 @@ Si l'utilisateur confirme les fixes, deleguer aux specialistes :
 | `.claude/skills/*/SKILL.md` | `skill-creator` |
 | `.claude/agents/*.md` | `agent-creator` |
 | `.claude/rules/*.md` | Edit direct (pas de specialiste) |
-| Notes vault | Edit direct ou `vault-maintainer` |
+| Notes vault | Edit direct ou `/vault-audit` |
 
 Le hook `delegate-guard.py` bloque les edits directs sur SKILL.md, agents et CLAUDE.md — deleguer est obligatoire, pas optionnel.
 
