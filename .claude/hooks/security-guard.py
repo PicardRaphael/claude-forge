@@ -18,13 +18,17 @@ def is_dangerous(cmd):
             return reason
     return None
 
-try:
-    data = json.load(sys.stdin)
-    command = data.get("tool_input", {}).get("command", "")
-    reason = is_dangerous(command)
-    if reason:
-        print(f"BLOCKED: {reason}", file=sys.stderr)
-        sys.exit(2)
-    sys.exit(0)
-except Exception:
-    sys.exit(0)
+def main() -> None:
+    try:
+        data = json.load(sys.stdin)
+        command = data.get("tool_input", {}).get("command", "")
+        reason = is_dangerous(command)
+        if reason:
+            print(f"BLOCKED: {reason}", file=sys.stderr)
+            sys.exit(2)
+        sys.exit(0)
+    except Exception:
+        sys.exit(0)
+
+if __name__ == "__main__":
+    main()
