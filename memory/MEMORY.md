@@ -1,6 +1,7 @@
 # Memory Index
 
 ## Feedback
+- [conformite-aveugle-regle-generique](feedback_conformite_aveugle_regle_generique.md) — Appliquer/«corriger» une règle générique (harness, doctrine) sans juger le contexte = conformité aveugle (pendant workflow de «scan aveugle interdit»). Garde refusée = LIRE son intention (settings/code) avant de contourner ou inverser. Souvent intentionnelle → expliciter, pas inverser. (branche feature + deny merge, 27 mai)
 - [visibilite-vs-consommation-demi-fix](feedback_visibilite_vs_consommation_demi_fix.md) — Rendre une donnée VISIBLE (liste synced) ≠ rendre le CONSOMMATEUR capable de l'utiliser (queries). Sync qui met à jour la liste mais pas le code/process qui la consomme = moitié cosmétique. Tracer donnée→consommateur→usage avant de déclarer FAIT. (Chantier C cc-news, 27 mai)
 - [insert-section-apres-ligne-header-pas-section](feedback_insert_section_apres_ligne_header.md) — MCP insert_section(after) insère après la LIGNE du header, pas après le contenu de la section → casse la structure (corps déplacé sous la nouvelle section). Vérifier via read_section, ou viser dernière ligne de la section qui précède / insérer `before`. (27 mai)
 - [subagent-mcp-non-connecte-brief-inline](feedback_subagent_mcp_non_connecte_brief_inline.md) — MCP frontmatter d'un sub-agent = décoratif (non connecté en contexte, `No such tool available`). Brief "lis via MCP" → le sub-agent cat le vault. Fournir le contenu inline + interdiction vault + ESCALADE. Confirmé 2 agents (skill-creator, hook-creator). (27 mai)
