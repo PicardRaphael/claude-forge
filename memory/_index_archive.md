@@ -108,3 +108,7 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 - [verify-empirique-avant-affirmation-session](feedback_verify_avant_affirmation_session.md) — Avant d'affirmer "X parce que Y" sur changement filesystem/repo : git log/diff/blame d'abord. User questionnement "pourquoi ?" = signal paraphrase non-vérifiée
 - [visibilite-vs-consommation-demi-fix](feedback_visibilite_vs_consommation_demi_fix.md) — Donnée visible ≠ consommateur capable de l'utiliser. Tracer donnée→usage
 - [x-articles-inaccessibles-empirique](feedback_x_articles_inaccessibles_empirique.md) — Articles x.com/i/article inaccessibles (402). User doit copy-paste
+
+## Reference (tier-2)
+- [posttooluse-hook-pas-tokens-api](reference_posttooluse_hook_limitations.md) — Hook PostToolUse voit I/O outils, PAS tokens API Claude ni attribution skill/agent
+- [search-brain-context-defaut](reference_search_brain_context_default.md) — search_brain renvoie déjà context=true avec highlights — pas besoin d'ajouter snippets

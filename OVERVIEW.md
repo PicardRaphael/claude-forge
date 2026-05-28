@@ -5,7 +5,7 @@
 - **État** : `main` à 362 commits, dernière journée 27-28 mai (audit lifecycle, oracle vault-first 3/3 CONFORME, architecture MEMORY tier-1/tier-2)
 - **Audience** : lecteur externe sans contexte forge — Anthropic (Boris Cherny, équipe Claude Code), pairs Claude Code power-users, futurs collaborateurs
 
-> Studio méta-Claude Code à usage personnel — 10 agents, 48 skills, 12 hooks, 9 rules, et un vault Obsidian de 438 notes interrogeable par MCP. Trois mécanismes croisés : MCP local pour le contexte vault, doctrine vivante avec gate humain, et critère de design Agent/Skill basé sur la densité d'écriture MCP. Intégration cohérente non documentée publiquement ailleurs à notre connaissance.
+> Studio méta-Claude Code à usage personnel — 10 agents, 48 skills, 12 hooks, 9 rules, et un vault Obsidian de 438 notes interrogeable par MCP. Trois mécanismes croisés : MCP local pour le contexte vault, doctrine vivante avec gate humain, et critère de design Agent/Skill basé sur la densité d'écriture MCP.
 
 ---
 
@@ -14,8 +14,6 @@
 claude-forge est un setup Claude Code personnel utilisé quotidiennement depuis le 31 mars 2026 (~2 mois). Il pilote 5 repos (forge lui-même + ia_back, neo_ia, neoteem-brain, lojii) et sert deux rôles : (1) **conseiller/créateur** — conseille sur la config CC à appliquer, fabrique des composants conformes aux best practices Anthropic ; (2) **mémoire long-terme** — capitalise chaque erreur, décision, raisonnement non trivial dans un vault Obsidian local interrogeable par MCP.
 
 Le repo n'est pas open-source aujourd'hui (politique employeur Team bloque GitHub). Cet overview est rédigé pour une démarche d'engagement Anthropic ciblée.
-
-Claim factuel triangulé : selon deux analyses externes indépendantes (analyses 27 et 28 mai, méthodologies distinctes), le setup se positionne dans le **top 1-3% mondial** des configurations Claude Code personnelles publiquement comparables. Ce claim est utilisé ici comme repère, pas comme thèse — le reste du document décrit **quoi** est intégré et **comment**, pas un argumentaire de classement.
 
 ---
 
@@ -27,7 +25,7 @@ Source canonique : [[3-axes-strategiques-forge]] (vault).
 
 **Symptôme observé** : un `mcp__server__*` listé dans `tools:` du frontmatter d'un sub-agent Claude Code est silencieusement non chargé. À l'exécution, le sub-agent reçoit `Error: No such tool available: mcp__forge-brain__read_note`. Confirmé empiriquement sur 2 agents (skill-creator, hook-creator) le 27 mai 2026.
 
-**Cause-racine plausible** : bug GitHub `anthropics/claude-code#60237` (closed) — *"Sub-agent frontmatter `tools:` array silently drops first and last positions at spawn time"*. Le bug documente la perte silencieuse des positions 1 et N du tableau. Sur tous les sub-agents forge, `mcp__forge-brain__*` se trouve en première position du `tools:` array. La corrélation est forte ; le repro formel reste à faire.
+**Cause-racine non établie** : le symptôme est reproductible empiriquement mais la cause-racine reste ouverte. Le bug GitHub `anthropics/claude-code#60237` (closed) est candidat à examiner mais non confirmé sur cette configuration — repro formel à faire.
 
 **Conséquence** : un sub-agent à qui on dit *"lis les canoniques via MCP forge-brain"* hallucine ou fallback sur `cat`/`find` du vault → viole la doctrine MCP-only.
 
@@ -54,7 +52,7 @@ Le hook s'est déclenché 2 fois dans ce `/recap` même (sub-agent essayant `fin
 
 **Conséquence empirique mesurée** : sur les 49 skills + 13 agents audités le 27 mai, **zéro régression** liée au MCP décoratif depuis la mise en place du pattern brief-inline + hook `vault-cat-guard`. Avant la mise en place (chantier 23-24 mai), des sub-agents dispatchés en parallèle pour auditer plusieurs thèmes vault avaient fallback sur `cat`/`find` au vault, produisant plusieurs attributions doctrinales fausses corrigées en N2 via diagnostic empirique. Après le pattern : les sub-agents qui ne reçoivent pas l'extrait nécessaire **escaladent au lieu de bricoler** — l'erreur Anthropic devient un signal exploitable côté orchestrateur.
 
-**Position vs autres setups** : à notre connaissance, aucun setup CC publiquement documenté ne croise (1) un diagnostic explicite du symptôme, (2) un workaround orchestration côté session principale, (3) un enforcement structurel par hook bloquant. Boris Cherny est le destinataire naturel de ce diagnostic — la corrélation symptôme ⨯ bug `#60237` mérite un repro formel.
+**Repro formel à faire** : la corrélation symptôme observé ⨯ bug `#60237` mérite un test isolé avant toute prétention de cause-racine.
 
 ### Axe 2 — Critère architectural Agent vs Skill basé densité d'écriture MCP
 
@@ -180,7 +178,7 @@ Principes nommés, chacun avec sa note canonique :
 
 **Oracle vault-first 3/3 CONFORME (28 mai 2026)** — test reproductible que la séquence canonique A→B→C→D→E est suivie par défaut, pas par discipline ponctuelle. Trois scénarios documentés (audit lifecycle skill, ajout canonique vault, modification CLAUDE.md), pour chacun on observe : (A) analyse du réel effectuée ? (B) lecture canoniques EN ENTIER via `mcp__forge-brain__read_note` sans `max_lines` ? (C) écarts mesurables présentés ? (D) plan validé avant exécution ? (E) exécution + capitalisation ? Verdict : 3/3 PASS. Aucun scénario n'a court-circuité l'étape B (qui est le mode de défaillance principal — `search_brain` seul donne des extraits, pas la source de vérité).
 
-**Audit lifecycle auto-application (27 mai 2026, commit `e81e4aa`)** — 49 skills + 13 agents audités. Les 5 canoniques vault consultées EN ENTIER avant verdicts KEEP/AMEND/KILL : [[comment-creer-agent]], [[comment-creer-skill]], [[pattern-mcp-brief-then-direct]], [[3-axes-strategiques-forge]], [[doctrine-vivante]]. Résultats : (1) Grille catégories → vault requis appliquée — 22 skills catégorie 1-3 (référence / outil pur / exécution pure) où invocation vault non requise par design, 25 catégorie 4 audit/jugement dont 23 conformes ; (2) 2 AMEND légitimes (cc-advisor, evolve) ; (3) 3 KILL — 2 supportés par canoniques (vault-maintainer = MCP-write dense / `/vault-audit` doublon, rule color = canonique `comment-creer-agent`), 1 KILL pragmatique assumé tracé CHANGELOG (forge-status). L'audit s'est auto-appliqué la grille canonique qu'il était en train d'évaluer — test du test du test.
+**Audit lifecycle auto-application (27 mai 2026, commit `e81e4aa`)** — 49 skills + 13 agents audités. Les 5 canoniques vault consultées EN ENTIER avant verdicts KEEP/AMEND/KILL : [[comment-creer-agent]], [[comment-creer-skill]], [[pattern-mcp-brief-then-direct]], [[3-axes-strategiques-forge]], [[doctrine-vivante]]. Résultats : (1) Grille catégories → vault requis appliquée — 22 skills catégorie 1-3 (référence / outil pur / exécution pure) où invocation vault non requise par design, 25 catégorie 4 audit/jugement dont 23 conformes ; (2) 2 AMEND légitimes (cc-advisor, evolve) ; (3) 3 KILL — 2 supportés par canoniques (vault-maintainer = MCP-write dense / `/vault-audit` doublon, rule color = canonique `comment-creer-agent`), 1 KILL pragmatique assumé tracé CHANGELOG (forge-status).
 
 **Architecture MEMORY tier-1/tier-2 — −49% chars** (commit `7d82034`) — `memory/MEMORY.md` réduit de 42 470 → 21 493 chars (-49,4%) via hiérarchisation tier-1 (entrées citées au moins une fois) vs tier-2 (`_index_archive.md`, valides non citées). 96 feedbacks déplacés tier-2, accessibles sur recherche ciblée. Conséquence mesurée : ~14k tokens contexte libérés par session, zéro perte de signal (recherche tier-2 = 1 outil MCP supplémentaire, jamais déclenché spontanément). Pattern canonisé [[pattern-maintenance-hybride-corpus-accumulatif]] : 3 couches (déterministe / LLM / humain) avec gate `[v]/[m]/[i]` par section. Réintégration tier-1 dès qu'une entrée est citée par une nouvelle canonique.
 
@@ -211,7 +209,7 @@ Principes nommés, chacun avec sa note canonique :
 
 ## 9. Contact
 
-Raphaël Picard — Lead IA Neoteem (proptech ERP français Loji), consultant IA indépendant. 36 ans, parcours atypique (gamer, vision expert IA reconnu). Anthropic Academy 4 certifications. Usage Claude Code personnel quotidien depuis le 31 mars 2026.
+Raphaël Picard — Lead IA Neoteem (proptech ERP français Loji), consultant IA indépendant. 36 ans, parcours atypique (gamer). Anthropic Academy 4 certifications. Usage Claude Code personnel quotidien depuis le 31 mars 2026.
 
 Contact : raphael.picard@neoteem.fr.
 

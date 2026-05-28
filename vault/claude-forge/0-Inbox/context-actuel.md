@@ -206,3 +206,42 @@ Branch `main` à +3 commits d'origin/main (push GitHub bloqué orga Team, traces
 - Arbitrage collision nom = OSEF maintenant, voir condition publication ci-dessus.
 
 **Méta-apprentissage validation externe** : Gemini deep research fiable sur faits qualitatifs (collision existe, Boris fait des worktrees) mais hallucine systématiquement les chiffres précis (versions, étoiles, dates). WebFetch source primaire reste obligatoire avant relais.
+
+
+## 2026-05-28 (nuit) — Phase 1 optimisations post-validation externe 4 sources + OVERVIEW chirurgical
+
+**Phase 1 livrée — commit `f4dd26a` (ff-merge main, branche supprimée, pas de push)** :
+
+- **L1 mesure I/O outils (MVP minimal abonnement Claude Code)** :
+  - Hook PostToolUse `metrics-tracker.py` (~55L) fail-open, log JSONL `.claude/_metrics/YYYY-MM-DD.jsonl`
+  - Skills `/io-daily` (91L) + `/io-week` (94L) — top outils freq/tokens, tendances 7j, bottlenecks >20%
+  - 5 tests pytest (2 nominaux + 3 adverses) — 5/5 verts. Baseline 186 hooks verts maintenue
+  - `settings.json` appliqué manuellement par Raphael (classifier hard-block)
+  - Décisions : drop attribution skill/agent (non triviale), drop calcul tokens API (impossible depuis hook — proxy I/O seulement)
+
+- **L2 sources PIVOT vault doctrine-vivante** : arXiv 2605.11225 (Zhang/Popa/Xu/Song/Dimitriadis, mai 2026) vérifié empirique via WebFetch. Section "Sources d'inspiration" ajoutée : PIVOT (PLAN/INSPECT/EVOLVE/VERIFY) + ADR (Nygard 2011) + 4 adaptations forge-spécifiques tracées
+
+- **L3 SKIP search_brain snippets** : vérifié empirique que `context: true` par défaut renvoie déjà highlights `>>> term <<<`. ~1h économisée
+
+- **L4 rule read-section-preference** : `.claude/rules/read-section-preference.md` créée (préférence ciblée vs entière, pas dogme). cc-advisor ligne 22 amendée avec wikilink
+
+**Méthode validée empiriquement** : advisor AVANT proposition a détecté 2 blockers conceptuels (L1 mesure tokens ≠ I/O outils, L2 arXiv non vérifié). Pattern existant `feedback_advisor_da_mandatory` + `feedback_arxiv_id_yymm_format` + `feedback_brief_premisse_fausse_verifier_avant_executer` ont tenu. Pas de nouveau feedback à créer, patterns existants ont fonctionné.
+
+**OVERVIEW.md — suppression chirurgicale 5 claims faux (non-commité, ta main)** :
+- "Intégration cohérente non documentée publiquement ailleurs" (TL;DR) → supprimé
+- Paragraphe "top 1-3% mondial sourcé LLM" (§1) → supprimé
+- "Cause-racine plausible #60237 / La corrélation est forte" → dégradé "Cause-racine non établie, candidat à examiner, repro à faire"
+- "Position vs autres setups / Boris destinataire naturel" → dégradé "Repro formel à faire avant prétention cause-racine"
+- "L'audit s'est auto-appliqué... test du test du test" → supprimé
+- "vision expert IA reconnu" (§9) → supprimé
+- Diff propre 5 insertions / 7 deletions sur 6 emplacements. Bug #60237 conservé comme hypothèse ouverte (sinon axe 1 perd structure)
+
+**Capitalisations /done (2 blocs tier-2 reference)** :
+- [[reference_posttooluse_hook_limitations]] — Hook PostToolUse voit I/O outils, PAS tokens API ni attribution skill/agent
+- [[reference_search_brain_context_default]] — search_brain renvoie déjà context+highlights par défaut
+
+**Prochaines étapes** :
+- Commit OVERVIEW.md séparé (suppression chirurgicale 5 claims) si Raphael valide
+- Mesure `/context` post-Phase 1 en nouvelle session (les vrais gains tokens viendront des décisions futures éclairées par les métriques `/io-daily` `/io-week`, pas immédiatement)
+- Activer hook metrics-tracker en lançant la prochaine session (après application manuelle settings.json déjà faite)
+- Décider extension `mcp-alias-guard.py` aux 7 outils MCP forge-brain restants (dette tracée 28 mai matin, conditionnel post-repro #60237)
