@@ -49,6 +49,10 @@ Pour chaque cluster A :
 - Concept commun propose pour le meta-feedback
 - Slug consolide propose (descriptif du concept fusionné)
 
+**Classification tier du meta-feedback consolide** :
+- Tier-1 (MEMORY.md visible) si : ≥1 citation entrante apres fusion OU sujet strategique (3 axes innovation forge : MCP decoratif sub-agent, agent vs skill densite MCP vault, living doctrine) OU pinned manuel
+- Tier-2 (`memory/_index_archive.md`) sinon — reintegrable tier-1 des premiere citation
+
 ### Section B — Amendements successifs (fusion)
 
 Feedbacks v1 + v2 + ... sur le meme sujet, ou le dernier remplace les precedents. Exemple : `feedback_opus47_workflow.md` marque "RÉVISÉ 22 mai" et `feedback_effort_level_v1.md` couvrant la meme doctrine.
@@ -100,6 +104,41 @@ Etape 2 — verifier la preuve d'obsolescence/absorption (OBLIGATOIRE) :
 Pour chaque dormant retenu (critere DECISIF satisfait) :
 - Slug + resume
 - Preuve d'obsolescence/absorption : "concept absorbe par [[slug-actif]] qui couvre X" ou "obsolete depuis [decision precise]"
+
+### Section E — Promotion / Retrogradation tier
+
+Audit des feedbacks tier-1 (visibles dans MEMORY.md) : verifier qu'ils satisfont encore le critere tier-1.
+
+**Critere mecanique tier-1** (un seul suffit) :
+- Au moins 1 citation entrante (`[[slug]]` dans un autre `feedback_*.md`)
+- Sujet strategique (3 axes innovation forge : MCP decoratif sub-agent, agent vs skill densite MCP vault, living doctrine)
+- Pinned manuel (marqueur `pin: true` dans frontmatter)
+
+Pour chaque tier-1 ne satisfaisant AUCUN critere :
+- Proposer retrogradation vers tier-2 (`_index_archive.md`)
+- Justifier : "0 citation entrante, hors 3 axes strategiques, pas pinned"
+
+Pour chaque tier-2 (`_index_archive.md`) ayant gagne une citation depuis dernier clean :
+- Proposer promotion vers tier-1
+- Justifier : "desormais cite par [[<slug-citant>]]"
+
+Format gate :
+
+```
+Retrogradation tier-1 → tier-2 : [slug]
+Citations entrantes : 0
+Sujet strategique : non
+Pinned : non
+---
+[v]alider retrogradation  [p]inner (garder tier-1)  [i]gnorer
+```
+
+```
+Promotion tier-2 → tier-1 : [slug]
+Cite par : [[<slug-citant>]]
+---
+[v]alider promotion  [i]gnorer
+```
 
 ### Section "tout va bien"
 
@@ -282,6 +321,8 @@ Procédure : git mv depuis _archive/ vers memory/, restaurer ligne index, ajoute
 - **Un dormant ≠ un doublon** : dormant = pas cite = potentiellement obsolete. Doublon = meme concept = fusion. Les deux sections sont distinctes et separees.
 - **Option [m] sur cluster** : permettre le retrait d'un faux positif AVANT de valider la fusion. Un cluster de 4 avec 1 faux positif ne doit pas etre abandonne mais ajuste.
 - **MEMORY.md < 200 lignes** : si l'index approche la limite apres nettoyage, le signaler dans le rapport.
+- **Declencheur re-clean** : MEMORY.md > 38k chars = signal a traiter dans session courte dediee. Marge 2k sous seuil systeme 40k pour maintenance anticipee.
+- **Tier-1 = critere mecanique** : citation ≥1 OU 3 axes strategiques OU pinned. Pas d'"intuition tier-1" — sinon derive vers MEMORY.md obese.
 
 ---
 

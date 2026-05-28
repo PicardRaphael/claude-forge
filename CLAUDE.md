@@ -16,6 +16,7 @@
 - **JAMAIS `$ARGUMENTS` dans backticks shell** : substitution littérale casse quoting (Windows particulièrement).
 - **Hooks Windows : `py` launcher**, jamais chemin Python en dur (cross-machine). Jamais `C:\Users\...` (Bash mange `\`)
 - **MCP forge-brain UNIQUEMENT pour accès vault** : jamais Grep/Read/Glob/CLI Obsidian brut.
+- **Tokens/contexte = ressource ultra-précieuse** : MEMORY.md > 38k chars, fichiers obsolètes, doctrine périmée → dégrade chaque tâche. Fix immédiat, jamais "plus tard". Architecture : MEMORY.md tier-1 visible + `memory/_index_archive.md` tier-2 (réintégrer si cité).
 - **Workflow par défaut = langage naturel** : Raphael parle, session principale orchestre (feature → /spec → architect → dev → reviewer → grader). Slash commands optionnels.
 
 ## Workflow Git (convention)

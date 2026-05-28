@@ -114,7 +114,9 @@ metadata:
 ```
 
 Chemin cible : `<repo>/memory/feedback_<slug>.md` (resolu via `$MEMORY_DIR` = `$(git rev-parse --show-toplevel)/memory`)
-Ligne MEMORY.md a ajouter : `- [Titre lisible](feedback_<slug>.md) -- description (~150 chars)`
+Ligne index a ajouter : `- [Titre lisible](feedback_<slug>.md) — <resume <80 chars>`
+
+**Description frontmatter ET ligne index doivent rester < 80 chars** (lisibilite MEMORY.md, eviter inflation tier-1). Si tu ne peux pas resumer en 80 chars, le concept est trop large — sous-decouper.
 
 ### Type 2 -- Bloc note vault
 
@@ -181,6 +183,28 @@ Chemin cible : [chemin complet]
 - `v` --> ecrire immediatement, passer au suivant
 - `m` --> attendre la version modifiee par l'utilisateur, puis ecrire, passer au suivant
 - `i` --> ne rien ecrire, passer au suivant
+
+### Classification tier (proposee a la creation)
+
+Avant d'ajouter la ligne index, proposer le tier :
+
+```
+Tier propose : tier-2 (memory/_index_archive.md)
+Raison : 0 citation entrante a la creation (cas par defaut)
+---
+[v]alider tier-2  [p]romouvoir tier-1 (MEMORY.md visible)
+```
+
+**Critere mecanique tier-1** (un seul suffit pour proposer tier-1) :
+- Sujet touche 1 des 3 axes strategiques forge (MCP decoratif sub-agent, agent vs skill densite MCP vault, living doctrine)
+- Pinned explicit demande utilisateur
+- Citation entrante prevue (rare a la creation)
+
+**Defaut tier-2** : aucun feedback ne nait avec citation. Tier-2 est le defaut sain. Promotion ulterieure via `/clean-memory` quand citation apparait.
+
+Ecriture index :
+- Tier-1 : ajouter ligne dans `memory/MEMORY.md` en section appropriee
+- Tier-2 : ajouter ligne dans `memory/_index_archive.md` en section appropriee
 
 **Ecriture memoire** (apres `v` ou `m`) :
 - `Write` le fichier dans `$MEMORY_DIR/feedback_<slug>.md` ou resoudre `$MEMORY_DIR` = `$(git rev-parse --show-toplevel)/memory` (jamais obsidian create, jamais ~/.claude/projects/)

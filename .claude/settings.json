@@ -155,6 +155,15 @@
             "async": true
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/memory-size-watcher.py\"",
+            "timeout": 5
+          }
+        ]
       }
     ]
   },
