@@ -431,3 +431,9 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - Feedback `chiffre-baseline-brief-verifier-empiriquement` amendé section "Renforcement 2e occurrence" — pattern observé 2× même journée (clean-memory 28 mai matin + OVERVIEW 28 mai soir) = règle insuffisante seule, candidat garde-fou structurel (vérification empirique automatique avant relais chiffre SELF_PORTRAIT)
 - note-updated `context-actuel.md` entrée 28 mai soir
 - Méthode A→B→D→E→F + advisor (1 appel décisif sur chiffre tests) + 2 AskUserQuestion (arbitrages tonalité/longueur/snippets puis fix chiffre tests). Tests baseline confirmés 324 verts. Cycle git groupé `docs(repo): OVERVIEW Anthropic externe + README aligné + fix chiffre tests 324` ff-only main
+
+## [2026-05-28] /done | 3 capitalisations post-OVERVIEW Anthropic
+- note-created `04-Techniques/claude-code/bug-tools-array-first-last-drop.md` — bug #60237 verbatim issue + workaround padding + lien plausible MCP décoratif observé forge (repro à faire). Sort la découverte forensique de la working memory vers note canonique réutilisable
+- note-updated `memory/feedback_mcp_alias_ambigu_chemin_exact.md` — extension 6e violation `update_property` non couvert par `mcp-alias-guard.py` (matche `append_note` seulement). Règle de mesure : tout outil MCP `file=<alias>` peut écrire sur le mauvais fichier
+- note-created `memory/feedback_surface_plutot_que_padder_ou_tronquer.md` (tier-2) — variante longueur de [[feedback_ecart_consigne_chiffree_surfacer]]. 230L OVERVIEW vs cible 280-320L assumé
+- Méthode /done : extraction → filtre obligatoire → vérification doublons (1 amendement, 1 note vault, 1 tier-2) → 3 blocs validés [v] item par item. Cycle git groupé `chore(memory+vault): post-OVERVIEW 3 capitalisations`

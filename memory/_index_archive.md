@@ -6,7 +6,7 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 
 **Critère d'archivage réel (vers `_archive/`) :** distinct — un tier-2 n'est archivé que si obsolète/absorbé (voir `_archive/MEMORY-archive-log.md`). Tier-2 ≠ archivé.
 
-## Feedback (tier-2 — 96 entrées)
+## Feedback (tier-2 — 97 entrées)
 - [5-lignes-karpathy-ouverture-claudemd](feedback_5_lignes_karpathy_ouverture.md) — Tout CLAUDE.md forge commence par 5 lignes Karpathy verbatim
 - [80-percent-confidence-ship-now](feedback_80_percent_confidence_ship.md) — Convergence 80%+ game-changer = ship avec tests adverses, pas attendre 7j
 - [agent-creator-path-absolu-cross-repo](feedback_agent_creator_path_absolu_cross_repo.md) — Modifier agent autre repo = dispatcher agent-creator avec path ABSOLU
@@ -95,6 +95,7 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 - [sub-agent-invente-classifier](feedback_sub_agent_invente_classifier.md) — Sub-agent qui refuse sans tenter = rationalisation. Forcer tentative + verbatim error
 - [superpowers-decision](feedback_superpowers_decision.md) — Garder superpowers neo_ia (executing-plans L), ne pas ajouter ia_back
 - [support-100pct-success](feedback_support_tokens.md) — neo-brain-support = 100% réussite, jamais optimiser tokens au détriment qualité
+- [surface-plutot-que-padder-tronquer](feedback_surface_plutot_que_padder_ou_tronquer.md) — Longueur cible flexible : surface l'écart, jamais padder ni tronquer brutalement
 - [sync-skill-upstream-pas-fabriquer](feedback_sync_skill_upstream_pas_fabriquer.md) — Asset references/ manquant = sync verbatim upstream (Invoke-WebRequest), jamais fabriquer
 - [test-echoue-hypothese-vs-bug](feedback_test_echoue_hypothese_vs_bug.md) — Test rouge ≠ toujours bug. Lire le code avant de réparer, corriger le test si besoin
 - [test-everything](feedback_test_everything.md) — Toujours tester hooks/agents/skills/MCP en réel, jamais déclarer OK sans preuve

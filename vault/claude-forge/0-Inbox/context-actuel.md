@@ -169,3 +169,16 @@ Branch `main` à +3 commits d'origin/main (push GitHub bloqué orga Team, traces
 - Push GitHub bloqué orga Team (sauvegarde externalisée à arranger)
 - Repro formel bug #60237 sur config forge (corrélation forte, test isolé manquant)
 - Repo public vs privé à arbitrer avant DM Boris (inclut vault/ ? memory/ ?)
+
+
+## 2026-05-28 (post-OVERVIEW) — /done 3 capitalisations
+
+**Livrables** :
+- Note canonique [[bug-tools-array-first-last-drop]] créée (04-Techniques/claude-code) — bug GitHub #60237 verbatim issue + workaround padding + lien plausible MCP décoratif observé forge. Sort la découverte forensique de working memory vers note canonique réutilisable + référençable
+- Feedback `mcp_alias_ambigu_chemin_exact` amendé section "Extension 28 mai 2026 — `update_property` non couvert (6e violation)". `mcp-alias-guard.py` actuel ne matche que `append_note` ; 6 autres outils MCP forge-brain prenant `file=<alias>` restent à découvert (`update_property`, `insert_section`, `read_section`, `update_note`, `delete_note`, `move_note`, `bulk_update_property`). Règle de mesure : tout outil `file=` peut écrire silencieusement sur le mauvais fichier sur stem ambigu. Workaround définitif : `read_note_by_path` + `Read`/`Edit` filesystem direct
+- Feedback tier-2 `surface_plutot_que_padder_ou_tronquer` créé — variante longueur de [[feedback_ecart_consigne_chiffree_surfacer]]. Capture la préférence Raphael chantier OVERVIEW (230L vs cible 280-320L assumé sans padding ni troncature)
+
+**Méthode /done appliquée** : extraction brute (4 catégories) → filtre obligatoire → vérification doublons (1 amendement feedback existant, 1 note vault nouvelle, 1 tier-2) → validation [v] item par item → écriture mémoire + vault + CHANGELOG + log.md + cycle git groupé
+
+**Dette structurelle nouvelle tracée** :
+- Hook `mcp-alias-guard.py` doit étendre son matcher à 7 outils MCP forge-brain (actuellement `append_note` seul). Candidat hook-creator dispatch prochaine session — pattern garde existante à élargir, pas un nouveau hook

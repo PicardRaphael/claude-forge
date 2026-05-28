@@ -13,6 +13,13 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-28 (post-OVERVIEW) — 3 capitalisations /done
+
+- **Ajoutée** : note canonique [[bug-tools-array-first-last-drop]] (04-Techniques/claude-code) — bug GitHub `anthropics/claude-code#60237` documenté avec verbatim issue, workaround padding, lien symptôme MCP décoratif observé forge (cause-racine plausible, repro à faire). Évite que la découverte forensique 28 mai reste enterrée dans working memory uniquement
+- **Modifiée** : `memory/feedback_mcp_alias_ambigu_chemin_exact.md` — extension "28 mai 2026 — `update_property` non couvert (6e violation)". `mcp-alias-guard.py` actuel ne matche que `append_note` ; 6 outils MCP forge-brain prenant `file=<alias>` restent à découvert. Règle de mesure ancrée : tout outil `file=` peut écrire silencieusement sur le mauvais fichier sur stem ambigu. Workaround définitif = `read_note_by_path` + `Read`/`Edit` filesystem direct
+- **Ajoutée** : `memory/feedback_surface_plutot_que_padder_ou_tronquer.md` (tier-2) — variante longueur de [[feedback_ecart_consigne_chiffree_surfacer]]. Capture la préférence Raphael confirmée chantier OVERVIEW : 230L vs cible 280-320L assumé sans padding ni troncature
+- **Source** : étape /done post-livrable OVERVIEW Anthropic, 3/3 blocs validés [v] item par item
+
 ## 2026-05-28 (soir) — OVERVIEW.md Anthropic externe + fix chiffre tests 324
 
 - **Livrées** : `OVERVIEW.md` racine repo (230L, présentation externe destinée Anthropic / Boris Cherny — 9 sections cadrage / 3 axes innovation / architecture défensive avec snippet `vault-cat-guard.py` / mécanismes anti-drift / méthodologie / validations empiriques / limitations / travail-en-cours / contact)
