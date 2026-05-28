@@ -18,7 +18,7 @@ aliases:
   - "v2.1.140"
 domaine: claude-code
 type: changelog
-derniere-maj: 2026-05-24
+derniere-maj: 2026-05-28
 auteur: claude
 sources:
   - "https://www.anthropic.com/news"
@@ -26,7 +26,6 @@ tags:
   - "#type/changelog"
   - "#domaine/claude-code"
 ---
-
 ## Features majeures (6 mai)
 
 - **Claude Code on the web** — coder sans terminal (claude.ai/code)
@@ -180,3 +179,73 @@ Pipeline recommandé tâches M/L/XL, conditionnel (skip selon taille). Détail d
 - [[methode-analyser-repo]] — pipeline architect/dev/reviewer/test explicité
 - [[Brad-Abrams]] — fiche leader créée
 - [[Mitchell-Hashimoto]] — fiche leader créée
+
+
+---
+
+## AJOUT 28 mai 2026 — Champs settings.json avancés (audit oracle vault-first)
+
+Source : [code.claude.com/docs/en/settings](https://code.claude.com/docs/en/settings) (WebFetch 28 mai 2026, scénario 3 test oracle vault-first).
+
+### Versions manquantes du changelog au-dessus
+
+- **v2.1.128** : `disableRemoteControl` (bloque `claude remote-control`, `--remote-control`, auto-start, toggle in-session)
+- **v2.1.136** : `policyHelper.path` (paramètres managés calculés dynamiquement via exécutable admin, MDM/managed only)
+- **v2.1.143** : `worktree.bgIsolation` (`"none"` désactive le bloc Edit/Write sur checkout principal en background ; défaut `"worktree"`)
+- **v2.1.143** : `NO_COLOR`/`FORCE_COLOR` dans `env` affectent sous-processus mais PAS l'UI Claude elle-même
+
+### Helpers d'authentification dynamiques
+
+- `apiKeyHelper` — envoie `X-Api-Key` + `Authorization: Bearer`, TTL via `CLAUDE_CODE_API_KEY_HELPER_TTL_MS`
+- `otelHeadersHelper` — headers OpenTelemetry dynamiques (`CLAUDE_CODE_OTEL_HEADERS_HELPER_DEBOUNCE_MS`)
+- `awsAuthRefresh` / `awsCredentialExport` / `gcpAuthRefresh` — refresh credentials cloud
+
+### Skills avancés (v2.1.105+)
+
+- `maxSkillDescriptionChars` (défaut spec : 1024, augmentable jusqu'à 2048)
+- `skillListingBudgetFraction` (fraction budget contexte alloué au listing skills, défaut ~0.02)
+- `skillOverrides` (`"name-only"` / `"off"` par skill — utile pour désactiver legacy ou cap à name+description sans body)
+- `disableSkillShellExecution` (bloque scripts/ des skills)
+
+### Drop-in directory `managed-settings.d/`
+
+```
+/Library/Application Support/ClaudeCode/
+├── managed-settings.json          # base
+└── managed-settings.d/
+    ├── 10-telemetry.json          # fusionné en premier (ordre lexicographique)
+    └── 20-security.json
+```
+Règle fusion : scalaires = last-wins, arrays = concat + dédup, objects = deep-merge.
+
+### Contrôles login (managed only)
+
+- `forceLoginMethod: "claudeai"` — force méthode login
+- `forceLoginOrgUUID: [...]` — restreint orgs autorisées
+- `forceRemoteSettingsRefresh: true` — invalide cache settings remote
+
+### Sandbox détaillé (sections peu documentées)
+
+```json
+{
+  "sandbox": {
+    "filesystem": {
+      "allowWrite": [...], "denyRead": [...],
+      "allowManagedReadPathsOnly": true
+    },
+    "network": {
+      "allowedDomains": [...], "deniedDomains": [...],
+      "allowManagedDomainsOnly": true,
+      "allowMachLookup": ["com.apple.coresimulator.*"],
+      "httpProxyPort": 8080
+    }
+  }
+}
+```
+
+### Impact forge
+
+- `policyHelper` + `managed-settings.d/` = pattern entreprise pour déploiement IT large échelle (à connaître si Neoteem standardise CC sur la flotte)
+- `skillOverrides` = mécanisme de désactivation propre des plugins user-scope sans `enabledPlugins:false` (alternative à explorer pour le gotcha `obsidian@obsidian-skills` tracé dans context-actuel 28 mai)
+- `worktree.bgIsolation: "none"` à NE PAS activer côté forge (perte protection par défaut)
+- `disableSkillShellExecution` = blue-team option si skills tierces non auditées
