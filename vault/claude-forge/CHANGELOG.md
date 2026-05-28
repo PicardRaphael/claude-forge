@@ -14,6 +14,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-28 (suite 5) — AMEND CLAUDE.md L14 v3 : scope ouvert "toute réponse substantielle"
+
+- **Modifiées** :
+  - `CLAUDE.md` L14 (via claudemd-optimizer, delegate-guard OK) — scope élargi de "6 catégories" à "toute réponse substantielle à une question Raphael (proposition, rédaction d'un ticket/commentaire/spec/explication, refonte, audit, jugement, recommandation, recherche web)". Clause "si aucune note pertinente → répondre quand même" ajoutée. Anti-pattern 28 mai 2026 (14 itérations rédaction commentaire ticket) tracé. Wikilink `[[erreur-vault-jamais-consulte-session-principale]]` ajouté.
+  - `Knowledge/erreurs/erreur-vault-jamais-consulte-session-principale.md` (vault) — AJOUT section "2e occurrence — 28 mai 2026 (rédaction commentaire ticket Neoteem)" : contexte, cause-racine (trou doctrinal scope L14), conséquences (14 itérations, notes ratées), fix appliqué (AMEND L14 + feedback memory), pattern transverse renforcé, déclencheur réactivation (3e occurrence → Option B/C). `derniere-maj` mise à jour.
+- **Source** : Session 28 mai — Raphael remonte "dès que je te pose une question, il faudrait que tu vérifies si on a des notes". Diagnostic empirique : l'AMEND L14 v2 (28 mai matin) couvrait audit/jugement mais pas l'assistance rédactionnelle (création ticket, écriture commentaire, spec, explication). Trou doctrinal de scope confirmé par 2e occurrence en 4 jours.
+
 ## 2026-05-28 (suite 4) — Archi backs Neoteem + stockage fichiers + webservices Jérôme
 
 - **Ajoutées** :

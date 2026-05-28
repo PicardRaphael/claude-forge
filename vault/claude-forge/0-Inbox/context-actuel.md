@@ -395,3 +395,22 @@ Optimisations possibles côté `mcp-obsidian-brain` :
 **Statut commentaire Jira** : V14 finale, à copier-coller manuellement par Raphael (pas d'accès Jira depuis session)
 
 **Pas de cycle git** sur cette tranche — vault + memory uniquement, pas de touches .claude/.
+
+
+## 2026-05-28 (suite 6) — AMEND CLAUDE.md L14 v3 + capitalisation 2e occurrence vault-jamais-consulté
+
+**Déclencheur** : Raphael remonte que la session principale ne consulte pas le vault sur les demandes d'assistance rédactionnelle (rédaction commentaire/ticket/spec). Diagnostic empirique : la session récente du ticket "Comparatif devis" = 14 itérations V1→V14 sans une seule consultation vault. Or des notes pertinentes existaient.
+
+**Cause-racine identifiée** : L14 CLAUDE.md v2 listait 6 catégories ("proposition / recherche web / refonte / audit / jugement / recommandation"). "Aide-moi à écrire X" n'était dans aucune → trou doctrinal de scope, pas violation.
+
+**Fix appliqué (livré)** :
+- **AMEND CLAUDE.md L14 v3** (via claudemd-optimizer, vérif empirique post-agent OK) — scope élargi à "toute réponse substantielle à une question Raphael", exemple explicite "rédaction d'un ticket/commentaire/spec/explication", clause "si aucune note pertinente → répondre quand même mais avoir cherché d'abord", 2e anti-pattern daté ajouté (28 mai 14 itérations), wikilink `[[erreur-vault-jamais-consulte-session-principale]]` ajouté.
+- **Append note canonique** [[erreur-vault-jamais-consulte-session-principale]] — section "2e occurrence — 28 mai 2026" avec contexte, cause-racine scope, conséquences, fix, pattern transverse, déclencheur réactivation (3e occurrence → Option B hook ou Option C skill).
+- **CHANGELOG vault** — entrée "suite 5" complète.
+
+**Trade-off doctrinal arbitré** : Option A (AMEND L14) retenue vs Option B (hook session-health) et Option C (skill vault-reflex auto-trigger). Raison : 2 occurrences en 4 jours ne justifient pas encore un hook (doctrine 22 mai : lint/sécu/scope, pas workflow) ni une nouvelle skill (overhead). AMEND sémantique gratuit suffit. 3e occurrence = déclencheur réévaluation.
+
+**Cycle git proposé** (1 commit groupé) :
+- `feat(doctrine): AMEND CLAUDE.md L14 v3 scope ouvert assistance rédactionnelle + amend note canonique vault (2e occurrence skip vault session principale)`
+
+**Apprentissage méta** : la règle de consultation vault doit avoir un scope **ouvert** (toute réponse substantielle) avec clause d'**échappatoire explicite** (si rien → répondre quand même). Sinon le LLM cherche un alibi pour ne pas chercher en classant la demande hors des catégories listées.
