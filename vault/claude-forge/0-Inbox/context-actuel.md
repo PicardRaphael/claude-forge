@@ -8,7 +8,6 @@ derniere-maj: 2026-05-28
 auteur: claude
 tags: ["#type/context", "#meta/working-memory"]
 ---
-
 ## Phase actuelle
 
 Audit lifecycle forge complet (A2) — post audit context tokens. Cartographie empirique 49 skills + 10 agents + 10 rules + 12 hooks. Etat : SAIN avec dette legere localisee. 3 KILL + 1 AMEND executes, baseline 181 maintenue.
@@ -151,3 +150,22 @@ Branch `main` à +3 commits d'origin/main (push GitHub bloqué orga Team, traces
 - Structure : identité / chiffres / archi / composants vivants / doctrine wikilinks / edge mondial 3 axes / validations 27-28 / dettes tracées / engagement Anthropic
 - Tonalité : factuelle pure, wikilinks vault au lieu de duplication, écarts vs ancien doc signalés en 1 ligne discrète
 - Cycle git proposé : 1 commit `docs(repo): SELF_PORTRAIT final condensé 28 mai (151L vs 631L)`
+
+
+## 2026-05-28 (soir) — OVERVIEW.md Anthropic livré + correction chiffre tests 324
+
+**Livrables** :
+- `OVERVIEW.md` créé (230L) — présentation externe destinée Anthropic / Boris Cherny / pairs CC. 9 sections : cadrage, 3 axes innovation, architecture défensive avec snippet `vault-cat-guard.py`, mécanismes anti-drift, méthodologie, validations empiriques, limitations honnêtes, travail en cours, contact.
+- `README.md` aligné : chiffres mis à jour (10 agents, 48 skills, 12 hooks, 9 rules, 438 notes), paragraphe 3 axes ajouté, double pointeur OVERVIEW (externe) + SELF_PORTRAIT (interne).
+- `SELF_PORTRAIT.md` patch : 3 occurrences chiffre tests obsolète corrigées.
+
+**Découverte forensique bug GitHub #60237** : closed, titre exact *"Sub-agent frontmatter `tools:` array silently drops first and last positions at spawn time"*. Ne concerne PAS le frontmatter MCP/skills (hypothèse initiale). C'est une **cause-racine plausible** du symptôme "MCP décoratif sub-agent" observé empiriquement : sur tous sub-agents forge, `mcp__forge-brain__*` est en position 1 du `tools:` array → corrélation forte avec le drop position 1 documenté. Repro formel pas fait → noté §8 OVERVIEW comme travail-en-cours avec disclaimer honnête.
+
+**Correction chiffre tests 181 → 324 (capté par advisor avant commit)** : SELF_PORTRAIT portait "181 verts (143 mcp + 38 hooks)" depuis ≥1 session. Mesure empirique au moment de la validation : 143 (mcp-forge-brain) + **181** (hooks, pas 38 — confusion fichiers vs cas de tests) = **324**. Brief Raphael étape 5 relayait passivement le chiffre obsolète. Fix appliqué : 3 occurrences OVERVIEW + 2 occurrences SELF_PORTRAIT corrigées même commit. Feedback `chiffre-baseline-brief-verifier-empiriquement` amendé section "Renforcement 2e occurrence" — pattern observé dans 2 chantiers distincts (clean-memory 28 mai matin + OVERVIEW 28 mai soir) = règle insuffisante seule, candidat garde-fou structurel (verification empirique automatique avant relais chiffre SELF_PORTRAIT).
+
+**Discipline mesurer-avant-proclamer appliquée jusqu'au bout** : 2 chiffres SELF_PORTRAIT non re-vérifiables (`2,68s session_messages eager-boot`, `4 attributions doctrinales fausses`) → généralisés dans OVERVIEW ("auto-start fiable au SessionStart", "plusieurs attributions doctrinales corrigées via diagnostic empirique"). OVERVIEW destiné Boris = aucun chiffre précis non vérifié.
+
+**Dette tracée** :
+- Push GitHub bloqué orga Team (sauvegarde externalisée à arranger)
+- Repro formel bug #60237 sur config forge (corrélation forte, test isolé manquant)
+- Repo public vs privé à arbitrer avant DM Boris (inclut vault/ ? memory/ ?)

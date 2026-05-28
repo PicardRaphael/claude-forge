@@ -13,6 +13,16 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-28 (soir) — OVERVIEW.md Anthropic externe + fix chiffre tests 324
+
+- **Livrées** : `OVERVIEW.md` racine repo (230L, présentation externe destinée Anthropic / Boris Cherny — 9 sections cadrage / 3 axes innovation / architecture défensive avec snippet `vault-cat-guard.py` / mécanismes anti-drift / méthodologie / validations empiriques / limitations / travail-en-cours / contact)
+- **Modifiées** : `README.md` (chiffres alignés 10/48/12/9/438, paragraphe 3 axes, double pointeur OVERVIEW externe + SELF_PORTRAIT interne), `SELF_PORTRAIT.md` (correction chiffre tests 181 → **324** = 143 mcp-forge-brain + 181 hooks, 3 occurrences)
+- **Découverte forensique bug GitHub #60237** : closed, titre exact *"Sub-agent frontmatter `tools:` array silently drops first and last positions at spawn time"*. Ne concerne pas le frontmatter MCP/skills. **Cause-racine plausible** du symptôme MCP décoratif sub-agent observé empiriquement (corrélation forte : `mcp__forge-brain__*` en position 1 des `tools:` array de tous les sub-agents forge). Repro formel à faire — tracé §8 OVERVIEW
+- **Correction chiffre tests (capté par advisor avant commit)** : SELF_PORTRAIT portait "181 verts (143+38)" depuis ≥1 session, brief Raphael relayait passivement. Mesure empirique = 143 + **181** (hooks, confusion fichiers vs cas de tests). Vrai total **324 verts**. Fix appliqué 5 occurrences (3 OVERVIEW + 2 SELF_PORTRAIT). Feedback `chiffre-baseline-brief-verifier-empiriquement` amendé section "Renforcement 2e occurrence"
+- **Discipline mesurer-avant-proclamer jusqu'au bout** : 2 chiffres SELF_PORTRAIT non re-vérifiables (`2,68s eager-boot`, `4 attributions doctrinales fausses`) → généralisés dans OVERVIEW. Aucun chiffre précis non vérifié dans doc destiné Boris
+- **Notes vault** : aucune note créée (canoniques existantes wikilinkées), `context-actuel.md` mis à jour entrée 28 mai soir
+- **Source** : engagement Anthropic en préparation, méthode A→B→D→E→F appliquée
+
 ## 2026-05-28 — SELF_PORTRAIT régénéré condensé
 
 - **Modifiées** : `SELF_PORTRAIT.md` (racine repo, renommé depuis `CLAUDE_FORGE_SELF_PORTRAIT.md`, 631L → 151L)

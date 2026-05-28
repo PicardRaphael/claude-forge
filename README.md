@@ -2,43 +2,51 @@
 
 **Assistant personnel Claude Code — Conseiller, Créateur, Optimiseur**
 
-Créé le : 31 mars 2026
+Créé le : 31 mars 2026 · Dernière mise à jour : 2026-05-28
 
 ## Ce que c'est
 
-Un studio méta-Claude Code : 11 agents, 47 skills, 9 hooks, 10 rules et un vault de connaissances (forge-brain) interrogeable par MCP. Il conseille, fabrique de la config Claude Code conforme pour tous tes projets, et capitalise chaque leçon apprise.
+Un studio méta-Claude Code : 10 agents, 48 skills, 12 hooks Python, 9 rules et un vault Obsidian de 438 notes interrogeable par MCP. Il conseille, fabrique de la config Claude Code conforme pour tous tes projets, et capitalise chaque leçon apprise.
 
-Pour une cartographie exhaustive (architecture, inventaire, sécurité, FAQ), voir **`CLAUDE_FORGE_SELF_PORTRAIT.md`**.
+Trois axes d'innovation revendiqués (canonique [[3-axes-strategiques-forge]]) : (1) diagnostic et workaround du **MCP décoratif sub-agent** — pattern brief-inline + hook `vault-cat-guard`, cause-racine plausible bug `anthropics/claude-code#60237` ; (2) critère architectural **Agent vs Skill basé densité d'écriture MCP vault** ; (3) **living doctrine** avec gate humain typé INFO/REINFORCE/PIVOT.
+
+Pour la présentation externe (Anthropic, pairs CC, lecteurs sans contexte) → **`OVERVIEW.md`**.
+Pour la cartographie technique interne (reprise de contexte rapide) → **`SELF_PORTRAIT.md`**.
 
 ## Structure
 
 ```
 claude-forge/
 ├── CLAUDE.md                  Contrat Jarvis + doctrine (source d'autorité)
+├── OVERVIEW.md                Présentation externe (Anthropic, audience large)
+├── SELF_PORTRAIT.md           Photographie technique interne (reprise contexte)
 ├── .mcp.json                  Déclare le MCP forge-brain (HTTP :8091)
 ├── install.bat                Setup des prérequis CLI (Windows)
 │
 ├── .claude/
-│   ├── settings.json          Permissions + câblage des 9 hooks
-│   ├── agents/                11 agents (créateurs, repo-inspector, devils-advocate…)
-│   ├── skills/                47 skills (cc-advisor, cc-news, forge-brain, /recap, /done…)
-│   ├── hooks/                 9 hooks Python (delegate-guard, security-guard, meta-commentary…)
-│   ├── rules/                 10 rules de routing + doctrine
+│   ├── settings.json          Permissions + câblage des 12 hooks
+│   ├── agents/                10 agents (créateurs, repo-inspector, devils-advocate…)
+│   ├── skills/                48 skills (cc-advisor, cc-news, forge-brain, /recap, /done…)
+│   ├── hooks/                 12 hooks Python (delegate-guard, security-guard, vault-cat-guard…)
+│   ├── rules/                 9 rules de routing + doctrine
 │   └── agent-memory/          mémoire par agent (project scope)
 │
-├── mcp-forge-brain/           Serveur MCP maison (FastMCP + SQLite FTS5, 21 outils)
-├── vault/claude-forge/        Le "cerveau" — vault Obsidian (~412 notes)
+├── mcp-forge-brain/           Serveur MCP maison (FastMCP + SQLite FTS5, 22 outils)
+├── vault/claude-forge/        Le "cerveau" — vault Obsidian (438 notes)
 ├── ia-lead-neoteem/           Plugin Cowork (7 skills Responsable IA)
 └── scripts/                   .bat de tâches planifiées (cc-news, forge-review, vault-audit)
 ```
 
-### Agents clés
+### Agents clés (10 forge + 3 user-scope)
 
 - `repo-inspector` — analyse / audit / scan d'un repo (mode=analyze|audit|scan)
 - `agent-creator` / `skill-creator` / `hook-creator` / `claudemd-optimizer` — créateurs spécialisés
 - `devils-advocate` — critique adversariale avant ship d'un livrable majeur
-- `python-dev` — implémentation Python en TDD
+- `outcomes-grader` — notation RUBRIC.md PASS/FAIL/PARTIAL
+- `python-dev` — implémentation Python en TDD (hook inline `py_compile`)
+- `self-updater` — détecte les nouveautés CC via `cc-news`, met à jour les skills `cc-*-ref`
 - `responsable-ia` — casquette Lead IA Neoteem (CODIR, AI Act, roadmap, Loji)
+- `boris-auditor` / `ecc-auditor` / `will-auditor` (user-scope) — audits lentilles externes
 
 ## Installation
 

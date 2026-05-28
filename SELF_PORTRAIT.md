@@ -19,7 +19,7 @@ Document interne. Photographie technique fidèle pour reprise de contexte rapide
 | Agents user-scope | **3** (boris-auditor, ecc-auditor, will-auditor) | stable |
 | Hooks Python actifs | **12** (+1 inline `py_compile` dans python-dev) | stable |
 | Rules | **9** | -1 vs brief (KILL color fait) |
-| Tests baseline | **181 verts** (143 mcp-forge-brain + 38 hooks) | stable depuis ~100 commits |
+| Tests baseline | **324 verts** (143 mcp-forge-brain + 181 hooks) | stable depuis ~100 commits |
 | Notes vault | **453** | +23 vs 27/05 |
 | MEMORY.md | **24,6k chars** | tier-1 visible post hierarchisation |
 | `_index_archive.md` | **16,6k chars** | tier-2 archive |
@@ -121,7 +121,7 @@ Notes canoniques (lecture EXCLUSIVEMENT via MCP forge-brain, jamais Grep/Read br
 - **27-28 mai** : oracle vault-first 3/3 CONFORME (audit lifecycle auto-applique séquence canonique A→B→C→D→E sur lui-même)
 - **Audit lifecycle complet** : 3 KILL + 2 AMEND + capitalisations (commit `e81e4aa`)
 - **Architecture MEMORY.md tier-1/tier-2** : livrée + canonisée [[pattern-maintenance-hybride-corpus-accumulatif]] (commit `7d82034`)
-- **Tests baseline 181 verts** : maintenue depuis ~100+ commits
+- **Tests baseline 324 verts** : maintenue depuis ~100+ commits (143 mcp-forge-brain + 181 hooks)
 - **MCP forge-brain port 8091** : auto-start fiable, eager boot session_messages 2,68s
 - **~14k tokens contexte libérés** : purge hierarchisation MEMORY + nettoyage settings.local.json (48 → 11 entrées allow)
 
@@ -148,4 +148,4 @@ Notes canoniques (lecture EXCLUSIVEMENT via MCP forge-brain, jamais Grep/Read br
 
 ## Méthodologie
 
-Métriques mesurées empiriquement ce soir : `git rev-list --count` (361 commits), `ls .claude/skills | wc -l` (48), `python -m pytest --collect-only` (181 tests), `find vault -name "*.md" | wc -l` (453), `wc -c memory/*.md` (24,6k + 16,6k), lecture directe `settings.json` (12 hooks Python + 1 inline). Wikilinks vault résolvables via MCP forge-brain `read_note`.
+Métriques mesurées empiriquement ce soir : `git rev-list --count` (362 commits), `ls .claude/skills | wc -l` (48), `python -m pytest --collect-only` racine + `.claude/hooks/tests/` (324 tests : 143 + 181), `find vault -name "*.md" | wc -l` (453), `wc -c memory/*.md` (24,6k + 16,6k), lecture directe `settings.json` (12 hooks Python + 1 inline). Wikilinks vault résolvables via MCP forge-brain `read_note`.
