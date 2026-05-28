@@ -12,10 +12,8 @@
 - [arxiv-id-yymm-format](feedback_arxiv_id_yymm_format.md) — Format arXiv YYMM doit matcher mois cité dans note
 - [arxiv-url-swap-papers-similaires](feedback_arxiv_url_swap_papers_similaires.md) — N papers même domaine = URLs swapées. WebFetch systématique
 - [audit-qualite-design-transverse-mandatory](feedback_audit_qualite_design_transverse.md) — Audit `.claude/` = technique + qualité-design transverse vs canoniques
-- [audit-repo-method-4-parallel-auditors](feedback_audit_repo_method.md) — Audit .claude/ = 4 project-auditor parallèles
 - [askuserquestion-arbitrage-destructif](feedback_askuserquestion_arbitrage_destructif.md) — Actions destructives multiples = AskUserQuestion item par item, jamais en bloc. Permet corrections contextuelles
 - [audit-thematique-methode-sub-agents-clusters](feedback_audit_thematique_methode.md) — Audit vault : sub-agents par CLUSTER, checkpoint A avant B, self-verify avant D
-- [auditor-false-positives-verify-claims](feedback_auditor_false_positives.md) — Vérifier empiriquement les claims project-auditor (plugins scope, allowed-tools)
 - [bash-permission-format](feedback_bash_permission_format.md) — Permissions Bash = espace avant *, jamais deux-points. Bash(git *) pas Bash(git:*)
 - [behavioral-test-after-setup](feedback_behavioral_test_pattern.md) — Après setup/audit/modif massive, prompt test comportemental PASS/FAIL
 - [bras-droit-proactif](feedback_bras_droit.md) — Contrat Jarvis : partenaire proactif, propose améliorations, met à jour mémoire, pose questions sans attendre
@@ -72,6 +70,7 @@
 - [org-blocks-github](feedback_no_github_cloud.md) — Orga Team bloque GitHub, pas de triggers cloud, tout en local Task Scheduler
 - [non-invokable-skills-must-be-referenced](feedback_non_invokable_skills_orphan.md) — Skill user-invokable:false orpheline = la lier en frontmatter+body d'une skill parente
 - [opus47-workflow-decisions](feedback_opus47_workflow.md) — xhigh RÉSERVÉ architect/dev-lead/refactor-pg. high partout ailleurs
+- [ratio-empirique-doublons-memory-vault-pilote](feedback_ratio_empirique_doublons_memory_vault.md) — Pilote 29 fichiers = 38% doublons vault. Ancre seuils hook saturation (WARNING 80, CRITICAL 100) et cible ≤100 fichiers
 - [read-note-conditionnel-si-pas-deja-contexte](feedback_read_note_conditionnel_si_pas_deja_contexte.md) — Avant read_note canonique audit/jugement, vérifier si déjà en contexte session. Citer + wikilink si oui. Application directe règle tokens/contexte L19
 - [pas-de-meta-commentaire-doctrine-composants](feedback_pas_de_meta_commentaire_doctrine.md) — JAMAIS justification/source/meta dans hook/agent/skill/CLAUDE.md. Le pourquoi → vault
 - [plugin-admin-absorbe-readonly](feedback_plugin_admin_absorbe_readonly.md) — Plugin admin (write) absorbe fonctionnellement read-only. Desinstaller le read-only sans perte (gain tokens). Verifier allowed-tools de chaque skill

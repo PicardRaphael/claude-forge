@@ -15,7 +15,6 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 - [model-allocation-strategy](feedback_all_opus.md) — Sonnet pour exécution, Opus pour jugement — politique CwC 2026 validée 21 mai
 - [anthropic-doctrine-biais-full-thune](feedback_anthropic_doctrine_biais_full_thune.md) — Anthropic reco xhigh = biais tokens illimités. Calibrer par TYPE de tâche
 - [askuserquestion-sub-agent-impossible](feedback_askuserquestion_sub_agent_pattern.md) — AskUserQuestion ne marche pas en sub-agent. Pattern = ESCALADE vers session principale
-- [audit-coherence-pattern](feedback_audit_coherence_pattern.md) — 8 checks systématiques pour auditer .claude/ d'un repo
 - [audit-transverse-periodique-hooks-gardes-ecriture](feedback_audit_transverse_periodique_hooks_gardes_ecriture.md) — Hooks = gardes en écriture, pas scanners. Audit transverse ponctuel reste nécessaire
 - [audit-tripartite-doctrinal-pattern](feedback_audit_tripartite_doctrinal_pattern.md) — Agent Team 3 teammates Will/ECC/Boris. Consensus 3/3 > 2/3 > désaccords priorisés
 - [audit-use-cli-validation](feedback_audit_use_cli.md) — Auditer .claude/ via CLI (agents/skills/hooks/rules list), pas juste lire les fichiers

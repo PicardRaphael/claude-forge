@@ -1,15 +1,14 @@
 ---
 name: da-bash-write-disguised
-description: Ne jamais utiliser Bash cat/heredoc pour écrire quand Write/Edit sont dans disallowedTools — utiliser MCP create_note
-type: feedback
-originSessionId: 3d8f5cd0-3050-44f0-8294-d41edd60c377
+description: "Bash cat/heredoc = write déguisé quand Write/Edit dans disallowedTools — utiliser MCP create_note"
+metadata:
+  type: feedback
+  originSessionId: 3d8f5cd0-3050-44f0-8294-d41edd60c377
 ---
-Un agent avec `disallowedTools: Write, Edit` qui utilise `Bash cat >` pour écrire = write déguisé qui échoue silencieusement. Découvert sur devil's advocate : 2/4+ critiques non sauvegardées.
 
-**2026-05-22 — Confirmation en production** : le DA a bouclé 5 minutes sur 5 tentatives consécutives d'écriture .md (Bash heredoc, PowerShell here-string, Python -c, /tmp, etc.), toutes fail à cause du Windows quoting. La critique elle-même était produite vite, c'est la sauvegarde qui plante.
+Cf [[erreur-da-heredoc-bash-silencieux]] (doctrine canonique vault — pattern silent fail Windows quoting).
 
-**Why:** `disallowedTools` bloque Write/Edit mais Bash passe parfois → comportement non déterministe, pas d'erreur visible. Sur Windows, ajouter le quoting des heredoc qui fail toujours.
-
-**How to apply:**
-- Quand un agent doit écrire dans le vault mais a Write/Edit interdits, utiliser `mcp__forge-brain__create_note` (MCP non bloqué par disallowedTools), **et déclarer ce MCP dans `tools:` du frontmatter** (sinon non accessible).
-- Si MCP non disponible, l'agent doit **renvoyer le contenu en sortie texte** et laisser l'orchestrateur (session principale) écrire. JAMAIS de fallback Bash/heredoc — c'est documenté dans devils-advocate.md ligne ~57 depuis le 22 mai 2026.
+**Compléments 22 mai 2026 préservés** :
+- Le DA a bouclé 5 minutes sur 5 tentatives consécutives d'écriture .md (Bash heredoc, PowerShell here-string, Python -c, /tmp), toutes fail Windows quoting. La critique elle-même produite vite, c'est la sauvegarde qui plante.
+- Fix : `mcp__forge-brain__create_note` (MCP non bloqué par disallowedTools) ET déclarer le MCP dans `tools:` frontmatter (sinon non accessible).
+- Si MCP non disponible : renvoyer contenu en texte, session principale écrit. JAMAIS fallback Bash/heredoc.
