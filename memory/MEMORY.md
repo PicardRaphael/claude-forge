@@ -20,6 +20,7 @@
 - [behavioral-test-after-setup](feedback_behavioral_test_pattern.md) — Après setup/audit/modif massive, prompt test comportemental PASS/FAIL
 - [bras-droit-proactif](feedback_bras_droit.md) — Contrat Jarvis : partenaire proactif, propose améliorations, met à jour mémoire, pose questions sans attendre
 - [brief-premisse-fausse-verifier-avant-executer](feedback_brief_premisse_fausse_verifier_avant_executer.md) — Brief peut poser prémisse fausse. Vérifier matériellement avant d'exécuter, surfacer si fausse
+- [brief-prescrit-travail-deja-fait-veille](feedback_brief_prescrit_travail_deja_fait.md) — Brief auto-mode peut prescrire création/audit déjà fait 24-72h avant. search_brain + AJOUT récents canoniques AVANT Phase 1
 - [carte-blanche-commit-push-tranche-pas-revalider](feedback_carte_blanche_commit_push.md) — "Carte blanche" = exécuter direct sans re-valider note par note
 - [chiffre-baseline-brief-verifier-empiriquement](feedback_chiffre_baseline_brief_verifier_empiriquement.md) — Chiffre baseline brief = hypothèse, mesurer empiriquement avant de raisonner dessus
 - [claim-security-must-be-provable](feedback_claim_security_must_be_provable.md) — Claim sécu read-only prouvable par code, sinon by discipline pas by construction
@@ -44,6 +45,7 @@
 - [edit-tool-read-obligatoire-meme-en-parallele](feedback_edit_tool_read_obligatoire.md) — Edit en // sans Read = 7/8 failures. Batch Read d'abord, puis batch Edit
 - [emphasis-prompt-vs-skill](feedback_emphasis_distinction.md) — Emphasis OK dans skills/rules/agents, réduire uniquement dans tool descriptions
 - [enforce-not-advise](feedback_enforce_not_advise.md) — RÉVISÉ 22 mai : hooks = lint/sécu/scope, JAMAIS workflow
+- [eval-trio-angles-complementaires](feedback_eval_trio_angles_complementaires.md) — Éval forge = TRIO (skill-evolve fin / forge-review stratégique / outcomes-test rubric). Chercher 3 angles avant conclure gap
 - [feedback-reviole-3x-regle-insuffisante](feedback_feedback_reviole_3x_regle_insuffisante.md) — Feedback re-violé ≥3× = règle insuffisante. Réflexe pré-action ou garde-fou structurel
 - [fix-application-3-vagues-paralleles](feedback_fix_vagues_paralleles.md) — Appliquer 20-30+ fix audit = 3 vagues parallèles + vérif empirique entre chaque
 - [franc-parler-obligatoire](feedback_franc_parler.md) — Être franc, dire non quand c'est mauvais, toujours proposer alternative
@@ -70,6 +72,7 @@
 - [org-blocks-github](feedback_no_github_cloud.md) — Orga Team bloque GitHub, pas de triggers cloud, tout en local Task Scheduler
 - [non-invokable-skills-must-be-referenced](feedback_non_invokable_skills_orphan.md) — Skill user-invokable:false orpheline = la lier en frontmatter+body d'une skill parente
 - [opus47-workflow-decisions](feedback_opus47_workflow.md) — xhigh RÉSERVÉ architect/dev-lead/refactor-pg. high partout ailleurs
+- [read-note-conditionnel-si-pas-deja-contexte](feedback_read_note_conditionnel_si_pas_deja_contexte.md) — Avant read_note canonique audit/jugement, vérifier si déjà en contexte session. Citer + wikilink si oui. Application directe règle tokens/contexte L19
 - [pas-de-meta-commentaire-doctrine-composants](feedback_pas_de_meta_commentaire_doctrine.md) — JAMAIS justification/source/meta dans hook/agent/skill/CLAUDE.md. Le pourquoi → vault
 - [plugin-admin-absorbe-readonly](feedback_plugin_admin_absorbe_readonly.md) — Plugin admin (write) absorbe fonctionnellement read-only. Desinstaller le read-only sans perte (gain tokens). Verifier allowed-tools de chaque skill
 - [plugin-suffixe-ia-pas-readonly](feedback_plugin_suffixe_ia_pas_readonly.md) — Suffixe `-ia` n'est PAS read-only. Lire description+allowed-tools avant d'absorber dans un -admin
