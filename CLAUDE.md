@@ -1,6 +1,6 @@
 # claude-forge
 
-**Créé : 31 mars 2026 | Dernière mise à jour : 2026-05-26 | Version : 3.3 (permissions totales + doctrine effort calibrée)**
+**Créé : 31 mars 2026 | Dernière mise à jour : 2026-05-28 | Version : 3.4 (condensé Workflow Git + Vault + Gotchas, 28 mai 2026)**
 
 - Si ambigu : Demande. Ne choisis pas en silence.
 - Diff minimal. Touche uniquement ce qui est demandé.
@@ -21,10 +21,9 @@
 
 ## Workflow Git (convention)
 
-- Le harness Claude Code force « branch first » sur la branche par défaut (mécanisme natif du system prompt, pas une permission).
-- Le merge reste une **convention humaine** : l'agent commit/push la branche feature, Raphael merge sur `main` quand il valide l'intégration.
-- **Pas de verrou technique sur le merge** (vérifié empiriquement 27 mai 2026 sur 4 couches settings + hooks = aucun deny merge). Convention de discipline, pas garde.
-- **Exception** : pour un chantier très court (< 3 commits, fix trivial), l'agent PEUT proposer « push `main` direct » si pertinent. Le défaut reste la branche feature pour cohérence avec le harness.
+- Harness force « branch first » sur `main`. Merge = convention humaine, pas verrou technique (vérifié 27 mai).
+- Agent commit/push branche feature, Raphael merge sur `main` quand il valide.
+- Exception : chantier court (< 3 commits, fix trivial) → push `main` direct OK si pertinent.
 
 ## Contrat Jarvis
 
@@ -97,11 +96,7 @@ JAMAIS invoquer plugin externe si skill forge couvre le sujet.
 
 ## Vault forge-brain
 
-- **3 layers** : `raw/` (sources immuables) + `wiki/` (LLM-owned 00-Hub à 07-Prompts + Knowledge) + `SCHEMA.md` (conventions)
-- **Fichiers obligatoires** : `index.md` (orientation LLM content-oriented), `log.md` (append-only format `## [YYYY-MM-DD] action | titre`), `CHANGELOG.md` (narration prosaique)
-- **Accès** : MCP forge-brain UNIQUEMENT (port 8091, FTS5, auto-start SessionStart)
-- **Format écriture** : skill `obsidian-markdown` (wikilinks, frontmatter, 4-6 aliases min, 2+ wikilinks)
-- JAMAIS Grep/Read/Glob/CLI Obsidian brut sur le vault
+`vault/claude-forge/` — 3 layers (raw/wiki/SCHEMA.md). Accès EXCLUSIVEMENT via MCP forge-brain (port 8091, auto-start). Détails : rule `forge-brain-proactive.md` + skill `forge-brain`. JAMAIS Grep/Read/Glob/CLI Obsidian brut.
 
 ## Mémoire
 
@@ -116,12 +111,8 @@ JAMAIS invoquer plugin externe si skill forge couvre le sujet.
 
 ## Gotchas
 
-- SKILL.md < 500L, déporter détail dans `references/`. Pas de `README.md` dans dossier skill
-- `name` YAML = nom exact du dossier (kebab-case)
 - Sweet spot CLAUDE.md / prompts agents : 150-300 mots. Au-delà, dégradation quadratique.
-- Si info potentiellement datée → `cc-news` | CC v2.1.138
+- Si info potentiellement datée → `cc-news` | CC v2.1.140
 - DA : vérifier résultat COMPLET avant d'annoncer "validé". Tronqué = relancer
 - learning-reminder : JAMAIS répondre "rien à sauvegarder" par facilité — vérifier réellement
-- Recherche web → TOUJOURS capitaliser dans le vault (notes atomiques)
-- Erreurs comportementales (workflow, oublis) → ici en gotchas. Erreurs techniques → `vault/Knowledge/erreurs/`
 - CLAUDE.md DOIT évoluer : ajouter après chaque erreur, supprimer le redondant. Audit mensuel via `/forge-review`

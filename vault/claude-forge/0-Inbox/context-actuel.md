@@ -1,57 +1,105 @@
 ---
 titre: Context Actuel
-resume: Working memory dynamique — mis à jour par /done, lu par /recap
-aliases: [context actuel, contexte courant, working memory, memoire de travail, etat actuel]
+resume: Working memory dynamique -- mis a jour par /done, lu par /recap
+aliases: ["context actuel", "contexte courant", "working memory", "memoire de travail", "etat actuel"]
 type: context
 status: active
-derniere-maj: 2026-05-27
+derniere-maj: 2026-05-28
 auteur: claude
 tags: ["#type/context", "#meta/working-memory"]
 ---
 
 ## Phase actuelle
-**Clean-memory Levier A + C livré (2026-05-27), commits en attente validation Raphael.** MEMORY.md hiérarchisé tier-1/tier-2 + résumés courts. Déclencheur empirique (MEMORY.md > 40k chars) avait sauté à 42.5k. Résultat : **42470 → 21493 chars (−49%)**, soit ~5-6k tokens économisés par session (MEMORY.md chargé via @import à chaque session). 319 tests baseline inchangés (chantier mémoire pur, rien côté code).
 
-## Dernière session (2026-05-27) — Clean-memory agressif Levier A + C
-### Architecture livrée
-- **Levier A (résumés courts)** : 112 résumés d'index >80 chars raccourcis (médiane passée de 84 à ~70 chars). Gain −6k chars. Script Python ponctuel idempotent (slug→résumé), pas 112 Edits séquentiels.
-- **Levier C (hiérarchisation 2 niveaux)** : split mécanique tier-1 (cité ≥1 OU sujet stratégique) / tier-2 (non cité). **97 tier-1 visibles dans MEMORY.md** + **96 tier-2 dans `memory/_index_archive.md`** (chargé uniquement si recherche). Pointeur explicite dans MEMORY.md section Feedback.
-- **Critère tier-1 mécanique** : citation entrante ≥1 (grep `[[slug]]` dans memory/ + vault/) + 12 promus stratégiques (axes innovation MCP, contrat Jarvis, méta-doctrines récentes). Le critère « créé <60 jours » abandonné car inopérant (corpus 1 semaine = 194/194 tier-1).
-- **1 archivage réel** : `use-obsidian-cli` → `_archive/2026-05/` (obsolescence doctrinale : disait « TOUJOURS CLI Obsidian », contredit « MCP UNIQUEMENT »). Wikilinks vault corrigés (pattern-vault-llm-karpathy).
-- **1 lien mort retiré** : `checklist_before_modify` (entrée index fabriquée, jamais de fichier).
+Audit lifecycle forge complet (A2) — post audit context tokens. Cartographie empirique 49 skills + 10 agents + 10 rules + 12 hooks. Etat : SAIN avec dette legere localisee. 3 KILL + 1 AMEND executes, baseline 181 maintenue.
 
-### Faits empiriques (verify avant affirmer)
-- **194/194 feedbacks datent du 27 mai en git** (dossier memory/ entièrement commité ce jour = migration récente vers `<repo>/memory/`). Vraies dates de création dans le CONTENU (21-27 mai). Critère temporel inopérant — surfacé à Raphael avant exécution.
-- **86 feedbacks cités ≥1 / 108 non cités** (44%/56%, cohérent avec ~57% du pattern canonique).
-- **Bug script attrapé empiriquement** : regex `feedback_[a-z0-9_]+` excluait `feedback_git_C_pas_cd.md` (C majuscule) → 1 feedback perdu au split, détecté par check « tout fichier référencé ? » puis restauré. Seul fichier à majuscule.
+## Audit lifecycle 2026-05-28 (A2)
 
-### ACTION IMMÉDIATE POST-CLEAN-MEMORY (session de propagation dédiée, post-/clear, 20-30 min focus pur)
-Tracée explicitement — NON faite cette session (sortie de scope + anti-pollution cognitive) :
-1. **Skill `/clean-memory`** : intégrer critère tier-1 mécanique (citation ≥1 OU stratégique OU pinned) + architecture tier-1 visible / tier-2 `_index_archive.md` + doctrine « résumé court <80 chars par défaut » + déclencheur re-clean (>38k chars).
-2. **CLAUDE.md** : règle absolue tokens/contexte (top du fichier, gras, <L25) — « Tokens/contexte = ressource ultra-précieuse, jamais perdre pour rien. MEMORY.md gros = claude-forge développe mal. » + mention architecture tier-1/tier-2 + convention résumé court.
-3. **Skill `jarvis-innovator` OU `learning-reminder`** (celle qui capitalise les feedbacks via /done) : nouveau feedback créé = résumé court <80 chars par défaut + classification tier-1/tier-2 proposée à la création (0 citation → tier-2 candidat sauf stratégique explicite).
-4. **Hook NOUVEAU `memory-size-watcher`** (proposition Jarvis, SessionStart ou PostToolUse léger) : mesure MEMORY.md chars, alerte au franchissement de **38k** (marge avant plafond 40k). Maintenance anticipée vs réactive — « anticiper avant que ça arrive ». Très léger (1 file-size check, pas de logique métier).
+### Cartographie empirique
+- 49 skills forge (28 user-invokable / 21 internal) — toutes citees vault ou interne, aucune orpheline pure
+- 10 agents forge + 3 user-scope auditeurs (boris/ecc/will) — frontmatter conforme
+- 10 rules — 1 zero-ref (agents-color-convention) detectee
+- 12 hooks fs <-> settings.json — 12/12 alignes
+- agent-memory/ — 1 dir orpheline (vault-maintainer/, agent killed 27 mai)
 
-### Prochaines étapes immédiates
-1. **Validation Raphael** des modifs + cycle git complet (branche feature → commit chore(memory) → merge ff-only → suppression branche). Fait par Claude quand Raphael rend la main.
-2. **/clear**, puis session de propagation (4 items ci-dessus).
+### Actions executees
+- **P0 KILL** : `.claude/agent-memory/vault-maintainer/` (residu agent killed)
+- **P1 KILL** : `/forge-status` skill (42L, doublon partiel /recap + /install-forge, 0 ref active) — **KILL PRAGMATIQUE sans support doctrinal**, assume, trace CHANGELOG. Backup zip dispo si restore.
+- **P1 KILL** : `.claude/rules/agents-color-convention.md` (26L, 0 ref empirique) — support canonique [[comment-creer-agent]] matrice 8 couleurs verbatim
+- **P2 AMEND** : `.claude/agents/agent-creator.md` (+14L) — matrice 8 couleurs absorbee inline (compensation KILL rule)
 
-## Fils ouverts (repris des sessions antérieures, toujours valides)
-- **Dette tracée — Re-sédimentation MCP settings.local** : observation 1-2 sessions futures. Si entrées `mcp__forge-brain__*` repoussent dans le `allow` → investigation watcher harness. Cf [[enableallprojectmcp-couvre-tool-level]].
-- **Dette MCP alias ambigu** — 5e occurrence. Hook `mcp-alias-guard.py` ne matche que `append_note` → étendre. Réactiver si 6e occurrence. Cf [[feedback_mcp_alias_ambigu_chemin_exact]].
-- **GAP sécu cmdlets PowerShell-natifs destructeurs** : `security-guard.py` ne couvre que POSIX/git. Déclencheur : session sécu dédiée ou incident.
-- **Candidature hook `doctrinal-claim-guard`** (1re occurrence) : warning PreToolUse sur affirmation de garde non prouvée. Réactiver à la 2e occurrence. Cf [[feedback_diagnostic_empirique_avant_affirmer_garde]].
-- **Double-source mémoire transitoire** : auto-memory native encore injectée en parallèle de l'@import. Cf [[import-ajoute-pas-remplace-automemory]].
-- **Hook `vault-cat-guard` faux positif** observé ce soir : bloque un `cat memory/_archive/MEMORY-archive-log.md` car la commande contient le mot « vault » dans son contenu. Le fichier est dans memory/, pas le vault Obsidian. Contournement = Edit. Candidat affinage si récurrent.
-- **A1×A3 tué** : ne pas réouvrir le scan rétroactif sans donnée infirmant le 0/12. Cf [[idee-compounding-retroactif]] (TUÉE).
-- **TODO P0** : rotation password PostgreSQL prod. Cf [[todo-rotation-password-postgres-prod]].
-- **Chantier C — normalisation `handle_x`** des 80 fiches `05-Leaders/`. Cf [[pattern-vault-source-unique-sync-mecanique]].
-- **README périmé** (21 outils / 412 notes) — session dédiée.
+### Validation cohérence empirique canoniques (post-hoc audit 28 mai)
+- 5 canoniques lues EN ENTIER via `mcp__forge-brain__read_note` : comment-creer-agent, comment-creer-skill, pattern-mcp-brief-then-direct, 3-axes-strategiques-forge, doctrine-vivante
+- 2/3 KILL supportés par canoniques (vault-maintainer + rule color)
+- 1/3 KILL pragmatique assumé sans support (forge-status) → feedback `kill-pragmatique-vide-doctrinal` créé tier-1
+
+### Dimension 2 — Workflow vault-invocation pattern (Règles 1/2/3)
+Pattern déjà canonisé dans [[pattern-mcp-brief-then-direct]] — pas un trou doctrinal. AJOUT 28 mai append : grille catégories→vault-requis (4 catégories) + critère audit empirique reproductible.
+
+### AMEND post-audit (canoniques vault)
+- **`cc-advisor`** : ajout Étape 0 lecture canoniques avant recommandation (comment-creer-skill/agent/hook + mcp-vs-skills-doctrine)
+- **`evolve`** : ajout Phase 0 lecture canoniques avant scan (methode-analyser-repo + comment-ecrire-claudemd + mcp-vs-skills-doctrine)
+
+### Dette future tracée
+- **Trou doctrinal `comment-creer-rule`** : note canonique absente du vault. Audit rules s'est fait sans canonique de référence (doctrine présente dans `comment-ecrire-claudemd` + `raisonnement-22mai-doctrine-vs-enforcement`, mais pas de note dédiée). Priorité P2 — peu de rules, déclencheur = prochaine création/refonte de rule.
+
+### Backup defensif
+`.claude/_backups/lifecycle-audit-2026-05-28.zip` (8 KB) — 4 cibles avant destruction
+
+### Verification baseline
+- Tests hooks : **181 PASS** (avant et apres)
+- Hooks fs <-> settings.json : 12/12 alignes maintenus
+- agent-creator.md : 98L -> 112L (cible 113-115 estimee, 112 OK)
+
+### Workflows / coherence cross-composants
+Aucun gap workflow detecte. Inter-skills coherents :
+- audit->fix cluster, /clean-memory->git, /done, /spec->JIRA, /pivot-check, methode A->B->C->D->E
+
+### A retenir
+- Pas de capitalisation feedback nouvelle (audit confirme etat SAIN, rien de structurel a apprendre)
+- 15 skills sans `model:` = legitime (heritage parent, canonique)
+- 9 skills desc >250 chars = marginal (≤16 chars over), polish optionnel
+- 3 skills >300L (done/clean-memory/obsidian-bases) = toutes <500L canonique
+
+## Derniere session (2026-05-28)
+
+### Decisions prises
+
+- **Step 1** : purge auto-memory user-scope (240 fichiers -> 1), migration 4 valides vers memory/ projet (bras-droit, neoteem-brain-pipeline, tests-adverses-obligatoires, tests-adverses-ratio-3-1)
+- **Step 2** : cap 9 skills desc > 250 chars selon formule directive Anthropic, via dispatch skill-creator + verif empirique
+- **Step 3** : forge-brain-proactive.md condense 2 592 -> 738 tokens (-72%) par deport vers vault canonique
+- **Step 4** : sequence-canonique-modification.md condense 2 403 -> 1 122 tokens (-53%)
+- **Step 5** : CLAUDE.md condense 2 780 -> 2 473 tokens (Workflow Git + Vault + Gotchas), version 3.4
+- **Step 6** : audit plugins 4 repos via AskUserQuestion structure, decisions arbitrees Raphael
+- **Step 7** : edit direct ~/.claude/settings.json user-scope (6 plugins retires) + neo_ia/ia_back/.claude/settings.json (neoteem-brain-dev read-only retire)
+
+### Etat final plugins
+
+User-scope enabledPlugins : `neoteem-brain-dev-ia`, `neoteem-brain-dev-admin`, `neoteem-brain-support-admin` + `plugin-dev:false`
+Project-scope neo_ia/ia_back : `superpowers`, `feature-dev`, `claude-hud`, `plugin-dev`, `neoteem-brain-dev-ia`
+
+### En cours
+
+Rien d'actif. Tous les Steps 1-7 livres et mesures empiriquement.
+
+### Prochaines etapes
+
+- Verifier mesure /context reelle en nouvelle session (re-tirer le tokenizer Claude effectif)
+- Si gain confirme > 15k tokens, considerer enchainer sur scenario AGRESSIF (refonte memory/MEMORY.md tier-1 strict, refonte rules check-before-create + delegate-to-specialists + sequence-canonique en 1 fichier maitre)
+- Sinon : laisser stabiliser 1-2 semaines, observer si dérive ou regression
+
+## Fils ouverts
+
+- `obsidian@obsidian-skills` charge via marketplace auto-discovery (pas dans enabledPlugins) — mecanisme non desactivable sans retirer Plugin:* permissions ou la declaration marketplace. A surveiller si tokens cost devient genant
+- `feedback-triage` desinstalle global — verifier que Cowork remote routines fonctionnent encore (pas teste cette session)
+- Backup `_auto_memory_backup_pre_purge_2026-05-28.zip` dans `memory/` — supprimer apres 7-30 jours sans regret
 
 ## Liens
-[[2-Casquettes/Raphael-Picard|Raphael Picard]]
-[[1-Projets/Claude-Forge/Claude-Forge|Claude-Forge]]
-[[pattern-maintenance-hybride-corpus-accumulatif]]
-[[llm-lit-court-homogene-pas-couche-deterministe]]
-[[doctrine-vivante]]
-[[ecart-consigne-chiffree-surfacer]]
+
+[[Raphael-Picard]]
+[[Claude-Forge]]
+[[feedback_plugin_admin_absorbe_readonly]]
+[[feedback_plugin_suffixe_ia_pas_readonly]]
+[[feedback_askuserquestion_arbitrage_destructif]]
+[[reference_plugins_scoping_mecanisme]]
+[[reference_self_modification_user_scope_passe]]

@@ -5,156 +5,53 @@ globs: "*"
 
 # Forge Brain — Requêtage proactif
 
-Le vault forge-brain est la mémoire infinie. L'interroger est un RÉFLEXE, pas une option.
+Le vault forge-brain = mémoire infinie. L'interroger est un RÉFLEXE.
 
-## COMMENT interroger — MCP forge-brain (OBLIGATOIRE)
+## COMMENT — MCP forge-brain UNIQUEMENT
 
-Le MCP `forge-brain` (auto-start via hook SessionStart, port 8091) est le SEUL moyen d'accès au vault.
-Ne JAMAIS utiliser Grep/Read/Glob brut sur le vault. Ne JAMAIS utiliser la CLI Obsidian.
+Accès vault EXCLUSIVEMENT via MCP `forge-brain` (auto-start SessionStart, port 8091). JAMAIS Grep/Read/Glob brut, JAMAIS CLI Obsidian.
 
-### Outils MCP — 22 disponibles (v1.4)
+**22 outils disponibles** — matrice de décision complète : skill `forge-brain` + [[mcp-vault-llm-design]].
 
-**Lecture** :
-- `search_brain(query, limit, context)` — FTS5 BM25 (file_stem:10 / aliases:8 / content:1) — vault CAPITALISÉ
-- `search_sessions(query, limit, project, role, since)` — FTS5 sur transcripts session bruts NON capitalisés (`~/.claude/projects/*.jsonl`). Pour "qu'a-t-on dit la semaine dernière sur X". Complément de search_brain.
-- `read_note(file)` — **lit la note ENTIÈRE par défaut**
-- `read_note(file, offset, limit_chars)` — pagination char-based (uniquement si > 50k chars)
-- `read_section(file, "## H")` — UNE section (économie 30x tokens sur CHANGELOG)
-- `read_note_resolved(file, depth=1)` — inline embeds `![[X]]` récursivement
-- `read_note_by_path(path)` — par chemin exact
-- `get_backlinks(file)` — case-insensitive
-- `get_tags()`, `get_property(file, name)`, `list_notes(folder, limit)`, `vault_stats()`
-- `find_by_property(name, value, comparator, folder, limit)` — Dataview-equivalent (eq/ne/lt/gt/contains/missing/present)
-- `lint_vault(limit)` — audit qualité (5 catégories)
-- `usage_stats(days)` — agrégation calls par tool
+Outils les plus utilisés :
+- `search_brain` — FTS5 BM25 (file_stem:10 / aliases:8 / content:1)
+- `read_note` (lit ENTIÈRE par défaut), `read_section` (1 section)
+- `create_note`, `append_note`, `update_property`, `bulk_update_property`
+- `move_note`, `delete_note` (atomiques + wikilinks auto)
 
-**Écriture** (indexation auto) :
-- `create_note(path, content)`, `append_note(file, content)`, `insert_section(file, marker, content, position)`
-- `update_note(file, content)` — remplace EN ENTIER (rare)
-- `update_property(file, name, value)` — 1 prop sur 1 note
-- `bulk_update_property(files: list, name, value)` — **N notes en 1 appel** (économie round-trips)
+Fallback : si MCP crash, Read/Glob `vault/claude-forge/`. Cas anormal.
 
-**Move / Delete** (atomique + rewriting auto) :
-- `move_note(file, new_path)` — rename + wikilinks dans backlinks (gère embeds, casse, code blocks)
-- `delete_note(file, force=False)` — refuse si backlinks > 0 sauf force
+## QUAND interroger
 
-Matrice de décision complète : voir skill `forge-brain` et note canonique [[mcp-vault-llm-design]].
+| Situation | Action |
+|---|---|
+| **Début de session** | Notes récentes pertinentes |
+| **Avant CRÉER skill/agent/hook/rule/CLAUDE.md** | Best practices + `Knowledge/erreurs/` |
+| **Avant répondre technique** | Vérifier vault + `derniere-maj` (> 7j = compléter web) |
+| **Analyse repo/projet** | Notes concurrents + patterns existants |
+| **Après cc-news ou recherche web** | Capitaliser en notes atomiques + MAJ MOCs |
+| **Après erreur significative** | Note `Knowledge/erreurs/` |
 
-### Fallback (MCP crash uniquement)
+## OÙ écrire — Ontologie vault
 
-Si le MCP ne répond pas malgré l'auto-start → Read/Glob direct sur `vault/claude-forge/`.
-Ce cas ne devrait jamais arriver en usage normal.
+Source canonique : `vault/claude-forge/SCHEMA.md` (13 dossiers wiki + Knowledge/ + raw/). Voir aussi [[pattern-vault-llm-karpathy]].
 
-## QUAND INTERROGER le vault
+## Standard qualité notes
 
-### 1. Début de session
-- Rechercher les notes récentes pertinentes au contexte
-- Rappeler le contexte des sujets susceptibles d'être abordés
+Source canonique : [[architecture-cerveau-obsidian-mcp]] section "Standard qualité" + skill `obsidian-markdown` pour syntaxe.
 
-### 2. Avant de CRÉER un composant (skill, agent, hook, prompt, rule, CLAUDE.md)
-- Chercher les best practices dans le vault (`04-Techniques/`, `07-Prompts/`)
-- Chercher les erreurs passées dans `Knowledge/erreurs/` pour ne pas les répéter
-- Chercher les patterns similaires déjà documentés
-- Chercher les prompts réutilisables dans `07-Prompts/`
+Minimums : 4-6 aliases · resume 1 phrase spécifique · derniere-maj ISO · 2+ tags · 2+ wikilinks.
 
-### 3. Avant de répondre sur un sujet technique
-- Feature, outil, modèle, technique → chercher dans le vault AVANT de répondre
-- Vérifier `derniere-maj` — si > 7 jours, compléter avec recherche web
+## Cycle d'apprentissage vault
 
-### 4. Analyse de repo / projet
-- Chercher dans le vault les concurrents, patterns, techniques pertinentes
-- Croiser avec les notes existantes pour enrichir l'analyse
+Le vault = système nerveux forge. Chaque agent y lit ET écrit. Pas de Langfuse externe — single source of truth.
 
-### 5. Après cc-news ou toute recherche web
-- Capitaliser les découvertes en notes atomiques
-- Mettre à jour les notes existantes si l'info a évolué
-- Mettre à jour les MOCs
-
-### 6. Après une erreur significative
-- Créer une note dans `Knowledge/erreurs/` (template `erreur.md`)
-- Documenter : ce qui s'est passé, pourquoi c'était une erreur, quoi faire à la place
-- Lier aux notes techniques pertinentes
-
-## STANDARD QUALITÉ — OBLIGATOIRE pour TOUTE note
-
-Chaque note vault DOIT respecter ces minimums :
-
-| Champ | Minimum | Exemple |
-|-------|---------|---------|
-| `aliases` | 4-6 (FR + EN + variantes + abréviations) | `["claude-forge", "forge", "le forge", "framework forge"]` |
-| `resume` | 1 phrase complète, spécifique, pas générique | `"Backend IA Neoteem — FastAPI Python, agents autonomes, RAG"` |
-| `derniere-maj` | Date ISO du jour | `2026-05-09` |
-| `tags` | Au moins 2 (type + domaine) | `["#type/context", "#projet/neoteem"]` |
-| Wikilinks | Minimum 2 liens vers notes liées | `[[Raphael-Picard]], [[Neoteem]]` |
-
-### Aliases — comment les choisir
-- Nom complet FR
-- Nom complet EN (si pertinent)
-- Abréviation / acronyme
-- Variante avec/sans tirets/espaces
-- Terme que l'utilisateur utiliserait en conversation
-- Synonyme technique
-
-### Dossiers de rangement (ontologie par utilité)
-
-| Je crée une note sur... | Dossier |
-|------------------------|---------|
-| Un projet en cours | `1-Projets/<nom-projet>/` |
-| Une aire de responsabilité de vie | `2-Casquettes/` |
-| Une capture rapide à trier | `0-Inbox/` |
-
-## QUOI ÉCRIRE dans le vault
-
-| Situation | Dossier | Note |
-|-----------|---------|------|
-| Contexte de projet | `1-Projets/<nom>/` | 1 note/projet |
-| Casquette de vie | `2-Casquettes/` | 1 note/casquette |
-| Capture rapide à trier | `0-Inbox/` | temporaire |
-| Feature Claude Code | `01-Claude/Code/features/` | 1 note/feature |
-| Deprecation Claude Code | `01-Claude/Code/deprecations/` | 1 note/deprecation |
-| Changelog CC (par mois) | `01-Claude/Code/changelog/` | 1 note/mois |
-| Best practice CC | `01-Claude/Code/best-practices/` | 1 note/pattern |
-| Agent CC documenté | `01-Claude/Code/agents/` | 1 note/agent |
-| Produit concurrent | `02-Concurrents/<entreprise>/` | 1 note/produit (ChatGPT, Codex, Gemini, CLI...) |
-| Modèle IA (specs, benchmarks) | `03-Modeles/<provider>/` | 1 note/modèle (GPT-5.5, Gemini 3...) |
-| Technique RAG | `04-Techniques/rag/` | 1 note/technique |
-| Technique agents | `04-Techniques/agents/` | 1 note/pattern |
-| Technique prompt engineering | `04-Techniques/prompt-engineering/` | 1 note/technique |
-| Technique fine-tuning | `04-Techniques/fine-tuning/` | 1 note/technique ou framework |
-| Pattern/workflow réutilisable | `04-Techniques/patterns/` | 1 note/pattern |
-| Context engineering | `04-Techniques/context-engineering/` | 1 note/concept |
-| Leader RAG/embeddings | `05-Leaders/rag/` | 1 note/personne |
-| Leader agents/automation | `05-Leaders/agents/` | 1 note/personne |
-| Leader fine-tuning/local AI | `05-Leaders/fine-tuning/` | 1 note/personne |
-| Leader prompt engineering | `05-Leaders/prompt/` | 1 note/personne |
-| Leader industrie/CEO | `05-Leaders/industrie/` | 1 note/personne |
-| Leader Claude Code/Anthropic | `05-Leaders/claude-code/` | 1 note/personne |
-| News industrie (événement, funding) | `06-Industrie/` | 1 note/événement |
-| System prompt réutilisable | `07-Prompts/system-prompts/` | 1 note/prompt |
-| Technique de prompting | `07-Prompts/techniques/` | 1 note/technique |
-| Index "quelle technique quand" | `07-Prompts/techniques/index-prompting.md` | 1 note unique |
-| Skill/agent draft WIP (DA en attente fixes) | `Knowledge/drafts/<nom>-skill/` ou `Knowledge/drafts/<nom>-agent/` | 1 dossier complet (SKILL.md/.md + refs) |
-| Test comportemental post-audit ou validation doctrine | `Knowledge/tests/` | 1 note/test |
-| Erreur commise | `Knowledge/erreurs/` | 1 note/erreur |
-| Critique devil's advocate | `Knowledge/critiques/` | 1 note/critique |
-| Synthèse d'analyse | `Knowledge/syntheses/` | 1 note/synthèse |
-| Question technique résolue | `Knowledge/questions/` | 1 note/question |
-| Raisonnement multi-étapes | `Knowledge/raisonnements/` | via /reasoning-cache |
-| Évolution de skill | `Knowledge/evolutions/` | via /skill-evolve |
-| Review stratégique | `Knowledge/reviews/` | via /forge-review |
-
-## Cycle d'apprentissage vault (Jarvis)
-
-Le vault n'est pas qu'une base de connaissances — c'est le système nerveux de forge. Chaque agent y lit ET y écrit.
-
-| Agent/Skill | Lit dans | Écrit dans |
-|-------------|----------|------------|
-| `devils-advocate` | `Knowledge/erreurs/`, `Knowledge/critiques/` | `Knowledge/critiques/` |
-| `reasoning-cache` | `Knowledge/raisonnements/` (prior art) | `Knowledge/raisonnements/` |
+| Agent/Skill | Lit | Écrit |
+|---|---|---|
+| `devils-advocate` | `Knowledge/erreurs|critiques/` | `Knowledge/critiques/` |
+| `reasoning-cache` | `Knowledge/raisonnements/` | `Knowledge/raisonnements/` |
 | `skill-evolve` | Skills + `Knowledge/evolutions/` + mémoire | `Knowledge/evolutions/` |
 | `forge-review` | CLAUDE.md + rules + skills + agents | `Knowledge/reviews/` |
-
-Pas de Langfuse, pas d'outil externe. Le vault = single source of truth pour l'apprentissage.
 
 ## Vault path
 

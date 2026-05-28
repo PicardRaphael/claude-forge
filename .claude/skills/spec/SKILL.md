@@ -1,6 +1,6 @@
 ---
 name: spec
-description: Transforms a ticket, idea, or bug report into a structured TODO/feature-X/ folder with SPEC.md, BRIEFs, and optionally parallel execution waves. STOPS at file generation — never develops code, never launches /go automatically, never modifies other repos. Use when user describes a need, pastes a Jira ticket, or asks for spec before implementing.
+description: Use when user describes a need, pastes a Jira ticket, or asks for spec before implementing. Transforms ticket/idea/bug into TODO/feature-X/ folder with SPEC.md, BRIEFs, parallel waves. STOPS at file generation — never develops code.
 argument-hint: "[ticket text, paste it, or describe in natural language]"
 allowed-tools: Read, Write, Glob, Grep, Bash, Task, AskUserQuestion
 user-invokable: true

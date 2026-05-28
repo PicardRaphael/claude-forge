@@ -23,6 +23,7 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 - [automemorydirectory-absolu-casse-multiprojet](feedback_automemorydirectory_absolu_casse_multiprojet.md) — autoMemoryDirectory absolu = global, fusionne toutes les mémoires. Scope déjà par projet
 - [autonomy-initiative-rule](feedback_autonomy_rule.md) — Si advisor+DA valident → agir sans demander. Proposer innovations proactivement
 - [backtick-quoting-safety](feedback_backtick_quoting.md) — Ne jamais passer $ARGUMENTS dans des backtick shell
+- [backup-zip-avant-purge-massive](feedback_backup_zip_avant_purge_massive.md) — Compress-Archive .zip defensif AVANT purge >50 fichiers. Cout zero, restauration instantanee
 - [always-best-techniques](feedback_best_techniques.md) — Toujours appliquer les meilleures techniques (Askell, Anthropic) d'office
 - [boris-memory-compounding](feedback_boris_memory_pattern.md) — CLAUDE.md ~100L max, erreurs en Auto Memory, relire avant agir, Karpathy LLM Wiki
 - [bras-droit-for-everyone](feedback_boss_bras_droit.md) — Créer bras droit Claude Desktop pour chaque membre Neoteem
@@ -61,6 +62,7 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 - [loop-brain-check](feedback_loop_brain_check.md) — /loop 1h /brain-check = monitoring passif, uniquement si projet a un Brain
 - [major-mistakes](feedback_major_mistakes.md) — Erreurs à ne pas refaire : agent CTO, routing CLAUDE.md, bricoler sans rechercher
 - [neoteem-brain-correct-path](feedback_neoteem_brain_path.md) — neoteem-brain = neot-v2/neoteem-brain, PAS Documents/neoteem-brain
+- [neoteem-brain-vault-pipeline](feedback_neoteem_brain_pipeline.md) — Pipeline complet repo-analyzer → vault-linker → sync-checker, ne pas s'arrêter à création notes
 - [obsidian-skills-sacred](feedback_obsidian_skills_sacred.md) — Jamais supprimer les skills Obsidian officielles. Le MCP complète, ne remplace pas
 - [outcomes-post-dev-not-architect](feedback_outcomes_post_dev.md) — Outcomes évalue du CODE post-dev, pas des plans post-architect
 - [plan-commits-vs-working-tree-reel](feedback_plan_commits_vs_working_tree_reel.md) — git status AVANT, isoler le hors-scope dans un commit dédié, signaler l'écart

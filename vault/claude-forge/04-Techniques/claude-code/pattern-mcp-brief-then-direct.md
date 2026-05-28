@@ -353,3 +353,39 @@ Les 4 créateurs (agent-creator, skill-creator, claudemd-optimizer, hook-creator
 **Règle de mesure** : grep le préfixe exact `mcp__forge-brain__(create_note|append_note|update_note|update_property|insert_section|bulk_update_property|move_note|delete_note)` dans le corps de l'agent — pas juste `Write|Edit`. Seul ce pattern, en boucle (× N notes), déclenche KILL/PIVOT.
 
 Corollaire (prévention > audit récurrent) : le critère étant rare (1 cas sur 11 agents historiques), mieux vaut l'ancrer comme question-réflexe de création dans `agent-creator` (« métier = N× write MCP vault ? → skill, pas agent ») qu'en audit périodique. Conforme à « gardes en écriture > scanners périodiques ».
+
+## AJOUT 28 mai 2026 — Grille d'audit empirique vault-invocation par catégorie de composant
+
+Pendant audit lifecycle forge (49 skills + 13 agents), application empirique du pattern via 3 marqueurs : `read_note` dans body, `search_brain` dans body, wikilinks `[[note]]` dans body. Les 0/0/0 ne sont **pas** une violation par défaut — il faut classifier par catégorie de composant avant de juger.
+
+### Grille catégories → vault requis
+
+| Catégorie | Vault invocation requise ? | Justification |
+|---|---|---|
+| **Skills référence** (cc-agents-ref, cc-skills-ref, cc-hooks-ref, cc-prompt-ref, python-ref, etc.) | NON | Elles SONT la doctrine canonique mémoire (la skill est l'extrait). Lire vault depuis une skill ref = circulaire. |
+| **Skills outil pur / format** (json-canvas, obsidian-bases, defuddle, watch, x-read, install-forge, git-multi-repo, configure-claude-desktop, arxiv-verification, python-script-refactor-masse, expand, craft-prompt, notes, outcomes-test, pivot-check, self-check, spec, etc.) | NON | Pas de doctrine à lire — outil mécanique avec procédure fixe. |
+| **Agents exécution pure** (python-dev, self-updater, outcomes-grader) | NON | Reçoivent contexte structuré (RUBRIC, spec). Pas de jugement doctrinal. |
+| **Skills/agents audit ou jugement** (forge-review, vault-audit, audit-thematique-clusters, done, recap, skill-evolve, methode-pivoter-doctrine, doctrine-impact-check, clean-memory, cc-news, evolve, cc-advisor, devils-advocate, creators, auditors) | **OUI** | Décident ou évaluent — sans canonique, jugent à l'œil. Pattern Règle 2 strict. |
+
+### Critère d'audit empirique applicable
+
+Pour la **4e catégorie uniquement** (audit/jugement), checker :
+- ≥1 `mcp__forge-brain__read_note` ou `search_brain` dans body, OU
+- ≥2 wikilinks `[[note-canonique]]` dans body, OU
+- Section "Étape 0 — Consulter canoniques" explicite (lecture vault avant action), OU
+- Pour sub-agents : section "Brief inline attendu de session principale + filet ESCALADE"
+
+Si **aucun** des 4 → AMEND ajout étape 0 ou brief inline marker.
+
+### Mass-AMEND anti-pattern
+
+Mass-AMEND sur l'ensemble des composants à 0/0/0 sans classifier = overreach. Conséquence observée audit 28 mai : sur 49 skills, seules 2 candidates AMEND légitimes (cc-advisor, evolve) ; les 22 skills à 0/0/0 restantes appartenaient aux catégories 1-3.
+
+### Application empirique 28 mai 2026 (audit forge)
+
+- 49 skills : 22 catégorie 1-3 (zéro requis), 25 catégorie 4 dont 23 conformes (read_note/search_brain/wikilinks ≥1), 2 AMEND (cc-advisor + evolve)
+- 13 agents : 10 conformes (creators/auditors avec read_note + brief_marker ≥1), 3 exécution pure (python-dev, self-updater, outcomes-grader) — non requis
+- KILL doctrinaux supportés : vault-maintainer (cause structurelle MCP-write dense), rule color (canonique comment-creer-agent)
+- KILL pragmatique sans support doctrinal : forge-status (0 ref + doublon mécanique) — assumé, tracé dans CHANGELOG
+
+Cette grille devient outil d'audit reproductible. Lien méthode : [[methode-analyser-repo]] section ORDRE CANONIQUE (étape B = lire canoniques EN ENTIER).

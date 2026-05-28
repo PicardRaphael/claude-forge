@@ -11,6 +11,18 @@ argument-hint: "décris ton besoin"
 Tu analyses le besoin et recommandes le bon composant.
 Date de référence du studio : **31 mars 2026** — chercher sur le web si feature récente.
 
+## Étape 0 — Consulter canoniques vault (OBLIGATOIRE avant recommandation)
+
+Avant de recommander un composant, consulter les canoniques pertinentes via `mcp__forge-brain__read_note` :
+- Recommandation skill → `comment-creer-skill` + `mcp-vs-skills-doctrine`
+- Recommandation agent → `comment-creer-agent` + `mcp-vs-skills-doctrine`
+- Recommandation hook → `comment-creer-hook` + `raisonnement-22mai-doctrine-vs-enforcement`
+- Recommandation workflow → `workflow-claude-code-optimal`
+
+Lecture EN ENTIER (pas `max_lines`). Pas de recommandation à l'œil sur savoir interne. Si la canonique pertinente n'existe pas dans le vault → SURFACER comme trou doctrinal, pas inventer un critère.
+
+Référence : [[pattern-mcp-brief-then-direct]] Règle 2 (skill sans brief inline doit auto-fetch).
+
 ## Grille de décision
 
 | Besoin                            | Solution                                           |
@@ -86,7 +98,6 @@ Catalogue complet signal → MCP server : [references/mcp-catalog.md](references
 
 ## Gotchas
 
-- **Toujours vérifier le vault forge-brain d'abord** — avant de recommander un composant ou une technique, chercher si un pattern existe déjà dans `04-Techniques/` ou `Knowledge/`. Éviter de réinventer ce qui est déjà documenté.
 - **Pas d'agent orchestrateur** — ne jamais recommander de créer un agent CTO/chef-d'orchestre. La session principale orchestre via `.claude/rules/`. Documenté dans `feedback_no_cto_agent.md`.
 
 ## Règle anti over-engineering

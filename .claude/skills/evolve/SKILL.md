@@ -16,6 +16,19 @@ Analyse un projet et produit des propositions d’évolution priorisées, orient
 **Ce n’est PAS une review de code existant** (/simplify fait ça).
 C’est de la prospection : que manque-t-il pour que ce projet soit meilleur ?
 
+## Phase 0 — Consulter canoniques forge (OBLIGATOIRE avant scan)
+
+Avant tout scan, consulter via `mcp__forge-brain__read_note` (lecture EN ENTIER) :
+- `methode-analyser-repo` — séquence A→B→C→D→E à appliquer
+- `comment-ecrire-claudemd` — pour évaluer CLAUDE.md cible
+- `mcp-vs-skills-doctrine` — pour évaluer composants stack-spécifiques
+
+Plus tout pattern canonique ad-hoc pertinent à la stack détectée (Phase 1 → identifier stack → lire canoniques associées).
+
+Anti-pattern : proposer évolutions sur savoir interne sans consulter forge-brain. La Phase 3 existante (cross-référence) ne suffit pas — elle arrive trop tard, après que le scan a déjà biaisé l'analyse.
+
+Référence : [[pattern-mcp-brief-then-direct]] Règle 2.
+
 ## Validation préalable
 
 Vérifier que $ARGUMENTS est fourni et que le chemin existe.

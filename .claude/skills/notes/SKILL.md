@@ -1,6 +1,6 @@
 ---
 name: notes
-description: ALWAYS invoke when user types `/notes <feature-slug>` or `/notes <path/to/feature>`. Initialises a `docs/implementation-notes/<slug>.md` file pre-filled with the 4 Thariq running-implementation-notes sections (design decisions, deviations, tradeoffs, open questions). DO NOT create the file without first detecting the current repo and resolving the correct output path.
+description: ALWAYS invoke when user types `/notes <feature-slug>` or `/notes <path/to/feature>`. Initialises `docs/implementation-notes/<slug>.md` pre-filled with 4 Thariq sections. DO NOT create without resolving repo path first.
 argument-hint: "<feature-slug or path/to/feature>"
 allowed-tools: Bash, Read, Write, AskUserQuestion
 user-invokable: true

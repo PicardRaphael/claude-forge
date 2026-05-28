@@ -1,7 +1,7 @@
 ---
 name: defuddle
 allowed-tools: Bash, WebFetch, Read
-description: ALWAYS use this skill to extract clean markdown from web pages using Defuddle CLI, removing clutter and navigation to save tokens. Use instead of WebFetch when the user provides a URL to read or analyze, for online documentation, articles, blog posts, or any standard web page. Do NOT use for URLs ending in .md — those are already markdown, use WebFetch directly.
+description: ALWAYS use to extract clean markdown from web pages via Defuddle CLI, removing clutter to save tokens. Use instead of WebFetch for documentation, articles, blog posts. DO NOT use for `.md` URLs — use WebFetch directly.
 ---
 
 # Defuddle

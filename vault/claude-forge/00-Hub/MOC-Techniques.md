@@ -69,6 +69,7 @@ type: index
 - [[workflow-claude-code-optimal]] — SessionStart reset → architect → dev → code-reviewer → /go → pipeline-reset
 
 ## Anti-patterns
+- [[audit-lifecycle-classification-categories]] — Raisonnement validé 28 mai 2026 : auditer N composants `.claude/` → classifier par catégorie (référence/outil-pur/exécution/audit-jugement) AVANT verdict, sinon mass-AMEND aveugle (overreach) ou audit à l'œil (skip canoniques)
 
 - Silent Assumptions — Karpathy anti-pattern #1
 - Over-Engineering — Abstraction prématurée

@@ -3,6 +3,7 @@
 ## Feedback
 - [advisor-da-before-proposing](feedback_advisor_da_mandatory.md) — TOUJOURS advisor+DA AVANT de proposer un setup, pas après rappel Raphael
 - [advisor-da-web-search](feedback_advisor_da_web_search.md) — Rechercher web AVANT advisor/DA si fait technique incertain
+- [auto-memory-user-scope-doublon](feedback_auto_memory_user_scope_doublon.md) — ~/.claude/projects/.../MEMORY.md doublonne memory/MEMORY.md projet à 90%. Purge sans risque après diff. 10.8k tokens fantôme par session
 - [agent-tools-enforce-delegation](feedback_agent_tools_restriction.md) — Retirer Bash des agents orchestrateurs pour forcer délégation
 - [analyse-first-not-questionnaire](feedback_analyse_first_not_questionnaire.md) — Analyser le repo d'abord, proposer, questions SEULEMENT pour le non-déductible
 - [analyse-repo-includes-code-scan](feedback_analyse_repo_includes_code.md) — Analyse repo / config CC = méthode 6 étapes (archi + code réel) + audit .claude/
@@ -12,10 +13,12 @@
 - [arxiv-url-swap-papers-similaires](feedback_arxiv_url_swap_papers_similaires.md) — N papers même domaine = URLs swapées. WebFetch systématique
 - [audit-qualite-design-transverse-mandatory](feedback_audit_qualite_design_transverse.md) — Audit `.claude/` = technique + qualité-design transverse vs canoniques
 - [audit-repo-method-4-parallel-auditors](feedback_audit_repo_method.md) — Audit .claude/ = 4 project-auditor parallèles
+- [askuserquestion-arbitrage-destructif](feedback_askuserquestion_arbitrage_destructif.md) — Actions destructives multiples = AskUserQuestion item par item, jamais en bloc. Permet corrections contextuelles
 - [audit-thematique-methode-sub-agents-clusters](feedback_audit_thematique_methode.md) — Audit vault : sub-agents par CLUSTER, checkpoint A avant B, self-verify avant D
 - [auditor-false-positives-verify-claims](feedback_auditor_false_positives.md) — Vérifier empiriquement les claims project-auditor (plugins scope, allowed-tools)
 - [bash-permission-format](feedback_bash_permission_format.md) — Permissions Bash = espace avant *, jamais deux-points. Bash(git *) pas Bash(git:*)
 - [behavioral-test-after-setup](feedback_behavioral_test_pattern.md) — Après setup/audit/modif massive, prompt test comportemental PASS/FAIL
+- [bras-droit-proactif](feedback_bras_droit.md) — Contrat Jarvis : partenaire proactif, propose améliorations, met à jour mémoire, pose questions sans attendre
 - [brief-premisse-fausse-verifier-avant-executer](feedback_brief_premisse_fausse_verifier_avant_executer.md) — Brief peut poser prémisse fausse. Vérifier matériellement avant d'exécuter, surfacer si fausse
 - [carte-blanche-commit-push-tranche-pas-revalider](feedback_carte_blanche_commit_push.md) — "Carte blanche" = exécuter direct sans re-valider note par note
 - [chiffre-baseline-brief-verifier-empiriquement](feedback_chiffre_baseline_brief_verifier_empiriquement.md) — Chiffre baseline brief = hypothèse, mesurer empiriquement avant de raisonner dessus
@@ -50,6 +53,7 @@
 - [hook-vs-harness-permission-distinction](feedback_hook_vs_harness_permission_distinction.md) — Bypass hook ≠ bypass harness. Vérifier debug log avant patcher. Bash(py -c) contourne
 - [hooks-same-stack](feedback_hooks_same_stack.md) — Hooks dans le même langage que le projet
 - [jarvis-innovator-mindset](feedback_jarvis_innovator.md) — Contrat Jarvis : partenaire, anticiper, innover, évoluer, franc, autonome, proactif
+- [kill-pragmatique-vide-doctrinal-assume](feedback_kill_pragmatique_vide_doctrinal.md) — KILL pragmatique acceptable quand 0 ref + doublon partiel + aucune canonique vault ne supporte ni contredit. Tracer assumé CHANGELOG. Pattern audits lifecycle futurs.
 - [lire-canoniques-vault-en-entier-avant-audit](feedback_lire_canoniques_avant_audit.md) — AVANT audit/création, read_note canoniques EN ENTIER, pas search_brain extraits
 - [llm-lit-court-homogene-pas-couche-deterministe](feedback_llm_lit_court_homogene_pas_couche_deterministe.md) — Pas de couche déterministe lourde sur corpus court+homogène = enforcement-théâtre
 - [mcp-alias-ambigu-chemin-exact](feedback_mcp_alias_ambigu_chemin_exact.md) — MCP append_note/read par alias court résout faux si stem partagé. Chemin exact
@@ -66,6 +70,8 @@
 - [non-invokable-skills-must-be-referenced](feedback_non_invokable_skills_orphan.md) — Skill user-invokable:false orpheline = la lier en frontmatter+body d'une skill parente
 - [opus47-workflow-decisions](feedback_opus47_workflow.md) — xhigh RÉSERVÉ architect/dev-lead/refactor-pg. high partout ailleurs
 - [pas-de-meta-commentaire-doctrine-composants](feedback_pas_de_meta_commentaire_doctrine.md) — JAMAIS justification/source/meta dans hook/agent/skill/CLAUDE.md. Le pourquoi → vault
+- [plugin-admin-absorbe-readonly](feedback_plugin_admin_absorbe_readonly.md) — Plugin admin (write) absorbe fonctionnellement read-only. Desinstaller le read-only sans perte (gain tokens). Verifier allowed-tools de chaque skill
+- [plugin-suffixe-ia-pas-readonly](feedback_plugin_suffixe_ia_pas_readonly.md) — Suffixe `-ia` n'est PAS read-only. Lire description+allowed-tools avant d'absorber dans un -admin
 - [pas-de-symetrie-artificielle-priorisation](feedback_pas_de_symetrie_artificielle_priorisation.md) — Audit multi-axes : ne PAS distribuer P0/P1 par axe pour l'équilibre. Impact réel sans complexe — N axes peuvent n'avoir qu'1 P0. Reste P2/P3 capitalisé + déclencheur. Observé Phase 2+3 (27 mai)
 - [permissionmode-mandatory](feedback_permissionmode_mandatory.md) — permissionMode obligatoire sur TOUS agents, acceptEdits pour créateurs
 - [pipeline-quality-gates](feedback_pipeline_quality_gates.md) — RÉVISÉ 22 mai : gates CONDITIONNELLES, 5 étapes CRUD
@@ -91,6 +97,8 @@
 - [subagent-autocommit-violation](feedback_subagent_autocommit.md) — Sub-agents committent malgré instruction. TOP gras + git log post-agent
 - [subagent-mcp-non-connecte-brief-inline](feedback_subagent_mcp_non_connecte_brief_inline.md) — MCP frontmatter sub-agent = décoratif. Fournir contenu inline + ESCALADE
 - [test-writer-systematic](feedback_test_writer_systematic.md) — RÉVISÉ 22 mai : MAX 3 tests/comportement, REFACTOR supprimée, effort high
+- [tests-adverses-obligatoires](feedback_tests_adverses_obligatoires.md) — Hooks sécu/enforcement : tester les cas adverses (bypass), pas seulement les cas heureux. DA AVANT push, pas après
+- [tests-adverses-ratio-3-1-hooks-secu](feedback_tests_adverses_ratio_3_1.md) — Hooks sécu/contrôle = suite de tests ≥3:1 adverse/happy. Caractériser les bugs (épingler, pas masquer). Docstring de scope (27 mai)
 - [tweet-hype-paraphrase-non-verifiee-pattern](feedback_tweet_hype_paraphrase_pattern.md) — Tweets tiers paraphrasant Anthropic = non vérifié. WebFetch docs avant capitaliser
 - [use-brain-skills-not-grep](feedback_use_brain_skills.md) — Questions métier = skills neo-brain (MCP), jamais grep manuel sur vault/SQL
 - [vault-cat-guard-faux-positif-memory](feedback_vault_cat_guard_faux_positif_memory.md) — Hook vault-cat-guard bloque cat memory/ si commande contient "vault". Edit pas Bash
@@ -121,6 +129,9 @@
 ## Reference
 - [enableallprojectmcp-couvre-tool-level](reference_enableallprojectmcp_couvre_tool_level.md) — enableAllProjectMcpServers:true + serveur dans .mcp.json auto-approuve les outils MCP au niveau TOOL sans prompt. Lister mcp__server__tool dans permissions.allow = redondant. Vérifié empiriquement (retrait list_notes → appel OK sans prompt, 27 mai). Distinct de mcp-wildcard (frontmatter agent/skill).
 - [seuils-canoniques-agents-mythes-2026-05-22](reference_seuils_canoniques_agents_mythes.md) — Seuls CLAUDE.md<200L et SKILL.md<500L canoniques. Le reste = mythes
+- [skills-metadata-tokens-load](reference_skills_metadata_tokens_load.md) — Claude Code charge name+description de TOUTES les skills installées au démarrage. 49 forge + 35 plugins = 6.8k tokens. Cap desc 250-300 chars = levier optim contexte
+- [plugins-scoping-mecanisme](reference_plugins_scoping_mecanisme.md) — Plugins scope via "scope" dans installed_plugins.json (user/project/local) + enabledPlugins settings.json. Marketplace declaration + Plugin:* auto-charge sans enabledPlugins (gotcha obsidian-skills)
+- [self-modification-user-scope-passe](reference_self_modification_user_scope_passe.md) — Auto-mode classifier bloque .claude/settings.json du repo courant, mais ~/.claude/settings.json user-scope PASSE en Edit direct. Distinction project vs user critique
 - [bashrc-bind-warnings-non-interactive](reference_bashrc_bind_warnings.md) — Warnings bind readline sans garde `[[ $- == *i* ]]`
 - [python-windows-cross-machine](reference_python_windows_cross_machine.md) — Hooks Windows : py launcher, path absolu, antislashes JSON
 - [agent-type-hook-detection](reference_agent_type_hook_detection.md) — Hooks détectent subagent via stdin JSON, JAMAIS via CLAUDE_AGENT env
