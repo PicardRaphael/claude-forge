@@ -36,6 +36,29 @@ Si la session a produit un apprentissage non trivial :
 
 **Règle clé :** `vault/1-Projets/` = source canonique pour le contexte projet stable. `memory/project_*.md` = uniquement la phase en cours et les décisions temporaires. Si une info est dans les deux → la supprimer de memory, garder le vault.
 
+## Triade memory/vault/memory-physique (3 acteurs)
+
+Avant de créer un nouveau fichier dans `memory/`, distinguer les 3 acteurs et appliquer le workflow décision :
+
+- **`MEMORY.md`** = table des matières + déclencheurs critiques (≤ 50 entrées tier-1)
+- **vault canoniques** = source de vérité doctrinale (règles énoncées, réutilisables)
+- **`memory/*.md`** = exceptions empiriques uniquement (≤ 100 fichiers cible)
+
+### Workflow décision (4 étapes obligatoires)
+
+1. `mcp__forge-brain__search_brain` sur le sujet du feedback envisagé
+2. Canonique vault existe → **POINTEUR 1 ligne** dans MEMORY.md, pas de fichier feedback
+3. Cas empirique précis non couvert vault → feedback `memory/*.md` ciblé (tier-1 ou tier-2)
+4. Sujet majeur sans canonique ET pattern récurrent (2-3 incidents) → **promouvoir vault d'abord** (créer note canonique), puis pointeur. 1 incident isolé → garder en feedback jusqu'à récurrence.
+
+Détails complets + exemples PASS/FAIL + cibles empiriques : [[pattern-maintenance-hybride-corpus-accumulatif]] section "Architecture cognitive — trois acteurs".
+
+### Anti-patterns spécifiques
+
+- Création feedback sans `search_brain` vault préalable → doublon mécanique
+- Feedback memory qui réécrit la canonique vault → la doctrine vit dans vault
+- Promotion vault prématurée (1 incident isolé) → attendre 2-3 récurrences
+
 ## Forge Brain — via MCP forge-brain
 
 Accès vault UNIQUEMENT via MCP forge-brain (auto-start SessionStart, port 8091).

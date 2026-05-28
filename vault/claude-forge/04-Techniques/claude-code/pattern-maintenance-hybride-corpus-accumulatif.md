@@ -1,13 +1,12 @@
 ---
 titre: "Maintenance hybride d'un corpus accumulatif — déterministe + LLM + gate humaine"
 resume: "Pattern canonique pour empêcher un corpus accumulatif (index mémoire, doctrine, FAQ, changelog) de se diluer : 3 couches déterministe (détection mécanique cheap) / LLM (clustering sémantique) / humain (gate [v]/[m]/[i] typée par section). Canonique vivante modifiable + archive append-only sacré. Anti enforcement-théâtre : pas de couche déterministe lourde sur corpus court/homogène."
-aliases: ["maintenance hybride corpus", "pattern compaction mémoire", "déterministe llm gate humaine", "archive append-only canonique vivante", "clean-memory pattern", "maintenance données accumulatives"]
+aliases: ["maintenance hybride corpus", "pattern compaction mémoire", "déterministe llm gate humaine", "archive append-only canonique vivante", "clean-memory pattern", "maintenance données accumulatives", "architecture cognitive memory vault", "feedback ou note vault"]
 type: technique
-derniere-maj: 2026-05-27
+derniere-maj: 2026-05-28
 auteur: claude
 tags: ["#type/technique", "#domaine/claude-code", "#sujet/maintenance", "#doctrine/2026"]
 ---
-
 # Maintenance hybride d'un corpus accumulatif
 
 Tout corpus qui s'accumule par ajout (index mémoire `MEMORY.md`, notes de doctrine, FAQ, changelog, base de feedbacks) se dilue avec le temps : doublons conceptuels, amendements successifs non consolidés, items dormants. Sans maintenance, le signal se noie dans le volume et le coût de lecture croît. Ce pattern structure la maintenance sans automatisme aveugle.
@@ -21,6 +20,59 @@ Tout corpus qui s'accumule par ajout (index mémoire `MEMORY.md`, notes de doctr
 | **Humain** | Gate `[v]/[m]/[i]` typée par section, `[m]` anti tout-ou-rien | Toute opération destructive |
 
 Le LLM lit le corpus entier et regroupe mieux que toute heuristique lexicale sur corpus court/homogène — la couche déterministe se limite aux métriques objectives. Construire une couche déterministe lourde (Jaccard, ML) par-dessus une lecture LLM possible = **enforcement-théâtre** (cf [[llm-lit-court-homogene-pas-couche-deterministe]]). Mesurer que le LLM rate AVANT de construire l'aide.
+
+## Architecture cognitive — trois acteurs
+
+Le pattern de maintenance ci-dessus s'applique à un système à trois acteurs qu'il faut distinguer nettement avant tout choix d'écriture.
+
+| Acteur | Rôle | Cible empirique |
+|--------|------|-----------------|
+| **`MEMORY.md`** (auto-chargé via `@import`) | Table des matières + déclencheurs critiques visibles à chaque session | ≤ 50 entrées tier-1 |
+| **Vault canoniques** (`vault/claude-forge/`) | Source de vérité complète — wikilinks, MOC, recherche sémantique MCP, 438+ notes | Pas de plafond (corpus de connaissance) |
+| **`memory/*.md`** (fichiers physiques) | Exceptions empiriques uniquement (cas précis non couvert vault) | ≤ 100 fichiers |
+
+Le vault porte la **doctrine** (règle énoncée, réutilisable). `memory/*.md` porte les **cas empiriques précis** que la doctrine vault ne pourrait pas absorber sans dilution (ex : « brief annonçait baseline 319, mesuré 176, écart 143 »). `MEMORY.md` ne porte que les **déclencheurs** (1 ligne pointeur).
+
+### Workflow décision — créer un nouveau feedback
+
+Quatre étapes obligatoires AVANT toute création de fichier dans `memory/` :
+
+1. **`search_brain`** sur le sujet dans le vault.
+2. **Canonique vault existe ?** → pointeur 1 ligne dans `MEMORY.md`, pas de nouveau fichier `memory/`.
+3. **Cas empirique précis non couvert vault ?** → feedback `memory/*.md` ciblé, tier-1 ou tier-2 selon impact.
+4. **Sujet majeur sans canonique ET pattern récurrent (2-3 incidents observés) ?** → promouvoir vault d'abord (créer la note canonique), PUIS pointeur `MEMORY.md` vers elle. Si 1 seul incident isolé : garder en feedback `memory/*.md` jusqu'à récurrence.
+
+### Template pointeur 1 ligne
+
+```
+- [slug-pointeur](pointer.md) — Cf [[note-vault-canonique]] (cas empirique : <une ligne si applicable>)
+```
+
+Le fichier pointeur est minimal : frontmatter + 2-3 lignes renvoyant à la canonique vault. Pas de duplication doctrinale.
+
+### Exemples PASS / FAIL
+
+- ✅ **PASS** — `feedback_claim_security_must_be_provable` pointeur 1 ligne vers [[hooks-conformite-audit-passif-continu]] (doctrine "by construction vs by discipline" est dans la note vault, le feedback ne garde que l'incident x-read 2026-05-20).
+- ❌ **FAIL** — feedback verbeux qui réécrit la doctrine vault sans cas empirique unique = doublon (à fusionner / réduire à un pointeur).
+- ✅ **PASS** — `feedback_verifier_claims_empiriquement` (cas empirique « sub-agent annonce 296L, fichier réel 211L ») : aucun équivalent vault, KEEP en feedback spécifique.
+- ❌ **FAIL** — créer une note vault canonique sur la base d'**un seul** incident sans pattern récurrent prouvé = promotion prématurée. Garder en feedback `memory/*.md` jusqu'à 2-3 récurrences.
+
+### Cibles empiriques mesurées (pilote 28 mai 2026)
+
+Cartographie sur 274 fichiers `memory/*.md` et pilote 29 fichiers (clusters verify-empirique + advisor-da + audit-methode) :
+
+- **38 %** de fichiers du pilote = doublon vault complet ou partiel (candidats PURGE/POINTEUR).
+- **62 %** = cas empirique précis sans canonique vault équivalente (KEEP).
+- Projection corpus complet : cible `memory/*.md` ≤ 100 fichiers, `MEMORY.md` ≤ 50 entrées tier-1 atteignable via amend chirurgical séquentiel (pas refonte massive).
+
+Le hook `memory-saturation-watcher.py` (SessionStart, advisory) signale WARNING ≥ 80 fichiers, CRITICAL ≥ 100. Pas de blocage, advisory pure cohérent doctrine 22 mai (hooks lint/sécu, jamais workflow).
+
+### Anti-patterns spécifiques
+
+- **Création feedback sans `search_brain` vault préalable** → produit doublon mécaniquement.
+- **Feedback memory qui réécrit la canonique vault** → la doctrine appartient au vault, le feedback ne porte que l'incident empirique.
+- **Promotion vault prématurée** (1 incident → note canonique) → attendre 2-3 récurrences. La note canonique doit énoncer un pattern, pas raconter une histoire.
+- **Accumulation sans curation** → tous les 1-2 mois, `/clean-memory` ou audit ciblé déclenché par hook CRITICAL.
 
 ## Architecture stockage
 
@@ -50,3 +102,5 @@ Même ADN que [[doctrine-vivante]] : **gate humaine non négociable + anti-scan-
 - [[methode-pivoter-doctrine]] — autre application de gate humaine sur changement structurant
 - [[pattern-mcp-brief-then-direct]] — skill = écritures MCP denses en session principale
 - [[comment-creer-skill]] — skill de jugement LLM = validation par exécution, pas test unitaire
+- [[memory-discipline]] — rule forge appliquant ce pattern sur `memory/*.md` (workflow décision)
+- [[decision-memoire-dans-le-repo]] — ADR memory dans repo (architecture physique `<repo>/memory/`)

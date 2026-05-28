@@ -67,6 +67,14 @@ Chaque item qui passe le filtre devient **candidat a un bloc de proposition** ge
 
 ## Etape 2 -- Verification de coherence
 
+> **Doctrine 3-acteurs** : `MEMORY.md` = table des matieres + declencheurs (<=50 tier-1). Vault canoniques = source de verite doctrinale. `memory/*.md` = exceptions empiriques (<=100 fichiers). Avant tout nouveau feedback, appliquer le workflow 4 etapes ci-dessous (cf [[pattern-maintenance-hybride-corpus-accumulatif]] section "Architecture cognitive — trois acteurs" + rule `memory-discipline.md`).
+>
+> **Workflow decision (4 etapes)** :
+> 1. `search_brain` sur le sujet dans le vault.
+> 2. Canonique vault existe → POINTEUR 1 ligne dans MEMORY.md, pas de nouveau fichier feedback.
+> 3. Cas empirique precis non couvert vault → feedback `memory/*.md` cible (Etape 3 Type 1).
+> 4. Sujet majeur sans canonique ET pattern recurrent (2-3 incidents) → promouvoir vault d'abord (Etape 3 Type 2), puis pointeur. 1 seul incident isole → garder en feedback jusqu'a recurrence.
+
 ### 2a -- Verifier la memoire existante
 
 Pour chaque item non-filtre, verifier si un feedback memoire couvre deja ce point.

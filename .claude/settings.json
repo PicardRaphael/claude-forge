@@ -175,6 +175,15 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/memory-saturation-watcher.py\"",
+            "timeout": 5
+          }
+        ]
       }
     ]
   },
