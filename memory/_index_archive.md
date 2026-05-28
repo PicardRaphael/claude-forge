@@ -19,6 +19,7 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 - [audit-transverse-periodique-hooks-gardes-ecriture](feedback_audit_transverse_periodique_hooks_gardes_ecriture.md) — Hooks = gardes en écriture, pas scanners. Audit transverse ponctuel reste nécessaire
 - [audit-tripartite-doctrinal-pattern](feedback_audit_tripartite_doctrinal_pattern.md) — Agent Team 3 teammates Will/ECC/Boris. Consensus 3/3 > 2/3 > désaccords priorisés
 - [audit-use-cli-validation](feedback_audit_use_cli.md) — Auditer .claude/ via CLI (agents/skills/hooks/rules list), pas juste lire les fichiers
+- [auto-violation-doctrine-fraichement-inscrite](feedback_auto_violation_doctrine_fraichement_inscrite.md) — Respecter immediatement la doctrine fraichement inscrite, pas l'oublier au tour suivant
 - [automemorydirectory-absolu-casse-multiprojet](feedback_automemorydirectory_absolu_casse_multiprojet.md) — autoMemoryDirectory absolu = global, fusionne toutes les mémoires. Scope déjà par projet
 - [autonomy-initiative-rule](feedback_autonomy_rule.md) — Si advisor+DA valident → agir sans demander. Proposer innovations proactivement
 - [backtick-quoting-safety](feedback_backtick_quoting.md) — Ne jamais passer $ARGUMENTS dans des backtick shell

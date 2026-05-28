@@ -10,7 +10,6 @@ tags:
   - "#type/log"
   - "#casquette/responsable-ia"
 ---
-
 # Log — Casquette Responsable IA
 
 Format : `## [YYYY-MM-DD] action | titre`

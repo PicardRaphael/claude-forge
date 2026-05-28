@@ -7,14 +7,13 @@ aliases:
   - "log append-only"
   - "trace vault forge"
   - "vault operations log"
-derniere-maj: 2026-05-27
+derniere-maj: 2026-05-28
 auteur: claude
 type: log
 tags:
   - "#type/log"
   - "#karpathy/log"
 ---
-
 # Log vault forge-brain
 
 > Pattern Karpathy LLM Wiki : log **append-only** format strict `## [YYYY-MM-DD] action | titre`. Trace atomique des Ingest / Query / Lint. Pour la narration prosaique → voir [[CHANGELOG]].
@@ -394,3 +393,13 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - 1 archivage réel : `use-obsidian-cli` → `_archive/2026-05/` (obsolescence doctrinale, contredit MCP UNIQUEMENT). 2 wikilinks corrigés dans cette note ([[pattern-vault-llm-karpathy]]). 1 lien mort retiré (`checklist_before_modify`, entrée fabriquée)
 - Bug script attrapé empiriquement : regex lowercase excluait `feedback_git_C_pas_cd.md` (C majuscule) → restauré. 6e occurrence [[feedback_mcp_alias_ambigu_chemin_exact]] (hook a bloqué l'append_note alias `log`)
 - Propagation TRACÉE (session post-/clear) : skill /clean-memory + CLAUDE.md règle tokens + skill capitalisation résumé court + hook `memory-size-watcher` seuil 38k. Cf [[context-actuel]]
+
+## [2026-05-28] chantier | Propagation post-clean-memory — 4 items doctrinaux + note canonique 3 axes
+- Skill [[clean-memory]] enrichie Section E (promotion/rétrogradation tier-1↔tier-2) + critère mécanique formalisé (citation ≥1 OU 3 axes stratégiques OU pinned) + gotcha seuil re-clean 38k chars
+- [[CLAUDE.md]] : 8e puce critique <L25 « Tokens/contexte = ressource ultra-précieuse » + architecture tier-1 visible / tier-2 dans `_index_archive.md`
+- Skill [[done]] : résumé feedback <80 chars obligatoire + classification tier proposée à la création (défaut tier-2, promotion via `/clean-memory` quand citation apparaît)
+- Hook nouveau `.claude/hooks/memory-size-watcher.py` : SessionStart advisory, seuil 38000 chars (marge 2k sous 40k système), fail-open, 5 tests pytest (181/181 verts post-merge baseline 176→181)
+- Note canonique créée [[3-axes-strategiques-forge]] (Knowledge/syntheses) : combler trou doctrinal — axes (MCP décoratif sub-agent, agent vs skill densité MCP vault, living doctrine) référencés dans skills/briefs sans source unique. Wikilinks vers [[mcp-vs-skills-doctrine]], [[anti-reentrance-sub-agents-pattern-escalade]], [[methode-pivoter-doctrine]], [[raisonnement-22mai-doctrine-vs-enforcement]]
+- Capitalisation mémoire : feedback `chiffre-baseline-brief-verifier-empiriquement` tier-1 (variante chiffrée de [[brief-premisse-fausse-verifier-avant-executer]] — baseline annoncée 319 vs mesurée 176) + feedback `auto-violation-doctrine-fraichement-inscrite` tier-2 (résumé feedback à 92 chars créé tour suivant de l'inscription de la règle <80 chars, pattern d'oubli en sortie de chantier)
+- Proposition Jarvis `/clean-memory-archive-only` (variante allégée gate globale unique) tracée dans 3-axes-strategiques-forge avec déclencheur de réactivation explicite — NON livrée par discipline anti-sur-engineering (1 occurrence ≠ build)
+- Méthode A→B→C→D→E avec STOP étape D (plan d'écart validé [v]/[v]/[v]/[v]). Cycle git : 1 commit groupé `chore(propagation): post-clean-memory 4 items doctrinaux` ff-only main + branche supprimée

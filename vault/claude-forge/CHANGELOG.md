@@ -7,12 +7,20 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-05-27
+derniere-maj: 2026-05-28
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-28 — Propagation post-clean-memory : 4 items doctrinaux + note canonique 3 axes
+
+Session de propagation des décisions issues du chantier `/clean-memory` du 27 mai. Quatre composants `.claude/` modifiés en cohérence : la skill `clean-memory` gagne une Section E (promotion/rétrogradation tier-1↔tier-2) avec critère mécanique formalisé (citation ≥1 OU 3 axes stratégiques OU pinned), `CLAUDE.md` ancre une 8e puce critique sous L25 affirmant "Tokens/contexte = ressource ultra-précieuse" avec mention de l'architecture tier-1 visible / tier-2 dans `_index_archive.md`, la skill `done` impose désormais résumés <80 chars et propose le tier à la création (défaut tier-2, 0 citation à la naissance), et un nouveau hook `memory-size-watcher.py` (SessionStart, advisory, seuil 38k chars avec marge 2k sous seuil système 40k, fail-open) accompagné de 5 tests pytest (181/181 verts post-merge) alerte préventivement quand MEMORY.md approche le mur.
+
+Une note canonique `Knowledge/syntheses/3-axes-strategiques-forge.md` créée pour combler un trou doctrinal : les "3 axes stratégiques forge" (MCP décoratif sub-agent, agent vs skill densité MCP vault, living doctrine) étaient mentionnés dans skills et briefs sans note unique définissant leur scope précis — désormais ancrés avec wikilinks vers les notes canoniques sources ([[mcp-vs-skills-doctrine]], [[anti-reentrance-sub-agents-pattern-escalade]], [[methode-pivoter-doctrine]], [[raisonnement-22mai-doctrine-vs-enforcement]]).
+
+Apprentissage méta capitalisé en mémoire : `feedback_chiffre_baseline_brief_verifier_empiriquement` (variante chiffrée de brief-prémisse-fausse — la baseline tests annoncée "319 → 324" mesurée empiriquement à 176 → 181, écart 143 silencieusement absorbé sans mesure aurait pollué le bilan) et `feedback_auto_violation_doctrine_fraichement_inscrite` (résumé feedback à 92 chars créé tour suivant de l'inscription de la règle <80 chars dans `done` — pattern d'oubli en sortie de chantier qu'il faut traquer). Une proposition Jarvis `/clean-memory-archive-only` (variante allégée sans gate par item pour les rétrogradations triviales) tracée dans la note 3 axes avec déclencheur de réactivation explicite — non livrée par discipline anti-sur-engineering (1 occurrence ≠ build).
+
 ## 2026-05-27 — Mémoire : MEMORY.md hiérarchisé tier-1/tier-2, divisé par deux
 
 L'index mémoire `MEMORY.md` a franchi le seuil empirique de 40k chars (mesuré à 42.5k) — le déclencheur du pattern de maintenance hybride canonisé le matin même s'est appliqué à lui-même. Plutôt qu'un nettoyage cosmétique réactif, deux leviers structurels. Levier A : les 112 résumés d'index dépassant 80 caractères raccourcis radicalement (le slug porte déjà le concept, le résumé ne fait que compléter l'actionnable, le détail vit dans le fichier feedback). Levier C : hiérarchisation à deux niveaux — les 97 feedbacks cités au moins une fois ou jugés stratégiques (axes innovation MCP, contrat Jarvis, méta-doctrines fraîches de la journée) restent visibles dans `MEMORY.md` ; les 96 non cités partent dans un nouveau `memory/_index_archive.md`, chargé uniquement si une recherche le déclenche, avec un pointeur explicite depuis l'index principal.
