@@ -19,7 +19,7 @@ Avant de recommander un composant, consulter les canoniques pertinentes via `mcp
 - Recommandation hook → `comment-creer-hook` + `raisonnement-22mai-doctrine-vs-enforcement`
 - Recommandation workflow → `workflow-claude-code-optimal`
 
-Lecture EN ENTIER (pas `max_lines`). Pas de recommandation à l'œil sur savoir interne. Si la canonique pertinente n'existe pas dans le vault → SURFACER comme trou doctrinal, pas inventer un critère.
+Lecture EN ENTIER (pas `max_lines`) **si scope large** (architecture globale, première lecture). Si la question cible un aspect précis ET section_id identifiable depuis `search_brain` → `read_section` ciblée d'abord (économe tokens, cf [[read-section-preference]]). Pas de recommandation à l'œil sur savoir interne. Si la canonique pertinente n'existe pas dans le vault → SURFACER comme trou doctrinal, pas inventer un critère.
 
 Référence : [[pattern-mcp-brief-then-direct]] Règle 2 (skill sans brief inline doit auto-fetch).
 

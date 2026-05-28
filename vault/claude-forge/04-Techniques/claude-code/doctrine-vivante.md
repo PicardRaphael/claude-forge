@@ -10,7 +10,7 @@ aliases:
   - "doctrine évolutive forge"
 domaine: claude-code
 type: technique
-derniere-maj: 2026-05-27
+derniere-maj: 2026-05-28
 auteur: claude
 sources:
   - "Chantier A — pont veille → doctrine (27 mai 2026)"
@@ -22,7 +22,6 @@ tags:
   - "#sujet/doctrine"
   - "#doctrine/2026"
 ---
-
 # Doctrine vivante
 
 La doctrine forge n'est pas un socle figé. Elle évolue. Jusqu'ici, le moteur d'évolution documenté était **interne** : « CLAUDE.md DOIT évoluer » (ajouter après chaque erreur, supprimer le redondant). Cette note pose le moteur **externe** : la doctrine doit aussi être challengée par le monde extérieur, et Claude doit proposer des pivots de façon proactive quand il observe une contradiction avec une source à fort crédit.
@@ -87,3 +86,20 @@ Continu et événementiel — à chaque `cc-news` (étape 8 sur les findings maj
 - [[raisonnement-22mai-doctrine-vs-enforcement]] — exemple de pivot déclenché par signal externe (Boris, Agent SDK)
 - [[comment-ecrire-claudemd]] — « CLAUDE.md DOIT évoluer » (moteur interne étendu ici)
 - [[methode-analyser-repo]] — séquence A→B→C→D→E (croiser réel ⨯ canoniques)
+
+
+## Sources d'inspiration
+
+Le pattern doctrine vivante (signal externe → verdict {INFO, DOCTRINE_PIVOT_CANDIDATE, DOCTRINE_REINFORCE} → gate humaine) ne sort pas du néant. Il transpose deux corpus académiques et industriels établis en doctrine personnelle opérationnelle :
+
+- **PIVOT: Bridging Planning and Execution in LLM Agents via Trajectory Refinement** — Tuo Zhang, Alin-Ionut Popa, Yan Xu, Rui Song, Dimitrios Dimitriadis (arXiv:2605.11225, mai 2026). Framework PLAN → INSPECT → EVOLVE → VERIFY pour corriger les écarts entre planification et exécution dans les agents LLM. Trajectoires traitées comme objets optimisables, raffinées par interaction avec l'environnement. Le mécanisme INSPECT (détecter un écart entre prévu et observé) → EVOLVE (proposer un ajustement) → VERIFY (valider avant intégration) inspire directement le pipeline `finding externe → verdict → gate`.
+
+- **Architecture Decision Records (ADR)** — Michael Nygard, *Documenting Architecture Decisions* (2011). Capture les décisions structurantes avec leur contexte, leurs alternatives écartées, et le verdict. L'ADR introduit la notion qu'une décision peut être *superseded* par une décision ultérieure traçable. La doctrine vivante applique le même principe au corpus canonique forge : une note canonique peut être pivotée, et le pivot trace contexte + source + verdict.
+
+**Transposition opérationnelle (adaptation Raphaël)** :
+- Le gate humain typé `[v]alider / [m]odifier / [i]gnorer` (vs choix binaire accept/reject) est forge-spécifique.
+- Le triplet de verdicts INFO / PIVOT_CANDIDATE / REINFORCE (vs binaire pertinent/non) est forge-spécifique.
+- L'interdiction du scan aveugle (puits sec mesuré 0/12, [[critique-2026-05-27-compounding-retroactif]]) est une contribution empirique forge non présente dans les deux sources.
+- L'intégration avec [[methode-pivoter-doctrine]] (5 étapes anti-drift résiduel) ne figure dans aucune source externe.
+
+Le pattern forge = PIVOT (mécanisme inspect/evolve) + ADR (traçabilité décision) + contraintes empiriques internes (anti-scan-aveugle, gate typé, méthode anti-drift).
