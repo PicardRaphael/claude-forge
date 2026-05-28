@@ -129,8 +129,16 @@ Aucune réponse "depuis savoir interne sans vault". Pattern "vérif non-doublon 
 - 10 agents + 9 rules + 12 hooks confirmés
 - Baseline 181 tests PASS maintenue
 
+### Cycle git exécuté
+
+2 commits livrés (working tree clean post-/done) :
+1. `b364c51` — docs(vault): bilan journee 27-28 mai + AMEND CC mai 2026 (test oracle vault-first 3/3 CONFORME)
+2. `10e4124` — docs(vault): context-actuel + CHANGELOG + log post bilan global 27-28
+
+Branch `main` à +3 commits d'origin/main (push GitHub bloqué orga Team, traces locales OK).
+
 ### Prochaine étape
 
-Cycle git groupé : 2 commits proposés
-1. `docs(vault): note bilan journee-27-28-mai-2026 + amend CC mai 2026 changelog (test oracle vault-first)`
-2. `docs(vault): context-actuel + CHANGELOG + log racine bilan global`
+- Valider `/context` empirique en nouvelle session (gain estimé > 15k tokens)
+- Si confirmé : déclencher scénario AGRESSIF (refonte memory tier-1 strict + fusion rules check-before-create/delegate/sequence-canonique)
+- Sinon : laisser stabiliser 1-2 semaines
