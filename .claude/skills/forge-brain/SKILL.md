@@ -28,6 +28,46 @@ Knowledge base Obsidian de claude-forge. Stocke tout ce que j'apprends : Claude 
 Le MCP forge-brain (auto-start SessionStart, port 8091) est le SEUL moyen d'accès au vault.
 Ne JAMAIS utiliser la CLI Obsidian, Grep, Read ou Glob brut sur le vault.
 
+### Pattern Karpathy opérationnel — Doctrine consultation vault
+
+Source canonique : [[pattern-vault-llm-karpathy]] (architecture) + [[comparaison-mcp-forge-brain-vs-mcp-brain-28mai2026]] (gap utilisation skills).
+
+**Principe** : une réponse construite à partir de snippets est PIRE qu'une réponse construite à partir de notes entières top N. Les snippets `search_brain(context=true)` servent à IDENTIFIER les notes pertinentes, JAMAIS à RÉPONDRE.
+
+#### 3 temps SEARCH/SELECT/READ
+
+```
+1. SEARCH (large)     → search_brain(query, limit=5, context=true)
+                        → snippets pour scorer la pertinence
+
+2. SELECT (sélectif)  → identifier top N notes selon mode (table ci-dessous)
+                        → trier par dossier : Knowledge/ > 04-Techniques/ > 01-Claude/ > autres
+
+3. READ (entier)      → read_note ENTIÈRE sur CHAQUE note du top N
+                        → ou read_section ciblée si section précise connue
+                        → croiser les N notes pour construire la réponse
+```
+
+#### Table 4 modes — N par type de question
+
+| Signal dans la question | Mode | N (top notes à lire entièrement) | Budget appels max |
+|---|---|---|---|
+| « Comment fonctionne X ? », « Pourquoi Y ? » | Query | N=3 | 1 search + 3 read_note = 4 |
+| Audit / classification N composants | Audit | N=4 | 1-2 search + 4 read_note = 6 |
+| « Tous les X », « liste complète », « récap exhaustif » | Exhaustive | 2-4 sources | 1 search + 1 MOC + 2-4 read_note = 7 |
+| « Cartographie le domaine X », exploration explicite | Exploration | Illimité | BFS, suivre `[[wikilinks]]` jusqu'à contexte complet |
+
+#### Anti-patterns Karpathy
+
+❌ « Le snippet de search_brain contient la réponse → je réponds sans read_note »
+✅ « Le snippet m'indique que cette note est pertinente → je read_note ENTIÈRE »
+
+❌ « Je lis seulement la note la plus pertinente (N=1) »
+✅ « Je lis les 3 premières notes pertinentes (N=3) et je croise »
+
+❌ « Je m'arrête au snippet contenant un mot-clé recherché »
+✅ « Le snippet indique pertinence, pas réponse — je read_note pour fonder ma réponse »
+
 ### Outils MCP — Lecture
 
 | Outil | Usage | Quand utiliser |
@@ -47,6 +87,40 @@ Ne JAMAIS utiliser la CLI Obsidian, Grep, Read ou Glob brut sur le vault.
 | `vault_stats()` | Stats vault complètes | Photo globale |
 | `lint_vault(limit)` | Détecte aliases<4, orphelines, sans tag, YAML cassé, wikilinks brisés | Audit qualité vault |
 | `usage_stats(days)` | Agrégation calls/total_ms/errors par tool | Décisions pruning outils MCP |
+
+### Pagination autoguidée — Ne jamais s'arrêter au milieu d'une note
+
+**Règle Karpathy dure** : notes vault (CHANGELOG, log, MOCs riches) peuvent faire 1000+ lignes. Ne JAMAIS couper la lecture au milieu. Le MCP forge-brain offre un mécanisme **autoguidé** via header serveur.
+
+#### Mécanisme serveur
+
+```python
+# forge-brain/src/tools/brain.py:215-217
+header = f"[chars {offset}-{end}/{total_chars}]\n"
+if end < total_chars:
+    header += f"[suite : appeler avec offset={end}, limit_chars={limit_chars}]\n"
+```
+
+#### Comment exploiter la pagination
+
+1. **Première lecture** : `read_note(file, offset=0, limit_chars=20000)` (20k chars ≈ 500 lignes)
+2. **Suivre le header** : si réponse contient `[suite : appeler avec offset=20000, limit_chars=20000]`, **APPELER** avec ces paramètres exacts
+3. **Itérer** jusqu'à ce que le header ne contienne plus `[suite :]`
+4. **Croiser** les N chunks pour construire la réponse
+
+#### Quand paginer vs read_section
+
+| Cas | Outil |
+|---|---|
+| Note > 50k chars (CHANGELOG, log) | `read_note(offset, limit_chars)` en N passes |
+| Section précise connue | `read_section(file, heading)` — 1 appel, gain 30x |
+| Note normale < 50k chars | `read_note(file)` entière — Karpathy compliant |
+
+#### Anti-patterns pagination
+
+❌ « C'est massif, je ne peux pas tout lire » → INTERDIT. Paginer ou read_section.
+❌ Ignorer le header serveur `[suite : offset=N]` → l'outil donne l'autoguidage, l'exploiter.
+❌ « Le snippet du milieu suffit » → INTERDIT. Lire la suite.
 
 ### Outils MCP — Écriture
 
@@ -83,6 +157,25 @@ Ne JAMAIS utiliser la CLI Obsidian, Grep, Read ou Glob brut sur le vault.
 | Supprimer safe | `delete_note` |
 | Audit qualité vault | `lint_vault` |
 | Mesurer usage outils | `usage_stats(days=7)` |
+
+### Priorisation tools AVANT search_brain — Hiérarchie économie tokens
+
+**`search_brain` est le DERNIER RECOURS**, pas le réflexe par défaut. L'anti-pattern identifié dans [[comparaison-mcp-forge-brain-vs-mcp-brain-28mai2026]] : enchaîner 3+ search_brain quand 1 outil ciblé suffit.
+
+| Signal dans la question | Tool à privilégier (AVANT search_brain) | Gain tokens |
+|---|---|---|
+| Recherche par metadata (frontmatter : type, derniere-maj, auteur, tag) | `find_by_property(name, value, comparator)` | Ciblage direct vs scan FTS5 |
+| Section précise connue d'une note (header markdown) | `read_section(file, heading)` | 30x sur grosses notes |
+| Nom de note ou alias connu | `read_note(file)` direct ou `read_note_by_path(path)` | Pas de recherche, lecture directe |
+| MOC avec embeds `![[X]]` à explorer | `read_note_resolved(file, depth=1)` | 1 appel = N+1 notes en contexte |
+| Backlinks vers une note (graphe inverse) | `get_backlinks(file)` | Direct, pas de FTS5 |
+| Inventaire dossier | `list_notes(folder, limit)` | Direct |
+| Exploration large sans nom technique précis | `search_brain(query, limit, context=true)` | Dernier recours |
+
+**Anti-pattern majeur** : `search_brain` en 5 variantes de mots-clés pour trouver une note → 5 appels FTS5 quand `find_by_property` ou `read_section` ferait le job en 1 appel ciblé.
+
+**Règle** : classer la question (metadata ? section ? nom connu ?) → outil ciblé. `search_brain` UNIQUEMENT si rien d'autre ne convient.
+
 ### Format Obsidian Flavored Markdown
 
 Quand on CRÉE une note via MCP `create_note`, le contenu doit respecter la skill `obsidian-markdown` :
@@ -194,3 +287,6 @@ Après chaque session significative utilisant le vault :
 - Vérifier que les notes créées/modifiées sont correctement linkées
 - Mettre à jour les MOCs si de nouvelles notes ont été ajoutées
 - Si un pattern de recherche revient souvent, créer une note synthèse dans `Knowledge/syntheses/`
+- Appliquer le pattern Karpathy 3 temps (SEARCH/SELECT/READ, N=3) : snippets = identification, pas réponse
+- Prioriser les outils ciblés (`find_by_property`, `read_section`, `read_note` direct) AVANT `search_brain`
+- Pour notes > 50k chars : paginer avec `read_note(offset, limit_chars)` en suivant le header `[suite :]`
