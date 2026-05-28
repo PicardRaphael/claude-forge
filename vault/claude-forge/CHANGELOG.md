@@ -13,6 +13,13 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-28 — SELF_PORTRAIT régénéré condensé
+
+- **Modifiées** : `SELF_PORTRAIT.md` (racine repo, renommé depuis `CLAUDE_FORGE_SELF_PORTRAIT.md`, 631L → 151L)
+- **Source** : photographie technique fidèle post bilan 27-28 mai. Chiffres remesurés (361 commits, 48 skills, 10 agents forge + 3 user-scope, 12 hooks Python + 1 inline, 9 rules, 453 notes vault, 181 tests verts, MEMORY 24,6k + archive 16,6k)
+- **Méthode** : A→B→D→E→F (cartographie empirique → wikilinks canoniques → plan d'écart STOP → rédaction → capitalisation)
+- **Notes vault** : aucune note créée/modifiée — wikilinks vers canoniques existantes uniquement
+
 ## 2026-05-28 — Bilan global 27-28 + test oracle vault-first 3/3 CONFORME
 
 Note synthèse `Knowledge/syntheses/journee-27-28-mai-2026.md` créée pour archiver la séquence de 2 jours (113 commits, 110 le 27 + 3 le 28) — chiffres bruts vérifiés empiriquement (48 skills + 10 agents + 9 rules + 12 hooks, baseline 181 tests PASS du début à la fin), architecture livrée (mémoire portable, search_sessions MCP, tests adverses 3:1, comparaison Hermes, audit context tokens -43%, audit lifecycle 3 KILL/2 AMEND), patterns méta capitalisés avec wikilinks, dette résiduelle tracée (comment-creer-rule absente P2, gotcha obsidian-skills marketplace, /context à valider).

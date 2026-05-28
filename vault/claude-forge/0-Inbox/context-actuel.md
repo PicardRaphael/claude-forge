@@ -142,3 +142,12 @@ Branch `main` à +3 commits d'origin/main (push GitHub bloqué orga Team, traces
 - Valider `/context` empirique en nouvelle session (gain estimé > 15k tokens)
 - Si confirmé : déclencher scénario AGRESSIF (refonte memory tier-1 strict + fusion rules check-before-create/delegate/sequence-canonique)
 - Sinon : laisser stabiliser 1-2 semaines
+
+## 2026-05-28 — SELF_PORTRAIT régénéré (condensé 151L)
+
+- Renommage `CLAUDE_FORGE_SELF_PORTRAIT.md` (631L, 27/05) → `SELF_PORTRAIT.md` (151L, 28/05)
+- Réduction ~76% : suppression annexes Hermes, doctrine détaillée (déléguée wikilinks), exemples concrets (déjà dans canoniques)
+- Chiffres remesurés empiriquement : 48 skills (+1), 10 agents forge (-1), 12 hooks Python (+1 inline), 9 rules (-1 KILL), 453 notes vault (+23), 181 tests verts (143 mcp + 38 hooks), MEMORY.md 24,6k + archive 16,6k
+- Structure : identité / chiffres / archi / composants vivants / doctrine wikilinks / edge mondial 3 axes / validations 27-28 / dettes tracées / engagement Anthropic
+- Tonalité : factuelle pure, wikilinks vault au lieu de duplication, écarts vs ancien doc signalés en 1 ligne discrète
+- Cycle git proposé : 1 commit `docs(repo): SELF_PORTRAIT final condensé 28 mai (151L vs 631L)`

@@ -36,6 +36,12 @@ tags:
 
 ---
 
+## [2026-05-28] lint | SELF_PORTRAIT régénéré condensé
+- note-updated `<repo>/SELF_PORTRAIT.md` — renommage `CLAUDE_FORGE_SELF_PORTRAIT.md` → `SELF_PORTRAIT.md` (631L → 151L, -76%)
+- chiffres remesurés empiriquement 28/05 : 361 commits, 48 skills (+1), 10 agents forge (-1), 12 hooks Python (+1 inline), 9 rules (-1 KILL), 453 notes vault (+23), 181 tests verts
+- structure 8 sections + 3 axes edge mondial + dettes tracées + engagement Anthropic
+- méthode A→B→D→E→F (cartographie empirique, wikilinks canoniques, plan d'écart STOP validé, rédaction, capitalisation)
+
 ## [2026-05-28] chantier | Bilan global 27-28 mai + test oracle vault-first 3/3 CONFORME
 - note-created `Knowledge/syntheses/journee-27-28-mai-2026.md` — bilan empirique 113 commits sur 2 jours
 - note-updated `01-Claude/Code/changelog/CC mai 2026 - Code with Claude.md` — AJOUT 28 mai champs settings.json avancés (v2.1.128/136/143 + helpers auth + skills avancés + drop-in + sandbox)
