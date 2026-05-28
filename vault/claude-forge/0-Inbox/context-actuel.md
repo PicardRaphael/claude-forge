@@ -103,3 +103,34 @@ Rien d'actif. Tous les Steps 1-7 livres et mesures empiriquement.
 [[feedback_askuserquestion_arbitrage_destructif]]
 [[reference_plugins_scoping_mecanisme]]
 [[reference_self_modification_user_scope_passe]]
+
+
+## Session 2026-05-28 (suite) — Bilan global 27-28 + test oracle vault-first
+
+### Livrables
+
+- **[[journee-27-28-mai-2026]]** — note synthèse bilan 2 jours créée Knowledge/syntheses/
+- **Test empirique oracle vault-first** : 3 scénarios CONFORME (skills/prompt-eng/capitalisation)
+- **AMEND** [[CC mai 2026 - Code with Claude]] : section "AJOUT 28 mai 2026 — Champs settings.json avancés" (v2.1.128/136/143 + helpers auth + skills avancés + drop-in + sandbox détaillé)
+
+### Verdict oracle vault-first
+
+3/3 CONFORME. Séquence type observée :
+- S1 : 1× search_brain + 1× read_note entier
+- S2 : 2× search_brain + 1× read_note entier
+- S3 : 1× WebFetch + 3× search_brain (non-doublon) + 1× append_note AMEND
+
+Aucune réponse "depuis savoir interne sans vault". Pattern "vérif non-doublon AVANT capitaliser" appliqué (S3 a amendé canonique existante au lieu de créer doublon).
+
+### Chiffres empiriques vérifiés (vs brief mémoire)
+
+- 113 commits 2 jours (110 le 27 + 3 le 28) ≠ "~2 jours" approximatif du brief — déséquilibre normal (27 = vague structurelle, 28 = audits)
+- 48 skills (pas 49 mentionné dans context-actuel précédent) — écart -1, marginal
+- 10 agents + 9 rules + 12 hooks confirmés
+- Baseline 181 tests PASS maintenue
+
+### Prochaine étape
+
+Cycle git groupé : 2 commits proposés
+1. `docs(vault): note bilan journee-27-28-mai-2026 + amend CC mai 2026 changelog (test oracle vault-first)`
+2. `docs(vault): context-actuel + CHANGELOG + log racine bilan global`

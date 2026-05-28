@@ -36,6 +36,18 @@ tags:
 
 ---
 
+## [2026-05-28] chantier | Bilan global 27-28 mai + test oracle vault-first 3/3 CONFORME
+- note-created `Knowledge/syntheses/journee-27-28-mai-2026.md` — bilan empirique 113 commits sur 2 jours
+- note-updated `01-Claude/Code/changelog/CC mai 2026 - Code with Claude.md` — AJOUT 28 mai champs settings.json avancés (v2.1.128/136/143 + helpers auth + skills avancés + drop-in + sandbox)
+- chiffres vérifiés : 48 skills (pas 49 mémoire), 10 agents, 9 rules, 12 hooks, baseline 181 tests PASS
+- 3 scénarios oracle vault-first exécutés en session principale : S1 (skill creation) + S2 (audit multi-repos) + S3 (capitalisation page Anthropic)
+- séquences observées : S1 (1 search_brain + 1 read_note entier), S2 (2 search_brain + 1 read_note entier), S3 (1 WebFetch + 3 search_brain + 1 append_note AMEND, 0 create_note)
+- verdict 3/3 CONFORME : aucune réponse depuis savoir interne sans vault, anti-doublon S3 (amend canonique au lieu de doublon)
+- dette tracée : `comment-creer-rule` absente du vault (P2), gotcha obsidian-skills marketplace auto-discovery
+- pas de capitalisation feedback nouvelle (audit oracle confirme état SAIN doctrinalement)
+
+---
+
 ## [2026-05-27] chantier | Étape 3 — durcissement hooks (faux positif chaînage + angle mort PowerShell)
 - Corrigé `vault-cat-guard.py` : segmentation sur &&/||/;/| avant détection — read-command + marker vault doivent co-occurrer dans le MÊME segment. Faux positif `git add "vault/..." && git push | tail` résolu (découvert en commitant l'étape 2b)
 - Corrigé `security-guard.py` : matcher `Bash` → `Bash|PowerShell` (angle mort — git push --force via PowerShell contournait le garde). Code is_dangerous déjà cross-shell, fix = routing

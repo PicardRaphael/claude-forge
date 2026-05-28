@@ -13,6 +13,14 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+## 2026-05-28 — Bilan global 27-28 + test oracle vault-first 3/3 CONFORME
+
+Note synthèse `Knowledge/syntheses/journee-27-28-mai-2026.md` créée pour archiver la séquence de 2 jours (113 commits, 110 le 27 + 3 le 28) — chiffres bruts vérifiés empiriquement (48 skills + 10 agents + 9 rules + 12 hooks, baseline 181 tests PASS du début à la fin), architecture livrée (mémoire portable, search_sessions MCP, tests adverses 3:1, comparaison Hermes, audit context tokens -43%, audit lifecycle 3 KILL/2 AMEND), patterns méta capitalisés avec wikilinks, dette résiduelle tracée (comment-creer-rule absente P2, gotcha obsidian-skills marketplace, /context à valider).
+
+Test empirique du comportement oracle vault-first sur 3 scénarios représentatifs (skill creation / prompt engineering audit multi-repos / capitalisation page Anthropic). **3/3 CONFORME** : aucune réponse depuis savoir interne sans consultation vault, canoniques lues EN ENTIER via `read_note` sans `max_lines`, vérification non-doublon AVANT capitalisation (S3 a amendé `CC mai 2026 - Code with Claude` au lieu de créer doublon). La canonique a gagné une section "AJOUT 28 mai 2026 — Champs settings.json avancés" documentant v2.1.128 (`disableRemoteControl`), v2.1.136 (`policyHelper`), v2.1.143 (`worktree.bgIsolation`), helpers auth (`apiKeyHelper`, `otelHeadersHelper`, `awsAuthRefresh`, `gcpAuthRefresh`), skills avancés (`maxSkillDescriptionChars`, `skillListingBudgetFraction`, `skillOverrides`, `disableSkillShellExecution`), drop-in `managed-settings.d/` et sandbox détaillé.
+
+Verdict global : claude-forge oracle vault-first VALIDÉ empiriquement, top 1-3% mondial fonctionnel (mesuré, pas estimé).
+
 ## 2026-05-28 — Propagation post-clean-memory : 4 items doctrinaux + note canonique 3 axes
 
 Session de propagation des décisions issues du chantier `/clean-memory` du 27 mai. Quatre composants `.claude/` modifiés en cohérence : la skill `clean-memory` gagne une Section E (promotion/rétrogradation tier-1↔tier-2) avec critère mécanique formalisé (citation ≥1 OU 3 axes stratégiques OU pinned), `CLAUDE.md` ancre une 8e puce critique sous L25 affirmant "Tokens/contexte = ressource ultra-précieuse" avec mention de l'architecture tier-1 visible / tier-2 dans `_index_archive.md`, la skill `done` impose désormais résumés <80 chars et propose le tier à la création (défaut tier-2, 0 citation à la naissance), et un nouveau hook `memory-size-watcher.py` (SessionStart, advisory, seuil 38k chars avec marge 2k sous seuil système 40k, fail-open) accompagné de 5 tests pytest (181/181 verts post-merge) alerte préventivement quand MEMORY.md approche le mur.
