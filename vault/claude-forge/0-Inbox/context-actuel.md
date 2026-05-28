@@ -181,4 +181,28 @@ Branch `main` à +3 commits d'origin/main (push GitHub bloqué orga Team, traces
 **Méthode /done appliquée** : extraction brute (4 catégories) → filtre obligatoire → vérification doublons (1 amendement feedback existant, 1 note vault nouvelle, 1 tier-2) → validation [v] item par item → écriture mémoire + vault + CHANGELOG + log.md + cycle git groupé
 
 **Dette structurelle nouvelle tracée** :
-- Hook `mcp-alias-guard.py` doit étendre son matcher à 7 outils MCP forge-brain (actuellement `append_note` seul). Candidat hook-creator dispatch prochaine session — pattern garde existante à élargir, pas un nouveau hook
+- Hook `mcp-alias-guard.py` doit étendre son matcher à 7 outils MCP forge-brain (actuellement `append_note` seul) — `update_property`, `insert_section`, `read_section`, `update_note`, `delete_note`, `move_note`, `bulk_update_property`. Pattern garde existante à élargir, pas un nouveau hook (~30min via hook-creator + tests adverses 3:1).
+- **Déclencheur de réactivation** (validation externe Claude #1 28 mai, doctrine "fix ce qui a le plus de levier") : reporté car repo bug #60237 (2-4h, indispensable avant DM Boris) prime. Reactiver SI : (a) repro bug #60237 terminé, OU (b) 3e violation guard ambigu (compteur actuel : 6 violations historiques sur `append_note`/`insert_section`/`update_property`, 7e = déclenchement automatique), OU (c) décision arbitrage repo public/privé prise. Proposition Jarvis 28 mai marquée [i] ignore avec raison tracée.
+
+
+## 2026-05-28 (soir) — Vérification empirique 3 claims Gemini deep research
+
+**Méthode** : WebFetch direct sur GitHub + howborisusesclaudecode.com + XDA + CHANGELOG raw, en parallèle. Pas d'action structurelle avant rapport.
+
+**Verdicts** :
+- **Claim 1 collision nom claude-forge** : CONFIRMÉ. 4 repos GitHub homonymes, dont `sangrokjung/claude-forge` 715⭐ MIT (framework plugin oh-my-zsh-style, 11 agents/36 commands/15 skills). 3 autres marginaux (HatmanStack 13⭐, CristianDArrigo 3⭐, martimramos 1⭐).
+- **Claim 2 bug #60237 fixé v1.21.1/v1.22** : FAUX sur versions / VRAI sur fix. Ces versions n'existent pas (CC versionné v2.1.x). Fix réel = **v2.1.147** verbatim CHANGELOG : *"Fixed plugin agents that declare multiple Agent(...) types in tools: frontmatter dropping all but the last entry"*. Local 2.1.153 ⇒ fix déjà déployé chez moi.
+- **Claim 3 Boris 5-15 worktrees parallèles** : CONFIRMÉ. Site Boris (*"5 instances of Claude Code simultaneously"*, *"5-10 additional sessions on claude.ai/code"*, *"dozens of Claudes running at all times"*) + XDA (*"He runs 10 to 15 sessions at a single time"*).
+
+**Capitalisations** :
+- `feedback_llm_deep_research_version_numbers.md` (tier-1) — pattern transverse : claims numériques précis LLM = à WebFetch avant action
+- `project_claude_forge_naming_collision.md` (tier-1) — inventaire 4 repos GitHub homonymes
+
+**Arbitrage Raphael collision nom** : OSEF — usage perso, garde `claude-forge` localement. Dette **conditionnelle** : si publication publique un jour (gist Boris, repo public, blog) → rename obligatoire (options : `forge-jarvis`, `claude-jarvis-forge`, `neoteem-forge`, `forge-perso`). Pas avant.
+
+**Dette priorité haute tracée pour OVERVIEW.md** (NE PAS modifier maintenant — restructuration cohérente attendra retour Gemini deep research #2 sur positionnement état de l'art mondial) :
+- Retirer claim "diagnostic bug #60237 = cause-racine MCP décoratif" du §8 : fix natif Anthropic v2.1.147, obsolète. Garder éventuellement comme anecdote forensique mais sans positionnement "découverte".
+- Reformuler Axe 1 (actuel = "diagnostic bug #60237") en **"pattern brief-then-direct + hook enforcement défensif"** — axe canonique réutilisable indépendant du bug spécifique.
+- Arbitrage collision nom = OSEF maintenant, voir condition publication ci-dessus.
+
+**Méta-apprentissage validation externe** : Gemini deep research fiable sur faits qualitatifs (collision existe, Boris fait des worktrees) mais hallucine systématiquement les chiffres précis (versions, étoiles, dates). WebFetch source primaire reste obligatoire avant relais.

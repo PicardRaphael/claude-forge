@@ -54,6 +54,7 @@
 - [hooks-same-stack](feedback_hooks_same_stack.md) — Hooks dans le même langage que le projet
 - [jarvis-innovator-mindset](feedback_jarvis_innovator.md) — Contrat Jarvis : partenaire, anticiper, innover, évoluer, franc, autonome, proactif
 - [kill-pragmatique-vide-doctrinal-assume](feedback_kill_pragmatique_vide_doctrinal.md) — KILL pragmatique acceptable quand 0 ref + doublon partiel + aucune canonique vault ne supporte ni contredit. Tracer assumé CHANGELOG. Pattern audits lifecycle futurs.
+- [llm-deep-research-version-numbers-hallucinated](feedback_llm_deep_research_version_numbers.md) — Claims numériques précis (versions, dates, ⭐) de Gemini/ChatGPT deep research = hallucinations. WebFetch source primaire AVANT d'agir. Fait qualitatif peut être vrai même si chiffres faux.
 - [lire-canoniques-vault-en-entier-avant-audit](feedback_lire_canoniques_avant_audit.md) — AVANT audit/création, read_note canoniques EN ENTIER, pas search_brain extraits
 - [llm-lit-court-homogene-pas-couche-deterministe](feedback_llm_lit_court_homogene_pas_couche_deterministe.md) — Pas de couche déterministe lourde sur corpus court+homogène = enforcement-théâtre
 - [mcp-alias-ambigu-chemin-exact](feedback_mcp_alias_ambigu_chemin_exact.md) — MCP append_note/read par alias court résout faux si stem partagé. Chemin exact
@@ -114,6 +115,7 @@
 
 ## Project
 - [claude-desktop-profiles](project_desktop_profiles.md) — Config Claude Desktop par rôle Neoteem, skill dédiée, output/
+- [claude-forge-naming-collision-github](project_claude_forge_naming_collision.md) — 4 repos GitHub homonymes `claude-forge`, dont sangrokjung 715⭐ framework plugin oh-my-zsh-style. Trancher rename si publication un jour, ignore si privé.
 - [ia-back-project](project_back_refacto.md) — ia_back 16 agents, 26 skills, 16 rules, 14 hooks. Stack postgres.js
 - [neoteem-brain-project](project_neoteem_brain.md) — 682+ notes, pipeline vault-workflow, obsidian-cli, aliases double couverture
 - [neo-ia-project](project_neo_ia.md) — Monorepo Python NeoChat/NeoDoc/NeoMail, 12 agents, 25 skills, 16 rules, 12 hooks
