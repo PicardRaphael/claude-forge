@@ -333,3 +333,39 @@ Raphael surface tension implicite entre CLAUDE.md L14 (read_note EN ENTIER) et L
 1. `feat(doctrine): AMEND pattern-maintenance-hybride architecture cognitive 3-acteurs + AMEND rule memory-discipline triade` (+ hook memory-saturation-watcher + 5 tests + amend /done workflow)
 2. `chore(memory): pilote nettoyage 29 fichiers (3 PURGE + 8 POINTEURS + 18 KEEP). Doublons vault ↔ memory 38% mesuré empiriquement`
 3. `docs(vault): capitalisation feedback ratio empirique + context-actuel + CHANGELOG + log. Dette curative 242 fichiers tracée`
+
+
+---
+
+## Audit MCP forge-brain vs MCP brain — 28 mai 2026 (post audit lifecycle)
+
+### Verdict empirique
+forge-brain mieux conçu tokens/Karpathy serveur : 6 gains, 1 perte (inapplicable forge), 7 égalités.
+
+### Livraisons
+- Note canonique vault : [[comparaison-mcp-forge-brain-vs-mcp-brain-28mai2026]] (14 critères + extraits code preuve)
+- AMEND `.claude/skills/forge-brain/SKILL.md` (197L → 292L) :
+  - A1 — Pattern Karpathy opérationnel 3 temps SEARCH/SELECT/READ + N=3 + 4 modes + anti-patterns ❌/✅
+  - A2 — Priorisation tools "search_brain = dernier recours" (find_by_property > read_section > read_note > search_brain)
+  - A3 — Pagination autoguidée 500L par passes (header serveur `[suite : offset=N]`)
+
+### Recommandations P3 brain ← forge (à transmettre Raphaël pour décision séparée — repo neoteem-brain global, hors plugin)
+
+Optimisations possibles côté `mcp-obsidian-brain` :
+
+- **P3a — Pagination autoguidée serveur** : `brain.py` retourne tout d'un coup, pas de pagination. Sur notes > 5000L = exploser contexte ou tronquer. Ajouter mécanisme `offset/limit_chars` avec header `[suite : offset=N]` (porter de `forge-brain/brain.py:210-218`). Effort estimé 1-2h port + tests.
+
+- **P3b — read_section ciblée** : brain n'a pas. Gain documenté 30x sur grosses notes (62k → 2k chars). Ajouter outil `read_section(file, heading, include_subsections)` (porter `forge-brain/brain.py:550-594`). Effort estimé 2-3h port + tests.
+
+- **P3c — usage_log + usage_stats** : brain pas d'observabilité. Sans données, impossible savoir quels outils valent garder/retirer. Ajouter `usage_log.log_call()` décorateur + `usage_stats(days)` (porter `forge-brain/brain.py:867+1097` + `usage_log.py`). Effort estimé 1-2h port + tests.
+
+- **P3d — read_note_resolved (embeds inlined)** : brain n'a pas. Pour MOC = doit faire N appels au lieu de 1. Ajouter résolution récursive `![[X#H]]` avec cycle detection et markers `<!-- EMBED -->` (porter `forge-brain/brain.py:596-637`). Effort estimé 2h port + tests.
+
+À transmettre Raphaël pour décision séparée propagation vers neoteem-brain repo global.
+
+### Statut
+- Phase A (note canonique) — OK
+- Phase B/C/D (AMEND skill A1+A2+A3) — OK
+- Phase E (P3 tracés) — OK
+- Phase F (CHANGELOG + log) — en cours
+- Phase G (2 commits groupés) — STOP attente validation Raphaël

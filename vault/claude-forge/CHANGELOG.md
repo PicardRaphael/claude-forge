@@ -1047,3 +1047,16 @@ Suite des étapes 2b/3 (fix structurel MCP décoratif sub-agent), traitement des
 **Pattern de design dégagé.** Un composant dont la valeur est `N× écriture MCP` est structurellement une skill (session principale, MCP effectif), pas un agent. Les agents survivent au contexte sub-agent quand leur métier est l'analyse plus des écritures rares. Capitalisé en amendement de [[pattern-mcp-brief-then-direct]].
 
 Tests hooks 176 verts (180→176, suppression du mécanisme d'exemption testé). Méthode A→B→C→D→E, advisor, arbitrage par agent.
+
+## 2026-05-28 (suite 4) — Audit MCP forge-brain vs MCP brain + AMEND skill forge-brain A1+A2+A3
+
+- **Créées** :
+  - `04-Techniques/claude-code/comparaison-mcp-forge-brain-vs-mcp-brain-28mai2026.md` (vault) — note canonique audit empirique 14 critères techniques. Verdict A : MCP forge-brain mieux conçu tokens/Karpathy serveur (6 gains / 1 perte inapplicable forge / 7 égalités). Extraits code preuve (forge:210-218 pagination autoguidée, forge:550-594 read_section, forge:596-637 read_note_resolved, forge:867+1097 usage_log).
+- **Modifiées** :
+  - `.claude/skills/forge-brain/SKILL.md` (197L → 292L, +95L) — AMEND A1+A2+A3 via skill-creator (delegate-guard) :
+    - **A1** (L31-70) — Section "Pattern Karpathy opérationnel" : 3 temps SEARCH/SELECT/READ + table 4 modes (Query N=3 / Audit N=4 / Exhaustive 2-4 / Exploration illimité) + anti-patterns ❌/✅
+    - **A2** (L161-177) — Matrice "Priorisation tools AVANT search_brain — Hiérarchie économie tokens" : `find_by_property` > `read_section` > `read_note` > `search_brain` (dernier recours)
+    - **A3** (L91-124) — Section "Pagination autoguidée 500L par passes" : exploiter header serveur `[suite : appeler avec offset=N]` (forge:215-217)
+  - `0-Inbox/context-actuel.md` — Phase audit MCP + recommandations P3a/b/c/d brain ← forge tracées pour décision séparée Raphaël.
+- **Source** : Recadrage Raphaël session 28 mai — "lequel des 2 MCP serveurs est le mieux conçu tokens/Karpathy serveur ?". Audit comparatif 14 critères empiriques.
+- **AUCUNE modification code MCP** : verdict A confirme MCP forge-brain déjà bien conçu. Gap = utilisation par skill, pas serveur.

@@ -466,3 +466,9 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - memory-created `feedback_read_note_conditionnel_si_pas_deja_contexte.md` tier-1 + indexé MEMORY.md — règle : canonique déjà read_note dans transcript courant = citer + wikilink, pas re-read_note ; canonique vue via search_brain (extraits 10L) = read_note EN ENTIER obligatoire ; canonique jamais touchée = read_note EN ENTIER
 - vault-updated `0-Inbox/context-actuel.md` section AMEND L14 v2 + cohérence L14-L19 documentée
 - Source : Raphael surface tension implicite L14 (read_note EN ENTIER) vs L19 (tokens/contexte ultra-précieux). Garde-fou anti-double-pay sans dérogation à la doctrine
+
+## [2026-05-28] note-created | comparaison-mcp-forge-brain-vs-mcp-brain-28mai2026 | audit MCP
+- vault-created `04-Techniques/claude-code/comparaison-mcp-forge-brain-vs-mcp-brain-28mai2026.md` — note canonique 14 critères empiriques. Verdict A : forge-brain mieux conçu tokens/Karpathy serveur (6 gains / 1 perte inapplicable forge / 7 égalités). Extraits code preuve par critère.
+- skill-amended `.claude/skills/forge-brain/SKILL.md` (197L → 292L) via skill-creator — A1 Karpathy 3 temps SEARCH/SELECT/READ + N=3/4/2-4/illimité + anti-patterns ; A2 priorisation tools "search_brain dernier recours" ; A3 pagination autoguidée 500L par passes
+- vault-updated `0-Inbox/context-actuel.md` — Phase audit MCP + P3a/b/c/d brain ← forge tracés
+- Source : recadrage Raphaël (vraie question = lequel MCP mieux conçu tokens/Karpathy serveur). Audit comparatif brain.py 595L vs forge-brain.py 1135L sur 14 critères. AUCUNE modif code MCP. Cycle git groupé 2 commits proposés (STOP validation Raphaël).
