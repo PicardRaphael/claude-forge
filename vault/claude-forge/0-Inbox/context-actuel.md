@@ -369,3 +369,29 @@ Optimisations possibles côté `mcp-obsidian-brain` :
 - Phase E (P3 tracés) — OK
 - Phase F (CHANGELOG + log) — en cours
 - Phase G (2 commits groupés) — STOP attente validation Raphaël
+
+
+## 2026-05-28 (session suivante) — Commentaire ticket comparatif devis + 3 notes archi Neoteem
+
+**Contexte** : Rédaction d'un commentaire Jira sur le ticket "Comparatif devis" (étapes 1-5 + actions post-comparaison, spec très chargée). 14 itérations V1→V14 pour caler l'archi avant que les sections du commentaire soient justes.
+
+**Livrables vault (3 nouvelles notes dans `1-Projets/Neoteem/`)** :
+- [[archi-backs-neoteem]] — Contrats d'exposition front : neo_ia front IA uniquement, ia_back jamais front, métier hors scope des deux (webservices Jérôme)
+- [[stockage-fichiers-neoteem]] — Pas de S3 chez Neoteem. Stockage = BDD JSON ou Drive client (via webservices Jérôme). Exception GCS NeoDoc
+- [[webservices-jerome]] — 3 webservices métier réutilisables (Correspondance / AG / Drive). Checklist intégration. À solliciter pour toute feature touchant ces actions
+
+**Livrable memory** :
+- `feedback_archi_clarifier_avant_livrable_cross_stack` (tier-2, ajouté `_index_archive.md` → 98 entrées) — clarifier archi en V1 via AskUserQuestion sur livrables cross-stack, pas après 6 itérations correctives
+
+**Apprentissage méthodologique** : pour tout livrable cross-stack Neoteem (commentaire Jira, /spec, BRIEF, doc archi), première action = clarifier archi via AskUserQuestion. Coût observé d'une archi non clarifiée en V1 = ×4 en itérations.
+
+**Décisions PO encore à arbitrer (à reprendre dans ticket)** :
+- Maquette écran de saisie côté front (manquante)
+- Persistance résultat : 3 options (BDD JSON / Drive PDF / combo)
+- Pré-remplissage automatique champs déductibles du contexte
+- Spec précise webservices Jérôme (URLs, contrats, auth, couverture CA)
+- Edge cases : timeout neo_ia, rate limit, PDF illisible, 1 seul devis exploitable
+
+**Statut commentaire Jira** : V14 finale, à copier-coller manuellement par Raphael (pas d'accès Jira depuis session)
+
+**Pas de cycle git** sur cette tranche — vault + memory uniquement, pas de touches .claude/.

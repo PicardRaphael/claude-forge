@@ -14,6 +14,16 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-28 (suite 4) — Archi backs Neoteem + stockage fichiers + webservices Jérôme
+
+- **Ajoutées** :
+  - `1-Projets/Neoteem/archi-backs-neoteem.md` — Contrats d'exposition front : neo_ia front IA uniquement, ia_back jamais front, métier hors scope. Anti-patterns + 8 itérations V1→V14 source.
+  - `1-Projets/Neoteem/stockage-fichiers-neoteem.md` — Pas de S3 chez Neoteem. 3 options persistance : BDD JSON, Drive client (via webservices Jérôme), combo. Exception GCS NeoDoc.
+  - `1-Projets/Neoteem/webservices-jerome.md` — 3 webservices métier réutilisables (Correspondance / AG / Drive). Checklist intégration. Wikilinks vers archi-backs + stockage.
+- **Modifiées** :
+  - `0-Inbox/context-actuel.md` — append session post-/done + update derniere-maj.
+- **Source** : Session rédaction commentaire ticket Jira "Comparatif devis" (14 itérations V1→V14 pour caler l'archi).
+
 ## 2026-05-28 (suite 3) — Doctrine architecture cognitive 3-acteurs + hook saturation + pilote 29 fichiers
 
 - **Modifiées** :
