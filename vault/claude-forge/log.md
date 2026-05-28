@@ -437,3 +437,15 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - note-updated `memory/feedback_mcp_alias_ambigu_chemin_exact.md` — extension 6e violation `update_property` non couvert par `mcp-alias-guard.py` (matche `append_note` seulement). Règle de mesure : tout outil MCP `file=<alias>` peut écrire sur le mauvais fichier
 - note-created `memory/feedback_surface_plutot_que_padder_ou_tronquer.md` (tier-2) — variante longueur de [[feedback_ecart_consigne_chiffree_surfacer]]. 230L OVERVIEW vs cible 280-320L assumé
 - Méthode /done : extraction → filtre obligatoire → vérification doublons (1 amendement, 1 note vault, 1 tier-2) → 3 blocs validés [v] item par item. Cycle git groupé `chore(memory+vault): post-OVERVIEW 3 capitalisations`
+
+## [2026-05-28] amend-claudemd | doctrine read_note session principale | done
+- claudemd-updated `CLAUDE.md` L14 — élargissement scope à "audit / jugement / recommandation" + prescription "search_brain → read_note EN ENTIER" + anti-pattern "extraits ~10 lignes INSUFFISANT pour audit" + wikilink [[pattern-mcp-brief-then-direct]]. Édit via claudemd-optimizer (delegate-guard hook a bloqué l'édit direct = conformité doctrine delegate-to-specialists)
+- vault-updated `0-Inbox/context-actuel.md` section AMEND L14 + sweep empirique cc-advisor (3 marqueurs) + evolve (2 marqueurs) + git log .claude/ depuis 28 mai = vide → zéro drift
+- memory-created `feedback_brief_prescrit_travail_deja_fait.md` tier-1 — distinct de `feedback_brief_premisse_fausse` (obsolescence vs fausseté factuelle). Pattern : brief auto-mode peut prescrire création/audit déjà fait 24-72h avant → search_brain + AJOUT récents canoniques AVANT Phase 1
+- Méthode : 3 read_note EN ENTIER avant action (pattern-mcp-brief-then-direct + erreur-vault-jamais-consulte-session-principale + CLAUDE.md complet) → détection sous-gap doctrinal session principale → AMEND ciblé 1 puce L14 + sweep Option A → 3 capitalisations. Cycle git proposé groupé 3 commits (NON commit, attente validation Raphael)
+
+## [2026-05-28] amend-claudemd-v2 | nuance si-pas-deja-en-contexte | done
+- claudemd-updated `CLAUDE.md` L14 v2 — ajout `**si pas déjà en contexte**` entre "canoniques pertinentes" et anti-pattern parenthèse. Édit via claudemd-optimizer (delegate-guard)
+- memory-created `feedback_read_note_conditionnel_si_pas_deja_contexte.md` tier-1 + indexé MEMORY.md — règle : canonique déjà read_note dans transcript courant = citer + wikilink, pas re-read_note ; canonique vue via search_brain (extraits 10L) = read_note EN ENTIER obligatoire ; canonique jamais touchée = read_note EN ENTIER
+- vault-updated `0-Inbox/context-actuel.md` section AMEND L14 v2 + cohérence L14-L19 documentée
+- Source : Raphael surface tension implicite L14 (read_note EN ENTIER) vs L19 (tokens/contexte ultra-précieux). Garde-fou anti-double-pay sans dérogation à la doctrine

@@ -13,6 +13,20 @@ tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-05-28 — AMEND CLAUDE.md L14 doctrine read_note session principale
+
+- **Modifiées** : `CLAUDE.md` projet L14 (élargissement scope vault consultation à "audit / jugement / recommandation" + prescription verbatim "search_brain → read_note EN ENTIER" + anti-pattern explicite + wikilink [[pattern-mcp-brief-then-direct]])
+- **Vault** : `context-actuel` mise à jour (section AMEND L14 + sweep empirique)
+- **Mémoire** : `feedback_brief_prescrit_travail_deja_fait.md` créé tier-1 (distinct de feedback_brief_premisse_fausse — obsolescence ≠ fausseté)
+- **Source** : Vérification empirique sous-gap doctrinal session principale (3 read_note EN ENTIER) ce matin. Brief auto-mode prescrivait Phase 1 création note canonique déjà existante (`pattern-mcp-brief-then-direct` AJOUT 28 mai). Pivot vers AMEND L14 ciblé + sweep drift confirmé nul.
+
+## 2026-05-28 (suite 2) — AMEND CLAUDE.md L14 v2 nuance contexte
+
+- **Modifiées** : `CLAUDE.md` projet L14 v2 (ajout `**si pas déjà en contexte**` entre "canoniques pertinentes" et anti-pattern parenthèse)
+- **Mémoire** : `feedback_read_note_conditionnel_si_pas_deja_contexte.md` créé tier-1 + indexé MEMORY.md
+- **Source** : Raphael surface tension implicite L14 (read_note EN ENTIER) vs L19 (tokens/contexte ultra-précieux). Garde-fou anti-double-pay sans dérogation doctrine — canonique déjà chargée transcript = citer + wikilink, pas re-read_note.
+
 ## 2026-05-28 (post-OVERVIEW) — 3 capitalisations /done
 
 - **Ajoutée** : note canonique [[bug-tools-array-first-last-drop]] (04-Techniques/claude-code) — bug GitHub `anthropics/claude-code#60237` documenté avec verbatim issue, workaround padding, lien symptôme MCP décoratif observé forge (cause-racine plausible, repro à faire). Évite que la découverte forensique 28 mai reste enterrée dans working memory uniquement

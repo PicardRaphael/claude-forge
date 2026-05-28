@@ -245,3 +245,51 @@ Branch `main` à +3 commits d'origin/main (push GitHub bloqué orga Team, traces
 - Mesure `/context` post-Phase 1 en nouvelle session (les vrais gains tokens viendront des décisions futures éclairées par les métriques `/io-daily` `/io-week`, pas immédiatement)
 - Activer hook metrics-tracker en lançant la prochaine session (après application manuelle settings.json déjà faite)
 - Décider extension `mcp-alias-guard.py` aux 7 outils MCP forge-brain restants (dette tracée 28 mai matin, conditionnel post-repro #60237)
+
+
+## 2026-05-28 (suite) — AMEND CLAUDE.md L14 doctrine read_note session principale
+
+**Vérification empirique** (3 read_note EN ENTIER : pattern-mcp-brief-then-direct + erreur-vault-jamais-consulte-session-principale + CLAUDE.md complet) avant action :
+
+- Pattern `search_brain → read_note EN ENTIER avant audit/jugement` était canonisé dans `pattern-mcp-brief-then-direct` AJOUT 28 mai (grille 4 catégories) mais **CLAUDE.md L14 ne couvrait que "proposition / recherche web / refonte"** — pas "audit / jugement / recommandation". Sous-gap doctrinal session principale confirmé.
+- Note `erreur-vault-jamais-consulte-session-principale` (27 mai) explicite mais en Knowledge/erreurs/, pas brief permanent.
+
+**AMEND CLAUDE.md L14 livré** via claudemd-optimizer (delegate-guard hook a bloqué l'édit direct → conformité doctrine `delegate-to-specialists`) :
+- Scope élargi : + "audit / jugement / recommandation"
+- Pattern explicite : "`search_brain` pour trouver, puis **`read_note` EN ENTIER** des canoniques pertinentes"
+- Anti-pattern nommé : "search_brain extraits ~10 lignes = INSUFFISANT pour audit/jugement"
+- Wikilink : `[[pattern-mcp-brief-then-direct]]` grille 4 catégories
+- Diff minimal 1 puce raffinée, bloc Critiques (<L25) intact, 8 puces maintenues
+
+**Sweep empirique Option A (drift cc-advisor + evolve + tous composants .claude depuis 28 mai)** :
+- `cc-advisor/SKILL.md` : 3 marqueurs (read_note L16 + read_section L22 + wikilink [[pattern-mcp-brief-then-direct]] L24) — CONFORME, AMEND 28 mai en place
+- `evolve/SKILL.md` : 2 marqueurs (read_note EN ENTIER L21 + wikilink L30) — CONFORME, AMEND 28 mai en place
+- `git log --since=2026-05-28 -- .claude/skills .claude/agents` : **vide** → zéro touche `.claude/` depuis audit lifecycle 28 mai → zéro drift possible
+- Le dernier commit touchant `.claude/` est `e81e4aa` (audit lifecycle 28 mai) qui contient déjà les AMEND
+
+**Apprentissages capitalisés** :
+- Feedback tier-1 `brief-prescrit-travail-deja-fait-veille` créé (memory/) — distinct de `brief-premisse-fausse-verifier-avant-executer` (obsolescence ≠ fausseté factuelle). Pattern : brief auto-mode peut prescrire création/audit déjà fait 24-72h avant → search_brain + AJOUT récents canoniques AVANT Phase 1
+- Sous-gap session principale comblé : la grille 4 catégories de `pattern-mcp-brief-then-direct` audite skills/agents via 3 marqueurs body. La session principale n'a pas de body — son brief permanent est CLAUDE.md → l'AMEND L14 est l'équivalent fonctionnel de la grille appliquée à elle-même
+
+**Cycle git proposé (NON commité, attente validation Raphael)** :
+- `chore(claudemd): élargir doctrine read_note canoniques EN ENTIER avant audit/jugement (session principale)`
+- `chore(memory): feedback brief-prescrit-travail-deja-fait-veille tier-1`
+- `docs(vault): context-actuel + CHANGELOG + log post AMEND L14`
+
+
+## 2026-05-28 (suite 2) — AMEND L14 v2 : nuance "si pas déjà en contexte"
+
+Raphael surface tension implicite entre CLAUDE.md L14 (read_note EN ENTIER) et L19 (tokens/contexte = ressource ultra-précieuse).
+
+**Diff v2** : ajout de **`si pas déjà en contexte`** ligne 14 entre "canoniques pertinentes" et "(search_brain extraits...". 5 mots, garde-fou anti-double-pay tokens, pas dérogation à la doctrine.
+
+**Capitalisation** :
+- Feedback tier-1 `read-note-conditionnel-si-pas-deja-contexte` créé + indexé MEMORY.md
+- Logique : canonique déjà `read_note` dans transcript courant = citer + wikilink ; canonique citée via search_brain (extraits 10L) = read_note EN ENTIER obligatoire ; canonique jamais touchée = read_note EN ENTIER
+
+**Cohérence doctrinale** : la nuance répond à une question implicite que L14 v1 laissait ouverte. Sans cette nuance, l'AMEND L14 v1 risquait de muter en "re-lire systématiquement par sécurité" — re-violation L19. Avec la nuance, les deux règles sont compatibles structurellement.
+
+**Cycle git proposé mis à jour** :
+1. `chore(claudemd): élargir doctrine read_note canoniques EN ENTIER (si pas déjà en contexte) avant audit/jugement (session principale)` — CLAUDE.md L14 v2
+2. `chore(memory): 2 feedbacks tier-1 (brief-prescrit-travail-deja-fait + read-note-conditionnel-si-pas-deja-contexte)` — memory/ + MEMORY.md
+3. `docs(vault): context-actuel + CHANGELOG + log post AMEND L14 v2`
