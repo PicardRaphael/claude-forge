@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-"""Block ambiguous-stem writes via MCP forge-brain append_note.
+"""Block ambiguous-stem file args on MCP forge-brain tools (append_note and 7 others).
 
-Scope: PreToolUse on mcp__forge-brain__append_note ONLY.
+Scope: PreToolUse on 8 forge-brain tools that accept a file= argument:
+  append_note, insert_section, read_section, update_note, delete_note,
+  move_note, update_property, bulk_update_property.
 
-Problem: append_note(file="log") resolves by FTS alias and can match the WRONG
+Problem: tool(file="log") resolves by FTS alias and can match the WRONG
 file when several notes share the same stem (log.md, index.md, CHANGELOG.md
-exist in multiple vault folders). Observed 4 times in one day (27 May 2026);
-text feedback proved insufficient — this is the structural guard.
+exist in multiple vault folders). Observed 7 violations across multiple tools
+(27-28 May 2026); text feedback proved insufficient — this is the structural guard.
 
 Logic: if tool_input.file is a bare stem (no path separator) and more than one
 vault file shares that stem, the resolution is ambiguous → exit 2. The fix is to
@@ -19,9 +21,9 @@ allowed. A stem unique in the vault → allowed.
 Exit 2 blocks. Fail-open (exit 0) on any parse error or if the vault can't be
 scanned.
 
-Reactivation trigger: if a similar misresolution is ever observed on
-insert_section or update_note, extend the settings.json matcher to include them
-(the stem-uniqueness logic below is tool-agnostic).
+Coverage confirmed: all 8 tools matched via settings.json pipe-separated matcher
+since 2026-05-28 (~7 violations empirically). Logic is tool-agnostic (only
+inspects tool_input.file regardless of tool_name).
 """
 import json
 import sys

@@ -2,10 +2,11 @@
 """Adversarial + characterization tests for mcp-alias-guard.py.
 
 SCOPE DECLARED BY THE HOOK (mcp-alias-guard.py docstring):
-  Wired on matcher "mcp__forge-brain__append_note" (settings.json). Blocks a
+  Wired on 8 forge-brain tools (settings.json pipe-separated matcher). Blocks a
   bare-stem `file` argument when >1 vault file shares that stem (ambiguous FTS
   resolution). Exact paths (with separator) and unique/absent stems pass.
   Exit 2 blocks. Fail-open (exit 0) on parse error / unscanned vault.
+  Logic is tool-agnostic: only inspects tool_input.file, ignores tool_name.
 
 WHAT THESE TESTS VERIFY:
   - Ambiguous bare stem (log/index/CHANGELOG with >1 match) → blocked.
@@ -13,11 +14,8 @@ WHAT THESE TESTS VERIFY:
   - Unique stem → allowed.
   - Absent stem → allowed (not this guard's concern).
   - .md extension handled; case-insensitive matching.
-
-WHAT THESE TESTS DO *NOT* VERIFY (out-of-scope by design):
-  - insert_section / update_note: NOT wired (matcher is append_note only).
-    Reactivation trigger documented in the hook docstring.
-  - Whether the append CONTENT is correct: only the file-resolution risk.
+  - All 8 matched tools block ambiguous stems (E2E subprocess, real vault).
+  - Exact path allowed on a non-append_note tool (tool-agnostic confirmation).
 
 Run: py -m pytest tests/test_mcp_alias_guard.py -v
 """
@@ -205,3 +203,78 @@ def test_e2e_malformed_stdin_fail_open():
         text=True,
     )
     assert proc.returncode == 0
+
+
+# --------------------------------------------------------------------------
+# end-to-end via subprocess — coverage for the 7 additional matched tools
+# The hook is tool-agnostic: same logic regardless of tool_name.
+# Each test sends bare "log" (ambiguous in real vault) → must block exit 2.
+# --------------------------------------------------------------------------
+
+def test_e2e_insert_section_bare_log_blocked():
+    rc = _run_hook({
+        "tool_name": "mcp__forge-brain__insert_section",
+        "tool_input": {"file": "log", "marker": "## Notes", "content": "x"},
+    })
+    assert rc == 2
+
+
+def test_e2e_read_section_bare_log_blocked():
+    rc = _run_hook({
+        "tool_name": "mcp__forge-brain__read_section",
+        "tool_input": {"file": "log", "heading": "## Notes"},
+    })
+    assert rc == 2
+
+
+def test_e2e_update_note_bare_log_blocked():
+    rc = _run_hook({
+        "tool_name": "mcp__forge-brain__update_note",
+        "tool_input": {"file": "log", "content": "new content"},
+    })
+    assert rc == 2
+
+
+def test_e2e_delete_note_bare_log_blocked():
+    rc = _run_hook({
+        "tool_name": "mcp__forge-brain__delete_note",
+        "tool_input": {"file": "log"},
+    })
+    assert rc == 2
+
+
+def test_e2e_move_note_bare_log_blocked():
+    rc = _run_hook({
+        "tool_name": "mcp__forge-brain__move_note",
+        "tool_input": {"file": "log", "new_path": "vault/claude-forge/a/log.md"},
+    })
+    assert rc == 2
+
+
+def test_e2e_update_property_bare_log_blocked():
+    rc = _run_hook({
+        "tool_name": "mcp__forge-brain__update_property",
+        "tool_input": {"file": "log", "name": "derniere-maj", "value": "2026-05-28"},
+    })
+    assert rc == 2
+
+
+def test_e2e_bulk_update_property_bare_log_blocked():
+    rc = _run_hook({
+        "tool_name": "mcp__forge-brain__bulk_update_property",
+        "tool_input": {"file": "log", "name": "derniere-maj", "value": "2026-05-28"},
+    })
+    assert rc == 2
+
+
+def test_e2e_insert_section_exact_path_allowed():
+    # Tool-agnostic check: exact path must pass on a non-append_note tool.
+    rc = _run_hook({
+        "tool_name": "mcp__forge-brain__insert_section",
+        "tool_input": {
+            "file": "vault/claude-forge/log.md",
+            "marker": "## Notes",
+            "content": "x",
+        },
+    })
+    assert rc == 0
