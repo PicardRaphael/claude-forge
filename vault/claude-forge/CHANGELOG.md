@@ -14,6 +14,26 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-28 (suite 3) — Doctrine architecture cognitive 3-acteurs + hook saturation + pilote 29 fichiers
+
+- **Modifiées** :
+  - `pattern-maintenance-hybride-corpus-accumulatif` (vault) — AJOUT section "Architecture cognitive — trois acteurs" (~85L) : triade MEMORY.md/vault/memory* + workflow décision 4 étapes + template pointeur + 4 exemples PASS/FAIL + cibles empiriques. 2 aliases + 2 wikilinks ajoutés. `derniere-maj` 2026-05-28.
+  - `.claude/rules/memory-discipline.md` — AJOUT section "Triade memory/vault/memory-physique (3 acteurs)" (~22L) avec workflow 4 étapes inline + anti-patterns + pointeur vers pattern vault.
+  - `.claude/skills/done/SKILL.md` — AMEND via skill-creator (~9L) : callout doctrinal 3-acteurs + workflow 4 étapes entre Etape 2 et 2a. delegate-guard hook bloqué Edit direct = conformité doctrine `delegate-to-specialists` respectée.
+- **Créés** :
+  - `.claude/hooks/memory-saturation-watcher.py` — Hook SessionStart advisory (~85L). WARNING 80 / CRITICAL 100. Exclut MEMORY.md + _index_archive.md. Fail-open.
+  - `.claude/hooks/tests/test_memory_saturation_watcher.py` — 5 tests pytest (2 nominaux + 3 adverses) — 5/5 verts. Baseline hooks 186 → 191.
+  - `.claude/_backups/memory-pilote-pre-purge-2026-05-28.tar.gz` (573 KB) — backup défensif avant pilote.
+  - `memory/feedback_ratio_empirique_doublons_memory_vault.md` (tier-1) — mesure 38% doublons pilote ancre seuils hook + workflow.
+- **Pilote memory/ — 29 fichiers (3 PURGE + 8 POINTEURS + 18 KEEP)** :
+  - PURGE : `feedback_audit_coherence_pattern.md`, `feedback_audit_repo_method.md`, `feedback_auditor_false_positives.md` (doublons confirmés [[audit-claude-folder-pattern]])
+  - POINTEUR (body réécrit 11-20L) : `claim_security_must_be_provable`, `gotchas_line_numbers_verifies`, `x_articles_inaccessibles_empirique`, `advisor_da_mandatory`, `da_bash_write`, `da_failure_options`, `audit_qualite_design_transverse`, `repo_audit_workflow`
+  - Index `MEMORY.md` et `_index_archive.md` synchronisés (3 entrées retirées + 1 entrée ratio ajoutée tier-1)
+  - Compte : 274 → 271 fichiers / MEMORY.md 161 → 158 tier-1 / _index_archive 103 → 102 tier-2
+- **`settings.json`** : ajout 3e hook SessionStart `memory-saturation-watcher.py` (édit manuel Raphael — classifier hard-block sur project settings).
+- **Source** : cartographie empirique 274 fichiers (orphelins, âge, citations, clusters, auto-obsolètes) + pilote 29 fichiers (clusters verify-empirique 13 + advisor-da 6 + audit-methode 11). Verdict 38% doublons = SATURATION APPARENTE mais réelle. Couverture vault existante mesurée 60% (pattern-maintenance-hybride couvrait déjà mécanisme + rule memory-discipline frontière) → AMEND chirurgical retenu vs création doublon (cohérent feedback tier-1 single-source-truth).
+- **Dette curative tracée** : 242 fichiers memory/ restants à auditer + 18 KEEP pilote re-classification possible. Déclencheur réactivation : hook CRITICAL chaque session OU `/clean-memory` périodique OU plage tranquille weekend.
+
 ## 2026-05-28 — AMEND CLAUDE.md L14 doctrine read_note session principale
 
 - **Modifiées** : `CLAUDE.md` projet L14 (élargissement scope vault consultation à "audit / jugement / recommandation" + prescription verbatim "search_brain → read_note EN ENTIER" + anti-pattern explicite + wikilink [[pattern-mcp-brief-then-direct]])

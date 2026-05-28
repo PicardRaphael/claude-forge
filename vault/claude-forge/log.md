@@ -36,6 +36,23 @@ tags:
 
 ---
 
+## [2026-05-28] doctrine | architecture cognitive 3-acteurs + hook memory-saturation + pilote 29 fichiers | done
+
+- canonique-updated `pattern-maintenance-hybride-corpus-accumulatif` — AJOUT section "Architecture cognitive — trois acteurs" (~85L) : triade MEMORY/vault/memory* (≤0/no-cap/≤100) + workflow 4 étapes + template pointeur + 4 PASS/FAIL + cibles empiriques. +2 aliases +2 wikilinks. derniere-maj 2026-05-28.
+- rule-updated `.claude/rules/memory-discipline.md` — AJOUT section "Triade memory/vault/memory-physique (3 acteurs)" (~22L) workflow inline + anti-patterns + pointeur vault.
+- skill-updated `.claude/skills/done/SKILL.md` — AMEND via skill-creator (~9L) callout doctrinal entre Etape 2 et 2a. delegate-guard hook a bloqué Edit direct (conformité doctrine).
+- hook-created `.claude/hooks/memory-saturation-watcher.py` (~85L, fail-open, WARNING 80 / CRITICAL 100) + 5 tests pytest verts. Baseline hooks 186 → 191.
+- settings-updated `.claude/settings.json` — ajout 3e hook SessionStart (édit manuel Raphael).
+- memory-created `feedback_ratio_empirique_doublons_memory_vault.md` (tier-1) — pilote 29 fichiers = 38% doublons mesurés (10% PURGE + 28% POINTEUR + 62% KEEP). Ancre seuils hook.
+- memory-purged 3 fichiers (`feedback_audit_coherence_pattern`, `feedback_audit_repo_method`, `feedback_auditor_false_positives`) — doublons confirmés `audit-claude-folder-pattern`.
+- memory-pointer 8 fichiers réécrits en pointeurs 1 ligne (11-20L body) : claim_security, gotchas_line_numbers, x_articles_inaccessibles, advisor_da_mandatory, da_bash_write, da_failure_options, audit_qualite_design_transverse, repo_audit_workflow.
+- index-synced MEMORY.md 161 → 158 tier-1 + _index_archive.md 103 → 102 tier-2. Compte total 274 → 271 fichiers.
+- backup-created `.claude/_backups/memory-pilote-pre-purge-2026-05-28.tar.gz` (573 KB) défensif.
+- Verdict empirique vault déjà couvrait 60% doctrine → AMEND chirurgical retenu vs création doublon (cohérent single-source-truth tier-1).
+- Tests baseline mesurés 334 (191 hooks + 143 mcp) — brief annonçait 324 = hypothèse 27 mai obsolète, écart +10 surfacé via chiffre-baseline-brief-verifier-empiriquement.
+- Cycle git 3 commits proposé (NON exécuté) : feat(doctrine) + chore(memory) + docs(vault).
+- Dette curative : 242 fichiers memory/ restants + 18 KEEP pilote re-classification possible. Déclencheur hook CRITICAL chaque session OU /clean-memory périodique.
+
 ## [2026-05-28] lint | SELF_PORTRAIT régénéré condensé
 - note-updated `<repo>/SELF_PORTRAIT.md` — renommage `CLAUDE_FORGE_SELF_PORTRAIT.md` → `SELF_PORTRAIT.md` (631L → 151L, -76%)
 - chiffres remesurés empiriquement 28/05 : 361 commits, 48 skills (+1), 10 agents forge (-1), 12 hooks Python (+1 inline), 9 rules (-1 KILL), 453 notes vault (+23), 181 tests verts

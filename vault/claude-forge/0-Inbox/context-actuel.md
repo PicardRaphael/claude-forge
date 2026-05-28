@@ -293,3 +293,43 @@ Raphael surface tension implicite entre CLAUDE.md L14 (read_note EN ENTIER) et L
 1. `chore(claudemd): élargir doctrine read_note canoniques EN ENTIER (si pas déjà en contexte) avant audit/jugement (session principale)` — CLAUDE.md L14 v2
 2. `chore(memory): 2 feedbacks tier-1 (brief-prescrit-travail-deja-fait + read-note-conditionnel-si-pas-deja-contexte)` — memory/ + MEMORY.md
 3. `docs(vault): context-actuel + CHANGELOG + log post AMEND L14 v2`
+
+
+## 2026-05-28 (nuit suite 3) — Doctrine architecture cognitive 3-acteurs + hook saturation + pilote 29 fichiers
+
+**Phase A — AMEND vault canonique** : `pattern-maintenance-hybride-corpus-accumulatif` (section nouvelle "Architecture cognitive — trois acteurs") :
+- Triade `MEMORY.md` ≤50 / vault canoniques pas plafond / `memory/*.md` ≤100
+- Workflow décision 4 étapes (search_brain → POINTEUR si canonique existe → feedback si cas empirique précis → promouvoir vault si pattern récurrent 2-3 incidents)
+- Template pointeur 1 ligne + 4 exemples PASS/FAIL + cibles empiriques mesurées
+- 2 aliases ajoutés + 2 wikilinks ([[memory-discipline]], [[decision-memoire-dans-le-repo]])
+
+**Phase B — AMEND rule `.claude/rules/memory-discipline.md`** : section "Triade memory/vault/memory-physique (3 acteurs)" — workflow 4 étapes inline + anti-patterns + pointeur vers pattern vault pour détails.
+
+**Phase C — Hook + amend /done** :
+- `.claude/hooks/memory-saturation-watcher.py` (~85L, fail-open, WARNING 80 / CRITICAL 100, exclut MEMORY.md/_index_archive.md)
+- 5 tests pytest verts (2 nominaux + 3 adverses) — baseline hooks 191 maintenue (était 186, +5 saturation)
+- `settings.json` ajout SessionStart (3e hook)
+- `/done` SKILL.md amendé via skill-creator (delegate-guard hook a bloqué Edit direct = conformité) — callout doctrinal 3-acteurs + workflow 4 étapes ~9L inséré entre `## Etape 2` et `### 2a`
+
+**Phase D' — Application pilote 29 fichiers (3 PURGE + 8 POINTEURS + 18 KEEP)** :
+- Backup défensif `.claude/_backups/memory-pilote-pre-purge-2026-05-28.tar.gz` (573 KB)
+- **3 PURGE COMPLETS** : `feedback_audit_coherence_pattern`, `feedback_audit_repo_method`, `feedback_auditor_false_positives` (doublons confirmés `audit-claude-folder-pattern`)
+- **8 POINTEURS 1 ligne (~11-20L body)** : claim_security, gotchas_line_numbers, x_articles_inaccessibles, advisor_da_mandatory, da_bash_write, da_failure_options, audit_qualite_design_transverse, repo_audit_workflow
+- Index `MEMORY.md` et `_index_archive.md` synchronisés (3 entrées retirées)
+
+**Compte empirique post-pilote** : 274 → **271 fichiers** memory/ (-3), MEMORY.md 161 → **158** tier-1 (-2 -1 absorption faux positif _index_archive), _index_archive 103 → **102** tier-2 (-1). Hook live confirme CRITICAL: 271 fichiers.
+
+**Brief-prémisse-fausse appliqué** :
+- Brief annonçait baseline tests 324 → mesure empirique 334 (191 hooks + 143 mcp), écart +10 = chiffre baseline brief = hypothèse 27 mai obsolète. Aucune régression test cette session.
+- `pattern-maintenance-hybride-corpus-accumulatif` couvrait déjà 60% de la doctrine 3-acteurs → AMEND chirurgical retenu vs création doublon (cohérent feedback tier-1 single-source-truth)
+
+**Dette curative explicite tracée** :
+- 242 fichiers memory/ restants à auditer (271 - 29 pilote)
+- 18 KEEP du pilote re-classification possible promotion vault si pattern récurrent émerge
+- Déclencheur réactivation : (a) hook CRITICAL chaque session OU (b) `/clean-memory` périodique OU (c) plage tranquille weekend
+- Restant à >100 fichiers, hook continuera CRITICAL — c'est volontaire (visibilité dette continue)
+
+**Cycle git proposé** (3 commits, **NON exécuté**, validation Raphael obligatoire) :
+1. `feat(doctrine): AMEND pattern-maintenance-hybride architecture cognitive 3-acteurs + AMEND rule memory-discipline triade` (+ hook memory-saturation-watcher + 5 tests + amend /done workflow)
+2. `chore(memory): pilote nettoyage 29 fichiers (3 PURGE + 8 POINTEURS + 18 KEEP). Doublons vault ↔ memory 38% mesuré empiriquement`
+3. `docs(vault): capitalisation feedback ratio empirique + context-actuel + CHANGELOG + log. Dette curative 242 fichiers tracée`
