@@ -65,6 +65,7 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 - [neoteem-brain-vault-pipeline](feedback_neoteem_brain_pipeline.md) — Pipeline complet repo-analyzer → vault-linker → sync-checker, ne pas s'arrêter à création notes
 - [obsidian-skills-sacred](feedback_obsidian_skills_sacred.md) — Jamais supprimer les skills Obsidian officielles. Le MCP complète, ne remplace pas
 - [outcomes-post-dev-not-architect](feedback_outcomes_post_dev.md) — Outcomes évalue du CODE post-dev, pas des plans post-architect
+- [osef-pragmatique-dette-conditionnelle](feedback_osef_pragmatique_dette_conditionnelle.md) — OSEF assumé sur sujet faible levier + dette conditionnelle tracée (≠ couper loops)
 - [plan-commits-vs-working-tree-reel](feedback_plan_commits_vs_working_tree_reel.md) — git status AVANT, isoler le hors-scope dans un commit dédié, signaler l'écart
 - [premier-auteur-vs-senior-papers](feedback_premier_auteur_vs_senior_papers.md) — Papers : vérifier ordre auteurs arXiv. Senior souvent attribué à tort comme premier
 - [proposed-files-antipattern-supprimer-apres-application](feedback_proposed_files_antipattern.md) — .proposed = transitoire, supprimer après application. Édition directe d'abord
