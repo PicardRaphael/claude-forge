@@ -14,6 +14,17 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-29 (suite) — Audit .claude/ multi-repo : fixes forge + décision learning-reminder
+
+- **Ajoutées** :
+  - `Knowledge/decisions/decision-garder-learning-reminder-hook.md` — décision : garder `learning-reminder` (filet /done non fiable, exception assumée doctrine 22 mai) ; supprimer `proactivity-reminder`. Discriminateur blocking/advisory + fait technique « Stop ne supporte pas additionalContext ».
+- **Modifiées (forge .claude/)** :
+  - `settings.json` (édit manuel Raphael) — retrait registration `proactivity-reminder` du Stop. `hooks/proactivity-reminder.py` supprimé.
+  - `rules/comportement-proactif.md:61` — règle morte « CLI Obsidian » → MCP forge-brain.
+  - `rules/memory-discipline.md` — section MCP dédupliquée → wikilink (single-source).
+  - `agents/devils-advocate.md` — `permissionMode: acceptEdits` → `plan` (agent read-only).
+- **Source** : Audit `.claude/` multi-repo (pilote Dynamic Workflows). Fixes neo_ia/ia_back faits en sessions dédiées (briefs séparés).
+
 ## 2026-05-29 — Veille cc-news : Opus 4.8 + Dynamic Workflows (drop 28 mai)
 
 - **Ajoutées** :

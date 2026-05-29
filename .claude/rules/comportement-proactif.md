@@ -58,6 +58,6 @@ Remettre en question Raphael si une meilleure approche existe. Remettre en quest
 
 - **JAMAIS `Explore` pour auditer un projet** — Explore = recherche rapide read-only, PAS un audit
 - **JAMAIS `general-purpose` pour > 8 operations** — decouper en agents paralleles
-- **JAMAIS Grep/Read brut sur le vault** — utiliser CLI Obsidian (`obsidian search`, `obsidian read`)
+- **JAMAIS Grep/Read brut sur le vault** — accès EXCLUSIVEMENT via MCP forge-brain (`search_brain`, `read_note`). Cf `.claude/rules/forge-brain-proactive.md`
 - **JAMAIS un seul agent pour multi-repo** — 1 agent par repo, en parallele
 - **JAMAIS s'arrêter à l'audit `.claude/` quand l'user demande "analyse mon repo / propose-moi config CC"** — c'est la méthode 6 étapes [[methode-analyser-repo]] : scan archi (étape 1) + scan code pour patterns récurrents (étape 5) sont OBLIGATOIRES en parallèle de l'audit `.claude/`. Sinon propositions théoriques déconnectées du repo réel.

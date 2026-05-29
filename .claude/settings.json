@@ -63,16 +63,6 @@
             "once": true
           }
         ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/proactivity-reminder.py\"",
-            "timeout": 3,
-            "once": true
-          }
-        ]
       }
     ],
     "PreToolUse": [

@@ -61,9 +61,7 @@ Détails complets + exemples PASS/FAIL + cibles empiriques : [[pattern-maintenan
 
 ## Forge Brain — via MCP forge-brain
 
-Accès vault UNIQUEMENT via MCP forge-brain (auto-start SessionStart, port 8091).
-JAMAIS CLI Obsidian, Grep ou Read brut sur le vault.
-Outils : `search_brain`, `read_note`, `list_notes`, `vault_stats`, `create_note`, `append_note`, `update_property`.
+Protocole d'accès vault (MCP forge-brain uniquement, outils, quand consulter) : source unique `.claude/rules/forge-brain-proactive.md` + `.claude/rules/vault-consultation-protocol.md`. Pas de recopie ici (single-source).
 
 ## Anti-patterns
 
