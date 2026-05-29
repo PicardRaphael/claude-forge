@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-29 — clean-memory corpus complet (mesure + capitalisation)
+
+- **Modifiées** : [[pattern-maintenance-hybride-corpus-accumulatif]] — ajout section "Mesure corpus complet — clean-memory 2026-05-29" (répartition 94 KEEP / 73 POINTEUR / 49 PURGE sur 216 feedbacks, couche déterministe inopérante confirmée, plancher structurel <100, garde-fous validés).
+- **Source** : exécution skill /clean-memory sur corpus complet `memory/` (hook saturation CRITICAL 282 fichiers). 3 Dynamic Workflows croisés (235 agents). Mémoire projet : `memory/` 282→232 fichiers, 216→166 feedbacks, commits forge ef78c70 (PURGE) + 25281a0 (slim).
+- **Note** : aucune note vault créée (doctrine déjà couverte). Nouveau gotcha workflow `args` → mémoire projet `reference_workflow_args_array_gotcha` (cas empirique outil, pas doctrine réutilisable).
+
 ## 2026-05-29 — Idées agents IA issues des tickets support Neoteem
 
 - **Ajoutées** : `1-Projets/Neoteem/idees-agents-ia-issues-tickets-support.md` — nouvelles idées d'agents dérivées du lexique de 250 tickets support réels (auto-diagnostic N1, qualification/triage, pré-vol comptable régul/clôture, préparation révision loyers). Chaque idée fondée sur des tickets SC réels, pas inventée.

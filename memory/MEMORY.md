@@ -150,3 +150,4 @@
 - [repo-scope-guard-hook](hook_repo_scope_guard.md) — Triplet auth-detector+repo-scope-guard+auth-cleanup : repos neot-v2/
 - [plugins-officiels-anthropic-marketplace](reference_plugins_officiels_anthropic_marketplace.md) — 203 plugins marketplace (mai 2026), doctrine forge = enrichir canonique vault ou skip, jamais nouvelle skill forge
 - [permissionmode-enum-valid-values](reference_permissionmode_enum_valid_values.md) — permissionMode = acceptEdits|plan|bypassPermissions UNIQUEMENT. `default` invalide silencieux. plan pour agents read-only+Bash
+- [workflow-args-array-gotcha](reference_workflow_args_array_gotcha.md) — Dynamic Workflow : array/objet JSON via param `args` arrive undefined. Embarquer en const JS dans le script, ou faire lire un fichier par un 1er agent
