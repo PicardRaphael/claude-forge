@@ -7,12 +7,21 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-05-28
+derniere-maj: 2026-05-29
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-05-29 — Veille cc-news : Opus 4.8 + Dynamic Workflows (drop 28 mai)
+
+- **Ajoutées** :
+  - `01-Claude/Code/changelog/CC 28 mai 2026 - Opus 4.8 + Dynamic Workflows.md` — note atomique : modèle `claude-opus-4-8` (28 mai, défaut effort high, fast mode 3× moins cher, ~4× plus honnête sur failles code) + feature **Dynamic Workflows** (script JS d'orchestration, ≤1000 sous-agents / 16 concurrents, coordination hors-contexte, déclenché par « workflow » ou réglage `ultracode`, v2.1.154+, plans Max/Team/Enterprise). Changelog CLI v2.1.141→156 (MessageDisplay hook, disallowed-tools frontmatter skills, lean system prompt, fixes PowerShell Windows). Sources primaires WebFetch anthropic.com + claude.com.
+- **Modifiées** :
+  - `04-Techniques/claude-code/workflow-claude-code-optimal.md` — section « AJOUT 29 mai 2026 — Dynamic Workflows » : continuité doctrinale avec PTC et `no-cto-orchestrator-agent` (orchestration native vs agent custom interdit).
+  - `.claude/skills/cc-news/SKILL.md` (via skill-creator, delegate-guard OK) — date de référence 21 mai → **29 mai 2026 (v2.1.156)**.
+- **Source** : Veille `cc-news` domaine claude-code (3 agents A/B/C parallèles + Tier 0). Finding majeur croisé doctrine via `doctrine-impact-check`.
 
 ## 2026-05-28 (suite 5) — AMEND CLAUDE.md L14 v3 : scope ouvert "toute réponse substantielle"
 

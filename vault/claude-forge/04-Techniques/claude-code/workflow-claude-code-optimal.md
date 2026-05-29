@@ -620,3 +620,13 @@ Stack de pratiques cohérent issu du chantier 24 mai (recherche web + audit vaul
 - [[cowork-skills-reliability]] — Formule directive
 - [[comment-creer-agent]] (section AjOUT 24 mai) — AskUserQuestion limitation
 - [[comment-creer-hook]] (section AJOUT 24 mai) — SubagentStop suggester pattern
+
+---
+
+## AJOUT 29 mai 2026 — Dynamic Workflows (orchestration native Claude Code)
+
+Le 28 mai 2026, Anthropic ship **Dynamic Workflows** (research preview) avec Opus 4.8. Claude écrit dynamiquement un **script JS d'orchestration** lançant jusqu'à 1000 sous-agents (16 concurrents), coordination **hors-contexte** (plan dans le code, résultats dans des variables, seul l'output final revient en contexte). Déclenché par « workflow » dans un prompt ou le réglage **`ultracode`** (effort `xhigh` + décision auto). Requiert v2.1.154+, plans Max/Team/Enterprise.
+
+**Continuité doctrinale** : c'est PTC ([[programmatic-tool-calling]]) porté au niveau Claude Code natif. « Code orchestre, modèle juge » s'applique désormais sans écrire de code API. La doctrine forge « pas d'agent orchestrateur custom » ([[feedback_no_cto_agent]]) reste valide — on ne CONSTRUIT pas un orchestrateur, l'outil natif le fait. Pattern à privilégier sur orchestration déterministe massive (migrations, audits multi-fichiers, fan-out review) vs sub-agents pour jugement contextuel pas-à-pas.
+
+Détail complet + caps + changelog associé : [[CC 28 mai 2026 - Opus 4.8 + Dynamic Workflows]].

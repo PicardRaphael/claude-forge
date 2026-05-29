@@ -1,6 +1,6 @@
 ---
 name: cc-news
-description: ALWAYS invoke when user asks "quoi de neuf", "est-ce que X existe", or knowledge seems stale. Recent Claude Code updates, new features, AI industry news. Reference date : 21 mai 2026 (v2.1.140 + CwC London).
+description: ALWAYS invoke when user asks "quoi de neuf", "est-ce que X existe", or knowledge seems stale. Recent Claude Code updates, new features, AI industry news. Reference date : 29 mai 2026 (v2.1.156 + Opus 4.8 + Dynamic Workflows).
 user-invokable: true
 allowed-tools: WebSearch, WebFetch, Read, Write, Agent, mcp__forge-brain__*
 argument-hint: "domaine ou sujet (ex: rag, agents, fine-tuning, concurrents, claude-code, prompt, tout)"
@@ -11,7 +11,7 @@ skills:
 
 # cc-news — Veille IA & Claude Code
 
-Date de référence : **21 mai 2026** (v2.1.140 + Code with Claude London)
+Date de référence : **29 mai 2026** (v2.1.156 + Opus 4.8 + Dynamic Workflows)
 Tout ce qui est postérieur à cette date doit être recherché.
 
 ## Tier 0 — Vérifier EN PREMIER (toujours, avant tout routage)
