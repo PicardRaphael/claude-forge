@@ -86,3 +86,12 @@ Chaque entrée trace : quand, quoi, pourquoi, où (chemin archive), comment roll
 - **Wikilinks corrigés** : 2 occurrences dans `vault/claude-forge/04-Techniques/claude-code/pattern-vault-llm-karpathy.md` (gotcha tooling + refs liées) — wikilink `[[feedback_use_obsidian_cli]]` retiré, remplacé par mention texte non-liée (sens anti-pattern CLI préservé, évite wikilink mort).
 - **Body** : marker `[DEPRECATED — 2026-05-27]` ajouté en tête du fichier archivé.
 - **Rollback** : git mv depuis _archive/2026-05/ vers memory/, retirer le marker DEPRECATED, ré-ajouter ligne index, restaurer les 2 wikilinks vault — déconseillé (cœur obsolète).
+
+## [2026-05-29] PURGE massive — 50 feedbacks doublons-vault (clean-memory tier-1)
+- **Contexte** : hook memory-saturation-watcher CRITICAL (282 fichiers racine, cible <100). Skill /clean-memory + 2 Dynamic Workflows croisés (235 agents : WF1 clustering doublons/dormants verify, WF2 classification KEEP/POINTEUR/PURGE). Choix Raphael : option (b) PURGE + POINTEUR slimmés.
+- **Fichiers (50)** : archivés via git mv vers memory/_archive/2026-05/ (47) + 3 versions racine résiduelles retirées (bras_droit, tests_adverses_obligatoires, tests_adverses_ratio_3_1 — archive existait déjà depuis fusion 27 mai, append-only respecté). Liste complète : .claude/_purge_list.txt (versionné).
+- **Raison** : chaque feedback a sa doctrine ENTIÈREMENT couverte par une note canonique vault (search_brain prouvé par WF2), sans cas empirique unique non tracé ailleurs. Critère PURGE du pattern-maintenance-hybride. Contradictions WF1/WF2 arbitrées en faveur du moins destructif (pas_de_meta gardé en POINTEUR malgré PURGE WF1).
+- **Backlinks vault** : vérifiés cross-namespace (notation [[>>> feedback_x <<<]] = liens vers memory/ déjà danglants côté vault, pas de note-miroir). Archiver ne casse aucune note vault. Sweep wikilinks danglants internes memory/ en fin de session.
+- **Index** : 23 lignes retirées de MEMORY.md (tier-1), 27 de _index_archive.md (tier-2). Script .claude/_clean_index.py.
+- **Backup** : .claude/_backups/memory-backup-20260529-pre-cleanmemory.zip (397 KB, état pré-purge complet).
+- **Rollback** : git mv depuis _archive/2026-05/ vers memory/ pour chaque slug de _purge_list.txt + restaurer lignes index (depuis backup zip ou git history). OU unzip backup complet.
