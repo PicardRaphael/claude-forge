@@ -57,6 +57,8 @@
 - [llm-deep-research-version-numbers-hallucinated](feedback_llm_deep_research_version_numbers.md) — Claims numériques précis (versions, dates, ⭐) de Gemini/ChatGPT deep research = hallucinations. WebFetch source primaire AVANT d'agir. Fait qualitatif peut être vrai même si chiffres faux.
 - [lire-canoniques-vault-en-entier-avant-audit](feedback_lire_canoniques_avant_audit.md) — AVANT audit/création, read_note canoniques EN ENTIER, pas search_brain extraits
 - [llm-lit-court-homogene-pas-couche-deterministe](feedback_llm_lit_court_homogene_pas_couche_deterministe.md) — Pas de couche déterministe lourde sur corpus court+homogène = enforcement-théâtre
+- [localiser-repos-avant-workflow-multi-repo](feedback_localiser_repos_avant_workflow_multi_repo.md) — Avant audit/workflow fan-out multi-repo, localiser empiriquement chaque repo (ls */.claude). neo_ia + ia_back sous Documents\neot-v2\, pas à la racine
+- [preference-modele-opus-4-8](feedback_preference_modele_opus.md) — Raphael : Opus 4.8 préféré, 4.6 repli, JAMAIS 4.7 (jugé moyen). Défaut modèle Opus = claude-opus-4-8
 - [mcp-alias-ambigu-chemin-exact](feedback_mcp_alias_ambigu_chemin_exact.md) — MCP append_note/read par alias court résout faux si stem partagé. Chemin exact
 - [mcp-wildcard-syntax-officielle](feedback_mcp_wildcard_syntax.md) — mcp__server__* syntaxe officielle. Vrai risque = nb MCP servers actifs
 - [measure-before-optimize-tests](feedback_measure_before_optimize.md) — Avant optim tests, mesurer --durations : trop de tests vs chaque test lent
