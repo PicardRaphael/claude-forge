@@ -38,7 +38,7 @@ hooks:
 ## Règles critiques
 
 - Description **UNE SEULE LIGNE** en **anglais** — `>-` et `|` cassent l'indexeur
-- Modèles 2026 : `haiku`=4-5, `sonnet`=4-6, `opus`=4-7
+- Modèles 2026 : `haiku`=4-5, `sonnet`=4-6, `opus`=4-8 (dernier Opus)
 - Effort : `xhigh` = défaut Opus 4.7 (coding agentique). `high` = sessions concurrentes. `medium`/`low` = coût/latence. `max` = problèmes très durs (diminishing returns, overthinking)
 - Opus 4.7 : instructions plus littérales, moins de subagents spontanés, moins de tool calls. Être explicite sur le scope, le parallélisme, et la lecture exhaustive des fichiers
 - `memory: project` → persistance automatique via Auto Memory

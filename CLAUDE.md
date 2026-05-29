@@ -70,7 +70,7 @@ Pivot doctrinal complet : **[[raisonnement-22mai-doctrine-vs-enforcement]]**
 
 - Description YAML : **UNE SEULE LIGNE** — jamais `>-` ni `|`
 - 1 composant = 1 responsabilité
-- `model: sonnet` = claude-sonnet-4-6 · `opus` = claude-opus-4-7 · `haiku` = claude-haiku-4-5
+- `model: sonnet` = claude-sonnet-4-6 · `opus` = claude-opus-4-8 (dernier Opus) · `haiku` = claude-haiku-4-5
 - `effort: high` partout, `xhigh` réservé (architect / dev-lead / refactor-pg)
 - `memory: project` + `permissionMode` OBLIGATOIRES sur tous agents
 - `disallowedTools: Write, Edit` sur agents read-only
