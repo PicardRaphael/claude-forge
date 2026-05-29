@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Neoteem — Modèle économique IA — Mai 2026</title>
+<link rel="stylesheet" href="_charte/neoteem-charte.css">
+</head>
+<body>
+
+<!-- ============ PAGE DE GARDE ============ -->
+<section class="page cover">
+  <img class="cover-logo" src="logo.webp" alt="Neoteem">
+  <h1>Modèle économique IA</h1>
+  <div class="subtitle">
+    Comment faire payer les produits IA.<br>
+    Quatre modèles de facturation.<br>
+    Des fourchettes pour décider, pas des prix gravés.
+  </div>
+  <div class="accent-bar"></div>
+  <div class="desc">
+    Propositions de monétisation des produits IA Loji (NeoMail, agents utilitaires, chatbot support,
+    agents métier). Pour chaque produit : coût estimé, modèles de facturation possibles, fourchettes de prix
+    et recommandation argumentée. Document d'aide à la décision — la direction tranche.
+  </div>
+  <dl class="meta">
+    <dt>Auteurs</dt><dd>Raphaël PICARD &amp; Jérôme</dd>
+    <dt>Date</dt><dd>Mai 2026 — Version 1 (à valider)</dd>
+    <dt>Destinataires</dt><dd>Direction Neoteem</dd>
+    <dt>Classification</dt><dd>Interne — Confidentiel — Stratégique</dd>
+  </dl>
+  <div class="note">Document co-construit avec Claude (Anthropic). Complète le Dossier Stratégique IA et la Roadmap IA.</div>
+</section>
+
+<!-- ============ SOMMAIRE ============ -->
+<section class="page">
+  <h1 class="section">Sommaire</h1>
+  <ol class="neo" style="font-size:11pt; line-height:2;">
+    <li>À quoi sert ce document</li>
+    <li>Les 4 modèles de facturation (et quand les utiliser)</li>
+    <li>NeoMail — le produit-preuve</li>
+    <li>Les agents utilitaires — facturation à la valeur</li>
+    <li>Chatbot support &amp; agents métier</li>
+    <li>Vue d'ensemble &amp; recommandation</li>
+  </ol>
+</section>
+
+<!-- ============ 1. À QUOI SERT ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">1.</span> À quoi sert ce document</h1>
+  <p>Le Dossier Stratégique a posé un constat : <strong>les produits IA sont développés sans savoir comment les faire payer.</strong> Sans modèle économique, il n'y a pas de produit — juste un coût. Ce document comble ce manque.</p>
+  <p>Il ne s'agit pas d'imposer des prix : ce n'est ni à l'équipe IA, ni à un consultant, de fixer la grille tarifaire de Neoteem. Notre rôle est d'<strong>outiller la décision</strong> : poser les coûts réels, présenter les modèles de facturation possibles avec leurs avantages et inconvénients, et proposer des fourchettes argumentées. <strong>La direction tranche.</strong></p>
+  <div class="note-box"><strong>Principe directeur :</strong> un produit IA se facture sur la <strong>valeur qu'il crée</strong>, pas sur ce qu'il coûte en tokens. Le coût en tokens (quelques dizaines d'euros par mois) est une base de calcul de marge, pas un prix de vente. Le prix de vente se justifie par le <strong>temps gagné</strong> : si un agent fait gagner ne serait-ce qu'une heure par semaine à un gestionnaire, il vaut déjà bien plus que son coût technique. (Le temps réellement gagné est à mesurer chez nos clients — voir la note sur les chiffres en fin de section.)</div>
+  <h2 class="sub">Combien coûte vraiment l'IA ? (par type d'usage)</h2>
+  <p>Avant de parler de prix de vente, il faut une vision claire de ce que <strong>coûte réellement l'IA</strong> selon ce qu'on lui demande. Ces ordres de grandeur valent pour <strong>tout projet IA</strong>, pas seulement les produits Neoteem : ils permettent à la direction de juger « pour faire X, ça coûte environ Y ».</p>
+  <div class="alert"><strong>Le coût d'une action IA n'est pas fixe — il dépend de 3 facteurs :</strong> (1) la <strong>taille de ce qu'on traite</strong> (un mail de 10 lignes ≠ un PDF de 12 pages) ; (2) le <strong>nombre d'étapes de l'agent</strong> (un agent qui réfléchit en plusieurs tours relit le document à chaque fois → ×4 à ×5) ; (3) le <strong>modèle choisi</strong> (Claude Sonnet, qualité, coûte ~8× GPT-4.1 Mini). Les fourchettes ci-dessous sont volontairement <strong>prudentes</strong> (elles assument le haut : agent qualité sur gros document).</div>
+  <table>
+    <thead><tr><th>Type d'usage IA</th><th>Ce que ça fait</th><th>Coût indicatif (vérifié, mai 2026)</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Classification / tri</strong></td><td>Trier des mails, catégoriser des documents, router des demandes (modèle léger)</td><td>~0,05 à 0,20 € / 100 éléments</td></tr>
+      <tr><td><strong>Agent à l'action — petit contenu</strong></td><td>Rédiger une annonce, reformuler un texte, générer un courrier court</td><td>~1 à 5 centimes / action</td></tr>
+      <tr><td><strong>Agent à l'action — gros document</strong></td><td>Analyser/comparer un PDF de 10-15 pages (devis, contrat) en plusieurs étapes</td><td><strong>~0,10 à 0,30 € / action</strong> (jusqu'à plus si le doc est volumineux ou l'agent très bavard)</td></tr>
+      <tr><td><strong>Chatbot conversationnel</strong></td><td>Répondre en plusieurs échanges (support, assistant)</td><td>~15 à 145 € / mois pour ~100 conversations/jour (selon modèle)</td></tr>
+      <tr><td><strong>RAG documentaire</strong></td><td>Interroger une base de documents avec citations</td><td>~1 à 10 € / mois pour ~50 requêtes/jour (+ coût de stockage vectoriel)</td></tr>
+      <tr><td><strong>Pipeline mail autonome</strong></td><td>Classer + rédiger un brouillon contextualisé, en continu</td><td>~150 à 200 € / mois pour ~1 000 mails/jour, 5 utilisateurs (à confirmer empiriquement)</td></tr>
+    </tbody>
+  </table>
+  <div class="note-box"><strong>Le message clé pour la direction :</strong> l'IA « commodité » (chatbot, RAG, agent ponctuel) coûte de quelques euros à quelques dizaines d'euros par mois. Même un agent qui traite 200 gros documents/mois reste sous ~40 €/mois avec le modèle qualité. Le seul usage réellement coûteux est le <strong>traitement de gros volume en continu</strong> (pipeline mail). Mais attention : ces coûts <strong>s'additionnent</strong> quand on multiplie les agents et les volumes — d'où l'importance de mesurer (voir plus bas).</div>
+  <p class="small">Note : fourchettes calculées sur les tarifs vérifiés mai 2026 (Claude Sonnet 4.6 : 3/15 $ par M tokens ; GPT-4.1 Mini : 0,40/1,60 $). Exemple concret : un agent traitant un PDF de 12 pages en 4 étapes coûte ~0,20 € avec Claude Sonnet, ~0,03 € avec GPT-4.1 Mini. Les coûts produits (NeoMail ~196 €/mois) restent à confirmer empiriquement sur volume réel avant tout engagement de prix de vente.</p>
+
+  <h2 class="sub">L'autre face : maîtriser le coût de l'IA en interne</h2>
+  <p>L'IA ne coûte pas qu'en tokens. En interne, le vrai risque est de <strong>payer des abonnements et des licences sans retour sur investissement</strong>. Quelques pièges concrets à connaître :</p>
+  <table>
+    <thead><tr><th>Piège</th><th>Conséquence</th><th>Bonne pratique</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Multiplier les licences Claude/ChatGPT « pour voir »</strong></td><td>Des dizaines d'euros/mois × N utilisateurs qui n'utilisent l'outil que rarement = budget qui file sans valeur produite.</td><td>Donner les licences à ceux qui ont un usage réel et mesuré. Réviser tous les trimestres.</td></tr>
+      <tr><td><strong>Empiler les outils IA qui se recouvrent</strong> (Claude + Rovo + Gemini + …)</td><td>On paie 3 fois pour des fonctions proches. C'est précisément pourquoi l'<strong>audit Rovo</strong> de la roadmap est prioritaire.</td><td>Cartographier qui fait quoi, ne garder que le nécessaire.</td></tr>
+      <tr><td><strong>Automatisations sur gros volume non surveillées</strong></td><td>Un agent qui tourne en boucle sur des milliers d'éléments peut générer une facture tokens inattendue.</td><td>Plafonds de consommation + alertes. Prompt caching et batch API (−50 à −90% sur certains cas).</td></tr>
+      <tr><td><strong>Construire au lieu d'utiliser l'existant</strong></td><td>Développer un outil que Loji ou un abonnement déjà payé fait déjà = double coût (dev + licence).</td><td>Toujours vérifier l'existant avant de construire (leçon NeoChat).</td></tr>
+    </tbody>
+  </table>
+  <div class="avis"><span class="label">Avis Claude :</span> C'est le pendant honnête du discours « l'IA ne coûte pas cher » : elle ne coûte pas cher <em>si on la pilote</em>. Sans discipline — licences distribuées sans usage, outils qui se recouvrent, automatisations sans plafond — une PME peut dépenser plusieurs centaines d'euros par mois sans aucun retour. La règle d'or vaut autant en interne qu'en externe : <strong>on mesure l'usage, et on ne paie que ce qui crée de la valeur</strong>. C'est exactement le rôle de la « mesure d'usage & ROI » inscrite dans la roadmap interne.</div>
+</section>
+
+<!-- ============ 2. LES 4 MODÈLES ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">2.</span> Les 4 modèles de facturation</h1>
+  <p>Il n'existe pas un seul bon modèle : le choix dépend du produit, de la prévisibilité du volume, et de la psychologie d'achat du client. Voici les quatre, avec quand les utiliser.</p>
+  <table>
+    <thead><tr><th>Modèle</th><th>Principe</th><th>Idéal pour</th><th>Limite</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1. À l'usage</strong> (par action)</td><td>Le client paie chaque action : X € par AG rédigée, par relance, par comparaison.</td><td>Agents à valeur unitaire claire et volume variable. Facile à accepter (« je paie ce que j'utilise »).</td><td>Revenu imprévisible ; le client peut s'auto-limiter.</td></tr>
+      <tr><td><strong>2. Forfait</strong> (abonnement)</td><td>Prix fixe mensuel pour un accès illimité (ou plafonné) à un produit ou un pack.</td><td>Produits à usage régulier (NeoMail, pack agents). Revenu récurrent prévisible (MRR).</td><td>Le client sous-utilisateur a l'impression de « payer pour rien ».</td></tr>
+      <tr><td><strong>3. Crédits prépayés</strong></td><td>Le client achète un stock (100 € = X actions), consommé au fil de l'eau.</td><td>Usage irrégulier. Trésorerie encaissée d'avance. Bon compromis usage/prévisibilité.</td><td>Gestion des soldes, relances de recharge.</td></tr>
+      <tr><td><strong>4. Inclus dans Loji</strong></td><td>Pas de surcoût visible : l'IA devient un argument de l'offre Loji (rétention, montée de gamme).</td><td>Fonctions de confort qui fidélisent. Différenciation vs concurrents.</td><td>Aucun revenu IA direct ; coût absorbé par Loji.</td></tr>
+    </tbody>
+  </table>
+  <div class="avis"><span class="label">Avis Claude :</span> La meilleure stratégie n'est pas de choisir <em>un</em> modèle, mais de les <strong>combiner par produit</strong>. Le pattern qui marche le mieux en SaaS B2B : un <strong>forfait socle</strong> (revenu récurrent prévisible, ce que les investisseurs valorisent) + de l'<strong>usage</strong> sur les actions à forte valeur (ce qui scale avec le bénéfice client). Les crédits prépayés sont un excellent format d'entrée pour les clients hésitants — ils testent sans s'engager dans un abonnement. Et « inclus dans Loji » est l'arme de rétention : on offre ce qui coûte peu et fidélise, on facture ce qui crée une vraie valeur métier.</div>
+</section>
+
+<!-- ============ 3. NEOMAIL ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">3.</span> NeoMail — le produit-preuve potentiel</h1>
+  <div class="note-box"><strong>Prérequis :</strong> ce modèle de prix ne s'applique que <strong>si le besoin NeoMail est validé avec les clients</strong> (cf. Roadmap IA §4 : « à cadrer d'abord » — IA branchée sur Loji vs Gemini natif). Les chiffres ci-dessous montrent <em>combien il rapporterait s'il est lancé</em>, pas une décision de le lancer.</div>
+  <p>Coût réel estimé : <strong>~196 €/mois/cabinet</strong> (combo qualité GPT-4.1 Mini + Claude Sonnet 4.6, 1 000 mails/jour, à confirmer empiriquement). Si validé, c'est le produit qui justifie un abonnement, car son usage est quotidien et régulier.</p>
+  <h2 class="sub">Modèle recommandé : forfait /cabinet/mois</h2>
+  <table>
+    <thead><tr><th>Option de prix</th><th>Marge tokens</th><th>Positionnement</th><th>Benchmark</th></tr></thead>
+    <tbody>
+      <tr><td><strong>249 €/cabinet/mois</strong></td><td>~21% (~53 €)</td><td>Aligné sur Genius Immo (49 €/user × 5 = 245 €). Prix d'entrée agressif.</td><td>Genius = 245 €</td></tr>
+      <tr><td><strong>349 €/cabinet/mois</strong> <span class="badge pass">reco</span></td><td>~44% (~153 €)</td><td>Justifié par le gain de ~10h/semaine que les concurrents revendiquent. Marge saine.</td><td>Au-dessus de Genius, justifié par le contexte métier Loji</td></tr>
+      <tr><td><strong>Setup / onboarding</strong></td><td>—</td><td>500-1 500 € one-shot. Amortit le coût d'intégration, ancre l'engagement.</td><td>Standard SaaS B2B</td></tr>
+    </tbody>
+  </table>
+  <div class="avis"><span class="label">Avis Claude :</span> Je recommande <strong>349 €/cabinet/mois + setup</strong>, pas 249 €. À 249 €, la marge tokens est trop fine (~21%) pour absorber le support, les évolutions et les aléas. Le différenciateur de NeoMail (l'intégration aux données Loji que ni Gemini ni Genius ne reproduisent) <strong>justifie un prix premium</strong> — se sous-positionner par rapport à Genius serait une erreur, car NeoMail fait plus. Le setup n'est pas qu'un revenu : il filtre les clients sérieux et finance l'onboarding. À 50 cabinets × 349 €, c'est ~209 K€/an récurrent.</div>
+</section>
+
+<!-- ============ 4. AGENTS UTILITAIRES ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">4.</span> Les agents utilitaires — facturation à la valeur</h1>
+  <p>Les agents (rédaction d'AG, comparaison de devis, réécriture d'annonce…) ont un coût unitaire <strong>faible</strong> — de quelques centimes pour une action simple à ~0,20-0,30 € pour une analyse de gros document en plusieurs étapes (cf. grille section 1) — face à une <strong>valeur perçue forte</strong> : une AG préparée manuellement, c'est 1 à 2 heures de travail syndic. C'est le cas typique où la facturation <strong>à l'usage</strong> ou en <strong>crédits</strong> brille : même à 0,30 € de coût, une action facturée 3-5 € garde une marge énorme.</p>
+  <h2 class="sub">Trois formats possibles (à combiner)</h2>
+  <table>
+    <thead><tr><th>Format</th><th>Exemple de prix (fourchette)</th><th>Logique</th></tr></thead>
+    <tbody>
+      <tr><td><strong>À l'usage</strong></td><td>Rédaction d'AG : 3-8 €/AG<br>Comparaison de devis : 1-3 €/comparaison<br>Réécriture d'annonce : 0,50-2 €/annonce</td><td>Le client paie une fraction du temps gagné. Une AG à 5 € qui économise 1h30 de travail = évident à vendre.</td></tr>
+      <tr><td><strong>Forfait pack agents</strong></td><td>79-149 €/mois/cabinet pour l'accès à tous les agents</td><td>Pour les cabinets gros consommateurs. Prévisible, simple.</td></tr>
+      <tr><td><strong>Crédits prépayés</strong></td><td>100 € = ~20-30 actions premium (selon mix)</td><td>Format d'entrée idéal : le client teste sans s'abonner. Trésorerie d'avance.</td></tr>
+    </tbody>
+  </table>
+  <div class="avis"><span class="label">Avis Claude :</span> Pour les agents, le piège serait de les inclure « gratuitement » et de tuer une source de revenu à forte marge. Un agent qui coûte 0,10 € en tokens et fait gagner 1h30 de travail à un syndic peut se facturer 5 € sans broncher — c'est une marge de 98%, et le client est gagnant. Ma reco : démarrer en <strong>crédits prépayés</strong> (lève la barrière à l'entrée, fait découvrir la valeur), puis convertir les gros utilisateurs en <strong>forfait pack</strong>. L'agent de relance d'impayés mérite un traitement à part : il touche directement à l'argent récupéré du client — on peut envisager une facturation au succès (% du montant recouvré) bien plus lucrative.</div>
+</section>
+
+<!-- ============ 5. CHATBOT & AGENTS MÉTIER ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">5.</span> Chatbot support &amp; agents métier</h1>
+  <h2 class="sub">Chatbot support — plutôt « inclus », comme levier de rétention</h2>
+  <p>Coût : ~16-44 €/mois/cabinet. Le chatbot support (remontée de problèmes techniques + création de ticket) est une fonction de <strong>confort et de fidélisation</strong> plus qu'un produit autonome. Le facturer séparément créerait de la friction.</p>
+  <div class="note-box"><strong>Recommandation :</strong> <strong>inclus dans l'abonnement Loji</strong> (ou dans le pack NeoMail). Il réduit la charge support de Neoteem ET fidélise le client — sa valeur est dans la rétention, pas dans un revenu direct.</div>
+  <h2 class="sub">Agents métier avancés (12 mois) — le vrai potentiel de revenu</h2>
+  <table>
+    <thead><tr><th>Agent métier</th><th>Modèle suggéré</th><th>Fourchette</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Relance d'impayés</strong></td><td>Au succès (% du recouvré) OU à l'usage</td><td>2-5 €/relance ou 1-3% du montant recouvré</td></tr>
+      <tr><td><strong>Réponse aux réclamations locataires</strong></td><td>À l'usage ou inclus pack</td><td>1-3 €/réponse traitée</td></tr>
+      <tr><td><strong>Extraction auto de documents</strong></td><td>À l'usage (par document)</td><td>0,20-1 €/document</td></tr>
+    </tbody>
+  </table>
+  <div class="avis"><span class="label">Avis Claude :</span> Les agents métier sont là où se trouve le revenu de demain, parce qu'ils touchent à des tâches à fort volume et à forte valeur. La relance d'impayés est la plus stratégique : une facturation <strong>au succès</strong> (% du montant recouvré) est presque irrésistible pour le client — il ne paie que s'il récupère son argent — et bien plus lucrative qu'un prix fixe. Attention : ces modèles ne sont pertinents qu'une fois NeoMail en production et la confiance établie. On ne vend pas du « au succès » avant d'avoir prouvé qu'on délivre.</div>
+</section>
+
+<!-- ============ 6. VUE D'ENSEMBLE ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">6.</span> Vue d'ensemble &amp; recommandation</h1>
+  <h2 class="sub">Synthèse : quel modèle pour quel produit</h2>
+  <table>
+    <thead><tr><th>Produit</th><th>Modèle reco</th><th>Fourchette</th><th>Type de revenu</th></tr></thead>
+    <tbody>
+      <tr><td><strong>NeoMail</strong></td><td>Forfait + setup</td><td>249-349 €/cabinet/mois + 500-1 500 € setup</td><td>Récurrent (MRR)</td></tr>
+      <tr><td><strong>Agents utilitaires</strong></td><td>Crédits → forfait pack</td><td>3-8 €/action ou 79-149 €/mois</td><td>Usage + récurrent</td></tr>
+      <tr><td><strong>Chatbot support</strong></td><td>Inclus (rétention)</td><td>Inclus Loji ou pack</td><td>Indirect (fidélisation)</td></tr>
+      <tr><td><strong>Agents métier</strong></td><td>Usage / au succès</td><td>0,20-5 €/action ou 1-3% recouvré</td><td>Usage (fort potentiel)</td></tr>
+    </tbody>
+  </table>
+  <h2 class="sub">Le scénario que je recommande</h2>
+  <div class="verdict">
+    <div class="vtitle">Un socle récurrent + de l'usage à forte marge</div>
+    <strong>1. Socle :</strong> NeoMail en forfait (349 €/cabinet/mois + setup) → revenu récurrent prévisible, c'est la colonne vertébrale.<br>
+    <strong>2. Découverte :</strong> agents en crédits prépayés → lève la barrière à l'entrée, fait goûter la valeur sans engagement.<br>
+    <strong>3. Montée en gamme :</strong> gros consommateurs → forfait pack agents ; agents métier → à l'usage / au succès.<br>
+    <strong>4. Rétention :</strong> chatbot support inclus → fidélise sans friction.
+  </div>
+  <p>À 50 cabinets sur ce modèle : <strong>~209 K€/an de récurrent NeoMail</strong> + revenus d'usage des agents + setup. C'est ce qui transforme le capital technique en revenu durable — l'objectif même du Dossier Stratégique.</p>
+  <div class="alert"><strong>Rappel — ce ne sont que des fourchettes.</strong> Aucun de ces prix n'est validé. Ce document existe pour donner à la direction une base chiffrée et argumentée pour <strong>décider</strong>. Les prix définitifs doivent être confrontés au marché réel (tests clients, élasticité prix) et arbitrés par la direction commerciale.</div>
+  <div class="avis"><span class="label">Avis Claude :</span> Le plus grand risque économique n'est pas de mal fixer un prix — c'est de <strong>ne pas en fixer du tout</strong>, et de continuer à développer des produits sans modèle de revenu (le constat du Dossier Stratégique). Ce document casse ce blocage : il donne 4 leviers et un scénario. La prochaine étape n'est pas de débattre du prix parfait en réunion, mais de <strong>tester</strong> : proposer NeoMail à 2-3 cabinets pilotes avec un prix, et observer la réaction. Le marché tranche mieux que n'importe quelle slide.</div>
+</section>
+
+</body>
+</html>

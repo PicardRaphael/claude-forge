@@ -14,6 +14,16 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-05-29 — Idées agents IA issues des tickets support Neoteem
+
+- **Ajoutées** : `1-Projets/Neoteem/idees-agents-ia-issues-tickets-support.md` — nouvelles idées d'agents dérivées du lexique de 250 tickets support réels (auto-diagnostic N1, qualification/triage, pré-vol comptable régul/clôture, préparation révision loyers). Chaque idée fondée sur des tickets SC réels, pas inventée.
+- **Source** : exploration approfondie neoteem-brain ([[lexique-expressions-clients]] = 250 tickets SC déc 2025-avr 2026, proc-charte-qualification-n2, problèmes connus). Pour enrichir le catalogue d'idées de la roadmap CODIR.
+
+## 2026-05-29 — Synthèse stratégique Neoteem (vue Responsable IA)
+
+- **Ajoutées** : `1-Projets/Neoteem/comprendre-neoteem-vue-responsable-ia.md` — synthèse stratégique de Neoteem/Loji depuis le vault neoteem-brain (MCP obsidian-brain) : architecture (Lojii→ws→PG, logique 100% PostgreSQL, 12 schémas), domaines métier (syndic/gérance/compta), le MOAT (base de données Loji inimitable, acteur universel 27 rôles × 98 fonctions), apps IA existantes (NeoChat/NeoMail/NeoDoc), concurrents, et où l'IA crée de la valeur.
+- **Source** : exploration profonde neoteem-brain (e-architecture-globale, e-organisation-neoteem, overviews syndic/gérance, MOC-Domaines, e-database-manager, e-module-suivi-dossier, q-roles-tiers-complet) pour outiller la trilogie docs CODIR (Stratégique + Roadmap + Modèle éco). Distinction validée Raphael : base Loji = moat (clients) ; 682 notes vault = accélérateur interne.
+
 ## 2026-05-29 (suite) — Audit .claude/ multi-repo : fixes forge + décision learning-reminder
 
 - **Ajoutées** :

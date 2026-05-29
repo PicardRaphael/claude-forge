@@ -118,6 +118,7 @@
 > Feedbacks valides mais sans citation entrante, déplacés vers [memory/_index_archive.md](_index_archive.md) pour alléger le chargement. Accès via recherche/lecture directe si besoin. Critère tier-1 : cité ≥1 OU sujet stratégique. Réintégrer ici un tier-2 dès qu'il est cité.
 
 ## Project
+- [dossier-strategique-ia-neoteem](project_dossier_strategique_ia_neoteem.md) — Dossier Stratégique IA CODIR audité 17/20 (29 mai), roadmap V2 à venir, sortir volet salaire
 - [claude-desktop-profiles](project_desktop_profiles.md) — Config Claude Desktop par rôle Neoteem, skill dédiée, output/
 - [claude-forge-naming-collision-github](project_claude_forge_naming_collision.md) — 4 repos GitHub homonymes `claude-forge`, dont sangrokjung 715⭐ framework plugin oh-my-zsh-style. Trancher rename si publication un jour, ignore si privé.
 - [ia-back-project](project_back_refacto.md) — ia_back 16 agents, 26 skills, 16 rules, 14 hooks. Stack postgres.js
@@ -133,6 +134,7 @@
 - [raphael-picard-full-profile](user_raphael_profile.md) — Profil holistique : Lead IA Neoteem, 36 ans, parcours atypique, gamer, vision expert IA reconnu
 
 ## Reference
+- [pdf-chrome-headless-charte](reference_pdf_chrome_headless_charte.md) — Générer PDF pro via Chrome headless (--no-pdf-header-footer) + Poppler + charte Neoteem. Gotchas pages blanches/tables/flag en-têtes
 - [enableallprojectmcp-couvre-tool-level](reference_enableallprojectmcp_couvre_tool_level.md) — enableAllProjectMcpServers:true + serveur dans .mcp.json auto-approuve les outils MCP au niveau TOOL sans prompt. Lister mcp__server__tool dans permissions.allow = redondant. Vérifié empiriquement (retrait list_notes → appel OK sans prompt, 27 mai). Distinct de mcp-wildcard (frontmatter agent/skill).
 - [seuils-canoniques-agents-mythes-2026-05-22](reference_seuils_canoniques_agents_mythes.md) — Seuls CLAUDE.md<200L et SKILL.md<500L canoniques. Le reste = mythes
 - [skills-metadata-tokens-load](reference_skills_metadata_tokens_load.md) — Claude Code charge name+description de TOUTES les skills installées au démarrage. 49 forge + 35 plugins = 6.8k tokens. Cap desc 250-300 chars = levier optim contexte

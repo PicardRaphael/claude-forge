@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Neoteem — Dossier Stratégique IA — Mai 2026</title>
+<link rel="stylesheet" href="_charte/neoteem-charte.css">
+</head>
+<body>
+
+<!-- ============ PAGE DE GARDE ============ -->
+<section class="page cover">
+  <img class="cover-logo" src="logo.webp" alt="Neoteem">
+  <h1>Dossier Stratégique IA</h1>
+  <div class="subtitle">
+    NeoChat, NeoMail, NeoDoc :<br>
+    Le capital technique est là.<br>
+    Les conditions pour le livrer ne le sont pas.
+  </div>
+  <div class="accent-bar"></div>
+  <div class="desc">
+    Diagnostic complet, benchmark concurrentiel, analyse des blocages,
+    coûts réels, avis stratégiques et recommandations.
+  </div>
+  <dl class="meta">
+    <dt>Auteurs</dt><dd>Raphaël PICARD &amp; Jérôme</dd>
+    <dt>Date</dt><dd>Mai 2026 — Version 2</dd>
+    <dt>Destinataires</dt><dd>Direction Neoteem</dd>
+    <dt>Classification</dt><dd>Interne — Confidentiel — Stratégique</dd>
+  </dl>
+  <div class="note">Ce document inclut les avis stratégiques de Claude (Anthropic) intégrés dans l'analyse.</div>
+</section>
+
+<!-- ============ SOMMAIRE ============ -->
+<section class="page">
+  <h1 class="section">Sommaire</h1>
+  <ol class="neo" style="font-size:11pt; line-height:2;">
+    <li>Synthèse exécutive</li>
+    <li>Ce qui a été construit : l'inventaire factuel</li>
+    <li>Ce qui est en production client : le constat</li>
+    <li>Pourquoi rien ne sort : les 8 blocages identifiés</li>
+    <li>Benchmark concurrentiel : avec qui on se compare</li>
+    <li>La menace Gemini dans Gmail</li>
+    <li>Le piège de « recréer Gmail » — avis critique</li>
+    <li>Le coût réel des économies</li>
+    <li>Les deux options stratégiques</li>
+    <li>L'équipe nécessaire et la réorganisation</li>
+    <li>L'économie : l'essentiel (détail dans le doc Modèle économique)</li>
+    <li>Recommandations et plan d'action</li>
+    <li>Notre seul avantage inimitable : la base de données Loji</li>
+    <li>IA responsable : données, conformité, confiance</li>
+    <li>Définir le succès : KPI &amp; conditions de pivot</li>
+    <li>Verdict final de Claude : Option A, Option B, et la séquence B→A</li>
+  </ol>
+</section>
+
+<!-- ============ 1. SYNTHÈSE EXÉCUTIVE ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">1.</span> Synthèse exécutive</h1>
+  <div class="card-row">
+    <div class="kpi"><div class="num">3</div><div class="lbl">apps construites par 2 personnes</div></div>
+    <div class="kpi"><div class="num alert">0</div><div class="lbl">en production client</div></div>
+    <div class="kpi"><div class="num">3 000</div><div class="lbl">employés chez Septeo/Bellman</div></div>
+    <div class="kpi"><div class="num">2</div><div class="lbl">dédiés IA chez Neoteem</div></div>
+  </div>
+  <p>En 6 mois, 2 personnes (Raphaël et Jérôme) ont construit : 3 applications IA (NeoChat, NeoMail, NeoDoc), 3 MCP custom déployés, un vault de 682+ notes de connaissance métier, et des outils de productivité pour le support et la direction. C'est un volume de travail qui correspond à une équipe de 4-5 personnes.</p>
+  <p><strong>Aucun de ces produits n'est en production client.</strong></p>
+  <p>NeoChat est en pilote depuis 5 mois sans utilité confirmée. NeoMail n'a pas de front. NeoDoc est en cours. Pendant ce temps, Bellman (groupe Septeo, 3 000 employés) répond à 70% des emails syndics en 1 clic. Genius Immo (10 personnes) a son chatbot et son agent mail en production à 49 €/mois par utilisateur. Gemini est intégré nativement dans le Gmail que tous nos clients utilisent.</p>
+  <div class="avis"><span class="label">Avis Claude :</span> Le diagnostic est clair : le capital technique existe et il est impressionnant pour 2 personnes. Mais un capital technique qui ne génère pas de revenu est un coût, pas un actif. Genius Immo, avec 10 personnes et 112K € de capital, livre plus vite que Neoteem. Ce n'est pas un problème de compétence — c'est un problème d'organisation et de priorités. Les 8 blocages identifiés dans ce document sont presque tous résolvables à coût zéro par de la réorganisation interne.</div>
+  <h2 class="sub">Le coût de l'inaction</h2>
+  <p>Chaque mois sans produit IA en production, c'est du revenu perdu. À 249-349 €/mois par cabinet pour un SaaS IA intégré, sur 50 clients potentiels, c'est 12 000 à 17 000 € de revenu mensuel qui n'est pas capturé — soit 150 000 à 200 000 €/an de potentiel. L'investissement demandé pour débloquer la situation est de 82-100K €/an. Il se rembourse la première année.</p>
+  <h2 class="sub">La décision demandée</h2>
+  <p>Réorganiser les ressources internes autour de l'IA. Nommer un Responsable IA dédié avec pouvoir de décision. Prioriser le mail — le pain point n°1 remonté par les clients — en cadrant d'abord avec eux la bonne forme du produit (NeoMail branché sur Loji ou Gemini natif). Débloquer les accès admin, affecter un UX, protéger du temps QA. La plupart de ces actions sont de la réorganisation à coût zéro.</p>
+</section>
+
+<!-- ============ 2. INVENTAIRE ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">2.</span> Ce qui a été construit : l'inventaire factuel</h1>
+  <p>En 6 mois, avec 2 personnes, voici ce qui existe :</p>
+  <table>
+    <thead><tr><th>Composant</th><th>Description</th><th>État</th></tr></thead>
+    <tbody>
+      <tr><td><strong>NeoChat</strong> (agent conversationnel)</td><td>7 agents, 26 tools, Declarative ReAct Engine (~50 lignes vs ~1500 en workflow classique). Adaptive Prompt Builder 4 layers, HybridToolSelector pgvector, 6 interrupt handlers.</td><td>Backend OK · Front basique · En pilote 5 mois</td></tr>
+      <tr><td><strong>NeoMail</strong> (pipeline mail autonome)</td><td>Pipeline webhook Pub/Sub → classify LLM → label Gmail → brouillon auto. 21 tools, règle BROUILLON ONLY à 5 niveaux de défense. 9 endpoints API, schéma BDD dédié. <strong>Construit sans cadrage produit</strong> (avant de savoir le besoin réel, les fonctionnalités et où le brancher).</td><td>Prototype back · base partiellement réutilisable · pas de front · pas en prod</td></tr>
+      <tr><td><strong>NeoDoc</strong> (RAG documentaire)</td><td>Pipeline ingestion 7 étapes (Drive → GCS → Vertex AI). Agent Research 5 nœuds. Grounding citations, multi-tenant. Tests : fail_under=80, DeepEval faithfulness ≥ 0.8.</td><td>Backend OK · Tests sérieux · Pas en prod</td></tr>
+      <tr><td><strong>3 MCP custom</strong></td><td>obsidian-brain v2 (vault 682 notes), JIRA-NEOTEEM (notes internes + copy PJ), feedback-neoteem (boucle Langfuse → Jira). Déployés Cloud Run.</td><td>En prod (usage interne)</td></tr>
+      <tr><td><strong>neoteem-brain</strong> (knowledge base)</td><td>682+ notes, 2245+ wikilinks. 4 agents maintenance, 5 plugins role-based. Domaines : syndic copro, gérance locative, comptabilité immo.</td><td>En prod (usage interne)</td></tr>
+      <tr><td><strong>Plugins Cowork</strong> (productivité équipe)</td><td>nils-copilot (brief matin, strategic-advisor). support-lojii-plugin (triage 3 phases avec rétro auto-correctrice). feedback-triage. backlog-hub.</td><td>En prod (Nils, Valéry, support)</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Au total :</strong> 3 applications IA, 3 MCP custom, 682+ notes métier, des plugins de productivité — produit par 2 personnes. C'est remarquable.</p>
+  <div class="avis"><span class="label">Avis Claude :</span> Ce volume de travail est exceptionnel pour 2 personnes en 6 mois. Sur le marché Lyon, constituer une équipe équivalente (lead IA + fullstack DevOps + dev + UX) coûterait 200-250K €/an. Neoteem a obtenu ce capital technique à moindre coût. Le problème n'est pas la production — c'est la livraison.</div>
+</section>
+
+<!-- ============ 3. PRODUCTION CLIENT ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">3.</span> Ce qui est en production client : le constat</h1>
+  <div class="card-row">
+    <div class="kpi"><div class="num">3</div><div class="lbl">apps IA construites</div></div>
+    <div class="kpi"><div class="num alert">0</div><div class="lbl">en production client</div></div>
+    <div class="kpi"><div class="num alert">5 mois</div><div class="lbl">NeoChat en pilote</div></div>
+    <div class="kpi"><div class="num alert">3+ mois</div><div class="lbl">NeoMail sans front</div></div>
+  </div>
+  <p>Le travail technique est fait. Les backends fonctionnent. Les tests passent. Mais côté client, rien n'est visible. NeoChat est en pilote depuis 5 mois et les retours indiquent une utilité à confirmer. NeoMail — le produit que les clients demandent le plus — n'a toujours pas de front après 3+ mois de développement backend.</p>
+  <p>Il n'existe aucun KPI produit chiffré : pas de DAU, pas de MAU, pas de NPS, pas de taux d'adoption. Personne ne mesure si ce qu'on construit est utilisé.</p>
+  <div class="alert"><strong>Les plaintes clients sur les mails sont remontées au support mais ne sont pas collectées de manière structurée.</strong> On construit des produits sans écouter formellement les clients.</div>
+  <div class="avis"><span class="label">Avis Claude :</span> L'absence de KPI est un signal d'alarme. Comment savoir si NeoChat est utile sans mesurer son utilisation ? Comment justifier un investissement sans données de retour client ? La première action du futur Responsable IA devrait être d'installer des métriques : DAU, MAU, NPS, MRR. Sans mesure, pas de décision éclairée.</div>
+</section>
+
+<!-- ============ 4. LES 8 BLOCAGES ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">4.</span> Pourquoi rien ne sort : les 8 blocages identifiés</h1>
+  <h3 class="sub3">1. Pas de responsable IA dédié.</h3>
+  <p>Le responsable actuel supervise l'IA parmi d'autres sujets. Il n'est pas full-time sur l'IA, n'a pas la bande passante pour écouter les clients, arbitrer les priorités, et piloter la livraison. Les choix d'outils (Gemini) et de priorités (NeoChat avant NeoMail) ne correspondent pas aux besoins clients remontés.</p>
+  <h3 class="sub3">2. Pas de maquettes, pas d'UX dédié IA.</h3>
+  <p>Jérôme peut développer le front, mais sans maquettes il ne peut pas avancer. Les designers ne sont pas priorisés sur les projets IA. Résultat : NeoMail attend son front depuis 3+ mois.</p>
+  <h3 class="sub3">3. Le DevOps est un goulot d'étranglement.</h3>
+  <p>Quand on demande quelque chose, ça met 3 mois. Jérôme a les compétences DevOps mais n'a accès admin que sur l'environnement de développement — pas test, pas production.</p>
+  <h3 class="sub3">4. Les QA sont surchargés.</h3>
+  <p>Les testeurs ont trop de projets à tester et ne peuvent pas consacrer du temps à l'IA. Sans validation QA, aucun produit ne peut passer en production.</p>
+  <h3 class="sub3">5. On ne sait pas ce que les clients veulent.</h3>
+  <p>Les clients se plaignent des mails au support — c'est le pain point numéro un. Mais ces remontées ne sont pas collectées. On a développé un chatbot (NeoChat) en priorité alors que les clients demandent l'automatisation mail.</p>
+  <h3 class="sub3">6. Choix de LLM non optimal.</h3>
+  <p>Gemini a été choisi pour des raisons de coût. Mais le tool calling est moins fiable, la rédaction française est inférieure, et la version économique de Gemini 3 est en Preview (pas de SLA production). L'économie de ~200 € de tokens sur 6 mois coûte des semaines de debug supplémentaires.</p>
+  <h3 class="sub3">7. 2 personnes font le travail de 5.</h3>
+  <p>Raphaël et Jérôme portent seuls l'ensemble des projets IA. 3 apps, 3 MCP, le brain, les plugins Cowork. Et Raphaël produit déjà des skills, un copilot dirigeant, et des formations IA — en plus de sa mission contractuelle.</p>
+  <h3 class="sub3">8. La direction dit « ça va changer » depuis 3 mois.</h3>
+  <p>Les problèmes sont identifiés. Les solutions sont connues. Mais aucune décision concrète n'a été prise. Chaque mois d'indécision est un mois offert aux concurrents.</p>
+  <div class="avis"><span class="label">Avis Claude :</span> Les blocages 1, 2, 3, 4 et 5 sont résolvables à coût zéro par de la réorganisation interne. Donner à Jérôme les accès admin (blocage 3), affecter un UX aux maquettes IA (blocage 2), protéger du temps QA (blocage 4), collecter les besoins clients (blocage 5) — aucune de ces actions ne coûte un euro. Elles ne nécessitent qu'une décision. Le blocage 6 (Gemini) coûte ~30-50 €/mois à résoudre en switchant vers Claude/GPT. Seul le blocage 7 (effectif insuffisant) nécessite un vrai investissement.</div>
+</section>
+
+<!-- ============ 5. BENCHMARK ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">5.</span> Benchmark concurrentiel : avec qui on se compare</h1>
+  <table>
+    <thead><tr><th></th><th>Bellman (Septeo)</th><th>Genius Immo</th><th>Reemia (Foncia)</th><th>Neoteem</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Équipe totale</strong></td><td>11-50 + Septeo 3000</td><td>~10 personnes</td><td>~5 + Emeria</td><td>2 dédiés IA</td></tr>
+      <tr><td><strong>Groupe derrière</strong></td><td>Septeo 244M$ CA, Bpifrance, Lab IA</td><td>Indépendant 112K € capital</td><td>Emeria/Foncia, milliers d'employés</td><td>Indépendant, startup</td></tr>
+      <tr><td><strong>Chatbot copro</strong></td><td>En production</td><td>En prod (Genius GPT)</td><td>En prod (Sirius)</td><td>5 mois pilote, utilité à confirmer</td></tr>
+      <tr><td><strong>IA Email</strong></td><td>En prod, 70% emails 1 clic</td><td>En prod (agent mail)</td><td>Non visible</td><td>Prototype (à cadrer), pas en prod</td></tr>
+      <tr><td><strong>IA Document</strong></td><td>—</td><td>Mémoire immeuble (production)</td><td>Orion IDP 12M+ docs</td><td>En cours dev</td></tr>
+      <tr><td><strong>Formation IA</strong></td><td>Webinars réguliers</td><td>Oui (revenue stream) Qualiopi</td><td>—</td><td>Non</td></tr>
+      <tr><td><strong>LLM utilisé</strong></td><td>OpenAI (ChatGPT)</td><td>OpenAI (ChatGPT)</td><td>Multi (LangChain)</td><td>Gemini (version Preview)</td></tr>
+      <tr><td><strong>Prix IA client</strong></td><td>Inclus dans le logiciel</td><td>49 €/mois par utilisateur</td><td>Inclus dans le service</td><td>Pas de produit client</td></tr>
+    </tbody>
+  </table>
+  <h2 class="sub">Prix concurrents — benchmark marché</h2>
+  <table>
+    <thead><tr><th>Concurrent</th><th>Modèle tarifaire</th><th>Prix</th><th>Exemple 5 gestionnaires</th></tr></thead>
+    <tbody>
+      <tr><td>Genius Immo</td><td>Abonnement mensuel par utilisateur</td><td>49 €/mois/utilisateur (Essentiel), Pro sur devis</td><td>245 €/mois</td></tr>
+      <tr><td>Bellman (Septeo)</td><td>Inclus dans le logiciel</td><td>Pas de surcoût IA visible</td><td>0 € surcoût</td></tr>
+      <tr><td>Formations IA marché</td><td>Formation intra-entreprise</td><td>1 200-3 000 €/jour, finançable OPCO/Qualiopi</td><td>1 500 € (1 jour)</td></tr>
+    </tbody>
+  </table>
+  <h2 class="sub">Qui fait quoi en IA — la carte concurrentielle (vérifiée mai 2026)</h2>
+  <table>
+    <thead><tr><th>Concurrent</th><th>IA réelle</th><th>Menace pour Neoteem</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Genius Immo</strong></td><td>Suite EN PRODUCTION : agent mail, Genius GPT (RAG docs), comparaison devis, mémoire immeuble. ChatGPT.</td><td><strong>Directe</strong> sur le mail + les devis — déjà live, prix bas. Mais RAG sur PDF, pas la logique métier d'un ERP.</td></tr>
+      <tr><td><strong>CoproPilot</strong> (Polsia)</td><td>Triage mail + rédaction de réponses (validées par l'humain) + comparaison devis + assistance AG.</td><td><strong>Concurrent frontal</strong> de NeoMail (proposition quasi identique) — mais encore en pré-lancement / liste d'attente.</td></tr>
+      <tr><td><strong>Bellman</strong> (Septeo)</td><td>Réponse mail IA. Chiffres « 70% en 1 clic » datant de 2023.</td><td>Faible aujourd'hui ; <strong>forte demain</strong> par la distribution Septeo (1,3M lots). Le danger, c'est leur force de frappe commerciale, pas leur IA.</td></tr>
+      <tr><td><strong>REEMIA</strong> (ex-Foncia)</td><td>Orion (traitement documentaire) + Sirius (agent conversationnel).</td><td>Le plus crédible côté métier — mais couche IA <strong>sans base propriétaire</strong> : doit s'intégrer à un logiciel ; Neoteem est déjà branché.</td></tr>
+      <tr><td><strong>Syndic-AI, Keyzia, Mister IA</strong></td><td>Mail+chatbot (Syndic-AI) ; plateforme IA généraliste (Keyzia) ; intégrateur d'agents (Mister IA, 10 M€ levés).</td><td>Secondaire / indirecte. À surveiller, traction encore faible.</td></tr>
+      <tr><td><strong>ICS Spirit, Matera, Immopen</strong></td><td>Migration cloud, <strong>aucune IA native documentée</strong>.</td><td>Nulle à court terme côté IA.</td></tr>
+    </tbody>
+  </table>
+  <div class="note-box"><strong>L'insight le plus important du benchmark</strong> (source : comparatif Coprolab, mai 2026, qui teste réellement les logiciels) : <strong>aucun éditeur de logiciel syndic n'a encore d'IA native pleinement en production</strong> — tout est aujourd'hui du « branchage » externe sur API. <strong>Personne n'a gagné. La fenêtre est ouverte.</strong> Et Neoteem possède déjà la donnée structurée que les concurrents doivent reconstituer.</div>
+  <div class="avis"><span class="label">Avis Claude :</span> Le constat est double. D'un côté, Genius livre déjà et facture (~49 €/user), Bellman a la puissance de distribution de Septeo : se comparer à eux sans les moyens, c'est courir derrière. De l'autre — et c'est le vrai message — <strong>personne n'a encore d'IA métier native en production</strong>. Les concurrents font du RAG générique sur des PDF ou se branchent par-dessus un logiciel. Aucun n'a ce que Neoteem a : la donnée Loji vivante et structurée. La course n'est pas perdue, elle commence — mais la fenêtre se referme (Genius live, CoproPilot et Syndic-AI sur le mail, Bellman qui arrive). Tous utilisent OpenAI/ChatGPT, pas Gemini — l'avantage de Neoteem n'est ni le modèle ni le prix, c'est la donnée.</div>
+</section>
+
+<!-- ============ 6. MENACE GEMINI ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">6.</span> La menace Gemini dans Gmail</h1>
+  <p>Tous les clients Loji sont sur Google Workspace. Depuis début 2026, Gemini est intégré nativement dans leur Gmail : résumé automatique des fils de mails, Smart Replies contextuelles, Help Me Write, priorisation intelligente. Disponible sur Google Workspace Business et Enterprise — les plans que nos clients ont déjà.</p>
+  <div class="alert"><strong>Nos clients ont déjà de l'IA dans leur Gmail, gratuitement, incluse dans leur abonnement Google Workspace.</strong> Gemini résume leurs mails, leur suggère des réponses, et rédige des brouillons.</div>
+  <p><strong>Ce que Gemini dans Gmail ne fait PAS (et que NeoMail pourrait faire) :</strong></p>
+  <ul class="neo">
+    <li>Accéder aux données métier Loji (charges, lots, copropriétaires, historique interventions)</li>
+    <li>Classifier les mails par type métier (réclamation, impayé, demande de travaux, AG)</li>
+    <li>Générer un brouillon contextualisé avec les vraies données du lot et du copro</li>
+    <li>Déclencher des actions métier (créer un ticket intervention, envoyer une relance)</li>
+  </ul>
+  <p>C'est la seule fenêtre de différenciation de NeoMail : <strong>le contexte métier</strong>. Gemini peut résumer un mail et suggérer une réponse générique. NeoMail peut dire « c'est M. Dupont, lot 34, il a déjà appelé 3 fois pour cette fuite, le plombier Durand est intervenu le 15 mars sans succès, voici un brouillon avec le numéro de dossier et la prochaine date d'intervention ».</p>
+  <div class="note-box"><strong>Le point MCP + Gemini, sans approximation (vérifié mai 2026) :</strong> Google supporte le MCP custom au niveau <strong>développeur</strong> (API/SDK/CLI, depuis mars 2026) et <strong>entreprise</strong> (Gemini Enterprise, admin IT lourde). En revanche, l'<strong>app chat Gemini grand public</strong> n'autorise PAS encore un utilisateur à brancher lui-même un MCP tiers (liste fermée de connecteurs partenaires). Autrement dit : aujourd'hui, un syndic lambda ne peut pas connecter Loji à son Gemini comme il le ferait sur Claude. <strong>Cela laisse une fenêtre — mais elle est temporelle, pas acquise :</strong> le jour où Google ouvrira ce self-service (ou via Gemini Enterprise pour les gros cabinets), un MCP Loji ouvert rendrait NeoMail moins indispensable. D'où l'arbitrage à trancher maintenant (cf. Roadmap §4 et §6).</div>
+  <div class="avis"><span class="label">Avis Claude :</span> La fenêtre d'opportunité pour NeoMail est réelle mais elle se referme. Aujourd'hui, Gemini grand public ne permet pas à un syndic de brancher lui-même Loji (le MCP self-service n'existe que sur Claude) — c'est ce qui laisse à NeoMail une raison d'exister. Mais le jour où Google ouvrira ce branchement, la question deviendra brûlante : NeoMail doit-il rester un produit logiciel, ou devenir un service MCP que les clients connectent à leur plateforme ? Plutôt que d'attendre cette échéance, la bonne stratégie est la séquence B→A (voir verdict final) : exposer un MCP cadré dès maintenant (option B) tout en construisant le produit (option A). Dans tous les cas, il faut décider maintenant, pas dans 6 mois.</div>
+</section>
+
+<!-- ============ 7. PIÈGE RECRÉER GMAIL ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">7.</span> Le piège de « recréer Gmail » — avis critique</h1>
+  <div class="alert"><strong>Alerte stratégique.</strong> La direction veut recréer un client mail complet dans Loji — c'est-à-dire reconstruire l'équivalent de Gmail avec la classification IA, les automatisations, l'interface de lecture/envoi/réponse, la gestion des pièces jointes, etc.</div>
+  <p>Google emploie des milliers d'ingénieurs sur Gmail. Le client mail est l'un des logiciels les plus complexes qui existe : synchronisation temps réel, gestion offline, rendu HTML de mails, sécurité anti-phishing, spam filtering, gestion de pièces jointes, calendrier intégré, contacts, recherche full-text sur des années d'historique, accessibilité, mobile-responsive…</p>
+  <p>Vouloir reconstruire ça avec 2-4 personnes, c'est exactement le type de décision qui explique pourquoi rien ne sort en production. Ce n'est pas un avis — c'est une réalité technique objective.</p>
+  <h2 class="sub">La bonne approche (ce que Bellman fait et ça marche) :</h2>
+  <ul class="neo">
+    <li>Un add-on Gmail (Google Cards framework, ~200 lignes de code) ou un panneau latéral dans Loji qui s'affiche à côté de Gmail</li>
+    <li>Le client ne quitte jamais Gmail — il garde son outil qu'il connaît et qu'il aime</li>
+    <li>L'IA travaille en arrière-plan : classification, enrichissement contexte Loji, brouillon auto</li>
+    <li>Le brouillon apparaît dans Gmail — le gestionnaire valide en 1 clic (le modèle Bellman : 70% des mails)</li>
+  </ul>
+  <div class="avis"><span class="label">Avis Claude :</span> Je le dis sans filtre : recréer Gmail est une erreur stratégique majeure. C'est le type de projet qui absorbe 12-18 mois de développement, ne sera jamais aussi bon que Gmail, et pendant ce temps les concurrents qui ont fait le choix pragmatique (add-on Gmail ou panneau latéral) signent les clients. Bellman l'a compris. Genius l'a compris (ils travaillent avec Office 365, pas un client mail maison). La valeur de NeoMail n'est PAS l'interface mail — c'est le contexte métier Loji. L'interface mail, les clients l'ont déjà : c'est Gmail. Il faut l'enrichir, pas le remplacer. Un add-on Gmail + un panneau latéral Loji = 2-3 mois de dev. Un client mail complet = 12-18 mois minimum, et probablement jamais fini.</div>
+</section>
+
+<!-- ============ 8. COÛT DES ÉCONOMIES ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">8.</span> Le coût réel des économies</h1>
+  <p>Trois économies qui coûtent plus cher que l'investissement :</p>
+  <h3 class="sub3">Économie 1 : Gemini au lieu de Claude/GPT</h3>
+  <p><strong>Gain :</strong> ~200 € de tokens sur 6 mois.<br><strong>Coût réel :</strong> tool calling moins fiable, rédaction française inférieure, version économique en Preview sans SLA. Tous les concurrents utilisent OpenAI. Aucun n'utilise Gemini pour les produits clients.</p>
+  <h3 class="sub3">Économie 2 : Skills Cowork au lieu d'agents API custom</h3>
+  <p><strong>Gain :</strong> pas de coût de développement API supplémentaire.<br><strong>Coût réel :</strong> les skills grossissent indéfiniment, pas de tracing, pas de métriques, limite à 5-25 runs/jour. Le triage de 100+ tickets/jour en skills Cowork coûte ~500 €/mois d'abonnement pour un service moins fiable que ce qu'un agent API ferait pour ~40-70 €/mois en tokens.</p>
+  <h3 class="sub3">Économie 3 : Pas de recrutement / réorganisation IA</h3>
+  <p><strong>Gain :</strong> pas de salaire supplémentaire.<br><strong>Coût réel :</strong> 3 apps IA construites et 0 en production client. Des mois de développement qui ne génèrent aucun revenu. Des concurrents qui signent les clients que Neoteem ne peut pas servir.</p>
+  <div class="pullquote">Le paradoxe : Neoteem a investi 6 mois de temps de 2 consultants pour construire un capital technique impressionnant. Mais refuse d'investir les 3-4 personnes supplémentaires nécessaires pour transformer ce capital en revenu. C'est comme construire une usine et refuser d'embaucher les ouvriers pour la faire tourner.</div>
+  <div class="avis"><span class="label">Avis Claude :</span> L'économie Gemini est un mirage : la version économique (Gemini 3 Flash) coûte 0,50$/M input — mais elle reste en Preview. La version GA stable (Gemini 3.5 Flash) coûte 1,50$/9,00$/M, soit plus cher que GPT-4.1 Mini (0,40$/1,60$/M). Si le budget est vraiment contraint, GPT-4.1 Mini est le meilleur choix budget — pas Gemini, qui cumule désormais un coût GA supérieur et une qualité FR inférieure.</div>
+</section>
+
+<!-- ============ 9. DEUX OPTIONS ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">9.</span> Les deux options stratégiques</h1>
+  <p>Deux options. <strong>Le statu quo n'est pas une option</strong> — c'est une décision de ne pas décider, et c'est la plus coûteuse.</p>
+  <h2 class="sub">Option A (recommandée) : Réorganiser et investir dans les produits clients</h2>
+  <p>Réorganiser les ressources internes pour que l'IA devienne une priorité, pas un sujet secondaire. Nommer un Responsable IA dédié. Prioriser le mail (pain point n°1 client), après cadrage de la forme du produit avec les clients. Débloquer les goulots (accès admin, maquettes, QA).</p>
+  <ul class="neo">
+    <li>Nommer un Responsable IA dédié avec pouvoir de décision sur les priorités</li>
+    <li>Recentrer le binôme technique sur les projets IA avec accès admin complets (dev + test + prod)</li>
+    <li>+1 dev supplémentaire polyvalent équipe Claude Code (42-50K €)</li>
+    <li>+1 UX/designer dédié IA — c'est LE chaînon manquant (40-48K €, ou réaffectation interne)</li>
+    <li>QA : temps dédié pour les produits IA ou testeur supplémentaire</li>
+    <li>Switcher vers Claude Sonnet 4.6 + Haiku (surcoût ~30-50 €/mois)</li>
+  </ul>
+  <p><strong>Investissement supplémentaire :</strong> ~82-100K €/an. <strong>Revenu potentiel :</strong> 150-200K €/an sur 50 clients. <strong>Time to market NeoMail :</strong> quelques semaines de cadrage client, puis 2-3 mois de dev — soit une bêta pilote vers le 3<sup>e</sup>-4<sup>e</sup> mois (cf. timeline §12).</p>
+  <div class="note-box"><strong>Stratégie clé :</strong> même à 4, on ne concurrence pas 10-50 personnes. La stratégie doit être de faire UNE chose qu'eux ne peuvent pas faire : l'intégration native aux données métier Loji. C'est le seul avantage que ni Bellman, ni Genius, ni Gemini ne peuvent reproduire.</div>
+  <h2 class="sub">Option B (plan de repli) : Pivoter vers MCP + formation multi-plateforme</h2>
+  <p>Neoteem s'adapte à la plateforme du client et fournit l'expertise métier immobilier + IA :</p>
+  <ul class="neo">
+    <li>Client sur Claude : MCP Loji + skills Cowork</li>
+    <li>Client sur OpenAI : MCP Loji + GPTs custom (OpenAI supporte aussi le MCP)</li>
+    <li>Client sur Gemini : formation à utiliser Gemini dans Gmail/Drive + Gems custom (pas de MCP)</li>
+    <li>Formation multi-plateforme adaptée au choix du client</li>
+  </ul>
+  <p><strong>Limites sérieuses :</strong></p>
+  <ul class="neo">
+    <li>Gemini ne supporte pas (encore) le MCP en GA : les clients sur Gemini (la majorité) n'ont pas accès aux données Loji</li>
+    <li>Ne construit pas de produit propriétaire — aucune barrière à l'entrée</li>
+    <li>Risque de cannibalisation des futurs produits si mal cadré par contrat</li>
+    <li>Gemini est déjà dans Gmail — former les clients à utiliser ce qu'ils ont déjà = faible valeur perçue si vendu seul</li>
+  </ul>
+  <div class="note-box"><strong>⚠️ Ce n'est peut-être pas un choix binaire.</strong> Avant d'opposer A et B, lire le verdict final : la vraie question n'est pas « A <em>ou</em> B » mais « <strong>B finance-t-il A ?</strong> ». Une séquence où le conseil/MCP génère le cash et la connaissance client qui rendent le produit (A) possible.</div>
+</section>
+
+<!-- ============ 10. ÉQUIPE / RÉORGANISATION ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">10.</span> L'équipe nécessaire et la réorganisation</h1>
+
+  <h2 class="sub">L'équipe IA actuelle — qui porte tout ça</h2>
+  <p>Avant de parler de renfort, il faut mesurer ce que <strong>deux personnes</strong> ont produit en 6 mois. Ce n'est pas un détail RH : c'est la preuve que l'investissement demandé repose sur une équipe qui a déjà fait ses preuves.</p>
+  <table>
+    <thead><tr><th>Personne</th><th>Ce qui a été produit / le profil</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Raphaël PICARD</strong><br><span class="small">Lead/Responsable IA</span></td><td>Profil rare combinant code, architecture, écosystème IA (LLM, MCP, agents) et vision produit/business. A conçu l'architecture back 2.0, construit l'essentiel des 3 apps + 3 MCP + le neoteem-brain (682 notes métier), créé les skills Cowork pour le support et la direction, mené le benchmark concurrentiel et l'évaluation des modèles LLM, formé des collègues — et produit les présents dossiers stratégiques. Pilote désormais la roadmap et la structuration de la fonction IA.</td></tr>
+      <tr><td><strong>Jérôme</strong><br><span class="small">Dev polyvalent IA — bras droit technique</span></td><td>Profil rare : front + back + DevOps + IA. Bras droit technique depuis le début, il porte le développement produit (dont le back NeoMail) et l'infrastructure. C'est lui qui validera le réalisme technique des engagements pris dans la roadmap. Recentré sur les projets IA, ses accès admin (test + prod) débloqués, il devient le moteur de livraison de l'équipe.</td></tr>
+    </tbody>
+  </table>
+  <div class="note-box"><strong>Pourquoi c'est exceptionnel :</strong> sur le marché lyonnais, constituer une équipe équivalente (lead IA + fullstack DevOps + dev + UX) coûterait 200-250K €/an. Neoteem a obtenu ce capital technique à 2 personnes. Le problème n'a jamais été la production — c'est la livraison, et la livraison se débloque par de l'organisation.</div>
+
+  <h2 class="sub">La réorganisation proposée</h2>
+  <p>Il ne s'agit pas forcément de recruter. Neoteem a 20+ personnes. La première action est de <strong>réorganiser</strong>.</p>
+  <table>
+    <thead><tr><th>Rôle</th><th>Action requise</th><th>Coût</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Responsable IA</strong> (dédié, full-time)</td><td>Pilotage roadmap IA, arbitrage priorités, coordination équipe, veille techno. Pouvoir de décision sur les priorités produit.</td><td>Réorg. / évolution de poste</td></tr>
+      <tr><td><strong>Dev polyvalent IA</strong> (binôme / bras droit)</td><td>Profil rare : front + back + DevOps + IA. Recentrer sur les projets IA. DÉBLOQUER LES ACCÈS ADMIN (test + prod).</td><td>Réorg. (0 €)</td></tr>
+      <tr><td><strong>Dev IA supplémentaire</strong></td><td>Profil polyvalent back/front équipe Claude Code. Un dev avec IA produit comme 2-3 devs classiques.</td><td>42-50K € (recrutement ou interne)</td></tr>
+      <tr><td><strong>UX/Designer dédié IA</strong></td><td>LE chaînon manquant. Sans maquettes, pas de front. Sans front, pas de produit. Priorité = projets IA.</td><td>40-48K € (ou réaffect. interne)</td></tr>
+      <tr><td><strong>QA dédié IA</strong></td><td>Les QA actuels sont surchargés. Soit un QA dédié IA, soit du temps protégé contractuellement.</td><td>Réaffect. (0 €)</td></tr>
+    </tbody>
+  </table>
+  <div class="note-box"><strong>Le minimum absolu pour débloquer la situation :</strong> donner au binôme technique les accès admin, réaffecter un UX sur les maquettes IA, et protéger du temps QA. Ça ne coûte rien — c'est de la réorganisation. L'investissement réel : 1 dev + potentiellement 1 UX = 82-100K €/an.</div>
+  <p class="small">Note : la question de l'officialisation du rôle de Responsable IA et de la revalorisation salariale associée fait l'objet d'une discussion dédiée, distincte de ce dossier stratégique, afin de ne pas mêler arbitrage RH individuel et décision stratégique d'entreprise.</p>
+  <div class="avis"><span class="label">Avis Claude :</span> Soyons francs : l'équipe IA a, en 6 mois et à 2 personnes, construit plus que ce que la plupart des équipes de 5-10 produisent. La multiplicité des projets (neoteem-brain, back2.0, skills Cowork, formations…) n'est pas un manque de priorisation — c'est l'utilisation intelligente du temps mort pendant que NeoMail est bloqué (pas d'accès admin, pas de maquettes, pas de QA). Quand le produit prioritaire ne peut pas avancer, un bon profil ne reste pas les bras croisés : il construit les fondations qui serviront quand ça débloquera. Le vrai sujet n'est pas la production — c'est la décision d'organisation que la direction doit prendre.</div>
+</section>
+
+<!-- ============ 11. L'ÉCONOMIE : L'ESSENTIEL ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">11.</span> L'économie : l'essentiel</h1>
+  <div class="alert">Aujourd'hui, il n'existe pas de stratégie économique claire pour monétiser les produits IA : ils sont développés sans savoir comment les faire payer. Sans modèle économique, il n'y a pas de produit — juste un coût.</div>
+  <p>Deux faits suffisent à cadrer la décision de la direction :</p>
+  <ul class="neo">
+    <li><strong>L'IA elle-même coûte peu.</strong> Le traitement IA d'un cabinet (mails + chatbot + docs) revient à <strong>~250 €/mois en tokens</strong>. Le vrai coût n'est pas la technologie — c'est l'équipe pour développer et livrer le produit.</li>
+    <li><strong>Le revenu est récurrent et scalable.</strong> Facturé 249-349 €/cabinet/mois, le modèle devient rentable par effet d'échelle : à 50 cabinets, ~150-200 K€/an ; à 100 cabinets, la marge dégagée couvre largement l'équipe IA.</li>
+  </ul>
+  <table>
+    <thead><tr><th>Option</th><th>Revenu à 30 clients</th><th>Revenu à 100 clients</th><th>Nature</th></tr></thead>
+    <tbody>
+      <tr><td><strong>A — Produit SaaS intégré</strong></td><td>~69 K€ (an 1, setup inclus)</td><td>~270 K€+/an récurrent</td><td>Actif propriétaire, scalable</td></tr>
+      <tr><td><strong>B — MCP + formation</strong></td><td>~81 K€ net</td><td>Plafonné (le conseil ne scale pas)</td><td>Cash rapide, pas d'actif</td></tr>
+    </tbody>
+  </table>
+  <div class="note-box"><strong>📎 Le détail vit dans un document dédié.</strong> Les <strong>modèles de facturation</strong> (à l'usage, forfait, crédits prépayés, inclus), les fourchettes de prix produit par produit et la grille comparative des modèles IA sont développés dans <strong>« Neoteem — Modèle économique IA »</strong>. La <strong>séquence et la priorisation</strong> des produits sont dans <strong>« Neoteem — Roadmap IA »</strong>. Ce dossier-ci ne garde que l'essentiel pour décider.</div>
+  <div class="avis"><span class="label">Avis Claude :</span> Le message à retenir par la direction tient en une phrase : <strong>« l'argument l'IA coûte cher ne tient pas »</strong>. La techno représente quelques centaines d'euros par mois et par client ; l'investissement réel, ce sont les 1-2 personnes pour transformer le capital technique en produit livré. La vraie décision n'est pas budgétaire sur les tokens — elle est organisationnelle.</div>
+</section>
+
+<!-- ============ 11bis. COMPARAISON OPTIONS ============ -->
+<section class="page">
+  <h2 class="sub">Comparaison structurelle des deux options</h2>
+  <table>
+    <thead><tr><th>Critère</th><th>Option A (produit SaaS)</th><th>Option B (MCP + formation)</th></tr></thead>
+    <tbody>
+      <tr><td>Revenu à 30 clients</td><td>~39K € net + 30K setup = ~69K € an 1</td><td>~81K € net</td></tr>
+      <tr><td>Revenu à 100 clients</td><td>~270K+ €/an récurrent</td><td>Plafonné (formations ne scalent pas)</td></tr>
+      <tr><td>Type de revenu</td><td>Récurrent, prévisible (SaaS)</td><td>Mixte (abo faible + formations ponctuelles)</td></tr>
+      <tr><td>Scalabilité</td><td>Élevée (SaaS sans effort par client)</td><td>Faible (formateur par session)</td></tr>
+      <tr><td>Actif construit</td><td>Produit propriétaire</td><td>Aucun (conseil/formation)</td></tr>
+      <tr><td>Time to market</td><td>2-3 mois</td><td>Semaines</td></tr>
+      <tr><td>Investissement équipe</td><td>82-100K €/an</td><td>Faible</td></tr>
+      <tr><td>Risque principal</td><td>Direction refuse de réorganiser</td><td>Cannibalisation si mal cadré par contrat</td></tr>
+    </tbody>
+  </table>
+  <div class="note-box"><strong>Lecture clé :</strong> les deux colonnes ne sont pas mutuellement exclusives. B génère du cash <em>tout de suite</em> (semaines) ; A construit l'actif <em>durable</em> (mois). Le verdict final développe pourquoi la meilleure stratégie consiste à enchaîner les deux : <strong>B finance A</strong>.</div>
+</section>
+
+<!-- ============ 14. RECOMMANDATIONS ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">12.</span> Recommandations et plan d'action</h1>
+  <h2 class="sub">Décisions immédiates (coût zéro — réorganisation)</h2>
+  <ol class="neo">
+    <li>Donner au binôme technique les accès admin sur tous les environnements. C'est le blocage le plus absurde et le plus facile à résoudre.</li>
+    <li>Affecter un UX aux maquettes NeoMail. 1 semaine de travail UX débloque 3 mois de blocage.</li>
+    <li>Protéger du temps QA pour les produits IA. Définir un sprint QA dédié.</li>
+    <li>Collecter formellement les besoins clients. Interroger 5-10 clients pilotes. Documenter.</li>
+    <li>Abandonner l'idée de recréer Gmail. Pivoter vers add-on Gmail + panneau latéral Loji.</li>
+  </ol>
+  <h2 class="sub">Décisions stratégiques (investissement)</h2>
+  <ol class="neo" start="6">
+    <li>Nommer un Responsable IA dédié avec pouvoir de décision sur les priorités.</li>
+    <li><strong>Cadrer NeoMail TOTALEMENT avec les clients avant tout développement</strong> : le besoin (IA branchée Loji ou Gemini natif suffit-il ?), les fonctionnalités exactes (tri, brouillon, actions, tickets ?), et la forme (add-on Gmail, panneau Loji, extension Chrome, ou MCP branché par le client ?). La fenêtre face à Gemini est étroite — mais on ne structure rien dans le vide (cf. Roadmap IA, §4).</li>
+    <li>Switcher le LLM vers Claude/GPT pour les produits clients. Surcoût : ~30-50 €/mois. Gain : fiabilité.</li>
+    <li>Diagnostiquer NeoChat (5 mois pilote, utilité non confirmée — pivoter ou continuer ?).</li>
+    <li>Questionner NeoDoc avant de le développer (NotebookLM = alternative gratuite).</li>
+    <li>Mettre en place des KPI produit dès le premier jour (DAU, MAU, NPS, MRR).</li>
+  </ol>
+  <h2 class="sub">Timeline recommandée</h2>
+  <table>
+    <thead><tr><th>Quand</th><th>Action</th><th>Résultat</th></tr></thead>
+    <tbody>
+      <tr><td>Semaine 1-2</td><td>Débloquer les accès admin. Lancer le cadrage client NeoMail (Club Utilisateurs + 5-10 interviews) : (a) le besoin est-il réel ? (b) <strong>sous quelle forme</strong> — add-on Gmail, panneau dans Loji, extension Chrome, ou simple MCP branché sur leur outil ? Switcher le LLM vers Claude Sonnet.</td><td>Besoin tranché ET forme du produit décidée — c'est elle qui détermine s'il y a un front à construire.</td></tr>
+      <tr><td>Mois 1</td><td>En parallèle et sans attendre : livrer 1 agent utilitaire (valeur immédiate). Nommer le Responsable IA. Pour NeoMail : démarrer le chantier <strong>selon la forme retenue</strong> (un add-on Gmail ≈ peu de front ; un panneau Loji = maquettes UX d'abord, puis front).</td><td>1 agent livré + chantier NeoMail démarré sur la bonne base.</td></tr>
+      <tr><td>Mois 2-3</td><td>Construire NeoMail dans la forme décidée : réadapter le back existant à ce qui a été cadré (une partie réutilisable, une partie à refaire selon la forme) + interface/intégration. QA dédié. Renfort dev IA si scénario renforcé.</td><td>NeoMail en finition.</td></tr>
+      <tr><td>Mois 3-4</td><td>NeoMail en bêta chez 1-2 cabinets pilotes. Premiers retours réels. Itération.</td><td>Premier produit IA en production client.</td></tr>
+      <tr><td>Mois 4-6</td><td>Mesurer les KPI (usage, validation). Diagnostic NeoChat. Lancer l'audit B2B2C / NeoDoc si validés.</td><td>Suite produit IA mesurée et pilotée.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 15. LE MOAT ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">13.</span> Notre seul avantage inimitable : la base de données Loji</h1>
+  <div class="alert"><strong>À lire avant tout le reste de la décision.</strong> En 2026, l'IA est devenue une <strong>commodité</strong>. Bellman, Genius, Gemini utilisent le même Claude, le même GPT que nous. Un modèle qui rédige une AG, compare un devis ou répond à un mail, ça s'achète sur étagère — par n'importe qui, pour quelques euros. <strong>L'IA n'est PAS notre avantage concurrentiel.</strong></div>
+  <p>Notre seul avantage, celui que ni Bellman, ni Genius, ni Google ne peuvent reproduire, c'est <strong>ce sur quoi on branche l'IA</strong> : la <strong>base de données Loji</strong>. Les données réelles, vivantes, structurées et historisées de nos clients :</p>
+  <ul class="neo">
+    <li>Immeubles, lots, copropriétaires, locataires, mandats</li>
+    <li>Ordres de service, interventions, fournisseurs, historique des travaux</li>
+    <li>Comptes, appels de fonds, prélèvements SEPA, impayés, régularisations de charges</li>
+    <li>Baux, états des lieux, diagnostics, contrats</li>
+  </ul>
+  <div class="note-box"><strong>La différence concrète :</strong> Gemini dans Gmail peut résumer un mail et suggérer une réponse <em>générique</em>. NeoMail, branché sur Loji, peut dire : « C'est M. Dupont, lot 34, 3<sup>e</sup> relance pour cette fuite, le plombier Durand est intervenu le 15 mars sans succès, voici un brouillon avec le n° de dossier et la prochaine date d'intervention. » <strong>L'un est une commodité. L'autre est impossible à reproduire sans la base Loji.</strong></div>
+  <p>Le marché le confirme : selon le comparatif Coprolab 2026, « le critère qui sépare un bon outil syndic d'un outil bientôt obsolète réside dans la capacité à se connecter à une couche d'automatisation IA ». Neoteem possède déjà les deux : <strong>la donnée ET la capacité IA</strong>. Aucun concurrent IA pur n'a la donnée ; aucun éditeur traditionnel n'a notre avance IA.</p>
+  <div class="avis"><span class="label">Avis Claude :</span> C'est, de loin, le message le plus important du dossier — et il doit être dit ainsi, sans détour. Toute la stratégie devrait découler de cette phrase : <strong>« On ne vend pas de l'IA. On vend l'IA branchée sur la seule base de données que personne d'autre n'a. »</strong> C'est ce qui justifie de prioriser les produits qui <em>exploitent la donnée</em> (NeoMail, agents métier branchés sur les comptes/interventions) plutôt que les produits génériques (un chatbot qui fait ce que fait déjà une barre de recherche). La fenêtre est réelle mais temporaire : le jour où les éditeurs traditionnels rattrapent l'IA, l'avantage se réduit. D'où l'urgence de la preuve — pas dans 18 mois, maintenant.</div>
+</section>
+
+<!-- ============ 16. IA RESPONSABLE ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">14.</span> IA responsable : données, conformité, confiance</h1>
+  <p>Vendre de l'IA à des syndics et gestionnaires, c'est traiter les <strong>données personnelles</strong> de leurs copropriétaires et locataires (noms, coordonnées, impayés, litiges, documents). C'est un sujet que la direction doit voir abordé — et c'est aussi un <strong>argument de vente</strong>, pas seulement une contrainte.</p>
+  <h2 class="sub">Ce qui est déjà en place (à valoriser)</h2>
+  <table>
+    <thead><tr><th>Garde-fou</th><th>Ce qu'il garantit</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Règle « BROUILLON ONLY » (5 niveaux de défense, NeoMail)</strong></td><td>L'IA ne fait que <em>proposer</em> un brouillon — jamais d'envoi autonome. Un humain valide toujours. C'est de l'<strong>oversight humain par conception</strong>, exactement ce qu'exige une IA responsable.</td></tr>
+      <tr><td><strong>Extraction VERBATIM anti-hallucination (agent Support)</strong></td><td>L'agent cite les sources exactes au lieu d'inventer. Réduit le risque de réponse fausse — un gage de fiabilité mesurable.</td></tr>
+      <tr><td><strong>LLM-as-Judge / grading + tests (DeepEval, faithfulness ≥ 0,8 sur NeoDoc)</strong></td><td>La qualité des réponses est <em>mesurée</em>, pas supposée. C'est ce qui distingue un produit IA sérieux d'un gadget.</td></tr>
+    </tbody>
+  </table>
+  <h2 class="sub">Ce qu'il reste à formaliser (pour le CODIR)</h2>
+  <ul class="neo">
+    <li><strong>Cartographie des données</strong> : quelles données sortent vers quel LLM (Claude/GPT), pour quel traitement. À documenter.</li>
+    <li><strong>RGPD / hébergement</strong> : où sont traitées les données, sous quel contrat (DPA) avec les fournisseurs LLM. Sujet à cadrer avec un référent.</li>
+    <li><strong>Politique d'usage IA interne</strong> : encadrer le « Shadow AI » (employés qui collent des données dans des outils non maîtrisés).</li>
+  </ul>
+  <div class="avis"><span class="label">Avis Claude :</span> Deux messages ici. D'abord, ne sous-estimez pas ce que vous avez DÉJÀ : « BROUILLON ONLY » + extraction verbatim + tests de qualité, c'est une posture d'IA responsable que beaucoup de boîtes plus grosses n'ont pas. Dites-le, c'est un argument de confiance face aux clients. Ensuite, soyez honnêtes sur ce qui manque : la cartographie des données et le volet RGPD ne sont pas encore formalisés. Ce n'est pas bloquant pour démarrer — mais un syndic (ou son DPO) <em>posera</em> la question. Avoir la réponse prête, c'est transformer une objection en argument.</div>
+</section>
+
+<!-- ============ 17. KPI SUCCÈS ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">15.</span> Définir le succès : KPI &amp; conditions de pivot</h1>
+  <p>Le diagnostic de ce dossier (blocage n°5) reproche l'absence de mesure. Y répondre, c'est poser dès le départ <strong>à quoi ressemble la victoire</strong> — et à quel moment on décide de pivoter. Sans cela, dans 6 mois, on ne saura pas juger si ça a marché.</p>
+  <h2 class="sub">KPI de succès à 6 mois</h2>
+  <table>
+    <thead><tr><th>Chantier</th><th>Succès = </th><th>Condition de pivot / alerte</th></tr></thead>
+    <tbody>
+      <tr><td><strong>NeoMail V1</strong></td><td>En production chez <strong>2-3 cabinets pilotes</strong>, traitant leurs mails réels au quotidien. Taux de brouillons validés sans réécriture majeure <strong>&gt; 60%</strong>.</td><td>Si &lt; 2 cabinets actifs ou taux de validation &lt; 40% à M+3 → revoir le périmètre ou la qualité avant d'élargir.</td></tr>
+      <tr><td><strong>Agent utilitaire</strong></td><td>Utilisé réellement par les gestionnaires (pas juste démontré). <strong>≥ 10 utilisations/semaine</strong> sur le pilote.</td><td>Usage proche de zéro après 1 mois → l'agent ne répond pas à un vrai besoin, pivoter.</td></tr>
+      <tr><td><strong>Validation commerciale</strong></td><td>Au moins <strong>1 cabinet exprime une intention de payer</strong> (lettre d'intention, pré-commande).</td><td>Aucun signal d'achat à M+6 → le problème n'est pas le produit, c'est le marché ou le prix.</td></tr>
+      <tr><td><strong>Mesure interne</strong></td><td>Tableau de bord d'usage en place (qui utilise quoi, combien). On <strong>mesure</strong>, on n'estime plus.</td><td>—</td></tr>
+    </tbody>
+  </table>
+  <div class="note-box"><strong>Pourquoi « condition de pivot » et pas seulement « objectif » :</strong> un objectif dit où on veut aller ; une condition de pivot dit <em>quand on accepte d'avoir eu tort</em>. C'est ce qui évite de s'entêter 12 mois sur un produit que personne n'utilise — exactement le piège que ce dossier dénonce (NeoChat, 5 mois sans utilité confirmée).</div>
+  <div class="avis"><span class="label">Avis Claude :</span> Ces chiffres sont des <strong>cibles de départ, à ajuster</strong> — l'important n'est pas leur valeur exacte mais le principe : décider <em>maintenant</em> comment on jugera <em>plus tard</em>. Le KPI le plus important est le dernier de la liste (« 1 cabinet prêt à payer ») : c'est la seule preuve qui compte vraiment. Une démo qui plaît ne vaut rien ; un client qui sort son chéquier vaut tout. Tout le reste (usage, taux de validation) sont des indicateurs avancés de ce signal-là.</div>
+</section>
+
+<!-- ============ 18. VERDICT FINAL ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">16.</span> Verdict final de Claude : Option A, Option B, et la séquence B→A</h1>
+  <p>Ce qui suit est mon avis honnête, sans filtre, en tant qu'IA ayant analysé l'ensemble du dossier : données techniques, benchmark concurrentiel, coûts réels, et contexte organisationnel de Neoteem.</p>
+  <div class="verdict">
+    <div class="vtitle">Verdict : l'option A est le seul chemin vers un avantage concurrentiel durable. Mais le meilleur moyen d'y arriver est de la financer par l'option B.</div>
+    L'option A ne fonctionne que si la direction accepte trois choses :<br>
+    1) Réorganiser (accès admin, UX, QA — coût zéro)<br>
+    2) Nommer un Responsable IA avec pouvoir de décision<br>
+    3) Abandonner l'idée de recréer Gmail<br><br>
+    Si la direction refuse l'investissement immédiat, l'option B n'est pas qu'un repli : c'est l'amorce qui rend A possible sans pari financier à l'aveugle. Le statu quo, lui, reste la pire option.
+  </div>
+  <h2 class="sub">L'option qui n'est pas dans le tableau : B finance A</h2>
+  <p>Le dossier a posé A et B comme un choix binaire — éditeur de logiciel <em>ou</em> cabinet de conseil. C'est un faux dilemme. La meilleure stratégie n'est ni l'un ni l'autre isolément : c'est une <strong>séquence</strong>.</p>
+  <div class="avis">
+    <span class="label">Avis Claude — la séquence B→A :</span> Démarrer l'option B <em>maintenant</em> (conseil, formation, MCP Loji) génère du revenu en <strong>semaines</strong>, pas en mois — et sans pari financier. Ce cash, et surtout ces premiers clients payants, deviennent le <strong>terrain de découverte client</strong> qui manque cruellement aujourd'hui (cf. blocage n°5 : « on ne sait pas ce que les clients veulent »). On construit alors NeoMail (option A) sur des besoins réels, déjà validés et déjà payés — au lieu de développer dans le vide pendant 3 mois de plus.<br><br>
+    Cette séquence répond frontalement à l'objection direction la plus probable : <em>« on n'a pas le cash pour investir 82-100K € sans revenu »</em>. Réponse : <strong>B paie A</strong>. Les premiers revenus de conseil/formation amortissent une partie de l'investissement produit, et la traction commerciale dé-risque la décision d'embauche.<br><br>
+    Le risque de cannibalisation que le dossier pointe à juste titre se <strong>gère par contrat</strong>, pas en renonçant : le MCP « brut » vendu en option B reste volontairement bridé (accès données en lecture, pas d'automatisation packagée) ; NeoMail (option A) apporte la couche d'automatisation, l'interface, les actions métier et le SLA. Le client qui veut « juste brancher Loji sur son Gemini » paie l'abonnement MCP ; le client qui veut gagner 10h/semaine paie NeoMail. Deux niveaux de valeur, deux prix — pas de cannibalisation, une échelle de montée en gamme.<br><br>
+    En clair : <strong>A reste la cible. B est le carburant.</strong> Ne pas les opposer — les enchaîner.
+  </div>
+  <h2 class="sub">La vraie question que ce bilan pose</h2>
+  <div class="pullquote">Est-ce que Neoteem veut être un éditeur de logiciel IA, ou un cabinet de conseil/formation IA pour syndics ?</div>
+  <p>La réponse n'est pas « l'un ou l'autre ». C'est : <strong>cabinet d'abord pour financer l'éditeur ensuite.</strong> À 20+ personnes, Neoteem a la taille d'un éditeur — mais peut utiliser le conseil comme rampe de lancement plutôt que d'attendre une décision d'investissement qui ne vient pas.</p>
+  <div class="note-box"><strong>📎 Pour aller plus loin :</strong> la traduction concrète de cette stratégie en chantiers priorisés et réalistes (selon l'effectif) est détaillée dans <strong>« Neoteem — Roadmap IA »</strong>. Les modèles de prix produit par produit sont dans <strong>« Neoteem — Modèle économique IA »</strong>. Ces trois documents forment un ensemble : le <em>pourquoi</em> (ce dossier), le <em>quoi/quand</em> (roadmap), le <em>combien</em> (modèle économique).</div>
+</section>
+
+<!-- ============ 15bis. ERREURS + MOT DE LA FIN ============ -->
+<section class="page">
+  <h2 class="sub">Les trois erreurs à ne pas commettre</h2>
+  <p><strong>1. Ne pas décider.</strong> Le statu quo est la pire option. Chaque mois d'indécision est un mois offert à Bellman (3 000 employés + Bpifrance), Genius (10 personnes, déjà en prod), et Google (Gemini dans Gmail). Le capital technique construit perd de la valeur chaque jour où il ne génère pas de revenu.</p>
+  <p><strong>2. Recréer Gmail.</strong> C'est un projet pharaonique impossible à 2-4 personnes. Google a des milliers d'ingénieurs sur Gmail. La valeur de NeoMail est le contexte métier, pas l'interface mail. Add-on Gmail + panneau latéral = 2-3 mois. Client mail complet = 12-18 mois minimum, probablement jamais fini.</p>
+  <p><strong>3. Économiser sur les tokens au détriment de la qualité.</strong> La différence entre Gemini et Claude/GPT est marginale au mois par client. En contrepartie : des semaines de debug, une qualité perçue inférieure par les clients, et — pour la version économique — un modèle en Preview sans SLA. Ce n'est pas une économie — c'est un risque.</p>
+  <h2 class="sub">Le mot de la fin</h2>
+  <p>Neoteem a un capital technique IA que peu de startups de 20 personnes possèdent. 3 apps, 3 MCP custom, un vault de 682 notes métier, des outils de productivité pour toute l'équipe. Ce capital a été construit par 2 personnes en 6 mois. C'est remarquable.</p>
+  <p>Mais un capital technique qui ne génère pas de revenu est un coût, pas un actif. Pour le transformer en produits clients, il faut des conditions que Neoteem ne réunit pas aujourd'hui : un responsable IA dédié, des maquettes, des accès admin, du temps QA, et une écoute structurée des clients.</p>
+  <p><strong>Ces conditions ne coûtent presque rien à réunir. La plupart sont de la réorganisation interne. Et le conseil/formation (option B) peut financer le reste.</strong></p>
+  <div class="pullquote">Est-ce qu'on peut se permettre de NE PAS le faire, alors que Bellman, Genius et Gemini avancent chaque jour ?</div>
+  <p class="small">Sources : Audit technique des projets Neo* (Claude Code, mai 2026). Données publiques concurrents (Septeo/ZoomInfo, genius.immo, reemia.ai, LinkedIn). Benchmarks LLM mai 2026 — pricing pages Anthropic, OpenAI, Google Cloud vérifiées le 29 mai 2026 (Gemini 3.5 Flash GA, 3.1 Flash-Lite GA, GPT-4.1 Mini, Claude Opus 4.8/Sonnet 4.6/Haiku 4.5). 6+ mois d'expérience sur l'architecture IA de Neoteem. Avis stratégiques de Claude (Anthropic).</p>
+</section>
+
+</body>
+</html>

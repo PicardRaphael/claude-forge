@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Neoteem — Roadmap IA — Mai 2026</title>
+<link rel="stylesheet" href="_charte/neoteem-charte.css">
+</head>
+<body>
+
+<!-- ============ PAGE DE GARDE ============ -->
+<section class="page cover">
+  <img class="cover-logo" src="logo.webp" alt="Neoteem">
+  <h1>Roadmap IA</h1>
+  <div class="subtitle">
+    Deux axes : Clients &amp; Interne.<br>
+    Deux horizons : 6 mois &amp; 12 mois.<br>
+    Deux scénarios : équipe actuelle &amp; équipe renforcée.
+  </div>
+  <div class="accent-bar"></div>
+  <div class="desc">
+    Catalogue d'idées IA puis feuille de route priorisée et réaliste pour les produits IA Loji
+    et l'outillage IA interne. Chaque chantier est classé : Livré, Exploré ou Parké — et confronté
+    à la capacité réelle de l'équipe.
+  </div>
+  <dl class="meta">
+    <dt>Auteurs</dt><dd>Raphaël PICARD &amp; Jérôme</dd>
+    <dt>Date</dt><dd>Mai 2026 — Version 2 (à valider)</dd>
+    <dt>Destinataires</dt><dd>Direction Neoteem</dd>
+    <dt>Classification</dt><dd>Interne — Confidentiel</dd>
+  </dl>
+  <div class="note">Document co-construit avec Claude (Anthropic). Les avis Claude sont intégrés dans l'analyse.</div>
+</section>
+
+<!-- ============ SOMMAIRE ============ -->
+<section class="page">
+  <h1 class="section">Sommaire</h1>
+  <ol class="neo" style="font-size:11pt; line-height:2;">
+    <li>Comment lire cette roadmap</li>
+    <li>Le principe : trancher, pas tout faire</li>
+    <li>Catalogue d'idées IA (vision — Interne &amp; Clients)</li>
+    <li>Roadmap réalisable — CLIENTS (6 et 12 mois)</li>
+    <li>Roadmap réalisable — INTERNE (6 et 12 mois)</li>
+    <li>Les paris stratégiques à risque (MCP clients, Gmail)</li>
+    <li>Ce qu'on a parké (et pourquoi)</li>
+    <li>Le coût caché : temps de structuration, disponibilités, aléas</li>
+    <li>Pourquoi cette roadmap est vivante (évolution de l'IA)</li>
+    <li>Deux scénarios : équipe actuelle vs renforcée</li>
+    <li>Verdict du Responsable IA &amp; prochaines étapes</li>
+  </ol>
+</section>
+
+<!-- ============ 1. COMMENT LIRE ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">1.</span> Comment lire cette roadmap</h1>
+  <p>Cette roadmap est une proposition (V2) destinée à être discutée et validée ensemble. Elle n'est pas un engagement ferme : c'est une base de priorisation. Elle distingue clairement <strong>ce qu'on rêve de faire</strong> (le catalogue d'idées) de <strong>ce qu'on peut réellement livrer</strong> avec l'équipe d'aujourd'hui — et de ce que débloquerait un renfort.</p>
+  <h2 class="sub">La structure en deux temps</h2>
+  <ul class="neo">
+    <li><strong>Le catalogue d'idées (section 3)</strong> — toutes nos pistes IA, côté Interne et côté Clients, sans contrainte de temps. C'est la vision. On y montre l'ambition complète, sans s'engager dessus.</li>
+    <li><strong>La roadmap réalisable (sections 4-5)</strong> — le sous-ensemble qu'on peut tenir, avec pour chaque chantier <strong>deux colonnes</strong> : « faisable à 2 personnes » et « faisable avec renfort ». C'est l'engagement, calibré sur la capacité réelle.</li>
+  </ul>
+  <h2 class="sub">Les trois statuts</h2>
+  <table>
+    <thead><tr><th>Statut</th><th>Signification</th><th>Engagement</th></tr></thead>
+    <tbody>
+      <tr><td><strong style="color:#00a78e;">LIVRÉ</strong></td><td>Chantier qu'on s'engage à livrer sur l'horizon indiqué. Priorité haute, périmètre cadré.</td><td>Ferme</td></tr>
+      <tr><td><strong style="color:#e0a800;">EXPLORÉ</strong></td><td>Audit, POC ou cadrage. On étudie la faisabilité et la valeur avant de promettre une mise en production.</td><td>Conditionnel</td></tr>
+      <tr><td><strong style="color:#5a6b78;">PARKÉ</strong></td><td>Idée identifiée mais hors scope pour l'instant. Documentée pour ne pas la perdre, instruite plus tard.</td><td>Aucun</td></tr>
+    </tbody>
+  </table>
+  <h2 class="sub">Pourquoi ce document est aussi un exercice de structuration</h2>
+  <p>Ce document n'est pas qu'une liste : c'est une démonstration de la manière dont l'IA sera désormais pilotée chez Neoteem — par des priorités explicites, des arbitrages assumés, et une honnêteté sur la capacité réelle. Structurer la roadmap, les tickets et les réunions <em>est</em> le travail du Responsable IA. C'est ce qui transforme « beaucoup de prototypes » en « des produits livrés ».</p>
+  <h2 class="sub">Une note importante sur les délais</h2>
+  <p>Cette roadmap ne raisonne pas en jours-homme classiques. L'équipe IA développe avec Claude Code, ce qui accélère fortement la production de code, le prototypage et la documentation. <strong>Mais le code n'est pas le facteur limitant.</strong></p>
+  <p>Point essentiel : <strong>aujourd'hui, rien de ce qui suit n'est structuré.</strong> Chaque chantier passe d'abord par une phase de structuration avant le moindre développement — prendre rendez-vous avec les bonnes personnes (chefs de partie, équipes métier, clients), cadrer les besoins réels, organiser des réunions, décider du périmètre. Cette phase prend du temps calendaire qui ne dépend pas de la vélocité de code : elle dépend des disponibilités de chacun. Le vrai facteur limitant, c'est la séquence <strong>structuration → développement</strong>, les accès (DevOps, admin), les maquettes (UX) et la validation client. Voir la section 8 pour le détail de ce coût caché.</p>
+  <p><strong>Un point d'honnêteté sur l'existant :</strong> ce qui a déjà été codé (notamment le back NeoMail) l'a été <em>sans cadrage produit</em> — avant de savoir le besoin réel, les fonctionnalités et où brancher l'outil. Ce n'est donc pas un acquis « gratuit » : selon ce que le cadrage décide, une partie sera réutilisée, une partie adaptée, une partie refaite. Les estimations de cette roadmap doivent intégrer ce risque de re-travail — pas supposer que « le back est prêt, il ne reste que le front ».</p>
+  <h2 class="sub">Une note sur NeoChat (et pourquoi il n'est pas prioritaire)</h2>
+  <p>Cette roadmap ne place pas NeoChat en priorité. NeoChat est le chatbot qui interroge la base Loji en langage naturel (« quel client me doit le plus d'argent ? »). La fonction paraît utile, mais — à confirmer avec les clients — elle ne change pas la donne : Loji propose déjà une barre de recherche qui répond aux mêmes questions, souvent mieux. Pire, si les utilisateurs prennent l'habitude de tout demander au chatbot, ils cessent de regarder dans Loji, alors que le chatbot répond moins bien — on dégraderait l'expérience. NeoChat est donc <strong>parké</strong> (voir section 7), à repositionner sur ce que Loji ne sait pas faire.</p>
+</section>
+
+<!-- ============ 2. LE PRINCIPE ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">2.</span> Le principe : trancher, pas tout faire</h1>
+  <div class="alert"><strong>Le risque principal, disons-le franchement : il y a beaucoup d'idées, et l'équipe IA ne compte que 2 personnes — dont l'un (Raphaël) bascule sur un rôle de pilotage.</strong> Lister 15+ chantiers sans les hiérarchiser, c'est la garantie de finir avec beaucoup de prototypes et rien en production client — exactement ce que le dossier stratégique a déjà diagnostiqué. Cette roadmap assume donc de trancher : un très petit nombre de chantiers livrés, le reste explicitement exploré, parké, ou rangé dans le catalogue d'idées.</div>
+  <p>La règle de priorisation tient en une phrase :</p>
+  <div class="pullquote">« Une preuve de valeur en production client d'abord — le reste ensuite. »</div>
+  <p>Concrètement : tant qu'aucun produit IA n'est en production chez un vrai client, multiplier les nouveaux chantiers disperse l'équipe sans créer de preuve commerciale. Les priorités absolues sont donc resserrées : <strong>cadrer NeoMail avec les clients puis, si le besoin est confirmé, sortir une V1</strong>, et <strong>livrer 1 agent utilitaire</strong> (les agents existants fonctionnent déjà ; lequel ajouter reste à trancher avec les clients).</p>
+  <div class="note-box"><strong>Une règle de capacité, pas un avis :</strong> à effectif donné, on ne peut pas mettre 9 chantiers en engagement ferme. La littérature produit (Now/Next/Later, Janna Bastow) fixe une limite de <strong>5-7 chantiers actifs maximum pour une équipe de 1 à 5 personnes</strong>. À 2 personnes dont 1 sur du pilotage, la limite réaliste est encore plus basse. Cette V2 corrige donc la V1, qui surchargeait le « réalisable ».</p></div>
+  <div class="avis"><span class="label">Avis Claude :</span> Si la direction veut ajouter des chantiers en « Livré », la vraie question n'est pas « est-ce une bonne idée ? » (presque toutes le sont) mais « qu'est-ce qu'on retire en échange, ou combien de personnes ajoute-t-on ? ». À 2 personnes, chaque nouveau chantier ferme en repousse un autre. C'est mathématique, pas pessimiste. Et ce calcul empire quand l'un des deux passe la moitié de son temps à structurer, présenter et coordonner — ce qui est précisément le rôle d'un Responsable IA.</div>
+</section>
+
+<!-- ============ 3. CATALOGUE D'IDÉES ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">3.</span> Catalogue d'idées IA (vision)</h1>
+  <p>Cette section liste <strong>toutes</strong> les pistes IA identifiées, sans contrainte de temps ni de capacité. C'est la vision complète : ce que Neoteem <em>pourrait</em> construire. Toutes ne seront pas faites en 6 ou 12 mois — certaines jamais à 2 personnes. Les ranger ici garantit qu'on ne les perd pas, et qu'on les instruit au bon moment plutôt que de se disperser en les lançant trop tôt.</p>
+  <p class="small">Légende origine : <span class="badge pass" style="background:#0a3a5c;">Équipe</span> idée portée par l'équipe IA · <span class="badge" style="background:#b6306e;">Claude</span> idée proposée par Claude, ancrée dans le métier Loji (analyse de la base de connaissance + recherche marché).</p>
+  <div class="note-box"><strong>Comment lire ce catalogue :</strong> c'est le réservoir d'idées (la vision). Toutes ne sont pas engagées. Ce qui est <strong>réellement réalisable</strong> sur 6-12 mois, à 2 personnes ou avec renfort, est trié dans les sections suivantes : <strong>§4 (idées clients → roadmap réalisable)</strong> et <strong>§5 (idées internes → roadmap réalisable)</strong>. Le reste est soit en pari stratégique (§6), soit parké (§7). Autrement dit : ce tableau dit <em>ce qu'on pourrait faire</em> ; les §4-5 disent <em>ce qu'on fait vraiment, et quand</em>.</div>
+  <h2 class="sub">Idées — axe CLIENTS</h2>
+  <table>
+    <thead><tr><th>Idée</th><th>Valeur potentielle</th><th>Origine</th></tr></thead>
+    <tbody>
+      <tr><td><strong>NeoMail</strong> (mail enrichi données Loji)</td><td>Le produit-preuve. Brouillons contextualisés avec les vraies données du lot/copro. Avantage qu'aucun concurrent ne reproduit.</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+      <tr><td><strong>Agents utilitaires</strong> (AG, comparaison devis BTP, annonce 8 styles, reformulation)</td><td>Valeur immédiate, faible risque. Capitalisent sur ce qui marche déjà (l'agent devis intègre déjà BODACC, DTU, normes NF, RGE).</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+      <tr><td><strong>Chatbot support client</strong> (+ création de ticket)</td><td>Les clients remontent leurs problèmes techniques et créent un ticket directement. Réduit la charge support.</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+      <tr><td><strong>Agents métier avancés</strong> (réclamations, relance impayés, extraction docs)</td><td>Le meilleur ROI client : tâches à fort volume. La relance d'impayés (loyers/charges, lien GLI) touche directement à l'argent du client.</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+      <tr><td><strong>Agent « préparation d'AG »</strong> (assistant, pas auto)</td><td>Génération de l'ordre du jour, des résolutions type, du PV pré-rempli à partir des données copro Loji. L'AG est LA tâche chronophage du syndic. <strong>⚠️ Cadre juridique strict :</strong> le PV est un acte non modifiable après signature, l'hallucination juridique est un risque réel et le syndic reste responsable → mode <strong>assistant validé par un humain</strong>, jamais générateur autonome de PV.</td><td><span class="badge" style="background:#b6306e;">Claude</span></td></tr>
+      <tr><td><strong>Agent « régularisation des charges »</strong></td><td>La régularisation annuelle des charges locatives est une douleur connue (cf. problèmes connus support). Un agent qui explique au locataire son décompte en langage clair + génère le courrier d'accompagnement.</td><td><span class="badge" style="background:#b6306e;">Claude</span></td></tr>
+      <tr><td><strong>Agent « onboarding nouveau mandat »</strong></td><td>Extraction auto des données d'un mandat entrant (bail, état des lieux, fiche acteur) pour pré-remplir Loji. La saisie manuelle ralentit l'onboarding — gain de temps direct au gestionnaire.</td><td><span class="badge" style="background:#b6306e;">Claude</span></td></tr>
+      <tr><td><strong>Agent « gestion de sinistre »</strong></td><td>Le marché identifie la gestion des sinistres comme un « cauchemar administratif » du syndic (déclarations, échanges assurances, suivi de dossier). Neoteem a déjà l'API sinistres MRI (Verspieren, Odealim, Arilim) + le module suivi-dossier. Un agent qui assiste la déclaration, rédige les échanges et suit le dossier de bout en bout = forte valeur, branché sur des briques existantes.</td><td><span class="badge" style="background:#b6306e;">Claude</span></td></tr>
+      <tr><td><strong>Agent « pré-vol comptable »</strong> (avant régul / clôture)</td><td>Détecte les anomalies AVANT la validation d'une régularisation ou d'une clôture (déséquilibre, compte 471 non soldé, cumuls en doublon, exercice futur sans budget). Ces blocages sont parmi les tickets support les plus fréquents et bloquent même l'envoi des convocations AG. Branché sur la compta Loji = impossible à reproduire par un outil générique.</td><td><span class="badge" style="background:#b6306e;">Claude</span></td></tr>
+      <tr><td><strong>Agent « préparation révision de loyers »</strong></td><td>Vérifie en 1 clic, sur tout le portefeuille, les prérequis qui font échouer la révision (dates de facturation N au lieu de N-1, code INSEE manquant, DPE absent) et signale les contrats à corriger. Tiré des tickets support réels : la révision échoue toujours pour les mêmes 2-3 raisons.</td><td><span class="badge" style="background:#b6306e;">Claude</span></td></tr>
+      <tr><td><strong>Assistant « copilote Loji »</strong> contextuel</td><td>Plutôt qu'un chatbot qui double la recherche (cf. NeoChat parké), un assistant qui agit DANS le contexte d'une fiche (immeuble, lot, bail) : « rédige la relance pour ce locataire », « explique cette ligne de compte ». Ancré sur ce que Loji ne sait pas faire.</td><td><span class="badge" style="background:#b6306e;">Claude</span></td></tr>
+      <tr><td><strong>Assistant « formation clients »</strong> (couplé Dendreo)</td><td>Besoin remonté par l'équipe support/formation. Dendreo (déjà en place chez Neoteem) gère l'agenda et l'admin. La valeur Neoteem : <strong>recommander quelles formations proposer à quels clients</strong>, à partir des données Loji (modules où le client galère, tickets support récurrents) — puis pré-remplir le planning Dendreo. Dendreo planifie ; nos données disent <em>qui</em> former et <em>sur quoi</em>.</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+      <tr><td><strong>Chatbot B2B2C</strong> (assistant pour les clients de nos clients)</td><td>Assistant pour les locataires et copropriétaires directement (via l'extranet) : répondre à leurs questions 24/7, alléger les sollicitations qui remontent au gestionnaire. <strong>Forte valeur stratégique</strong> — c'est un sujet porté par la direction : il étend l'IA au-delà du gestionnaire vers l'utilisateur final, et c'est un argument différenciant face aux concurrents. Prérequis : un audit du besoin réel des copropriétaires + socle MCP métier.</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+      <tr><td><strong>MCP métier clients</strong> (par domaine)</td><td>Exposer les données Loji via MCP. Stratégie d'ouverture — mais à risque de cannibalisation (voir section 6).</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+      <tr><td><strong>NeoDoc / extension NotebookLM</strong></td><td>Interroger les documents avec contexte Loji. Valeur conditionnée à ce que NotebookLM ne fait pas.</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+      <tr><td><strong>Extension Gmail</strong> (add-on)</td><td>Enrichir Gmail plutôt que le remplacer. Complément à NeoMail, pas un chantier principal.</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+      <tr><td><strong>Plateforme d'agents IA immobilier</strong> (externe)</td><td>Agents immobiliers au-delà des clients Loji. Autre business, autre modèle économique. Parké (séparé).</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+    </tbody>
+  </table>
+  <h2 class="sub">Idées — axe INTERNE</h2>
+  <table>
+    <thead><tr><th>Idée</th><th>Valeur potentielle</th><th>Origine</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Skill PO — épiques &amp; tickets structurés</strong></td><td>Génère épiques et tickets structurés, homogènes pour toute l'équipe. Des tickets clairs sont exploitables directement par Claude Code pour développer, et facilitent la rédaction de la documentation une fois fermés.</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+      <tr><td><strong>Skill documentation QA &amp; Support</strong></td><td>Documentation structurée assistée par IA. Gain transverse.</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+      <tr><td><strong>Skills &amp; agents par équipe</strong> (support, QA, PO, dev)</td><td>Outiller chaque service. Mode de développement à privilégier en interne.</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+      <tr><td><strong>Catalogue de skills centralisé</strong></td><td>Catalogue versionné de tous les skills/agents. Évite l'éparpillement. Gouvernance.</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+      <tr><td><strong>Mesure d'usage &amp; ROI</strong></td><td>Instrumenter qui utilise quoi, combien, temps gagné. Sans mesure, impossible de prouver la valeur de l'IA.</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+      <tr><td><strong>Tri de tickets</strong> (consolidation)</td><td>Déjà en place. Le consolider et mesurer son usage réel.</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+      <tr><td><strong>Formations IA continues</strong></td><td>Monter l'entreprise en compétence. Lien direct avec l'Option B du dossier stratégique (revenu formation).</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+      <tr><td><strong>Audit Rovo (Atlassian)</strong></td><td>Mesurer si Rovo (déjà payé) peut faire une partie du travail sans Claude — réduire les coûts.</td><td><span class="badge pass" style="background:#0a3a5c;">Équipe</span></td></tr>
+      <tr><td><strong>Agent « réponse support niveau 1 »</strong> sur le vault</td><td>Le support a déjà une base structurée (682 notes + un lexique de 250 tickets réels mappés vers leurs diagnostics). Un agent qui répond aux tickets récurrents en s'appuyant dessus = désengorge le support sur les questions répétitives.</td><td><span class="badge" style="background:#b6306e;">Claude</span></td></tr>
+      <tr><td><strong>Agent « diagnostic croisé Loji »</strong></td><td>Va plus loin que le N1 documentaire : lit le ticket ET interroge l'état réel de la base Loji (date de facturation, statut ADF, exercice ouvert ?) pour proposer la cause exacte + la solution. Tiré du constat des 250 tickets : la plupart sont auto-diagnosticables si on croise le symptôme avec l'état de la base. C'est le moat appliqué au support.</td><td><span class="badge" style="background:#b6306e;">Claude</span></td></tr>
+      <tr><td><strong>Agent « qualification &amp; triage ticket »</strong></td><td>Applique automatiquement la charte de qualification N2 (BLOQUANT / BUG / Intervention BDD), priorise et affecte au bon sprint Jira. Aujourd'hui fait à la main pour chaque ticket.</td><td><span class="badge" style="background:#b6306e;">Claude</span></td></tr>
+      <tr><td><strong>Agent « rédacteur de FAQ/procédure »</strong></td><td>À partir d'un ticket résolu, l'agent génère automatiquement la note FAQ ou procédure correspondante dans le vault — la base de connaissance s'enrichit toute seule au lieu de dépendre du temps de quelqu'un.</td><td><span class="badge" style="background:#b6306e;">Claude</span></td></tr>
+      <tr><td><strong>Détecteur de tickets en double / similaires</strong></td><td>À l'arrivée d'un ticket, l'agent signale les tickets similaires déjà traités. Évite le travail en double côté support et dev.</td><td><span class="badge" style="background:#b6306e;">Claude</span></td></tr>
+    </tbody>
+  </table>
+  <div class="avis"><span class="label">Avis Claude :</span> Les idées que je propose (badge magenta) ne sortent pas de nulle part : elles s'appuient sur ce que Neoteem possède déjà — la base de données Loji (l'actif inimitable), les domaines métier (AG, charges, baux, GLI, ordres de service), les problèmes connus du support. C'est là qu'est l'avantage : un concurrent peut copier un chatbot avec le même Claude/GPT, il ne peut pas copier les données Loji. Mes trois priorités internes : <strong>(1) le skill PO épiques/tickets</strong> (des tickets structurés sont exploitables par Claude Code ET facilitent la doc en aval — gain transverse immédiat), <strong>(2) l'agent réponse support niveau 1 sur le vault</strong> (désengorge sans rien construire de neuf), <strong>(3) la mesure d'usage</strong> (sans elle, pas de preuve de ROI au CODIR). Côté client, mes paris sont les <strong>agents du gabarit qui marche déjà</strong> (devis, annonce) à étendre, l'<strong>agent AG de bout en bout</strong> et l'<strong>agent régularisation des charges</strong> : douleurs métier réelles confirmées par le marché (charge admin syndic −40% avec l'IA), fort volume, impossibles à bien adresser sans être branché sur les données Loji.</div>
+</section>
+
+<!-- ============ 4. ROADMAP CLIENTS ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">4.</span> Roadmap réalisable — CLIENTS</h1>
+  <p>Pour chaque chantier : ce qui est réaliste <strong>à 2 personnes</strong> (Raphaël en pilotage + Jérôme dev) vs <strong>avec renfort</strong> (+1 dev IA, +1 UX, QA dédié). La différence n'est pas « deux fois plus vite » : c'est la levée des goulots et le passage du séquentiel au parallèle.</p>
+  <h2 class="sub">CLIENTS — 6 mois</h2>
+  <table>
+    <thead><tr><th>Chantier</th><th>À 2 personnes</th><th>Avec renfort (+UX +dev +QA)</th></tr></thead>
+    <tbody>
+      <tr><td><strong>NeoMail</strong> — à cadrer totalement avant tout</td><td><strong style="color:#e0a800;">À CADRER TOTALEMENT</strong> — rien n'est figé, ni le besoin, ni les fonctionnalités, ni la forme. <strong>NeoMail doit être entièrement cadré avec les clients</strong> (Club Utilisateurs) avant le moindre développement. Les questions ouvertes à trancher : <br>• <strong>Le besoin</strong> : ont-ils vraiment besoin de l'IA branchée sur leur base Loji, ou Gemini natif leur suffit-il ?<br>• <strong>Les fonctionnalités exactes</strong> : que doit faire l'outil concrètement (tri, brouillon, actions métier, tickets… ) ?<br>• <strong>La forme</strong> : add-on Gmail, panneau dans Loji, extension Chrome, ou MCP que le client branche lui-même (un simple copier-coller de config de leur part) ? Chaque forme change radicalement l'effort et l'existence d'un front.<br>Tant que ce cadrage complet n'est pas fait, on ne lance ni maquettes ni dev. Une fois cadré et validé → priorité absolue, V1 + pilote 1-2 cabinets.</td><td><strong style="color:#00a78e;">LIVRÉ</strong> — après cadrage complet : dev selon la forme retenue, QA sécurise la prod. Le cadrage total reste le prérequis n°1.</td></tr>
+      <tr><td><strong>Agent utilitaire</strong> (gabarit NeoIA : devis, annonce…)</td><td><strong style="color:#00a78e;">LIVRÉ</strong> — capitaliser sur le type d'agent qui marche déjà (comparateur de devis BTP, rédaction d'annonce immobilière). En ajouter 1-2 à mettre dans Loji — lesquels : à trancher avec les équipes métier. Pari le plus sûr à court terme.</td><td><strong style="color:#00a78e;">LIVRÉ ×2-3</strong> — le dev en renfort permet plusieurs agents en parallèle.</td></tr>
+      <tr><td><strong>Chatbot support</strong> — ajouter création de tickets + optimiser la doc</td><td><strong style="color:#e0a800;">PARTIEL → LIVRABLE</strong> — le chatbot support <strong>existe déjà</strong> (répond sur la doc Loji). Ce qui manque : (1) <strong>permettre la création de tickets</strong> depuis le chatbot ; (2) la <strong>documentation est incomplète</strong> → réfléchir à optimiser sa rédaction/structuration (lien avec le skill doc). Chantier réaliste car on part de l'existant, pas de zéro.</td><td><strong style="color:#00a78e;">LIVRÉ</strong> — avec renfort, création de tickets + complétion doc menées en parallèle.</td></tr>
+      <tr><td><strong>Assistant formation clients</strong> (couplé Dendreo)</td><td><strong style="color:#e0a800;">EXPLORÉ</strong> — besoin remonté par le support/formation. Cadrer d'abord : ce que Dendreo fait déjà vs ce que les données Loji apportent (reco de formations ciblées). Audit avant tout dev.</td><td><strong style="color:#e0a800;">EXPLORÉ → LIVRÉ</strong> — la reco basée données Loji est un vrai différenciateur ; livrable une fois cadré.</td></tr>
+      <tr><td><strong>Audit besoins chatbot B2B2C</strong> (sujet porté par la direction)</td><td><strong style="color:#e0a800;">EXPLORÉ — à mener tôt</strong> — c'est un sujet qui tient à cœur à la direction. L'audit (interroger cabinets + leurs copropriétaires/locataires) est faible coût et ne mobilise pas de dev : il peut être lancé rapidement, en parallèle de NeoMail, pour préparer le terrain. Le build, lui, dépendra du renfort.</td><td><strong style="color:#e0a800;">EXPLORÉ → LIVRÉ</strong> — build sur la base de l'audit + socle MCP, dès qu'un dev arrive.</td></tr>
+      <tr><td><strong>NeoDoc / NotebookLM</strong> — utilité ?</td><td><strong style="color:#e0a800;">EXPLORÉ</strong> — valider l'utilité réelle avec les clients avant tout dev.</td><td><strong style="color:#e0a800;">EXPLORÉ</strong></td></tr>
+    </tbody>
+  </table>
+  <div class="note-box"><strong>Décision à trancher — chatbot avec ou sans images :</strong> si le chatbot affiche des images mais que la documentation générée par IA n'en a pas, l'expérience devient incohérente. Recommandation : démarrer <strong>sans images</strong>, ajouter plus tard si le besoin est confirmé.</div>
+  <h2 class="sub">CLIENTS — 12 mois</h2>
+  <table>
+    <thead><tr><th>Chantier</th><th>À 2 personnes</th><th>Avec renfort</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Agents métier avancés</strong> (réclamations, impayés, extraction docs)</td><td><strong style="color:#5a6b78;">HORS DE PORTÉE</strong> — pas réaliste en plus de NeoMail à 2.</td><td><strong style="color:#e0a800;">EXPLORÉ → LIVRÉ</strong> — meilleur ROI client une fois NeoMail prouvé.</td></tr>
+      <tr><td><strong>Chatbot B2B2C</strong></td><td><strong style="color:#5a6b78;">HORS DE PORTÉE</strong></td><td><strong style="color:#e0a800;">EXPLORÉ</strong> — sur la base de l'audit + socle MCP.</td></tr>
+      <tr><td><strong>MCP métier clients</strong></td><td><strong style="color:#5a6b78;">HORS DE PORTÉE</strong></td><td><strong style="color:#e0a800;">EXPLORÉ</strong> — pari stratégique cadré (voir §6).</td></tr>
+      <tr><td><strong>NeoDoc / extension NotebookLM en prod</strong></td><td><strong style="color:#5a6b78;">HORS DE PORTÉE</strong></td><td><strong style="color:#e0a800;">EXPLORÉ → LIVRÉ</strong> — selon validation client.</td></tr>
+    </tbody>
+  </table>
+  <div class="avis"><span class="label">Avis Claude :</span> Le message de ces deux tableaux est limpide : <strong>à 2 personnes, l'horizon 12 mois côté client est presque vide</strong> — NeoMail + 1 agent saturent déjà la capacité. Ce n'est pas un échec, c'est une vérité de capacité. La colonne « renfort » montre ce que l'Option A du dossier stratégique débloque concrètement : le passage de « une preuve » à « un portefeuille ». Les agents métier (impayés en tête) sont la première chose que je lancerais dès qu'un dev arrive.</div>
+</section>
+
+<!-- ============ 5. ROADMAP INTERNE ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">5.</span> Roadmap réalisable — INTERNE</h1>
+  <p>L'outillage interne rend les équipes plus efficaces et sert de terrain d'apprentissage IA. Mais il est en concurrence directe avec les chantiers clients pour le temps des 2 personnes — et c'est le client qui prime tant qu'aucune preuve n'est en production.</p>
+  <h2 class="sub">INTERNE — 6 mois</h2>
+  <table>
+    <thead><tr><th>Chantier</th><th>À 2 personnes</th><th>Avec renfort</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Skill PO — épiques &amp; tickets structurés</strong></td><td><strong style="color:#00a78e;">LIVRÉ</strong> — priorité interne n°1. Génère des épiques et tickets structurés, homogènes pour toute l'équipe. Double bénéfice : (1) des tickets clairs sont directement exploitables par Claude Code pour développer ; (2) une fois le ticket fermé, la documentation se rédige plus facilement à partir de sa structure. Fort gain, faible coût.</td><td><strong style="color:#00a78e;">LIVRÉ</strong> — plus tôt.</td></tr>
+      <tr><td><strong>Skill documentation QA &amp; Support</strong></td><td><strong style="color:#e0a800;">PARTIEL</strong> — dépend de l'audit Rovo (ne pas construire ce que Rovo fait déjà). Lien direct avec la doc support incomplète côté chatbot client.</td><td><strong style="color:#00a78e;">LIVRÉ</strong></td></tr>
+      <tr><td><strong>Audit Rovo (Atlassian)</strong></td><td><strong style="color:#e0a800;">EXPLORÉ</strong> — faible coût, éclaire plusieurs décisions internes. À mener tôt.</td><td><strong style="color:#e0a800;">EXPLORÉ</strong></td></tr>
+      <tr><td><strong>Skills &amp; agents par équipe</strong> (granularité fine)</td><td><strong style="color:#e0a800;">DÉMARRAGE PROGRESSIF</strong> — plus complexe qu'il n'y paraît : il ne s'agit pas de « 1 skill par service » mais d'une granularité fine — skills par <strong>développeur</strong>, par <strong>type de syndic</strong>, par métier. On démarre par quelques cas à fort levier, on n'industrialise pas tout d'un coup.</td><td><strong style="color:#00a78e;">LIVRÉ</strong> — déploiement plus large et structuré (cf. catalogue, §6).</td></tr>
+      <tr><td><strong>Tri de tickets</strong> (consolidation)</td><td><strong style="color:#5a6b78;">REPORTÉ</strong> — déjà en place ; la consolidation attend.</td><td><strong style="color:#e0a800;">EXPLORÉ</strong> — consolidation + mesure d'usage.</td></tr>
+      <tr><td><strong>Formations IA</strong></td><td><strong style="color:#5a6b78;">ACTIVITÉ CONTINUE</strong> — maintenue au fil de l'eau, mais ce n'est pas un livrable roadmap à 2 (et c'est un revenu potentiel — Option B).</td><td><strong style="color:#e0a800;">STRUCTURÉ</strong> — peut devenir une offre.</td></tr>
+    </tbody>
+  </table>
+  <h2 class="sub">INTERNE — 12 mois</h2>
+  <table>
+    <thead><tr><th>Chantier</th><th>À 2 personnes</th><th>Avec renfort</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Catalogue de skills centralisé</strong></td><td><strong style="color:#5a6b78;">HORS DE PORTÉE</strong> — structurant mais non prioritaire face au client.</td><td><strong style="color:#00a78e;">LIVRÉ</strong> — gouvernance essentielle dès qu'on outille plusieurs équipes.</td></tr>
+      <tr><td><strong>Mesure d'usage &amp; ROI</strong></td><td><strong style="color:#e0a800;">CADRAGE seulement</strong> — poser les compteurs simples, sans plus.</td><td><strong style="color:#00a78e;">LIVRÉ</strong> — instrumentation complète. Indispensable pour prouver le ROI au CODIR.</td></tr>
+      <tr><td><strong>Skills réunions / productivité</strong></td><td><strong style="color:#5a6b78;">HORS DE PORTÉE</strong></td><td><strong style="color:#e0a800;">EXPLORÉ</strong> — techno selon audit Rovo.</td></tr>
+      <tr><td><strong>Extension outillage Rovo</strong></td><td><strong style="color:#5a6b78;">HORS DE PORTÉE</strong></td><td><strong style="color:#e0a800;">EXPLORÉ</strong> — selon résultats audit.</td></tr>
+    </tbody>
+  </table>
+  <div class="avis"><span class="label">Avis Claude :</span> Le seul chantier interne que je défends comme intouchable même à 2, c'est le <strong>skill PO épiques/tickets</strong>. Son effet de levier est sous-estimé : des tickets homogènes et structurés, c'est ce qui manque le plus à l'entreprise aujourd'hui. Cette homogénéité <strong>fait gagner du temps aux PO</strong>, <strong>débloque la documentation</strong> (qui galère faute de structure), et <strong>accélère le développement avec Claude Code</strong> (un ticket clair se code et se corrige beaucoup plus vite qu'un ticket flou — d'autant que la base de données Loji est complexe et difficile à appréhender pour l'IA sans contexte structuré). C'est un investissement qui se rembourse sur trois fronts à la fois. La <strong>mesure d'usage</strong> mérite aussi un cadrage léger dès maintenant, sinon dans 12 mois on présentera encore des impressions plutôt que des chiffres.</div>
+</section>
+
+<!-- ============ 6. PARIS À RISQUE ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">6.</span> Les paris stratégiques à risque</h1>
+  <p>Deux pistes à fort potentiel, mais porteuses de risques à nommer avant de s'engager. Présentées pour décision, pas comme des chantiers validés.</p>
+  <h2 class="sub">Pari 1 — Exposer des MCP métier aux clients</h2>
+  <p>L'idée : exposer les données et fonctions de Loji via des MCP (un par domaine : locataires, syndics, gérance…). Les clients pourraient les brancher sur leurs propres outils IA.</p>
+  <div class="alert"><strong>Le risque à écrire noir sur blanc :</strong> si les clients peuvent brancher les MCP de Loji directement sur Gemini, ChatGPT ou Claude, ils peuvent reconstruire eux-mêmes les fonctions de NeoMail, NeoChat ou NeoDoc — et se passer de nos applications. En ouvrant nos MCP, on risque de fournir les briques qui rendent nos propres produits optionnels. Il faut décider très clairement ce qu'on expose et ce qu'on garde.</div>
+  <p>Point positif : les MCP métier, s'ils sont construits, peuvent servir de socle au chatbot B2B2C. D'où leur placement avant le chatbot. Raison de plus de les traiter comme une exploration cadrée, pas une ouverture tous azimuts.</p>
+  <h2 class="sub">Pari 2 — Refaire Gmail vs extension Gmail</h2>
+  <div class="alert"><strong>Les risques :</strong> refaire un client mail complet est un projet pharaonique, sans rapport avec le cœur de métier (l'ERP immobilier). Des mois de développement pour rattraper des fonctions que Gmail offre déjà gratuitement. Et Gemini est intégré directement dans Gmail, gratuitement pour les clients Google Workspace. Une course frontale contre Google sur son terrain est perdue d'avance.</div>
+  <div class="note-box"><strong>La position recommandée :</strong> en V1, NeoMail se concentre sur NeoMail — un produit autonome qui apporte une valeur métier que Gmail n'a pas (l'intégration aux données Loji). L'extension Gmail (plutôt que la reconstruction) peut être explorée comme complément, mais ne doit pas devenir le chantier principal.</div>
+  <div class="avis"><span class="label">Avis Claude :</span> Sur ces deux paris, mon avis est le même : ce sont de vraies options stratégiques, pas des erreurs. Mais elles doivent être des décisions conscientes, prises avec les risques sous les yeux — pas des chantiers qu'on lance parce que l'idée est séduisante. Les écrire ici avec leurs risques, c'est permettre à la direction de trancher en connaissance de cause.</div>
+</section>
+
+<!-- ============ 7. PARKÉ ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">7.</span> Ce qu'on a parké (et pourquoi)</h1>
+  <p>Parker une idée ne veut pas dire la rejeter. Elle est identifiée, elle a de la valeur, mais elle n'a pas sa place dans le scope des 6-12 prochains mois. La documenter garantit qu'on ne la perd pas — et qu'on ne se disperse pas en la lançant trop tôt.</p>
+  <table>
+    <thead><tr><th>Idée parkée</th><th>Pourquoi on la parke</th><th>Statut</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Plateforme d'agents IA immobilier (externe)</strong></td><td>Une plateforme proposant des agents immobiliers au-delà des clients Loji — potentiellement une sous-entité. C'est un autre business, avec son propre modèle économique. La lancer maintenant garantirait la dispersion. À instruire séparément, plus tard.</td><td><strong style="color:#5a6b78;">PARKÉ</strong></td></tr>
+      <tr><td><strong>Refaire Gmail (reconstruction complète)</strong></td><td>Voir section 6 : pharaonique, hors cœur de métier, course perdue contre Google. Parké au profit de NeoMail autonome + exploration extension Gmail.</td><td><strong style="color:#5a6b78;">PARKÉ</strong></td></tr>
+      <tr><td><strong>NeoChat en l'état</strong></td><td>Chatbot interrogeant la base Loji en langage naturel. Fait doublon avec la barre de recherche native de Loji (qui fait souvent mieux) et risque de détourner les utilisateurs vers un outil inférieur. À repositionner sur ce que Loji ne sait pas faire (questions complexes, croisements multi-critères), sinon à laisser de côté.</td><td><strong style="color:#5a6b78;">PARKÉ</strong></td></tr>
+    </tbody>
+  </table>
+  <div class="avis"><span class="label">Avis Claude :</span> La plateforme d'agents immobilier externe est l'idée la plus séduisante de la liste — et c'est précisément pour ça qu'il faut la parker. C'est un produit à part entière, qui mériterait sa propre équipe et son propre business plan. La mélanger à la roadmap Loji, c'est le meilleur moyen de ne bien faire ni l'un ni l'autre. La garder en vue, oui ; la lancer maintenant, non.</div>
+</section>
+
+<!-- ============ 8. COÛT CACHÉ ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">8.</span> Le coût caché : structuration, disponibilités, aléas</h1>
+  <p>Cette section est la plus importante pour comprendre pourquoi le « réalisable » est volontairement resserré. Le facteur limitant n'est pas le code — c'est le temps humain, et il est largement sous-estimé quand on raisonne en « features ».</p>
+  <h2 class="sub">Le temps de structuration du Responsable IA</h2>
+  <p>Raphaël bascule sur un rôle de pilotage. Devenir Lead IA, ce n'est pas seulement décider — c'est <strong>produire la structure</strong> : tickets structurés, présentations structurées, réunions structurées. Préparer un CODIR, rédiger une épique propre, cadrer un besoin avec un chef de partie : tout cela prend du temps, et ce temps est <strong>retiré du développement</strong>.</p>
+  <div class="note-box"><strong>Estimation honnête :</strong> une part importante du temps de Raphaël (de l'ordre de 40-50%) partira en structuration, coordination et préparation de réunions. Conséquence directe : <strong>Jérôme devient le seul développeur réellement disponible à plein temps</strong> — et lui-même reste bloqué tant que les accès admin (DevOps, test, prod) ne sont pas débloqués.</div>
+  <h2 class="sub">Les disponibilités des autres — un goulot qu'on ne contrôle pas</h2>
+  <p>Chaque chantier doit être cadré avec les bonnes personnes (chefs de partie, équipes métier, QA, clients). Or organiser une réunion suppose que <strong>chacun soit disponible</strong> — ce qui n'est pas garanti, et ne dépend pas de l'équipe IA.</p>
+  <div class="alert"><strong>Exemple concret et actuel :</strong> cela fait <strong>3 jours</strong> qu'on attend une réponse sur un problème de création de ticket via le chatbot. Tant que la réponse ne vient pas, le chantier est bloqué — et ce temps d'attente est du temps perdu qui ne se rattrape pas. Ce n'est pas un cas isolé : c'est le quotidien d'une équipe qui dépend de validations externes. Chaque blocage de ce type décale d'autant la livraison.</div>
+  <h2 class="sub">Les QA — le maillon manquant, même renforcé</h2>
+  <p>Aucun produit ne passe en production sans validation QA. Or les QA actuels sont déjà surchargés sur d'autres projets. <strong>Même dans le scénario renforcé (+1 dev, +1 UX), il manque la QA dans l'équation.</strong> Il ne suffit pas d'ajouter des développeurs : il faut aussi du temps QA réservé, et il faut tenir compte de <strong>quand les QA sont réellement disponibles</strong> dans leur planning. Un produit développé mais non testé ne sort pas.</p>
+  <h2 class="sub">Les formations IA — du temps équipe, pas une formalité</h2>
+  <p>L'équipe IA assure aussi la montée en compétence interne (et, demain, des formations clients). Chaque session de formation représente <strong>1h à 1h30 d'animation — mais surtout un temps de préparation</strong> (construire le contenu, les supports, les exemples) qui dépasse souvent la durée de la session elle-même. C'est du temps réel, prélevé sur le développement, qu'il faut provisionner. Une formation n'est pas « gratuite » parce qu'elle ne produit pas de code : elle mobilise les mêmes personnes que NeoMail.</p>
+  <h2 class="sub">Les aléas de la vie</h2>
+  <p>Une roadmap honnête intègre l'imprévu : congés, arrêts, urgences de production sur l'existant, demandes prioritaires de dernière minute, turnover. À 2 personnes, l'absence d'une seule réduit la capacité de 50%. Ces aléas ne sont pas des excuses — ce sont des réalités à provisionner dans tout planning sérieux.</p>
+  <div class="avis"><span class="label">Avis Claude :</span> Cette section est ce qui distingue une roadmap crédible d'une liste de vœux. La plupart des roadmaps échouent non parce que les idées sont mauvaises, mais parce qu'elles comptent le temps de code et oublient le temps humain : réunions, attentes, validations, aléas. En le posant noir sur blanc — y compris l'exemple des 3 jours d'attente — cette roadmap se protège contre la promesse intenable, et protège l'équipe contre le reproche « pourquoi ce n'est pas encore livré ? ». La réponse est ici, écrite à l'avance.</div>
+</section>
+
+<!-- ============ 9. ROADMAP VIVANTE ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">9.</span> Pourquoi cette roadmap est vivante</h1>
+  <p>Une roadmap IA n'est pas une roadmap logicielle classique. Elle dépend d'un paramètre que personne dans cette salle ne contrôle : <strong>la vitesse d'évolution de l'IA elle-même</strong>. Ce qui est un pari risqué aujourd'hui peut devenir trivial dans trois mois — et inversement, un produit qu'on construit peut être rendu obsolète par une annonce d'un acteur majeur. Cette roadmap doit donc être <strong>révisée régulièrement</strong>, pas exécutée à l'aveugle.</p>
+  <p>Trois sources de variabilité font bouger cette roadmap :</p>
+  <table>
+    <thead><tr><th>Source</th><th>Exemple concret</th><th>Maîtrise</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Interne</strong></td><td>Réunions à organiser, accès à débloquer, périmètres à cadrer (ex. les 3 jours d'attente sur le bug ticket-chat, §8).</td><td>Partielle</td></tr>
+      <tr><td><strong>Humaine</strong></td><td>Disponibilités, congés, urgences de production, aléas de la vie. À 2, une absence = −50% de capacité.</td><td>Faible</td></tr>
+      <tr><td><strong>Exogène — les acteurs de l'IA</strong></td><td>Les décisions de Google, OpenAI, Anthropic — sur lesquelles nous n'avons <strong>aucune main</strong>, et qui peuvent rebattre toute la roadmap du jour au lendemain.</td><td>Nulle</td></tr>
+    </tbody>
+  </table>
+  <h2 class="sub">La variabilité exogène — des exemples qui changeraient nos arbitrages</h2>
+  <ul class="neo">
+    <li><strong>Si l'app chat grand public Gemini ouvre les connecteurs MCP en self-service</strong> (aujourd'hui NON : liste fermée de connecteurs partenaires ; le MCP custom n'est dispo que côté développeur via l'API/Gemini Enterprise) : nos clients pourraient un jour connecter Loji directement à leur Gemini. Le pari « MCP métier » (§6) changerait de nature — opportunité ET menace de cannibalisation accrue. Aujourd'hui, seul Claude (Desktop/.ai) permet ce branchement self-service grand public.</li>
+    <li><strong>Si Claude lève ou abaisse la limite de MCP connectables</strong> : l'architecture de nos produits internes et de nos offres clients s'en trouve directement affectée.</li>
+    <li><strong>Si les modèles deviennent 2× moins chers</strong> (la tendance de fond) : des chantiers aujourd'hui « trop coûteux en tokens » redeviennent rentables, et le calcul de marge de nos produits change.</li>
+    <li><strong>Si un nouvel acteur sort un produit immobilier IA natif</strong> : notre fenêtre de différenciation (le contexte métier Loji) peut se réduire — d'où l'urgence de la preuve NeoMail.</li>
+  </ul>
+  <div class="avis"><span class="label">Avis Claude :</span> Ce point est, à mon sens, l'un des plus importants du document — et il est rarement écrit. Une roadmap IA qui se présente comme un engagement ferme à 12 mois ment, parce qu'elle ignore que le terrain bouge sous ses pieds. La poser comme <strong>vivante</strong>, révisée tous les 3 mois, est un signe de maturité, pas de flou : c'est exactement ce que fait une équipe qui a compris l'IA. Ma recommandation concrète : une <strong>revue de roadmap trimestrielle</strong> qui intègre explicitement une question « qu'est-ce qui a changé côté acteurs IA depuis 3 mois, et qu'est-ce que ça rebat ? ». C'est ce qui transforme une roadmap figée en avantage compétitif.</div>
+</section>
+
+<!-- ============ 10. DEUX SCÉNARIOS ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">10.</span> Deux scénarios : équipe actuelle vs renforcée</h1>
+  <p style="font-size:9pt;color:#5a6b78;margin-top:-8px;">Rappel : tout ce qui suit reste soumis aux trois sources de variabilité de la section 9 — interne, humaine, et surtout l'évolution des acteurs IA.</p>
+  <h2 class="sub">Scénario 1 — Équipe actuelle (2 personnes, dont 1 en pilotage)</h2>
+  <p>Avec Raphaël (Responsable IA, ~moitié du temps en structuration/coordination) + Jérôme (dev, bloqué sur les accès admin), et malgré la vélocité de Claude Code, voici ce qui tient honnêtement sur 6 mois — <strong>à condition que les blocages soient levés</strong> :</p>
+  <table>
+    <thead><tr><th>Réaliste à livrer (6 mois)</th><th>En exploration / cadrage</th><th>Hors de portée à 2</th></tr></thead>
+    <tbody>
+      <tr><td style="vertical-align:top;">
+        • NeoMail : cadrer le besoin client, puis V1 si validé<br>
+        • 1 agent utilitaire (lequel : à trancher client)<br>
+        • Skill PO-tickets<br>
+        • Skills par équipe (1-2 pilotes)<br>
+        • Formations IA (activité continue, pas livrable)
+      </td><td style="vertical-align:top;">
+        • Chatbot support (cadrage, bloqué externe)<br>
+        • Audit besoins B2B2C<br>
+        • NeoDoc / NotebookLM (utilité ?)<br>
+        • Audit Rovo<br>
+        • Mesure d'usage (cadrage léger)
+      </td><td style="vertical-align:top; color:#5a6b78;">
+        • Chatbot B2B2C complet<br>
+        • MCP métier clients<br>
+        • Agents métier avancés<br>
+        • NeoDoc/NotebookLM en prod<br>
+        • Catalogue skills centralisé<br>
+        • Skills réunions, extension Rovo<br>
+        • Plateforme agents immo externe
+      </td></tr>
+    </tbody>
+  </table>
+  <p>Autrement dit : à 2, on produit <strong>une preuve de valeur</strong> (NeoMail cadré puis livré + 1 agent + le skill PO qui structure les tickets), on démarre quelques pilotes, on instruit des audits. Mais on ne mène pas de front les chantiers clients ambitieux, ni la structuration durable de l'interne.</p>
+  <h2 class="sub">Scénario 2 — Équipe renforcée (Option A du dossier stratégique)</h2>
+  <table>
+    <thead><tr><th>Renfort</th><th>Effet concret</th></tr></thead>
+    <tbody>
+      <tr><td><strong>+1 développeur IA</strong></td><td>Mener NeoMail ET les agents métier en parallèle, au lieu de les enchaîner. Ouvre le chantier MCP métier.</td></tr>
+      <tr><td><strong>+1 UX / designer IA</strong></td><td>Lève le blocage maquettes qui freine NeoMail et le chatbot. L'expérience produit cesse d'être un goulot.</td></tr>
+      <tr><td><strong>Temps QA réservé</strong></td><td><strong>Indispensable et souvent oublié :</strong> sans QA disponible, rien ne passe en production, même avec 2 devs de plus. À cadrer avec le planning QA réel.</td></tr>
+      <tr><td><strong>Pilotage IA clarifié</strong></td><td>Arbitrer les priorités, coordonner les chantiers parallèles, tenir la ligne anti-dispersion.</td></tr>
+    </tbody>
+  </table>
+  <div class="avis"><span class="label">Avis Claude :</span> Soyons clairs sur le lien entre les deux scénarios : la roadmap ne devient pas « deux fois plus rapide » avec deux fois plus de monde. Le vrai gain du renfort, c'est de lever les goulots (UX, accès, <strong>QA</strong>) et de permettre le parallélisme. À 2 personnes, on livre une preuve. À 4 avec les bons profils <strong>et du temps QA réservé</strong>, on construit un portefeuille. Le choix entre les deux scénarios est un choix d'ambition — et il appartient à la direction.</div>
+</section>
+
+<!-- ============ 11. VERDICT ============ -->
+<section class="page">
+  <h1 class="section"><span class="section-num">11.</span> Verdict du Responsable IA &amp; prochaines étapes</h1>
+  <div class="card-row">
+    <div class="kpi"><div class="num ok">3</div><div class="lbl">chantiers LIVRÉ à 2 (6 mois)</div></div>
+    <div class="kpi"><div class="num" style="color:#e0a800;">5</div><div class="lbl">en exploration / cadrage</div></div>
+    <div class="kpi"><div class="num alert">7</div><div class="lbl">hors de portée à 2</div></div>
+    <div class="kpi"><div class="num">3</div><div class="lbl">idées parkées</div></div>
+  </div>
+  <h2 class="sub">Ce qui NE sera PAS fait à 2 personnes (6 mois)</h2>
+  <p>Les agents métier avancés, le chatbot B2B2C, les MCP métier, la mise en prod NeoDoc, le catalogue de skills, les skills réunions, la consolidation tri tickets. Ce n'est pas un renoncement — c'est le prix de <strong>cadrer puis livrer vraiment</strong> NeoMail (+ un agent utilitaire) plutôt que de tout prototyper en surface.</p>
+  <h2 class="sub">Ce qui reste hors de portée MÊME renforcé (12 mois)</h2>
+  <p>La plateforme d'agents immobilier externe (autre business, autre équipe). Et tout ce qui dépend de validations clients non encore obtenues : on ne peut pas s'engager sur un produit dont le besoin n'est pas confirmé. Un renfort lève les goulots de production — il ne crée pas la demande client à notre place.</p>
+  <h2 class="sub">Les conditions humaines, à accepter explicitement</h2>
+  <ul class="neo">
+    <li><strong>QA réguliers et réservés</strong> — sans temps QA dédié, rien ne passe en prod, même renforcé.</li>
+    <li><strong>Disponibilité de chacun pour les réunions de cadrage</strong> — le goulot le moins visible (cf. les 3 jours d'attente sur le bug ticket-chat, §8).</li>
+    <li><strong>Les aléas de la vie</strong> — congés, urgences prod, imprévus. À 2, une absence = −50% de capacité.</li>
+    <li><strong>Le temps de structuration du Responsable IA</strong> — la moitié du temps de Raphaël n'est plus du dev.</li>
+  </ul>
+  <h2 class="sub">Validation</h2>
+  <div class="note-box">Cette roadmap est <strong>co-validée par Jérôme</strong>, bras droit technique : c'est lui qui portera l'essentiel du développement, son accord sur le réalisme du périmètre est donc nécessaire avant toute diffusion à la direction.</div>
+  <h2 class="sub">Mon avis, si j'étais à votre place</h2>
+  <div class="avis"><span class="label">Avis Claude — ma recommandation (la direction tranche) :</span>
+    <br><br><strong>Ce que je ferais en priorité sur 6 mois :</strong> d'abord <strong>cadrer NeoMail totalement avec les clients</strong> (besoin, fonctionnalités, forme) — c'est le préalable non négociable, sinon on développe dans le vide. Une fois cadré et validé, viser <strong>NeoMail chez 2-3 cabinets pilotes</strong> : c'est la preuve qui débloque tout le reste. <strong>En parallèle et sans attendre</strong> (car ça ne dépend pas du cadrage NeoMail) : <strong>1 agent utilitaire</strong> qui exploite les données Loji (l'équipe métier choisit lequel — AG, charges, devis : ce sont eux qui savent ce qui fait le plus mal aux clients), et le <strong>skill PO-tickets</strong> en interne car il fait gagner du temps tout de suite.
+    <br><br><strong>Ce que je garderais pour 12 mois (après la preuve) :</strong> les <strong>agents métier</strong> (relance d'impayés en tête — ça touche à l'argent du client, argument de vente imparable), l'<strong>assistant formation couplé Dendreo</strong>, et la <strong>mesure d'usage</strong> pour enfin prouver le ROI au CODIR avec des chiffres.
+    <br><br><strong>Ce qu'on ne peut honnêtement PAS construire à 2 personnes :</strong> le chatbot B2B2C complet, les MCP métier ouverts, le catalogue de skills, la plateforme externe. Non parce que ce sont de mauvaises idées — au contraire — mais parce qu'à 2, chaque chantier en plus repousse NeoMail. Le <strong>build</strong> de ces idées attend un renfort. <strong>Nuance importante sur le chatbot B2B2C</strong> (sujet porté par la direction) : si on ne peut pas le construire à 2, on peut et on doit en <strong>lancer l'audit tôt</strong> — interroger les cabinets et leurs copropriétaires coûte peu et prépare le terrain pour livrer vite dès qu'un dev arrive.
+    <br><br><strong>Le point que je ne tranche pas, et que vous devez trancher :</strong> <em>quel</em> agent et <em>quelle</em> priorité interne. Nous proposons ; ce sont les équipes métier et la direction qui savent ce qui crée le plus de valeur pour vos clients. Notre rôle est de rendre ce choix possible et éclairé — pas de le faire à votre place.</div>
+  <h2 class="sub">Prochaines étapes proposées</h2>
+  <ol class="neo">
+    <li>Valider ensemble cette V2 : confirmer les chantiers « Livré », arbitrer les « Exploré ».</li>
+    <li>Choisir le scénario (équipe actuelle ou renforcée) — c'est ce choix qui conditionne tout.</li>
+    <li>Lever les blocages prioritaires (accès DevOps/admin, maquettes UX, réponse sur le bug ticket-chat).</li>
+    <li>Cadrer le temps QA réservé pour les produits IA.</li>
+    <li>Lancer l'audit Rovo (faible coût, éclaire plusieurs décisions internes).</li>
+    <li>Fixer une date de revue (ex. à 3 mois) pour ajuster selon les résultats réels.</li>
+  </ol>
+  <div class="pullquote">Rien n'est gravé dans le marbre. Le but : décider ensemble ce qu'on fait, dans quel ordre, et avec quels moyens — plutôt que de subir les priorités au fil de l'eau.</div>
+</section>
+
+</body>
+</html>

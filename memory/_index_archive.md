@@ -6,7 +6,9 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 
 **Critère d'archivage réel (vers `_archive/`) :** distinct — un tier-2 n'est archivé que si obsolète/absorbé (voir `_archive/MEMORY-archive-log.md`). Tier-2 ≠ archivé.
 
-## Feedback (tier-2 — 99 entrées)
+## Feedback (tier-2 — 101 entrées)
+- [doc-pro-coherence-multi-docs](feedback_doc_pro_coherence_multi_docs.md) — Pack de docs liés : relire mot à mot la cohérence inter-docs avant de livrer
+- [raphael-pas-mise-en-avant-cadrage-client](feedback_raphael_pas_mise_en_avant_cadrage_client.md) — Docs Neoteem : ne pas mettre Raphaël en avant ; cadrage = décision client
 - [5-lignes-karpathy-ouverture-claudemd](feedback_5_lignes_karpathy_ouverture.md) — Tout CLAUDE.md forge commence par 5 lignes Karpathy verbatim
 - [archi-clarifier-avant-livrable-cross-stack](feedback_archi_clarifier_avant_livrable_cross_stack.md) — Clarifier archi (qui parle à qui) AVANT rédiger livrable cross-stack, pas après
 - [regle-scope-ouvert-clause-echappatoire](feedback_regle_scope_ouvert_clause_echappatoire.md) — Règle LLM advisory : scope ouvert + clause échappatoire, sinon alibi de catégorie (hypothèse N=1)

@@ -1,0 +1,202 @@
+/* =====================================================================
+   CHARTE GRAPHIQUE NEOTEEM — Documents stratégiques & formations IA
+   Version 1.0 — 29 mai 2026
+   Identité dérivée du logo officiel Neoteem.
+   Usage : lier ce fichier dans tout document HTML Neoteem, puis générer
+   le PDF via Chrome headless (--headless --print-to-pdf).
+   ===================================================================== */
+
+/* ---------- Tokens couleur (identité Neoteem) ---------- */
+:root {
+  --neo-bleu:        #0a3a5c;   /* bleu nuit — wordmark, titres, bandeaux */
+  --neo-bleu-fonce:  #072b44;   /* variante foncée — page de garde */
+  --neo-teal:        #00a78e;   /* vert/teal — baseline, secondaire, accents positifs */
+  --neo-teal-clair:  #e6f7f3;   /* fond teal très clair */
+  --neo-corail:      #e8455f;   /* rouge/corail — alertes, points critiques */
+  --neo-magenta:     #b6306e;   /* magenta — accent dégradé */
+  --neo-corail-clair:#fdeef0;   /* fond alerte clair */
+
+  --neo-texte:       #1c2b36;   /* corps de texte */
+  --neo-texte-doux:  #5a6b78;   /* texte secondaire, légendes */
+  --neo-gris-bord:   #d9e1e7;   /* bordures, filets */
+  --neo-gris-fond:   #f4f7f9;   /* fonds de cartes neutres */
+  --neo-blanc:       #ffffff;
+
+  /* Encadrés "Avis Claude" — jaune doux, italique */
+  --neo-avis-fond:   #fdf6e3;
+  --neo-avis-bord:   #e0a800;
+
+  /* Dégradé signature (pictogramme logo) */
+  --neo-gradient: linear-gradient(90deg, var(--neo-teal) 0%, var(--neo-corail) 55%, var(--neo-magenta) 100%);
+
+  --neo-font: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+
+body {
+  font-family: var(--neo-font);
+  color: var(--neo-texte);
+  font-size: 10.5pt;
+  line-height: 1.55;
+  margin: 0;
+  background: var(--neo-blanc);
+}
+
+p { margin: 0 0 0.7em; }
+strong { color: var(--neo-bleu); }
+
+/* ---------- Format page (A4, impression) ---------- */
+@page {
+  size: A4;
+  margin: 16mm 18mm 14mm 18mm;
+}
+
+/* Rendu ÉCRAN : feuilles A4 centrées sur fond gris, marges visibles */
+@media screen {
+  body { background: #e9eef2; padding: 24px 0; }
+  .page {
+    width: 210mm; min-height: 297mm; margin: 0 auto 24px; background: #fff;
+    padding: 16mm 18mm 14mm; box-shadow: 0 2px 14px rgba(0,0,0,.12);
+    box-sizing: border-box;
+  }
+  .cover { padding: 18mm 18mm 10mm; }
+}
+
+/* Rendu IMPRESSION / PDF : marges via @page, pas de min-height, pas de header/footer
+   de flux (gérés par Chrome). Zéro élément flottant → zéro page blanche parasite. */
+@media print {
+  body { background: #fff; padding: 0; }
+  .page {
+    width: auto; min-height: 0; margin: 0; padding: 0; box-shadow: none;
+    background: #fff;
+  }
+  .cover { padding: 0; }
+}
+
+/* Saut de page AVANT chaque section (sauf la 1re). Une section longue déborde
+   proprement sur la page suivante ; une section courte n'impose pas de page vide. */
+.page { page-break-before: always; break-before: page; }
+.page:first-child { page-break-before: avoid; break-before: avoid; }
+/* Seul h1 reste collé à son contenu. h2 peut finir en bas de page : sinon
+   « titre + grand tableau » sautent ensemble et laissent une demi-page vide. */
+h1 { page-break-after: avoid; break-after: avoid; }
+/* Les petits blocs restent insécables ; les TABLES se coupent entre lignes. */
+.card-row, .avis, .alert, .note-box, .verdict, .pullquote { page-break-inside: avoid; break-inside: avoid; }
+tr { page-break-inside: avoid; break-inside: avoid; }
+thead { display: table-header-group; } /* l'en-tête se répète si le tableau se coupe */
+
+/* ---------- Header / Footer répétés ---------- */
+.doc-header {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 7.5pt; color: var(--neo-texte-doux);
+  border-bottom: 2px solid var(--neo-bleu);
+  padding-bottom: 5px; margin-bottom: 22px;
+}
+.doc-footer {
+  font-size: 7.5pt; color: var(--neo-texte-doux);
+  text-align: center; border-top: 1px solid var(--neo-gris-bord);
+  padding-top: 6px; margin-top: 28px;
+}
+.doc-footer .sign {
+  display: block; margin-top: 3px; color: var(--neo-bleu); font-weight: 600;
+}
+
+/* ---------- Titres ---------- */
+h1.section {
+  color: var(--neo-bleu); font-size: 19pt; font-weight: 700;
+  margin: 0 0 18px; letter-spacing: -0.3px;
+}
+h2.sub {
+  color: var(--neo-bleu); font-size: 13pt; font-weight: 700;
+  margin: 22px 0 8px;
+}
+h3.sub3 {
+  color: var(--neo-teal); font-size: 11pt; font-weight: 700;
+  margin: 16px 0 4px;
+}
+.section-num { color: var(--neo-teal); font-weight: 700; }
+
+/* ---------- Page de garde (fond clair, logo couleur) ---------- */
+.cover {
+  min-height: 255mm; display: flex; flex-direction: column;
+  color: var(--neo-texte); background: var(--neo-blanc);
+  padding: 18mm 4mm 10mm; position: relative;
+}
+.cover-logo { width: 280px; height: auto; margin-bottom: 54px; display: block; }
+.cover h1 { font-size: 38pt; font-weight: 800; line-height: 1.05; margin: 0 0 22px; color: var(--neo-bleu); }
+.cover .subtitle { font-size: 14pt; color: var(--neo-texte-doux); line-height: 1.5; font-weight: 400; }
+.cover .accent-bar { height: 8px; width: 100%; background: var(--neo-gradient); margin: 34px 0; border-radius: 4px; }
+.cover .desc { font-size: 10.5pt; color: var(--neo-texte-doux); margin-top: auto; max-width: 80%; }
+.cover .meta { margin-top: 26px; font-size: 9.5pt; }
+.cover .meta dt { color: var(--neo-teal); font-weight: 700; float: left; width: 120px; clear: left; }
+.cover .meta dd { margin: 0 0 6px 130px; color: var(--neo-texte); }
+.cover .note { font-size: 8pt; color: var(--neo-texte-doux); margin-top: 18px; font-style: italic; }
+
+/* ---------- Cartes-chiffres (KPI) ---------- */
+.card-row { display: flex; gap: 14px; margin: 8px 0 20px; }
+.kpi {
+  flex: 1; background: var(--neo-gris-fond); border: 1px solid var(--neo-gris-bord);
+  border-radius: 10px; padding: 16px 10px; text-align: center;
+}
+.kpi .num { font-size: 30pt; font-weight: 800; color: var(--neo-bleu); line-height: 1; }
+.kpi .num.alert { color: var(--neo-corail); }
+.kpi .num.ok { color: var(--neo-teal); }
+.kpi .lbl { font-size: 8pt; color: var(--neo-texte-doux); margin-top: 8px; }
+
+/* ---------- Encadré "Avis Claude" ---------- */
+.avis {
+  background: var(--neo-avis-fond); border-left: 4px solid var(--neo-avis-bord);
+  border-radius: 0 8px 8px 0; padding: 13px 16px; margin: 16px 0;
+  font-style: italic; font-size: 10pt; color: #5c4a12;
+}
+.avis .label { font-style: normal; font-weight: 700; color: #8a6d00; }
+
+/* ---------- Alerte (rouge) ---------- */
+.alert {
+  background: var(--neo-corail-clair); border-left: 4px solid var(--neo-corail);
+  border-radius: 0 8px 8px 0; padding: 13px 16px; margin: 16px 0; font-size: 10pt;
+}
+.alert strong { color: var(--neo-corail); }
+
+/* ---------- Encadré stratégie (teal) ---------- */
+.note-box {
+  background: var(--neo-teal-clair); border-left: 4px solid var(--neo-teal);
+  border-radius: 0 8px 8px 0; padding: 13px 16px; margin: 16px 0; font-size: 10pt;
+}
+.note-box strong { color: var(--neo-teal); }
+
+/* ---------- Tableaux ---------- */
+table { width: 100%; border-collapse: collapse; margin: 12px 0 18px; font-size: 9pt; }
+thead th {
+  background: var(--neo-bleu); color: var(--neo-blanc); text-align: left;
+  padding: 8px 10px; font-weight: 600;
+}
+tbody td { padding: 7px 10px; border-bottom: 1px solid var(--neo-gris-bord); vertical-align: top; }
+tbody tr:nth-child(even) { background: var(--neo-gris-fond); }
+
+/* ---------- Listes ---------- */
+ul.neo, ol.neo { margin: 6px 0 14px; padding-left: 20px; }
+ul.neo li, ol.neo li { margin-bottom: 5px; }
+ul.neo li::marker { color: var(--neo-teal); }
+
+/* ---------- Verdict / encart final ---------- */
+.verdict {
+  border: 2px solid var(--neo-teal); border-radius: 10px;
+  padding: 16px 18px; margin: 18px 0; background: var(--neo-teal-clair);
+}
+.verdict .vtitle { color: var(--neo-bleu); font-weight: 800; font-size: 12pt; margin-bottom: 8px; }
+
+/* ---------- Citation centrée (mots de la fin) ---------- */
+.pullquote {
+  text-align: center; font-size: 13pt; font-weight: 700; color: var(--neo-bleu);
+  margin: 22px auto; max-width: 85%; line-height: 1.4;
+}
+
+/* ---------- Utilitaires ---------- */
+.badge { display: inline-block; padding: 2px 9px; border-radius: 12px; font-size: 7.5pt; font-weight: 700; color: #fff; }
+.badge.pass { background: var(--neo-teal); }
+.badge.partial { background: var(--neo-avis-bord); }
+.badge.gap { background: var(--neo-corail); }
+.small { font-size: 8pt; color: var(--neo-texte-doux); }
