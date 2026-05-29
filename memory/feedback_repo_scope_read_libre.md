@@ -22,4 +22,4 @@ Depuis 2026-05-26, les hooks `repo-scope-guard.ts` (ia_back) et `repo-scope-guar
 - Si user veut écrire dans un repo voisin (hors ia_back/neo_ia cross) → la phrase magique reste nécessaire pour créer le marker
 - Si on touche à la doctrine cross-repo write, propager aux DEUX hooks (ts + py) pour rester symétrique
 
-Lié : [[feedback_hook_scope_per_repo_mandatory]]
+Lié : [[critique-2026-05-24-regex-source-faux-positifs]]

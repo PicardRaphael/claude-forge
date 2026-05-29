@@ -65,6 +65,6 @@ VAR=value bash -c 'echo "{...}" | uv run python .claude/hooks/<hook>.py'
 
 ## Wikilinks
 
-- [[feedback_hook_scope_per_repo_mandatory]] — scope per-repo
-- [[feedback_secret_in_mcp_json]] — pas de secret dans configs versionnés
+- [[critique-2026-05-24-regex-source-faux-positifs]] — scope per-repo
+- [[erreur-password-postgres-clair-mcp-json]] — pas de secret dans configs versionnés
 - [[feedback_claim_security_must_be_provable]] — sécu prouvable

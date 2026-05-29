@@ -56,6 +56,6 @@ Quand user dit "pourquoi ?" ou "rexplique" :
 ## Wikilinks
 
 - [[feedback_tweet_hype_paraphrase_pattern]] — paraphrase non-vérifiée
-- [[feedback_gotchas_line_numbers_verifies]] — line numbers verifies grep
+- [[erreur-gotchas-line-numbers-non-verifies-claudemd]] — line numbers verifies grep
 - [[feedback_audit_claims_after_brief]] — claims sub-agent verifies
 - [[feedback_verify_exhaustive_claims]] — grep avant claim exhaustive

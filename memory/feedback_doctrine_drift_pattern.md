@@ -9,53 +9,19 @@ metadata:
 
 # Doctrine drift — régression silencieuse via MEMORY/RECAP non purgés
 
-## La règle
+Cf [[methode-pivoter-doctrine]] (doctrine : checklist 5 étapes pour pivoter une doctrine sans laisser de résidus textuels MEMORY/RECAP/agent-memory qui réactivent l'ancienne doctrine — purge = étape 4 critique ; refus argumenté du hook palliatif ; pattern « grep avant hook substring »). L'incident origine 22 mai neo_ia est l'EXEMPLE CONCRET de cette note canonique.
 
-Quand la doctrine pivote (ex: 22 mai 2026 "doctrine vs enforcement"), il NE SUFFIT PAS de mettre à jour les rules. Il FAUT AUSSI purger `MEMORY.md` + `.claude/RECAP.md` + `.claude/agent-memory/*/MEMORY.md` des phrases verbatim contredisant la nouvelle doctrine.
+## Cas empirique(s) — pattern récurrent, 3 incidents en 3 jours (22-23 mai 2026)
 
-**Sans cette purge** : la session principale recharge la doctrine pré-pivot à chaque démarrage et le travail doctrinal est invisiblement annulé.
+- **Incident 1 (22 mai)** : pivot doctrinal hooks workflow → `MEMORY.md` neo_ia non purgé (contenait `pipeline-enforcement` « TOUJOURS architect → dev → test-writer → code-reviewer → commit » et `no-direct-coding ») + `RECAP.md` avec phase REFACTOR → doctrine 22 mai annulée silencieusement pendant ~10 jours, détectée seulement par l'audit profond 10-agents.
+- **Incident 2 (23 mai matin)** : audit thématique vault Claude Code → 22 claims fausses détectées, dont **MOC-Claude-Code** + **MOC-Leaders** contenaient encore « Angela Jiang advisor 5× » malgré la réécriture des notes canoniques le 22 mai. Cause : propagation vers les MOCs non faite à l'étape 4. Corrigé via commit `4aee799`.
+- **Incident 3 (23 mai après-midi)** : audit forge dogfooding → 11 drifts factuels supplémentaires dans CLAUDE.md, vault/index.md, `.claude/skills/cc-hooks-ref/SKILL.md`, `.claude/agents/hook-creator.md`, ia_back. Pattern identique : canoniques OK, propagation aval pas resynchronisée.
 
-**Why** : Bug découvert session 2026-05-22 sur neo_ia. La doctrine "Claude decides when to invoke" était dans les rules. MAIS `MEMORY.md` contenait `pipeline-enforcement` ("TOUJOURS architect → dev → test-writer → code-reviewer → commit") et `no-direct-coding` ("Session principale = CTO, ne code JAMAIS directement. Hooks architect-guard et commit-guard bloquent."). `RECAP.md` décrivait le pipeline pré-pivot avec phase REFACTOR. Résultat : doctrine 22 mai annulée à chaque session pendant ~10 jours.
+→ **Le pattern n'est PAS une exception, c'est une régularité.** Skill `/pivot-check` v1 draftée pour automatiser la détection (4 fixes DA pending avant activation).
 
-**How to apply** : à chaque pivot doctrinal majeur, appliquer la **méthode canonique** [[methode-pivoter-doctrine]] (checklist 5 étapes), pas un hook palliatif.
+## Méta-leçon empirique
 
-## Pourquoi PAS un hook
-
-Tentation initiale : créer `doctrine-drift-guard.py` SessionStart qui scanne MEMORY/RECAP pour phrases-signal. **REFUSÉ par DA** (cf [[critique-2026-05-22-doctrine-drift-guard]]) :
-
-1. **Signal-to-noise = 0 par construction** : la doc correcte du pivot mentionne TOUJOURS l'ancienne doctrine pour la déclarer obsolète → le hook punit la documentation correcte. Test empirique : 26/26 faux positifs sur neo_ia post-purge.
-2. **Mauvaise forme** : pivot doctrinal = événement one-shot (~1×/trimestre). Hook permanent au SessionStart = mauvais outil.
-3. **Self-violation doctrine 22 mai** : "hooks = lint/security/scope, JAMAIS workflow". Mécaniser conformité doctrinale = workflow hook abstrait. Isomorphe à `architect-guard` (supprimé 22 mai).
-
-## La vraie solution — checklist 5 étapes
-
-Voir note canonique [[methode-pivoter-doctrine]] (vault forge-brain) :
-
-1. Note canonique vault à jour
-2. Rules du repo mises à jour (frontmatter `description:` présent)
-3. CLAUDE.md repo (racine + secondaires) avec STOP bloc <ligne 25 si critique
-4. **PURGE MEMORY.md + .claude/RECAP.md + .claude/agent-memory/*/MEMORY.md** ⚠️ étape la plus oubliée
-5. Test session fraîche pour valider que l'ancienne doctrine n'est plus chargée
-
-## Pattern à mémoriser (méta)
-
-**Avant d'écrire un hook substring/regex** : grep les patterns sur les fichiers cibles AVANT de coder. Si le grep matche la documentation canonique de ce que le hook protège, le hook est mal conçu. Pattern symétrique à `feedback_da_failure_options` mais en amont.
-
-## Pattern récurrent — 3 incidents en 3 jours (22-23 mai 2026)
-
-**Incident 1 (22 mai)** : pivot doctrinal hooks workflow → MEMORY.md neo_ia non purgé → doctrine 22 mai annulée silencieusement pendant ~10 jours.
-
-**Incident 2 (23 mai matin)** : audit thématique vault Claude Code → 22 claims fausses détectées dont **MOC-Claude-Code** + **MOC-Leaders** contenaient encore "Angela Jiang advisor 5×" malgré que les notes canoniques aient été réécrites le 22 mai. Cause : la propagation vers les MOCs n'a pas été faite à l'étape 4 de methode-pivoter-doctrine. Découvert pendant cet audit, corrigé via commit `4aee799`.
-
-**Incident 3 (23 mai après-midi)** : audit forge dogfooding → 11 drifts factuels supplémentaires dans CLAUDE.md, vault/index.md, .claude/skills/cc-hooks-ref/SKILL.md, .claude/agents/hook-creator.md, ia_back. Pattern identique : canoniques OK, propagation aval pas resynchronisée.
-
-→ **Le pattern n'est PAS une exception, c'est une régularité.** Skill `/pivot-check` v1 draftée pour automatiser détection (4 fixes DA pending avant activation).
-
-## Méta-leçon
-
-La **propagation** est l'étape qui dérive systématiquement. La doctrine canonique est facile à mettre à jour (1-N notes). **Tous les composants qui citent cette doctrine** (MOCs, CLAUDE.md, skills cc-*, agents, mémoire forge, vault d'autres repos) sont l'angle mort. Sans check automatisé, il faut un audit dogfooding pour les détecter — ce qui prend ~3h par incident.
-
-**Investissement justifié** : automatiser via `/pivot-check` ou équivalent. Coût ~2h dev pour gagner ~3h × N pivots futurs.
+La **propagation** est l'étape qui dérive systématiquement. La doctrine canonique est facile à mettre à jour (1-N notes). **Tous les composants qui la citent** (MOCs, CLAUDE.md, skills cc-*, agents, mémoire forge, vault d'autres repos) sont l'angle mort. Sans check automatisé, il faut un audit dogfooding pour les détecter — coût mesuré ~3h par incident. **Investissement justifié** : automatiser via `/pivot-check`, ~2h dev pour gagner ~3h × N pivots futurs.
 
 ## Liens
 

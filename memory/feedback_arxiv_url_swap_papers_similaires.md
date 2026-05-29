@@ -22,4 +22,4 @@ Double swap = erreur Type 1 silencieuse, indétectable sans WebFetch des URLs.
 - Red flag : si une liste de sources contient N URLs arXiv du même domaine, probabilité de swap > 0
 - Validation : Title du paper trouvé via WebFetch DOIT correspondre au nom cité dans la note
 
-Lié : [[feedback_arxiv_id_yymm_format]] [[feedback_audit_thematique_methode]] [[feedback_verify_exhaustive_claims]]
+Lié : [[erreur-audit-rag-11-faux-2026-05-23]] [[feedback_audit_thematique_methode]] [[feedback_verify_exhaustive_claims]]

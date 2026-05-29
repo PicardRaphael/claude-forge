@@ -91,7 +91,7 @@
 - [workflow-spec-forge-jira-tickets](feedback_workflow_spec_forge_jira.md) — Workflow : idée → forge challenge → /spec repo → tickets Jira. Spec=technique, Jira=process
 - [zero-dette-technique-nettoyer-completement](feedback_zero_dette_technique.md) — Dette/drift/réf morte découverte = nettoyage COMPLET immédiat, jamais plus tard
 
-### Archive de référence — tier-2 (96 feedbacks non cités)
+### Archive de référence — tier-2 (77 feedbacks non cités)
 > Feedbacks valides mais sans citation entrante, déplacés vers [memory/_index_archive.md](_index_archive.md) pour alléger le chargement. Accès via recherche/lecture directe si besoin. Critère tier-1 : cité ≥1 OU sujet stratégique. Réintégrer ici un tier-2 dès qu'il est cité.
 
 ## Project

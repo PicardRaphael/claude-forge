@@ -7,20 +7,9 @@ metadata:
   originSessionId: f9514081-5b0f-4d0a-934a-9a3a4fee9a3e
 ---
 
-Pour donner accès à un MCP entier dans `tools:` (agent) ou `allowed-tools:` (skill), utiliser le wildcard `mcp__server__*` au lieu de lister chaque outil.
+Cf [[comment-creer-agent]] section "AJOUT 24 mai 2026 (suite)" (doctrine : wildcard `mcp__server__*` = syntaxe officielle Anthropic à préférer au listing explicite ; exception read-only ; analyse token cost = négligeable en frontmatter, vrai risque = nombre de MCP servers actifs). Voir aussi [[comment-creer-skill]].
 
-**Why:** session 24 mai 2026, j'avais listé 3-7 outils MCP forge-brain par agent (search_brain, read_note, get_backlinks...). Raphael : "pourquoi tu fais pas mcp__forge-brain__* en gros". Vérification doc Anthropic = syntaxe officielle verbatim (`mcp__puppeteer__*` dans exemples doc permissions). 36 frontmatters convertis (14 forge + 9 neo_ia + 13 ia_back).
+**Cas empirique(s) :**
 
-**How to apply:**
-- ✅ `tools: ..., mcp__forge-brain__*` (1 token wildcard)
-- ❌ `tools: ..., mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__get_backlinks` (restrictif, oublie potentiel)
-- Exception : sub-agent vraiment read-only → lister explicite + `disallowedTools: Write, Edit`
-
-**Token cost analysis (Raphael a posé la question)** :
-- Wildcard vs liste dans frontmatter `tools:` = ~40 chars diff = négligeable
-- Le vrai risque token = **nombre de MCP servers actifs** dans `.mcp.json` / `mcpServers` (Thariq verbatim "50-100 tools → modèle se perd")
-- Definitions des outils MCP chargées **une fois** au démarrage server, pas re-chargées à chaque appel agent
-- Restreindre `tools:` ne réduit PAS le payload tool defs, seulement l'accès du sub-agent
-
-Source verbatim : [code.claude.com/docs/en/permissions#mcp](https://code.claude.com/docs/en/permissions#mcp).
-Vault canonique : sections "AJOUT 24 mai 2026 suite" dans [[comment-creer-agent]] + [[comment-creer-skill]].
+- Session 24 mai 2026 : j'avais listé 3-7 outils MCP forge-brain par agent (search_brain, read_note, get_backlinks...). Raphael : "pourquoi tu fais pas mcp__forge-brain__* en gros". Vérification doc Anthropic = syntaxe officielle verbatim (`mcp__puppeteer__*` dans exemples doc permissions). **36 frontmatters convertis (14 forge + 9 neo_ia + 13 ia_back).**
+- Token cost analysis (Raphael a posé la question) : wildcard vs liste dans `tools:` = ~40 chars diff = négligeable. Le vrai risque token = nombre de MCP servers actifs dans `.mcp.json` (Thariq verbatim "50-100 tools → modèle se perd"). Définitions des outils MCP chargées une fois au démarrage server, pas re-chargées à chaque appel agent.

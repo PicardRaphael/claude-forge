@@ -51,6 +51,6 @@ Raphael a explicitement délégué plusieurs fois ("ok go", "tu peux voir les fi
 ## Liens
 
 - [[feedback_jarvis_innovator]] — posture Jarvis active
-- [[feedback_advisor_da_mandatory]] — advisor AVANT travail substantiel, pas en boucle
+- [[workflow-claude-code-optimal]] — advisor AVANT travail substantiel, pas en boucle
 - [[feedback_never_pure_executor]] — mais pas non plus "demande confirmation pour tout"
 - [[feedback_audit_thematique_methode]] — méthode validée cette session

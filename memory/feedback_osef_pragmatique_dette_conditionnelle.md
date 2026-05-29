@@ -13,6 +13,6 @@ Sur sujet à faible levier (cosmétique, hypothétique, "si un jour"), Raphael t
 - Sujet hypothétique "si un jour X" / pas de levier immédiat → proposer arbitrage tranchant, pas options multiples
 - Si arbitrage = OSEF : **toujours proposer trace dette conditionnelle** dans context-actuel (condition de réactivation explicite : "SI publication / SI 3e violation / SI nouveau projet utilise X")
 - Anti-pattern : OSEF total sans trace = perte info à terme. OSEF + dette conditionnelle = arbitrage propre.
-- Distinct de [[feedback_zero_dette_technique]] (dette TECHNIQUE découverte nettoie immédiat) et [[feedback_kill_pragmatique_vide_doctrinal]] (KILL assumé sans canonique). Ici dette = arbitrage explicite reporté, pas dette involontaire.
+- Distinct de [[feedback_zero_dette_technique]] (dette TECHNIQUE découverte nettoie immédiat) et [[pattern-mcp-brief-then-direct]] (KILL assumé sans canonique). Ici dette = arbitrage explicite reporté, pas dette involontaire.
 
 Voir aussi [[feedback_pas_de_symetrie_artificielle_priorisation]] (axes peuvent n'avoir qu'1 P0 — pas d'équilibre forcé).
