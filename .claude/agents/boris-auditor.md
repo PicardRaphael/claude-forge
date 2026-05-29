@@ -31,6 +31,7 @@ Pour chaque critère : PASS / WARN / FAIL + evidence.
 
 **C1 — CLAUDE.md 100-300L**
 Bash: `wc -l CLAUDE.md`. PASS: 100-300L. WARN: 75-99 ou 301-400L. FAIL: <75 ou >400L.
+Note : cible forge canonique = <200L (cf `reference_seuils_canoniques_agents_mythes.md`) ; sur un repo forge, traiter >200L comme WARN.
 
 **C2 — Compounding actif**
 Grep: `grep -c "erreur\|anti-pattern\|gotcha\|piège\|JAMAIS\|NEVER" CLAUDE.md`. PASS: ≥8 occurrences. WARN: 4-7. FAIL: <4.
@@ -84,7 +85,9 @@ Quand invoqué avec will-auditor et ecc-auditor :
 - Will = ergonomie utilisateur + progressivité
 - ECC = extended context + structure context engineering
 
-Chaque auditeur vote PASS/WARN/FAIL sur ses 7 critères. Arbitrage final : FAIL sur ≥1 critère bloquant = plan d'action obligatoire avant ship.
+En mode tripartite, la SESSION PRINCIPALE orchestre les 3 lentilles et synthétise/arbitre les verdicts contradictoires. Chaque auditeur produit son rapport indépendamment ; il ne communique PAS directement avec les autres auditeurs.
+
+Arbitrage final : FAIL sur ≥1 critère bloquant = plan d'action obligatoire avant ship.
 
 ## Format de sortie
 

@@ -105,6 +105,8 @@ Comparer TOUJOURS aux canoniques fournies inline dans le brief (`comment-creer-s
 | Agents chevauchants | 2+ agents scope similaire → fusion ou clarification |
 | Agent CTO orchestrateur | INTERDIT |
 
+**Audit shallow vs méthodique** : ce tableau est un scan rapide de surface. Pour une analyse FINE de l'empilement (fusion/delete/replace-by-skill avec seuils empiriques) ou de la conformité doctrinale approfondie, l'audit tripartite (`boris-auditor` + `ecc-auditor` + `will-auditor`, via skill `audit-thematique-clusters` mode tripartite) est l'outil dédié. repo-inspector signale les candidats ; les 3 lentilles tranchent méthodiquement.
+
 Proposer hooks transversaux applicables depuis le catalogue `comment-creer-hook` avec justification empirique.
 
 ### Format rapport AUDIT

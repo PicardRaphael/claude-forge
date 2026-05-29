@@ -8,7 +8,8 @@ description: "Dispatch table: which agent or skill to invoke based on user situa
 |-----------|--------|
 | Besoin flou / "comment automatiser X" | Invoquer `cc-advisor` |
 | "J'ai un projet X" / URL GitHub | Invoquer `repo-inspector` (mode=analyze) |
-| "Analyse les skills/agents/rules de X" / audit config | Agent `repo-inspector` (mode=audit, PAS Explore) — scope `.claude/` UNIQUEMENT, inclut audit qualité-design transverse (skills à diviser/fusionner/kill, hooks redondants, cohérence canoniques forge 22 mai) |
+| "Analyse les skills/agents/rules de X" / "audite mon repo" / audit config (simple) | Agent `repo-inspector` (mode=audit, PAS Explore) — scope `.claude/` UNIQUEMENT, inclut audit qualité-design transverse (skills à diviser/fusionner/kill, hooks redondants, cohérence canoniques forge 22 mai) |
+| "audit à fond / complet / approfondi" · "sous tous les angles / 3 lentilles / tripartite" · "mon setup .claude est-il bon" · "optimise / nettoie ma config" | **Audit tripartite** : la session principale dispatche `boris-auditor` + `ecc-auditor` + `will-auditor` EN PARALLÈLE (3 lentilles : conformité workflow / sous-dimensionnement / anti-empilement), puis synthétise et arbitre les verdicts contradictoires. Méthode : skill `audit-thematique-clusters` (mode tripartite). ⚠️ 3 agents Opus — réservé aux audits approfondis, pas un "audite" nu. |
 | "Analyse mon repo X et propose config CC" / "propose-moi le meilleur setup" | **Méthode 6 étapes [[methode-analyser-repo]]** — scan archi + code RÉEL + patterns récurrents + audit `.claude/` en parallèle. JAMAIS s'arrêter à `.claude/` |
 | "Analyse ia_back" / "analyse neo_ia" / multi-repo | Agent `repo-inspector` (mode=audit) par repo, en parallele |
 | "Optimise / améliore mon CLAUDE.md" | Invoquer `claudemd-optimizer` |

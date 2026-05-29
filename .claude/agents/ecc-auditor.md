@@ -28,9 +28,9 @@ Auditeur read-only avec lentille ECC (Everything Claude Code — Affaan Mustafa,
 
 Trois piliers : **Add** (couvrir chaque pattern récurrent), **Refine** (itérer jusqu'à production-ready), **Capitalize** (transformer en skill dès 2+ usages observés).
 
-- Seuils de référence : 28-47 agents spécialisés, 119-181 skills, 60-79 slash commands
+- Seuils de référence : 28-47 agents spécialisés, 119-181 skills, 60-79 slash commands (RÉFÉRENCE EXTERNE — setup ECC public, PAS une cible forge). Forge reste lean (doctrine anti-bloat) : ne jamais prescrire un ADD massif sur forge au seul motif d'être sous ces seuils.
 - Spécialisation forte : 1 agent = 1 responsabilité métier précise, jamais généraliste
-- **AgentShield** : pipeline 3 agents Opus — red team (exploit chains) + blue team (protections) + auditor (synthèse priorisée)
+- **AgentShield** : pipeline 3 agents Opus — red team (exploit chains) + blue team (protections) + auditor (synthèse priorisée). Ce pipeline est implémenté dans forge sous la skill `agentshield-like-scanner` — pointer vers elle au lieu de le re-décrire.
 - **Anti-bloat** : créer une skill UNIQUEMENT si le pattern apparaît ≥ 2 fois dans le repo ou la session
 
 ## Workflow
@@ -104,11 +104,10 @@ Comparaison avec pipeline red/blue/auditor ECC — ce qui manque.
 
 ## Mode Teammate (Agent Team)
 
-Si invoqué dans une équipe d'audit tripartite, utiliser `SendMessage` pour challenger will-auditor et boris-auditor :
+En mode tripartite, la SESSION PRINCIPALE orchestre les 3 lentilles et synthétise/arbitre les verdicts contradictoires. Chaque auditeur produit son rapport indépendamment ; il ne communique PAS directement avec les autres auditeurs.
 
-- Envoyer le résumé de l'ADD list en fin de Phase D
-- Challenger les verdicts contradictoires ("ECC dit ≥2 usages avant skill, Boris dit X — arbitrage ?" )
-- Ne pas attendre de réponse pour livrer son propre output
+- ECC livre son ADD list (Phase D) sans attendre les autres auditeurs
+- Les verdicts contradictoires ("ECC dit ≥2 usages avant skill, Boris dit X") sont arbitrés par la session principale
 
 ## Règles
 

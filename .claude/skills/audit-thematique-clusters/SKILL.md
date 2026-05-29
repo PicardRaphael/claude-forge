@@ -87,6 +87,29 @@ Test comportemental (session fraîche ou prompt test PASS/FAIL) avant de déclar
 
 ---
 
+## Mode tripartite — 3 lentilles doctrinales
+
+**QUAND** : déclenché si l'utilisateur demande un audit "à fond / complet / sous tous les angles / 3 lentilles / tripartite", ou "mon setup .claude est-il bon / optimise ma config". Routé par `.claude/rules/comportement-proactif.md`. Distinct du mode clusters par défaut (7 phases ci-dessus).
+
+**QUOI** : au lieu de clusters thématiques, dispatcher 3 agents auditeurs spécialisés EN PARALLÈLE depuis la session principale (1 message, 3 `Agent` calls) :
+
+- `boris-auditor` — lentille conformité workflow Boris (score 7/7 : CLAUDE.md, compounding, /clear, verify, split, Karpathy, délégation)
+- `ecc-auditor` — lentille sous-dimensionnement ECC (ADD list : agents/skills manquants ; rappel : seuils ECC = référence externe, PAS cible forge)
+- `will-auditor` — lentille anti-empilement Will (FUSION/DELETE/REPLACE-BY-SKILL : ce qui est en trop)
+
+**ORCHESTRATION** :
+
+1. Session principale lance les 3 agents en 1 message (parallèle)
+2. Attend leurs 3 rapports
+3. SYNTHÉTISE les verdicts et ARBITRE les contradictions : si ECC dit "ajoute X" et Will dit "retire X", la session tranche selon la canonique forge anti-bloat
+4. Les 3 auditeurs ne communiquent PAS entre eux (pas de SendMessage — anti-réentrance)
+
+**ARBITRAGE des contradictions de seuils** : la canonique vault fait foi sur forge (CLAUDE.md <200L, skills <500L, anti-bloat). Les seuils ECC (119-181) sont une comparaison externe, jamais une cible forge.
+
+**COÛT** : 3 agents Opus en parallèle. Réservé aux audits approfondis explicitement demandés — un "audite" nu va à `repo-inspector` mode=audit (mode clusters seul).
+
+---
+
 ## Scaling
 
 | Audit | # composants | # clusters | Wall-time |

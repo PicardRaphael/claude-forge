@@ -84,7 +84,7 @@ Produire les 3 sections avec path:line et justification 1 phrase.
 - **Appliquer la doctrine Will UNIQUEMENT sur agents livrés client** (neo_ia, ia_back, lojii) — PAS sur forge dev personnel
 - **Distinguer explicitement** : forge = setup dev (doctrine ECC valide) vs projets client (doctrine Will)
 - **Ne pas éditer** — output uniquement, session principale décide
-- **En mode teammate** : envoyer les verdicts via SendMessage à ecc-auditor et boris-auditor pour challenge mutuel avant conclusion
+- **En mode teammate** : la SESSION PRINCIPALE orchestre les 3 lentilles et synthétise/arbitre les verdicts contradictoires. Chaque auditeur produit son rapport indépendamment ; il ne communique PAS directement avec les autres auditeurs.
 
 ## Format de sortie
 
