@@ -1,0 +1,12 @@
+{"ts": "2026-05-30T05:07:20.132382+00:00", "session_id": "67324dda-1d90-4d1d-b0cf-e4396cd5f071", "tool": "Read", "input_chars": 145, "output_chars": 6905, "estimated_tokens": 2136}
+{"ts": "2026-05-30T05:07:54.440972+00:00", "session_id": "67324dda-1d90-4d1d-b0cf-e4396cd5f071", "tool": "Edit", "input_chars": 5847, "output_chars": 40453, "estimated_tokens": 14030}
+{"ts": "2026-05-30T05:08:06.300384+00:00", "session_id": "67324dda-1d90-4d1d-b0cf-e4396cd5f071", "tool": "Edit", "input_chars": 1201, "output_chars": 35522, "estimated_tokens": 11128}
+{"ts": "2026-05-30T05:08:13.535495+00:00", "session_id": "67324dda-1d90-4d1d-b0cf-e4396cd5f071", "tool": "Read", "input_chars": 144, "output_chars": 777, "estimated_tokens": 279}
+{"ts": "2026-05-30T05:08:20.462985+00:00", "session_id": "67324dda-1d90-4d1d-b0cf-e4396cd5f071", "tool": "Edit", "input_chars": 505, "output_chars": 34504, "estimated_tokens": 10608}
+{"ts": "2026-05-30T05:08:50.584187+00:00", "session_id": "67324dda-1d90-4d1d-b0cf-e4396cd5f071", "tool": "Bash", "input_chars": 805, "output_chars": 134, "estimated_tokens": 284}
+{"ts": "2026-05-30T05:08:56.949886+00:00", "session_id": "67324dda-1d90-4d1d-b0cf-e4396cd5f071", "tool": "Read", "input_chars": 114, "output_chars": 85245, "estimated_tokens": 25866}
+{"ts": "2026-05-30T05:09:03.507029+00:00", "session_id": "67324dda-1d90-4d1d-b0cf-e4396cd5f071", "tool": "Read", "input_chars": 114, "output_chars": 78157, "estimated_tokens": 23718}
+{"ts": "2026-05-30T05:09:12.047227+00:00", "session_id": "67324dda-1d90-4d1d-b0cf-e4396cd5f071", "tool": "Bash", "input_chars": 302, "output_chars": 183, "estimated_tokens": 146}
+{"ts": "2026-05-30T05:09:16.969439+00:00", "session_id": "67324dda-1d90-4d1d-b0cf-e4396cd5f071", "tool": "Read", "input_chars": 114, "output_chars": 123221, "estimated_tokens": 37374}
+{"ts": "2026-05-30T05:14:04.570676+00:00", "session_id": "67324dda-1d90-4d1d-b0cf-e4396cd5f071", "tool": "Bash", "input_chars": 162, "output_chars": 102, "estimated_tokens": 80}
+{"ts": "2026-05-30T05:16:23.492531+00:00", "session_id": "67324dda-1d90-4d1d-b0cf-e4396cd5f071", "tool": "Bash", "input_chars": 253, "output_chars": 434, "estimated_tokens": 208}
