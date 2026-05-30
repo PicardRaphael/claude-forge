@@ -6,7 +6,8 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 
 **Critère d'archivage réel (vers `_archive/`) :** distinct — un tier-2 n'est archivé que si obsolète/absorbé (voir `_archive/MEMORY-archive-log.md`). Tier-2 ≠ archivé.
 
-## Feedback (tier-2 — 101 entrées)
+## Feedback (tier-2 — 102 entrées)
+- [avis-franc-ecrit-dans-livrable](feedback_avis_franc_ecrit_dans_livrable.md) — Avis de fond franc + choix binaire net + dangers noir sur blanc DANS le livrable
 - [doc-pro-coherence-multi-docs](feedback_doc_pro_coherence_multi_docs.md) — Pack de docs liés : relire mot à mot la cohérence inter-docs avant de livrer
 - [raphael-pas-mise-en-avant-cadrage-client](feedback_raphael_pas_mise_en_avant_cadrage_client.md) — Docs Neoteem : ne pas mettre Raphaël en avant ; cadrage = décision client
 - [5-lignes-karpathy-ouverture-claudemd](feedback_5_lignes_karpathy_ouverture.md) — Tout CLAUDE.md forge commence par 5 lignes Karpathy verbatim
