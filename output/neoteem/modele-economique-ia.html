@@ -156,6 +156,7 @@
 
   <h2 class="sub">Vendre l'accès MCP métier (abonnement ou à la requête)</h2>
   <p>Si la direction décide d'exposer les données Loji via MCP (cf. pari stratégique de la roadmap), c'est un produit vendable en soi. Deux modèles, combinables :</p>
+  <div class="note-box"><strong>Ce ne sera pas UN MCP, mais une gamme.</strong> Techniquement, un MCP doit rester resserré : un bon MCP expose <strong>~5 à 15 outils maximum</strong> — au-delà de ~20, l'IA se perd (elle hallucine des outils, confond les paramètres ; la qualité chute, fait vérifié sur les 18 modèles frontière). Or Loji couvre de nombreux domaines (locataires, syndic, gérance, compta, AG, sinistres…). Conséquence : il faudra <strong>plusieurs MCP ciblés, voire plusieurs par domaine</strong>, chacun spécialisé. C'est un <strong>catalogue</strong> à vendre à l'unité ou en pack, pas un produit unique — et chaque MCP s'accompagne d'une formation au branchement côté client.</div>
   <table>
     <thead><tr><th>Modèle MCP</th><th>Principe</th><th>Fourchette indicative</th><th>Quand</th></tr></thead>
     <tbody>
@@ -173,10 +174,24 @@
     <tbody>
       <tr><td><strong>Formation IA généraliste</strong> (bien utiliser Gemini/ChatGPT/Claude au quotidien syndic)</td><td>1 jour intra-cabinet (présentiel ou visio)</td><td>1 200-1 800 €/jour</td><td>Formations IA marché : 1 200-3 000 €/jour</td></tr>
       <tr><td><strong>Formation « IA + Loji »</strong> (tirer parti de l'IA branchée sur leurs données)</td><td>1/2 à 1 jour, sur-mesure métier</td><td>1 500-2 500 €/jour (premium : différenciant)</td><td>Au-dessus du généraliste car personne d'autre ne peut la donner</td></tr>
-      <tr><td><strong>Abonnement « accompagnement IA »</strong></td><td>Suivi mensuel (Q&amp;R, nouvelles pratiques, mises à jour)</td><td>150-400 €/mois/cabinet</td><td>Revenu récurrent, fidélise</td></tr>
+      <tr><td><strong>Abonnement « accompagnement IA »</strong> (veille + nouveautés)</td><td>Suivi mensuel : Q&amp;R, nouvelles pratiques, dernières nouveautés IA, nouveaux MCP à brancher</td><td>150-400 €/mois/cabinet</td><td>Revenu récurrent, fidélise, garde Neoteem expert</td></tr>
     </tbody>
   </table>
-  <div class="avis"><span class="label">Avis Claude :</span> Ces deux leviers sont la traduction concrète du « B finance A ». La <strong>formation</strong> rapporte tout de suite, sans dev, et installe Neoteem comme l'expert IA de confiance auprès des syndics — c'est aussi le meilleur canal pour découvrir ce que les clients veulent vraiment (utile pour cadrer NeoMail). Le <strong>MCP</strong> est plus stratégique : il ouvre un revenu, mais doit être bridé par contrat pour ne pas cannibaliser les produits. Ma reco : démarrer la formation <strong>maintenant</strong> (cash + découverte client), et traiter le MCP comme une <strong>offre cadrée</strong> à ouvrir prudemment, pas en grand.</div>
+
+  <h2 class="sub">Configurer des assistants spécialisés sur la plateforme du client</h2>
+  <p>Ici on ne parle PAS de développer des agents (NeoChat a déjà les siens : Universal, Support, Devis, Annonce, Reformulation). On parle de <strong>configurer sans code des assistants spécialisés sur la plateforme que le client utilise déjà</strong> : un <strong>GPT custom</strong> (ChatGPT), un <strong>Gem</strong> (Gemini), un <strong>projet/plugin</strong> (Claude), un <strong>agent Rovo</strong> (Jira/Atlassian). C'est de la prestation de configuration légère + connaissance métier — pas du développement SDK.</p>
+  <table>
+    <thead><tr><th>Offre</th><th>Ce que c'est</th><th>Fourchette indicative</th><th>Benchmark marché 2026</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Assistant custom simple</strong> (GPT / Gem / projet Claude)</td><td>Configuration no-code : instructions + connaissances métier syndic. Sans intégration de données.</td><td>150-500 €</td><td>Prestation GPT simple marché : 150-500 €</td></tr>
+      <tr><td><strong>Assistant custom avancé</strong></td><td>Avec actions, base de connaissances structurée, plusieurs cas d'usage</td><td>500-2 000 €</td><td>Prestation GPT avancé marché : 500-2 000 €</td></tr>
+      <tr><td><strong>Assistant branché données Loji</strong> (via MCP)</td><td>Le différenciant : l'assistant accède aux vraies données Loji via un MCP. Là, plus personne ne peut copier.</td><td>à cadrer (dépend du MCP, cf. ci-dessus)</td><td>Marché GPT « intégré métier » : 2 000 €+</td></tr>
+      <tr><td><strong>Maintenance / évolution</strong></td><td>Mises à jour des instructions, nouveaux cas d'usage, suivi</td><td>80-300 €/mois</td><td>Standard marché : 80-300 €/mois</td></tr>
+    </tbody>
+  </table>
+  <p class="small">Sources prix marché : prestations de configuration GPT/assistant sur mesure France 2026 (simple 150-500 €, avancé 500-2 000 €, intégré métier 2 000 €+, maintenance 80-300 €/mois). À NE PAS confondre avec le développement d'un agent custom par agence (avec SDK/intégrations lourdes : 5 000-80 000 €) — ce n'est pas ce qu'on vend ici. On vend de la configuration no-code + notre expertise métier.</p>
+
+  <div class="avis"><span class="label">Avis Claude :</span> Ces leviers sont la traduction concrète du « B finance A » — et ils collent à une réalité que la direction doit accepter : <strong>Neoteem n'est pas une boîte d'IA, c'est un éditeur immobilier (≈99% de l'équipe sur Lojii)</strong>. Vouloir tout construire en IA serait une erreur. Le bon positionnement est <strong>facilitateur IA</strong> : on forme les clients, on leur ouvre des MCP, on leur configure des assistants spécialisés sur LEUR plateforme — on les rend autonomes sur l'IA branchée à leurs données Loji, plutôt que de porter seuls tout le dev. Ça génère du cash <strong>maintenant</strong>, sans recruter, et installe Neoteem comme l'expert IA de confiance. À terme, c'est ça qui fera grossir Lojii — mais en attendant que l'équipe produit monte, le conseil/formation/config est le chemin réaliste. Ma reco : démarrer formation + assistants custom <strong>tout de suite</strong> (cash + découverte client, prix légers 150-2 000 €), MCP en <strong>offre cadrée</strong> (bridée, pas tous azimuts).</div>
 </section>
 
 <!-- ============ 7. VUE D'ENSEMBLE ============ -->
@@ -192,6 +207,7 @@
       <tr><td><strong>Agents métier</strong></td><td>Usage / au succès</td><td>0,20-5 €/action ou 1-3% recouvré</td><td>Usage (fort potentiel)</td></tr>
       <tr><td><strong>Accès MCP métier</strong></td><td>Abonnement ou à la requête + setup</td><td>40-99 €/mois ou ~0,02-0,10 €/requête + 300-800 € setup</td><td>Récurrent ou usage (à brider)</td></tr>
       <tr><td><strong>Formations IA clients</strong></td><td>Journée + accompagnement</td><td>1 200-2 500 €/jour ou 150-400 €/mois</td><td>Immédiat (Option B, cash rapide)</td></tr>
+      <tr><td><strong>Assistants custom</strong> (GPT/Gem/projet Claude/agent Jira)</td><td>Configuration no-code sur la plateforme du client + maintenance</td><td>150-2 000 € config + 80-300 €/mois</td><td>Immédiat (Option B), config légère</td></tr>
     </tbody>
   </table>
   <h2 class="sub">Le scénario que je recommande</h2>
