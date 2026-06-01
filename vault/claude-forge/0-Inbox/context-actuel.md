@@ -8,28 +8,29 @@ derniere-maj: 2026-06-01
 auteur: claude
 tags: ["#type/context", "#meta/working-memory"]
 ---
-
 ## Phase actuelle
-Renforcement du réflexe de consultation vault sur claude-forge + bascule workflow git en full-main. Deux livrables poussés sur `main`.
+Chantier complet d'optimisation + audit du setup **neoteem-brain** (repo `neot-v2/neoteem-brain`) : 5 plugins distribués neo-brain + tout le `.claude/` interne. 7 commits poussés sur `master`.
 
 ## Derniere session (2026-06-01)
-### Decisions prises
-- **Réflexe vault = Option C appliquée** : `skill-activation.py` re-fire le rappel `forge-brain` **par SUJET** (skill/agent/hook/claudemd/general) au lieu de once-per-session global. Cas skill→agent dans une même session = 2 rappels (canoniques vault différentes), anti-spam même sujet préservé. Rétro-compatible avec les 23 entrées legacy. Advisory (exit 0, conforme doctrine 22 mai non-workflow-hook).
-- **`.skill-triggers.json`** : entrée `forge-brain` en `triggers_by_subject`, sujet `general` couvre les mots d'intention (propose/audit/analyse profonde/ton avis/recommande/optimise/pourquoi). Exclut fix/corrige/salut/merci.
-- **FULL MAIN par défaut** (CLAUDE.md v3.5) : commit/push direct sur `main`, plus jamais la question branche/main. Branche uniquement sur demande explicite. Capitalisé `feedback_commit_full_main_defaut`.
-- **Tripartite hors-scope** : trou de routing « analyse profonde » → boris/ecc/will-auditor laissé documenté non-appliqué (Raphael a redscopé « juste pour le mcp »). Advisor disait non, DA disait trigger-rappel léger. Option prête-à-coller dans la note d'erreur.
+### Decisions prises (toutes dans le repo neoteem-brain, pas forge)
+- **5 skills neo-brain : 0 fusion / 0 division.** Axe de découpage = domaine (généraliste vs stack IA) + permission (RO vs RO+write). Le plugin installé EST le gate RBAC (write sans authz serveur, vérifié dans `brain.py` : `username` = nom de branche git seulement).
+- **Seuils pipeline gravés** (`pipeline.md` source unique, `quality-gates.md` fusionné dedans) : vault-linker ≥1 note, sync-checker >3, vault-validator >5. Le "≥1 vs >3" n'était pas une contradiction (>3 = pipeline complet, pas vault-linker seul).
+- **Lint references-* = outil mainteneur**, pas dans les skills. Backfill au merge via `scripts/enrich-references.py` (existait déjà). 101 notes enrichies appliquées.
+- **Réindexation symbols = automatique** : le watcher MCP (`parse_note`→`index_note`) peuple FTS5 ET la table symbols en une passe, sur la boucle `_git_pull`. Reindex manuel superflu (prouvé par le log watcher).
+- **Sécurité honnête** : CLAUDE.md neoteem-brain disait à tort "le hook bloque les écritures hors vault" → corrigé (Bash non intercepté + SoT par convention). Bug prefix-match du hook corrigé (sibling `-backup` passait).
+
 ### En cours
-- Rien d'ouvert. 4 commits poussés sur `main` : `4744b56` (hook réflexe vault), `45903c7` (CLAUDE.md v3.5 full main), `5edbcad` (cleanup output/ + metrics). Working tree propre.
+- Rien d'ouvert. 7 commits sur `origin/master` neoteem-brain (de `bdad3a8` à `fdae8d4`). Working tree propre.
+- ⚠️ Raphael doit **redémarrer sa session** pour que le nouveau `settings.json` neoteem-brain (permissions MCP + hooks) soit pris en compte, + `/reload-plugins` pour propager versions plugins (3.0.3/2.0.3) au cache.
+
 ### Prochaines etapes
-- (Optionnel) Observer si le rappel vault est suivi en pratique. S'il est ignoré malgré le rappel → signal qu'il faut un cran plus fort (mais commencer par le moins intrusif, doctrine 22 mai).
-- (Réactivation) Si une demande d'audit à fond repart en mono-agent et frustre → coller le trigger-rappel tripartite documenté.
-- ⚠️ Hygiène : 232 fichiers memory/ (cible <100) → `/clean-memory` en session dédiée.
+- (Optionnel) 160 notes residuelles ont des references-* non auto-déductibles du corps → décision humaine si on veut pousser la complétude graph plus loin.
+- (Optionnel) Câbler le Lint au merge (hook post-merge OU CI Bitbucket) quand le flux PR/VM neoteem-brain sera stabilisé — la logique (`validate-v2.py` + `enrich-references.py`) est prête, seul le déclencheur manque.
 
 ## Fils ouverts
-- Audit skills en cours (l'agent qui avait déclenché cette session) — non repris ici, c'était le contexte déclencheur pas le travail.
+- ⚠️ Hygiène mémoire forge : ~233 fichiers memory/ (cible <100) → `/clean-memory` en session dédiée.
 - Trilogie docs stratégiques IA Neoteem : présentation Jérôme puis CODIR (commit `3a0f373`).
-- Cadrage NeoMail (besoin/fonctionnalités/forme) = décision client, trame d'interview à préparer.
-- Vérifier que le repo claude-forge est bien privé (docs CODIR confidentiels commités).
+- Cadrage NeoMail = décision client, trame d'interview à préparer.
 
 ## Liens
 [[2-Casquettes/Raphael-Picard|Raphael Picard]]
