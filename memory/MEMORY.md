@@ -67,6 +67,7 @@
 - [cross-repo-naming-decision-propagation](feedback_propagate_decisions_cross_repo.md) — Décisions naming/structure = propager explicitement aux autres repos
 - [python-path-windows-hooks](feedback_python_path_windows.md) — Windows : chemin absolu Python313 dans hooks, jamais "python" seul
 - [recurring-meta-anti-pattern](feedback_recurring_meta_anti_pattern.md) — Workaround ≥ 2 fois = bug. AVANT refonte structurelle, lister cran 1/2/3
+- [regression-diagnostic-diff-avant-redesign](feedback_regression_diagnostic_diff_avant_redesign.md) — Régression à point d'introduction connu = diff AVANT redesign. Ne pas anchrer sur l'hypothèse user "trop gros". Asymétrie read/write runtime. Write-path résolu dans TOUS les points d'entrée
 - [regle-scope-pas-universelle](feedback_regle_scope_pas_universelle.md) — Vérifier scope règle AVANT propagation. Provider sur SON produit = single source
 - [single-source-of-truth](feedback_single_source_of_truth.md) — UN fichier canonique par concept, skills pointent vers doc/
 - [single-source-truth-vault-canonique](feedback_single_source_truth_vault_canonique.md) — Règles universelles vivent dans canonique vault UNIQUEMENT, wikilink ailleurs

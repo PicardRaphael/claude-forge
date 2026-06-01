@@ -8,30 +8,33 @@ derniere-maj: 2026-06-01
 auteur: claude
 tags: ["#type/context", "#meta/working-memory"]
 ---
-## Phase actuelle
-Chantier complet d'optimisation + audit du setup **neoteem-brain** (repo `neot-v2/neoteem-brain`) : 5 plugins distribués neo-brain + tout le `.claude/` interne. 7 commits poussés sur `master`.
 
-## Derniere session (2026-06-01)
-### Decisions prises (toutes dans le repo neoteem-brain, pas forge)
-- **5 skills neo-brain : 0 fusion / 0 division.** Axe de découpage = domaine (généraliste vs stack IA) + permission (RO vs RO+write). Le plugin installé EST le gate RBAC (write sans authz serveur, vérifié dans `brain.py` : `username` = nom de branche git seulement).
-- **Seuils pipeline gravés** (`pipeline.md` source unique, `quality-gates.md` fusionné dedans) : vault-linker ≥1 note, sync-checker >3, vault-validator >5. Le "≥1 vs >3" n'était pas une contradiction (>3 = pipeline complet, pas vault-linker seul).
-- **Lint references-* = outil mainteneur**, pas dans les skills. Backfill au merge via `scripts/enrich-references.py` (existait déjà). 101 notes enrichies appliquées.
-- **Réindexation symbols = automatique** : le watcher MCP (`parse_note`→`index_note`) peuple FTS5 ET la table symbols en une passe, sur la boucle `_git_pull`. Reindex manuel superflu (prouvé par le log watcher).
-- **Sécurité honnête** : CLAUDE.md neoteem-brain disait à tort "le hook bloque les écritures hors vault" → corrigé (Bash non intercepté + SoT par convention). Bug prefix-match du hook corrigé (sibling `-backup` passait).
+## Phase actuelle
+Réparation + refonte de l'automatisation triage tickets support LOJII (Cowork) — v3 livrée, prête pour test poste unique (Valéry).
+
+## Dernière session (2026-06-01)
+### Décisions prises
+- Architecture support-lojii **v3** : 2 skills (pas de découpage), mémoire d'apprentissage **LOCALE** (`support-memory/`, convention zéro-config), vault en LECTURE seule en batch, écriture vault gardée en `/analyse` interactif.
+- Run 7h = **1 seul scheduled** : Phase C (rétro, apprend de la veille) PUIS Phase A (triage).
+- JQL rétro corrigée : marqueur = **label `À_valider`**, jamais le texte de note (gras Unicode non cherchable).
+- MCP obsidian-brain installé **en local par poste** en attendant la VM. Lanceur portable commité (`mcp-obsidian-brain`, commit `ce00a62` master Bitbucket).
+- Suivi projet sauvegardé dans **forge** : [[automatisation-triage-tickets-support-suivi]].
 
 ### En cours
-- Rien d'ouvert. 7 commits sur `origin/master` neoteem-brain (de `bdad3a8` à `fdae8d4`). Working tree propre.
-- ⚠️ Raphael doit **redémarrer sa session** pour que le nouveau `settings.json` neoteem-brain (permissions MCP + hooks) soit pris en compte, + `/reload-plugins` pour propager versions plugins (3.0.3/2.0.3) au cache.
+- Déploiement v3 sur le poste de Valéry (test à venir avec le collègue support).
+- Livrables prêts : `claude-forge/output/support-lojii-plugin-v3/` (4 zips import + prompt 7h + checklists + fiche install MCP).
 
-### Prochaines etapes
-- (Optionnel) 160 notes residuelles ont des references-* non auto-déductibles du corps → décision humaine si on veut pousser la complétude graph plus loin.
-- (Optionnel) Câbler le Lint au merge (hook post-merge OU CI Bitbucket) quand le flux PR/VM neoteem-brain sera stabilisé — la logique (`validate-v2.py` + `enrich-references.py`) est prête, seul le déclencheur manque.
+### Prochaines étapes
+- Tester le 1er run réel : la rétro trouve-t-elle des tickets (JQL `À_valider` corrigée, non testée contre Jira) ?
+- Vérifier que `support-memory/learnings.md` se remplit après un `/analyse` avec correction.
+- Confirmer le branchement MCP HTTP dans Cowork (sinon fallback CLI, non bloquant).
 
 ## Fils ouverts
-- ⚠️ Hygiène mémoire forge : ~233 fichiers memory/ (cible <100) → `/clean-memory` en session dédiée.
-- Trilogie docs stratégiques IA Neoteem : présentation Jérôme puis CODIR (commit `3a0f373`).
-- Cadrage NeoMail = décision client, trame d'interview à préparer.
+- **Passage VM** (futur) : supprimer MCP local, rebrancher vers serveur central HTTPS, passer au partage Cowork entreprise (Team/Enterprise « Share »), étendre aux 4 agents N1. Checklist dans [[automatisation-triage-tickets-support-suivi]].
+- Branchement MCP dans Cowork Desktop : mécanisme exact non confirmé (`mcpServers` vide chez Raphael).
 
 ## Liens
 [[2-Casquettes/Raphael-Picard|Raphael Picard]]
 [[1-Projets/Claude-Forge/Claude-Forge|Claude-Forge]]
+[[automatisation-triage-tickets-support-suivi]]
+[[cowork-write-vault-headless-impossible]]
