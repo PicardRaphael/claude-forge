@@ -4,29 +4,29 @@ resume: Working memory dynamique -- mis a jour par /done, lu par /recap
 aliases: [context actuel, contexte courant, working memory, memoire de travail, etat actuel]
 type: context
 status: active
-derniere-maj: 2026-05-30
+derniere-maj: 2026-06-01
 auteur: claude
 tags: ["#type/context", "#meta/working-memory"]
 ---
 
 ## Phase actuelle
-Durcissement neoteem-brain (doctrine de profondeur anti-survol Confluence/Jira). Deux fixes livrés et poussés sur master : (1) plan file débloqué dans `guard-external-writes.py`, (2) doctrine lecture-complete étendue aux sources externes.
+Renforcement du réflexe de consultation vault sur claude-forge + bascule workflow git en full-main. Deux livrables poussés sur `main`.
 
-## Derniere session (2026-05-30 — soir)
+## Derniere session (2026-06-01)
 ### Decisions prises
-- **Fix profondeur = étendre la doctrine existante** (lecture-complete + anti-invention), pas en créer une nouvelle. Confluence/Jira ajoutés aux sources « lire en entier » ; `vault-enricher` rattaché ; « pertinentes » tué dans son prompt ; tools Jira ajoutés ; `sources:` exige page-ID/clé exacts.
-- **Pas de hook, pas de gate** pour la profondeur : non mesurable via stdin (hook) + Raphael a tranché « prompt strict seulement » (gate).
-- **Délégation NON retenue comme garde-fou de profondeur** (révision de ma reco initiale) : `lecture-complete` lie déjà la session principale, donc l'extension referme le trou seule. Sans gate, « délègue toujours » serait une règle non-vérifiable de plus.
-- Fix plan file : exception explicite en tête du hook, vérifiée empiriquement (4 cas, protections existantes intactes).
-- Convention git neoteem-brain : commit/push direct sur master, pas de branche.
+- **Réflexe vault = Option C appliquée** : `skill-activation.py` re-fire le rappel `forge-brain` **par SUJET** (skill/agent/hook/claudemd/general) au lieu de once-per-session global. Cas skill→agent dans une même session = 2 rappels (canoniques vault différentes), anti-spam même sujet préservé. Rétro-compatible avec les 23 entrées legacy. Advisory (exit 0, conforme doctrine 22 mai non-workflow-hook).
+- **`.skill-triggers.json`** : entrée `forge-brain` en `triggers_by_subject`, sujet `general` couvre les mots d'intention (propose/audit/analyse profonde/ton avis/recommande/optimise/pourquoi). Exclut fix/corrige/salut/merci.
+- **FULL MAIN par défaut** (CLAUDE.md v3.5) : commit/push direct sur `main`, plus jamais la question branche/main. Branche uniquement sur demande explicite. Capitalisé `feedback_commit_full_main_defaut`.
+- **Tripartite hors-scope** : trou de routing « analyse profonde » → boris/ecc/will-auditor laissé documenté non-appliqué (Raphael a redscopé « juste pour le mcp »). Advisor disait non, DA disait trigger-rappel léger. Option prête-à-coller dans la note d'erreur.
 ### En cours
-- Rien d'ouvert : 2 commits poussés sur `master` neoteem-brain (`62b1bf6` hook + `3236ec0` doctrine). Le pipeline global de Raphael a tourné entre-temps et applique déjà la profondeur (commits « sourcees PROFONDEUR Confluence+code lus entier »).
+- Rien d'ouvert. 4 commits poussés sur `main` : `4744b56` (hook réflexe vault), `45903c7` (CLAUDE.md v3.5 full main), `5edbcad` (cleanup output/ + metrics). Working tree propre.
 ### Prochaines etapes
-- (Optionnel) Test comportemental : relancer `vault-enricher` sur un sujet et vérifier qu'il lit les pages Confluence en entier + cite page-ID.
-- (Séparé) Si besoin : traiter la délégation sous l'angle conformité frontmatter/templates/pipeline (≠ profondeur).
+- (Optionnel) Observer si le rappel vault est suivi en pratique. S'il est ignoré malgré le rappel → signal qu'il faut un cran plus fort (mais commencer par le moins intrusif, doctrine 22 mai).
+- (Réactivation) Si une demande d'audit à fond repart en mono-agent et frustre → coller le trigger-rappel tripartite documenté.
 - ⚠️ Hygiène : 232 fichiers memory/ (cible <100) → `/clean-memory` en session dédiée.
 
 ## Fils ouverts
+- Audit skills en cours (l'agent qui avait déclenché cette session) — non repris ici, c'était le contexte déclencheur pas le travail.
 - Trilogie docs stratégiques IA Neoteem : présentation Jérôme puis CODIR (commit `3a0f373`).
 - Cadrage NeoMail (besoin/fonctionnalités/forme) = décision client, trame d'interview à préparer.
 - Vérifier que le repo claude-forge est bien privé (docs CODIR confidentiels commités).
