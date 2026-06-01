@@ -1,6 +1,6 @@
 # claude-forge
 
-**Créé : 31 mars 2026 | Dernière mise à jour : 2026-05-28 | Version : 3.4 (condensé Workflow Git + Vault + Gotchas, 28 mai 2026)**
+**Créé : 31 mars 2026 | Dernière mise à jour : 2026-06-01 | Version : 3.5 (full main par défaut, 1er juin 2026)**
 
 - Si ambigu : Demande. Ne choisis pas en silence.
 - Diff minimal. Touche uniquement ce qui est demandé.
@@ -21,9 +21,10 @@
 
 ## Workflow Git (convention)
 
-- Harness force « branch first » sur `main`. Merge = convention humaine, pas verrou technique (vérifié 27 mai).
-- Agent commit/push branche feature, Raphael merge sur `main` quand il valide.
-- Exception : chantier court (< 3 commits, fix trivial) → push `main` direct OK si pertinent.
+- **FULL MAIN par défaut** : commit ET push directement sur `main`. NE JAMAIS demander « branche ou main ? ». NE JAMAIS créer de branche feature de sa propre initiative.
+- **Branche UNIQUEMENT si Raphael le demande explicitement** (« branche », « nouvelle branch », « bosse sur une branche »). Sinon, toujours main.
+- Si le harness force « branch first » sur `main` : contourner/demander selon le contexte, mais l'intention par défaut reste main. Merge = convention humaine, pas verrou technique (vérifié 27 mai).
+- Toujours `git status` + `git diff` avant push (jamais push aveugle). Cf [[feedback_commit_push_check]] + [[commit-full-main-defaut]].
 
 ## Contrat Jarvis
 
