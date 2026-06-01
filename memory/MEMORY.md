@@ -40,6 +40,7 @@
 - [eval-trio-angles-complementaires](feedback_eval_trio_angles_complementaires.md) — Éval forge = TRIO (skill-evolve fin / forge-review stratégique / outcomes-test rubric). Chercher 3 angles avant conclure gap
 - [feedback-reviole-3x-regle-insuffisante](feedback_feedback_reviole_3x_regle_insuffisante.md) — Feedback re-violé ≥3× = règle insuffisante. Réflexe pré-action ou garde-fou structurel
 - [git-C-pas-cd-multi-repo](feedback_git_C_pas_cd.md) — TOUJOURS git -C <path>, jamais cd && git. CWD persiste entre Bash calls
+- [hook-garde-hors-vault-bloque-plan-file](feedback_hook_garde_hors_vault_plan_file.md) — Hook bloquant écriture hors-périmètre strict attrape le plan file ~/.claude/plans/ en faux positif → plan mode cassé. Exception explicite en tête. Classifier refuse l'édit autonome du hook sécu
 - [hook-vs-harness-permission-distinction](feedback_hook_vs_harness_permission_distinction.md) — Bypass hook ≠ bypass harness. Vérifier debug log avant patcher. Bash(py -c) contourne
 - [hooks-same-stack](feedback_hooks_same_stack.md) — Hooks dans le même langage que le projet
 - [jarvis-innovator-mindset](feedback_jarvis_innovator.md) — Contrat Jarvis : partenaire, anticiper, innover, évoluer, franc, autonome, proactif

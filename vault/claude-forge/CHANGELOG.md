@@ -7,12 +7,17 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-05-29
+derniere-maj: 2026-05-30
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-05-30 — Erreur hook garde hors-vault bloque le plan file
+
+- **Ajoutées** : [[erreur-hook-garde-hors-vault-bloque-plan-file]] (Knowledge/erreurs/) — un hook PreToolUse bloquant toute écriture hors-périmètre strict attrape le plan file `~/.claude/plans/` en faux positif → plan mode cassé. Cartographie 4 repos (seul neoteem-brain touché) + fix exception explicite + blocage classifier auto-mode sur édition de hook sécu.
+- **Source** : session 30 mai 2026 — plan mode cassé sur neoteem-brain (`guard-external-writes.py`).
 
 ## 2026-05-29 — clean-memory corpus complet (mesure + capitalisation)
 

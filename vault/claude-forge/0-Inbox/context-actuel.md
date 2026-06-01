@@ -10,21 +10,24 @@ tags: ["#type/context", "#meta/working-memory"]
 ---
 
 ## Phase actuelle
-Trilogie docs stratégiques IA Neoteem CODIR finalisée — stratégie + roadmap + modèle économique cohérents, prêts pour Jérôme puis CODIR.
+Durcissement neoteem-brain (doctrine de profondeur anti-survol Confluence/Jira). Deux fixes livrés et poussés sur master : (1) plan file débloqué dans `guard-external-writes.py`, (2) doctrine lecture-complete étendue aux sources externes.
 
-## Derniere session (2026-05-30)
+## Derniere session (2026-05-30 — soir)
 ### Decisions prises
-- Choix stratégique tranché en **binaire net A ou B** (mort définitive du « B finance A », jugé bancal : cannibalisation possible — clients ont déjà ChatGPT/MCP moins cher).
-- Roadmap = scénario A uniquement ; chantiers internes restent valables A ou B.
-- Mon avis de fond franc écrit noir sur blanc dans le dossier (verdict §16 lean B + 3 dangers + mot de la fin : le vrai facteur décisif = vitesse de décision + changement d'organisation, pas le choix A/B).
+- **Fix profondeur = étendre la doctrine existante** (lecture-complete + anti-invention), pas en créer une nouvelle. Confluence/Jira ajoutés aux sources « lire en entier » ; `vault-enricher` rattaché ; « pertinentes » tué dans son prompt ; tools Jira ajoutés ; `sources:` exige page-ID/clé exacts.
+- **Pas de hook, pas de gate** pour la profondeur : non mesurable via stdin (hook) + Raphael a tranché « prompt strict seulement » (gate).
+- **Délégation NON retenue comme garde-fou de profondeur** (révision de ma reco initiale) : `lecture-complete` lie déjà la session principale, donc l'extension referme le trou seule. Sans gate, « délègue toujours » serait une règle non-vérifiable de plus.
+- Fix plan file : exception explicite en tête du hook, vérifiée empiriquement (4 cas, protections existantes intactes).
+- Convention git neoteem-brain : commit/push direct sur master, pas de branche.
 ### En cours
-- Rien d'ouvert : les 3 docs sont commités/poussés (commit `3a0f373` sur main).
+- Rien d'ouvert : 2 commits poussés sur `master` neoteem-brain (`62b1bf6` hook + `3236ec0` doctrine). Le pipeline global de Raphael a tourné entre-temps et applique déjà la profondeur (commits « sourcees PROFONDEUR Confluence+code lus entier »).
 ### Prochaines etapes
-- Présentation à Jérôme (co-validation technique) puis CODIR.
-- (Différé) Trame d'interview Club Utilisateurs pour cadrage NeoMail.
-- ⚠️ Hygiène : 231 fichiers memory/ (cible <100) → lancer `/clean-memory` en session dédiée.
+- (Optionnel) Test comportemental : relancer `vault-enricher` sur un sujet et vérifier qu'il lit les pages Confluence en entier + cite page-ID.
+- (Séparé) Si besoin : traiter la délégation sous l'angle conformité frontmatter/templates/pipeline (≠ profondeur).
+- ⚠️ Hygiène : 232 fichiers memory/ (cible <100) → `/clean-memory` en session dédiée.
 
 ## Fils ouverts
+- Trilogie docs stratégiques IA Neoteem : présentation Jérôme puis CODIR (commit `3a0f373`).
 - Cadrage NeoMail (besoin/fonctionnalités/forme) = décision client, trame d'interview à préparer.
 - Vérifier que le repo claude-forge est bien privé (docs CODIR confidentiels commités).
 
