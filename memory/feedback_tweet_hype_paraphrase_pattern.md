@@ -47,7 +47,7 @@ Dans tout audit thématique vault, audit forge dogfooding, ou capitalisation de 
 
 ## Liens
 
-- [[feedback_anthropic_single_source]] — hiérarchie sources scopée
+- [[feedback_regle_scope_pas_universelle]] — hiérarchie sources scopée (provider single-source sur SON produit)
 - [[feedback_regle_scope_pas_universelle]] — règles validées un domaine pas universelles
 - [[feedback_audit_thematique_methode]] — méthode validée audit
 - [[Knowledge/erreurs/erreur-22-claims-fausses-vault-claude-code-2026-05-23]] — 22 claims fausses détectées (cas 1-3 ci-dessus)

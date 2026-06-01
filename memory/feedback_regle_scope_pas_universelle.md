@@ -59,8 +59,12 @@ Cette formulation **universalise correctement** sans tomber dans le piège "Anth
 
 Audit Claude Code a validé Anthropic single source POUR LE THÈME ANTHROPIC. Extrapoler cette règle aux autres thèmes aurait écrasé les vraies sources primaires de chaque domaine. C'est exactement le pattern d'erreur que l'audit 23 mai a corrigé dans le vault forge (Justin Young 2-agent extrapolation, lethal trifecta attribué à Thariq au lieu de Willison) — réitérer cette erreur sur la méthode d'audit elle-même = méta-régression.
 
+## Cas d'origine — Anthropic single source (consolidé ici)
+
+La règle est née de ce cas : sur un audit Claude Code, **Anthropic team/docs/blog = single source acceptable** (créateur de Claude). Idem OpenAI sur GPT, Google sur Gemini, Karpathy sur ses patterns, Dettmers sur QLoRA — **provider/auteur officiel sur SON produit ou SA recherche = single source**. Hors scope = 4+ sources convergentes (blogs/Medium), 2+ pour presse tech reconnue. Papers peer-reviewed (ACL/EMNLP/NeurIPS/ICML) = single source. Sur les thèmes larges (RAG → Kiela/Lewis/Khattab ; fine-tuning → Dettmers/Hu/Han ; agents → Ng/Weng/Chase), Anthropic n'est **qu'un acteur parmi d'autres**, pas LA référence.
+
 ## Lien
 
-- [[feedback_anthropic_single_source]] — règle scoped Claude/Anthropic
 - [[feedback_audit_thematique_methode]] — méthode validée audit thématique
-- Output `output/audit-vault-thematique/00-TEMPLATE-COMMUN.md` section "B.4 — Hiérarchie de validation (adaptée par thème)"
+
+Consolide depuis : [[feedback_anthropic_single_source]] (fusionné le 1er juin 2026 — cas d'origine de la règle générale de scope).

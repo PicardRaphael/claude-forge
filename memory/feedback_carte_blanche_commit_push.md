@@ -19,7 +19,7 @@ Sur un chantier long (audit massif, refonte structurelle, propagation cross-file
 3. **Exécuter direct** : phase B → C → D → E → F → commit → push d'un seul flux
 4. advisor() / devils-advocate **uniquement si bloqueur réel** (incohérence détectée, décision ambiguë non résolvable seul)
 
-**Why** : Raphael délègue pour gagner du temps. Multiplier les checkpoints = perdre son temps = anti-pattern. Les advisors successifs sur chantier validé = anti-pattern `feedback_couper_loops_perfectionnisme`.
+**Why** : Raphael délègue pour gagner du temps. Multiplier les checkpoints = perdre son temps = anti-pattern. Les advisors successifs sur chantier validé = anti-pattern `feedback_couper_loops_decision_fatigue`.
 
 **How to apply** :
 - Reconnaître les signaux "carte blanche" : "tu as carte blanche", "vas-y", "à toi", "trance", "go"
@@ -30,6 +30,5 @@ Sur un chantier long (audit massif, refonte structurelle, propagation cross-file
 
 ## Lien
 
-- [[feedback_couper_loops_perfectionnisme]] — couper loops après ABCDE+advisor validé
-- [[feedback_session_fatigue_decision]] — pas multiplier options en fin de session longue
+- [[feedback_couper_loops_decision_fatigue]] — couper loops après validation + pas multiplier options en session longue
 - [[feedback_never_pure_executor]] — Jarvis actif même sur prompts directifs (proposer si meilleur)

@@ -13,3 +13,7 @@ Avoir une skill dans `skills:` du frontmatter la rend DISPONIBLE mais ne garanti
 - Exemple : "Consulter la skill **python-ref** pour les best practices Python 3.11+ avant d'implémenter"
 - Vérifier avec : `grep skill_name body` — si 0 match = problème
 - Audit disponible : script Python dans la session qui vérifie toutes les skills de tous les agents
+
+**Cas particulier — `user-invokable: false` (consolidé ici)** : une skill `user-invokable: false` n'est triggée QUE si une autre skill/agent la référence dans son `skills:` frontmatter ET la mentionne dans son body. Sinon orpheline. Incident neo_ia 18 mai 2026 : `gemini-prompting` était `false` sans référence → Claude ignorait son existence. **Règle** : skills de RÉFÉRENCE/CONVENTIONS (patterns, best practices) → `user-invokable: true` (Claude les consulte spontanément). Skills UTILITAIRES INTERNES (templates, setup paths) → `false` OK car chargées par un agent/workflow spécifique. Si `false`, vérifier qu'au moins un parent la référence (frontmatter + body). Lors d'un audit repo, vérifier les orphelines ET les skills référence mal marquées `false`.
+
+Consolide depuis : [[feedback_non_invokable_skills_orphan]] (fusionné le 1er juin 2026 — cas particulier de la règle générale).

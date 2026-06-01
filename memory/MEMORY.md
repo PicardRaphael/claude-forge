@@ -6,7 +6,6 @@
 - [agent-tools-enforce-delegation](feedback_agent_tools_restriction.md) — Retirer Bash des agents orchestrateurs pour forcer délégation
 - [analyse-first-not-questionnaire](feedback_analyse_first_not_questionnaire.md) — Analyser le repo d'abord, proposer, questions SEULEMENT pour le non-déductible
 - [analyse-repo-includes-code-scan](feedback_analyse_repo_includes_code.md) — Analyse repo / config CC = méthode 6 étapes (archi + code réel) + audit .claude/
-- [anthropic-single-source-suffit](feedback_anthropic_single_source.md) — Anthropic single source sur Claude UNIQUEMENT. Thèmes larges = meilleurs du domaine
 - [anti-reentrance-sub-agents](feedback_anti_reentrance_sub_agents.md) — Sub-agent NE PEUT PAS invoquer Agent. Pattern STOP + ESCALADE REQUISE 5 champs
 - [arxiv-url-swap-papers-similaires](feedback_arxiv_url_swap_papers_similaires.md) — N papers même domaine = URLs swapées. WebFetch systématique
 - [audit-qualite-design-transverse-mandatory](feedback_audit_qualite_design_transverse.md) — Audit `.claude/` = technique + qualité-design transverse vs canoniques
@@ -17,12 +16,11 @@
 - [brief-premisse-fausse-verifier-avant-executer](feedback_brief_premisse_fausse_verifier_avant_executer.md) — Brief peut poser prémisse fausse. Vérifier matériellement avant d'exécuter, surfacer si fausse
 - [brief-prescrit-travail-deja-fait-veille](feedback_brief_prescrit_travail_deja_fait.md) — Brief auto-mode peut prescrire création/audit déjà fait 24-72h avant. search_brain + AJOUT récents canoniques AVANT Phase 1
 - [carte-blanche-commit-push-tranche-pas-revalider](feedback_carte_blanche_commit_push.md) — "Carte blanche" = exécuter direct sans re-valider note par note
-- [chiffre-baseline-brief-verifier-empiriquement](feedback_chiffre_baseline_brief_verifier_empiriquement.md) — Chiffre baseline brief = hypothèse, mesurer empiriquement avant de raisonner dessus
 - [claim-security-must-be-provable](feedback_claim_security_must_be_provable.md) — Claim sécu read-only prouvable par code, sinon by discipline pas by construction
 - [commit-push-check-pattern](feedback_commit_push_check.md) — "regarde commit et push" = git status + diff avant push, jamais push aveugle
 - [conformite-aveugle-regle-generique](feedback_conformite_aveugle_regle_generique.md) — Garde refusée = lire son intention avant de contourner. Souvent intentionnelle
 - [consolidate-searches](feedback_consolidate_searches.md) — Ne jamais chercher 2× la même info. Consolider en 1 fichier dès le 1er search
-- [couper-loops-perfectionnisme](feedback_couper_loops_perfectionnisme.md) — Après ABCDE+advisor validé = trancher vite. Loop >3 relances = fatigue
+- [couper-loops-decision-fatigue](feedback_couper_loops_decision_fatigue.md) — Après validation, trancher vite. 2 signaux : boucle "es-tu parfait" + session longue. Cap 3 advisor
 - [cross-repo-write-main-session-only](feedback_cross_repo_write_main_session.md) — Session forge a write cross-repo, sub-agents bloqués. Ne pas déléguer fixes cross-repo
 - [da-bash-write-disguised](feedback_da_bash_write.md) — Bash cat/heredoc = write déguisé, échoue silencieux si disallowedTools Write/Edit
 - [da-dicte-tests-adverses-pas-moi](feedback_da_dicte_tests_adverses.md) — Code destructif : tests happy path = trompeur. DA AVANT push obligatoire
@@ -56,7 +54,6 @@
 - [never-pure-executor](feedback_never_pure_executor.md) — JAMAIS mode exécutant pur, posture Jarvis active même sur prompts directifs/QA
 - [no-cto-orchestrator-agent](feedback_no_cto_agent.md) — JAMAIS d'agent orchestrateur. Session principale orchestre via rules
 - [org-blocks-github](feedback_no_github_cloud.md) — Orga Team bloque GitHub, pas de triggers cloud, tout en local Task Scheduler
-- [non-invokable-skills-must-be-referenced](feedback_non_invokable_skills_orphan.md) — Skill user-invokable:false orpheline = la lier en frontmatter+body d'une skill parente
 - [opus47-workflow-decisions](feedback_opus47_workflow.md) — xhigh RÉSERVÉ architect/dev-lead/refactor-pg. high partout ailleurs
 - [ratio-empirique-doublons-memory-vault-pilote](feedback_ratio_empirique_doublons_memory_vault.md) — Pilote 29 fichiers = 38% doublons vault. Ancre seuils hook saturation (WARNING 80, CRITICAL 100) et cible ≤100 fichiers
 - [read-note-conditionnel-si-pas-deja-contexte](feedback_read_note_conditionnel_si_pas_deja_contexte.md) — Avant read_note canonique audit/jugement, vérifier si déjà en contexte session. Citer + wikilink si oui. Application directe règle tokens/contexte L19
@@ -71,7 +68,6 @@
 - [python-path-windows-hooks](feedback_python_path_windows.md) — Windows : chemin absolu Python313 dans hooks, jamais "python" seul
 - [recurring-meta-anti-pattern](feedback_recurring_meta_anti_pattern.md) — Workaround ≥ 2 fois = bug. AVANT refonte structurelle, lister cran 1/2/3
 - [regle-scope-pas-universelle](feedback_regle_scope_pas_universelle.md) — Vérifier scope règle AVANT propagation. Provider sur SON produit = single source
-- [session-fatigue-decision-overload](feedback_session_fatigue_decision.md) — Sessions >15 échanges = fatigue. Décider direct, pas multiplier options/advisor
 - [single-source-of-truth](feedback_single_source_of_truth.md) — UN fichier canonique par concept, skills pointent vers doc/
 - [single-source-truth-vault-canonique](feedback_single_source_truth_vault_canonique.md) — Règles universelles vivent dans canonique vault UNIQUEMENT, wikilink ailleurs
 - [skills-referenced-in-body](feedback_skills_referenced_in_body.md) — Skills en frontmatter DOIVENT être référencées dans le body avec instructions

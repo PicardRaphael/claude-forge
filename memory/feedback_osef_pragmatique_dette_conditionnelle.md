@@ -7,7 +7,7 @@ metadata:
 
 Sur sujet à faible levier (cosmétique, hypothétique, "si un jour"), Raphael tranche frontalement "OSEF" sans débat — mais **trace la dette conditionnelle** (condition de réactivation explicite). Ne pas confondre avec ignorer/oublier : la dette EST tracée, juste pas en backlog actif.
 
-**Why** : 28 mai 2026, collision nom claude-forge avec sangrokjung 715⭐ confirmée empiriquement. Raphael : *"OSEF — usage perso, garde claude-forge tel quel localement. Trace dans context-actuel comme dette conditionnelle : si publication publique un jour → rename obligatoire. Pas avant."* Différent de [[feedback_couper_loops_perfectionnisme]] (qui traite la **forme** = couper relances) — ici c'est le **fond** = arbitrage sur sujet à faible ROI immédiat avec garde contre l'oubli.
+**Why** : 28 mai 2026, collision nom claude-forge avec sangrokjung 715⭐ confirmée empiriquement. Raphael : *"OSEF — usage perso, garde claude-forge tel quel localement. Trace dans context-actuel comme dette conditionnelle : si publication publique un jour → rename obligatoire. Pas avant."* Différent de [[feedback_couper_loops_decision_fatigue]] (qui traite la **forme** = couper relances) — ici c'est le **fond** = arbitrage sur sujet à faible ROI immédiat avec garde contre l'oubli.
 
 **How to apply** :
 - Sujet hypothétique "si un jour X" / pas de levier immédiat → proposer arbitrage tranchant, pas options multiples

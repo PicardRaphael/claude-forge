@@ -25,7 +25,6 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 - [autonomy-initiative-rule](feedback_autonomy_rule.md) — Si advisor+DA valident → agir sans demander. Proposer innovations proactivement
 - [backup-zip-avant-purge-massive](feedback_backup_zip_avant_purge_massive.md) — Compress-Archive .zip defensif AVANT purge >50 fichiers. Cout zero, restauration instantanee
 - [cartographie-exhaustive-avant-delegation](feedback_cartographie_exhaustive_avant_delegation.md) — Avant déléguer à un creator : grep EXHAUSTIF du fichier cible, brief complet
-- [cd-sous-dossier-fausse-chemins-relatifs](feedback_cd_sous_dossier_fausse_chemins_relatifs.md) — cd persiste → faux constat dossier vide. Repartir de git rev-parse --show-toplevel
 - [chaine-archi-dev-pas-double-thinking](feedback_chaine_archi_dev_pas_double_thinking.md) — Archi Opus → Dev Sonnet. JAMAIS 2 Opus xhigh en chaîne sur même feature
 - [check-before-create-pattern](feedback_check_before_create_pattern.md) — check-before-create utilise les agents LOCAUX du projet, jamais forge
 - [coach-proactif-complet](feedback_coach_proactif.md) — Proposer commandes CC, MCP, automations, raccourcis — pas juste skills/agents/hooks

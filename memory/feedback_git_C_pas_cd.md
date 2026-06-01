@@ -39,3 +39,7 @@ S'applique aussi à :
 **Cas où `cd` est OK :** une seule commande dans un seul Bash call, mais préférer quand même les paths absolus pour cohérence.
 
 **Pattern méta :** "side effect persistant entre tool calls" = bug latent. Toujours préférer commandes idempotentes (path explicite à chaque call).
+
+**Cas connexe — diagnostic de structure (consolidé ici)** : un `cd` dans un sous-dossier (ex: `cd mcp-forge-brain && pytest`) fait taper les commandes relatives suivantes (`ls .claude/`, `git ls-files .claude/`, `find .claude`) dans `<sous-dossier>/.claude/` → faux constat alarmant « le dossier est vide / les fichiers ont disparu ». Incident 27 mai 2026 : cru pendant 4 tours que skills/agents/hooks avaient disparu, alors qu'ils étaient intacts à la racine. **Règle** : pour un diagnostic de structure, partir de `cd "$(git rev-parse --show-toplevel)"` ou chemin absolu. Si un constat est surprenant (« vide », « disparu », « 0 tracké »), vérifier `pwd` AVANT de conclure — un constat contre-intuitif = suspecter l'environnement (CWD/scope), pas les données. Cf [[verify-exhaustive-claims]].
+
+Consolide depuis : [[feedback_cd_sous_dossier_fausse_chemins_relatifs]] (fusionné le 1er juin 2026 — même cause racine CWD persistant).

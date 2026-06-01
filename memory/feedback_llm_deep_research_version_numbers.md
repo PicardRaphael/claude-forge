@@ -16,6 +16,6 @@ Quand un LLM tiers (Gemini deep research, ChatGPT) cite des **numéros de versio
 - Symétrique de [[feedback_tweet_hype_paraphrase_pattern]] mais pour deep research LLM, pas tweets
 - Le **fait qualitatif** peut être vrai même quand les **chiffres sont faux** — distinguer les deux dans le verdict
 
-Voir aussi [[feedback_arxiv_url_swap_papers_similaires]] (LLM swap URLs papers similaires) et [[feedback_anthropic_single_source_suffit]] (canonical source > paraphrase).
+Voir aussi [[feedback_arxiv_url_swap_papers_similaires]] (LLM swap URLs papers similaires) et [[feedback_regle_scope_pas_universelle]] (canonical source > paraphrase, provider single-source sur SON produit).
 
 **Méthode standard (28 mai 2026 — amendement post-Gemini #2)** : à la réception d'un document LLM deep research, scanner systématiquement TOUS les chiffres précis (versions, dates, étoiles, comptes, citations verbatim) AVANT d'utiliser le document pour décision/restructuration. Pas juste les claims structurants — méthode complète = parcourir le document en mode "chasse aux chiffres précis" + WebFetch source primaire ciblée. C'est l'application standard de verify-claims-empiriquement aux outputs LLM tiers. Symétrique avec [[methode-analyser-repo]] (analyser RÉEL avant prescription) appliqué aux documents tiers.
