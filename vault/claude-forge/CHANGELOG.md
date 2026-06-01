@@ -14,6 +14,18 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-01 — 2 méthodes responsable-ia : réunion kit-de-décision + grille priorisation IA
+
+- **Ajoutées** : [[reunion-kit-de-decision-autonome]] (2-Casquettes/responsable-ia/reunions/) — pattern d'animation quand les docs sont déjà lus : poser LA fourche, laisser un kit de décisions que la direction emporte pour trancher sans toi (influence sans présence). Verbatim des phrases pivots, dissymétrie comme argument, reframe repli→stratégie.
+- **Ajoutées** : [[grille-priorisation-ia-loji]] (2-Casquettes/responsable-ia/priorisation/) — scorer les opportunités IA sur Impact + Moat ×2 + Faisabilité. Le moat (donnée Loji) compte double : priorise l'inimitable sur le faisable. Item parké volontaire pour prouver la discipline.
+- **Source** : session 1er juin — Raphael prépare une réunion direction sur la trilogie de dossiers stratégiques IA (fourche éditeur vs facilitateur). Les 2 méthodes extraites du travail d'animation.
+
+## 2026-06-01 — Guide maîtrise NotebookLM 2026 (deep-research vérifié)
+
+- **Ajoutées** : [[notebooklm-maitrise]] (04-Techniques/outils/) — guide power-user complet : Studio 4 tuiles, Audio Overviews (4 formats + option « personnalisé » + mode interactif), Video Overviews + Cinematic, Slides/PPTX, Configure Chat Custom (mode auditeur), living documents Drive, sync Gemini bidirectionnel, quotas vérifiés 6 tiers.
+- **Source** : demande Raphael (« utiliser NotebookLM à la perfection »). Workflow `deep-research` (5 axes, 24 sources, 106 agents, vérification adversariale 3 votes/claim → 13 confirmés, 2 réfutés). Sources majoritairement primaires Google (blog.google, workspaceupdates, support.google.com). Aucune note vault préexistante (seule mention dans [[RAG]]).
+- **Note** : 2 claims réfutés exclus (Cinematic réservé tiers payants ; « 5× » uniforme). Quotas flaggés volatils (split Ultra 20TB/30TB post-I/O mai 2026).
+
 ## 2026-06-01 — Réflexe consultation vault sur question substantielle (Option C)
 
 - **Modifiées** : [[erreur-vault-jamais-consulte-session-principale]] (Knowledge/erreurs/) — ajout 3e occurrence (audit skills, doctrine consultée tardivement) + FIX Option C appliqué : `skill-activation.py` re-fire le rappel `forge-brain` par SUJET (skill/agent/hook/claudemd/general) au lieu de once-per-session global. Le cas skill→agent dans une même session déclenche désormais 2 rappels (canoniques vault différentes), anti-spam même sujet préservé. Gotcha encodage accents documenté (test via echo bash = faux négatif).

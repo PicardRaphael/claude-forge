@@ -176,6 +176,7 @@ tags:
 - Build in public sur X : 1 post/sem
 
 ### Outils à jouer
+- **NotebookLM** (synthèse RAG sur tes sources) — voir guide maîtrise [[notebooklm-maitrise]] : Audio Overviews pour la veille en mobilité, mode auditeur (Configure Chat) pour challenger des sources contradictoires, living documents pour suivre des docs évolutifs.
 - Claude 4.7 / GPT-5 / Gemini 3 (souscription perso payée par toi pour rester libre)
 - Cursor / Claude Code / Cline alternés
 - Ollama local

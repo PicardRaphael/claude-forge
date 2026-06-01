@@ -6,7 +6,8 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 
 **Critère d'archivage réel (vers `_archive/`) :** distinct — un tier-2 n'est archivé que si obsolète/absorbé (voir `_archive/MEMORY-archive-log.md`). Tier-2 ≠ archivé.
 
-## Feedback (tier-2 — 106 entrées)
+## Feedback (tier-2 — 107 entrées)
+- [mcp-running-pas-connected-transport](feedback_mcp_running_pas_connected_transport.md) — MCP 'running' = process vivant, PAS connecté. Vérifier transport stdio vs http
 - [ton-vault-forge-pas-neoteem](feedback_ton_vault_forge_pas_neoteem.md) — « Ton vault » = forge-brain (mon cerveau), JAMAIS le vault Neoteem métier
 - [zip-import-slash-pas-compress-archive](feedback_zip_import_slash_pas_compress_archive.md) — Zip d'import Cowork = slashes. Compress-Archive met des backslashes → casse
 - [audit-scope-claude-complet-pas-plugins-seuls](feedback_audit_scope_claude_complet_pas_plugins_seuls.md) — Auditer un repo à plugins = .claude/ COMPLET (agents+scripts), pas les bundles seuls
