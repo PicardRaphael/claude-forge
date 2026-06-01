@@ -7,12 +7,17 @@ skill/command is available.
 
 Design decisions:
 - Word-boundary regex (avoids "done" matching "abandoned")
-- Extended trigger map: {"skill-name": {"type", "triggers", "description"}}
+- Extended trigger map: {"skill-name": {"type", "triggers"|"triggers_by_subject", "description"}}
 - type "skill" → Skill(name) | type "command" → /name
 - Multi-match: one combined additionalContext, all matched skills tracked
 - Bypass prefixes: *, /, #, ! (system prompts, slash commands, directives)
 - Fail-open: any exception → exit 0 silently
 - Session tracker: .skill-recommendations-session (reset by session-reminder.py)
+- Two tracker formats:
+    - Legacy (triggers list): key = skill_name (once per session)
+    - by_subject (triggers_by_subject dict): key = "skill_name::subject" (once per subject per session)
+      Subject priority: specific subjects first, "general" last (dict insertion order).
+      Re-fires when SUBJECT changes, deduped when same subject repeats.
 """
 import json
 import os
@@ -40,7 +45,7 @@ def load_triggers() -> dict:
 
 
 def load_session_tracker() -> set:
-    """Return set of skills already recommended this session."""
+    """Return set of tracker keys already recommended this session."""
     try:
         if os.path.exists(SESSION_TRACKER):
             with open(SESSION_TRACKER, "r", encoding="utf-8") as f:
@@ -59,20 +64,55 @@ def save_session_tracker(recommended: set) -> None:
         pass
 
 
-def find_matches(prompt: str, triggers: dict, already_recommended: set) -> list[dict]:
-    """Return list of matched entries not yet recommended this session."""
-    matches = []
-    for skill_name, entry in triggers.items():
-        if skill_name in already_recommended:
-            continue
-        if not isinstance(entry, dict):
-            continue
-        skill_triggers = entry.get("triggers", [])
-        for trigger in skill_triggers:
+def _match_subject(prompt: str, triggers_by_subject: dict) -> str | None:
+    """Return the first subject whose triggers match the prompt (priority order).
+
+    Subjects are evaluated in dict insertion order — specific subjects before
+    'general'. Returns None if no subject matches.
+    """
+    for subject, trig_list in triggers_by_subject.items():
+        for trigger in trig_list:
             pattern = rf"\b{re.escape(trigger)}\b"
             if re.search(pattern, prompt, re.IGNORECASE):
-                matches.append({"name": skill_name, **entry})
-                break  # One trigger per skill is enough
+                return subject
+    return None
+
+
+def find_matches(prompt: str, triggers: dict, already_recommended: set) -> list[dict]:
+    """Return list of matched entries not yet recommended, with _tracker_key attached.
+
+    For legacy entries (triggers list):
+        tracker_key = skill_name (once per session)
+    For by_subject entries (triggers_by_subject dict):
+        tracker_key = "skill_name::subject" (once per subject per session)
+        Subject is determined FIRST by priority, THEN checked against tracker.
+    """
+    matches = []
+    for skill_name, entry in triggers.items():
+        if not isinstance(entry, dict):
+            continue
+
+        triggers_by_subject = entry.get("triggers_by_subject")
+        if triggers_by_subject:
+            # by_subject format: determine subject by priority (independent of tracker)
+            subject = _match_subject(prompt, triggers_by_subject)
+            if subject is None:
+                continue
+            tracker_key = f"{skill_name}::{subject}"
+            if tracker_key in already_recommended:
+                continue
+            matches.append({"name": skill_name, "_tracker_key": tracker_key, **entry})
+        else:
+            # Legacy flat-list format
+            if skill_name in already_recommended:
+                continue
+            skill_triggers = entry.get("triggers", [])
+            for trigger in skill_triggers:
+                pattern = rf"\b{re.escape(trigger)}\b"
+                if re.search(pattern, prompt, re.IGNORECASE):
+                    matches.append({"name": skill_name, "_tracker_key": skill_name, **entry})
+                    break  # One trigger per skill is enough
+
     return matches
 
 
@@ -126,8 +166,8 @@ def main() -> None:
 
         context_message = "\n".join(lines)
 
-        # Persist all matched skills as recommended this session
-        newly_recommended = already_recommended | {m["name"] for m in matches}
+        # Persist all matched tracker keys as recommended this session
+        newly_recommended = already_recommended | {m["_tracker_key"] for m in matches}
         save_session_tracker(newly_recommended)
 
         # Emit additionalContext (same shape as session-health.py)

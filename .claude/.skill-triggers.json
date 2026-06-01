@@ -76,8 +76,14 @@
   },
   "forge-brain": {
     "type": "skill",
-    "description": "Accède au vault forge-brain (search, read, create notes)",
-    "triggers": ["cherche dans le vault", "note vault", "forge-brain", "vault obsidian", "knowledge base"]
+    "description": "Réflexe vault : consulter forge-brain (search_brain puis read_note) AVANT toute réponse substantielle",
+    "triggers_by_subject": {
+      "skill": ["crée une skill", "cree une skill", "modifie une skill", "optimise la skill", "propose une skill", "nouvelle skill"],
+      "agent": ["crée un agent", "cree un agent", "modifie un agent", "propose un agent", "nouvel agent"],
+      "hook": ["crée un hook", "cree un hook", "modifie un hook", "nouveau hook"],
+      "claudemd": ["claude.md", "claudemd", "modifie le claude.md", "optimise le claude.md"],
+      "general": ["propose", "propose-moi", "audit", "audite", "analyse profonde", "ton avis", "qu'est-ce que tu en penses", "recommande", "recommandation", "rédige", "compare", "comparatif", "optimise", "refonte", "pourquoi"]
+    }
   },
   "forge-review": {
     "type": "skill",

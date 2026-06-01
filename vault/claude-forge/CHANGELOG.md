@@ -7,12 +7,18 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-05-30
+derniere-maj: 2026-06-01
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-06-01 — Réflexe consultation vault sur question substantielle (Option C)
+
+- **Modifiées** : [[erreur-vault-jamais-consulte-session-principale]] (Knowledge/erreurs/) — ajout 3e occurrence (audit skills, doctrine consultée tardivement) + FIX Option C appliqué : `skill-activation.py` re-fire le rappel `forge-brain` par SUJET (skill/agent/hook/claudemd/general) au lieu de once-per-session global. Le cas skill→agent dans une même session déclenche désormais 2 rappels (canoniques vault différentes), anti-spam même sujet préservé. Gotcha encodage accents documenté (test via echo bash = faux négatif).
+- **Source** : session 1er juin 2026 — Raphael constate qu'un audit skills n'a pas consulté la doctrine vault AVANT. Diagnostic : aucun mécanisme ne rappelle de consulter le MCP. Fix advisory (exit 0, conforme doctrine 22 mai non-workflow-hook). Fichiers `.claude/` : `.skill-triggers.json` (triggers_by_subject) + `hooks/skill-activation.py` (tracker clés composites). 8/8 tests + stdin réel UTF-8 vérifiés.
+- **Note** : trou de routing tripartite (« analyse profonde » ne lance pas boris/ecc/will-auditor) gardé hors-scope, option prête-à-coller documentée dans la note.
 
 ## 2026-05-30 — Erreur hook garde hors-vault bloque le plan file
 

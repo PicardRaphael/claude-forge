@@ -8,7 +8,7 @@ aliases:
   - erreur consultation vault session
 auteur: claude
 cree: 2026-05-27
-derniere-maj: 2026-05-28
+derniere-maj: 2026-06-01
 repo: claude-forge
 resume: La session principale a modifié des templates BRIEF /spec sans consulter le vault d'abord, et a délégué la lecture canonique au sub-agent sans vérifier — travail non sourcé.
 tags:
@@ -75,3 +75,36 @@ La règle "consulter le vault d'abord" est advisory et a été zappée sous pres
 **Pattern transverse renforcé** : la règle de consultation vault doit avoir un scope **ouvert** (toute réponse substantielle) avec clause d'**échappatoire explicite** (si rien → répondre quand même). Sinon le LLM cherche un alibi pour ne pas chercher en classant la demande hors des catégories listées.
 
 **Déclencheur de réactivation** : 3e occurrence de skip vault sur question d'assistance rédactionnelle → envisager Option B (hook session-health amendé) ou Option C (skill vault-reflex auto-trigger). Pour l'instant, AMEND L14 suffit.
+
+
+## 3e occurrence — 1er juin 2026 (audit skills, doctrine consultée tardivement) + FIX Option C appliqué
+
+**Contexte** : un agent menait un audit de 5 skills. Il a chargé les canoniques vault (`comment-creer-skill`, `mcp-vs-skills-doctrine`) **tardivement** — étape B après avoir déjà produit l'audit, au lieu d'AVANT. Raphael : « je ne comprends pas pourquoi il n'a pas fait le workflow entier ». Variante qualitative des occurrences 1-2 (« consulté en retard », pas « jamais »), mais même cause-racine : la règle de consultation est déclarative/passive et zappée sous pression.
+
+**Diagnostic du réel** (vérifié sur fichiers `.claude/`) :
+- `mcp-autostart.py` démarre le serveur MCP mais ne déclenche aucune consultation.
+- `vault-cat-guard.py` interdit l'accès brut au vault (force le MCP) mais n'oblige pas à consulter.
+- `skill-activation.py` (UserPromptSubmit) injecte un rappel `additionalContext` advisory — MAIS l'entrée `forge-brain` avait des triggers trop étroits (« cherche dans le vault », « note vault ») qui ne matchent pas une question de fond.
+- **Aucun mécanisme ne RAPPELLE de consulter le MCP quand la question le mérite.**
+
+**Fix appliqué — Option C (le déclencheur prévu par cette note à la 3e occurrence)** :
+
+1. **`.skill-triggers.json`** — entrée `forge-brain` enrichie : passage de `triggers: [liste plate]` à `triggers_by_subject: {skill, agent, hook, claudemd, general}`. Le sujet `general` couvre les mots d'intention substantielle (propose, audit, analyse profonde, ton avis, recommande, rédige, compare, optimise, refonte, pourquoi). Mots EXCLUS volontairement : fix, corrige, petit, salut, merci.
+
+2. **`skill-activation.py`** (via hook-creator) — le session-tracker mémorise désormais des clés composites `skill_name::sujet` au lieu de noms de skill nus. Conséquence : **re-fire quand le SUJET change** dans une même session (skill→agent = 2 rappels, car canoniques vault différentes), mais **anti-spam même sujet** (propose une skill ×3 = 1 rappel). Rétro-compatible : les 23 autres entrées en liste plate gardent le comportement once-per-session par nom de skill.
+
+**Pourquoi re-fire par sujet** : cas surfacé par Raphael — dans une session il demande une skill PUIS un agent, ce sont des notes canoniques DIFFÉRENTES. Le once-per-session global ratait le 2e sujet.
+
+**Validation empirique** (8/8 tests + stdin réel UTF-8 vérifié par la session principale, pas seulement le rapport sous-agent) :
+- propose une skill → rappel sujet skill ✅
+- crée un agent (même session) → rappel sujet agent ✅ (le cas Raphael)
+- propose une skill ×3 → 1 seul rappel ✅
+- merci / corrige typo → aucun rappel ✅
+- entrée legacy (cc-news) → comportement inchangé ✅
+- tracker corrompu → fail-open exit 0 ✅
+
+**Gotcha encodage** : un test via `echo | py` en Git Bash Windows corrompt les accents (`crée` → octet cassé) et produit un faux négatif. Claude Code envoie du JSON UTF-8 propre → le hook matche correctement en prod. Toujours tester un hook à triggers accentués avec un payload UTF-8 explicite (`subprocess input=payload.encode('utf-8')`), jamais via echo bash.
+
+**Doctrine respectée** : le hook reste advisory (exit 0, injecte un rappel, ne force rien) — conforme [[raisonnement-22mai-doctrine-vs-enforcement]] (pas de workflow-hook bloquant). C'est un sensor/guide léger, pas un gate.
+
+**Hors-scope assumé** (Raphael : « reprend juste pour le mcp ») : le trou de routing du tripartite (« analyse profonde » ne déclenche pas boris/ecc/will-auditor) reste en option documentée non appliquée. Advisor disait « pas de trigger », DA disait « trigger-rappel léger ». Arbitrage : gardé prêt-à-coller si récidive (cf feedback reviole_3x = garde-fou structurel avant 3e occurrence).
