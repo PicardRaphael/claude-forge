@@ -1,6 +1,6 @@
 ---
 name: cc-news
-description: ALWAYS invoke when user asks "quoi de neuf", "est-ce que X existe", or knowledge seems stale. Recent Claude Code updates, new features, AI industry news. Reference date : 29 mai 2026 (v2.1.156 + Opus 4.8 + Dynamic Workflows).
+description: ALWAYS invoke when user asks "quoi de neuf", "est-ce que X existe", or knowledge seems stale. Recent Claude Code updates, new features, AI industry news. Reference date : 2 juin 2026 (v2.1.160 — workflow trigger renamed ultracode + Opus 4.8).
 user-invokable: true
 allowed-tools: WebSearch, WebFetch, Read, Write, Agent, mcp__forge-brain__*
 argument-hint: "domaine ou sujet (ex: rag, agents, fine-tuning, concurrents, claude-code, prompt, tout)"
@@ -11,7 +11,7 @@ skills:
 
 # cc-news — Veille IA & Claude Code
 
-Date de référence : **29 mai 2026** (v2.1.156 + Opus 4.8 + Dynamic Workflows)
+Date de référence : **2 juin 2026** (v2.1.160 — workflow trigger renamed ultracode + Opus 4.8 + Dynamic Workflows)
 Tout ce qui est postérieur à cette date doit être recherché.
 
 ## Tier 0 — Vérifier EN PREMIER (toujours, avant tout routage)
@@ -131,8 +131,11 @@ Synthétiser avec le format de references/format-reponse.md.
 4. Identifier ce qui est postérieur à la date de référence
 5. Vérifier les dépréciations et breaking changes
 6. Résumer les nouveautés à l'utilisateur (format references/format-reponse.md)
-7. **Capitaliser dans le vault forge-brain** (obligatoire, pas optionnel) — Si une nouvelle version CC est découverte, mettre à jour la date de référence et la version dans ce SKILL.md (ligne 3 description + ligne 11 body).
-8. **Doctrine impact check** (sur les findings MAJEURS uniquement) — Pour chaque finding majeur d'un leader reconnu (05-Leaders/) ou d'Anthropic officiel issu de ce run, invoquer la skill `doctrine-impact-check` avec le finding (claim + source + URL) pour le croiser avec la doctrine canonique forge. PAS pour tout finding (anti-cascade : un run cc-news peut produire 30 findings, seuls les findings à fort crédit qui touchent une doctrine méritent le croisement). La skill produit un verdict INFO / DOCTRINE_PIVOT_CANDIDATE / DOCTRINE_REINFORCE avec gate humaine `[v]/[m]/[i]`.
+7. **Confronter chaque finding MAJEUR à l'existant** (findings vérifiés source primaire, crédit ÉLEVÉ/MAX uniquement — anti-cascade) — Sur DEUX plans :
+   - **Notes vault** : `search_brain` sur le sujet du finding. Une note couvre déjà ce sujet → décider MODIFIER la note existante (amendement, pas doublon) vs CRÉER une note neuve. Gate humaine `[v]/[m]/[i]` avant toute modification d'une note existante.
+   - **Composants `.claude/`** : ce finding rend-il obsolète une skill / agent / hook / rule / CLAUDE.md ? (ex : mot-déclencheur renommé, API dépréciée, feature qui change un workflow). Si OUI → SIGNALER à l'utilisateur avec recommandation de modification, mais NE PAS modifier le composant directement (gate humaine obligatoire ; délégation aux agents spécialisés : skill-creator / agent-creator / hook-creator / claudemd-optimizer).
+8. **Capitaliser dans le vault forge-brain** (obligatoire, pas optionnel) — Si une nouvelle version CC est découverte, mettre à jour la date de référence et la version dans ce SKILL.md (ligne 3 description + ligne 11 body).
+9. **Doctrine impact check** (sur les findings MAJEURS uniquement) — Pour chaque finding majeur d'un leader reconnu (05-Leaders/) ou d'Anthropic officiel issu de ce run, invoquer la skill `doctrine-impact-check` avec le finding (claim + source + URL) pour le croiser avec la doctrine canonique forge. PAS pour tout finding (anti-cascade : un run cc-news peut produire 30 findings, seuls les findings à fort crédit qui touchent une doctrine méritent le croisement). La skill produit un verdict INFO / DOCTRINE_PIVOT_CANDIDATE / DOCTRINE_REINFORCE avec gate humaine `[v]/[m]/[i]`.
 
 ### Fallback X/Twitter
 
@@ -143,7 +146,7 @@ Si une source à analyser est une URL X.com/Twitter (`https://x.com/...` ou `htt
   1. Demander à l'utilisateur de coller le contenu du tweet
   2. Capitaliser quand même dans le vault avec la source citée
 
-## Capitalisation vault (étape 7)
+## Capitalisation vault (étape 8)
 
 - Nouvelle version CC → `01-Claude/Code/changelog/CC vX.Y.Z.md`
 - Nouveau modèle → `03-Modeles/<provider>/<nom>.md`
@@ -192,10 +195,10 @@ Source canonique : [[pattern-mcp-brief-then-direct]] vault forge.
 - **Max 6-8 queries par agent** — au-delà l'agent perd le fil. Les reference files sont conçus pour respecter ce budget.
 - **fine-tuning = 2 agents ; rag + prompt = 2 agents chacun ; claude-code + agents + concurrents = 3 agents chacun** — ces domaines dépassent 8 queries ; l'orchestration complète utilise 16 agents (pas 6) pour cette raison.
 - **Vault AVANT de chercher** — éviter de re-chercher ce qui est documenté avec un `derniere-maj` récent.
-- **Capitaliser APRÈS le scan** — l'étape 7 est obligatoire, pas optionnelle.
+- **Capitaliser APRÈS le scan** — l'étape 8 est obligatoire, pas optionnelle.
 - **Modèle vs produit vs industrie** — GPT-5.5 → `03-Modeles/`. Feature Codex CLI → `02-Concurrents/`. Acquisition/funding → `06-Industrie/`. Ne pas tout mettre dans Concurrents.
 - **Ne pas hardcoder l'année dans les queries** — les reference files n'ont pas "2026" dans leurs queries ; la date de référence dans ce fichier suffit.
 - **Si un agent ne retourne rien** — relancer le domaine individuellement plutôt que l'ignorer. Un scan incomplet doit être signalé.
 - **X/Twitter inaccessible via Defuddle/WebFetch** — toujours déléguer à la skill `x-read` (utilise cookies du compte authentifié). Si x-read pas dispo → demander coller le contenu à l'utilisateur, ne pas abandonner la source.
-- **Étape 8 sélective** — invoquer `doctrine-impact-check` seulement sur findings majeurs (leader/Anthropic), jamais sur tout finding (anti-cascade fatigue de validation).
+- **Étape 9 sélective** — invoquer `doctrine-impact-check` seulement sur findings majeurs (leader/Anthropic), jamais sur tout finding (anti-cascade fatigue de validation).
 - **Ne pas éditer manuellement le bloc SYNC** — le bloc `<!-- SYNC:leaders:start/end -->` dans les domain-*.md est géré par `scripts/sync-leaders.py`. Toute édition manuelle sera écrasée au prochain sync.

@@ -7,12 +7,23 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-06-01
+derniere-maj: 2026-06-02
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-06-02 — Note INFO split crédit programmatique 15 juin (à-vérifier)
+
+- **Ajoutées** : [[split-credit-programmatique-15-juin-2026]] (06-Industrie/) — annonce multi-sources tierces (InfoWorld, it-connect) : usage programmatique (Agent SDK, GitHub Actions, claude -p) tirerait sur un crédit mensuel dédié séparé des limites chat dès le 15 juin. Statut `a-verifier` explicite : ABSENT de anthropic.com/news ET support.claude.com en primaire au 2 juin. Montants non confirmés. Miroir du changement Copilot (lui confirmé primaire github.blog 1er juin). TODO re-check après le 15 juin.
+- **Source** : sweep cc-news global (16 agents). Seul item actionnable survivant au tri source-primaire — impacterait les setups forge consommant de l'API programmatique. Le reste du sweep = déjà-vault ou antérieur au 2 juin (2 doctrine-impact-check harness + emphase = REINFORCE, pas de pivot).
+
+## 2026-06-02 — Veille CC v2.1.160 (workflow→ultracode) + tri source primaire
+
+- **Ajoutées** : [[CC juin 2026 - v2.1.160 ultracode]] (01-Claude/Code/changelog/) — drop 2.1.155→2.1.160 vérifié source primaire (raw GitHub CHANGELOG + anthropic.com/news). Point critique : le mot-déclencheur des Dynamic Workflows passe de `workflow` à `ultracode` (2.1.160). Aussi : Claude in Chrome via `/chrome` (2.1.157), Auto Mode Bedrock/Vertex/Foundry (2.1.158), durcissements sécu écriture fichiers shell/git config (2.1.160), IPO S-1 confidentiel (1er juin).
+- **Source** : run cc-news (focus « vidéos prompting équipe Anthropic »). Le concept visé (« Claude prompts itself / améliore ton prompt avant de bosser ») était DÉJÀ doublement capitalisé : philosophie dans [[Code with Claude 2026]] (Boris Cherny higher-order prompts) + implémentation tranchée dans [[prompt-rewriter-pattern]] (pas de hook systématique, préférer /expand). Aucune recréation.
+- **Note** : claims aggregateurs ÉCARTÉS après vérif primaire (advisor block) — crédits programmatiques 15 juin (20$/100$/200$), `/powerup`, hook `PermissionDenied`, `CLAUDE_CODE_NO_FLICKER` absents du changelog réel ET de anthropic.com/news. Pattern hallucination chiffrée aggregateurs ([[feedback_llm_deep_research_version_numbers]]).
 
 ## 2026-06-01 — 2 méthodes responsable-ia : réunion kit-de-décision + grille priorisation IA
 

@@ -16,6 +16,7 @@
 - [brief-premisse-fausse-verifier-avant-executer](feedback_brief_premisse_fausse_verifier_avant_executer.md) — Brief peut poser prémisse fausse. Vérifier matériellement avant d'exécuter, surfacer si fausse
 - [brief-prescrit-travail-deja-fait-veille](feedback_brief_prescrit_travail_deja_fait.md) — Brief auto-mode peut prescrire création/audit déjà fait 24-72h avant. search_brain + AJOUT récents canoniques AVANT Phase 1
 - [carte-blanche-commit-push-tranche-pas-revalider](feedback_carte_blanche_commit_push.md) — "Carte blanche" = exécuter direct sans re-valider note par note
+- [ccnews-confronter-existant](feedback_ccnews_confronter_existant.md) — cc-news confronte chaque finding à l'existant (notes vault + skills/agents/hooks/rules) et agit, pas juste résumer
 - [claim-security-must-be-provable](feedback_claim_security_must_be_provable.md) — Claim sécu read-only prouvable par code, sinon by discipline pas by construction
 - [commit-push-check-pattern](feedback_commit_push_check.md) — "regarde commit et push" = git status + diff avant push, jamais push aveugle
 - [conformite-aveugle-regle-generique](feedback_conformite_aveugle_regle_generique.md) — Garde refusée = lire son intention avant de contourner. Souvent intentionnelle
@@ -149,3 +150,4 @@
 - [plugins-officiels-anthropic-marketplace](reference_plugins_officiels_anthropic_marketplace.md) — 203 plugins marketplace (mai 2026), doctrine forge = enrichir canonique vault ou skip, jamais nouvelle skill forge
 - [permissionmode-enum-valid-values](reference_permissionmode_enum_valid_values.md) — permissionMode = acceptEdits|plan|bypassPermissions UNIQUEMENT. `default` invalide silencieux. plan pour agents read-only+Bash
 - [workflow-args-array-gotcha](reference_workflow_args_array_gotcha.md) — Dynamic Workflow : array/objet JSON via param `args` arrive undefined. Embarquer en const JS dans le script, ou faire lire un fichier par un 1er agent
+- [workflow-ultracode-keyword](reference_workflow_ultracode_keyword.md) — CC v2.1.160 (2 juin 2026) : déclencheur Dynamic Workflows passe de `workflow` à `ultracode`. Grep setups forge si déclenchement auto attendu
