@@ -26,6 +26,8 @@
 - [da-bash-write-disguised](feedback_da_bash_write.md) — Bash cat/heredoc = write déguisé, échoue silencieux si disallowedTools Write/Edit
 - [da-dicte-tests-adverses-pas-moi](feedback_da_dicte_tests_adverses.md) — Code destructif : tests happy path = trompeur. DA AVANT push obligatoire
 - [da-failure-decision-protocol](feedback_da_failure_options.md) — DA échoue (529/timeout) : relancer 1×, sinon advisor, sinon STOP
+- [delegate-guard-scope-tout-skillmd](feedback_delegate_guard_scope_tout_skillmd.md) — delegate-guard bloque TOUT SKILL.md (match par nom, pas chemin), même hors .claude/. Déléguer à skill-creator partout, briefer "verbatim" si contenu déjà conçu
+- [user-invocable-orthographe](feedback_user_invocable_orthographe.md) — Champ frontmatter skill = `user-invocable` (avec c), PAS user-invokable. Source Anthropic. 37 fichiers forge avaient la faute (fixés 3 juin). Vérité ≠ consensus interne
 - [delegate-guard-env-var-blocked](feedback_delegate_guard_env_var_blocked.md) — Bypass CLAUDE_AGENT impossible auto-mode. Edit manuel ou Shift+Tab
 - [devlead-vs-devapp-dispatch](feedback_devlead_vs_devapp.md) — Fix cross-app (libs+apps) = dev-lead, fix intra-app = dev-neochat/neomail/neodoc
 - [diagnostic-empirique-avant-affirmer-une-garde](feedback_diagnostic_empirique_avant_affirmer_garde.md) — Avant d'écrire qu'une garde existe (deny/hook), la vérifier + citer la preuve

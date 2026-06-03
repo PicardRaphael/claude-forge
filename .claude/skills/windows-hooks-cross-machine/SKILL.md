@@ -3,7 +3,7 @@ name: windows-hooks-cross-machine
 description: ALWAYS invoke when writing or reviewing Windows hook configurations in settings.json. DO NOT use hardcoded paths or bare python command -- use py launcher and ${CLAUDE_PROJECT_DIR} for cross-machine portability.
 allowed-tools: Read, Write, Edit
 effort: high
-user-invokable: true
+user-invocable: true
 ---
 
 ## Role

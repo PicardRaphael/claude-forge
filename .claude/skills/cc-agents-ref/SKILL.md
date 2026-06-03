@@ -1,7 +1,7 @@
 ---
 name: cc-agents-ref
 description: ALWAYS load this reference when creating or modifying a Claude Code subagent. Covers all YAML frontmatter fields: tools, hooks inline, memory, isolation, maxTurns, effort, background. Do NOT create agents without loading this first.
-user-invokable: false
+user-invocable: false
 derniere-maj: 2026-05-14
 ---
 

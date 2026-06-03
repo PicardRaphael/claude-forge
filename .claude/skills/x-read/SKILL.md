@@ -1,7 +1,7 @@
 ---
 name: x-read
 description: ALWAYS invoke when the user types `/x-read <url>`, `/x-read timeline [N]`, or `/x-read @user [N]`. Reads X/Twitter content (tweets, timeline, user posts) read-only via authenticated cookies. Capitalize into vault or fetch content blocked by WebFetch.
-user-invokable: true
+user-invocable: true
 argument-hint: "<url> | timeline [N] | @user [N]"
 allowed-tools: Bash, Read
 ---

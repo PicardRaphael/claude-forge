@@ -2,7 +2,7 @@
 name: clean-memory
 description: ALWAYS invoke when the user types /clean-memory. Detects duplicate and dormant feedbacks in memory/MEMORY.md, proposes merges and archives with human gate per item. DO NOT archive or merge any feedback without invoking first.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__*
-user-invokable: true
+user-invocable: true
 ---
 
 # clean-memory — Nettoyage de la memoire projet

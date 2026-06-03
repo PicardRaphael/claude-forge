@@ -3,7 +3,7 @@ name: git-multi-repo
 description: ALWAYS invoke when running git across multiple repos (forge + ia_back + neo_ia + lojii). DO NOT use cd <path> && git -- CWD persists between Bash calls and silently targets the wrong repo. Use git -C <path> exclusively.
 allowed-tools: Bash
 effort: high
-user-invokable: true
+user-invocable: true
 ---
 
 ## Role

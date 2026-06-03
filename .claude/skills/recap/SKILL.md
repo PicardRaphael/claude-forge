@@ -2,7 +2,7 @@
 name: recap
 description: Produces a 30-second project status snapshot — git state, vault stats, memory, cc-news date, and one-line context suggestion. Use when resuming a session after a break or switching context.
 allowed-tools: Read, Glob, Grep, Bash, mcp__forge-brain__*
-user-invokable: true
+user-invocable: true
 model: sonnet
 effort: high
 ---

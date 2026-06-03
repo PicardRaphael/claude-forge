@@ -1,7 +1,7 @@
 ---
 name: analyze-project
 description: Analyzes any project and proposes or optimizes Claude Code components. Use when the user says "analyse ce projet", "propose des skills pour X", "optimise les composants de Y".
-user-invokable: true
+user-invocable: true
 disable-model-invocation: true
 argument-hint: "/path/to/project ou https://github.com/..."
 allowed-tools: Read, Grep, Glob, Bash, WebFetch, WebSearch, Write

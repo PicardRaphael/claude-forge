@@ -1,7 +1,7 @@
 ---
 name: craft-prompt
 description: Use when the user asks to create, write, improve, or optimize a prompt for Claude, Gemini, or any LLM. Applies best techniques automatically based on target model and use case.
-user-invokable: true
+user-invocable: true
 allowed-tools: Read, WebSearch
 argument-hint: "description du prompt a creer (+ modele cible si pas Claude)"
 model: opus

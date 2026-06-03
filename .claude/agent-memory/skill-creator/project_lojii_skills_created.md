@@ -17,19 +17,19 @@ metadata:
 |-------|------|---------|
 | `lojii-conventions` | auto (paths) | `src/**/*.{vue,js,scss}` |
 | `lojii-design-system` | auto (paths) | `src/**/*.{vue,scss,css}` |
-| `lojii-windev-mapping` | slash `/windev-map` | user-invokable + disable-model-invocation |
-| `lojii-vue2-mapping` | slash `/vue2-map` | user-invokable + disable-model-invocation |
-| `go` | slash `/go` | user-invokable + disable-model-invocation |
-| `spec` | slash `/spec` | user-invokable + disable-model-invocation |
+| `lojii-windev-mapping` | slash `/windev-map` | user-invocable + disable-model-invocation |
+| `lojii-vue2-mapping` | slash `/vue2-map` | user-invocable + disable-model-invocation |
+| `go` | slash `/go` | user-invocable + disable-model-invocation |
+| `spec` | slash `/spec` | user-invocable + disable-model-invocation |
 | `lojii-testing` | auto (paths) | `src/**/*.test.js`, `src/**/*.spec.js`, `tests/**`, `e2e/**`, `vitest.config.*`, `playwright.config.*` |
-| `recap` | slash `/recap` | user-invokable + disable-model-invocation |
+| `recap` | slash `/recap` | user-invocable + disable-model-invocation |
 
 ## Patterns appris
 
 - **Vault externe = chemins absolus dans SKILL.md** : quand le vault est dans un autre repo (neoteem-brain), documenter le chemin absolu `C:/Users/.../neoteem-brain/` directement dans la skill. Pas de MCP disponible dans un repo projet.
 - **references/ pour index externe** : `lojii-windev-mapping/references/windev-notes-index.md` construit dynamiquement depuis `os.listdir()` au moment de la création — pattern reproductible.
 - **skills: frontmatter dans go/spec** : référencer `lojii-conventions` et `lojii-design-system` pour injecter le contexte dans les slash commands.
-- **paths: auto-trigger** ne nécessite PAS `user-invokable: false` explicitement — mais le mettre clarifie l'intention.
+- **paths: auto-trigger** ne nécessite PAS `user-invocable: false` explicitement — mais le mettre clarifie l'intention.
 - **paths: YAML array** pour lojii-testing (multi-patterns), string unique pour lojii-conventions — les deux sont valides.
 - **recap + skills: [lojii-conventions]** — slash command qui injecte automatiquement les conventions dans son contexte via frontmatter skills:.
 - **!backtick avec chemin absolu -C** dans recap pour éviter les surprises de cwd (`git -C "C:/..." status --short`).

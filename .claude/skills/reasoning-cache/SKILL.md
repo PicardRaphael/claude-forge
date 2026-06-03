@@ -3,7 +3,7 @@ name: reasoning-cache
 description: ALWAYS invoke when user says save this reasoning, cache this, or after a multi-step debug that changed direction. Captures successful reasoning chains as vault notes. Use PROACTIVELY after complex problems where path reversed.
 argument-hint: "[problem description] [-- steps]"
 allowed-tools: Bash, Read, Write, Glob, mcp__forge-brain__*
-user-invokable: true
+user-invocable: true
 effort: high
 memory: project
 ---

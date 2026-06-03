@@ -1,7 +1,7 @@
 ---
 name: io-week
 description: Use when the user types /io-week or asks for weekly I/O metrics digest. Aggregates last 7 daily JSONL files from .claude/_metrics/ and produces trend analysis.
-user-invokable: true
+user-invocable: true
 allowed-tools: Read, Write, Bash
 argument-hint: "[date fin YYYY-MM-DD optionnel, défaut aujourd'hui]"
 ---

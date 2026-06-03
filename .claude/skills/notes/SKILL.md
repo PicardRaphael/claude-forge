@@ -3,7 +3,7 @@ name: notes
 description: ALWAYS invoke when user types `/notes <feature-slug>` or `/notes <path/to/feature>`. Initialises `docs/implementation-notes/<slug>.md` pre-filled with 4 Thariq sections. DO NOT create without resolving repo path first.
 argument-hint: "<feature-slug or path/to/feature>"
 allowed-tools: Bash, Read, Write, AskUserQuestion
-user-invokable: true
+user-invocable: true
 ---
 
 # Notes — Running Implementation Notes

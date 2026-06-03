@@ -1,7 +1,7 @@
 ---
 name: cc-prompt-ref
 description: Best practices for writing agent descriptions, skill triggers, CLAUDE.md rules, and prompts. Use when creating or improving agents, skills, rules, or any prompt that Claude will interpret.
-user-invokable: false
+user-invocable: false
 ---
 
 # Reference — Prompt Engineering pour Claude Code
@@ -38,7 +38,7 @@ description: Deep-analyzes code repositories and writes comprehensive technical 
 
 ## Descriptions de skills — Quand Claude charge automatiquement
 
-Pour les skills `user-invokable: false`, la description determine si Claude charge la skill dans son contexte.
+Pour les skills `user-invocable: false`, la description determine si Claude charge la skill dans son contexte.
 
 ### Pattern
 

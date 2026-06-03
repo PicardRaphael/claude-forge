@@ -1,7 +1,7 @@
 ---
 name: cc-skills-ref
 description: ALWAYS load this reference when creating or modifying a Claude Code skill. Covers YAML frontmatter, $ARGUMENTS, !backtick, context fork, paths, 9 Thariq categories, 9 principles, builtin skills. Do NOT create skills without loading this first.
-user-invokable: false
+user-invocable: false
 ---
 
 # Référence — Skills Claude Code (= Commands depuis v2.1.0)
@@ -19,7 +19,7 @@ allowed-tools: Read, Bash
 when_to_use: Use when the user asks to X
 model: sonnet
 effort: high # low|medium|high|xhigh|max
-user-invokable: true
+user-invocable: true
 disable-model-invocation: true # slash command manuelle uniquement
 context: fork
 agent: Explore
@@ -77,9 +77,9 @@ Crée un composant nommé $ARGUMENTS.
 !`git diff --cached | head -100`
 ```
 
-## `user-invokable` vs `disable-model-invocation`
+## `user-invocable` vs `disable-model-invocation`
 
-|                      | `user-invokable: false` | `disable-model-invocation: true` |
+|                      | `user-invocable: false` | `disable-model-invocation: true` |
 | -------------------- | ----------------------- | -------------------------------- |
 | `/skill` utilisateur | ❌                      | ✅                               |
 | Claude charge auto   | ❌                      | ❌                               |

@@ -2,7 +2,7 @@
 name: skill-evolve
 description: ALWAYS invoke when user says "evolve skill", "ameliore la skill", "skill-evolve", or "sweep skills". Analyzes SKILL.md effectiveness and proposes concrete improvements via execution patterns, cross-pollination, and vault techniques.
 argument-hint: "[skill-name | all]"
-user-invokable: true
+user-invocable: true
 allowed-tools: Read, Glob, Grep, Bash, mcp__forge-brain__*
 model: sonnet
 effort: high

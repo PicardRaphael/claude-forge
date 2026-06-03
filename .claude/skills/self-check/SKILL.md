@@ -1,7 +1,7 @@
 ---
 name: self-check
 description: Validates internal consistency of claude-forge — single-line descriptions, name matches folder, no README.md in skills, SKILL.md under 500 lines, referenced skills exist. Use when the user says "self-check", "valide le projet", "vérifie la cohérence".
-user-invokable: true
+user-invocable: true
 disable-model-invocation: true
 allowed-tools: Read, Glob, Bash, Grep
 ---

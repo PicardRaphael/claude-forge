@@ -2,7 +2,7 @@
 name: forge-review
 description: Monthly strategic review that challenges forge's status quo -- reads CLAUDE.md, rules, top skills, and all agents then delivers a frank KILL/EVOLVE/KEEP/MISSING verdict with evidence. Use when questioning whether the current setup is still optimal.
 argument-hint: "[--output path/to/report.md]"
-user-invokable: true
+user-invocable: true
 allowed-tools: Read, Glob, Grep, Bash, mcp__forge-brain__*
 effort: high
 memory: project

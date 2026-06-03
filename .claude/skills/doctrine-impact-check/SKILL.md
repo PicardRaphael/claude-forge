@@ -2,7 +2,7 @@
 name: doctrine-impact-check
 description: ALWAYS invoke when a finding (leader URL, cc-news, or empirical measure) must be confronted with forge doctrine. Crosses it against canonical notes and emits one verdict: INFO, DOCTRINE_PIVOT_CANDIDATE, or DOCTRINE_REINFORCE.
 allowed-tools: Read, mcp__forge-brain__*
-user-invokable: true
+user-invocable: true
 model: opus
 ---
 

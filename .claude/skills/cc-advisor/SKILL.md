@@ -1,7 +1,7 @@
 ---
 name: cc-advisor
 description: Use this skill when the user describes a need or problem WITHOUT specifying what Claude Code component to create. Use PROACTIVELY for any ambiguous automation request. Searches web if question involves recent features.
-user-invokable: true
+user-invocable: true
 allowed-tools: WebSearch, WebFetch, Read
 argument-hint: "décris ton besoin"
 ---
@@ -33,7 +33,7 @@ Référence : [[pattern-mcp-brief-then-direct]] Règle 2 (skill sans brief inlin
 | Analyser un repo externe          | Agent                                              |
 | Auditer un codebase               | Agent                                              |
 | Committer vite                    | Skill `/commit` + `disable-model-invocation: true` |
-| Connaître stack / API interne     | Skill `user-invokable: false`                      |
+| Connaître stack / API interne     | Skill `user-invocable: false`                      |
 | Règles selon type de fichier      | Skill `paths: "**/*.py"`                           |
 | Surveiller les PRs en boucle      | `/loop 5m /babysit`                                |
 | Daily standup auto                | `/schedule "0 9 * * *" /standup`                   |

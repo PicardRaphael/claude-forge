@@ -1,7 +1,7 @@
 ---
 name: install-forge
 description: Installs claude-forge globally by copying .claude/* to ~/.claude/ with diff and verification. Use when the user says "installe forge", "deploy globally", "install forge", "cp to global".
-user-invokable: true
+user-invocable: true
 disable-model-invocation: true
 argument-hint: "[--dry-run]"
 allowed-tools: Bash, Read, Glob

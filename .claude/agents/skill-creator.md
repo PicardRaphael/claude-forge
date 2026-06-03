@@ -39,7 +39,7 @@ Si similaire → proposer de **modifier ou optimiser**.
 - Section Gotchas présente ?
 - > 500 lignes → déplacer dans references/ ?
 - `!backtick` pour contexte dynamique utile ?
-- `user-invokable` / `disable-model-invocation` corrects ?
+- `user-invocable` / `disable-model-invocation` corrects ?
 - `effort` pertinent ?
 
 ## Avant de créer

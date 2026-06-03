@@ -3,7 +3,7 @@ name: auditor-empirical-verify
 description: ALWAYS invoke after dispatching a sub-agent that claims to have created, modified, or deleted files. DO NOT relay sub-agent summaries to the user without empirical verification -- sub-agents lie by omission.
 allowed-tools: Read, Glob, Grep, Bash
 effort: high
-user-invokable: true
+user-invocable: true
 ---
 
 ## Role

@@ -1,7 +1,7 @@
 ---
 name: cc-cowork-ref
 description: Reference for Claude Cowork, Dispatch, Agent Teams, and plugins marketplace. Use when configuring Cowork automations, Dispatch tasks, Agent Teams, or when user mentions Cowork, Dispatch, or collaborative agents.
-user-invokable: false
+user-invocable: false
 ---
 
 # Reference — Claude Cowork, Dispatch & Agent Teams

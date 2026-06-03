@@ -3,7 +3,7 @@ name: python-script-refactor-masse
 description: ALWAYS invoke when refactoring the same pattern across >10 files. DO NOT use sequential Edit tool calls -- one Python script with regex beats them all. Validated 25 May 2026 on ia_back (308 lines saved in 1 command).
 allowed-tools: Read, Write, Edit, Bash, Glob
 effort: high
-user-invokable: true
+user-invocable: true
 ---
 
 ## Role

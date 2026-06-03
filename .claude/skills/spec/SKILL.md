@@ -3,7 +3,7 @@ name: spec
 description: Use when user describes a need, pastes a Jira ticket, or asks for spec before implementing. Transforms ticket/idea/bug into TODO/feature-X/ folder with SPEC.md, BRIEFs, parallel waves. STOPS at file generation — never develops code.
 argument-hint: "[ticket text, paste it, or describe in natural language]"
 allowed-tools: Read, Write, Glob, Grep, Bash, Task, AskUserQuestion
-user-invokable: true
+user-invocable: true
 model: opus
 effort: high
 memory: project

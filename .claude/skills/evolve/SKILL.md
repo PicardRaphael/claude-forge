@@ -2,7 +2,7 @@
 name: evolve
 description: Analyzes a project (path via ARGUMENTS) and proposes prioritized product/architecture evolutions. Use when planning the next improvements for any project.
 argument-hint: "[/absolute/path/to/project]"
-user-invokable: true
+user-invocable: true
 allowed-tools: Read, Glob, Grep, Bash, Agent
 model: sonnet
 effort: high

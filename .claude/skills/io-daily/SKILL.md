@@ -1,7 +1,7 @@
 ---
 name: io-daily
 description: Use when the user types /io-daily or asks for today's I/O metrics. Reads .claude/_metrics/YYYY-MM-DD.jsonl and produces a console summary plus saves it as daily-summary-YYYY-MM-DD.md.
-user-invokable: true
+user-invocable: true
 allowed-tools: Read, Write, Bash
 argument-hint: "[date YYYY-MM-DD optionnel, défaut aujourd'hui]"
 ---

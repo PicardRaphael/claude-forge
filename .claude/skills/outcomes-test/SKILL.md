@@ -3,7 +3,7 @@ name: outcomes-test
 description: Evaluate a deliverable against a RUBRIC.md using a separate grader agent. Complements devil's advocate with objective, measurable criteria checking. Use when verifying skills, agents, hooks, or specs against defined success criteria.
 argument-hint: "<path-to-deliverable> [path-to-rubric]"
 allowed-tools: Agent, Read, Glob, Grep
-user-invokable: true
+user-invocable: true
 ---
 
 # Outcomes Test
