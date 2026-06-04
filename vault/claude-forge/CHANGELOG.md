@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-04 — Note canonique plugin vs skill (compétence)
+
+- **Ajoutées** : [[plugin-vs-skill-anatomie]] (04-Techniques/claude-code/) — skill = unité atomique (`<nom>/SKILL.md`), plugin = conteneur distribuable (skills + agents + hooks + MCP + LSP + monitors + bin + settings). Point critique : **un CLAUDE.md à la racine d'un plugin est IGNORÉ** (verbatim Anthropic plugins-reference) → instructions persistantes via skill, pas via CLAUDE.md embarqué. Claude Code = directory-based ; Claude Desktop/Web = upload .zip (Connectors pour MCP distant). Arbre de décision skill/plugin + application cas po-lojii Neoteem.
+- **Modifiées** : [[plugin-vs-skill-anatomie]] — ajout section « README.md dans un plugin = doc humaine, JAMAIS affiché par Claude ». Vérifié primaire : README ni requis ni affiché ; seuls `displayName`/`description` du plugin.json apparaissent dans `/plugin` et le marketplace. Décision Neoteem : pas de README dans les 4 plugins `output/lojii/`, plugin.json soigné à la place.
+- **Source** : Découverte Raphael (compétence vs plugin dans Claude Desktop) + vérification source primaire docs Anthropic (plugins, plugins-reference, skills) le 4 juin 2026.
+
 ## 2026-06-02 — Note INFO split crédit programmatique 15 juin (à-vérifier)
 
 - **Ajoutées** : [[split-credit-programmatique-15-juin-2026]] (06-Industrie/) — annonce multi-sources tierces (InfoWorld, it-connect) : usage programmatique (Agent SDK, GitHub Actions, claude -p) tirerait sur un crédit mensuel dédié séparé des limites chat dès le 15 juin. Statut `a-verifier` explicite : ABSENT de anthropic.com/news ET support.claude.com en primaire au 2 juin. Montants non confirmés. Miroir du changement Copilot (lui confirmé primaire github.blog 1er juin). TODO re-check après le 15 juin.

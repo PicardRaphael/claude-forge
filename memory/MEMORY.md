@@ -6,6 +6,7 @@
 - [agent-tools-enforce-delegation](feedback_agent_tools_restriction.md) — Retirer Bash des agents orchestrateurs pour forcer délégation
 - [analyse-first-not-questionnaire](feedback_analyse_first_not_questionnaire.md) — Analyser le repo d'abord, proposer, questions SEULEMENT pour le non-déductible
 - [analyse-repo-includes-code-scan](feedback_analyse_repo_includes_code.md) — Analyse repo / config CC = méthode 6 étapes (archi + code réel) + audit .claude/
+- [allowed-tools-pas-allowlist](feedback_allowed_tools_pas_allowlist.md) — `allowed-tools` skill = pré-approbation, PAS allowlist restrictive (tous outils restent callable). Source Anthropic. Un faux P0 d'agent auditeur reposait dessus
 - [anti-reentrance-sub-agents](feedback_anti_reentrance_sub_agents.md) — Sub-agent NE PEUT PAS invoquer Agent. Pattern STOP + ESCALADE REQUISE 5 champs
 - [arxiv-url-swap-papers-similaires](feedback_arxiv_url_swap_papers_similaires.md) — N papers même domaine = URLs swapées. WebFetch systématique
 - [audit-qualite-design-transverse-mandatory](feedback_audit_qualite_design_transverse.md) — Audit `.claude/` = technique + qualité-design transverse vs canoniques
@@ -52,6 +53,7 @@
 - [mcp-alias-ambigu-chemin-exact](feedback_mcp_alias_ambigu_chemin_exact.md) — MCP append_note/read par alias court résout faux si stem partagé. Chemin exact
 - [mcp-wildcard-syntax-officielle](feedback_mcp_wildcard_syntax.md) — mcp__server__* syntaxe officielle. Vrai risque = nb MCP servers actifs
 - [measure-before-optimize-tests](feedback_measure_before_optimize.md) — Avant optim tests, mesurer --durations : trop de tests vs chaque test lent
+- [mcp-transport-stdio-http-crashloop](feedback_mcp_transport_stdio_http_crashloop.md) — FastMCP crash loop systemd + nginx 502 = transport stdio au lieu de http. Lire les logs AVANT de soupçonner l'OAuth (biais du dernier changement)
 - [memory-mandatory](feedback_memory_mandatory.md) — memory: project sur TOUS agents + Apprentissage sur TOUTES skills
 - [multiedit-matcher-blind-spot-hooks](feedback_multiedit_matcher_blind_spot.md) — Hooks PreToolUse Write|Edit sans MultiEdit = trou. TOUJOURS le triplet
 - [never-pure-executor](feedback_never_pure_executor.md) — JAMAIS mode exécutant pur, posture Jarvis active même sur prompts directifs/QA
@@ -101,6 +103,7 @@
 - [claude-forge-naming-collision-github](project_claude_forge_naming_collision.md) — 4 repos GitHub homonymes `claude-forge`, dont sangrokjung 715⭐ framework plugin oh-my-zsh-style. Trancher rename si publication un jour, ignore si privé.
 - [ia-back-project](project_back_refacto.md) — ia_back 16 agents, 26 skills, 16 rules, 14 hooks. Stack postgres.js
 - [neoteem-brain-project](project_neoteem_brain.md) — 682+ notes, pipeline vault-workflow, obsidian-cli, aliases double couverture
+- [neoteem-brain-plugin](project_neoteem_brain_plugin.md) — Plugins CC Neoteem. SOURCE = 2 marketplaces Bitbucket (4 juin) : neoteem-plugin-claude (support+brain) + neoteem-plugin-claude-admin (po+brain-admin, restreint). Doctrines brain admin-first, Jira acli-ou-MCP, N2 format PO, MCP non bundlé
 - [neo-ia-project](project_neo_ia.md) — Monorepo Python NeoChat/NeoDoc/NeoMail, 12 agents, 25 skills, 16 rules, 12 hooks
 - [neo-ia-tool-selection-state](project_neo_ia_tool_selection.md) — HybridToolSelector : expansion+reranking OFF en prod, Lazy Expansion + OATS validé
 - [mcp-brain-remote-status](project_mcp_brain_remote.md) — MCP distant mcp-brain.neoteem.fr v3.2.4 OK, non chargé dans CLI
