@@ -48,6 +48,13 @@ Deux pièges distincts, même axe (écriture Windows PS 5.1), rencontrés 2× da
 
 **Règle pratique** : sur la machine forge, pour générer du JSON/MD avec accents → tool **Bash** (`cat > … <<EOF`). Réserver PowerShell aux commandes (`Compress-Archive`, `Remove-Item`, `git`), pas à l'écriture de fichiers texte structurés.
 
+## Compress-Archive PS 5.1 → zip rejeté par Claude "invalid characters" (4 juin 2026)
+
+- Symptôme : upload d'un `.zip` (compétence ou plugin) sur Claude → **"zip file contains path with invalid characters"**.
+- Cause : `Compress-Archive` (PowerShell 5.1) écrit les chemins internes avec des **backslash** Windows (`support\skills\SKILL.md`). Le standard ZIP exige des **slash** `/`. Claude rejette les `\`.
+- **Fix** : générer les zip via **Python `zipfile`** qui force les `/` (`arc = rel.replace(os.sep, "/")`). Voir `build-skills-zip.ps1` des repos plugins Neoteem (délègue la création à un helper Python inline). Vérif : `python -c "import zipfile; [print(n) for n in zipfile.ZipFile('x.zip').namelist()]"` → aucun `\`.
+- Touche **tout zip destiné à un upload Claude** généré sur Windows. Ne jamais utiliser `Compress-Archive` pour ça.
+
 ## Sub-agents qui meurent sur `!`git status`` hors repo git (4 juin 2026)
 
 - Symptôme : dispatcher `repo-inspector` / `skill-creator` échoue immédiatement avec `Shell command failed for pattern "!`git status --short`": fatal: not a git repository`. Rencontré 2× dans une session où le cwd de la session principale (claude-forge) ne correspondait pas au repo cible des agents (neot-v2/*).
