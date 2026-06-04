@@ -54,6 +54,17 @@ Chemins locaux : `C:\Users\...\Documents\neot-v2\neoteem-plugin-claude(-admin)`.
 
 **plugin.json displayName+description seuls visibles UI ; README non affiché ; CLAUDE.md de plugin ignoré ; cache CLI interdit les `../` (aucun cross-plugin).**
 
+## Audit qualité des 9 skills + bump 1.0.1 (4 juin 2026)
+
+Audit complet 1-par-1 des 9 SKILL.md croisé avec canoniques forge ([[comment-creer-skill]] + [[mcp-vs-skills-doctrine]]). **Verdict : skills solides et conformes** (doctrine Karpathy, anti-invention, format N2=PO, dual-engine, admin-first, Gotchas riches). Aucun P0. Écarts corrigés :
+- **Résidus doctrine CLI Obsidian** (P1, 4 occurrences) : `triage-tickets` "Fonctionne en CLI et MCP", + réf morte "et les equivalents CLI" dans `neo-brain`/`neo-brain-dev-admin`/`neo-brain-support-admin` (les `vault-access.md` étaient déjà nettoyés → SKILL.md mentait). Nettoyés.
+- **Port local obsolète** (P2, 3 occurrences) : "port 8090 en local" → MCP distant `https://mcp-brain.neoteem.fr/mcp` branché environnement, dans `neo-brain`/`neo-brain-support`/`neo-brain-dev-ia`.
+- **Descriptions** : ajout formule directive `DO NOT ... without invoking first` sur `analyse-qualification-tickets` (226 ch) + `triage-tickets` (218 ch), ≤250.
+
+Frontmatter homogène : tous `effort: high` + `memory: project` + `user-invocable: true`. **Model** : `spec`/`review-ticket`/`analyse-qualification-tickets`/`triage-tickets` = **opus** (jugement) ; les 5 skills brain = **sonnet** (accès vault = exécution). Toutes < 500L (`neo-brain-support-admin` 493L = limite, non déportée car skill brain dupliquée). **Duplication assumée** : ~150L doctrine Karpathy/pagination répétées entre les 5 skills brain (cross-plugin interdit par cache CLI → répétition obligée, pas un défaut).
+
+**Versions = 1.0.1** (bump 4 juin, commits `05fa09f` équipe + `5a5a498` admin). Bumper la version est le SEUL déclencheur de refresh : ceux déjà branchés (ex. Jérôme) reçoivent la maj via `/plugin marketplace update <name>`. **Règle : tout changement de contenu d'un plugin → bumper sa `version` dans plugin.json, sinon les utilisateurs branchés gardent l'ancienne (bug cache CLI connu).**
+
 **Doctrine brain « admin d'abord, read-only en repli » (universelle PO ET support, 4 juin) :** chaque skill métier invoque `neo-brain-*-admin` ; si la variante admin absente de la session, bascule sur la read-only équivalente (`neo-brain` / `neo-brain-support`). PO a toujours admin (capitalise). Support : brain read-only suffit, admin seulement pour capitaliser en /analyse. ⚠️ N'ouvre PAS l'écriture batch/Phase C de triage (contrainte run planifié, indépendante). Skill ne peut pas introspecter l'installé → instruction textuelle résolue au runtime, jamais un mécanisme de détection inventé.
 
 **Doctrine Jira PO « acli OU MCP » (dual-engine, 4 juin) :** spec/review-ticket détectent acli (`acli --version`) ; si absent → MCP de plein droit (`mcp__claude_ai_Atlassian_2__createJiraIssue/editJiraIssue` CRUD + MCP Jira Neoteem pour PJ/notes internes). PAS « moteur + fallback dégradé ». Support = MCP-only (zéro acli, vérifié). MCP Atlassian ne fait pas d'upload PJ natif → copy_attachments.
