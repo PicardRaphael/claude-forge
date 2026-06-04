@@ -48,6 +48,13 @@ Deux pièges distincts, même axe (écriture Windows PS 5.1), rencontrés 2× da
 
 **Règle pratique** : sur la machine forge, pour générer du JSON/MD avec accents → tool **Bash** (`cat > … <<EOF`). Réserver PowerShell aux commandes (`Compress-Archive`, `Remove-Item`, `git`), pas à l'écriture de fichiers texte structurés.
 
+## Sub-agents qui meurent sur `!`git status`` hors repo git (4 juin 2026)
+
+- Symptôme : dispatcher `repo-inspector` / `skill-creator` échoue immédiatement avec `Shell command failed for pattern "!`git status --short`": fatal: not a git repository`. Rencontré 2× dans une session où le cwd de la session principale (claude-forge) ne correspondait pas au repo cible des agents (neot-v2/*).
+- Cause : le système prompt / hook de l'agent contient un `!`git status`` (backtick exec) évalué dans un cwd qui n'est pas un repo git.
+- **Workaround** : faire le travail en session principale (lecture directe des fichiers) au lieu de déléguer, OU s'assurer que le cwd est dans un repo git avant le dispatch. Pour un audit de 9 fichiers, lecture directe = plus simple que se battre avec le dispatch.
+- Ne pas confondre avec un refus de permission : c'est un crash au démarrage de l'agent, pas un blocage de garde.
+
 ## Commits parallèles d'autres agents/sessions
 
 - Pendant un audit long, d'autres sessions peuvent commit/push entre temps
