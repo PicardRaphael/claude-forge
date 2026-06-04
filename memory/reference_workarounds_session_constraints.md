@@ -39,6 +39,15 @@ Contraintes techniques rencontrées sur la machine forge (Windows Git Bash) et w
 - Ou directement : `CLAUDE_AGENT=agent-creator python -c "..."`
 - À utiliser uniquement pour micro-corrections sur 1 ligne (sinon déléguer vraiment à agent-creator)
 
+## Écriture de fichiers via PowerShell 5.1 — BOM + caractères non-ASCII (4 juin 2026)
+
+Deux pièges distincts, même axe (écriture Windows PS 5.1), rencontrés 2× dans la même session sur des plugin.json + un script .ps1 :
+
+1. **`Set-Content -Encoding utf8` ajoute un BOM** (`﻿` en tête de fichier). JSON reste valide mais sale, et certains parseurs bronchent. **Workaround** : écrire les fichiers texte/JSON via le tool **Bash** (`cat > f <<EOF` ou heredoc) — UTF-8 sans BOM nativement — plutôt que `Set-Content` PowerShell. Ou `[IO.File]::WriteAllText($p, $c, (New-Object Text.UTF8Encoding $false))` si on reste en PS.
+2. **Caractères non-ASCII (`—` tiret cadratin, accents) dans un .ps1 écrit par le tool Write** → corruption au parsing PS 5.1 (`—` devient `â€"`), qui **casse tout le script** (ParserError sur les chaînes). **Workaround** : garder les .ps1 en ASCII pur (tirets simples `-`), ou écrire les contenus accentués via Bash. Les accents FR vont sans souci dans les .md/.json écrits par Bash, pas dans un .ps1 lu par PS 5.1.
+
+**Règle pratique** : sur la machine forge, pour générer du JSON/MD avec accents → tool **Bash** (`cat > … <<EOF`). Réserver PowerShell aux commandes (`Compress-Archive`, `Remove-Item`, `git`), pas à l'écriture de fichiers texte structurés.
+
 ## Commits parallèles d'autres agents/sessions
 
 - Pendant un audit long, d'autres sessions peuvent commit/push entre temps
