@@ -7,14 +7,13 @@ aliases:
   - "bash cat write déguisé"
   - "critique non sauvegardée"
 type: knowledge
-derniere-maj: 2026-05-11
+derniere-maj: 2026-06-05
 auteur: claude
 tags:
   - "#type/erreur"
   - "#erreur/agent"
   - "#domaine/claude-code"
 ---
-
 ## Ce qui s'est passé
 
 Session 11 mai 2026. Audit du devil's advocate révèle que seulement 2 critiques sur 4+ runs étaient sauvegardées dans `Knowledge/critiques/`. Le DA avait `disallowedTools: Write, Edit` dans son frontmatter mais utilisait un heredoc Bash (`cat > vault/.../critique-*.md`) pour écrire — un write déguisé qui passait ou non selon les permissions, sans erreur visible.
@@ -30,6 +29,16 @@ Remplacé le heredoc Bash par `mcp__forge-brain__create_note` dans le prompt de 
 ## Règle générale
 
 **Ne jamais utiliser Bash pour écrire des fichiers quand `Write`/`Edit` sont interdits** — `cat >`, `echo >`, heredoc = des writes déguisés qui peuvent être bloqués silencieusement. Utiliser le MCP ou un autre canal autorisé.
+
+## Scope exact — le HEREDOC n'échoue PAS partout (vérifié empiriquement 5 juin 2026)
+
+Le HEREDOC Bash (`cat <<'EOF' > file`) **fonctionne** en commande Bash directe sur la machine forge — test 5 juin 2026 : fichier avec accents, `$var`, backticks, `@` écrit correctement (exit 0, contenu intact), et 2 commits du 4 juin créés via `cat <<'EOF'`. La doctrine « HEREDOC Windows à éviter » est donc **trop large si énoncée sans scope**.
+
+Les DEUX cas réels où il casse :
+1. **Sous `disallowedTools: Write, Edit`** (cette note) — write déguisé bloqué silencieusement.
+2. **Dans un hook** (Git Bash, `bash -c '...$()...'`) — boucle quoting, cf [[erreur-hooks-bash-quoting-windows]].
+
+Hors de ces deux contextes, le HEREDOC est utilisable. La prudence « préférer un fichier message / MCP » reste un bon défaut (comportement parfois inconstant selon le quoting), mais ne pas affirmer qu'il « échoue toujours sur Windows ».
 
 ## Liens
 

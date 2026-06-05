@@ -1,3 +1,7 @@
+---
+derniere-maj: 2026-06-05
+---
+
 ﻿---
 titre: "Comment créer un agent Claude Code parfait"
 resume: "Note canonique pour créer un agent Claude Code — frontmatter complet, 2-agent architecture Justin Young (sans split modèles), Sonnet/Opus split doctrine forge cohérente avec Cat Wu + Brad Abrams, convention 8 couleurs forge, anti-patterns CTO orchestrator."
@@ -691,6 +695,22 @@ Cas de figure : un creator (ex `agent-creator`) est le **verrou de bootstrap** E
 
 Cas d'école empirique : Chantier A étape 2b (27 mai 2026), durcissement MCP des 6 creators — `agent-creator` durci en premier par ce mécanisme, puis les 5 autres en cascade via `agent-creator` durci. Voir aussi [[hook-intercepte-mcp-et-read-tools]] section exceptions delegate-guard.
 
+
+## AJOUT 5 juin 2026 — Étapes séquentielles obligatoires → checklist Tasks natif (anti-oubli)
+
+Quand un agent exécute un **processus multi-phases dont aucune étape ne doit être sautée** (audit par dimensions, pipeline vérifiable, revue structurée), lui demander de matérialiser sa progression avec le système **Tasks natif** (`TaskCreate` → `TaskUpdate` pending→in_progress→completed) plutôt que de tenir l'ordre de tête.
+
+### Pourquoi
+
+Opus 4.8 **interprète littéralement et ne généralise pas seul** : sur un long enchaînement, une phase peut être oubliée si rien ne la matérialise en tâche cochable. La tâche est le signal explicite qui force le pas-à-pas. (Remplace l'ancien `TodoWrite`.)
+
+### Quand l'appliquer
+
+- ✅ Agent qui audite/revoit selon N dimensions fixes (1 tâche par dimension)
+- ✅ Agent pipeline (spec → draft → verify) où chaque phase est vérifiable
+- ❌ Agent mono-jugement (1 verdict, 1 critique) — la checklist est du bruit
+
+À écrire dans le body de l'agent (instruction de comportement), pas en frontmatter. Cohérent avec le pattern jumeau côté skills — voir [[comment-creer-skill]] section « checklist Tasks natif ». Cas d'usage : la skill `loop-forge` ([[concevoir-loops-travail]]) pilote son questionnaire ainsi.
 
 ## AJOUT 27 mai 2026 (suite) — Agent ou skill ? Le critère de densité d'écriture MCP
 

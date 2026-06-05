@@ -12,7 +12,7 @@ aliases:
   - "CC best practices"
 role: "Creator of Claude Code"
 affiliation: "Anthropic"
-derniere-maj: 2026-05-08
+derniere-maj: 2026-06-05
 auteur: claude
 sources:
   - "https://howborisusesclaudecode.com"
@@ -23,7 +23,6 @@ tags:
   - "#domaine/claude-code"
 type: ""
 ---
-
 ## Profil
 
 Créateur de Claude Code. Travaille chez Anthropic. Workflow "Fleet Commander" — 5 terminaux + 5-10 sessions cloud en parallèle, chacun dans un worktree git. Ne code pas lui-même, orchestre les agents.
@@ -75,3 +74,16 @@ Le 22 mai 2026, refonte ia_back + neo_ia inspirée directement par sa doctrine :
 - **Bitter lesson** → on n'encode pas la structure du repo dans des hooks (paths, patterns) qui deviennent obsolètes au prochain refacto
 
 Voir [[raisonnement-22mai-doctrine-vs-enforcement]] pour les décisions concrètes et les sources web complètes.
+
+
+## Interview Acquired (juin 2026) — "My job is to write loops"
+
+Source primaire transcrite (podcast Acquired, partagé via @0xCodez 4 juin 2026). Détail doctrinal complet : [[pre-compute-vs-inference-loops-boris]].
+
+- **3 niveaux d'abstraction** : écrire le code → prompter Claude (5-10 en //) → **écrire des loops qui promptent Claude**. Verbatim : *"I don't prompt Claude anymore. I have loops that are running. They're the ones that are prompting Claude... My job is to write loops."*
+- **Setup actuel** : *"a couple hundred Claudes running"* qui surveillent Twitter / GitHub issues / Slack et décident quoi build. ~20% des idées sont bonnes aujourd'hui, « most will be good » dans 3-6 mois.
+- **Uninstall IDE en novembre 2025** (plus utilisé depuis un mois).
+- **Pre-compute > inference** (fondement) : faire écrire au modèle un programme rejouable gratuitement plutôt que re-sampler à chaque tâche = "pre-compiling", raise upfront cost / decrease ongoing cost. Les principes d'entreprise → **skills** réutilisables.
+- **Conseil org** : "give everyone as many tokens as possible", "the more you buy the more you save" (Jensen), **"under-fund everything a little bit"** (2 ingénieurs + tokens au lieu de 4).
+- **Taste s'érode** : son dogme "no classes only functions" abandonné car le modèle écrivait des classes et "the business outcome is met faster". Dernier rempart humain = **enseigner les valeurs au modèle**.
+- **Co-work** construit en ~8-9 jours, 100% Claude Code.

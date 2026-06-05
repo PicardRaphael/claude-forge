@@ -7,12 +7,33 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-06-02
+derniere-maj: 2026-06-05
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-06-05 — Audit drift C2 : scope HEREDOC précisé
+
+- **Modifiées** : [[erreur-da-heredoc-bash-silencieux]] — section "Scope exact" : le HEREDOC Bash FONCTIONNE en commande directe (vérifié empiriquement 5 juin : accents/$var/backticks OK, exit 0 ; 2 commits du 4 juin via `cat <<'EOF'`). Ne casse QUE sous `disallowedTools` ou dans un hook Git Bash. La doctrine "HEREDOC Windows à éviter" était trop large.
+- **Audit drift 30j (sessions ⨯ canoniques)** : un seul vrai écart (HEREDOC). BOM PS 5.1 + Compress-Archive backslash déjà capitalisés (commits 283593d, 2c35c08). Conclusion : capitalisation à jour sur 30 jours, pas de dérive systémique.
+
+## 2026-06-05 — Pattern checklist Tasks natif propagé aux canoniques
+
+- **Modifiées** : [[comment-creer-skill]] + [[comment-creer-agent]] — section "Étapes séquentielles obligatoires → checklist Tasks natif (anti-oubli)" : `TaskCreate`/`TaskUpdate` pending→in_progress→completed pour les skills-questionnaires et agents multi-phases. Justif : Opus 4.8 interprète littéralement, ne généralise pas seul, peut sauter une étape sur un long enchaînement. Consolide ce qui était dispersé (audit-puis-vagues-paralleles, cowork-skills-reliability principe #9, changelog Opus 4.8).
+- **Source** : conception de la skill `loop-forge` (9 blocs pilotés Tasks). Recherche web Opus 4.8 prompting (TaskCreate/TaskUpdate, interprétation littérale).
+
+## 2026-06-05 — Note socle "concevoir un loop de travail" (méthode universelle)
+
+- **Ajoutées** : [[concevoir-loops-travail]] (04-Techniques/claude-code/) — socle doctrinal de la future skill `/loop-forge`. Méthode universelle code & hors-code : 3 types de loop (inner/`/loop`/`/goal`), 4 briques (déclencheur/source/jugement/action), vérification obligatoire (tip #1 Boris 2-3x quality), **READ vs WRITE cross-repo** + pattern fleet, 3 infra (serveur/local/Desktop) + incompatibilités, 4 garde-fous (validation humaine/plafond coût/log/kill-switch), sortie SPEC puis dispatch.
+- **Source** : interview Boris Acquired + recherches web (VentureBeat workflow, Sunghyun Roh READ/WRITE split, Anthropic managed-agents 7-strategy). Complète [[pre-compute-vs-inference-loops-boris]] (le pourquoi) côté comment.
+
+## 2026-06-05 — Boris Acquired : pre-compute vs inference / "my job is to write loops"
+
+- **Ajoutées** : [[pre-compute-vs-inference-loops-boris]] (04-Techniques/claude-code/) — fondement théorique des routines/`/loop`/Dynamic Workflows. 3 niveaux d'abstraction (écrire code → prompter Claude → écrire des loops qui promptent Claude). Principe **pre-compute > inference** (= "pre-compiling" : raise upfront / decrease ongoing) + verbatims nets ("a couple hundred Claudes running", "under-fund everything", principes → skills, taste s'érode, valeurs = dernier rempart).
+- **Modifiées** : [[Boris Cherny]] — section "Interview Acquired (juin 2026)" + derniere-maj.
+- **Source** : transcription Whisper (forge) de la vidéo native X (podcast Acquired, 30 min) partagée par @0xCodez le 4 juin 2026. Le tweet survend ("daily setup / $500 course") alors que c'est une interview origin-story — pattern tweet-hype, transcription source primaire privilégiée.
 
 ## 2026-06-04 — Note canonique plugin vs skill (compétence)
 

@@ -14,6 +14,7 @@ _Mise à jour : 26 avril 2026 (v2.1.119) — utiliser cc-news pour les nouveaut�
 | ---------------------------- | -------------------------------------------- |
 | `/loop <interval> <skill>`   | Boucle automatique (ex: `/loop 5m /babysit`) |
 | `/schedule "<cron>" <skill>` | Planifié jusqu'à 1 semaine                   |
+| `/goal <condition>`          | Travaille en autonome jusqu'à condition vraie (ex: `/goal all tests pass`) — modes : interactif, `-p`, Remote Control |
 | `/batch <instruction>`       | Parallèle via worktrees (5-30 unités)        |
 | `/simplify [focus]`          | 3 agents parallèles de review qualité        |
 | `/debug`                     | Troubleshoot via logs de session             |
@@ -155,6 +156,7 @@ Subagents qui se communiquent directement via task board partagé.
 | DISABLE_UPDATES | Env var bloque tout update y compris claude update manuel (v2.1.119) |
 | WSL managed settings | wslInheritsWindowsSettings hérite settings Windows (v2.1.119) |
 | /fork optimisé | Écrit pointeur au lieu de copier toute la conversation (v2.1.119) |
+| **Agent View** | **`claude agents` — dashboard sessions concurrentes groupées par état (attend input / en cours / terminé). Control plane lancé 11 mai 2026.** |
 
 ## .claude/rules/ (v2.0.64+)
 

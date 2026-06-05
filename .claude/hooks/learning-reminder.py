@@ -18,7 +18,9 @@ REMINDER = (
     "3. Skills (section Apprentissage) — pattern efficace ou gotcha découvert ?\n"
     "4. CLAUDE.md — erreur à ne plus refaire ?\n"
     "5. /reasoning-cache — as-tu résolu un problème complexe (raisonnement multi-étapes, "
-    "direction changée, approche non-évidente) ? Si oui, lance /reasoning-cache pour le sauvegarder.\n\n"
+    "direction changée, approche non-évidente) ? Si oui, lance /reasoning-cache pour le sauvegarder.\n"
+    "6. Découverte importante : enrichit-elle une note/règle EXISTANTE ? "
+    "search_brain d'abord, ENRICHIR l'existant avant de créer (éviter les doublons). Cf memory-discipline.\n\n"
     "Si rien à sauvegarder, réponds juste 'rien à sauvegarder' pour continuer."
 )
 

@@ -1,3 +1,7 @@
+---
+derniere-maj: 2026-06-05
+---
+
 ﻿---
 titre: "Comment créer une skill Claude Code parfaite"
 resume: "Note canonique pour créer une skill Claude Code selon les 9 catégories Thariq (post Anthropic mars 2026), structure progressive disclosure, frontmatter trigger 3e personne, < 500L SKILL.md, limite pratique description ~250 chars pour auto-invocation, agentskills.io spec ouverte."
@@ -570,6 +574,32 @@ Une skill qui orchestre du jugement LLM (métacognition, capitalisation, arbitra
 
 
 ---
+
+## AJOUT 5 juin 2026 — Étapes séquentielles obligatoires → checklist Tasks natif (anti-oubli)
+
+Quand une skill enchaîne des **étapes séquentielles dont aucune ne doit être sautée** (questionnaire multi-blocs, pipeline de phases, checklist de validation), piloter la progression avec le système **Tasks natif** plutôt que de confier l'ordre au seul fil de raisonnement.
+
+### Mécanique
+
+```
+TaskCreate(1 tâche par étape)  →  statut pending
+TaskUpdate(étape N)            →  in_progress en débutant
+TaskUpdate(étape N)            →  completed AVANT de passer à N+1
+```
+
+Ne jamais avancer à l'étape N+1 tant que N n'est pas `completed`. Dépendances explicites via `addBlockedBy` si l'ordre est strict.
+
+### Pourquoi
+
+Opus 4.8 **interprète littéralement et ne généralise pas seul** : il n'infère pas « applique cette étape aussi aux suivantes » et peut sauter un bloc d'un questionnaire long si rien ne matérialise la checklist. La tâche cochée est le signal explicite qui force le pas-à-pas. (Remplace l'ancien `TodoWrite`, déprécié depuis Opus 4.8.)
+
+### Quand l'appliquer
+
+- ✅ Skill-questionnaire (ex `loop-forge` 9 blocs, `spec` interview) — 1 tâche par bloc
+- ✅ Skill-pipeline à phases vérifiables (audit par cluster, vagues parallèles)
+- ❌ Skill mono-action (1 transformation, 1 lookup) — la checklist est du bruit
+
+Consolide ce qui était dispersé (`audit-puis-vagues-paralleles`, `cowork-skills-reliability` principe #9 « checklist obligatoire si la skill saute des étapes », changelog Opus 4.8). Réf : [[concevoir-loops-travail]] (cas d'usage `loop-forge`).
 
 ## AJOUT 27 mai 2026 — Résolution de path dans une skill : `git rev-parse`, jamais `${CLAUDE_PROJECT_DIR}`
 

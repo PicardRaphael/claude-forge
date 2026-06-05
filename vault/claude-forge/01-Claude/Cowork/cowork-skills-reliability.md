@@ -77,7 +77,7 @@ Formule : `ALWAYS invoke when [trigger]. DO NOT [action concurrente] without inv
 
 8. **Ajouter un hook si toujours instable.** Pour activation : hook `UserPromptSubmit` qui injecte "Use Skill(nom)" dans les prompts matchants. Pour compliance : hook PreToolUse guard (exit 2).
 
-9. **Verification visible.** Si la skill s'active mais saute des etapes, ajouter une checklist obligatoire dans l'output. "Do NOT output the final result without first showing the completed checklist."
+9. **Verification visible.** Si la skill s'active mais saute des etapes, ajouter une checklist obligatoire dans l'output. "Do NOT output the final result without first showing the completed checklist." Pour les skills/agents à étapes séquentielles strictes, préférer le mécanisme **Tasks natif** (`TaskCreate`/`TaskUpdate`) qui force le pas-à-pas — cf [[comment-creer-skill]] section "checklist Tasks natif (anti-oubli)".
 
 ## Bugs connus Cowork
 

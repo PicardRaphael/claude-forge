@@ -24,6 +24,7 @@
 - [consolidate-searches](feedback_consolidate_searches.md) — Ne jamais chercher 2× la même info. Consolider en 1 fichier dès le 1er search
 - [couper-loops-decision-fatigue](feedback_couper_loops_decision_fatigue.md) — Après validation, trancher vite. 2 signaux : boucle "es-tu parfait" + session longue. Cap 3 advisor
 - [cross-repo-write-main-session-only](feedback_cross_repo_write_main_session.md) — Session forge a write cross-repo, sub-agents bloqués. Ne pas déléguer fixes cross-repo
+- [creator-reorganise-design-verrouille](feedback_creator_reorganise_design_verrouille.md) — skill/agent-creator réorganise/dilue un design verrouillé avec l'user. Vérifier bloc par bloc vs design validé, briefer "ne pas réinterpréter"
 - [da-bash-write-disguised](feedback_da_bash_write.md) — Bash cat/heredoc = write déguisé, échoue silencieux si disallowedTools Write/Edit
 - [da-dicte-tests-adverses-pas-moi](feedback_da_dicte_tests_adverses.md) — Code destructif : tests happy path = trompeur. DA AVANT push obligatoire
 - [da-failure-decision-protocol](feedback_da_failure_options.md) — DA échoue (529/timeout) : relancer 1×, sinon advisor, sinon STOP
@@ -156,3 +157,4 @@
 - [permissionmode-enum-valid-values](reference_permissionmode_enum_valid_values.md) — permissionMode = acceptEdits|plan|bypassPermissions UNIQUEMENT. `default` invalide silencieux. plan pour agents read-only+Bash
 - [workflow-args-array-gotcha](reference_workflow_args_array_gotcha.md) — Dynamic Workflow : array/objet JSON via param `args` arrive undefined. Embarquer en const JS dans le script, ou faire lire un fichier par un 1er agent
 - [workflow-ultracode-keyword](reference_workflow_ultracode_keyword.md) — CC v2.1.160 (2 juin 2026) : déclencheur Dynamic Workflows passe de `workflow` à `ultracode`. Grep setups forge si déclenchement auto attendu
+- [transcrire-video-native-x](reference_transcrire_video_native_x.md) — Vidéo native X (pas YouTube) : x-read JSON → URLs MP4 → curl → ffmpeg WAV 16k → faster-whisper small. /watch ne couvre pas X

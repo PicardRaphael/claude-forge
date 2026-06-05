@@ -17,6 +17,7 @@
 - **Hooks Windows : `py` launcher**, jamais chemin Python en dur (cross-machine). Jamais `C:\Users\...` (Bash mange `\`)
 - **MCP forge-brain UNIQUEMENT pour accès vault** : jamais Grep/Read/Glob/CLI Obsidian brut.
 - **Tokens/contexte = ressource ultra-précieuse** : MEMORY.md > 38k chars, fichiers obsolètes, doctrine périmée → dégrade chaque tâche. Fix immédiat, jamais "plus tard". Architecture : MEMORY.md tier-1 visible + `memory/_index_archive.md` tier-2 (réintégrer si cité).
+- **Découverte importante → ENRICHIR l'existant avant de créer** : `search_brain` d'abord ; une note/règle couvre déjà le sujet → l'enrichir (`insert_section`/Edit), créer une note neuve seulement si aucun foyer existant. Évite les doublons orphelins. Cf `.claude/rules/memory-discipline.md`.
 - **Workflow par défaut = langage naturel** : Raphael parle, session principale orchestre (feature → /spec → architect → dev → reviewer → grader). Slash commands optionnels.
 
 ## Workflow Git (convention)

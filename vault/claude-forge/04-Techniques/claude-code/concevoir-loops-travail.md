@@ -1,0 +1,167 @@
+---
+titre: "Concevoir un loop de travail (méthode universelle code & hors-code)"
+resume: "Note canonique forge — comment concevoir un loop de travail autonome : 3 types (inner/loop/goal), 4 briques (déclencheur/source/jugement/action), vérification obligatoire (tip #1 Boris), READ vs WRITE cross-repo, 3 infra (serveur/local/Desktop), 4 garde-fous. Socle doctrinal de la skill /loop-forge."
+aliases:
+  - "concevoir un loop"
+  - "loop de travail"
+  - "construire un loop claude code"
+  - "loop builder doctrine"
+  - "3 types de loop"
+  - "inner loop time loop goal loop"
+  - "read vs write cross-repo"
+  - "fleet of agents per repo"
+derniere-maj: 2026-06-05
+auteur: claude
+type: technique
+sources:
+  - "Podcast Acquired (interview Boris Cherny, juin 2026) + howborisusesclaudecode.com"
+  - "VentureBeat — creator of Claude Code reveals his workflow (2026)"
+  - "Sunghyun Roh (Medium) — Multi-Repo Workspace Strategy (READ/WRITE split)"
+  - "Anthropic engineering/managed-agents + 7-strategy framework large codebases"
+  - "Claude Opus 4.8 prompting (TaskCreate/TaskUpdate, interprétation littérale)"
+tags:
+  - "#type/technique"
+  - "#domaine/claude-code"
+  - "#sujet/workflow"
+  - "#doctrine/2026"
+---
+
+# Concevoir un loop de travail
+
+> Note canonique forge — méthode pour concevoir un loop de travail autonome, **code ou hors-code**. Socle doctrinal de la skill `/loop-forge`. Le *pourquoi* (pre-compute > inference) vit dans [[pre-compute-vs-inference-loops-boris]] ; cette note traite le *comment*.
+
+---
+
+## QUOI — Un loop = un job répétitif automatisé de bout en bout
+
+Un loop n'est PAS « une source de retours » ni « une feature demandée ». C'est **un job répétitif complet, du déclencheur jusqu'à l'action**, qui tourne sans qu'on le re-prompte à chaque fois.
+
+**Règle fondatrice** : *1 loop = 1 job répétitif bien défini.* Un job peut lire plusieurs sources ; une source peut alimenter plusieurs jobs. Ne jamais raisonner « 1 loop par source » → raisonner « quel job, du début à la fin ? ».
+
+Distinction des 3 niveaux d'abstraction (cf [[pre-compute-vs-inference-loops-boris]]) : écrire le code → prompter Claude (niveau 2, tu déclenches chaque tâche) → **écrire des loops** (niveau 3, le loop déclenche). Demander une feature = niveau 2. Un loop = niveau 3.
+
+---
+
+## Les 3 types de loop (Boris, vérifié web)
+
+| Type | Mécanique | Quand | Exemple |
+|------|-----------|-------|---------|
+| **Inner-loop** | slash command lancée à la main, plusieurs fois/jour | workflow répété pendant que tu bosses | `/commit-push-pr` |
+| **Time-loop** (`/loop`) | récurrent sur intervalle, autonome **jusqu'à 3 jours** | tâche périodique sans surveillance | `/loop babysit all my PRs` ; `/loop 30m /slack-feedback` |
+| **Goal-loop** (`/goal`) | tourne **jusqu'à condition vraie** | objectif binaire vérifiable | `/goal all tests in test/auth pass and lint is clean` |
+
+La skill explique les 3, **recommande** celui adapté au job, l'utilisateur valide. Inner-loop = juste une slash command classique ; la valeur autonome est dans `/loop` et `/goal`.
+
+---
+
+## Les 4 briques d'un loop
+
+Tout loop se décrit par 4 briques. La skill les demande **explicitement** (1 tâche cochée chacune — Opus 4.8 interprète littéralement, ne généralise pas seul, cf [[comment-creer-skill]] section checklist Tasks) :
+
+1. **Déclencheur** — qu'est-ce qui le réveille ? (horaire/cron/Task Scheduler, événement, condition, continu)
+2. **Source(s)** — d'où vient le travail ? (MCP, tickets, tests qui cassent, web/RSS, fichiers…)
+3. **Critère de jugement** — comment Claude décide d'agir ou d'ignorer ? (le filtre « ~20% des idées sont bonnes » de Boris)
+4. **Action** — il produit quoi ? (draft ticket, PR, note, rapport) + où l'humain valide
+
+---
+
+## IDEMPOTENCE & ÉTAT — la question qui casse un loop en prod
+
+Un loop autonome retraite fatalement des items déjà vus (redémarrage, déclencheur qui re-tire, recouvrement de fenêtres). **« Que se passe-t-il si le loop traite 2× le même item ? »** est la question #1 qui casse un loop en production — un time-loop non-idempotent re-poste le même message Slack, re-crée le même ticket, ré-envoie le même mail.
+
+Deux dimensions, à traiter pour TOUT loop (code ET hors-code) :
+
+1. **Idempotence** — l'action est-elle sûre si répétée ? Sinon, marqueur de « déjà traité » (clé d'idempotence, état persistant, label sur la source). Côté hors-code aussi : où est tracé « ce qui a déjà été fait » pour ne pas re-traiter un item clos ?
+2. **Reprise après interruption** — si le loop s'arrête au milieu d'un lot, comment reprend-il sans tout refaire ni rien sauter ? (état persistant entre itérations, checkpoint, journal des items traités).
+
+Ce n'est PAS optionnel : une SPEC qui laisse l'idempotence à « à confirmer » produit un loop dangereux. À cadrer explicitement avant la vérification.
+
+---
+
+## VÉRIFICATION — le tip #1 (OBLIGATOIRE)
+
+> « Probably the most important thing to get great results out of Claude Code: give Claude a way to verify its work. If Claude has that feedback loop, it will **2-3x the quality** of the final result. » — Boris Cherny
+
+Un loop **sans méthode de vérification = anti-pattern bloquant**. Options selon le type de job :
+- **Code** : tests qui passent, typecheck, `/goal` sur condition, agent de vérif en background, Chrome extension (UI/UX), agent-stop hook déterministe, plugin Ralph Wiggin (looping autonome).
+- **Hors-code** : relecture croisée par un 2e agent (lens différente), critère mesurable explicite, validation humaine sur échantillon.
+
+La skill `/loop-forge` **refuse de finaliser** sans méthode de vérif définie (propose des défauts selon le type, mais n'avance pas à vide).
+
+---
+
+## PÉRIMÈTRE — séparer READ et WRITE (clé du cross-repo)
+
+Le piège classique : un loop aveugle sur N repos qui doit *deviner* où agir → le contexte sature, l'agent perd le fil, la qualité s'effondre (vérifié industrie).
+
+**Le bon mental model (best practice 2026)** :
+> Le cross-repo est un besoin de **lire/explorer**. Le **WRITE doit toujours être sur un seul repo, une seule PR.**
+
+Règles pour la skill :
+- **1 loop = 1 périmètre d'ÉCRITURE fermé** (1 repo / 1 monorepo / 1 PR).
+- **READ cross-repo autorisé** si le job en a besoin (lire bdd + neo_ia pour comprendre, mais écrire dans UN seul).
+- Si vrai besoin multi → **pattern fleet** : soit 1 loop par repo (N loops indépendants), soit 1 loop *manager* qui lit/planifie cross-repo + délègue le write à des *workers* mono-repo (worktrees pour isolation, conflits structurellement impossibles).
+- **REFUS** du seul vrai anti-pattern : un loop qui *écrit* sur plusieurs repos en devinant lequel.
+
+Verdict industrie : 1 session sur tous les repos ❌ · monorepo + 1 agent ⚠️ · **fleet 1 agent/repo ✅** · manager+workers ✅ · worktrees ✅.
+Contrainte forge : un sub-agent ne peut pas spawner de sub-agent → l'orchestration vient de la **session principale**, pas d'un agent-leader (cf [[feedback_no_cto_agent]], [[anti-reentrance-sub-agents-pattern-escalade]]).
+
+---
+
+## INFRA — où le loop tourne (3 options + incompatibilités)
+
+| Option | Tourne | Pour | Limite |
+|--------|--------|------|--------|
+| **Machine locale** (Task Scheduler / `/loop`) | quand la machine est allumée | loops déclenchés pendant que tu bosses | ne tourne pas la nuit ; parallélisme plafonné par ta RAM/CPU |
+| **Serveur H24 / routines cloud** | en continu, indépendant de ta machine | loops permanents façon Boris | infra à monter/maintenir ; accès repos privés à régler |
+| **Claude Desktop (scheduled)** | selon planification Desktop | loops hors-code grand public, sans terminal | dépend de Desktop ouvert/config |
+
+La skill **demande + signale les incompatibilités** : ex. « loop H24 critique » + « machine locale qui dort » = incohérent → force un choix. Boris tourne « a couple hundred Claudes » côté serveur ; en local/Desktop, commencer petit (1 loop, 1 périmètre).
+
+---
+
+## GARDE-FOUS (les 4, obligatoires sur tout loop autonome)
+
+Un loop qui dérape coûte cher ou fait des dégâts. La skill impose les 4 :
+
+1. **Validation humaine** — le loop produit des *drafts* (PR, tickets) ; l'humain valide avant l'action finale irréversible (Boris : Plan Mode + relecture des PRs).
+2. **Plafond coût / itérations** — max N tours ou budget tokens, sinon arrêt (adaptation forge cruciale en infra locale/Desktop = facture réelle).
+3. **Log / trace de chaque tour** — le loop écrit ce qu'il fait (vault/fichier) → tu sais le matin ce qu'il a fait la nuit (Boris : Agent view, system notifications).
+4. **Kill-switch / condition de sortie** — moyen d'arrêt clair (`/goal` = la condition EST le stop ; `/loop` borné à 3 j ; fichier stop ; max itérations).
+
+3/4 sont directement chez Boris ; le plafond coût est un ajout forge justifié par l'infra non-illimitée.
+
+---
+
+## SORTIE — SPEC puis dispatch (pre-compute)
+
+La conception d'un loop produit une **SPEC réutilisable**, pas une génération directe :
+1. La skill `/loop-forge` remplit les 9 blocs (contexte → job → type → périmètre → 4 briques → vérif → infra → garde-fous) puis écrit `SPEC-loop-<nom>.md` et **s'arrête**.
+2. En étape séparée validée, la **session principale** dispatche vers les créateurs : `skill-creator` (logique réutilisable), `agent-creator` (jugement/exécution par phase — pipeline spec→draft→simplify→verify de Boris), `hook-creator` (vérif/kill-switch déterministe).
+
+Pourquoi SPEC d'abord : c'est le principe pre-compute appliqué à `/loop-forge` elle-même — on écrit le plan une fois, relisable/rejouable, avant de brûler des tokens en génération (cf [[pre-compute-vs-inference-loops-boris]], [[pattern-spec-driven-development]]).
+
+---
+
+## ANTI-PATTERNS
+
+- ❌ « 1 loop par source de retour » → raisonner en **jobs**, pas en sources.
+- ❌ Loop qui **écrit** sur plusieurs repos en devinant lequel → READ cross-repo OK, WRITE mono-repo.
+- ❌ Loop **sans vérification** → le tip #1 est non négociable.
+- ❌ Loop **sans kill-switch / plafond** → runaway coûteux.
+- ❌ Construire un **agent orchestrateur** pour gérer les loops → session principale orchestre (cf [[feedback_no_cto_agent]]).
+- ❌ Loop « H24 » sur **machine qui dort** → incohérence infra.
+- ❌ Une feature **one-shot** transformée en loop → un loop = job *répétitif*.
+
+---
+
+## WIKILINKS
+
+- [[pre-compute-vs-inference-loops-boris]] — le *pourquoi* (fondement théorique)
+- [[workflow-claude-code-optimal]] — routines, multi-clauding, `/loop` dans le workflow global
+- [[Boris Cherny]] — fiche leader
+- [[programmatic-tool-calling]] — pre-compute au niveau API
+- [[CC 28 mai 2026 - Opus 4.8 + Dynamic Workflows]] — orchestration native
+- [[pattern-spec-driven-development]] — SPEC avant exécution
+- [[comment-creer-skill]] · [[comment-creer-agent]] · [[comment-creer-hook]] — composants générés depuis la SPEC
+- [[feedback_no_cto_agent]] · [[anti-reentrance-sub-agents-pattern-escalade]] — pourquoi la session principale orchestre
