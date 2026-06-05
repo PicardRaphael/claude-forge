@@ -3,10 +3,10 @@
 
 SCOPE: memory-saturation-watcher is a NON-blocking, fail-open advisory hook —
 NOT a security/control hook. The 3:1 adversarial ratio does not apply. These
-tests pin the threshold LOGIC (WARNING 80, CRITICAL 100, excluded files) and
+tests pin the threshold LOGIC (WARNING 250, CRITICAL 290, excluded files) and
 the fail-open contract (missing dir).
 
-check_memory_saturation(dir, warning=80, critical=100) contract:
+check_memory_saturation(dir, warning=250, critical=290) contract:
   - count < warning   -> None
   - warning <= count < critical -> WARNING message
   - count >= critical -> CRITICAL message
@@ -42,18 +42,18 @@ def _make_files(tmp_path, n: int, prefix: str = "feedback_") -> None:
 # ===========================================================================
 
 def test_below_warning_returns_none(tmp_path):
-    """Count below WARNING threshold (80) must NOT trigger anything."""
-    _make_files(tmp_path, 79)
+    """Count below WARNING threshold (250) must NOT trigger anything."""
+    _make_files(tmp_path, 249)
     assert check_memory_saturation(str(tmp_path)) is None
 
 
 def test_warning_threshold_triggers_warning(tmp_path):
     """Count >= warning but < critical triggers WARNING message."""
-    _make_files(tmp_path, 80)
+    _make_files(tmp_path, 250)
     msg = check_memory_saturation(str(tmp_path))
     assert msg is not None
     assert "WARNING" in msg
-    assert "80" in msg
+    assert "250" in msg
 
 
 # ===========================================================================
@@ -62,21 +62,21 @@ def test_warning_threshold_triggers_warning(tmp_path):
 
 def test_critical_threshold_triggers_critical(tmp_path):
     """Count >= critical triggers CRITICAL message (must NOT be WARNING)."""
-    _make_files(tmp_path, 100)
+    _make_files(tmp_path, 290)
     msg = check_memory_saturation(str(tmp_path))
     assert msg is not None
     assert "CRITICAL" in msg
     assert "WARNING" not in msg
-    assert "100" in msg
+    assert "290" in msg
 
 
 def test_excluded_files_not_counted(tmp_path):
     """MEMORY.md and _index_archive.md must be excluded from the count."""
-    _make_files(tmp_path, 79)
+    _make_files(tmp_path, 249)
     (tmp_path / "MEMORY.md").write_text("index", encoding="utf-8")
     (tmp_path / "_index_archive.md").write_text("archive", encoding="utf-8")
-    # 79 real + 2 excluded = should still return None (below 80)
-    assert count_memory_files(str(tmp_path)) == 79
+    # 249 real + 2 excluded = should still return None (below 250)
+    assert count_memory_files(str(tmp_path)) == 249
     assert check_memory_saturation(str(tmp_path)) is None
 
 

@@ -16,4 +16,6 @@ Cf [[comment-creer-agent]] (doctrine : `permissions.allow` non hérité par les 
 - Même avec `CLAUDE_AGENT=agent-creator`, le bypass ne traverse pas la frontière repo (vérifié 2026-05-22).
 - Session principale forge → Edit/Bash sur `C:\Users\raphael.picard_neote\Documents\neot-v2\ia_back\` = OK (vérifié).
 
-Related : [[subagent-permissions-limitation]], [[feedback_audit_repo_method]].
+**Réconciliation 26 mai (révise cette règle pour UN cas)** : la délégation cross-repo via `agent-creator` avec **path absolu explicite dans le prompt** (`C:/Users/.../<repo>/.claude/agents/<nom>.md`) FONCTIONNE — 3/4 migrations Haiku + 2 fusions reviewer passées (ia_back, neo_ia). La règle « ne pas déléguer cross-repo » reste valable pour le **bypass `CLAUDE_AGENT` env-var** (qui ne traverse pas) et pour les **fix de fichiers projet** via sub-agent générique. Cf [[agent-creator-path-absolu-cross-repo]] (fait foi sur le cas agent-creator + path absolu).
+
+Related : [[subagent-permissions-limitation]], [[feedback_audit_repo_method]], [[agent-creator-path-absolu-cross-repo]].

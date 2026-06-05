@@ -88,7 +88,7 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 - [verifier-claims-empiriquement](feedback_verifier_claims_empiriquement.md) — Tout claim "X créé/modifié/fixé" — le mien en fin de tâche OU celui d'un sub-agent éditeur — vérifié empiriquement (ls/cat/grep/diff/test) AVANT de relayer. Le claim vient de l'intention, pas de l'état réel post-edit. (fusion audit-claims + sub-agent-claim, 27 mai)
 - [verify-empirique-avant-affirmation-session](feedback_verify_avant_affirmation_session.md) — Avant d'affirmer "X parce que Y" sur changement filesystem/repo : git log/diff/blame d'abord. User questionnement "pourquoi ?" = signal paraphrase non-vérifiée
 - [visibilite-vs-consommation-demi-fix](feedback_visibilite_vs_consommation_demi_fix.md) — Donnée visible ≠ consommateur capable de l'utiliser. Tracer donnée→usage
-- [x-articles-inaccessibles-empirique](feedback_x_articles_inaccessibles_empirique.md) — Articles x.com/i/article inaccessibles (402). User doit copy-paste
+- [x-articles-inaccessibles-empirique](_archive/2026-06/feedback_x_articles_inaccessibles_empirique.md) — Archivé : absorbé par skills `x-read` L104 + `web-search-canonical-source` L64
 
 ## Reference (tier-2)
 - [posttooluse-hook-pas-tokens-api](reference_posttooluse_hook_limitations.md) — Hook PostToolUse voit I/O outils, PAS tokens API Claude ni attribution skill/agent

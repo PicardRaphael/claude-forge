@@ -8,7 +8,7 @@
 - [analyse-repo-includes-code-scan](feedback_analyse_repo_includes_code.md) — Analyse repo / config CC = méthode 6 étapes (archi + code réel) + audit .claude/
 - [allowed-tools-pas-allowlist](feedback_allowed_tools_pas_allowlist.md) — `allowed-tools` skill = pré-approbation, PAS allowlist restrictive (tous outils restent callable). Source Anthropic. Un faux P0 d'agent auditeur reposait dessus
 - [anti-reentrance-sub-agents](feedback_anti_reentrance_sub_agents.md) — Sub-agent NE PEUT PAS invoquer Agent. Pattern STOP + ESCALADE REQUISE 5 champs
-- [arxiv-url-swap-papers-similaires](feedback_arxiv_url_swap_papers_similaires.md) — N papers même domaine = URLs swapées. WebFetch systématique
+- [arxiv-url-swap-papers-similaires](_archive/2026-06/feedback_arxiv_url_swap_papers_similaires.md) — Archivé : absorbé par skill `arxiv-verification` (Check 2). Cf `.claude/skills/arxiv-verification/SKILL.md`
 - [audit-qualite-design-transverse-mandatory](feedback_audit_qualite_design_transverse.md) — Audit `.claude/` = technique + qualité-design transverse vs canoniques
 - [askuserquestion-arbitrage-destructif](feedback_askuserquestion_arbitrage_destructif.md) — Actions destructives multiples = AskUserQuestion item par item, jamais en bloc. Permet corrections contextuelles
 - [audit-thematique-methode-sub-agents-clusters](feedback_audit_thematique_methode.md) — Audit vault : sub-agents par CLUSTER, checkpoint A avant B, self-verify avant D
@@ -25,7 +25,7 @@
 - [couper-loops-decision-fatigue](feedback_couper_loops_decision_fatigue.md) — Après validation, trancher vite. 2 signaux : boucle "es-tu parfait" + session longue. Cap 3 advisor
 - [cross-repo-write-main-session-only](feedback_cross_repo_write_main_session.md) — Session forge a write cross-repo, sub-agents bloqués. Ne pas déléguer fixes cross-repo
 - [creator-reorganise-design-verrouille](feedback_creator_reorganise_design_verrouille.md) — skill/agent-creator réorganise/dilue un design verrouillé avec l'user. Vérifier bloc par bloc vs design validé, briefer "ne pas réinterpréter"
-- [da-bash-write-disguised](feedback_da_bash_write.md) — Bash cat/heredoc = write déguisé, échoue silencieux si disallowedTools Write/Edit
+- [da-bash-write-disguised](_archive/2026-06/feedback_da_bash_write.md) — Archivé : absorbé par `.claude/agents/devils-advocate.md` L57 (JAMAIS heredoc Bash, create_note ou texte)
 - [da-dicte-tests-adverses-pas-moi](feedback_da_dicte_tests_adverses.md) — Code destructif : tests happy path = trompeur. DA AVANT push obligatoire
 - [da-failure-decision-protocol](feedback_da_failure_options.md) — DA échoue (529/timeout) : relancer 1×, sinon advisor, sinon STOP
 - [delegate-guard-scope-tout-skillmd](feedback_delegate_guard_scope_tout_skillmd.md) — delegate-guard bloque TOUT SKILL.md (match par nom, pas chemin), même hors .claude/. Déléguer à skill-creator partout, briefer "verbatim" si contenu déjà conçu
@@ -86,7 +86,7 @@
 - [subagent-audit-category-error](feedback_subagent_audit_category_error.md) — Sub-agent audit flagge drift sur note citant valeurs externes. Vérifier source réelle
 - [subagent-autocommit-violation](feedback_subagent_autocommit.md) — Sub-agents committent malgré instruction. TOP gras + git log post-agent
 - [test-writer-systematic](feedback_test_writer_systematic.md) — RÉVISÉ 22 mai : MAX 3 tests/comportement, REFACTOR supprimée, effort high
-- [tweet-hype-paraphrase-non-verifiee-pattern](feedback_tweet_hype_paraphrase_pattern.md) — Tweets tiers paraphrasant Anthropic = non vérifié. WebFetch docs avant capitaliser
+- [tweet-hype-paraphrase-non-verifiee-pattern](_archive/2026-06/feedback_tweet_hype_paraphrase_pattern.md) — Archivé : absorbé par skill `web-search-canonical-source` (table 4 patterns + cite ce feedback en source)
 - [use-brain-skills-not-grep](feedback_use_brain_skills.md) — Questions métier = skills neo-brain (MCP), jamais grep manuel sur vault/SQL
 - [vault-cat-guard-faux-positif-memory](feedback_vault_cat_guard_faux_positif_memory.md) — Hook vault-cat-guard bloque cat memory/ si commande contient "vault". Edit pas Bash
 - [vault-quality-standard](feedback_vault_quality_standard.md) — Vault forge-brain = standard neoteem-brain : 5-6 aliases, wikilinks, templates

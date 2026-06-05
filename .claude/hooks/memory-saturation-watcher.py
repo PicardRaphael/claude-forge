@@ -2,10 +2,11 @@
 """SessionStart hook: warns when memory/ accumulates too many .md files.
 
 Trigger   : SessionStart
-Thresholds: WARNING 80, CRITICAL 100 (advisory, not blocking)
-Doctrine  : Cible <100 fichiers (pattern-maintenance-hybride-corpus-accumulatif
-            section "Architecture cognitive — trois acteurs"). Pattern memory =
-            exceptions empiriques uniquement; doctrine vit dans le vault.
+Thresholds: WARNING 250, CRITICAL 290 (advisory, not blocking)
+Doctrine  : Le compteur inclut tous les .md racine (feedbacks + reference/project/user),
+            plancher structurel réel ~240 — dedup feedbacks seul ne peut descendre sous
+            ce plancher. Seuils calibrés au-dessus pour n'alerter que sur vraie dérive.
+            Cf [[pattern-maintenance-hybride-corpus-accumulatif]] section Architecture cognitive.
 Behavior  : Fail-open — any error (missing dir, IO) -> exit 0 silently.
 """
 import json
@@ -43,8 +44,8 @@ def count_memory_files(memory_dir: str) -> int | None:
 
 def check_memory_saturation(
     memory_dir: str,
-    warning: int = 80,
-    critical: int = 100,
+    warning: int = 250,
+    critical: int = 290,
 ) -> str | None:
     """Return a warning message based on count, else None.
 
@@ -57,13 +58,13 @@ def check_memory_saturation(
         return None
     if count >= critical:
         return (
-            f"[memory-saturation-watcher] CRITICAL: {count} fichiers memory/ (cible <100)."
+            f"[memory-saturation-watcher] CRITICAL: {count} fichiers memory/ (cible ~240, plancher structurel)."
             " Lancer /clean-memory en session dediee."
             " Cf [[pattern-maintenance-hybride-corpus-accumulatif]] section Architecture cognitive."
         )
     if count >= warning:
         return (
-            f"[memory-saturation-watcher] WARNING: {count} fichiers memory/ (cible <100)."
+            f"[memory-saturation-watcher] WARNING: {count} fichiers memory/ (cible ~240, plancher structurel)."
             " Planifier /clean-memory prochainement."
             " Workflow nouveau feedback: search_brain vault d'abord (rule memory-discipline)."
         )

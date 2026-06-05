@@ -15,6 +15,6 @@ Agents d'EXÉCUTION (dev, schema-mapper) = Sonnet high. Agents de JUGEMENT (arch
 - Dev agents (implémentation post-architect) = `model: sonnet, effort: high`
 - Exception : `dev-neochat` reste Opus — LangGraph multi-agent trop complexe pour Sonnet
 - Jugement (architect, code-reviewer, security, debugger, analyst) = `model: opus, effort: xhigh`
-- Gates critiques (test-writer, validator, refactor-pg-function) = `model: opus, effort: xhigh` — bug-finding, edge cases, migrations architecturales
+- Gates critiques : `validator`, `refactor-pg-function` = `model: opus, effort: xhigh` (migrations architecturales). **`test-writer` = `opus, effort: high`** (PAS xhigh — révisé 22 mai, cf [[feedback_opus47_workflow]] qui fait foi : xhigh RÉSERVÉ architect/dev-lead/refactor-pg)
 - Formatting/mapping (schema-mapper) = `model: sonnet, effort: high`
 - SUPERSEDE la politique "zero sonnet" du 5 mai 2026 — invalidée par Anthropic CwC 2026

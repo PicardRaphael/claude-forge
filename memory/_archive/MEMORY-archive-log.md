@@ -40,3 +40,20 @@
 - **Fichier** : feedback_major_mistakes.md — NON archivé (9 leçons toujours valides)
 - **Action** : retiré 2 mentions de fixes hooks obsolètes post-pivot 22 mai (#9 vault-query-guard retiré, addendum hook obsolète en tête). Les 9 leçons fondatrices gardées.
 - **Raison** : l'agent workflow a confondu "contient marque de révision" avec "obsolète". Faux positif corrigé.
+
+## [2026-06-05] archive (5 dormants) — absorption par skills/agents canoniques
+- **Fichiers** → memory/_archive/2026-06/ :
+  - feedback_arxiv_url_swap_papers_similaires.md — absorbé par `.claude/skills/arxiv-verification/SKILL.md` Check 2 + exemple MCP-Zero↔OATS L53
+  - feedback_venues_inventees_pattern.md — absorbé par `.claude/skills/arxiv-verification/SKILL.md` Check 3 + exemples TOOLQP/LoRA/JudgeBench L51-54
+  - feedback_tweet_hype_paraphrase_pattern.md — absorbé par `.claude/skills/web-search-canonical-source/SKILL.md` (table 4 patterns + cite ce feedback en source L83)
+  - feedback_x_articles_inaccessibles_empirique.md — absorbé par `.claude/skills/x-read/SKILL.md` L104 + `web-search-canonical-source/SKILL.md` L64
+  - feedback_da_bash_write.md — absorbé par `.claude/agents/devils-advocate.md` L57 (JAMAIS heredoc Bash, create_note ou texte)
+- **Raison** : dormants avec PREUVE d'absorption (vérifiée matériellement par grep des skills absorbantes, pas juste "non cité"). Critère décisif de la skill /clean-memory satisfait.
+- **Index** : 3 lignes tier-1 MEMORY.md (arxiv, da-bash-write, tweet) remplacées par pointeurs vers l'archive+skill ; x-articles repointé dans _index_archive.md (était tier-2) ; venues était orphelin d'index (rien à retirer).
+- **Méthode** : 6 sous-agents analyse parallèle par cluster thématique (176 feedbacks). Résultat global : 0 fusion, 0 amendement, 5 dormants prouvés, ~165 EN PLACE. Corpus déjà très propre (passes 27-29 mai).
+- **Rollback** : pour chaque fichier, `git -C <repo> mv memory/_archive/2026-06/<f>.md memory/<f>.md`, restaurer la ligne d'index originale (retirer le pointeur).
+
+## [2026-06-05] réconciliations (pas archive) — 3 corrections doctrinales
+- **feedback_analyse_repo_includes_code.md** : frontmatter `name: ""` (vide) → `analyse-repo-includes-code-scan` (slug référencé dans MEMORY.md). Bug data-quality.
+- **feedback_all_opus.md** : ligne périmée `test-writer = opus xhigh` corrigée → `opus high` (révisé 22 mai, aligné [[feedback_opus47_workflow]] qui fait foi + MEMORY.md tier-1 "xhigh RÉSERVÉ architect/dev-lead/refactor-pg").
+- **feedback_cross_repo_write_main_session.md** : note de réconciliation ajoutée sur la contradiction empirique 22 mai (bloqué) vs 26 mai (path absolu marche). Arbitrage Raphael 2026-06-05 : le 26 mai fait foi. Distinction = bypass CLAUDE_AGENT (ne traverse pas) vs path absolu explicite dans prompt agent-creator (traverse). Cross-link mutuel ajouté.
