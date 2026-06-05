@@ -14,6 +14,11 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-05 — Piège here-string PowerShell dans le tool Bash
+
+- **Modifiées** : [[erreur-da-heredoc-bash-silencieux]] — section "Piège connexe — here-string PowerShell `@'...'@` dans le tool Bash" : `git commit -m @'...'@` (syntaxe PowerShell) lancé via le tool **Bash** laisse le `@` de tête comme premier caractère littéral du sujet de commit. Distinct du HEREDOC bash. Règle : multi-`-m` dans Bash, `@'...'@` réservé au tool PowerShell.
+- **Source** : gotcha observé cette session lors du commit `cc-features-ref` (sujet pollué `@ docs(...)`, corrigé par `--amend`).
+
 ## 2026-06-05 — Audit drift C2 : scope HEREDOC précisé
 
 - **Modifiées** : [[erreur-da-heredoc-bash-silencieux]] — section "Scope exact" : le HEREDOC Bash FONCTIONNE en commande directe (vérifié empiriquement 5 juin : accents/$var/backticks OK, exit 0 ; 2 commits du 4 juin via `cat <<'EOF'`). Ne casse QUE sous `disallowedTools` ou dans un hook Git Bash. La doctrine "HEREDOC Windows à éviter" était trop large.
