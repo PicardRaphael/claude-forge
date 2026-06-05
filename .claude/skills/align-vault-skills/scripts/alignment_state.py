@@ -195,7 +195,10 @@ def cmd_write_report(args) -> int:
         lines.append("### Clés d'idempotence (à archiver dans l'état après traitement)")
         lines.append("")
         for g in gaps:
-            lines.append(f"- `{g.get('key', '')}`")
+            key = g.get("key") or make_key(
+                g.get("component", ""), g.get("note", ""), g.get("direction", "")
+            )
+            lines.append(f"- `{key}`")
     lines.append("")
 
     TODO_DIR.mkdir(parents=True, exist_ok=True)
