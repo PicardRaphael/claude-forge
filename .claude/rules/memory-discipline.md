@@ -60,7 +60,7 @@ Réflexe valable au-delà de la mémoire, pour TOUTE découverte importante (nou
 1. `mcp__forge-brain__search_brain` sur le sujet.
 2. **Une note/section couvre déjà le sujet → ENRICHIR cette note** (`insert_section`/`append_note`/Edit), pas créer une note neuve.
 3. Créer une note neuve UNIQUEMENT si aucune note existante n'est le bon foyer.
-4. Si la découverte affine plusieurs canoniques → enrichir chacune + relier par pointeur (éviter deux notes qui décrivent le même réflexe sans se connaître = futur drift).
+4. Si la découverte affine plusieurs canoniques → enrichir chacune + relier par pointeur (éviter deux notes qui décrivent le même réflexe sans se connaître = futur drift). **Chercher ACTIVEMENT tous les foyers impactés** (`search_brain` large + grep `.claude/`), pas seulement les 2-3 évidents — un enrichissement partiel laisse du drift résiduel.
 
 Cohérent avec [[feedback_single_source_truth_vault_canonique]] (un concept = un foyer canonique). Cas observé 5 juin 2026 : le pattern « checklist Tasks natif » a enrichi `comment-creer-skill` + `comment-creer-agent` au lieu d'une note séparée orpheline.
 
