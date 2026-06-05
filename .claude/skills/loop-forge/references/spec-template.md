@@ -47,9 +47,19 @@ statut: draft
 
 ## 3. Périmètre
 
+### Périmètre d'écriture (où le loop écrit)
+
 - **Repo d'écriture (unique) :** <nom du repo>
 - **Repos en lecture croisée :** <liste ou "aucun">
 - **Pattern multi-repo si applicable :** fleet-parallèle | manager+workers | N/A
+
+### Périmètre de traitement (sur quoi le loop opère)
+
+- **Objets traités :** <fichiers/dossiers, sources de données, entités — ex: `.claude/skills/` + `.claude/agents/`>
+- **Même que le repo d'écriture ?** oui | non — <si non, préciser la différence>
+- **Filtre / bornage :** <extension, label, statut, date, ou "aucun">
+
+> Le repo d'écriture (où le loop écrit) peut différer des objets traités (sur quoi il travaille).
 
 <!-- === BRANCHE CODE === -->
 ### Stack / Implémentation _(code)_

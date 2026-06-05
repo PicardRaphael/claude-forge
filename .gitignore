@@ -35,3 +35,7 @@ mcp-forge-brain/logs/
 memory/.consolidate-lock
 memory/private/
 memory/*-private.md
+
+# Etat runtime de la skill align-vault-skills (regenere a chaque run)
+.claude/_alignment-state.json
+.claude/.alignment-loop.stop

@@ -34,7 +34,11 @@ Transforme un job répétitif (code ou non-code) en spec structurée : `SPEC-loo
 1. Orga et domaine : qui est derrière ce loop, dans quel contexte métier ?
 2. Objectif business : quel problème ça résout, quelle valeur ça crée ? (le POURQUOI)
 3. **Bifurcation** : est-ce un loop **code** (shell, Python, script, outil CLI, API, fichiers) ou **hors-code** (process humain, checklist, réflexion, veille, validation qualité) ?
-4. Environnement : quel(s) repo(s) ou contexte(s) sont concernés ?
+4. Environnement : quel(s) repo(s) ou contexte(s) techniques cadrent le loop ?
+
+> **La bifurcation (Q3) répond à UNE seule question : quelles questions techniques poseront les blocs suivants** (branche code → `references/questions-code.md`, branche hors-code → `references/questions-hors-code.md`). Elle ne décrit PAS sur quoi le loop opère.
+>
+> **Ne PAS demander ici le périmètre fonctionnel** (les objets/fichiers/sources que le loop traite, ni le repo d'écriture). C'est le rôle du **Bloc 3**, qui distingue périmètre d'écriture et périmètre de traitement. Confondre bifurcation, périmètre d'écriture et périmètre de traitement = 3 questions différentes mélangées → l'utilisateur ne sait pas répondre (observé dogfood 5 juin). Q4 ici reste un cadrage léger (« dans quel(s) repo(s) ce loop s'inscrit-il »), pas un inventaire des objets traités.
 
 Si branche **code** ET repo identifié → analyser le repo avec `Glob` + `Read package.json` ou `pyproject.toml` + `git log -20` pour pré-remplir la section Stack du Bloc 5 (ne pas re-demander ce qu'on peut déduire).
 
@@ -74,6 +78,10 @@ Une fois le type validé, préciser :
 
 ### Bloc 3 — PÉRIMÈTRE
 
+Le périmètre couvre **DEUX dimensions distinctes**, à poser séparément. Ne pas les fusionner : le repo où le loop ÉCRIT n'est pas forcément ce que le loop TRAITE.
+
+#### 3.1 — Périmètre d'ÉCRITURE (où le loop écrit)
+
 **Règle d'écriture (non-négociable)** : un loop doit avoir un périmètre d'ÉCRITURE fermé : 1 repo, 1 monorepo, ou 1 PR. La lecture cross-repo est autorisée. Un loop qui ÉCRIT sur plusieurs repos en devinant lequel est refusé.
 
 `AskUserQuestion` :
@@ -81,7 +89,20 @@ Une fois le type validé, préciser :
 - Y a-t-il besoin de lire dans d'autres repos ? (lecture croisée OK)
 - **Si multi-repo en écriture** → proposer le pattern fleet : soit 1 loop par repo (parallèle), soit 1 manager qui lit + des workers qui écrivent chacun dans leur repo. L'utilisateur choisit.
 
-Questions complémentaires (inputs/outputs, stack, gestion d'erreur) → voir `references/questions-code.md` (branche code) ou `references/questions-hors-code.md` (branche hors-code), conduites en 1-2 `AskUserQuestion` (batches de 4 max).
+#### 3.2 — Périmètre de TRAITEMENT (sur quoi le loop opère)
+
+**Distinct du périmètre d'écriture.** Sur QUELS objets le loop travaille à chaque itération : quels fichiers, dossiers, sources, entités. Un loop peut écrire dans le repo X (écriture) mais traiter les skills + agents de `.claude/` (traitement), ou traiter des feedbacks d'une DB, des notes d'un vault, des PR ouvertes, etc.
+
+`AskUserQuestion` :
+- Sur quels objets le loop opère-t-il concrètement ? (fichiers/dossiers précis, sources de données, entités métier)
+- Ce périmètre de traitement est-il le même que le repo d'écriture, ou différent ? (ex : « traite `.claude/skills/` + `.claude/agents/` mais écrit la spec/le rapport dans `TODO/` »)
+- Y a-t-il un filtre (extension, label, statut, date) qui borne les objets traités ?
+
+> Pourquoi séparer (dogfood 5 juin) : un loop hybride ou un loop hors-code qui opère sur des fichiers d'un repo se cadre mal quand « code/hors-code », « repo d'écriture » et « objets traités » sont mélangés. Bifurcation (Bloc 0) = quelles questions poser ; périmètre d'écriture (3.1) = où ça écrit ; périmètre de traitement (3.2) = sur quoi ça travaille. Trois choses.
+
+#### 3.3 — Questions complémentaires
+
+Inputs/outputs, stack, gestion d'erreur → voir `references/questions-code.md` (branche code) ou `references/questions-hors-code.md` (branche hors-code), conduites en 1-2 `AskUserQuestion` (batches de 4 max).
 
 ---
 
@@ -222,6 +243,8 @@ Après chaque utilisation significative :
 - Si une question de l'interview bank s'avère inutile ou manquante → noter ici avec la date
 - Si un type de loop nouveau émerge (hors code/hors-code binaire) → documenter
 - Si le template spec ne couvre pas un cas → noter la section manquante
+
+**2026-06-05** (dogfood) — Bloc 0 mélangeait bifurcation et périmètre fonctionnel : un loop hors-code traitant des fichiers d'un repo se cadrait mal. Correction : bifurcation reste au Bloc 0 (= quelles questions poser), le périmètre vit au Bloc 3 scindé en écriture (3.1) et traitement (3.2). Trois concepts distincts à ne jamais reconfondre.
 
 ---
 
