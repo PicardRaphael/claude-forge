@@ -10,7 +10,7 @@ aliases:
   - GraphRAG
 domaine: ia
 type: technique
-derniere-maj: 2026-05-23
+derniere-maj: 2026-06-05
 auteur: claude
 sources:
   - "https://www.microsoft.com/en-us/research/project/graphrag/"
@@ -22,7 +22,6 @@ tags:
   - "#domaine/ia"
   - "#domaine/rag"
 ---
-
 ## Description
 
 Au-delà du RAG basique, des patterns avancés permettent d'adresser les cas complexes : multi-hop, auto-correction, graph reasoning, et routage adaptatif.
@@ -109,6 +108,21 @@ RAG retrieve les documents les plus pertinents d'un grand corpus → charge dans
 Seuils production : **>0.8** faithfulness et context precision. Top-k optimal : 4-8 chunks. Au-delà de 8, faithfulness se dégrade.
 
 ## Multi-Index / Multi-Source
+## RAG souverain EU
+
+Axe critique pour un chatbot support traitant des données clients européennes (RGPD). Le RGPD n'interdit pas le hors-UE mais l'encadre (art. 44-49) ; le vrai risque est le **Cloud Act** — c'est la nationalité juridique du prestataire qui prime, pas la localisation serveur. Échéance : **AI Act applicable 2 août 2026** (cf [[ai-act-eu-cheatsheet]], [[fine-tuning-privacy]]).
+
+Spectre d'options, du moins au plus souverain :
+1. Modèle US via cloud EU (Azure West Europe + clauses contractuelles types) — compromis PME.
+2. **100% européen** (Mistral sur Scaleway/OVH) pour données sensibles. Labels : **SecNumCloud** (ANSSI), **HDS** (santé, décret renforcé mars 2026).
+
+Briques souveraines 2026 :
+- **Parsing** : [Mistral OCR 3](https://mistral.ai/news/mistral-ocr-3/) — SOTA extraction (markdown + tables HTML), ~$2/1000 pages ($1 batch), **self-hostable** pour données sensibles. Provider FR. Le pipeline [[Jonas Roman]] / ZParse l'utilise comme étape d'extraction.
+- **Ingestion** : ZParse (FR, hébergé EU, ISO 27001 en cours) — cf [[Jonas Roman#ZParse — son outil d'ingestion RAG (souveraineté EU)]].
+- **Vector DB EU** : Qdrant (HQ Allemagne, self-host Rust), Weaviate (HQ Pays-Bas, hybrid champion), ou **pgvector sur Postgres EU** (Supabase région EU, Neon) — confortable jusqu'à ~50M vecteurs, « use the Postgres you already have ».
+- **Embeddings/génération** : Mistral (souveraineté EU, embed+gen même plateforme, soumis à l'AI Act). Sur la pure précision retrieval, Voyage/Jina restent devant — arbitrer souveraineté vs précision selon la sensibilité des données. Self-host (BGE-M3, Jina v5, Nomic) pour l'air-gap strict.
+
+Stack support EU type : ZParse (ingestion EU) → Supabase/pgvector EU → embeddings Mistral + Mistral OCR 3 pour le parsing → reranker → éval Golden Dataset. Tout en souveraineté.
 
 Pattern enterprise 2026 : hot/warm/cold indexes pour optimiser coûts d'embedding (chiffres exacts de pourcentage d'adoption non sourcés en source primaire).
 

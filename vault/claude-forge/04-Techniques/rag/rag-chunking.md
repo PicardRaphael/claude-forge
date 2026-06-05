@@ -10,7 +10,7 @@ aliases:
   - stratégies de chunking
 domaine: ia
 type: technique
-derniere-maj: 2026-05-23
+derniere-maj: 2026-06-05
 auteur: claude
 sources:
   - "https://blog.premai.io/rag-chunking-strategies-the-2026-benchmark-guide/"
@@ -22,7 +22,6 @@ tags:
   - "#domaine/ia"
   - "#domaine/rag"
 ---
-
 ## Description
 
 Le chunking est l'étape la plus impactante du pipeline RAG. Le paper [NAACL 2025 (Vectara + UW-Madison)](https://aclanthology.org/2025.findings-naacl.114.pdf) — "Is Semantic Chunking Worth the Computational Cost?" (Qu, Tu, Bao) — démontre que **la configuration de chunking a un impact comparable au choix du modèle d'embedding** ("better chunking and large embeddings provide complementary benefits").
@@ -69,6 +68,16 @@ Coût : **$1.02 / million tokens** avec prompt caching. Skip si corpus < 200K to
 Résout la tension fondamentale : **recall demande petits chunks, génération demande grands chunks**.
 
 ### Agentic Chunking
+### Scoring de pertinence à l'ingestion (write-time)
+
+Pattern observé chez [[Jonas Roman]] (pipeline ZParse, vidéo 20 mai 2026), complémentaire au reranking : plutôt que de filtrer le bruit au *retrieval-time*, on note chaque chunk **dès l'ingestion**.
+
+- Pendant la phase d'enrichissement, un LLM-as-judge attribue à chaque chunk un **`relevant_score` 1-10** selon le cas d'usage métier (ex : « pertinence pour le diagnostic de panne »), via function calling structuré.
+- Filtre seuil à l'ingestion (ex : `>= 5`) → les chunks sous le seuil ne sont jamais vectorisés. Curseur de granularité ajustable selon la qualité observée en sortie.
+- Gain : la base vectorielle ne contient que du signal → moins de distracteurs, meilleure précision au scale, coût de stockage/embedding réduit. Exemple vidéo : 428 chunks → 227 après filtre `>=5`.
+- Champs métadonnée enrichis en parallèle (symptôme, cause, solution, page, équipement…) ; valeur par défaut `null`/`-1` si absent pour ne pas bloquer le pipeline.
+
+**Write-time scoring vs retrieval-time reranking** : le scoring write-time est un filtre *statique* one-shot (payé une fois à l'ingestion, dépend du cas d'usage figé) ; le reranking ([[rag-reranking]]) est *dynamique* par requête (s'adapte à chaque query). Les deux sont composables : filtrer le bruit à l'ingestion PUIS reranker au retrieval. Limite du write-time : un chunk jugé non pertinent pour le cas d'usage prévu est définitivement perdu pour tout autre usage de la même base.
 
 LLM lit chaque proposition, décide si elle appartient à un chunk existant ou en démarre un nouveau. Greg Kamradt "Level 5". Coût : $0.01-0.10 par document de 10K mots.
 

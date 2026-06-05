@@ -12,7 +12,7 @@ aliases:
   - "RAG francophone"
 role: "Fondateur Lagentia.fr, AI Engineer"
 affiliation: "Lagentia (ex-Mistral AI)"
-derniere-maj: 2026-05-08
+derniere-maj: 2026-06-05
 auteur: claude
 sources:
   - "https://www.youtube.com/@JonasRoman-t5t"
@@ -23,7 +23,6 @@ tags:
   - "#domaine/rag"
 type: ""
 ---
-
 ## Profil
 
 Expert IA générative français, fondateur de Lagentia.fr (agence IA pour ETI : audit stratégique → mise en production). Anciennement AI Engineer chez **Mistral AI** avec des clients comme BNPP, Ministère des Armées, CNAMTS, INRIA, SNCF, Orange.
@@ -57,3 +56,25 @@ Chaîne YouTube **"Jonas Roman | AI Ops"** (ex-"IA en Prod"). Communauté Skool 
 - Communauté : skool.com/ia-en-prod
 - Agence : [lagentia.fr](https://lagentia.fr)
 - [[RAG]] — Index RAG
+
+
+## ZParse — son outil d'ingestion RAG (souveraineté EU)
+
+**[ZParse](https://zparse.io)** est l'outil d'ingestion RAG créé/promu par Jonas Roman, désormais pièce maîtresse de son stack. Positionnement : *"Made in France, hosted in Europe"*, ISO 27001 en cours — réponse directe aux enjeux RGPD/souveraineté.
+
+- **ETL pour données IA-ready** : parse PDF scannés, Excel, XML, JSON, Markdown, Parquet, CSV ; connecteurs SharePoint/GDrive/S3/SFTP ; livre vers Qdrant/Weaviate/Pinecone/pgvector/Elasticsearch.
+- **LLM-agnostic** : Mistral (souveraineté), OpenAI (perf), Claude (reasoning), Llama local (air-gap) — no lock-in, no data retention (data en transit only).
+- **Observabilité chunk-par-chunk** : chaque étape tracée, loggée, rejouable (data trails) + versioning/rollback. Argument anti-pipeline-Python-fragile.
+- Tarifs (juin 2026) : Free €0 / Builder €29 / Builder+ €89 par mois.
+
+Voir [[rag-architecture#RAG souverain EU]] pour le contexte souveraineté complet.
+
+## Méthodologie RAG production (synthèse vidéos 2026)
+
+Cf [[rag-obsidian-claude-video-analyse]] (analyse d'une autre vidéo) et ses 2 vidéos de mai 2026 :
+- **["200k€ de projets RAG : mon pipeline d'ingestion exposé"](https://www.youtube.com/watch?v=phZ_iqu1gN0)** (20 mai 2026) — pipeline d'ingestion A→Z : Mistral OCR → chunking sémantique (fenêtre page, group=1 + overlap ±1 page) → enrichissement métadonnée + **scoring de pertinence par chunk** → filtre seuil → markdown structuré. Cf [[rag-chunking#Scoring de pertinence à l'ingestion (write-time)]].
+- **["Comment faire un vrai système de connaissance pour l'IA"](https://www.youtube.com/watch?v=yEmVTVTjzag)** (31 mai 2026) — push des chunks dans **Supabase + pgvector** (embeddings OpenAI text-embedding-3-large 3072d), filtrage SQL par catégorie pour garder la précision au scale.
+
+Doctrine constante : **le bottleneck d'un RAG est l'ingestion (write-time), pas le modèle ni le prompt.** Toute la complexité en write-time, simplicité en query-time. Démarche : Golden Dataset (15-50 Q/R, 3 niveaux, construit AVEC le client) → audit data avant retrieval → config de base (chunking + embedding hybride + reranker) → éval **Précision / Recall / Faithfulness**. Note : *"savoir quand NE PAS faire de RAG"*.
+
+> Note stack : VectorShift + Voiceflow (vidéo mai 2025) ont été remplacés par ZParse + Supabase/pgvector dans son stack récent (mai 2026).

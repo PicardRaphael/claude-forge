@@ -14,6 +14,15 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-05 — Enrichissement RAG : 2 vidéos Jonas Roman (ZParse) + cc-news RAG
+
+- **Modifiées** :
+  - [[Jonas Roman]] — ajout de ZParse (son outil d'ingestion RAG FR/EU, ISO 27001), 2 vidéos mai 2026 (pipeline d'ingestion + Supabase/pgvector), méthodo production (Golden Dataset, scoring chunks write-time, éval Précision/Recall/Faithfulness, doctrine « bottleneck = ingestion »).
+  - [[rag-chunking]] — nouvelle section « Scoring de pertinence à l'ingestion (write-time) » : LLM-as-judge `relevant_score` 1-10 + filtre seuil à l'ingestion, comparaison write-time vs retrieval-time reranking.
+  - [[rag-architecture]] — nouvelle section « RAG souverain EU » : Cloud Act vs localisation, AI Act 2 août 2026, Mistral OCR 3 self-host, vector DB EU (Qdrant/Weaviate/pgvector), stack support EU type.
+  - [[rag-embeddings]] — sections « Parsing OCR amont (Mistral OCR 3) » et « Génération groundée — Cohere Command A+ » (MoE Apache 2.0, citations natives) + maj rôles Cohere (Patrick Lewis Director Agentic AI, Nils Reimers Director ML).
+- **Source** : analyse profonde de 2 vidéos YouTube RAG (phZ_iqu1gN0 20 mai + yEmVTVTjzag 31 mai, Jonas Roman/Lagentia) via transcription Whisper + run cc-news ciblé RAG (verdict : aucune nouveauté technique post-2 juin ; vault déjà à jour, seules pépites = scoring write-time + souveraineté EU).
+
 ## 2026-06-05 — Piège here-string PowerShell dans le tool Bash
 
 - **Modifiées** : [[erreur-da-heredoc-bash-silencieux]] — section "Piège connexe — here-string PowerShell `@'...'@` dans le tool Bash" : `git commit -m @'...'@` (syntaxe PowerShell) lancé via le tool **Bash** laisse le `@` de tête comme premier caractère littéral du sujet de commit. Distinct du HEREDOC bash. Règle : multi-`-m` dans Bash, `@'...'@` réservé au tool PowerShell.

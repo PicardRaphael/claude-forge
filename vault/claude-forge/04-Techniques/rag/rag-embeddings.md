@@ -10,7 +10,7 @@ aliases:
   - embedding optimization
 domaine: ia
 type: technique
-derniere-maj: 2026-05-23
+derniere-maj: 2026-06-05
 auteur: claude
 sources:
   - "https://milvus.io/blog/choose-embedding-model-rag-2026.md"
@@ -21,7 +21,6 @@ tags:
   - "#domaine/ia"
   - "#domaine/rag"
 ---
-
 ## Description
 
 Les embeddings transforment le texte en vecteurs numériques pour la recherche sémantique. Le choix du modèle et de la stratégie d'embedding est critique pour la qualité du RAG.
@@ -91,6 +90,13 @@ Standard en 2026 : OpenAI, Cohere, Jina, Nomic, Qwen3.
 2026 : Better Binary Quantization (BBQ, Elasticsearch 8.16 nov 2024), Qdrant v1.15.0 1.5-bit (24x compression) et 2-bit (16x).
 
 ## Multimodal
+## Parsing OCR amont (Mistral OCR 3)
+
+L'embedding ne vaut que ce que vaut l'extraction amont. Pour les PDF scannés/manuels techniques, [**Mistral OCR 3**](https://mistral.ai/news/mistral-ocr-3/) est une référence 2026 : SOTA parsing (markdown + reconstruction tables HTML, formules, manuscrit), ~**$2/1000 pages** ($1 en batch, nettement moins cher qu'AWS Textract), **self-hostable** pour données sensibles. Provider FR → pertinent souveraineté (cf [[rag-architecture#RAG souverain EU]]). Sortie page-par-page en JSONL = unité naturelle pour un chunking à fenêtre-page (cf [[rag-chunking]]).
+
+## Génération groundée — Cohere Command A+
+
+Hors embedding strict mais pertinent côté génération RAG : **Cohere Command A+** (20 mai 2026) — premier MoE de Cohere (218B total / 25B actifs, 128 experts, Apache 2.0, 2× H100), avec **citations natives** (« grounding spans ») pour le RAG. [Source](https://cohere.com/blog/command-a-plus). Patrick Lewis (co-auteur RAG originel) est désormais Director of Agentic AI chez Cohere, Nils Reimers Director of ML Search & Embeddings.
 
 - **ColPali** (ICLR 2025) : PaliGemma + ColBERT late interaction sur images de pages. Élimine OCR.
 - **[[jina-embeddings-v4|Jina Embeddings v4]]** (3.8B) : text+image, single et multi-vector, LoRA adapters. **JinaVDR 72.19** vs ColPali-v1.2 **64.50** ; **ViDoRe 84.11** mode single-vector (multi-vector = 90.17) ([blog Jina + arXiv 2506.18902](https://jina.ai/news/jina-embeddings-v4)).
