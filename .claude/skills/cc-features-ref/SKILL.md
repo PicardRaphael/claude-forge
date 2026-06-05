@@ -6,7 +6,7 @@ user-invocable: false
 
 # Fonctionnalités Claude Code 2026
 
-_Mise à jour : 26 avril 2026 (v2.1.119) — utiliser cc-news pour les nouveautés postérieures_
+_Mise à jour : 4 juin 2026 (intègre des éléments jusqu'à juin 2026, v2.1.160) — utiliser cc-news pour les nouveautés postérieures_
 
 ## Slash Commands
 
@@ -80,6 +80,8 @@ Claude utilise `ScheduleWakeup` pour décider dynamiquement quand revérifier (�
 **`xhigh` est le nouveau défaut** pour Opus 4.7 (v2.1.111+). `high` reste le défaut pour Sonnet 4.6.
 Effort plus important sur 4.7 que tout modèle précédent — il contrôle directement le nombre de tool calls et la profondeur de raisonnement.
 À `xhigh`/`max` : mettre max_tokens à 64k+ minimum.
+
+**Opus 4.8** (`claude-opus-4-8`, sorti 28 mai 2026) — défaut effort = **high** (recommandé), options `extra`/`xhigh`/`max`. Fast mode 3× moins cher qu'avant (vitesse 2.5×). ~4× moins susceptible de laisser passer une faille sans la signaler vs 4.7. C'est désormais le dernier Opus : le défaut forge `opus` = `claude-opus-4-8`.
 
 ## Git Worktrees — #1 productivité
 
@@ -157,6 +159,8 @@ Subagents qui se communiquent directement via task board partagé.
 | WSL managed settings | wslInheritsWindowsSettings hérite settings Windows (v2.1.119) |
 | /fork optimisé | Écrit pointeur au lieu de copier toute la conversation (v2.1.119) |
 | **Agent View** | **`claude agents` — dashboard sessions concurrentes groupées par état (attend input / en cours / terminé). Control plane lancé 11 mai 2026.** |
+| **Dynamic Workflows** | **Research preview (v2.1.154, 28 mai 2026) — Claude rédige dynamiquement un script JS d'orchestration lançant jusqu'à 1000 sous-agents (16 concurrents). Coordination hors-contexte : plan dans le code, résultats en variables, seul l'output final revient en contexte. Vérification adversariale intégrée. Déclenché par mot-clé dans un prompt OU le réglage `ultracode`. Requiert v2.1.154+, plans Max/Team/Enterprise. Visible via `/workflows`.** |
+| **`ultracode`** | **Réglage (v2.1.160, 2 juin 2026) qui fixe l'effort à `xhigh` ET laisse Claude décider automatiquement de lancer un Dynamic Workflow. Depuis v2.1.160, `ultracode` remplace `workflow` comme mot-clé déclencheur des Dynamic Workflows.** |
 
 ## .claude/rules/ (v2.0.64+)
 
@@ -243,7 +247,7 @@ LSPs disponibles pour tous les langages majeurs.
 
 ## Gotchas
 
-- **Date de référence** — ce fichier est figé à v2.1.119 (26 avril 2026). Utiliser `cc-news` si l'info semble datée ou si la feature demandée est postérieure à cette date.
+- **Date de référence** — ce fichier intègre des éléments jusqu'à juin 2026 (v2.1.160). Utiliser `cc-news` si l'info semble datée ou si la feature demandée est postérieure à cette date.
 - **`effort: max`** — toujours disponible mai 2026 (verbatim docs Anthropic 23 mai), mais prone à l'overthinking. Réserver à cas justifiés ; doctrine forge = `high` par défaut, `xhigh` pour architect/dev-lead/refactor-pg.
 
 ## Apprentissage
