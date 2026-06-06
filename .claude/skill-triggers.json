@@ -33,17 +33,6 @@
       "est-ce que cc peut"
     ]
   },
-  "cc-hooks-ref": {
-    "type": "skill",
-    "description": "Référence hooks — charger avant de créer/modifier un hook",
-    "triggers": [
-      "créer un hook",
-      "modifier un hook",
-      "hook yaml",
-      "format hook",
-      "hook event"
-    ]
-  },
   "cc-news": {
     "type": "skill",
     "description": "Recherche les nouveautés Claude Code (Boris, Cat Wu, Lydia Hallie, Noah Zweben)",
