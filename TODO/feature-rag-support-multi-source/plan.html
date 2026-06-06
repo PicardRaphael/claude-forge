@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan — Meilleur chat support RAG (tout converge vers Confluence)</title>
+<style>
+  body { font-family: system-ui, -apple-system, sans-serif; max-width: 1100px; margin: 0 auto 4rem; padding: 0 1.5rem; line-height: 1.6; color: #1e293b; }
+  h1 { color: #4f46e5; margin-top: 1.5rem; }
+  h2 { color: #4338ca; border-bottom: 2px solid #e0e7ff; padding-bottom: 0.3rem; margin-top: 2rem; }
+  section { border-left: 3px solid #4f46e5; padding: 0.5rem 1.2rem; margin: 1.5rem 0; background: #f9fafb; border-radius: 0 8px 8px 0; }
+  nav { position: sticky; top: 0; background: #ffffffee; backdrop-filter: blur(6px); padding: 0.8rem 0; border-bottom: 1px solid #e5e7eb; margin-bottom: 1rem; z-index: 10; font-size: 0.88rem; }
+  nav a { color: #4f46e5; text-decoration: none; margin-right: 0.5rem; }
+  nav a:hover { text-decoration: underline; }
+  .risk-high { background: #fee2e2; color: #991b1b; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .risk-med { background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .risk-low { background: #d1fae5; color: #065f46; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .new { background: #fce7f3; color: #9d174d; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; }
+  .keep { background: #d1fae5; color: #065f46; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; }
+  .diagram { font-family: 'Consolas', monospace; background: #1e293b; color: #e2e8f0; padding: 1.2rem; border-radius: 8px; overflow-x: auto; font-size: 0.8rem; line-height: 1.45; white-space: pre; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.88rem; }
+  th, td { border: 1px solid #e5e7eb; padding: 0.5rem 0.7rem; text-align: left; vertical-align: top; }
+  th { background: #eef2ff; }
+  code { background: #eef2ff; padding: 1px 5px; border-radius: 3px; font-size: 0.88em; }
+  .wave { display: inline-block; background: #4f46e5; color: white; padding: 2px 10px; border-radius: 12px; font-size: 0.8em; font-weight: 600; }
+  .repo-n { background:#dbeafe; color:#1e40af; padding:1px 6px; border-radius:3px; font-size:0.8em; font-weight:600; }
+  .repo-b { background:#f3e8ff; color:#6b21a8; padding:1px 6px; border-radius:3px; font-size:0.8em; font-weight:600; }
+  .blocker { background:#fef2f2; border-left:4px solid #dc2626; padding:0.8rem 1.2rem; margin:1rem 0; border-radius:0 8px 8px 0; }
+  .lead { font-size:1.05rem; background:#eef2ff; padding:0.8rem 1.2rem; border-radius:8px; }
+</style>
+</head>
+<body>
+<nav>
+  <a href="#vision">Vision</a> ·
+  <a href="#flux">Flux</a> ·
+  <a href="#blockers">Blockers</a> ·
+  <a href="#skill1">Skill ① Jira→brain</a> ·
+  <a href="#skill2">Skill ② brain→Confluence</a> ·
+  <a href="#pipeline">Pipeline ③</a> ·
+  <a href="#vagues">Vagues</a> ·
+  <a href="#risks">Risques</a> ·
+  <a href="#confirm">À confirmer</a>
+</nav>
+
+<h1>Le meilleur chat support RAG — « tout converge vers Confluence »</h1>
+<p class="lead"><strong>Une seule source embeddée = Confluence.</strong> Jira et neoteem-brain y convergent. Dédup <strong>en amont</strong> (curation), pas au retrieval → zéro doublon par construction. L'agent RAG existant (hybrid + rerank + LLM-judge) est mature et <strong>inchangé</strong>.</p>
+
+<section id="vision">
+<h2>Principe directeur</h2>
+<p>La qualité de réponse finale est <strong>plafonnée par la qualité de la doc source</strong>. Les leviers, par impact décroissant :</p>
+<ol>
+<li><strong>Qualité d'écriture des pages Confluence</strong> (skill ②) — titre = la question, sections auto-suffisantes, problème→cause→solution alignés sur le chunker 1200/180.</li>
+<li><strong>Validation humaine étanche</strong> — zéro page non validée embeddée.</li>
+<li><strong>Exploitation des images</strong> — description Gemini (info visuelle aujourd'hui perdue).</li>
+<li><strong>Anti-ré-embedding</strong> (hash) — « pas d'embedding inutile ».</li>
+</ol>
+</section>
+
+<section id="flux">
+<h2>Flux ①②③</h2>
+<div class="diagram">  ① JIRA → BRAIN            ② BRAIN → CONFLUENCE           ③ EMBEDDING (existant +qualité)      AGENT (inchangé)
+  ─────────────             ───────────────────            ─────────────────────────────       ────────────────
+  repo neoteem-brain        repo neo_ia                    repo neo_ia
+
+  Tickets FERMÉS            notes #statut/valide           Confluence espace NeoIA              extract → router
+  (API REST /search)        (07-Support, 06-Regles)        (collection confluence_docs)         → cache → retrieve
+        │                         │                              │                              → grade (LLM-judge)
+        ▼                         ▼                              ▼                              → rerank (bge-v2-m3)
+  classif par domaine ──►  transformation "RAG parfait" ─► dossier "À VALIDER" + label         → generate → respond
+  (pas que support)         · titre = la question          a-valider
+  dédup search_brain        · sections auto-suffisantes         │  validation humaine
+        │                   · images décrites (Gemini)          │  (sort du dossier
+        ▼                   · labels = domaine+type             ▼   + retire le label)
+  notes brain curées        ConfluencePublisher (NEW) ──►  page validée ──► sync ③ ──► pgvector
+  (#statut/draft)                                            · content_hash (skip si inchangé)
+        │                                                    · description images Gemini
+  sidecar processed.json                                     · NeoIA (pas NEO)
+  (mémoire du traité)</div>
+<p><span class="repo-n">neo_ia</span> skill ② + pipeline ③ &nbsp;·&nbsp; <span class="repo-b">neoteem-brain</span> skill ①</p>
+</section>
+
+<section id="blockers">
+<h2>⚠️ Deux blockers critiques</h2>
+<div class="blocker">
+<strong>BLOCKER #1 — La barrière « À valider » fuit par défaut.</strong> Le sync incrémental (<code>get_modified_pages</code>) n'a <strong>aucun filtre statut</strong> → il embedderait les pages non validées, rendant la validation décorative.
+<br><strong>Fix</strong> : label <code>a-valider</code> posé par skill ②, exclu du CQL sur les <strong>DEUX</strong> chemins (full + incrémental). Validation = sortir du dossier <strong>+</strong> retirer le label. <span class="risk-high">RISQUE ÉLEVÉ si un seul chemin filtré</span>
+</div>
+<div class="blocker">
+<strong>BLOCKER #2 — Pas de capacité d'écriture Confluence.</strong> <code>client.py</code> est lecture seule (que des GET). La publication est du net-new code.
+<br><strong>Fix</strong> : créer <code>shared_utils/confluence/publisher.py</code> (<code>ConfluencePublisher</code> : POST/PUT pages + label), séparé de <code>client.py</code> pour ne pas risquer le pipeline ③.
+</div>
+</section>
+
+<section id="skill1">
+<h2>① Skill « Jira → brain » <span class="repo-b">neoteem-brain</span></h2>
+<ul>
+<li><strong>Déclenchement</strong> : tâche planifiée Claude Code desktop, fin de semaine, batch tickets fermés.</li>
+<li><strong>Lecture</strong> : API REST Jira <code>POST /rest/api/3/search</code> (le MCP Jira est <em>admin-only</em>, pas de JQL ; acli absent). Credentials <code>parametrage documentation_lojii</code>.</li>
+<li><strong>Incrémental</strong> : <code>statusCategory = Done AND resolutiondate &gt;= dernier_traité</code> + sidecar <code>state/processed.json</code> (mémoire du traité, ne pas tout refaire).</li>
+<li><strong>Classification par domaine</strong> (par Claude, pas que support) : problèmes-connus / faq / procedures / 06-Regles-Metier / autres.</li>
+<li><strong>Format</strong> : templates brain existants, frontmatter v2, <code>#statut/draft</code>. <strong>Dédup</strong> <code>search_brain</code> avant création → enrichir si existe. Gate humaine.</li>
+</ul>
+</section>
+
+<section id="skill2">
+<h2>② Skill « brain → Confluence » <span class="repo-n">neo_ia</span></h2>
+<ul>
+<li><strong>Sélection</strong> : notes <code>#statut/valide</code> (07-Support + 06-Regles-Metier).</li>
+<li><strong>Transformation « RAG parfait »</strong> (cœur qualité, aligné chunker 1200/180) : titre = la question · sections H2/H3 auto-suffisantes (1 chunk = 1 réponse) · problème→cause→solution · labels = domaine+type · wikilinks traduits · <strong>images décrites (Gemini)</strong>.</li>
+<li><strong>Workflow</strong> : pages sous le dossier « À valider » de <strong>NeoIA</strong> + label <code>a-valider</code> → validation humaine → ③ embedde au sync suivant.</li>
+<li><strong>Publication</strong> : via <code>ConfluencePublisher</code> (BLOCKER #2).</li>
+</ul>
+</section>
+
+<section id="pipeline">
+<h2>③ Améliorations pipeline embedding <span class="repo-n">neo_ia</span></h2>
+<table>
+<tr><th>#</th><th>Amélioration</th><th>Détail</th></tr>
+<tr><td>5.1</td><td><strong>content_hash anti-ré-embedding</strong></td><td><code>sha256(content)</code> avant chunking ; inchangé → skip total (pas de chunk, pas de LLM-context Gemini, pas d'embedding). Modèle : MCP brain <code>watcher.py</code>. <span class="new">le « pas d'embedding inutile »</span></td></tr>
+<tr><td>5.2</td><td><strong>Description d'images Gemini</strong></td><td>image → <code>get_genai_client()</code> (<code>gemini-2.5-flash</code> multimodal, <strong>PAS Mistral OCR</strong> = contrainte Gemini) → description en texte dans le chunk. Cache + skip si page inchangée.</td></tr>
+<tr><td>5.3</td><td><strong>Bascule NEO → NeoIA</strong></td><td>espace cible NeoIA. Cutover collection à confirmer (PO).</td></tr>
+<tr><td>5.4</td><td><span class="keep">Conserver</span></td><td>chunking 1200/180, contextual retrieval, UPSERT UUID5, keywords, breadcrumb — déjà aligné best-practices.</td></tr>
+</table>
+</section>
+
+<section id="vagues">
+<h2>Vagues (par repo)</h2>
+<table>
+<tr><th>Vague</th><th>Repo</th><th>Contenu</th><th>Dépend</th><th>Risque</th></tr>
+<tr><td><span class="wave">V0 Barrière</span></td><td><span class="repo-n">neo_ia</span></td><td>filtre status+label CQL (2 chemins) ; bascule space→NeoIA</td><td>—</td><td><span class="risk-high">ÉLEVÉ</span></td></tr>
+<tr><td><span class="wave">V1 Anti-ré-embed</span></td><td><span class="repo-n">neo_ia</span></td><td>content_hash skip embed+LLM-context</td><td>V0</td><td><span class="risk-med">MOYEN</span></td></tr>
+<tr><td><span class="wave">V2 Images</span></td><td><span class="repo-n">neo_ia</span></td><td>description Gemini + cache</td><td>V1</td><td><span class="risk-med">MOYEN</span></td></tr>
+<tr><td><span class="wave">V3 Publisher</span></td><td><span class="repo-n">neo_ia</span></td><td><code>publisher.py</code> create/update/label</td><td>V0</td><td><span class="risk-med">MOYEN</span></td></tr>
+<tr><td><span class="wave">V4 Skill ②</span></td><td><span class="repo-n">neo_ia</span></td><td>brain→Confluence transformation + workflow</td><td>V3, V2</td><td><span class="risk-med">MOYEN</span></td></tr>
+<tr><td><span class="wave">V5 Skill ①</span></td><td><span class="repo-b">neoteem-brain</span></td><td>Jira→brain REST + state + classif + dédup</td><td>indépendante ‖</td><td><span class="risk-med">MOYEN</span></td></tr>
+<tr><td><span class="wave">V6 Orchestration</span></td><td>les 2</td><td>tâches planifiées</td><td>V1-V5</td><td><span class="risk-low">FAIBLE</span></td></tr>
+</table>
+<p>V5 démarrable en parallèle. <strong>V0 = prérequis dur de la qualité.</strong></p>
+</section>
+
+<section id="risks">
+<h2>Risques</h2>
+<table>
+<tr><th>Risque</th><th>Niveau</th><th>Mitigation</th></tr>
+<tr><td>Barrière fuit (pages non validées embeddées)</td><td><span class="risk-high">ÉLEVÉ</span></td><td>label <code>a-valider</code> exclu sur les 2 chemins CQL ; test dédié</td></tr>
+<tr><td>Cutover NEO→NeoIA mal géré (collection orpheline)</td><td><span class="risk-high">ÉLEVÉ</span></td><td>décision PO : purge+full sync vs cohabitation</td></tr>
+<tr><td>Cohérence « sortie dossier ⟺ retrait label »</td><td><span class="risk-med">MOYEN</span></td><td>procédure stricte, automatisation plus tard</td></tr>
+<tr><td>Qualité d'écriture variable des pages générées</td><td><span class="risk-med">MOYEN</span></td><td>validation humaine + gabarit RAG strict</td></tr>
+<tr><td>Coût Gemini (LLM-context + images)</td><td><span class="risk-med">MOYEN</span></td><td>content_hash skip sur l'inchangé + cache description</td></tr>
+<tr><td>Accès credentials Jira depuis repo brain</td><td><span class="risk-med">MOYEN</span></td><td>parametrage vs env — à confirmer</td></tr>
+<tr><td>Index manquant sur filtre label</td><td><span class="risk-low">FAIBLE</span></td><td>volumétrie Confluence modérée</td></tr>
+</table>
+</section>
+
+<section id="confirm">
+<h2>À confirmer avant /go (PO)</h2>
+<ol>
+<li><strong>Cutover space NEO → NeoIA</strong> : purge <code>confluence_docs</code> + full sync, ou cohabitation ?</li>
+<li><strong>Mécanisme barrière</strong> : label <code>a-valider</code> (A, recommandé) vs ancêtre (B) vs espace staging (C) ?</li>
+<li><strong>Périmètre projets Jira</strong> pour le JQL.</li>
+<li><strong>Validation manuelle</strong> acceptée en V1 (qui retire le label / sort du dossier) ?</li>
+<li><strong>Coût Gemini images</strong> OK (atténué par cache hash) ?</li>
+<li><strong>Stockage état skill ①</strong> : sidecar JSON validé ? Accès credentials Jira depuis repo brain ?</li>
+</ol>
+</section>
+
+</body>
+</html>

@@ -108,6 +108,18 @@ RAG retrieve les documents les plus pertinents d'un grand corpus → charge dans
 Seuils production : **>0.8** faithfulness et context precision. Top-k optimal : 4-8 chunks. Au-delà de 8, faithfulness se dégrade.
 
 ## Multi-Index / Multi-Source
+## Dédup multi-source : convergence amont vs dédup retrieval
+
+Quand un RAG agrège plusieurs sources qui se recouvrent (ex : Confluence + tickets Jira + vault interne décrivant la même procédure), deux stratégies opposées pour éviter de retourner 3 fois la même réponse :
+
+- **Dédup au retrieval** (aval) : N ingestors → N jeux de vecteurs (avec métadonnée `source`), puis collapse des near-duplicates au moment de la requête (similarité d'embedding post-rerank + priorité de source). Souple, mais on stocke et embedde le doublon, et on paie la dédup à chaque requête.
+- **Convergence vers une source unique** (amont) : toutes les sources alimentent **une seule source canonique** (curée), qui est la **seule embeddée**. La dédup se fait à la **curation** (humaine ou semi-auto), pas au retrieval. → zéro doublon **par construction**, une seule chaîne d'embedding, pas de gaspillage.
+
+La convergence amont est supérieure quand : (1) il existe une source canonique légitime (wiki/Confluence, base FAQ), (2) la qualité d'écriture compte plus que l'exhaustivité brute, (3) on veut une validation humaine avant que le contenu « compte » dans le RAG. Coût : il faut un pipeline de transformation source→canonique (ex : tickets Jira → notes curées → pages Confluence).
+
+**Gotcha barrière** (cas réel neo_ia, juin 2026) : si la source canonique a un workflow de validation (dossier « à valider »), le sync incrémental doit **exclure explicitement** le contenu non validé (filtre statut/label sur TOUS les chemins CQL — full ET incrémental), sinon il embedde le brouillon et la validation devient décorative.
+
+**Anti-gaspillage embedding** : avec convergence ou non, un pipeline d'ingestion doit stocker un `content_hash` (SHA256) par document et **skipper embedding + appels LLM auxiliaires si le hash est inchangé** — pré-filtre mtime/version, hash = vérité (un git pull ou un re-sync réécrit les dates sans changer le contenu). Pattern éprouvé : gate mtime+hash des watchers de vault.
 ## RAG souverain EU
 
 Axe critique pour un chatbot support traitant des données clients européennes (RGPD). Le RGPD n'interdit pas le hors-UE mais l'encadre (art. 44-49) ; le vrai risque est le **Cloud Act** — c'est la nationalité juridique du prestataire qui prime, pas la localisation serveur. Échéance : **AI Act applicable 2 août 2026** (cf [[ai-act-eu-cheatsheet]], [[fine-tuning-privacy]]).

@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Block direct edits to protected files — enforce delegation to specialist agents.
+"""Block direct edits to protected files — enforce delegation to specialist skills.
 
 Protected targets (ONLY inside claude-forge project):
-  SKILL.md          → must use skill-creator agent
-  .claude/agents/*.md → must use agent-creator agent
   CLAUDE.md         → must use claudemd-optimizer agent
+  (SKILL.md + agents/*.md removed 2026-06-06 — replaced by skill-creator + subagent-creator skills)
 
 Exceptions (bypass in order — first match wins):
   1. File is outside the claude-forge project directory → always allowed
@@ -31,7 +30,7 @@ PROTECTED = {
 
 TYPO_THRESHOLD = 20
 
-ALLOWED_SPECIALISTS = {"skill-creator", "agent-creator", "hook-creator", "claudemd-optimizer"}
+ALLOWED_SPECIALISTS = {"hook-creator", "claudemd-optimizer"}  # skill-creator + agent-creator now skills
 
 # Skills externes (kepano/Obsidian) — copies read-only, pas protégées par delegate-guard
 EXEMPT_SKILL_DIRS = {"json-canvas", "defuddle", "obsidian-cli", "obsidian-markdown", "obsidian-bases"}
@@ -64,14 +63,7 @@ def is_inside_forge(norm_path: str) -> bool:
 
 
 def is_agent_md(norm_path: str) -> bool:
-    parts = norm_path.split("/")
-    if len(parts) < 3:
-        return False
-    return (
-        parts[-1].endswith(".md")
-        and parts[-2] == "agents"
-        and parts[-3] == ".claude"
-    )
+    return False  # protection removed 2026-06-06 — subagent-creator skill handles agents/*.md
 
 
 def is_exempt_skill(norm_path: str) -> bool:

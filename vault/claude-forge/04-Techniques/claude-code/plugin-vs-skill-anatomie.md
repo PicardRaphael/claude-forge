@@ -12,7 +12,7 @@ aliases:
   - "skill claude desktop zip"
 domaine: claude-code
 type: technique
-derniere-maj: 2026-06-04
+derniere-maj: 2026-06-06
 auteur: claude
 sources:
   - "https://code.claude.com/docs/en/plugins"
@@ -26,7 +26,6 @@ tags:
   - "#sujet/skills"
   - "#doctrine/2026"
 ---
-
 # Plugin vs Skill (compétence) — anatomie
 
 > Note canonique forge. Tranche : qu'est-ce qu'une compétence (skill), qu'est-ce qu'un plugin, ce qu'un plugin peut contenir, et la différence Claude Code vs Claude Desktop. Vérifié en source primaire Anthropic le 4 juin 2026.
@@ -86,6 +85,21 @@ Le manifeste lui-même est *techniquement* optionnel (Claude Code auto-découvre
 
 ## Claude Code vs Claude Desktop / Web — mécanismes différents
 
+> ⚠️ **Ne pas confondre deux « Desktop »** (vérifié source primaire Anthropic [code.claude.com/docs/en/memory](https://code.claude.com/docs/en/memory), 2026-06-06) :
+> - **Claude Desktop (app Chat/Cowork)** — mémoire = « Auto Memory » dans Settings > Features (cf [[claude-desktop-preferences]]).
+> - **Claude Code Desktop** (l'IDE/agent de code, version desktop de la CLI) — mémoire **strictement identique à la CLI** : Auto-Memory dans `~/.claude/projects/<repo>/memory/` (scopée par repo git, locale machine, **v2.1.59+ requis**), CLAUDE.md chargé pareil, `@import` fonctionnel. **Aucune différence de comportement mémoire CLI ↔ Code Desktop** n'est documentée. La doc ne distingue pas les deux.
+
+### Mémoire — ligne manquante de la table ci-dessus
+
+| Aspect | Claude Code (CLI) | Claude Code Desktop | Claude Desktop (Chat/Cowork) |
+|---|---|---|---|
+| Mémoire persistante | Auto-Memory `~/.claude/projects/<repo>/memory/` + CLAUDE.md + `@import` | **Identique CLI** (même chemin, même CLAUDE.md, même `@import`) | « Auto Memory » Settings > Features (≠ mécanisme fichier repo) |
+| Préférences perso projet | `CLAUDE.local.md` (gitignored) | `CLAUDE.local.md` (gitignored) | Profil / Project instructions (UI) |
+
+**Setup recommandé PO sur Claude Code Desktop** (cas Marie-Laure, 6 juin 2026) : Auto-Memory activée (vérifier via `/memory`, exige v2.1.59+) **+** `CLAUDE.local.md` gitignored pour les préférences perso, sur un repo partagé multi-personnes — la mémoire reste locale, zéro pollution croisée. Anticiper la boîte d'approbation des imports à la 1re session (si déclinée → imports désactivés silencieusement).
+> ⚠️ **Correction vérifiée 4 juin 2026 (source primaire Anthropic [support.claude.com/articles/12512180](https://support.claude.com/en/articles/12512180-use-skills-in-claude))** : sur **claude.ai web (Chat)**, l'upload `.zip` via Customize → Skills **n'accepte QUE des compétences (skills)**, PAS des plugins. Les plugins ne s'installent PAS par upload `.zip` sur le web — ils vivent dans le **directory Cowork** (install, lancé janvier 2026) et dans **Claude Code** (`/plugin` marketplace). La ligne « Upload .zip plugin » de la table ci-dessus est donc vraie pour les **skills**, fausse pour les **plugins** côté web. Conséquence distribution Neoteem : pour Claude Chat, distribuer les **compétences atomiques** (`dist/chat/*.zip`, SKILL.md à la racine) ; pour Claude Code, le **marketplace Bitbucket**. Le format plugin `.zip` (`dist/plugin/`) n'a d'usage ni sur Chat (refusé) ni vraiment sur Code (marketplace) → réservé à une install plugin locale rare. Pas de risque de doublon skill/plugin sur Chat : le plugin y est tout simplement refusé.
+
+
 | Aspect | Claude Code (CLI) | Claude Desktop / Web |
 |---|---|---|
 | Install skill/plugin | Directory-based (`~/.claude/skills/`, `/plugin`) ou `--plugin-dir` | **Upload `.zip`** via Settings UI (`claude.ai/directory`) |
@@ -122,6 +136,8 @@ Le setup PO (`spec` + `review-ticket`) = **un plugin** `po-lojii` (2 skills → 
 - Mémoire des PO : Auto-Memory locale par PC (`~/.claude/projects/<repo>/memory/`) par défaut, OU `memory/` versionné dans le repo si capitalisation équipe voulue (décision ouverte).
 
 ## Anti-patterns
+- ❌ **BOM UTF-8 en tête d'un `SKILL.md`** → casse le parsing du frontmatter YAML. Symptôme observé (PO Neoteem, 6 juin 2026) : « plugin validation failed » à l'upload Cowork, OU skill silencieusement non chargée (l'utilisateur tape `/spec`, rien ne s'active, Claude rédige « à la main » sans suivre les templates ni l'ADF). Toujours écrire les SKILL.md en **UTF-8 sans BOM** (PowerShell : `[System.IO.File]::WriteAllText($f, $c, (New-Object System.Text.UTF8Encoding($false)))`, jamais `Out-File`/`Set-Content` qui ajoutent un BOM). Vérifier : 3 premiers octets ≠ `239 187 191`.
+- ❌ **Vouloir « un plugin invoqué par `/spec` nu »** : impossible — un plugin force le préfixe `/<plugin>:<skill>`. Pour `/spec` sans préfixe → distribuer la **compétence individuelle** (zip `dist/chat/`, SKILL.md à la racine), uploadée via Customize → Skills. Bonus : pas de manifest → « plugin validation failed » ne peut pas se produire. Chemin fiable pour `/spec` nu + zéro risque de validation (cas PO Marie-Laure, 6 juin 2026).
 
 - ❌ Mettre un CLAUDE.md dans un plugin en croyant qu'il charge le contexte → ignoré (verbatim Anthropic)
 - ❌ Mettre `skills/` `agents/` `hooks/` DANS `.claude-plugin/` → seul `plugin.json` y va, le reste à la racine

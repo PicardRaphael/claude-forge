@@ -78,7 +78,7 @@ Si l'utilisateur confirme les fixes, deleguer aux specialistes :
 |---|---|
 | `CLAUDE.md` | `claudemd-optimizer` |
 | `.claude/skills/*/SKILL.md` | `skill-creator` |
-| `.claude/agents/*.md` | `agent-creator` |
+| `.claude/agents/*.md` | `subagent-creator` |
 | `.claude/rules/*.md` | Edit direct (pas de specialiste) |
 | Notes vault | Edit direct ou `/vault-audit` |
 

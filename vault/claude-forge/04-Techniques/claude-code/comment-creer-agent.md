@@ -210,6 +210,9 @@ Lister les rôles dev récurrents du repo. Chaque rôle distinct = candidat agen
 - Effort niveau (high défaut)
 
 ### Étape 3 — Déléguer à `agent-creator`
+
+> ⚠️ **Pivot 6 juin 2026** : `agent-creator` est désormais une **skill** nommée `subagent-creator` (`.claude/skills/subagent-creator/`). Invoquer via `Skill(subagent-creator)` depuis la session principale. Le hard block `delegate-guard.py` sur `agents/*.md` a été retiré — enforcement advisory. `cc-agents-ref` supprimée : la doctrine vit dans `subagent-creator` + vault [[comment-creer-agent]].
+
 Côté forge : agent `agent-creator` génère le `.md` conforme. Hook `delegate-guard.py` bloque l'édit direct.
 
 ### Étape 4 — Référencer skills dans le body

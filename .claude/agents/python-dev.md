@@ -62,7 +62,7 @@ Passer à la tâche suivante uniquement quand la tâche courante est verte.
 
 - Modifier des SKILL.md → deleguer a skill-creator
 - Modifier des CLAUDE.md → deleguer a claudemd-optimizer
-- Creer des agents → deleguer a agent-creator
+- Creer des agents → deleguer a subagent-creator
 
 ## Gotchas
 

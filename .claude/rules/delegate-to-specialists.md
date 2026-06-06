@@ -9,15 +9,15 @@ Ne JAMAIS editer directement les fichiers que des specialistes savent creer.
 | Action | Specialiste | BLOQUE PAR HOOK |
 |--------|-------------|-----------------|
 | Creer/modifier une skill (SKILL.md) | Skill `skill-creator` (Skill tool) | Non — advisory |
-| Creer/modifier un agent (.md dans agents/) | Agent `agent-creator` | Oui — exit 2 |
+| Creer/modifier un agent (.md dans agents/) | Skill `subagent-creator` (Skill tool) | Non — advisory |
 | Creer/modifier un hook | `hook-creator` | Non — mais rule s'applique |
 | Optimiser un CLAUDE.md | `claudemd-optimizer` | Oui — exit 2 |
 | Critiquer un livrable majeur | `devils-advocate` | Non — mais rule s'applique |
 | Evoluer/optimiser une skill | `skill-evolve` → skill `skill-creator` | Non — advisory |
 
-## Pivot 6 juin 2026 — skill-creator devient une skill
+## Pivot 6 juin 2026 — skill-creator + subagent-creator deviennent des skills
 
-`skill-creator` est maintenant une **skill** (`.claude/skills/skill-creator/`) invoquee par la session principale, non un agent. Le hard block delegate-guard sur `SKILL.md` a ete retire — enforcement advisory : la skill guide les best practices, rien ne bloque un edit direct.
+`skill-creator` et `subagent-creator` sont maintenant des **skills** invoquées par la session principale. Les hard blocks delegate-guard sur `SKILL.md` et `agents/*.md` ont été retirés — enforcement advisory : les skills guident les best practices, rien ne bloque un edit direct.
 
 ## Exceptions hook agents (delegate-guard.py)
 

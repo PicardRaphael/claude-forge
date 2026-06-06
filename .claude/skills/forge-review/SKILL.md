@@ -204,7 +204,7 @@ If previous reports exist, populate the Delta section. This is the primary value
 
 **Do not inline-rewrite components.** Flag with the correct delegation target:
 - SKILL.md rewrite: "EVOLVE -- delegate to skill-creator"
-- agents/*.md rewrite: "EVOLVE -- delegate to agent-creator"
+- agents/*.md rewrite: "EVOLVE -- delegate to subagent-creator"
 - CLAUDE.md rewrite: "EVOLVE -- delegate to claudemd-optimizer"
 
 **Forge-brain pre-check is mandatory for EVOLVE verdicts.** If forge-brain returns no evidence of a better technique, the label stays KEEP with a note.

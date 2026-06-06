@@ -11,7 +11,7 @@ disallowedTools: Write, Edit
 skills:
   - cc-advisor
   - cc-features-ref
-  - cc-agents-ref
+  - subagent-creator
   - cc-hooks-ref
   - cc-cowork-ref
   - cc-prompt-ref

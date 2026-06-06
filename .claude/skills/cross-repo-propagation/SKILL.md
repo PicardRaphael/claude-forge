@@ -23,7 +23,7 @@ S'assurer qu'une décision de naming, structure ou doctrine prise sur un repo es
 
 3. **Pour chaque repo concerné** :
    - Identifier le composant à modifier (agent, skill, rule, CLAUDE.md)
-   - Dispatcher agent-creator avec path absolu si agent/skill
+   - Dispatcher subagent-creator avec path absolu si agent/skill
    - Session principale pour modifications cross-repo (sub-agents bloqués write cross-repo)
 
 4. **Documenter la décision** dans le vault si elle a valeur canonique :

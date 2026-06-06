@@ -9,7 +9,7 @@ memory: project
 tools: Read, Glob, Grep, Bash, mcp__forge-brain__*
 disallowedTools: Write, Edit
 skills:
-  - cc-agents-ref
+  - subagent-creator
   - forge-brain
 ---
 

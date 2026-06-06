@@ -50,8 +50,8 @@ Un écart montant n'est JAMAIS formulé « corriger le composant » d'office : i
 
 Chaque écart porte une action exécutable par Raphaël, jamais auto-appliquée :
 - composant = skill → `déléguer à skill-creator : ...`
-- composant = agent → `déléguer à agent-creator : ...`
-- écart montant → `arbitrer puis dispatch vers vault (create_note/update) OU skill-creator/agent-creator`
+- composant = agent → `déléguer à subagent-creator : ...`
+- écart montant → `arbitrer puis dispatch vers vault (create_note/update) OU skill-creator/subagent-creator`
 
 ## Rétention
 

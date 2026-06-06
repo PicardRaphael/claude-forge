@@ -99,7 +99,7 @@ Détail complet : `references/state-schema.md`. En bref : clé composite lisible
 
 **Date via Bash, JAMAIS `Date.now` ni date en dur.** Le nom du livrable `alignment-report-<date>.md` vient de `resolve_date()` (commande OS `date`). Une date hallucinée par le LLM corromprait l'horodatage des runs et la rétention 30 j.
 
-**JAMAIS modifier un skill/agent directement.** Cette skill produit un rapport + des commandes de dispatch suggérées. La correction passe par `skill-creator`/`agent-creator` après validation Raphaël. `delegate-guard` bloque de toute façon l'édit direct d'un SKILL.md / agent.
+**JAMAIS modifier un skill/agent directement.** Cette skill produit un rapport + des commandes de dispatch suggérées. La correction passe par `skill-creator`/`subagent-creator` après validation Raphaël. `delegate-guard` bloque de toute façon l'édit direct d'un SKILL.md / agent.
 
 **Écart montant = « à arbitrer », pas « à corriger ».** Un composant peut être plus récent que le vault (skill mise à jour avant capitalisation). Ne jamais formuler d'office « corriger le composant » pour un écart montant — proposer l'arbitrage (mettre à jour le vault OU corriger le composant).
 

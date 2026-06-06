@@ -18,7 +18,7 @@ Quand un sub-agent doit appeler un outil MCP ou utiliser une skill :
 
 **NE PAS** compter sur :
 ```yaml
-skills: [forge-brain, cc-agents-ref]  # ignoré cross-repo et Agent Teams
+skills: [forge-brain, subagent-creator]  # ignoré cross-repo et Agent Teams
 ```
 
 **FAIRE** : mettre les appels MCP verbatim dans le body de l'agent ou du prompt de dispatch :
@@ -49,10 +49,10 @@ Agent(
 
 ### Pour modifier un agent dans un autre repo
 
-Dispatcher agent-creator avec path ABSOLU :
+Dispatcher subagent-creator avec path ABSOLU :
 ```python
 Agent(
-  subagent_type="agent-creator",
+  subagent_type="subagent-creator",
   prompt="Modifier C:/Users/raphael.picard_neote/Documents/ia_back/.claude/agents/xxx.md..."
 )
 ```
@@ -62,7 +62,7 @@ Le classifier bloque self-modification forge → forge, mais autorise cross-repo
 
 - **Double pénalité** : skills frontmatter ignorées ET dans Agent Teams teammates ET user-scope cross-repo. Toujours briefe in-body.
 - **Validation empirique obligatoire** : après création d'un agent user-scope, tester depuis un repo sans les skills.
-- **Self-modification forge bloquée** : agent-creator ne peut pas modifier ses propres agents forge. Workaround = édition manuelle ou Shift+Tab.
+- **Self-modification forge bloquée** : subagent-creator ne peut pas modifier ses propres agents forge. Workaround = édition manuelle ou Shift+Tab.
 - **JAMAIS `$ARGUMENTS` dans backticks shell** : substitution casse le quoting.
 
 ## Apprentissage

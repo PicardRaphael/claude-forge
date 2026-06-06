@@ -11,7 +11,7 @@ skills:
   - cc-news
   - cc-features-ref
   - cc-hooks-ref
-  - cc-agents-ref
+  - subagent-creator
   - forge-brain
   - obsidian-markdown
 ---

@@ -16,7 +16,7 @@ disallowedTools:
   - Write
   - Edit
 skills:
-  - cc-agents-ref
+  - subagent-creator
   - forge-brain
 ---
 

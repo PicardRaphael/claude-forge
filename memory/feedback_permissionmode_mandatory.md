@@ -7,12 +7,14 @@ metadata:
   originSessionId: 87f41a8b-2683-4db0-ad9a-28804d7ea186
 ---
 
-Tous les agents qui écrivent dans .claude/ (skill-creator, agent-creator, hook-creator, claudemd-optimizer, self-updater) DOIVENT avoir `permissionMode: acceptEdits` dans leur frontmatter.
+Tous les agents qui écrivent dans .claude/ DOIVENT avoir `permissionMode: acceptEdits` dans leur frontmatter.
 
-**Why:** Session 2026-05-21 — le skill-creator s'est fait bloquer par l'auto mode classifier en essayant de créer outcomes-test. Le mode: "auto" passé à l'invocation Agent n'a pas suffi. Le `permissionMode` dans le frontmatter de l'agent est ce qui détermine les permissions effectives.
+**Why:** Session 2026-05-21 — auto mode classifier bloque si permissionMode absent. Le `permissionMode` dans le frontmatter est ce qui détermine les permissions effectives, pas le mode passé à l'invocation.
 
 **How to apply:**
 - Agents qui écrivent : `permissionMode: acceptEdits`
 - Agents read-only (auditors, graders) : `permissionMode: plan`
-- Vérifier à chaque création d'agent que permissionMode est défini
+- Vérifier à chaque création d'agent (via skill `subagent-creator`) que permissionMode est défini
 - Si un agent se fait bloquer → vérifier permissionMode en premier
+
+> Note 6 juin 2026 : skill-creator et agent-creator sont devenus des skills (subagent-creator). La règle permissionMode s'applique toujours à TOUS les agents .md créés.

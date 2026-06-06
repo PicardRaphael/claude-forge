@@ -33,7 +33,7 @@ Checklist de verification empirique post-dispatch. Les sub-agents retournent "do
 | Agent            | Verifier |
 |-----------------|---------|
 | skill-creator    | ls .claude/skills/<nom>/SKILL.md + wc -l > 20 |
-| agent-creator    | ls .claude/agents/<nom>.md + frontmatter complet |
+| subagent-creator    | ls .claude/agents/<nom>.md + frontmatter complet |
 | hook-creator     | ls .claude/hooks/<nom>.py + grep exit 2 |
 | claudemd-optimizer | wc -l CLAUDE.md + diff avant/apres |
 | tout agent       | git diff --stat pour confirmer fichiers touches |

@@ -116,6 +116,8 @@
 - [raphael-picard-full-profile](user_raphael_profile.md) — Profil holistique : Lead IA Neoteem, 36 ans, parcours atypique, gamer, vision expert IA reconnu
 
 ## Reference
+- [bom-skillmd-casse-frontmatter](feedback_bom_skillmd_casse_frontmatter.md) — BOM UTF-8 en tête de SKILL.md (PowerShell Out-File) casse le frontmatter → "plugin validation failed" Cowork ou skill non chargée. Écrire UTF-8 sans BOM, vérifier octets ≠ 239 187 191. Cf [[plugin-vs-skill-anatomie]]
+- [jira-adf-rendu-mcp](feedback_jira_adf_rendu_mcp.md) — Rendu Jira (titres colorés+emoji) = ADF via MCP contentFormat:adf. Wiki markup h2. cassé, markdown sans couleur. read-path ≠ write-path. Cf vault [[jira-rendu-adf-mcp-atlassian]]
 - [pdf-chrome-headless-charte](reference_pdf_chrome_headless_charte.md) — Générer PDF pro via Chrome headless (--no-pdf-header-footer) + Poppler + charte Neoteem. Gotchas pages blanches/tables/flag en-têtes
 - [enableallprojectmcp-couvre-tool-level](reference_enableallprojectmcp_couvre_tool_level.md) — enableAllProjectMcpServers:true + serveur dans .mcp.json auto-approuve les outils MCP au niveau TOOL sans prompt. Lister mcp__server__tool dans permissions.allow = redondant. Vérifié empiriquement (retrait list_notes → appel OK sans prompt, 27 mai). Distinct de mcp-wildcard (frontmatter agent/skill).
 - [seuils-canoniques-agents-mythes-2026-05-22](reference_seuils_canoniques_agents_mythes.md) — Seuls CLAUDE.md<200L et SKILL.md<500L canoniques. Le reste = mythes

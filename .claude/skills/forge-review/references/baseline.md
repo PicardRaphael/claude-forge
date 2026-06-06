@@ -20,7 +20,7 @@ Last updated: 2026-05-08
 | Context recap | `/recap` | Session context snapshot |
 | Evolution proposals | `/evolve` | External project product evolution |
 | CC skills reference | `skill-creator` | Skills creation/optimization/audit |
-| CC agents reference | `cc-agents-ref` | Agents format/patterns |
+| CC agents reference | `subagent-creator` | Agents format/patterns |
 | CC hooks reference | `cc-hooks-ref` | Hooks format/patterns |
 | Forge brain query | `forge-brain` | Vault CLI wrapper |
 
@@ -31,7 +31,7 @@ Last updated: 2026-05-08
 | Item | Expected | Rationale |
 |------|----------|-----------|
 | Skill creator | `skill-creator` | Enforced by delegate-guard hook |
-| Agent creator | `agent-creator` | Enforced by delegate-guard hook |
+| Agent creator | `subagent-creator` | Enforced by delegate-guard hook |
 | Hook creator | `hook-creator` | Standardize hook authoring |
 | CLAUDE.md optimizer | `claudemd-optimizer` | Enforced by delegate-guard hook |
 | Repo inspector | `repo-inspector` | Repo analyze/audit/scan (modes) — fusion de project-analyzer/auditor/codebase-scanner |
