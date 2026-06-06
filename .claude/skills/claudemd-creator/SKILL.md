@@ -7,8 +7,8 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__*
 
 # claudemd-creator
 
-Crée et optimise des CLAUDE.md selon la doctrine forge + référence Anthropic officielle.
-Couvre : décision → audit → optimisation → création → livraison.
+Crée et optimise des CLAUDE.md ET des rules `.claude/rules/*.md` selon la doctrine forge + référence Anthropic officielle.
+Couvre : décision → audit → optimisation → création → livraison. CLAUDE.md et rules = même univers (contexte chargé au démarrage, probabiliste).
 
 Si besoin du détail complet de la doctrine : `mcp__forge-brain__read_note("comment-ecrire-claudemd")`.
 
@@ -17,7 +17,7 @@ Si besoin du détail complet de la doctrine : `mcp__forge-brain__read_note("comm
 **L'audit est TOUJOURS profond. Jamais de raccourci, jamais de mode léger.** Que ce soit une création, une optimisation ou un audit — création triviale incluse — ces 3 étapes sont un PASSAGE OBLIGÉ avant de produire ou modifier quoi que ce soit :
 
 1. **Lire les canoniques vault EN ENTIER** via `mcp__forge-brain__read_note("comment-ecrire-claudemd")` — SANS `max_lines`. `search_brain` seul (extraits ~10 lignes) = INSUFFISANT. Bloquant : ne rien rédiger avant.
-2. **Passer SYSTÉMATIQUEMENT les 4 dimensions de `references/checklist-claudemd-parfait.md`** — toutes, dans l'ordre, rien zappé. Chaque dimension cochée avec evidence (fichier:ligne + écart mesurable). C'est un GATE, pas une option de fin de fichier.
+2. **Passer SYSTÉMATIQUEMENT les 4 dimensions de `references/checklist-claudemd-parfait.md`** — toutes, dans l'ordre, rien zappé. Chaque dimension cochée avec evidence (fichier:ligne + écart mesurable). C'est un GATE, pas une option de fin de fichier. **Si le sujet est une RULE `.claude/rules/*.md` (pas un CLAUDE.md), passer les 4 dimensions de `references/checklist-rule-parfaite.md` à la place** — cette skill gère le couple CLAUDE.md ↔ rules (même univers : contexte chargé au démarrage, probabiliste).
 2bis. **VÉRIFIER L'ADÉQUATION DU TYPE DE COMPOSANT (création ET audit — toujours).** Un CLAUDE.md doit-il rester un CLAUDE.md ? Signaler — sans transformer d'office — si le mécanisme ne peut PAS tenir la promesse du composant :
    - Un CLAUDE.md est du contexte PROBABILISTE (~80% compliance). S'il contient un comportement à GARANTIR (« toujours », « jamais ») → candidate HOOK (seul déterministe).
    - S'il contient un workflow multi-étapes réutilisable → candidate SKILL. Si c'est du détail par-sujet → candidate RULE .claude/rules/.
@@ -255,6 +255,7 @@ Après chaque création ou optimisation : noter ici les patterns efficaces et go
 
 ## Références
 
-- `references/checklist-claudemd-parfait.md` — 4 dimensions complètes
+- `references/checklist-claudemd-parfait.md` — 4 dimensions complètes (CLAUDE.md)
+- `references/checklist-rule-parfaite.md` — 4 dimensions complètes (rules `.claude/rules/`)
 - `mcp__forge-brain__read_note("comment-ecrire-claudemd")` — doctrine forge canonique complète
 - `mcp__forge-brain__read_note("raisonnement-22mai-doctrine-vs-enforcement")` — pourquoi workflow hors CLAUDE.md

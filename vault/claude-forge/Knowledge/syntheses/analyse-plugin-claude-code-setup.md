@@ -8,7 +8,7 @@ aliases:
   - "isabella he plugin"
   - "analyse plugin officiel"
 type: knowledge
-derniere-maj: 2026-05-26
+derniere-maj: 2026-06-06
 auteur: claude
 sources:
   - "~/.claude/plugins/cache/claude-plugins-official/claude-code-setup/1.0.0/"
@@ -55,7 +55,7 @@ Plugin officiel Anthropic `claude-code-setup` v1.0.0, auteur Isabella He. Contie
 
 ### Non intégré (par choix)
 - Templates subagents `api-documenter` et `migration-helper` → contradisent nos règles (no-doc-agent, pas d'orchestrateur)
-- Hooks patterns détaillés par framework → déjà implicite dans `cc-hooks-ref`, Anthropic en cache local si besoin
+- Hooks patterns détaillés par framework → déjà couverts par [[hook-creator]], Anthropic en cache local si besoin
 
 ## Liens
 

@@ -8,29 +8,28 @@ derniere-maj: 2026-06-06
 auteur: claude
 tags: ["#type/context", "#meta/working-memory"]
 ---
+
 ## Phase actuelle
-Refonte du CLAUDE.md de Marie-Laure (PO Neoteem) livrée dans `Downloads`. CLAUDE.md recentré 100% rôle PO : suppression de toute la mécanique dev Go (build/test/linter/docker/archi/code style), description réécrite (espace de travail PO, pas monorepo Go), skills `spec`/`maquette` rendus obligatoires, Jira passé en MCP-first, section mémoire + plugins brain ajoutés, Role Convention PostgreSQL conservée verbatim.
+Audit + optimisation des skills forge — vague 1 (11 skills) terminée, vague 2 à planifier si nécessaire.
 
 ## Dernière session (2026-06-06)
 ### Décisions prises
-- **CLAUDE.md PO ≠ CLAUDE.md dev** : pour une utilisatrice non-dev, virer tout le dev (test "would removing cause mistakes?" appliqué) et recentrer sur son rôle réel (tickets, specs, maquettes).
-- **Routing skills obligatoire via CLAUDE.md** : `spec` pour tout ticket, `maquette` pour toute maquette — formulation "TOUJOURS utiliser le skill X". Application directe de [[claude-desktop-preferences]] (routing par skill pour non-dev).
-- **Jira MCP-first** : MCP d'abord (Atlassian officiel CRUD + MCP NEOTEEM interne JSM, complémentaires), acli en fallback uniquement.
-- **5 lignes Karpathy adaptées** (pas verbatim) car CLAUDE.md hors gouvernance forge + utilisatrice non-dev.
-- **Mémoire Marie-Laure = Auto-Memory native + CLAUDE.local.md** (repo partagé → jamais de mémoire versionnée pour éviter la pollution croisée).
+- Skills externes (kepano) = intouchables absolument, même pour la description. Déclenchement via .skill-triggers.json uniquement.
+- cc-hooks-ref supprimé — absorbé par hook-creator (nettoyage complet : dossier + skill-triggers + note vault).
+- argument-hint = champ officiel Anthropic, ajouté à la liste fermée checklist-skill-parfaite.md.
+- forge-brain : wildcard mcp__forge-brain__* remplace liste de 22 outils.
 
 ### En cours
-- Rien d'inachevé. Livrable remis. Capitalisation vault faite au fil de l'eau (tour précédent : [[plugin-vs-skill-anatomie]] + CHANGELOG 2026-06-06 sur mémoire Code Desktop = CLI).
+- Rien de bloqué — toutes les 11 skills auditées, fixes appliqués, commit pushé (f498481).
 
 ### Prochaines étapes
-- 2 points en attente de validation Raphael : (1) Projects Structure mise en générique — à réintégrer si le dossier de Marie-Laure contient réellement le repo `ws` ; (2) nom exact du skill `maquette` à confirmer.
+- Auditer les skills de la liste "déjà à jour" pour confirmer qu'elles le sont vraiment (skill-creator, subagent-creator, hook-creator, claudemd-creator, responsable-ia, cc-news, forge-review, skill-evolve, align-vault-skills, pivot-check, auditor-empirical-verify, configure-claude-desktop).
+- Ou considérer le chantier terminé et passer à autre chose.
 
 ## Fils ouverts
-- Tri `reference_`/`project_` mémoire → vault si besoin de descendre le corpus (non urgent, décision de fond).
-- V2 `align-vault-skills` si faux positifs récurrents (2e agent validateur) — toujours ouvert.
+- skill-evolve description a changé dans le system-reminder (nouveau wording vu en session) — vérifier si c'est la version à jour ou un drift.
+- Checklist `checklist-skill-parfaite.md` mise à jour pour argument-hint — propager la correction à ia_back/neo_ia si ces repos ont leur propre copie.
 
 ## Liens
 [[2-Casquettes/Raphael-Picard|Raphael Picard]]
 [[1-Projets/Claude-Forge/Claude-Forge|Claude-Forge]]
-[[plugin-vs-skill-anatomie]]
-[[claude-desktop-preferences]]

@@ -9,6 +9,8 @@
 - [analyse-repo-includes-code-scan](feedback_analyse_repo_includes_code.md) — Analyse repo / config CC = méthode 6 étapes (archi + code réel) + audit .claude/
 - [allowed-tools-pas-allowlist](feedback_allowed_tools_pas_allowlist.md) — `allowed-tools` skill = pré-approbation, PAS allowlist restrictive (tous outils restent callable). Source Anthropic. Un faux P0 d'agent auditeur reposait dessus
 - [argument-hint-champ-officiel](feedback_argument_hint_champ_officiel.md) — `argument-hint` = champ frontmatter OFFICIEL Anthropic (slash commands). Ne jamais le signaler comme erreur d'audit. Checklist locale mise à jour.
+- [skills-externes-intouchables](feedback_skills_externes_intouchables.md) — Skills externes (kepano) = NE JAMAIS modifier le SKILL.md. Déclenchement = .skill-triggers.json uniquement.
+- [allowed-tools-verif-empirique](feedback_allowed_tools_verif_empirique.md) — Vérifier allowed-tools par grep du body avant de déclarer la liste complète.
 - [anti-reentrance-sub-agents](feedback_anti_reentrance_sub_agents.md) — Sub-agent NE PEUT PAS invoquer Agent. Pattern STOP + ESCALADE REQUISE 5 champs
 - [arxiv-url-swap-papers-similaires](_archive/2026-06/feedback_arxiv_url_swap_papers_similaires.md) — Archivé : absorbé par skill `arxiv-verification` (Check 2). Cf `.claude/skills/arxiv-verification/SKILL.md`
 - [audit-qualite-design-transverse-mandatory](feedback_audit_qualite_design_transverse.md) — Audit `.claude/` = technique + qualité-design transverse vs canoniques
