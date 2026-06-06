@@ -10,7 +10,7 @@ Ne JAMAIS editer directement les fichiers que des specialistes savent creer.
 |--------|-------------|-----------------|
 | Creer/modifier une skill (SKILL.md) | Skill `skill-creator` (Skill tool) | Non — advisory |
 | Creer/modifier un agent (.md dans agents/) | Skill `subagent-creator` (Skill tool) | Non — advisory |
-| Creer/modifier un hook | `hook-creator` | Non — mais rule s'applique |
+| Creer/modifier un hook | Skill `hook-creator` (Skill tool) | Non — advisory |
 | Optimiser un CLAUDE.md | `claudemd-optimizer` | Oui — exit 2 |
 | Critiquer un livrable majeur | `devils-advocate` | Non — mais rule s'applique |
 | Evoluer/optimiser une skill | `skill-evolve` → skill `skill-creator` | Non — advisory |

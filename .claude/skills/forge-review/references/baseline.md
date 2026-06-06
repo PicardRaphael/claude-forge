@@ -21,7 +21,7 @@ Last updated: 2026-05-08
 | Evolution proposals | `/evolve` | External project product evolution |
 | CC skills reference | `skill-creator` | Skills creation/optimization/audit |
 | CC agents reference | `subagent-creator` | Agents format/patterns |
-| CC hooks reference | `cc-hooks-ref` | Hooks format/patterns |
+| CC hooks reference | `hook-creator` | Hooks format/patterns |
 | Forge brain query | `forge-brain` | Vault CLI wrapper |
 
 ---

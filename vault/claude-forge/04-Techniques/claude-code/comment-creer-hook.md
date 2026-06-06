@@ -1,3 +1,7 @@
+---
+derniere-maj: 2026-06-06
+---
+
 ﻿---
 titre: "Comment créer un hook Claude Code parfait"
 resume: "Note canonique pour créer un hook Claude Code — 29 events officiels (docs Anthropic), timeouts par type (600s/30s/60s), exit codes 0/1/2, hookSpecificOutput, doctrine 'If a rule must hold every time, make it a hook'. Lint/security/scope OUI, workflow NON (doctrine 22 mai)."
@@ -227,6 +231,9 @@ Réveille la session à un timing futur. Utile pour scheduling, polling externe.
 
 ## WORKFLOW — Création étape par étape
 
+> ⚠️ **Pivot 6 juin 2026** : `hook-creator` est désormais une **skill** (`.claude/skills/hook-creator/`). Invoquer via `Skill(hook-creator)` depuis la session principale. L'agent `hook-creator` est supprimé. `cc-hooks-ref` reste comme référence technique (29 events, formats JSON) — la skill `hook-creator` y accède via MCP vault.
+
+
 ### Étape 1 — Identifier la règle critique
 - La règle DOIT-elle tenir 100% du temps ? Si non → CLAUDE.md ou skill
 - La règle est-elle **déterministe** (vérifiable mécaniquement) ? Si non → impossible en hook
@@ -441,6 +448,136 @@ Source canonique du catalogue : cette section. Pour le détail d'implémentation
 - Anti-rationalization pattern (inédit)
 
 ---
+
+## ADAPTATION OS + STACK — RÈGLE D'OR (source: research LLM juin 2026)
+
+Un hook exécute du **code réel** — il est OS-spécifique ET stack-spécifique. **DEMANDER avant de générer, jamais supposer.**
+
+### Questions obligatoires avant tout hook
+
+1. **OS** : Windows / macOS / Linux / cross-machine (repo partagé plusieurs OS) ?
+2. **Stack** : Python / TypeScript-JS / Go / Rust / autre ?
+
+### Matrice OS
+
+| | Windows | macOS / Linux | Cross-machine |
+|---|---|---|---|
+| **Interpréteur Python** | `py "..."` (launcher) | `python3 "..."` | wrapper qui détecte l'OS |
+| **Shebang** | ignoré | `#!/usr/bin/env python3` + `chmod +x` | shebang + appel explicite |
+| **Chemins** | jamais `C:\...` (Bash mange `\`) | `/` natif | toujours `${CLAUDE_PROJECT_DIR}` + slashs |
+| **Notification audio** | `rundll32 user32.dll,MessageBeep` | `afplay` / `paplay` | conditionner sur l'OS |
+| **`shell:` du hook** | `powershell` possible | `bash` | `bash` (défaut) |
+
+### Matrice STACK — lint / test / format
+
+| Stack | Lint | Format | Test | Extensions |
+|---|---|---|---|---|
+| **Python** | `ruff` / `pyflakes` | `ruff format` / `black` | `pytest` | `.py` |
+| **TypeScript / JS** | `eslint` | `prettier` | `vitest` / `jest` | `.ts .tsx .js` |
+| **Go** | `go vet` | `gofmt` | `go test` | `.go` |
+| **Rust** | `clippy` | `rustfmt` | `cargo test` | `.rs` |
+
+### Règles cross-machine universelles
+
+```python
+# Résolution chemin via __file__, jamais en dur
+_HOOK_DIR = os.path.dirname(os.path.abspath(__file__))
+_CLAUDE_DIR = os.path.dirname(_HOOK_DIR)
+```
+
+- Toujours `${CLAUDE_PROJECT_DIR}` + slashs, jamais de chemin absolu OS-spécifique
+- **Fail-open** : toute exception → `sys.exit(0)` silencieux (sauf hook sécu où fail dur est voulu)
+- `shutil.which("ruff")` avant d'appeler un outil — skip proprement s'il manque
+- Pour cross-machine : wrapper Python qui détecte l'OS plutôt que commande shell dans settings.json
+
+---
+
+## PATTERNS — 5 usages types
+
+### Pattern A — Sécurité (PreToolUse, exit 2)
+```python
+#!/usr/bin/env python3
+import json, sys, re
+data = json.load(sys.stdin)
+cmd = data.get("tool_input", {}).get("command", "")
+DANGER = [r"\brm\s+-rf\b", r"git\s+push.*--force", r"git\s+branch\s+-D\b"]
+for pat in DANGER:
+    if re.search(pat, cmd):
+        print(f"BLOQUÉ : pattern destructeur. Demande explicitement.", file=sys.stderr)
+        sys.exit(2)   # exit 2 = blocage RÉEL
+sys.exit(0)
+```
+
+### Pattern B — Qualité / lint (PostToolUse Write|Edit|MultiEdit)
+PostToolUse ne peut pas annuler (action déjà faite) — il renvoie un feedback que Claude corrige.
+Toujours le triplet `Write|Edit|MultiEdit` dans le matcher (sans MultiEdit = trou architectural).
+
+### Pattern C — Injection de contexte (UserPromptSubmit → stdout → contexte)
+```python
+#!/usr/bin/env python3
+import sys
+print("RAPPEL : si une skill couvre ce sujet, invoque-la avant d'agir.")
+sys.exit(0)  # stdout ajouté au contexte sur UserPromptSubmit
+```
+
+### Pattern D — Vérification subagent (SubagentStop, exit 0 + JSON)
+```python
+#!/usr/bin/env python3
+import json, sys, os
+d = json.load(sys.stdin)
+if d.get("stop_hook_active"): sys.exit(0)  # anti-boucle OBLIGATOIRE
+tp = d.get("agent_transcript_path", "")
+try:
+    with open(os.path.expanduser(tp)) as f:
+        if any('"name": "Skill"' in l for l in f):
+            sys.exit(0)
+    print(json.dumps({"decision":"block","reason":"Invoque la skill requise puis termine."}))
+    sys.exit(0)  # exit 0 + JSON (pas exit 2 — sinon JSON ignoré)
+except Exception:
+    sys.exit(0)
+```
+
+### Pattern E — Survie compaction (SessionStart compact → additionalContext)
+Réinjecter le contexte critique après compaction via `additionalContext` dans hookSpecificOutput.
+
+---
+
+## CHECKLIST HOOK PARFAIT — 4 dimensions
+
+### 0. Décision — Faut-il vraiment un hook ?
+
+- [ ] La règle doit tenir **à 100% mécaniquement** ? → hook. Sinon → rule/CLAUDE.md (advisory)
+- [ ] C'est du lint / sécurité / scope / format / logging / injection de rappel ? → hook OK
+- [ ] C'est du workflow agentique (architect-first, TDD, commit gates, markers TTL) ? → STOP, utiliser agent/skill à la place
+- [ ] Les hooks ne fonctionnent **PAS** dans Desktop app / Cowork → confirmer que la cible est bien le CLI
+
+### 1. Fonctionnement
+
+- [ ] Bon événement : PreToolUse (bloquer), PostToolUse (réagir), Stop/SubagentStop (forcer)
+- [ ] **exit 2 pour bloquer** (PreToolUse) — jamais exit 1 (ne bloque JAMAIS, bug n°1)
+- [ ] **exit 0 + JSON `{"decision":"block","reason":"..."}` pour Stop/SubagentStop** (garde le reason riche)
+- [ ] `stop_hook_active` vérifié sur Stop/SubagentStop (anti-boucle infinie — cap natif 8 blocages)
+- [ ] Choix UNIQUE : code retour OU JSON, pas les deux
+- [ ] Triplet matcher `Write|Edit|MultiEdit` si PostToolUse écriture (sans MultiEdit = trou)
+
+### 2. Adaptation OS & stack (demander d'abord, jamais supposer)
+
+- [ ] OS demandé et confirmé (Windows / mac / Linux / cross-machine)
+- [ ] Stack demandée (Python / TS / Go / Rust…)
+- [ ] Interpréteur adapté (`py` Windows, `python3` mac/linux)
+- [ ] Outils lint/test de la BONNE stack (`ruff`/`pytest` vs `eslint`/`tsc`)
+- [ ] `${CLAUDE_PROJECT_DIR}` + slashs — jamais `C:\...`
+- [ ] Chemins via `__file__` dans le script Python
+- [ ] `shutil.which()` avant appel outil — fail-open si absent
+- [ ] Fail-open (`sys.exit(0)` sur exception) — sauf hook sécu
+
+### 3. Performance & robustesse
+
+- [ ] Rapide (< 500 ms — gate chaque appel d'outil)
+- [ ] `timeout` défini dans settings.json
+- [ ] Testé en déclenchant réellement le pattern (bloqué, pas juste warné)
+- [ ] Enregistrement vérifié via `/hooks`
+- [ ] Si distribué en plugin et Stop hook KO → installer depuis `.claude/hooks/` (bug #10412)
 
 ## GOTCHAS — Pièges observés
 

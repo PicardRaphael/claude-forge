@@ -64,7 +64,7 @@ Ignorer les occurrences dans :
 
 Pour chaque occurrence hors exclusions :
 
-  Fichier : .claude/skills/cc-hooks-ref/SKILL.md:42
+  Fichier : .claude/skills/hook-creator/SKILL.md:42
   Terme obsolete : "max (effort level)"
   Suggestion : remplacer par "effort: high (max deprecie v2.1.91)"
 

@@ -12,7 +12,7 @@ skills:
   - cc-advisor
   - cc-features-ref
   - subagent-creator
-  - cc-hooks-ref
+  - hook-creator
   - cc-cowork-ref
   - cc-prompt-ref
   - cc-news
