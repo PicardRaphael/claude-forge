@@ -9,14 +9,13 @@ aliases:
   - "palette agents"
   - "color standard agents"
 type: best-practice
-derniere-maj: 2026-05-24
+derniere-maj: 2026-06-06
 auteur: claude
 tags:
   - "#type/best-practice"
   - "#domaine/claude-code"
   - "#domaine/agents"
 ---
-
 # Convention couleurs agents Claude Code
 
 Standard appliqué sur tous les repos Neoteem (claude-forge, ia_back, neo_ia).
@@ -26,6 +25,9 @@ Standard appliqué sur tous les repos Neoteem (claude-forge, ia_back, neo_ia).
 **Même rôle = même couleur sur TOUS les repos.** Un agent `architect` est toujours bleu, qu'il soit dans ia_back ou neo_ia.
 
 ## Palette par catégorie
+
+> ⚠️ **Pivot 6 juin 2026** — Tableau mis à jour : python-dev → code-dev, claudemd-optimizer → claudemd-creator, agent-creator → subagent-creator. Les 3 auditeurs (boris/ecc/will) sont absorbés dans repo-inspector.
+
 
 | Couleur | Catégorie | Exemples |
 |---------|-----------|----------|

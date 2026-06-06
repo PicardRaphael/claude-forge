@@ -7,13 +7,12 @@ aliases:
   - low medium high xhigh max
   - effort recommandation officielle
 resume: "Doctrine officielle Anthropic Opus 4.7 (2026) — xhigh = default Claude Code tous plans. Scale low→medium→high→xhigh→max. xhigh 71% @ 100k vs max 74.5% @ 200k. Trivial = medium/low."
-derniere-maj: 2026-05-26
+derniere-maj: 2026-06-06
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
   - "#statut/canonique"
 ---
-
 # Effort Opus 4.7 — doctrine officielle Anthropic 2026
 
 ## Default = xhigh
@@ -78,6 +77,21 @@ Remplace l'ancien pivot 22 mai ("high partout, xhigh réservé 3 rôles") par :
 | Workers triviaux | **medium** |
 
 ### Anciens fichiers à mettre à jour
+
+> ⚠️ **Mis à jour 6 juin 2026** — Tableau effort révisé après pivot agents → skills :
+
+| Composant forge | Effort recommandé |
+|---|---|
+| Skills créatrices (skill-creator, subagent-creator, hook-creator, claudemd-creator) | **high** (thread principal, pas agent Opus) |
+| repo-inspector (audit/analyze/scan) | **xhigh** |
+| devils-advocate | **xhigh** |
+| outcomes-grader | **high** |
+| code-dev | **high** |
+| self-updater | **high** |
+| responsable-ia (skill) | **xhigh** ou `max` ponctuel |
+
+python-dev → code-dev. agent-creator / hook-creator / claudemd-optimizer → skills (pas d'effort frontmatter agent).
+
 
 - `CLAUDE.md` forge (ligne effort)
 - `feedback_opus47_workflow` mémoire

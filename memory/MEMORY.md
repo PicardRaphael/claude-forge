@@ -144,7 +144,7 @@
 - [techniques-cheatsheet](reference_techniques_cheatsheet.md) — Cheat sheet : meilleure technique par besoin
 - [plugin-cache-bug](reference_plugin_cache_bug.md) — Bug cache plugin CC, workaround = bumper version
 - [plugin-structure-cowork](reference_plugin_structure.md) — Plugin = .claude-plugin/plugin.json + skills/. Skill seule ≠ plugin
-- [python-dev-agent](reference_python_dev_agent.md) — Agent python-dev + skill python-ref, 4 modes, TDD
+- [code-dev-agent](reference_python_dev_agent.md) — Agent code-dev (remplace python-dev) : multi-stack, hook PostToolUse code-lint-dispatch. Pattern TDD + 4 modes conservé
 - [vibe-coding-setup-pattern](reference_vibe_coding_setup.md) — Pattern : /go, /recap, journalier.md, RECAP.md, shared-learnings
 - [boris-thariq-bestpractices](reference_boris_thariq_bestpractices.md) — Best practices Boris+Thariq+Anthropic : agents, skills, rules, CLAUDE.md
 - [agentic-engineering-karpathy](reference_agentic_engineering.md) — Karpathy Sequoia : Software 3.0, vibe coding vs agentic engineering

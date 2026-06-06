@@ -1,15 +1,18 @@
 ---
-name: python-dev-agent
-description: Agent python-dev generique dans forge — 4 modes (plan, sans plan, debug, refactoring), skill python-ref
+name: code-dev-agent
+description: Agent code-dev multi-stack dans forge (remplace python-dev) — 4 modes, hook code-lint-dispatch PostToolUse, TDD, skill python-ref
 type: reference
 originSessionId: 0189dcca-363c-4f81-ae4e-e4860a4bfc24
 ---
-Agent `python-dev` cree dans claude-forge pour tout dev Python.
 
-- Fichier : `.claude/agents/python-dev.md`
-- Skill associee : `.claude/skills/python-ref/`
+> ⚠️ **Mis à jour 6 juin 2026** — `python-dev` remplacé par `code-dev` (multi-stack).
+
+Agent `code-dev` dans claude-forge pour tout développement.
+
+- Fichier : `.claude/agents/code-dev.md`
+- Skill associée : `.claude/skills/python-ref/` (Python) + autres stacks
 - 4 modes : avec plan, sans plan, debug, refactoring
-- TDD obligatoire, pytest, type hints, dataclasses
-- Hook py_compile sur chaque Write/Edit
-- Delegue aux specialistes forge (skill-creator, agent-creator, claudemd-optimizer)
-- ATTENTION : `python-dev` est un agent custom, pas un subagent_type. Il ne peut pas etre passe en `subagent_type` de l'outil Agent. Utiliser `general-purpose` avec le contexte Python dans le prompt.
+- TDD obligatoire, pytest (Python), type hints, dataclasses
+- Hook PostToolUse `code-lint-dispatch.py` (à créer via hook-creator) — dispatche ruff/eslint/gofmt/clippy selon la stack
+- Délègue aux spécialistes forge (skill-creator, subagent-creator, claudemd-creator)
+- ATTENTION : `code-dev` est un agent custom, pas un subagent_type natif. Utiliser `general-purpose` avec contexte dans le prompt si invocation via subagent_type.

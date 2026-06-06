@@ -8,7 +8,7 @@ aliases:
   - "index claude code"
   - "CC features map"
 type: index
-derniere-maj: 2026-05-24
+derniere-maj: 2026-06-06
 auteur: claude
 sources: []
 tags:
@@ -64,6 +64,21 @@ Auto Mode · Effort Levels · Worktrees · Skills System · Hooks System · Agen
 - [[mcp-vs-cli-vs-skills]] — Quand MCP, quand CLI, quand skill : matrice de décision
 
 ## Agents forge
+
+> ⚠️ **Pivot 6 juin 2026** — Architecture agents mise à jour. Créateurs devenus des **skills** (thread principal). Auditeurs absorbés dans `repo-inspector`.
+
+Les agents actifs dans `.claude/agents/` :
+- `repo-inspector` — Analyse / audit / scan repos (modes audit/analyze/scan). Intègre les 3 lentilles doctrinales (Discipline Boris / Minimalisme Will / Couverture ECC). (purple)
+- `code-dev` — Développement multi-stack, remplace python-dev (green)
+- `devils-advocate` — Critique livrables majeurs (red)
+- `outcomes-grader` — Évaluation livrables (yellow)
+- `self-updater` — Maintenance skills de référence (cyan)
+
+Skills créatrices (thread principal — plus des agents) :
+- `skill-creator`, `subagent-creator`, `hook-creator`, `claudemd-creator`, `responsable-ia`
+
+Agents supprimés : python-dev → code-dev ; boris-auditor + ecc-auditor + will-auditor → repo-inspector ; agent-creator + hook-creator + skill-creator + claudemd-optimizer → skills.
+
 
 Les agents vivent dans `.claude/agents/` (hors vault, gérés directement par Claude Code) :
 - `agent-creator` — Crée/modifie les agents Claude Code (pink)

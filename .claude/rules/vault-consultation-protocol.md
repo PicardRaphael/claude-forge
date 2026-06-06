@@ -29,7 +29,7 @@ Quand tu crées ou modifies des notes dans le vault, utiliser la skill **obsidia
 |---|---|
 | Créateurs (skill/agent/hook/claudemd) | Systématique au démarrage — best practices vivent dans le vault |
 | Analyseurs (repo-inspector tous modes) | Systématique — référentiel pour juger |
-| Exécutants (python-dev, self-updater) | Si sujet nouveau ou doute sur prior art |
+| Exécutants (code-dev, self-updater) | Si sujet nouveau ou doute sur prior art |
 | devils-advocate | Voir son propre prompt (conditionnel ciblé, max 2 requêtes) |
 
 ## Anti-patterns

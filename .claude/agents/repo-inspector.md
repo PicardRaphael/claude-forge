@@ -75,7 +75,7 @@ Base de proposition disponible même sans MCP. À affiner avec le brief vault.
 | **Monorepo (Turborepo/workspaces)** | code-dev par package | scaffolding cross-package | PreToolUse scope-guard (cd hors-package) |
 | **Go** | code-dev (go) | refs domaine | PostToolUse `gofmt`+`go vet`+`go test` |
 | **Rust** | code-dev (rs) | refs domaine | PostToolUse `clippy`+`cargo check` |
-| **Tous** | repo-inspector, devils-advocate | skill-creator/subsubagent-creator/hook-creator/claudemd-creator (thread principal) | exit 2 jamais exit 1 ; lint/sécu/scope only, jamais workflow agentique |
+| **Tous** | repo-inspector, devils-advocate | skill-creator/subagent-creator/hook-creator/claudemd-creator (thread principal) | exit 2 jamais exit 1 ; lint/sécu/scope only, jamais workflow agentique |
 
 **Règle OS (à confirmer en question)** : Windows → `py` ; mac/Linux → `python3` ; cross-machine → wrapper + `shutil.which()`. Jamais de chemin absolu OS-spécifique ; toujours `${CLAUDE_PROJECT_DIR}` + slashs.
 
@@ -216,7 +216,7 @@ Repo : [path] | Topologie : [mono/multi/standard]
 - Jamais modifier — Read/Glob/Grep/Bash observation uniquement
 - Jamais prescrire sans observer ; Grep de validation AVANT toute déclaration exhaustive
 - **Ne crée rien : produis un PLAN. La session principale crée.**
-- Déléguer les fixes aux skills créatrices (skill-creator, subsubagent-creator, hook-creator, claudemd-creator)
+- Déléguer les fixes aux skills créatrices (skill-creator, subagent-creator, hook-creator, claudemd-creator)
 - L'analyse est TOUJOURS profonde — les 3 lentilles à chaque fois, jamais de raccourci
 
 ## ESCALADE AMBIGUÏTÉ

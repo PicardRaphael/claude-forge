@@ -83,7 +83,7 @@ Passer à la tâche suivante uniquement quand la courante est verte.
 
 - Modifier des SKILL.md → déléguer à la skill skill-creator
 - Modifier des CLAUDE.md → déléguer à la skill claudemd-creator
-- Créer des agents → déléguer à la skill subagent-creator
+- Créer des agents → déléguer à la skill agent-creator
 - Créer des hooks → déléguer à la skill hook-creator
 
 ## Gotchas

@@ -1,7 +1,7 @@
 ---
 name: self-updater
 description: Use to update claude-forge reference skills when new Claude Code features are detected. Use PROACTIVELY after cc-news finds changes post reference date.
-tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch
+tools: Read, Write, Edit, Glob, Grep, Bash, Skill, WebSearch, WebFetch
 model: sonnet
 effort: high
 permissionMode: acceptEdits
