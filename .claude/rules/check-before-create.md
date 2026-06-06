@@ -10,7 +10,7 @@ Avant toute création/modification/optimisation de composant (skill, agent, hook
 2. **Séquence canonique A→B→C→D→E** — voir source unique : `.claude/rules/sequence-canonique-modification.md` (et vault [[methode-analyser-repo]] section "ORDRE CANONIQUE")
 3. **References existantes** — lire les `references/` du composant cible AVANT modification
 4. **Référence forge** — pour les skills : `skill-creator`. Pour agents : `subagent-creator`. Pour hooks : `hook-creator` + vault [[comment-creer-hook]].
-5. **Déléguer aux spécialistes** — SKILL.md → skill `skill-creator` (advisory), agents/*.md → skill `subagent-creator` (advisory), CLAUDE.md → `claudemd-optimizer` (hook bloque), hooks → `hook-creator`.
+5. **Déléguer aux spécialistes** — SKILL.md → skill `skill-creator`, agents/*.md → skill `subagent-creator`, CLAUDE.md → skill `claudemd-optimizer` (hook delegate-guard bloque l'edit direct), hooks → skill `hook-creator`.
 
 ## Anti-patterns (observés en production)
 

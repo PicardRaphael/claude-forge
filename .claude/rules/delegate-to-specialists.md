@@ -11,13 +11,16 @@ Ne JAMAIS editer directement les fichiers que des specialistes savent creer.
 | Creer/modifier une skill (SKILL.md) | Skill `skill-creator` (Skill tool) | Non — advisory |
 | Creer/modifier un agent (.md dans agents/) | Skill `subagent-creator` (Skill tool) | Non — advisory |
 | Creer/modifier un hook | Skill `hook-creator` (Skill tool) | Non — advisory |
-| Optimiser un CLAUDE.md | `claudemd-optimizer` | Oui — exit 2 |
+| Creer/optimiser un CLAUDE.md | Skill `claudemd-optimizer` (Skill tool) | Oui — exit 2 sur CLAUDE.md (protection conservée) |
 | Critiquer un livrable majeur | `devils-advocate` | Non — mais rule s'applique |
 | Evoluer/optimiser une skill | `skill-evolve` → skill `skill-creator` | Non — advisory |
 
-## Pivot 6 juin 2026 — skill-creator + subagent-creator deviennent des skills
+## Pivot 6 juin 2026 — skill-creator + subagent-creator + hook-creator + claudemd-optimizer deviennent des skills
 
-`skill-creator` et `subagent-creator` sont maintenant des **skills** invoquées par la session principale. Les hard blocks delegate-guard sur `SKILL.md` et `agents/*.md` ont été retirés — enforcement advisory : les skills guident les best practices, rien ne bloque un edit direct.
+Les 4 créateurs sont maintenant des **skills** invoquées par la session principale.
+- `SKILL.md` et `agents/*.md` : hard block retiré — advisory
+- `CLAUDE.md` : hard block **conservé** (exit 2) — la skill `claudemd-optimizer` (thread principal) passe légitimement
+- `hooks/` : pas de protection delegate-guard (hook-creator reste advisory)
 
 ## Exceptions hook agents (delegate-guard.py)
 

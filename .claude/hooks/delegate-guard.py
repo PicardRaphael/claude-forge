@@ -2,8 +2,9 @@
 """Block direct edits to protected files — enforce delegation to specialist skills.
 
 Protected targets (ONLY inside claude-forge project):
-  CLAUDE.md         → must use claudemd-optimizer agent
+  CLAUDE.md         → must use claudemd-optimizer SKILL (skill thread-principal, bypass légitime)
   (SKILL.md + agents/*.md removed 2026-06-06 — replaced by skill-creator + subagent-creator skills)
+  (claudemd-optimizer agent removed 2026-06-06 — replaced by claudemd-optimizer skill)
 
 Exceptions (bypass in order — first match wins):
   1. File is outside the claude-forge project directory → always allowed

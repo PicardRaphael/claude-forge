@@ -12,7 +12,7 @@ aliases:
   - "configuration CLAUDE.md"
   - "200 lignes CLAUDE.md"
   - "anti-patterns CLAUDE.md"
-derniere-maj: 2026-05-24
+derniere-maj: 2026-06-06
 auteur: claude
 type: technique
 sources:
@@ -28,7 +28,6 @@ tags:
   - "#sujet/claudemd"
   - "#doctrine/2026"
 ---
-
 # Comment écrire un CLAUDE.md parfait
 
 > Note canonique forge — doctrine Anthropic mai 2026, validée verbatim sur sources officielles.
@@ -416,6 +415,157 @@ Config complète Trail of Bits exposée publiquement. CLAUDE.md illustre :
 - [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) — CLAUDE.md viral 67L (ex-forrestchang)
 
 ---
+
+## MODÈLE ORCHESTRATEUR — La structure cible (source: research LLM juin 2026)
+
+**Le CLAUDE.md est un ORCHESTRATEUR, pas un entrepôt.** Il contient les essentiels toujours-vrais + des pointeurs vers `.claude/rules/`, skills, agents. Un orchestrateur bat un monolithe à nombre de lignes égal — le modèle gère mieux un petit contexte lié que de gros blocs inline.
+
+### Hiérarchie (où vivent les CLAUDE.md)
+
+| Niveau | Emplacement | Portée |
+|---|---|---|
+| Global/user | `~/.claude/CLAUDE.md` | Tous les projets de la machine |
+| Projet | `<repo>/CLAUDE.md` | Le repo (committable) |
+| Sous-dossier | `<repo>/sous/dossier/CLAUDE.md` | Les fichiers de ce dossier |
+
+**Précédence douce** : le plus spécifique pèse le plus. Concaténation additive, pas override strict. Planifier la hiérarchie explicitement dans les monorepos/multi-équipes plutôt que laisser les conflits apparaître.
+
+### Les 3 leviers de modularisation
+
+1. **`@import`** — `@path/to/file.md` tire le contenu quand pertinent. Récursif (parcimonie — pas de labyrinthe). Ex : `See @docs/api-patterns.md for API conventions`
+2. **`.claude/rules/*.md`** — même priorité que CLAUDE.md, auto-chargées chaque session. `paths:` pour scoper par type de fichier
+3. **Skills / agents** — CLAUDE.md ne décrit pas leur contenu, il pointe juste le routing
+
+### Squelette orchestrateur type
+
+```markdown
+# <Projet>
+
+## Stack (3-6 lignes max)
+<ce que Claude ne peut PAS déduire du code>
+
+## Commandes
+- dev / test / typecheck / build : `...`
+
+## Conventions critiques (avec raison)
+- <règle testable> — parce que <raison>
+
+## Anti-patterns
+- <ne fais pas X> — <coût>
+
+## Routing
+- Tâche X → skill `nom`
+- Sous-tâche lourde → agent `nom`
+- Règles détaillées : voir @.claude/rules/
+```
+
+---
+
+## MATRICE — Où vit chaque type de règle
+
+| Tu veux… | Mécanisme | Garantie |
+|---|---|---|
+| Contexte/conventions courts et stables | **CLAUDE.md** | Probabiliste |
+| Instructions modulaires par sujet/chemin | **`.claude/rules/`** | Probabiliste |
+| Workflow réutilisable invocable | **Skill** | Probabiliste (activation) |
+| Sous-tâche lourde isolée / parallèle | **Agent (subagent)** | — |
+| Comportement OBLIGATOIRE déterministe | **Hook (exit 2)** | **Garanti** |
+| Routing (quel skill/agent quand) | **CLAUDE.md/rules** (pointeur) | Probabiliste → doubler hook si critique |
+
+**Règle canonique** : une règle vit à UN seul endroit, au bon mécanisme. Dupliquer = diluer + diverger.
+
+---
+
+## MODE AUDIT — Analyser un CLAUDE.md existant
+
+### Signaux de maladie
+
+- [ ] **> 200 lignes** → bloat, élaguer agressivement
+- [ ] **Lecture > 90 s** → trop long
+- [ ] **Règles aspirationnelles** (« sois cohérent ») → réécrire en testable avec raison
+- [ ] **Règles sans raison** → ajouter le « parce que »
+- [ ] **Règles contradictoires** (accumulées par couches) → consolider
+- [ ] **Contenu que Claude sait déjà** (« écris du code propre ») → supprimer
+- [ ] **Détail folder-specific dans le racine** → CLAUDE.md imbriqué / `@import`
+- [ ] **Workflows multi-étapes inline** → extraire en skill
+- [ ] **Comportements « obligatoires » en texte** → migrer vers hook
+- [ ] **Contenu skill/agent dupliqué** → pointer, pas dupliquer
+- [ ] **Info datée/obsolète** → supprimer
+- [ ] **Monolithe** alors qu'orchestrateur possible → modulariser
+- [ ] **Labyrinthe `@import` récursifs** → aplatir à 1 niveau
+- [ ] **Pas d'owner / cadence de revue** → instaurer revue trimestrielle
+
+### Procédure d'audit (5 étapes)
+
+1. `wc -l CLAUDE.md` + lister `.claude/rules/`, `.claude/skills/`, `.claude/agents/`, hooks
+2. Classer chaque bloc : garder / réécrire-testable / déplacer (rule/skill/hook/import) / supprimer
+3. Détecter contradictions et doublons (CLAUDE.md ↔ rules ↔ skills)
+4. Vérifier le routing : chaque skill/agent important est-il pointé ?
+5. Produire rapport priorisé : CRITIQUE / IMPORTANT / SUGGESTION avec correctif par item
+
+---
+
+## MODE OPTIMISATION — 5 passes successives
+
+**Passe 1 — Élaguer.** Supprime l'évident, le daté, les doublons. Déplace les 3 sections les plus « survolées » vers sous-docs liés ; remplace par 1 ligne résumé + lien.
+
+**Passe 2 — Réécrire en testable.** Chaque règle aspirationnelle → règle spécifique vérifiable avec sa raison.
+
+**Passe 3 — Déplacer au bon mécanisme.** Workflows → skills ; comportements obligatoires → hooks ; détail par sujet → `.claude/rules/` ; folder-specific → CLAUDE.md imbriqué.
+
+**Passe 4 — Modulariser.** Monolithe → orchestrateur : maître court + `@import`/rules chargés par pertinence.
+
+**Passe 5 — Cadence.** Owner unique, revue trimestrielle, entrées datées. Sans cadence, l'élagage est défait en deux sprints.
+
+> Objectif : root file scannable en 90 s, < 200 lignes, zéro contradiction, chaque règle testable avec raison.
+
+---
+
+## CHECKLIST CLAUDE.md PARFAIT — 4 dimensions
+
+### 0. Décision — Faut-il un CLAUDE.md / faut-il le modifier ?
+
+- [ ] C'est du contexte/convention toujours-vrai court et stable ? → CLAUDE.md OK
+- [ ] C'est un workflow multi-étapes réutilisable ? → STOP, créer une **skill** à la place
+- [ ] C'est un comportement à garantir déterministement ? → STOP, créer un **hook** à la place
+- [ ] C'est du détail folder-specific ? → CLAUDE.md imbriqué ou `@import`
+
+### 1. Taille & structure
+
+- [ ] < 200 lignes, scannable en 90 s
+- [ ] Orchestrateur (maître court + imports/rules), pas monolithe
+- [ ] `@import` à 1 niveau max, pas de labyrinthe récursif
+- [ ] Hiérarchie planifiée (racine vs sous-dossiers)
+
+### 2. Contenu
+
+- [ ] Uniquement ce que Claude ne déduit pas du code
+- [ ] Commandes présentes et exactes (dev/test/typecheck)
+- [ ] Chaque règle **testable + raison** (sans raison = aspirationnel invisible)
+- [ ] Section anti-patterns (« ne fais pas »)
+- [ ] Routing vers skills/agents/rules
+- [ ] Zéro contenu que Claude sait déjà
+- [ ] Zéro workflow multi-étapes inline (→ skill)
+- [ ] Zéro comportement « obligatoire » en texte (→ hook)
+- [ ] Zéro info datée non voulue
+- [ ] Zéro duplication de contenu skill/agent
+
+### 3. Cohérence & enforcement
+
+- [ ] Aucune règle contradictoire
+- [ ] Une règle = un seul endroit, au bon mécanisme
+- [ ] Le critique-à-garantir est en hook, pas en texte
+- [ ] Routing critique doublé d'un hook si nécessaire
+
+### 4. Maintenance
+
+- [ ] Owner unique désigné
+- [ ] Cadence de revue (trimestrielle)
+- [ ] Versionné, relu en PR, re-testé en session fraîche
+
+## Pivot 6 juin 2026 — claudemd-optimizer devient une skill
+
+> `claudemd-optimizer` est désormais une **skill** (`.claude/skills/claudemd-optimizer/`). Invoquer via `Skill(claudemd-optimizer)` depuis la session principale. L'agent `claudemd-optimizer.md` est supprimé. La protection `delegate-guard.py` sur `CLAUDE.md` est **conservée** (exit 2) — la skill thread-principal contourne légitimement.
 
 ## GOTCHAS — Pièges observés
 
