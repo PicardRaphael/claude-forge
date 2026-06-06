@@ -10,7 +10,7 @@
   "coverage": {
     "expected": 19,
     "scanned": 19,
-    "components": ["cc-features-ref", "cc-skills-ref", "...", "skill-creator", "..."]
+    "components": ["cc-features-ref", "skill-creator", "...", "skill-creator", "..."]
   },
   "verdict": {
     "coverage": true,

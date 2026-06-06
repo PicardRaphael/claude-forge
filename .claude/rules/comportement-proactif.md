@@ -12,7 +12,7 @@ description: "Dispatch table: which agent or skill to invoke based on user situa
 | "audit à fond / complet / approfondi" · "sous tous les angles / 3 lentilles / tripartite" · "mon setup .claude est-il bon" · "optimise / nettoie ma config" | **Audit tripartite** : la session principale dispatche `boris-auditor` + `ecc-auditor` + `will-auditor` EN PARALLÈLE (3 lentilles : conformité workflow / sous-dimensionnement / anti-empilement), puis synthétise et arbitre les verdicts contradictoires. Méthode : skill `audit-thematique-clusters` (mode tripartite). ⚠️ 3 agents Opus — réservé aux audits approfondis, pas un "audite" nu. |
 | "Analyse mon repo X et propose config CC" / "propose-moi le meilleur setup" | **Méthode 6 étapes [[methode-analyser-repo]]** — scan archi + code RÉEL + patterns récurrents + audit `.claude/` en parallèle. JAMAIS s'arrêter à `.claude/` |
 | "Analyse ia_back" / "analyse neo_ia" / multi-repo | Agent `repo-inspector` (mode=audit) par repo, en parallele |
-| "Optimise / améliore mon CLAUDE.md" | Invoquer `claudemd-optimizer` |
+| "Optimise / améliore mon CLAUDE.md" | Invoquer `claudemd-creator` |
 | "Quoi de neuf / est-ce que X existe" | Invoquer `cc-news` |
 | "Crée un agent / skill / hook" | Vérifier l'existant → créer |
 | Skill à optimiser | Lire l'existant → améliorer |
@@ -29,7 +29,7 @@ description: "Dispatch table: which agent or skill to invoke based on user situa
 
 ## Séquence canonique AVANT tout dispatch créateur/analyste — OBLIGATOIRE
 
-Avant d'invoquer `subagent-creator`, `skill-creator`, `hook-creator`, `claudemd-optimizer`, `repo-inspector`, `cc-advisor`, `evolve`, `skill-evolve`, `spec` — la session principale DOIT briefer le sub-agent avec la séquence canonique :
+Avant d'invoquer `subagent-creator`, `skill-creator`, `hook-creator`, `claudemd-creator`, `repo-inspector`, `cc-advisor`, `evolve`, `skill-evolve`, `spec` — la session principale DOIT briefer le sub-agent avec la séquence canonique :
 
 ```
 1. ANALYSER le RÉEL du repo (faits bruts, code, .claude/ existant)

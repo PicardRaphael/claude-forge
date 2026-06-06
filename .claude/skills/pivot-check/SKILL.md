@@ -76,7 +76,7 @@ Si l'utilisateur confirme les fixes, deleguer aux specialistes :
 
 | Cible | Agent |
 |---|---|
-| `CLAUDE.md` | `claudemd-optimizer` |
+| `CLAUDE.md` | `claudemd-creator` |
 | `.claude/skills/*/SKILL.md` | `skill-creator` |
 | `.claude/agents/*.md` | `subagent-creator` |
 | `.claude/rules/*.md` | Edit direct (pas de specialiste) |

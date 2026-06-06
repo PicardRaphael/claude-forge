@@ -33,7 +33,7 @@ Last updated: 2026-05-08
 | Skill creator | `skill-creator` | Enforced by delegate-guard hook |
 | Agent creator | `subagent-creator` | Enforced by delegate-guard hook |
 | Hook creator | `hook-creator` | Standardize hook authoring |
-| CLAUDE.md optimizer | `claudemd-optimizer` | Enforced by delegate-guard hook |
+| CLAUDE.md optimizer | `claudemd-creator` | Enforced by delegate-guard hook |
 | Repo inspector | `repo-inspector` | Repo analyze/audit/scan (modes) — fusion de project-analyzer/auditor/codebase-scanner |
 | CC Advisor | `cc-advisor` | Strategic CC setup advice |
 

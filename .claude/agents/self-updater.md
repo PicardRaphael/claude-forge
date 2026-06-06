@@ -34,9 +34,9 @@ Utiliser la skill `cc-news` pour chercher les features post date de référence 
 
 Pour chaque nouvelle feature, déterminer quelle(s) skill(s) de référence sont concernées :
 - Nouvelle commande slash → `cc-features-ref`
-- Nouveau champ agent YAML → `cc-agents-ref`
+- Nouveau champ agent YAML → `subagent-creator`
 - Nouveau champ skill YAML → `skill-creator` (invoquer Skill tool) ou vault [[comment-creer-skill]]
-- Nouvel événement hook → `cc-hooks-ref`
+- Nouvel événement hook → `hook-creator`
 
 ### 3. Lire et mettre à jour
 

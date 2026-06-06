@@ -2,9 +2,9 @@
 """Block direct edits to protected files — enforce delegation to specialist skills.
 
 Protected targets (ONLY inside claude-forge project):
-  CLAUDE.md         → must use claudemd-optimizer SKILL (skill thread-principal, bypass légitime)
+  CLAUDE.md         → must use claudemd-creator SKILL (skill thread-principal, bypass légitime)
   (SKILL.md + agents/*.md removed 2026-06-06 — replaced by skill-creator + subagent-creator skills)
-  (claudemd-optimizer agent removed 2026-06-06 — replaced by claudemd-optimizer skill)
+  (claudemd-creator agent removed 2026-06-06 — replaced by claudemd-creator skill)
 
 Exceptions (bypass in order — first match wins):
   1. File is outside the claude-forge project directory → always allowed
@@ -26,12 +26,12 @@ from pathlib import Path
 
 
 PROTECTED = {
-    "CLAUDE.md": "claudemd-optimizer",
+    "CLAUDE.md": "claudemd-creator",
 }
 
 TYPO_THRESHOLD = 20
 
-ALLOWED_SPECIALISTS = {"hook-creator", "claudemd-optimizer"}  # skill-creator + agent-creator now skills
+ALLOWED_SPECIALISTS = {"hook-creator", "claudemd-creator"}  # skill-creator + agent-creator now skills
 
 # Skills externes (kepano/Obsidian) — copies read-only, pas protégées par delegate-guard
 EXEMPT_SKILL_DIRS = {"json-canvas", "defuddle", "obsidian-cli", "obsidian-markdown", "obsidian-bases"}
@@ -83,7 +83,7 @@ def required_agent(norm_path: str) -> str | None:
     if name in PROTECTED:
         return PROTECTED[name]
     if is_agent_md(norm_path):
-        return "agent-creator"
+        return "subagent-creator"  # dead code — is_agent_md always returns False
     return None
 
 

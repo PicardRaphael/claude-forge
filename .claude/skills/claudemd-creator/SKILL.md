@@ -1,11 +1,11 @@
 ---
-name: claudemd-optimizer
+name: claudemd-creator
 description: ALWAYS invoke when user wants to create, audit, improve, or optimize a CLAUDE.md. Do not hand-write CLAUDE.md directly — use this skill first. Delegate-guard still blocks direct edits.
 user-invocable: true
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__*
 ---
 
-# claudemd-optimizer
+# claudemd-creator
 
 Crée et optimise des CLAUDE.md selon la doctrine forge + référence Anthropic officielle.
 Couvre : décision → audit → optimisation → création → livraison.
@@ -136,7 +136,7 @@ Identifier :
 - Règles détaillées : @.claude/rules/
 
 ## Ce qu'il NE faut PAS faire
-- Éditer CLAUDE.md directement (hook bloque) → invoquer `claudemd-optimizer`
+- Éditer CLAUDE.md directement (hook bloque) → invoquer `claudemd-creator`
 ```
 
 ### Règles de contenu
@@ -224,7 +224,7 @@ Les evals sont **obligatoires** pour tout CLAUDE.md créé ou optimisé.
 - **Compaction** : sur longue session, le contenu peut être résumé/abandonné → garder court
 - **@import circulaire** → boucle ; vérifier l'arbre
 - **Règle aspirationnelle = invisible** — sans condition testable et raison, Claude ne sait pas quand l'appliquer
-- **delegate-guard.py protège CLAUDE.md** — edit direct bloqué (exit 2) ; seule la skill claudemd-optimizer (thread principal) passe
+- **delegate-guard.py protège CLAUDE.md** — edit direct bloqué (exit 2) ; seule la skill claudemd-creator (thread principal) passe
 - **AGENTS.md** : standard ouvert cross-outils ; beaucoup font un symlink `AGENTS.md` → `CLAUDE.md`
 - **`/init`** génère un CLAUDE.md de départ — point de départ à élaguer, pas un livrable final
 - **Mise à jour mid-session** : Claude ne recharge pas CLAUDE.md en cours de session → nouvelle session pour prise en compte

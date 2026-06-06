@@ -5,9 +5,9 @@ SCOPE DECLARED BY THE HOOK (delegate-guard.py docstring + PROTECTED dict):
   Wired on matcher "Edit|Write|MultiEdit" (settings.json). Blocks DIRECT edits
   of these targets, ONLY inside the claude-forge project, UNLESS a specialist
   bypass applies:
-    - SKILL.md            -> skill-creator
-    - CLAUDE.md           -> claudemd-optimizer
-    - .claude/agents/*.md -> agent-creator
+    - SKILL.md            -> skill-creator (advisory, no hard block)
+    - CLAUDE.md           -> claudemd-creator
+    - .claude/agents/*.md -> subagent-creator
   Bypass sources (first match wins): agent_type, agent_id, CLAUDE_AGENT env,
   transcript parsing. Typo pass-through: Edit with both strings < 20 chars.
   Exempt skill dirs (external/kepano): json-canvas, defuddle, obsidian-cli,
@@ -62,13 +62,13 @@ def _p(rel):
 # ===========================================================================
 
 def test_agent_md_canonical():
-    assert required_agent(_p(".claude/agents/foo.md")) == "agent-creator"
+    assert required_agent(_p(".claude/agents/foo.md")) == "subagent-creator"
 
 
 def test_agent_md_backslash_separators():
     """Adversarial: Windows backslashes must normalize and still be caught."""
     raw = FORGE.replace("/", "\\") + "\\.claude\\agents\\foo.md"
-    assert required_agent(normalize(raw)) == "agent-creator"
+    assert required_agent(normalize(raw)) == "subagent-creator"
 
 
 def test_agent_md_nested_deeper_not_caught():
@@ -93,12 +93,12 @@ def test_skill_md_lowercase_not_matched():
 
 
 def test_claude_md_canonical():
-    assert required_agent(_p("CLAUDE.md")) == "claudemd-optimizer"
+    assert required_agent(_p("CLAUDE.md")) == "claudemd-creator"
 
 
 def test_claude_md_in_subdir():
     """Characterization: CLAUDE.md matched by basename anywhere in forge."""
-    assert required_agent(_p("some/nested/CLAUDE.md")) == "claudemd-optimizer"
+    assert required_agent(_p("some/nested/CLAUDE.md")) == "claudemd-creator"
 
 
 # ===========================================================================
@@ -153,7 +153,7 @@ def test_bypass_agent_type_impostor_blocked():
 
 
 def test_bypass_agent_id_legit():
-    ok, _src = agent_bypass_active({"agent_id": "agent-creator"})
+    ok, _src = agent_bypass_active({"agent_id": "subagent-creator"})
     assert ok is True
 
 
