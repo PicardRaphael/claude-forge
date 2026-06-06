@@ -26,7 +26,6 @@ from pathlib import Path
 
 
 PROTECTED = {
-    "SKILL.md": "skill-creator",
     "CLAUDE.md": "claudemd-optimizer",
 }
 

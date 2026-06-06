@@ -1,7 +1,6 @@
 ---
-derniere-maj: 2026-06-05
+derniere-maj: 2026-06-06
 ---
-
 ﻿---
 titre: "Comment créer une skill Claude Code parfaite"
 resume: "Note canonique pour créer une skill Claude Code selon les 9 catégories Thariq (post Anthropic mars 2026), structure progressive disclosure, frontmatter trigger 3e personne, < 500L SKILL.md, limite pratique description ~250 chars pour auto-invocation, agentskills.io spec ouverte."
@@ -169,6 +168,11 @@ Insight Thariq : "most teams only use 2-3 of these categories — not because th
 - Sinon → CLAUDE.md ou rule suffit
 
 ### Étape 2 — Déléguer à `skill-creator`
+
+> ⚠️ **Pivot 6 juin 2026** : `skill-creator` est désormais une **skill** (`.claude/skills/skill-creator/`), pas un agent. Invoquer via `Skill(skill-creator)` depuis la session principale. Le hard block `delegate-guard.py` sur `SKILL.md` a été retiré — enforcement advisory. Voir [[delegate-to-specialists]].
+
+Côté repo externe : utiliser `mcp-builder` ou `skill-creator` officiel Anthropic.
+
 Côté forge : agent `skill-creator` génère SKILL.md conforme. Hook `delegate-guard.py` BLOQUE l'édit direct de `SKILL.md`.
 
 Côté repo externe : utiliser `mcp-builder` ou `skill-creator` officiel Anthropic.
@@ -236,6 +240,86 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilis�
 
 ---
 
+## CHECKLIST SKILL PARFAITE — 6 dimensions (source: research LLM juin 2026)
+
+> Checklist complète pour valider une skill avant livraison. Couvre discovery, body, structure, évaluation, optimisation, packaging. Hedges : chiffres Seleznov/SkillsBench non vérifiés primaire — directions solides.
+
+### 1. Discovery / activation
+- [ ] Description = identifiant domaine + "ALWAYS invoke when…" + contrainte négative ("Do not X directly")
+- [ ] 3e personne ; contient le QUOI et le QUAND ; phrases de trigger concrètes incl. cas où l'utilisateur ne nomme pas la skill
+- [ ] `name` kebab-case, ≤64 chars, pas "claude"/"anthropic", gérondif préféré
+- [ ] Description ≤ 250 chars pratique (auto-trigger system reminder) / ≤ 1024 chars spec / description+when_to_use ≤ 1536 chars combiné dans le listing
+- [ ] UNE SEULE LIGNE YAML — jamais `>-` ni `|` (casse la découverte)
+- [ ] Pas de XML tags dans la description
+- [ ] Inclut near-miss exclusions pour éviter l'over-trigger
+
+### 2. Body / exécution
+- [ ] SKILL.md body < 500 lignes ; references une seule profondeur ; ToC si > 100 lignes
+- [ ] Voix impérative ; expliquer le *pourquoi* plutôt que ALL-CAPS MUST ; réserver ALWAYS/NEVER aux étapes fragiles/critiques uniquement
+- [ ] Scripts : préciser si EXÉCUTER vs LIRE ; pas de constantes magiques
+- [ ] Gestion d'erreur explicite ; chemins forward-slash uniquement ; packages listés
+- [ ] Boucles de validation pour opérations quality-critical ; checklist copiable pour workflows multi-étapes
+
+### 3. Structure / enforcement (par environnement cible)
+- [ ] **CLI** → hooks ok (PreToolUse/PostToolUse)
+- [ ] **Desktop** → best-effort hooks, script-output gating préféré
+- [ ] **Cowork** → ZÉRO hooks ; script-output gating + slash entry + MCP remote HTTPS validation
+- [ ] Skills side-effecting (deploy/commit/send/delete) : `disable-model-invocation: true` + `allowed-tools` whitelist + AskUserQuestion gate (session principale, pas sub-agent)
+- [ ] Type MCP adapté à la surface (stdio CLI/Desktop ; remote HTTPS Cowork)
+- [ ] Scripts enforceables uniquement via leur OUTPUT — Claude doit lire/agir sur la sortie
+- [ ] Routing pointers dans CLAUDE.md/.claude/rules (CLI/Desktop) ou project Instructions (Cowork) — jamais dupliquer le contenu dans CLAUDE.md
+
+### 4. Évaluation
+- [ ] ≥ 3 task evals ; ~20 trigger queries (8–10 should-fire, 8–10 near-miss should-NOT-fire ; substantielles, pas one-step)
+- [ ] Baseline-without-skill vs with-skill ; 3–5 trials par case ; runs isolés ; noter outcomes pas paths
+- [ ] Lire les transcripts, pas juste les outputs
+- [ ] Générer le eval viewer AVANT de juger soi-même (`--static` sur Cowork/headless)
+- [ ] Tester sur Haiku/Sonnet/Opus effectivement utilisés
+
+### 5. Optimisation / audit (mode amélioration skill existante)
+Détecter et corriger :
+- [ ] Description tronquée / over-budget (> 250 chars pratique, > 1024 spec)
+- [ ] Description passive (non-directive)
+- [ ] Chaînes de references > 1 niveau de profondeur
+- [ ] References mortes ou cassées
+- [ ] "Why" manquant (tout ALL-CAPS sans explication = yellow flag)
+- [ ] ALL-CAPS excessif (> 2-3 = bruit)
+- [ ] Exclusions near-miss manquantes
+- [ ] SKILL.md > 500 lignes
+- [ ] Skill flat-file qui devrait être un dossier (avec scripts/ + references/)
+- [ ] Doctrine dupliquée/divergente entre skills
+- [ ] Assertions non-discriminantes dans evals
+- [ ] YAML multi-ligne (Prettier mangling)
+- Scorer chaque violation avec fichier + fix en une ligne ; boucler jusqu'à propre
+
+### 6. Packaging / distribution
+- [ ] Packager en `.skill` si distribution souhaitée
+- [ ] Bundler en plugin pour distribution équipe
+- [ ] Confirmer l'emplacement par surface : `.claude/skills/` (projet) / `~/.claude/skills/` (user) / plugin-bundled
+- [ ] **Cowork** : enregistrer via UI, garder total actif < 30
+- [ ] Conserver le nom à l'update (pas de `-v2`) ; copier dans temp dir avant d'éditer une skill installée read-only
+
+---
+
+## Questions interview (3 rounds, via AskUserQuestion — ≤4 questions/round)
+
+> Extraire d'abord depuis l'historique de conversation. Ne poser QUE ce qui n'est pas déductible. Stopper tôt si les réponses sont évidentes.
+
+**Round 1 — Intent (toujours)**
+1. Que doit permettre cette skill à Claude ? (texte libre)
+2. **Environnement cible ?** → CLI / Desktop app / Cowork / Portable (doit marcher partout) — *question de branchement : détermine l'enforcement strategy*
+3. Créer une nouvelle skill, ou optimiser/auditer une existante ?
+
+**Round 2 — Déclenchement & frontières**
+4. Quand doit-elle se déclencher (phrases/contextes) ? Quand explicitement PAS (near-misses) ?
+5. A-t-elle des side-effects (deploy/commit/send/delete) ? → si oui → `disable-model-invocation: true` + slash-only + approval gate
+
+**Round 3 — Forme & outillage**
+6. SKILL.md unique, ou dossier avec scripts + references ? (Recommander scripts si logique déterministe répétée ; references si doc > 300 lignes)
+7. Quels outils/MCP nécessaires ? (Brancher sur env : stdio MCP pour CLI/Desktop seulement ; remote HTTPS pour Cowork)
+8. Modèle(s) cible ? (Haiku = plus de guidance, Opus = moins)
+9. Mettre en place des evals ? (Recommandé OUI pour outputs objectivement vérifiables)
+
 ## ANTI-PATTERNS
 
 ### Description / frontmatter
@@ -247,6 +331,7 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilis�
 - ❌ **Description qui copie le body** : la description est un TRIGGER ("Use when X"), pas un résumé du contenu. Si la description = première ligne du body, c'est faux. Description directive ≠ description descriptive.
 
 ### Structure
+- ❌ **Édit direct SKILL.md sans passer par la skill `skill-creator`** — advisory : rien ne bloque techniquement, mais les best practices (checklist 6 dimensions, interview, evals) sont appliquées automatiquement par la skill
 - ❌ **SKILL.md monolithique > 500 lignes** — déporter dans `references/`
 - ❌ **README.md dans le dossier skill** — non-standard
 - ❌ **Skills orphelines** dans frontmatter d'un agent mais non référencées dans le body — jamais activées (cf [[feedback_non_invokable_skills_orphan]])
