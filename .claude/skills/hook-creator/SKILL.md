@@ -12,6 +12,22 @@ Couvre : décision créer/PAS → OS+stack → interview → draft → test → 
 
 Si besoin du détail complet de la doctrine : `mcp__forge-brain__read_note("comment-creer-hook")`.
 
+## GATE 0 — AUDIT PROFOND OBLIGATOIRE (avant toute action, AUCUNE exception)
+
+**L'audit est TOUJOURS profond. Jamais de raccourci, jamais de mode léger.** Que ce soit une création, une optimisation ou un audit — création triviale incluse — ces 3 étapes sont un PASSAGE OBLIGÉ avant de produire ou modifier quoi que ce soit :
+
+1. **Lire les canoniques vault EN ENTIER** via `mcp__forge-brain__read_note("comment-creer-hook")` — SANS `max_lines`. `search_brain` seul (extraits ~10 lignes) = INSUFFISANT. Bloquant : ne rien rédiger avant.
+2. **Passer SYSTÉMATIQUEMENT les 4 dimensions de `references/checklist-hook-parfait.md`** — toutes, dans l'ordre, rien zappé. Chaque dimension cochée avec evidence (fichier:ligne + écart mesurable). C'est un GATE, pas une option de fin de fichier.
+2bis. **VÉRIFIER L'ADÉQUATION DU TYPE DE COMPOSANT (création ET audit — toujours).** Un hook doit-il rester un hook ? Signaler — sans transformer d'office — si le mécanisme ne peut PAS tenir la promesse du composant :
+   - Un hook est DÉTERMINISTE mais opaque (pas de raisonnement). S'il tente du WORKFLOW AGENTIQUE (architect-first, TDD, multi-étapes avec jugement) → mauvais type, candidate SKILL/AGENT où le modèle raisonne.
+   - S'il ne fait qu'injecter un rappel probabiliste sans rien garantir → une RULE/CLAUDE.md suffit peut-être.
+   Si décalage promesse/mécanisme détecté → le signaler comme observation ARCHITECTURE dans le rapport (« devrait peut-être être un <autre type> parce que <raison> »), distincte des écarts qualité. NE JAMAIS transformer le composant sans validation explicite de Raphaël — c'est une décision d'architecture, pas une correction qualité.
+
+3. **PUIS calibrer l'effort de création/eval à l'enjeu** : profondeur d'audit = toujours 100% ; lourdeur du process de création (evals A/B, optimization loop) = proportionnée (skill réutilisée cross-repo = process complet ; composant trivial = audit complet + création directe). Profondeur ≠ lourdeur mécanique.
+
+Sortie du gate : un rapport d'écarts (CRITIQUE / IMPORTANT / SUGGESTION) présenté AVANT exécution. Pas d'écart mesuré = pas de modification cosmétique inutile.
+
+
 ## Phase 0 — Test préliminaire : faut-il vraiment un hook ?
 
 **Avant tout** — répondre à ces questions :

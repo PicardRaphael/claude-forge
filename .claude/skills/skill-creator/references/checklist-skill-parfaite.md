@@ -27,6 +27,27 @@ Source : research LLM Claude.ai juin 2026 + doctrine forge. Hedges : chiffres Se
 - [ ] Pas de XML tags
 - [ ] Near-miss exclusions incluses ("NOT when X", "Use this for Y not Z")
 
+## Champs frontmatter VALIDES (liste FERMÉE — ne jamais en inventer)
+
+Seuls ces champs existent dans le frontmatter d'une skill Claude Code. **Tout autre champ = ERREUR à signaler, JAMAIS à ajouter.**
+
+| Champ | Obligatoire ? | Valeurs |
+|-------|---------------|---------|
+| `name` | OUI | kebab-case = nom du dossier |
+| `description` | OUI | une ligne directive, ≤ 1024 chars |
+| `user-invocable` | recommandé | `true` / `false` |
+| `allowed-tools` | si write/MCP | liste outils ou `mcp__server__*` |
+| `model` | optionnel | `sonnet` / `opus` / `haiku` |
+| `effort` | optionnel | `high` (défaut) / `xhigh` |
+| `disable-model-invocation` | si side-effects | `true` |
+| `argument-hint` | optionnel (slash) | indice d'argument, ex `"[prompt]"` — OFFICIEL |
+
+**Champs INTERDITS (n'existent PAS pour une skill, ne jamais les proposer/ajouter)** : `version`, `author`, `date`, `created`, `tags`, `color` (color = agents uniquement), `tools` (skill = `allowed-tools`, pas `tools`), `memory`, `permissionMode` (ces 2 = agents uniquement).
+
+Si un audit signale l'absence d'un champ interdit comme un écart → c'est l'audit qui se trompe, pas la skill. Vérifier contre cette liste fermée AVANT de classer un champ « manquant ».
+
+**Si un champ inconnu de cette liste apparaît dans une skill réelle : NE PAS conclure « inventé » d'emblée.** Claude Code évolue ; des champs officiels peuvent manquer ici (ex : `argument-hint` pour les slash commands). Signaler comme « à vérifier », demander confirmation, JAMAIS supprimer un champ sans certitude qu'il est non-officiel.
+
 ## 2. Body / exécution
 
 - [ ] SKILL.md body < 500 lignes ; `references/` une seule profondeur ; ToC si > 100 lignes

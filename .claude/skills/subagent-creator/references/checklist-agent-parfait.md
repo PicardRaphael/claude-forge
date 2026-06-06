@@ -30,6 +30,29 @@ Source : reference-subagents-claude-code.md (research LLM juin 2026) + doctrine 
 - [ ] `permissionMode` — TOUJOURS (`acceptEdits` pour writers, `plan` pour side-effects)
 - [ ] `isolation: worktree` si agents parallèles sur fichiers
 
+## Champs frontmatter VALIDES (liste FERMÉE — ne jamais en inventer)
+
+Seuls ces champs existent dans le frontmatter d'un subagent. **Tout autre champ = ERREUR à signaler, JAMAIS à ajouter.**
+
+| Champ | Obligatoire ? | Valeurs |
+|-------|---------------|---------|
+| `name` | OUI | kebab-case = nom du fichier sans `.md` |
+| `description` | OUI | une ligne directive 3e personne |
+| `tools` | OUI (explicite) | liste — inclure `Skill` si l'agent invoque des skills |
+| `disallowedTools` | recommandé | `Write, Edit` (read-only) / `Agent` / `Bash` |
+| `model` | OUI | `sonnet` / `opus` / `haiku` |
+| `effort` | OUI | `high` / `xhigh` |
+| `color` | recommandé | convention forge (red/orange/.../pink) |
+| `memory` | OUI | `project` — toujours |
+| `permissionMode` | OUI | `acceptEdits` / `plan` |
+| `skills` | optionnel | liste de skills à précharger |
+| `isolation` | optionnel | `worktree` (agents parallèles) |
+| `maxTurns` | optionnel | entier |
+
+**Champs INTERDITS (n'existent PAS pour un agent)** : `version`, `author`, `date`, `user-invocable` (skill uniquement), `allowed-tools` (agent = `tools`, pas `allowed-tools`), `disable-model-invocation`.
+
+Si un audit signale l'absence d'un champ interdit comme un écart → c'est l'audit qui se trompe. Vérifier contre cette liste fermée AVANT de classer un champ « manquant ».
+
 ## 2. Body (system prompt)
 
 - [ ] Ordre : Rôle → Input reçu → Étapes numérotées → Règles → Format sortie

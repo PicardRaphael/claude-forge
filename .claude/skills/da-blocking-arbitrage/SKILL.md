@@ -1,6 +1,8 @@
 ---
 name: da-blocking-arbitrage
-description: Use when Devil's Advocate verdict BLOCKING >= 1 before shipping. PARTIAL fix != PASS. Explicit user arbitrage mandatory. Stops auto-promotion.
+description: ALWAYS invoke when Devil's Advocate verdict contains BLOCKING >= 1 before shipping. PARTIAL fix != PASS. Explicit user arbitrage mandatory. DO NOT ship/commit without invoking first.
+allowed-tools: mcp__forge-brain__create_note, mcp__forge-brain__append_note
+user-invocable: true
 effort: high
 ---
 

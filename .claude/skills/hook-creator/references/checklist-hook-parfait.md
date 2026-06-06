@@ -12,6 +12,23 @@ Source : reference-hooks-claude-code.md (research LLM juin 2026) + doctrine forg
 - [ ] L'environnement cible est bien le **CLI** ? (Desktop/Cowork → hooks absents)
 - [ ] Aucun hook similaire existant ? (sinon → modifier/étendre)
 
+## Hook : pas de frontmatter — config dans settings.json (liste FERMÉE)
+
+Un hook est un **script** (Python/shell) sans frontmatter YAML. Sa configuration vit dans `settings.json`. **Ne jamais inventer de champ frontmatter pour un hook.**
+
+Clés VALIDES d'une entrée hook dans `settings.json` :
+
+| Clé | Niveau | Valeurs |
+|-----|--------|---------|
+| `matcher` | entrée | `"Bash"`, `"Write\|Edit\|MultiEdit"`, `"mcp__server__.*"`, `"*"` |
+| `hooks[].type` | handler | `command` / `http` / `mcp_tool` / `prompt` / `agent` |
+| `hooks[].command` | handler | commande shell (`py "${CLAUDE_PROJECT_DIR}/..."`) |
+| `hooks[].timeout` | handler | entier (secondes) |
+
+Events VALIDES (liste fermée, casse exacte) : `PreToolUse`, `PostToolUse`, `Stop`, `SubagentStop`, `UserPromptSubmit`, `SessionStart`, `Notification`, `PreCompact`. **Tout autre nom d'event = ERREUR.**
+
+Si un audit reproche à un hook l'absence d'un champ frontmatter (`version`, `model`, `name`...) → c'est l'audit qui se trompe : un hook n'a PAS de frontmatter.
+
 ## 1. Fonctionnement
 
 - [ ] Bon événement : PreToolUse (bloquer), PostToolUse (réagir), Stop/SubagentStop (forcer)

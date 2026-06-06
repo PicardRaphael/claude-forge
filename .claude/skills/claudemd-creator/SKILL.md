@@ -12,6 +12,22 @@ Couvre : décision → audit → optimisation → création → livraison.
 
 Si besoin du détail complet de la doctrine : `mcp__forge-brain__read_note("comment-ecrire-claudemd")`.
 
+## GATE 0 — AUDIT PROFOND OBLIGATOIRE (avant toute action, AUCUNE exception)
+
+**L'audit est TOUJOURS profond. Jamais de raccourci, jamais de mode léger.** Que ce soit une création, une optimisation ou un audit — création triviale incluse — ces 3 étapes sont un PASSAGE OBLIGÉ avant de produire ou modifier quoi que ce soit :
+
+1. **Lire les canoniques vault EN ENTIER** via `mcp__forge-brain__read_note("comment-ecrire-claudemd")` — SANS `max_lines`. `search_brain` seul (extraits ~10 lignes) = INSUFFISANT. Bloquant : ne rien rédiger avant.
+2. **Passer SYSTÉMATIQUEMENT les 4 dimensions de `references/checklist-claudemd-parfait.md`** — toutes, dans l'ordre, rien zappé. Chaque dimension cochée avec evidence (fichier:ligne + écart mesurable). C'est un GATE, pas une option de fin de fichier.
+2bis. **VÉRIFIER L'ADÉQUATION DU TYPE DE COMPOSANT (création ET audit — toujours).** Un CLAUDE.md doit-il rester un CLAUDE.md ? Signaler — sans transformer d'office — si le mécanisme ne peut PAS tenir la promesse du composant :
+   - Un CLAUDE.md est du contexte PROBABILISTE (~80% compliance). S'il contient un comportement à GARANTIR (« toujours », « jamais ») → candidate HOOK (seul déterministe).
+   - S'il contient un workflow multi-étapes réutilisable → candidate SKILL. Si c'est du détail par-sujet → candidate RULE .claude/rules/.
+   Si décalage promesse/mécanisme détecté → le signaler comme observation ARCHITECTURE dans le rapport (« devrait peut-être être un <autre type> parce que <raison> »), distincte des écarts qualité. NE JAMAIS transformer le composant sans validation explicite de Raphaël — c'est une décision d'architecture, pas une correction qualité.
+
+3. **PUIS calibrer l'effort de création/eval à l'enjeu** : profondeur d'audit = toujours 100% ; lourdeur du process de création (evals A/B, optimization loop) = proportionnée (skill réutilisée cross-repo = process complet ; composant trivial = audit complet + création directe). Profondeur ≠ lourdeur mécanique.
+
+Sortie du gate : un rapport d'écarts (CRITIQUE / IMPORTANT / SUGGESTION) présenté AVANT exécution. Pas d'écart mesuré = pas de modification cosmétique inutile.
+
+
 > ⚠️ **`delegate-guard.py` bloque toujours les edits directs de `CLAUDE.md`** — c'est la seule protection qui reste. Cette skill contourne légitimement la protection : invoquée depuis la session principale (thread principal), les edits passent. Ne jamais bypasser le hook autrement.
 
 ## Phase 0 — Test préliminaire : est-ce vraiment un CLAUDE.md ?
@@ -167,9 +183,9 @@ La **raison** est ce qui permet à Claude de généraliser — sans elle, il ne 
 
 ---
 
-## Phase 6 — Evals (OBLIGATOIRES)
+## Phase 6 — Vérification (test en session fraîche)
 
-Les evals sont **obligatoires** pour tout CLAUDE.md créé ou optimisé.
+Un CLAUDE.md ne se teste PAS comme une skill (pas de cycle A/B lourd — ce serait du sur-process, cf doctrine : modification CLAUDE.md = pas de gate systématique). La vérification se fait en session fraîche.
 
 - Tester en session fraîche : Claude suit-il les règles sans être rappelé ?
 - Vérifier `wc -l CLAUDE.md` < 200

@@ -1,6 +1,7 @@
 ---
 name: agentshield-like-scanner
-description: Use to audit a Claude Code setup (.claude/, settings.json, MCP configs, hooks, agents, skills) with red-team/blue-team/auditor pipeline pattern (ECC AgentShield inspiration, Affaan Mustafa hackathon winner). Dispatches 3 Opus sub-agents in parallel.
+description: ALWAYS invoke when auditing a Claude Code setup specifically for SECURITY risks (prompt injection, unsafe MCP, dangerous hooks/permissions) — red-team/blue-team pipeline. NOT for general config/quality audit (use repo-inspector mode=audit for that). DO NOT run a security audit manually without invoking first.
+user-invocable: true
 allowed-tools: Read, Grep, Glob, Bash, mcp__forge-brain__read_note, mcp__forge-brain__create_note
 model: sonnet
 effort: high

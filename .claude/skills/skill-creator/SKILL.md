@@ -12,6 +12,22 @@ Couvre : interview → draft → evals → optimization loop → packaging.
 
 Si besoin du détail complet de la doctrine : `mcp__forge-brain__read_note("comment-creer-skill")`.
 
+## GATE 0 — AUDIT PROFOND OBLIGATOIRE (avant toute action, AUCUNE exception)
+
+**L'audit est TOUJOURS profond. Jamais de raccourci, jamais de mode léger.** Que ce soit une création, une optimisation ou un audit — création triviale incluse — ces 3 étapes sont un PASSAGE OBLIGÉ avant de produire ou modifier quoi que ce soit :
+
+1. **Lire les canoniques vault EN ENTIER** via `mcp__forge-brain__read_note("comment-creer-skill")` — SANS `max_lines`. `search_brain` seul (extraits ~10 lignes) = INSUFFISANT. Bloquant : ne rien rédiger avant.
+2. **Passer SYSTÉMATIQUEMENT les 6 dimensions de `references/checklist-skill-parfaite.md`** — toutes, dans l'ordre, rien zappé. Chaque dimension cochée avec evidence (fichier:ligne + écart mesurable). C'est un GATE, pas une option de fin de fichier.
+2bis. **VÉRIFIER L'ADÉQUATION DU TYPE DE COMPOSANT (création ET audit — toujours).** Un skill doit-il rester un skill ? Signaler — sans transformer d'office — si le mécanisme ne peut PAS tenir la promesse du composant :
+   - Une skill est PROBABILISTE (déclenchement non garanti). Si elle promet un comportement DÉTERMINISTE (« ALWAYS bloquer », « JAMAIS laisser passer », « empêcher »), elle ment sur son mécanisme → candidate HOOK.
+   - Si elle décrit surtout du contexte toujours-vrai sans procédure → candidate RULE/CLAUDE.md. Si elle a besoin d'isolation/parallélisme → candidate SUBAGENT.
+   Si décalage promesse/mécanisme détecté → le signaler comme observation ARCHITECTURE dans le rapport (« devrait peut-être être un <autre type> parce que <raison> »), distincte des écarts qualité. NE JAMAIS transformer le composant sans validation explicite de Raphaël — c'est une décision d'architecture, pas une correction qualité.
+
+3. **PUIS calibrer l'effort de création/eval à l'enjeu** : profondeur d'audit = toujours 100% ; lourdeur du process de création (evals A/B, optimization loop) = proportionnée (skill réutilisée cross-repo = process complet ; composant trivial = audit complet + création directe). Profondeur ≠ lourdeur mécanique.
+
+Sortie du gate : un rapport d'écarts (CRITIQUE / IMPORTANT / SUGGESTION) présenté AVANT exécution. Pas d'écart mesuré = pas de modification cosmétique inutile.
+
+
 ## Phase 0 — Détecter le point d'entrée
 
 Extraire depuis l'historique AVANT d'interviewer :

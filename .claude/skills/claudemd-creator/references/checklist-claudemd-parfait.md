@@ -12,6 +12,17 @@ Source : reference-claude-md.md (research LLM juin 2026) + doctrine forge.
 - [ ] Ce n'est PAS du détail folder-specific ? (→ CLAUDE.md imbriqué / `@import`)
 - [ ] Mode identifié : création / audit / optimisation ?
 
+## CLAUDE.md : pas de frontmatter YAML (liste FERMÉE)
+
+Un CLAUDE.md est un fichier Markdown **sans frontmatter YAML**. Son en-tête est une ligne de texte libre (ex : `**Créé : ... | Version : X.Y**`), PAS un bloc `---`. **Ne jamais ajouter de frontmatter YAML à un CLAUDE.md.**
+
+- L'en-tête date/version est du **texte markdown libre**, pas un champ YAML structuré.
+- Les `@import` sont des lignes dans le corps (`@.claude/rules/...`), pas un champ frontmatter.
+
+Si un audit reproche à un CLAUDE.md l'absence d'un champ frontmatter (`name`, `description`, `model`, `version` structuré...) → c'est l'audit qui se trompe : un CLAUDE.md n'a pas de frontmatter. Seuls les skills/agents/rules en ont.
+
+Note : les **rules** `.claude/rules/*.md` ont, elles, un frontmatter minimal (`description:`, optionnellement `globs:`/`paths:`). Ne pas confondre rule (frontmatter) et CLAUDE.md (pas de frontmatter).
+
 ## 1. Taille & structure
 
 - [ ] < 200 lignes (`wc -l CLAUDE.md`)

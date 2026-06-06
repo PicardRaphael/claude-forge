@@ -12,6 +12,22 @@ Couvre : décision créer/PAS → interview → draft → evals → livraison.
 
 Si besoin du détail complet de la doctrine : `mcp__forge-brain__read_note("comment-creer-agent")`.
 
+## GATE 0 — AUDIT PROFOND OBLIGATOIRE (avant toute action, AUCUNE exception)
+
+**L'audit est TOUJOURS profond. Jamais de raccourci, jamais de mode léger.** Que ce soit une création, une optimisation ou un audit — création triviale incluse — ces 3 étapes sont un PASSAGE OBLIGÉ avant de produire ou modifier quoi que ce soit :
+
+1. **Lire les canoniques vault EN ENTIER** via `mcp__forge-brain__read_note("comment-creer-agent")` — SANS `max_lines`. `search_brain` seul (extraits ~10 lignes) = INSUFFISANT. Bloquant : ne rien rédiger avant.
+2. **Passer SYSTÉMATIQUEMENT les 5 dimensions de `references/checklist-agent-parfait.md`** — toutes, dans l'ordre, rien zappé. Chaque dimension cochée avec evidence (fichier:ligne + écart mesurable). C'est un GATE, pas une option de fin de fichier.
+2bis. **VÉRIFIER L'ADÉQUATION DU TYPE DE COMPOSANT (création ET audit — toujours).** Un subagent doit-il rester un subagent ? Signaler — sans transformer d'office — si le mécanisme ne peut PAS tenir la promesse du composant :
+   - Un subagent ne peut PAS poser de questions (AskUserQuestion filtré) ni utiliser le MCP de façon fiable. S'il promet de l'interactif ou un accès vault garanti → mauvais type, candidate SKILL thread principal.
+   - S'il doit garantir un comportement déterministe → candidate HOOK. Si c'est une procédure invocable sans isolation → candidate SKILL.
+   Si décalage promesse/mécanisme détecté → le signaler comme observation ARCHITECTURE dans le rapport (« devrait peut-être être un <autre type> parce que <raison> »), distincte des écarts qualité. NE JAMAIS transformer le composant sans validation explicite de Raphaël — c'est une décision d'architecture, pas une correction qualité.
+
+3. **PUIS calibrer l'effort de création/eval à l'enjeu** : profondeur d'audit = toujours 100% ; lourdeur du process de création (evals A/B, optimization loop) = proportionnée (skill réutilisée cross-repo = process complet ; composant trivial = audit complet + création directe). Profondeur ≠ lourdeur mécanique.
+
+Sortie du gate : un rapport d'écarts (CRITIQUE / IMPORTANT / SUGGESTION) présenté AVANT exécution. Pas d'écart mesuré = pas de modification cosmétique inutile.
+
+
 ## Phase 0 — Test préliminaire : faut-il vraiment un subagent ?
 
 **Avant tout** — répondre à cette question :

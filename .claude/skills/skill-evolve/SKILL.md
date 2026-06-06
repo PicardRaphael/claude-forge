@@ -1,6 +1,6 @@
 ---
 name: skill-evolve
-description: ALWAYS invoke when user says "evolve skill", "ameliore la skill", "skill-evolve", or "sweep skills". Analyzes SKILL.md effectiveness and proposes concrete improvements via execution patterns, cross-pollination, and vault techniques.
+description: ALWAYS invoke when user says "evolve skill", "ameliore la skill", "skill-evolve", or "sweep skills". Scans skills to spot which ones need attention (maturity score) and surfaces cross-pollination opportunities between skills. Delegates the deep per-skill audit + fixes to skill-creator. NOT for project architecture (use /evolve), NOT for Claude Code config audit (use repo-inspector mode=audit).
 argument-hint: "[skill-name | all]"
 user-invocable: true
 allowed-tools: Read, Glob, Grep, Bash, mcp__forge-brain__*
@@ -8,238 +8,127 @@ model: sonnet
 effort: high
 ---
 
-# skill-evolve — Méta-analyse et amélioration des skills
+# skill-evolve — Repérage stratégique + cross-pollination des skills
 
-Analyse une skill existante et produit des propositions d'amélioration concrètes.
+Deux rôles UNIQUES que `skill-creator` ne couvre pas :
+1. **Sweep** — vue d'ensemble : quelles skills méritent attention (score de maturité, signaux rapides).
+2. **Cross-pollination** — quels patterns d'une skill gagneraient à être transférés à une autre.
+
+**L'audit profond d'UNE skill (6 dimensions, frontmatter, conformité standard, fixes) appartient à `skill-creator`** (qui a le GATE 0). skill-evolve ne le refait PAS — il REPÈRE et DÉLÈGUE.
 
 **Ce n'est PAS `/evolve`** — `/evolve` analyse l'architecture produit d'un projet.
-**Ce n'est PAS un audit de config Claude Code** — `repo-inspector (mode=audit)` fait ça.
-C'est une analyse de l'efficacité d'une SKILL.md elle-même : est-elle bien structurée, bien déclenchée, exploite-t-elle les meilleures techniques disponibles ?
-
-**Ce skill PROPOSE. Il n'applique jamais.** Les modifications passent par `skill-creator`.
+**Ce n'est PAS `repo-inspector (mode=audit)`** — qui audite la config `.claude/` entière.
+**skill-evolve PROPOSE et PRIORISE. Il n'applique jamais.** Les corrections passent par `skill-creator`.
 
 ## Validation préalable
 
-Vérifier que `$ARGUMENTS` est fourni.
-
-Si absent, afficher :
+Vérifier que `$ARGUMENTS` est fourni. Si absent, afficher et stopper :
 ```
-Usage : /skill-evolve <skill-name>
-        /skill-evolve all
-Exemple : /skill-evolve forge-brain
-          /skill-evolve all
+Usage : /skill-evolve <skill-name>   → repérage + cross-pollination d'une skill
+        /skill-evolve all            → sweep de toutes les skills
 ```
-Ne pas continuer. Ne pas deviner une skill par défaut.
+Ne pas deviner une skill par défaut.
 
-## Mode 1 — Analyse profonde (skill-name)
+---
+
+## Mode 1 — Repérage ciblé (skill-name)
+
+Objectif : situer la skill (maturité, stabilité) et trouver les patterns transférables — PAS refaire l'audit conformité de skill-creator.
 
 ### Étape 1 — Charger la skill cible
+- Glob `.claude/skills/<skill-name>/SKILL.md` (+ `~/.claude/skills/` si absente localement)
+- Compter les lignes ; `git log --oneline -- <fichier> | head -10` (stabilité : <2 jeune, >10 dette potentielle ; skip si échec)
 
-Pour la skill nommée dans $ARGUMENTS :
-- Glob `.claude/skills/<skill-name>/SKILL.md`
-- Glob `.claude/skills/<skill-name>/references/*.md`
-- Glob `~/.claude/skills/<skill-name>/SKILL.md` (si absente localement)
+### Étape 2 — Score de maturité
+Appliquer `references/scoring-rubric.md` (grille 1-5). Le score est un thermomètre, pas un audit complet.
 
-Si aucun fichier trouvé : afficher la liste des skills disponibles et bail.
+### Étape 3 — Cross-pollination (le cœur unique de cette skill)
+Comparer la skill cible aux autres skills forge. Pour chaque pattern de `references/cross-pollination-patterns.md`, vérifier s'il est pertinent ET absent de la cible :
+- Lister les skills au workflow similaire (`ls .claude/skills/`)
+- Identifier un pattern présent ailleurs et utile ici (fallback vault, validation $ARGUMENTS, scripts déterministes, progressive disclosure, format tableau sweep…)
+- Pour chaque : « skill X fait Y mieux → applicable ici parce que Z »
 
-Compter les lignes du SKILL.md.
-
-### Étape 2 — Charger le contexte mémoire
-
-- Read `.claude/agent-memory/skill-creator/MEMORY.md`
-
-Chercher dans MEMORY.md les feedbacks mentionnant le nom de la skill ou sa catégorie.
-
-### Étape 3 — Interroger le vault
-
-Utiliser le MCP forge-brain (auto-start, port 8091) :
-
+### Étape 4 — Rapport de repérage
 ```
-forge-brain:search_brain query="<skill-name> technique amélioration" limit=8
-forge-brain:search_brain query="erreur skill <domaine>" limit=5
-```
+# Repérage skill — <skill-name>
+**Maturité :** X/5 — [label]  ·  **Lignes :** X  ·  **Stabilité git :** X commits
 
-Si le MCP ne répond pas : fallback Glob sur `vault/claude-forge/04-Techniques/` et `vault/claude-forge/Knowledge/erreurs/`.
+## Cross-pollination (patterns transférables)
+> Skill X fait Y mieux → appliquer ici parce que…  [Effort S/M/L]
 
-### Étape 4 — Vérifier l'historique git
-
-```
-git log --oneline -- .claude/skills/<skill-name>/SKILL.md | head -10
-```
-
-Nombre de commits = indicateur de stabilité. < 2 commits = jeune. > 10 commits = vieille dette potentielle.
-Si git log échoue, skip sans erreur.
-
-### Étape 5 — Analyser sur 4 axes
-
-Voir `references/analyse-axes.md` pour les critères détaillés de chaque axe.
-
-**Axe 1 — Efficacité**
-- La description déclenche-t-elle correctement ? Contient-elle des triggers naturels ?
-- Le workflow est-il complet ou s'arrête-t-il trop tôt ?
-- Les Gotchas couvrent-ils les vraies erreurs (pas l'évident) ?
-
-**Axe 2 — Évolution**
-- Y a-t-il des techniques récentes dans le vault qui pourraient enrichir cette skill ?
-- Le modèle/effort configuré est-il toujours optimal ?
-- Des patterns documentés dans MEMORY.md s'appliquent-ils sans être encore intégrés ?
-
-**Axe 3 — Cross-pollination**
-- Quelles autres skills font quelque chose de similaire mieux ?
-- Y a-t-il un pattern (progressive disclosure, checklist, script déterministe) présent ailleurs et absent ici ?
-- Voir `references/cross-pollination-patterns.md` pour les exemples documentés.
-
-**Axe 4 — Simplification**
-- Peut-on supprimer des étapes sans perdre de valeur ?
-- Y a-t-il des instructions qui énoncent l'évident (anti-pattern Thariq) ?
-- Le SKILL.md est-il > 500 lignes ? Si oui, quoi déporter dans references/ ?
-
-### Étape 6 — Produire le rapport
-
-Format de sortie (dans la conversation, jamais dans un fichier) :
-
-```
-# Analyse skill — <skill-name>
-
-**Score de maturité :** X/5 — [label]
-**Lignes SKILL.md :** X [OK / DÉPASSE 500L -> à déporter]
-**Stabilité git :** X commits [jeune / stable / ancienne dette]
-**Sources consultées :** mémoire [oui/non] · vault [oui/non · N résultats]
-
----
-
-## Propositions classées par impact
-
-### Impact élevé
-
-#### 1. [Titre court]
-**Axe :** [Efficacité / Évolution / Cross-pollination / Simplification]
-**Problème :** ...
-**Proposition :** ...
-**Effort :** S (< 30min) / M (1-2h) / L (> 2h)
-
-[2-4 items]
-
-### Impact moyen
-
-[1-3 items, même format]
-
-### Impact faible (nice-to-have)
-
-[0-2 items]
-
----
-
-## Cross-pollination
-
-> Skill X fait Y mieux — appliquer le même pattern ici parce que...
-
----
+## Signaux pour l'audit profond
+[2-4 points qui méritent que skill-creator regarde de près — SANS faire l'audit ici]
 
 ## Ce qui est bien — ne pas toucher
-
-[2-4 points forts à préserver]
-
----
+[2-4 points forts. Obligatoire : une skill qui n'a que des défauts = analyse paresseuse]
 
 ## Prochaine étape
-
-Pour appliquer ces changements : invoquer skill-creator avec ce brief.
+Pour l'audit profond + corrections → invoquer skill-creator sur <skill-name>
+(skill-creator applique le GATE 0 : 6 dimensions, frontmatter, fixes).
 ```
 
-La section **Ce qui est bien** est obligatoire — une skill qui n'a que des défauts est une analyse paresseuse.
-
-### Étape 7 — Demander confirmation
-
-Terminer par :
-- Appliquer ces changements ? -> invoquer skill-creator avec ce brief.
-- Prioriser autrement ? -> préciser et relancer l'analyse.
-- Juste analyser pour l'instant ? -> OK, aucune modification faite.
-
-Ne jamais auto-appliquer. Ne jamais invoquer skill-creator sans confirmation explicite.
+### Étape 5 — Confirmation
+- Lancer l'audit profond + fixes ? → invoquer `skill-creator` sur cette skill.
+- Juste le repérage ? → OK, rien d'autre.
+Ne jamais auto-appliquer. Ne jamais invoquer skill-creator sans confirmation.
 
 ---
 
 ## Mode 2 — Sweep (all)
 
-Quand $ARGUMENTS = "all", analyse rapide sur TOUTES les skills.
+Vue d'ensemble de TOUTES les skills pour prioriser. C'est l'usage le plus précieux : « lesquelles regarder en premier ».
 
-### Étape 1 — Lister les skills
-
+### Étape 1 — Lister
 ```
 ls .claude/skills/
 ls ~/.claude/skills/ 2>/dev/null
 ```
 
-### Étape 2 — Analyse rapide par skill
+### Étape 2 — Scan rapide par skill (léger, jamais profond)
+Pour chaque skill, vérifier UNIQUEMENT :
+1. Description présente + directive + triggers ?
+2. SKILL.md > 500 lignes ?
+3. Section Gotchas présente ?
+4. Skill externe (kepano) ? → marquer "externe, ne pas toucher"
 
-Pour chaque skill, vérifier uniquement :
-1. Axe Efficacité : description en anglais ? triggers présents ?
-2. Axe Simplification : SKILL.md > 500 lignes ? Section Gotchas présente ?
-
-Ne PAS faire en sweep : recherche vault, git log, cross-pollination.
-Ces checks alourdiraient un sweep de 25+ skills.
+Ne PAS faire en sweep : recherche vault, git log, cross-pollination, audit 6 dimensions. Ça alourdirait un sweep de 25+ skills.
 
 ### Étape 3 — Output sweep
-
 ```
 # Sweep skills — résultats
+| Skill | Maturité | Signal principal | Type |
+|-------|----------|------------------|------|
+| forge-brain | 4/5 | OK | interne |
+| obsidian-bases | — | externe, ne pas toucher | externe |
 
-| Skill | Score rapide | Signal principal |
-|-------|-------------|-----------------|
-| forge-brain | 4/5 | OK |
-| skill-creator | 5/5 | OK |
-| evolve | 5/5 | OK |
-
-## Top 3 à analyser en profondeur
-
-1. <skill> — [raison principale]
-2. <skill> — [raison principale]
-3. <skill> — [raison principale]
-
-Lancer /skill-evolve <skill-name> pour l'analyse complète.
+## Top 3 à traiter en priorité
+1. <skill> — [raison] → `/skill-evolve <skill>` puis skill-creator
+2. …
 ```
+Le sweep PRIORISE ; il ne corrige rien. Chaque skill prioritaire part ensuite vers skill-creator.
 
 ---
 
 ## Gotchas
 
-- **Ne pas confondre avec `/evolve`** — `/evolve` analyse l'architecture produit d'un projet. `/skill-evolve` analyse une SKILL.md elle-même. Si l'utilisateur veut analyser l'architecture d'un projet : rediriger vers `/evolve`.
-- **Ne jamais auto-appliquer** — ce skill produit des propositions uniquement. L'application passe toujours par skill-creator avec confirmation explicite. Le hook delegate-guard bloque les edits directs de toute façon.
-- **Sweep = analyse légère uniquement** — en mode "all", ne pas lancer de recherche vault ni git log pour chaque skill. Inutilisable sur > 15 skills.
-- **Pas de $ARGUMENTS dans backticks shell** — si besoin d'utiliser le nom de la skill dans une commande bash, l'extraire dans une variable d'abord.
-- **Section "Ce qui est bien" obligatoire** — proposer uniquement des défauts donne l'impression que la skill ne vaut rien. Équilibrer avec les points forts.
-- **Score 5/5 = propositions quand même** — une skill mature a toujours des micro-améliorations. Score 5 = stable, pas parfaite.
-- **Skill dans ~/.claude/skills/** — ne pas oublier les skills globales. Chercher dans les deux emplacements.
-- **Vault non disponible** — si Obsidian CLI échoue au pré-check, fallback Glob sur vault/. Ne pas bloquer l'analyse.
+- **Ne refait PAS l'audit profond** — depuis le GATE 0 de skill-creator, l'audit 6-dimensions + frontmatter + fixes appartient à skill-creator. skill-evolve REPÈRE (maturité, cross-pollination) et DÉLÈGUE. Dupliquer l'audit = doublon à éviter.
+- **Ne pas confondre avec `/evolve`** — `/evolve` = architecture produit projet. Rediriger si besoin.
+- **Ne pas confondre avec `repo-inspector mode=audit`** — lui audite toute la config `.claude/`. skill-evolve = les skills uniquement, angle stratégique.
+- **Ne jamais auto-appliquer** — propositions seulement. L'application passe par skill-creator (+ delegate-guard bloque les edits directs de toute façon).
+- **Sweep = scan léger** — en mode `all`, pas de vault/git/cross-pollination par skill. Sinon inutilisable sur 25+ skills.
+- **Skills externes (kepano)** — les marquer "ne pas toucher" dans le sweep ; ne jamais proposer de les réécrire (casse la synchro amont).
+- **Pas de $ARGUMENTS dans backticks shell** — extraire dans une variable d'abord.
+- **Section "Ce qui est bien" obligatoire** — équilibrer les propositions avec les points forts.
+- **Skills dans ~/.claude/skills/** — ne pas oublier les skills globales.
 
 ## Références
 
-- `references/analyse-axes.md` — critères détaillés des 4 axes d'analyse avec exemples
-- `references/scoring-rubric.md` — grille de maturité 1-5 avec labels et exemples
-- `references/cross-pollination-patterns.md` — patterns cross-skills documentés
-
-## MCP — accès direct (filet de sécurité)
-
-Tu reçois normalement un brief enrichi de la session principale avec les éléments MCP pertinents déjà extraits (vault, DB, docs). Si pendant l'exécution tu rencontres un doute non couvert par ton brief (terme inconnu, décision technique conflictuelle, pattern incertain, valeur précise non fournie), tu peux re-consulter directement le MCP via `mcp__forge-brain__*`.
-
-**Pas systématique** — la session principale t'a déjà briefé. C'est un filet de sécurité, pas une exploration parallèle. Anti-pattern : scanner par réflexe (coût tokens × N agents).
-
-**Quand l'utiliser** :
-- ✅ Terme/acronyme non défini dans le brief
-- ✅ Conflit entre 2 approches mentionnées
-- ✅ Valeur précise nécessaire (note canonique exacte)
-- ❌ Re-vérifier ce que le brief dit clairement
-- ❌ "Au cas où" sans déclencheur précis
-
-Source canonique : [[pattern-mcp-brief-then-direct]] vault forge.
+- `references/scoring-rubric.md` — grille de maturité 1-5
+- `references/cross-pollination-patterns.md` — patterns transférables entre skills (grandit à chaque analyse)
+- `references/analyse-axes.md` — critères détaillés (le détail conformité est surtout couvert par skill-creator + checklist-skill-parfaite)
 
 ## Apprentissage
 
-Après chaque usage significatif, sauvegarder en mémoire projet :
-
-- Skills analysées et scores obtenus
-- Propositions acceptées vs rejetées (et pourquoi)
-- Patterns récurrents identifiés
+Après chaque usage : skills repérées + scores, patterns de cross-pollination identifiés et transférés, skills déléguées à skill-creator.
 
 *Aucun apprentissage enregistré pour l'instant.*

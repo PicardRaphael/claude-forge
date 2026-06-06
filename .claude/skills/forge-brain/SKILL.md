@@ -1,6 +1,7 @@
 ---
 name: forge-brain
-allowed-tools: mcp__forge-brain__search_brain, mcp__forge-brain__search_sessions, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__read_note_resolved, mcp__forge-brain__get_backlinks, mcp__forge-brain__get_tags, mcp__forge-brain__get_property, mcp__forge-brain__find_by_property, mcp__forge-brain__list_notes, mcp__forge-brain__vault_stats, mcp__forge-brain__lint_vault, mcp__forge-brain__usage_stats, mcp__forge-brain__create_note, mcp__forge-brain__append_note, mcp__forge-brain__insert_section, mcp__forge-brain__update_note, mcp__forge-brain__update_property, mcp__forge-brain__bulk_update_property, mcp__forge-brain__move_note, mcp__forge-brain__delete_note
+allowed-tools: mcp__forge-brain__*
+user-invocable: true
 description: ALWAYS invoke when user asks about vault content, past decisions, or knowledge base. Search, read, and write the forge-brain Obsidian vault. Use PROACTIVELY at session start, before creating skill/agent/hook, after cc-news.
 ---
 
