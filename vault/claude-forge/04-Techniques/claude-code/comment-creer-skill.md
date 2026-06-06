@@ -1,5 +1,6 @@
 ---
 derniere-maj: 2026-06-06
+resume: Note canonique pour créer une skill Claude Code selon les 9 catégories Thariq (post Anthropic mars 2026), structure progressive disclosure, frontmatter trigger 3e personne, < 500L SKILL.md, limite description 1024 chars spec / 1536 listing (pas 250), interview 3 rounds obligatoires, evals obligatoires, agentskills.io spec ouverte.
 ---
 ﻿---
 titre: "Comment créer une skill Claude Code parfaite"
@@ -178,6 +179,15 @@ Côté forge : agent `skill-creator` génère SKILL.md conforme. Hook `delegate-
 Côté repo externe : utiliser `mcp-builder` ou `skill-creator` officiel Anthropic.
 
 ### Étape 3 — Frontmatter trigger
+
+Écrire la **description comme un trigger directive 3e personne**. Tester mentalement : "si je tape X dans une session, est-ce que Claude devrait activer cette skill ?"
+
+**Limites description (corrigées juin 2026) :**
+- ≤ **1024 chars** spec officielle (hard limit)
+- description + `when_to_use` ≤ **1536 chars** combiné dans le skill listing
+- Viser court et dense — triggers concrets en premier
+- Le "250 chars" anciennement cité était une estimation empirique du system reminder dans un contexte donné, pas une limite de troncature CC. Limites canoniques : 1024 / 1536.
+
 Écrire la **description comme un trigger directive 3e personne**. Tester mentalement : "si je tape X dans une session, est-ce que Claude devrait activer cette skill ?"
 
 **Cibler < 250 chars** dans la description pour garantir l'auto-trigger (limite pratique system reminder).
@@ -187,6 +197,18 @@ Côté repo externe : utiliser `mcp-builder` ou `skill-creator` officiel Anthrop
 - Instructions claires et directives
 - Déporter détail vers `references/`
 - Scripts pour opérations déterministes
+
+### Étape 4bis — Evals A/B (OBLIGATOIRES)
+
+Les evals sont **obligatoires** pour toute skill créée ou optimisée. Sans mesure → pas de preuve que la skill améliore les résultats (SkillsBench : auto-généré sans eval = –1.3pp en moyenne).
+
+- 2–3 test cases validés par l'utilisateur → `evals/evals.json`
+- Spawner simultanément `with_skill` + `baseline` via Task tool
+- Générer le eval viewer AVANT de juger soi-même
+- Description optimization loop : ~20 trigger queries, best_description sur score test
+- Seule exception : skill de connaissance pure subjective → éval qualitative uniquement
+
+Détail complet : `.claude/skills/skill-creator/references/eval-workflow.md`
 
 ### Étape 5 — Test en session fraîche
 Tester la skill dans une session vierge avec un prompt qui devrait l'activer. Si elle ne s'active pas → description pas assez directive **ou** trop longue (>250 chars système reminder).
@@ -393,6 +415,9 @@ Détecter et corriger :
 ## GOTCHAS — Pièges observés
 
 ### Pièges frontmatter
+- **Limites description** : ≤ 1024 chars spec (hard limit) ; description + `when_to_use` ≤ 1536 chars combiné dans le listing. ~~Le "250 chars" anciennement cité~~ était une estimation du system reminder dans un contexte donné — pas une limite de troncature CC. Limites canoniques : **1024 / 1536**.
+- **Evals obligatoires** : toute skill créée ou optimisée doit passer par les evals A/B (with_skill vs baseline). Sans mesure = pas de validation.
+- **Interview 3 rounds obligatoires** : ne pas bypasser l'interview, même si l'objectif semble évident. Une question peut être skippée uniquement si la réponse est explicite dans le contexte.
 - **Description YAML une seule ligne** : jamais `>-` ni `|` — convention forge (évite bugs parsing dans plusieurs outils, pas spec Anthropic stricte)
 - **`name` kebab-case = dossier** exact
 - **Description 3e personne directive** sinon trigger défaillant

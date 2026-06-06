@@ -4,14 +4,25 @@ Source : research LLM Claude.ai juin 2026 + doctrine forge. Hedges : chiffres Se
 
 ---
 
+## 0. Process — Interview & evals (OBLIGATOIRES)
+
+- [ ] **3 rounds d'interview complétés** via AskUserQuestion (skip question seulement si réponse explicite dans le contexte — jamais par hypothèse)
+  - Round 1 : intent + environnement cible + mode (create/optimize/audit)
+  - Round 2 : déclenchement + near-misses + side-effects
+  - Round 3 : forme (SKILL.md unique / dossier) + outils/MCP + modèle + evals
+- [ ] **Test cases validés** par l'utilisateur avant les runs (2–3 prompts réalistes, `evals/evals.json`)
+- [ ] **Evals A/B lancés** : with_skill + baseline simultanés, eval viewer généré AVANT jugement
+- [ ] **Description optimization loop** : ~20 trigger queries, best_description sélectionnée sur score test (60/40 split, 3 runs/query, max 5 itérations)
+- [ ] Seule exception evals : skill de connaissance pure subjective → éval qualitative uniquement
+
 ## 1. Discovery / activation
 
 - [ ] Description = identifiant domaine + "ALWAYS invoke when…" + contrainte négative ("Do not X directly")
 - [ ] 3e personne ; contient le QUOI et le QUAND ; phrases de trigger concrètes incl. cas où l'utilisateur ne nomme pas la skill
 - [ ] `name` kebab-case, ≤ 64 chars, pas "claude"/"anthropic", gérondif préféré
-- [ ] ≤ 250 chars pratique (system reminder `/skills` tronque au-delà → auto-trigger défaillant)
-- [ ] ≤ 1024 chars spec officielle
-- [ ] description + `when_to_use` ≤ 1536 chars combiné dans le listing
+- [ ] ≤ 1024 chars spec officielle (hard limit)
+- [ ] description + `when_to_use` ≤ 1536 chars combiné dans le skill listing
+- [ ] Viser court et dense — triggers concrets en premier, contexte ensuite
 - [ ] UNE SEULE LIGNE YAML — jamais `>-` ni `|` (casse la découverte, Prettier mangling)
 - [ ] Pas de XML tags
 - [ ] Near-miss exclusions incluses ("NOT when X", "Use this for Y not Z")
@@ -51,7 +62,7 @@ Source : research LLM Claude.ai juin 2026 + doctrine forge. Hedges : chiffres Se
 
 Détecter et corriger chaque item — scorer avec fichier + fix en une ligne, boucler jusqu'à propre :
 
-- [ ] Description tronquée / over-budget (> 250 chars pratique, > 1024 spec)
+- [ ] Description tronquée / over-budget (> 1024 chars spec, ou description + when_to_use > 1536 listing)
 - [ ] Description passive (non-directive)
 - [ ] Chaînes de references > 1 niveau de profondeur
 - [ ] References mortes ou cassées
