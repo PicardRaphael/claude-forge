@@ -1,20 +1,38 @@
 #!/usr/bin/env python3
 """Block direct edits to protected files — enforce delegation to specialist skills.
 
-Protected targets (ONLY inside claude-forge project):
-  CLAUDE.md         → must use claudemd-creator SKILL (skill thread-principal, bypass légitime)
-  (SKILL.md + agents/*.md removed 2026-06-06 — replaced by skill-creator + subagent-creator skills)
-  (claudemd-creator agent removed 2026-06-06 — replaced by claudemd-creator skill)
+Protected targets (ONLY inside claude-forge project) — modification only, not reads:
+  CLAUDE.md              → claudemd-creator skill
+  agents/*.md            → subagent-creator skill
+  skills/<name>/SKILL.md → skill-creator skill   (except external/kepano skills)
+  hooks/*.py             → hook-creator skill     (except this guard + test files)
+
+Rationale: a specialist skill applies the perfect-writing checklist automatically.
+Direct hand edits produced non-conformant components 3× (2026-04-26). Reads/analysis
+are NOT blocked — only Write/Edit/MultiEdit. The vault + rules carry the same method;
+only *modification* risks a broken format.
+
+DETECTION (how we know a legit specialist skill is writing):
+  Claude Code writes `attributionSkill: <skill-name>` on the assistant event in the
+  session transcript when a skill is active. The hook receives agent_type/agent_id = null
+  for skills (skills are NOT sub-agents), so we parse the transcript tail for
+  attributionSkill instead. Empirically confirmed on CC 2.1.167 (2026-06-06).
+
+  STRICT bypass: attributionSkill must match the REQUIRED specialist for THIS file type
+  (claudemd-creator may only unlock CLAUDE.md, skill-creator only SKILL.md, etc.).
+  Defense in depth — an active skill cannot unlock a file type it doesn't own.
+
+NEVER bypass via spoofable signals (CLAUDE_AGENT env var injection, external scripts):
+  those are circumvention attempts, not legitimate delegation. Removed deliberately.
 
 Exceptions (bypass in order — first match wins):
-  1. File is outside the claude-forge project directory → always allowed
-  2. data.get("agent_type") contains a specialist → bypass
-  3. data.get("agent_id") equals a specialist name → bypass
-  4. CLAUDE_AGENT env var contains a specialist → bypass (legacy fallback)
-  5. transcript_path present AND parsing reveals active sub-agent specialist → bypass
-  6. Edit tool with both old_string and new_string < 20 chars → typo pass-through (warning)
-  7. Any parse error → fail-open (exit 0)
+  1. File outside the claude-forge project directory → always allowed
+  2. File is this guard itself or a test_*.py → allowed (avoid self-lock)
+  3. transcript attributionSkill == required specialist for this file → bypass
+  4. Edit/MultiEdit with all changes < 20 chars → typo pass-through (warning)
+  5. Any parse error → fail-open (exit 0)
 
+Doctrine: hook = scope/enforcement only, never agentic workflow (pivot 22 mai).
 Debug log (append): <tempdir>/delegate-guard-debug.log
 """
 import json
@@ -25,16 +43,37 @@ from datetime import datetime
 from pathlib import Path
 
 
-PROTECTED = {
+# basename CLAUDE.md → specialist skill that owns it
+PROTECTED_BASENAMES = {
     "CLAUDE.md": "claudemd-creator",
 }
 
 TYPO_THRESHOLD = 20
 
-ALLOWED_SPECIALISTS = {"hook-creator", "claudemd-creator"}  # skill-creator + agent-creator now skills
+# All specialist skills (used only to recognize a name as a known specialist if needed)
+ALLOWED_SPECIALISTS = {
+    "skill-creator",
+    "subagent-creator",
+    "hook-creator",
+    "claudemd-creator",
+}
 
-# Skills externes (kepano/Obsidian) — copies read-only, pas protégées par delegate-guard
-EXEMPT_SKILL_DIRS = {"json-canvas", "defuddle", "obsidian-cli", "obsidian-markdown", "obsidian-bases"}
+# External/kepano skills — read-only copies, NOT authored via skill-creator → not protected
+EXEMPT_SKILL_DIRS = {
+    "json-canvas",
+    "defuddle",
+    "obsidian-cli",
+    "obsidian-markdown",
+    "obsidian-bases",
+}
+
+# Hook files that must never be self-locked
+EXEMPT_HOOK_FILES = {
+    "delegate-guard.py",
+}
+
+# How many trailing transcript lines to scan for attributionSkill
+TRANSCRIPT_TAIL = 15
 
 FORGE_PROJECT_DIR = str(Path(__file__).resolve().parent.parent.parent).replace("\\", "/").lower()
 
@@ -42,7 +81,6 @@ LOG_PATH = Path(tempfile.gettempdir()) / "delegate-guard-debug.log"
 
 
 def debug_log(msg: str) -> None:
-    """Append timestamped message to debug log. Fail silently."""
     try:
         with open(LOG_PATH, "a", encoding="utf-8") as f:
             f.write(f"[{datetime.now().isoformat()}] {msg}\n")
@@ -59,48 +97,72 @@ def basename(path: str) -> str:
 
 
 def is_inside_forge(norm_path: str) -> bool:
-    """Check if the file is inside the claude-forge project directory."""
     return norm_path.lower().startswith(FORGE_PROJECT_DIR)
 
 
-def is_agent_md(norm_path: str) -> bool:
-    return False  # protection removed 2026-06-06 — subagent-creator skill handles agents/*.md
+def _parts(norm_path: str) -> list[str]:
+    return norm_path.split("/")
 
 
 def is_exempt_skill(norm_path: str) -> bool:
-    """Check if the file is in an exempt skill directory (external/kepano skills)."""
-    parts = norm_path.split("/")
+    parts = _parts(norm_path)
     for i, part in enumerate(parts):
         if part == "skills" and i + 1 < len(parts) and parts[i + 1] in EXEMPT_SKILL_DIRS:
             return True
     return False
 
 
-def required_agent(norm_path: str) -> str | None:
+def is_agent_md(norm_path: str) -> bool:
+    """True for .claude/agents/<name>.md (file directly under agents/)."""
+    parts = _parts(norm_path)
+    return "agents" in parts and norm_path.endswith(".md") and parts[-2:-1] == ["agents"]
+
+
+def is_skill_md(norm_path: str) -> bool:
+    """True for .claude/skills/<name>/SKILL.md (non-exempt)."""
+    if basename(norm_path) != "SKILL.md":
+        return False
+    if "skills" not in _parts(norm_path):
+        return False
+    return not is_exempt_skill(norm_path)
+
+
+def is_hook_py(norm_path: str) -> bool:
+    """True for .claude/hooks/*.py (excluding the guard itself and test files)."""
+    parts = _parts(norm_path)
     name = basename(norm_path)
-    if is_exempt_skill(norm_path):
-        return None
-    if name in PROTECTED:
-        return PROTECTED[name]
+    if "hooks" not in parts or not name.endswith(".py"):
+        return False
+    if name in EXEMPT_HOOK_FILES or name.startswith("test_"):
+        return False
+    return parts[-2:-1] == ["hooks"]
+
+
+def required_specialist(norm_path: str) -> str | None:
+    """Return the specialist skill required to edit this file, or None if unprotected."""
+    name = basename(norm_path)
+    if name in PROTECTED_BASENAMES:
+        return PROTECTED_BASENAMES[name]
+    if is_skill_md(norm_path):
+        return "skill-creator"
     if is_agent_md(norm_path):
-        return "subagent-creator"  # dead code — is_agent_md always returns False
+        return "subagent-creator"
+    if is_hook_py(norm_path):
+        return "hook-creator"
     return None
 
 
-def detect_subagent_from_transcript(transcript_path: str) -> str | None:
-    """Parse last 50 lines of transcript to find innermost active sub-agent.
+def active_skill_from_transcript(transcript_path: str) -> str | None:
+    """Return the attributionSkill of the most recent assistant event, or None.
 
-    Walk lines in reverse order. First event found determines state:
-      - agent_end (or type ending the agent context) → not inside a sub-agent → None
-      - agent_start / subagent_type present → inside sub-agent → return its type
-
-    Returns the subagent_type string if we are currently inside a specialist sub-agent,
-    None otherwise (including on any error → fail-open).
+    CC writes `attributionSkill: <name>` on assistant events when a skill is active.
+    We scan the tail in reverse and return the first attributionSkill found.
+    Fail-open → None on any error.
     """
     try:
         with open(transcript_path, "r", encoding="utf-8") as f:
             lines = f.readlines()
-        for line in reversed(lines[-50:]):
+        for line in reversed(lines[-TRANSCRIPT_TAIL:]):
             line = line.strip()
             if not line:
                 continue
@@ -108,48 +170,29 @@ def detect_subagent_from_transcript(transcript_path: str) -> str | None:
                 event = json.loads(line)
             except Exception:
                 continue
-            event_type = event.get("type", "")
-            # If we see an agent completion marker first → no active sub-agent
-            if event_type in ("agent_end", "subagent_end", "agent_complete"):
-                return None
-            # If we see an agent start or subagent_type field → active sub-agent
-            if event_type in ("agent_start", "subagent_start") or "subagent_type" in event:
-                return event.get("subagent_type") or event.get("agent_type") or ""
+            attr = event.get("attributionSkill")
+            if attr:
+                return attr
     except Exception:
         pass
     return None
 
 
-def agent_bypass_active(data: dict) -> tuple[bool, str]:
-    """Return (bypass, source) where source describes which check triggered the bypass."""
-    # Source 1: agent_type field (primary Anthropic field for sub-agent identity)
-    agent_type = data.get("agent_type", "")
-    if agent_type in ALLOWED_SPECIALISTS:
-        return True, f"agent_type={agent_type!r}"
-
-    # Source 2: agent_id field (may contain specialist name in some CC versions)
-    agent_id = data.get("agent_id", "")
-    if agent_id in ALLOWED_SPECIALISTS:
-        return True, f"agent_id={agent_id!r}"
-    # Source 3: CLAUDE_AGENT env var (legacy fallback — always dead code per vault, kept for safety)
-    claude_agent = os.environ.get("CLAUDE_AGENT", "")
-    if claude_agent in ALLOWED_SPECIALISTS:
-        return True, f"CLAUDE_AGENT={claude_agent!r}"
-
-    # Source 4: transcript parsing (only if transcript_path is present)
-    transcript_path = data.get("transcript_path", "")
-    if transcript_path:
-        detected = detect_subagent_from_transcript(transcript_path)
-        if detected and detected in ALLOWED_SPECIALISTS:
-            return True, f"transcript_path detected subagent_type={detected!r}"
-
-    return False, ""
-
-
-def is_typo_edit(tool_input: dict) -> bool:
-    old = tool_input.get("old_string", "")
-    new = tool_input.get("new_string", "")
-    return len(old) < TYPO_THRESHOLD and len(new) < TYPO_THRESHOLD
+def is_typo_change(tool_name: str, tool_input: dict) -> bool:
+    if tool_name == "Edit":
+        old = tool_input.get("old_string", "")
+        new = tool_input.get("new_string", "")
+        return len(old) < TYPO_THRESHOLD and len(new) < TYPO_THRESHOLD
+    if tool_name == "MultiEdit":
+        edits = tool_input.get("edits", [])
+        if not edits:
+            return False
+        return all(
+            len(e.get("old_string", "")) < TYPO_THRESHOLD
+            and len(e.get("new_string", "")) < TYPO_THRESHOLD
+            for e in edits
+        )
+    return False
 
 
 def main() -> None:
@@ -160,14 +203,22 @@ def main() -> None:
         sys.exit(0)
 
     try:
-        # Always log stdin for empirical observation of what Anthropic sends
-        debug_log(
-            f"stdin={json.dumps({'tool_name': data.get('tool_name'), 'agent_type': data.get('agent_type'), 'agent_id': data.get('agent_id'), 'transcript_path': data.get('transcript_path'), 'file_path': data.get('tool_input', {}).get('file_path')})}"
-        )
-
         tool_name = data.get("tool_name", "")
         tool_input = data.get("tool_input", {})
         file_path = tool_input.get("file_path", "")
+        transcript_path = data.get("transcript_path", "")
+
+        debug_log(
+            "stdin="
+            + json.dumps(
+                {
+                    "tool_name": tool_name,
+                    "agent_type": data.get("agent_type"),
+                    "file_path": file_path,
+                    "has_transcript": bool(transcript_path),
+                }
+            )
+        )
 
         if not file_path:
             sys.exit(0)
@@ -177,37 +228,37 @@ def main() -> None:
         if not is_inside_forge(norm_path):
             sys.exit(0)
 
-        agent = required_agent(norm_path)
-
-        if agent is None:
+        required = required_specialist(norm_path)
+        if required is None:
             sys.exit(0)
 
-        bypassed, bypass_source = agent_bypass_active(data)
-        if bypassed:
-            debug_log(f"BYPASS via {bypass_source} for {basename(norm_path)}")
+        # STRICT bypass: the active attributionSkill must be the specialist that owns this file
+        active_skill = active_skill_from_transcript(transcript_path) if transcript_path else None
+        if active_skill == required:
+            debug_log(f"BYPASS attributionSkill={active_skill!r} matches required for {basename(norm_path)}")
             sys.exit(0)
 
-        if tool_name == "Edit" and is_typo_edit(tool_input):
+        if tool_name in ("Edit", "MultiEdit") and is_typo_change(tool_name, tool_input):
             print(
-                f"WARNING: delegate-guard bypassed for short edit (<{TYPO_THRESHOLD} chars) "
-                f"on protected file '{basename(norm_path)}'. "
-                f"For real changes, use {agent}.",
+                f"WARNING: delegate-guard bypassed for trivial edit (<{TYPO_THRESHOLD} chars) "
+                f"on protected file '{basename(norm_path)}'. For real changes, use {required}.",
                 file=sys.stderr,
             )
             sys.exit(0)
 
-        agent_type_recv = data.get("agent_type", "<absent>")
-        agent_id_recv = data.get("agent_id", "<absent>")
         print(
-            f"BLOCKED: Direct edit of '{basename(norm_path)}' is not allowed.\n"
+            f"BLOCKED: direct {tool_name} of '{basename(norm_path)}' is not allowed.\n"
             f"File: {file_path}\n"
-            f"Required agent: {agent}\n"
-            f"Received agent_type={agent_type_recv!r}, agent_id={agent_id_recv!r}\n"
-            f"Invoke the '{agent}' agent to make this change.\n"
+            f"Required specialist skill: {required}\n"
+            f"Active attributionSkill detected: {active_skill!r}\n"
+            f"Invoke the '{required}' skill to make this change (it applies the perfect-writing checklist).\n"
+            f"Reads/analysis are NOT blocked — only modifications. Do NOT attempt to bypass via env vars or external scripts.\n"
             f"Debug log: {LOG_PATH}",
             file=sys.stderr,
         )
-        debug_log(f"BLOCKED file={file_path} agent_type={agent_type_recv!r} agent_id={agent_id_recv!r}")
+        debug_log(
+            f"BLOCKED file={file_path} required={required} active_skill={active_skill!r}"
+        )
         sys.exit(2)
 
     except Exception:

@@ -282,6 +282,7 @@
       "améliore le claude",
       "mon fichier claude",
       "le claude.md",
+      "create claude.md",
       "audit claude.md"
     ]
   },
@@ -339,31 +340,13 @@
       "priorise la roadmap",
       "ai act",
       "fria",
+      "1:1",
       "feedback dev",
       "build vs buy",
       "réunion client ia",
-      "stratégie ia neoteem"
-    ]
-  },
-  "devils-advocate": {
-    "type": "agent",
-    "description": "Stress-tester un livrable majeur AVANT de le livrer (décision archi, skill réutilisée, agent orchestrant, proposition Jarvis). Voir .claude/rules/devils-advocate-pipeline.md pour le tableau OUI/NON.",
-    "triggers": [
-      "demande à devils",
-      "demande a devils",
-      "vérifie avec devil",
-      "verifie avec devil",
-      "avocat du diable",
-      "stress-test",
-      "stress test",
-      "critique ce",
-      "critique cette",
-      "critique ça",
-      "challenge ça",
-      "challenge ce",
-      "avant de livrer",
-      "valide ce livrable",
-      "c'est prêt à livrer"
+      "okr",
+      "stratégie ia neoteem",
+      "rice"
     ]
   }
 }

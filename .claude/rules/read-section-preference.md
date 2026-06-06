@@ -1,3 +1,7 @@
+---
+description: "read_section pour question précise (économe tokens), read_note pour scope large ou première lecture. Pas de dogme."
+---
+
 # Préférence read_section vs read_note
 
 ## Règle

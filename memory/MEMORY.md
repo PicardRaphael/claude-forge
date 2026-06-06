@@ -1,6 +1,7 @@
 # Memory Index
 
 ## Feedback
+- [optimiser-claudemd-inspec](feedback_optimiser_claudemd_inspec.md) — Optimiser CLAUDE.md in-spec ≠ réduire mécaniquement — appliquer "Would removing this cause mistakes?" pas un %-objectif
 - [advisor-da-web-search](feedback_advisor_da_web_search.md) — Rechercher web AVANT advisor/DA si fait technique incertain
 - [auto-memory-user-scope-doublon](feedback_auto_memory_user_scope_doublon.md) — ~/.claude/projects/.../MEMORY.md doublonne memory/MEMORY.md projet à 90%. Purge sans risque après diff. 10.8k tokens fantôme par session
 - [agent-tools-enforce-delegation](feedback_agent_tools_restriction.md) — Retirer Bash des agents orchestrateurs pour forcer délégation

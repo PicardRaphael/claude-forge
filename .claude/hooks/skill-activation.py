@@ -8,7 +8,7 @@ skill/command is available.
 Design decisions:
 - Word-boundary regex (avoids "done" matching "abandoned")
 - Extended trigger map: {"skill-name": {"type", "triggers"|"triggers_by_subject", "description"}}
-- type "skill" → Skill(name) | type "command" → /name
+- type "skill" → Skill(name) | type "command" → /name | type "agent" → Agent(name)
 - Multi-match: one combined additionalContext, all matched skills tracked
 - Bypass prefixes: *, /, #, ! (system prompts, slash commands, directives)
 - Fail-open: any exception → exit 0 silently
@@ -124,6 +124,8 @@ def format_recommendation(match: dict) -> str:
 
     if skill_type == "command":
         invoke = f"/{name}"
+    elif skill_type == "agent":
+        invoke = f"Agent({name})"
     else:
         invoke = f"Skill({name})"
 

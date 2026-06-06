@@ -29,7 +29,7 @@ STACK_INTERPRETERS = {
     "neoteem-brain": ["python3"],
 }
 
-REQUIRED_RULES = ["check-before-create.md", "learn-from-mistakes.md", "quality-gates.md"]
+REQUIRED_RULES = ["windows-hooks.md", "git-multi-repo.md"]
 
 
 def read_json_safe(path):

@@ -1,32 +1,41 @@
 ---
-description: "Delegate agents to subagent-creator, CLAUDE.md to claudemd-creator. Skills: invoke skill-creator skill directly — no hard block since 2026-06-06 pivot."
+description: "Délègue toute modification de composant à sa skill créatrice. delegate-guard.py bloque (exit 2) les écritures directes des 4 types : CLAUDE.md, agents, skills, hooks."
 ---
 
-# Delegation aux specialistes — OBLIGATOIRE
+# Délégation aux spécialistes — OBLIGATOIRE
 
-Ne JAMAIS editer directement les fichiers que des specialistes savent creer.
+Ne JAMAIS écrire directement les fichiers que des skills créatrices savent produire. Le hook `delegate-guard.py` (PreToolUse Write|Edit|MultiEdit) bloque l'écriture directe et force le passage par la bonne skill — qui applique automatiquement la checklist d'écriture parfaite.
 
-| Action | Specialiste | BLOQUE PAR HOOK |
-|--------|-------------|-----------------|
-| Creer/modifier une skill (SKILL.md) | Skill `skill-creator` (Skill tool) | Non — advisory |
-| Creer/modifier un agent (.md dans agents/) | Skill `subagent-creator` (Skill tool) | Non — advisory |
-| Creer/modifier un hook | Skill `hook-creator` (Skill tool) | Non — advisory |
-| Creer/optimiser un CLAUDE.md | Skill `claudemd-creator` (Skill tool) | Oui — exit 2 sur CLAUDE.md (protection conservée) |
-| Critiquer un livrable majeur | `devils-advocate` | Non — mais rule s'applique |
-| Evoluer/optimiser une skill | `skill-evolve` → skill `skill-creator` | Non — advisory |
+| Fichier modifié              | Skill à invoquer                 | Bloqué par delegate-guard |
+| ---------------------------- | -------------------------------- | ------------------------- |
+| `CLAUDE.md`                  | `claudemd-creator`               | **Oui — exit 2**          |
+| `agents/*.md`                | `subagent-creator`               | **Oui — exit 2**          |
+| `skills/<nom>/SKILL.md`      | `skill-creator`                  | **Oui — exit 2**          |
+| `hooks/*.py`                 | `hook-creator`                   | **Oui — exit 2**          |
+| Critiquer un livrable majeur | `devils-advocate`                | Non — rule conditionnelle |
+| Évoluer/optimiser une skill  | `skill-evolve` → `skill-creator` | via skill-creator         |
 
-## Pivot 6 juin 2026 — skill-creator + subagent-creator + hook-creator + claudemd-creator deviennent des skills
+## Comment le hook reconnaît une skill légitime (détection 2026-06-06)
 
-Les 4 créateurs sont maintenant des **skills** invoquées par la session principale.
-- `SKILL.md` et `agents/*.md` : hard block retiré — advisory
-- `CLAUDE.md` : hard block **conservé** (exit 2) — la skill `claudemd-creator` (thread principal) passe légitimement
-- `hooks/` : pas de protection delegate-guard (hook-creator reste advisory)
+Les skills créatrices ne sont PAS des sous-agents : `agent_type` et `agent_id` sont `null` quand elles tournent. Le hook lit donc le champ **`attributionSkill`** dans le transcript de session (écrit par Claude Code, vérifié sur CC 2.1.167).
 
-## Exceptions hook agents (delegate-guard.py)
+**Bypass STRICT** : `attributionSkill` doit correspondre à la skill propriétaire du fichier — `claudemd-creator` ne débloque que `CLAUDE.md`, `skill-creator` que les `SKILL.md`, etc. Une skill active ne peut pas débloquer un type de fichier qu'elle ne possède pas.
 
-- Correction de typo < 20 caracteres = warning mais pas bloque
-- `agent_type` ou `agent_id` = specialist → bypass automatique
+## Exceptions du hook
+
+- Correction de typo < 20 caractères (Edit/MultiEdit) → warning, pas de blocage
+- Skills externes/kepano (`json-canvas`, `defuddle`, `obsidian-markdown`, `obsidian-bases`, `obsidian-cli`) → non protégées (copies read-only)
+- `delegate-guard.py` lui-même + fichiers `test_*.py` → exemptés (anti self-lock)
+- Fichier hors du projet claude-forge → jamais bloqué
+
+## Frontière modification ≠ analyse
+
+Le hook protège la **modification** (écriture), JAMAIS l'analyse/lecture. Lire un composant pour l'auditer est libre : le vault et les rules portent la même méthode. Seule l'écriture risque un format cassé, donc seule l'écriture est forcée vers la skill.
+
+## INTERDIT — ne jamais contourner le hook
+
+Si le hook bloque, la réponse n'est JAMAIS de le contourner (injecter `CLAUDE_AGENT`, passer par un script Python externe, Write au lieu d'Edit). On corrige le hook ou on invoque la skill. Contourner un garde-fou de scope = anti-pattern absolu.
 
 ## Pourquoi
 
-Les specialistes appliquent les best practices automatiquement. L'edit direct a produit des composants non conformes a 3 reprises (2026-04-26). Documente dans le vault : `Knowledge/erreurs/erreur-edit-direct-skills.md`.
+Les skills créatrices appliquent les best practices automatiquement (description une ligne, name=dossier, pas de BOM, exit 2 vs exit 1, adaptation OS). L'édition directe a produit des composants non conformes à 3 reprises (2026-04-26).

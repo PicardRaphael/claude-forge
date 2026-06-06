@@ -1,6 +1,6 @@
 # claude-forge
 
-**Créé : 31 mars 2026 | Dernière mise à jour : 2026-06-01 | Version : 3.5 (full main par défaut, 1er juin 2026)**
+**Créé : 31 mars 2026 | Dernière mise à jour : 2026-06-06 | Version : 3.6**
 
 - Si ambigu : Demande. Ne choisis pas en silence.
 - Diff minimal. Touche uniquement ce qui est demandé.
@@ -18,7 +18,7 @@
 - **MCP forge-brain UNIQUEMENT pour accès vault** : jamais Grep/Read/Glob/CLI Obsidian brut.
 - **Tokens/contexte = ressource ultra-précieuse** : MEMORY.md > 38k chars, fichiers obsolètes, doctrine périmée → dégrade chaque tâche. Fix immédiat, jamais "plus tard". Architecture : MEMORY.md tier-1 visible + `memory/_index_archive.md` tier-2 (réintégrer si cité).
 - **Découverte importante → ENRICHIR l'existant avant de créer** : `search_brain` d'abord ; une note/règle couvre déjà le sujet → l'enrichir (`insert_section`/Edit), créer une note neuve seulement si aucun foyer existant. Évite les doublons orphelins. Cf `.claude/rules/memory-discipline.md`.
-- **Workflow par défaut = langage naturel** : Raphael parle, session principale orchestre (feature → /spec → architect → dev → reviewer → grader). Slash commands optionnels.
+- **Workflow par défaut = langage naturel** : Raphael parle, session principale orchestre. Création composants → skills créatrices (skill/subagent/hook/claudemd-creator). Analyse/audit → repo-inspector. Dev → code-dev. Slash commands optionnels.
 
 ## Workflow Git (convention)
 
@@ -96,25 +96,17 @@ Pivot doctrinal complet : **[[raisonnement-22mai-doctrine-vs-enforcement]]**
 
 JAMAIS invoquer plugin externe si skill forge couvre le sujet.
 
-## Vault forge-brain
-
-`vault/claude-forge/` — 3 layers (raw/wiki/SCHEMA.md). Accès EXCLUSIVEMENT via MCP forge-brain (port 8091, auto-start). Détails : rule `forge-brain-proactive.md` + skill `forge-brain`. JAMAIS Grep/Read/Glob/CLI Obsidian brut.
-
 ## Mémoire
 
 @memory/MEMORY.md
 
-- **Emplacement** : `<repo>/memory/` (versionné git, portable cross-machine) — PAS `~/.claude/projects/`
-- **Lecture** : la ligne `@memory/MEMORY.md` ci-dessus charge `memory/MEMORY.md` à chaque session (résolution relative au fichier)
-- **Écriture** : /done écrit les feedbacks dans `<repo>/memory/` (chemin via `git rev-parse --show-toplevel`)
-- **Confidentialité** : items sensibles dans `memory/private/` ou `memory/*-private.md` (gitignored)
-- **1re session après clone** : dialogue d'approbation des imports — ne pas décliner, sinon imports désactivés silencieusement
-- Référence : [[decision-memoire-dans-le-repo]]
+- Emplacement : `<repo>/memory/` (versionné git) — PAS `~/.claude/projects/`
+- 1re session après clone : ne pas décliner le dialogue d'approbation (imports désactivés silencieusement sinon)
 
 ## Gotchas
 
 - Sweet spot CLAUDE.md / prompts agents : 150-300 mots. Au-delà, dégradation quadratique.
-- Si info potentiellement datée → `cc-news` | CC v2.1.140
+- Si info potentiellement datée → `cc-news`
 - DA : vérifier résultat COMPLET avant d'annoncer "validé". Tronqué = relancer
 - learning-reminder : JAMAIS répondre "rien à sauvegarder" par facilité — vérifier réellement
 - CLAUDE.md DOIT évoluer : ajouter après chaque erreur, supprimer le redondant. Audit mensuel via `/forge-review`
