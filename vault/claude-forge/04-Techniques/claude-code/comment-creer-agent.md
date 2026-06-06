@@ -163,6 +163,23 @@ Cas réel 27 mai 2026 : `devils-advocate.md` avait `effort: high` en frontmatter
 
 ## QUAND — Critère d'application
 
+### Le test en une phrase (source: research LLM juin 2026)
+
+> « Est-ce que cette tâche a besoin d'un contexte frais isolé OU de tourner en parallèle, ET n'a pas besoin de poser des questions ni du contexte de la conversation ? » Si non → ce n'est pas un subagent.
+
+Un subagent résout exactement **deux** problèmes :
+1. **Isolation de contexte** — sortir le travail bruyant (lire 40 fichiers, explorer) du transcript principal. Le subagent renvoie un résumé, pas le détail.
+2. **Parallélisme** — lancer plusieurs workers simultanément.
+
+**NE PAS créer de subagent quand :**
+- La tâche doit poser des questions → `AskUserQuestion` non disponible en subagent (filtré, issues #12890 #18721 #20275)
+- La tâche a besoin du contexte de conversation → le subagent démarre vierge
+- La tâche a besoin du MCP → non garanti (`No such tool available` fréquent)
+- Juste pour "faire propre" → une skill ou section CLAUDE.md suffit, sans les inconvénients
+- Workers doivent communiquer entre eux → Agent Teams, pas subagents
+- Comportement déterministe obligatoire → hook, pas subagent
+
+
 ### Créer un agent quand :
 - Un **rôle dev récurrent** émerge (architect, dev-feature, code-reviewer, test-writer, debugger, sécu-auditor)
 - Une **boundary** est nécessaire (lecture seule, outils restreints, modèle dédié)
@@ -218,6 +235,130 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (agent orchestran
 - [[methode-analyser-repo]] — méthode pour identifier les rôles → agents
 
 ---
+
+## POURQUOI un subagent n'invoque pas ses skills — 3 causes cumulées
+
+Le problème le plus fréquent. Source : research LLM juin 2026 + empirique forge.
+
+### Cause 1 — `Skill` absent de `tools:` (mécanique)
+Sans l'outil `Skill` dans `tools:`, le subagent **ne peut physiquement pas** invoquer de skill. À vérifier en premier.
+
+### Cause 2 — `skills:` précharge, ne force pas
+Le champ `skills:` injecte les *descriptions* dans le system prompt (issue #32910) — ce n'est pas une invocation forcée. "Description présente" ≠ "skill invoquée". L'invocation reste probabiliste, comme sur le thread principal.
+
+### Cause 3 — Le subagent préfère le raccourci direct
+Si le subagent a tous les outils pour produire le résultat sans passer par la skill (Bash, connaissance propre), il le fait. La skill devient un détour optionnel qu'il s'autorise à zapper.
+
+### Verdict
+`skills:` dans le frontmatter ne garantit jamais l'invocation. Pour la forcer → voir section enforcement ci-dessous.
+
+---
+
+## Enforcement — 6 niveaux (du mou au dur)
+
+### Niveau 1 — Ordre impératif numéroté (indispensable, probabiliste)
+L'invocation de la skill = **ÉTAPE 1 bloquante** dans le body avec raison explicite :
+> « ÉTAPE 1 — OBLIGATOIRE AVANT TOUT. Invoque la skill `xxx` (outil Skill). Ne génère rien avant. Raison : sans elle tu produis du format obsolète qui ne se déclenche jamais. »
+
+### Niveau 2 — Critique inliné dans le body (le plus fiable côté contenu)
+**Si une connaissance DOIT toujours être présente, ne la mets pas dans une skill zappable — mets-la dans le system prompt.** Le body de l'agent est TOUJOURS chargé ; une skill est un détour optionnel. Les 5-6 règles non-négociables vivent inline ; la skill devient la référence détaillée.
+
+### Niveau 3 — Script-output gating
+Un script de validation que l'agent doit lancer ; la sortie le bloque. La règle non-négociable vit dans le code, pas dans la prose. Déterministe.
+
+### Niveau 4 — Hook SubagentStop (enforcement dur, CLI uniquement)
+Se déclenche quand le subagent finit. Parse le transcript JSONL pour détecter si la skill a été invoquée. Exit 0 + JSON `{"decision":"block","reason":"..."}` pour forcer la continuation.
+
+```python
+import json, sys, os
+data = json.load(sys.stdin)
+if data.get("stop_hook_active"):   # anti-boucle infinie : OBLIGATOIRE
+    sys.exit(0)
+tp = data.get("agent_transcript_path") or data.get("transcript_path")
+used = False
+try:
+    with open(os.path.expanduser(tp)) as f:
+        for line in f:
+            if '"name": "Skill"' in line and "ma-skill" in line:
+                used = True
+    if not used:
+        print(json.dumps({"decision": "block",
+          "reason": "Tu n'as pas invoqué ma-skill. Invoque-la via l'outil Skill puis termine."}))
+        sys.exit(0)   # exit 0 + JSON (PAS exit 2, sinon JSON ignoré)
+except Exception:
+    pass
+sys.exit(0)
+```
+
+**Pièges hooks critiques :**
+- `exit 2` bloque PreToolUse ; **`exit 1` ne bloque JAMAIS**
+- Pour Stop/SubagentStop : **exit 0 + JSON** `decision:block` (exit 2 = JSON ignoré)
+- Toujours vérifier `stop_hook_active` → anti-boucle infinie (cap natif 8 blocages)
+- Bug #10412 : Stop hooks exit 2 via plugin échouent → installer depuis `.claude/hooks/`
+- PostToolUse `matcher:"Skill"` ne se déclenche pas fiablement (issue #43630) → parser transcript
+
+### Niveau 5 — UserPromptSubmit (rappel injecté)
+Hook UserPromptSubmit imprime un rappel d'activation sur stdout (ajouté au contexte) avant que le modèle agisse.
+
+### Niveau 6 — `disallowedTools` (couper les raccourcis)
+Si l'agent zappe la skill parce qu'il fait le travail directement → restreindre ses outils (`disallowedTools: Bash`) pour que la skill soit le seul chemin viable.
+
+---
+
+## Héritage — Ce qu'un subagent reçoit (et ne reçoit PAS)
+
+| Élément | Hérité ? |
+|---|---|
+| Contexte de conversation | ❌ Contexte frais — ne reçoit que le brief passé |
+| Skills | ❌ `skills:` = précharge les *descriptions* seulement |
+| Outil `Skill` | ❌ Doit être dans `tools:` sinon impossible mécaniquement |
+| Outils (Read, Bash…) | ❌ Définis par `tools:` — sans explicite, comportement variable |
+| MCP servers | ⚠️ Instable — souvent « No such tool available » |
+| CLAUDE.md / rules | ⚠️ Variable (Explore/Plan sautent CLAUDE.md) |
+| AskUserQuestion | ❌ Filtré hors subagents (issues #12890 #18721 #20275) |
+| Task tool (sous-subagent) | ❌ Pas de subagents imbriqués |
+| Hooks settings | ✅ S'appliquent (SubagentStart/SubagentStop existent) |
+| Mémoire (`memory:`) | ✅ Persiste entre sessions |
+
+**Deux règles d'or :**
+- Vault = thread principal ; inline = subagent (MCP non garanti dans un subagent)
+- Interview sur le thread principal → réponses dans le brief → subagent exécute sans questions
+
+---
+
+## Checklist subagent quasi-parfait
+
+**Décision (avant de créer)**
+- [ ] Besoin d'isolation de contexte OU de parallélisme ?
+- [ ] Pas besoin de poser des questions (sinon → skill/thread principal) ?
+- [ ] Pas besoin du MCP ni du contexte conversation (sinon → brief inline) ?
+
+**Frontmatter**
+- [ ] `name` kebab-case = nom du fichier sans `.md`
+- [ ] `description` directive 3e personne — déclencheur de délégation
+- [ ] `tools:` explicite — inclut `Skill` si l'agent doit invoquer des skills
+- [ ] `model` adapté (haiku explore, sonnet implémentation, opus orchestration/jugement)
+- [ ] `disallowedTools` pour couper les raccourcis qui font zapper les skills
+- [ ] `memory: project` + `permissionMode` obligatoires (forge)
+
+**Body / system prompt**
+- [ ] Responsabilité unique
+- [ ] Workflow impératif numéroté, étapes bloquantes
+- [ ] Invocation des skills = ÉTAPE 1 explicite avec outil Skill + raison
+- [ ] Critique inliné dans le body (pas seulement dans une skill zappable)
+- [ ] Étapes à sortie visible (anti-skip validation)
+- [ ] Body court + skills courtes (injectées en entier → anti-saturation contexte)
+- [ ] Expliquer le pourquoi ; majuscules réservées aux 1-2 étapes fragiles
+
+**Fiabilité d'invocation des skills**
+- [ ] `Skill` dans `tools:` (sinon impossible mécaniquement)
+- [ ] Ordre impératif dans le body
+- [ ] Hook SubagentStop qui parse le transcript (exit 0 + JSON decision:block)
+- [ ] `stop_hook_active` vérifié (anti-boucle)
+
+**Accès / MCP / questions**
+- [ ] Pas de dépendance MCP dans le subagent → brief inline
+- [ ] Pas de questions dans un subagent → interview sur thread principal avant délégation
 
 ## OPTIMISATION — 3 niveaux
 
