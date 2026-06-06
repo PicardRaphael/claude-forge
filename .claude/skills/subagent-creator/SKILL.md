@@ -19,7 +19,7 @@ Si besoin du détail complet de la doctrine : `mcp__forge-brain__read_note("comm
 > « Est-ce que cette tâche a besoin d'un contexte frais isolé OU de tourner en parallèle, ET n'a pas besoin de poser des questions ni du contexte de la conversation ? »
 
 - **OUI** → continuer
-- **NON** → proposer une **skill** (procédure réutilisable) ou une **rule** (comportement toujours actif) à la place
+- **NON** → STOP. Expliquer à l'utilisateur pourquoi un subagent n'est pas le bon outil et proposer l'alternative : "Tu m'as demandé un agent, mais ce que tu décris est [une procédure réutilisable → skill / un comportement toujours actif → rule / un enforcement déterministe → hook]. Je te recommande X parce que Y. Tu veux qu'on parte sur ça plutôt ?"
 
 Un subagent résout exactement deux problèmes : **isolation de contexte** + **parallélisme**. Pas "faire propre", pas "organiser".
 

@@ -25,7 +25,9 @@ Vérifier qu'une skill similaire n'existe pas :
 ls .claude/skills/ ~/.claude/skills/ 2>/dev/null
 ```
 
-Si similaire → proposer modifier/optimiser plutôt que recréer.
+Si similaire → STOP. Expliquer : "La skill [X] couvre déjà ce besoin. Je te recommande de la modifier/optimiser plutôt que d'en créer une nouvelle — ça évite la duplication et le drift. Tu veux qu'on parte sur ça ?"
+
+Si le besoin décrit est en réalité un **subagent** (isolation contexte / parallélisme) ou une **rule** (comportement toujours actif) ou un **hook** (enforcement déterministe) → STOP. Dire pourquoi et proposer le bon composant avant de continuer.
 
 ---
 
