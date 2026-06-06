@@ -218,7 +218,7 @@ La section **Ce qui a été écarté** est obligatoire. Elle prouve que la séle
 - **Chemins Windows/POSIX** : $ARGUMENTS peut être `C:\\path\\...` ou `/c/path/...`. Si Glob échoue avec un format, essayer l’autre.
 - **Dead code vs dette** : un TODO seul n’est pas une proposition d’évolution. Grouper les TODOs thématiquement avant de proposer.
 - **Ce qui a été écarté obligatoire** : si absent, la liste semble générée sans tri. Toujours inclure 2-3 items avec justification.
-- **Ne pas dupliquer analyze-project** : si l’utilisateur demande un audit setup CC, rediriger vers /analyze-project. evolve = produit et architecture, pas la config .claude/.
+- **Ne pas dupliquer repo-inspector** : si l’utilisateur demande un audit setup CC, rediriger vers repo-inspector (mode=analyze). evolve = produit et architecture, pas la config .claude/.
 
 ## Exemples d’usage
 

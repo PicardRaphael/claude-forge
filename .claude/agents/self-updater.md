@@ -10,8 +10,6 @@ memory: project
 skills:
   - cc-news
   - cc-features-ref
-  - hook-creator
-  - subagent-creator
   - forge-brain
   - obsidian-markdown
 ---

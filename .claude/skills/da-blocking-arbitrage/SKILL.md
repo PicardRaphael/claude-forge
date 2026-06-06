@@ -1,6 +1,6 @@
 ---
 name: da-blocking-arbitrage
-description: "Use when Devil's Advocate verdict BLOCKING >= 1 before shipping. PARTIAL fix != PASS. Explicit user arbitrage mandatory. Stops auto-promotion."
+description: Use when Devil's Advocate verdict BLOCKING >= 1 before shipping. PARTIAL fix != PASS. Explicit user arbitrage mandatory. Stops auto-promotion.
 effort: high
 ---
 

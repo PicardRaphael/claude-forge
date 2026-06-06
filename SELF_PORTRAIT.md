@@ -42,13 +42,14 @@ Document interne. Photographie technique fidèle pour reprise de contexte rapide
 
 ## 3. Composants vivants
 
-### Skills (48) — par catégorie
+### Skills (49) — par catégorie
 
-- **Référence CC** (user-invokable: false, chargées par parent) : cc-agents-ref, cc-skills-ref, cc-hooks-ref, cc-features-ref, cc-cowork-ref, cc-prompt-ref, python-ref
-- **Outil-pur** (slash command exécution mécanique) : `/recap`, `/done`, `/expand`, `/spec`, `/notes`, `/forge-status`, `/install-forge`, `/self-check`, `/clean-memory`, `/pivot-check`
-- **Exécution / création** : `/cc-advisor`, `/cc-news`, `/evolve`, `/skill-evolve`, `/craft-prompt`, `/watch`, `/x-read`, `/forge-review`, `/vault-audit`, `/reasoning-cache`, `/python-script-refactor-masse`, `/analyze-project`
-- **Audit / jugement** : `/agentshield-like-scanner`, `/audit-thematique-clusters`, `/auditor-empirical-verify`, `/outcomes-test`, `/config-guardian`, `/da-blocking-arbitrage`, `/doctrine-impact-check`, `/methode-pivoter-doctrine`, `/web-search-canonical-source`, `/arxiv-verification`, `/cross-repo-propagation`
-- **Support** (auto-trigger) : forge-brain, mcp-brief-then-direct, defuddle, configure-claude-desktop, windows-hooks-cross-machine, json-canvas, obsidian-markdown, obsidian-bases, git-multi-repo
+- **Référence CC** (chargées par parent) : cc-hooks-ref, cc-features-ref, cc-cowork-ref, cc-prompt-ref, python-ref
+- **Créateurs** : skill-creator, subagent-creator, hook-creator, claudemd-creator
+- **Outil-pur** (slash command exécution mécanique) : `/recap`, `/done`, `/expand`, `/spec`, `/notes`, `/install-forge`, `/self-check`, `/clean-memory`, `/pivot-check`
+- **Exécution / création** : `/cc-advisor`, `/cc-news`, `/evolve`, `/skill-evolve`, `/craft-prompt`, `/watch`, `/x-read`, `/forge-review`, `/vault-audit`, `/reasoning-cache`, `/python-script-refactor-masse`
+- **Audit / jugement** : `/agentshield-like-scanner`, `/auditor-empirical-verify`, `/outcomes-test`, `/config-guardian`, `/da-blocking-arbitrage`, `/doctrine-impact-check`, `/methode-pivoter-doctrine`, `/web-search-canonical-source`, `/arxiv-verification`
+- **Support** (auto-trigger) : forge-brain, defuddle, configure-claude-desktop, json-canvas, obsidian-markdown, obsidian-bases, responsable-ia, align-vault-skills, loop-forge, io-daily, io-week, x-read, reasoning-cache, notes
 
 ### Agents (10 forge + 3 user-scope)
 

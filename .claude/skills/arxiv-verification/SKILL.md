@@ -1,6 +1,6 @@
 ---
 name: arxiv-verification
-description: "ALWAYS verify arXiv papers before citing : YYMM format must match cited month, URL must not be swapped between similar papers, venues NeurIPS/ICLR must be verified (often falsely attributed to arXiv-only papers)."
+description: ALWAYS verify arXiv papers before citing : YYMM format must match cited month, URL must not be swapped between similar papers, venues NeurIPS/ICLR must be verified (often falsely attributed to arXiv-only papers).
 effort: high
 ---
 

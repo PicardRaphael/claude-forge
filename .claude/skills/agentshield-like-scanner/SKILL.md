@@ -78,7 +78,7 @@ Produit : risk assessment priorisé (CRITICAL first), avec verdict par catégori
 - **La skill DÉCRIT le pattern, ne l'exécute pas** : la session principale orchestre les 3 agents. Cette skill est une knowledge base, pas un orchestrateur.
 - **Red et Blue en PARALLÈLE** (pas séquentiel) : c'est l'avantage du pattern ECC par rapport à un audit linéaire.
 - **Auditor reçoit LES DEUX rapports** avant de synthétiser — ne pas lancer Auditor avant d'avoir Red ET Blue complets.
-- **Ne PAS confondre avec audit-thematique-clusters** : clusters = audit conformité canonique (frontmatter, taille, structure). AgentShield = audit sécurité (exploits, permissions, injection).
+- **Ne PAS confondre avec repo-inspector** : repo-inspector = audit conformité canonique (frontmatter, taille, structure). AgentShield = audit sécurité (exploits, permissions, injection).
 - **Vérifier empiriquement les CRITICAL** avant de les relayer : sous-agents Opus peuvent surestimer la sévérité sur des patterns courants (cf `feedback_auditor_false_positives`).
 - **`.mcp.json` souvent hors périmètre des audits standards** — l'inclure explicitement dans le brief.
 - **Settings.json self-modification** : hook `auto-mode classifier` bloque les édits directs de settings.json. Si un CRITICAL concerne settings.json → signaler pour édition manuelle Raphael.

@@ -11,7 +11,7 @@ Last updated: 2026-05-08
 
 | Item | Expected | Rationale |
 |------|----------|-----------|
-| Project analysis | `/analyze-project` or equivalent | Audit CC config of external repos |
+| Project analysis | `repo-inspector` (mode=analyze) | Audit CC config of external repos |
 | Self-check | `/self-check` | Validate forge's own conformity |
 | Strategic review | `/forge-review` | Monthly status-quo challenge |
 | News/updates | `/cc-news` | Stay current on CC/models |
