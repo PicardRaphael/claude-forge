@@ -188,7 +188,7 @@ Ces checks alourdiraient un sweep de 25+ skills.
 | Skill | Score rapide | Signal principal |
 |-------|-------------|-----------------|
 | forge-brain | 4/5 | OK |
-| cc-skills-ref | 3/5 | SKILL.md 612L -> déporter |
+| skill-creator | 5/5 | Remplace cc-skills-ref |
 | evolve | 5/5 | OK |
 
 ## Top 3 à analyser en profondeur

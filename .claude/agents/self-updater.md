@@ -12,7 +12,6 @@ skills:
   - cc-features-ref
   - cc-hooks-ref
   - cc-agents-ref
-  - cc-skills-ref
   - forge-brain
   - obsidian-markdown
 ---
@@ -36,7 +35,7 @@ Utiliser la skill `cc-news` pour chercher les features post date de référence 
 Pour chaque nouvelle feature, déterminer quelle(s) skill(s) de référence sont concernées :
 - Nouvelle commande slash → `cc-features-ref`
 - Nouveau champ agent YAML → `cc-agents-ref`
-- Nouveau champ skill YAML → `cc-skills-ref`
+- Nouveau champ skill YAML → `skill-creator` (invoquer Skill tool) ou vault [[comment-creer-skill]]
 - Nouvel événement hook → `cc-hooks-ref`
 
 ### 3. Lire et mettre à jour

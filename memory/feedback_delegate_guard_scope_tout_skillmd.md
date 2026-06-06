@@ -1,12 +1,13 @@
 ---
 name: delegate-guard-scope-tout-skillmd
-description: delegate-guard.py bloque l'écriture de TOUT fichier nommé SKILL.md, y compris hors .claude/skills/ (ex output/). Match par nom de fichier, pas par chemin. Déléguer à skill-creator même pour des skills hors forge.
+description: "OBSOLÈTE — delegate-guard ne bloque plus SKILL.md (pivot 6 juin 2026 : skill-creator est devenu une skill, hard block retiré). Seuls agents/*.md et CLAUDE.md restent protégés."
 metadata:
   type: feedback
+  statut: obsolete
 ---
 
-`delegate-guard.py` (hook PreToolUse Write|Edit) bloque l'écriture directe de **tout** fichier nommé `SKILL.md`, peu importe son emplacement — y compris hors `.claude/skills/` (ex `output/`). Le matcher est sur le **nom de fichier**, pas sur le chemin `.claude/`. Vérifié 3 juin 2026 sur `output/po-lojii/skills/spec/SKILL.md`.
+> ⚠️ **OBSOLÈTE depuis 6 juin 2026** — `SKILL.md` a été retiré de `PROTECTED` dans `delegate-guard.py`. La skill `skill-creator` remplace l'agent. Écriture directe de SKILL.md : permise, mais passer par `Skill(skill-creator)` reste la bonne pratique (checklist 6 dimensions, workflow Anthropic complet).
 
-**Why:** Une supposition raisonnable sur le scope d'un hook (grep du chemin) ≠ vérification empirique. J'avais conclu que le hook ne mordrait pas hors `.claude/` ; faux.
+~~`delegate-guard.py` bloquait l'écriture de TOUT fichier nommé `SKILL.md` peu importe son emplacement.~~
 
-**How to apply:** Pour créer/modifier n'importe quel `SKILL.md` (même hors forge, ex plugins dans `output/`), déléguer à `skill-creator` — pas d'Edit/Write direct. Si le contenu est déjà conçu et validé, briefer explicitement skill-creator « écris ce contenu VERBATIM, ne régénère pas » (sinon il réécrit et fait perdre la profondeur). Cf [[erreur-subagent-bypass-delegate-guard]] (ne jamais contourner le hook).
+**How to apply (mis à jour) :** Pour créer/modifier un `SKILL.md`, invoquer la skill `skill-creator` depuis la session principale. Advisory, pas hard-bloqué. Les agents `*.md` et `CLAUDE.md` restent hard-bloqués par delegate-guard.

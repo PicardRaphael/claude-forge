@@ -19,7 +19,7 @@ Last updated: 2026-05-08
 | Prompt crafting | `/craft-prompt` | Multi-LLM prompt engineering |
 | Context recap | `/recap` | Session context snapshot |
 | Evolution proposals | `/evolve` | External project product evolution |
-| CC skills reference | `cc-skills-ref` | Skills format/patterns |
+| CC skills reference | `skill-creator` | Skills creation/optimization/audit |
 | CC agents reference | `cc-agents-ref` | Agents format/patterns |
 | CC hooks reference | `cc-hooks-ref` | Hooks format/patterns |
 | Forge brain query | `forge-brain` | Vault CLI wrapper |

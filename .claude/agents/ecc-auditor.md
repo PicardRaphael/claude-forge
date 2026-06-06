@@ -16,7 +16,7 @@ disallowedTools:
   - Write
   - Edit
 skills:
-  - cc-skills-ref
+  - skill-creator
   - forge-brain
 ---
 

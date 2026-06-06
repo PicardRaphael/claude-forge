@@ -12,7 +12,6 @@ skills:
   - cc-advisor
   - cc-features-ref
   - cc-agents-ref
-  - cc-skills-ref
   - cc-hooks-ref
   - cc-cowork-ref
   - cc-prompt-ref
