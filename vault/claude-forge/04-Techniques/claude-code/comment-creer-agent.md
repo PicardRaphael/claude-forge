@@ -1,7 +1,6 @@
 ---
-derniere-maj: 2026-06-05
+derniere-maj: 2026-06-06
 ---
-
 ﻿---
 titre: "Comment créer un agent Claude Code parfait"
 resume: "Note canonique pour créer un agent Claude Code — frontmatter complet, 2-agent architecture Justin Young (sans split modèles), Sonnet/Opus split doctrine forge cohérente avec Cat Wu + Brad Abrams, convention 8 couleurs forge, anti-patterns CTO orchestrator."
@@ -372,6 +371,41 @@ Source : [Code with Claude SF — "Caching, harnesses, and advisors: Building on
 
 ---
 
+## Matrice enforcement par environnement (CLI / Desktop / Cowork)
+
+> Source : recherche LLM (Claude.ai juin 2026) + vault empirique forge. Cohérent avec [[cowork-skills-reliability]] section matrice. Numéros d'issues = indicatifs, non vérifiés primaire.
+
+Un agent généré par `agent-creator` doit adapter ses mécanismes selon l'environnement cible. Cette matrice complète [[cowork-skills-reliability]] côté agents.
+
+| Mécanisme | Claude Code CLI | Code Desktop | Cowork |
+|---|---|---|---|
+| **Hooks (PreToolUse/PostToolUse)** | ✅ Fiable | ⚠️ Partiel | ❌ Silent no-op |
+| **`context: fork` / `agent:` frontmatter** | ⚠️ Ignoré si invoqué via Skill tool | ⚠️ Idem | ⚠️ Idem — utiliser Task tool explicite à la place |
+| **MCP local (stdio) dans `tools:`** | ✅ Effectif en session principale | ✅ | ❌ Décoratif en sub-agent ET inaccessible Cowork |
+| **MCP remote HTTPS** | ✅ | ✅ | ✅ Seul type viable |
+| **`disallowedTools`** | ✅ | ✅ | ✅ |
+| **`permissionMode`** | ✅ | ✅ | ✅ |
+| **`memory: project`** | ✅ | ✅ | ⚠️ Comportement moins documenté |
+| **AskUserQuestion** | ❌ Non dispo en sub-agent (issue #18721) | ❌ Idem | ❌ Idem — ESCALADE vers session principale |
+
+### Stratégie de génération selon la cible
+
+**Si `agent-creator` génère un agent pour CLI / Code Desktop :**
+- Hooks complémentaires ok (PreToolUse guard, PostToolUse validation)
+- MCP local (stdio) dans `tools:` ok en session principale
+- `context: fork` / `agent:` à éviter si l'agent sera invoqué via Skill tool (ignoré)
+- Pattern complet disponible
+
+**Si `agent-creator` génère un agent pour Cowork :**
+- ❌ **Ne pas émettre de hooks** dans la skill/agent générée — silent no-op
+- ❌ **Ne pas compter sur MCP stdio** — remote HTTPS uniquement
+- ✅ Description directive + script-output gating + AskUserQuestion gate (session principale)
+- ✅ Checklist "à voix haute" obligatoire dans l'output pour remplacer les guards déterministes
+- ✅ Utiliser Task tool explicite au lieu de `context: fork`
+
+**Rappel universel :**
+`AskUserQuestion` n'est jamais disponible dans un sub-agent (CLI, Desktop, Cowork) — pattern ESCALADE obligatoire. Voir section dédiée AJOUT 24 mai 2026.
+
 ## GOTCHAS — Pièges observés
 
 ### Pièges modèle / effort
@@ -390,6 +424,10 @@ Source : [Code with Claude SF — "Caching, harnesses, and advisors: Building on
 
 ### Pièges skills
 - **Skills dans `skills:` non référencées dans body** = orphelines, jamais activées (cf [[feedback_skills_referenced_in_body]])
+
+### Pièges environnement / invocation
+- **`context: fork` / `agent:` ignorés via Skill tool** — si l'agent est invoqué via le Skill tool (pas directement via Agent tool), ces directives frontmatter sont silencieusement ignorées. Utiliser une instruction explicite `Task tool` dans le body à la place
+- **Agent ciblant Cowork** : ne jamais émettre de hooks ni de MCP stdio dans un agent généré pour Cowork — ils sont des no-ops (voir [[cowork-skills-reliability]] matrice enforcement)
 
 ### Pièges délégation
 - **Édit direct bloqué** par hook `delegate-guard.py` — utiliser `agent-creator`

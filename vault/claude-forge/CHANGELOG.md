@@ -7,12 +7,44 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-06-05
+derniere-maj: 2026-06-06
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-06-06 — Doctrine skills/agents enrichie depuis research LLM (matrice CLI/Desktop/Cowork)
+
+- **Modifiées** : [[cowork-skills-reliability]] — nouvelle section « Matrice enforcement par environnement » : table CLI/Desktop/Cowork pour chaque mécanisme (hooks, MCP, CLAUDE.md, skills scanning, context:fork) + stratégie d'enforcement recommandée par cible (CLI fort, Desktop best-effort, Cowork par discipline)
+- **Modifiées** : [[comment-creer-agent]] — nouvelle section « Matrice enforcement par environnement » appliquée aux agents + gotcha `context: fork` ignoré via Skill tool + règle agent-creator Cowork (no hooks, no stdio MCP)
+- **Source** : research LLM Claude.ai juin 2026 (Important/skill.md) — triage bucket A/B/C, seul bucket B enrichi (direction solide, chiffres non vérifiés omis, hedges préservés)
+
+## 2026-06-06 — Régression intermittente Problème B (skill spec PO) + triptyque de fix
+
+- **Modifiées** : [[cowork-skills-reliability]] — section « Cas empirique » : régression intermittente (émojis qui sautent, puces markdown, encadré 1/2) = fluency bias ; fix = consigne FERME + checklist pré-action + rule permanente > reference à la demande. Souvent une étape d'ENTRÉE sautée (question non posée) qui se propage en section manquante. **Complément** : (4) checklist passive → GATE impératif « à voix haute » avec point qui régresse traité en dernier ; (5) frontière de responsabilité — la garde anti-oubli va dans le skill PROPRIÉTAIRE de l'artefact, pas « partout » (erreur encadré dans `maquette` corrigée par Raphael) ; (6) garde transverse `verification-skill-avant-validation` = relire le SKILL.md invoqué et cocher ses obligations avant toute validation/création.
+- **Source** : session skills PO Neoteem (spec + maquette + review-maquette) — renforcement phase 1 (questions obligatoires), GATE VÉRIFICATION AVANT CRÉATION JIRA, 3 rules pour le `.claude` de Marie-Laure (`tickets-conformite`, `maquettes-conformite`, `verification-skill-avant-validation`).
+
+## 2026-06-06 — Gotcha BOM SKILL.md + compétence-vs-plugin pour /spec nu (cas PO Neoteem)
+
+- **Modifiées** : [[plugin-vs-skill-anatomie]] — 2 anti-patterns ajoutés : (1) BOM UTF-8 en tête de SKILL.md casse le frontmatter → « plugin validation failed » Cowork ou skill non chargée ; (2) plugin force le préfixe `/<plugin>:<skill>`, pour `/spec` nu distribuer la compétence individuelle (zip `dist/chat/`, pas de manifest = pas de validation).
+- **Source** : session debug plugin PO Marie-Laure (skills `spec`/`review-ticket`) — symptôme « validation failed » + ticket rédigé hors-template = skill non chargée (BOM + mauvaise commande `/spec` vs `/neoteem-po:spec`).
+
+## 2026-06-06 — Mémoire Claude Code Desktop = identique CLI (anti-confusion deux « Desktop »)
+
+- **Modifiées** : [[plugin-vs-skill-anatomie]] — ajout section mémoire dans la table comparative + encadré anti-confusion. Distinction vérifiée source primaire : **Claude Code Desktop** (IDE) partage strictement le mécanisme mémoire de la **CLI** (`~/.claude/projects/<repo>/memory/`, CLAUDE.md, `@import`, v2.1.59+), tandis que **Claude Desktop** (app Chat/Cowork) a son « Auto Memory » Settings > Features (≠). Setup PO recommandé : Auto-Memory + `CLAUDE.local.md` gitignored sur repo partagé.
+- **Source** : analyse du CLAUDE.md d'une PO Neoteem (Marie-Laure) sur Claude Code Desktop — confirmation doc Anthropic via claude-code-guide ([code.claude.com/docs/en/memory](https://code.claude.com/docs/en/memory)).
+
+## 2026-06-05 — Contraintes Rovo agent en automation Confluence
+
+- **Ajoutées** : [[rovo-agent-automation-confluence]] (04-Techniques/chatbot/) — contraintes dures d'un agent Rovo invoqué par automation (texte-seul `{{agentResponse}}`, pas d'écriture native = REST obligatoire, dédup par grounding non fiable via indexing delays, branching Confluence cassé) + fork archi auto-merge vs gate "À valider" + point à tester empiriquement (grounding en automation).
+- **Modifiées** : [[rovo-agent-automation-confluence]] — section « Format doc cible pensé POUR le chunking/embedding » : paramètres réels prod (`confluence_ingest_v2.py` : 2500 chars/300 overlap, titre injecté par chunk, dédup par `page_id` sans content_hash) + insight contre-intuitif « nombre de pages neutre pour le retrieval, vrai levier = qualité chunks + write-time scoring ».
+- **Source** : chantier chatbot support NeoIA — recherche doc Atlassian + lecture des 3 scripts de sync Confluence (neo_ia, scripts/ racine, neoteem-brain) = tous lecture→embed, verdict « aucun script de réécriture/publication Confluence dans aucun repo » (clients read-only confirmés).
+
+## 2026-06-05 — Pattern dédup multi-source (convergence amont) dans rag-architecture
+
+- **Modifiées** : [[rag-architecture]] — nouvelle section « Dédup multi-source : convergence amont vs dédup retrieval » (stratégie source canonique unique embeddée vs dédup au retrieval, gotcha barrière de validation, anti-gaspillage content_hash). Issu du chantier spec chat support neo_ia (architecture « tout converge vers Confluence »).
+- **Source** : raisonnement /spec chat support multi-source (Jira→brain→Confluence→embedding) — pivot d'archi 3-ingestors → convergence + 2 blockers découverts (barrière validation qui fuit, écriture Confluence inexistante).
 
 ## 2026-06-05 — Enrichissement RAG : 2 vidéos Jonas Roman (ZParse) + cc-news RAG
 

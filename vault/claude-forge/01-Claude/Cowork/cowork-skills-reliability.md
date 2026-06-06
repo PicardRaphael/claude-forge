@@ -10,7 +10,7 @@ aliases:
   - "pourquoi skill marche pas"
 domaine: claude-code
 type: technique
-derniere-maj: 2026-05-14
+derniere-maj: 2026-06-06
 auteur: claude
 sources:
   - "https://dev.to/thestack_ai/i-audited-214-claude-code-skills-73-were-silently-broken-2m9a"
@@ -21,7 +21,6 @@ tags:
   - "#domaine/claude-code"
   - "#domaine/cowork"
 ---
-
 ## Les 2 problemes distincts
 
 ### Probleme A — Activation failure : la skill ne se declenche jamais
@@ -78,6 +77,63 @@ Formule : `ALWAYS invoke when [trigger]. DO NOT [action concurrente] without inv
 8. **Ajouter un hook si toujours instable.** Pour activation : hook `UserPromptSubmit` qui injecte "Use Skill(nom)" dans les prompts matchants. Pour compliance : hook PreToolUse guard (exit 2).
 
 9. **Verification visible.** Si la skill s'active mais saute des etapes, ajouter une checklist obligatoire dans l'output. "Do NOT output the final result without first showing the completed checklist." Pour les skills/agents à étapes séquentielles strictes, préférer le mécanisme **Tasks natif** (`TaskCreate`/`TaskUpdate`) qui force le pas-à-pas — cf [[comment-creer-skill]] section "checklist Tasks natif (anti-oubli)".
+
+## Cas empirique — régression intermittente du Problème B (PO Neoteem, 6 juin 2026)
+
+Skill `spec` PO : règles présentes dans le SKILL.md mais appliquées **par intermittence** — émojis de section qui sautent, puces rendues en `*` markdown au lieu d'ADF, encadré maquette présent 1 ticket sur 2. Symptôme typique du **fluency bias** : à chaque génération le modèle « réinterprète » et lâche une contrainte différente. Triptyque de fix qui a tenu :
+
+1. **Consigne FERME, pas descriptive** : une liste de questions « à poser » devient « RÈGLE FERME : poser TOUTES les questions via AskUserQuestion AVANT de rédiger, ne rien supposer ». Une question d'interview non posée (« y a-t-il une maquette ? ») se propage en section manquante (encadré maquette oublié) — la régression vient souvent d'une **étape d'entrée sautée**, pas de la règle de sortie.
+2. **Checklist de vérification AVANT l'action critique** (cf étape 9) : bloc « VÉRIFICATION AVANT CRÉATION JIRA » coché point par point (ADF/émojis/titres colorés/template/sections vides/anti-invention/encadré) juste avant l'appel `createJiraIssue`. C'est le « give Claude a way to verify » de Boris.
+3. **Remonter en `rule` chargée en permanence > `reference` chargé à la demande** : une contrainte non négociable enfouie dans un `references/*.md` (chargé seulement quand le modèle décide de le lire) dérive ; la même contrainte dans une `rule` du `.claude` (chargée à chaque session) tient bien mieux. En Claude Code (≠ Cowork qui n'a pas de hooks), doubler d'un guard si critique ([[erreur-advisory-rules-insuffisantes]]).
+
+Leçon : pour une contrainte de rendu/format **répétée à chaque exécution**, ne pas se reposer sur le SKILL.md seul → consigne TOUJOURS/JAMAIS + checklist pré-action + rule permanente.
+### Renforcement (même session) — gate dur + frontière de responsabilité skill
+
+4. **Checklist passive → GATE impératif « à voix haute ».** La checklist de l'étape 9 tient mieux formulée en STOP : « avant CHAQUE création, vérifie point par point EN CITANT le passage du livrable qui satisfait chaque point ; tu ne passes pas à l'appel tant que tout n'est pas validé dans ta réponse ». Placer **le point qui régresse le plus en DERNIER, traité explicitement** (« ce ticket a-t-il une maquette PO ? si oui l'encadré DOIT être là, sinon je le dis »). Cocher sans citer la preuve = cochage de complaisance.
+
+5. **Frontière de responsabilité : la garde anti-oubli va dans le skill PROPRIÉTAIRE de l'artefact, pas « partout ».** Erreur commise puis corrigée par Raphael : rappel « encadré maquette PO » ajouté à tort dans le skill `maquette`. Or `maquette` ne crée PAS de ticket (HTML/Figma uniquement) — l'encadré est une obligation de **ticket**, donc du seul skill `spec`. Mettre le rappel « partout pour être sûr » viole « 1 skill = 1 responsabilité ». Une obligation se place dans le skill qui possède l'artefact, pas dans tous ceux qui le frôlent.
+
+6. **Garde générique transverse (Claude Code) : « relire le SKILL.md invoqué et cocher ses obligations avant toute validation/création ».** Plutôt que dupliquer une checklist par skill, une `rule` permanente impose, avant l'action critique de N'IMPORTE quel skill, de relire le SKILL.md en cours et de cocher point par point ses sections OBLIGATOIRE/GATE/Comportement attendu. Couvre spec, maquette, review-*, et tout skill futur sans modification. Cf rule PO `verification-skill-avant-validation.md`.
+
+## Matrice enforcement par environnement (CLI / Desktop / Cowork)
+
+> Source : recherche LLM (Claude.ai juin 2026) + vault empirique forge. Numéros d'issues = non vérifiés primaire, indicatifs.
+
+| Mécanisme | Claude Code CLI | Code Desktop | Cowork |
+|---|---|---|---|
+| **PreToolUse / PostToolUse hooks** | ✅ Fiable | ⚠️ Partiel (certains paths contournés) | ❌ Silent no-op — user hooks exclus par `--setting-sources user` |
+| **SessionStart / Stop hooks** | ✅ Fiable | ⚠️ Peu fiable | ❌ SessionStart ne fire pas ; Stop hooks aléatoires |
+| **Skills auto-activation (description directive)** | ✅ | ✅ | ✅ (sujet aux bugs scanning ci-dessous) |
+| **Slash-command / invocation explicite** | ✅ | ✅ | ✅ (`/` liste les skills) |
+| **CLAUDE.md / .claude/rules** | ✅ Chargé | ✅ Chargé | ❌ Non chargé en sandbox → utiliser **project/folder Instructions** à la place |
+| **MCP local (stdio)** | ✅ | ✅ (proxié Desktop) | ❌ Non accessible — **remote HTTPS MCP uniquement** |
+| **MCP remote HTTPS** | ✅ | ✅ | ✅ (seul type supporté) |
+| **Skills depuis `.claude/skills/`** | ✅ | ✅ | ⚠️ Bugs mounting sur certains setups |
+| **Skills depuis `~/.claude/skills/`** | ✅ | ✅ | ❌ Non scanné — enregistrer via UI obligatoire |
+| **Plugin skills** | ✅ | ✅ | ⚠️ Composant skill parfois non monté même si plugin installé (#31542) |
+| **Limite ~30 skills affichées** | ⚠️ Tronque | ⚠️ Tronque | ⚠️ Tronque + "Showing 30 of N" |
+| **`context: fork` / `agent:`** | ⚠️ Ignoré si invoqué via Skill tool | ⚠️ Idem | ⚠️ Idem |
+
+### Stratégie d'enforcement recommandée par cible
+
+**CLI — enforcement fort possible**
+- Hooks PreToolUse/PostToolUse = couche déterministe (exit 2)
+- Description directive + script-output gating + CLAUDE.md/.claude/rules pour routing
+- MCP local (stdio) et remote tous deux disponibles
+- Seul environnement où l'enforcement est garanti
+
+**Desktop — enforcement best-effort**
+- Ne PAS compter sur les hooks pour la sécurité
+- Description directive + slash-command entry (`disable-model-invocation: true`) pour side-effects
+- Script-output gating : le script imprime le verdict, Claude doit agir dessus
+- MCP local fonctionne (proxié), MCP-side validation viable
+
+**Cowork — enforcement par discipline, pas par construction**
+- Hooks absents → **zéro enforcement déterministe natif**
+- Remplacer CLAUDE.md par **project/folder Instructions** (Cowork sandbox)
+- Enforcement = (1) description directive, (2) script-output gating, (3) remote HTTPS MCP validation, (4) AskUserQuestion gate pour side-effects, (5) checklist "à voix haute" obligatoire dans l'output
+- Skills : installer via UI, garder total actif < 30, enregistrer `~/.claude/skills/` via manifest
+- Pour générer une skill ciblant Cowork : **refuser d'émettre des hooks** dans la skill générée, émettre script-output gating + slash entry à la place
 
 ## Bugs connus Cowork
 
