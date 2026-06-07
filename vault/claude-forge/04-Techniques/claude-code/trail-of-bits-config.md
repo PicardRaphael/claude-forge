@@ -18,7 +18,7 @@ tags:
   - "#type/setup-public"
   - "#domaine/claude-code"
   - "#domaine/securite"
-  - "#projet/forge"
+  - "#projet/claude-forge"
 ---
 # Trail of Bits — Configuration Claude Code entreprise sécurité publique
 

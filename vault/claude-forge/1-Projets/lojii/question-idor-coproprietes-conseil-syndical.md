@@ -14,7 +14,7 @@ sources:
 tags:
   - "#type/knowledge"
   - "#domaine/securite"
-  - "#projet/ia-back"
+  - "#projet/ia_back"
 ---
 
 # IDOR — /api/v1/coproprietes/:id/conseil-syndical

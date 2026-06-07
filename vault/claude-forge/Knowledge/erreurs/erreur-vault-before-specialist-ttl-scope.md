@@ -12,7 +12,7 @@ tags:
   - "#type/erreur"
   - "#erreur/hook"
   - "#domaine/claude-code"
-  - "#projet/forge"
+  - "#projet/claude-forge"
 ---
 
 # Hook vault-before-specialist avec TTL 60min et scope gonflé

@@ -15,7 +15,7 @@ auteur: claude
 tags:
   - "#type/context"
   - "#type/projet"
-  - "#projet/neo-ia"
+  - "#projet/neo_ia"
 ---
 ## Description
 

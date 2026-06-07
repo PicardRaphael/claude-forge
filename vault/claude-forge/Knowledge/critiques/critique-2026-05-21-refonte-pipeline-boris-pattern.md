@@ -14,8 +14,8 @@ auteur: devils-advocate
 tags:
   - "#type/knowledge"
   - "#type/critique"
-  - "#projet/ia-back"
-  - "#projet/neo-ia"
+  - "#projet/ia_back"
+  - "#projet/neo_ia"
   - "#domaine/claude-code"
   - "#technique/hooks"
 sources:

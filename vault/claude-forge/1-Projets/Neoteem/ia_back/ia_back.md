@@ -14,7 +14,7 @@ auteur: claude
 tags:
   - "#type/context"
   - "#type/projet"
-  - "#projet/ia-back"
+  - "#projet/ia_back"
 ---
 ## Description
 

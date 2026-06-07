@@ -15,7 +15,7 @@ derniere-maj: 2026-05-11
 auteur: claude
 tags:
   - "#type/context"
-  - "#projet/neo-ia"
+  - "#projet/neo_ia"
   - "#domaine/agents"
   - "#type/technique"
 ---

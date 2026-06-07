@@ -13,8 +13,8 @@ auteur: devils-advocate
 tags:
   - "#type/critique"
   - "#domaine/claude-code"
-  - "#projet/ia-back"
-  - "#projet/neo-ia"
+  - "#projet/ia_back"
+  - "#projet/neo_ia"
 sources:
   - "Session 2026-05-21 — repartition Opus/Sonnet"
 ---

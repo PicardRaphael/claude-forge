@@ -16,7 +16,7 @@ auteur: claude
 tags:
   - "#type/context"
   - "#type/technique"
-  - "#projet/neo-ia"
+  - "#projet/neo_ia"
   - "#domaine/rag"
   - "#domaine/agents"
 ---

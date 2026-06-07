@@ -14,6 +14,15 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Chantier 2/5 normalisation tags — LOT C (formes projet)
+
+- **Modifiées** : 21 notes — fusion des formes projet vers le nom EXACT du repo (underscore / tiret canonique).
+  - `#projet/neo-ia` → `#projet/neo_ia` (15 notes) · `#projet/ia-back` → `#projet/ia_back` (7) · `#projet/forge` → `#projet/claude-forge` (2) · `#claude-forge` (nu) → `#projet/claude-forge` (1).
+  - Méthode : script déterministe `.claude/scripts/normalize-tags.py` (dry-run validé + `--show` avant/après intégral), gère les 2 formats frontmatter (liste YAML + inline array). Les 3 outils MCP `*update*property` corrompent les tags multi-valeurs (bulk écrase l'array, update_property duplique la déclaration) → script raw en session principale, doctrine MCP-only respectée (la garde vise les dumps de lecture sous-agent, cf [[pattern-mcp-brief-then-direct]]).
+  - Vérif : lint_vault 132 wikilinks brisés INCHANGÉ, 0 frontmatter cassé. `find_by_property #projet/neo-ia` = 0, `#projet/neo_ia` = 24 ✓. CRLF préservé (diff `2 +-`/`4 +-` par note, pas de réécriture LF).
+  - Gotcha outillage : `get_tags` (agrégat) retarde après écriture raw ; `find_by_property` / `get_property` fiables immédiatement.
+- **Source** : chantier « vault forge-brain parfait » 2/5, décisions tags validées par Raphael (7 juin 2026). LOTS A/B/D à suivre.
+
 ## 2026-06-07 — Réconciliation Important/ #5 (dernier) : skill.md absorbé dans comment-creer-skill — dossier Important/ vidé
 
 - **Modifiées** :

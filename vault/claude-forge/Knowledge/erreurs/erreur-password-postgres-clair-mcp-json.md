@@ -14,7 +14,7 @@ auteur: claude
 tags:
   - "#type/erreur"
   - "#domaine/securite"
-  - "#projet/ia-back"
+  - "#projet/ia_back"
   - "#erreur/infra"
 sources:
   - "Session 2026-05-20 — config MCP postgres ia_back"

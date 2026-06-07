@@ -13,7 +13,7 @@ resume: "Devil's advocate sur 4 notes vault NeoChat : 3 erreurs factuelles verif
 tags:
   - "#type/knowledge"
   - "#domaine/claude-code"
-  - "#projet/neo-ia"
+  - "#projet/neo_ia"
 ---
 
 ## Devils Advocate — Notes Architecture NeoChat (4 notes vault)
