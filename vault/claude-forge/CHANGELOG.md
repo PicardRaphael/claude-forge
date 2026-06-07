@@ -14,6 +14,14 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Réconciliation Important/ #5 (dernier) : skill.md absorbé dans comment-creer-skill — dossier Important/ vidé
+
+- **Modifiées** :
+  - [[comment-creer-skill]] — AJOUT section datée « SkillsBench (chiffres vérifiés) ». Deltas vérifiés source primaire (arXiv:2602.12670, skill `arxiv-verification` : YYMM 2602=fév 2026 ✓, titre ✓, arXiv-only sans venue) : +16,2 pp skills curées (abstract verbatim) ; Haiku 4.5+Skills 27,7% > Opus 4.5 sans 22,0% (corps) ; –1,3 pp skills auto-générées (Opus 4.6 +1,4 / GPT-5.2 –5,6) ; résolution L2→L3 (scripts+references = leviers perf). Seleznov 650-trial gardé avec hedge community non-vérifié.
+- **Supprimées (hors vault)** : `Important/skill.md` — ~85% subsumé (anatomie skill-creator, matrice 3 environnements, checklist 6 dimensions, question set 3 rounds déjà présents), absorbé après lecture EN ENTIER doc (190L) + canonique + vérif arXiv des chiffres neufs.
+- **Dossier `Important/` : VIDÉ.** 5 docs réconciliés (1 déplacé+enrichi, 4 absorbés). Doctrine single-source rétablie : toute la connaissance vit dans le vault, cherchable MCP.
+- **Source** : passe réconciliation Important/ terminée (#5/5). Méthode constante : lecture EN ENTIER doc + canonique → diff claim par claim → vérif source des deltas neufs → enrich-first → suppression.
+
 ## 2026-06-07 — Réconciliation Important/ #4 : Stack IA.md subsumé (dispatch vérifié) + nettoyage sources mortes
 
 - **Modifiées** :

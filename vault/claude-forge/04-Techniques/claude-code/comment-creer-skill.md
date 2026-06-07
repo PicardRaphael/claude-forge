@@ -724,3 +724,28 @@ REPO_ROOT="$(git rev-parse --show-toplevel)"
 Table complète des 4 contextes (skill / hook / settings / .mcp.json) avec preuve par ligne : [[resolution-path-3-contextes]].
 
 Appliqué 27 mai : skills `/done` et `/recap` migrées vers `$(git rev-parse --show-toplevel)/memory` (chantier mémoire portable, cf [[architecture-decision-memoire-portable-import]]).
+
+
+---
+
+## AJOUT 7 juin 2026 — SkillsBench (chiffres vérifiés) : une skill curée vaut un upgrade de modèle
+
+Source : **SkillsBench** — *Benchmarking How Well Agent Skills Work Across Diverse Tasks*, [arXiv:2602.12670](https://arxiv.org/abs/2602.12670) (soumis 13 fév 2026, v3 13 mars 2026, **arXiv-only cs.AI — aucune venue confirmée**). 84 tâches / 11 domaines / 7 configs modèle-agent / 7 308 trajectoires. Stanford/CMU/Berkeley/Oxford/BenchFlow. Vérifié source primaire le 7 juin 2026 (Check YYMM + titre + venue via skill `arxiv-verification`).
+
+### Chiffres décisionnels (vérifiés)
+
+- **Skills curées = +16,2 pp de pass rate moyen** (verbatim abstract : « Curated Skills raise average pass rate by 16.2 percentage points »), range +13,6 à +23,3 pp selon la config (gain normalisé ~21,5 %). Forte variance → l'efficacité d'une skill dépend du couple modèle-agent, pas uniforme.
+- **Argument massue (corps du papier) : Haiku 4.5 + Skills (27,7 %) > Opus 4.5 SANS Skills (22,0 %).** Un petit modèle + la bonne connaissance procédurale dépasse un gros modèle sans guidance. → **une skill bien construite vaut mieux qu'un upgrade de tier de modèle** (implication coût/déploiement majeure).
+- **Claude Code + Opus 4.5 = meilleur gain (+23,3 pp)** — intégration native de la spec Agent Skills.
+- **Best config absolue** : Gemini CLI + Gemini 3 Flash, 48,7 % pass rate avec Skills.
+- **Résolution L0→L3** : le plus gros gain vient de L2→L3 (ajout d'exemples de code exécutables + ressources de référence). Full Skills L3 = 45,5 % vs 16,4 % sans, quand le contexte suffit. → **valide scripts/ + references/ comme leviers de performance, pas juste d'organisation.**
+
+### Skills auto-générées par le modèle = inefficaces (–1,3 pp)
+
+Quand un modèle génère sa propre connaissance procédurale avant de résoudre : **–1,3 pp en moyenne** vs baseline sans skill. Seul Opus 4.6 progresse (+1,4 pp) ; Codex+GPT-5.2 régresse (–5,6 pp). → **Une skill efficace exige une expertise humaine curée que le modèle ne sait pas auto-générer fiablement.** C'est la justification structurelle d'un workflow interview + evals A/B (skill-creator) plutôt que « demande à Claude d'écrire une skill ».
+
+### Convergence avec la formule directive
+
+Cohérent avec le finding Seleznov (community research, 650 trials, Fisher's exact + logistic regression — **non Anthropic-officiel, non vérifié primaire ici**) : description directive ~100 % activation vs ~77 % passive vs ~50 % non-optimisée. La convergence SkillsBench (benchmark) + Seleznov (community) + doctrine « pushy description » Anthropic est forte sur l'activation ; le step-following (exécution) n'a pas été testé au même niveau de rigueur.
+
+**Source de cet ajout** : réconciliation du rapport `Important/skill.md` (supprimé après absorption, 7 juin). Le rapport était ~85 % subsumé (anatomie skill-creator, matrice 3 environnements, checklist 6 dimensions, question set 3 rounds déjà présents) ; seuls les chiffres SkillsBench précis manquaient. Chiffres vérifiés à la source avant propagation (cf [[feedback_lire_fichier_entier_avant_verdict]] + skill `arxiv-verification`).
