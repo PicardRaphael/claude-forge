@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Raisonnement caché : écriture byte-for-byte (splice + test live)
+
+- **Créée (1 raisonnement)** : [[decision-byte-for-byte-splice-test-live]] (Knowledge/raisonnements/) — chaîne décisionnelle réutilisable issue du fix limite #2 : (1) splice > re-dump (toute ré-sérialisation globale viole le byte-for-byte par construction → disqualifiée a priori) ; (2) insight méta : un diff mémoire « chirurgical » ment sur l'IO, `splitlines()`+`difflib` aveugle aux conversions EOL → test live byte-exact non négociable.
+- **Modifiée** : `00-Hub/MOC-Techniques.md` — wikilink ajouté sous « Raisonnements cachés ».
+- **Source** : /reasoning-cache post-fix chantier 5 limite #2. Détails du bug → [[erreur-mcp-yaml-dump-corruption]].
+
 ## 2026-06-07 — Chantier 5/5 (DEV MCP) — limite #2 RÉSOLUE : `update_property` array-safe
 
 - **Modifiée (1 note Knowledge)** : [[erreur-mcp-yaml-dump-corruption]] — section « RÉSOLU 2026-06-07 » ajoutée. Les sections « NON corrigé côté outil » / contournement script Python obligatoire sont actées **périmées** à partir du commit `2ff0538`. `update_property`/`bulk_update_property` sont maintenant utilisables sur les arrays (tags/aliases/sources).

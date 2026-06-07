@@ -100,6 +100,7 @@ type: index
 - [[sqlite-fts5-vault]] — Pattern : indexer un vault Obsidian dans SQLite FTS5 sans dependance Obsidian
 
 ## Raisonnements caches
+- [[decision-byte-for-byte-splice-test-live]] — Écriture fichier byte-for-byte : disqualifier le re-dump a priori (splice ciblé), et ne jamais conclure « validé » sans test live byte-exact (un diff mémoire ment sur l'IO ; splitlines() est aveugle aux conversions EOL)
 
 - `Knowledge/raisonnements/` — Chaines de raisonnement validees, indexees par type de probleme (skill `/reasoning-cache`)
 - [[architecture-decision-hook-maison-vs-plugin-tiers]] — Hook maison Python l'emporte sur plugin tiers populaire (tdd-guard) car validation LLM = antipattern dans un guard déterministe
