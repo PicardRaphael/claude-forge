@@ -142,6 +142,139 @@ def _normalize_path(vault: Path, path: str) -> tuple[str, str | None]:
     return p, None
 
 
+_FM_BLOCK_RE = re.compile(r"^(---\s*\n)(.*?)(\n---\s*\n)", re.DOTALL)
+_TOP_KEY_RE = re.compile(r"^[^\s#][^:]*:")
+
+
+def _render_yaml_value(name: str, value: str | list) -> str:
+    """Rend UNE propriete frontmatter dans le style maison du vault forge-brain.
+
+    Calibre sur le frontmatter reel (lu via MCP) :
+    - liste  -> bloc multi-ligne, items indentes 2 espaces, valeurs entre guillemets doubles
+    - scalaire -> `name: value` sur une ligne, non quote (sauf si caracteres ambigus YAML)
+
+    JAMAIS yaml.safe_dump : il indente les items en colonne 0, change le quoting et
+    echappe l'unicode (\\xE9), ce qui casse l'exigence zero-diff sur un bulk.
+    """
+    if isinstance(value, list):
+        if not value:
+            return f"{name}: []"
+        lines = [f"{name}:"]
+        for item in value:
+            s = str(item).replace('"', '\\"')
+            lines.append(f'  - "{s}"')
+        return "\n".join(lines)
+    # Scalaire : non quote par defaut (style vault : dates, type, auteur nus).
+    s = str(value)
+    # Quote uniquement si la valeur contient un caractere qui casserait le parsing
+    # YAML scalaire nu (ex: ': ', '#', commence par un indicateur, multi-ligne).
+    needs_quote = (
+        s != s.strip()
+        or ": " in s
+        or s.startswith(("- ", "? ", "#", "&", "*", "!", "|", ">", "@", "`", '"', "'", "[", "{"))
+        or "\n" in s
+        or s == ""
+    )
+    if needs_quote:
+        return f'{name}: "{s.replace(chr(92), chr(92) * 2).replace(chr(34), chr(92) + chr(34))}"'
+    return f"{name}: {s}"
+
+
+def _set_property_in_frontmatter(content: str, name: str, value: str | list) -> str:
+    """Insere/remplace UNE propriete dans le frontmatter, par splice chirurgical.
+
+    Pur : pas d'IO, pas de DB, pas de git. Tout le contenu HORS du span de la
+    propriete ciblee reste byte-for-byte identique (exigence zero-diff collatéral).
+
+    - Remplace le span complet de la propriete : ligne-clé + toutes ses continuations
+      (lignes indentees, items `- ...`, lignes vides) jusqu'a la prochaine clé top-level.
+      C'est le fix : ne remplacer que la ligne-clé laissait les items orphelins.
+    - Clé absente -> ajout en fin de frontmatter.
+    - Frontmatter absent -> creation d'un frontmatter minimal.
+
+    Leve ValueError si le frontmatter resultant ne reparse pas ou si la propriete
+    ne porte pas la valeur voulue (refus d'ecrire un YAML casse).
+
+    Preserve byte-for-byte le BOM UTF-8 eventuel et le style de fin de ligne
+    (CRLF vs LF) du fichier d'origine.
+    """
+    rendered = _render_yaml_value(name, value)
+
+    # Detacher un BOM UTF-8 eventuel (le vault en contient — PowerShell Out-File) :
+    # le `---` du frontmatter doit etre matche en tete, et le BOM sera reattache.
+    bom = ""
+    if content.startswith("﻿"):
+        bom = "﻿"
+        content = content[1:]
+
+    # Detecter le style de fin de ligne pour le restituer a l'identique.
+    # On normalise en \n pour le traitement interne, on re-emet avec l'EOL d'origine.
+    crlf = "\r\n" in content
+    work = content.replace("\r\n", "\n") if crlf else content
+
+    def _restore(text: str) -> str:
+        return bom + (text.replace("\n", "\r\n") if crlf else text)
+
+    m = _FM_BLOCK_RE.match(work)
+    if not m:
+        # Pas de frontmatter : en creer un minimal en tete.
+        return _restore(f"---\n{rendered}\n---\n\n{work}")
+
+    open_fence, fm_body, close_fence = m.group(1), m.group(2), m.group(3)
+    rest = work[m.end():]
+
+    lines = fm_body.split("\n")
+    key_re = re.compile(rf"^{re.escape(name)}:")
+
+    start = None
+    for i, line in enumerate(lines):
+        if key_re.match(line):
+            start = i
+            break
+
+    if start is None:
+        # Clé absente : ajout en fin de frontmatter (apres la derniere ligne non vide).
+        end_idx = len(lines)
+        while end_idx > 0 and lines[end_idx - 1].strip() == "":
+            end_idx -= 1
+        new_lines = lines[:end_idx] + rendered.split("\n") + lines[end_idx:]
+    else:
+        # Etendre le span aux continuations jusqu'a la prochaine clé top-level.
+        end = start + 1
+        while end < len(lines):
+            ln = lines[end]
+            if ln.strip() == "":
+                end += 1
+                continue
+            if _TOP_KEY_RE.match(ln):
+                break
+            end += 1
+        # Ne pas absorber les lignes vides finales qui precedent une autre clé / la fin.
+        while end > start + 1 and lines[end - 1].strip() == "":
+            end -= 1
+        new_lines = lines[:start] + rendered.split("\n") + lines[end:]
+
+    new_fm_body = "\n".join(new_lines)
+
+    # Garde : refuser d'ecrire un YAML casse (ceinture + bretelles).
+    try:
+        parsed = yaml.safe_load(new_fm_body)
+    except yaml.YAMLError as e:
+        raise ValueError(f"Refus : le frontmatter resultant ne parse pas ({e}).")
+    if not isinstance(parsed, dict) or name not in parsed:
+        raise ValueError(f"Refus : propriete '{name}' absente du frontmatter resultant.")
+    expected = list(value) if isinstance(value, list) else str(value)
+    got = parsed[name]
+    got_norm = [str(x) for x in got] if isinstance(got, list) else (str(got) if got is not None else "")
+    exp_norm = [str(x) for x in expected] if isinstance(expected, list) else expected
+    if got_norm != exp_norm:
+        raise ValueError(
+            f"Refus : '{name}' = {got_norm!r} apres splice, attendu {exp_norm!r}."
+        )
+
+    return _restore(f"{open_fence}{new_fm_body}{close_fence}{rest}")
+
+
 class BrainTools:
     def __init__(self, db: BrainDB, vault_path: Path, git_sync=None, sessions_db=None):
         self._db = db
@@ -511,7 +644,7 @@ class BrainTools:
         self,
         files: list[str],
         name: str,
-        value: str,
+        value: str | list,
         username: str = "anonymous",
     ) -> str:
         """Met a jour la meme propriete sur N notes en 1 appel (economie round-trips LLM).
@@ -792,28 +925,31 @@ class BrainTools:
             lines.append(f"- [[{item['source']}]] -> [[{item['target']}]] (n'existe pas)")
         return "\n".join(lines)
 
-    def update_property(self, file: str, name: str, value: str, username: str = "anonymous") -> str:
+    def update_property(
+        self, file: str, name: str, value: str | list, username: str = "anonymous"
+    ) -> str:
+        """Modifie UNE propriete frontmatter par splice chirurgical (array-safe).
+
+        value peut etre un scalaire (str) ou une liste (str list) : une liste produit
+        un array bloc YAML, preservant la structure des champs liste (tags/aliases/sources).
+        Seul le span de la propriete ciblee change ; le reste du fichier reste byte-for-byte.
+        """
         path = self._db.resolve_note(file)
         if not path:
             return f"Note '{file}' introuvable."
         full_path = self._vault / path
-        content = full_path.read_text(encoding="utf-8", errors="replace")
+        # newline="" : IO byte-exact — pas de traduction \r\n<->\n par la couche texte.
+        # Le helper est ainsi la SEULE autorite sur les fins de ligne (zero-diff garanti
+        # par construction : un fichier LF reste LF, un CRLF reste CRLF).
+        content = full_path.read_text(encoding="utf-8", errors="replace", newline="")
 
-        fm_re = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)
-        fm_match = fm_re.match(content)
-        if fm_match:
-            fm_text = fm_match.group(1)
-            prop_re = re.compile(rf"^{re.escape(name)}:.*$", re.MULTILINE)
-            if prop_re.search(fm_text):
-                fm_text = prop_re.sub(f"{name}: {value}", fm_text)
-            else:
-                fm_text = fm_text.rstrip() + f"\n{name}: {value}"
-            content = f"---\n{fm_text}\n---\n{content[fm_match.end():]}"
-        else:
-            content = f"---\n{name}: {value}\n---\n\n{content}"
+        try:
+            new_content = _set_property_in_frontmatter(content, name, value)
+        except ValueError as e:
+            return f"REFUS: {e}"
 
-        full_path.write_text(content, encoding="utf-8")
-        parsed = parse_note(full_path.stem, path, content)
+        full_path.write_text(new_content, encoding="utf-8", newline="")
+        parsed = parse_note(full_path.stem, path, new_content)
         self._db.index_note(parsed, full_path.stat().st_mtime)
         if self._git and self._git._cfg.auto_commit:
             self._git.commit_file(path, username, "update", full_path.stem)
@@ -945,13 +1081,18 @@ def register_tools(mcp, tools: BrainTools):
         return tools.vault_stats()
 
     @_tool
-    def update_property(file: str, name: str, value: str) -> str:
-        """Modifie une propriete du frontmatter YAML d'une note.
+    def update_property(file: str, name: str, value: str | list[str]) -> str:
+        """Modifie une propriete du frontmatter YAML d'une note (array-safe).
+
+        Splice chirurgical : seule la propriete ciblee change, le reste du fichier
+        reste byte-for-byte (pas de reformatage du frontmatter entier).
 
         Args:
             file: nom de la note ou alias
             name: nom de la propriete
-            value: nouvelle valeur
+            value: nouvelle valeur. SCALAIRE (str) -> ligne simple. LISTE (str list) ->
+                   array bloc YAML, pour les champs liste tags/aliases/sources sans corruption.
+                   Ex liste : value=["#type/index", "#domaine/claude-code"]
         """
         return tools.update_property(file, name, value)
 
@@ -989,13 +1130,15 @@ def register_tools(mcp, tools: BrainTools):
         return tools.lint_vault(limit)
 
     @_tool
-    def bulk_update_property(files: list[str], name: str, value: str) -> str:
+    def bulk_update_property(files: list[str], name: str, value: str | list[str]) -> str:
         """Met a jour la meme propriete sur N notes en 1 appel (economie round-trips LLM).
+
+        Array-safe (delegue a update_property) : value scalaire OU liste.
 
         Args:
             files: liste de noms/aliases (ex: ["alpha", "bravo", ...])
             name: nom propriete frontmatter
-            value: nouvelle valeur
+            value: nouvelle valeur (scalaire str OU liste str pour un champ liste)
 
         Cas d'usage : update derniere-maj sur 16 leaders apres audit = 1 appel au lieu de 16.
         """
