@@ -8,8 +8,8 @@ aliases:
   - "trop de tests trop xhigh"
 tags:
   - "#type/erreur"
-  - "#projet/ia-back"
-  - "#projet/neo-ia"
+  - "#projet/ia_back"
+  - "#projet/neo_ia"
   - "#technique/agents"
 resume: "Mai 2026 — pipeline agentic ia_back+neo_ia mettait 4h pour une feature CRUD. 6 sources de gaspillage cumulatives. Raphael Lead IA disait perdre le plaisir de développer. Signal d'alarme technique légitime"
 derniere-maj: 2026-05-22
@@ -21,7 +21,6 @@ sources:
   - "Audit project-auditor cross-repo"
   - "DA critique-2026-05-21-refonte-pipeline-boris-pattern"
 ---
-
 # Erreur — Pipeline agentic Neoteem trop long
 
 ## Symptôme déclencheur

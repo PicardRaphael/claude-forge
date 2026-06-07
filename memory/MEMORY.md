@@ -75,6 +75,7 @@
 - [stop-over-verifying](feedback_stop_over_verifying.md) — Verdict direct si travail fait en session, pas relire 20 fichiers pour dire oui
 - [subagent-audit-category-error](feedback_subagent_audit_category_error.md) — Sub-agent audit flagge drift sur note citant valeurs externes. Vérifier source réelle
 - [subagent-autocommit-violation](feedback_subagent_autocommit.md) — Sub-agents committent malgré instruction. TOP gras + git log post-agent
+- [tag-projet-nom-repo-exact](feedback_tag_projet_nom_repo_exact.md) — Tag projet = nom EXACT du repo (neo_ia, ia_back, claude-forge), jamais de normalisation cosmétique du séparateur. Vérifier nom réel (disque + git remote) avant fusion
 - [test-writer-systematic](feedback_test_writer_systematic.md) — RÉVISÉ 22 mai : MAX 3 tests/comportement, REFACTOR supprimée, effort high
 - [tweet-hype-paraphrase-non-verifiee-pattern](_archive/2026-06/feedback_tweet_hype_paraphrase_pattern.md) — Archivé : absorbé par skill `web-search-canonical-source` (table 4 patterns + cite ce feedback en source)
 - [use-brain-skills-not-grep](feedback_use_brain_skills.md) — Questions métier = skills neo-brain (MCP), jamais grep manuel sur vault/SQL
