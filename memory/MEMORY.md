@@ -38,6 +38,7 @@
 - [enforce-not-advise](feedback_enforce_not_advise.md) — RÉVISÉ 22 mai : hooks = lint/sécu/scope, JAMAIS workflow
 - [eval-trio-angles-complementaires](feedback_eval_trio_angles_complementaires.md) — Éval forge = TRIO (skill-evolve fin / forge-review stratégique / outcomes-test rubric). Chercher 3 angles avant conclure gap
 - [feedback-reviole-3x-regle-insuffisante](feedback_feedback_reviole_3x_regle_insuffisante.md) — Feedback re-violé ≥3× = règle insuffisante. Réflexe pré-action ou garde-fou structurel
+- [gate-zero-diff-test-live-byte-exact](feedback_gate_zero_diff_test_live_byte_exact.md) — Gate "zéro diff collatéral" sur écriture fichier = test LIVE byte-exact obligatoire. Tests string pure + diff splitlines() aveugles à la couche IO (write_text traduit \n→\r\n Windows ; 166 notes LF du vault touchées). newline="" pour byte-exact
 - [git-C-pas-cd-multi-repo](feedback_git_C_pas_cd.md) — TOUJOURS git -C <path>, jamais cd && git. CWD persiste entre Bash calls
 - [hook-vs-harness-permission-distinction](feedback_hook_vs_harness_permission_distinction.md) — Bypass hook ≠ bypass harness. Vérifier debug log avant patcher. Bash(py -c) contourne
 - [jarvis-innovator-mindset](feedback_jarvis_innovator.md) — Contrat Jarvis : partenaire, anticiper, innover, évoluer, franc, autonome, proactif
