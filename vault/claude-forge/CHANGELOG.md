@@ -14,6 +14,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Chantier 2/5 normalisation tags — LOT D (projet/anthropic → domaine/anthropic)
+
+- **Modifiée** : 1 note ([[Brad-Abrams]]) — `#projet/anthropic` → `#domaine/anthropic` (Anthropic n'est pas un projet du repo mais un domaine de veille). 1 renommage, 0 dédup.
+  - **NON touchés (gardés distincts, vérifiés)** : `#org/anthropic` = **9** inchangé (axe affiliation des leaders Claude Code) · `#projet/neoteem` + `#projet/neoteem-brain` + `#projet/neoteem-po` = **20** inchangé (3 réalités distinctes).
+  - Vérif : git diff **100 % tag-only** (1 fichier, 0 wikilink touché). `lint_vault` : **0 frontmatter cassé**. `find_by_property` : `#projet/anthropic` = 0, `#org/anthropic` = 9 (stable), `#projet/neoteem*` = 20 (stable).
+- **Source** : chantier « vault forge-brain parfait » 2/5, décisions tags validées par Raphael (7 juin 2026). LOT E (singletons résiduels) à suivre pour arbitrage.
+
 ## 2026-06-07 — Chantier 2/5 normalisation tags — LOT B (technique/ outil/ → domaine/)
 
 - **Modifiées** : 16 notes — fusion des axes `#technique/*` et `#outil/*` (prouvés redondants avec `#type/` + `#domaine/`) vers `#domaine/*`.

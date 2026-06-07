@@ -18,7 +18,7 @@ sources:
 tags:
   - "#type/leader"
   - "#domaine/claude-code"
-  - "#projet/anthropic"
+  - "#domaine/anthropic"
 ---
 
 # Brad Abrams
