@@ -19,7 +19,7 @@ sources:
   - "https://menlovc.com/perspective/2025-the-state-of-generative-ai-in-the-enterprise/ (Menlo Ventures, 9 déc 2025, ~500 décideurs US — estimation d'enquête)"
   - "https://www.langchain.com/state-of-agent-engineering (LangChain State of Agent Engineering 2025, 1340 réponses — estimation d'enquête)"
   - "Bloomberg interview Sebastian Siemiatkowski mai 2025 (Klarna walk-back)"
-  - "Important/Stack IA.md (synthèse forge interne, 2026)"
+  - "Synthèse forge interne — audit ingénieur Stack IA 2026 (capitalisée dans le vault, doc source archivé)"
 tags:
   - "#type/technique"
   - "#casquette/responsable-ia"

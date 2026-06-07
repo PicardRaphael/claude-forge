@@ -14,6 +14,14 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Réconciliation Important/ #4 : Stack IA.md subsumé (dispatch vérifié) + nettoyage sources mortes
+
+- **Modifiées** :
+  - [[stack-ia-production-2026]] — 3 mentions du chemin mort `Important/Stack IA.md` remplacées (frontmatter `sources:` + 2 dans le body) par « synthèse forge interne capitalisée, doc source archivé ».
+  - [[economie-agentique-pricing-2026]] — ligne `sources:` `Important/Stack IA.md` remplacée idem.
+- **Supprimées (hors vault)** : `Important/Stack IA.md` — INTÉGRALEMENT subsumé. Dispatché ce matin (7 juin) vers la note-carte [[stack-ia-production-2026]] (3 thèses + 5 recos + caveats) + [[economie-agentique-pricing-2026]] (chiffres Menlo/Klarna/Ramp/Harvey VÉRIFIÉS source primaire + 1 erreur corrigée : 76% buy vs taux conversion pilote→prod) + [[agents-securite]] (OWASP/lethal trifecta Willison/CVE MCP) + enrichissements agents-architecture/frameworks/stack-*-ia. Couverture vault SUPÉRIEURE au doc source (vérifications + corrections). Vérifié EN ENTIER doc + note-carte + 2 canoniques filles avant verdict.
+- **Source** : passe réconciliation Important/ (doc #4/4 — dernier rapport du dossier). Reste : `skill.md` (brouillon meta-skill, diff fin à part).
+
 ## 2026-06-07 — Réconciliation Important/ #3 : reference-claude-md intégralement subsumé (0 enrichissement)
 
 - **Supprimées (hors vault)** : `Important/reference-claude-md.md` — INTÉGRALEMENT subsumé par [[comment-ecrire-claudemd]], aucun delta neuf. La canonique contient déjà MODE AUDIT (13 signaux + procédure 5 étapes), MODE OPTIMISATION (5 passes), MATRICE règle/mécanisme, CHECKLIST 4 dimensions, hiérarchie + 3 leviers modularisation — ET bien plus (5 lignes Karpathy obligatoires, 8 éléments avancés, exemples repos vérifiés). Lu EN ENTIER doc (238L) + canonique avant verdict. Cas inverse de #1/#2 : zéro enrichissement, la canonique domine strictement.

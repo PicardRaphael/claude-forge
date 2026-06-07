@@ -14,7 +14,7 @@ type: synthese
 derniere-maj: 2026-06-07
 auteur: claude
 sources:
-  - "Important/Stack IA.md (synthèse forge interne, audit ingénieur 2026 — hors vault, dossier projet claude-forge)"
+  - "Synthèse forge interne — audit ingénieur Stack IA 2026 (capitalisée intégralement dans le vault, doc source archivé)"
   - "https://www.anthropic.com/research/building-effective-agents (Building Effective Agents)"
   - "OpenAI A Practical Guide to Building Agents"
   - "Cognition — Don't Build Multi-Agents"
@@ -28,7 +28,7 @@ tags:
 # Stack IA en production 2026 — synthèse transverse & carte des canoniques
 
 > [!info] Rôle de cette note
-> Note-carte de synthèse. Elle porte les **3 thèses transverses** de l'audit Stack IA 2026 et **relie** les notes canoniques qui détaillent chaque volet. Le détail vit dans les canoniques — ici, la vue d'ensemble + les pointeurs. Capitalise le rapport `Important/Stack IA.md` (dossier projet claude-forge, hors vault).
+> Note-carte de synthèse. Elle porte les **3 thèses transverses** de l'audit Stack IA 2026 et **relie** les notes canoniques qui détaillent chaque volet. Le détail vit dans les canoniques — ici, la vue d'ensemble + les pointeurs. Capitalise une synthèse forge interne (audit ingénieur Stack IA 2026), désormais intégralement dans le vault — le doc source a été archivé après dispatch.
 
 > [!warning] Statut épistémique
 > Le rapport source distingue explicitement « vérifié » (la déclaration publique existe) de la véracité empirique. Beaucoup de chiffres sont des **estimations d'enquête** (Menlo ~500 répondants, LangChain 1340) ou des **claims vendeurs non reproduits** (« 4x faster », gains internes Ramp/Cursor). Les notes filles préservent ces marqueurs. Cf [[Knowledge/erreurs/agents-ia-22-claims-fausses-2026-05-23]] — historique de contamination par chiffres non vérifiés.
@@ -103,7 +103,7 @@ Le moat n'est **ni le framework ni le modèle** : c'est la **discipline d'evals 
 
 ## Liens
 
-- `Important/Stack IA.md` — rapport source (dossier projet claude-forge, hors vault)
+- Synthèse forge interne « audit ingénieur Stack IA 2026 » — rapport source, dispatché intégralement dans le vault puis archivé (7 juin 2026)
 - [[MOC-Techniques]]
 - [[techniques-inedites]] — croisements de techniques
 - [[economie-agentique-pricing-2026]] — volet économique/stratégique
