@@ -170,7 +170,7 @@ Insight Thariq : "most teams only use 2-3 of these categories — not because th
 
 ### Étape 2 — Déléguer à `skill-creator`
 
-> ⚠️ **Pivot 6 juin 2026** : `skill-creator` est désormais une **skill** (`.claude/skills/skill-creator/`), pas un agent. Invoquer via `Skill(skill-creator)` depuis la session principale. Le hard block `delegate-guard.py` sur `SKILL.md` a été retiré — enforcement advisory. Voir [[delegate-to-specialists]].
+> ⚠️ **Pivot 6 juin 2026** : `skill-creator` est désormais une **skill** (`.claude/skills/skill-creator/`), pas un agent. Invoquer via `Skill(skill-creator)` depuis la session principale. Le hard block `delegate-guard.py` sur `SKILL.md` a été retiré — enforcement advisory. Voir la rule delegate-to-specialists.
 
 Côté repo externe : utiliser `mcp-builder` ou `skill-creator` officiel Anthropic.
 

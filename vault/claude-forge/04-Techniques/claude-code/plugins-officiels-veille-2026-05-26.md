@@ -36,7 +36,7 @@ Demande Raphael : analyser 11 plugins officiels et juger pertinence vs forge / n
 | **hookify** | Hooks via markdown YAML (event/pattern/action) — bash, file, stop, prompt | `hook-creator` + `cc-hooks-ref` (29 events doctrine 22 mai) | ❌ SKIP + flag doctrinal | `event: stop` + transcript conditions = workflow hook = viole doctrine 22 mai. Voir [[anti-pattern-hookify-workflow-hooks]] |
 | **skill-creator** Anthropic | Évals A/B `with_skill/baseline` + `run_loop.py` + benchmark viewer HTML + 3 agents (grader/comparator/analyzer) | `skill-creator` agent + `skill-evolve` + `outcomes-grader`/`outcomes-test` | ✅ ADAPT (gap mesurable) | Enrichir [[comment-creer-skill]] + note dédiée [[eval-pattern-anthropic-skill-creator]] |
 | **agent-sdk-dev** | `/new-sdk-app` Python/TS Agent SDK scaffolding + 2 verifiers (py/ts) | Aucun (forge ne fait pas du SDK app dev) | ⚠️ REFERENCE | Note référence si construction app Agent SDK custom |
-| **code-review** Boris | Pipeline 7 étapes, 4 agents //, **confidence scoring 0-100 + seuil 80** filtre faux positifs, post GitHub | `reviewer.md` neo_ia/ia_back + `da-blocking-arbitrage` + `auditor-empirical-verify` | ✅ ADAPT (1 idée à voler) | Enrichir [[da-blocking-arbitrage]] avec scoring numérique |
+| **code-review** Boris | Pipeline 7 étapes, 4 agents //, **confidence scoring 0-100 + seuil 80** filtre faux positifs, post GitHub | `reviewer.md` neo_ia/ia_back + `da-blocking-arbitrage` + `auditor-empirical-verify` | ✅ ADAPT (1 idée à voler) | Enrichir la skill `da-blocking-arbitrage` avec scoring numérique |
 | **mcp-server-dev** | 3 skills build-mcp-server / build-mcp-app / build-mcpb (auth flows, widgets, packaging) | Forge-brain MCP fonctionnel port 8091 | ⚠️ REFERENCE | Note référence si nouveau MCP futur |
 | **remember** | Tiered memory now.md → today → recent → archive via Haiku compression | MEMORY.md natif + 200+ feedback files + vault forge-brain | ❌ SKIP — caveat bloquant | **Exige désactiver auto-compact CC** = casse workflow. Vault + MEMORY.md font mieux structurellement |
 | **atomic-agents** | Framework Python concurrent LangGraph + skills framework/new-app + agents explorer/reviewer | neo_ia = LangGraph 1.0, pas atomic-agents | ❌ SKIP | Framework concurrent, ne switch pas la stack pour un plugin |
@@ -66,7 +66,7 @@ Demande Raphael : analyser 11 plugins officiels et juger pertinence vs forge / n
 2. ✅ Note anti-pattern [[anti-pattern-hookify-workflow-hooks]]
 3. ✅ Note technique [[eval-pattern-anthropic-skill-creator]]
 4. ✅ Enrichissement [[comment-creer-skill]] section eval pattern
-5. ✅ Enrichissement [[da-blocking-arbitrage]] confidence scoring 0-100
+5. ✅ Enrichissement de la skill `da-blocking-arbitrage` confidence scoring 0-100
 6. ✅ Update [[analyse-plugin-claude-code-setup]] + [[comparaison-skill-anthropic-claude-code-setup]]
 
 ## Wikilinks
@@ -76,10 +76,10 @@ Demande Raphael : analyser 11 plugins officiels et juger pertinence vs forge / n
 - [[anti-pattern-hookify-workflow-hooks]] — anti-pattern doctrinal
 - [[eval-pattern-anthropic-skill-creator]] — technique eval A/B
 - [[comment-creer-skill]] — canonique enrichie
-- [[da-blocking-arbitrage]] — skill enrichie
+- skill `da-blocking-arbitrage` — skill enrichie
 - [[raisonnement-22mai-doctrine-vs-enforcement]] — doctrine hooks lint/sécu/scope only
 - [[methode-analyser-repo]] — méthode 6 étapes appliquée
-- [[cross-repo-propagation]] — propagation enrichissements neo_ia/ia_back
+- rule `cross-repo-propagation` — propagation enrichissements neo_ia/ia_back
 
 ## Sources
 

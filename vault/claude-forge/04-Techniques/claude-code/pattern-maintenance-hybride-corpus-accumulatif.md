@@ -108,7 +108,7 @@ Même ADN que [[doctrine-vivante]] : **gate humaine non négociable + anti-scan-
 - [[methode-pivoter-doctrine]] — autre application de gate humaine sur changement structurant
 - [[pattern-mcp-brief-then-direct]] — skill = écritures MCP denses en session principale
 - [[comment-creer-skill]] — skill de jugement LLM = validation par exécution, pas test unitaire
-- [[memory-discipline]] — rule forge appliquant ce pattern sur `memory/*.md` (workflow décision)
+- rule `memory-discipline` — applique ce pattern sur `memory/*.md` (workflow décision)
 - [[decision-memoire-dans-le-repo]] — ADR memory dans repo (architecture physique `<repo>/memory/`)
 
 ## Mesure corpus complet — clean-memory 2026-05-29

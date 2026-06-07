@@ -457,7 +457,7 @@ Aliases déclarés en frontmatter (10) :
 - [[forge-brain-proactive]] — rule vault check MCP obligatoire
 - [[changelog-vault]] — rule CHANGELOG vault
 - [[obsidian-markdown]] — skill format vault
-- [[vault-audit]] — skill vault audit (lint/dédoublonnage, session principale)
+- skill `vault-audit` — vault audit (lint/dédoublonnage, session principale)
 - [[project-auditor]] — agent audit
 - [[forge-review]] — slash command audit mensuel
 

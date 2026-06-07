@@ -30,7 +30,7 @@ Conséquence non-évidente : **quand un hook bloque une action prévue et légit
 
 1. **Ne jamais contourner** un blocage de hook de conformité (pas de bypass env-var, pas de `.proposed` de complaisance, pas de désactivation temporaire).
 2. **Traiter le blocage comme un audit qui vient de trouver quelque chose** : lire ce qu'il signale, distinguer ma modification de la dette préexistante.
-3. **Nettoyer la dette révélée dans la MÊME passe** — pas en rappel dans 2 semaines (cf [[zero-dette-technique-nettoyer-completement]]).
+3. **Nettoyer la dette révélée dans la MÊME passe** — pas en rappel dans 2 semaines (cf le feedback `zero-dette-technique-nettoyer-completement`).
 4. Si le blocage est un faux positif → durcir le hook (le critère est trop large), pas le contourner.
 
 ## Occurrences empiriques
@@ -44,7 +44,7 @@ Quand un hook bloque une action que tu pensais légitime : ne pas pester ni cont
 
 ## Liens
 
-- [[zero-dette-technique-nettoyer-completement]] — doctrine connexe : nettoyer la dette révélée immédiatement
+- feedback `zero-dette-technique-nettoyer-completement` — doctrine connexe : nettoyer la dette révélée immédiatement
 - [[erreur-meta-commentaires-composants]] — la dette révélée cette session (attribution-source)
 - [[bug-caracterise-fix-trivial-vs-couteux]] — la dette révélée Phase 2 (delegate-guard substring)
 - [[avantages-acquis-claude-forge-vs-hermes]] — "conformité par construction" comme avantage forge

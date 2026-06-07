@@ -42,7 +42,7 @@ Le moteur externe comble ce trou : un signal à fort crédit qui contredit ou re
 | Leaders reconnus du vault | Élevé sur leur domaine | `05-Leaders/` — Karpathy, Hashimoto, Böckeler, Simon Willison, etc. |
 | Mesure empirique forge | Décisive | probe sur transcripts, audit, test adverse |
 
-**Pas une source légitime** : tweet random, article tiers paraphrasant Anthropic sans lien primaire, hype non vérifiée (cf [[feedback_tweet_hype_paraphrase_pattern]]). Le crédit se vérifie : sur Claude, Anthropic est single source ([[feedback_anthropic_single_source]]) ; sur un domaine large, consensus multi-sources ([[web-search-canonical-source]]).
+**Pas une source légitime** : tweet random, article tiers paraphrasant Anthropic sans lien primaire, hype non vérifiée (cf [[feedback_tweet_hype_paraphrase_pattern]]). Le crédit se vérifie : sur Claude, Anthropic est single source ([[feedback_anthropic_single_source]]) ; sur un domaine large, consensus multi-sources (skill `web-search-canonical-source`).
 
 ## Mécanisme — trois verdicts
 
@@ -76,12 +76,12 @@ Continu et événementiel — à chaque `cc-news` (étape 8 sur les findings maj
 
 - Étend « CLAUDE.md DOIT évoluer » (moteur interne, erreur) au moteur externe (signal du monde).
 - S'appuie sur [[methode-pivoter-doctrine]] pour exécuter un pivot validé sans drift résiduel (5 étapes).
-- Complémentaire de [[pivot-check]] (détecte le drift résiduel **après** un pivot) — ici on est **avant** : détecter qu'un pivot est *nécessaire*.
+- Complémentaire de la skill `pivot-check` (détecte le drift résiduel **après** un pivot) — ici on est **avant** : détecter qu'un pivot est *nécessaire*.
 
 ## Wikilinks
 
 - [[methode-pivoter-doctrine]] — exécute un pivot validé (5 étapes, anti-drift)
-- [[pivot-check]] — détecte le drift résiduel post-pivot (aval ; ici = amont)
+- skill `pivot-check` — détecte le drift résiduel post-pivot (aval ; ici = amont)
 - [[critique-2026-05-27-compounding-retroactif]] — pourquoi le scan aveugle est interdit (0/12)
 - [[raisonnement-22mai-doctrine-vs-enforcement]] — exemple de pivot déclenché par signal externe (Boris, Agent SDK)
 - [[comment-ecrire-claudemd]] — « CLAUDE.md DOIT évoluer » (moteur interne étendu ici)

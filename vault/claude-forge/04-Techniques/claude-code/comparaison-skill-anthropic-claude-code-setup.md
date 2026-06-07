@@ -171,6 +171,6 @@ Pattern absorption confirmé sur 11 plugins additionnels (cf [[plugins-officiels
 - 3 REFERENCE (notes vault, pas de skill forge)
 - 2 ADAPT (enrichissement canonique existant, pas nouvelle skill)
   - skill-creator eval pattern → enrichi [[comment-creer-skill]]
-  - code-review confidence scoring → enrichi [[da-blocking-arbitrage]]
+  - code-review confidence scoring → enrichi la skill `da-blocking-arbitrage`
 
 **Aucune nouvelle skill forge créée** — doctrine respectée. Single source of truth = vault canonique.

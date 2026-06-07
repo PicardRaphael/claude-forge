@@ -84,7 +84,7 @@ C'est la version disciplinée du throw-away.
 ## Liens
 
 - [[workflow-claude-code-optimal]] — déjà mentionne /clear
-- [[recap]] — skill de bridge entre sessions
+- skill `recap` — bridge entre sessions
 - [[software-factory-pattern-2026]] — source originale de la formulation
 
 ## Référence

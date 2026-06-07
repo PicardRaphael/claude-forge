@@ -14,6 +14,14 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Chantier 3/5 wikilinks — lots D + E (124 → 107 liens brisés)
+
+- **Lot D — liens vers composant `.claude/` (19 liens)** : un skill/agent/rule/hook n'est PAS une note vault → retrait du wikilink, texte gardé visible en code-span (`nom-composant`) ou en prose (« la skill X », « cf rule Y »). Touche eval-pattern-anthropic-skill-creator, analyse-plugin-claude-code-setup, comparaison-skill-anthropic-claude-code-setup, context-drift-throw-vs-patch, pattern-vault-llm-karpathy, doctrine-vivante (×3), comment-creer-hook (×2), comment-creer-skill, hooks-conformite-audit-passif-continu (×2), pattern-maintenance-hybride-corpus-accumulatif, plugins-officiels-veille-2026-05-26 (×3).
+- **Lot E — liens vers fichier `memory/` (5 cibles traitées)** : pas de règle unique, décision par cible. **Retraits (2)** : un lien pointant vers un fichier `memory/feedback_*` ou `memory/reference_*` n'est pas une note vault → retrait du wikilink, texte gardé (decision-settings-global-modification-manuelle, python-windows-tmp-msys-invisible — la rule windows-hooks couvre déjà ce savoir, promotion = doublon). **Promotions (3)** : gotchas MCP réutilisables et durables promus en vraies notes vault — [[mcp-alias-ambigu-chemin-exact]], [[vault-edit-gotchas-outillage]], [[workflow-args-array-gotcha]] (frontmatter complet, 5 aliases, tags convention, wikilinks corps vérifiés existants, créées via `create_note`).
+- **Reste expliqué, pas un bug** : ~70 liens restants = roadmap responsable-ia (contenu à écrire, chantier dédié futur — les liens s'auto-réparent quand les notes existeront) ; 8 liens dont la source est le changelog = noms morts re-mentionnés dans la narration des réparations (le lint parse les wikilinks même entre backticks) → à éliminer au Chantier 5 via exclusion de `CHANGELOG.md` du lint (comme `log.md`/`raw/` déjà exclus, limite MCP #6) ; 15 placeholders syntaxiques d'exemple (no-op, exemples de doc).
+- **Gotcha confirmé (renforce limite MCP #2)** : `update_property` sur un champ **array** (tags, aliases, sources) corrompt le YAML — même bug qu'au Chantier 2, élargi. Règle ferme : jamais `update_property` sur un array → `update_note` ou Edit disque + reindex.
+- **Source** : chantier 3/5, GO lots D+E de Raphael, fork CHANGELOG tranché (option 1 tracée au Ch.5, pas de scrub).
+
 ## 2026-06-07 — Chantier 3/5 wikilinks — réparations sûres A+B+C (133 → 124 liens brisés)
 
 - **Lot A — casse leader (3 liens)** : ajout de l'alias kebab sur [[Boris Cherny]] (`boris-cherny`), [[Erik Schluntz]] (`erik-schluntz`), [[Thariq Shihipar]] (`thariq-shihipar`). Répare les liens kebab→Title Case. **Gotcha rencontré** : `update_property` sur `aliases` insère une 2e clé YAML (double déclaration) → frontmatter cassé. Fix = Edit disque du bloc `aliases` en liste unique, puis `update_property` scalaire (`derniere-maj`) pour forcer le reindex MCP.
@@ -568,7 +576,7 @@ Backup hors-versionné dans `.claude/_backups/` (ajouté au .gitignore). `settin
   - [[comparaison-skill-anthropic-claude-code-setup]] — confirmation doctrine "on absorbe pas dans skill forge"
 - **Enrichies (2 canoniques via skill-creator)** :
   - [[comment-creer-skill]] — section pattern eval Anthropic
-  - [[da-blocking-arbitrage]] (skill) — confidence scoring 0-100 + seuil 80 (emprunté code-review Boris Cherny)
+  - skill `da-blocking-arbitrage` — confidence scoring 0-100 + seuil 80 (emprunté code-review Boris Cherny)
 - **Source** : Demande Raphael 26 mai, marketplace.json 203 plugins, advisor + AskUserQuestion arbitrages
 - **Doctrine reconduite** : aucune nouvelle skill forge créée, single source of truth = vault canonique
 
@@ -599,7 +607,7 @@ Backup hors-versionné dans `.claude/_backups/` (ajouté au .gitignore). `settin
 - **claude-forge/CLAUDE.md** : 7 infractions meta-commentaires purgées (L3, L51, L54, L55, L74, L87, L99) en 2 passes. Version 3.2.
 - **Hook créé** : `.claude/hooks/meta-commentary-detector.py` (PreToolUse Write|Edit|MultiEdit) — 9 patterns, exclusions vault, désambiguïsation ≤3 mots. Tests 15/15. Settings.json.proposed à coller manuellement par Raphael.
 - **6 agents patchés** : skill-creator, agent-creator, hook-creator, claudemd-optimizer, project-auditor, project-analyzer reçoivent section "Lecture obligatoire au démarrage" avec `read_note` SANS max_lines des canoniques correspondantes (innovation #2 auto-injection).
-- **3 wikilinks morts fixés** : `[[skills-guide]]` → `[[comment-creer-skill]]`, `[[agents-orchestration]]` → `[[comment-creer-agent]]`, `[[hooks-guide]]` → `[[comment-creer-hook]]` dans cc-*-ref/SKILL.md.
+- **3 wikilinks morts fixés** : `skills-guide` → [[comment-creer-skill]], `agents-orchestration` → [[comment-creer-agent]], `hooks-guide` → [[comment-creer-hook]] dans cc-*-ref/SKILL.md.
 - **Anthropic vérifié** : `claude-for-legal/CLAUDE.md` zéro meta-commentaire → doctrine forge alignée.
 
 ## 2026-05-24 — 5 lignes Karpathy en ouverture + anti-pattern meta-commentaires

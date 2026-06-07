@@ -412,7 +412,7 @@ Un hook-garde qui matche **trop large** (par nom de fichier, regex, ou scope de 
 - **Matcher par chemin complet**, jamais par nom de fichier ou mot-clé isolé (un nom `agents-*.md` existe dans le vault ET dans `.claude/agents/`).
 - **Tester adverse AVANT** : le cas heureux ne révèle jamais le faux positif. Lister les fichiers/commandes légitimes qui ressemblent à la cible.
 - **Exception explicite en tête** du hook pour les cas légitimes connus (plan file, memory/, notes vault).
-- **Contournement runtime** : pour modifier le CONTENU d'une note vault bloquée par un faux positif de nom, passer par les outils MCP forge-brain (`insert_section`/`update_note`), pas par Edit direct — JAMAIS contourner par env var/script (cf [[delegate-to-specialists]]).
+- **Contournement runtime** : pour modifier le CONTENU d'une note vault bloquée par un faux positif de nom, passer par les outils MCP forge-brain (`insert_section`/`update_note`), pas par Edit direct — JAMAIS contourner par env var/script (cf rule delegate-to-specialists).
 - Corollaire : « les vrais faux positifs émergent à l'usage » → traiter chaque blocage inattendu comme un signal de scope trop large, pas comme un cas à contourner.
 
 ### Pédagogiques
@@ -789,7 +789,7 @@ Nuance critique pour l'enforcement DUR, vérifiée verbatim :
 - **http** : « Non-2xx status: non-blocking error, execution continues » et « Connection failure or timeout: non-blocking error, execution continues ». Pour bloquer, il faut renvoyer un 2xx avec un body JSON bloquant — le code de statut seul ne bloque jamais.
 - **mcp_tool** : « If the named server is not connected, or the tool returns `isError: true`, the hook produces a non-blocking error and execution continues. »
 
-**Conséquence** : pour une politique qui DOIT tenir même sous panne réseau/serveur déconnecté, utiliser un handler **`command` + `exit 2`** (déterministe, local). `http`/`mcp_tool`/`prompt`/`agent` = jugement nuancé, **jamais** garantie d'enforcement. Cf [[mcp-transport-stdio-http-crashloop]] (MCP non fiable en contexte headless).
+**Conséquence** : pour une politique qui DOIT tenir même sous panne réseau/serveur déconnecté, utiliser un handler **`command` + `exit 2`** (déterministe, local). `http`/`mcp_tool`/`prompt`/`agent` = jugement nuancé, **jamais** garantie d'enforcement. Cf le feedback `mcp-transport-stdio-http-crashloop` (MCP non fiable en contexte headless).
 
 ### Champ `continue: false` — universel, précède tout
 

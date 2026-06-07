@@ -73,5 +73,5 @@ Synthèse complète : [[plugins-officiels-veille-2026-05-26]].
 
 **Découvertes ajoutées au forge** :
 - Pattern eval A/B Anthropic ([[eval-pattern-anthropic-skill-creator]]) — gap mesurable vs outcomes-grader
-- Confidence scoring 0-100 (code-review Boris Cherny) — enrichissement [[da-blocking-arbitrage]]
+- Confidence scoring 0-100 (code-review Boris Cherny) — enrichissement de la skill `da-blocking-arbitrage`
 - Anti-pattern hookify workflow hooks ([[anti-pattern-hookify-workflow-hooks]]) — confirme doctrine 22 mai

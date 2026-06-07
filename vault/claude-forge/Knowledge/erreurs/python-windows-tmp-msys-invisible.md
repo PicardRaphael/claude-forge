@@ -18,4 +18,4 @@ Passer les données intermédiaires par un **dossier réel du repo** (ex : `memo
 
 ## Lien
 - [[resolution-path-3-contextes]] — résolution de chemin selon le contexte d'exécution
-- [[python-windows-cross-machine]] — `py` launcher pour les hooks Windows
+- reference `python-windows-cross-machine` (memory) + rule `windows-hooks` — `py` launcher pour les hooks Windows

@@ -43,4 +43,4 @@ L'agent **fournit un diff précis** sous 3 formes (diff brut + fichier complet a
 ## Appels
 
 - [[decision-memoire-dans-le-repo]] — cas où on a délibérément évité le settings global
-- [[delegate-guard-env-var-blocked]] — autre cas de protection self-modification
+- feedback `delegate-guard-env-var-blocked` — autre cas de protection self-modification

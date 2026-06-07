@@ -151,8 +151,8 @@ python -m scripts.package_skill <path/to/skill-folder>
 
 - [[comment-creer-skill]] — canonique enrichie avec section eval
 - [[plugins-officiels-veille-2026-05-26]] — synthèse veille parent
-- [[outcomes-test]] — skill grader forge actuel (équivalent partiel)
-- [[skill-evolve]] — skill forge optim (peut consommer ce pattern)
+- skill `outcomes-test` — grader forge actuel (équivalent partiel)
+- skill `skill-evolve` — forge optim (peut consommer ce pattern)
 - [[Thariq-Shihipar]] — auteur skill-creator + 9 catégories skills
 
 ## Sources
