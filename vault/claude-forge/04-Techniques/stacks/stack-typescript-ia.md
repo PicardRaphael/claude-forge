@@ -12,7 +12,7 @@ aliases:
   - typescript agent stack
 domaine: ia
 type: technique
-derniere-maj: 2026-05-23
+derniere-maj: 2026-06-07
 auteur: claude
 sources:
   - "https://github.com/vercel/ai"
@@ -269,6 +269,19 @@ tests/
 3. **Memory en couches** — message array → vector search quand le contexte grandit
 4. **Types centralises** — quand un schema change, l'impact est visible partout
 5. **Provider-agnostic** — abstraire le provider derriere Vercel AI SDK ou Mastra
+
+## Inférence maison — Cursor Composer (cas de référence)
+
+Les acteurs à très haut volume **internalisent l'inférence** pour casser le coût retail par token. Cursor a entraîné son propre modèle MoE par RL en sandbox (Firecracker VMs).
+
+- **Composer 2** (rapport technique [arXiv 2603.24477](https://arxiv.org/abs/2603.24477)) : **73,7 SWE-bench Multilingual**, **61,7 Terminal-Bench 2.0**, 61,3 CursorBench. Base = **Kimi K2.5** (Moonshot) — **confirmé officiellement dans le rapport technique** (la synthèse forge le donnait « non confirmé »). Pricing 0,50 $/2,50 $ par M tokens (−86% vs Composer 1.5).
+- **Composer 2.5** (mai 2026) : **79,8 SWE-bench Multilingual**, **69,3 Terminal-Bench** — gains composés via pretraining + RL.
+- Techniques : self-summarization (reward final propagé), MTP layers pour speculative decoding (2-3×), MXFP8/NVFP4 quantization, speculative edits utilisant le code existant comme « draft tokens » (~1000 tokens/s, ≈13× speedup).
+
+> [!note] Vérifié source primaire (7 juin 2026)
+> Scores Composer 2/2.5 confirmés via [cursor.com/blog/composer-2](https://cursor.com/blog/composer-2) + arXiv. Les claims de productivité (« 4x faster ») restent des claims vendeur non reproduits indépendamment.
+
+→ Volet économique de l'inférence maison (build-vs-buy, marges) : [[economie-agentique-pricing-2026]].
 
 ## Optimisations performance
 

@@ -10,7 +10,7 @@ aliases:
   - stratégies de chunking
 domaine: ia
 type: technique
-derniere-maj: 2026-06-05
+derniere-maj: 2026-06-07
 auteur: claude
 sources:
   - "https://blog.premai.io/rag-chunking-strategies-the-2026-benchmark-guide/"

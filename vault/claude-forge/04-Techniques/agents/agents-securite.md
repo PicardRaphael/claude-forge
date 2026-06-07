@@ -10,7 +10,7 @@ aliases:
   - agent guardrails
 domaine: ia
 type: technique
-derniere-maj: 2026-05-08
+derniere-maj: 2026-06-07
 auteur: claude
 sources:
   - "https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html"
@@ -20,7 +20,6 @@ tags:
   - "#domaine/ia"
   - "#domaine/agents"
 ---
-
 ## OWASP Top 10 for Agentic Applications (2026)
 
 Premier framework peer-reviewed pour agents autonomes tool-using.
@@ -40,6 +39,33 @@ Menaces additionnelles : **memory poisoning** (données malveillantes persistée
 5. **Canary tokens** — détection d'exfiltration
 6. **Policy engines** — règles au niveau gateway
 7. **Continuous red teaming** — tests adversarial réguliers
+
+## Lethal trifecta (Simon Willison, juin 2025)
+
+La combinaison de trois capacités = **vulnérabilité grave** :
+
+1. **Accès aux données privées**
+2. **Exposition au contenu non fiable** (web, emails, documents externes)
+3. **Capacité de communication externe** (exfiltration possible)
+
+> « MCP makes it very easy for people to glue lots of tools together… so you can accidentally do the trifecta. » — Simon Willison
+
+Willison insiste : **pas de mitigation statistique** — « You can't have security mitigations that work on statistics » et « You can't patch your way out of prompt injection ». Défense **en profondeur obligatoire**, jamais un seul filtre probabiliste.
+
+**Défenses** : least-privilege tooling, input/output filtering, **human-in-the-loop pour actions irréversibles**, **tokenisation des données sensibles**. Outils/patterns : Llama Guard 3, Azure Prompt Shields, Google DeepMind **CaMeL**, le paper *Design Patterns for Securing LLM Agents against Prompt Injections* (IBM/Invariant/ETH/Google/Microsoft).
+
+## Sécurité MCP — failles documentées
+
+MCP a gagné la guerre des interfaces mais sa sécurité est immature. Traiter **tout serveur MCP tiers comme du code non fiable** ; auditer avec `mcp-scan`.
+
+| Faille | Détail | Source |
+|---|---|---|
+| **Tool poisoning** | Instructions malveillantes cachées dans les descriptions d'outils (PoC exfiltrant `~/.ssh/id_rsa` via Cursor) | Invariant Labs, avril 2025 |
+| **CVE-2025-49596** | RCE critique CVSS 9.4 dans MCP Inspector (corrigé v0.14.1, 13 juin 2025) | NVD |
+| **CVE-2025-6514** | mcp-remote, 437k+ environnements affectés | Oligo Security |
+| **ToolHijacker** | 96,7% succès d'attaque par injection de description d'outil malveillante | NDSS 2026, cf [[tool-retrieval-query-expansion]] |
+
+Cf [[agents-architecture]] section MCP (réconciliation servers + code execution).
 
 ## Pattern Dual-LLM
 

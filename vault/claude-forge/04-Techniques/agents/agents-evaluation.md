@@ -10,7 +10,7 @@ aliases:
   - evaluation agents
 domaine: ia
 type: technique
-derniere-maj: 2026-05-23
+derniere-maj: 2026-06-07
 auteur: claude
 sources:
   - "https://www.swebench.com/"
@@ -21,7 +21,6 @@ tags:
   - "#domaine/ia"
   - "#domaine/agents"
 ---
-
 ## Benchmarks mai 2026
 
 ### SWE-bench (coding)
@@ -50,6 +49,42 @@ tags:
 
 ### Integrite des benchmarks
 Berkeley/RDI aurait casse plusieurs benchmarks majeurs via reward hacking (avril 2026). ⚠️ Single source a re-verifier. Pour scores tiers, preferer Epoch AI / BenchLM.
+
+## « Evals are the new unit tests »
+
+Thèse centrale 2026 : la TDD naïve échoue car les LLM n'ont pas de sortie déterministe unique. Le **golden dataset** — annoté à la main, versionné en git — est **l'artefact le plus précieux**. C'est le moat, pas le framework ni le modèle (cf [[stack-ia-production-2026]] thèse 3).
+
+### Workflow pragmatique (error analysis)
+
+Observé chez NurtureBoss / 40+ entreprises :
+```
+error analysis → open coding → axial coding → identifier les 3 modes d'échec dominants → construire les evaluators
+```
+Evaluator par type d'objectif : **assertions code** pour l'objectif (ex. extraction de date), **LLM-judge** pour le nuancé (ex. décision de handoff).
+
+### Offline vs online + mix scorers 60/30/10
+
+- **Offline** = unit tests sur golden datasets avant déploiement.
+- **Online** = scoring asynchrone sur échantillon de trafic prod (drift, requêtes nouvelles).
+- **Mix recommandé** : **~60% déterministe** (exact match, regex, JSON-schema, latence), **~30% LLM-as-judge**, **~10% humain**.
+- Ne **jamais** se fier au LLM-judge seul (stochasticité sur stochasticité). Si le LLM-judge diverge **> 10%** du human review → recalibrer le judge.
+
+> [!tip] Leçon harness
+> Construire son **propre harness sur ses golden data** AVANT de citer le moindre leaderboard public — l'effet harness sur SWE-bench est énorme (cf [[harness-engineering]] + GAIA 30-point gap ci-dessus).
+
+## LangChain State of Agent Engineering 2025 (vérifié source primaire)
+
+Enquête publique 18 nov–2 déc 2025, **1 340 réponses** (estimation d'enquête, biais d'auto-sélection). Vérifié à la source le 7 juin 2026.
+
+- **57,3%** ont des agents en production (vs **51% en 2024**) ; 30,4% en développement avec plans concrets.
+- **Grandes orgs (10 000+)** avancent plus vite : **67% en prod** (vs ~50% pour < 100 employés).
+- **Observabilité** : 89% en ont une forme (94% chez ceux déjà en prod), 62% du tracing détaillé (71,5% en prod).
+- **Evals** : ~52% offline, ~37% online ; **human review ~60%**, LLM-as-judge ~53%.
+- **Barrière #1 à la production = la qualité (32%)** ; le coût a reculé vs 2024. Pour les 2000+ employés : sécurité (24,9%) puis latence (20%).
+- **Cas d'usage #1 = customer service (26,5%)**, puis recherche/data analysis (24,4%).
+
+> [!important] Correction vs synthèse source
+> Le rapport forge présentait « Customer service = #1 cas d'usage » dans le même souffle que les barrières. À distinguer : **la barrière #1 est la qualité (32%)** ; **le cas d'usage #1 est le customer service (26,5%)**. Deux classements différents.
 
 ## Frameworks d'evaluation
 

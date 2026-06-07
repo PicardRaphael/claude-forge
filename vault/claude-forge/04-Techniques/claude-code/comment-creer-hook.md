@@ -1,7 +1,6 @@
 ---
-derniere-maj: 2026-06-06
+derniere-maj: 2026-06-07
 ---
-
 ﻿---
 titre: "Comment créer un hook Claude Code parfait"
 resume: "Note canonique pour créer un hook Claude Code — 29 events officiels (docs Anthropic), timeouts par type (600s/30s/60s), exit codes 0/1/2, hookSpecificOutput, doctrine 'If a rule must hold every time, make it a hook'. Lint/security/scope OUI, workflow NON (doctrine 22 mai)."
@@ -396,6 +395,25 @@ Source canonique du catalogue : cette section. Pour le détail d'implémentation
 - ❌ **Hook qui consume tokens LLM** (Haiku check inutile sur tous les events) — réserver aux cas critiques
 - ❌ **Hooks non testés adverses** — cas heureux ne suffit pas (cf [[feedback_tests_adverses_obligatoires]])
 - ❌ **Hook qui modifie le filesystem du repo en cours de turn** — race condition avec Write/Edit Claude. Si un hook PostToolUse formate un fichier que Claude vient d'écrire, Claude peut ne pas voir la version formatée et écraser sur le tour suivant. Solution : formater silencieusement (exit 0) ET informer Claude via stderr du changement.
+
+### Faux positifs de scope — émergent à l'usage, pas à la conception
+
+Un hook-garde qui matche **trop large** (par nom de fichier, regex, ou scope de périmètre) produit des faux positifs **invisibles à la conception** — ils n'apparaissent qu'à l'usage réel, sur un cas que le concepteur n'avait pas en tête. Pattern récurrent forge (5 incidents) :
+
+| Hook | Faux positif | Cause |
+|------|-------------|-------|
+| `vault-cat-guard` | bloque `cat memory/` si la commande contient « vault » | match sur mot-clé, pas chemin (cf [[feedback_vault_cat_guard_faux_positif_memory]]) |
+| garde hors-vault | attrape le plan file `~/.claude/plans/` | périmètre strict sans exception plan mode (cf [[erreur-hook-garde-hors-vault-bloque-plan-file]]) |
+| `meta-commentary-detector` | flagge le mot « source: » légitime | regex source trop large (cf [[critique-2026-05-24-regex-source-faux-positifs]]) |
+| `vault-before-specialist` | scope gonflé + TTL 60min | `is_specialist` trop permissif (cf [[erreur-vault-before-specialist-ttl-scope]]) |
+| `delegate-guard` | bloque Edit d'une **note vault** `04-Techniques/agents/agents-architecture.md` | match `agents/*.md` PAR NOM → confond note vault et sous-agent `.claude/agents/` |
+
+**Leçons structurelles** :
+- **Matcher par chemin complet**, jamais par nom de fichier ou mot-clé isolé (un nom `agents-*.md` existe dans le vault ET dans `.claude/agents/`).
+- **Tester adverse AVANT** : le cas heureux ne révèle jamais le faux positif. Lister les fichiers/commandes légitimes qui ressemblent à la cible.
+- **Exception explicite en tête** du hook pour les cas légitimes connus (plan file, memory/, notes vault).
+- **Contournement runtime** : pour modifier le CONTENU d'une note vault bloquée par un faux positif de nom, passer par les outils MCP forge-brain (`insert_section`/`update_note`), pas par Edit direct — JAMAIS contourner par env var/script (cf [[delegate-to-specialists]]).
+- Corollaire : « les vrais faux positifs émergent à l'usage » → traiter chaque blocage inattendu comme un signal de scope trop large, pas comme un cas à contourner.
 
 ### Pédagogiques
 - ❌ **Hook au lieu de skill** quand la règle est advisory (pas critique)

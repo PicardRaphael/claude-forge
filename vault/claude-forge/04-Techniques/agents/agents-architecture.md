@@ -10,7 +10,7 @@ aliases:
   - agent memory
 domaine: ia
 type: technique
-derniere-maj: 2026-05-23
+derniere-maj: 2026-06-07
 auteur: claude
 sources:
   - "https://arxiv.org/abs/2210.03629"
@@ -21,7 +21,6 @@ tags:
   - "#domaine/ia"
   - "#domaine/agents"
 ---
-
 ## Core patterns
 
 ### ReAct (Reasoning + Acting)
@@ -49,6 +48,25 @@ Voir [[pattern-orchestrateur]], [[pattern-swarm]], [[pattern-pipeline]], [[patte
 
 L'orchestration est souvent le maillon faible des deploiements agents enterprise (cf [[harness-engineering]] : 65% des echecs tracent au harness, TechTimes 13 mai 2026).
 
+### Doctrine simple → workflows → multi-agent (consensus labs 2026)
+
+Le consensus des labs frontière a convergé (Anthropic *Building Effective Agents*, OpenAI *A Practical Guide to Building Agents*, Cognition *Don't Build Multi-Agents*) : **maximisez d'abord un agent unique**, ajoutez la complexité — workflows puis multi-agents — **seulement quand les evals le prouvent**.
+
+Distinction canonique : **workflows** (LLM + outils orchestrés par du code prédéfini) vs **agents** (le LLM dirige dynamiquement son processus). OpenAI : « maximize a single agent's capabilities first » ; diviser quand la logique conditionnelle explose ou que les outils se chevauchent (« Some implementations successfully manage more than 15 well-defined, distinct tools while others struggle with fewer than 10 overlapping tools »).
+
+### Read vs write — comment trancher le multi-agent
+
+Anthropic : son multi-agent recherche (Opus 4 lead + sous-agents Sonnet 4) a battu un agent unique Opus 4 de **90,2%** sur son éval interne, au prix de ~15× les tokens d'un chat. Cognition a contre-argumenté (sous-agents parallèles = choix implicites conflictuels, ex. Flappy Bird : un sous-agent fait un fond Super Mario, un autre un oiseau hors-style). En 2026, Cognition a nuancé : « multiple agents contribute intelligence to a task **while writes stay single-threaded** ».
+
+> [!tip] Verdict canonique read/write
+> **Parallélisez la lecture/recherche (read-heavy). Gardez l'écriture mono-threadée (write-heavy, ex. coding)** — le contexte partagé est critique en write. Cf [[stack-ia-production-2026]] (thèse 2) + [[decoupe-agents-anti-crash]].
+
+### Leçons Anthropic (système multi-agent recherche)
+
+- **Orchestrateur sur-enthousiaste** : spawnait 50 sous-agents pour une question simple ; les agents bouclaient à l'infini. Fix : **instructions de délégation précises** (objectif, format, outils, limites par sous-agent).
+- Les modèles Claude 4 **agissent comme leurs propres prompt engineers** : un tool-testing agent réécrivant les descriptions d'outils a réduit les temps de tâche de **~40%** (claim Anthropic, existence vérifiée). Cf [[prompt-rewriter-pattern]].
+- **Extended/interleaved thinking** comme scratchpad ; requêtes larges d'abord, puis affinées.
+
 ## Memory
 
 Marche significatif en 2026 (croissance forte sur 2025-2030, sources tierces a confirmer ; eviter chiffres precis non sourcables).
@@ -73,6 +91,17 @@ Client-Host-Server, model-agnostic. Adoption massive 2026, **~10K servers public
 Agent Cards (JSON) pour discovery. HTTP/SSE/JSON-RPC. **v1.0 publiee 12 mars 2026**, adoption en croissance (binding gRPC ajoute via header `A2A-Version`). Task lifecycle : submitted → working → input-required → completed.
 
 **MCP resout agent→tool. A2A resout agent→agent. Production utilise les deux.**
+
+> [!note] Réconciliation des chiffres « serveurs MCP »
+> Deux mesures distinctes circulent, ne pas les confondre : **~10 000+ serveurs MCP publics actifs** (écosystème ouvert, tout serveur déployé) vs **308 serveurs / 2 797 tools** dans le **registre officiel** Model-Context-Protocol (cf [[tool-retrieval-query-expansion]], MCP-Zero). L'écosystème public ≫ le registre curé. MCP donné à la **Linux Foundation** (Agentic AI Foundation, co-fondée avec Block et OpenAI, déc. 2025).
+
+### Code execution with MCP — réduction tokens
+
+Exposer les serveurs MCP comme des **APIs code** (le modèle écrit du TypeScript/Python qui appelle les outils) au lieu d'appels d'outils directs réduit massivement les tokens — Anthropic rapporte **150 000 → 2 000 tokens (-98,7%)** sur un cas type. Cloudflare a publié des résultats similaires sous « Code Mode ». Les données lourdes restent dans l'environnement d'exécution ; les champs sensibles peuvent être tokenisés (le modèle ne voit que des placeholders). Pattern jumeau côté Claude Code : [[programmatic-tool-calling]] (code orchestre, modèle juge).
+
+### Sécurité MCP — failles réelles
+
+MCP a gagné la guerre des interfaces MAIS sa sécurité est immature : **tool poisoning** (Invariant Labs, avril 2025 — instructions malveillantes cachées dans les descriptions d'outils, PoC exfiltrant `~/.ssh/id_rsa` via Cursor), **CVE-2025-49596** (RCE CVSS 9.4 dans MCP Inspector), **CVE-2025-6514** (mcp-remote, 437k+ environnements). Traiter tout serveur MCP tiers comme du **code non fiable** ; auditer avec `mcp-scan`. Cf [[agents-securite]] (lethal trifecta, least-privilege).
 
 ## Planning
 

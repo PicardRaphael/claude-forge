@@ -10,7 +10,7 @@ aliases:
   - outils agents IA
 domaine: ia
 type: technique
-derniere-maj: 2026-05-23
+derniere-maj: 2026-06-07
 auteur: claude
 sources:
   - "https://alicelabs.ai/en/insights/best-ai-agent-frameworks-2026"
@@ -22,7 +22,6 @@ tags:
   - "#domaine/ia"
   - "#domaine/agents"
 ---
-
 ## Tier 1 — Production enterprise
 
 ### LangGraph (LangChain)
@@ -35,6 +34,14 @@ Le SDK **s'execute dans votre propre process** (verbatim docs : "runs inside you
 - **Managed Agents** (sandbox heberge, toolset integre — tarif horaire +tokens a confirmer pricing officiel)
 - **Dreams** (auto-curation memoire entre sessions, Research Preview, beta header `dreaming-2026-04-21`)
 - **Agent Teams** : agents independants, communication directe, task list partagee
+
+### Vercel AI SDK (TypeScript)
+
+**AI SDK 5** (sorti 31 juil. 2025) : API unifiée (`generateText`/`streamText`, tool calling, structured objects), classe `Agent`, contrôle de boucle agentique (`stopWhen`, `prepareStep`). Idéal **UI streaming web** (React/Svelte/Vue/Angular). Détail code → [[stack-typescript-ia]].
+
+### Mastra (TypeScript)
+
+Fondateurs de Gatsby, **seed 13 M$ (oct. 2025), YC W25**. « open-source JavaScript SDK for building agents on top of Vercel's AI SDK » : workflows suspend/resume, RAG, evals, memory, multi-agent, playground local. Pour équipes TS voulant un framework complet (LangGraph-level en TS). Adoption reportée (Marsh McLennan, Elastic, Docker) = **claims vendeur, non vérifiés**.
 
 ## Tier 2 — Production capable
 

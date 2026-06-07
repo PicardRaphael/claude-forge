@@ -5,8 +5,8 @@ aliases:
   - hub-strategie
   - strategy-ia-neoteem
   - ai-governance
-resume: Hub stratégie IA & gouvernance — AI Act EU, NIST AI RMF, ISO 42001, RGPD, AI Usage Policy, Build vs Buy, ROI IA, AI Council, sécurité OWASP LLM.
-derniere-maj: 2026-05-25
+resume: Hub stratégie IA & gouvernance — AI Act EU, NIST AI RMF, ISO 42001, RGPD, AI Usage Policy, Build vs Buy, économie agentique & pricing, ROI IA, AI Council, sécurité OWASP LLM.
+derniere-maj: 2026-06-07
 tags:
   - "#type/index"
   - "#casquette/responsable-ia"
@@ -41,6 +41,7 @@ tags:
 | Sécurité OWASP LLM | [[securite-llm-owasp-mitre-atlas]] | OWASP, MITRE |
 | Vendor management LLM | [[vendor-management-llm-dpa]] | TrueFoundry |
 | AI Council interne | [[ai-council-charter-composition]] | OneTrust, Deloitte |
+| Économie agentique & pricing | [[economie-agentique-pricing-2026]] | Menlo, Klarna, Ramp, Harvey |
 | Communication CODIR IA | [[../communication/index]] | Cassie Kozyrkov, Mollick |
 
 ## AI Act EU — timeline critique
@@ -77,6 +78,12 @@ tags:
 **4 fonctions** : GOVERN (transverse, culture, politiques) / MAP (contextualiser) / MEASURE (métriques) / MANAGE (mitiger, accepter risque résiduel).
 
 Volontaire, US, mais **standard de facto** mondial. S'aligne ISO 42001 et AI Act sans conflit.
+
+## Économie agentique & pricing 2026
+
+L'économie agentique **casse le modèle SaaS par siège** : un power-user agentique consomme 4× à 15× les tokens d'un chat. Prix par token en chute (~-98% depuis 2022) mais factures IA entreprise triplées. Réponses : métré, model routing, inférence maison, **pricing à l'outcome** (Intercom Fin 0,99 $/résolution). Cas Klarna (walk-back coût > qualité), Ramp (build-it-yourself), Harvey (moat = data métier).
+
+→ Note dédiée : [[economie-agentique-pricing-2026]]. Vue d'ensemble du stack : [[stack-ia-production-2026]].
 
 ## Build vs Buy — matrice décision Neoteem
 
