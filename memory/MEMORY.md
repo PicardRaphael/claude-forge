@@ -42,6 +42,7 @@
 - [jarvis-innovator-mindset](feedback_jarvis_innovator.md) — Contrat Jarvis : partenaire, anticiper, innover, évoluer, franc, autonome, proactif
 - [llm-deep-research-version-numbers-hallucinated](feedback_llm_deep_research_version_numbers.md) — Claims numériques précis (versions, dates, ⭐) de Gemini/ChatGPT deep research = hallucinations. WebFetch source primaire AVANT d'agir. Fait qualitatif peut être vrai même si chiffres faux.
 - [lire-canoniques-vault-en-entier-avant-audit](feedback_lire_canoniques_avant_audit.md) — AVANT audit/création, read_note canoniques EN ENTIER, pas search_brain extraits
+- [lire-fichier-entier-avant-verdict](feedback_lire_fichier_entier_avant_verdict.md) — JAMAIS verdict (doublon/subsumé/supprimer) sur lecture partielle. Trouvé un fichier à évaluer → le lire EN ENTIER, PUIS conclure. Asymétrie (canonique entière vs source 30L) interdite
 - [localiser-repos-avant-workflow-multi-repo](feedback_localiser_repos_avant_workflow_multi_repo.md) — Avant audit/workflow fan-out multi-repo, localiser empiriquement chaque repo (ls */.claude). neo_ia + ia_back sous Documents\neot-v2\, pas à la racine
 - [preference-modele-opus-4-8](feedback_preference_modele_opus.md) — Raphael : Opus 4.8 préféré, 4.6 repli, JAMAIS 4.7 (jugé moyen). Défaut modèle Opus = claude-opus-4-8
 - [mcp-alias-ambigu-chemin-exact](feedback_mcp_alias_ambigu_chemin_exact.md) — MCP append_note/read par alias court résout faux si stem partagé. Chemin exact
