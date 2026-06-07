@@ -10,7 +10,7 @@ tags:
   - "#type/erreur"
   - "#projet/ia_back"
   - "#projet/neo_ia"
-  - "#technique/agents"
+  - "#domaine/agents"
 resume: "Mai 2026 — pipeline agentic ia_back+neo_ia mettait 4h pour une feature CRUD. 6 sources de gaspillage cumulatives. Raphael Lead IA disait perdre le plaisir de développer. Signal d'alarme technique légitime"
 derniere-maj: 2026-05-22
 auteur: claude

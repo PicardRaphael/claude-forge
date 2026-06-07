@@ -15,7 +15,7 @@ tags:
   - "#type/knowledge"
   - "#type/erreur"
   - "#domaine/claude-code"
-  - "#technique/hooks"
+  - "#domaine/hooks"
   - "#projet/neoteem-brain"
 sources:
   - "Session 2026-05-30 — plan mode casse sur neoteem-brain"

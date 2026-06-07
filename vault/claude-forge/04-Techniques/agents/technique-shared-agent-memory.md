@@ -19,8 +19,8 @@ sources:
 tags:
   - "#type/knowledge"
   - "#domaine/tech"
-  - "#technique/agents"
-  - "#outil/claude-code"
+  - "#domaine/agents"
+  - "#domaine/claude-code"
 ---
 
 ## 4 scopes CLAUDE.md (canonique Anthropic)

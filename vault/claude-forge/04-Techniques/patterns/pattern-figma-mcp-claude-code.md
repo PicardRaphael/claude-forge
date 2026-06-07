@@ -20,8 +20,8 @@ sources:
 tags:
   - "#type/knowledge"
   - "#domaine/tech"
-  - "#outil/claude-code"
-  - "#outil/figma"
+  - "#domaine/claude-code"
+  - "#domaine/figma"
 ---
 
 ## Plugin officiel

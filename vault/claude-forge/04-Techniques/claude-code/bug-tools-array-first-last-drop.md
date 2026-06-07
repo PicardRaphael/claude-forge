@@ -16,7 +16,7 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
-  - "#technique/agents"
+  - "#domaine/agents"
   - "#domaine/mcp"
 ---
 

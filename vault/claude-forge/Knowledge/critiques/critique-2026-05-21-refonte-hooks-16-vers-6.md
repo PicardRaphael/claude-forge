@@ -13,7 +13,7 @@ tags:
   - "#type/critique"
   - "#projet/neo_ia"
   - "#projet/ia_back"
-  - "#technique/hooks"
+  - "#domaine/hooks"
   - "#domaine/claude-code"
 resume: "DA 21 mai sur la proposition Axe 1 (kill tdd-guard) + Axe 2 (5 étapes conditionnelles) + Axe 3 (16/15 hooks → ~6). Verdict LIVRER AVEC CORRECTIONS — 4 bloquants factuels après lecture du code : le triplet auth-detector/repo-scope-guard/auth-cleanup est NON FUSIONNABLE (3 events différents), pipeline-reset.py n'est PAS un hook event mais un script appelé par /go ligne 160 de SKILL.md, typecheck.ts est un piège performance 30s/edit non documenté, guard-core-imports.ts est une règle archi hexagonale irremplaçable par ruff/ts-prune. Ce soir : 3 kills ciblés (tdd-guard × 2 + on-env-protect). Demain : refonte ciblée avec DA fresh + tests comportementaux."
 sources:

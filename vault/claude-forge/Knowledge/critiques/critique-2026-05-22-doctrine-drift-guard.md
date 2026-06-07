@@ -19,7 +19,7 @@ sources:
 tags:
   - "#type/critique"
   - "#domaine/claude-code"
-  - "#technique/hooks"
+  - "#domaine/hooks"
   - "#doctrine/2026"
 resume: "DA sur doctrine-drift-guard.py — 26/26 faux positifs sur neo_ia post-purge. Verdict BLOQUER : signal-to-noise nul par construction, self-violation doctrine 22 mai, mauvaise forme (sensor permanent pour pivot one-shot). Alternative = méthode canonique de pivot doctrinal."
 ---

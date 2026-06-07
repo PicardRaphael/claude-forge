@@ -16,8 +16,8 @@ tags:
   - "#domaine/claude-code"
   - "#projet/ia_back"
   - "#projet/neo_ia"
-  - "#technique/hooks"
-  - "#technique/agents"
+  - "#domaine/hooks"
+  - "#domaine/agents"
 sources:
   - "Session 22 mai 2026 — friction 6× développement feature"
   - "[[Boris Cherny]] — Latent Space podcast, Pragmatic Engineer"

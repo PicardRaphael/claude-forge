@@ -10,8 +10,8 @@ aliases:
 tags:
   - "#type/raisonnement"
   - "#domaine/claude-code"
-  - "#technique/agents"
-  - "#technique/hooks"
+  - "#domaine/agents"
+  - "#domaine/hooks"
   - "#projet/neo_ia"
   - "#projet/ia_back"
 resume: "Session 21 mai 2026 — TDD strict via PreToolUse hook bloquant supprimé (neo_ia + ia_back). Convention agent suffit. Best practice Anthropic confirmée : 'ONE failing test per behavior per cycle', JAMAIS de batch."

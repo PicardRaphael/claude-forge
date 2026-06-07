@@ -13,8 +13,8 @@ resume: "Mettre un hook PreToolUse exit 2 pour forcer architect-first/commit-aft
 tags:
   - "#type/erreur"
   - "#domaine/claude-code"
-  - "#technique/hooks"
-  - "#technique/agents"
+  - "#domaine/hooks"
+  - "#domaine/agents"
 sources:
   - "Session 22 mai 2026 — refonte ia_back + neo_ia"
   - "[[Boris Cherny]]"

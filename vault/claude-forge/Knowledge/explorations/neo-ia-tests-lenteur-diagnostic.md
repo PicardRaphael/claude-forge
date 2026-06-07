@@ -8,7 +8,7 @@ aliases:
 tags:
   - "#type/exploration"
   - "#projet/neo_ia"
-  - "#technique/testing"
+  - "#domaine/testing"
 resume: "Diagnostic root cause de la lenteur des tests neo_ia : clean_caches autouse + log_cli + absence de pytest-xdist + pytest 9 incompatible options"
 derniere-maj: 2026-05-21
 projet: neo_ia

@@ -13,7 +13,7 @@ aliases:
 tags:
   - "#type/critique"
   - "#domaine/claude-code"
-  - "#technique/hooks"
+  - "#domaine/hooks"
   - "#projet/neo_ia"
 resume: "DA sur guard-ddl-ban.py — verdict KEEP avec 3 corrections mineures (bypass env var, retirer alembic du runner, couvrir trou python script.py). Différencier de doctrine-drift-guard : ici gate security légitime (DDL prod = irréversible), pas workflow agentique sur méta-doctrine."
 ---

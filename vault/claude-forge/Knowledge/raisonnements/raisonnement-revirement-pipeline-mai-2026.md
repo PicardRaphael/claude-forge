@@ -9,7 +9,7 @@ aliases:
 tags:
   - "#type/raisonnement"
   - "#domaine/claude-code"
-  - "#technique/agents"
+  - "#domaine/agents"
 resume: "Capture du raisonnement multi-étapes — la session a commencé sur retire architect (frustration 4h/feature), DA a démoli, on a pivoté vers rends architect rapide puis pipeline conditionnel. Précieux pour comprendre POURQUOI"
 derniere-maj: 2026-05-24
 auteur: claude

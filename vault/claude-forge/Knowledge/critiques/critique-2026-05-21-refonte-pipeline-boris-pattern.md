@@ -17,7 +17,7 @@ tags:
   - "#projet/ia_back"
   - "#projet/neo_ia"
   - "#domaine/claude-code"
-  - "#technique/hooks"
+  - "#domaine/hooks"
 sources:
   - "Session 2026-05-21 — proposition refonte pipeline Boris pattern"
   - "Recherche web Boris Cherny Plan Mode 2026"

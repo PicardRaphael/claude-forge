@@ -11,7 +11,7 @@ derniere-maj: 2026-06-05
 tags:
   - "#type/technique"
   - "#domaine/chatbot"
-  - "#outil/atlassian"
+  - "#domaine/atlassian"
 ---
 
 # Rovo agent en automation — contraintes Confluence (écriture, dédup)

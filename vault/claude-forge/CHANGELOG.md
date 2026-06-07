@@ -14,6 +14,14 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Chantier 2/5 normalisation tags — LOT B (technique/ outil/ → domaine/)
+
+- **Modifiées** : 16 notes — fusion des axes `#technique/*` et `#outil/*` (prouvés redondants avec `#type/` + `#domaine/`) vers `#domaine/*`.
+  - `#technique/agents` → `#domaine/agents` · `#technique/hooks` → `#domaine/hooks` · `#technique/testing` → `#domaine/testing` · `#outil/claude-code` → `#domaine/claude-code` · `#outil/atlassian` → `#domaine/atlassian` · `#outil/figma` → `#domaine/figma`.
+  - Bilan : 22 renommages, **0 déduplication** (les notes ayant déjà `#domaine/claude-code` ou autre cible n'ont pas collisionné).
+  - Vérif : git diff **100 % tag-only** (16 fichiers, 0 wikilink touché, 0 ligne hors `- "#..."`). `lint_vault` : **0 frontmatter cassé**, compteur wikilinks stable à 133 (cette fois pas de dérive — conforte l'artefact de réindexation du LOT A). `find_by_property` : les 6 axes `#technique/*` + `#outil/*` = **0** partout (axes disparus du vault).
+- **Source** : chantier « vault forge-brain parfait » 2/5, décisions tags validées par Raphael (7 juin 2026). LOT D à suivre.
+
 ## 2026-06-07 — Chantier 2/5 normalisation tags — LOT A (sujet/ → domaine/ + cibles tranchées)
 
 - **Modifiées** : 30 notes — fusion des synonymes de préfixe `#sujet/*` vers `#domaine/*` + 2 fusions multi-cibles.
