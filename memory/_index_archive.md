@@ -101,6 +101,7 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 - [test-echoue-hypothese-vs-bug](feedback_test_echoue_hypothese_vs_bug.md) — Test rouge ≠ toujours bug. Lire le code avant de réparer, corriger le test si besoin
 - [test-everything](feedback_test_everything.md) — Toujours tester hooks/agents/skills/MCP en réel, jamais déclarer OK sans preuve
 - [tests-adverses-hooks-secu](feedback_tests_adverses_hooks_secu.md) — Hook sécu = suite ≥3:1 adverse, DA avant push, caractériser les bugs, docstring scope
+- [test-hook-json-dumps](feedback_test_hook_json_dumps.md) — Tester un hook = JSON via json.dumps (jamais à la main, \U/\D casse). Logique≠armement
 - [venues-conference-inventees-llm-pattern](feedback_venues_inventees_pattern.md) — Pattern : NeurIPS/ICLR attribués à arXiv sans preuve. WebFetch PDF
 - [verifier-audit-deja-fait-avant-relancer](feedback_verifier_audit_deja_fait_avant_relancer.md) — AVANT phase A : check derniere-maj + Knowledge/erreurs/ + CHANGELOG
 - [verifier-claims-empiriquement](feedback_verifier_claims_empiriquement.md) — Tout claim "X créé/modifié/fixé" — le mien en fin de tâche OU celui d'un sub-agent éditeur — vérifié empiriquement (ls/cat/grep/diff/test) AVANT de relayer. Le claim vient de l'intention, pas de l'état réel post-edit. (fusion audit-claims + sub-agent-claim, 27 mai)

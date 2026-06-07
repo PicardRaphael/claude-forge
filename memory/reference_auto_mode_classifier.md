@@ -45,6 +45,16 @@ Le classifier respecte les `allow` rules sans juger.
 
 **Pattern recommandé** : générer `.claude/settings.json.proposed` avec la version cible + donner instruction explicite "applique manuellement avec `cp`".
 
+## Hard block étendu aux HOOKS DE SÉCURITÉ .py (pas que settings.json)
+
+**Confirmé 2026-06-07 (Chantier 6-B pièce 3)** : le verdict "self-modification" ne se limite PAS à `settings.json`. Le classifier bloque aussi l'`Edit` autonome d'un **hook de sécurité** (`.claude/hooks/*-guard.py`) — même pour une correction de TEXTE pure (docstring, message stderr), zéro changement de logique. Vu sur `mcp-alias-guard.py` ET `vault-cat-guard.py`.
+
+**Le classifier juge l'INTENTION perçue, pas la lettre du brief.** Verdict observé : *"the user's task never authorized changing THIS SPECIFIC hook"* — alors que le brief de Raphael **nommait explicitement** ces deux hooks pour la pièce 3. Le classifier décide qu'un hook sécu voisin n'était "pas autorisé" indépendamment de ce que dit le brief textuel.
+
+**Workaround** : Raphael lève le mode (Shift+Tab) → les `Edit` passent immédiatement, puis l'agent rejoue. OU `.proposed` + renommage manuel. JAMAIS contourner (cf rule `delegate-to-specialists.md` + [[erreur-hook-garde-hors-vault-bloque-plan-file]] section classifier — même mécanisme sur un fix de hook correct).
+
+Distinct du scope project/user : [[reference_self_modification_user_scope_passe]] (settings.json user-scope PASSE) ne s'étend PAS aux hooks — un hook sécu du repo courant est bloqué quel que soit le scope.
+
 ## Bug Windows backslash dans settings.json hooks
 
 **Confirmé 2026-05-22 (post-commit d19e1b9)** : dans `settings.json`, ne JAMAIS utiliser de chemin Windows avec antislashes échappés (`"C:\\\\Users\\\\..."`) pour les `command` de hooks. Bash sur Git Bash interprète `\\U` etc. comme escape et **mange les antislashes**, produisant un chemin cassé type `C:Usersraphael...python.exe: command not found`.
