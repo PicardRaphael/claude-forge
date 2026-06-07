@@ -62,6 +62,11 @@ type: index
 - [[prompt-rewriter-pattern]] — Pattern prompt rewriter : transformer des prompts vagues en specs précises
 - [[architecture-cerveau-obsidian-mcp]] — Architecture cerveau Obsidian + MCP pour mémoire persistante IA
 
+## Limites connues MCP forge-brain
+
+- [[limite-mcp-lock-inter-ecritures]] — pas de lock inter-écritures (race théorique). Non codé : usage solo séquentiel. Déclencheur : multi-agent parallèle écrivant le vault.
+- [[limite-mcp-lag-reindexation-agregats]] — lag des agrégats (poll watcher 30s, fluctuation compteur non liée aux edits). Non codé : sans impact, vérifier par git diff pas par compteur. Déclencheur : usage dépendant d'un compteur temps-réel.
+
 ## Architecture Hooks
 - [[hooks-conformite-audit-passif-continu]] — Hook de conformité = audit passif permanent. Un blocage sur action légitime révèle souvent une dette préexistante. Ne jamais contourner, nettoyer dans la même passe.
 

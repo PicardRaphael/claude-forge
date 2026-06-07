@@ -14,6 +14,15 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Chantier 5/5 (DEV MCP) — CLOS
+
+- **Limite #1 RÉSOLUE** (besoin prouvé) : `lint_vault` accepte `limit=0` (illimité) + sélecteur `category`. Validé en prod (89 wikilinks brisés en entier vs 50 tronqués). Commit `490d9fa`.
+- **Limites #3 et #4 DOCUMENTÉES** comme limites connues (théoriques, non codées — doctrine « coder les besoins prouvés, documenter les théoriques », leçon Ch.4) :
+  - **Créées (2 notes)** : [[limite-mcp-lock-inter-ecritures]] (race théorique sur écritures concurrentes — non codé car usage solo séquentiel ; déclencheur = multi-agent parallèle) et [[limite-mcp-lag-reindexation-agregats]] (lag agrégats poll 30s, non lié aux edits prouvé Ch.3 — géré par git diff pas compteur ; déclencheur = usage compteur temps-réel).
+  - **Modifiée** : `00-Hub/MOC-Techniques.md` — section « Limites connues MCP forge-brain » ajoutée.
+- **Bilan Chantier 5** : 2 besoins prouvés traités (#1 pagination, #2 array-safe) + 2 théoriques documentés (#3 lock, #4 lag) + multi-hop `traverse_graph` écarté (pas de consommateur). Pas « 6/6 codés pour le principe ».
+- **Source** : clôture du Chantier 5/5 du plan vault.
+
 ## 2026-06-07 — Test de prod du fix array-safe (serveur MCP redémarré)
 
 - **Serveur MCP redémarré** sur le code à jour (commit `2ff0538`) → 1er test de `update_property` array-safe en production réelle (client MCP → serveur → splice → disque).
