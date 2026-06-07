@@ -211,3 +211,68 @@ def test_by_path_reindexe_le_contenu(tmp_path):
     # L'index doit resoudre le nouvel alias (preuve que index_note a tourne).
     assert tools._db.resolve_note("nouvel-alias") == "r.md"
     assert tools._db.resolve_note("ancien-alias") is None
+
+
+# ====================== Surface MCP : register_tools exerce les wrappers ======================
+# Les tests ci-dessus appellent BrainTools directement -> la couche register_tools (@_tool,
+# arg-passing, log_call) n'est JAMAIS exercee. Une faute dans un wrapper (ordre d'args, nom)
+# passerait inapercue. Ces tests construisent un vrai FastMCP et exercent register_tools via
+# l'API publique (_list_tools / call_tool) SANS binder le port (touche seulement a app.run()).
+
+import asyncio
+
+
+def _registered_tool_names():
+    from fastmcp import FastMCP
+    from src.tools.brain import register_tools
+
+    class _Stub:
+        """BrainTools stub : register_tools ne fait que cabler les wrappers, pas les appeler."""
+        def __getattr__(self, _name):
+            return lambda *a, **k: ""
+
+    mcp = FastMCP(name="forge-brain-test")
+    register_tools(mcp, _Stub())
+    return {t.name for t in asyncio.run(mcp._list_tools())}
+
+
+def test_register_tools_expose_les_4_by_path():
+    """Les 4 nouveaux outils by-path sont bien enregistres sur le serveur MCP."""
+    names = _registered_tool_names()
+    for expected in (
+        "update_note_by_path",
+        "append_note_by_path",
+        "insert_section_by_path",
+        "update_property_by_path",
+    ):
+        assert expected in names, f"{expected} absent du registre MCP : {sorted(names)}"
+
+
+def test_register_tools_garde_les_file_existants():
+    """Non-regression : les outils file= historiques restent enregistres."""
+    names = _registered_tool_names()
+    for expected in ("update_note", "append_note", "insert_section", "update_property", "read_note_by_path"):
+        assert expected in names, f"{expected} disparu du registre MCP"
+
+
+def test_by_path_wrapper_passe_les_args_au_tool(tmp_path):
+    """Exerce le wrapper @_tool de bout en bout via call_tool : relaye (path, content) a BrainTools."""
+    from fastmcp import FastMCP
+    from src.tools.brain import register_tools
+
+    tools, vault = _live_tools(tmp_path)
+    note = vault / "w.md"
+    note.write_bytes(b'---\ntitre: "T"\n---\n\nBody.\n')
+    _index(tools, note, "w.md")
+
+    mcp = FastMCP(name="forge-brain-test")
+    register_tools(mcp, tools)
+    # call_tool = chemin d'appel reel du serveur MCP (validation des args + dispatch wrapper).
+    result = asyncio.run(
+        mcp.call_tool(
+            "update_note_by_path",
+            {"path": "w.md", "content": '---\ntitre: "T2"\n---\n\nMAJ via wrapper.\n'},
+        )
+    )
+    assert "mise a jour" in result.structured_content["result"]
+    assert b'titre: "T2"' in note.read_bytes()
