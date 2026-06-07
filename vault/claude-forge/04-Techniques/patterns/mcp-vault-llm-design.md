@@ -217,6 +217,7 @@ lint_vault(limit=50)  # 297 -> 5 brises (-98%)
 - **Sub-agents et MCP** : sub-agents non-reentrants, NE PEUVENT PAS appeler Agent. Sub-agent qui doit deleguer = ESCALADE REQUISE vers session principale.
 - **Pagination offset** : char-based, pas line-based. Plus precis pour LLM (token-aware ?)
 - **Embed resolution depth** : par defaut depth=1. Profondeur 5+ = explosion contexte potentielle.
+- **Resolution read_note NON case-folding kebab/Title Case** : `read_note("boris-cherny")` est INTROUVABLE alors que `Boris Cherny.md` existe (matche stem exact + aliases, pas de normalisation casse/separateur). Asymetrie avec `get_backlinks`/`move_note` qui sont case-insensitive. **Consequence** : un wikilink kebab vers une note Title Case (ex. `[[boris-cherny]]` -> `Boris Cherny`) est REELLEMENT mort pour la navigation LLM, pas un faux positif du lint. **Test du critere de succes d'un lien = `read_note`, pas seulement `lint_vault`** (le lint a raison ici). **Reparation** = ajouter l'alias kebab sur la note cible (repare tous les liens kebab d'un coup + comble le manque aliases<4), PAS `move_note` (la cible n'a jamais ete une note sous ce nom kebab, move_note ne ressuscite pas un lien vers un nom inexistant). Observe chantier 3 wikilinks, 7 juin 2026.
 
 ---
 

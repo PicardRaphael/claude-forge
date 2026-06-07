@@ -5,6 +5,7 @@ aliases:
   - "thariq"
   - "@trq212"
   - "thariq shihipar"
+  - "thariq-shihipar"
   - "thariq skills"
   - "Thariq Anthropic"
   - "skills author claude code"
@@ -13,7 +14,7 @@ aliases:
   - "HTML is the new markdown"
 role: "Skills Author, Claude Code team"
 affiliation: "Anthropic"
-derniere-maj: 2026-05-22
+derniere-maj: 2026-06-07
 auteur: claude
 sources:
   - "https://x.com/trq212"
@@ -26,7 +27,6 @@ tags:
   - "#domaine/claude-code"
   - "#org/anthropic"
 ---
-
 ## QUI
 
 Thariq Shihipar — auteur du système de **skills** Claude Code, équipe Anthropic Claude Code. Présent partout où la doctrine skills/SDK est formalisée : LinkedIn (post 9 catégories, 17 mars 2026), Code with Claude SF mai 2026 (Agent SDK Workshop + talk "HTML is the new markdown").

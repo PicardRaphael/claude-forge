@@ -7,14 +7,13 @@ aliases:
   - feedback dur
   - Ruinous Empathy
 resume: Modèle SBI (Situation/Behavior/Impact) + extension SBII (Intent) + matrice Radical Candor de Kim Scott. Ruinous Empathy = piège #1 manager débutant.
-derniere-maj: 2026-05-25
+derniere-maj: 2026-06-07
 tags:
   - "#type/technique"
   - "#casquette/responsable-ia"
   - "#domaine/management"
   - "#pratique/feedback"
 ---
-
 # Feedback — SBI + Radical Candor
 
 ## TL;DR
@@ -126,7 +125,7 @@ L'impact : si on doit rollback ou A/B tester, on n'a pas de
 référentiel — et l'équipe IA d'à côté ne peut pas réutiliser.
 J'imagine que c'était pour aller vite avant la démo ?
 Pour les prochains prompts en prod, on peut convenir de passer
-par le pattern versioning prompts du repo (cf [[architecture-rag-canonique]]) ?
+par le pattern versioning prompts du repo (cf [[rag-architecture]]) ?
 ```
 
 ### Script 3 — Feedback dur sur attitude réunion

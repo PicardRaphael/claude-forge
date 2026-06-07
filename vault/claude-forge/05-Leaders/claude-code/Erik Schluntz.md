@@ -4,6 +4,7 @@ resume: "Co-fondateur Anthropic, 4 stratégies vibe coding prod (PM guidance, le
 aliases:
   - "schluntz"
   - "erik schluntz"
+  - "erik-schluntz"
   - "@ErikSchluntz"
   - "vibe coding in production"
   - "Erik Anthropic"
@@ -12,7 +13,7 @@ aliases:
   - "PM guidance pattern"
 role: "Member of Technical Staff & Co-founder"
 affiliation: "Anthropic"
-derniere-maj: 2026-05-22
+derniere-maj: 2026-06-07
 auteur: claude
 sources:
   - "https://youtube.com/watch?v=fHWFF_pnqDk"
@@ -27,7 +28,6 @@ tags:
   - "#domaine/agents"
   - "#org/anthropic"
 ---
-
 ## QUI
 
 Erik Schluntz — Member of Technical Staff et co-fondateur Anthropic. Travaille sur tool use, computer use, SWE-bench. Co-auteur (avec **Barry Zhang**, pas Amanda Askell) du paper de référence "Building Effective Agents" — architecture canonique des agents Anthropic.

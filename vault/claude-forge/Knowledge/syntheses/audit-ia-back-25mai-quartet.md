@@ -8,7 +8,7 @@ aliases:
   - "audit ia_back develop 25 mai"
   - "synthese audit ia_back quartet"
   - "ia_back P0 régressions corrigées"
-derniere-maj: 2026-05-25
+derniere-maj: 2026-06-07
 auteur: claude
 type: knowledge
 sources:
@@ -23,7 +23,6 @@ tags:
   - "#domaine/claude-code"
   - "#pattern/audit"
 ---
-
 # Audit ia_back 25 mai 2026 — quartet forge + 4 vagues
 
 ## Contexte
@@ -132,8 +131,8 @@ ia_back partait d'une base plus saine (post chantier 21 mai déjà solide), donc
 - [[audit-puis-vagues-paralleles]] — méthode d'exécution
 - [[feedback_audit_claims_after_brief]] — vérif empirique sub-agents
 - [[feedback_cross_repo_write_main_session]] — pattern session forge → sub-agents bloqués
-- [[ia-back-project]] — fiche projet
-- [[neo-ia-project]] — comparaison du chantier neo_ia 25 mai
+- [[ia_back]] — fiche projet
+- [[neo_ia]] — comparaison du chantier neo_ia 25 mai
 
 ## Prochaine étape suggérée
 

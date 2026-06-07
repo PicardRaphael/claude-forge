@@ -7,7 +7,7 @@ aliases:
   - quantitative scaling principles
   - sequential degradation 39 70
 resume: "Paper Google + MIT (Kim et al. 2025, arXiv 2512.08296) — 180 expériences contrôlées. Sequential tasks dégradent 39-70%, parallel +81%, threshold single-agent 45%, error amplification 17x vs 4.4x centralisé."
-derniere-maj: 2026-05-26
+derniere-maj: 2026-06-07
 tags:
   - "#type/technique"
   - "#domaine/agents"
@@ -68,7 +68,7 @@ Le framework identifie l'architecture optimale pour **87% des configurations hel
 
 - [[comment-creer-agent]] — à enrichir avec threshold 45%
 - [[workflow-claude-code-optimal]] — coordination topology
-- [[critique-will-vs-ecc-deux-doctrines]] — résolution paradoxe minimum vs maximum
+- [[will-vs-ecc-deux-doctrines-anthropic]] — résolution paradoxe minimum vs maximum
 - [[multi-agent-handoff-loss-pattern]]
 
 ## Référence

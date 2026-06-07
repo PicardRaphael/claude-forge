@@ -7,13 +7,12 @@ aliases:
   - ECC AgentShield
   - 154K stars hackathon repo
 resume: "Affaan Mustafa — Grand Prize Anthropic Hacker Marathon 2026 avec Everything Claude Code (ECC). Repo 154K stars, 28-47 agents + 119-181 skills + 60-79 commands. Jury = Boris Cherny + Cat Wu + Thariq Shihpar."
-derniere-maj: 2026-05-26
+derniere-maj: 2026-06-07
 tags:
   - "#type/leader"
   - "#domaine/claude-code"
   - "#statut/canonique"
 ---
-
 # Affaan Mustafa — Creator of Everything Claude Code (ECC)
 
 ## Identité
@@ -106,7 +105,7 @@ Notre forge actuelle :
 - [[ecc-pattern-personal-dev-setup]] — analyse pattern ECC
 - [[will-vs-ecc-deux-doctrines-anthropic]] — résolution paradoxe minimum vs maximum agents
 - [[boris-cherny]] — jury jury
-- [[thariq-shihpar]] — jury
+- [[Thariq Shihipar]] — jury
 
 ## Référence
 

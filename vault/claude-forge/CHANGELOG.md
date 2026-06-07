@@ -14,6 +14,21 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Chantier 3/5 wikilinks — réparations sûres A+B+C (133 → 124 liens brisés)
+
+- **Lot A — casse leader (3 liens)** : ajout de l'alias kebab sur [[Boris Cherny]] (`boris-cherny`), [[Erik Schluntz]] (`erik-schluntz`), [[Thariq Shihipar]] (`thariq-shihipar`). Répare les liens kebab→Title Case. **Gotcha rencontré** : `update_property` sur `aliases` insère une 2e clé YAML (double déclaration) → frontmatter cassé. Fix = Edit disque du bloc `aliases` en liste unique, puis `update_property` scalaire (`derniere-maj`) pour forcer le reindex MCP.
+- **Lot B — renommage, cible existe (5 liens)** : `[[ia-back-project]]`→[[ia_back]], `[[neo-ia-project]]`→[[neo_ia]] ([[audit-ia-back-25mai-quartet]]) ; `[[architecture-rag-canonique]]`→[[rag-architecture]] ([[feedback-sbi-radical-candor]]) ; `[[critique-will-vs-ecc-deux-doctrines]]`→[[will-vs-ecc-deux-doctrines-anthropic]] ([[google-mit-scaling-agent-systems-2025]]) ; auto-lien `[[neoia-test-infrastructure]]` retiré ([[neo-ia-tests-lenteur-diagnostic]] pointait vers elle-même).
+- **Lot C — typo (1 lien)** : `[[thariq-shihpar]]`→[[Thariq Shihipar]] (shihpar→shihipar, [[affaan-mustafa-ecc-hackathon-winner]]).
+- **Découvertes opératoires** : (1) le lint résout par alias (prouvé : `[[Thariq]]` a re-cassé quand l'alias `thariq` a été corrompu, puis re-résolu après réparation) ; (2) **l'index aliases/links du lint se rebâtit sur écriture MCP, pas sur Edit disque brut** → règle du chantier : Edit disque → `update_property` scalaire (reindex) → lint ; (3) backticks ne neutralisent PAS le lint (un `[[X]]` en code-span reste compté → option code-span pour F = morte) ; (4) delegate-guard faux positif sur les notes `04-Techniques/agents/*.md` (match `agents/` trop large) → contournement légitime via MCP `update_note`.
+- **Vérif** : `lint_vault` 133 → **124** (−9 exactement), YAML cassé 0, 0 régression. Reste 124 = D+E+F+G (non traités ce lot).
+- **Source** : chantier 3/5, GO A+B+C de Raphael.
+
+## 2026-06-07 — Chantier 3/5 wikilinks — DIAGNOSTIC Phase 1 (lecture seule) + gotcha résolution MCP
+
+- **Modifiée** : [[mcp-vault-llm-design]] — section GOTCHAS enrichie : `read_note` ne fait PAS de case-folding kebab↔Title Case (`read_note("boris-cherny")` introuvable alors que `Boris Cherny.md` existe), asymétrie avec `get_backlinks`/`move_note` case-insensitive. Conséquence : un wikilink kebab→Title Case est réellement mort pour la navigation LLM (pas un faux positif lint). Réparation = alias kebab, PAS `move_note`.
+- **Diagnostic (aucune réparation)** : `lint_vault` = 133 wikilinks brisés, ~55 cibles distinctes. Classés en 7 causes (casse leader, renommage, typo, lien→composant `.claude/`, lien→memory, placeholder syntaxique, roadmap responsable-ia jamais écrite). Grille + plan Phase 2 dans `TODO/chantier-3-wikilinks-diagnostic.md`. Arbitrage Raphael attendu sur causes D/E/G avant réparation.
+- **Source** : chantier 3/5 plan vault. Test décisif `read_note` vs `lint_vault` (lint a raison ici).
+
 ## 2026-06-07 — Chantier 2/5 normalisation tags — E1 complétion (1 note format yaml.dump sautée)
 
 - **Modifiée** : 1 note ([[MOC-Techniques]]) — `#type/techniques` → `#type/technique` (mapping G1 déjà validé, complétion de E1).

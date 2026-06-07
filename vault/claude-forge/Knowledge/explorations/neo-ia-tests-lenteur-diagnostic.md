@@ -10,11 +10,10 @@ tags:
   - "#projet/neo_ia"
   - "#domaine/testing"
 resume: "Diagnostic root cause de la lenteur des tests neo_ia : clean_caches autouse + log_cli + absence de pytest-xdist + pytest 9 incompatible options"
-derniere-maj: 2026-05-21
+derniere-maj: 2026-06-07
 projet: neo_ia
 type: exploration
 ---
-
 # Diagnostic — Lenteur tests neo_ia (10+ min pour ~2166 tests unit)
 
 ## Problème observé
@@ -119,6 +118,5 @@ L'historique git montre le pattern :
 
 ## Liens
 
-- [[neoia-test-infrastructure]]
 - [[workflow-claude-code-optimal]]
 - Vault `Knowledge/erreurs/` (à créer après application : `erreur-clean-caches-autouse.md`)

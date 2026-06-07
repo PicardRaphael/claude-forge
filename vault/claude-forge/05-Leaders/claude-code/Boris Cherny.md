@@ -5,6 +5,7 @@ aliases:
   - "bcherny"
   - "@bcherny"
   - "boris cherny"
+  - "boris-cherny"
   - "boris claude code"
   - "howborisusesclaudecode"
   - "expert Claude Code"
@@ -12,7 +13,7 @@ aliases:
   - "CC best practices"
 role: "Creator of Claude Code"
 affiliation: "Anthropic"
-derniere-maj: 2026-06-05
+derniere-maj: 2026-06-07
 auteur: claude
 sources:
   - "https://howborisusesclaudecode.com"
