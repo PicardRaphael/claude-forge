@@ -25,9 +25,9 @@ Templates/        — 11 templates (feature, changelog, best-practice, leader, t
 
 ## Accès
 
-- **Skill** : `forge-brain` — search, read, write via obsidian-cli ou fallback Read/Write
+- **MCP** : `forge-brain` (local, port 8091) — search_brain, read_note, create/update/append/move/delete, lint_vault. SEUL accès au vault (jamais Grep/Read/CLI brut).
+- **Skill** : `forge-brain` — expose les outils MCP aux agents (`allowed-tools: mcp__forge-brain__*`)
 - **Rule** : `.claude/rules/forge-brain-proactive.md` — query proactif à chaque session
-- **Wrapper** : `.claude/skills/forge-brain/scripts/obsidian-cli.sh`
 
 ## Quand utiliser
 

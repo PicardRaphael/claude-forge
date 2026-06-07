@@ -4,6 +4,10 @@ description: MCP v2 SQLite FTS5, repo separe, 5 plugins Cowork, VM serveur, benc
 type: project
 originSessionId: 0189dcca-363c-4f81-ae4e-e4860a4bfc24
 ---
+> ⚠️ **Concerne obsidian-brain (projet Neoteem, repo `neot-v2/mcp-obsidian-brain`, vault `neoteem-brain`) — PAS forge-brain.**
+> forge-brain est un MCP distinct : local (port 8091), git désactivé, vault `claude-forge/vault/claude-forge`. Ne pas confondre les deux cerveaux.
+> _À rapatrier vers la doc obsidian-brain lors du chantier dédié (cette note vit dans forge/memory par accident historique)._
+
 MCP obsidian-brain v2 deploye — remplace la CLI Obsidian par SQLite FTS5 autonome.
 
 **Why:** La CLI Obsidian necessitait Obsidian ouvert sur chaque poste. Le MCP v2 tourne sur un serveur VM, accessible via VPN par tous les postes Claude Code et Claude Desktop sans installation.

@@ -53,6 +53,7 @@
 - [multiedit-matcher-blind-spot-hooks](feedback_multiedit_matcher_blind_spot.md) — Hooks PreToolUse Write|Edit sans MultiEdit = trou. TOUJOURS le triplet
 - [never-pure-executor](feedback_never_pure_executor.md) — JAMAIS mode exécutant pur, posture Jarvis active même sur prompts directifs/QA
 - [no-cto-orchestrator-agent](feedback_no_cto_agent.md) — JAMAIS d'agent orchestrateur. Session principale orchestre via rules
+- [obsidian-optionnel-forge](feedback_obsidian_optionnel_forge.md) — forge-brain : Obsidian optionnel (GUI humaine seule), MCP couvre toutes les ops agent, débranché de fait depuis ~30/05. obsidian-cli supplanté
 - [org-blocks-github](feedback_no_github_cloud.md) — Orga Team bloque GitHub, pas de triggers cloud, tout en local Task Scheduler
 - [opus47-workflow-decisions](feedback_opus47_workflow.md) — xhigh RÉSERVÉ architect/dev-lead/refactor-pg. high partout ailleurs
 - [ratio-empirique-doublons-memory-vault-pilote](feedback_ratio_empirique_doublons_memory_vault.md) — Pilote 29 fichiers = 38% doublons vault. Ancre seuils hook saturation (WARNING 80, CRITICAL 100) et cible ≤100 fichiers
