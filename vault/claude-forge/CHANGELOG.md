@@ -14,6 +14,11 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Chantier 6-B pièce 1 (DEV MCP) — write-by-path + gotchas cycle de vie
+
+- **Modifiées** : `04-Techniques/claude-code/ajouter-source-donnees-mcp-forge-brain.md` — section Tests enrichie d'un gotcha « couche wrapper `register_tools` non exercée si tests appellent `BrainTools` direct » (renvoi `memory/reference_mcp_forge_brain_lifecycle_gotchas.md`).
+- **Source** : ajout des 4 outils `*_by_path` au serveur MCP forge-brain (Chantier 6-B pièce 1, commits `e50031d` + `fb69441`). Refactor en cœur partagé `_*_core(path,...)` → la variante by-path hérite du fix EOL 6-A. 205 tests verts. Le reste du chantier (preuve-prod live + hook anti-contournement + réécriture des 2 messages-pièges) est tracé dans `context-actuel` pour une session de reprise (restart MCP = kill port 8091 + nouvelle session).
+
 ## 2026-06-07 — Chantier 6-A & 6-C (DEV MCP) — écriture vault conforme par construction
 
 - **6-A — fix EOL `newline=""` étendu aux 4 outils restants** (commit `63a8f66`). Le fix #2 n'avait couvert que `update_property`/`bulk` ; `update_note`/`insert_section`/`append_note`/`move_note` traduisaient encore LF→CRLF à l'écriture (166 notes LF du vault exposées au diff full-file). `insert_section` : 2 corrections induites (rstrip `\r\n` du marker, EOL aligné du content inséré) sinon le matching cassait sur les 301 notes CRLF. Doctrine EOL unifiée : l'appelant est seule autorité EOL, la couche IO ne traduit jamais. 11 tests régression EOL live byte-exact.

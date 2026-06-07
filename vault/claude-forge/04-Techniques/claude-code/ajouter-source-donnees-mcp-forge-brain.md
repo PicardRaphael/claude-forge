@@ -67,6 +67,8 @@ Application `search_sessions` (chemins réels) :
 
 ## Tests — cœur MCP, ratio adverse
 
+> ⚠️ **Gotcha couche wrapper** (7 juin 2026) : tester l'outil via `BrainTools` directement n'exerce PAS la couche `register_tools` (wrappers `@_tool` : enregistrement FastMCP, validation/passage d'args, `log_call`). Une faute de wrapper (ordre/nom d'args, oubli d'enregistrement) passe les tests verts et casse l'outil en prod. Ajouter ≥1 test qui construit un `FastMCP` réel et exerce `register_tools` via l'API publique — `asyncio.run(mcp._list_tools())` (outils enregistrés) + `asyncio.run(mcp.call_tool("nom", {args}))` (dispatch de bout en bout) — **sans binder le port** (`register_tools` ne le touche pas ; seul `app.run()` dans `main()` le fait). Détail : `memory/reference_mcp_forge_brain_lifecycle_gotchas.md`.
+
 Sur le modèle de `test_search.py` : fixture déterministe, chaque filtre + edge case. ~60% adverse pour une source de données externe : JSONL malformé, fichier vide, message sans content, encodage cassé, FTS operators hostiles, query vide, projet inexistant, incrémental sans rescan, suppression fichier disparu. 18 + 19 = 37 tests, 0 régression.
 
 ## ANTI-PATTERNS
