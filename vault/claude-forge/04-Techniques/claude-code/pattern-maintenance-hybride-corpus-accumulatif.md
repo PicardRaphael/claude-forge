@@ -91,7 +91,7 @@ Ni 50 ni 137 ne sont prouvés comme la bonne cible : le tri n'a porté que sur l
 - **A — doublons conceptuels** → fusion (méta consolidé + archive originaux + aliases pour préserver backlinks)
 - **B — amendements successifs** → fusion (le récent absorbe l'ancien)
 - **C — ambigus** → **rejeter la fusion par défaut**, présenter la distinction, arbitrage. Fusionner deux concepts distincts pour gagner des lignes efface une nuance utile.
-- **D — dormants** → archive solo ; non-cité = nécessaire mais NON suffisant, critère décisif = obsolescence/absorption prouvée.
+- **D — dormants** → archive solo ; non-cité = nécessaire mais NON suffisant, critère décisif = obsolescence/absorption prouvée. *S'étend aux **outils** (pas que notes/feedbacks) : un outil MCP à 0 appel ne se supprime pas sur la seule dormance — distinguer rare-par-design (`move_note`, garder) / inutile-faute-de-matériau (`read_note_resolved`, arbitrer) / vraiment redondant. Cas Chantier 4 du 7 juin : [[comparaison-mcp-forge-brain-vs-mcp-brain-28mai2026]] section « Vérification empirique d'usage ».*
 
 ## Méta-principe partagé avec doctrine-vivante
 

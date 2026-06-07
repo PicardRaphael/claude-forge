@@ -134,6 +134,13 @@ Optimisations possibles côté neoteem-brain repo global (hors plugin) :
 
 ---
 
+## Vérification empirique d'usage (7 juin 2026 — Chantier 4/5)
+
+`usage_stats(365j)` sur le serveur a permis de confronter 2 claims de cette note au usage RÉEL. La conception jugée ici (tableau 14 critères) reste valide ; ce qui suit qualifie l'EXPLOITATION.
+
+- **Qualifie l'item A2 (« search_brain = dernier recours »)** : l'anti-pattern est RÉEL mais MARGINAL. Échantillon de 20 requêtes `search_brain` réelles (log `usage.jsonl`) = **80 % vraie exploration** (concepts répartis sur ≥2 notes, recherches sans note-titre, metadata diffuse) / **20 % ciblage déguisé** — et ces 4 cas sont en fait **2 notes re-cherchées 2× dans la même session** (re-search intra-session d'une note déjà connue, pas un défaut de `find_by_property`). Conséquence : `search_brain` à 1192 appels est **sain** pour un vault de concepts ; A2 ne justifie PAS une rule de ciblage agressive (elle nuirait à 80 % de cas légitimes). Le « vrai gap = utilisation par skills » est donc plus petit que supposé le 28 mai.
+- **Qualifie le critère #5 (`read_note_resolved` = forge MIEUX)** : supérieur en CONCEPTION (résout les embeds `![[X]]`, ce que `read_note` ne fait pas), mais **dormant en USAGE** — 0 appel sur 365j, car le vault forge n'a que 4 embeds `![[ ]]` dont **0 structurel** (les 2 fichiers concernés *parlent* de la syntaxe, ne l'emploient pas). Pas de matériau, pas « redondant ». **Question ouverte (à trancher en Chantier 5)** : supprimer l'outil (allègement) vs le garder (capacité latente si le vault adopte un jour des MOC à embeds). Tension à arbitrer car #5 ET P3d (porter l'outil vers neoteem-brain) le valorisent — ne pas trancher « suppression » sans cet arbitrage explicite. Cf [[pattern-maintenance-hybride-corpus-accumulatif]] critère « D — dormants » (étendu ici des notes aux OUTILS : dormant ≠ inutile — distinguer rare-par-design / inutile-sans-matériau / redondant).
+
 ## WIKILINKS
 
 - [[pattern-vault-llm-karpathy]] — Doctrine Karpathy LLM Wiki (architecture)

@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Chantier 4/5 outils MCP dormants — CLÔTURE (« rien à réveiller », prouvé)
+
+- **Modifiées (2 canoniques)** : [[comparaison-mcp-forge-brain-vs-mcp-brain-28mai2026]] reçoit une section « Vérification empirique d'usage (7 juin) » qui qualifie 2 de ses claims via `usage_stats(365j)` — A2 (« search_brain = dernier recours ») = anti-pattern réel mais MARGINAL (échantillon 20 requêtes : 80 % vraie exploration, 20 % = 2 notes re-cherchées intra-session) ; critère #5 (`read_note_resolved`) = supérieur en conception mais dormant en usage (0 MOC à embeds dans le vault). [[pattern-maintenance-hybride-corpus-accumulatif]] : critère « D — dormants » étendu des notes aux **outils** (rare-par-design / inutile-faute-de-matériau / redondant — 1 pointeur vers la comparaison).
+- **Verdict Chantier 4** : 20/22 outils appelés, 2 zéro-appel. `move_note` → laissé dormant (rare par design, sûreté wikilinks, 0 bypass). `read_note_resolved` → arbitrage Ch.5 (PAS redondant, dormant faute de matériau ; tension #5/P3d à trancher). Aucune rule de ciblage créée : le sur-usage `search_brain` (1192) testé et INVALIDÉ.
+- **Source** : Chantier 4/5 du plan vault, diagnostic lecture-seule prouvé par log `usage.jsonl`, hypothèse de départ (Note B sur-usage search_brain) cherchée à invalider plutôt qu'à confirmer.
+
 ## 2026-06-07 — Chantier 3/5 wikilinks — CLÔTURE G2 + bilan (103 → 96 liens brisés, chantier terminé)
 
 - **Créées (4 notes, récurrence prouvée pour chacune)** : [[automemorydirectory-absolu-casse-multiprojet]] + [[import-ajoute-pas-remplace-automemory]] (paire mémoire portable, chacune citée par 2 ADR) ; [[erreur-emphasis-overtriggering]] (anti-pattern CLAUDE.md cité par la canonique [[comment-ecrire-claudemd]]) ; [[audit-tripartite-doctrinal-pattern]] (3 lentilles Boris/Will/ECC, ≥6 notes + opérationnel dans repo-inspector). Les liens entrants se résolvent automatiquement.
