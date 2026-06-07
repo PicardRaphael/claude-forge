@@ -6,7 +6,25 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 
 **Critère d'archivage réel (vers `_archive/`) :** distinct — un tier-2 n'est archivé que si obsolète/absorbé (voir `_archive/MEMORY-archive-log.md`). Tier-2 ≠ archivé.
 
-## Feedback (tier-2 — 107 entrées)
+## Feedback (tier-2 — 125 entrées)
+- [optimiser-claudemd-inspec](feedback_optimiser_claudemd_inspec.md) — Optimiser CLAUDE.md in-spec ≠ réduire mécaniquement — appliquer "Would removing this cause mistakes?" pas un %-objectif
+- [auto-memory-user-scope-doublon](feedback_auto_memory_user_scope_doublon.md) — ~/.claude/projects/.../MEMORY.md doublonne memory/MEMORY.md projet à 90%. Purge sans risque après diff. 10.8k tokens fantôme par session
+- [agent-tools-enforce-delegation](feedback_agent_tools_restriction.md) — Retirer Bash des agents orchestrateurs pour forcer délégation
+- [bash-permission-format](feedback_bash_permission_format.md) — Permissions Bash = espace avant *, jamais deux-points. Bash(git *) pas Bash(git:*)
+- [brief-prescrit-travail-deja-fait-veille](feedback_brief_prescrit_travail_deja_fait.md) — Brief auto-mode peut prescrire création/audit déjà fait 24-72h avant. search_brain + AJOUT récents canoniques AVANT Phase 1
+- [da-failure-decision-protocol](feedback_da_failure_options.md) — DA échoue (529/timeout) : relancer 1×, sinon advisor, sinon STOP
+- [delegate-guard-scope-tout-skillmd](feedback_delegate_guard_scope_tout_skillmd.md) — delegate-guard bloque TOUT SKILL.md (match par nom, pas chemin), même hors .claude/. Déléguer à skill-creator partout, briefer "verbatim" si contenu déjà conçu
+- [dispatch-analyse-vs-audit](feedback_dispatch_analyse_vs_audit.md) — analyse skills/agents = project-auditor pas Explore. Multi-repo = 1 agent/repo
+- [emphasis-prompt-vs-skill](feedback_emphasis_distinction.md) — Emphasis OK dans skills/rules/agents, réduire uniquement dans tool descriptions
+- [hook-garde-hors-vault-bloque-plan-file](feedback_hook_garde_hors_vault_plan_file.md) — Hook bloquant écriture hors-périmètre strict attrape le plan file ~/.claude/plans/ en faux positif → plan mode cassé. Exception explicite en tête. Classifier refuse l'édit autonome du hook sécu
+- [hooks-same-stack](feedback_hooks_same_stack.md) — Hooks dans le même langage que le projet
+- [read-note-conditionnel-si-pas-deja-contexte](feedback_read_note_conditionnel_si_pas_deja_contexte.md) — Avant read_note canonique audit/jugement, vérifier si déjà en contexte session. Citer + wikilink si oui. Application directe règle tokens/contexte L19
+- [plugin-suffixe-ia-pas-readonly](feedback_plugin_suffixe_ia_pas_readonly.md) — Suffixe `-ia` n'est PAS read-only. Lire description+allowed-tools avant d'absorber dans un -admin
+- [cross-repo-naming-decision-propagation](feedback_propagate_decisions_cross_repo.md) — Décisions naming/structure = propager explicitement aux autres repos
+- [skills-referenced-in-body](feedback_skills_referenced_in_body.md) — Skills en frontmatter DOIVENT être référencées dans le body avec instructions
+- [stop-hook-context-injection](feedback_stop_hook_injection.md) — Stop hook : pas de additionalContext. Utiliser decision:block+reason + once:true
+- [vault-cat-guard-faux-positif-memory](feedback_vault_cat_guard_faux_positif_memory.md) — Hook vault-cat-guard bloque cat memory/ si commande contient "vault". Edit pas Bash
+- [webfetch-avant-subagents-audit](feedback_webfetch_avant_subagents_audit.md) — Avant dispatch audit thématique : 3-4 WebFetch directs sur sources suspectes
 - [mcp-running-pas-connected-transport](feedback_mcp_running_pas_connected_transport.md) — MCP 'running' = process vivant, PAS connecté. Vérifier transport stdio vs http
 - [ton-vault-forge-pas-neoteem](feedback_ton_vault_forge_pas_neoteem.md) — « Ton vault » = forge-brain (mon cerveau), JAMAIS le vault Neoteem métier
 - [zip-import-slash-pas-compress-archive](feedback_zip_import_slash_pas_compress_archive.md) — Zip d'import Cowork = slashes. Compress-Archive met des backslashes → casse

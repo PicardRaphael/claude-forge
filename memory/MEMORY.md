@@ -1,10 +1,7 @@
 # Memory Index
 
 ## Feedback
-- [optimiser-claudemd-inspec](feedback_optimiser_claudemd_inspec.md) — Optimiser CLAUDE.md in-spec ≠ réduire mécaniquement — appliquer "Would removing this cause mistakes?" pas un %-objectif
 - [advisor-da-web-search](feedback_advisor_da_web_search.md) — Rechercher web AVANT advisor/DA si fait technique incertain
-- [auto-memory-user-scope-doublon](feedback_auto_memory_user_scope_doublon.md) — ~/.claude/projects/.../MEMORY.md doublonne memory/MEMORY.md projet à 90%. Purge sans risque après diff. 10.8k tokens fantôme par session
-- [agent-tools-enforce-delegation](feedback_agent_tools_restriction.md) — Retirer Bash des agents orchestrateurs pour forcer délégation
 - [analyse-first-not-questionnaire](feedback_analyse_first_not_questionnaire.md) — Analyser le repo d'abord, proposer, questions SEULEMENT pour le non-déductible
 - [analyse-repo-includes-code-scan](feedback_analyse_repo_includes_code.md) — Analyse repo / config CC = méthode 6 étapes (archi + code réel) + audit .claude/
 - [allowed-tools-pas-allowlist](feedback_allowed_tools_pas_allowlist.md) — `allowed-tools` skill = pré-approbation, PAS allowlist restrictive (tous outils restent callable). Source Anthropic. Un faux P0 d'agent auditeur reposait dessus
@@ -16,10 +13,8 @@
 - [audit-qualite-design-transverse-mandatory](feedback_audit_qualite_design_transverse.md) — Audit `.claude/` = technique + qualité-design transverse vs canoniques
 - [askuserquestion-arbitrage-destructif](feedback_askuserquestion_arbitrage_destructif.md) — Actions destructives multiples = AskUserQuestion item par item, jamais en bloc. Permet corrections contextuelles
 - [audit-thematique-methode-sub-agents-clusters](feedback_audit_thematique_methode.md) — Audit vault : sub-agents par CLUSTER, checkpoint A avant B, self-verify avant D
-- [bash-permission-format](feedback_bash_permission_format.md) — Permissions Bash = espace avant *, jamais deux-points. Bash(git *) pas Bash(git:*)
 - [behavioral-test-after-setup](feedback_behavioral_test_pattern.md) — Après setup/audit/modif massive, prompt test comportemental PASS/FAIL
 - [brief-premisse-fausse-verifier-avant-executer](feedback_brief_premisse_fausse_verifier_avant_executer.md) — Brief peut poser prémisse fausse. Vérifier matériellement avant d'exécuter, surfacer si fausse
-- [brief-prescrit-travail-deja-fait-veille](feedback_brief_prescrit_travail_deja_fait.md) — Brief auto-mode peut prescrire création/audit déjà fait 24-72h avant. search_brain + AJOUT récents canoniques AVANT Phase 1
 - [carte-blanche-commit-push-tranche-pas-revalider](feedback_carte_blanche_commit_push.md) — "Carte blanche" = exécuter direct sans re-valider note par note
 - [ccnews-confronter-existant](feedback_ccnews_confronter_existant.md) — cc-news confronte chaque finding à l'existant (notes vault + skills/agents/hooks/rules) et agit, pas juste résumer
 - [claim-security-must-be-provable](feedback_claim_security_must_be_provable.md) — Claim sécu read-only prouvable par code, sinon by discipline pas by construction
@@ -31,25 +26,19 @@
 - [creator-reorganise-design-verrouille](feedback_creator_reorganise_design_verrouille.md) — skill/agent-creator réorganise/dilue un design verrouillé avec l'user. Vérifier bloc par bloc vs design validé, briefer "ne pas réinterpréter"
 - [da-bash-write-disguised](_archive/2026-06/feedback_da_bash_write.md) — Archivé : absorbé par `.claude/agents/devils-advocate.md` L57 (JAMAIS heredoc Bash, create_note ou texte)
 - [da-dicte-tests-adverses-pas-moi](feedback_da_dicte_tests_adverses.md) — Code destructif : tests happy path = trompeur. DA AVANT push obligatoire
-- [da-failure-decision-protocol](feedback_da_failure_options.md) — DA échoue (529/timeout) : relancer 1×, sinon advisor, sinon STOP
-- [delegate-guard-scope-tout-skillmd](feedback_delegate_guard_scope_tout_skillmd.md) — delegate-guard bloque TOUT SKILL.md (match par nom, pas chemin), même hors .claude/. Déléguer à skill-creator partout, briefer "verbatim" si contenu déjà conçu
 - [user-invocable-orthographe](feedback_user_invocable_orthographe.md) — Champ frontmatter skill = `user-invocable` (avec c), PAS user-invokable. Source Anthropic. 37 fichiers forge avaient la faute (fixés 3 juin). Vérité ≠ consensus interne
 - [delegate-guard-env-var-blocked](feedback_delegate_guard_env_var_blocked.md) — Bypass CLAUDE_AGENT impossible auto-mode. Edit manuel ou Shift+Tab
 - [devlead-vs-devapp-dispatch](feedback_devlead_vs_devapp.md) — Fix cross-app (libs+apps) = dev-lead, fix intra-app = dev-neochat/neomail/neodoc
 - [diagnostic-empirique-avant-affirmer-une-garde](feedback_diagnostic_empirique_avant_affirmer_garde.md) — Avant d'écrire qu'une garde existe (deny/hook), la vérifier + citer la preuve
-- [dispatch-analyse-vs-audit](feedback_dispatch_analyse_vs_audit.md) — analyse skills/agents = project-auditor pas Explore. Multi-repo = 1 agent/repo
 - [doctrine-drift-silent-regression](feedback_doctrine_drift_pattern.md) — Doctrine annulée par MEMORY/RECAP non purgés. Solution = [[methode-pivoter-doctrine]]
 - [ia-back-postgresjs-stack-drift-pattern](feedback_drizzle_postgresjs_drift.md) — Migration code ≠ migration .claude/. Grep stack OLD vs NEW (Drizzle→postgres.js)
 - [ecart-consigne-chiffree-surfacer](feedback_ecart_consigne_chiffree_surfacer.md) — Écart à consigne chiffrée = surfacer pour arbitrage, jamais juger acceptable en silence
 - [edit-tool-read-obligatoire-meme-en-parallele](feedback_edit_tool_read_obligatoire.md) — Edit en // sans Read = 7/8 failures. Batch Read d'abord, puis batch Edit
-- [emphasis-prompt-vs-skill](feedback_emphasis_distinction.md) — Emphasis OK dans skills/rules/agents, réduire uniquement dans tool descriptions
 - [enforce-not-advise](feedback_enforce_not_advise.md) — RÉVISÉ 22 mai : hooks = lint/sécu/scope, JAMAIS workflow
 - [eval-trio-angles-complementaires](feedback_eval_trio_angles_complementaires.md) — Éval forge = TRIO (skill-evolve fin / forge-review stratégique / outcomes-test rubric). Chercher 3 angles avant conclure gap
 - [feedback-reviole-3x-regle-insuffisante](feedback_feedback_reviole_3x_regle_insuffisante.md) — Feedback re-violé ≥3× = règle insuffisante. Réflexe pré-action ou garde-fou structurel
 - [git-C-pas-cd-multi-repo](feedback_git_C_pas_cd.md) — TOUJOURS git -C <path>, jamais cd && git. CWD persiste entre Bash calls
-- [hook-garde-hors-vault-bloque-plan-file](feedback_hook_garde_hors_vault_plan_file.md) — Hook bloquant écriture hors-périmètre strict attrape le plan file ~/.claude/plans/ en faux positif → plan mode cassé. Exception explicite en tête. Classifier refuse l'édit autonome du hook sécu
 - [hook-vs-harness-permission-distinction](feedback_hook_vs_harness_permission_distinction.md) — Bypass hook ≠ bypass harness. Vérifier debug log avant patcher. Bash(py -c) contourne
-- [hooks-same-stack](feedback_hooks_same_stack.md) — Hooks dans le même langage que le projet
 - [jarvis-innovator-mindset](feedback_jarvis_innovator.md) — Contrat Jarvis : partenaire, anticiper, innover, évoluer, franc, autonome, proactif
 - [llm-deep-research-version-numbers-hallucinated](feedback_llm_deep_research_version_numbers.md) — Claims numériques précis (versions, dates, ⭐) de Gemini/ChatGPT deep research = hallucinations. WebFetch source primaire AVANT d'agir. Fait qualitatif peut être vrai même si chiffres faux.
 - [lire-canoniques-vault-en-entier-avant-audit](feedback_lire_canoniques_avant_audit.md) — AVANT audit/création, read_note canoniques EN ENTIER, pas search_brain extraits
@@ -66,41 +55,35 @@
 - [org-blocks-github](feedback_no_github_cloud.md) — Orga Team bloque GitHub, pas de triggers cloud, tout en local Task Scheduler
 - [opus47-workflow-decisions](feedback_opus47_workflow.md) — xhigh RÉSERVÉ architect/dev-lead/refactor-pg. high partout ailleurs
 - [ratio-empirique-doublons-memory-vault-pilote](feedback_ratio_empirique_doublons_memory_vault.md) — Pilote 29 fichiers = 38% doublons vault. Ancre seuils hook saturation (WARNING 80, CRITICAL 100) et cible ≤100 fichiers
-- [read-note-conditionnel-si-pas-deja-contexte](feedback_read_note_conditionnel_si_pas_deja_contexte.md) — Avant read_note canonique audit/jugement, vérifier si déjà en contexte session. Citer + wikilink si oui. Application directe règle tokens/contexte L19
 - [pas-de-meta-commentaire-doctrine-composants](feedback_pas_de_meta_commentaire_doctrine.md) — JAMAIS justification/source/meta dans hook/agent/skill/CLAUDE.md. Le pourquoi → vault
 - [plugin-admin-absorbe-readonly](feedback_plugin_admin_absorbe_readonly.md) — Plugin admin (write) absorbe fonctionnellement read-only. Desinstaller le read-only sans perte (gain tokens). Verifier allowed-tools de chaque skill
-- [plugin-suffixe-ia-pas-readonly](feedback_plugin_suffixe_ia_pas_readonly.md) — Suffixe `-ia` n'est PAS read-only. Lire description+allowed-tools avant d'absorber dans un -admin
 - [pas-de-symetrie-artificielle-priorisation](feedback_pas_de_symetrie_artificielle_priorisation.md) — Audit multi-axes : ne PAS distribuer P0/P1 par axe pour l'équilibre. Impact réel sans complexe — N axes peuvent n'avoir qu'1 P0. Reste P2/P3 capitalisé + déclencheur. Observé Phase 2+3 (27 mai)
 - [permissionmode-mandatory](feedback_permissionmode_mandatory.md) — permissionMode obligatoire sur TOUS agents, acceptEdits pour créateurs
 - [present-before-build](feedback_present_before_build.md) — Présenter le plan AVANT construire, jamais créer sans validation Raphael
 - [proactive-references-extraction](feedback_proactive_references.md) — Déporter dans references/ proactivement dès l'ajout, pas attendre 500L
-- [cross-repo-naming-decision-propagation](feedback_propagate_decisions_cross_repo.md) — Décisions naming/structure = propager explicitement aux autres repos
 - [python-path-windows-hooks](feedback_python_path_windows.md) — Windows : chemin absolu Python313 dans hooks, jamais "python" seul
 - [recurring-meta-anti-pattern](feedback_recurring_meta_anti_pattern.md) — Workaround ≥ 2 fois = bug. AVANT refonte structurelle, lister cran 1/2/3
 - [regression-diagnostic-diff-avant-redesign](feedback_regression_diagnostic_diff_avant_redesign.md) — Régression à point d'introduction connu = diff AVANT redesign. Ne pas anchrer sur l'hypothèse user "trop gros". Asymétrie read/write runtime. Write-path résolu dans TOUS les points d'entrée
 - [regle-scope-pas-universelle](feedback_regle_scope_pas_universelle.md) — Vérifier scope règle AVANT propagation. Provider sur SON produit = single source
 - [single-source-of-truth](feedback_single_source_of_truth.md) — UN fichier canonique par concept, skills pointent vers doc/
 - [single-source-truth-vault-canonique](feedback_single_source_truth_vault_canonique.md) — Règles universelles vivent dans canonique vault UNIQUEMENT, wikilink ailleurs
-- [skills-referenced-in-body](feedback_skills_referenced_in_body.md) — Skills en frontmatter DOIVENT être référencées dans le body avec instructions
 - [skills-user-scope-pas-cross-repo](feedback_skills_user_scope_pas_cross_repo.md) — Skills frontmatter user-scope décoratives cross-repo. Workaround : MCP en clair dans body
 - [spec-brief-distant-repo-scope](feedback_spec_brief_diagnostic.md) — BRIEF distant = contrat + ce que JE fais, jamais fichiers/internes du repo distant
 - [spec-trous-structurels-langfuse-secuia-decisions](feedback_spec_trous_structurels_a_checker.md) — Audit spec : checker 3 trous (Langfuse, 4 risques sécu IA, décisions sans assignee)
-- [stop-hook-context-injection](feedback_stop_hook_injection.md) — Stop hook : pas de additionalContext. Utiliser decision:block+reason + once:true
 - [stop-over-verifying](feedback_stop_over_verifying.md) — Verdict direct si travail fait en session, pas relire 20 fichiers pour dire oui
 - [subagent-audit-category-error](feedback_subagent_audit_category_error.md) — Sub-agent audit flagge drift sur note citant valeurs externes. Vérifier source réelle
 - [subagent-autocommit-violation](feedback_subagent_autocommit.md) — Sub-agents committent malgré instruction. TOP gras + git log post-agent
 - [test-writer-systematic](feedback_test_writer_systematic.md) — RÉVISÉ 22 mai : MAX 3 tests/comportement, REFACTOR supprimée, effort high
 - [tweet-hype-paraphrase-non-verifiee-pattern](_archive/2026-06/feedback_tweet_hype_paraphrase_pattern.md) — Archivé : absorbé par skill `web-search-canonical-source` (table 4 patterns + cite ce feedback en source)
 - [use-brain-skills-not-grep](feedback_use_brain_skills.md) — Questions métier = skills neo-brain (MCP), jamais grep manuel sur vault/SQL
-- [vault-cat-guard-faux-positif-memory](feedback_vault_cat_guard_faux_positif_memory.md) — Hook vault-cat-guard bloque cat memory/ si commande contient "vault". Edit pas Bash
+- [vault-edit-gotchas-outillage](feedback_vault_edit_gotchas_outillage.md) — delegate-guard faux positif sur note vault agents-*.md (utiliser MCP, pas Edit) + insert_section misparente après header nu (viser marker précis)
 - [vault-quality-standard](feedback_vault_quality_standard.md) — Vault forge-brain = standard neoteem-brain : 5-6 aliases, wikilinks, templates
 - [verify-exhaustive-claims](feedback_verify_exhaustive_claims.md) — Grep de validation AVANT toute déclaration exhaustive (zéro, tous, aucun, complet)
-- [webfetch-avant-subagents-audit](feedback_webfetch_avant_subagents_audit.md) — Avant dispatch audit thématique : 3-4 WebFetch directs sur sources suspectes
 - [workflow-spec-forge-jira-tickets](feedback_workflow_spec_forge_jira.md) — Workflow : idée → forge challenge → /spec repo → tickets Jira. Spec=technique, Jira=process
 - [zero-dette-technique-nettoyer-completement](feedback_zero_dette_technique.md) — Dette/drift/réf morte découverte = nettoyage COMPLET immédiat, jamais plus tard
 
-### Archive de référence — tier-2 (77 feedbacks non cités)
-> Feedbacks valides mais sans citation entrante, déplacés vers [memory/_index_archive.md](_index_archive.md) pour alléger le chargement. Accès via recherche/lecture directe si besoin. Critère tier-1 : cité ≥1 OU sujet stratégique. Réintégrer ici un tier-2 dès qu'il est cité.
+### Archive de référence — tier-2 (125 feedbacks)
+> Feedbacks valides mais sans citation entrante (ou non stratégiques), déplacés vers [memory/_index_archive.md](_index_archive.md) pour alléger le chargement. Accès via recherche/lecture directe si besoin. Critère tier-1 : cité ≥1 OU sujet stratégique. Réintégrer ici un tier-2 dès qu'il est cité.
 
 ## Project
 - [dossier-strategique-ia-neoteem](project_dossier_strategique_ia_neoteem.md) — Dossier Stratégique IA CODIR audité 17/20 (29 mai), roadmap V2 à venir, sortir volet salaire
