@@ -8,6 +8,7 @@ aliases:
   - "byte-exact write decision"
   - "zero-diff file edit reasoning"
   - "EOL translation write_text gotcha"
+  - "splice chirurgical frontmatter"
 type: raisonnement
 domaine: general
 derniere-maj: 2026-06-07

@@ -1,6 +1,6 @@
 ---
 titre: "update_property yaml.dump corrompt le frontmatter"
-resume: "yaml.dump() round-trippe tout le YAML (reordonne cles, re-quote dates) ET le fix regex qui l'a remplace casse les proprietes MULTI-LIGNES/arrays (tags) : items orphelins, double declaration. update_property/bulk inutilisables sur array."
+resume: "Historique : yaml.dump() round-trippait tout le YAML, puis le fix regex 1-ligne cassait les arrays (tags/aliases/sources) en items orphelins. RÉSOLU 7 juin 2026 (commit 2ff0538) : splice chirurgical + IO byte-exact (newline=\"\"). update_property/bulk sont array-safe."
 aliases:
   - "erreur yaml dump"
   - "yaml corruption frontmatter"

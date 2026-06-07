@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Test de prod du fix array-safe (serveur MCP redémarré)
+
+- **Serveur MCP redémarré** sur le code à jour (commit `2ff0538`) → 1er test de `update_property` array-safe en production réelle (client MCP → serveur → splice → disque).
+- **Modifiées (2 notes)** : [[decision-byte-for-byte-splice-test-live]] — `aliases` étendu via array MCP (7 items, **zéro orphelin**, champs voisins intacts) = preuve de prod du splice array. [[erreur-mcp-yaml-dump-corruption]] — `resume` corrigé (scalaire) : l'ancien « update_property/bulk inutilisables sur array » devenu faux → acte la résolution.
+- **Validé** : splice array-safe + scalaire fonctionnent de bout en bout en prod, sans corruption ni reformatage collatéral.
+
 ## 2026-06-07 — Raisonnement caché : écriture byte-for-byte (splice + test live)
 
 - **Créée (1 raisonnement)** : [[decision-byte-for-byte-splice-test-live]] (Knowledge/raisonnements/) — chaîne décisionnelle réutilisable issue du fix limite #2 : (1) splice > re-dump (toute ré-sérialisation globale viole le byte-for-byte par construction → disqualifiée a priori) ; (2) insight méta : un diff mémoire « chirurgical » ment sur l'IO, `splitlines()`+`difflib` aveugle aux conversions EOL → test live byte-exact non négociable.
