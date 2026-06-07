@@ -14,6 +14,17 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Chantier 2/5 normalisation tags — LOT E2 (retraits de tags décoratifs)
+
+- **Modifiées** : 4 notes — retrait de 4 tags décoratifs (1 ligne par note), 0 renommage. Décision sur preuve read-only validée par Raphael (chaque retrait justifié note par note).
+  - `#personne/raphael` (note [[Raphael-Picard]]) — redondant avec `#type/casquette` sur sa propre note-racine.
+  - `#position/critique` (note [[Yann LeCun]]) — posture d'1 leader, n'aide aucune navigation de groupe ; `#type/critique` désigne le type de note (DA), pas une posture.
+  - `#chantier/22mai2026` + `#chantier/23mai2026` (2 notes) — repères temporels morts, jamais utilisés en navigation ; date portée par `derniere-maj` + titre.
+  - Critère respecté : aucun de ces 4 tags n'aidait à retrouver un GROUPE ; chaque note garde ≥ 2 tags (reste trouvable).
+  - **Outillage** : nouvelle logique « retrait » ajoutée au script (`normalize-tags.py`, sentinelle mapping → `""` = drop de la ligne). TESTÉE avant apply : `--show` AVANT/APRÈS des 4 notes → seule la ligne du tag retiré disparaît, frontmatter intact.
+  - Vérif : git diff **retrait-only** (4 notes + script, 0 wikilink, 0 ligne ajoutée, 0 ligne supprimée hors item tag). `lint_vault` : **0 frontmatter cassé**, 133 wikilinks (stable). `find_by_property` : les 4 tags = 0.
+- **Source** : chantier « vault forge-brain parfait » 2/5, grille singletons validée par Raphael (7 juin 2026). **Chantier 2/5 terminé** (LOTS C, A, B, D, E1, E2). Bilan get_tags avant/après à suivre.
+
 ## 2026-06-07 — Chantier 2/5 normalisation tags — LOT E1 (singletons : renommages / re-préfixages)
 
 - **Modifiées** : 40 notes — 43 renommages, **2 déduplications**. Traitement des singletons par GROUPE (grille validée par Raphael, jamais tag par tag).

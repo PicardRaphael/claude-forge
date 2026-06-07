@@ -17,7 +17,6 @@ tags:
   - "#type/erreur"
   - "#domaine/claude-code"
   - "#domaine/doctrine"
-  - "#chantier/23mai2026"
 ---
 
 # Erreur — 22 claims fausses vault Claude Code détectées audit 23 mai

@@ -102,7 +102,16 @@ LOTS = {
         "#type/veille": "#type/news",
         # type/news garde tel quel (deja la cible)
     },
+    "E2": {  # RETRAITS : valeur sentinelle "" = supprimer la ligne du tag (logique drop)
+        "#personne/raphael": "",        # redondant #type/casquette sur sa note-racine (1 note)
+        "#chantier/22mai2026": "",      # repere temporel mort, jamais en navigation (1 note)
+        "#chantier/23mai2026": "",      # idem (1 note)
+        "#position/critique": "",       # posture 1 leader, n'aide aucune nav de groupe (1 note)
+    },
 }
+
+# Sentinelle de retrait : un mapping vers "" signifie « supprimer cette ligne de tag ».
+REMOVE = ""
 
 
 def load_lot(lot_name):
@@ -146,11 +155,15 @@ def _process_inline(path, raw, tags_line, mapping, apply):
     changes = []
     emitted = []
     dropped = 0
+    removed = 0
     for it in raw_items:
         tag = it.strip().strip('"').strip("'")
         new_tag = mapping.get(tag, tag)
         if new_tag != tag:
             changes.append((tag, new_tag))
+        if new_tag == REMOVE:        # sentinelle retrait : ne pas emettre
+            removed += 1
+            continue
         if new_tag in emitted:
             dropped += 1
             continue
@@ -167,7 +180,7 @@ def _process_inline(path, raw, tags_line, mapping, apply):
         with open(path, "w", encoding="utf-8", newline="") as f:
             f.writelines(out)
 
-    return {"path": path, "changes": changes, "dropped": dropped}
+    return {"path": path, "changes": changes, "dropped": dropped, "removed": removed}
 
 
 def process_file(path, mapping, apply):
@@ -244,7 +257,12 @@ def process_file(path, mapping, apply):
     emitted = set()
     rebuilt = {}
     drop = set()
+    removed = 0
     for (i, indent, quoted, new_tag, eol) in final_tags_order:
+        if new_tag == REMOVE:        # sentinelle retrait -> supprimer la ligne
+            drop.add(i)
+            removed += 1
+            continue
         if new_tag in emitted:
             drop.add(i)  # doublon cree par fusion -> supprimer cette ligne
             continue
@@ -261,7 +279,7 @@ def process_file(path, mapping, apply):
         with open(path, "w", encoding="utf-8", newline="") as f:
             f.writelines(out)
 
-    return {"path": path, "changes": changes, "dropped": len(drop)}
+    return {"path": path, "changes": changes, "dropped": len(drop) - removed, "removed": removed}
 
 
 def _frontmatter_text(raw):
@@ -324,13 +342,14 @@ def main():
     print(f"Vault : {VAULT}")
     print(f"Mapping ({len(mapping)} regles) :")
     for old, new in mapping.items():
-        print(f"  {old:32s} -> {new}")
+        print(f"  {old:32s} -> {new if new != REMOVE else '(RETRAIT)'}")
     print("-" * 70)
 
     md_files = sorted(VAULT.rglob("*.md"))
     touched = 0
     total_changes = 0
     total_dropped = 0
+    total_removed = 0
     warnings = []
     for path in md_files:
         res = process_file(path, mapping, args.apply)
@@ -340,14 +359,16 @@ def main():
                 continue
             touched += 1
             rel = path.relative_to(VAULT)
-            diffs = ", ".join(f"{o}->{n}" for o, n in res["changes"])
+            diffs = ", ".join(f"{o}->{n if n != REMOVE else '(RETRAIT)'}" for o, n in res["changes"])
             dropnote = f"  [dedup: -{res['dropped']} doublon(s)]" if res["dropped"] else ""
+            remnote = f"  [retrait: -{res.get('removed', 0)} ligne(s)]" if res.get("removed") else ""
             print(f"[{touched:3d}] {rel}")
-            print(f"      {diffs}{dropnote}")
+            print(f"      {diffs}{dropnote}{remnote}")
             total_changes += len(res["changes"])
             total_dropped += res["dropped"]
+            total_removed += res.get("removed", 0)
     print("-" * 70)
-    print(f"Notes touchees : {touched} | renommages : {total_changes} | lignes dedupliquees : {total_dropped}")
+    print(f"Notes touchees : {touched} | renommages : {total_changes} | lignes dedupliquees : {total_dropped} | lignes retirees : {total_removed}")
     if warnings:
         print(f"\n⚠️  {len(warnings)} note(s) au format CSV inline NON gere (trou potentiel — traiter via MCP) :")
         for rel, w in warnings:

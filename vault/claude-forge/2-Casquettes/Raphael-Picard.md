@@ -15,7 +15,6 @@ auteur: claude
 tags:
   - "#type/context"
   - "#type/casquette"
-  - "#personne/raphael"
 ---
 
 ## Identité

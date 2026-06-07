@@ -21,7 +21,6 @@ tags:
   - "#type/leader"
   - "#domaine/prompt-engineering"
   - "#domaine/world-models"
-  - "#position/critique"
 ---
 
 ## Profil

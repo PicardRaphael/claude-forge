@@ -14,7 +14,6 @@ sources:
   - ".claude/skills/cc-hooks-ref/SKILL.md (source de vérité events)"
 tags:
   - "#type/critique"
-  - "#chantier/22mai2026"
   - "#domaine/vault"
 ---
 # Critique DA — 8 canoniques chantier 22 mai 2026
