@@ -1,6 +1,6 @@
 ---
 name: workarounds-contraintes-session-forge
-description: "Contraintes machine forge et workarounds : gh CLI absent, x.com paywall 402, HEREDOC commit Windows, delegate-guard bypass"
+description: "Contraintes machine forge et workarounds : gh CLI absent, x.com paywall 402, HEREDOC commit Windows, delegate-guard (bypass=skill créatrice uniquement), subprocess input=str hang Windows"
 metadata: 
   node_type: memory
   type: reference
@@ -32,12 +32,10 @@ Contraintes techniques rencontrées sur la machine forge (Windows Git Bash) et w
 
 ## Hook delegate-guard bloque Edit direct sur .claude/
 
-- PreToolUse hook `delegate-guard.py` BLOQUE Edit/Write sur `.claude/agents/*.md` et `.claude/skills/*/SKILL.md`
-- Message : "Required agent: agent-creator / Invoke the 'agent-creator' agent"
-- **Bypass officiel** : `CLAUDE_AGENT=<agent-name>` dans env du subprocess
-- Pattern Python : `subprocess.run([...], env={**os.environ, "CLAUDE_AGENT": "agent-creator"})`
-- Ou directement : `CLAUDE_AGENT=agent-creator python -c "..."`
-- À utiliser uniquement pour micro-corrections sur 1 ligne (sinon déléguer vraiment à agent-creator)
+- PreToolUse hook `delegate-guard.py` BLOQUE Edit/Write/MultiEdit sur `CLAUDE.md`, `.claude/agents/*.md`, `.claude/skills/*/SKILL.md`, `.claude/hooks/*.py`.
+- Message : "Required specialist skill: <skill> / Invoke the '<skill>' skill".
+- **Bypass légitime UNIQUE** : invoquer la skill créatrice propriétaire du fichier (`claudemd-creator` / `subagent-creator` / `skill-creator` / `hook-creator`). Le hook lit `attributionSkill` dans le transcript et débloque STRICTEMENT le type de fichier que possède cette skill (vérifié CC 2.1.167).
+- ⚠️ **Le bypass `CLAUDE_AGENT=<agent>` est SUPPRIMÉ** (delegate-guard.py L25 « NEVER bypass via spoofable signals... Removed deliberately » + rule `delegate-to-specialists.md` « contourner un garde-fou de scope = anti-pattern absolu »). Ne JAMAIS injecter d'env var ni passer par un script externe. Si le hook bloque alors que la skill tourne : ré-émettre l'écriture (l'`attributionSkill` apparaît au tour assistant suivant), pas contourner.
 
 ## Écriture de fichiers via PowerShell 5.1 — BOM + caractères non-ASCII (4 juin 2026)
 
@@ -61,6 +59,14 @@ Deux pièges distincts, même axe (écriture Windows PS 5.1), rencontrés 2× da
 - Cause : le système prompt / hook de l'agent contient un `!`git status`` (backtick exec) évalué dans un cwd qui n'est pas un repo git.
 - **Workaround** : faire le travail en session principale (lecture directe des fichiers) au lieu de déléguer, OU s'assurer que le cwd est dans un repo git avant le dispatch. Pour un audit de 9 fichiers, lecture directe = plus simple que se battre avec le dispatch.
 - Ne pas confondre avec un refus de permission : c'est un crash au démarrage de l'agent, pas un blocage de garde.
+
+## subprocess.run avec input=str sans text=True → HANG sur Windows (7 juin 2026)
+
+- Symptôme : une suite pytest qui appelle un hook via `subprocess.run` se **bloque indéfiniment** (pas lente — figée). Diagnostic : la sortie pytest s'arrête net au test N/M, exactement sur le 1er test qui passe `input=`.
+- Cause : `subprocess.run([...], input=json.dumps(obj), capture_output=True)` — `input` est une **str** mais sans `text=True`, subprocess attend des **bytes** → mismatch sur le writer thread de stdin, deadlock sur Windows.
+- **Fix** : soit `input=json.dumps(obj).encode("utf-8")` (rester en bytes, décoder stdout/stderr soi-même), soit ajouter `text=True` (rester en str de bout en bout). JAMAIS str + bytes-mode mélangés.
+- Piège connexe même session : le hook écrit un message **accentué** sur `sys.stderr` → côté test, capturer en bytes et `decode("utf-8", errors="replace")`, asserter sur des sous-chaînes **ASCII** (noms d'outils), pas sur le texte accentué (la console enfant peut être en cp1252). Le hook lui-même ne plante PAS sur l'écriture accentuée (vérifié : exit 2 propre, accents juste remplacés à l'affichage) — cohérent avec les autres guards forge.
+- Leçon méthode : « test lent » anormal = suspecter un **hang**, pas une lenteur. Lire la sortie partielle (s'arrête à un test précis = le coupable), appeler le binôme directement hors pytest pour isoler hook vs test.
 
 ## Commits parallèles d'autres agents/sessions
 
