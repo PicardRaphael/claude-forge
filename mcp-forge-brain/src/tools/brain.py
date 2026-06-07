@@ -503,14 +503,34 @@ class BrainTools:
             return f"Note creee: {normalized}\nWARN: " + " | ".join(warnings)
         return f"Note creee: {normalized}"
 
-    def append_note(self, file: str, content: str, username: str = "anonymous") -> str:
-        path = self._db.resolve_note(file)
-        if not path:
-            return f"Note '{file}' introuvable."
+    def _resolve_by_path(self, path: str) -> tuple[str | None, str | None, str | None]:
+        """Resout un chemin EXACT relatif au vault (pas de resolution stem/alias ambigue).
+
+        Pendant de resolve_note pour les variantes *_by_path : la-ou file= passe par
+        resolve_note (FTS, ambigu sur log/index/CHANGELOG), ce chemin exact ne resout
+        jamais vers le mauvais fichier (Chantier 6-B : dissout l'echappatoire Edit-direct).
+        Reutilise _normalize_path (meme securite anti-chemin-hors-vault que read_note_by_path).
+
+        Retourne (normalized_path, warning, error). Si error != None, normalized est None.
+        """
+        try:
+            normalized, warning = _normalize_path(self._vault, path)
+        except ValueError as e:
+            return None, None, f"REFUS: {e}"
+        full_path = self._vault / normalized
+        if not full_path.exists():
+            return None, None, f"Fichier introuvable: {normalized}"
+        return normalized, warning, None
+
+    def _append_core(self, path: str, content: str, username: str) -> str:
+        """Coeur partage append (file= et by-path) : IO byte-exact + index + git.
+
+        path = chemin relatif au vault DEJA resolu. newline="" : ecrit le content ajoute
+        byte-exact, sans traduction \\n->\\r\\n par la couche texte Windows. Comme
+        update/update_property, l'appelant est seule autorite EOL du content fourni.
+        Cf erreur-mcp-yaml-dump-corruption + gate-zero-diff-test-live-byte-exact.
+        """
         full_path = self._vault / path
-        # newline="" : ecrit le content ajoute byte-exact, sans traduction \n->\r\n par
-        # la couche texte Windows. Comme update_note/update_property, l'appelant est
-        # seule autorite EOL du content fourni. Cf erreur-mcp-yaml-dump-corruption.
         with open(full_path, "a", encoding="utf-8", newline="") as f:
             f.write(content)
         new_content = full_path.read_text(encoding="utf-8", errors="replace")
@@ -520,6 +540,36 @@ class BrainTools:
             self._git.commit_file(path, username, "append", full_path.stem)
         return f"Contenu ajoute a: {path}"
 
+    def append_note(self, file: str, content: str, username: str = "anonymous") -> str:
+        path = self._db.resolve_note(file)
+        if not path:
+            return f"Note '{file}' introuvable."
+        return self._append_core(path, content, username)
+
+    def append_note_by_path(self, path: str, content: str, username: str = "anonymous") -> str:
+        """append_note par chemin EXACT (desambigue log/index/CHANGELOG). Cf _resolve_by_path."""
+        normalized, warning, error = self._resolve_by_path(path)
+        if error:
+            return error
+        result = self._append_core(normalized, content, username)
+        return f"[WARN] {warning}\n{result}" if warning else result
+
+    def _update_core(self, path: str, content: str, username: str) -> str:
+        """Coeur partage update (file= et by-path) : IO byte-exact + index + git.
+
+        path = chemin relatif au vault DEJA resolu. newline="" : ecrit le content
+        byte-exact, sans traduction \\n<->\\r\\n par la couche texte Windows. L'appelant
+        est seule autorite EOL (zero-diff EOL : un content LF reste LF, idem CRLF).
+        Cf erreur-mcp-yaml-dump-corruption.
+        """
+        full_path = self._vault / path
+        full_path.write_text(content, encoding="utf-8", newline="")
+        parsed = parse_note(full_path.stem, path, content)
+        self._db.index_note(parsed, full_path.stat().st_mtime)
+        if self._git and self._git._cfg.auto_commit:
+            self._git.commit_file(path, username, "update", full_path.stem)
+        return f"Note mise a jour: {path}"
+
     def update_note(self, file: str, content: str, username: str = "anonymous") -> str:
         """Remplace EN ENTIER le contenu d'une note existante (frontmatter + body).
         Pour ajouter en fin, utiliser append_note. Pour modifier 1 propriete frontmatter,
@@ -528,16 +578,15 @@ class BrainTools:
         path = self._db.resolve_note(file)
         if not path:
             return f"Note '{file}' introuvable."
-        full_path = self._vault / path
-        # newline="" : ecrit le content byte-exact, sans traduction \n<->\r\n par la
-        # couche texte Windows. L'appelant est seule autorite EOL (zero-diff EOL : un
-        # content LF reste LF a l'ecriture, idem CRLF). Cf erreur-mcp-yaml-dump-corruption.
-        full_path.write_text(content, encoding="utf-8", newline="")
-        parsed = parse_note(full_path.stem, path, content)
-        self._db.index_note(parsed, full_path.stat().st_mtime)
-        if self._git and self._git._cfg.auto_commit:
-            self._git.commit_file(path, username, "update", full_path.stem)
-        return f"Note mise a jour: {path}"
+        return self._update_core(path, content, username)
+
+    def update_note_by_path(self, path: str, content: str, username: str = "anonymous") -> str:
+        """update_note par chemin EXACT (desambigue log/index/CHANGELOG). Cf _resolve_by_path."""
+        normalized, warning, error = self._resolve_by_path(path)
+        if error:
+            return error
+        result = self._update_core(normalized, content, username)
+        return f"[WARN] {warning}\n{result}" if warning else result
 
     def insert_section(
         self,
@@ -560,10 +609,35 @@ class BrainTools:
         path = self._db.resolve_note(file)
         if not path:
             return f"Note '{file}' introuvable."
+        return self._insert_section_core(path, marker, content, position, username)
+
+    def insert_section_by_path(
+        self,
+        path: str,
+        marker: str,
+        content: str,
+        position: str = "after",
+        username: str = "anonymous",
+    ) -> str:
+        """insert_section par chemin EXACT (desambigue log/index/CHANGELOG). Cf _resolve_by_path."""
+        if position not in ("before", "after"):
+            return f"Position invalide: '{position}'. Utiliser 'before' ou 'after'."
+        normalized, warning, error = self._resolve_by_path(path)
+        if error:
+            return error
+        result = self._insert_section_core(normalized, marker, content, position, username)
+        return f"[WARN] {warning}\n{result}" if warning else result
+
+    def _insert_section_core(
+        self, path: str, marker: str, content: str, position: str, username: str
+    ) -> str:
+        """Coeur partage insert_section (file= et by-path) : IO byte-exact + index + git.
+
+        path = chemin relatif au vault DEJA resolu. newline="" : preserve les EOL d'origine
+        (\\r\\n vs \\n) a la lecture, pour que le contenu non touche reste byte-exact et que
+        le content insere s'aligne sur l'EOL du fichier. Cf erreur-mcp-yaml-dump-corruption.
+        """
         full_path = self._vault / path
-        # newline="" : preserve les EOL d'origine (\r\n vs \n) a la lecture, pour que
-        # le contenu non touche reste byte-exact et que le content insere s'aligne sur
-        # l'EOL du fichier. Cf erreur-mcp-yaml-dump-corruption.
         original = full_path.read_text(encoding="utf-8", errors="replace", newline="")
         if marker not in original:
             return f"Marker '{marker}' introuvable dans: {path}"
@@ -1082,10 +1156,28 @@ class BrainTools:
         path = self._db.resolve_note(file)
         if not path:
             return f"Note '{file}' introuvable."
+        return self._update_property_core(path, name, value, username)
+
+    def update_property_by_path(
+        self, path: str, name: str, value: str | list, username: str = "anonymous"
+    ) -> str:
+        """update_property par chemin EXACT (desambigue log/index/CHANGELOG). Cf _resolve_by_path."""
+        normalized, warning, error = self._resolve_by_path(path)
+        if error:
+            return error
+        result = self._update_property_core(normalized, name, value, username)
+        return f"[WARN] {warning}\n{result}" if warning else result
+
+    def _update_property_core(
+        self, path: str, name: str, value: str | list, username: str
+    ) -> str:
+        """Coeur partage update_property (file= et by-path) : splice array-safe + IO byte-exact.
+
+        path = chemin relatif au vault DEJA resolu. newline="" : IO byte-exact — pas de
+        traduction \\r\\n<->\\n par la couche texte. Le helper est ainsi la SEULE autorite
+        sur les fins de ligne (zero-diff par construction : LF reste LF, CRLF reste CRLF).
+        """
         full_path = self._vault / path
-        # newline="" : IO byte-exact — pas de traduction \r\n<->\n par la couche texte.
-        # Le helper est ainsi la SEULE autorite sur les fins de ligne (zero-diff garanti
-        # par construction : un fichier LF reste LF, un CRLF reste CRLF).
         content = full_path.read_text(encoding="utf-8", errors="replace", newline="")
 
         try:
@@ -1189,6 +1281,21 @@ def register_tools(mcp, tools: BrainTools):
         return tools.append_note(file, content)
 
     @_tool
+    def append_note_by_path(path: str, content: str) -> str:
+        """Ajoute du contenu a la fin d'une note, ciblee par son CHEMIN EXACT.
+
+        A utiliser quand le stem est ambigu (plusieurs notes partagent le meme nom :
+        log.md, index.md, CHANGELOG.md existent dans plusieurs dossiers). append_note(file=)
+        resout par FTS et peut viser le MAUVAIS fichier ; ce chemin exact ne resout jamais
+        de travers (Chantier 6-B : dissout l'echappatoire Edit-direct -> tout repasse MCP).
+
+        Args:
+            path: chemin relatif au vault (ex: "2-Casquettes/responsable-ia/log.md")
+            content: contenu markdown a ajouter
+        """
+        return tools.append_note_by_path(path, content)
+
+    @_tool
     def update_note(file: str, content: str) -> str:
         """Remplace EN ENTIER le contenu d'une note existante (frontmatter + body).
 
@@ -1197,6 +1304,19 @@ def register_tools(mcp, tools: BrainTools):
             content: nouveau contenu complet (frontmatter YAML + body markdown)
         """
         return tools.update_note(file, content)
+
+    @_tool
+    def update_note_by_path(path: str, content: str) -> str:
+        """Remplace EN ENTIER une note ciblee par son CHEMIN EXACT (frontmatter + body).
+
+        Variante de update_note pour stems ambigus (log/index/CHANGELOG dans plusieurs
+        dossiers) : le chemin exact ne resout jamais de travers. Cf append_note_by_path.
+
+        Args:
+            path: chemin relatif au vault (ex: "index.md", "2-Casquettes/responsable-ia/index.md")
+            content: nouveau contenu complet (frontmatter YAML + body markdown)
+        """
+        return tools.update_note_by_path(path, content)
 
     @_tool
     def insert_section(file: str, marker: str, content: str, position: str = "after") -> str:
@@ -1209,6 +1329,21 @@ def register_tools(mcp, tools: BrainTools):
             position: "before" ou "after" le marker (default "after")
         """
         return tools.insert_section(file, marker, content, position)
+
+    @_tool
+    def insert_section_by_path(path: str, marker: str, content: str, position: str = "after") -> str:
+        """Insere du contenu avant/apres une section, note ciblee par son CHEMIN EXACT.
+
+        Variante de insert_section pour stems ambigus (log/index/CHANGELOG dans plusieurs
+        dossiers) : le chemin exact ne resout jamais de travers. Cf append_note_by_path.
+
+        Args:
+            path: chemin relatif au vault (ex: "CHANGELOG.md")
+            marker: ligne header complete (ex: "## 2026-06-07")
+            content: contenu markdown a inserer
+            position: "before" ou "after" le marker (default "after")
+        """
+        return tools.insert_section_by_path(path, marker, content, position)
 
     @_tool
     def list_notes(folder: str = "", limit: int = 50) -> str:
@@ -1240,6 +1375,21 @@ def register_tools(mcp, tools: BrainTools):
                    Ex liste : value=["#type/index", "#domaine/claude-code"]
         """
         return tools.update_property(file, name, value)
+
+    @_tool
+    def update_property_by_path(path: str, name: str, value: str | list[str]) -> str:
+        """Modifie une propriete frontmatter, note ciblee par son CHEMIN EXACT (array-safe).
+
+        Variante de update_property pour stems ambigus (log/index/CHANGELOG dans plusieurs
+        dossiers) : le chemin exact ne resout jamais de travers. Cf append_note_by_path.
+
+        Args:
+            path: chemin relatif au vault (ex: "2-Casquettes/responsable-ia/index.md")
+            name: nom de la propriete
+            value: nouvelle valeur. SCALAIRE (str) -> ligne simple. LISTE (str list) ->
+                   array bloc YAML (tags/aliases/sources sans corruption).
+        """
+        return tools.update_property_by_path(path, name, value)
 
     @_tool
     def delete_note(file: str, force: bool = False) -> str:
