@@ -63,19 +63,13 @@ tags:
    - CHANGELOG 62k chars, section "2026-05-24" = ~2k chars (gain 30x)
    - Respect hierarchie headers (s'arrete au prochain de meme niveau)
 
-7. **read_note_resolved(file, depth)** — embed resolution recursive
-   - Inline le contenu des `![[X]]` (avec section optionnelle `![[X#H]]`)
-   - Detection cycles (`CYCLE: X`)
-   - Marqueurs `<!-- EMBED: X -->` pour parsing LLM
-   - Remplace : rendering embeds Obsidian client
-
-8. **move_note(file, new_path, update_wikilinks)** — rename + rewriting
+7. **move_note(file, new_path, update_wikilinks)** — rename + rewriting
    - Reecrit `[[stem]]`, `[[stem|alias]]`, `[[stem#section]]`, `![[stem]]` (embeds), `[[Stem]]` (case-insensitive)
    - SKIP wikilinks dans code blocks (litteral)
    - Atomicite : snapshot backlinks AVANT rename
    - Remplace : rename natif Obsidian (2024+)
 
-9. **delete_note(file, force)** — suppression sure
+8. **delete_note(file, force)** — suppression sure
    - Refuse par defaut si backlinks > 0
    - `force=True` rapporte liste wikilinks brises post-suppression
 
@@ -94,14 +88,12 @@ Sans MCP LLM-optimized :
 - **Round-trips multiplies** : 16 `update_property` au lieu d'1 `bulk_update_property`
 - **Drift silencieux** : aliases dupliques YAML casses non detectes, notes orphelines accumulees
 - **Move dangereux** : rename + wikilinks brises silencieusement (Obsidian le fait, LLM ne devrait pas dupliquer)
-- **Embeds opaques** : `![[X]]` rendu litteral par read_note brut, le LLM ne voit pas le contenu
 
 Avec MCP LLM-optimized :
 - **Pagination** : offset/limit_chars sur read_note + read_section dedie
 - **Bulk ops** : economie 80%+ round-trips sur audits/refactors mass
 - **Lint structurel** : 297 -> 5 brises (-98%) sur vault 348 notes en 1 session
 - **Move atomique** : 2 cas prod testes (avec/sans rename, 3 backlinks reecrits)
-- **Embed resolution** : `read_note_resolved(MOC)` inline N notes en 1 appel
 
 ---
 
@@ -240,4 +232,5 @@ lint_vault(limit=50)  # 297 -> 5 brises (-98%)
 - **v1.1.1** : tests prod move_note (2 cas reels), filtres lint false-positives
 - **v1.2** (24 mai 2026 soir) : +pagination read_note, +usage_log, +usage_stats, 44 tests
 - **v1.3** (24 mai 2026 soir) : +find_by_property, +bulk_update_property, +read_section, +read_note_resolved, 69 tests
-- **Next** (v1.4+) : decision basee sur `usage_stats(days=30)` reels (DA-recommandation)
+- **v1.4** (7 juin 2026, Chantier 5/5) : **−read_note_resolved** (retire : 0 appel/365j, 0 MOC a embeds dans le vault — dormant faute de materiau, pas redondant ; verdict `usage_stats` Ch.4). Outillage courant = 21 outils. CHANGELOG.md exclu du scan source `lint_vault` (precedent `log.md`).
+- **Next** (v1.5+) : decision basee sur `usage_stats(days=30)` reels (DA-recommandation)

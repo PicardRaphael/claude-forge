@@ -78,7 +78,6 @@ Source canonique : [[pattern-vault-llm-karpathy]] (architecture) + [[comparaison
 | `read_note(file)` | **Lit la note ENTIÈRE** (frontmatter + body) | **Défaut pour lire une note** — pas de troncature |
 | `read_note(file, offset, limit_chars)` | Pagination char-based | UNIQUEMENT si note > 50k chars (CHANGELOG, log) |
 | `read_section(file, heading)` | Lit UNE section (header → prochain header même niveau) | Économie tokens 30x sur grosses notes (CHANGELOG) |
-| `read_note_resolved(file, depth=1)` | Note + inline embeds récursivement | MOC avec embeds — 1 appel = N+1 notes en contexte |
 | `read_note_by_path(path)` | Lire par chemin exact | Quand on a le path complet (pas le stem) |
 | `get_backlinks(file)` | Notes pointant vers (case-insensitive) | Navigation graphe, audit orphelines |
 | `get_tags()` | Tags triés par fréquence | Vue structurelle |
@@ -149,7 +148,6 @@ if end < total_chars:
 | Chercher dans l'historique de session brut | `search_sessions` |
 | Lire 1 note complète | `read_note(file)` |
 | Lire section précise | `read_section(file, heading)` |
-| Lire MOC avec embeds | `read_note_resolved(file)` |
 | Lire grosse note par morceaux | `read_note(file, offset, limit_chars)` |
 | Trouver notes par frontmatter | `find_by_property` |
 | Update prop sur 1 note | `update_property` |
@@ -168,7 +166,6 @@ if end < total_chars:
 | Recherche par metadata (frontmatter : type, derniere-maj, auteur, tag) | `find_by_property(name, value, comparator)` | Ciblage direct vs scan FTS5 |
 | Section précise connue d'une note (header markdown) | `read_section(file, heading)` | 30x sur grosses notes |
 | Nom de note ou alias connu | `read_note(file)` direct ou `read_note_by_path(path)` | Pas de recherche, lecture directe |
-| MOC avec embeds `![[X]]` à explorer | `read_note_resolved(file, depth=1)` | 1 appel = N+1 notes en contexte |
 | Backlinks vers une note (graphe inverse) | `get_backlinks(file)` | Direct, pas de FTS5 |
 | Inventaire dossier | `list_notes(folder, limit)` | Direct |
 | Exploration large sans nom technique précis | `search_brain(query, limit, context=true)` | Dernier recours |

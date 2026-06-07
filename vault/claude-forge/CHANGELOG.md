@@ -14,6 +14,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Chantier 5/5 — suppression read_note_resolved + exclusion CHANGELOG du lint (DEV MCP)
+
+- **Modifiée (1 canonique)** : [[mcp-vault-llm-design]] — outil `read_note_resolved` retiré de la matrice courante (sections 1-9 renumérotées 7→8, POURQUOI « embeds opaques » retiré) ; entrée **v1.4 (7 juin)** ajoutée au STATUT documentant le retrait (0 appel/365j, 0 MOC à embeds — dormant faute de matériau). Historique daté (MÉTRIQUES 24 mai, v1.3) **préservé** — vrai à sa date, non réécrit.
+- **Code serveur MCP** (hors vault, commit `0b369b9`) : `read_note_resolved` + `_resolve_embeds` + wrapper + 6 tests embed supprimés ; `lint_vault` exclut `CHANGELOG.md` du scan source (précédent `log.md`). Doc skill `forge-brain/SKILL.md` nettoyée (3 lignes, via skill-creator). 138 tests passent.
+- **Effet lint mesuré** : 98 → 90 wikilinks cassés (les 8 du CHANGELOG = noms morts narratifs entre backticks, 0 vrai lien réparable, vérifiés 1 par 1).
+- **Source** : Chantier 5/5 du plan vault, items à besoin prouvé (verdict `usage_stats` Ch.4). `traverse_graph` multi-hop NON porté (pas de consommateur — décision Raphael).
+
 ## 2026-06-07 — Chantier 4/5 outils MCP dormants — CLÔTURE (« rien à réveiller », prouvé)
 
 - **Modifiées (2 canoniques)** : [[comparaison-mcp-forge-brain-vs-mcp-brain-28mai2026]] reçoit une section « Vérification empirique d'usage (7 juin) » qui qualifie 2 de ses claims via `usage_stats(365j)` — A2 (« search_brain = dernier recours ») = anti-pattern réel mais MARGINAL (échantillon 20 requêtes : 80 % vraie exploration, 20 % = 2 notes re-cherchées intra-session) ; critère #5 (`read_note_resolved`) = supérieur en conception mais dormant en usage (0 MOC à embeds dans le vault). [[pattern-maintenance-hybride-corpus-accumulatif]] : critère « D — dormants » étendu des notes aux **outils** (rare-par-design / inutile-faute-de-matériau / redondant — 1 pointeur vers la comparaison).
