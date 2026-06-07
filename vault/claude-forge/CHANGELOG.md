@@ -7,12 +7,34 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-06-06
+derniere-maj: 2026-06-07
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-06-07 — Constat tension cible/mesure maintenance corpus (allègement contexte forge)
+
+- **Modifiées** :
+  - [[pattern-maintenance-hybride-corpus-accumulatif]] — AJOUT sous-section « Tension cible vs mesure (constat 2026-06-07) » après « Cibles empiriques mesurées ». Cible ≤50 INCHANGÉE. Constat : après tri critère cité-OU-stratégique sur les 38 non-cités, 137 tier-1 retenus. Les 59 cités gardés en KEEP automatique jamais examinés → ni 50 ni 137 prouvés. À trancher lors d'une passe dédiée auditant aussi les 59 cités (cité ≠ stratégique). `derniere-maj` → 2026-06-07.
+- **Source** : session allègement contexte forge (démotion tier-1 MEMORY 154→137, commit 2b6bd03). Tension surfacée à Raphael qui a demandé de l'inscrire comme constat empirique daté sans modifier la cible.
+
+## 2026-06-07 — Capitalisation rapport « Stack IA en production 2026 » (enrich-first + vérif source primaire)
+
+- **Ajoutées** :
+  - [[economie-agentique-pricing-2026]] (2-Casquettes/responsable-ia/strategie/) — économie agentique, fin du SaaS par siège, pricing à l'outcome, cas Klarna/Ramp/Harvey, chiffres Menlo Ventures vérifiés source primaire
+  - [[stack-ia-production-2026]] (Knowledge/syntheses/) — synthèse transverse : 3 thèses (simple→workflows→multi-agent ; read vs write ; evals = moat) + carte vers les 8 canoniques + 5 étapes recommandées + caveats
+- **Modifiées** :
+  - [[agents-architecture]] — doctrine simple→workflow→multi-agent, verdict read/write, leçons Anthropic (50 sous-agents), réconciliation chiffre serveurs MCP (~10K public vs 308/2797 registre), code execution with MCP (-98,7%), sécurité MCP
+  - [[agents-securite]] — lethal trifecta (Simon Willison), défenses CaMeL/Llama Guard, table CVE MCP (tool poisoning, CVE-2025-49596, CVE-2025-6514, ToolHijacker)
+  - [[agents-evaluation]] — « evals = new unit tests », workflow error-analysis, mix scorers 60/30/10, LangChain State of Agent Engineering 2025 (vérifié source primaire, correction barrière≠cas d'usage)
+  - [[agents-frameworks]] — fiches Vercel AI SDK 5 (31 juil 2025) + Mastra (seed 13 M$ oct 2025, YC W25)
+  - [[stack-typescript-ia]] — inférence maison Cursor Composer 2/2.5 (Kimi K2.5 confirmé arXiv 2603.24477, scores vérifiés)
+  - [[../strategie/index]] (responsable-ia) — section économie agentique + ligne table 14 sujets
+  - [[rag-chunking]] — derniere-maj (Contextual Retrieval déjà présent mot pour mot, aucun ajout)
+  - [[comment-creer-hook]] — nouvel anti-pattern « Faux positifs de scope — émergent à l'usage » : table de 5 incidents forge (vault-cat-guard, hook hors-vault/plan file, meta-commentary regex, vault-before-specialist, delegate-guard sur note vault agents-*.md) + leçons structurelles (matcher par chemin, tester adverse, exception en tête). Promotion vault du méta-pattern (récurrence ≥5 incidents, cf memory-discipline)
+- **Source** : `Important/Stack IA.md` (synthèse forge interne) — capitalisation enrich-first ; 3 chiffres décisionnels vérifiés à la source primaire le 7 juin (Menlo Ventures, LangChain State, Cursor Composer) ; marqueurs épistémiques (estimation d'enquête / claim vendeur / vérifié) préservés ; 2 corrections vs synthèse (76% achetés up from 53% ≠ 47% ; barrière qualité ≠ cas d'usage customer service)
 
 ## 2026-06-06 — Doctrine skills/agents enrichie depuis research LLM (matrice CLI/Desktop/Cowork)
 

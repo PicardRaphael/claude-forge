@@ -3,7 +3,7 @@ titre: "Maintenance hybride d'un corpus accumulatif — déterministe + LLM + ga
 resume: "Pattern canonique pour empêcher un corpus accumulatif (index mémoire, doctrine, FAQ, changelog) de se diluer : 3 couches déterministe (détection mécanique cheap) / LLM (clustering sémantique) / humain (gate [v]/[m]/[i] typée par section). Canonique vivante modifiable + archive append-only sacré. Anti enforcement-théâtre : pas de couche déterministe lourde sur corpus court/homogène."
 aliases: ["maintenance hybride corpus", "pattern compaction mémoire", "déterministe llm gate humaine", "archive append-only canonique vivante", "clean-memory pattern", "maintenance données accumulatives", "architecture cognitive memory vault", "feedback ou note vault"]
 type: technique
-derniere-maj: 2026-05-28
+derniere-maj: 2026-06-07
 auteur: claude
 tags: ["#type/technique", "#domaine/claude-code", "#sujet/maintenance", "#doctrine/2026"]
 ---
@@ -66,6 +66,12 @@ Cartographie sur 274 fichiers `memory/*.md` et pilote 29 fichiers (clusters veri
 - Projection corpus complet : cible `memory/*.md` ≤ 100 fichiers, `MEMORY.md` ≤ 50 entrées tier-1 atteignable via amend chirurgical séquentiel (pas refonte massive).
 
 Le hook `memory-saturation-watcher.py` (SessionStart, advisory) signale WARNING ≥ 80 fichiers, CRITICAL ≥ 100. Pas de blocage, advisory pure cohérent doctrine 22 mai (hooks lint/sécu, jamais workflow).
+
+### Tension cible vs mesure (constat 2026-06-07)
+
+Après tri du critère « cité ≥1 OU stratégique » sur les 38 entrées tier-1 **non citées** de la section Feedback (`MEMORY.md`) : **137 tier-1 retenus** (section Feedback 97 → 80, total MEMORY 154 → 137). L'écart avec la cible ≤ 50 suggère soit une cible trop optimiste, soit que les 59 entrées « citées ≥1 » — gardées en KEEP **automatique, jamais examinées** — méritent un second tri (cité ≠ stratégique).
+
+Ni 50 ni 137 ne sont prouvés comme la bonne cible : le tri n'a porté que sur les non-cités. Le vrai chiffre juste est peut-être < 137 si on auditait aussi les 59 cités. **À trancher lors d'une passe dédiée** appliquant le critère stratégique aux 59 cités, pas seulement la présence d'une citation entrante. La cible ≤ 50 reste inchangée tant que cette mesure complète n'a pas été faite.
 
 ### Anti-patterns spécifiques
 
