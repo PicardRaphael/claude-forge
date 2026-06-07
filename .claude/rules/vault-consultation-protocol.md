@@ -12,12 +12,7 @@ Avant Write/Edit substantiel sur un composant `.claude/` ou une note vault, cons
 
 ## Outils MCP à utiliser
 
-- `mcp__forge-brain__search_brain(query="<sujet>", limit=10)` — chercher erreurs passées et best practices
-- `mcp__forge-brain__search_brain(query="erreur <topic>", limit=5)` — chercher erreurs passées spécifiques
-- `mcp__forge-brain__read_note(file="<nom note>")` — lire une note trouvée
-- `mcp__forge-brain__update_property(file="<note>", name="derniere-maj", value="YYYY-MM-DD")` — après modification
-
-Lire les résultats pertinents. Appliquer les leçons aux modifications en cours.
+Liste des outils + protocole d'accès MCP : `.claude/rules/forge-brain-proactive.md` (section « COMMENT »). Lire les résultats pertinents, appliquer les leçons aux modifications en cours.
 
 ## Format d'écriture vault
 
