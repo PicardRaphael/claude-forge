@@ -902,3 +902,35 @@ Opus 4.8 **interprète littéralement et ne généralise pas seul** : sur un lon
 - **Non (analyse + 0-1 écriture rare) → agent OK.** Le mode dégradé (renvoyer le livrable en texte, la session principale persiste) reste viable.
 
 Cas empirique : `vault-maintainer` killé le 27 mai 2026 — doublon mort-né de la skill `/vault-audit` (qui fait le même métier de maintenance vault en session principale, MCP effectif). Cf [[pattern-mcp-brief-then-direct]] section "Exception : quand le doublon révèle un agent mort-né (KILL > faire marcher)".
+
+
+---
+
+## AJOUT 7 juin 2026 — Résolution modèle (ordre exact vérifié) + invocation explicite + champs frontmatter récents
+
+Source primaire revérifiée : [code.claude.com/docs/en/sub-agents](https://code.claude.com/docs/en/sub-agents), 7 juin 2026.
+
+### Ordre de résolution du modèle d'un subagent (verbatim docs)
+
+Quand Claude invoque un subagent, le modèle est résolu dans CET ordre :
+
+1. La variable d'env **`CLAUDE_CODE_SUBAGENT_MODEL`** (si définie)
+2. Le **paramètre `model` per-invocation** (passé à l'invocation)
+3. Le **`model` du frontmatter** de la définition
+4. **`inherit`** (défaut — même modèle que la conversation principale)
+
+> ⚠️ Piège : le paramètre per-invocation **précède** le frontmatter (pas l'inverse). Une source secondaire pouvait inverser frontmatter et param — l'ordre vérifié est env > param > frontmatter > inherit. `model` accepte aussi un ID complet (`claude-opus-4-8`, `claude-sonnet-4-6`) ou `inherit`.
+
+### Invocation explicite — 3 patterns (du ponctuel au session-wide)
+
+- **Langage naturel** : nommer le subagent dans le prompt ; Claude décide de déléguer.
+- **@-mention** (garantit l'exécution pour UNE tâche) : taper `@` puis choisir dans la typeahead. Syntaxe exacte : **`@"code-reviewer (agent)"`** (le format est `@"<name> (agent)"`). Le message complet va quand même à Claude qui écrit le prompt de tâche ; le @-mention contrôle QUEL subagent, pas le prompt reçu.
+- **Session-wide** : `--agent <name>` (flag CLI) ou le setting `agent` → toute la session prend le system prompt + restrictions d'outils + modèle de ce subagent.
+
+### Champs frontmatter récents (à connaître, doc à jour 7 juin)
+
+La table frontmatter officielle inclut désormais : `isolation: worktree` (run dans un git worktree temporaire branché par défaut sur la default branch, auto-nettoyé si aucun changement), `background: true` (toujours run en background task), `initialPrompt`, `maxTurns`, `mcpServers`. Le `--agents` flag (CLI-defined subagents en JSON éphémère) accepte les mêmes champs.
+
+**Scoped identifier plugin** : un subagent dans un sous-dossier de plugin `agents/review/security.md` (plugin `my-plugin`) s'enregistre comme `my-plugin:review:security`. Hors plugin, le sous-dossier n'affecte PAS l'identité (seul le champ `name` compte ; noms doivent être uniques sur tout l'arbre, sinon un fichier est gardé et l'autre écarté sans warning).
+
+**Source de cet ajout** : réconciliation du doc `Important/reference-subagents-claude-code.md` (supprimé après absorption, 7 juin). Le doc était déjà ~95% subsumé par cette canonique (6 niveaux enforcement, 3 causes, table héritage, issues #43630/#32910/#18721 déjà présents) ; seuls la résolution modèle (corrigée vs le doc), le @-mention exact et les champs récents manquaient. Cf [[feedback_lire_fichier_entier_avant_verdict]].

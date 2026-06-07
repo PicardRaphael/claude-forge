@@ -14,6 +14,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Réconciliation Important/ #2 : reference-subagents absorbé dans comment-creer-agent
+
+- **Modifiées** :
+  - [[comment-creer-agent]] — AJOUT section datée « Résolution modèle (ordre exact vérifié) + invocation explicite + champs frontmatter récents ». Deltas vérifiés source primaire (code.claude.com/docs/en/sub-agents, 7 juin) : ordre résolution modèle env>param>frontmatter>inherit (le doc source l'avait INVERSÉ param/frontmatter → corrigé) ; syntaxe @-mention exacte `@"name (agent)"` + `--agent` session-wide ; champs récents `isolation: worktree`/`background`/`initialPrompt` ; scoped identifier plugin `plugin:review:security`.
+- **Supprimées (hors vault)** : `Important/reference-subagents-claude-code.md` — ~95% subsumé (6 niveaux enforcement, 3 causes, table héritage, issues #43630/#32910/#18721 déjà dans la canonique), absorbé après lecture EN ENTIER du doc ET de la canonique 49 KB + diff claim par claim. Pré-verdict « contenu neuf » infirmé par la lecture complète (garde-fou dans les deux sens, cf [[feedback_lire_fichier_entier_avant_verdict]]).
+- **Source** : passe de réconciliation Important/ vs canoniques (doc #2/4). Enrich-first + vérif source primaire des affirmations avant propagation.
+
 ## 2026-06-07 — Réconciliation Important/ #1 : reference-hooks absorbé dans comment-creer-hook
 
 - **Modifiées** :
