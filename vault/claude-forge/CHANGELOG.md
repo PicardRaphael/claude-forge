@@ -14,6 +14,11 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Réconciliation Important/ #3 : reference-claude-md intégralement subsumé (0 enrichissement)
+
+- **Supprimées (hors vault)** : `Important/reference-claude-md.md` — INTÉGRALEMENT subsumé par [[comment-ecrire-claudemd]], aucun delta neuf. La canonique contient déjà MODE AUDIT (13 signaux + procédure 5 étapes), MODE OPTIMISATION (5 passes), MATRICE règle/mécanisme, CHECKLIST 4 dimensions, hiérarchie + 3 leviers modularisation — ET bien plus (5 lignes Karpathy obligatoires, 8 éléments avancés, exemples repos vérifiés). Lu EN ENTIER doc (238L) + canonique avant verdict. Cas inverse de #1/#2 : zéro enrichissement, la canonique domine strictement.
+- **Source** : passe réconciliation Important/ (doc #3/4). Aucune modif vault hors suppression du doublon.
+
 ## 2026-06-07 — Réconciliation Important/ #2 : reference-subagents absorbé dans comment-creer-agent
 
 - **Modifiées** :
