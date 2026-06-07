@@ -769,3 +769,30 @@ Un sub-agent ne peut pas lire le vault : le `mcp__forge-brain__*` de son frontma
 
 Enforcement : hook `vault-cat-guard.py` (PreToolUse Bash|Read) bloque l'accès brut au vault dans les 2 contextes, exempte vault-maintainer. Preuve d'interception : [[hook-intercepte-mcp-et-read-tools]]. Cause-racine complète : [[pattern-mcp-brief-then-direct]].
 
+
+
+---
+
+## AJOUT 7 juin 2026 — Correction count events (30) + fiabilité handlers http/mcp + champ `continue` universel
+
+Source primaire revérifiée le 7 juin 2026 : [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks).
+
+### Count events : 30 (et non 29)
+
+La doc Anthropic liste désormais **30 events**. Le tableau « 29 events » plus haut ratait **`MessageDisplay`** (#12 dans la liste à jour, entre `Notification` et `SubagentStart`). Liste complète à jour : SessionStart, Setup, UserPromptSubmit, UserPromptExpansion, PreToolUse, PermissionRequest, PermissionDenied, PostToolUse, PostToolUseFailure, PostToolBatch, Notification, **MessageDisplay**, SubagentStart, SubagentStop, TaskCreated, TaskCompleted, Stop, StopFailure, TeammateIdle, InstructionsLoaded, ConfigChange, CwdChanged, FileChanged, WorktreeCreate, WorktreeRemove, PreCompact, PostCompact, Elicitation, ElicitationResult, SessionEnd.
+
+> Le compte d'events bouge par version CC — toujours revérifier à la source primaire avant de citer un chiffre exact (29 = instantané 23 mai, 30 = 7 juin).
+
+### Handlers http / mcp_tool : ÉCHOUENT OUVERT (non-bloquant)
+
+Nuance critique pour l'enforcement DUR, vérifiée verbatim :
+- **http** : « Non-2xx status: non-blocking error, execution continues » et « Connection failure or timeout: non-blocking error, execution continues ». Pour bloquer, il faut renvoyer un 2xx avec un body JSON bloquant — le code de statut seul ne bloque jamais.
+- **mcp_tool** : « If the named server is not connected, or the tool returns `isError: true`, the hook produces a non-blocking error and execution continues. »
+
+**Conséquence** : pour une politique qui DOIT tenir même sous panne réseau/serveur déconnecté, utiliser un handler **`command` + `exit 2`** (déterministe, local). `http`/`mcp_tool`/`prompt`/`agent` = jugement nuancé, **jamais** garantie d'enforcement. Cf [[mcp-transport-stdio-http-crashloop]] (MCP non fiable en contexte headless).
+
+### Champ `continue: false` — universel, précède tout
+
+`{"continue": false, "stopReason": "..."}` fonctionne **sur tous les events** et **précède tout champ de décision event-spécifique** (verbatim : « Takes precedence over any event-specific decision fields »). `stopReason` est montré à l'utilisateur (pas à Claude). Distinct du `decision: "block"` (event-spécifique Stop/SubagentStop/PostToolUse) : `continue:false` arrête tout le traitement, quel que soit l'event.
+
+**Source de cet ajout** : réconciliation du doc `Important/reference-hooks-claude-code.md` (déplacé/supprimé après absorption des deltas dans cette canonique, 7 juin 2026 — enrich-first cf [[feedback_lire_fichier_entier_avant_verdict]]).

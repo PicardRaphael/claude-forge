@@ -14,6 +14,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Réconciliation Important/ #1 : reference-hooks absorbé dans comment-creer-hook
+
+- **Modifiées** :
+  - [[comment-creer-hook]] — AJOUT section datée « Correction count events (30) + fiabilité handlers http/mcp + champ continue universel ». 3 deltas vérifiés source primaire (code.claude.com/docs/en/hooks, 7 juin) : count events 29→30 (ajout MessageDisplay) ; http/mcp_tool échouent OUVERT (non-bloquant sur panne → hard policy = command+exit2) ; `{continue:false}` universel précède tout champ event-spécifique.
+- **Supprimées (hors vault)** : `Important/reference-hooks-claude-code.md` — doublon à ~90% de la canonique, absorbé après lecture EN ENTIER + diff fin claim par claim (garde-fou lecture-entière, cf [[feedback_lire_fichier_entier_avant_verdict]]).
+- **Source** : passe de réconciliation des docs `Important/` vs canoniques vault (1 doc à la fois, validation par doc). Enrich-first : deltas neufs absorbés AVANT suppression du source.
+
 ## 2026-06-07 — Capitalisation rapport « Référence technique ingénierie LLM » (serving/inférence + déplacement vers vault)
 
 - **Ajoutées** :
