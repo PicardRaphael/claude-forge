@@ -7,7 +7,7 @@ aliases:
   - "hermes agent audit"
   - "hermes vs forge"
   - "roadmap phase 4"
-derniere-maj: 2026-05-27
+derniere-maj: 2026-06-07
 tags:
   - "#type/synthese"
   - "#projet/claude-forge"
@@ -19,7 +19,7 @@ Lien : [[methode-analyser-repo]], [[workflow-claude-code-optimal]], [[comment-cr
 
 ## Statut d'implémentation
 
-- **A3 — Capitalisation proactive à /done** : FAIT (2026-05-27). Skill `done` enrichie via skill-creator. 5 triggers de la spec mappés sur 3 types de blocs (feedback mémoire / note vault / ADR). Gate de validation `[v]/[m]/[i]` par item, aucune écriture sans validation. Pas de tests unitaires (skill de jugement LLM, validation = exécution réelle). Capitalisé : [[capitalisation-proposee-pas-auto]] (feedback mémoire), amendement [[comment-creer-skill]].
+- **A3 — Capitalisation proactive à /done** : FAIT (2026-05-27). Skill `done` enrichie via skill-creator. 5 triggers de la spec mappés sur 3 types de blocs (feedback mémoire / note vault / ADR). Gate de validation `[v]/[m]/[i]` par item, aucune écriture sans validation. Pas de tests unitaires (skill de jugement LLM, validation = exécution réelle). Capitalisé : feedback mémoire `capitalisation-proposee-pas-auto`, amendement [[comment-creer-skill]].
 - **A1 — Recherche transcripts session** : FAIT (2026-05-27). Outil MCP `search_sessions(query, limit, project, role, since)` (22e outil forge-brain). Indexe `~/.claude/projects/*.jsonl` (243 transcripts principaux, 15858 messages, subagents exclus configurables). Table FTS5 séparée `session_messages` + watcher incrémental mtime, eager au boot (scan 2.68s mesuré). Composants : `mcp-forge-brain/src/sessions_{indexer,db,watcher}.py` + `search_sessions` dans `tools/brain.py`. Tests : 37 (test_sessions_indexer 18 + test_sessions_search 19), ~60% adverse, 0 régression (244 verts total). Capitalisé : [[ajouter-source-donnees-mcp-forge-brain]]. Reste A1×A3 (compounding rétroactif) — voir Proposition Jarvis.
 - **A2 — Lifecycle / usage tracking skills** : à faire (P2).
 

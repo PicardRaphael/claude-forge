@@ -14,6 +14,14 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Chantier 3/5 wikilinks — CLÔTURE G2 + bilan (103 → 96 liens brisés, chantier terminé)
+
+- **Créées (4 notes, récurrence prouvée pour chacune)** : [[automemorydirectory-absolu-casse-multiprojet]] + [[import-ajoute-pas-remplace-automemory]] (paire mémoire portable, chacune citée par 2 ADR) ; [[erreur-emphasis-overtriggering]] (anti-pattern CLAUDE.md cité par la canonique [[comment-ecrire-claudemd]]) ; [[audit-tripartite-doctrinal-pattern]] (3 lentilles Boris/Will/ECC, ≥6 notes + opérationnel dans repo-inspector). Les liens entrants se résolvent automatiquement.
+- **Retiré (1 lien, niche)** : `capitalisation-proposee-pas-auto` dans [[phase-4-comparaison-hermes-roadmap]] (concept d'une phase projet ponctuelle, pas réutilisable, visait un fichier `memory/`).
+- **Laissés en roadmap G1 (intentionnel, pas un bug)** : `manager-seniors-plus-experimentes` et `lexique-expressions-clients` = contenu à écrire (management responsable-ia, lexique métier Neoteem) — s'auto-réparent au chantier CONTENU futur.
+- **Bilan Chantier 3/5 wikilinks** : 133 → 96 liens brisés (−37). Tous les liens cassés par ERREUR (causes A casse-leader, B renommage, C typo, D composant `.claude/`, E fichier `memory/`, G2 concepts) traités. Reste 96 = sain : ~70 roadmap G1 (contenu à écrire), 8 noms morts narration CHANGELOG (exclusion `CHANGELOG.md` du lint tracée au Chantier 5, limite MCP #6), ~15 placeholders syntaxiques d'exemple (F, no-op). 0 YAML cassé, 0 régression.
+- **Source** : chantier 3/5, GO dernier paquet G2 de Raphael, preuve de récurrence exigée avant chaque création.
+
 ## 2026-06-07 — Chantier 3/5 wikilinks — G2 créations + retraits sur preuve (107 → 103 liens brisés)
 
 - **Créée (1 note)** : [[multi-agent-handoff-loss-pattern]] (04-Techniques/agents/) — synthèse doctrinale croisant le paper Google/MIT (chiffres) × pattern-swarm (mécanisme de la fuite) × comment-creer-agent (règle design). Thèse : le coût du multi-agent = le nombre de handoffs sur le chemin critique, pas le nombre d'agents ; le threshold 45 % est le seuil de rentabilité du handoff. Résout le lien posé par [[google-mit-scaling-agent-systems-2025]]. Backlink ajouté dans [[comment-creer-agent]] (section APPELS).
