@@ -101,5 +101,5 @@ Le cas array est désormais **CORRIGÉ côté outil**. Les sections ci-dessus (�
 
 ### Découvertes annexes HORS-SCOPE (notées, pas corrigées — à traiter si récurrence)
 
-- **`parse_note` (indexer.py) + BOM en tête** : `_FRONTMATTER_RE` exige `^---`. Un BOM UTF-8 en tête fait échouer le match → frontmatter **ignoré silencieusement** (tags/aliases vides à l'index, **sans warning**). **0 note du vault affectée aujourd'hui** (les 469 scannées sont sans BOM en tête ; le BOM trouvé dans `comment-creer-skill` est en milieu de fichier = double-frontmatter, autre anomalie). Le splice, lui, **préserve** un BOM en tête. Cf mémoire [[bom-skillmd-casse-frontmatter]].
+- **`parse_note` (indexer.py) + BOM en tête** : `_FRONTMATTER_RE` exige `^---`. Un BOM UTF-8 en tête fait échouer le match → frontmatter **ignoré silencieusement** (tags/aliases vides à l'index, **sans warning**). **0 note du vault affectée aujourd'hui** (les 469 scannées sont sans BOM en tête ; le BOM trouvé dans `comment-creer-skill` est en milieu de fichier = double-frontmatter, autre anomalie). Le splice, lui, **préserve** un BOM en tête. Cf feedback mémoire `bom-skillmd-casse-frontmatter`.
 - **`append_note` (`open(..., "a")` sans `newline=""`)** : même pattern de traduction EOL que l'ancien `update_property` — pourrait coller du CRLF dans un fichier LF. Non vérifié, non corrigé.

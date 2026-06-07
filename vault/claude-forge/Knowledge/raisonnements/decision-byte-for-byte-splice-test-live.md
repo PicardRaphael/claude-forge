@@ -53,5 +53,4 @@ Déclencher ce raisonnement quand :
 ## Liens
 
 - [[erreur-mcp-yaml-dump-corruption]] — le bug et le code (détails)
-- [[erreur-tests-heureux-vs-adverses]] — des tests verts ne prouvent pas ce qu'on croit
-- [[da-dicte-tests-adverses-pas-moi]] — l'advisor/DA dicte le test discriminant qu'on n'aurait pas écrit
+- [[erreur-tests-heureux-vs-adverses]] — des tests verts ne prouvent pas ce qu'on croit ; l'advisor/DA dicte le test discriminant qu'on n'aurait pas écrit (cf feedback mémoire `da-dicte-tests-adverses-pas-moi`)
