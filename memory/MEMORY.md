@@ -81,7 +81,7 @@
 - [test-writer-systematic](feedback_test_writer_systematic.md) — RÉVISÉ 22 mai : MAX 3 tests/comportement, REFACTOR supprimée, effort high
 - [tweet-hype-paraphrase-non-verifiee-pattern](_archive/2026-06/feedback_tweet_hype_paraphrase_pattern.md) — Archivé : absorbé par skill `web-search-canonical-source` (table 4 patterns + cite ce feedback en source)
 - [use-brain-skills-not-grep](feedback_use_brain_skills.md) — Questions métier = skills neo-brain (MCP), jamais grep manuel sur vault/SQL
-- [vault-edit-gotchas-outillage](feedback_vault_edit_gotchas_outillage.md) — delegate-guard faux positif sur note vault agents-*.md (utiliser MCP, pas Edit) + insert_section misparente après header nu (viser marker précis)
+- [vault-edit-gotchas-outillage](feedback_vault_edit_gotchas_outillage.md) — delegate-guard faux positif sur note vault agents-*.md (utiliser MCP, pas Edit) + insert_section misparente après header nu (viser marker précis) + Edit disque direct désynchronise l'index SQLite (réindex au poll 30s seulement → toujours MCP)
 - [vault-quality-standard](feedback_vault_quality_standard.md) — Vault forge-brain = standard neoteem-brain : 5-6 aliases, wikilinks, templates
 - [verify-exhaustive-claims](feedback_verify_exhaustive_claims.md) — Grep de validation AVANT toute déclaration exhaustive (zéro, tous, aucun, complet)
 - [workflow-spec-forge-jira-tickets](feedback_workflow_spec_forge_jira.md) — Workflow : idée → forge challenge → /spec repo → tickets Jira. Spec=technique, Jira=process
@@ -109,7 +109,7 @@
 
 ## Reference
 - [bom-skillmd-casse-frontmatter](feedback_bom_skillmd_casse_frontmatter.md) — BOM UTF-8 en tête de SKILL.md (PowerShell Out-File) casse le frontmatter → "plugin validation failed" Cowork ou skill non chargée. Écrire UTF-8 sans BOM, vérifier octets ≠ 239 187 191. Cf [[plugin-vs-skill-anatomie]]
-- [vault-edit-gotchas-outillage](feedback_vault_edit_gotchas_outillage.md) — 2 gotchas écriture vault : delegate-guard bloque l'Edit direct des notes `agents-*.md` (match par nom → utiliser MCP insert_section/update_note) ; insert_section insère après la LIGNE du header, pas la section (misparente → viser un marker précis en fin de section). Heurtés 2× en session
+- [vault-edit-gotchas-outillage](feedback_vault_edit_gotchas_outillage.md) — 3 gotchas écriture vault : delegate-guard bloque l'Edit direct des notes `agents-*.md` (match par nom → utiliser MCP insert_section/update_note) ; insert_section insère après la LIGNE du header, pas la section (misparente → viser un marker précis) ; Edit disque direct désynchronise l'index SQLite (réindex au poll 30s seulement → toujours éditer le contenu vault via MCP)
 - [jira-adf-rendu-mcp](feedback_jira_adf_rendu_mcp.md) — Rendu Jira (titres colorés+emoji) = ADF via MCP contentFormat:adf. Wiki markup h2. cassé, markdown sans couleur. read-path ≠ write-path. Cf vault [[jira-rendu-adf-mcp-atlassian]]
 - [pdf-chrome-headless-charte](reference_pdf_chrome_headless_charte.md) — Générer PDF pro via Chrome headless (--no-pdf-header-footer) + Poppler + charte Neoteem. Gotchas pages blanches/tables/flag en-têtes
 - [enableallprojectmcp-couvre-tool-level](reference_enableallprojectmcp_couvre_tool_level.md) — enableAllProjectMcpServers:true + serveur dans .mcp.json auto-approuve les outils MCP au niveau TOOL sans prompt. Lister mcp__server__tool dans permissions.allow = redondant. Vérifié empiriquement (retrait list_notes → appel OK sans prompt, 27 mai). Distinct de mcp-wildcard (frontmatter agent/skill).
