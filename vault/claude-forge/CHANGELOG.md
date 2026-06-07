@@ -14,6 +14,14 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Chantier 5/5 (DEV MCP) — limite #2 RÉSOLUE : `update_property` array-safe
+
+- **Modifiée (1 note Knowledge)** : [[erreur-mcp-yaml-dump-corruption]] — section « RÉSOLU 2026-06-07 » ajoutée. Les sections « NON corrigé côté outil » / contournement script Python obligatoire sont actées **périmées** à partir du commit `2ff0538`. `update_property`/`bulk_update_property` sont maintenant utilisables sur les arrays (tags/aliases/sources).
+- **Code serveur MCP** (hors vault, commit `2ff0538`) : `update_property` réécrit en **splice chirurgical** (helper pur `_set_property_in_frontmatter`, remplace le span complet de la propriété, jamais `yaml.safe_dump`) + **IO byte-exact** (`read_text`/`write_text` `newline=""`). 2e bug découvert au test live : `write_text` convertissait les **166 notes LF** du vault en CRLF (diff full-file) → bug **actif**, corrigé. Signature `value: str | list[str]` (FastMCP transmet les list nativement, prouvé). 17 tests dédiés, 155/155 suite complète verte. Gate Raphael « zéro diff collatéral » respecté.
+- **Découvertes annexes hors-scope** (notées, non corrigées) : `parse_note` ignore le frontmatter d'une note à BOM-en-tête (0 note affectée) ; `append_note` partage le pattern de traduction EOL.
+- **Statut Ch.5** : limite #2 close. Restent #1 `lint_vault` non paginé, #3 lock inter-écritures MCP, #4 lag réindexation agrégats.
+- **Source** : Chantier 5/5, limite #2 (3 incidents corruption YAML subis).
+
 ## 2026-06-07 — Système de coaching Lead IA — structure légère (2 notes vides)
 
 - **Créées (2 notes, vides de contenu)** : `2-Casquettes/responsable-ia/coaching/index.md` (pilote de la boucle : conseil → terrain → capture, règle de capture des boucles complètes uniquement, double axe de tags `#theme` × `#boite`, apprentissage à 2 niveaux contextuel/transférable) et `2-Casquettes/responsable-ia/coaching/retours.md` (journal append-only, format en en-tête, zéro entrée).

@@ -81,3 +81,25 @@ Quand une consigne chiffree (« lint 132 inchange ») est violee par un **compte
 - [[sqlite-fts5-vault]]
 - [[pattern-mcp-brief-then-direct]] — doctrine MCP-only (garde = dumps lecture sous-agent)
 - [[vault-edit-gotchas-outillage]] — autres gotchas ecriture vault (insert_section misparente)
+
+
+## RÉSOLU 2026-06-07 — Chantier 5 limite #2 : `update_property` array-safe (commit `2ff0538` forge)
+
+Le cas array est désormais **CORRIGÉ côté outil**. Les sections ci-dessus (« NON corrigé côté outil », contournement script Python obligatoire) sont **périmées** pour `brain.py` à partir de ce commit. Le script `normalize-tags.py` reste valable pour une transformation de masse, mais `update_property`/`bulk_update_property` sont maintenant utilisables sur les arrays.
+
+### Le fix réel (2 bugs, pas 1)
+
+1. **Cause racine confirmée** : la regex `^{name}:.*$` (MULTILINE) ne remplaçait que la ligne-clé → items `- ...` orphelins. Remplacée par un **splice chirurgical** : helper pur `_set_property_in_frontmatter(content, name, value)` qui remplace le **span complet** de la propriété (ligne-clé + toutes ses continuations indentées/`- items`/vides jusqu'à la prochaine clé top-level). Rendu calibré sur le **style maison réel** (lu via MCP : bloc, items 2 espaces, guillemets doubles, dates scalaires non quotées). **Jamais `yaml.safe_dump`** (il reformaterait tout le frontmatter — c'était le bug d'origine de cette note).
+
+2. **2e bug découvert au test live (le piège caché)** : `write_text` (mode texte Windows, `newline=None`) **convertit `\n` → `\r\n`** à l'écriture. Comme `read_text` aplatit déjà tout en LF à la lecture, un fichier **LF était intégralement réécrit en CRLF** = diff full-file. **Mesure réelle : le vault est mixte — 301 CRLF, 166 LF, 2 mixtes.** Donc bug **ACTIF** (pas latent) : un `bulk_update_property` aurait reformaté jusqu'à 166 notes LF d'un coup. Fix : `read_text(..., newline="")` + `write_text(..., newline="")` → le helper devient **seule autorité EOL**, le zéro-diff tient **par construction** (LF reste LF, CRLF reste CRLF, BOM préservé).
+
+### Validations (gate Raphael : ZÉRO diff collatéral, pas « minimisé »)
+
+- Signature `value: str | list[str]` — FastMCP transmet les `list` **nativement** (prouvé empiriquement : probe `bulk_update_property` sur notes inexistantes → `0/N introuvable`, garde `isinstance` non déclenché ; schéma JSON généré = `{"type":"array"}`). Le gotcha [[reference_workflow_args_array_gotcha]] (Dynamic Workflows) ne s'applique PAS aux tools MCP typés.
+- Garde anti-YAML-cassé : refuse d'écrire si le frontmatter résultant ne reparse pas (`yaml.safe_load`) ou si la propriété ne porte pas la valeur voulue.
+- 17 tests dédiés (`tests/test_update_property_arrays.py`) : splice chirurgical, scalaire non quoté, array bloc, reindex CRLF in-memory propre (pas de `\r` dans l'index SQLite), live byte-exact LF + CRLF, idempotence. **155/155** suite complète MCP verte.
+
+### Découvertes annexes HORS-SCOPE (notées, pas corrigées — à traiter si récurrence)
+
+- **`parse_note` (indexer.py) + BOM en tête** : `_FRONTMATTER_RE` exige `^---`. Un BOM UTF-8 en tête fait échouer le match → frontmatter **ignoré silencieusement** (tags/aliases vides à l'index, **sans warning**). **0 note du vault affectée aujourd'hui** (les 469 scannées sont sans BOM en tête ; le BOM trouvé dans `comment-creer-skill` est en milieu de fichier = double-frontmatter, autre anomalie). Le splice, lui, **préserve** un BOM en tête. Cf mémoire [[bom-skillmd-casse-frontmatter]].
+- **`append_note` (`open(..., "a")` sans `newline=""`)** : même pattern de traduction EOL que l'ancien `update_property` — pourrait coller du CRLF dans un fichier LF. Non vérifié, non corrigé.
