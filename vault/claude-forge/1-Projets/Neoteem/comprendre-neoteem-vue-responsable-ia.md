@@ -7,14 +7,13 @@ aliases:
   - neoteem-ou-l-ia-cree-valeur
   - synthese-neoteem-loji
 resume: Synthèse stratégique de Neoteem/Loji vue Responsable IA — architecture, domaines métier, le moat (base de données Loji), et où l'IA crée de la valeur. Source pour toute décision produit/roadmap IA.
-derniere-maj: 2026-05-29
+derniere-maj: 2026-06-07
 tags:
   - "#type/knowledge"
   - "#projet/neoteem"
   - "#casquette/responsable-ia"
   - "#domaine/strategie"
 ---
-
 # Comprendre Neoteem — vue Responsable IA
 
 > Synthèse construite depuis le vault neoteem-brain (MCP obsidian-brain, 29 mai 2026) pour outiller les décisions stratégiques IA. Le vault technique reste la source de vérité détaillée ; cette note est la lecture **stratégique** (où est la valeur, où brancher l'IA).
@@ -92,7 +91,7 @@ Prioriser les produits qui **exploitent la donnée Loji** (NeoMail contextualis�
 - [[lojii]] — frontend, architecture full web
 - [[ai-act-eu-cheatsheet]] — si « Loji Scoring » commercialisé → Neoteem devient Provider AI Act
 - [[strategie-ia]] — hub stratégie/gouvernance Responsable IA
-- [[dossier-strategique-ia-neoteem]] (mémoire forge) — trilogie docs CODIR
+- Dossier Stratégique IA Neoteem (livrable CODIR, suivi en mémoire forge) — trilogie docs CODIR
 
 
 ## Découvertes web (29 mai 2026) — marché & utilisateurs Loji

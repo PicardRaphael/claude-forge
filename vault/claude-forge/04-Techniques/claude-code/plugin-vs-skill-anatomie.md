@@ -12,7 +12,7 @@ aliases:
   - "skill claude desktop zip"
 domaine: claude-code
 type: technique
-derniere-maj: 2026-06-06
+derniere-maj: 2026-06-07
 auteur: claude
 sources:
   - "https://code.claude.com/docs/en/plugins"
@@ -108,7 +108,7 @@ Le manifeste lui-même est *techniquement* optionnel (Claude Code auto-découvre
 | Slash commands custom | Complet | Limité |
 | Versioning git | Oui (commit `.claude/`) | Non natif |
 
-**Pour Neoteem** : les PO/support sur Claude Desktop installent les plugins en **uploadant un .zip** (cf [[plugin-structure-cowork-claude-code]] mémoire forge : zipper le CONTENU du dossier, pas le dossier). Le MCP vault passe par une **Connector / URL distante** (VM `mcp-brain.neoteem.fr`), pas un MCP local.
+**Pour Neoteem** : les PO/support sur Claude Desktop installent les plugins en **uploadant un .zip** (zipper le CONTENU du dossier, pas le dossier — cf section ANTI-PATTERNS ci-dessous). Le MCP vault passe par une **Connector / URL distante** (VM `mcp-brain.neoteem.fr`), pas un MCP local.
 
 ## Quand skill, quand plugin — arbre de décision
 
@@ -141,7 +141,7 @@ Le setup PO (`spec` + `review-ticket`) = **un plugin** `po-lojii` (2 skills → 
 
 - ❌ Mettre un CLAUDE.md dans un plugin en croyant qu'il charge le contexte → ignoré (verbatim Anthropic)
 - ❌ Mettre `skills/` `agents/` `hooks/` DANS `.claude-plugin/` → seul `plugin.json` y va, le reste à la racine
-- ❌ Zipper le dossier plugin lui-même au lieu de son contenu (Desktop) → niveau de dossier en trop, plugin invalide (cf [[plugin-structure-cowork-claude-code]])
+- ❌ Zipper le dossier plugin lui-même au lieu de son contenu (Desktop) → niveau de dossier en trop, plugin invalide
 - ❌ `author` en string dans plugin.json → doit être un objet `{ "name": "..." }`
 - ❌ Confondre Connector (Desktop, MCP OAuth distant) et MCP local (Claude Code settings.json)
 
