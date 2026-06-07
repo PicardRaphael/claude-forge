@@ -802,19 +802,31 @@ class BrainTools:
             lines.append(f"- [[{m['stem']}]] ({m['path']}) — {name}: {m['value'][:80]}")
         return "\n".join(lines)
 
-    def lint_vault(self, limit: int = 50) -> str:
+    _LINT_CATEGORIES = ("low_aliases", "no_tags", "orphans", "broken_yaml", "broken_wikilinks")
+
+    def lint_vault(self, limit: int = 50, category: str = "") -> str:
         """Detecte les problemes de qualite dans le vault.
 
-        Checks:
-        - Notes avec aliases < 4 (standard forge)
-        - Notes orphelines (0 backlink ET 0 wikilink sortant)
-        - Notes sans tag
-        - Notes avec frontmatter YAML casse (lint_warnings de parse_note)
-        - Wikilinks brises (cibles inexistantes)
+        Checks (= categories) :
+        - low_aliases : notes avec aliases < 4 (standard forge)
+        - orphans : notes orphelines (0 backlink ET 0 wikilink sortant)
+        - no_tags : notes sans tag
+        - broken_yaml : notes avec frontmatter YAML casse (lint_warnings de parse_note)
+        - broken_wikilinks : wikilinks brises (cibles inexistantes)
 
         Args:
-            limit: nombre max de problemes par categorie (default 50)
+            limit: nombre max de problemes par categorie (default 50). limit=0 = ILLIMITE
+                   (liste complete), meme convention que read_note(max_lines=0).
+            category: si fourni, ne retourne QUE cette categorie (en entier si limit=0).
+                      Valeurs : low_aliases, no_tags, orphans, broken_yaml, broken_wikilinks.
+                      Cas d'usage : recuperer la liste complete des wikilinks brises pour
+                      diff baseline (le top 50 par defaut en tronque la moitie).
         """
+        if category and category not in self._LINT_CATEGORIES:
+            return (
+                f"REFUS: category invalide '{category}'. "
+                f"Valides : {', '.join(self._LINT_CATEGORIES)}."
+            )
         rows = self._db._conn.execute(
             "SELECT n.id, n.file_stem, n.path, n.frontmatter FROM notes n"
         ).fetchall()
@@ -902,27 +914,43 @@ class BrainTools:
                 if stem_only_lower not in all_stems_lower and stem_only_lower not in all_aliases_lower:
                     broken_wikilinks.append({"source": stem, "target": target})
 
+        # limit=0 => illimite (liste complete), meme convention que read_note(max_lines=0).
+        def _take(items):
+            return items if limit == 0 else items[:limit]
+
+        def _shown(items):
+            n = len(items) if limit == 0 else min(limit, len(items))
+            return f"{len(items)} total, {'tous' if limit == 0 else f'top {n}'}"
+
+        def _wanted(cat):
+            return not category or category == cat
+
         lines = ["# Lint vault forge-brain", ""]
-        lines.append(f"## Notes avec aliases < 4 ({len(low_aliases)} total, top {min(limit, len(low_aliases))})")
-        for item in low_aliases[:limit]:
-            lines.append(f"- [[{item['stem']}]] ({item['count']} aliases) — {item['path']}")
-        lines.append("")
-        lines.append(f"## Notes sans tag ({len(no_tags)} total, top {min(limit, len(no_tags))})")
-        for item in no_tags[:limit]:
-            lines.append(f"- [[{item['stem']}]] — {item['path']}")
-        lines.append("")
-        lines.append(f"## Notes orphelines — 0 backlink + 0 wikilink ({len(orphans)} total, top {min(limit, len(orphans))})")
-        for item in orphans[:limit]:
-            lines.append(f"- [[{item['stem']}]] — {item['path']}")
-        lines.append("")
-        lines.append(f"## Frontmatter YAML casse ({len(broken_yaml)} total)")
-        for item in broken_yaml[:limit]:
-            warns = "; ".join(item["warnings"])
-            lines.append(f"- [[{item['stem']}]] — {warns}")
-        lines.append("")
-        lines.append(f"## Wikilinks brises — cible inexistante ({len(broken_wikilinks)} total, top {min(limit, len(broken_wikilinks))})")
-        for item in broken_wikilinks[:limit]:
-            lines.append(f"- [[{item['source']}]] -> [[{item['target']}]] (n'existe pas)")
+        if _wanted("low_aliases"):
+            lines.append(f"## Notes avec aliases < 4 ({_shown(low_aliases)})")
+            for item in _take(low_aliases):
+                lines.append(f"- [[{item['stem']}]] ({item['count']} aliases) — {item['path']}")
+            lines.append("")
+        if _wanted("no_tags"):
+            lines.append(f"## Notes sans tag ({_shown(no_tags)})")
+            for item in _take(no_tags):
+                lines.append(f"- [[{item['stem']}]] — {item['path']}")
+            lines.append("")
+        if _wanted("orphans"):
+            lines.append(f"## Notes orphelines — 0 backlink + 0 wikilink ({_shown(orphans)})")
+            for item in _take(orphans):
+                lines.append(f"- [[{item['stem']}]] — {item['path']}")
+            lines.append("")
+        if _wanted("broken_yaml"):
+            lines.append(f"## Frontmatter YAML casse ({_shown(broken_yaml)})")
+            for item in _take(broken_yaml):
+                warns = "; ".join(item["warnings"])
+                lines.append(f"- [[{item['stem']}]] — {warns}")
+            lines.append("")
+        if _wanted("broken_wikilinks"):
+            lines.append(f"## Wikilinks brises — cible inexistante ({_shown(broken_wikilinks)})")
+            for item in _take(broken_wikilinks):
+                lines.append(f"- [[{item['source']}]] -> [[{item['target']}]] (n'existe pas)")
         return "\n".join(lines)
 
     def update_property(
@@ -1120,14 +1148,18 @@ def register_tools(mcp, tools: BrainTools):
         return tools.move_note(file, new_path, update_wikilinks)
 
     @_tool
-    def lint_vault(limit: int = 50) -> str:
+    def lint_vault(limit: int = 50, category: str = "") -> str:
         """Detecte les problemes de qualite dans le vault (aliases<4, orphelines, sans tag,
         YAML casse, wikilinks brises). Layer raw/ exclu (Karpathy immutable).
 
         Args:
-            limit: nombre max de problemes par categorie (default 50)
+            limit: nombre max de problemes par categorie (default 50). limit=0 = ILLIMITE
+                   (liste complete), meme convention que read_note(max_lines=0).
+            category: si fourni, ne retourne QUE cette categorie. Valeurs : low_aliases,
+                      no_tags, orphans, broken_yaml, broken_wikilinks. Ex : recuperer la
+                      liste complete des wikilinks brises = category="broken_wikilinks", limit=0.
         """
-        return tools.lint_vault(limit)
+        return tools.lint_vault(limit, category)
 
     @_tool
     def bulk_update_property(files: list[str], name: str, value: str | list[str]) -> str:
