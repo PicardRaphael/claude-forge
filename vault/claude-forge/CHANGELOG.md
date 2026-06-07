@@ -14,6 +14,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Chantier 3/5 wikilinks — G2 candidats création (107 → 105 liens brisés)
+
+- **Créée (1 note)** : [[multi-agent-handoff-loss-pattern]] (04-Techniques/agents/) — synthèse doctrinale croisant le paper Google/MIT (chiffres) × pattern-swarm (mécanisme de la fuite) × comment-creer-agent (règle design). Thèse : le coût du multi-agent = le nombre de handoffs sur le chemin critique, pas le nombre d'agents ; le threshold 45 % est le seuil de rentabilité du handoff. Résout le lien posé par [[google-mit-scaling-agent-systems-2025]]. Backlink ajouté dans [[comment-creer-agent]] (section APPELS).
+- **Repointé (1 lien)** : dans [[todo-rotation-password-postgres-prod]], le lien vers un fichier `memory/` jamais créé (`secret-management-never-commit-credentials`) → absorbé par [[erreur-password-postgres-clair-mcp-json]] (déjà citée dans la note, couvre l'anti-pattern + la règle + la réparation). Pas de note créée : la note d'erreur subsume le savoir, créer = doublon.
+- **Régression auto-infligée corrigée** : l'exemple littéral du gotcha « lint parse les wikilinks même entre backticks » (note `mcp-vault-llm-design`, ajouté ce jour) s'était auto-compté comme 2 liens cassés — preuve par l'exemple du gotcha lui-même. Exemple réécrit en texte nu, gotcha renforcé.
+- **Source** : chantier 3/5, GO G2 item par item de Raphael, AskUserQuestion sur chaque candidat création.
+
 ## 2026-06-07 — Chantier 3/5 wikilinks — lots D + E (124 → 107 liens brisés)
 
 - **Lot D — liens vers composant `.claude/` (19 liens)** : un skill/agent/rule/hook n'est PAS une note vault → retrait du wikilink, texte gardé visible en code-span (`nom-composant`) ou en prose (« la skill X », « cf rule Y »). Touche eval-pattern-anthropic-skill-creator, analyse-plugin-claude-code-setup, comparaison-skill-anthropic-claude-code-setup, context-drift-throw-vs-patch, pattern-vault-llm-karpathy, doctrine-vivante (×3), comment-creer-hook (×2), comment-creer-skill, hooks-conformite-audit-passif-continu (×2), pattern-maintenance-hybride-corpus-accumulatif, plugins-officiels-veille-2026-05-26 (×3).

@@ -236,6 +236,7 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (agent orchestran
 - [[comment-ecrire-claudemd]] — où mentionner les agents du repo
 - [[workflow-claude-code-optimal]] — comment agents s'inscrivent dans le workflow
 - [[methode-analyser-repo]] — méthode pour identifier les rôles → agents
+- [[multi-agent-handoff-loss-pattern]] — pourquoi le single-agent d'abord : le threshold 45 % est le seuil de rentabilité du handoff (séquentiel dégrade, error amplification 17x vs 4.4x)
 
 ---
 

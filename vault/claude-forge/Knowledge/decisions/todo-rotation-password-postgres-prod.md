@@ -11,7 +11,7 @@ aliases:
 type: decision
 statut: a-faire
 priorite: P0
-derniere-maj: 2026-05-27
+derniere-maj: 2026-06-07
 auteur: claude
 tags:
   - "#type/todo"
@@ -19,7 +19,6 @@ tags:
   - "#projet/neoteem"
   - "#priorite/P0"
 ---
-
 # TODO P0 — Rotation du mot de passe PostgreSQL prod
 
 > Statut : À FAIRE — P0. Découvert pendant l'audit confidentialité de la session Mémoire Portable (2026-05-27).
@@ -53,6 +52,5 @@ Redacté de **HEAD** le 2026-05-27 (`[REDACTED]`), mais le secret reste **dans l
 
 ## Appels
 
-- [[erreur-password-postgres-clair-mcp-json]] — l'erreur d'origine
+- [[erreur-password-postgres-clair-mcp-json]] — l'anti-pattern d'origine et la règle violée (ne jamais committer de credentials : `${VAR}` + `.env` gitignored)
 - [[decision-memoire-dans-le-repo]] — la session qui a re-découvert le secret en HEAD
-- [[secret-management-never-commit-credentials]] — feedback mémoire (la règle violée)

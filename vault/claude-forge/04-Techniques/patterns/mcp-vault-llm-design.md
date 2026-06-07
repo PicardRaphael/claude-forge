@@ -8,7 +8,7 @@ aliases:
   - "recipe mcp forge-brain"
   - "mcp llm-optimized"
   - "pattern mcp obsidian vault"
-derniere-maj: 2026-05-24
+derniere-maj: 2026-06-07
 auteur: claude
 type: pattern
 sources:
@@ -23,7 +23,6 @@ tags:
   - "#domaine/karpathy"
   - "#domaine/llm-wiki"
 ---
-
 # Pattern MCP vault LLM-optimized
 
 > **Principe fondateur** : un MCP qui sert un vault Obsidian a un LLM n'a PAS les memes besoins qu'un Obsidian client humain. Le LLM ne voit pas la graph view, n'a pas besoin de Dataview UI, ne fait pas de Templater interactif. Il lui faut : recherche rapide, ecriture atomique, queries frontmatter, economie tokens, observabilite usage.
@@ -211,7 +210,7 @@ lint_vault(limit=50)  # 297 -> 5 brises (-98%)
 ---
 
 ## GOTCHAS
-- **Lint parse les wikilinks MEME entre backticks** : `lint_vault` extrait tout `[[...]]` du markdown brut, sans tenir compte du contexte code-span. Mettre un nom mort en code-span (`` `[[ia-back-project]]` ``) pour le "neutraliser" ne le silence PAS — il reste compté comme cassé. **Consequence** : une note qui DOCUMENTE une reparation de lien (CHANGELOG, synthese citant un renommage) re-mentionne forcement le nom mort ; si elle l'ecrit en `[[]]` (meme entre backticks), elle re-injecte un lien casse a chaque entree. **Reparation** : ecrire les noms morts en texte nu SANS crochets (`nom-mort`), reserver `[[]]` aux seules cibles vivantes. **Fix structurel** pour les notes de type index/journal (CHANGELOG, log) : les exclure du scan lint comme `raw/` l'est deja (un changelog n'est pas navigable, le lint n'a pas a scanner ses liens). Observe chantier 3 wikilinks, 7 juin 2026 : 8 liens casses auto-injectes par la narration des reparations A+B+C.
+- **Lint parse les wikilinks MEME entre backticks** : `lint_vault` extrait toute paire de doubles-crochets du markdown brut, sans tenir compte du contexte code-span. Mettre un nom mort en code-span (un nom-mort entre doubles-crochets dans des backticks) pour le "neutraliser" ne le silence PAS — il reste compté comme cassé. **Cette note en a fait les frais** : l'exemple littéral écrit ici en code-span le 7 juin s'est auto-compté comme 2 liens cassés (la preuve par l'exemple). **Consequence** : une note qui DOCUMENTE une reparation de lien (CHANGELOG, synthese citant un renommage) re-mentionne forcement le nom mort ; si elle l'ecrit en `[[]]` (meme entre backticks), elle re-injecte un lien casse a chaque entree. **Reparation** : ecrire les noms morts en texte nu SANS crochets (`nom-mort`), reserver `[[]]` aux seules cibles vivantes. **Fix structurel** pour les notes de type index/journal (CHANGELOG, log) : les exclure du scan lint comme `raw/` l'est deja (un changelog n'est pas navigable, le lint n'a pas a scanner ses liens). Observe chantier 3 wikilinks, 7 juin 2026 : 8 liens casses auto-injectes par la narration des reparations A+B+C.
 
 - **Indexation** : restart MCP necessaire apres modif src/ (FastMCP charge tools au demarrage)
 - **CRLF Windows** : Git warning `LF will be replaced by CRLF` benin, contenu identique
