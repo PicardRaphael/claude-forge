@@ -132,6 +132,7 @@ if end < total_chars:
 | `update_note(file, content)` | **Remplace EN ENTIER** | Refonte complète (rare) |
 | `update_property(file, name, value)` | 1 prop sur 1 note | Update ciblé |
 | `bulk_update_property(files, name, value)` | **Même prop sur N notes en 1 appel** | Pattern audit : derniere-maj 16 leaders = 1 appel |
+| `*_by_path(path, ...)` (4 variantes : `update_note` / `append_note` / `insert_section` / `update_property`) | Cible par **chemin exact**, jamais par alias | **Stem ambigu** en écriture (`log`/`index`/`CHANGELOG` présents dans ≥2 dossiers) — l'alias court résoudrait au mauvais fichier |
 
 ### Outils MCP — Move / Delete
 
@@ -152,6 +153,7 @@ if end < total_chars:
 | Trouver notes par frontmatter | `find_by_property` |
 | Update prop sur 1 note | `update_property` |
 | Update prop sur N notes | `bulk_update_property` |
+| Écrire sur un stem ambigu (log/index/CHANGELOG) | variante `*_by_path` (chemin exact) |
 | Renommer + rewriting | `move_note` |
 | Supprimer safe | `delete_note` |
 | Audit qualité vault | `lint_vault` |

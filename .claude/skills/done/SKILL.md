@@ -219,8 +219,10 @@ Ecriture index :
 - Lire `$MEMORY_DIR/MEMORY.md`, verifier absence de doublon, puis ajouter la ligne index en section appropriee
 
 **Ecriture vault** (apres `v` ou `m`) :
-- `Write` la note vault (jamais CLI Obsidian -- colons YAML cassent le parser)
-- `forge-brain:update_property  file="<nom-note>"  name="derniere-maj"  value="YYYY-MM-DD"`
+- Ecriture vault via MCP forge-brain UNIQUEMENT -- jamais `Write`/Edit direct (le hook vault-write-guard les bloque sur le vault) ni CLI Obsidian. Le MCP gere le YAML sans casser le parser.
+  - **Note NEUVE** a capitaliser : `create_note(path="...", content="...")` (porte la garde BOM).
+  - **Note EXISTANTE** a enrichir/mettre a jour : `append_note` (ajout fin) / `update_property` (1 prop) / `update_note` (refonte) -- ou la variante `*_by_path` si le stem est ambigu (log/index/CHANGELOG).
+- `forge-brain:update_property  file="<nom-note>"  name="derniere-maj"  value="YYYY-MM-DD"` (la note existe deja a cette etape)
 - Lier au MOC correspondant si note creee
 
 ---
@@ -298,7 +300,7 @@ Cette note est la **working memory** -- ce que Jarvis doit savoir au reveil. `/r
 - **Filtre OBLIGATOIRE** -- code patterns, git history, fix recipes sont hors scope memoire. Les inclure pollue le signal.
 - **Ne rien inventer** -- si la session etait courte, il peut n'y avoir aucun item. "Rien a memoriser cette session" est une reponse valide.
 - **Chemins memoire = `$(git rev-parse --show-toplevel)/memory/`** -- JAMAIS `~/.claude/projects/` (emplacement natif, on s'en eloigne) ni `${CLAUDE_PROJECT_DIR}` (vide dans une skill -- non injecte par le harness dans le shell, seulement dans les hooks).
-- **`Write` pour les notes vault, jamais `obsidian create`** -- les deux-points dans le frontmatter YAML cassent le parser CLI (exit 127).
+- **`create_note` (MCP) pour les notes vault, jamais `Write`/Edit direct ni `obsidian create`** -- le hook `vault-write-guard` bloque Write/Edit sur le vault ; le MCP gere le YAML (les deux-points cassaient le parser CLI Obsidian, exit 127).
 - **MEMORY.md < 200 lignes** -- si l'index approche la limite, mentionner dans le rapport.
 - **Conflit = proposition, pas action unilaterale** -- si un item contredit une note existante, proposer la mise a jour plutot qu'ecraser.
 - **Separation memoire/vault** -- memoire = feedback specifique relation utilisateur. Vault = savoir reutilisable par n'importe qui.
