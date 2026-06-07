@@ -211,6 +211,7 @@ lint_vault(limit=50)  # 297 -> 5 brises (-98%)
 ---
 
 ## GOTCHAS
+- **Lint parse les wikilinks MEME entre backticks** : `lint_vault` extrait tout `[[...]]` du markdown brut, sans tenir compte du contexte code-span. Mettre un nom mort en code-span (`` `[[ia-back-project]]` ``) pour le "neutraliser" ne le silence PAS — il reste compté comme cassé. **Consequence** : une note qui DOCUMENTE une reparation de lien (CHANGELOG, synthese citant un renommage) re-mentionne forcement le nom mort ; si elle l'ecrit en `[[]]` (meme entre backticks), elle re-injecte un lien casse a chaque entree. **Reparation** : ecrire les noms morts en texte nu SANS crochets (`nom-mort`), reserver `[[]]` aux seules cibles vivantes. **Fix structurel** pour les notes de type index/journal (CHANGELOG, log) : les exclure du scan lint comme `raw/` l'est deja (un changelog n'est pas navigable, le lint n'a pas a scanner ses liens). Observe chantier 3 wikilinks, 7 juin 2026 : 8 liens casses auto-injectes par la narration des reparations A+B+C.
 
 - **Indexation** : restart MCP necessaire apres modif src/ (FastMCP charge tools au demarrage)
 - **CRLF Windows** : Git warning `LF will be replaced by CRLF` benin, contenu identique
