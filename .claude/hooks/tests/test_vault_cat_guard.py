@@ -11,7 +11,7 @@ SCOPE DECLARED BY THE HOOK (vault-cat-guard.py docstring):
   Context-dependent blocking:
     - dump (Bash/PowerShell): blocked in BOTH contexts (main + sub-agent)
     - read (Read tool): blocked in SUB-AGENT only — main session legitimately
-      Reads the vault to prepare an Edit (exact-path edit of ambiguous-stem note)
+      Reads the vault for audit/lookup (writes go via the MCP, not direct Edit)
   Exit 2 blocks. Fail-open on errors.
 
 WHAT THESE TESTS VERIFY:
@@ -295,7 +295,7 @@ def test_e2e_cat_vault_blocked_exit2():
 
 def test_e2e_read_vault_main_session_allowed_exit0():
     # Read on the vault from the MAIN session (no agent fields) → allowed,
-    # so the session can prepare an Edit on the vault.
+    # so the session can audit / look up the vault (writes go via the MCP).
     rc = _run_hook({"tool_name": "Read", "tool_input": {"file_path": "vault/claude-forge/log.md"}})
     assert rc == 0
 

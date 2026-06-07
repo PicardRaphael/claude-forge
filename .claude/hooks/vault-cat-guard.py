@@ -19,10 +19,10 @@ Context-dependent blocking:
   - Bash/PowerShell content dumps: blocked in BOTH contexts (main + sub-agent).
     A mass content dump is never the right way to access the vault.
   - Read on a vault file: blocked in SUB-AGENT only. The main session legitimately
-    needs Read to prepare an Edit on the vault (e.g. exact-path edit of an
-    ambiguous-stem note like log.md — see feedback_mcp_alias_ambigu_chemin_exact),
-    and it has the MCP. A sub-agent reading the vault by Read is the fragile
-    fallback we forbid.
+    needs Read on the vault for audit / lookup / comparison — NOT to prepare an
+    Edit (direct disk edits of vault notes are now blocked by vault-write-guard;
+    writes go exclusively through the MCP, by-path tools for ambiguous stems). A
+    sub-agent reading the vault by Read is the fragile fallback we forbid.
 Exit 2 blocks. Fail-open (exit 0) on any parse error.
 """
 import json
@@ -177,7 +177,7 @@ def should_block(kind: str, data: dict) -> bool:
 
     - "dump" (Bash/PowerShell content dump): blocked in BOTH contexts.
     - "read" (Read tool): blocked in SUB-AGENT only; the main session legitimately
-      Reads the vault to prepare an Edit and has the MCP.
+      Reads the vault for audit/lookup and writes via the MCP.
     """
     if kind == "dump":
         return True

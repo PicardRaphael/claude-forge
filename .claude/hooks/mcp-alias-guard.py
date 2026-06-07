@@ -13,7 +13,10 @@ exist in multiple vault folders). Observed 7 violations across multiple tools
 Logic: if tool_input.file is a bare stem (no path separator) and more than one
 vault file shares that stem, the resolution is ambiguous → exit 2. The fix is to
 pass the exact path (vault/claude-forge/<dir>/<file>.md) or a unique frontmatter
-alias, or to Read+Edit the exact file directly (vault edits are not hook-blocked).
+alias. For a WRITE on an ambiguous stem, use the MCP by-path tools
+(update_note_by_path / append_note_by_path / insert_section_by_path /
+update_property_by_path) — they take an exact path and never resolve to the wrong
+file. Direct disk Edit of the vault is NOT a fallback: vault-write-guard blocks it.
 
 A file argument containing a path separator (/) is treated as an exact path →
 allowed. A stem unique in the vault → allowed.
@@ -107,7 +110,7 @@ def main() -> None:
             f"BLOQUÉ: alias ambigu '{file_arg}' — {n} notes du vault partagent le stem '{stem}'.\n"
             "append_note résout par FTS et peut écrire dans le MAUVAIS fichier.\n"
             "Utilise le CHEMIN EXACT (vault/claude-forge/<dossier>/<fichier>.md) ou un alias unique du frontmatter.\n"
-            "Pour log/index/CHANGELOG : Read + Edit le chemin exact (l'édition vault directe n'est pas bloquée).\n"
+            "Pour une écriture sur stem ambigu (log/index/CHANGELOG) : utilise update_note_by_path / append_note_by_path / insert_section_by_path / update_property_by_path (chemin exact via MCP).\n"
             "Doctrine : voir vault [[feedback_mcp_alias_ambigu_chemin_exact]].",
             file=sys.stderr,
         )

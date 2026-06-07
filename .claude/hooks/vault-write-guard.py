@@ -33,7 +33,7 @@ Boundary is by FULL PATH SEGMENT, never by file name (delegate-guard lesson: a n
   blocking it would be a false positive with no sanctioned alternative.
 
 No context rule: writes block in BOTH main session and sub-agent. Unlike
-  vault-cat-guard (which exempts the main session's Read to prepare an Edit), here
+  vault-cat-guard (which exempts the main session's Read for audit/lookup), here
   the main session is exactly who must stop Editing the vault directly — the
   exemption would make the hook inert.
 
