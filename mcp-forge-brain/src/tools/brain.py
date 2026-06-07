@@ -4,7 +4,13 @@ import logging
 import re
 from pathlib import Path
 from src.database import BrainDB
-from src.indexer import parse_note, _WIKILINK_RE
+from src.indexer import (
+    parse_note,
+    _WIKILINK_RE,
+    _FRONTMATTER_RE,
+    _ALIASES_KEY_RE,
+    _ALIASES_INLINE_THEN_LIST_RE,
+)
 from src.usage_log import log_call, stats as _compute_usage_stats
 
 import yaml
@@ -275,6 +281,53 @@ def _set_property_in_frontmatter(content: str, name: str, value: str | list) -> 
     return _restore(f"{open_fence}{new_fm_body}{close_fence}{rest}")
 
 
+def _creation_blockers(content: str) -> list[str]:
+    """Conditions BLOCABLES-DUR a la creation d'une note (frontmatter structurellement casse).
+
+    Pur : pas d'IO. Retourne la liste des raisons de refus (vide = la note peut etre creee).
+    Trois checks distincts (un reparse YAML seul ne les couvre pas tous) :
+      1. frontmatter absent     -> _FRONTMATTER_RE ne matche pas (gotcha BOM inclus : un BOM
+                                    en tete fait rater le match -> on le signale dans le message).
+      2. YAML invalide          -> yaml.safe_load leve.
+      3. double cle `aliases:`   -> deux cles separees (PyYAML garde-le-dernier EN SILENCE, le
+                                    reparse ne leve pas), ou inline `[...]` suivi d'items orphelins.
+    Les regex double-aliases sont importees de l'indexer (single-source) et scopees AU
+    frontmatter (pas au body : un `aliases:` cite dans le corps n'est pas une erreur).
+    WARN-ONLY (aliases<4, tags, wikilinks->existe) NE figurent PAS ici : ils n'empechent pas
+    la creation (les forward-refs roadmap sont sains).
+    """
+    blockers: list[str] = []
+
+    # 1. Frontmatter present ? (BOM en tete -> _FRONTMATTER_RE rate -> traite comme absent.)
+    fm_match = _FRONTMATTER_RE.match(content)
+    if not fm_match:
+        if content.startswith("﻿"):
+            blockers.append(
+                "frontmatter introuvable — un BOM UTF-8 en tete casse le parsing "
+                "(ecrire sans BOM). Cf bom-skillmd-casse-frontmatter."
+            )
+        else:
+            blockers.append("frontmatter YAML absent (--- ... --- en tete attendu).")
+        return blockers  # sans frontmatter, les checks 2/3 ne s'appliquent pas
+
+    fm_body = fm_match.group(1)
+
+    # 2. Le frontmatter reparse-t-il ?
+    try:
+        yaml.safe_load(fm_body)
+    except yaml.YAMLError as e:
+        blockers.append(f"frontmatter YAML invalide ({e}).")
+
+    # 3. Double declaration d'aliases (le reparse ne l'attrape pas : PyYAML garde le dernier).
+    if len(_ALIASES_KEY_RE.findall(fm_body)) > 1 or _ALIASES_INLINE_THEN_LIST_RE.search(fm_body):
+        blockers.append(
+            "aliases declares DEUX FOIS (inline [...] + items orphelins, ou cle dupliquee) "
+            "— le parser n'en garderait qu'un."
+        )
+
+    return blockers
+
+
 class BrainTools:
     def __init__(self, db: BrainDB, vault_path: Path, git_sync=None, sessions_db=None):
         self._db = db
@@ -386,19 +439,62 @@ class BrainTools:
             return f"Propriete '{name}' introuvable pour '{file}'."
         return value
 
+    def _broken_outgoing_wikilinks(self, parsed) -> list[str]:
+        """Liste les wikilinks sortants pointant vers une cible inexistante (WARN, jamais block).
+
+        Meme logique que lint_vault (stems + aliases case-insensitive, exclusions
+        structurelles via _is_lint_excluded_wikilink) — garde la tolerance memory/
+        feedback_/reference_ et les forward-refs roadmap (qui restent un warn, pas un refus).
+        """
+        all_known = {r["file_stem"].lower() for r in self._db._conn.execute(
+            "SELECT file_stem FROM notes"
+        ).fetchall()}
+        all_known.update(ar["alias"].lower() for ar in self._db._conn.execute(
+            "SELECT alias FROM aliases"
+        ).fetchall())
+        broken = []
+        for target in parsed.wikilinks:
+            stem_only = target.split("#", 1)[0]
+            if "/" in stem_only:
+                stem_only = stem_only.rsplit("/", 1)[-1]
+            stem_only_lower = stem_only.lower().strip()
+            if not stem_only_lower:
+                continue  # ref #section pure
+            if _is_lint_excluded_wikilink(stem_only_lower):
+                continue
+            if stem_only_lower not in all_known:
+                broken.append(target)
+        return broken
+
     def create_note(self, path: str, content: str, username: str = "anonymous") -> str:
         normalized, prefix_warning = _normalize_path(self._vault, path)
         full_path = self._vault / normalized
         if full_path.exists():
             return f"Note existe deja: {normalized}"
+        # BLOCABLE-DUR : valider AVANT d'ecrire (sinon une note cassee atterrit sur disque,
+        # est indexee et auto-commitee). Refus = rien n'est ecrit.
+        blockers = _creation_blockers(content)
+        if blockers:
+            return "REFUS creation '" + normalized + "' : " + " | ".join(blockers)
         full_path.parent.mkdir(parents=True, exist_ok=True)
         full_path.write_text(content, encoding="utf-8")
         parsed = parse_note(full_path.stem, normalized, content)
+        # WARN-ONLY : la note est creee, on signale sans bloquer.
         warnings = []
         if prefix_warning:
             warnings.append(prefix_warning)
         if len(parsed.aliases) < 4:
             warnings.append(f"seulement {len(parsed.aliases)} aliases (minimum recommande: 4)")
+        if not parsed.tags:
+            warnings.append("aucun tag (convention forge : 2+ tags #type/... #domaine/...)")
+        broken_links = self._broken_outgoing_wikilinks(parsed)
+        if broken_links:
+            shown = ", ".join(broken_links[:5])
+            extra = f" (+{len(broken_links) - 5})" if len(broken_links) > 5 else ""
+            warnings.append(
+                f"wikilink(s) vers cible inexistante : {shown}{extra} "
+                f"(forward-ref roadmap OK ; sinon corriger)"
+            )
         warnings.extend(parsed.lint_warnings)
         self._db.index_note(parsed, full_path.stat().st_mtime)
         if self._git and self._git._cfg.auto_commit:
