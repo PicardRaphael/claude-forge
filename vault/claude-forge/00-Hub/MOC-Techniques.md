@@ -11,7 +11,7 @@ resume: 'Index des techniques : prompt engineering, context engineering, pattern
   anti-patterns'
 tags:
 - '#type/index'
-- '#type/techniques'
+- '#type/technique'
 titre: MOC — Techniques
 type: index
 ---

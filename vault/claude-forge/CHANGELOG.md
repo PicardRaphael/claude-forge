@@ -14,6 +14,15 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Chantier 2/5 normalisation tags — E1 complétion (1 note format yaml.dump sautée)
+
+- **Modifiée** : 1 note ([[MOC-Techniques]]) — `#type/techniques` → `#type/technique` (mapping G1 déjà validé, complétion de E1).
+  - **Cause** : le script de rename suppose les guillemets DOUBLES (`"#tag"`). Cette note était au format **yaml.dump** (clés triées alpha + guillemets SIMPLES `'#tag'` + items non indentés) — cicatrice de l'ancien bug `update_property`. L'extraction `val.startswith('"')` rate l'apostrophe simple → tag non reconnu → note **sautée proprement** (jamais corrompue : le script n'écrit que si `changes` non vide).
+  - **Détection** : `get_tags` réindexé après E2 = audit d'ampleur complet sur disque → seul résidu de TOUS les mappings = `#type/techniques (1)`. Blast radius prouvé = 1 note.
+  - **Fix** : `update_note` (réécriture maîtrisée, format yaml.dump préservé à l'identique), pas de réouverture du script pour 1 note. git diff = 1 ligne. `find_by_property #type/techniques` = 0.
+- **Enrichissement à venir** : [[erreur-mcp-yaml-dump-corruption]] — les notes single-quote/clés-alphabétiques (cicatrices `update_property`) sont sautées non-corruptivement par un rename qui suppose les guillemets doubles.
+- **Source** : chantier 2/5. **Chantier 2/5 réellement terminé, 0 résidu** (vérifié get_tags). Reformatage global des notes yaml.dump = chantier futur potentiel (hors scope tags).
+
 ## 2026-06-07 — Chantier 2/5 normalisation tags — LOT E2 (retraits de tags décoratifs)
 
 - **Modifiées** : 4 notes — retrait de 4 tags décoratifs (1 ligne par note), 0 renommage. Décision sur preuve read-only validée par Raphael (chaque retrait justifié note par note).
