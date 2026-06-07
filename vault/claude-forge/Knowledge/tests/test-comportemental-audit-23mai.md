@@ -11,9 +11,9 @@ derniere-maj: 2026-05-24
 auteur: claude
 type: test
 tags:
-  - "#type/test"
+  - "#domaine/testing"
   - "#domaine/claude-code"
-  - "#sujet/validation-doctrine"
+  - "#domaine/validation-doctrine"
   - "#doctrine/2026"
 ---
 

@@ -9,7 +9,7 @@ derniere-maj: 2026-05-25
 tags:
   - "#type/index"
   - "#casquette/responsable-ia"
-  - "#domaine/frameworks"
+  - "#domaine/framework"
 ---
 
 # Frameworks — cheat sheet exhaustive

@@ -14,7 +14,7 @@ type: pattern
 tags:
   - "#type/pattern"
   - "#domaine/claude-code"
-  - "#sujet/tests"
+  - "#domaine/testing"
 ---
 # Bug caractérisé : fix trivial = immédiat, fix coûteux = feedback pour phase dédiée
 

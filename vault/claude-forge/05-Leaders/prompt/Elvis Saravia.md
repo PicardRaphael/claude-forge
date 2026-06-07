@@ -21,7 +21,7 @@ sources:
 tags:
   - "#type/leader"
   - "#domaine/prompt-engineering"
-  - "#domaine/llm"
+  - "#domaine/ia"
 ---
 
 ## Profil

@@ -12,7 +12,7 @@ aliases:
 tags:
   - "#type/critique"
   - "#domaine/claude-code"
-  - "#sujet/skill"
+  - "#domaine/skills"
 sources:
   - "[[methode-pivoter-doctrine]]"
   - "[[feedback_doctrine_drift_pattern]]"

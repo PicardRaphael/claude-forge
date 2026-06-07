@@ -14,7 +14,7 @@ statut: en-attente
 tags:
   - "#type/decision"
   - "#projet/claude-forge"
-  - "#sujet/memoire"
+  - "#domaine/memoire"
 ---
 
 # ADR en attente — la mémoire forge vit hors du repo (non portable)

@@ -15,7 +15,7 @@ auteur: claude
 tags:
   - "#type/decision"
   - "#projet/claude-forge"
-  - "#sujet/memoire"
+  - "#domaine/memoire"
 ---
 
 # ADR — La mémoire forge vit dans le repo

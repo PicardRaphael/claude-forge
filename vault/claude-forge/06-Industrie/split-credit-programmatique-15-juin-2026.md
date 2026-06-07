@@ -17,7 +17,7 @@ sources:
   - "https://www.it-connect.tech/vibe-coding-claude-unlimited-api-ends-on-june-15-2026/"
   - "https://github.blog/changelog/2026-06-01-updates-to-github-copilot-billing-and-plans/"
 tags:
-  - "#type/industrie"
+  - "#type/news"
   - "#domaine/anthropic"
   - "#statut/a-verifier"
 ---

@@ -13,7 +13,7 @@ type: erreur
 tags:
   - "#type/erreur"
   - "#domaine/claude-code"
-  - "#sujet/canoniques"
+  - "#domaine/canoniques"
   - "#methode/verification"
 ---
 

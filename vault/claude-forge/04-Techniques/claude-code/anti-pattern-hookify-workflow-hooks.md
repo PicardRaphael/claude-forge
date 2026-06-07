@@ -16,7 +16,7 @@ sources:
 tags:
   - "#type/anti-pattern"
   - "#domaine/claude-code"
-  - "#doctrine"
+  - "#doctrine/2026"
 ---
 
 # Anti-pattern hookify — workflow hooks via transcript conditions

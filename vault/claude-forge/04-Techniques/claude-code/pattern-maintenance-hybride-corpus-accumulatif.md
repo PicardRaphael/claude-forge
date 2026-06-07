@@ -5,7 +5,7 @@ aliases: ["maintenance hybride corpus", "pattern compaction mémoire", "détermi
 type: technique
 derniere-maj: 2026-06-07
 auteur: claude
-tags: ["#type/technique", "#domaine/claude-code", "#sujet/maintenance", "#doctrine/2026"]
+tags: ["#type/technique", "#domaine/claude-code", "#domaine/maintenance", "#doctrine/2026"]
 ---
 # Maintenance hybride d'un corpus accumulatif
 

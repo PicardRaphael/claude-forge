@@ -16,7 +16,7 @@ sources:
 tags:
   - "#type/erreur"
   - "#domaine/claude-code"
-  - "#sujet/prompt-engineering"
+  - "#domaine/prompt-engineering"
   - "#doctrine/2026"
 ---
 

@@ -12,8 +12,8 @@ auteur: claude
 type: erreur
 tags:
   - "#type/erreur"
-  - "#composant/agent"
-  - "#composant/hook"
+  - "#domaine/agents"
+  - "#domaine/hooks"
   - "#domaine/securite"
 ---
 

@@ -14,7 +14,7 @@ sources:
   - "https://github.com/anthropics/claude-plugins-official (203 plugins total marketplace.json)"
   - "WebFetch + gh CLI 26 mai 2026"
 tags:
-  - "#type/veille"
+  - "#type/news"
   - "#domaine/claude-code"
   - "#meta"
 ---

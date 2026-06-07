@@ -17,7 +17,7 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
-  - "#sujet/portabilite"
+  - "#domaine/portabilite"
 ---
 
 # Résolution de path par contexte d'exécution

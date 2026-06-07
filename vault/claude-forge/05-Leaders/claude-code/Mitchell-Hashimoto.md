@@ -18,7 +18,7 @@ sources:
 tags:
   - "#type/leader"
   - "#domaine/claude-code"
-  - "#sujet/harness-engineering"
+  - "#domaine/harness-engineering"
 ---
 
 # Mitchell Hashimoto

@@ -23,7 +23,7 @@ sources:
 tags:
   - "#type/leader"
   - "#domaine/prompt-engineering"
-  - "#domaine/ai-security"
+  - "#domaine/securite"
 ---
 
 ## Profil

@@ -21,7 +21,6 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/prompt-engineering"
-  - "#pattern/prompting"
 ---
 
 ## Description

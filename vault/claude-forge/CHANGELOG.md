@@ -14,6 +14,15 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Chantier 2/5 normalisation tags — LOT E1 (singletons : renommages / re-préfixages)
+
+- **Modifiées** : 40 notes — 43 renommages, **2 déduplications**. Traitement des singletons par GROUPE (grille validée par Raphael, jamais tag par tag).
+  - **G4 (fin du LOT A)** : toute la traîne `#sujet/*` résiduelle → `#domaine/*` (`sujet/` n'est pas un axe canonique). `skill` + `skills` unifiés en `#domaine/skills`. Cibles existantes (securite, audit, testing, vault, prompt-engineering, patterns, harness-engineering, plugin) absorbent ; le reste crée le `#domaine/X` légitime (claudemd, llm-wiki, memoire, methode, canoniques, maintenance, portabilite, specs, tokens, validation-doctrine).
+  - **G2 (hors-convention → axe canonique)** : `#audit/*` → `#domaine/audit` · `#composant/agent|hook` → `#domaine/agents|hooks` · `#doctrine` (nu) → `#doctrine/2026` · `#meta/{bilan,externe,lessons-learned,working-memory}` → `#meta`. GARDÉS : `#rituel/*` (cluster cohérent casquette responsable-ia) et `#karpathy/{index,log,schema}` (auto-tag des 3 fichiers schéma).
+  - **G1 (typos/variantes → forme dominante)** : `frameworks`→`framework`, `techniques`→`technique` (pluriels), `ai-security`→`securite`, `ai-alignment`→`alignment` (EN/variante), `#pattern/prompt*`→`#domaine/prompt-engineering` (les 2 dédups), `type/test`→`#domaine/testing`, `domaine/llm`→`#domaine/ia` (LLM générique ; `llm-research`/`llm-reasoning`/`llm-wiki` préservés), trio veille `type/industrie`+`type/veille`→`#type/news` (type « brève d'actualité » commun, sujet porté par `domaine/`).
+  - Vérif : git diff **100 % tag-only** (40 notes + script, 0 wikilink touché). `lint_vault` : **0 frontmatter cassé**, 133 wikilinks (stable). `find_by_property` : `#sujet/skills`/`memoire` = 0, `#composant/agent` = 0, `#domaine/skills` = 3, `#type/news` = 3, `#domaine/llm` nu = 0 (les `llm-*` restent). `get_tags` (agrégat) en lag de réindexation — vérité prise sur `find_by_property`.
+- **Source** : chantier « vault forge-brain parfait » 2/5, grille singletons validée par Raphael (7 juin 2026). E2 (retraits des 4 tags décoratifs) à suivre, séparé.
+
 ## 2026-06-07 — Chantier 2/5 normalisation tags — LOT D (projet/anthropic → domaine/anthropic)
 
 - **Modifiée** : 1 note ([[Brad-Abrams]]) — `#projet/anthropic` → `#domaine/anthropic` (Anthropic n'est pas un projet du repo mais un domaine de veille). 1 renommage, 0 dédup.

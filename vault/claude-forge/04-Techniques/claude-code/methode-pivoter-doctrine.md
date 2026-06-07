@@ -18,7 +18,7 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
-  - "#sujet/methode"
+  - "#domaine/methode"
   - "#meta"
 ---
 # Méthode pour pivoter une doctrine sans régression silencieuse

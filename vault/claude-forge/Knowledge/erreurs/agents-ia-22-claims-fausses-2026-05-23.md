@@ -21,7 +21,7 @@ tags:
   - "#type/knowledge"
   - "#domaine/erreurs"
   - "#domaine/agents"
-  - "#audit/vault"
+  - "#domaine/audit"
 ---
 
 ## Contexte

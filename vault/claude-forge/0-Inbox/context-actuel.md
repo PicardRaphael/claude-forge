@@ -6,7 +6,7 @@ type: context
 status: active
 derniere-maj: 2026-06-07
 auteur: claude
-tags: ["#type/context", "#meta/working-memory"]
+tags: ["#type/context", "#meta"]
 ---
 ## Phase actuelle
 Capitalisation de connaissances dans le vault terminée — dossier `Important/` entièrement réconcilié et vidé, doctrine single-source rétablie.

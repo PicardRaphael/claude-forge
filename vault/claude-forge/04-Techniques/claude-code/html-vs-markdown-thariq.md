@@ -22,7 +22,7 @@ tags:
   - "#type/technique"
   - "#domaine/claude-code"
   - "#doctrine/2026"
-  - "#sujet/specs"
+  - "#domaine/specs"
 ---
 
 # HTML > Markdown — doctrine Thariq Shihipar (Anthropic Engineering Lead Claude Code)

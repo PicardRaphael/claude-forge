@@ -22,8 +22,8 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
-  - "#sujet/plugins"
-  - "#sujet/skills"
+  - "#domaine/plugin"
+  - "#domaine/skills"
   - "#doctrine/2026"
 ---
 # Plugin vs Skill (compétence) — anatomie

@@ -14,7 +14,7 @@ auteur: claude
 tags:
   - "#type/decision"
   - "#projet/claude-forge"
-  - "#sujet/securite"
+  - "#domaine/securite"
 ---
 
 # ADR — Modifications du settings global = manuelles via diff fourni

@@ -25,7 +25,7 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
-  - "#sujet/claudemd"
+  - "#domaine/claudemd"
   - "#doctrine/2026"
 ---
 # Comment écrire un CLAUDE.md parfait

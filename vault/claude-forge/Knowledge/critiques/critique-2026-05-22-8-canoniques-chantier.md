@@ -15,7 +15,7 @@ sources:
 tags:
   - "#type/critique"
   - "#chantier/22mai2026"
-  - "#sujet/vault"
+  - "#domaine/vault"
 ---
 # Critique DA — 8 canoniques chantier 22 mai 2026
 

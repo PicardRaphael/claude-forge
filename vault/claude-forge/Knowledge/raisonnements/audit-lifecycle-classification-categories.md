@@ -15,7 +15,7 @@ auteur: claude
 tags:
   - "#type/raisonnement"
   - "#domaine/claude-code"
-  - "#sujet/audit"
+  - "#domaine/audit"
   - "#domaine/doctrine"
 ---
 ## Probleme

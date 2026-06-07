@@ -22,7 +22,7 @@ tags:
   - "#domaine/claude-code"
   - "#domaine/mcp"
   - "#domaine/karpathy"
-  - "#sujet/tokens"
+  - "#domaine/tokens"
 ---
 
 # Comparaison MCP forge-brain vs MCP brain (28 mai 2026)

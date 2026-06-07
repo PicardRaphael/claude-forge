@@ -28,7 +28,7 @@ tags:
   - "#type/technique"
   - "#domaine/claude-code"
   - "#domaine/mcp"
-  - "#sujet/skills"
+  - "#domaine/skills"
   - "#doctrine/2026"
 ---
 

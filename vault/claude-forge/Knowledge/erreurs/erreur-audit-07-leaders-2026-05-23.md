@@ -11,7 +11,7 @@ auteur: claude
 tags:
   - "#type/erreur"
   - "#domaine/audit"
-  - "#meta/lessons-learned"
+  - "#meta"
 ---
 
 ## Contexte

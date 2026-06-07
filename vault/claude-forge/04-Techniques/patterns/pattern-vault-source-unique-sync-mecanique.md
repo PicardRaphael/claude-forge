@@ -16,7 +16,7 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
-  - "#sujet/patterns"
+  - "#domaine/patterns"
 ---
 # Pattern — Vault dossier source unique + sync mécanique
 

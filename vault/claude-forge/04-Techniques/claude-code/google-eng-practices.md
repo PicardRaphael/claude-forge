@@ -24,7 +24,7 @@ tags:
   - "#type/reference"
   - "#domaine/code-review"
   - "#domaine/workflow"
-  - "#meta/externe"
+  - "#meta"
 ---
 
 # Google Engineering Practices — guide CL & code review

@@ -6,7 +6,7 @@ type: synthese
 status: active
 derniere-maj: 2026-05-28
 auteur: claude
-tags: ["#type/synthese", "#meta/bilan", "#projet/claude-forge"]
+tags: ["#type/synthese", "#meta", "#projet/claude-forge"]
 ---
 
 ## Vue d'ensemble

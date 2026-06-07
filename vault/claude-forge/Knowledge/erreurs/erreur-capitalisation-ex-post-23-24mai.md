@@ -14,7 +14,7 @@ tags:
   - "#type/erreur"
   - "#domaine/claude-code"
   - "#projet/claude-forge"
-  - "#audit/doctrine"
+  - "#domaine/audit"
 ---
 
 # Erreur — pattern de capitalisation ex post sur sessions 23-24 mai

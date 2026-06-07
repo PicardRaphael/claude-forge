@@ -19,7 +19,6 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/prompt-engineering"
-  - "#pattern/prompt-engineering"
 ---
 
 ## Contexte

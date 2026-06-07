@@ -21,7 +21,7 @@ tags:
   - "#domaine/vault"
   - "#domaine/mcp"
   - "#domaine/karpathy"
-  - "#sujet/llm-wiki"
+  - "#domaine/llm-wiki"
 ---
 
 # Pattern MCP vault LLM-optimized

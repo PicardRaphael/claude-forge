@@ -29,7 +29,7 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
-  - "#sujet/methode"
+  - "#domaine/methode"
   - "#meta"
 ---
 <!-- TODO 2026-05-24: note >500L — extraction sections vers references/ -->

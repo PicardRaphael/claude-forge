@@ -21,7 +21,7 @@ tags:
   - "#type/erreur"
   - "#domaine/claude-code"
   - "#projet/neo_ia"
-  - "#sujet/claudemd"
+  - "#domaine/claudemd"
   - "#anti-pattern"
 ---
 

@@ -57,6 +57,51 @@ LOTS = {
         "#projet/anthropic": "#domaine/anthropic",
         # projet/forge deja traite en C ; neoteem/neoteem-brain/neoteem-po NON fusionnes
     },
+    "E1": {  # singletons : renommages / re-prefixages (logique rename eprouvee)
+        # --- G4 : traine #sujet/* restante -> #domaine/* (fin du LOT A) ---
+        "#sujet/claudemd": "#domaine/claudemd",
+        "#sujet/llm-wiki": "#domaine/llm-wiki",
+        "#sujet/memoire": "#domaine/memoire",
+        "#sujet/methode": "#domaine/methode",
+        "#sujet/skills": "#domaine/skills",
+        "#sujet/skill": "#domaine/skills",        # unifie singulier/pluriel
+        "#sujet/audit": "#domaine/audit",          # cible existante (5) -> dedup possible
+        "#sujet/canoniques": "#domaine/canoniques",
+        "#sujet/harness-engineering": "#domaine/harness-engineering",  # cible existante (4)
+        "#sujet/maintenance": "#domaine/maintenance",
+        "#sujet/patterns": "#domaine/patterns",    # cible existante (4)
+        "#sujet/plugins": "#domaine/plugin",       # cible existante (1) #domaine/plugin
+        "#sujet/portabilite": "#domaine/portabilite",
+        "#sujet/prompt-engineering": "#domaine/prompt-engineering",    # cible existante (32) -> dedup possible
+        "#sujet/securite": "#domaine/securite",    # cible existante (13) -> dedup possible
+        "#sujet/specs": "#domaine/specs",
+        "#sujet/tests": "#domaine/testing",        # cible existante (2) -> dedup possible
+        "#sujet/tokens": "#domaine/tokens",
+        "#sujet/validation-doctrine": "#domaine/validation-doctrine",
+        "#sujet/vault": "#domaine/vault",          # cible existante (5) -> dedup possible
+        # --- G2 : prefixes hors-convention -> axe canonique ---
+        "#audit/doctrine": "#domaine/audit",
+        "#audit/vault": "#domaine/audit",
+        "#composant/agent": "#domaine/agents",
+        "#composant/hook": "#domaine/hooks",
+        "#doctrine": "#doctrine/2026",             # tag nu -> axe doctrine date
+        "#meta/bilan": "#meta",
+        "#meta/externe": "#meta",
+        "#meta/lessons-learned": "#meta",
+        "#meta/working-memory": "#meta",
+        # --- G1 : typos / variantes -> forme dominante ---
+        "#domaine/frameworks": "#domaine/framework",   # pluriel -> singulier
+        "#type/techniques": "#type/technique",         # pluriel -> singulier
+        "#domaine/ai-security": "#domaine/securite",   # EN -> FR
+        "#domaine/ai-alignment": "#domaine/alignment", # variante prefixee
+        "#pattern/prompting": "#domaine/prompt-engineering",
+        "#pattern/prompt-engineering": "#domaine/prompt-engineering",
+        "#type/test": "#domaine/testing",              # type mal prefixe -> domaine
+        "#domaine/llm": "#domaine/ia",                 # LLM generique -> ia (note Elvis Saravia)
+        "#type/industrie": "#type/news",               # trio veille -> type/news (sujet porte par domaine/)
+        "#type/veille": "#type/news",
+        # type/news garde tel quel (deja la cible)
+    },
 }
 
 

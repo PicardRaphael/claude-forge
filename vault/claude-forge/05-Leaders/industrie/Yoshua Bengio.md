@@ -19,7 +19,7 @@ tags:
   - "#type/leader"
   - "#domaine/industrie"
   - "#domaine/deep-learning"
-  - "#domaine/ai-alignment"
+  - "#domaine/alignment"
 ---
 
 ## Profil
