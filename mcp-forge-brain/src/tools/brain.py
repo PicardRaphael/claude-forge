@@ -412,7 +412,10 @@ class BrainTools:
         if not path:
             return f"Note '{file}' introuvable."
         full_path = self._vault / path
-        with open(full_path, "a", encoding="utf-8") as f:
+        # newline="" : ecrit le content ajoute byte-exact, sans traduction \n->\r\n par
+        # la couche texte Windows. Comme update_note/update_property, l'appelant est
+        # seule autorite EOL du content fourni. Cf erreur-mcp-yaml-dump-corruption.
+        with open(full_path, "a", encoding="utf-8", newline="") as f:
             f.write(content)
         new_content = full_path.read_text(encoding="utf-8", errors="replace")
         parsed = parse_note(full_path.stem, path, new_content)
@@ -430,7 +433,10 @@ class BrainTools:
         if not path:
             return f"Note '{file}' introuvable."
         full_path = self._vault / path
-        full_path.write_text(content, encoding="utf-8")
+        # newline="" : ecrit le content byte-exact, sans traduction \n<->\r\n par la
+        # couche texte Windows. L'appelant est seule autorite EOL (zero-diff EOL : un
+        # content LF reste LF a l'ecriture, idem CRLF). Cf erreur-mcp-yaml-dump-corruption.
+        full_path.write_text(content, encoding="utf-8", newline="")
         parsed = parse_note(full_path.stem, path, content)
         self._db.index_note(parsed, full_path.stat().st_mtime)
         if self._git and self._git._cfg.auto_commit:
@@ -459,27 +465,37 @@ class BrainTools:
         if not path:
             return f"Note '{file}' introuvable."
         full_path = self._vault / path
-        original = full_path.read_text(encoding="utf-8", errors="replace")
+        # newline="" : preserve les EOL d'origine (\r\n vs \n) a la lecture, pour que
+        # le contenu non touche reste byte-exact et que le content insere s'aligne sur
+        # l'EOL du fichier. Cf erreur-mcp-yaml-dump-corruption.
+        original = full_path.read_text(encoding="utf-8", errors="replace", newline="")
         if marker not in original:
             return f"Marker '{marker}' introuvable dans: {path}"
+        # EOL du fichier : si CRLF present, on aligne le content insere dessus.
+        eol = "\r\n" if "\r\n" in original else "\n"
+        # Le content insere doit finir par l'EOL du fichier (pas un \n force qui
+        # creerait un LF orphelin dans un fichier CRLF).
+        content_block = content if content.endswith(("\n", "\r\n")) else content + eol
         lines = original.splitlines(keepends=True)
         out: list[str] = []
         inserted = False
         for line in lines:
-            if not inserted and line.rstrip("\n") == marker.rstrip("\n"):
+            # rstrip("\r\n") : avec newline="" les lignes gardent leur \r\n ; comparer
+            # le marker sans EOL des deux cotes (sinon le \r casse le matching).
+            if not inserted and line.rstrip("\r\n") == marker.rstrip("\r\n"):
                 if position == "before":
-                    out.append(content if content.endswith("\n") else content + "\n")
+                    out.append(content_block)
                     out.append(line)
                 else:
                     out.append(line)
-                    out.append(content if content.endswith("\n") else content + "\n")
+                    out.append(content_block)
                 inserted = True
             else:
                 out.append(line)
         if not inserted:
             return f"Marker '{marker}' present mais non aligne (ligne entiere)."
         new_content = "".join(out)
-        full_path.write_text(new_content, encoding="utf-8")
+        full_path.write_text(new_content, encoding="utf-8", newline="")
         parsed = parse_note(full_path.stem, path, new_content)
         self._db.index_note(parsed, full_path.stat().st_mtime)
         if self._git and self._git._cfg.auto_commit:
@@ -588,14 +604,17 @@ class BrainTools:
         old_full.rename(new_full)
 
         # Re-index moved note
-        content = new_full.read_text(encoding="utf-8", errors="replace")
+        # newline="" : preserve les EOL d'origine ; _rewrite_wikilinks ne touche que les
+        # [[...]] (pas les \n), donc read+write byte-exact garde l'EOL intact.
+        # Cf erreur-mcp-yaml-dump-corruption.
+        content = new_full.read_text(encoding="utf-8", errors="replace", newline="")
 
         # B1 self-link fix: rewrite wikilinks inside moved note BEFORE indexing
         self_link_count = 0
         if update_wikilinks and old_stem != new_stem:
             content_rewritten, self_link_count = _rewrite_wikilinks(content, old_stem, new_stem)
             if self_link_count > 0:
-                new_full.write_text(content_rewritten, encoding="utf-8")
+                new_full.write_text(content_rewritten, encoding="utf-8", newline="")
                 content = content_rewritten
 
         parsed = parse_note(new_stem, normalized_new, content)
@@ -615,10 +634,12 @@ class BrainTools:
                 bl_full = self._vault / bl_path
                 if not bl_full.exists():
                     continue
-                bl_content = bl_full.read_text(encoding="utf-8", errors="replace")
+                # newline="" : meme garantie byte-exact que la note deplacee — on ne
+                # reecrit que les [[...]], jamais les EOL des backlinks.
+                bl_content = bl_full.read_text(encoding="utf-8", errors="replace", newline="")
                 new_content, rewrite_count = _rewrite_wikilinks(bl_content, old_stem, new_stem)
                 if rewrite_count > 0:
-                    bl_full.write_text(new_content, encoding="utf-8")
+                    bl_full.write_text(new_content, encoding="utf-8", newline="")
                     bl_parsed = parse_note(bl_stem, bl_path, new_content)
                     self._db.index_note(bl_parsed, bl_full.stat().st_mtime)
                     updated_files.append(bl_stem)
