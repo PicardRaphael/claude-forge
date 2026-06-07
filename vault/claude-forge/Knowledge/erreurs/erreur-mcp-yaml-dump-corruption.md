@@ -103,3 +103,27 @@ Le cas array est désormais **CORRIGÉ côté outil**. Les sections ci-dessus (�
 
 - **`parse_note` (indexer.py) + BOM en tête** : `_FRONTMATTER_RE` exige `^---`. Un BOM UTF-8 en tête fait échouer le match → frontmatter **ignoré silencieusement** (tags/aliases vides à l'index, **sans warning**). **0 note du vault affectée aujourd'hui** (les 469 scannées sont sans BOM en tête ; le BOM trouvé dans `comment-creer-skill` est en milieu de fichier = double-frontmatter, autre anomalie). Le splice, lui, **préserve** un BOM en tête. Cf feedback mémoire `bom-skillmd-casse-frontmatter`.
 - **`append_note` (`open(..., "a")` sans `newline=""`)** : même pattern de traduction EOL que l'ancien `update_property` — pourrait coller du CRLF dans un fichier LF. Non vérifié, non corrigé.
+
+
+## RÉSOLU 2026-06-07 — Chantier 6-A : fix EOL `newline=""` étendu aux 4 outils restants (commit `63a8f66` forge)
+
+Le fix #2 (`2ff0538`) n'avait posé `newline=""` que sur `update_property`/`bulk_update_property`. Les sections « Découvertes annexes » ci-dessus flaggaient **un seul** outil (`append_note`) comme angle mort EOL « non vérifié ». Lecture-code du Chantier 6 (diagnostic Trou A) : **4 outils** partageaient la même classe de bug (un fichier **LF** réécrit en **CRLF** = diff full-file ; 166 notes LF du vault exposées). Tous corrigés :
+
+| Outil | Lignes | Fix |
+|---|---|---|
+| `update_note` | write | `write_text(..., newline="")` |
+| `insert_section` | read + write | `read_text`/`write_text(newline="")` **+ 2 corrections induites** |
+| `append_note` | open `"a"` | `open(..., "a", encoding="utf-8", newline="")` |
+| `move_note` | 2× read + 2× write | note déplacée (self-links) + backlinks réécrits |
+
+**`insert_section` — 2 corrections induites obligatoires** (sans elles, `newline=""` cassait l'outil sur les 301 notes CRLF du vault, pas un détail cosmétique) :
+1. **Marker matching** : `line.rstrip("\n")` → `rstrip("\r\n")`. Avec `newline=""` les lignes gardent leur `\r\n` ; `"## Section\r"` ≠ `"## Section"` → le marker ne matchait plus.
+2. **Content inséré** : `content + "\n"` (LF forcé) → `content + eol` (EOL détecté du fichier) → plus de LF orphelin injecté dans une note CRLF.
+
+**Doctrine EOL unifiée** (les 6 outils d'écriture l'appliquent désormais) : l'appelant est **seule autorité EOL** du contenu fourni ; la couche IO ne traduit jamais (`newline=""` en read ET write). Un content LF reste LF, CRLF reste CRLF, byte-exact.
+
+**Validation** : 11 tests régression EOL live byte-exact (`tests/test_eol_byte_exact.py`, `write_bytes` → opération réelle → `read_bytes`), 1/outil LF + CRLF + matching marker sur CRLF + move_note self-link ET backlink. 172/172 suite verte.
+
+### Statut BOM en tête — la découverte annexe est désormais EXPLOITÉE (Chantier 6-C, commit `4758671`)
+
+La découverte « BOM en tête → `_FRONTMATTER_RE` rate → frontmatter ignoré silencieusement » n'est plus seulement notée : `create_note` la transforme en **garde BLOCABLE-DUR**. `_creation_blockers(content)` refuse une note dont le BOM casse le frontmatter, message dédié mentionnant le BOM. Conséquence : le bug d'origine des 3 canoniques (`comment-creer-skill`/`-agent`/`-hook`, double-frontmatter + BOM) **ne peut plus naître via `create_note`**. Cf feedback `bom-skillmd-casse-frontmatter`. (Note : le BOM des 3 canoniques existantes est en *milieu* de fichier, anomalie distincte à réparer séparément — voir context-actuel fil ouvert.)

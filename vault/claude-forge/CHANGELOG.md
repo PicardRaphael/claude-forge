@@ -14,6 +14,14 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Chantier 6-A & 6-C (DEV MCP) — écriture vault conforme par construction
+
+- **6-A — fix EOL `newline=""` étendu aux 4 outils restants** (commit `63a8f66`). Le fix #2 n'avait couvert que `update_property`/`bulk` ; `update_note`/`insert_section`/`append_note`/`move_note` traduisaient encore LF→CRLF à l'écriture (166 notes LF du vault exposées au diff full-file). `insert_section` : 2 corrections induites (rstrip `\r\n` du marker, EOL aligné du content inséré) sinon le matching cassait sur les 301 notes CRLF. Doctrine EOL unifiée : l'appelant est seule autorité EOL, la couche IO ne traduit jamais. 11 tests régression EOL live byte-exact.
+- **6-C — validation `create_note` (partition block-dur / warn-only)** (commit `4758671`). Conformité du contenu validée côté serveur MCP (source unique), AVANT écriture (refus = rien sur disque). BLOCK : frontmatter absent · BOM en tête · YAML invalide · double clé `aliases` (regex dédié importé de l'indexer — `yaml.safe_load` est aveugle, PyYAML garde le dernier en silence). WARN-ONLY : aliases<4 · aucun tag · wikilink→inexistant (forward-refs roadmap G1 sains, jamais bloqués ; tolérance memory/ `feedback_`/`reference_` gardée). 16 tests. Le block BOM attrape `bom-skillmd` à la source.
+- **Bilan** : 188/188 tests verts, zéro régression. Trou B (write-by-path + hook anti-contournement) tracé séparé (changement d'archi, pas ce soir).
+- **Modifiée (1 note)** : [[erreur-mcp-yaml-dump-corruption]] — addendum inventaire EOL complet des 4 outils (6-A) + statut BOM désormais exploité comme garde (6-C).
+- **Source** : Chantier 6 du plan vault forge-brain (garantir l'écriture vault conforme).
+
 ## 2026-06-07 — Chantier 5/5 (DEV MCP) — CLOS
 
 - **Limite #1 RÉSOLUE** (besoin prouvé) : `lint_vault` accepte `limit=0` (illimité) + sélecteur `category`. Validé en prod (89 wikilinks brisés en entier vs 50 tronqués). Commit `490d9fa`.
