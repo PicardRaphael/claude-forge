@@ -10,6 +10,7 @@
 - [allowed-tools-verif-empirique](feedback_allowed_tools_verif_empirique.md) — Vérifier allowed-tools par grep du body avant de déclarer la liste complète.
 - [anti-reentrance-sub-agents](feedback_anti_reentrance_sub_agents.md) — Sub-agent NE PEUT PAS invoquer Agent. Pattern STOP + ESCALADE REQUISE 5 champs
 - [arxiv-url-swap-papers-similaires](_archive/2026-06/feedback_arxiv_url_swap_papers_similaires.md) — Archivé : absorbé par skill `arxiv-verification` (Check 2). Cf `.claude/skills/arxiv-verification/SKILL.md`
+- [audit-completude-pointeur-vs-orphelin](feedback_audit_completude_pointeur_vs_orphelin.md) — Audit complétude index/roadmap : un wikilink non résolu localement peut pointer vers une note existante ailleurs. search_brain chaque cible avant de la compter orpheline, sinon surcompte le backlog (60→41 réels)
 - [audit-qualite-design-transverse-mandatory](feedback_audit_qualite_design_transverse.md) — Audit `.claude/` = technique + qualité-design transverse vs canoniques
 - [askuserquestion-arbitrage-destructif](feedback_askuserquestion_arbitrage_destructif.md) — Actions destructives multiples = AskUserQuestion item par item, jamais en bloc. Permet corrections contextuelles
 - [audit-thematique-methode-sub-agents-clusters](feedback_audit_thematique_methode.md) — Audit vault : sub-agents par CLUSTER, checkpoint A avant B, self-verify avant D

@@ -14,6 +14,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Système de coaching Lead IA — structure légère (2 notes vides)
+
+- **Créées (2 notes, vides de contenu)** : `2-Casquettes/responsable-ia/coaching/index.md` (pilote de la boucle : conseil → terrain → capture, règle de capture des boucles complètes uniquement, double axe de tags `#theme` × `#boite`, apprentissage à 2 niveaux contextuel/transférable) et `2-Casquettes/responsable-ia/coaching/retours.md` (journal append-only, format en en-tête, zéro entrée).
+- **Objectif** : remplacer un dump théorique de 41 notes par un système de coaching dont le vault est la mémoire — les notes se remplissent du vécu terrain réel de Raphael au fil des boucles, recentré « parcours de carrière Lead IA » (pas seulement la boîte actuelle).
+- **Wikilinks vérifiés avant écriture** (anti lien-cassé) : hubs `management/index`, `communication/index`, `strategie/index` confirmés existants ; lien vers la casquette désambiguïsé en `responsable-ia` (stem `index` partagé 13×) ; résolution validée par get_backlinks (0 lien cassé).
+- **Source** : demande Raphael — système de coaching collaboratif plutôt que rédaction théorique anticipée.
+
 ## 2026-06-07 — Chantier 5/5 (DEV MCP) — ENTAMÉ : 2 des 6 limites MCP traitées (read_note_resolved + exclusion CHANGELOG)
 
 - **Modifiée (1 canonique)** : [[mcp-vault-llm-design]] — outil `read_note_resolved` retiré de la matrice courante (sections 1-9 renumérotées 7→8, POURQUOI « embeds opaques » retiré) ; entrée **v1.4 (7 juin)** ajoutée au STATUT documentant le retrait (0 appel/365j, 0 MOC à embeds — dormant faute de matériau). Historique daté (MÉTRIQUES 24 mai, v1.3) **préservé** — vrai à sa date, non réécrit.
