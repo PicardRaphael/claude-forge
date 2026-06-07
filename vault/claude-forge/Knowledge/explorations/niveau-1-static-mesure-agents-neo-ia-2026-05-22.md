@@ -22,7 +22,7 @@ tags:
   - "#type/exploration"
   - "#domaine/claude-code"
   - "#projet/neo_ia"
-  - "#sujet/agents"
+  - "#domaine/agents"
   - "#meta"
 ---
 

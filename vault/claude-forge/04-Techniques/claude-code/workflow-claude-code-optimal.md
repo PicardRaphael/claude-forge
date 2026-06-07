@@ -26,7 +26,7 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
-  - "#sujet/workflow"
+  - "#domaine/workflow"
   - "#doctrine/2026"
 ---
 <!-- TODO 2026-05-24: note >500L — extraction sections vers references/ -->

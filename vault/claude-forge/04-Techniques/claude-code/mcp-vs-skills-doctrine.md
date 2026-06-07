@@ -27,7 +27,7 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
-  - "#sujet/mcp"
+  - "#domaine/mcp"
   - "#sujet/skills"
   - "#doctrine/2026"
 ---

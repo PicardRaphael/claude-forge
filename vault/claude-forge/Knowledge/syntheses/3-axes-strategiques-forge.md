@@ -5,7 +5,7 @@ aliases: ["3 axes strategiques", "axes innovation forge", "critere tier-1", "axe
 type: knowledge
 derniere-maj: 2026-05-28
 auteur: claude
-tags: ["#type/knowledge", "#domaine/forge-doctrine"]
+tags: ["#type/knowledge", "#domaine/doctrine"]
 ---
 
 Les 3 axes d'innovation strategiques forge utilises comme critere mecanique de classification tier-1 dans `.claude/skills/clean-memory/SKILL.md` et `.claude/skills/done/SKILL.md` :

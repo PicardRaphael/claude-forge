@@ -10,7 +10,7 @@ derniere-maj: 2026-05-24
 auteur: claude
 tags:
   - "#type/erreur"
-  - "#domaine/audit-vault"
+  - "#domaine/audit"
   - "#meta/lessons-learned"
 ---
 

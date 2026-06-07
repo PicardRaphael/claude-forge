@@ -22,7 +22,7 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
-  - "#sujet/orchestration"
+  - "#domaine/orchestration"
   - "#doctrine/2026"
 ---
 

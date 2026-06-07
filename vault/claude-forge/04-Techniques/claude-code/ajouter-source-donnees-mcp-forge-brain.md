@@ -14,7 +14,7 @@ type: technique
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
-  - "#sujet/mcp"
+  - "#domaine/mcp"
   - "#projet/claude-forge"
 ---
 

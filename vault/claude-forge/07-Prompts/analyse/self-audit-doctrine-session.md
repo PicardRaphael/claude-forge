@@ -20,7 +20,7 @@ sources:
   - ".claude/rules/devils-advocate-pipeline.md"
 tags:
   - "#type/prompt"
-  - "#sujet/audit-thematique"
+  - "#domaine/audit"
   - "#methode/verification"
 ---
 

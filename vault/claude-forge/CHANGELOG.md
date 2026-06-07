@@ -14,6 +14,17 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Chantier 2/5 normalisation tags — LOT A (sujet/ → domaine/ + cibles tranchées)
+
+- **Modifiées** : 30 notes — fusion des synonymes de préfixe `#sujet/*` vers `#domaine/*` + 2 fusions multi-cibles.
+  - `#sujet/mcp` → `#domaine/mcp` · `#sujet/hooks` → `#domaine/hooks` · `#sujet/workflow` → `#domaine/workflow` · `#sujet/agents` → `#domaine/agents` · `#sujet/orchestration` → `#domaine/orchestration` · `#sujet/karpathy` → `#domaine/karpathy` (concept, PAS `leader/` — la veille cc-news se fait par le dossier `05-Leaders/`, pas par tag).
+  - Multi-cibles : `#sujet/doctrine` + `#domaine/forge-doctrine` → `#domaine/doctrine` (5 notes, sources disjointes : 4 + 1) · `#sujet/audit-thematique` + `#domaine/audit-vault` → `#domaine/audit` (5 notes).
+  - Bilan : 33 renommages, **0 déduplication** (aucune fusion n'a produit de doublon dans une même note).
+  - Méthode : même script déterministe que LOT C, dry-run + `--show` multi-cible validés AVANT `--apply`.
+  - Vérif : `find_by_property` confirme `#sujet/*` = 0 partout, `#domaine/doctrine` = 5, `#domaine/audit` = 5. `lint_vault` : **0 frontmatter cassé**. Diff git **100 % tag-only** (0 wikilink touché, 0 ligne hors `- "#..."`, ajout comme suppression) — un changement de tag ne peut par construction ni créer ni casser un wikilink. Compteur lint affiché 132→133 non stabilisé : artefact de réindexation de l'agrégat après écriture raw (même gotcha que `get_tags`), pas une régression de lien — preuve diff > proxy compteur.
+- **Enrichie** : [[erreur-mcp-yaml-dump-corruption]] — la section « gotcha agrégats retardés » généralise de `get_tags` à `lint_vault` (compteur wikilinks fluctue 131/132/133 indépendamment des edits tag-only) + méta « face à une consigne chiffrée, la preuve git directe bat le proxy compteur agrégé tronqué ; ne pas `git stash` pour mesurer (CRLF) ».
+- **Source** : chantier « vault forge-brain parfait » 2/5, décisions tags validées par Raphael (7 juin 2026). LOTS B/D à suivre.
+
 ## 2026-06-07 — Chantier 2/5 normalisation tags — LOT C (formes projet)
 
 - **Modifiées** : 21 notes — fusion des formes projet vers le nom EXACT du repo (underscore / tiret canonique).

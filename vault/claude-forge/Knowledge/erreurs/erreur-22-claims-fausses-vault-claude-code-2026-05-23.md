@@ -16,7 +16,7 @@ sources:
 tags:
   - "#type/erreur"
   - "#domaine/claude-code"
-  - "#sujet/doctrine"
+  - "#domaine/doctrine"
   - "#chantier/23mai2026"
 ---
 

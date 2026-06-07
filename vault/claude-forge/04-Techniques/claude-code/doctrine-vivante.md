@@ -19,7 +19,7 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
-  - "#sujet/doctrine"
+  - "#domaine/doctrine"
   - "#doctrine/2026"
 ---
 # Doctrine vivante

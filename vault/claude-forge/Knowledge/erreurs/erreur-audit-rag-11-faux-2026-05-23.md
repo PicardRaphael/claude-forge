@@ -18,7 +18,7 @@ sources:
 tags:
   - "#type/erreur"
   - "#domaine/rag"
-  - "#sujet/audit-thematique"
+  - "#domaine/audit"
 ---
 
 ## Contexte

@@ -15,7 +15,7 @@ auteur: claude
 tags:
   - "#type/pattern"
   - "#domaine/claude-code"
-  - "#sujet/hooks"
+  - "#domaine/hooks"
 ---
 
 # Hooks de conformité par construction = audit passif continu

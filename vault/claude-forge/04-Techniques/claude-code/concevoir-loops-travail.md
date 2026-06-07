@@ -22,7 +22,7 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
-  - "#sujet/workflow"
+  - "#domaine/workflow"
   - "#doctrine/2026"
 ---
 # Concevoir un loop de travail

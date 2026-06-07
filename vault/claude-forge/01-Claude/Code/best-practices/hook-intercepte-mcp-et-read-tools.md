@@ -16,8 +16,8 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
-  - "#sujet/hooks"
-  - "#sujet/mcp"
+  - "#domaine/hooks"
+  - "#domaine/mcp"
 ---
 # PreToolUse intercepte les tools MCP et Read
 

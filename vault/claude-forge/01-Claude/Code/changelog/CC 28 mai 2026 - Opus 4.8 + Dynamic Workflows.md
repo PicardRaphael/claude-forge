@@ -21,7 +21,7 @@ sources:
 tags:
   - "#type/changelog"
   - "#domaine/claude-code"
-  - "#sujet/workflow"
+  - "#domaine/workflow"
   - "#doctrine/2026"
 ---
 

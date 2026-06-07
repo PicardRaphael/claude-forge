@@ -20,7 +20,7 @@ tags:
   - "#type/pattern"
   - "#domaine/vault"
   - "#domaine/mcp"
-  - "#sujet/karpathy"
+  - "#domaine/karpathy"
   - "#sujet/llm-wiki"
 ---
 

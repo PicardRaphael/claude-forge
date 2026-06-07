@@ -23,7 +23,7 @@ sources:
 tags:
   - "#type/reference"
   - "#domaine/code-review"
-  - "#sujet/workflow"
+  - "#domaine/workflow"
   - "#meta/externe"
 ---
 

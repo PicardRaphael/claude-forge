@@ -14,7 +14,7 @@ domaine: claude-code
 tags:
   - "#type/erreur"
   - "#domaine/claude-code"
-  - "#sujet/hooks"
+  - "#domaine/hooks"
   - "#projet/claude-forge"
 ---
 

@@ -17,7 +17,7 @@ tags:
   - "#type/technique"
   - "#domaine/claude-code"
   - "#technique/agents"
-  - "#sujet/mcp"
+  - "#domaine/mcp"
 ---
 
 # Bug #60237 — Sub-agent `tools:` array drop first/last position

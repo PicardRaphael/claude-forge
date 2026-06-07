@@ -14,7 +14,7 @@ type: synthese
 tags:
   - "#type/synthese"
   - "#domaine/vault"
-  - "#sujet/audit-thematique"
+  - "#domaine/audit"
 sources:
   - "Audit dispatch 6 clusters parallèles read-only via MCP forge-brain"
   - "Méthode A→B→C→D→E .claude/rules/sequence-canonique-modification.md"

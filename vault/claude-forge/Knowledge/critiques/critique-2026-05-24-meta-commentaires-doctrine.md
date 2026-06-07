@@ -11,7 +11,7 @@ type: critique
 tags:
   - "#type/critique"
   - "#domaine/claude-code"
-  - "#sujet/doctrine"
+  - "#domaine/doctrine"
 ---
 
 # Critique DA — Doctrine pas de meta-commentaires dans composants

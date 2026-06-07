@@ -17,7 +17,7 @@ auteur: claude
 tags:
   - "#type/raisonnement"
   - "#domaine/claude-code"
-  - "#sujet/agents"
+  - "#domaine/agents"
   - "#meta"
 ---
 

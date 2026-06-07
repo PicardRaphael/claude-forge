@@ -20,8 +20,8 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
-  - "#sujet/mcp"
-  - "#sujet/karpathy"
+  - "#domaine/mcp"
+  - "#domaine/karpathy"
   - "#sujet/tokens"
 ---
 

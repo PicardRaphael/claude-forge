@@ -21,7 +21,7 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
-  - "#sujet/agents"
+  - "#domaine/agents"
   - "#doctrine/2026"
 ---
 

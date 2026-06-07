@@ -23,7 +23,7 @@ sources:
 tags:
   - "#type/pattern"
   - "#domaine/vault"
-  - "#sujet/karpathy"
+  - "#domaine/karpathy"
   - "#sujet/llm-wiki"
 ---
 # Pattern vault LLM canonique Karpathy

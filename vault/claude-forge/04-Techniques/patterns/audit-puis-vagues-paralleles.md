@@ -18,7 +18,7 @@ tags:
   - "#type/technique"
   - "#type/pattern"
   - "#domaine/claude-code"
-  - "#sujet/orchestration"
+  - "#domaine/orchestration"
   - "#pattern/audit"
 ---
 # Méthode audit + vagues d'application parallèles

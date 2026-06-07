@@ -16,7 +16,7 @@ tags:
   - "#type/raisonnement"
   - "#domaine/claude-code"
   - "#sujet/audit"
-  - "#sujet/doctrine"
+  - "#domaine/doctrine"
 ---
 ## Probleme
 

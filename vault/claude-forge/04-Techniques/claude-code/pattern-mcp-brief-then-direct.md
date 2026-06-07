@@ -21,8 +21,8 @@ sources:
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
-  - "#sujet/orchestration"
-  - "#sujet/mcp"
+  - "#domaine/orchestration"
+  - "#domaine/mcp"
   - "#doctrine/2026"
 ---
 
