@@ -16,6 +16,7 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 - [delegate-guard-scope-tout-skillmd](feedback_delegate_guard_scope_tout_skillmd.md) — delegate-guard bloque TOUT SKILL.md (match par nom, pas chemin), même hors .claude/. Déléguer à skill-creator partout, briefer "verbatim" si contenu déjà conçu
 - [dispatch-analyse-vs-audit](feedback_dispatch_analyse_vs_audit.md) — analyse skills/agents = project-auditor pas Explore. Multi-repo = 1 agent/repo
 - [emphasis-prompt-vs-skill](feedback_emphasis_distinction.md) — Emphasis OK dans skills/rules/agents, réduire uniquement dans tool descriptions
+- [hook-arme-perime-instructions-skills](feedback_hook_arme_perime_instructions_skills.md) — Armer un hook PreToolUse périme au runtime les instructions de skills écrites avant — grep le verbe bloqué dans le périmètre gardé
 - [hook-garde-hors-vault-bloque-plan-file](feedback_hook_garde_hors_vault_plan_file.md) — Hook bloquant écriture hors-périmètre strict attrape le plan file ~/.claude/plans/ en faux positif → plan mode cassé. Exception explicite en tête. Classifier refuse l'édit autonome du hook sécu
 - [hooks-same-stack](feedback_hooks_same_stack.md) — Hooks dans le même langage que le projet
 - [read-note-conditionnel-si-pas-deja-contexte](feedback_read_note_conditionnel_si_pas_deja_contexte.md) — Avant read_note canonique audit/jugement, vérifier si déjà en contexte session. Citer + wikilink si oui. Application directe règle tokens/contexte L19
