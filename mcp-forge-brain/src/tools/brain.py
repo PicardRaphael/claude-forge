@@ -593,49 +593,6 @@ class BrainTools:
             return f"Heading '{heading}' introuvable dans: {path}"
         return "".join(out)
 
-    def read_note_resolved(self, file: str, depth: int = 1) -> str:
-        """Lit une note et resout les embeds ![[X]] recursivement (inline le contenu).
-
-        Args:
-            file: nom de la note ou alias
-            depth: profondeur max (1 = embeds top-level)
-
-        Cas d'usage : MOC qui embed 5 notes -> 1 read = 6 notes en contexte LLM.
-        """
-        path = self._db.resolve_note(file)
-        if not path:
-            return f"Note '{file}' introuvable."
-        return self._resolve_embeds(path, depth, visited=set())
-
-    def _resolve_embeds(self, path: str, depth: int, visited: set) -> str:
-        if path in visited:
-            return f"[CYCLE: {path} deja inclus]"
-        visited.add(path)
-        full_path = self._vault / path
-        if not full_path.exists():
-            return f"[FICHIER MANQUANT: {path}]"
-        content = full_path.read_text(encoding="utf-8", errors="replace")
-        if depth <= 0:
-            return content
-
-        embed_re = re.compile(r"!\[\[([^\]|#]+)(?:#([^\]|]+))?(?:\|[^\]]+)?\]\]")
-
-        def replace_embed(match):
-            target_stem = match.group(1).strip()
-            section = match.group(2).strip() if match.group(2) else None
-            target_path = self._db.resolve_note(target_stem)
-            if not target_path:
-                return match.group(0)
-            if section:
-                inner = self.read_section(target_stem, f"## {section}")
-                if "introuvable" in inner:
-                    inner = self.read_section(target_stem, f"# {section}")
-            else:
-                inner = self._resolve_embeds(target_path, depth - 1, visited.copy())
-            return f"\n<!-- EMBED: {target_stem} -->\n{inner}\n<!-- /EMBED: {target_stem} -->\n"
-
-        return embed_re.sub(replace_embed, content)
-
     def find_by_property(
         self,
         name: str,
@@ -752,8 +709,10 @@ class BrainTools:
             # Karpathy layer 1 (immutable) + folders intentionally outside lint scope
             if any(path.startswith(p) for p in _LINT_EXCLUDE_PREFIXES):
                 continue
-            # log.md is append-only Karpathy trace — may reference deleted notes (historic)
-            if stem == "log":
+            # log.md / CHANGELOG.md are append-only narrative traces — they cite dead
+            # note names (between backticks) while documenting past repairs, which the
+            # lint parses as broken wikilinks (false positives). Excluded from source scan.
+            if stem in ("log", "CHANGELOG"):
                 continue
 
             # Aliases count
@@ -1054,19 +1013,6 @@ def register_tools(mcp, tools: BrainTools):
         Cas d'usage : CHANGELOG 62k chars, section "2026-05-24" = ~2k chars (economie 30x).
         """
         return tools.read_section(file, heading, include_subsections)
-
-    @_tool
-    def read_note_resolved(file: str, depth: int = 1) -> str:
-        """Lit une note ET resout les embeds ![[X]] recursivement (inline contenu).
-
-        Args:
-            file: nom de la note ou alias
-            depth: profondeur max recursion (1 = embeds top-level, 2 = embeds dans embeds)
-
-        Cas d'usage : MOC qui embed 5 sous-notes -> 1 appel = 6 notes en contexte LLM.
-        Cycles detectes (CYCLE: X). Fichiers manquants signales (FICHIER MANQUANT: X).
-        """
-        return tools.read_note_resolved(file, depth)
 
     @_tool
     def find_by_property(

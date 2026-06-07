@@ -1,4 +1,4 @@
-"""Tests bulk_update_property, read_section, read_note_resolved (embeds)."""
+"""Tests bulk_update_property, read_section."""
 
 import pytest
 
@@ -137,50 +137,3 @@ def test_read_section_unknown_heading(vault):
 def test_read_section_rejects_non_header(vault):
     result = vault.read_section("alpha", "no hash here")
     assert "REFUS" in result
-
-
-# --- read_note_resolved (embeds) ---
-
-def test_resolve_embed_simple(vault):
-    """bravo embeds alpha -> result contains both bodies."""
-    result = vault.read_note_resolved("bravo")
-    assert "See" in result
-    assert "EMBED: alpha" in result
-    assert "Content of COMMENT" in result  # alpha body inlined
-    assert "End body" in result
-
-
-def test_resolve_embed_with_section(vault):
-    """charlie embeds alpha#COMMENT -> only COMMENT section inlined."""
-    result = vault.read_note_resolved("charlie", depth=1)
-    assert "EMBED: alpha" in result
-    assert "Content of COMMENT" in result
-    # POURQUOI section should NOT be inlined
-    assert "Pourquoi content" not in result
-
-
-def test_resolve_embed_cycle_detected(vault):
-    """charlie -> delta -> charlie -> CYCLE."""
-    result = vault.read_note_resolved("charlie", depth=3)
-    assert "CYCLE" in result
-
-
-def test_resolve_embed_unknown_target_preserved(vault):
-    """If embed target doesn't exist, leave it as-is (don't error)."""
-    # Add a new note with broken embed
-    (vault._vault / "echo.md").write_text(
-        "---\naliases: [\"e\"]\ntags: [\"#t\"]\n---\n\nBroken: ![[nonexistent]]",
-        encoding="utf-8",
-    )
-    p = vault._vault / "echo.md"
-    parsed = parse_note("echo", "echo.md", p.read_text(encoding="utf-8"))
-    vault._db.index_note(parsed, p.stat().st_mtime)
-
-    result = vault.read_note_resolved("echo")
-    assert "![[nonexistent]]" in result  # embed left literal
-
-
-def test_resolve_embed_depth_zero_no_resolution(vault):
-    result = vault.read_note_resolved("bravo", depth=0)
-    assert "![[alpha]]" in result
-    assert "Content of COMMENT" not in result  # not inlined
