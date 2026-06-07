@@ -14,12 +14,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
-## 2026-06-07 — Chantier 5/5 — suppression read_note_resolved + exclusion CHANGELOG du lint (DEV MCP)
+## 2026-06-07 — Chantier 5/5 (DEV MCP) — ENTAMÉ : 2 des 6 limites MCP traitées (read_note_resolved + exclusion CHANGELOG)
 
 - **Modifiée (1 canonique)** : [[mcp-vault-llm-design]] — outil `read_note_resolved` retiré de la matrice courante (sections 1-9 renumérotées 7→8, POURQUOI « embeds opaques » retiré) ; entrée **v1.4 (7 juin)** ajoutée au STATUT documentant le retrait (0 appel/365j, 0 MOC à embeds — dormant faute de matériau). Historique daté (MÉTRIQUES 24 mai, v1.3) **préservé** — vrai à sa date, non réécrit.
 - **Code serveur MCP** (hors vault, commit `0b369b9`) : `read_note_resolved` + `_resolve_embeds` + wrapper + 6 tests embed supprimés ; `lint_vault` exclut `CHANGELOG.md` du scan source (précédent `log.md`). Doc skill `forge-brain/SKILL.md` nettoyée (3 lignes, via skill-creator). 138 tests passent.
 - **Effet lint mesuré** : 98 → 90 wikilinks cassés (les 8 du CHANGELOG = noms morts narratifs entre backticks, 0 vrai lien réparable, vérifiés 1 par 1).
-- **Source** : Chantier 5/5 du plan vault, items à besoin prouvé (verdict `usage_stats` Ch.4). `traverse_graph` multi-hop NON porté (pas de consommateur — décision Raphael).
+- **Statut Ch.5** : ENTAMÉ, **pas clos**. 4 limites MCP restantes (tracées dans `context-actuel`) : #1 `lint_vault` non paginé (plafond 50), #2 `rename_tag`/écriture array-safe (3 incidents corruption YAML), #3 lock inter-écritures MCP (race-condition), #4 lag réindexation agrégats. `traverse_graph` multi-hop = piste écartée (pas de consommateur — décision Raphael), ≠ une des 6 limites.
+- **Source** : Chantier 5/5 du plan vault, 2 items à besoin immédiat (verdict `usage_stats` Ch.4).
 
 ## 2026-06-07 — Chantier 4/5 outils MCP dormants — CLÔTURE (« rien à réveiller », prouvé)
 
