@@ -14,6 +14,16 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-07 — Capitalisation rapport « Référence technique ingénierie LLM » (serving/inférence + déplacement vers vault)
+
+- **Ajoutées** :
+  - [[serving-inference-optimisation]] (04-Techniques/serving/) — note neuve : choix moteurs vLLM/SGLang/TensorRT, PagedAttention vs RadixAttention, params vLLM, quantification FP8/AWQ/GPTQ, speculative decoding EAGLE-3/MTP, désagrégation prefill/decode, métriques TTFT/TPOT. Foyer serving d'inférence générale manquant (distinct de fine-tuning-infrastructure).
+  - [[prompt-caching-kv-cache]] (04-Techniques/serving/) — note neuve : mécanique exacte prompt caching Anthropic (multiplicateurs 1,25×/2×/0,1×, ordre tools→system→messages, breakpoints), relocation trick ProjectDiscovery (hit 7%→84%, économie 59-70%), OpenAI/Gemini, KV-cache serveur, Code Mode. Complémentaire de [[Context Management]] (doctrine d'usage).
+  - [[reference-technique-stack-ia]] (04-Techniques/serving/) — DÉPLACÉE depuis Important/ vers le vault (cherchable MCP), frontmatter ajouté (type reference, 5 aliases, tags). Référence exhaustive 8 sections sourcée VÉRIFIÉ/RAPPORTÉ. Original Important/ supprimé (git rm) — pas de doublon.
+- **Modifiées** :
+  - [[agents-evaluation]] — delta daté Langfuse→ClickHouse (acquisition 16 janv. 2026, Série D 400M$ Dragoneer, valorisation 15 Md$, 20 470 stars) vérifié source primaire (blog ClickHouse + BusinessWire). Ligne tableau corrigée (19K → 20K+, racheté ClickHouse) + callout `[!info]` daté. Wikilink vers [[reference-technique-stack-ia]] §6.
+- **Source** : rapport `Important/reference-technique-stack-ia.md` (niveau implémentation). Doctrine reference-grade (advisor) : doc source = référence exhaustive, notes atomiques = deltas décisionnels seulement. Enrich-first respecté (RAG embeddings/reranking déjà riches → non touchés). Contrôle lint_vault avant/après : 131 wikilinks brisés inchangés (delta 0), 0 YAML cassé.
+
 ## 2026-06-07 — Constat tension cible/mesure maintenance corpus (allègement contexte forge)
 
 - **Modifiées** :

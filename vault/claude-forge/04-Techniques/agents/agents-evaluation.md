@@ -91,11 +91,14 @@ Enquête publique 18 nov–2 déc 2025, **1 340 réponses** (estimation d'enquê
 | Plateforme | Force | Prix |
 |-----------|-------|------|
 | LangSmith | Deep LangChain, annotation queues | Free 5K traces, $39+/seat |
-| Langfuse | Open-source MIT, 19K stars, self-hostable | Free |
+| Langfuse | Open-source MIT, 20K+ stars, racheté ClickHouse 2026, self-hostable | Free |
 | Arize Phoenix | OTel-natif, embedding drift | Open-source + commercial |
 | AgentOps | Session lifecycle, loop detection | SDK-based |
 | DeepEval | 50+ metriques, pytest, CI/CD gates | — |
 | Braintrust | Eval gates CI/CD, prompt optimization | — |
+
+> [!info] Mise à jour 2026 — Langfuse racheté par ClickHouse
+> Le **16 janvier 2026**, ClickHouse a acquis Langfuse (annoncé avec une **Série D de 400 M$ menée par Dragoneer**, valorisation **15 Md$**). Langfuse — open-source MIT, **20 470 stars GitHub**, 26M+ installs SDK/mois, 6M+ Docker pulls — était déjà bâti sur ClickHouse ; **licence MIT et self-hosting maintenus**. Vérifié source primaire ([blog ClickHouse](https://clickhouse.com/blog/clickhouse-raises-400-million-series-d-acquires-langfuse-launches-postgres) + BusinessWire) le 7 juin 2026. Implémentation OTel GenAI, décorateur `@observe`, datasets, prompt management. Cf [[reference-technique-stack-ia]] §6.
 
 ### Trajectory vs Outcome
 Evaluer un agent uniquement sur l'output final surestime la qualite par rapport a une evaluation par trajectoire (les echecs sont au niveau step : tool call args, state propagation, goal drift). **Toujours mesurer la trajectoire** quand c'est possible.
@@ -140,4 +143,5 @@ Kubernetes pod autoscaling. Queue-based (SQS, Pub/Sub). Rate limiting per-tenant
 - [[agents-frameworks]] — Frameworks compares
 - [[agents-securite]] — Securite et guardrails
 - [[rag-evaluation]] — Evaluation RAG (RAGAS)
+- [[reference-technique-stack-ia]] — référence technique implémentation (§6 eval/observabilité)
 - [[Knowledge/erreurs/agents-ia-22-claims-fausses-2026-05-23]] — audit source

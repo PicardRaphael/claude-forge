@@ -1,3 +1,25 @@
+---
+titre: "Référence technique — ingénierie LLM en production (niveau implémentation)"
+resume: "Référence exhaustive sourcée VÉRIFIÉ/RAPPORTÉ : optimisation tokens, serving/inférence, RAG, orchestration d'agents, context engineering, eval/observabilité, fine-tuning, guardrails"
+aliases:
+  - référence technique stack IA
+  - stack IA implémentation
+  - ingénierie LLM production
+  - reference technique LLM
+  - serving RAG agents implementation
+domaine: ia
+type: reference
+derniere-maj: 2026-06-07
+auteur: claude
+tags:
+  - "#type/reference"
+  - "#domaine/ia"
+  - "#domaine/infrastructure"
+---
+
+> [!note] Note de référence exhaustive
+> Document de référence niveau implémentation. Les **deltas décisionnels** sont capitalisés en notes atomiques : [[serving-inference-optimisation]] (§2), [[prompt-caching-kv-cache]] (§1), [[agents-evaluation]] (§6 — Langfuse→ClickHouse). Cette note reste la source longue, cherchable via `search_brain`.
+
 # Référence technique d'ingénierie : comment les laboratoires d'IA et les équipes de production construisent et optimisent leurs systèmes (niveau implémentation)
 
 > **Statut des sources** : VÉRIFIÉ-SOURCE = chiffre tiré d'une doc officielle, d'un papier ou d'un blog d'ingénierie primaire. RAPPORTÉ = chiffre fournisseur/marketing non vérifié indépendamment. Date de référence : 7 juin 2026. Plusieurs sources secondaires citaient des noms de modèles non vérifiables (« Opus 4.8 », « Mythos », « GPT-5.4 ») ; je m'appuie uniquement sur les mécanismes documentés, pas sur ces noms.
@@ -274,3 +296,15 @@ Primitives : **Runner** (boucle d'exécution), **handoffs** (délégation entre 
 - **OTel GenAI en statut *Development*** : attributs `gen_ai.*` susceptibles de changer ; instrumenter via une couche neutre (OpenLLMetry/OpenInference) pour pouvoir changer de backend.
 - **Cap ~25k tokens de Claude Code** : rapporté/secondaire, à confirmer sur la doc primaire. (Le ~1000 tok/s de Cursor est désormais confirmé via le blog Cursor/Fireworks AI, cf. §2.4.)
 - **Sécurité Code Mode** : exécuter du code généré par LLM exige un sandbox strict (isolate V8/Starlark, pas d'I/O hors bindings, secrets injectés au transport) — nouvelle surface d'attaque à auditer.
+
+## Liens
+
+- [[serving-inference-optimisation]] — delta décisionnel §2 (serving, quantification, spec decoding, P/D)
+- [[prompt-caching-kv-cache]] — delta décisionnel §1 (caching mécanique, relocation trick)
+- [[agents-evaluation]] — delta §6 (eval/observabilité, Langfuse→ClickHouse)
+- [[rag-embeddings]] — embeddings, Matryoshka, quantization (couvre §3.2)
+- [[rag-reranking]] — reranking, hybrid search, RRF (couvre §3.4-3.5)
+- [[stack-python-ia]] — stack Python de production
+- [[stack-typescript-ia]] — stack TypeScript
+- [[fine-tuning-infrastructure]] — GPUs, cloud, serving LoRA (couvre §7)
+- [[MOC-Techniques]]
