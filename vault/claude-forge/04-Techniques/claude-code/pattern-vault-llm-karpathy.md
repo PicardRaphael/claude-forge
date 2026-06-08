@@ -12,7 +12,7 @@ aliases:
   - "qmd tobi lutke"
   - "agentic engineering memory"
   - "compounding wiki"
-derniere-maj: 2026-05-24
+derniere-maj: 2026-06-08
 auteur: claude
 type: pattern
 sources:
@@ -505,3 +505,86 @@ Pas un remplacement, une transition / complémentarité.
 **Pattern principal Karpathy (3 layers + 2 fichiers obligatoires + 3 ops) reste 100% canonique.** Ces corrections ne touchent que les attributions / verbatim secondaires.
 
 Source audit : `output/audit-vault-thematique/01-claude-code/B-verif-cluster7-karpathy.md`
+
+
+---
+
+## DRIFT D'IMPLÉMENTATION CONSTATÉ — 8 juin 2026 (vérif empirique vault réel)
+
+> Le pattern (architecture) reste 100% canonique. Cette section documente l'**écart entre la doctrine et l'état RÉEL du vault**, mesuré le 8 juin 2026 (`vault_stats`, `usage_stats(30j)`, `list_notes("raw")`, lecture `index.md`/`log.md` racine). Constat déclencheur : comparaison forge-brain vs pattern Karpathy demandée par Raphael. Les écarts du 22 mai (cf [[recherche-karpathy-vault-canonique]]) ont été PARTIELLEMENT comblés puis ont **re-dérivé**.
+
+### 3 organes obligatoires Karpathy — état réel
+
+| Organe Karpathy | Doctrine | État réel 8 juin 2026 | Verdict |
+|---|---|---|---|
+| **`raw/` (sources immuables)** | Alimenté à CHAQUE ingest (10-15 pages/source) | **8 notes, TOUTES du chantier 22 mai**. cc-news/x-read/defuddle/watch transforment la source en note wiki sans archiver le brut. | **ABANDONNÉ depuis le 22 mai** — plus gros écart |
+| **`index.md` (lu en premier au Query)** | Catalogue content-oriented à jour | Existe mais **figé au 22 mai** : annonce « 318+ notes » alors que `vault_stats` = **480** (stale +51%, 162 notes invisibles à l'index) | **STALE** — l'organe censé orienter ment |
+| **Query = qmd (BM25 + vector + rerank)** | Retrieval hybride recommandé nommément | `search_brain` = FTS5 **BM25 lexical pur**, 0 vectoriel, 0 rerank. Et c'est l'outil **n°1 en usage : 1237 appels/30j** (vs read_note 593). | **MOITIÉ VECTORIELLE ABSENTE** — l'outil le plus utilisé est le moins aligné |
+
+### Lecture honnête
+
+- **Outillage serveur** : forge-brain **dépasse** le Gist Karpathy (read_section gain 30x, pagination autoguidée, `lint_vault` 35 appels/30j, usage_stats, lifecycle move/delete/bulk). Le Gist est volontairement minimaliste là-dessus → surinvestissement assumé et justifié (cf [[mcp-vault-llm-design]], [[comparaison-mcp-forge-brain-vs-mcp-brain-28mai2026]] verdict A).
+- **Fondamentaux du pattern** : on a construit un **meilleur moteur** mais on **n'alimente plus 2 des 3 organes** (raw mort + index stale) et on a **sauté la moitié vectorielle** du retrieval. Le savoir RAG existe pourtant déjà dans le vault ([[rag-reranking]], [[rag-production]] : pipeline BM25+Dense→RRF→reranker, +15-30% RAGAS) — le manque n'est pas le savoir, c'est l'application à notre propre MCP.
+
+### Distinction « manque à combler » vs « écarté faute de consommateur » (corrigé 8 juin après objection Raphael)
+
+Tout manque vs Karpathy n'est PAS un défaut. Deux catégories à ne jamais confondre :
+
+- **Manque à combler** = Karpathy le valorise ET on en a/aurait l'usage prouvé → angle mort réel, à réparer. Les 3 organes ci-dessus sont dans cette catégorie (raw mort, index stale, retrieval lexical) : ils sont *consommés en permanence* (le Query tourne à chaque session) donc leur dégradation a un coût réel.
+- **Manque THÉORIQUE écarté faute de consommateur** = faisable mais sans demande prouvée → c'est de la **discipline anti-gonflage, PAS un défaut**. Ne jamais le capitaliser comme une lacune. Test décisif : **valoriser ≠ consommer** — un outil que Karpathy valorise mais qu'on ne consommerait pas reste à ne pas implémenter (mêmes critères que les limites #3/#4 du Chantier 5 et que `read_note_resolved` retiré pour 0 appel, cf [[mcp-vault-llm-design]] v1.4).
+
+### Cas d'application de cette distinction
+
+- **Traversée graphe multi-hop = manque THÉORIQUE écarté, PAS un angle mort.** `get_backlinks` (1-saut) existe mais est **quasi mort : 10 appels/30j**. `traverse_graph`/`find_concept_chain` (N-sauts) absents. **Faisabilité acquise** (table `links` présente, aucun frontmatter cross-stack requis pour la navigation pure) → l'écartement au Chantier 5 était **faute de BESOIN**, pas faute de possibilité. Si on ne consomme déjà pas le 1-saut, un N-sauts n'a aucune demande → cohérent avec la discipline. À réévaluer SI un consommateur réel émerge (ex. agent cartographiant un cluster de notes). Nuance vs critère #6 de [[comparaison-mcp-forge-brain-vs-mcp-brain-28mai2026]] : #6 visait le typage cross-stack (vraiment « inapplicable sans pivot frontmatter ») ; la navigation pure, elle, est *faisable mais non demandée* — deux raisons distinctes, même conclusion « ne pas implémenter maintenant ». **Ma formulation initiale « on a écarté un manque réel en le qualifiant d'inapplicable » était fausse** : ce n'était ni un manque réel (pas de consommateur), ni écarté pour inapplicabilité (c'était faisable).
+- **Tension « LLM-owned » jamais tranchée** : Karpathy = wiki LLM-owned, humain ne maintient pas. Raphael édite parfois en direct (d'où gotchas SQLite désync). Question ouverte depuis le 22 mai (marker `human-edited:` vs full LLM-owned), non décidée. Catégorie : *question doctrinale ouverte*, ni défaut ni discipline assumée tant que non tranchée.
+
+### Réparations possibles (par ROI) — uniquement les 3 vrais manques
+
+1. **#3 index.md (mécanique, gain immédiat)** : régénérer le catalogue depuis frontmatter actuel. Tout futur Query fidèle au pattern en bénéficie.
+2. **#1 raw/ (doctrinal)** : rebrancher l'archivage de la source brute dans cc-news/x-read/defuddle/watch. Restaure la « source of truth » Karpathy → anti-hallucination (cf [[feedback_llm_deep_research_version_numbers]]).
+3. **#2 retrieval hybride (structurel)** : POC vectoriel + rerank sur le MCP. Le plus lourd, le plus impactant sur l'outil n°1.
+
+### Méta-leçon
+
+Le drift doctrine↔réel se reproduit (cf [[doctrine-drift-silent-regression]] / `feedback_doctrine_drift_pattern`). Ici il est **silencieux car le système marche quand même** : on tape `search_brain` direct, donc l'index stale et le raw mort ne bloquent rien — le pattern Karpathy est contourné dans la pratique sans que personne ne l'ait décidé. **Un système qui fonctionne malgré un organe mort cache son propre drift.** Un `lint_vault` étendu devrait vérifier la fraîcheur de `index.md` (Karpathy : le lint cible « index entries that are stale »).
+
+**Corollaire (objection Raphael 8 juin)** : symétriquement, ne pas sur-diagnostiquer. Un outil absent n'est un défaut que s'il a un consommateur. Vérifier `usage_stats` AVANT de qualifier un manque d'« angle mort » — sinon on confond la discipline anti-gonflage avec une lacune.
+
+
+---
+
+## REQUALIFICATION POST-MESURE — 8 juin 2026 (mesures `usage.jsonl` 30j)
+
+> ⚠️ Cette section **ne réécrit pas** l'analyse « DRIFT D'IMPLÉMENTATION » ci-dessus (sa trace de raisonnement a sa valeur). Elle la **corrige sur l'implication**. Déclencheur : Raphael a demandé un diagnostic de décision sur critère **tokens ET/OU perf réelle**, pas conformité au pattern. Mesures faites sur `mcp-forge-brain/logs/usage.jsonl` (1239 `search_brain`/30j, lecture seule).
+
+**Le CONSTAT tient** (les 3 organes sont dégradés vs le pattern Karpathy). **L'IMPLICATION était fausse** : « organe dégradé vs pattern » ≠ « défaut à réparer ». À la mesure, ② et ① sont des **écarts assumés justifiés par l'usage réel**, pas des chantiers. Même logique que les limites #3/#4 du Chantier 5 (cf [[mcp-vault-llm-design]]) : écart connu + déclencheur de réouverture. La conformité au pattern n'est jamais le critère — le besoin l'est.
+
+### ② Retrieval vectoriel — ni gain tokens, ni gain perf → ÉCART ASSUMÉ
+
+Mesures (1239 `search_brain`/30j) :
+- Résultats à **0 chars : 0,3%** ; résultats pauvres (<400 chars) : **0,9%**.
+- **Vrai ratage vocabulaire** (résultat pauvre suivi <90s d'une reformulation différente) : **11/1239 = 0,89%**.
+- Classification des transitions search→search : **59% batch parallèle** (<2s, sujets distincts, même message), **20% séquences de notes différentes** (BM25 avait trouvé, `prev_chars` 1700-3900, on passe au composant suivant), **0,89% vrais ratages**.
+- Les 11 ratages, lus un par un : presque tous des **recherches par nom de fichier exact** (`feedback_tests_adverses_ratio_3_1`, `skill-creator créer modifier skills`) → c'était `read_note` qu'il fallait, **pas** un problème sémantique. Un vectoriel n'en aurait sauvé quasiment aucun.
+- **Bilan tokens NET = négatif** : économie plancher ~20k chars/mois (11 ratages) CONTRE surcoût = embedding de 1239 requêtes/mois + rerank + re-embedding de ~680k tokens de vault sur ~220 writes/mois.
+- **Coût d'implémentation** : gros chantier (embeddings local/API, stockage vecteurs, pipeline RRF+reranker, éval — le pipeline production complet de [[rag-production]]) pour combler 0,89% de ratage non-sémantique.
+
+**Verdict : le « 80% vraie exploration » de l'audit 7 juin est confirmé et sous-estimé — le ratage réel est <1% et non-sémantique.** BM25 pondéré + alias expansion FR couvre 99,1% de l'usage. Karpathy recommande qmd (BM25+vector+rerank), mais **notre usage réel ne génère pas le problème que qmd résout**.
+**Trigger de réouverture** : si une mesure future montre un ratage **sémantique** (résultat pauvre + reformulation à vocabulaire proche du concept cherché, pas un nom de fichier) **> 5% des search_brain**, rouvrir l'arbitrage vectoriel.
+
+### ① raw/ archivage des sources — ni tokens ni perf (c'est de la fiabilité), besoin non matérialisé → ÉCART ASSUMÉ
+
+- Ce manque **ne touche NI tokens NI perf** : c'est un enjeu de **fiabilité** (re-vérifier une source brute, anti-hallucination, cf [[feedback_llm_deep_research_version_numbers]]).
+- Mesure du besoin réel : **accès explicites à `raw/` en 30j = 0** (zéro `read_note`/`read_note_by_path` ciblant `raw/`, zéro recherche remontant à une source brute).
+- Le risque théorique est réel **en principe**, mais le pattern d'usage actuel ne le déclenche pas : on cite des notes wiki, on ne remonte pas aux sources brutes archivées.
+
+**Verdict : besoin de fiabilité non matérialisé (0 accès/30j) → écart assumé.**
+**Trigger de réouverture** : au **1er incident d'hallucination réel remontant à une source non archivée** (une note cite un chiffre/fait faux qu'on ne peut pas re-vérifier faute de source brute). Pas avant.
+
+### #3 index.md stale — HORS de cette requalification
+
+Non mesuré ici (hors périmètre du diagnostic tokens/perf demandé). Reste un **geste mécanique possible** (régénérer le catalogue, quasi-gratuit), à évaluer séparément. Ne PAS le requalifier en écart assumé sans mesure (ce serait le sous-diagnostic inverse).
+
+### Méta-leçon de la requalification
+
+J'avais raison sur le constat (organes dégradés vs pattern), **tort sur l'implication** (défaut à réparer). La règle qui manquait : **mesurer le PROBLÈME sur l'usage réel avant de prescrire la SOLUTION**. Un écart au pattern canonique n'est un défaut que si l'usage réel génère le problème que le pattern prévient — sinon c'est de la conformité pour la conformité. Symétrique exact du garde-fou « valoriser ≠ consommer » (section traversée graphe) : ici c'est **« dévier du pattern ≠ avoir un problème »**. Cf [[feedback_measure_before_optimize]] (mesurer avant d'optimiser) appliqué non au code mais à la doctrine elle-même.

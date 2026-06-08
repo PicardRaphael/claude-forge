@@ -31,6 +31,8 @@ tags: ["#type/context", "#meta/working-memory"]
 
 ## Fils ouverts
 
+- 🔴 **PREMIER GESTE prochaine session — test réel skill-activation (prod)** : rejouer la question d'origine EXACTE « dans quelle circonstance une ia fine tuning est intéressante ? » en session fraîche et vérifier que le hook `[skill-activation]` affiche la description forge-brain musclée (« search_brain AVANT de répondre, pas de tête (CLAUDE.md L14) »). Si OUI → fix L14 comblé+prouvé EN PROD ; si NON → ajuster les triggers. Distinct du test de matching unitaire déjà fait (commit `6dd8447`) : c'est la preuve test-vs-prod (le hook recharge-t-il le `.skill-triggers.json` en session vivante ?). Contexte : 8 juin, 3e raté vault-non-consulté → (a) +19 triggers questions de conseil dans `forge-brain.triggers_by_subject.general`, (b) description musclée. Cf [[erreur-vault-jamais-consulte-session-principale]].
+
 - 🟡 **Chantier 5/5 (DEV MCP) — 3 limites restantes** (faites : #2 array-safe `2ff0538` ; #5 CHANGELOG exclu scan source `lint_vault` `0b369b9` ; #6 `read_note_resolved` supprimé `0b369b9`) :
   - ⬜ **#1 — `lint_vault` non paginé** : plafond `limit=50` par catégorie (`tools/brain.py:715`). Fix = pagination autoguidée (porter le mécanisme `read_note` offset/header).
   - ⬜ **#3 — lock inter-écritures MCP** : race-condition si 2 écritures MCP concurrentes (sub-agents //). Fix = lock fichier/DB sur les ops d'écriture. Cf [[limite-mcp-lock-inter-ecritures]].

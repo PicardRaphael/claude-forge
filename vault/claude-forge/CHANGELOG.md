@@ -1454,3 +1454,15 @@ Tests hooks 176 verts (180→176, suppression du mécanisme d'exemption testé).
   - `0-Inbox/context-actuel.md` — Phase audit MCP + recommandations P3a/b/c/d brain ← forge tracées pour décision séparée Raphaël.
 - **Source** : Recadrage Raphaël session 28 mai — "lequel des 2 MCP serveurs est le mieux conçu tokens/Karpathy serveur ?". Audit comparatif 14 critères empiriques.
 - **AUCUNE modification code MCP** : verdict A confirme MCP forge-brain déjà bien conçu. Gap = utilisation par skill, pas serveur.
+
+
+## 2026-06-08 — Drift d'implémentation Karpathy constaté (vérif empirique)
+
+- **Modifiées** : `04-Techniques/claude-code/pattern-vault-llm-karpathy.md` — nouvelle section « DRIFT D'IMPLÉMENTATION CONSTATÉ — 8 juin 2026 ». Documente l'écart doctrine↔réel : `raw/` abandonné depuis le 22 mai (8 notes figées), `index.md` stale +51% (annonce 318 notes vs 480 réelles), Query keyword-only (search_brain BM25 pur, 0 vectoriel/rerank, 1237 appels/30j = outil n°1). Réparations par ROI + méta-leçon « un système qui marche malgré un organe mort cache son drift ».
+- **Source** : comparaison forge-brain vs pattern Karpathy LLM Wiki (demande Raphael). Vérif empirique via `vault_stats`, `usage_stats(30j)`, `list_notes("raw")`, lecture `index.md`/`log.md` racine.
+
+
+## 2026-06-08 (suite) — Requalification post-mesure des écarts Karpathy
+
+- **Modifiées** : `04-Techniques/claude-code/pattern-vault-llm-karpathy.md` — section « REQUALIFICATION POST-MESURE » (append, analyse d'origine conservée). Diagnostic de décision sur critère tokens/perf réelle (mesures `usage.jsonl` 30j) : ② retrieval vectoriel = bilan tokens NÉGATIF, vrai ratage BM25 0,89% non-sémantique → écart assumé ; ① raw/ = 0 accès/30j, besoin fiabilité non matérialisé → écart assumé. Les deux avec trigger de réouverture. #3 index.md hors périmètre (non mesuré).
+- **Source** : demande Raphael — décider chaque écart sur tokens/perf, pas conformité au pattern. Méta-leçon : « dévier du pattern ≠ avoir un problème » (symétrique de « valoriser ≠ consommer »).

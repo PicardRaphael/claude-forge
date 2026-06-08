@@ -32,6 +32,7 @@
 - [devlead-vs-devapp-dispatch](feedback_devlead_vs_devapp.md) — Fix cross-app (libs+apps) = dev-lead, fix intra-app = dev-neochat/neomail/neodoc
 - [diagnostic-empirique-avant-affirmer-une-garde](feedback_diagnostic_empirique_avant_affirmer_garde.md) — Avant d'écrire qu'une garde existe (deny/hook), la vérifier + citer la preuve
 - [doctrine-drift-silent-regression](feedback_doctrine_drift_pattern.md) — Doctrine annulée par MEMORY/RECAP non purgés. Solution = [[methode-pivoter-doctrine]]
+- [drift-implementation-karpathy-organes-morts](feedback_drift_implementation_karpathy_organes_morts.md) — forge-brain a dérivé du pattern Karpathy (raw/ mort, index.md stale +51%, Query keyword-only). Vérifier le RÉEL (vault_stats/usage_stats), pas la doctrine. Garde-fou : un manque n'est un défaut que s'il a un consommateur (valoriser ≠ consommer) — sinon c'est de la discipline anti-gonflage
 - [ia-back-postgresjs-stack-drift-pattern](feedback_drizzle_postgresjs_drift.md) — Migration code ≠ migration .claude/. Grep stack OLD vs NEW (Drizzle→postgres.js)
 - [ecart-consigne-chiffree-surfacer](feedback_ecart_consigne_chiffree_surfacer.md) — Écart à consigne chiffrée = surfacer pour arbitrage, jamais juger acceptable en silence
 - [edit-tool-read-obligatoire-meme-en-parallele](feedback_edit_tool_read_obligatoire.md) — Edit en // sans Read = 7/8 failures. Batch Read d'abord, puis batch Edit
