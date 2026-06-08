@@ -130,7 +130,7 @@
   },
   "forge-brain": {
     "type": "skill",
-    "description": "Réflexe vault : consulter forge-brain (search_brain puis read_note) AVANT toute réponse substantielle",
+    "description": "Question substantielle → le vault a probablement la doctrine à jour. search_brain AVANT de répondre, pas de tête (CLAUDE.md L14)",
     "triggers_by_subject": {
       "skill": [
         "crée une skill",
@@ -174,7 +174,26 @@
         "comparatif",
         "optimise",
         "refonte",
-        "pourquoi"
+        "pourquoi",
+        "dans quel cas",
+        "dans quels cas",
+        "quelle circonstance",
+        "quelles circonstances",
+        "quand faut-il",
+        "quand est-ce qu",
+        "quand utiliser",
+        "explique-moi",
+        "explique moi",
+        "c'est quoi la différence",
+        "la différence entre",
+        "quelle différence",
+        "comment marche",
+        "comment fonctionne",
+        "vaut-il mieux",
+        "vaut il mieux",
+        "est-ce mieux",
+        "est-il préférable",
+        "faut-il utiliser"
       ]
     }
   },
