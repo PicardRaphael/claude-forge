@@ -68,6 +68,12 @@ Deux pièges distincts, même axe (écriture Windows PS 5.1), rencontrés 2× da
 - Piège connexe même session : le hook écrit un message **accentué** sur `sys.stderr` → côté test, capturer en bytes et `decode("utf-8", errors="replace")`, asserter sur des sous-chaînes **ASCII** (noms d'outils), pas sur le texte accentué (la console enfant peut être en cp1252). Le hook lui-même ne plante PAS sur l'écriture accentuée (vérifié : exit 2 propre, accents juste remplacés à l'affichage) — cohérent avec les autres guards forge.
 - Leçon méthode : « test lent » anormal = suspecter un **hang**, pas une lenteur. Lire la sortie partielle (s'arrête à un test précis = le coupable), appeler le binôme directement hors pytest pour isoler hook vs test.
 
+## security-guard faux positif « git push -f » sur `git branch -f` + `push` combinés (9 juin 2026)
+
+- Symptôme : PreToolUse `security-guard.py` → `BLOCKED: git push -f` alors que la commande ne contient AUCUN push forcé — elle combinait `git branch -f <b> master` et `git push origin <b>` dans le même appel Bash (boucle `for`). Rencontré 2× la même session.
+- Cause : le pattern du hook matche « push … -f » de façon lâche à travers toute la chaîne de commande.
+- **Workaround** : séparer en 2 appels Bash — d'abord les `git branch -f` (sans push), puis le `git push origin b1 b2 …` (sans `-f`). Fast-forward push multi-branches passe sans souci.
+
 ## Commits parallèles d'autres agents/sessions
 
 - Pendant un audit long, d'autres sessions peuvent commit/push entre temps

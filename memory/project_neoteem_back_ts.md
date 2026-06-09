@@ -1,0 +1,105 @@
+---
+name: neoteem-back-ts-project
+description: Monorepo backend Loji (neoteem-back-ts) — E0 fondation LIVRÉ + outillage .claude/ complet (hooks testés, skill spec autonome). Phase = epic E1 migration proposé, attente OK parent Raphael
+metadata:
+  type: project
+---
+
+Monorepo backend Loji `neoteem-back-ts` (pnpm+Turborepo+Bun). CDC v5.0 dans
+`output/neoteem-project/neoteem-back-ts/loji-monorepo-cahier-des-charges.md`. Périmètre :
+**core-api** (= ia_back migré, passe postgres.js→Drizzle), passerelle **NeoIA**, **serveurs MCP** (un par client, ~100).
+
+**État réel ia_back vérifié (2026-06-09)** : 16 entités, 22 use-cases, stack postgres.js 3.4.5 + Zod 3.24 +
+Hono 4.7 + @hono/zod-openapi 0.18 (pin Zod v3) + SDK MCP 1.29. `@modelcontextprotocol/server-postgres` =
+dépendance MORTE (zéro import, à supprimer). `requete.f_lance_requete` appelé en RAW (ia_back = routeur pur,
+réinternalisation pas commencée). CDC ancré sur le repo réel (chiffres exacts ±1).
+
+**Décision archi tranchée par Raphael (2026-06-09)** : ws (Go) + WinDev appellent la BDD directement et
+NE consommeront JAMAIS le monorepo → **deux scopes étanches, on ne casse rien**. Donc [[ADR-005]] (logique
+métier en PG, justifiée multi-consommateurs) **ne bloque PAS** la réinternalisation. Faux conflit.
+
+**Règle de tri réinternalisation fonctions PG (mon arbitrage, validé en cours)** : la perf n'est PAS l'argument
+pour sortir de PG (un gros moteur d'agrégation est PLUS rapide en PG). Critère = maintenabilité de la logique qui évolue.
+- **Réécrire TS/Drizzle** : `ia.f_indicateurs_*` (7, schéma `ia.*`, IA-only, logique qui évolue) + ~18 SELECT CRUD.
+- **Garder PG raw** (`db.execute`) : `requete.f_lance_requete` (152 col, 63 filtres, 19 sous-fn, moteur reporting
+  partagé ws/WinDev, stable) → no-go sur la réécriture. Pas « dette transitoire » : définitif.
+- Reformuler la cible CDC « zéro fonction PG métier » → « zéro fonction PG **IA-only** » + règle de tri.
+
+**TDD/Tests (décision actée 2026-06-09, gravée §10bis)** : c'est Claude Code qui développe → test-first non négociable
+(état de l'art 2026 : code IA = 1,7× bugs, 29% rollback). 4 couches : TDD unitaire + CI bloquante/coverage +
+**mutation testing** (StrykerJS, vérifie que les tests IA ne sont pas cosmétiques) + contract tests (api-client).
+Test-first = DOCTRINE (CLAUDE.md/rules), JAMAIS hook bloquant (leçon forge 22 mai = tests cosmétiques). Cap ~3 tests/comportement.
+Conserver d'ia_back : test d'architecture (scan core/, zéro any), test isolation tenant (bloquant prod), test parité PG.
+ia_back réel = 59 fichiers test, runner `bun test` natif.
+
+**Amendements CDC faits (2026-06-09)** : §7.2 (règle tri + scope étanche), §7.4 (DDL terrain neuf libre/existant gate humain),
+§13 (écritures full Drizzle), §14 (metering schéma dédié base client), §10bis (TDD nouvelle section), §20 (décisions MAJ).
+
+**Epics (décisions 2026-06-09)** : 5 epics (E0…E4), `.claude/` FUSIONNÉ dans E0 (mandatory avant migration, pas un epic séparé).
+Sortie = Markdown dans `output/neoteem-project/` (1 fichier/epic), BRIEFs auto-suffisants pour Claude Code, pas Jira pour l'instant.
+Taxonomie = LABELS de domaine (setup/agent/db/migration/test/mcp/obs) + label one-shot/récurrent, PAS des types de tickets
+(reco Atlassian : hiérarchie Epic→Story→Sous-tâche, catégorisation par label). Inspiré skill PO `spec` (plugin admin) : parent
+d'abord puis sous-tâches, séparation fonctionnel/technique, anti-invention, gate. MAIS taxonomie N2 ([GO][WEB][WINDEV]) inadaptée
+→ remplacée (monorepo TS pur).
+
+**E0 = "Fondation : Neoteem Back TS"** (titre Jira lisible, fichier `output/neoteem-project/E0-fondation.md`, niveau parent rédigé).
+5 stories one-shot : S1 bootstrap monorepo (dernières versions), S2 qualité (Biome+dep-cruiser CI), S3 harnais test (bun test +
+StrykerJS mutation + parité), S4 outillage agent, S5 doc vivante. Décisions clés gravées dans E0 :
+- **MCP de dev** (S4, outils agent ≠ produit) : Postgres sécurisé (creds hors-git, PAS comme ia_back qui a password+NODE_TLS_REJECT_UNAUTHORIZED=0 en clair dans .mcp.json), Atlassian, NeoBrain, **Context7** (doc à jour version-spécifique, `use context7`, matérialise §0 "dernières versions").
+- **Workflow PR + branches** : Claude dev → PR vers `develop`. Chaîne envs : develop(dev)→test(QA)→prepilote→pilote(N+1)→preprod→master(N prod). Branche `{type}/{N°ticket}` (bug/user story/hotfix, convention NeoteemTools). Gravé en rule+CLAUDE.md.
+- **CDC dans `doc/`** (S5) : le cahier des charges devient source de vérité du repo (`doc/cahier-des-charges.md`), composants RÉFÉRENCENT doc/ (jamais dupliquer), doc/ vivante (MAJ à chaque ajout dans la même PR).
+
+**Pipeline de feature (E0-S4, validé par recherche : PubNub, zhsama, rshah515, Boris)** : 1 SKILL orchestratrice
+`/feature <N°ticket>` (context:fork) qui enchaîne des AGENTS scopés : architect(Opus,plan,read-only) → gate → test-writer(TDD d'abord)
+→ dev(Sonnet) → reviewer → performance + security-auditor (parallèle). Le WORKFLOW vit dans la skill, PAS dans un hook
+(hooks = garde/logge les transitions seulement — confirmé Anthropic "CLAUDE.md advisory, hooks mandatory"). **Gate architecte** :
+questions classées par criticité ; non-bloquantes → note hypothèses + continue ; ≥1 bloquante → commentaire Jira structuré (MCP)
++ résumé session + rend la main (`--resume`). Jamais blocage rigide (erreur forge début 2026), jamais invention métier.
+
+**Doctrine hooks affinée (capitalisée vault [[anti-pattern-hookify-workflow-hooks]])** : hook bloque une ACTION ponctuelle ✅
+(delegate-guard, frontières, no-commit-master) / ne pilote JAMAIS une SÉQUENCE ❌ (architect-first, TDD-or-die). Pattern
+architect→dev = doctrine orchestrée par skill/session principale, pas verrou de hook. Raphael ne PILOTE pas les agents à la main
+(full session principale qui orchestre — CLAUDE.md "Raphael parle, session orchestre", jamais d'agent orchestrateur).
+
+**Conventions PROJET (transverses à TOUS futurs projets) — décisions 2026-06-09** :
+- **Étiquettes Jira** : `IA-DEV` TOUJOURS (jamais `IA` seul) + 1 étiquette par projet (= nom repo, ici `neoteem-back-ts`). JQL : `labels=IA-DEV AND labels=neoteem-back-ts`.
+- **Epics créés par HUMAIN** (collègue PO), jamais l'IA. L'IA produit le `.md`, l'humain crée l'epic Jira. L'IA crée ensuite stories/sous-tâches rattachées.
+- **Structure fichiers** : `output/neoteem-project/<projet>/epics/E*.md` + CDC à la racine du dossier projet. Scale multi-projets.
+- **MCP création tickets** : `claude.ai Atlassian` (createJiraIssue/ADF) NON authentifié actuellement → OAuth requis avant push Jira. `MCP JIRA - NEOTEEM` = Service Desk only (pas de create_issue).
+
+**Skill projet créée (2026-06-09)** : `.claude/skills/neoteem-back-ts/` (SKILL.md ~104L + references/templates.md). 2 modes (architecte amont / création tickets). model opus, effort high, user-invocable. `memory: project` RETIRÉ (interdit sur skill = agents-only, erreur héritée de la skill spec PO recopiée). Description désambiguïse la collision avec la skill `spec` forge (NOT other projects / NOT during impl). Inspirée archi skill `spec` PO (plugin neoteem-admin), taxonomie N2 [BDD]/[GO]/[WEB] remplacée par labels domaine. Validée par Raphael.
+
+**RÉVISION découpage epics (Raphael, 2026-06-09 — remplace les 5 epics)** : **UN SEUL epic** « Migrer ia_back → monorepo neoteem-back-ts ». Outillage (.claude/, bootstrap, qualité, tests, doc) = PREMIÈRES STORIES de cet epic, PAS un epic E0 séparé (« epic E0 = pour rien »). Rebrancher NeoIA = UNE STORY, pas un epic. MCP = aucun epic (clients indéfinis, « pas d'équipe MCP »). Critère chef PO : epic = brique large ET activable, pas d'epic pour rien. E0-fondation.md existant = à requalifier en stories de l'epic unique.
+
+**Standards d'excellence gravés CDC §10ter (Raphael, 2026-06-09) — « niveau état de l'art »** : (1) API versionnée `/v1` jour 1, jamais de breaking change (modèle Stripe/GitHub), erreurs normalisées ; (2) doc OpenAPI GÉNÉRÉE depuis Zod (`@hono/zod-openapi`) + portail Scalar/Redoc, régénérée CI, zéro dérive doc/code = réponse à « comment documenter en TS » ; (3) SQL Drizzle optimisé (EXPLAIN/index), 100% paramétré (injection impossible), typé bout-en-bout. → deviennent skills repo `api-design`/`openapi-doc`/`drizzle-query` au bootstrap.
+
+**Clarification core-api ↔ NeoIA (récurrente, à retenir)** : core-api = ia_back MIGRÉ (l'app HTTP que NeoIA consomme). « Passerelle NeoIA » = rebrancher neo_ia Python sur cette app. UNE seule couche fait du SQL = `@neoteem/db` (Drizzle) ← `@neoteem/application`. App HTTP + MCP = adaptateurs, JAMAIS de SQL direct (§1 principe 3). Le cœur réutilisable = les PACKAGES, pas l'app.
+
+**Nom de l'app TRANCHÉ (Raphael, 2026-06-09)** : l'app HTTP (ia_back migré) = **`neoia-api`** (ex-`core-api`, jugé trop gros : app = adaptateur servant NeoIA, cœur = packages `@neoteem/*`). Propagé partout dans le CDC (22 occurrences techniques + structure `apps/neoia-api`, 0 `core-api` restant, vérifié). Mémoire à jour.
+
+**Exigence outillage `.claude/` (Raphael, 2026-06-09, NON NÉGOCIABLE — à appliquer quand on créera CLAUDE.md/agents/skills/rules du repo)** : porter TOUTES les doctrines forge à la perfection — DRY absolu (jamais réécrire le réutilisable `@neoteem/*`, chercher d'abord, enforced dep-cruiser) ; TOUJOURS demander si doute (jamais choisir en silence) ; recherche avant code (§0 Context7) ; qualité par construction (§10ter). **Tout valider AVANT que le moindre epic/story démarre.**
+
+**5 arbitrages validation état-de-l'art tranchés + gravés CDC (2026-06-09)** : (#1) modèle d'exécution = **interactif-superviseur** humain au terminal en v1, évolutif (§19 tête de roadmap) ; (#2) domaine **pragmatique** riche-si-règle/léger-si-read-only (§6, §6.1) ; (#3) types = **source unique Zod intérieur TS**, NeoIA Python consomme via **client généré depuis OpenAPI** (§10ter.2) ; (#4) **erreurs §6bis** = catalogue typé `@neoteem/domain` partagé intérieur TS + **Result/Either (neverthrow) pour le métier attendu ET exceptions pour le technique imprévu** (les DEUX, à des endroits distincts — Raphael avait demandé "on peut pas faire les 2 ?", réponse OUI) + barrière centrale → **RFC 9457** pour tous clients (Python ne voit que le JSON) ; (#5) **2 règles gravées §13** = transaction multi-tables sûre (prête create/edit/delete Phase 4) + résolution bonne base client (garde tenant §12). Hexagonal "futur vs adaptatif" tranché §6.1 : préparer OÙ (ports/frontières dès jour 1), pas CE QUI (use-cases à la demande).
+
+**Mutation testing — cadence DEUX étages (décision 2026-06-09, NON un seul "rare")** : recherche état-de-l'art a corrigé mon hypothèse initiale "hebdo seulement". Modèle = **incrémental scopé par PR** (fichiers changés, gate ~80%, quelques min) + **full `--force` planifié hebdo/nightly** sur cœur métier (réinit baseline). Jamais muter tout le repo à chaque PR. Gravé CDC §10bis.2bis + §10bis.4. Raphael (2026-06-09) : StrykerJS "totalement à mettre en place", **doit devenir réflexe des skills/agents/Claude** ("il faudra que tu le retiennes").
+
+**Doctrine test code IA = enrichie canonique vault (2026-06-09)** : note `workflow-claude-code-optimal` enrichie section "AJOUT 9 juin — Couches de test du code IA + cadence mutation testing" (foyer durable, search-then-enrich, pas d'orphelin). C'est le **positif** (4 couches + cadence) complétant `raisonnement-kill-tdd-strict-hooks-mai-2026` (le négatif = pas de hook TDD bloquant). **FLAG cross-repo NON déroulé** : cette doctrine test devra se propager aux skills/agents de ia_back + neo_ia plus tard (rule cross-repo-propagation), PAS maintenant — finalisation CDC neoteem-back-ts d'abord. Pour neoteem-back-ts, propagation locale couverte par skill `test` du repo (§10ter.4 ajouté).
+
+**2 corrections factuelles CDC (2026-06-09, du nettoyage état-de-l'art)** : caveat "Bun faille d'isolation → pnpm" (faux) reformulé en rôles distincts (pnpm=workspaces, Bun=runtime/tests) ; attribution "modèle Stripe/GitHub" pour versioning corrigée en "principe partagé grandes API publiques (Stripe, GitHub, Google AIP)".
+
+**Passe de validation pré-repo A/B/C livrée (2026-06-09)** : (A) CDC exécutable Phases 0-2, 4 bloquants résiduels détectés — contradiction §19 Phase 5 go/no-go vs §20 f_lance_requete définitif · CI provider jamais nommé (Bitbucket Pipelines ? org bloque GitHub) · schémas Zod `types` vs `application` non tranché §3.1 · axe domaine×client MCP ambigu §4 (1 codebase/domaine × N déploiements/client, jamais écrit explicitement). + erreur factuelle CDC §6 « 17 entités » → 16 réelles (vérifié ls ia_back ; use-cases = 24). (B) Épic E0 : mcp-syndic résiduel L74 à purger · S2 incomplète (manque jscpd+knip+tsc vs CDC §16/§19bis.1) · S4 surdimensionnée (prévoir sous-tâches) · reviewer Opus diverge canonique Sonnet (à confirmer) · branche « user story » espace invalide git. Hono : épic 4.7=manifest, CDC 4.12.x=lockfile résolu (les 2 vrais, harmoniser sur résolu). (C) Cartographie : 7 skills (fusion api-design+openapi-doc → references d'api-endpoint), 6 agents (architect xhigh blue plan / test-writer+dev sonnet / reviewer+perf+sécu opus read-only — perf+sécu sur déclencheur pas systématiques), 5 hooks lint/sécu/scope, 4 MCP dev. **7 questions posées à Raphael, réponses attendues avant toute correction CDC/épic et toute création de brique.**
+
+**7 arbitrages post-validation tranchés + gravés (2026-06-09)** : CI = **Bitbucket Pipelines** (1 ligne CDC §19bis.1, détail en story S2 ; premier repo Neoteem avec CI — ia_back/neo_ia n'en ont AUCUNE, vérifié ; CI vérifie le code, ne déploie pas — CD = devops §17) · **Phase 5 supprimée** (reporting déjà appelé en raw par l'API ia_back, repris à parité Phase 1, plus rien à décider) · Zod : contrats → `types`, internes use-case → `application` (§3.1) · MCP : « 1 domaine = 1 codebase, déployée N fois, jamais une copie par client » gravé §4+§12 · relecteurs : reviewer toujours sur M/L, **perf+sécu sur déclencheur** (PR touche db/auth* ou label db/mcp) §19bis.5+E0 · worker interne marqué « futur » · branche = **`us/N2-1234`** (jamais d'espace dans une ref git ; bug/us/hotfix) gravé E0+templates. + corrections factuelles : 16 entités (pas 17), 24 use-cases (pas 22+), Hono 4.12 résolu, mcp-syndic purgé de l'épic, S2+DoD complétés (jscpd+knip+tsc). `neo-brain-dev-ia` = skill RÉELLE (marketplace neoteem-admin, plugin dédié), pas une invention.
+
+**EPIC E0 FONDATION LIVRÉ (2026-06-09, sans tickets, direct master — décision Raphael)** : repo `C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-back-ts` (Bitbucket neot-v2). 6 commits master : S1 bootstrap (pnpm 11.5.2 + turbo 2.9.17 + Bun 1.3.14 pinnés, TS 6.0.3, 9 packages + neoia-api squelettes, catalog pnpm, .gitattributes LF) · S4 outillage (CLAUDE.md 64L 5-lignes-Karpathy + AGENTS.md §18 + 4 rules + 6 agents escalade in-body + 7 skills + 4 hooks TS/Bun testés 17 cas + .mcp.json cmd /c Windows + memory/ versionnée pattern forge) · S2 qualité (biome 2.4.16 + dep-cruiser 17.4.3 frontières §16 AVEC matching specifier @neoteem/* (gotcha pnpm symlinks : path packages/* seul ne matche PAS, test négatif prouvé exit 2) + jscpd + knip vert + bitbucket-pipelines.yml) · S3 harnais (comparateur parité compareRows @neoteem/db + test archi + StrykerJS 9.6.1 score 87.80% cadence 2 étages, gotcha incrémental capitalisé memory repo) · S5 doc (architecture.md + ADR-001) + 5 branches env créées/poussées (develop/test/prepilote/pilote/preprod).
+**Gotchas machine capitalisés** : turbo.exe BLOQUÉ AppLocker poste Neoteem (binaire Rust non signé ; esbuild signé passe) → fallback local `pnpm -r`, turbo en CI, whitelist IT à demander · tsup --dts × TS6 → ignoreDeprecations 6.0 · pnpm 11 allowBuilds.
+**Actions humaines restantes** : activer Bitbucket Pipelines (settings repo) + scheduler `custom: mutation-full` hebdo · whitelist IT turbo.exe · OAuth Atlassian au 1er usage · MCP postgres différé (DATABASE_URL .env à la 1re story migration).
+
+**Perfection .claude/ livrée (2026-06-09 soir, commits 8e0dd9e→e4a4813)** : `.skill-triggers.json` (9 entrées) + `skill-activation.ts` (UserPromptSubmit, portage forge TS/Bun) + `config-guard.ts` (sub-agents bloqués sur .claude/**+CDC, discriminant `agent_id` validé doc officielle) + `git-guard.ts` câblé (6 branches protégées) — 11 cas testés exit codes · skill `spec` DANS le repo (2 modes, 100% autonome chemins locaux) · `memory-watcher.ts` SessionStart (pattern forge anti-saturation, 40/60 fichiers + 20k index) · `scripts/ci-status.ts` (API pipelines Bitbucket — attend BITBUCKET_EMAIL+BITBUCKET_API_TOKEN dans .env, token à créer par Raphael) · skill forge `neoteem-back-ts` pointe le repo (doc/epics/, CDC, templates single-source).
+
+**4 fixes CI (pipelines #2-#5, capitalisés memory repo)** : TS6 n'auto-inclut pas @types/bun → `types:["bun"]` base.json + dep racine · `biome ci` plus strict que check · jscpd 5 (Rust) scannait les package.json squelettes (51% faux doublons) → format typescript only + reporter console-full · `turbo run test` casse sur squelette sans test → script test seulement quand tests existent + step `bun test tests/` dédié (racine hors scope turbo). Leçon : **/go = miroir EXACT des commandes CI**.
+
+**Phase actuelle** : **epic E1 migration PROPOSÉ** (`doc/epics/E1-migration-ia-back.md`, commit a784ffc) — 10 stories, chiffres réels (15 entités, 22 use-cases, 16 routes, 17 repos), avertissement gravé « ia_back = source de comportement, jamais de modèle » (Raphael : ia_back possiblement mal architecturé, on recopie le comportement avec l'archi cible CDC). S8 précisé après inspection code : moteur `requete.*` = 4 fonctions raw (`f_lance_requete`, `f_lance_requete_detail`, `f_donne_filtres`, `f_donne_saisie_assistee` — un seul moteur, jamais réécrit) ; `recherche-ged` = SQL plat → Drizzle. **ATTENTE OK PARENT Raphael avant rédaction des stories.** Convention E0 : tout master validé est propagé sur les 6 branches env (alignées a784ffc). Les sessions de dev se font DANS neoteem-back-ts, forge garde l'architecte amont + tickets.
+
+Reste à cadrer : soft-delete Phase 4 (vérifier si des `p_*delete` PG font du hard-delete → à construire si oui) ;
+WorkOS vs Keycloak (reco = démarrer WorkOS, garder `auth-mcp` agnostique pour bascule RGPD europe-west).
