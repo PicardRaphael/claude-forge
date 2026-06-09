@@ -1466,3 +1466,9 @@ Tests hooks 176 verts (180→176, suppression du mécanisme d'exemption testé).
 
 - **Modifiées** : `04-Techniques/claude-code/pattern-vault-llm-karpathy.md` — section « REQUALIFICATION POST-MESURE » (append, analyse d'origine conservée). Diagnostic de décision sur critère tokens/perf réelle (mesures `usage.jsonl` 30j) : ② retrieval vectoriel = bilan tokens NÉGATIF, vrai ratage BM25 0,89% non-sémantique → écart assumé ; ① raw/ = 0 accès/30j, besoin fiabilité non matérialisé → écart assumé. Les deux avec trigger de réouverture. #3 index.md hors périmètre (non mesuré).
 - **Source** : demande Raphael — décider chaque écart sur tokens/perf, pas conformité au pattern. Méta-leçon : « dévier du pattern ≠ avoir un problème » (symétrique de « valoriser ≠ consommer »).
+
+
+## 2026-06-09 — Régénération index.md racine (organe Karpathy "lu en premier")
+
+- **Modifiées** : `index.md` (racine) — régénéré depuis l'inventaire réel du vault. Corrige le stale +51% (annonçait 318 notes, en compte 480). Reste content-oriented (par « si tu cherches X »), pas un dump : l'exhaustif est délégué aux `_index` de sous-dossiers (erreurs/raisonnements/critiques). Ajouts : section PATTERNS technique (27 patterns + claude-code), doctrine post-22mai enrichie, 80 leaders par sous-domaine, features/changelog `01-Claude/` à jour, métadonnées réelles + mention du drift arbitré le 8 juin.
+- **Source** : geste #3 du diagnostic drift Karpathy (8 juin) — le seul des 3 écarts qui était un geste mécanique légitime (les 2 autres requalifiés en écarts assumés).
