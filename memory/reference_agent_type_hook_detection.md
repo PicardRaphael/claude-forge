@@ -1,30 +1,26 @@
 ---
 name: agent-type-hook-detection
-description: "Hooks PreToolUse detects subagent via agent_type/subagent_type in stdin JSON, NOT via CLAUDE_AGENT env var (never auto-set)"
+description: "Hooks: agent_id = discriminant officiel sub-agent (présent UNIQUEMENT en subagent); agent_type INSUFFISANT (présent aussi en main session --agent); jamais CLAUDE_AGENT env"
 metadata: 
   node_type: memory
   type: reference
   originSessionId: 405aaef3-b4d6-4ba2-9292-03dc7f0bab67
 ---
 
-## Détection subagent dans les hooks PreToolUse
+## Détection subagent dans les hooks (stdin JSON)
 
-`CLAUDE_AGENT` n'est PAS une variable d'environnement automatique du runtime Claude Code. Elle n'est JAMAIS settée automatiquement quand un subagent s'exécute.
+**Discriminant officiel : `agent_id`** — doc hooks (code.claude.com/docs/en/hooks, vérifiée 9 juin 2026) : « present only when the hook fires inside a subagent call — use this to distinguish subagent hook calls from main-thread calls ». Test : `Boolean(data.agent_id)`.
 
-La bonne méthode : lire `agent_type` ou `subagent_type` dans le JSON stdin du hook. Le runtime CC injecte ces champs quand le hook s'exécute dans un subagent nommé.
-
-**Toujours utiliser le multi-field fallback** (le nom du champ varie selon les versions CC) :
-```python
-agent_type = data.get("agent_type", "") or data.get("subagent_type", "")
-```
 ```typescript
-const agentType = String(data.agent_type ?? data.subagent_type ?? "");
+if (!data.agent_id) process.exit(0); // session principale
 ```
 
-**Confirmation empirique (2026-05-21)** : tests E2E sur neo_ia + ia_back. Payloads runtime capturés. Le champ runtime est **`agent_type`** (top-level). Main session = champ ABSENT. Subagents = valeur = nom de l'agent (`"test-writer"`, `"dev-neochat"`, `"dev"`). `subagent_type` non observé mais le fallback reste correct par sécurité.
+**`agent_type` est INSUFFISANT** : il est aussi présent quand la main session tourne avec `--agent <nom>` — l'utiliser comme discriminant bloquerait la session principale. Il reste utile pour savoir QUEL agent appelle (bypass ciblé par nom). `subagent_type` n'existe pas dans les payloads hooks.
 
-**Why:** Session 2026-05-21 : les tdd-guard des 2 repos avaient `CLAUDE_AGENT == "test-writer"` = dead code. Le bypass test-writer ne fonctionnait que parce que test-writer écrit dans tests/ (exempté par une autre règle). Le vrai problème serait apparu avec dispatch-guard (bloquerait TOUS les subagents si seul `agent_type` était vérifié et que le runtime utilise `subagent_type`).
+`CLAUDE_AGENT` n'est PAS une variable d'environnement du runtime Claude Code — jamais settée automatiquement. Tout test dessus = dead code.
 
-**How to apply:** Tout hook qui doit distinguer main session vs subagent → JSON stdin, multi-field. Jamais env var. Vérifier dans les hooks existants de chaque repo.
+**Why:** 2026-05-21 : tdd-guard neo_ia/ia_back testaient `CLAUDE_AGENT` = dead code. 2026-06-09 : la mémoire (qui disait `agent_type` discriminant, observation empirique du 21 mai) contredite par la doc officielle lors de la conception de config-guard.ts neoteem-back-ts — l'écart mémoire/doc n'a été vu que parce que Raphael a exigé la validation web.
+
+**How to apply:** Distinguer main/sub → `agent_id` seul. Identifier l'agent → `agent_type`. Jamais env var. Mémoire technique datée → revalider contre la doc officielle avant de concevoir un garde-fou dessus.
 
 Lié à : [[hooks-enforcement-pattern]], [[marker-ttl-antipattern]]

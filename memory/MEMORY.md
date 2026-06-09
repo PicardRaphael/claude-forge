@@ -93,6 +93,7 @@
 > Feedbacks valides mais sans citation entrante (ou non stratégiques), déplacés vers [memory/_index_archive.md](_index_archive.md) pour alléger le chargement. Accès via recherche/lecture directe si besoin. Critère tier-1 : cité ≥1 OU sujet stratégique. Réintégrer ici un tier-2 dès qu'il est cité.
 
 ## Project
+- [neoteem-back-ts-project](project_neoteem_back_ts.md) — CDC monorepo backend Loji v5.0 (ia_back→core-api + Drizzle + MCP). ws/WinDev = scope étanche (faux conflit ADR-005). Règle de tri : réécrire ia.* IA-only, garder f_lance_requete en PG raw. Phase = valider CDC avant tickets
 - [dossier-strategique-ia-neoteem](project_dossier_strategique_ia_neoteem.md) — Dossier Stratégique IA CODIR audité 17/20 (29 mai), roadmap V2 à venir, sortir volet salaire
 - [claude-desktop-profiles](project_desktop_profiles.md) — Config Claude Desktop par rôle Neoteem, skill dédiée, output/
 - [claude-forge-naming-collision-github](project_claude_forge_naming_collision.md) — 4 repos GitHub homonymes `claude-forge`, dont sangrokjung 715⭐ framework plugin oh-my-zsh-style. Trancher rename si publication un jour, ignore si privé.
@@ -121,7 +122,7 @@
 - [self-modification-user-scope-passe](reference_self_modification_user_scope_passe.md) — Auto-mode classifier bloque .claude/settings.json du repo courant, mais ~/.claude/settings.json user-scope PASSE en Edit direct. Distinction project vs user critique
 - [bashrc-bind-warnings-non-interactive](reference_bashrc_bind_warnings.md) — Warnings bind readline sans garde `[[ $- == *i* ]]`
 - [python-windows-cross-machine](reference_python_windows_cross_machine.md) — Hooks Windows : py launcher, path absolu, antislashes JSON
-- [agent-type-hook-detection](reference_agent_type_hook_detection.md) — Hooks détectent subagent via stdin JSON, JAMAIS via CLAUDE_AGENT env
+- [agent-type-hook-detection](reference_agent_type_hook_detection.md) — Hooks : `agent_id` = discriminant sub-agent officiel (agent_type insuffisant — présent aussi en --agent main), JAMAIS CLAUDE_AGENT env
 - [mcp-forge-brain-lifecycle-gotchas](reference_mcp_forge_brain_lifecycle_gotchas.md) — 2 gotchas cycle de vie MCP forge-brain : recharger le code = kill port 8091 + NOUVELLE session (autostart au SessionStart only) ; register_tools non testé si tests appellent BrainTools direct → exercer via `_list_tools`/`call_tool` sans binder le port
 - [neo-brain-pattern](reference_obsidian_query_brain.md) — Pattern neo-brain : wrapper CLI + skill + knowledge-first routing
 - [subagent-permissions-limitation](reference_subagent_permissions.md) — v2.1.101 : worktree+MCP OK, permissions.allow toujours non hérité
