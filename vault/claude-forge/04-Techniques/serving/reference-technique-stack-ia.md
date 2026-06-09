@@ -198,6 +198,8 @@ Primitives : **Runner** (boucle d'exécution), **handoffs** (délégation entre 
 - **CrewAI** : orchestration multi-agents par rôles/tâches (plus haut niveau, moins de contrôle fin).
 
 ### 4.6 MCP au niveau protocole
+- **MAJ 2026-06-09** (vérifié source) : **RC spec 2026-07-28** verrouillé → MCP devient **stateless au niveau protocole** (6 SEPs), headers `Mcp-Method`/`Mcp-Name` pour routage gateway (SEP-2243), schemas tools → **JSON Schema 2020-12** complet (SEP-2106). SDK Python : **FastMCP 3.0 GA** (18 fév 2026, `PrefectHQ/fastmcp`) = défaut prod ; FastMCP 1.0 absorbé dans le SDK officiel `mcp` en 2024. SDK TS : `@modelcontextprotocol/sdk` v1.x prod (v2 pre-alpha Q3 2026). **Dossier MCP complet** (build recipe TS/Python, tool design & scaling, sécurité OAuth, multi-client) : [[MOC-MCP]].
+
 **VÉRIFIÉ-SOURCE, modelcontextprotocol.io spec.** Base **JSON-RPC 2.0**, protocole **stateful** (négociation de capacités via `initialize`). Architecture : Host → Clients (1:1) → Servers.
 - **Trois primitives serveur** : **Tools** (model-controlled, `tools/list` + `tools/call`), **Resources** (application-controlled, `resources/list`/`resources/read`, templates URI RFC 6570, subscribe + `notifications/resources/updated`), **Prompts** (user-controlled, `prompts/list`/`prompts/get`).
 - **Primitives client** : **Sampling** (`sampling/createMessage` : le serveur demande une complétion LLM au client → serveur indépendant du modèle), **Elicitation** (`elicitation/create` : demande d'info/confirmation à l'utilisateur), **Logging**, **Roots** (bornes filesystem/URI que le client expose au serveur).

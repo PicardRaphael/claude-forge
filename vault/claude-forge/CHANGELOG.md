@@ -14,6 +14,19 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-09 — Dossier MCP « construire des serveurs MCP parfaits » (recherche source-primaire)
+
+- **Ajoutées (5 notes, nouveau sous-dossier `04-Techniques/mcp/`)** :
+  - [[MOC-MCP]] — point d'entrée du dossier (5 décisions structurantes, gotcha sujet volatile).
+  - [[mcp-tool-design-scaling]] — **note cœur** : design des tools (JSON Schema, annotations readOnly/destructive/idempotent/openWorld, descriptions = 3-4× moins d'échecs) + les 4 réponses 2026 au problème « trop de tools » (Code Execution -98,7 %, Tool Search Tool -85 %, Dynamic Tool Discovery GitHub, Codemode Cloudflare).
+  - [[construire-mcp-production]] — recipe TS + Python à parité (protocole, 3 primitives, transports, SDK FastMCP 3.0 GA / @modelcontextprotocol/sdk, structure projet, maintenance/debug MCP Inspector + OpenTelemetry + versioning). Snippets = pattern durable + lien doc canonique.
+  - [[mcp-securite-oauth-remote]] — OAuth 2.1 Resource Server, confused deputy, token passthrough INTERDIT, RFC 8707, lethal trifecta (Willison), patterns Cloudflare (workers-oauth-provider, Access, portals).
+  - [[mcp-multi-client-claude-chatgpt-gemini]] — support réel Claude/ChatGPT/Gemini juin 2026 (ChatGPT remote-only pas de localhost, Streamable HTTP commun, MCP vs A2A Google).
+- **Modifiées (2 notes, enrichies sans réécriture)** :
+  - [[mcp-vs-skills-doctrine]] — section « AJOUT 9 juin 2026 » : statuts à jour (spec 2025-11-25, RC 2026-07-28, FastMCP 3.0 GA, gouvernance Linux Foundation) + pointeurs vers le nouveau dossier.
+  - [[reference-technique-stack-ia]] — section 4.6 enrichie : RC 2026-07-28 (stateless, JSON Schema 2020-12), FastMCP 3.0 GA, renvoi [[MOC-MCP]].
+- **Source** : demande Raphael « recherches ultra poussées sur les MCP — comment les meilleures entreprises créent des MCP ». Recherche vérifiée sur sources primaires (état juin 2026, post-cutoff) : modelcontextprotocol.io/specification/2025-11-25, blog Anthropic Code execution with MCP, docs Cloudflare/OpenAI/Google, github.com/github/github-mcp-server, github.com/PrefectHQ/fastmcp. Cible = référence générale réutilisable, TS+Python à parité.
+
 ## 2026-06-07 — Chantier 6-B pièce 1 (DEV MCP) — write-by-path + gotchas cycle de vie
 
 - **Modifiées** : `04-Techniques/claude-code/ajouter-source-donnees-mcp-forge-brain.md` — section Tests enrichie d'un gotcha « couche wrapper `register_tools` non exercée si tests appellent `BrainTools` direct » (renvoi `memory/reference_mcp_forge_brain_lifecycle_gotchas.md`).

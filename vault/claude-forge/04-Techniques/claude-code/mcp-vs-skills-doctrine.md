@@ -410,3 +410,33 @@ Avant de dispatcher un sub-agent qui doit consulter un MCP :
 Évite l'anti-pattern : N sub-agents qui consultent le même MCP en parallèle redondant (coût × N).
 
 Détail complet + transposition cross-MCP (forge-brain, obsidian-brain, postgres, langfuse, context7) : [[pattern-mcp-brief-then-direct]].
+
+---
+
+## AJOUT 9 juin 2026 — Statuts à jour & dossier MCP dédié
+
+Cette note arbitre **quand** un MCP est le bon outil. Le **comment construire** un MCP de production vit désormais dans un dossier dédié : [[MOC-MCP]] (point d'entrée).
+
+### Statuts vérifiés (juin 2026, sources primaires)
+
+- **Spec** : courant = **2025-11-25** ; RC = **2026-07-28** (MCP devient *stateless* au niveau protocole, schemas → JSON Schema 2020-12).
+- **Transports** : `stdio` local + **Streamable HTTP** remote. **SSE pur déprécié** (depuis spec 2025-03-26), rétrocompat seulement.
+- **SDK Python** : **FastMCP 3.0 GA** (18 fév 2026, repo `PrefectHQ/fastmcp`) = défaut prod ; FastMCP 1.0 absorbé dans le SDK officiel `mcp` (2024) ; ~70 % des serveurs MCP tous langages tournent sur du FastMCP.
+- **SDK TypeScript** : `@modelcontextprotocol/sdk` v1.x (prod) ; v2 pre-alpha (Q3 2026 visé).
+- **Gouvernance** : MCP gouverné par la **Linux Foundation** (10 000+ serveurs publics actifs début 2026).
+
+### Le « 50-100 tools, le modèle se perd » a maintenant des réponses nommées
+
+Le piège 1 (tout en MCP) de cette note avait une parade vague (« reste sous 15 tools »). En 2026 il y a des **solutions de scaling** mesurées, détaillées dans [[mcp-tool-design-scaling]] :
+- **Code Execution with MCP** (Anthropic) : serveurs présentés comme filesystem de code, **-98,7 % tokens** (150k→2k).
+- **Tool Search Tool** (Claude Developer Platform) : `defer_loading`, **-85 % tokens**, Opus 4.5 79,5 %→88,1 % de précision MCP.
+- **Dynamic Tool Discovery** (GitHub MCP) : toolsets + `X-MCP-Tools` + `--dynamic-toolsets` + read-only mode.
+- **Codemode** (Cloudflare) : 2 500+ endpoints via 2 tools `search()`/`execute()`.
+
+### Sécurité — au-delà du lethal trifecta
+
+Cette note documente déjà le lethal trifecta (Willison). La doctrine OAuth complète pour MCP remote (Resource Server, confused deputy, **token passthrough interdit**, RFC 8707, token exchange) vit dans [[mcp-securite-oauth-remote]].
+
+### Multi-client
+
+Ce que supportent réellement Claude / ChatGPT / Gemini en juin 2026 (ChatGPT = remote only, pas de localhost ; Streamable HTTP commun aux 3) : [[mcp-multi-client-claude-chatgpt-gemini]].
