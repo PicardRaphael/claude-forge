@@ -27,6 +27,7 @@
 - [creator-reorganise-design-verrouille](feedback_creator_reorganise_design_verrouille.md) — skill/agent-creator réorganise/dilue un design verrouillé avec l'user. Vérifier bloc par bloc vs design validé, briefer "ne pas réinterpréter"
 - [da-bash-write-disguised](_archive/2026-06/feedback_da_bash_write.md) — Archivé : absorbé par `.claude/agents/devils-advocate.md` L57 (JAMAIS heredoc Bash, create_note ou texte)
 - [da-dicte-tests-adverses-pas-moi](feedback_da_dicte_tests_adverses.md) — Code destructif : tests happy path = trompeur. DA AVANT push obligatoire
+- [deep-research-skill-workflow-optin](feedback_deep_research_skill_workflow_optin.md) — Skill deep-research = harness Workflow, exige opt-in explicite (ultracode). Sinon WebSearch/WebFetch manuels parallèles
 - [user-invocable-orthographe](feedback_user_invocable_orthographe.md) — Champ frontmatter skill = `user-invocable` (avec c), PAS user-invokable. Source Anthropic. 37 fichiers forge avaient la faute (fixés 3 juin). Vérité ≠ consensus interne
 - [delegate-guard-env-var-blocked](feedback_delegate_guard_env_var_blocked.md) — Bypass CLAUDE_AGENT impossible auto-mode. Edit manuel ou Shift+Tab
 - [devlead-vs-devapp-dispatch](feedback_devlead_vs_devapp.md) — Fix cross-app (libs+apps) = dev-lead, fix intra-app = dev-neochat/neomail/neodoc
