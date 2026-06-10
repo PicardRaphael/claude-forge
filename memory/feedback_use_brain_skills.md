@@ -13,3 +13,5 @@ Pour toute question metier Neoteem (regles, fonctions PG, comportement appli), u
 2. Utiliser les tools MCP prescrits par la skill (search_brain, read_note, get_backlinks)
 3. Si les tools MCP ne sont pas disponibles dans la session, le signaler immediatement a l'utilisateur plutot que de partir en fallback grep
 4. Ne JAMAIS grep manuellement le vault ou le code SQL comme substitut — c'est trop couteux en tokens
+
+**Extension 10 juin 2026 (re-violation corrigée)** : la règle vaut aussi pour le CÂBLAGE des composants — un agent/skill d'un repo qui a besoin du métier doit invoquer/précharger la skill `neo-brain-dev-ia` (plugin neoteem, croise vault + code réel), JAMAIS être câblé sur `mcp__neobrain__search_brain` en direct. Pattern : `skills: [neo-brain-dev-ia]` en frontmatter agent (préchargement, comme ia_back architect-deep/db-inspector) + `mcpServers: [neobrain]` pour la tuyauterie. J'avais câblé le MCP direct sur neoteem-back-ts → corrigé par Raphael (« il doit passer par ce skill, c'est le plus important »).
