@@ -98,7 +98,7 @@ Chaque story/sous-tâche est un **BRIEF que Claude Code peut exécuter sans cont
 2. **Rédiger la story parent** (rattachée à son epic, N2-…) → présenter → itérer jusqu'à validation explicite.
 3. **Sous-tâches** (après GO parent) : proposer la liste déduite, valider le périmètre, rédiger chacune via les templates.
 4. **Livrer les `.md`** dans `doc/stories/s<N>/` du repo (`C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-back-ts/doc/stories/s<N>/` — un sous-dossier par story-chantier : `S<N>-<slug>.md` + annexes + sous-tâches `S<N>-US<X>-<slug>.md`). Le `.md` = source technique de vérité. Les fiches des 5 epics (descriptions copiables Jira) vivent dans `doc/epics/` du repo.
-5. **Création Jira via MCP Atlassian** (après le GO explicite uniquement) : story sous son epic, sous-tâches sous la story, étiquettes posées, description ADF dérivée du `.md` + lien Bitbucket (protocole : `references/epics-jira.md`). Périmètre qui évolue → MAJ du `.md` d'abord, puis du ticket via MCP.
+5. **Création Jira via MCP Atlassian** (après le GO explicite uniquement) : **demander l'assigné via AskUserQuestion** (story + sous-tâches, un appel pour le lot — jamais de ticket sans assigné tranché), story sous son epic, sous-tâches sous la story, étiquettes posées, description ADF dérivée du `.md` + lien Bitbucket (protocole : `references/epics-jira.md`). Périmètre qui évolue → MAJ du `.md` d'abord, puis du ticket via MCP.
 
 ---
 
