@@ -700,3 +700,23 @@ Audit harness du repo vs état de l'art (Fowler/Böckeler, Osmani, Anthropic ×2
 - [Effective harnesses for long-running agents — Justin Young](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (fresh-context evaluator, Default-FAIL)
 - [[justin-young]] — article fondateur (two-agent, clean state)
 - [[martin-fowler]] · [[addy-osmani]] · [[trail-of-bits-config]] — corpus harness engineering
+
+
+---
+
+## AJOUT 10 juin 2026 (soir) — Incident US1 : le Default-FAIL ne prouve que les critères ÉCRITS (artefacts générés)
+
+Premier `/feature` réel de neoteem-back-ts (US1, schéma Drizzle) : `drizzle-kit pull` filtré sur 17 tables → `schema.ts` en exportait **37** (tables parasites tirées par FK), `relations.ts` (1776 lignes) câblait ~50 tables hors périmètre, et un `// @ts-nocheck` (posé par le postprocess) rendait le typecheck aveugle. Le pipeline complet est passé VERT : architect → plan-review → test-writer (TDD) → dev → /go.
+
+### La leçon structurelle
+
+**Le pipeline a fonctionné exactement comme conçu — contre des critères INCOMPLETS.** Le test TDD assertait les critères écrits du ticket (garde G4 `mode:'string'` ✅) ; « exactement 17 tables » n'était écrit nulle part → jamais testé → done « prouvé » contre un contrat troué. La skill drizzle-query était bien préchargée dans le dev (pas d'invocation manquée) mais ne couvrait pas l'introspection. **Corollaire du Default-FAIL contract : il prouve les critères écrits, jamais les critères manquants. Pour un artefact GÉNÉRÉ (schéma introspecté, client OpenAPI), le critère de périmètre doit être STANDARD — gravé dans skill/CDC/templates — jamais réinventé par ticket.**
+
+### Règles déployées (neoteem-back-ts a21dbc8, miroirs ×3)
+
+1. **Liste FERMÉE + assertion de comptage = critère de done** de toute génération (le test précède la génération — TDD s'applique aux artefacts).
+2. **Review du GÉNÉRATEUR** (config, filtres, postprocess, assertions), jamais des 3000 lignes générées.
+3. **`@ts-nocheck` = hook bloquant** (`guard-ts-nocheck`, allowlist justifiée + capteurs compensatoires exigés) — un typecheck aveugle rend le done improuvable.
+4. Templates stories : « livrable généré = critère de done CHIFFRÉ » (règle d'or 6, ×3 repos).
+
+Composants : skill `drizzle-query` § Introspection · agents `reviewer`/`test-writer` · skill `test` · CDC §7.3 · hook `guard-ts-nocheck.ts` (testé 8/8 adverse). Cf [[anti-reentrance-sub-agents-pattern-escalade]] (l'autre leçon US1 : la relance) et [[comment-creer-hook]] AJOUT 10 juin (placement des checks).

@@ -14,6 +14,10 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-10 — Incident US1 artefacts générés : Default-FAIL ne prouve que les critères écrits
+
+- **Modifiées** : [[workflow-claude-code-optimal]] — AJOUT « Incident US1 : le Default-FAIL ne prouve que les critères ÉCRITS » (37 tables générées pour 17 attendues, pipeline vert contre un contrat troué ; règles : liste fermée + assertion de comptage = critère de done standard des artefacts générés, review du GÉNÉRATEUR, @ts-nocheck = hook bloquant allowlisté).
+- **Source** : 1er /feature réel neoteem-back-ts (us/N2-111279), diagnostic empirique (schema.test.ts n'assertait que G4). Déployé : back-ts a21dbc8 (hook guard-ts-nocheck testé 8/8 + 6 composants) + templates ×3 repos.
 ## 2026-06-10 — Placement des checks par event + vérifs par lots (incident lenteur US1)
 
 - **Modifiées** : [[comment-creer-hook]] — AJOUT « Répartition des checks par event » (PostToolUse = format rapide < 500 ms ; typecheck/tests = Stop UNIQUEMENT avec decision:block ; coûts spawn interpréteur mesurés python 236 ms / py 454 ms / uv run 450-640 ms, additifs sur matchers larges ; gotcha git diff rate les untracked) ; [[comment-creer-agent]] — AJOUT « Agents dev : vérifications par LOTS » (jamais après chaque fichier, jamais de lint manuel si hook PostToolUse formate).

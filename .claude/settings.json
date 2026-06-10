@@ -67,52 +67,12 @@
     ],
     "PreToolUse": [
       {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/commit-herestring-guard.py\"",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Bash|PowerShell",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/security-guard.py\"",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Edit|Write|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/delegate-guard.py\"",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/meta-commentary-detector.py\"",
-            "timeout": 5
-          }
-        ]
-      },
-      {
         "matcher": "Bash|Read|PowerShell",
         "hooks": [
           {
             "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/vault-cat-guard.py\"",
-            "timeout": 5
+            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/pre-bash-guards.py\"",
+            "timeout": 10
           }
         ]
       },
@@ -121,8 +81,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/vault-write-guard.py\"",
-            "timeout": 5
+            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/pre-write-guards.py\"",
+            "timeout": 10
           }
         ]
       },
