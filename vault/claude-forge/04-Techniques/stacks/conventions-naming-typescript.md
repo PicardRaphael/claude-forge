@@ -69,3 +69,11 @@ Incident US1 neoteem-back-ts (schéma généré monolithique 3161 lignes) → 3 
 3. **Limite stricte de taille** : aucun fichier source > 1000 lignes, JAMAIS — triple capteur (hook `file-size-guard` PreToolUse + `scripts/check-file-sizes.ts` en CI et `/go` pour attraper les fichiers générés par scripts + review). Visé : ~200-300 lignes/fichier, ~40 lignes/fonction. Schéma généré = fichiers de domaine (mapping déclaratif `schema-domains.json`, `_a-classer` fait échouer le test).
 
 Méthode réutilisable pour tout futur repo : interroger le brain métier pour la liste des domaines AVANT d'inventer une taxonomie technique.
+
+## CORRECTIF 10 juin (soir, 2e passe) — Deux axes, pas un : la leçon du croisement multi-sources
+
+L'AJOUT ci-dessus classait TOUT par domaine métier — corrigé après croisement avec l'articulation RÉELLE de la BDD (brain `schema-public`) : le schéma `public` est PARTAGÉ entre métiers (`T_CONTRAT` porte baux ET mandats, `T_ACTEUR` polymorphe) — un classement métier du SCHÉMA serait artificiel.
+
+**Doctrine finale (back-ts a43e32a)** : Axe 1 — la LOGIQUE (use-cases/routes/queries) par domaine MÉTIER (`commun·syndic·gerance·comptabilite·reporting`, Damier Lojii) ; Axe 2 — le SCHÉMA GÉNÉRÉ par groupes d'ARTICULATION BDD (`acteurs-roles·patrimoine·comptabilite·travaux-fournisseurs·relances·dossiers-ged·referentiels·reporting`).
+
+**Méthode gravée** : une taxonomie d'architecture se décide en CROISANT plusieurs sources du brain (Damier/glossaire × 01-Domaines × MOC-BDD × schema-public) — une seule source (le Damier seul) = conclusion fragile, corrigée par Raphael. Skill à invoquer : `/neoteem-brain-dev-ia:neo-brain-dev-ia`.
