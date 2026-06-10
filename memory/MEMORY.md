@@ -93,7 +93,7 @@
 > Feedbacks valides mais sans citation entrante (ou non stratégiques), déplacés vers [memory/_index_archive.md](_index_archive.md) pour alléger le chargement. Accès via recherche/lecture directe si besoin. Critère tier-1 : cité ≥1 OU sujet stratégique. Réintégrer ici un tier-2 dès qu'il est cité.
 
 ## Project
-- [neoteem-back-ts-project](project_neoteem_back_ts.md) — Monorepo backend Loji (ia_back→neoia-api + Drizzle + MCP par domaine). E0 + durcissement livrés (supply chain, budgets perf, conventions, .claude/README), note 17,5/20. Règle de tri : réécrire ia.* IA-only, garder f_lance_requete en PG raw. Phase = E1 proposé, attente OK parent
+- [neoteem-back-ts-project](project_neoteem_back_ts.md) — Monorepo backend Loji (ia_back→neoia-api + Drizzle + MCP par domaine). E0 + durcissement livrés, note 17,5/20. Hiérarchie Jira = 5 epics permanents FIGÉS (jamais en créer) ; story S1 = N2-111278 ([IA] FEATURE, parent N2-68082). Skill spec en 3 exemplaires synchronisés. Phase = 12 sous-tâches à rédiger au go
 - [dossier-strategique-ia-neoteem](project_dossier_strategique_ia_neoteem.md) — Dossier Stratégique IA CODIR audité 17/20 (29 mai), roadmap V2 à venir, sortir volet salaire
 - [claude-desktop-profiles](project_desktop_profiles.md) — Config Claude Desktop par rôle Neoteem, skill dédiée, output/
 - [claude-forge-naming-collision-github](project_claude_forge_naming_collision.md) — 4 repos GitHub homonymes `claude-forge`, dont sangrokjung 715⭐ framework plugin oh-my-zsh-style. Trancher rename si publication un jour, ignore si privé.
