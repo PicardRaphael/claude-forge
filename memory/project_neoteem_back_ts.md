@@ -7,7 +7,7 @@ metadata:
 
 Monorepo backend Loji `neoteem-back-ts` (pnpm+Turborepo+Bun). CDC v5.0 dans
 `output/neoteem-project/neoteem-back-ts/loji-monorepo-cahier-des-charges.md`. Périmètre :
-**core-api** (= ia_back migré, passe postgres.js→Drizzle), passerelle **NeoIA**, **serveurs MCP** (un par client, ~100).
+**core-api** (= ia_back migré, passe postgres.js→Drizzle), passerelle **NeoIA**, **serveurs MCP** (un par DOMAINE — une codebase, déployée une fois par client, ~100 déploiements ; JAMAIS dire « un MCP par client », correction Raphael 10 juin).
 
 **État réel ia_back vérifié (2026-06-09)** : 16 entités, 22 use-cases, stack postgres.js 3.4.5 + Zod 3.24 +
 Hono 4.7 + @hono/zod-openapi 0.18 (pin Zod v3) + SDK MCP 1.29. `@modelcontextprotocol/server-postgres` =

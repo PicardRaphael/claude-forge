@@ -14,6 +14,11 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-10 — Conventions nommage TS + patterns (chantier conventions neoteem-back-ts)
+
+- **Ajoutées** : [[conventions-naming-typescript]] (`04-Techniques/stacks/`) — table canonique Google/typescript-eslint/Biome, enforcement mécanique `useNamingConvention`+`useFilenamingConvention` (vérifié positif ET négatif), verdict patterns hexagonal (CDC §6ter conforme Sairyss/Stemmler, GoF adaptés anti-cérémonie : static factory method, Strategy = map de fonctions).
+- **Modifiées** : [[neoteem-back-ts]] — resume corrigé (« un MCP par domaine déployé une fois par client », jamais « un MCP par client » — correction Raphael).
+- **Source** : chantier conventions + design patterns neoteem-back-ts (doc/conventions.md créé, biome.json enforce, rule + reviewer câblés).
 ## 2026-06-10 — AGENTS.md verbatim officiel (audit 200% neoteem-back-ts)
 
 - **Modifiées** : [[comment-ecrire-claudemd]] — sous-section « AGENTS.md — précision officielle » : « Claude Code reads CLAUDE.md, not AGENTS.md » + 3 intégrations (import @AGENTS.md recommandé Windows, symlink, /init) + commentaires HTML block-level strippés avant injection.

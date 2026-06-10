@@ -1,6 +1,6 @@
 ---
 titre: neoteem-back-ts
-resume: Monorepo backend TS Loji — migration ia_back→neoia-api, Drizzle, MCP par client, développé 100% par Claude Code sous supervision, CI Bitbucket capteur primaire
+resume: Monorepo backend TS Loji — migration ia_back→neoia-api, Drizzle, MCP un par domaine déployé une fois par client, développé 100% par Claude Code sous supervision, CI Bitbucket capteur primaire
 aliases:
   - neoteem-back-ts
   - neoteem back ts
