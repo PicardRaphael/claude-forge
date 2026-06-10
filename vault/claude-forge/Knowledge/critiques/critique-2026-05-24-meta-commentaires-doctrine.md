@@ -88,3 +88,16 @@ Sans règle de comptage stricte, chaque session de purge tranche différemment �
 ## Conclusion
 
 Sans les 6 amendements, la doctrine sera oubliée en 2 semaines ou appliquée différemment à chaque audit.
+
+## Méthode de chasse aux méta-notes (validé empiriquement 2026-06-09)
+
+L'AVERTISSEMENT 1 (« test lexical rate les méta-cachés ») confirmé sur un vrai livrable « au présent pur » (CDC neoteem-back-ts). Leçon de méthode pour purger un livrable de ses méta-notes :
+
+1. **Une méta-note est une catégorie SÉMANTIQUE, pas lexicale.** Un `grep`/`search_brain` n'attrape que les tournures anticipées (« Source : », dates). Il sert à s'orienter, jamais à PROUVER l'absence de méta-note. Ne jamais conclure « zéro méta-note » sur la foi d'un grep.
+2. **Les méta-notes se cachent dans ce qui a été RÉDIGÉ pendant la session courante**, pas dans le doc ancien déjà nettoyé. Réflexe : relire en lecture sémantique (30 s/section) toutes les sections écrites ou modifiées CETTE session, en cherchant « ce qu'on faisait avant / maintenant on / tranché / reformulé / ancienne doctrine ».
+3. **Patterns récurrents à traquer** : flèche de reformulation `« X » → « Y »` (avant→après explicite) ; référence à une « ancienne doctrine » / « jusqu'ici » ; parenthèse contrastive « (on l'évitait déjà — ici on grave…) » ; titre de section qui narre le processus (« décisions, pas options ouvertes »).
+4. **Distinguer méta-note vs justification-au-présent légitime.** Le « pourquoi » d'une règle au présent (« neverthrow car agent-proof ») est de la spec, pas une méta-note. Une DATE factuelle (artefact daté à régénérer, release cible) n'est pas du changelog. Seule la **trace de délibération / d'historique** est interdite.
+
+Cas 2026-06-09 : un advisor a pointé 2 sections (propres) ; la lecture sémantique guidée a trouvé 2 vraies méta-notes AILLEURS (§7.2 « Cible reformulée X→Y », « ancienne doctrine PG-first »). Le grep et l'advisor les avaient ratées — seule la relecture sémantique des sections session-authored les a sorties.
+
+Cf [[feedback_pas_de_meta_commentaire_doctrine]] (le QUOI : la règle) — cette section porte le COMMENT (la méthode de vérification).

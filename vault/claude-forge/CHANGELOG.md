@@ -14,6 +14,10 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-10 — Harness design long-running apps (2e article Anthropic)
+
+- **Modifiées** : [[workflow-claude-code-optimal]] — AJOUT 10 juin : Planner/Generator/Evaluator (GAN), Default-FAIL contract, sprint contracts, context anxiety vs resets, principe de simplification itérative du harness, evaluator tuning loop + application neoteem-back-ts (audit harness ~85 % conforme, 4 manques nocturne)
+- **Source** : recherche harness agents autonomes pour neoteem-back-ts (demande Raphael confiance 80-90 %) — anthropic.com/engineering/harness-design-long-running-apps + effective-harnesses + Fowler/Osmani/Trail of Bits
 ## 2026-06-10 — Conventions nommage TS + patterns (chantier conventions neoteem-back-ts)
 
 - **Ajoutées** : [[conventions-naming-typescript]] (`04-Techniques/stacks/`) — table canonique Google/typescript-eslint/Biome, enforcement mécanique `useNamingConvention`+`useFilenamingConvention` (vérifié positif ET négatif), verdict patterns hexagonal (CDC §6ter conforme Sairyss/Stemmler, GoF adaptés anti-cérémonie : static factory method, Strategy = map de fonctions).

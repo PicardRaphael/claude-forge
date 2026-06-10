@@ -57,6 +57,14 @@ Traduction : **Claude ne peut PAS terminer sa session tant que `npm test` n'appa
 2. **Hooks = enforcement 100%** : si la règle n'est pas 100% applicable (cas exceptionnels existent), on bloque à tort
 3. **Workflow = advisory ~80%** : doctrine rules + CLAUDE.md + skills, Claude juge selon contexte
 
+### Critère discriminant net : ACTION ponctuelle vs SÉQUENCE d'étapes (affiné 9 juin 2026)
+
+La frontière « sécurité/destructif OK / workflow gate KO » est correcte mais ne classe pas bien tous les cas — notamment `delegate-guard` (qui bloque une *écriture* de fichier, ni `rm -rf` ni secret). Le critère le plus net :
+
+- ✅ **Bloquer une ACTION précise sur UN appel d'outil** (déterministe, ponctuel) → conforme. C'est du scope/format/sécurité. Exemples : `delegate-guard` (force le passage par la skill créatrice), `guard-core-imports` (frontière hexagonale), bloquer un commit direct sur branche protégée, refuser l'écriture d'un schéma partagé sans gate. `exit 2` bloque (`exit 1` ne bloque PAS — gotcha classique).
+- ❌ **Piloter une SÉQUENCE d'étapes** (machine à états, ordre imposé) → anti-pattern. Exemples : `architect-first` (forcer l'architecte avant le dev), `tdd-strict` (test avant code sinon block), commit gate qui orchestre le process.
+
+Reformulation canonique : **hooks = garanties déterministes** (lint/scope/sécu/blocage d'action) ; **skills + agents = jugement probabiliste** (quand invoquer l'architecte, quand écrire le test d'abord). Le split architect→dev et le TDD test-first sont des **doctrines orchestrées par la session principale** (rules + CLAUDE.md), jamais des verrous de hook. État de l'art 2026 confirme : « CLAUDE.md + hooks = déterministe (toujours) ; skills + agents = probabiliste (au jugement) ». Cas observé : projet `neoteem-back-ts` (E0), où `delegate-guard` est le modèle du hook conforme et le pattern architect→dev d'ia_back reste orchestré, pas hooké.
 ### Cas concrets violations hookify
 
 | Hookify rule | Violation doctrine |

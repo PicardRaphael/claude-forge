@@ -623,6 +623,42 @@ Stack de pratiques cohérent issu du chantier 24 mai (recherche web + audit vaul
 
 ---
 
+## AJOUT 9 juin 2026 — Couches de test du code généré par IA + cadence mutation testing
+
+Doctrine **positive** sur *comment tester quand c'est Claude Code qui écrit le code* (le pendant de [[raisonnement-kill-tdd-strict-hooks-mai-2026]], qui dit ce qu'on NE fait PAS : pas de hook TDD bloquant). À porter dans les skills/rules/agents de **tout repo dev** (réflexe transverse, pas projet-spécifique).
+
+### Pourquoi (état de l'art 2026)
+Le code assisté par IA a ~1,7× plus de bugs ; le test devient le **contrat exécutable** qu'un humain relit en 20 lignes (vert/rouge remplace la relecture ligne par ligne). Mais un test écrit par IA peut être **cosmétique** (toujours vert) — d'où le mutation testing comme garde-fou.
+
+### Les 4 couches (complémentaires)
+| Couche | Rôle | Cadence |
+|---|---|---|
+| **TDD / unitaires** | bugs fonctionnels, edge cases | chaque PR (test-first, 1 test à la fois, cap ~3/comportement) |
+| **CI bloquante + coverage + lint + frontières** | régressions, sécu, archi | chaque PR (bloquant si rouge) |
+| **Mutation testing** | vérifie que les tests *valent quelque chose* (l'IA peut écrire des tests bidons) | **deux étages — voir ci-dessous** |
+| **Contract tests** | dérive des schémas/API entre packages | chaque PR sur les frontières |
+
+### Cadence mutation testing — DEUX étages (pas « rare » seulement)
+Erreur intuitive : « le mutation testing est lent, donc on le fait rarement ». L'état de l'art (StrykerJS docs + retours monorepo 2026) est **deux étages complémentaires** :
+
+- **Par PR — incrémental scopé** : `--incremental` + scope aux fichiers/packages changés (`git diff` / packages affectés Turborepo/Nx). 1-5 min. Sert de **gate** : build rouge si le score descend sous seuil (~80 %) ou si des mutants survivent sur le code touché.
+- **Planifié — full `--force`** : run complet sur le cœur métier, en CI **nightly ou hebdomadaire** (`cron`), pour réinitialiser la baseline incrémentale (sinon elle dérive) et rattraper ce que l'incrémental ne voit pas (changements de deps, env, snapshots).
+- **Scope** : cœur métier / logique à fort impact uniquement (évite le « mutant explosion » — ne pas muter tout le repo).
+- **Seuils** : >80 % excellent, 60-80 % correct, <60 % suite de tests faible.
+
+> Le **quoi/quand** est doctrine (ici + CLAUDE.md/rules du repo) ; le **comment** (config StrykerJS exacte, `stryker-incremental.json`, cache CI) vit dans la skill `test`/`drizzle-query` du repo, pas dans la doctrine.
+
+### Ce qui reste interdit (cohérence [[raisonnement-kill-tdd-strict-hooks-mai-2026]])
+- ❌ Forcer le test-first par **hook bloquant** → tests cosmétiques. Le hook *lance* les tests, la CI *bloque* si rouge.
+- ❌ Coverage élevé **sans** mutation testing → fausse confiance (couverture ≠ qualité des assertions).
+- ❌ Muter tout le repo à chaque PR → CI ingérable. Incrémental scopé + full planifié.
+
+### Sources
+- [StrykerJS — Incremental mode](https://stryker-mutator.io/docs/stryker-js/incremental/)
+- [Mutation testing with Stryker — config CI](https://oneuptime.com/blog/post/2026-01-25-mutation-testing-with-stryker/view)
+- [[martin-fowler]] — mutation testing = « Sensors / feedback computational »
+- [[raisonnement-kill-tdd-strict-hooks-mai-2026]] — le négatif (pas de hook TDD bloquant)
+
 ## AJOUT 29 mai 2026 — Dynamic Workflows (orchestration native Claude Code)
 
 Le 28 mai 2026, Anthropic ship **Dynamic Workflows** (research preview) avec Opus 4.8. Claude écrit dynamiquement un **script JS d'orchestration** lançant jusqu'à 1000 sous-agents (16 concurrents), coordination **hors-contexte** (plan dans le code, résultats dans des variables, seul l'output final revient en contexte). Déclenché par « workflow » dans un prompt ou le réglage **`ultracode`** (effort `xhigh` + décision auto). Requiert v2.1.154+, plans Max/Team/Enterprise.
@@ -630,3 +666,37 @@ Le 28 mai 2026, Anthropic ship **Dynamic Workflows** (research preview) avec Opu
 **Continuité doctrinale** : c'est PTC ([[programmatic-tool-calling]]) porté au niveau Claude Code natif. « Code orchestre, modèle juge » s'applique désormais sans écrire de code API. La doctrine forge « pas d'agent orchestrateur custom » ([[feedback_no_cto_agent]]) reste valide — on ne CONSTRUIT pas un orchestrateur, l'outil natif le fait. Pattern à privilégier sur orchestration déterministe massive (migrations, audits multi-fichiers, fan-out review) vs sub-agents pour jugement contextuel pas-à-pas.
 
 Détail complet + caps + changelog associé : [[CC 28 mai 2026 - Opus 4.8 + Dynamic Workflows]].
+
+## AJOUT 10 juin 2026 — Harness design pour apps long-running (2e article Anthropic)
+
+Anthropic publie un **second article** de la famille harness long-running : [Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps) (suite de l'article Justin Young, cf [[justin-young]]). Mécanismes nouveaux non couverts ailleurs dans le vault :
+
+### Architecture Planner / Generator / Evaluator (inspirée GAN)
+- **Planner** : prompt 1-4 phrases → spec produit haut niveau. Gotcha : s'il sur-spécifie le technique, les erreurs cascadent.
+- **Generator** : implémente, s'auto-évalue, décide raffiner ou pivoter.
+- **Evaluator** : agent SÉPARÉ, **fresh-context** (n'a jamais vu le build), sans Write/Edit, mode ACTIF (Playwright MCP naviguant l'app — supérieur au scoring de screenshot). Séparer celui qui produit de celui qui juge bat l'auto-critique.
+
+### Default-FAIL contract
+Chaque critère de done **commence à FAIL** ; l'agent ne peut le passer à PASS qu'avec une **preuve ouverte** (sortie de test, fichier lu). Antidote au biais observé : sans ça, l'evaluator « talks itself into deciding [the bugs] weren't a big deal ». Convergent Trail of Bits anti-rationalization ([[trail-of-bits-config]]).
+
+### Sprint contracts
+Avant chaque sprint, generator et evaluator **négocient ce que « done » signifie** (proposition → validation → accord), communication par fichiers (état auditable). Comble l'écart entre user stories et comportements testables.
+
+### Context anxiety + context resets vs compaction
+- **Context anxiety** : le modèle clôt prématurément en sentant approcher sa limite de contexte (observé Sonnet 4.5, disparu Opus 4.6).
+- **Context reset** = nouveau contexte vide + **structured handoff artifact** (fichier d'état + next steps) ≠ compaction (résumé en place, l'anxiété persiste).
+
+### Principe de simplification itérative du harness (règle maîtresse)
+> « Every component in a harness encodes an assumption about what the model can't do on its own » — hypothèses à **re-tester à chaque nouveau modèle**, en retirant UN composant à la fois et en mesurant. Cas concret v1→v2 : sprints + context resets nécessaires sur Sonnet 4.5, supprimés sur Opus 4.6 (compaction SDK suffit). Corollaire multi-modèles (ex. fable + opus en alternance) : calibrer le harness sur le **moins capable** — les gardes ne coûtent rien au modèle fort.
+
+### Evaluator tuning loop
+Lire les logs de l'evaluator → repérer les divergences avec le jugement humain → corriger le prompt QA → répéter. Même tuné, l'evaluator rate les bugs profondément imbriqués — coverage jamais exhaustif.
+
+### Application neoteem-back-ts (10 juin 2026)
+Audit harness du repo vs état de l'art (Fowler/Böckeler, Osmani, Anthropic ×2, Trail of Bits) : conforme ~85 %. Les 4 manques identifiés pour le dev nocturne : (1) protocole de nuit = loop invoquant `/feature` **explicitement** (déclenchement skills déterministe par construction, pas probabiliste), (2) branch restrictions Bitbucket = garde-fou serveur prérequis, (3) Default-FAIL contract dans reviewer + `/go`, (4) anti-rationalisation encodée dans la skill `/feature` (pas en hook Stop — cohérence doctrine 22 mai).
+
+### Sources
+- [Harness design for long-running application development — Anthropic](https://www.anthropic.com/engineering/harness-design-long-running-apps)
+- [Effective harnesses for long-running agents — Justin Young](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (fresh-context evaluator, Default-FAIL)
+- [[justin-young]] — article fondateur (two-agent, clean state)
+- [[martin-fowler]] · [[addy-osmani]] · [[trail-of-bits-config]] — corpus harness engineering
