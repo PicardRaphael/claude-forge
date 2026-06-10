@@ -72,7 +72,7 @@ Les epics sont des **conteneurs thématiques permanents créés par le PO** — 
 | Agents [IA] | N2-106433 | agents IA mono-tâche (comparaison devis, annonce immo…) | neoteem-back-ts, neo_ia |
 | Chatbots assistants [IA] | N2-68082 | chatbots (support, NeoChat…) | neoteem-back-ts, neo_ia |
 
-**Rattachement** : chaque story se rattache à UN de ces epics. Si le bon epic n'est pas évident (chantier transverse, thème absent) → **AskUserQuestion AVANT de rédiger** — jamais de choix silencieux, jamais d'epic neuf (les epics sont figés une fois pour toutes).
+**Rattachement** : chaque story se rattache à UN de ces epics. Si le bon epic n'est pas évident (chantier transverse, thème absent) → **AskUserQuestion AVANT de rédiger** — jamais de choix silencieux, jamais d'epic neuf (les epics sont figés une fois pour toutes). Détail complet (fiches, routage des cas frontières, étiquettes, protocole de création MCP) : `references/epics-jira.md` — même référentiel embarqué dans les skills `spec` de neoteem-back-ts et neo_ia.
 
 **Sous-tâche-dans-une-story-existante AVANT story neuve** : même réflexe un niveau plus bas. Quand un besoin émerge (bug, évolution, discussion `/spec`), vérifier d'abord les stories existantes de l'epic concerné (Jira via MCP + `doc/epics/` du repo) — si le besoin s'inscrit dans une story en cours, **proposer une sous-tâche rattachée à cette story**, pas une story neuve.
 
@@ -97,7 +97,8 @@ Chaque story/sous-tâche est un **BRIEF que Claude Code peut exécuter sans cont
 1. **Recherche ciblée** (max 10 recherches) : enrichir le ticket via vault (brain) + grep code si le repo existe. Au-delà : rédiger avec l'existant, marquer « à confirmer ».
 2. **Rédiger la story parent** (rattachée à son epic, N2-…) → présenter → itérer jusqu'à validation explicite.
 3. **Sous-tâches** (après GO parent) : proposer la liste déduite, valider le périmètre, rédiger chacune via les templates.
-4. **Livrer les `.md`** dans `doc/epics/e<N>/` du repo (`C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-back-ts/doc/epics/e<N>/` — un sous-dossier par epic : `E<N>-<slug>.md` + annexes + `E<N>-jira.md` version condensée à copier-coller dans Jira + stories `E<N>-S<X>-<slug>.md`). Ne jamais créer dans Jira sans validation explicite.
+4. **Livrer les `.md`** dans `doc/epics/e<N>/` du repo (`C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-back-ts/doc/epics/e<N>/` — un sous-dossier par story-chantier : `E<N>-<slug>.md` + annexes + sous-tâches `E<N>-S<X>-<slug>.md`). Le `.md` = source technique de vérité.
+5. **Création Jira via MCP Atlassian** (après le GO explicite uniquement) : story sous son epic, sous-tâches sous la story, étiquettes posées, description ADF dérivée du `.md` + lien Bitbucket (protocole : `references/epics-jira.md`). Périmètre qui évolue → MAJ du `.md` d'abord, puis du ticket via MCP.
 
 ---
 
@@ -108,7 +109,7 @@ Chaque story/sous-tâche est un **BRIEF que Claude Code peut exécuter sans cont
 - **Poser une question ciblée** (AskUserQuestion) dès qu'un point fonctionnel ou technique est ambigu — mieux qu'une spec partie sur une hypothèse fausse.
 - **CDC = source unique** : citer (`CDC §X`), jamais dupliquer dans le ticket.
 - **Métier Neoteem → skill brain**, jamais le MCP `obsidian-brain` en direct. **Technique Claude Code / archi → MCP forge-brain** direct.
-- **Création tickets Jira (ADF) bloquée actuellement** : MCP `claude.ai Atlassian` non authentifié (OAuth requis), `MCP JIRA - NEOTEEM` = Service Desk only (pas de `create_issue`). Pour l'instant, on conçoit en Markdown.
+- **Création tickets Jira via MCP `claude.ai Atlassian`** (OAuth au premier usage) — `MCP JIRA - NEOTEEM` = Service Desk only (pas de `create_issue`). Toujours présenter la liste de ce qui sera créé et obtenir le GO avant le premier appel.
 
 ## Apprentissage
 

@@ -1,13 +1,18 @@
-# Templates Epic & Story — neoteem-back-ts
+# Templates Story & Sous-tâche — neoteem-back-ts
 
-> Format validé avec Raphael (9 juin 2026). Mix **PO-Neoteem** (émojis + couleurs ADF) + **GitHub** (checklists). Destiné à un double lecteur : **humain** (lisible) + **Claude Code / agents** (BRIEF auto-suffisant). Source de vérité du format des tickets de ce projet.
+> Format validé avec Raphael (9 juin 2026, hiérarchie révisée 10 juin). Mix **PO-Neoteem** (émojis + couleurs ADF) + **GitHub** (checklists). Destiné à un double lecteur : **humain** (lisible) + **Claude Code / agents** (BRIEF auto-suffisant). Source de vérité du format des tickets de ce projet. Miroir : `references/templates.md` de la skill forge `neoteem-back-ts`.
+
+## Hiérarchie Jira Neoteem
+
+**Epic (thème permanent, PO) → Story (brique de travail) → Sous-tâche (US).**
+Les epics sont **figés une fois pour toutes** — on n'en crée jamais. Liste, descriptions, routage et protocole de création Jira : `.claude/skills/spec/references/epics-jira.md` (référentiel embarqué dans la skill, copié à l'identique dans chaque repo). Ce qu'on produit ici = des **stories** rattachées à ces epics, avec leurs **sous-tâches**.
 
 ## Règles d'or (héritées de la skill `spec` PO)
 
 1. **Suivre le template à la lettre** : sections dans l'ordre, ne pas renommer.
 2. **Omettre une section vide** : pas de titre vide, pas de « N/A », pas de placeholder.
 3. **Omettre plutôt qu'inventer** : aucune règle métier / critère / contrainte non confirmé par le CDC, le code ou l'utilisateur.
-4. **Hiérarchie Jira Neoteem : Epic (thème permanent, PO) → Story (brique de travail) → Sous-tâche (US)**. Les epics IA existent déjà (Gestion mail N2-111277 · Outils internes N2-111276 · MCP N2-111230 · Agents N2-106433 · Chatbots assistants N2-68082) — figés une fois pour toutes, on n'en crée JAMAIS. Toute brique de travail = une STORY rattachée à l'un d'eux ; epic de rattachement pas évident → AskUserQuestion avant de rédiger. Et un niveau plus bas : **sous-tâche-dans-une-story-existante avant story neuve** — si le besoin s'inscrit dans une story en cours, proposer une sous-tâche, pas une story.
+4. **Rattachement à deux niveaux** : (a) toute story se rattache à un **epic existant** (`references/epics-jira.md` de la skill spec) — epic pas évident → demander, jamais choisir en silence ; (b) **sous-tâche-dans-une-story-existante AVANT story neuve** — si le besoin s'inscrit dans une story en cours (`doc/epics/e*/` + Jira), proposer une sous-tâche rattachée, pas une story. Règle PO : « pas de tickets pour rien ».
 5. **Story-chantier = brique TOTALE** : elle couvre le cycle complet jusqu'à la mise en service réelle — y compris les sous-tâches de coordination (bascule prod, décommissionnement de l'ancien système) dont l'exécution est devops mais le suivi vit dans la story. Close seulement quand la brique rend son service en production (ex. migration ia_back : « ia_back décommissionné », pas « un remplaçant existe »).
 
 ## Étiquettes (convention tous projets)
@@ -15,39 +20,40 @@
 
 ---
 
-## TEMPLATE EPIC (Markdown — produit en `.md`, créé dans Jira par un humain)
+## TEMPLATE STORY (brique de travail — rattachée à un epic Jira permanent)
 
 ```markdown
-# EPIC — <Titre lisible Jira>
+# STORY — <Titre lisible Jira>
 
 🏷️ IA-DEV · neoteem-back-ts · <one-shot|récurrent>
+↳ Epic : <nom epic [IA]> ([N2-…](https://neoteem.atlassian.net/browse/N2-…))
 Source : <CDC §X> · Dépend de : <…> · Bloque : <…>
 
 ## 🎯 Objectif
 <Le pourquoi — 2-3 phrases. Quel résultat global.>
 
 ## 💡 Contexte
-<Ce qu'il faut savoir pour comprendre l'epic. Décisions actées pertinentes.>
+<Ce qu'il faut savoir pour comprendre la story. Décisions actées pertinentes.>
 
-## 📦 Périmètre (stories)
-| # | Story | Label | one-shot/réc. |
-|---|-------|-------|---------------|
+## 📦 Périmètre (sous-tâches)
+| # | Sous-tâche | Label | one-shot/réc. |
+|---|------------|-------|---------------|
 | S1 | … | setup | one-shot |
 
 ## 🔀 Dépendances & parallélisation
 <OBLIGATOIRE — dit ce qui peut être développé en même temps. Format :
  séquence imposée (S1→S2…), groupes parallélisables (S5/S6/S7 en parallèle), clôture.
- Une story est parallélisable si elle ne touche ni les mêmes packages ni les mêmes tables que l'autre.>
+ Une sous-tâche est parallélisable si elle ne touche ni les mêmes packages ni les mêmes tables que l'autre.>
 
 ## 🚫 Hors-périmètre
-<Ce qui n'est PAS dans l'epic — renvoie aux autres epics.>
+<Ce qui n'est PAS dans la story — renvoie aux autres stories/epics.>
 
 ## ✅ Seuil de sortie (Definition of Done)
 - [ ] <critère vérifiable 1 — commande/test qui prouve>
 - [ ] <critère vérifiable 2>
 
 ## 🔒 Sécurité  (section omise si non pertinente)
-<Points sécu gravés dès cet epic.>
+<Points sécu gravés dès cette story.>
 
 ## 🧭 Méthode
 <Étiquettes, BRIEF auto-suffisant, parent d'abord, organisation fichiers.>
@@ -55,17 +61,17 @@ Source : <CDC §X> · Dépend de : <…> · Bloque : <…>
 
 ---
 
-## TEMPLATE STORY / SOUS-TÂCHE (Markdown — BRIEF auto-suffisant pour Claude Code)
+## TEMPLATE SOUS-TÂCHE (US — BRIEF auto-suffisant pour Claude Code)
 
 ```markdown
-# STORY — <S#> <Titre>
+# SOUS-TÂCHE — <S#> <Titre>
 
 🏷️ IA-DEV · neoteem-back-ts · <label domaine> · <one-shot|récurrent>
-↳ Epic : <titre epic parent>
+↳ Story : <titre story parent>
 🔀 Dépend de : <S# ou « aucune »> · Parallélisable avec : <S#/S# ou « aucune »>
 
 ## 🎯 Objectif
-<Ce que la story livre, du point de vue résultat.>
+<Ce que la sous-tâche livre, du point de vue résultat.>
 
 ## ⚙️ Périmètre technique
 <Fichiers/packages concernés, ce qu'on fait concrètement. Choix indicatifs — le dev reste maître.>
@@ -86,7 +92,7 @@ Source : <CDC §X> · Dépend de : <…> · Bloque : <…>
 - [ ] **mutation** : <si cœur métier touché, StrykerJS score relevé>
 
 ## 🌿 Branche / PR
-Branche `<type>/<N°ticket>` (type : bug / user story / hotfix) → PR vers **`develop`**.
+Branche `<type>/<N°ticket>` (type : `bug` / `us` / `hotfix`) → PR vers **`develop`**.
 
 ## 📎 Références  (section omise si vide)
 <Liens CDC (doc/), notes, tickets liés.>
