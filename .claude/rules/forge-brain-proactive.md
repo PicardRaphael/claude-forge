@@ -32,6 +32,27 @@ Fallback : si MCP crash, Read/Glob `vault/claude-forge/`. Cas anormal.
 | **Après cc-news ou recherche web** | Capitaliser en notes atomiques + MAJ MOCs |
 | **Après erreur significative** | Note `Knowledge/erreurs/` |
 
+## read_section vs read_note (absorbe l'ex-rule read-section-preference)
+
+- Question PRÉCISE + section identifiable depuis `search_brain` → `read_section` (économe).
+- Scope LARGE, première lecture d'une note, ou doute sur la pertinence d'une section seule → `read_note` ENTIÈRE (mieux vaut redondance qu'info manquante).
+- Après un `read_section` insuffisant → escalader à `read_note`. Refuser la lecture entière par dogme tokens quand le besoin est large = info manquante garantie.
+- ❌ `read_note` systématique sur grosse note (CHANGELOG, log) quand 1 section suffit · ❌ `read_section` sans connaître la structure de la note.
+
+## Protocole par type d'agent (absorbe l'ex-rule vault-consultation-protocol)
+
+Vault check = advisory (doctrine 22 mai : pas de hook d'enforcement). Si le prompt d'invocation contient déjà les infos vault, l'étape est satisfaite. Écriture de notes → skill `obsidian-markdown` pour la syntaxe.
+
+| Type d'agent | Vault |
+|---|---|
+| Créateurs (skill/agent/hook/claudemd) | Systématique au démarrage |
+| Analyseurs (repo-inspector tous modes) | Systématique — référentiel pour juger |
+| Exécutants (code-dev, self-updater) | Si sujet nouveau ou doute sur prior art |
+| devils-advocate | Conditionnel ciblé, max 2 requêtes |
+
+Référence dans un agent (2 lignes, pas de copier-coller) : « Vault check : consulter le vault selon `.claude/rules/forge-brain-proactive.md` (advisory). »
+Anti-patterns : scanner le vault par réflexe sans besoin · skipper le vault sur un créateur « parce que simple » · Bash heredoc pour écrire des notes (boucle quoting Windows).
+
 ## OÙ écrire — Ontologie vault
 
 Source canonique : `vault/claude-forge/SCHEMA.md` (13 dossiers wiki + Knowledge/ + raw/). Voir aussi [[pattern-vault-llm-karpathy]].
