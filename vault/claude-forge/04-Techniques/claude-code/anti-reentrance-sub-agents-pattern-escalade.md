@@ -349,3 +349,31 @@ Aliases declares en frontmatter (8) :
 ---
 
 **Fin note canonique `anti-reentrance-sub-agents-pattern-escalade.md`** — chantier 23 mai 2026.
+
+
+---
+
+## AJOUT 10 juin 2026 — La RELANCE après escalade : resume ou re-brief, jamais un prompt nu
+
+Observé en production sur neoteem-back-ts (US1, premier `/feature`) : à chaque aller-retour escalade → réponse humaine → relance, le dev **refaisait toutes ses recherches**. Ce n'est pas un bug — chaque invocation `Agent()` démarre un contexte VIERGE, et l'escalade détruit le contexte de l'agent. Le format ESCALADE REQUISE (sections ci-dessus) protège le côté AGENT (« État actuel » + « Suite recommandée ») ; cet ajout couvre le côté SESSION PRINCIPALE (la relance).
+
+### Doctrine de relance (2 crans)
+
+1. **Resume d'abord** : les sub-agents sont officiellement resumables depuis **CC v2.0.28** — chaque agent a un `agent_id`, son historique vit dans `agent-<agentId>.jsonl`, et le paramètre `resume` reprend le MÊME agent avec contexte préservé. Caveat bugs connus (vérifiés juin 2026) : [#11712](https://github.com/anthropics/claude-code/issues/11712) — le transcript ne stocke PAS les prompts utilisateur qui ont initié l'agent (l'agent repris garde ses tool results mais perd le cadrage) ; [#33651](https://github.com/anthropics/claude-code/issues/33651) — perte silencieuse de messages quand la chaîne de progrès sub-agent dépasse la chaîne principale au resume. **Conséquence : même en resume, re-donner le cadrage (ticket + objectif) dans le message.**
+2. **Re-brief riche en filet** (si resume indisponible ou douteux) : la relance embarque (a) le plan architect, (b) le rapport / « État actuel » du run précédent, (c) la réponse humaine, (d) les fichiers déjà identifiés — avec la consigne explicite « ne refais pas l'exploration, repars de cet état ».
+
+### Principe directeur (convergence PubNub / registry-handoff pattern)
+
+**La session principale injecte le contexte, l'agent ne le re-cherche pas.** C'est l'orchestrateur qui lit les rapports précédents / implementation-notes et n'injecte QUE le pertinent — un sub-agent qui « se renseigne » dans les rapports des autres se disperse (le Frontend Agent qui lit un rapport DB tente de « réparer » le schéma). Anti-pattern symétrique : coller 10 rapports dans la relance — le re-brief est dense, pas exhaustif (le re-reading est l'ennemi du long-context).
+
+### Déploiement 10 juin 2026
+
+- neoteem-back-ts : rule `.claude/rules/agent-relaunch-context.md` + pointeurs `/feature` étapes 3 et 5.
+- neo_ia : section « Relance après escalade » dans `.claude/rules/sub-agent-patterns.md` (enrichissement du foyer existant) + pointeurs `/feature`.
+
+### Sources
+
+- [Subagents in the SDK — platform.claude.com](https://platform.claude.com/docs/en/agent-sdk/subagents) — `resume` param, agent_id, stateless par défaut
+- [Issue #11712](https://github.com/anthropics/claude-code/issues/11712) + [Issue #33651](https://github.com/anthropics/claude-code/issues/33651) — limites du resume
+- [PubNub Best practices for Claude Code sub-agents](https://www.pubnub.com/blog/best-practices-for-claude-code-sub-agents/) — invocation failures = context density
+- [Tembo — Claude Code Subagents 2026 Guide](https://www.tembo.io/blog/claude-code-subagents) — fresh instance par défaut, memory opt-in

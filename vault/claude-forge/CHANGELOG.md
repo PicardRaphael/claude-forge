@@ -14,6 +14,10 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-10 — Relance sub-agent après escalade (resume ou re-brief)
+
+- **Modifiées** : [[anti-reentrance-sub-agents-pattern-escalade]] — AJOUT « La RELANCE après escalade : resume ou re-brief, jamais un prompt nu » (resume officiel CC ≥ 2.0.28 + bugs #11712/#33651, re-brief riche en filet, principe « la session principale injecte le contexte, l'agent ne le re-cherche pas »). Déployé : rule `agent-relaunch-context` (forge + neoteem-back-ts), § Relance dans `sub-agent-patterns` (neo_ia), formats d'escalade des 6 agents back-ts enrichis (État actuel + Suite recommandée).
+- **Source** : observation production US1 neoteem-back-ts (le dev refaisait toutes ses recherches à chaque aller-retour escalade) + recherche web (docs Agent SDK subagents, issues GitHub #11712/#33651, PubNub best practices).
 ## 2026-06-10 — Harness design long-running apps (2e article Anthropic)
 
 - **Modifiées** : [[workflow-claude-code-optimal]] — AJOUT 10 juin : Planner/Generator/Evaluator (GAN), Default-FAIL contract, sprint contracts, context anxiety vs resets, principe de simplification itérative du harness, evaluator tuning loop + application neoteem-back-ts (audit harness ~85 % conforme, 4 manques nocturne)

@@ -8,7 +8,7 @@
 - [argument-hint-champ-officiel](feedback_argument_hint_champ_officiel.md) — `argument-hint` = champ frontmatter OFFICIEL Anthropic (slash commands). Ne jamais le signaler comme erreur d'audit. Checklist locale mise à jour.
 - [skills-externes-intouchables](feedback_skills_externes_intouchables.md) — Skills externes (kepano) = NE JAMAIS modifier le SKILL.md. Déclenchement = .skill-triggers.json uniquement.
 - [allowed-tools-verif-empirique](feedback_allowed_tools_verif_empirique.md) — Vérifier allowed-tools par grep du body avant de déclarer la liste complète.
-- [anti-reentrance-sub-agents](feedback_anti_reentrance_sub_agents.md) — Sub-agent NE PEUT PAS invoquer Agent. Pattern STOP + ESCALADE REQUISE 5 champs
+- [anti-reentrance-sub-agents](feedback_anti_reentrance_sub_agents.md) — Sub-agent NE PEUT PAS invoquer Agent. Pattern STOP + ESCALADE REQUISE (avec État actuel + Suite recommandée). Relance = resume agent_id ou re-brief riche, JAMAIS un prompt nu (rule agent-relaunch-context + vault AJOUT 10 juin)
 - [arxiv-url-swap-papers-similaires](_archive/2026-06/feedback_arxiv_url_swap_papers_similaires.md) — Archivé : absorbé par skill `arxiv-verification` (Check 2). Cf `.claude/skills/arxiv-verification/SKILL.md`
 - [audit-completude-pointeur-vs-orphelin](feedback_audit_completude_pointeur_vs_orphelin.md) — Audit complétude index/roadmap : un wikilink non résolu localement peut pointer vers une note existante ailleurs. search_brain chaque cible avant de la compter orpheline, sinon surcompte le backlog (60→41 réels)
 - [audit-qualite-design-transverse-mandatory](feedback_audit_qualite_design_transverse.md) — Audit `.claude/` = technique + qualité-design transverse vs canoniques
