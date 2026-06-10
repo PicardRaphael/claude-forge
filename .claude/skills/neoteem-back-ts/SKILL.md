@@ -60,6 +60,10 @@ Anti-invention : ce qui n'est pas dans le CDC, le code ou confirmé par Raphael 
 
 Templates complets (single-source, dans le repo) : `doc/epics/_templates-epic-story.md` (EPIC + STORY/SOUS-TÂCHE, règles d'or, étiquettes, rendu ADF). Suivre les templates à la lettre. `references/templates.md` = miroir de secours.
 
+### Règle : story-dans-un-epic-existant AVANT epic neuf
+
+Toute feature se confronte d'abord aux epics existants (`doc/epics/e*/` du repo) : si elle s'inscrit dans une brique en cours → **proposer une story rattachée**, pas un epic. Un epic neuf = nouvelle **brique fonctionnelle large ET TOTALE** : cycle complet jusqu'à la mise en service réelle, stories de coordination devops incluses (bascule prod, décommissionnement de l'ancien — leur exécution est devops, leur suivi vit dans l'epic). Règle PO : « pas d'epics pour rien ». Le mode 1 conclut toujours par : story dans quel epic, ou epic neuf justifié.
+
 ### Règle absolue : PARENT D'ABORD, sous-tâches ENSUITE
 
 L'epic (ou la story parent) est **entièrement rédigé, présenté et validé** AVANT de penser aux stories/sous-tâches.

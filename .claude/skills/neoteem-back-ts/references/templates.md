@@ -7,6 +7,8 @@
 1. **Suivre le template à la lettre** : sections dans l'ordre, ne pas renommer.
 2. **Omettre une section vide** : pas de titre vide, pas de « N/A », pas de placeholder.
 3. **Omettre plutôt qu'inventer** : aucune règle métier / critère / contrainte non confirmé par le CDC, le code ou l'utilisateur.
+4. **Story-dans-un-epic-existant AVANT epic neuf** : toute nouvelle feature se confronte d'abord aux epics existants (`doc/epics/e*/`) — si elle s'inscrit dans une brique en cours, proposer une story rattachée, pas un epic. Un epic ne se crée que pour une **nouvelle brique fonctionnelle large** (règle PO : « pas d'epics pour rien »).
+5. **Epic = brique TOTALE** : il couvre le cycle complet jusqu'à la mise en service réelle — y compris les stories de coordination (bascule prod, décommissionnement de l'ancien système) dont l'exécution est devops mais le suivi vit dans l'epic. L'epic n'est clos que quand la brique rend son service en production (ex. E1 : « ia_back décommissionné », pas « un remplaçant existe »).
 
 ## Étiquettes (convention tous projets)
 `IA-DEV` (systématique) + `neoteem-back-ts` (étiquette projet) + label de domaine (`setup`/`agent`/`db`/`migration`/`test`/`qualité`/`mcp`/`obs`) + label transverse (`one-shot`/`récurrent`).
