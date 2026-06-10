@@ -80,7 +80,7 @@ Chaque story/sous-tâche est un **BRIEF que Claude Code peut exécuter sans cont
 1. **Recherche ciblée** (max 10 recherches) : enrichir le ticket via vault (brain) + grep code si le repo existe. Au-delà : rédiger avec l'existant, marquer « à confirmer ».
 2. **Rédiger le parent** (epic ou story parent) → présenter → itérer jusqu'à validation explicite.
 3. **Sous-tâches** (après GO parent) : proposer la liste déduite, valider le périmètre, rédiger chacune via les templates.
-4. **Livrer les `.md`** dans `doc/epics/` du repo (`C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-back-ts/doc/epics/`, nommage `E<N>-<slug>.md`). Ne jamais créer dans Jira sans validation explicite.
+4. **Livrer les `.md`** dans `doc/epics/e<N>/` du repo (`C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-back-ts/doc/epics/e<N>/` — un sous-dossier par epic : `E<N>-<slug>.md` + annexes + `E<N>-jira.md` version condensée à copier-coller dans Jira + stories `E<N>-S<X>-<slug>.md`). Ne jamais créer dans Jira sans validation explicite.
 
 ---
 
