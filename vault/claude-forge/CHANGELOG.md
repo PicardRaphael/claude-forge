@@ -14,6 +14,10 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-10 — Organisation par domaine métier + limite 1000 lignes (suite incident US1)
+
+- **Modifiées** : [[conventions-naming-typescript]] — AJOUT « Organisation par DOMAINE métier + limites de taille » (vertical slice × hexagonal vérifié web ; domaines issus du métier RÉEL via neoteem-brain : Damier Lojii + 01-Domaines + MOC-BDD → commun/syndic/gerance/comptabilite/reporting ; limite stricte 1000 lignes triple capteur ; méthode réutilisable : interroger le brain AVANT d'inventer une taxonomie).
+- **Source** : arbitrages Raphael post-US1 (granularité, pas réduction de périmètre ; fichiers logiques ; « mass tables » à venir) + recherches NeoBrain (glossaire, MOC-Domaines, MOC-BDD). Déployé : back-ts 59ee16c (conventions § 2bis, CDC §6.1+§7.3, rule file-size-limit, hooks file-size-guard + guard-ts-nocheck, architect/skills câblés).
 ## 2026-06-10 — Incident US1 artefacts générés : Default-FAIL ne prouve que les critères écrits
 
 - **Modifiées** : [[workflow-claude-code-optimal]] — AJOUT « Incident US1 : le Default-FAIL ne prouve que les critères ÉCRITS » (37 tables générées pour 17 attendues, pipeline vert contre un contrat troué ; règles : liste fermée + assertion de comptage = critère de done standard des artefacts générés, review du GÉNÉRATEUR, @ts-nocheck = hook bloquant allowlisté).

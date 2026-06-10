@@ -56,3 +56,16 @@ Le vocabulaire CDC §6ter de [[neoteem-back-ts]] est conforme aux références (
 
 - [[neoteem-back-ts]] — premier repo d'application (doc/conventions.md + biome.json)
 - [[stack-typescript-ia]] — stack IA TS (complémentaire)
+
+
+---
+
+## AJOUT 10 juin 2026 (soir) — Organisation par DOMAINE métier + limites de taille (post-incident US1)
+
+Incident US1 neoteem-back-ts (schéma généré monolithique 3161 lignes) → 3 décisions Raphael gravées dans `doc/conventions.md` § 2bis + CDC §6.1 + rule `file-size-limit` :
+
+1. **Vertical slice × hexagonal** (état de l'art vérifié web — Sairyss/domain-driven-hexagon, vertical-slice guides) : le 1er niveau de dossiers de CHAQUE package = le domaine métier ; 1 use-case = 1 dossier. Les couches répondent « comment les dépendances coulent », les domaines « où vit quoi ».
+2. **Domaines canoniques issus du MÉTIER RÉEL** (pas inventés) : `commun` · `syndic` · `gerance` · `comptabilite` · `reporting` — sources : modules du Damier Lojii (Syndic/Gérance/Commun/Admin, glossaire neoteem-brain) + taxonomie `01-Domaines/` + organisation des 50 schémas BDD (MOC-BDD). Liste fermée, ajout = décision humaine. Affectation ambiguë → brain (`neo-brain-dev-ia`), jamais devinée.
+3. **Limite stricte de taille** : aucun fichier source > 1000 lignes, JAMAIS — triple capteur (hook `file-size-guard` PreToolUse + `scripts/check-file-sizes.ts` en CI et `/go` pour attraper les fichiers générés par scripts + review). Visé : ~200-300 lignes/fichier, ~40 lignes/fonction. Schéma généré = fichiers de domaine (mapping déclaratif `schema-domains.json`, `_a-classer` fait échouer le test).
+
+Méthode réutilisable pour tout futur repo : interroger le brain métier pour la liste des domaines AVANT d'inventer une taxonomie technique.
