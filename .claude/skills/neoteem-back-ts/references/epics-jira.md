@@ -83,6 +83,7 @@
 ## Création Jira via MCP Atlassian (après validation explicite uniquement)
 
 - Story : `createJiraIssue` type **[IA] FEATURE** (type story des chantiers IA — jamais « Story fonctionnelle »), parent = epic (N2-…), description en ADF (rendu : headings colorés `#00b8d9`, voir templates).
+- **La description ADF de la story reprend TOUTES les sections du `.md` — dont 🔀 Dépendances & parallélisation** (étapes, quelles US en parallèle, quelles séquences) : un humain doit voir d'un coup d'œil dans Jira ce qui peut avancer en parallèle, sans ouvrir le `.md`. Jamais résumer au seul périmètre.
 - Sous-tâche : `createJiraIssue` type Sous-tâche, parent = la story.
 - **Assigné : TOUJOURS demander à l'utilisateur** (AskUserQuestion) qui est assigné à la story et aux sous-tâches AVANT de créer — jamais de ticket sans assigné tranché (un seul appel pour tout le lot suffit ; réponses possibles : une personne, « moi », « personne pour l'instant »). Résoudre le nom via `lookupJiraAccountId` → `assignee_account_id`.
 - Toujours présenter la liste de ce qui va être créé et obtenir le OK AVANT le premier appel. Jamais de création silencieuse.

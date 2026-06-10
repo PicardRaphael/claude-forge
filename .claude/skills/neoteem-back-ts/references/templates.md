@@ -100,10 +100,11 @@ Branche `<type>/<N°ticket>` (type : `bug` / `us` / `hotfix`) → PR vers **`dev
 
 ---
 
-## Rendu ADF / Jira (quand on pousse via MCP Atlassian — non auth actuellement)
+## Rendu ADF / Jira (quand on pousse via MCP Atlassian)
 
 - Chaque section = `heading` level 3 : émoji en texte normal + libellé en `textColor` **`#00b8d9`** + `:`.
 - Séparateur `rule` entre sections. Listes = `bulletList`. Checklists → `taskList`/`taskItem` ADF.
+- **La description ADF d'une STORY reprend TOUTES les sections du `.md` — dont 🔀 Dépendances & parallélisation** (étapes, US parallélisables, séquences) : visible d'un coup d'œil dans Jira sans ouvrir le `.md`. Jamais résumer au seul périmètre. Chaque US du périmètre = lien vers son ticket (N2-…).
 - Encadré **choix techniques** (panel `warning` fond `#fffae6`) en fin de toute sous-tâche technique : « Les choix techniques sont indicatifs. Le développeur reste maître de son implémentation. »
 - Style de référence Jira : ticket N2-98153 (structure ADF), N2-111159 (panel).
 - Palette émoji : 🎯 Objectif · 💡 Contexte · ⚙️ Description/Périmètre · 🔍 Recherche · 🚧 Frontières · ✅ Critères/Tests · 🧪 Points d'attention · 🌿 Branche · 📎 Documents · 📦 Périmètre · 🚫 Hors-périmètre · 🔒 Sécurité · 🧭 Méthode.
