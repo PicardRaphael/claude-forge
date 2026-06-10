@@ -58,7 +58,7 @@ Anti-invention : ce qui n'est pas dans le CDC, le code ou confirmé par Raphael 
 
 ## MODE 2 — Création de tickets (.md)
 
-Templates complets (single-source, dans le repo) : `doc/epics/_templates-epic-story.md` (EPIC + STORY/SOUS-TÂCHE, règles d'or, étiquettes, rendu ADF). Suivre les templates à la lettre. `references/templates.md` = miroir de secours.
+Templates complets (single-source, dans le repo) : `doc/stories/_templates-story-soustache.md` (STORY + SOUS-TÂCHE, règles d'or, étiquettes, rendu ADF). Suivre les templates à la lettre. `references/templates.md` = miroir de secours.
 
 ### Hiérarchie Jira Neoteem : Epic (thème permanent) → STORY (brique de travail) → SOUS-TÂCHE (US)
 
@@ -74,7 +74,7 @@ Les epics sont des **conteneurs thématiques permanents créés par le PO** — 
 
 **Rattachement** : chaque story se rattache à UN de ces epics. Si le bon epic n'est pas évident (chantier transverse, thème absent) → **AskUserQuestion AVANT de rédiger** — jamais de choix silencieux, jamais d'epic neuf (les epics sont figés une fois pour toutes). Détail complet (fiches, routage des cas frontières, étiquettes, protocole de création MCP) : `references/epics-jira.md` — même référentiel embarqué dans les skills `spec` de neoteem-back-ts et neo_ia.
 
-**Sous-tâche-dans-une-story-existante AVANT story neuve** : même réflexe un niveau plus bas. Quand un besoin émerge (bug, évolution, discussion `/spec`), vérifier d'abord les stories existantes de l'epic concerné (Jira via MCP + `doc/epics/` du repo) — si le besoin s'inscrit dans une story en cours, **proposer une sous-tâche rattachée à cette story**, pas une story neuve.
+**Sous-tâche-dans-une-story-existante AVANT story neuve** : même réflexe un niveau plus bas. Quand un besoin émerge (bug, évolution, discussion `/spec`), vérifier d'abord les stories existantes de l'epic concerné (Jira via MCP + `doc/stories/` du repo) — si le besoin s'inscrit dans une story en cours, **proposer une sous-tâche rattachée à cette story**, pas une story neuve.
 
 ### Règle absolue : STORY PARENT D'ABORD, sous-tâches ENSUITE
 
@@ -97,7 +97,7 @@ Chaque story/sous-tâche est un **BRIEF que Claude Code peut exécuter sans cont
 1. **Recherche ciblée** (max 10 recherches) : enrichir le ticket via vault (brain) + grep code si le repo existe. Au-delà : rédiger avec l'existant, marquer « à confirmer ».
 2. **Rédiger la story parent** (rattachée à son epic, N2-…) → présenter → itérer jusqu'à validation explicite.
 3. **Sous-tâches** (après GO parent) : proposer la liste déduite, valider le périmètre, rédiger chacune via les templates.
-4. **Livrer les `.md`** dans `doc/epics/s<N>/` du repo (`C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-back-ts/doc/epics/s<N>/` — un sous-dossier par story-chantier : `S<N>-<slug>.md` + annexes + sous-tâches `S<N>-US<X>-<slug>.md`). Le `.md` = source technique de vérité.
+4. **Livrer les `.md`** dans `doc/stories/s<N>/` du repo (`C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-back-ts/doc/stories/s<N>/` — un sous-dossier par story-chantier : `S<N>-<slug>.md` + annexes + sous-tâches `S<N>-US<X>-<slug>.md`). Le `.md` = source technique de vérité. Les fiches des 5 epics (descriptions copiables Jira) vivent dans `doc/epics/` du repo.
 5. **Création Jira via MCP Atlassian** (après le GO explicite uniquement) : story sous son epic, sous-tâches sous la story, étiquettes posées, description ADF dérivée du `.md` + lien Bitbucket (protocole : `references/epics-jira.md`). Périmètre qui évolue → MAJ du `.md` d'abord, puis du ticket via MCP.
 
 ---
@@ -118,5 +118,5 @@ Noter ici tout pattern de spec efficace, convention de ticket découverte, ou ar
 
 ## Références
 
-- Templates EPIC + STORY/SOUS-TÂCHE (single-source, dans le repo) : `C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-back-ts/doc/epics/_templates-epic-story.md`. La copie locale `references/templates.md` est un miroir de secours — en cas d'écart, le repo fait foi.
+- Templates STORY + SOUS-TÂCHE (single-source, dans le repo) : `C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-back-ts/doc/stories/_templates-story-soustache.md`. La copie locale `references/templates.md` est un miroir de secours — en cas d'écart, le repo fait foi.
 - CDC : `C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-back-ts/doc/cahier-des-charges.md`.

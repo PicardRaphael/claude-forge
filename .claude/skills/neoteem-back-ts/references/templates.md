@@ -12,7 +12,7 @@ Les epics sont **figés une fois pour toutes** — on n'en crée jamais. Liste, 
 1. **Suivre le template à la lettre** : sections dans l'ordre, ne pas renommer.
 2. **Omettre une section vide** : pas de titre vide, pas de « N/A », pas de placeholder.
 3. **Omettre plutôt qu'inventer** : aucune règle métier / critère / contrainte non confirmé par le CDC, le code ou l'utilisateur.
-4. **Rattachement à deux niveaux** : (a) toute story se rattache à un **epic existant** (`references/epics-jira.md` de la skill spec) — epic pas évident → demander, jamais choisir en silence ; (b) **sous-tâche-dans-une-story-existante AVANT story neuve** — si le besoin s'inscrit dans une story en cours (`doc/epics/e*/` + Jira), proposer une sous-tâche rattachée, pas une story. Règle PO : « pas de tickets pour rien ».
+4. **Rattachement à deux niveaux** : (a) toute story se rattache à un **epic existant** (`references/epics-jira.md` de la skill spec) — epic pas évident → demander, jamais choisir en silence ; (b) **sous-tâche-dans-une-story-existante AVANT story neuve** — si le besoin s'inscrit dans une story en cours (`doc/stories/s*/` + Jira), proposer une sous-tâche rattachée, pas une story. Règle PO : « pas de tickets pour rien ».
 5. **Story-chantier = brique TOTALE** : elle couvre le cycle complet jusqu'à la mise en service réelle — y compris les sous-tâches de coordination (bascule prod, décommissionnement de l'ancien système) dont l'exécution est devops mais le suivi vit dans la story. Close seulement quand la brique rend son service en production (ex. migration ia_back : « ia_back décommissionné », pas « un remplaçant existe »).
 
 ## Étiquettes (convention tous projets)
