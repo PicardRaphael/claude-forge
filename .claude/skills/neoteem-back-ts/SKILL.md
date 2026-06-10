@@ -1,6 +1,6 @@
 ---
 name: neoteem-back-ts
-description: ALWAYS invoke when validating a neoteem-back-ts feature/architecture before tickets, OR creating its epics/stories/sous-tâches. Architect mode = design dialogue; ticket mode = Jira-ready .md briefs. NOT for other projects (use spec), NOT during ticket implementation.
+description: ALWAYS invoke when validating a neoteem-back-ts feature/architecture before tickets, OR creating its stories/sous-tâches under the permanent IA epics. Architect mode = design dialogue; ticket mode = Jira-ready .md briefs. NOT for other projects (use spec), NOT during ticket implementation.
 user-invocable: true
 allowed-tools: Read, Write, Glob, Grep, Bash, AskUserQuestion, mcp__forge-brain__*
 model: opus
@@ -14,7 +14,7 @@ Tu portes la casquette **architecte / lead dev IA** du monorepo backend Loji `ne
 > **STOP — frontières dures de cette skill :**
 > - Skill **projet-spécifique** : uniquement `neoteem-back-ts`. Pour un autre repo (ia_back, neo_ia, lojii) → skill `spec` générique.
 > - Tu t'arrêtes à la **production des `.md`**. Le dev d'un ticket (pipeline `/feature`, agents architect/dev) est HORS scope.
-> - L'**epic est créé dans Jira par un humain** (collègue PO). Tu produis le `.md`, jamais l'epic Jira. Tu crées ensuite les stories/sous-tâches rattachées.
+> - Les **epics Jira sont des THÈMES PERMANENTS créés par le PO** (jamais par toi, jamais un epic par chantier). Tu produis des **STORIES** (briques de travail) et leurs **SOUS-TÂCHES** (US), rattachées à un epic existant.
 > - **Jamais de création Jira sans validation explicite** de Raphael.
 
 **Demande utilisateur** : $ARGUMENTS
@@ -26,7 +26,7 @@ Tu portes la casquette **architecte / lead dev IA** du monorepo backend Loji `ne
 | Mode | Déclencheur | Ce que tu fais |
 |------|-------------|----------------|
 | **1. Architecte** | « je veux ajouter X », « voici une feature », discussion de conception | Dialogue AMONT : poser les bonnes questions, croiser CDC + vault, proposer une première architecture, valider AVEC Raphael. Conversationnel, pré-ticket. |
-| **2. Tickets** | « crée l'epic / les stories de X » | Produire les `.md` parfaits via les templates. Parent d'abord, puis stories/sous-tâches. |
+| **2. Tickets** | « crée les stories / les tickets de X » | Produire les `.md` parfaits via les templates. Story parent d'abord, puis sous-tâches. |
 
 **Distinction à ne jamais confondre** : le mode architecte de CETTE skill = conception EN AMONT (feature → archi → tickets). L'agent `architect` du pipeline `/feature` (CDC E0-S4) = archi d'implémentation D'UN ticket PENDANT le dev (Opus read-only). Le mode 1 **produit** les tickets que `/feature` consommera plus tard.
 
@@ -60,16 +60,27 @@ Anti-invention : ce qui n'est pas dans le CDC, le code ou confirmé par Raphael 
 
 Templates complets (single-source, dans le repo) : `doc/epics/_templates-epic-story.md` (EPIC + STORY/SOUS-TÂCHE, règles d'or, étiquettes, rendu ADF). Suivre les templates à la lettre. `references/templates.md` = miroir de secours.
 
-### Règle : story-dans-un-epic-existant AVANT epic neuf
+### Hiérarchie Jira Neoteem : Epic (thème permanent) → STORY (brique de travail) → SOUS-TÂCHE (US)
 
-Toute feature se confronte d'abord aux epics existants (`doc/epics/e*/` du repo) : si elle s'inscrit dans une brique en cours → **proposer une story rattachée**, pas un epic. Un epic neuf = nouvelle **brique fonctionnelle large ET TOTALE** : cycle complet jusqu'à la mise en service réelle, stories de coordination devops incluses (bascule prod, décommissionnement de l'ancien — leur exécution est devops, leur suivi vit dans l'epic). Règle PO : « pas d'epics pour rien ». Le mode 1 conclut toujours par : story dans quel epic, ou epic neuf justifié.
+Les epics sont des **conteneurs thématiques permanents créés par le PO** — tu n'en crées JAMAIS. Ce que tu produis = des **stories** (la brique de travail, ex. « Migration ia_back ») avec leurs **sous-tâches** (les US exécutables). Epics IA existants :
 
-### Règle absolue : PARENT D'ABORD, sous-tâches ENSUITE
+| Epic | N° | Périmètre | Repos |
+|---|---|---|---|
+| Gestion mail [IA] | N2-111277 | traitement des mails par l'IA | neoteem-back-ts, neo_ia |
+| Outils internes [IA] | N2-111276 | skills/outils internes IA | neoteem-brain, neoteem-plugin-claude(-admin) |
+| MCP [IA] | N2-111230 | création de serveurs MCP | neoteem-back-ts |
+| Agents [IA] | N2-106433 | agents IA mono-tâche (comparaison devis, annonce immo…) | neoteem-back-ts, neo_ia |
+| Chatbots assistants [IA] | N2-68082 | chatbots (support, NeoChat…) | neoteem-back-ts, neo_ia |
 
-L'epic (ou la story parent) est **entièrement rédigé, présenté et validé** AVANT de penser aux stories/sous-tâches.
-- INTERDIT : proposer des sous-tâches avant validation du parent.
+**Rattachement** : chaque story se rattache à UN de ces epics. Si le bon epic n'est pas évident (chantier transverse, thème absent) → **AskUserQuestion AVANT de rédiger** — jamais de choix silencieux, jamais d'epic neuf (thème manquant = escalade à Raphael, qui voit avec le PO).
+
+### Règle absolue : STORY PARENT D'ABORD, sous-tâches ENSUITE
+
+La story parent est **entièrement rédigée, présentée et validée** AVANT de penser aux sous-tâches.
+- INTERDIT : proposer des sous-tâches avant validation de la story parent.
 - OBLIGATOIRE : passer aux sous-tâches seulement après un « OK parent validé » explicite.
 - Pourquoi : le parent cristallise le besoin. Les sous-tâches en découlent. Commencer par le bas fige le technique avant le fonctionnel.
+- Une story-chantier reste **TOTALE** (règle PO « brique large, pas de tickets pour rien ») : cycle complet jusqu'au service rendu en prod, sous-tâches de coordination devops incluses (bascule, décommissionnement).
 
 ### Étiquettes (graver sur chaque ticket)
 
@@ -82,7 +93,7 @@ Chaque story/sous-tâche est un **BRIEF que Claude Code peut exécuter sans cont
 ### Workflow de rédaction
 
 1. **Recherche ciblée** (max 10 recherches) : enrichir le ticket via vault (brain) + grep code si le repo existe. Au-delà : rédiger avec l'existant, marquer « à confirmer ».
-2. **Rédiger le parent** (epic ou story parent) → présenter → itérer jusqu'à validation explicite.
+2. **Rédiger la story parent** (rattachée à son epic, N2-…) → présenter → itérer jusqu'à validation explicite.
 3. **Sous-tâches** (après GO parent) : proposer la liste déduite, valider le périmètre, rédiger chacune via les templates.
 4. **Livrer les `.md`** dans `doc/epics/e<N>/` du repo (`C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-back-ts/doc/epics/e<N>/` — un sous-dossier par epic : `E<N>-<slug>.md` + annexes + `E<N>-jira.md` version condensée à copier-coller dans Jira + stories `E<N>-S<X>-<slug>.md`). Ne jamais créer dans Jira sans validation explicite.
 
@@ -91,7 +102,7 @@ Chaque story/sous-tâche est un **BRIEF que Claude Code peut exécuter sans cont
 ## Gotchas
 
 - **`$ARGUMENTS` jamais dans des backticks shell** — substitution littérale qui casse le quoting (Windows).
-- **Ne jamais créer dans Jira sans validation explicite** de Raphael. La skill produit des `.md` ; l'epic Jira est créé par un humain.
+- **Ne jamais créer dans Jira sans validation explicite** de Raphael. La skill produit des `.md` ; les epics Jira sont des thèmes permanents gérés par le PO — n'en jamais créer ni proposer.
 - **Poser une question ciblée** (AskUserQuestion) dès qu'un point fonctionnel ou technique est ambigu — mieux qu'une spec partie sur une hypothèse fausse.
 - **CDC = source unique** : citer (`CDC §X`), jamais dupliquer dans le ticket.
 - **Métier Neoteem → skill brain**, jamais le MCP `obsidian-brain` en direct. **Technique Claude Code / archi → MCP forge-brain** direct.
