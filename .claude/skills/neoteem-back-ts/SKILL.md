@@ -48,7 +48,7 @@ But : transformer une idée de feature en une **première architecture validée*
 2. **Croiser le contexte** :
    - CDC (lire la/les section(s) concernée(s)) — décisions déjà actées.
    - Vault forge-brain (MCP) pour la doctrine technique / archi / Claude Code.
-   - Vault neoteem-brain pour le **métier Neoteem** : invoquer la skill `neo-brain-support` / `neo-brain` (jamais le MCP `obsidian-brain` en direct — la skill brain sait interroger correctement).
+   - Vault neoteem-brain pour le **métier Neoteem** : invoquer la skill `/neoteem-brain-dev-ia:neo-brain-dev-ia` (jamais le MCP brain en direct — la skill sait interroger correctement : glossaire, MOC-BDD, notes `table-t-*`).
 3. **Proposer une première architecture** : où ça vit dans le monorepo (apps/ vs packages/), frontières hexagonales touchées, impact DB (Drizzle / fonction PG selon la règle de tri du CDC), MCP concerné le cas échéant. Choix indicatifs, justifiés, alternatives notées.
 4. **Valider AVEC Raphael** avant tout ticket. Il tranche.
 
@@ -108,7 +108,7 @@ Chaque story/sous-tâche est un **BRIEF que Claude Code peut exécuter sans cont
 - **Ne jamais créer dans Jira sans validation explicite** de Raphael. La skill produit des `.md` ; les epics Jira sont des thèmes permanents gérés par le PO — n'en jamais créer ni proposer.
 - **Poser une question ciblée** (AskUserQuestion) dès qu'un point fonctionnel ou technique est ambigu — mieux qu'une spec partie sur une hypothèse fausse.
 - **CDC = source unique** : citer (`CDC §X`), jamais dupliquer dans le ticket.
-- **Métier Neoteem → skill brain**, jamais le MCP `obsidian-brain` en direct. **Technique Claude Code / archi → MCP forge-brain** direct.
+- **Métier Neoteem → skill `/neoteem-brain-dev-ia:neo-brain-dev-ia`**, jamais le MCP brain en direct. **Technique Claude Code / archi → MCP forge-brain** direct.
 - **Création tickets Jira via MCP `claude.ai Atlassian`** (OAuth au premier usage) — `MCP JIRA - NEOTEEM` = Service Desk only (pas de `create_issue`). Toujours présenter la liste de ce qui sera créé et obtenir le GO avant le premier appel.
 - **Skill en 3 exemplaires synchronisés** : cette skill (+ `references/epics-jira.md` et `references/templates.md`) a ses jumelles `spec` dans neoteem-back-ts et neo_ia. **Toute modification structurante se propage aux 3 endroits** — jamais un seul.
 
