@@ -58,3 +58,9 @@ E0 Fondation LIVRÉ (direct master, sans tickets — décision Raphael) ; 6 bran
 - [[anti-pattern-hookify-workflow-hooks]] — doctrine hooks appliquée au repo (CDC §19bis.2)
 - [[workflow-claude-code-optimal]] — couches de test du code IA + cadence mutation (section 9 juin)
 - [[raisonnement-22mai-doctrine-vs-enforcement]] — pourquoi le pipeline vit dans une skill, pas un hook
+
+## État (2026-06-10 soir — remplace État 2026-06-09)
+
+E0 livré + harness durci post-incident US1. Story **S1 = N2-111278** (12 sous-tâches N2-111279→111291), US1 en cours sur `us/N2-111279` (Jérôme — résidu : relations.ts importe ~35 symboles inexistants → typecheck rouge). Convention git : travail sur develop via PR `us/{N°}`, plus jamais master direct. Outillage réel : 6 agents, 11 skills, **14 hooks**, 8 rules, `.claude/README.md` carte complète.
+
+**Audit complet 10 juin soir : 18/20** (CC 19 · Archi 19 · CDC 18,5 · Métier 18,5 · Sécu 17,5 · Code 16 · Process 18). Plafond = preuve par l'exécution. Livré (afae512, toutes branches) : /go + `pnpm audit` (miroir CI réparé), ADR-002 RFC 9457 + étape « consigner les décisions en ADR » dans la skill spec (une consigne sans consommateur ne s'applique jamais), CDC §13 brouillard comptable (ADR-002 neoteem-brain — exception assumée au no-p_*), import @AGENTS.md standalone, compteurs README. Dettes P2 : guard-di MultiEdit, scope Stryker, lockfile-lint/OSV-Scanner.

@@ -14,6 +14,11 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-10 — Audit complet neoteem-back-ts 18/20 + état projet rafraîchi
+
+- **Modifiées** : [[neoteem-back-ts]] — section « État (2026-06-10 soir) » : audit 7 axes noté 18/20 (plafond = preuve par l'exécution), optimisations livrées toutes branches (afae512 : /go+pnpm audit, ADR-002 RFC 9457, CDC §13 brouillard comptable, @AGENTS.md standalone, compteurs README), résidu branche US1 (relations.ts symboles inexistants), dettes P2.
+- **Source** : audit 3 agents (repo-inspector .claude/ ; vérif empirique code develop+us ; recherche web état de l'art Drizzle/TS6/Stryker/supply-chain) croisé CDC v5.0 + NeoBrain (glossaire, ADR-001→005, conventions BDD) + canoniques forge.
+
 ## 2026-06-10 — Organisation par domaine métier + limite 1000 lignes (suite incident US1)
 
 - **Modifiées** : [[conventions-naming-typescript]] — AJOUT « Organisation par DOMAINE métier + limites de taille » (vertical slice × hexagonal vérifié web ; domaines issus du métier RÉEL via neoteem-brain : Damier Lojii + 01-Domaines + MOC-BDD → commun/syndic/gerance/comptabilite/reporting ; limite stricte 1000 lignes triple capteur ; méthode réutilisable : interroger le brain AVANT d'inventer une taxonomie).

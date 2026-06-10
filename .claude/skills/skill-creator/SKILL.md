@@ -199,6 +199,7 @@ Split 60/40 train/held-out, 3 runs/query, max 5 itérations → sélectionner `b
 - [ ] Pas de `README.md` dans le dossier
 - [ ] Section **Gotchas** présente
 - [ ] Section **Apprentissage** présente (skills métier)
+- [ ] **Zéro méta-commentaire de modification dans le body** : pas de date d'audit, pas de justification de la modif (« cause racine… », « audit du X »), pas de narration — la règle s'écrit nue ; le pourquoi vit dans le CHANGELOG du repo cible ou le vault
 - [ ] Pas de `$ARGUMENTS` dans des backticks shell
 - [ ] Enforcement adapté à l'environnement (pas de hooks si Cowork/Portable)
 - [ ] Side-effects → `disable-model-invocation: true` + AskUserQuestion gate

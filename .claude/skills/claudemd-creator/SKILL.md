@@ -171,6 +171,7 @@ Identifier :
 - Comportements à garantir → hook
 - Contenu d'une skill/agent dupliqué
 - Info datée non voulue
+- Méta-commentaire de modification (date d'audit, justification, narration de la modif) — la règle s'écrit nue, le pourquoi vit dans le CHANGELOG/vault
 
 ### La règle testable (clé de l'adhérence)
 
