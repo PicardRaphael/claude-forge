@@ -38,11 +38,11 @@ Source : <CDC §X> · Dépend de : <…> · Bloque : <…>
 ## 📦 Périmètre (sous-tâches)
 | # | Sous-tâche | Label | one-shot/réc. |
 |---|------------|-------|---------------|
-| S1 | … | setup | one-shot |
+| US1 | … | setup | one-shot |
 
 ## 🔀 Dépendances & parallélisation
 <OBLIGATOIRE — dit ce qui peut être développé en même temps. Format :
- séquence imposée (S1→S2…), groupes parallélisables (S5/S6/S7 en parallèle), clôture.
+ séquence imposée (US1→US2…), groupes parallélisables (US5/US6/US7 en parallèle), clôture.
  Une sous-tâche est parallélisable si elle ne touche ni les mêmes packages ni les mêmes tables que l'autre.>
 
 ## 🚫 Hors-périmètre
@@ -64,7 +64,7 @@ Source : <CDC §X> · Dépend de : <…> · Bloque : <…>
 ## TEMPLATE SOUS-TÂCHE (US — BRIEF auto-suffisant pour Claude Code)
 
 ```markdown
-# SOUS-TÂCHE — <S#> <Titre>
+# SOUS-TÂCHE — <US#> <Titre>
 
 🏷️ IA-DEV · neoteem-back-ts · <label domaine> · <one-shot|récurrent>
 ↳ Story : <titre story parent>

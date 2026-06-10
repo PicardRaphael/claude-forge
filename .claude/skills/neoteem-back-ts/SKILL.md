@@ -97,7 +97,7 @@ Chaque story/sous-tâche est un **BRIEF que Claude Code peut exécuter sans cont
 1. **Recherche ciblée** (max 10 recherches) : enrichir le ticket via vault (brain) + grep code si le repo existe. Au-delà : rédiger avec l'existant, marquer « à confirmer ».
 2. **Rédiger la story parent** (rattachée à son epic, N2-…) → présenter → itérer jusqu'à validation explicite.
 3. **Sous-tâches** (après GO parent) : proposer la liste déduite, valider le périmètre, rédiger chacune via les templates.
-4. **Livrer les `.md`** dans `doc/epics/e<N>/` du repo (`C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-back-ts/doc/epics/e<N>/` — un sous-dossier par story-chantier : `E<N>-<slug>.md` + annexes + sous-tâches `E<N>-S<X>-<slug>.md`). Le `.md` = source technique de vérité.
+4. **Livrer les `.md`** dans `doc/epics/s<N>/` du repo (`C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-back-ts/doc/epics/s<N>/` — un sous-dossier par story-chantier : `S<N>-<slug>.md` + annexes + sous-tâches `S<N>-US<X>-<slug>.md`). Le `.md` = source technique de vérité.
 5. **Création Jira via MCP Atlassian** (après le GO explicite uniquement) : story sous son epic, sous-tâches sous la story, étiquettes posées, description ADF dérivée du `.md` + lien Bitbucket (protocole : `references/epics-jira.md`). Périmètre qui évolue → MAJ du `.md` d'abord, puis du ticket via MCP.
 
 ---
@@ -110,6 +110,7 @@ Chaque story/sous-tâche est un **BRIEF que Claude Code peut exécuter sans cont
 - **CDC = source unique** : citer (`CDC §X`), jamais dupliquer dans le ticket.
 - **Métier Neoteem → skill brain**, jamais le MCP `obsidian-brain` en direct. **Technique Claude Code / archi → MCP forge-brain** direct.
 - **Création tickets Jira via MCP `claude.ai Atlassian`** (OAuth au premier usage) — `MCP JIRA - NEOTEEM` = Service Desk only (pas de `create_issue`). Toujours présenter la liste de ce qui sera créé et obtenir le GO avant le premier appel.
+- **Skill en 3 exemplaires synchronisés** : cette skill (+ `references/epics-jira.md` et `references/templates.md`) a ses jumelles `spec` dans neoteem-back-ts et neo_ia. **Toute modification structurante se propage aux 3 endroits** — jamais un seul.
 
 ## Apprentissage
 
