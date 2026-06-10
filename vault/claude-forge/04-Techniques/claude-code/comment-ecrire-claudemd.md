@@ -340,6 +340,19 @@ Session N+1 → erreur évitée (compounding)
 
 ### Anti-patterns forge supplémentaires
 
+#### AGENTS.md — précision officielle (vérifiée 9 juin 2026, code.claude.com/docs/en/memory)
+
+> "Claude Code reads `CLAUDE.md`, not `AGENTS.md`."
+
+Un `AGENTS.md` posé dans un repo n'est **jamais chargé** par Claude Code. Trois intégrations officielles :
+1. **Import** : `@AGENTS.md` dans le CLAUDE.md (chargé au démarrage, puis le reste du CLAUDE.md s'ajoute) — recommandé sur Windows.
+2. **Symlink** `ln -s AGENTS.md CLAUDE.md` (exige droits admin/Developer Mode sur Windows → préférer l'import).
+3. `/init` dans un repo qui a déjà un AGENTS.md : le lit et incorpore le pertinent dans le CLAUDE.md généré (lit aussi `.cursorrules`, `.devin/rules/`, `.windsurfrules`).
+
+Cas réel : neoteem-back-ts avait un AGENTS.md (directives CDC §18) seulement *mentionné* en texte dans le CLAUDE.md — donc jamais chargé. Fix : ligne d'import `@AGENTS.md` (audit 9 juin 2026).
+
+Bonus même page officielle : les **commentaires HTML block-level** (`<!-- notes mainteneur -->`) d'un CLAUDE.md sont **strippés avant injection** dans le contexte (gratuits en tokens, visibles seulement à la lecture directe du fichier) ; les commentaires dans les code blocks sont conservés.
+
 - ❌ **Routing dans CLAUDE.md** : "si l'utilisateur dit X, fais Y" — appartient à `.claude/rules/` (cf doctrine forge)
 - ❌ **Documentation du code** : "la fonction `foo` fait X" — appartient au code lui-même
 - ❌ **STOP critique en fin de fichier** : les instructions critiques (interdits, STOP) doivent être < ligne 25, jamais en gotcha de fin (cf [[erreur-stop-critique-position-gotcha-fin]])

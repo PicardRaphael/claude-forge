@@ -153,7 +153,8 @@
 - [auto-mode-classifier](reference_auto_mode_classifier.md) — Classifier auto : bloque scope escalation + self-mod + destructif
 - [repo-scope-guard-hook](hook_repo_scope_guard.md) — Triplet auth-detector+repo-scope-guard+auth-cleanup : repos neot-v2/
 - [plugins-officiels-anthropic-marketplace](reference_plugins_officiels_anthropic_marketplace.md) — 203 plugins marketplace (mai 2026), doctrine forge = enrichir canonique vault ou skip, jamais nouvelle skill forge
-- [permissionmode-enum-valid-values](reference_permissionmode_enum_valid_values.md) — permissionMode = acceptEdits|plan|bypassPermissions UNIQUEMENT. `default` invalide silencieux. plan pour agents read-only+Bash
+- [permissionmode-enum-valid-values](reference_permissionmode_enum_valid_values.md) — permissionMode = default|acceptEdits|auto|dontAsk|bypassPermissions|plan (doc officielle 9 juin). Parent auto mode = frontmatter ignoré
+- [skills-preload-subagents](reference_skills_preload_subagents.md) — `skills:` agent project-scope = préchargement CONTENU COMPLET au démarrage (pas décoratif) ; ne pas lister `Skill` dans tools pour ça ; references/ non préchargés
 - [workflow-args-array-gotcha](reference_workflow_args_array_gotcha.md) — Dynamic Workflow : array/objet JSON via param `args` arrive undefined. Embarquer en const JS dans le script, ou faire lire un fichier par un 1er agent
 - [workflow-ultracode-keyword](reference_workflow_ultracode_keyword.md) — CC v2.1.160 (2 juin 2026) : déclencheur Dynamic Workflows passe de `workflow` à `ultracode`. Grep setups forge si déclenchement auto attendu
 - [transcrire-video-native-x](reference_transcrire_video_native_x.md) — Vidéo native X (pas YouTube) : x-read JSON → URLs MP4 → curl → ffmpeg WAV 16k → faster-whisper small. /watch ne couvre pas X

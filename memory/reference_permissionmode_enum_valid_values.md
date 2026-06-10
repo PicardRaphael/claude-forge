@@ -1,6 +1,6 @@
 ---
 name: permissionmode-enum-valid-values
-description: permissionMode frontmatter agent accepte UNIQUEMENT acceptEdits | plan | bypassPermissions. default est invalide silencieux. Utiliser plan pour agents read-only sauf Bash
+description: permissionMode agent = default | acceptEdits | auto | dontAsk | bypassPermissions | plan (doc officielle 9 juin 2026). Parent auto mode = frontmatter ignoré. plan pour read-only+Bash
 metadata: 
   node_type: memory
   type: reference
@@ -9,21 +9,26 @@ metadata:
 
 # permissionMode enum valeurs valides — frontmatter agents
 
-## La règle
+## La règle (doc officielle code.claude.com/docs/en/sub-agents, vérifiée 9 juin 2026)
 
-`permissionMode` frontmatter agent Claude Code accepte 3 valeurs :
+`permissionMode` frontmatter agent accepte **6 valeurs** : `default`, `acceptEdits`, `auto`, `dontAsk`, `bypassPermissions`, `plan`.
 
 | Valeur | Usage |
 |--------|-------|
-| `acceptEdits` | Agents créateurs (skill-creator, agent-creator, hook-creator, claudemd-optimizer) — auto-accept Edit/Write |
-| `plan` | Agents read-only + Bash (outcomes-grader, prompt-eval-runner, codebase-analyst) — interaction Bash mais pas d'edit |
-| `bypassPermissions` | Agents critiques sensibles — bypass total (rare, justifier) |
+| `default` | Prompts de permission standards |
+| `acceptEdits` | Agents créateurs — auto-accept Edit/Write + commandes filesystem du working dir |
+| `auto` | Classifier en arrière-plan évalue les commandes |
+| `dontAsk` | Auto-refuse les prompts (les outils explicitement allowed passent) |
+| `bypassPermissions` | Bypass total (rare, justifier) |
+| `plan` | Agents read-only (+ Bash lecture) |
 
-## Gotcha — `default` INVALIDE
+**Précédence parent** : si la session parent est en `bypassPermissions` ou `acceptEdits`, ça prime (non overridable). Si parent en **auto mode**, le `permissionMode` frontmatter du sub-agent est **IGNORÉ** — le classifier évalue ses tool calls avec les règles du parent.
 
-`permissionMode: default` n'est PAS valide silencieusement. Aucun warning, juste comportement non spécifié. Découvert via agent-creator sub-agent qui a auto-corrigé `default` → `plan` pour `prompt-eval-runner` neo_ia (26 mai 2026).
+`hooks`, `mcpServers`, `permissionMode` sont **ignorés pour les agents de plugins** (sécurité).
 
-Référence canonique : skills officielles Anthropic, agents Anthropic, et agents forge (vérifié outcomes-grader.md qui utilise `plan` pour profil read+bash).
+## Historique — correction 9 juin 2026
+
+L'ancienne version de cette mémoire (26 mai) disait « acceptEdits | plan | bypassPermissions UNIQUEMENT, `default` invalide silencieux » — contredite par la doc officielle actuelle qui liste `default` comme valeur valide. Leçon récurrente : revalider la mémoire technique contre la doc officielle avant de s'en servir comme référence d'audit (même pattern que agent_type→agent_id).
 
 ## Mapping rapide par type d'agent
 

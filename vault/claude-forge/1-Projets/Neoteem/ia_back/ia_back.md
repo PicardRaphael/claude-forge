@@ -53,6 +53,9 @@ Backend IA de [[Neoteem|Neoteem]]. FastAPI Python, architecture neuro-symbolique
 Stack corrigée : Bun + Hono + @hono/zod-openapi + **postgres.js** + Zod + bun:test
 
 
+## Migration vers le monorepo TS (juin 2026)
+
+ia_back est la **source de la migration** vers [[neoteem-back-ts]] (epic E1, `apps/neoia-api`) : 15 entités, 22 use-cases, 16 routes, 17 repositories (mesuré 9 juin 2026). Règle gravée : ia_back fournit le **comportement** (parité de résultat requête par requête), jamais le modèle d'architecture. À terme, ce repo sera archivé.
 ## Refonte hooks 22 mai 2026
 
 Suppression de 7 hooks workflow (architect-guard, commit-guard, dispatch-guard, marker-protect, agent-marker-writer, pipeline-reset, session-reset-markers) suite à friction 6×. Doctrine encodée dans `rules/quality-gates.md` + `rules/when-to-architect.md`. Architect split en `architect-quick` (sonnet) + `architect-deep` (opus xhigh).

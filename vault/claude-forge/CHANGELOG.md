@@ -14,6 +14,25 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-10 — AGENTS.md verbatim officiel (audit 200% neoteem-back-ts)
+
+- **Modifiées** : [[comment-ecrire-claudemd]] — sous-section « AGENTS.md — précision officielle » : « Claude Code reads CLAUDE.md, not AGENTS.md » + 3 intégrations (import @AGENTS.md recommandé Windows, symlink, /init) + commentaires HTML block-level strippés avant injection.
+- **Source** : audit 200 % du `.claude/` neoteem-back-ts par les skills créatrices, croisé doc officielle code.claude.com/docs/en/memory. Cas réel : AGENTS.md du repo seulement mentionné en texte → jamais chargé, corrigé par import.
+## 2026-06-09 — Note projet neoteem-back-ts (E0 livré, E1 proposé)
+
+- **Ajoutées** : [[neoteem-back-ts]] (`1-Projets/Neoteem/neoteem-back-ts/`) — folder-note projet : stack monorepo TS, décisions gravées (règle de tri PG §7.2, moteur `requete.*` 4 fonctions raw définitif, parité stricte, ia_back = comportement jamais modèle, scope étanche ws/WinDev), outillage `.claude/` complet (hooks `agent_id`, skill-activation porté, /go miroir CI), état E0 livré + E1 en attente OK parent.
+- **Modifiées** : [[ia_back]] — section « Migration vers le monorepo TS » (source de la migration, chiffres réels, repo à terme archivé).
+- **Source** : livraison E0 + perfection `.claude/` neoteem-back-ts (session 9 juin 2026).
+## 2026-06-09 — Méthode de chasse aux méta-notes (livrable « au présent pur »)
+
+- **Modifiées** : [[critique-2026-05-24-meta-commentaires-doctrine]] — ajout section « Méthode de chasse aux méta-notes ». Confirme empiriquement l'AVERTISSEMENT 1 de la note (« test lexical rate les méta-cachés ») : un grep prouve l'orientation, jamais l'absence de méta-note. Les méta-notes se cachent dans les sections RÉDIGÉES pendant la session courante → relecture sémantique obligatoire. 4 patterns à traquer + frontière méta-note vs justification-au-présent.
+- **Source** : finalisation du CDC `neoteem-back-ts`. Un advisor a pointé 2 sections (propres) ; la lecture sémantique guidée a trouvé 2 vraies méta-notes ailleurs (§7.2 « Cible reformulée X→Y », « ancienne doctrine PG-first ») ratées par le grep ET par l'advisor.
+
+## 2026-06-09 — Affinage anti-pattern hooks (action vs séquence) — projet neoteem-back-ts
+
+- **Modifiées** : [[anti-pattern-hookify-workflow-hooks]] — ajout section « Critère discriminant net : ACTION ponctuelle vs SÉQUENCE d'étapes ». Explicite pourquoi `delegate-guard` (bloque une écriture) est conforme alors qu'un `architect-first` ne l'est pas — la frontière « sécurité/destructif » seule ne classait pas ce cas. Reformulation : hooks = déterministe (blocage d'action), skills+agents = probabiliste (jugement).
+- **Source** : session de spec du monorepo `neoteem-back-ts` (epic Fondation E0). Raphael a challengé la formulation « hooks jamais de workflow agentique » → affinage du critère. Confirmé par état de l'art hooks 2026 + lecture `delegate-guard.py`.
+
 ## 2026-06-09 — Dossier MCP « construire des serveurs MCP parfaits » (recherche source-primaire)
 
 - **Ajoutées (5 notes, nouveau sous-dossier `04-Techniques/mcp/`)** :
