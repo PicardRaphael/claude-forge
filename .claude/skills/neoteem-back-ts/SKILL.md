@@ -72,7 +72,9 @@ Les epics sont des **conteneurs thématiques permanents créés par le PO** — 
 | Agents [IA] | N2-106433 | agents IA mono-tâche (comparaison devis, annonce immo…) | neoteem-back-ts, neo_ia |
 | Chatbots assistants [IA] | N2-68082 | chatbots (support, NeoChat…) | neoteem-back-ts, neo_ia |
 
-**Rattachement** : chaque story se rattache à UN de ces epics. Si le bon epic n'est pas évident (chantier transverse, thème absent) → **AskUserQuestion AVANT de rédiger** — jamais de choix silencieux, jamais d'epic neuf (thème manquant = escalade à Raphael, qui voit avec le PO).
+**Rattachement** : chaque story se rattache à UN de ces epics. Si le bon epic n'est pas évident (chantier transverse, thème absent) → **AskUserQuestion AVANT de rédiger** — jamais de choix silencieux, jamais d'epic neuf (les epics sont figés une fois pour toutes).
+
+**Sous-tâche-dans-une-story-existante AVANT story neuve** : même réflexe un niveau plus bas. Quand un besoin émerge (bug, évolution, discussion `/spec`), vérifier d'abord les stories existantes de l'epic concerné (Jira via MCP + `doc/epics/` du repo) — si le besoin s'inscrit dans une story en cours, **proposer une sous-tâche rattachée à cette story**, pas une story neuve.
 
 ### Règle absolue : STORY PARENT D'ABORD, sous-tâches ENSUITE
 
