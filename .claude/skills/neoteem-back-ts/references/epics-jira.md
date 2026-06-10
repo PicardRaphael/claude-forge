@@ -87,3 +87,12 @@
 - Sous-tâche : `createJiraIssue` type Sous-tâche, parent = la story.
 - **Assigné : TOUJOURS demander à l'utilisateur** (AskUserQuestion) qui est assigné à la story et aux sous-tâches AVANT de créer — jamais de ticket sans assigné tranché (un seul appel pour tout le lot suffit ; réponses possibles : une personne, « moi », « personne pour l'instant »). Résoudre le nom via `lookupJiraAccountId` → `assignee_account_id`.
 - Toujours présenter la liste de ce qui va être créé et obtenir le OK AVANT le premier appel. Jamais de création silencieuse.
+
+## Sous-tâche ajoutée à une story EXISTANTE — procédure (ordre absolu)
+
+Une sous-tâche qui se rattache après coup (bug, évolution détectée par /spec) = une évolution de périmètre. L'ordre est non négociable : **`.md` story → BRIEF US → Jira**. L'inverse (créer le ticket Jira sans toucher le `.md`) fait diverger la source que lit l'IA de la réalité Jira — c'est LE bug à éviter.
+
+1. **MAJ du `.md` de la story d'abord** : nouvelle ligne dans la table Périmètre — numéro suivant disponible (US<N+1>), mention « ajoutée le JJ/MM — hors périmètre initial » (traçabilité). Compléter la table Dépendances & parallélisation (dépend de quoi, parallélisable avec quoi).
+2. **Décision explicite seuil de sortie** : la nouvelle US bloque-t-elle la clôture de la story ? (bug de fond = oui ; confort = non, marquée « non bloquante »). L'écrire dans la table.
+3. **BRIEF de la sous-tâche** dans le même dossier (`S<N>-US<X>-<slug>.md`) — auto-suffisant, c'est lui que /feature lira.
+4. **Jira en dernier** (après le GO) : régénérer la description ADF de la story depuis le `.md` (`editJiraIssue` — périmètre + parallélisation à jour), puis créer le ticket sous-tâche sous la story (assigné demandé, étiquettes).

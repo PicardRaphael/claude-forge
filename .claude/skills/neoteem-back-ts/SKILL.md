@@ -74,7 +74,7 @@ Les epics sont des **conteneurs thématiques permanents créés par le PO** — 
 
 **Rattachement** : chaque story se rattache à UN de ces epics. Si le bon epic n'est pas évident (chantier transverse, thème absent) → **AskUserQuestion AVANT de rédiger** — jamais de choix silencieux, jamais d'epic neuf (les epics sont figés une fois pour toutes). Détail complet (fiches, routage des cas frontières, étiquettes, protocole de création MCP) : `references/epics-jira.md` — même référentiel embarqué dans les skills `spec` de neoteem-back-ts et neo_ia.
 
-**Sous-tâche-dans-une-story-existante AVANT story neuve** : même réflexe un niveau plus bas. Quand un besoin émerge (bug, évolution, discussion `/spec`), vérifier d'abord les stories existantes de l'epic concerné (Jira via MCP + `doc/stories/` du repo) — si le besoin s'inscrit dans une story en cours, **proposer une sous-tâche rattachée à cette story**, pas une story neuve.
+**Sous-tâche-dans-une-story-existante AVANT story neuve** : même réflexe un niveau plus bas. Quand un besoin émerge (bug, évolution, discussion `/spec`), vérifier d'abord les stories existantes de l'epic concerné (Jira via MCP + `doc/stories/` du repo) — si le besoin s'inscrit dans une story en cours, **proposer une sous-tâche rattachée à cette story**, pas une story neuve. Procédure d'ajout (ordre absolu `.md` story → BRIEF US → Jira) : `references/epics-jira.md` § « Sous-tâche ajoutée à une story existante ».
 
 ### Règle absolue : STORY PARENT D'ABORD, sous-tâches ENSUITE
 
