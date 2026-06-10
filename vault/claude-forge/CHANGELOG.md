@@ -14,6 +14,10 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-10 — Placement des checks par event + vérifs par lots (incident lenteur US1)
+
+- **Modifiées** : [[comment-creer-hook]] — AJOUT « Répartition des checks par event » (PostToolUse = format rapide < 500 ms ; typecheck/tests = Stop UNIQUEMENT avec decision:block ; coûts spawn interpréteur mesurés python 236 ms / py 454 ms / uv run 450-640 ms, additifs sur matchers larges ; gotcha git diff rate les untracked) ; [[comment-creer-agent]] — AJOUT « Agents dev : vérifications par LOTS » (jamais après chaque fichier, jamais de lint manuel si hook PostToolUse formate).
+- **Source** : incident US1 neoteem-back-ts (~1h30, relances en boucle) + audits 3 repos + vérification web (Boris howborisusesclaudecode.com, Wiegold hooks, Pixelmojo). Appliqué : back-ts d3b4e20, neo_ia 17fa987.
 ## 2026-06-10 — Relance sub-agent après escalade (resume ou re-brief)
 
 - **Modifiées** : [[anti-reentrance-sub-agents-pattern-escalade]] — AJOUT « La RELANCE après escalade : resume ou re-brief, jamais un prompt nu » (resume officiel CC ≥ 2.0.28 + bugs #11712/#33651, re-brief riche en filet, principe « la session principale injecte le contexte, l'agent ne le re-cherche pas »). Déployé : rule `agent-relaunch-context` (forge + neoteem-back-ts), § Relance dans `sub-agent-patterns` (neo_ia), formats d'escalade des 6 agents back-ts enrichis (État actuel + Suite recommandée).

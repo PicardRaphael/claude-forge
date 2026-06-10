@@ -935,3 +935,18 @@ La table frontmatter officielle inclut désormais : `isolation: worktree` (run d
 **Scoped identifier plugin** : un subagent dans un sous-dossier de plugin `agents/review/security.md` (plugin `my-plugin`) s'enregistre comme `my-plugin:review:security`. Hors plugin, le sous-dossier n'affecte PAS l'identité (seul le champ `name` compte ; noms doivent être uniques sur tout l'arbre, sinon un fichier est gardé et l'autre écarté sans warning).
 
 **Source de cet ajout** : réconciliation du doc `Important/reference-subagents-claude-code.md` (supprimé après absorption, 7 juin). Le doc était déjà ~95% subsumé par cette canonique (6 niveaux enforcement, 3 causes, table héritage, issues #43630/#32910/#18721 déjà présents) ; seuls la résolution modèle (corrigée vs le doc), le @-mention exact et les champs récents manquaient. Cf [[feedback_lire_fichier_entier_avant_verdict]].
+
+
+---
+
+## AJOUT 10 juin 2026 — Agents dev : vérifications par LOTS, jamais après chaque fichier
+
+Anti-pattern observé en production (US1 neoteem-back-ts, ticket ×3-4 plus lent) : un agent dev dont le prompt dit « boucle jusqu'au vert » ou liste « lint/format » comme étape relance lint + typecheck + tests **après chaque fichier écrit** — et relance des vérifs sans aucun nouveau changement. Pire : il lance le formateur À LA MAIN alors qu'un hook PostToolUse formate déjà chaque écriture (100 % redondant).
+
+**Règles à graver dans tout agent dev (et toute rule dev-discipline)** :
+1. Écrire l'ENSEMBLE des changements d'une étape du plan, PUIS vérifier (tests ciblés sur le package/module touché — jamais le workspace entier en cours de dev, c'est le rôle du gate /go).
+2. Relancer une vérification sans nouveau changement depuis la précédente = interdit.
+3. Si un hook PostToolUse formate/lint déjà → l'agent ne lance JAMAIS le formateur manuellement en cours de route (une passe finale au plus).
+4. Le typecheck lourd vit dans un hook Stop (cf [[comment-creer-hook]] AJOUT 10 juin), pas dans la boucle de l'agent.
+
+Cohérent avec Boris (« give Claude a way to verify its work » = un check CIBLÉ qui rend pass/fail — pas une relance permanente de tout) et le budget anti-lourdeur des pipelines /feature. Appliqué : agent `dev` neoteem-back-ts + 5 agents `dev-*` neo_ia + rule `dev-discipline` § Vérifications par lots.

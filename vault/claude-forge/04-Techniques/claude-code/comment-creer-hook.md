@@ -796,3 +796,35 @@ Nuance critique pour l'enforcement DUR, vérifiée verbatim :
 `{"continue": false, "stopReason": "..."}` fonctionne **sur tous les events** et **précède tout champ de décision event-spécifique** (verbatim : « Takes precedence over any event-specific decision fields »). `stopReason` est montré à l'utilisateur (pas à Claude). Distinct du `decision: "block"` (event-spécifique Stop/SubagentStop/PostToolUse) : `continue:false` arrête tout le traitement, quel que soit l'event.
 
 **Source de cet ajout** : réconciliation du doc `Important/reference-hooks-claude-code.md` (déplacé/supprimé après absorption des deltas dans cette canonique, 7 juin 2026 — enrich-first cf [[feedback_lire_fichier_entier_avant_verdict]]).
+
+
+---
+
+## AJOUT 10 juin 2026 — Répartition des checks par event : PostToolUse = rapide, Stop = lourd (mesuré en production)
+
+Incident fondateur : US1 neoteem-back-ts, ~1h30 au lieu de ~30 min. Causes mesurées : `tsc --noEmit` en PostToolUse (~1s × chaque Write), 3 hooks Python chaînés sur chaque Bash (~1,4s de pur démarrage interpréteur), et l'agent dev qui relançait lint/tests après chaque fichier.
+
+### La règle de placement (état de l'art convergent Boris + guides hooks 2026)
+
+| Check | Event | Pourquoi |
+|---|---|---|
+| Format/lint d'UN fichier (biome, ruff, prettier) | PostToolUse (< 500 ms, async si possible) | Boris : « PostToolUse hook pour formater automatiquement — évite que l'agent relance le lint lui-même » |
+| **Typecheck, suite de tests, analyse lourde** | **Stop UNIQUEMENT** (une fois par tour, `stop_hook_active` guard, erreurs → `decision: block`) | « Don't put tsc --noEmit in a PostToolUse hook. 50 edits × 10-30s = 25 min de wall-clock perdues » (Wiegold, mai 2026) |
+| Sécurité/scope (bloquer une commande) | PreToolUse exit 2 | inchangé |
+
+Seuil ressenti : un PostToolUse qui ajoute > 500 ms à chaque edit rend la session poussive.
+
+### Coût du spawn interpréteur (mesuré Windows, 10 juin 2026)
+
+`uv run python` ≈ 450-640 ms · `py` (launcher) ≈ 454 ms · `python` direct ≈ 236-253 ms · hooks empilés sur un matcher large (ex. 3 hooks sur chaque Bash) = coûts ADDITIFS. Leviers : interpréteur direct quand les hooks n'utilisent que la stdlib (caveat : alias MS Store → vérifier `python --version` par poste), fusionner les hooks chaînés d'un même matcher en un dispatcher unique (1 spawn au lieu de N), `timeout` partout (anti-freeze).
+
+### Gotcha vérifié : `git diff --name-only HEAD` rate les fichiers NEUFS
+
+Un hook Stop qui découvre « ce qui a changé » via git diff manque les fichiers non trackés (ceux que l'agent vient de créer). Ajouter `git ls-files --others --exclude-standard`. Découvert par test adverse (fichier cassé neuf → hook silencieux).
+
+### Sources
+
+- [How Boris Uses Claude Code](https://howborisusesclaudecode.com/) — PostToolUse format hook, vérification en fin de tâche (Stop hook / background agent / ralph loop)
+- [Thomas Wiegold — Claude Code Hooks](https://thomas-wiegold.com/blog/claude-code-hooks/) — le piège tsc en PostToolUse, split par event
+- [Pixelmojo — 6 production patterns](https://www.pixelmojo.io/blogs/claude-code-hooks-production-quality-ci-cd-patterns) — seuil 500 ms, lourd sur Stop only
+- Application : neoteem-back-ts d3b4e20 (typecheck → Stop), neo_ia 17fa987 (python direct + timeouts)

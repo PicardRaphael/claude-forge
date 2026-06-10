@@ -83,6 +83,7 @@
 - [test-writer-systematic](feedback_test_writer_systematic.md) — RÉVISÉ 22 mai : MAX 3 tests/comportement, REFACTOR supprimée, effort high
 - [tweet-hype-paraphrase-non-verifiee-pattern](_archive/2026-06/feedback_tweet_hype_paraphrase_pattern.md) — Archivé : absorbé par skill `web-search-canonical-source` (table 4 patterns + cite ce feedback en source)
 - [use-brain-skills-not-grep](feedback_use_brain_skills.md) — Questions métier = skills neo-brain (MCP), jamais grep manuel sur vault/SQL
+- [verifs-par-lots-hooks-stop](feedback_verifs_par_lots_hooks_stop.md) — Agents dev = vérifs par LOTS ; checks lourds (tsc/tests) = hook Stop JAMAIS PostToolUse ; spawn interpréteur additif. Cf [[comment-creer-hook]]+[[comment-creer-agent]] AJOUTs 10 juin
 - [vault-edit-gotchas-outillage](feedback_vault_edit_gotchas_outillage.md) — delegate-guard faux positif sur note vault agents-*.md (utiliser MCP, pas Edit) + insert_section misparente après header nu (viser marker précis) + Edit disque direct désynchronise l'index SQLite (réindex au poll 30s seulement → toujours MCP)
 - [vault-quality-standard](feedback_vault_quality_standard.md) — Vault forge-brain = standard neoteem-brain : 5-6 aliases, wikilinks, templates
 - [verify-exhaustive-claims](feedback_verify_exhaustive_claims.md) — Grep de validation AVANT toute déclaration exhaustive (zéro, tous, aucun, complet)
