@@ -32,6 +32,11 @@ Source : <CDC §X> · Dépend de : <…> · Bloque : <…>
 |---|-------|-------|---------------|
 | S1 | … | setup | one-shot |
 
+## 🔀 Dépendances & parallélisation
+<OBLIGATOIRE — dit ce qui peut être développé en même temps. Format :
+ séquence imposée (S1→S2…), groupes parallélisables (S5/S6/S7 en parallèle), clôture.
+ Une story est parallélisable si elle ne touche ni les mêmes packages ni les mêmes tables que l'autre.>
+
 ## 🚫 Hors-périmètre
 <Ce qui n'est PAS dans l'epic — renvoie aux autres epics.>
 
@@ -55,6 +60,7 @@ Source : <CDC §X> · Dépend de : <…> · Bloque : <…>
 
 🏷️ IA-DEV · neoteem-back-ts · <label domaine> · <one-shot|récurrent>
 ↳ Epic : <titre epic parent>
+🔀 Dépend de : <S# ou « aucune »> · Parallélisable avec : <S#/S# ou « aucune »>
 
 ## 🎯 Objectif
 <Ce que la story livre, du point de vue résultat.>
