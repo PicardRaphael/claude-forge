@@ -100,7 +100,7 @@
 - [ia-back-project](project_back_refacto.md) — ia_back 16 agents, 26 skills, 16 rules, 14 hooks. Stack postgres.js
 - [neoteem-brain-project](project_neoteem_brain.md) — 682+ notes, pipeline vault-workflow, obsidian-cli, aliases double couverture
 - [neoteem-brain-plugin](project_neoteem_brain_plugin.md) — Plugins CC Neoteem. SOURCE = 2 marketplaces Bitbucket (4 juin) : neoteem-plugin-claude (support+brain) + neoteem-plugin-claude-admin (po+brain-admin, restreint). Doctrines brain admin-first, Jira acli-ou-MCP, N2 format PO, MCP non bundlé
-- [neo-ia-project](project_neo_ia.md) — Monorepo Python NeoChat/NeoDoc/NeoMail, 12 agents, 25 skills, 16 rules, 12 hooks
+- [neo-ia-project](project_neo_ia.md) — Monorepo Python NeoChat/NeoDoc/NeoMail, 12 agents, 36 skills, 18 rules, 18 hooks. Aligné modèle back-ts 10 juin (/feature, Default-FAIL, memory/, PR develop + git-guard). CI GitHub Actions était MORTE → bitbucket-pipelines.yml créé (activation humaine en attente)
 - [neo-ia-tool-selection-state](project_neo_ia_tool_selection.md) — HybridToolSelector : expansion+reranking OFF en prod, Lazy Expansion + OATS validé
 - [mcp-brain-remote-status](project_mcp_brain_remote.md) — MCP distant mcp-brain.neoteem.fr v3.2.4 OK, non chargé dans CLI
 - [deploy-methods-other-repos](project_deploy_methods_other_repos.md) — Déployer 9e principe + skill-evolve all sur neo_ia et ia_back
