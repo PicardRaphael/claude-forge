@@ -4,39 +4,33 @@ resume: Working memory dynamique -- mis a jour par /done, lu par /recap
 aliases: [context actuel, contexte courant, working memory, memoire de travail, etat actuel]
 type: context
 status: active
-derniere-maj: 2026-06-10
+derniere-maj: 2026-06-11
 auteur: claude
 tags: ["#type/context", "#meta/working-memory"]
 ---
 
 ## Phase actuelle
-Migration ia_back → neoia-api lancée pour de vrai : S1 (N2-111278) + 12 sous-tâches dans Jira, US1 en correction par Jérôme (refacto schéma), harness des 3 repos durci et optimisé suite aux premiers incidents de production.
+Migration ia_back → neoteem-back-ts en cours (story S1, N2-111278) — sessions parallèles par worktree opérationnelles sur les deux repos actifs.
 
-## Dernière session (2026-06-10)
-### Décisions prises
-- Hiérarchie Jira réelle : 5 epics permanents FIGÉS, story S1 = N2-111278 ([IA] FEATURE), 12 sous-tâches N2-111279→91. Assigné demandé via AskUserQuestion avant toute création (×3 skills).
-- Fin convention E0 : neoteem-back-ts travaille sur develop (PR `us/{N°}` → develop), 6 branches alignées à la demande.
-- neo_ia aligné modèle back-ts : /feature, Default-FAIL, memory/ compounding, workflow PR, CI Bitbucket créée (l'ancienne GitHub Actions ne tournait PAS).
-- Relance sub-agent après escalade = resume `agent_id` ou re-brief riche, jamais un prompt nu (rule ×3 repos + vault).
-- Optimisation 3 repos : checks lourds → hook Stop (typecheck), hooks python direct neo_ia (-50 % latence), dispatchers forge, security-guard durci fail-closed, agents dev en vérifs par LOTS.
-- Incident US1 : schéma généré monolithique → organisation à DEUX AXES (logique par domaine MÉTIER commun/syndic/gerance/comptabilite/reporting ; schéma généré par groupes d'ARTICULATION BDD), limite stricte 1000 lignes (hook + CI + rule), assertion structurelle = critère de done des artefacts générés.
-- Méthode : taxonomie d'archi = croiser PLUSIEURS sources NeoBrain (Damier × 01-Domaines × MOC-BDD × schema-public) — jamais une seule.
+## Derniere session (2026-06-11)
+### Decisions prises
+- Sessions parallèles par US = `claude -w` natif + `/feature <ticket>` (PAS de script worktree manuel — `/feature` gère la branche depuis origin/develop). Déployé neoteem-back-ts (a415bfe) + neo_ia (0e0a696), directement sur develop.
+- Fix config-guard validé par Raphael (classifier avait bloqué) : chemin relatif à la racine du worktree, testé 5 chemins — sans lui, sous-agents bloqués en écriture dans tout worktree.
+- Sources : doc officielle Anthropic uniquement (howborisusesclaudecode.com = compilation tweets non officielle, rappel Raphael).
 
 ### En cours
-- Jérôme refactore le schéma sur `us/N2-111279` (prompt fourni : mapping schema-domains.json → assertion structurelle TDD → postprocess éclaté → vert). develop mergé dans sa branche (dee288f).
-- CI back-ts à surveiller sur a43e32a.
+- neoteem-back-ts : US3 (N2-111281, requalifiée outillage Zod) et US4 (N2-111282, harnais parité — livré d'après CHANGELOG) ; US2 socle neoia-api mergée. Jérôme actif sur le repo.
+- neo_ia : us/N2-111316 (durcissement SQL) mergée pendant la session, checkout principal revenu sur develop.
 
-### Prochaines étapes
-- US2+ du pipeline /feature (canari validé, discipline anti-relances active).
-- Session dédiée : fin fusion rules (forge 16→13 fait partiellement, neo_ia 18→12 pas commencé), /clean-memory forge (261 fichiers), descriptions skills forge > 250c.
-- Actions humaines : activer Bitbucket Pipelines neo_ia, webhooks GChat+Discord à régénérer (laissés tels quels sur décision Raphael), PGSSLROOTCERT back-ts différé.
+### Prochaines etapes
+- Lancer la prochaine vague parallélisable (US5-US8 domaines, après US4) — 4 worktrees possibles, vigilance BDD partagée.
+- Vérifier au premier usage réel `claude -w` par Jérôme que `.worktreeinclude` copie bien tout (1er test humain du flow).
 
 ## Fils ouverts
-- Faux positif security-guard forge : `push .*-f` traverse les segments d'une commande composée (raffiner regex `[^|;&]*`).
-- `_a-classer`/mapping schema-domains.json : à valider sur la PR de Jérôme.
-- Analyse mémoire/architecture neo_ia approfondie (reportée après les stories).
+- ia_back : système worktrees NON porté (repo en migration vers neoteem-back-ts) — porter seulement si besoin réel.
+- Hooks path-based `.claude/` = 5e brique à vérifier dans tout futur repo recevant le système (cf memory reference_worktree_natif_vs_convention_develop).
+- Actions humaines back-ts restantes : SEMGREP_APP_TOKEN, branch restrictions, Aikido (devops).
 
 ## Liens
 [[2-Casquettes/Raphael-Picard|Raphael Picard]]
 [[1-Projets/Claude-Forge/Claude-Forge|Claude-Forge]]
-[[workflow-claude-code-optimal]] · [[anti-reentrance-sub-agents-pattern-escalade]] · [[comment-creer-hook]] · [[conventions-naming-typescript]]
