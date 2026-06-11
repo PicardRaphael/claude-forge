@@ -14,7 +14,7 @@ Quand une décision de naming, structure ou doctrine est prise sur un repo, elle
 |-------|--------|
 | forge | `C:/Users/raphael.picard_neote/Documents/claude-forge/` |
 | ia_back | `C:/Users/raphael.picard_neote/Documents/neot-v2/ia_back/` |
-| neo_ia | `C:/Users/raphael.picard_neote/Documents/neot-v2/` |
+| neo_ia | `C:/Users/raphael.picard_neote/Documents/neot-v2/neo_ia/` |
 | lojii | `C:/Users/raphael.picard_neote/Documents/neofront/` |
 | neoteem-brain | `C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-brain/` |
 
