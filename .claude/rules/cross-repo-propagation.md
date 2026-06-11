@@ -31,6 +31,16 @@ Quand une décision de naming, structure ou doctrine est prise sur un repo, elle
    mcp__forge-brain__create_note(path="Knowledge/decisions/<sujet>.md", ...)
    ```
 
+## Aligner un repo jumeau (alignement de masse, pas décision ponctuelle)
+
+Quand on aligne un repo entier sur un jumeau de référence (ex. neo_ia ↔ neoteem-back-ts, 11 juin 2026), ce N'EST PAS un copier-coller :
+
+1. **Gap analysis par agent read-only** : un agent dresse la matrice CONFORME / MANQUANT / DIVERGENT du `.claude/` cible vs la référence, avec preuve `file:line` — on traite des écarts mesurés, pas une impression.
+2. **Adapter à la stack, jamais copier l'outil** : l'équivalent d'intention, pas le binaire. `@ts-nocheck`→`# type: ignore` nu, jscpd-TS→jscpd-Python+import-linter, typecheck tsc Stop→mypy Stop scopé CI, agent sécu OWASP→4 risques IA (prompt injection/PII/hallucination/token leak). Un « manquant » qui ne mappe pas sur la stack (frontières hexagonales sur un repo non-hexagonal) = SKIP justifié, pas porté de force.
+3. **Ratchet sur tout gate qualité posé sur du legacy** : seuil = état mesuré, jamais big-bang rouge (cf `reference_ratchet_gates_legacy` neo_ia). Mesurer AVANT de gater.
+4. **Baliser le hors-prod sans l'auditer** : code hors prod (neomail/neodoc) exclu du strict (`per-file-ignores`, tests CI conditionnels par chemin) MAIS protégé comme cible interdite pour le prod (contrat import-linter neochat↛neomail). On ne fait pas semblant de le maintenir.
+5. **Vraie sécu ≠ baseline silencieuse** : un risque réel détecté pendant l'alignement (SQL injection) → story dédiée, jamais noqa aveugle ; seul le bruit (asserts tests, faux positifs) se baseline.
+
 ## Gotchas
 
 - **Décisions naming silencieuses** : renommer sans propager = drift pendant des semaines (ex : `cto-mindset` → `orchestrator-mindset` sur neo_ia, non propagé ia_back, découvert audit 25 mai)
