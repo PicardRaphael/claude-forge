@@ -8,6 +8,10 @@ originSessionId: be761cf9-3fd0-4016-adb8-3e189b4efb1f
 
 Contexte stable → voir `vault/claude-forge/1-Projets/Neoteem/neo_ia/neo_ia.md`
 
+### Worktrees parallèles portés (2026-06-11, commit 0e0a696 develop)
+
+Même système que neoteem-back-ts : `claude -w` + `/feature <ticket>` par terminal. `.worktreeinclude` (.env/.mcp.json/settings.local.json), skill feature worktree-aware (uv sync si .venv absent, étapes 2+9), section .claude/README, **fix config-guard** (chemin relatif au worktree, testé 5 chemins — sans lui les sous-agents étaient bloqués en écriture dans tout worktree). Commit fait DEPUIS un worktree temporaire (checkout principal alors occupé par us/N2-111316). Cf memory reference_worktree_natif_vs_convention_develop.
+
 ### Phase en cours (2026-06-10) — alignement modèle neoteem-back-ts LIVRÉ (commit ade18c2, develop)
 
 12 agents · 36 skills · 18 rules · 18 hooks. Décisions Raphael (AskUserQuestion) : mémoire pattern back-ts complet + /feature complet + **workflow PR vers develop** (fin des commits directs).
