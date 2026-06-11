@@ -14,6 +14,11 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-11 — Gotcha SubagentStop transcript (comment-creer-hook)
+
+- **Modifiées** : [[comment-creer-hook]] — AJOUT « SubagentStop : scanner le TRANSCRIPT, jamais les champs du payload » (escalade-detector neo_ia n'a jamais rien détecté du 24 mai au 11 juin : il scannait les champs payload et le CHEMIN du transcript au lieu de son contenu ; fix porté py + ts, test = faux transcript avec marqueur).
+- **Source** : chantier alignement neo_ia ↔ neoteem-back-ts (vagues 1-3).
+
 ## 2026-06-10 — Audit complet neoteem-back-ts 18/20 + état projet rafraîchi
 
 - **Modifiées** : [[neoteem-back-ts]] — section « État (2026-06-10 soir) » : audit 7 axes noté 18/20 (plafond = preuve par l'exécution), optimisations livrées toutes branches (afae512 : /go+pnpm audit, ADR-002 RFC 9457, CDC §13 brouillard comptable, @AGENTS.md standalone, compteurs README), résidu branche US1 (relations.ts symboles inexistants), dettes P2.
