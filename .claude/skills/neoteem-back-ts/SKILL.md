@@ -49,8 +49,9 @@ But : transformer une idée de feature en une **première architecture validée*
    - CDC (lire la/les section(s) concernée(s)) — décisions déjà actées.
    - Vault forge-brain (MCP) pour la doctrine technique / archi / Claude Code.
    - Vault neoteem-brain pour le **métier Neoteem** : invoquer la skill `/neoteem-brain-dev-ia:neo-brain-dev-ia` (jamais le MCP brain en direct — la skill sait interroger correctement : glossaire, MOC-BDD, notes `table-t-*`).
-3. **Proposer une première architecture** : où ça vit dans le monorepo (apps/ vs packages/), frontières hexagonales touchées, impact DB (Drizzle / fonction PG selon la règle de tri du CDC), MCP concerné le cas échéant. Choix indicatifs, justifiés, alternatives notées.
+3. **Proposer une première architecture** : où ça vit dans le monorepo (apps/ vs packages/), frontières hexagonales touchées, impact DB (Drizzle / fonction PG selon la règle de tri du CDC), MCP concerné le cas échéant — ET où ça atterrira côté tickets : **sous-tâche d'une story en cours ou story neuve dans quel epic, AVEC les étiquettes proposées** (`IA-DEV` + `neoteem-back-ts` + domaine + one-shot/récurrent) visibles dès cette présentation. Choix indicatifs, justifiés, alternatives notées.
 4. **Valider AVEC Raphael** avant tout ticket. Il tranche.
+5. **Consigner les décisions tranchées** : toute décision d'architecture prise dans ce dialogue qui n'est pas déjà dans le CDC → ADR dans `doc/adr/` du repo (1 fichier par décision, court, pointe la story pour le détail), livré avec la story.
 
 Anti-invention : ce qui n'est pas dans le CDC, le code ou confirmé par Raphael est marqué « à confirmer », jamais inventé.
 
