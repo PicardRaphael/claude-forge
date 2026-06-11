@@ -71,7 +71,8 @@ Les epics sont des **conteneurs thématiques permanents créés par le PO** — 
 | Outils internes [IA] | N2-111276 | skills/outils internes IA | neoteem-brain, neoteem-plugin-claude(-admin) |
 | MCP [IA] | N2-111230 | création de serveurs MCP | neoteem-back-ts |
 | Agents [IA] | N2-106433 | agents IA mono-tâche (comparaison devis, annonce immo…) | neoteem-back-ts, neo_ia |
-| Chatbots assistants [IA] | N2-68082 | chatbots (support, NeoChat…) | neoteem-back-ts, neo_ia |
+| Chatbots assistants [IA] | N2-68082 | chatbots (support, NeoChat…) + socle backend partagé qui les sert | neoteem-back-ts, neo_ia |
+| NeoDoc — Analyse documentaire [IA] | N2-103047 | analyse/recherche/RAG documentaire | neoteem-back-ts, neo_ia |
 
 **Rattachement** : chaque story se rattache à UN de ces epics. Si le bon epic n'est pas évident (chantier transverse, thème absent) → **AskUserQuestion AVANT de rédiger** — jamais de choix silencieux, jamais d'epic neuf (les epics sont figés une fois pour toutes). Détail complet (fiches, routage des cas frontières, étiquettes, protocole de création MCP) : `references/epics-jira.md` — même référentiel embarqué dans les skills `spec` de neoteem-back-ts et neo_ia.
 
@@ -87,7 +88,16 @@ La story parent est **entièrement rédigée, présentée et validée** AVANT de
 
 ### Étiquettes (graver sur chaque ticket)
 
-`IA-DEV` (TOUJOURS, jamais `IA` seul) + `neoteem-back-ts` (étiquette projet) + 1 label de domaine (`setup`/`agent`/`db`/`migration`/`test`/`qualité`/`mcp`/`obs`) + 1 label transverse (`one-shot`/`récurrent`). La taxonomie passe par les LABELS, pas par des types de tickets : hiérarchie Epic → Story → Sous-tâche (reco Atlassian).
+`IA-DEV` (TOUJOURS, jamais `IA` seul) + `neoteem-back-ts` (étiquette projet) + étiquette epic (`IA-CHATBOTS`/`IA-AGENTS`/`IA-MAIL`/`IA-MCP` selon l'epic parent) + 1 label de domaine (`setup`/`agent`/`db`/`migration`/`test`/`qualité`/`mcp`/`obs`) + 1 label transverse (`one-shot`/`récurrent`). Les labels Jira se créent à la volée.
+
+### Type de ticket (FEATURE / BUG / OPTIMISATION)
+
+Avant de créer un ticket, classer la nature du travail (l'epic dit DE QUOI, le type dit la NATURE) :
+- **FEATURE** → `[IA] FEATURE` : capacité/comportement NOUVEAU.
+- **BUG** → `[IA] BUG` : quelque chose est CASSÉ / écart à corriger.
+- **OPTIMISATION** → `[IA] Optimisation` : code existant amélioré SANS changer le comportement (perf, qualité, sécu/durcissement, dette, refacto) — parité fonctionnelle.
+
+Tri : le comportement visible change-t-il ? nouveau → FEATURE, correction d'un écart → BUG, parité → OPTIMISATION. Durcissement/refacto à parité = OPTIMISATION (jamais FEATURE) ; faille réellement exploitable = BUG. Type non évident → AskUserQuestion. Détail : `references/epics-jira.md` § « Classification du TYPE de ticket ».
 
 ### BRIEF auto-suffisant
 
@@ -98,8 +108,8 @@ Chaque story/sous-tâche est un **BRIEF que Claude Code peut exécuter sans cont
 1. **Recherche ciblée** (max 10 recherches) : enrichir le ticket via vault (brain) + grep code si le repo existe. Au-delà : rédiger avec l'existant, marquer « à confirmer ».
 2. **Rédiger la story parent** (rattachée à son epic, N2-…) → présenter → itérer jusqu'à validation explicite.
 3. **Sous-tâches** (après GO parent) : proposer la liste déduite, valider le périmètre, rédiger chacune via les templates.
-4. **Livrer les `.md`** dans `doc/stories/s<N>/` du repo (`C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-back-ts/doc/stories/s<N>/` — un sous-dossier par story-chantier : `S<N>-<slug>.md` + annexes + sous-tâches `S<N>-US<X>-<slug>.md`). Le `.md` = source technique de vérité. Les fiches des 5 epics (descriptions copiables Jira) vivent dans `doc/epics/` du repo.
-5. **Création Jira via MCP Atlassian** (après le GO explicite uniquement) : **demander l'assigné via AskUserQuestion** (story + sous-tâches, un appel pour le lot — jamais de ticket sans assigné tranché), story sous son epic, sous-tâches sous la story, étiquettes posées, description ADF dérivée du `.md` + lien Bitbucket (protocole : `references/epics-jira.md`). Périmètre qui évolue → MAJ du `.md` d'abord, puis du ticket via MCP.
+4. **Livrer les `.md`** dans `doc/stories/s<N>/` du repo (`C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-back-ts/doc/stories/s<N>/` — un sous-dossier par story-chantier : `S<N>-<slug>.md` + annexes + sous-tâches `S<N>-US<X>-<slug>.md`). Le `.md` = source technique de vérité. Les fiches des 6 epics (descriptions copiables Jira) vivent dans `doc/epics/` du repo.
+5. **Création Jira via MCP Atlassian** (après le GO explicite uniquement) : **demander l'assigné via AskUserQuestion** (story + sous-tâches, un appel pour le lot — jamais de ticket sans assigné tranché), story sous son epic, **du TYPE classé** (`createJiraIssue issueTypeName` = `[IA] FEATURE` | `[IA] BUG` | `[IA] Optimisation`), sous-tâches sous la story, étiquettes posées, description ADF dérivée du `.md` + lien Bitbucket (protocole : `references/epics-jira.md`). Périmètre qui évolue → MAJ du `.md` d'abord, puis du ticket via MCP.
 
 ---
 
@@ -110,7 +120,7 @@ Chaque story/sous-tâche est un **BRIEF que Claude Code peut exécuter sans cont
 - **Poser une question ciblée** (AskUserQuestion) dès qu'un point fonctionnel ou technique est ambigu — mieux qu'une spec partie sur une hypothèse fausse.
 - **CDC = source unique** : citer (`CDC §X`), jamais dupliquer dans le ticket.
 - **Métier Neoteem → skill `/neoteem-brain-dev-ia:neo-brain-dev-ia`**, jamais le MCP brain en direct. **Technique Claude Code / archi → MCP forge-brain** direct.
-- **Création tickets Jira via MCP `claude.ai Atlassian`** (OAuth au premier usage) — `MCP JIRA - NEOTEEM` = Service Desk only (pas de `create_issue`). Toujours présenter la liste de ce qui sera créé et obtenir le GO avant le premier appel.
+- **Création tickets Jira via MCP `plugin:atlassian:atlassian`** (`createJiraIssue`/`editJiraIssue`/`getJiraIssue`/`getJiraProjectIssueTypesMetadata`/`lookupJiraAccountId`, OAuth au premier usage, `cloudId` = `neoteem.atlassian.net`) — `MCP JIRA - NEOTEEM` = Service Desk only (pas de création d'issue N2). Le **type** du ticket = la classification (`issueTypeName` = `[IA] FEATURE` | `[IA] BUG` | `[IA] Optimisation`, résolu par nom exact). Toujours présenter la liste de ce qui sera créé (epic + type + étiquettes + assigné) et obtenir le GO avant le premier appel.
 - **Skill en 3 exemplaires synchronisés** : cette skill (+ `references/epics-jira.md` et `references/templates.md`) a ses jumelles `spec` dans neoteem-back-ts et neo_ia. **Toute modification structurante se propage aux 3 endroits** — jamais un seul.
 
 ## Apprentissage
