@@ -16,6 +16,15 @@ Quand Raphael donne un plan de commits numéroté précis (N concerns, messages 
 - Pour isoler une partie d'un fichier multi-concerns (ex : 2 lignes dans MEMORY.md) : Edit temporaire (retirer la ligne hors-scope, committer, réinsérer) > `git apply --cached` avec patch inline (cassé par parenthèses/accents dans le texte via bash eval).
 - Signaler chaque écart dans le rapport final, avec justification — c'est de la franchise Jarvis, pas de la désobéissance.
 
+## Cas aggravé — working tree PARTAGÉ entre deux sessions simultanées (11 juin 2026)
+
+Quand une AUTRE session Claude tourne en parallèle sur le même repo (vérifiable : `git branch --show-current` change entre deux Bash calls, fichiers `??`/`M` apparaissent/disparaissent sous toi) : le working tree n'est plus à toi seul.
+
+- **Ne jamais `git add -A` / committer en bloc** : tu embarquerais le travail non commité de l'autre session.
+- **Isoler ton edit via un worktree jetable** : `git worktree add ../<repo>-wt <branche-cible>`, écrire le fichier depuis le stash (`git show "stash@{0}:<path>" > <wt>/<path>`), committer là, `git worktree remove`. L'autre session garde son working tree intact.
+- **Stash CIBLÉ** (`git stash push -- <ton-seul-fichier>`), jamais un stash global qui emporterait le travail de l'autre.
+- Symptôme déclencheur : la branche courante n'est plus celle où tu pensais être.
+
 ## Lien
 
 - [[feedback_carte_blanche_commit_push]] — exécuter sans re-valider note par note (complémentaire : ici on ADAPTE un plan précis à la réalité du repo, on ne re-valide pas)

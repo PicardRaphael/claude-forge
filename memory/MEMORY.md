@@ -19,6 +19,7 @@
 - [carte-blanche-commit-push-tranche-pas-revalider](feedback_carte_blanche_commit_push.md) — "Carte blanche" = exécuter direct sans re-valider note par note
 - [ccnews-confronter-existant](feedback_ccnews_confronter_existant.md) — cc-news confronte chaque finding à l'existant (notes vault + skills/agents/hooks/rules) et agit, pas juste résumer
 - [claim-security-must-be-provable](feedback_claim_security_must_be_provable.md) — Claim sécu read-only prouvable par code, sinon by discipline pas by construction
+- [classification-type-ticket-jira](feedback_classification_type_ticket_jira.md) — Classer un ticket par sa NATURE (FEATURE/BUG/OPTIMISATION), jamais par mimétisme
 - [commit-push-check-pattern](feedback_commit_push_check.md) — "regarde commit et push" = git status + diff avant push, jamais push aveugle
 - [conformite-aveugle-regle-generique](feedback_conformite_aveugle_regle_generique.md) — Garde refusée = lire son intention avant de contourner. Souvent intentionnelle
 - [consolidate-searches](feedback_consolidate_searches.md) — Ne jamais chercher 2× la même info. Consolider en 1 fichier dès le 1er search

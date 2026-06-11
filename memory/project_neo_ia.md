@@ -34,7 +34,14 @@ Même système que neoteem-back-ts : `claude -w` + `/feature <ticket>` par termi
 - **Décisions** : neomail/neodoc HORS PROD (refacto à venir) → exclus du strict ruff/import-linter + tests CI conditionnels, mais neochat (prod) ne peut jamais les importer (contrat import-linter). Rien de lourd en PostToolUse (« ruff pas H24 »). Story durcissement SQL shared_utils rédigée (5 S608 faux positifs à corriger sans noqa). Compteurs README : 14 agents / 39 skills / 23 hooks / 22 rules.
 - **P1 différé** (couche agents IA, stories /spec) : promptfoo redteam · Presidio (AI Act deadline 2 août 2026) · DeepEval gating durci · budgets Langfuse. deptry + Semgrep différés (faux positifs workspace / couvert par ruff S). Détail : `neot-v2/neo_ia/docs/implementation-notes/harnais-repo-parfait.md`.
 
-**Actions humaines restantes** : supprimer ou garder .github/workflows/ci.yml (mort) · prévenir l'équipe du workflow PR (git-guard actif à la prochaine session) · `.claude/settings.local.json.proposed` en attente d'application manuelle.
+### Jira IA — hiérarchie réelle (vérifiée 11 juin 2026)
+- **6 epics permanents** (pas 5) : Chatbots N2-68082 (+socle backend partagé qui sert les assistants), Agents N2-106433, Mail N2-111277, MCP N2-111230, Outils internes N2-111276, NeoDoc N2-103047.
+- **Création N2 via MCP `plugin:atlassian:atlassian`** (OAuth), cloudId `neoteem.atlassian.net`, `createJiraIssue` accepte `issueTypeName`. `MCP JIRA - NEOTEEM` = Service-Desk-only (pas de création N2).
+- **Types** : `[IA] FEATURE` (10653), `[IA] BUG` (10652), `[IA] A CLASSER` (10654). `[IA] Optimisation` créé par le PO (en attente — mapping skills prêt par nom).
+- /spec ×3 + skill forge neoteem-back-ts portent la classification FEATURE/BUG/OPTIMISATION + routage 6 epics (commits neo_ia 55cd899 / back-ts 4653f40 / forge 96e2b37). Cf [[classification-type-ticket-jira]].
+- Story durcissement SQL = N2-111316 (`[IA] BUG`, parent N2-68082), à rebasculer en `[IA] Optimisation` quand le type existera.
+
+**Actions humaines restantes** : supprimer ou garder .github/workflows/ci.yml (mort) · prévenir l'équipe du workflow PR (git-guard actif à la prochaine session) · `.claude/settings.local.json.proposed` en attente d'application manuelle · **PM crée le type Jira `[IA] Optimisation`**.
 
 **Why:** ancien ci.yml jamais exécuté (org bloque GitHub, repo Bitbucket) — toujours vérifier l'hébergement réel avant de croire un fichier CI.
 **How to apply:** dev neo_ia = `/feature <N°ticket>` → branche us/{N°} → PR develop, CI verte = condition de merge. Jamais de commit direct (git-guard bloque).
