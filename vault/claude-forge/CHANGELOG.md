@@ -1544,3 +1544,16 @@ Tests hooks 176 verts (180→176, suppression du mécanisme d'exemption testé).
 
 - **Modifiées** : [[pattern-fts5-aliases-vs-embeddings]] — section « Trajectoire & déclencheur de ré-audit » (vault 187→487 notes, seuil 1000 ; déclencheur = 1000 notes OU 2-3 ratés synonyme récurrents ; drop-in pré-conçu = `synonyms.yaml` query-time ~40L sans réindexation, embeddings en dernier recours)
 - **Source** : croisement de la vidéo « Obsidian + Claude 4.7 » (IA Talkshow) avec le setup vault+MCP. Verdict : forge fait déjà l'essentiel (BM25 FTS5 + retrieval-as-tool + payload court) ; fossé sémantique latent non actif → capitalisation du déclencheur plutôt que feature spéculative (measure-before-optimize).
+
+## 2026-06-14 — Réorg vault : fournisseurs IA en dossiers premier niveau (dissout Concurrents + Modeles)
+
+- **Déplacées** (12 notes, via `git mv` — renames, historique préservé, wikilinks intacts car résolus par nom) :
+  - Modèles Anthropic (Opus 4.7, Sonnet 4.6, Haiku 4.5, claude-mythos-preview) → `01-Claude/models/`
+  - OpenAI : GPT-5.5 → `02-OpenAI/models/`, Codex → `02-OpenAI/products/`
+  - Google : Gemma 4 → `03-Google/models/`, Gemini CLI → `03-Google/products/`
+  - xAI : grok-code-fast-1 → `08-xAI/models/`, Grok → `08-xAI/products/`
+  - Cursor → `09-Anysphere/products/`, GitHub Copilot → `10-Microsoft/products/`
+- **Supprimés** : dossiers `02-Concurrents/` et `03-Modeles/` (dissous)
+- **Architecture** : squelette par fournisseur = `models/` + `products/` (créés à la demande). 2 axes : ACTEUR (par fournisseur) × THÈME (transverse : 04-Techniques, 05-Leaders, 06-Industrie, 07-Prompts). Thématiques non renumérotés (chemins en dur préservés).
+- **Suite (drift doc à corriger)** : SCHEMA.md §4, Home.md, MOC-Concurrents, MOC-Modeles décrivent encore l'ancienne structure.
+- **Source** : décision Raphael 14 juin — les fournisseurs IA ne sont pas des « concurrents » mais des acteurs suivis, symétrie avec 01-Claude.
