@@ -9,13 +9,12 @@ aliases:
   - "search strategy vault"
   - "pattern aliases recherche"
 type: technique
-derniere-maj: 2026-05-10
+derniere-maj: 2026-06-14
 auteur: claude
 tags:
   - "#type/technique"
   - "#domaine/rag"
 ---
-
 ## Decision
 
 A 187 notes (vault forge-brain), FTS5 BM25 avec aliases riches est le bon choix. Pas d embeddings.
@@ -64,3 +63,17 @@ FTSWeights(file_stem=10.0, content=1.0, aliases=8.0)
 - [[RAG]]
 - [[erreur-mcp-stopwords-semantiques]]
 - [[MOC-Techniques]]
+
+## Trajectoire & déclencheur de ré-audit
+
+> Ajout 2026-06-14 — suite au croisement avec la vidéo « Obsidian + Claude » (IA Talkshow), qui prône embeddings + reranker. Verdict : à notre échelle, inutile ; le fossé sémantique est **latent, pas actif**. Capitalisation du déclencheur pour ne pas rater la bascule.
+
+**Trajectoire du vault forge-brain** : note écrite à **187 notes** → **487 notes** (juin 2026) → seuil de bascule documenté = **1000 notes**. On est encore confortablement sous le seuil.
+
+**Pourquoi pas d'action maintenant (mesure avant optim)** : le moteur empile déjà 4 garde-fous au niveau requête (prefix match `"terme"*`, expansion OR, alias-expansion, variantes pluriel/féminin via `_like_variants`) + 2 couches actives — aliases (~5,8/note en moyenne, au-dessus du minimum 4-6) et **l'agent qui relance avec un autre mot** quand une recherche rate. **Aucun raté de synonyme récurrent mesuré** → construire une couche synonymes maintenant = feature spéculative (cf [[feedback_measure_before_optimize]] + [[feedback_drift_implementation_karpathy_organes_morts]] : « un manque n'est un défaut que s'il a un consommateur »).
+
+**Déclencheur de ré-audit** — ré-évaluer BM25-vs-embeddings dès que l'UN survient :
+- le vault atteint **~1000 notes**, OU
+- on observe **2-3 vrais ratés de synonyme** récurrents (consommateur réel, pas théorique — ex : recherche « automobile » qui rate une note ne parlant que de « voiture », répété).
+
+**Drop-in pré-conçu (le jour où le déclencheur tombe)** : la réponse n'est PAS d'abord les embeddings, mais une **couche synonymes query-time** — un `synonyms.yaml` curaté, appliqué dans `database.py` (~ligne 198, après tokenization, avant les stratégies FTS), expansion **additive** (OR) en conservant les termes originaux pour l'alias-expansion. Coût : ~40 lignes, **zéro réindexation** (l'expansion agit à la requête, l'index FTS5 reste intact). Embeddings vectoriels seulement si le dict sature (cross-lingue massif ou recherche sémantique pure sans mot-clé).

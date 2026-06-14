@@ -15,6 +15,8 @@ Séquence correcte : **`taskkill` le process Python qui tient le port 8091 → P
 
 **Conséquence pratique** : valider du nouveau code MCP via les outils live appartient à une session SUIVANTE, pas à celle qui code. C'est une frontière de session délibérée (Document & Clear).
 
+**Wrinkle élévation (14 juin 2026)** : le `taskkill /PID <pid> /F` peut échouer « Accès refusé » si le process tenant le port a été lancé par une session à privilège différent (ex. session précédente élevée). L'agent non élevé ne peut alors PAS débloquer seul → le kill revient à l'utilisateur (PowerShell admin ou Gestionnaire des tâches). Symptôme combiné observé : outils `*_by_path` absents de la session **et** `taskkill` refusé = serveur périmé qui tient 8091 + non tuable sans élévation. Une fois tué par l'utilisateur + nouvelle session, l'autostart relance le code à jour (vérifié : les 4 `*_by_path` sont alors exposés).
+
 ## 2. La couche `register_tools` (wrappers `@_tool`) n'est PAS testée si les tests appellent `BrainTools` directement
 
 Les tests forge appellent `tools.update_note(...)` sur l'instance `BrainTools` → les wrappers `@_tool` de `register_tools` (enregistrement FastMCP, validation/passage d'args, `log_call`) ne sont JAMAIS exécutés. Une faute dans un wrapper (ordre/nom d'args, oubli d'enregistrement) passe les tests verts et casse l'outil en prod.

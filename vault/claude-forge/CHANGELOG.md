@@ -1539,3 +1539,8 @@ Tests hooks 176 verts (180→176, suppression du mécanisme d'exemption testé).
 
 - **Modifiées** : `index.md` (racine) — régénéré depuis l'inventaire réel du vault. Corrige le stale +51% (annonçait 318 notes, en compte 480). Reste content-oriented (par « si tu cherches X »), pas un dump : l'exhaustif est délégué aux `_index` de sous-dossiers (erreurs/raisonnements/critiques). Ajouts : section PATTERNS technique (27 patterns + claude-code), doctrine post-22mai enrichie, 80 leaders par sous-domaine, features/changelog `01-Claude/` à jour, métadonnées réelles + mention du drift arbitré le 8 juin.
 - **Source** : geste #3 du diagnostic drift Karpathy (8 juin) — le seul des 3 écarts qui était un geste mécanique légitime (les 2 autres requalifiés en écarts assumés).
+
+## 2026-06-14 — Déclencheur ré-audit BM25-vs-embeddings (analyse vidéo Obsidian+Claude)
+
+- **Modifiées** : [[pattern-fts5-aliases-vs-embeddings]] — section « Trajectoire & déclencheur de ré-audit » (vault 187→487 notes, seuil 1000 ; déclencheur = 1000 notes OU 2-3 ratés synonyme récurrents ; drop-in pré-conçu = `synonyms.yaml` query-time ~40L sans réindexation, embeddings en dernier recours)
+- **Source** : croisement de la vidéo « Obsidian + Claude 4.7 » (IA Talkshow) avec le setup vault+MCP. Verdict : forge fait déjà l'essentiel (BM25 FTS5 + retrieval-as-tool + payload court) ; fossé sémantique latent non actif → capitalisation du déclencheur plutôt que feature spéculative (measure-before-optimize).
