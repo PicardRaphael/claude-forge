@@ -39,7 +39,7 @@ Vault Karpathy LLM Wiki pour claude-forge. Pour trouver une note en 1 saut → *
 | Section | Contenu |
 |---------|---------|
 | [[MOC-Claude-Code]] | Features, changelog, hooks, skills, agents, best practices |
-| [[MOC-Concurrents]] | Gemini CLI, Codex, Copilot, Cursor, xAI |
+| [[MOC-Outils-IA]] | Gemini CLI, Codex, Copilot, Cursor, xAI |
 | [[MOC-Modeles]] | Specs, benchmarks, migrations |
 | [[MOC-Techniques]] | Prompt eng, context eng, RAG, agents, fine-tuning, patterns |
 | [[MOC-Leaders]] | 79 fiches : CC team, agents, RAG, fine-tuning, prompt, industrie |

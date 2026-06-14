@@ -52,7 +52,7 @@ Assistant IA de GitHub, integre a VS Code, CLI, et github.com. Multi-modele (GPT
 ## Liens
 
 - [[Agent Skills Spec]]
-- [[MOC-Concurrents]]
+- [[MOC-Outils-IA]]
 
 
 ## Mises à jour mai 2026

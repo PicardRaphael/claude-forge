@@ -56,7 +56,7 @@ Division IA d'Elon Musk. Focus sur Grok (chatbot) et coding tools.
 
 ## Liens
 
-- [[MOC-Concurrents]]
+- [[MOC-Outils-IA]]
 
 
 ## Mises à jour mai 2026

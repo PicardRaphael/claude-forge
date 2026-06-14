@@ -61,7 +61,7 @@ CLI IA d'OpenAI pour le développement. 3M utilisateurs/semaine (+1M/mois). Prem
 
 - [[GitHub Copilot]]
 - [[Cursor]]
-- [[MOC-Concurrents]]
+- [[MOC-Outils-IA]]
 
 
 ## Mises à jour mai 2026

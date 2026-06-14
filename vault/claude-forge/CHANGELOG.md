@@ -1557,3 +1557,9 @@ Tests hooks 176 verts (180→176, suppression du mécanisme d'exemption testé).
 - **Architecture** : squelette par fournisseur = `models/` + `products/` (créés à la demande). 2 axes : ACTEUR (par fournisseur) × THÈME (transverse : 04-Techniques, 05-Leaders, 06-Industrie, 07-Prompts). Thématiques non renumérotés (chemins en dur préservés).
 - **Suite (drift doc à corriger)** : SCHEMA.md §4, Home.md, MOC-Concurrents, MOC-Modeles décrivent encore l'ancienne structure.
 - **Source** : décision Raphael 14 juin — les fournisseurs IA ne sont pas des « concurrents » mais des acteurs suivis, symétrie avec 01-Claude.
+
+## 2026-06-14 — MOC-Concurrents renommé en MOC-Outils-IA
+
+- **Renommée** : `MOC-Concurrents` → `MOC-Outils-IA` (00-Hub), via `move_note` (wikilinks réécrits automatiquement dans 7 backlinks : Home, MOC-Industrie, Gemini CLI, OpenAI Codex, GitHub Copilot, Cursor, xAI Grok).
+- **Contenu neutralisé** : titre « MOC — Outils AI coding », H1 « Outils AI coding (cross-fournisseurs) », resume + tag `#domaine/outils-ia`. La note reste un index thématique transverse (les fiches vivent dans les dossiers fournisseurs `products/`).
+- **Source** : préférence Raphael — dissolution du concept « Concurrents » (les fournisseurs sont des acteurs suivis).

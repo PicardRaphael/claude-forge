@@ -1,22 +1,24 @@
 ---
-titre: "MOC — Concurrents"
-resume: "Index des outils AI coding concurrents : Gemini CLI, Codex, Copilot, Cursor, xAI"
+titre: "MOC — Outils AI coding"
+resume: "Index comparatif des outils AI coding par fournisseur : Gemini CLI (Google), Codex (OpenAI), Copilot (Microsoft), Cursor (Anysphere), Grok (xAI)"
 aliases:
+  - "MOC Outils IA"
   - "MOC Concurrents"
-  - "index concurrents"
-  - "concurrents IA coding"
   - "outils AI coding"
+  - "comparatif outils IA coding"
   - "alternatives Claude Code"
 type: index
-derniere-maj: 2026-05-08
+derniere-maj: 2026-06-14
 auteur: claude
 sources: []
 tags:
   - "#type/index"
-  - "#domaine/concurrents"
+  - "#domaine/outils-ia"
 ---
 
-# Concurrents AI Coding
+# Outils AI coding (cross-fournisseurs)
+
+> Index thématique transverse : comparatif des outils de code par fournisseur. Les fiches produit vivent dans les dossiers fournisseurs (`02-OpenAI/products/`, `03-Google/products/`, `08-xAI/products/`, `09-Anysphere/products/`, `10-Microsoft/products/`) — ce MOC est la vue comparative cross-fournisseurs.
 
 ## Fiches produit
 
@@ -38,3 +40,5 @@ tags:
 
 ## Liens
 
+- [[Home]]
+- [[MOC-Modeles]]

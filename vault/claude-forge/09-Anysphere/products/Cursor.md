@@ -62,7 +62,7 @@ IDE IA base sur VS Code fork. Cursor 3 (2 avril 2026) = refonte majeure.
 
 ## Liens
 
-- [[MOC-Concurrents]]
+- [[MOC-Outils-IA]]
 
 
 ## Mises à jour mai 2026

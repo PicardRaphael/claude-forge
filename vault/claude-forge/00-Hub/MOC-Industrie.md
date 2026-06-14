@@ -51,7 +51,7 @@ tags:
 - Convergence AI Coding — Tous convergent vers même architecture
 - Piebald-AI System Prompts — Repo public prompts CC
 
-## Concurrents — voir [[MOC-Concurrents]]
+## Concurrents — voir [[MOC-Outils-IA]]
 
 - [[OpenAI Codex]] — Computer Use macOS, GPT-5.4, 111 plugins
 - [[Cursor]] — Multi-agent, Background Agents VM, Design Mode

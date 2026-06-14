@@ -52,7 +52,7 @@ CLI IA de Google pour le developpement. Open source, YOLO mode par defaut, 1M+ t
 
 ## Liens
 
-- [[MOC-Concurrents]]
+- [[MOC-Outils-IA]]
 
 
 ## Mises à jour mai 2026
