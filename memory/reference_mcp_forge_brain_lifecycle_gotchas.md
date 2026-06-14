@@ -1,6 +1,6 @@
 ---
 name: mcp-forge-brain-lifecycle-gotchas
-description: 2 gotchas cycle de vie MCP forge-brain — restart = kill+NOUVELLE session (autostart au SessionStart only), et register_tools non testé si tests appellent BrainTools direct
+description: 3 gotchas cycle de vie MCP forge-brain — restart = kill+NOUVELLE session (élévation parfois requise), register_tools non testé en direct, et changement de PARSER exige delete DB (le watcher incrémental ne reparse pas l'existant)
 metadata:
   type: reference
 ---
@@ -28,3 +28,11 @@ Les tests forge appellent `tools.update_note(...)` sur l'instance `BrainTools` �
 API FastMCP 2.x vérifiée empiriquement (Python 3.14, 7 juin) : `get_tools` n'existe pas ; `_list_tools`/`call_tool` sont des coroutines une fois le provider agrégé monté. Ne pas sonder `.fn`/`.func` (fragile, dérive entre versions) — passer par `call_tool` (API publique).
 
 Foyer connexe vault : [[ajouter-source-donnees-mcp-forge-brain]] (section Tests — enrichie d'un renvoi à ce gotcha). Cf aussi [[gate-zero-diff-test-live-byte-exact]] (même esprit : tester la vraie couche d'exécution, pas une approximation).
+
+## 3. Changement du PARSER (indexer) = supprimer la DB pour un reparse complet (le watcher incrémental ne suffit PAS)
+
+`VaultWatcher.scan()` est incrémental : il ne reparse une note que si son `mtime`/hash a changé. Donc quand on modifie le CODE de parsing (`indexer.py` — ex. ajout de `_strip_code` pour ignorer les wikilinks dans les code spans, 14 juin 2026), les notes existantes inchangées **gardent leurs données parsées à l'ancienne façon**, même après kill + nouvelle session. Le nouveau parser ne s'applique qu'aux notes futures ou modifiées.
+
+**Fix : supprimer la DB pour forcer un rebuild complet.** `forge-brain.db` est un index 100 % reconstructible depuis les `.md` (la vérité = les notes). Séquence : kill serveur (port 8091, élévation parfois requise — cf gotcha #1) → `Remove-Item mcp-forge-brain/forge-brain.db*` (le `.db` + `-wal` + `-shm`) → NOUVELLE session → `create_app` voit la DB vide → `watcher.scan()` reparse TOUT avec le nouveau code. Preuve 14 juin 2026 : après ce rebuild, `broken_wikilinks` est passé de 88 → 75 (les ~13 faux positifs `[[X]]`/`[[stem]]` en code spans ont disparu — sans rebuild, le compte n'aurait pas bougé).
+
+Distinction nette : changement de NOTE → watcher suffit (≤ 30 s) ; changement de CODE serveur (nouveaux outils) → kill + nouvelle session (gotcha #1) ; changement de PARSER → **delete DB en plus** (ce gotcha #3, car les données déjà parsées ne se rafraîchissent pas seules).
