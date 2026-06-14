@@ -358,8 +358,8 @@ class BrainTools:
             )
         return "\n".join(lines)
 
-    def search_brain(self, query: str, limit: int = 5, context: bool = True) -> str:
-        results = self._db.search(query, limit=limit, context=context)
+    def search_brain(self, query: str, limit: int = 5, context: bool = True, folder: str = "") -> str:
+        results = self._db.search(query, limit=limit, context=context, folder=folder)
         if not results:
             return f"Aucun resultat pour '{query}'."
         lines = []
@@ -1205,15 +1205,23 @@ def register_tools(mcp, tools: BrainTools):
         return mcp.tool()(wrapped)
 
     @_tool
-    def search_brain(query: str, limit: int = 5, context: bool = True) -> str:
-        """Recherche dans le vault forge-brain.
+    def search_brain(query: str, limit: int = 5, context: bool = True, folder: str = "") -> str:
+        """Recherche dans le vault forge-brain (FTS5 BM25).
 
         Args:
             query: terme de recherche (ex: "context engineering", "agents autonomes", "erreur")
             limit: nombre max de resultats (default 5)
             context: si True, retourne les lignes autour de chaque match
+            folder: limite la recherche a un dossier (prefixe de chemin). Vide = tout le vault
+                (defaut sur). A utiliser SEULEMENT si le domaine est certain ; dans le doute,
+                rester global. Carte des dossiers :
+                  01-Claude (Anthropic) · 02-OpenAI · 03-Google · 08-xAI · 09-Anysphere (Cursor)
+                  · 10-Microsoft (Copilot) — chacun avec models/ et products/
+                  04-Techniques (rag, agents, patterns, claude-code) · 05-Leaders · 06-Industrie
+                  · 07-Prompts · Knowledge (erreurs, critiques, syntheses, questions, raisonnements)
+                  · 1-Projets · 2-Casquettes · 00-Hub (MOCs). Nesting OK (ex "Knowledge/erreurs").
         """
-        return tools.search_brain(query, limit, context)
+        return tools.search_brain(query, limit, context, folder)
 
     @_tool
     def read_note(file: str, max_lines: int = 0, offset: int = 0, limit_chars: int = 0) -> str:

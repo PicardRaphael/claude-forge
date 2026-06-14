@@ -243,6 +243,61 @@ def test_result_shape(db):
         assert "path" in r and "file_stem" in r and "score" in r
 
 
+# ===========================================================================
+# FOLDER SCOPING — folder= restricts results to a path prefix (default global)
+# ===========================================================================
+
+@pytest.fixture
+def db_folders(tmp_path):
+    """3 notes sharing the content term 'scopedkw' across distinct folders, each
+    with a unique single-word alias, to exercise folder= on FTS and alias paths."""
+    vault = tmp_path / "vault"
+    vault.mkdir()
+    notes = {
+        "04-Techniques/rag/note-tech.md": '---\naliases: ["aliastech"]\n---\nUn contenu avec scopedkw cote technique.\n',
+        "Knowledge/erreurs/note-err.md": '---\naliases: ["aliaserr"]\n---\nUn contenu avec scopedkw cote erreur.\n',
+        "01-Claude/models/note-model.md": '---\naliases: ["aliasmodel"]\n---\nUn contenu avec scopedkw cote modele.\n',
+    }
+    database = BrainDB(tmp_path / "tf.db", FTSWeights(file_stem=10.0, content=1.0, aliases=8.0))
+    database.create_schema()
+    for rel, content in notes.items():
+        p = vault / rel
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(content, encoding="utf-8")
+        database.index_note(parse_note(p.stem, rel, content), p.stat().st_mtime)
+    return database
+
+
+def test_folder_scopes_to_prefix(db_folders):
+    """folder='04-Techniques' returns only the note under that path."""
+    stems = _stems(db_folders.search("scopedkw", folder="04-Techniques"))
+    assert "note-tech" in stems
+    assert "note-err" not in stems
+    assert "note-model" not in stems
+
+
+def test_folder_nested_prefix(db_folders):
+    """Nested folder 'Knowledge/erreurs' scopes precisely to the leaf path."""
+    assert _stems(db_folders.search("scopedkw", folder="Knowledge/erreurs")) == ["note-err"]
+
+
+def test_folder_empty_is_global(db_folders):
+    """folder='' (default) searches the whole vault — backward compatible."""
+    assert len(_stems(db_folders.search("scopedkw"))) == 3
+
+
+def test_folder_unknown_returns_empty(db_folders):
+    """A folder prefix with no notes returns empty, never raises."""
+    assert db_folders.search("scopedkw", folder="99-Nonexistent") == []
+
+
+def test_folder_applies_to_alias_strategy(db_folders):
+    """folder= also scopes alias expansion (strategy 4): 'aliaserr' lives only in
+    note-err's alias → found under Knowledge, absent when scoped to 04-Techniques."""
+    assert "note-err" not in _stems(db_folders.search("aliaserr", folder="04-Techniques"))
+    assert "note-err" in _stems(db_folders.search("aliaserr", folder="Knowledge"))
+
+
 if __name__ == "__main__":
     import sys
     sys.exit(pytest.main([__file__, "-v"]))

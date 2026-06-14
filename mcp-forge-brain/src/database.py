@@ -115,10 +115,27 @@ class BrainDB:
 
         self._conn.commit()
 
-    def _fts_query(self, fts_expr: str, limit: int, context: bool) -> list[dict]:
+    @staticmethod
+    def _folder_clause(folder: str) -> tuple[str, list]:
+        """SQL condition + params to scope a search to a folder (path prefix).
+
+        Empty/blank folder -> no filter (global search, unchanged behaviour).
+        Neutralises LIKE wildcards in the folder name and appends '/%' so
+        'Knowledge' matches 'Knowledge/erreurs/foo.md'.
+        """
+        if not folder:
+            return "", []
+        prefix = folder.strip("/").replace("%", "").replace("_", "")
+        if not prefix:
+            return "", []
+        return "n.path LIKE ?", [prefix + "/%"]
+
+    def _fts_query(self, fts_expr: str, limit: int, context: bool, folder: str = "") -> list[dict]:
         w = self._weights
+        cond, cond_params = self._folder_clause(folder)
+        and_clause = f" AND {cond}" if cond else ""
         if context:
-            sql = """
+            sql = f"""
                 SELECT
                     n.path,
                     n.file_stem,
@@ -126,23 +143,24 @@ class BrainDB:
                     bm25(notes_fts, ?, ?, ?) as score
                 FROM notes_fts
                 JOIN notes n ON n.id = notes_fts.rowid
-                WHERE notes_fts MATCH ?
+                WHERE notes_fts MATCH ?{and_clause}
                 ORDER BY score
                 LIMIT ?
             """
         else:
-            sql = """
+            sql = f"""
                 SELECT
                     n.path,
                     n.file_stem,
                     bm25(notes_fts, ?, ?, ?) as score
                 FROM notes_fts
                 JOIN notes n ON n.id = notes_fts.rowid
-                WHERE notes_fts MATCH ?
+                WHERE notes_fts MATCH ?{and_clause}
                 ORDER BY score
                 LIMIT ?
             """
-        rows = self._conn.execute(sql, (w.file_stem, w.content, w.aliases, fts_expr, limit)).fetchall()
+        params = [w.file_stem, w.content, w.aliases, fts_expr, *cond_params, limit]
+        rows = self._conn.execute(sql, params).fetchall()
         return [dict(row) for row in rows]
 
     @staticmethod
@@ -155,7 +173,7 @@ class BrainDB:
                 break
         return patterns
 
-    def _alias_expansion(self, terms: list[str], limit: int, context: bool) -> list[dict]:
+    def _alias_expansion(self, terms: list[str], limit: int, context: bool, folder: str = "") -> list[dict]:
         """Find notes whose aliases contain query terms — ranked by distinct terms matched."""
         search_terms = [t for t in terms if len(t) >= 3]
         if not search_terms:
@@ -168,16 +186,20 @@ class BrainDB:
             case_parts.append(f"MAX(CASE WHEN {or_clause} THEN 1 ELSE 0 END)")
             params.extend(variants)
         score_expr = " + ".join(case_parts)
+        cond, cond_params = self._folder_clause(folder)
+        where_clause = f"WHERE {cond}" if cond else ""
         sql = f"""
             SELECT n.id, n.path, n.file_stem,
                    ({score_expr}) as term_hits
             FROM aliases a
             JOIN notes n ON n.id = a.note_id
+            {where_clause}
             GROUP BY n.id
             HAVING term_hits > 0
             ORDER BY term_hits DESC, n.file_stem
             LIMIT ?
         """
+        params.extend(cond_params)
         params.append(limit)
         note_ids = self._conn.execute(sql, params).fetchall()
         if not note_ids:
@@ -185,11 +207,11 @@ class BrainDB:
         stems = [row[2] for row in note_ids]
         fts_terms = " OR ".join(f'"{s}"' for s in stems)
         try:
-            return self._fts_query(fts_terms, limit, context)
+            return self._fts_query(fts_terms, limit, context, folder)
         except Exception:
             return [{"path": row[1], "file_stem": row[2], "score": -row[3]} for row in note_ids]
 
-    def search(self, query: str, limit: int = 5, context: bool = True) -> list[dict]:
+    def search(self, query: str, limit: int = 5, context: bool = True, folder: str = "") -> list[dict]:
         clean = re.sub(r"['\"\-()]", " ", query)
         terms = [t for t in clean.lower().split() if t not in STOP_WORDS_FR and len(t) > 1]
         if not terms:
@@ -200,28 +222,28 @@ class BrainDB:
 
         # Strategy 1: AND with prefix wildcard (strictest)
         fts_and_prefix = " ".join(f'"{t}"*' for t in terms)
-        rows = self._fts_query(fts_and_prefix, limit, context)
+        rows = self._fts_query(fts_and_prefix, limit, context, folder)
         if rows:
-            return self._merge_alias_hits(rows, alias_terms, limit, context)
+            return self._merge_alias_hits(rows, alias_terms, limit, context, folder)
 
         # Strategy 2: OR with prefix wildcard (looser)
         fts_or_prefix = " OR ".join(f'"{t}"*' for t in terms)
-        rows = self._fts_query(fts_or_prefix, limit, context)
+        rows = self._fts_query(fts_or_prefix, limit, context, folder)
         if rows:
-            return self._merge_alias_hits(rows, alias_terms, limit, context)
+            return self._merge_alias_hits(rows, alias_terms, limit, context, folder)
 
         # Strategy 3: OR without wildcard (exact subwords)
         fts_or_exact = " OR ".join(f'"{t}"' for t in terms)
-        rows = self._fts_query(fts_or_exact, limit, context)
+        rows = self._fts_query(fts_or_exact, limit, context, folder)
         if rows:
-            return self._merge_alias_hits(rows, alias_terms, limit, context)
+            return self._merge_alias_hits(rows, alias_terms, limit, context, folder)
 
         # Strategy 4: Alias expansion only (with stem variants) — last resort
-        return self._alias_expansion(alias_terms, limit, context)
+        return self._alias_expansion(alias_terms, limit, context, folder)
 
-    def _merge_alias_hits(self, fts_rows: list[dict], terms: list[str], limit: int, context: bool) -> list[dict]:
+    def _merge_alias_hits(self, fts_rows: list[dict], terms: list[str], limit: int, context: bool, folder: str = "") -> list[dict]:
         """Merge FTS results with alias-expanded results, deduped by path."""
-        alias_rows = self._alias_expansion(terms, limit, context)
+        alias_rows = self._alias_expansion(terms, limit, context, folder)
         if not alias_rows:
             return fts_rows
         seen = {r["path"] for r in fts_rows}
