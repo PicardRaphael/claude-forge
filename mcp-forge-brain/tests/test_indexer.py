@@ -87,3 +87,26 @@ def test_no_frontmatter():
     assert parsed.aliases == []
     assert parsed.tags == []
     assert parsed.lint_warnings == []
+
+
+def test_wikilinks_in_code_are_ignored():
+    """Wikilinks inside inline code or fenced blocks are syntax examples, not real
+    links — must NOT be extracted (else false broken-wikilink lint + graph noise)."""
+    content = """---
+aliases:
+  - "x"
+---
+
+Real link: [[real-note]].
+Inline example: `[[inline-example]]` ne compte pas.
+Fenced example:
+```
+voici [[fenced-example]] et [[other-fenced]]
+```
+Fin.
+"""
+    parsed = parse_note("test", "test.md", content)
+    assert "real-note" in parsed.wikilinks
+    assert "inline-example" not in parsed.wikilinks
+    assert "fenced-example" not in parsed.wikilinks
+    assert "other-fenced" not in parsed.wikilinks

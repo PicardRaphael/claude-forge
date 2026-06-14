@@ -23,6 +23,18 @@ class ParsedNote:
 
 _FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)
 _WIKILINK_RE = re.compile(r"\[\[([^\]|]+)(?:\|[^\]]+)?\]\]")
+# Code regions: wikilinks inside fenced/inline code are SYNTAX EXAMPLES, not real
+# links. Strip them before extraction so docs that show `[[X]]` don't pollute the
+# links graph nor trigger false broken-wikilink lint.
+_CODE_FENCE_RE = re.compile(r"```.*?```", re.DOTALL)
+_INLINE_CODE_RE = re.compile(r"`[^`]*`")
+
+
+def _strip_code(text: str) -> str:
+    """Replace fenced + inline code spans with spaces (preserves offsets-ish)."""
+    text = _CODE_FENCE_RE.sub(" ", text)
+    text = _INLINE_CODE_RE.sub(" ", text)
+    return text
 # Detect duplicate aliases declarations: inline `aliases: [...]` followed by
 # orphan list items `  - "..."` on next lines (the common Obsidian editor bug).
 _ALIASES_INLINE_THEN_LIST_RE = re.compile(
@@ -82,7 +94,7 @@ def parse_note(file_stem: str, path: str, content: str) -> ParsedNote:
             lint_warnings.append(f"YAML parse error: {e}")
             log.warning("Note %s: YAML parse error: %s", file_stem, e)
 
-    wikilinks = _WIKILINK_RE.findall(content)
+    wikilinks = _WIKILINK_RE.findall(_strip_code(content))
     seen: set[str] = set()
     unique_links: list[str] = []
     for link in wikilinks:
