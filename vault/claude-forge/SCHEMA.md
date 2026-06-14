@@ -8,7 +8,7 @@ aliases:
   - "AGENTS.md vault"
   - "self-describing vault"
   - "schema forge-brain"
-derniere-maj: 2026-05-22
+derniere-maj: 2026-06-14
 auteur: claude
 type: schema
 tags:
@@ -92,8 +92,8 @@ Choisir parmi :
 | Feature Claude Code | `01-Claude/Code/features/` |
 | Best practice CC | `01-Claude/Code/best-practices/` |
 | Note canonique CC (chantier 22 mai) | `04-Techniques/claude-code/` |
-| Produit concurrent | `02-Concurrents/<entreprise>/` |
-| Modele IA (specs, benchmarks) | `03-Modeles/<provider>/` |
+| Modele d'un fournisseur IA | `<NN>-<Fournisseur>/models/` (ex `01-Claude/models/`, `02-OpenAI/models/`) |
+| Produit / outil d'un fournisseur IA | `<NN>-<Fournisseur>/products/` (ex `02-OpenAI/products/`, `09-Anysphere/products/`) |
 | Technique RAG | `04-Techniques/rag/` |
 | Technique agents | `04-Techniques/agents/` |
 | Pattern/workflow reutilisable | `04-Techniques/patterns/` |
@@ -108,6 +108,8 @@ Choisir parmi :
 | Question technique resolue | `Knowledge/questions/` |
 | Raisonnement multi-etapes | `Knowledge/raisonnements/` |
 | Source externe brute | `raw/<YYYY-MM-DD-contexte>/` |
+
+**Convention fournisseur (14 juin 2026)** : 1 dossier par acteur IA — Anthropic = `01-Claude`, puis `02-OpenAI`, `03-Google`, `08-xAI`, `09-Anysphere`, `10-Microsoft`… — contenant `models/` (modèles fondation : specs, benchmarks, pricing) et `products/` (apps, CLI, IDE, API), **créés à la demande** (pas de dossier vide). **Pas de dossier « Concurrents »** : les fournisseurs sont des acteurs suivis, pas des concurrents. Les comparatifs cross-fournisseurs (modèle-vs-modèle) vont en thématique (`04-Techniques/` ou une MOC `00-Hub/`), jamais dans un dossier acteur.
 
 ---
 
@@ -203,7 +205,7 @@ Ce schema est compatible avec le pattern AGENTS.md propose par [[hashimoto]] (Gh
 
 Ce SCHEMA.md est modifie **rarement** (changements doctrinaux majeurs uniquement). Pour changements frequents → `CHANGELOG.md` ou `log.md`.
 
-Derniere modification doctrinale : **22 mai 2026** — adoption pattern Karpathy strict + creation `raw/` + `index.md` + `log.md` + `SCHEMA.md`.
+Derniere modification doctrinale : **22 mai 2026** — adoption pattern Karpathy strict + creation `raw/` + `index.md` + `log.md` + `SCHEMA.md`. **14 juin 2026** — réorg fournisseurs IA en dossiers premier niveau (dissout `02-Concurrents` + `03-Modeles`, squelette `models/`+`products/` par acteur).
 
 ---
 
