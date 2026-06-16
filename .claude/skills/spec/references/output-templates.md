@@ -61,6 +61,16 @@ Alternatives considérées : <Minimal — pourquoi écarté>
 
 <Résultats Phase 2 : endpoints/tools/patterns existants similaires.>
 
+## Déjà fait (ne pas refaire)
+
+<Registre des opérations coûteuses déjà effectuées en Phase 2 — une ligne par op, pointeur jamais contenu :>
+
+- `search_brain "<sujet>"` → voir `SPEC.md §<n>`
+- lecture `<gros fichier>` → résumé dans `<artefact>`
+- audit / requête DB `<cible>` → résultat dans `<artefact>`
+
+<L'agent consulte ce registre AVANT de relancer une recherche/lecture coûteuse.>
+
 ## À faire
 
 1. <Action métier 1 — QUOI>

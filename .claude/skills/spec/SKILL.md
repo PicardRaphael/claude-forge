@@ -76,7 +76,9 @@ Créer `TODO/feature-<nom>/` ou `TODO/fix-<nom>/` à la racine du repo courant.
 
 Templates complets dans `references/output-templates.md`.
 
-Tout BRIEF doit inclure : Contexte (Phase 2) · À faire (QUOI) · Fichiers · Critères de done · Référence BDD · Implementation Notes · Acceptance Tests.
+Tout BRIEF doit inclure : Contexte (Phase 2) · Déjà fait (ne pas refaire) · À faire (QUOI) · Fichiers · Critères de done · Référence BDD · Implementation Notes · Acceptance Tests.
+
+Déjà fait (ne pas refaire) : registre des opérations coûteuses déjà effectuées pendant la Phase 2 (recherche vault/web, lecture de gros fichier, audit, requête DB), une ligne par opération sous la forme `op + cible → où est le résultat` — pointeur, jamais le contenu. L'agent consulte ce registre avant de relancer une opération coûteuse.
 
 Implementation Notes : chaque BRIEF mentionne de maintenir `docs/implementation-notes/<feature>.md` pendant l'implémentation (pattern running-notes).
 

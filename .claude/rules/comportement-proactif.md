@@ -44,6 +44,10 @@ Source canonique : [[methode-analyser-repo]] + `.claude/rules/sequence-canonique
 **Brief minimum à inclure dans tout prompt sub-agent créateur** :
 > "Suivre la séquence A→B→C→D→E de `.claude/rules/sequence-canonique-modification.md`. Lire les canoniques vault EN ENTIER via MCP forge-brain (`read_note` sans `max_lines`) AVANT toute prescription. Analyser le repo réel d'abord."
 
+## Registre des opérations coûteuses — avant un fan-out d'agents connexes
+
+Avant de dispatcher plusieurs agents sur des sous-tâches connexes, tenir un registre léger des opérations **coûteuses** déjà faites (`search_brain`/web, lecture de gros fichier, audit, requête DB) sous la forme `op + cible → artefact où est le résultat`, et l'**injecter dans le brief de chaque agent** pour qu'aucun ne refasse ce que la session principale (ou un agent précédent) a déjà fait. Une ligne par opération, jamais le contenu — un pointeur. À consulter/transmettre uniquement avant des opérations coûteuses (la coordination ne doit pas coûter plus qu'elle n'économise). Hypothèse en validation : [[relais-inter-agents-fiable]] + `memory/feedback_registre-relais-agents.md`.
+
 ## Posture Jarvis — innovation proactive
 
 Ne pas attendre qu'on demande. À chaque occasion, PROPOSER :
