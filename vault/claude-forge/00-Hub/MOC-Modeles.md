@@ -18,6 +18,7 @@ tags:
 # Modèles IA
 
 ## Anthropic
+- [[Fable 5]] — classe Mythos (au-dessus d'Opus), 1M ctx, annoncé 9 juin 2026, suspendu export-control 12 juin
 
 - [[Opus 4.7]] — SWE-bench 87.6%, adaptive thinking, xhigh par défaut
 - [[Sonnet 4.6]] — Exécution forge, effort high obligatoire

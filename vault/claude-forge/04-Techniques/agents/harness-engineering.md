@@ -134,3 +134,36 @@ Ces hooks = harness engineering applique a Claude Code.
 - [[agents-securite]] — Sandboxing et permissions = couches du harness
 - [[mass-multi-agent-system-search]] — Optimisation automatisee du harness multi-agent
 - [[MOC-Techniques]]
+
+---
+
+## AJOUT 16 juin 2026 — Compléments (carte de diagnostic Osmani, coût primaire, Loop Engineering)
+
+> Veille cc-news 16 juin. Compléments à la note existante (qui couvre déjà Guides/Sensors, Computational/Inferential, Ashby). Sources primaires : [addyosmani.com](https://addyosmani.com/blog/agent-harness-engineering/), [mitchellh.com](https://mitchellh.com/writing/my-ai-adoption-journey), [anthropic.com/engineering/multi-agent-research-system](https://www.anthropic.com/engineering/multi-agent-research-system).
+
+### Carte de diagnostic des défaillances (Addy Osmani)
+
+Réflexe « ratchet » : à chaque erreur d'agent, mapper le symptôme vers le bon fix de harness (pas corriger l'output).
+
+| Symptôme | Fix harness |
+|---|---|
+| Règle inconnue de l'agent | CLAUDE.md / AGENTS.md (guide) |
+| Règle violée | hook (sensor/enforcement) |
+| Info manquante | skill / MCP |
+| Outil dangereux | restreindre permissions |
+| Contexte pollué | isolation sub-agent |
+| Crash silencieux | monitoring / sensor |
+
+### Loop Engineering (Osmani) + origine du terme
+
+« Loop Engineering » = remplacer le prompteur humain par un système qui prompte l'agent. Boris Cherny (verbatim) : *« I don't prompt Claude anymore. I have loops running that prompt Claude »*. **Origine du terme** : Mitchell Hashimoto, *my-ai-adoption-journey* (5 fév 2026) — *« Each line in [AGENTS.md] is based on a bad agent behavior »* (antérieur à Böckeler/LangChain). Cf [[hashimoto]] / [[addy-osmani]] / [[martin-fowler]].
+
+### Coût tokens — chiffre PRIMAIRE Anthropic
+
+Agents ≈ **4× tokens** vs chat, multi-agent ≈ **15× tokens** vs chat ([engineering/multi-agent-research-system](https://www.anthropic.com/engineering/multi-agent-research-system)). À distinguer du « 65% des échecs = harness » (TechTimes, déjà dans le corps). Ces 4×/15× sont du multi-agent, PAS une métrique de profondeur de nesting (cf [[anti-reentrance-sub-agents-pattern-escalade]] § AJOUT 16 juin, sous-agents imbriqués v2.1.172).
+
+### Lien doctrine forge
+
+Le pivot 22 mai (hooks = lint/sécu/scope, JAMAIS workflow) = « sensors computationnels, pas guides déguisés en enforcement ». Cf [[raisonnement-22mai-doctrine-vs-enforcement]].
+
+`derniere-maj` → 2026-06-16.

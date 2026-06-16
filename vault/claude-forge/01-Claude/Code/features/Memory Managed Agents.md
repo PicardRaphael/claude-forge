@@ -9,7 +9,7 @@ aliases:
   - "memory anthropic"
   - "managed agents memory"
 type: feature
-derniere-maj: 2026-05-11
+derniere-maj: 2026-06-16
 auteur: claude
 sources:
   - "https://www.youtube.com/watch?v=RtywqDFBYnQ"
@@ -77,3 +77,32 @@ Notre vault Obsidian + MCP = une implémentation du même pattern :
 - [[Dreaming Managed Agents]] — Process de review/enrichissement automatique
 - [[Managed Agents]] — Feature Managed Agents
 - [[MOC-Claude-Code]]
+
+---
+
+## AJOUT 16 juin 2026 — Corrections + détails primaires (platform.claude.com)
+
+> Vérifié sur [platform.claude.com/docs/en/managed-agents/memory](https://platform.claude.com/docs/en/managed-agents/memory.md) (16 juin). Précise/corrige le corps rédigé d'après la présentation orale du 6 mai.
+
+### Mécanique réelle (primaire)
+
+- **Montage** : le memory store (workspace-scoped, docs texte) est monté dans le sandbox sous **`/mnt/memory/`** ; l'agent l'édite avec ses file tools.
+- **Permission scopes — correction** : il n'y a **PAS** de couche « read-only org-wide » système. Chaque store a un accès **`read_write` (défaut) ou `read_only`** (enforced filesystem). Le modèle « 2 couches » (référentiel partagé + working memory) s'obtient en **attachant plusieurs stores** à la session (un read_only partagé + un read_write par user/projet), pas via une hiérarchie native.
+- **Optimistic concurrency** : précondition `content_sha256` sur `memories.update` (confirme le « hash avant overwrite » du corps).
+- **Version history** : chaque mutation = version immuable `memver_...`, **rétention 30 jours** (les plus récentes toujours gardées), redactable (PII/GDPR).
+- **Beta header** : `managed-agents-2026-04-01`. Setup : `POST /v1/memory_stores` → seed `POST .../memories` → attacher dans `resources[]` à la **création** de session (`access`, `instructions` ≤ 4096 chars) — uniquement à la création.
+- **Caps** : **2000 memories/store**, **100 kB/memory**, **8 stores/session**.
+
+### Modèle « state-of-the-art » — à élargir
+
+Le corps dit « Opus 4.7 state-of-the-art file-based memory ». Depuis, **Opus 4.8** est le flagship et Dreaming supporte aussi `opus-4-8` (cf [[technique-dreaming-cross-session]] AJOUT 16 juin). Ne pas figer sur 4.7.
+
+### Chiffres early adopters — prudence
+
+« Rakuten -97% first-pass errors » : **non confirmé en primaire** (page client Rakuten = 79% time-to-market). Voir le détail dans [[technique-dreaming-cross-session]] § AJOUT 16 juin. Traiter le 97% comme à confirmer.
+
+### Vaults ≠ Memory (ne pas confondre)
+
+Côté Managed Agents, les **Vaults** (`vlt_...`) stockent des **credentials** par end-user (`mcp_oauth`/`static_bearer`/`environment_variable`, substitué à l'egress — l'agent ne voit jamais la vraie valeur), PAS de la mémoire. Les **scheduled deployments** (cron) ne persistent PAS le contexte entre runs par défaut → la persistance s'obtient en attachant des memory stores dans `resources[]`.
+
+`derniere-maj` → 2026-06-16.

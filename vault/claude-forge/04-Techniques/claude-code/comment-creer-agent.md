@@ -1,5 +1,5 @@
 ---
-derniere-maj: 2026-06-06
+derniere-maj: 2026-06-16
 ---
 ﻿---
 titre: "Comment créer un agent Claude Code parfait"
@@ -950,3 +950,25 @@ Anti-pattern observé en production (US1 neoteem-back-ts, ticket ×3-4 plus lent
 4. Le typecheck lourd vit dans un hook Stop (cf [[comment-creer-hook]] AJOUT 10 juin), pas dans la boucle de l'agent.
 
 Cohérent avec Boris (« give Claude a way to verify its work » = un check CIBLÉ qui rend pass/fail — pas une relance permanente de tout) et le budget anti-lourdeur des pipelines /feature. Appliqué : agent `dev` neoteem-back-ts + 5 agents `dev-*` neo_ia + rule `dev-discipline` § Vérifications par lots.
+
+---
+
+## AJOUT 16 juin 2026 — AMENDE : sous-agents imbriqués POSSIBLES (v2.1.172) — la table de capacités est périmée
+
+> Cette note est la **source amont** du claim « pas de subagents imbriqués » (citée par [[anti-reentrance-sub-agents-pattern-escalade]], `subagent-creator` SKILL, [[limites-subagents-claude-code]]). Corrigée ici pour éviter le drift résiduel. Source primaire : [code.claude.com/docs/en/sub-agents](https://code.claude.com/docs/en/sub-agents) + changelog v2.1.172.
+
+### Correction de la table de capacités
+
+La ligne **« Task tool (sous-subagent) | ❌ Pas de subagents imbriqués »** est **fausse depuis CC v2.1.172 (10 juin 2026)**. À lire désormais :
+
+> **Task/Agent tool (sous-subagent) | ✅ POSSIBLE depuis v2.1.172** — foreground n'importe quelle profondeur (auto-limité), background plafonné 5 niveaux. **Par défaut hérité** (un agent qui omet `tools:` reçoit `Agent`). Pour bloquer : `tools:` explicite sans `Agent`, ou `disallowedTools: Agent`.
+
+### Ce qui ne change PAS (couche design — toujours canonique forge)
+
+L'anti-pattern **« Agent CTO orchestrateur — la session principale orchestre »** reste valide : c'est un **choix d'architecture** (contexte propre, coût maîtrisé, debugging lisible), pas une impossibilité technique. Le nesting est désormais permis mais s'active **sélectivement** pour le seul cas mûr (reviewer→verifier par finding, fan-out hiérarchique où l'intermédiaire est du bruit) — détail et arbitrage dans [[anti-reentrance-sub-agents-pattern-escalade]] § AJOUT 16 juin.
+
+### Règle de génération mise à jour
+
+Pour tout agent généré : **`tools:` explicite obligatoire** (déjà la règle forge) — ce qui le protège AUSSI du nesting non voulu. N'ajouter `Agent` aux `tools:` d'un agent QUE si son rôle est de dispatcher (ex `repo-inspector`), et le documenter. La syntaxe `Agent(type)` en `tools:` n'agit comme allowlist que sur un agent **main-thread** (`--agent`) ; en sous-agent la parenthèse est ignorée.
+
+`derniere-maj` → 2026-06-16.

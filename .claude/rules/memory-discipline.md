@@ -42,7 +42,7 @@ Avant de créer un nouveau fichier dans `memory/`, distinguer les 3 acteurs et a
 
 - **`MEMORY.md`** = table des matières + déclencheurs critiques (≤ 50 entrées tier-1)
 - **vault canoniques** = source de vérité doctrinale (règles énoncées, réutilisables)
-- **`memory/*.md`** = exceptions empiriques uniquement (≤ 100 fichiers cible)
+- **`memory/*.md`** = exceptions empiriques uniquement (plancher structurel ~240 ; WARNING 250 / CRITICAL 290 via hook `memory-saturation-watcher`)
 
 ### Workflow décision (4 étapes obligatoires)
 
@@ -72,7 +72,7 @@ Cohérent avec [[feedback_single_source_truth_vault_canonique]] (un concept = un
 
 ## Forge Brain — via MCP forge-brain
 
-Protocole d'accès vault (MCP forge-brain uniquement, outils, quand consulter) : source unique `.claude/rules/forge-brain-proactive.md` + `.claude/rules/vault-consultation-protocol.md`. Pas de recopie ici (single-source).
+Protocole d'accès vault (MCP forge-brain uniquement, outils, quand consulter) : source unique `.claude/rules/forge-brain-proactive.md`. Pas de recopie ici (single-source).
 
 ## Anti-patterns
 

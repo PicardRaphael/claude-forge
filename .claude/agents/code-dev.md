@@ -43,7 +43,7 @@ Si plusieurs (monorepo) : détecter la stack du dossier courant / des fichiers t
 
 ## Vault check
 
-Consulter le vault selon `.claude/rules/vault-consultation-protocol.md` (auto-skip if marker fresh). Pour cet agent exécutant : consultation si sujet nouveau ou doute sur prior art.
+Consulter le vault selon `.claude/rules/forge-brain-proactive.md` (auto-skip if marker fresh). Pour cet agent exécutant : consultation si sujet nouveau ou doute sur prior art.
 
 ## Modes de travail
 
@@ -83,7 +83,7 @@ Passer à la tâche suivante uniquement quand la courante est verte.
 
 - Modifier des SKILL.md → déléguer à la skill skill-creator
 - Modifier des CLAUDE.md → déléguer à la skill claudemd-creator
-- Créer des agents → déléguer à la skill agent-creator
+- Créer des agents → déléguer à la skill subagent-creator
 - Créer des hooks → déléguer à la skill hook-creator
 
 ## Gotchas

@@ -8,7 +8,7 @@ aliases:
   - agent overload
 domaine: claude-code
 type: technique
-derniere-maj: 2026-05-23
+derniere-maj: 2026-06-16
 auteur: claude
 sources:
   - "https://github.com/anthropics/claude-code/issues"
@@ -95,3 +95,41 @@ Voir [[decoupe-agents-anti-crash]] pour les principes qualitatifs detailles (par
 - [[raisonnement-22mai-doctrine-vs-enforcement]]
 - [[decoupe-agents-anti-crash]] — Principes qualitatifs decoupage
 - [[Knowledge/erreurs/agents-ia-22-claims-fausses-2026-05-23]] — audit source
+
+---
+
+## AJOUT 16 juin 2026 — Le nesting n'est PLUS bloqué (v2.1.172) + méthode d'audit ci-dessus CORRIGÉE
+
+> Source primaire : [code.claude.com/docs/en/sub-agents](https://code.claude.com/docs/en/sub-agents) § « Spawn nested subagents » + changelog v2.1.172 (10 juin 2026). Pattern + arbitrage complet : [[anti-reentrance-sub-agents-pattern-escalade]] § AJOUT 16 juin.
+
+### Ce qui change
+
+CC v2.1.172, verbatim : *« Sub-agents can now spawn their own sub-agents (up to 5 levels deep) »*. La section « Comment bloquer le nesting » ci-dessus partait de la prémisse « impossible » — **périmée**.
+
+### ⚠️ La méthode d'audit `grep "^tools:"` ci-dessus est TROMPEUSE
+
+Le claim « si aucun agent n'a Agent/Task → nesting impossible » et la conclusion « 3 repos Neoteem → nesting déjà bloqué » sont **faux**. Raison (doc primaire) :
+> (frontmatter) « `tools` — Inherits all tools if omitted. »
+> « Subagents inherit the internal tools and MCP tools available in the main conversation by default. »
+
+Donc un agent qui **omet entièrement la ligne `tools:`** hérite de **TOUS** les outils, **`Agent` compris**, et **nest par défaut**. Le `grep "^tools:"` trouve les agents qui ONT une ligne tools ; il **rate exactement les agents sans ligne tools** — qui sont précisément ceux qui nestent.
+
+### Méthode d'audit CORRIGÉE
+
+Le nesting d'un agent est bloqué SEULEMENT si **l'une** de ces conditions tient :
+1. ligne `tools:` **explicite SANS** `Agent` (ni `Task`), OU
+2. `disallowedTools: Agent` (depuis v2.1.178, les specs MCP server-level `mcp__*` dans `disallowedTools` ne sont plus silencieusement ignorées), OU
+3. `permissions.deny: ["Agent"]` (ou `Agent(type)` pour des types précis), OU
+4. background au niveau 5 (plafond plateforme, automatique).
+
+→ **Audit réel = repérer les agents qui OMETTENT la ligne `tools:`** (= héritent `Agent`), pas grep `^tools:`. Gouvernance globale du modèle des spawns : `permissions.deny: ["Agent(model:opus)"]` (syntaxe `Tool(param:value)` v2.1.178).
+
+### À VÉRIFIER sur les repos Neoteem (fix concret, pas entretien doctrinal)
+
+L'affirmation « 3 repos déjà bloqués » est à **re-auditer** avec la bonne méthode : grep les fichiers `.claude/agents/*.md` **sans** ligne `tools:` sur **ia_back** et **neo_ia** (et neoteem-brain). Chaque agent sans ligne `tools:` nest désormais par défaut. C'est le seul endroit où ce fil devient un fix réel (la plainte vient des collègues = ces repos). **forge vérifié sain** (16 juin) : 5 agents, tous avec ligne `tools:` explicite, seul `repo-inspector` a `Agent` (volontaire). Propagation à tracer via `.claude/rules/cross-repo-propagation.md`.
+
+### `maxTurns` / profondeur ne sont pas des garde-fous fiables
+
+Cohérent avec la table ci-dessus : `maxTurns` non enforcé (#41143), pas de timeout `Agent()` (#49150). Le seul mur dur est le **plafond background = 5 niveaux** (fixe, non configurable). Pour un arrêt déterministe → « STOP après N ops » dans le prompt + `tools:` explicite sans `Agent`.
+
+`derniere-maj` → 2026-06-16.

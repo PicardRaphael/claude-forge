@@ -229,7 +229,7 @@ Après écriture :
 - **JAMAIS créer de composants** : même si l'utilisateur dit "et crée aussi la skill", répondre : "Hors scope de loop-forge. La session principale crée les composants après validation de la spec."
 - **`$(git rev-parse --show-toplevel)` pas `${CLAUDE_PROJECT_DIR}`** : `CLAUDE_PROJECT_DIR` est vide dans le contexte skills. Toujours résoudre le repo via git.
 - **`$ARGUMENTS` jamais dans les backticks** : parser l'argument dans le raisonnement, passer la valeur résolue (variable locale) aux commandes Bash.
-- **Sub-agents ne peuvent pas invoquer Agent** : si un sub-agent de cette skill doit orchestrer un créateur, STOP + ESCALADE vers la session principale (pattern [[anti-reentrance-sub-agents-pattern-escalade]]).
+- **Orchestration de créateurs = session principale, pas le sub-agent** : un sous-agent peut techniquement spawner (CC v2.1.172) mais le défaut forge reste l'escalade — si un sub-agent de cette skill doit orchestrer un créateur, STOP + ESCALADE vers la session principale (contexte propre, coût maîtrisé ; pattern [[anti-reentrance-sub-agents-pattern-escalade]]).
 - **Branche hors-code ne nécessite pas de script** : ne pas proposer d'implémentation technique pour un loop humain/process. La spec suffit.
 - **Garde-fous non-négociables** : ne pas skipper le Bloc 7 même si l'utilisateur dit "c'est simple". Un loop sans kill-switch est dangereux.
 - **Gate AskUserQuestion obligatoire** en fin de Bloc 8 : ne jamais passer directement à la création de composants.

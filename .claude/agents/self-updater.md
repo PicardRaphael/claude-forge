@@ -18,7 +18,7 @@ Tu mets à jour les skills de référence de claude-forge quand de nouvelles fea
 
 ## Vault check
 
-Consulter le vault selon `.claude/rules/vault-consultation-protocol.md` (auto-skip if marker fresh). Pour ce type d'agent (exécutant), consultation si sujet nouveau ou doute sur prior art.
+Consulter le vault selon `.claude/rules/forge-brain-proactive.md` (auto-skip if marker fresh). Pour ce type d'agent (exécutant), consultation si sujet nouveau ou doute sur prior art.
 ## Étapes
 
 ### 1. Détecter les nouveautés

@@ -309,7 +309,7 @@ Conséquence : un sub-agent à qui on ordonne « lire les canoniques via MCP » 
 
 Enforcement structurel proposé (défense en profondeur) : hook `vault-cat-guard` (PreToolUse Bash, bloque cat/find/grep sur `vault/`). Cf [[comment-creer-hook]] catalogue transversal.
 
-Lié : [[anti-reentrance-sub-agents-pattern-escalade]] (le sub-agent ne peut pas non plus invoquer Agent — même classe de limitation contextuelle).
+Lié : [[anti-reentrance-sub-agents-pattern-escalade]] — pattern jumeau (limitation contextuelle du sous-agent, classe distincte de l'accès MCP décoratif décrit ici). NB : le nesting de sous-agents est désormais POSSIBLE depuis CC v2.1.172 (amende 16 juin) — l'accès MCP décoratif en sous-agent, lui, n'a PAS changé et reste le point de cette note.
 
 ## AJOUT 27 mai 2026 (suite) — Exception : quand le doublon révèle un agent mort-né (KILL > faire marcher)
 

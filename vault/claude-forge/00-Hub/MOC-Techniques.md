@@ -6,7 +6,7 @@ aliases:
 - patterns Claude Code
 - prompt engineering techniques
 auteur: claude
-derniere-maj: 2026-05-24
+derniere-maj: 2026-06-16
 resume: 'Index des techniques : prompt engineering, context engineering, patterns,
   anti-patterns'
 tags:
@@ -18,6 +18,7 @@ type: index
 # Techniques
 
 ## Prompt Engineering
+- [[recursive-language-models-rlm]] — RLMs (MIT, Khattab) : prompt = variable externe dans un REPL, auto-appel récursif, nouvel axe test-time compute / context folding
 
 - [[Context Engineering]] — Paradigme dominant 2026
 - [[Adaptive Thinking]] — Opus 4.7, off par défaut
@@ -51,7 +52,7 @@ type: index
 - [[codebase-maps-pattern]] — Markdown table of contents racine pour grosses codebases / structure non-conventionnelle
 
 ## Agents & Harness Engineering
-- [[anti-reentrance-sub-agents-pattern-escalade]] — Sub-agent ne peut PAS invoquer sub-agent (boucle infinie + tool_use conflits). Pattern STOP + signal ESCALADE REQUISE markdown vers session principale qui orchestre. Format standardise neo_ia 23 mai 2026.
+- [[anti-reentrance-sub-agents-pattern-escalade]] — Escalade STOP + signal ESCALADE REQUISE markdown vers session principale qui orchestre = DÉFAUT recommandé (contexte propre, coût maîtrisé). Le nesting sous-agents est POSSIBLE depuis CC v2.1.172 (amende 16 juin) mais reste déconseillé par défaut ; verrouiller un agent leaf-node via `tools:` explicite sans `Agent` ou `disallowedTools: Agent`. Format standardise neo_ia 23 mai 2026.
 - [[architecture-decision-niveaux-mesure-agents]] — Niveau 1 statique (frontmatter) = CARTE, Niveau 2 transcripts JSONL = verdict echantillon, Niveau 3 hook PostSubagentStop CSV = verdict statistique. Capacite vs usage = ne JAMAIS refactor mass agents sur Niveau 1 seul (architect-deep 5/5 seuils Niveau 1 mais 6 ops Niveau 2 = OK)
 
 - [[Andrej Karpathy]] — Framework Karpathy : Software 3.0, vibe coding vs agentic engineering, jagged intelligence

@@ -67,7 +67,7 @@ Chaque item qui passe le filtre devient **candidat a un bloc de proposition** ge
 
 ## Etape 2 -- Verification de coherence
 
-> **Doctrine 3-acteurs** : `MEMORY.md` = table des matieres + declencheurs (<=50 tier-1). Vault canoniques = source de verite doctrinale. `memory/*.md` = exceptions empiriques (<=100 fichiers). Avant tout nouveau feedback, appliquer le workflow 4 etapes ci-dessous (cf [[pattern-maintenance-hybride-corpus-accumulatif]] section "Architecture cognitive — trois acteurs" + rule `memory-discipline.md`).
+> **Doctrine 3-acteurs** : `MEMORY.md` = table des matieres + declencheurs (<=50 tier-1). Vault canoniques = source de verite doctrinale. `memory/*.md` = exceptions empiriques (plancher structurel ~240 ; WARNING 250 / CRITICAL 290 via hook `memory-saturation-watcher`). Avant tout nouveau feedback, appliquer le workflow 4 etapes ci-dessous (cf [[pattern-maintenance-hybride-corpus-accumulatif]] section "Architecture cognitive — trois acteurs" + rule `memory-discipline.md`).
 >
 > **Workflow decision (4 etapes)** :
 > 1. `search_brain` sur le sujet dans le vault.

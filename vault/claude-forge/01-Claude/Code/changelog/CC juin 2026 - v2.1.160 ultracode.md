@@ -9,7 +9,7 @@ aliases:
   - "workflow trigger renamed ultracode"
 type: changelog
 domaine: claude-code
-derniere-maj: 2026-06-02
+derniere-maj: 2026-06-16
 auteur: claude
 sources:
   - "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md"
@@ -62,3 +62,29 @@ Drop CC postérieur au changelog vault du 28 mai (v2.1.154 Opus 4.8 + Dynamic Wo
 - [[CC 28 mai 2026 - Opus 4.8 + Dynamic Workflows]] — drop précédent
 - [[Code with Claude 2026]] — keynote, higher order prompts
 - [[MOC-Claude-Code]]
+
+---
+
+## AJOUT 16 juin 2026 — v2.1.161 → v2.1.178 (Fable 5, sous-agents imbriqués, permissions param)
+
+> Source primaire vérifiée : [code.claude.com/docs/en/changelog](https://code.claude.com/docs/en/changelog) (fetch 16 juin). Drop postérieur au v2.1.160 ci-dessus.
+
+### Le plus structurant pour forge
+
+- **v2.1.172 (10 juin)** — **Sous-agents imbriqués** : « Sub-agents can now spawn their own sub-agents (up to 5 levels deep) ». Foreground = toute profondeur (auto-limité) ; background plafonné 5. ⚠️ **Invalide la prémisse « pas de nesting »** de [[anti-reentrance-sub-agents-pattern-escalade]] + [[limites-subagents-claude-code]] + [[comment-creer-agent]] (amendées 16 juin). Piège d'audit : un agent qui omet `tools:` hérite `Agent` et nest par défaut.
+- **v2.1.178 (15 juin)** — Syntaxe permission **`Tool(param:value)`** (wildcard `*`), ex `Agent(model:opus)` pour bloquer un sous-agent Opus. Auto mode évalue les spawns de sous-agents AVANT lancement. Specs MCP `mcp__*` dans `disallowedTools` de sous-agent ne sont plus silencieusement ignorées.
+- **v2.1.169 (8 juin)** — `--safe-mode` (désactive TOUTES les customisations pour troubleshoot), `/cd` (change de cwd sans casser le prompt cache), `disableBundledSkills`, hook `post-session` (self-hosted runners), fenêtre SIGTERM→SIGKILL configurable.
+- **v2.1.166 (6 juin)** — `fallbackModel` (jusqu'à 3 replis), glob dans deny-rules tool-name, **`SendMessage` cross-session durci** (messages relayés ne portent plus l'autorité utilisateur).
+- **v2.1.163 (4 juin)** — **`Stop`/`SubagentStop` hooks → `hookSpecificOutput.additionalContext`** (feedback sans erreur de hook) ; skills : échappement `\$` pour un `$` littéral devant un chiffre (pertinent gotcha « jamais `$ARGUMENTS` en backticks ») ; `requiredMinimumVersion`/`requiredMaximumVersion` ; `/plugin list`.
+
+### Modèle
+
+- **v2.1.170 (9 juin)** — **Claude Fable 5** : « a Mythos-class model that we've made safe for general use ». 1M contexte par défaut. Cf [[Fable 5]]. Suspendu par directive export-control US le 12 juin.
+- v2.1.173/174/176 — fixes Fable 5 (`[1m]` suffix normalisé, banner crédits, fallback auto mode vers meilleur Opus si Opus 4.8 absent).
+- **v2.1.175 (12 juin)** — `enforceAvailableModels` (managed) : l'allowlist contraint aussi le modèle Default.
+
+### Autres
+
+- v2.1.161 — parallel tool calls : un Bash échoué n'annule plus les autres du batch. v2.1.162 — Windsurf renommé « Devin Desktop ». v2.1.176 — titres de session dans la langue de conversation (`language`).
+
+`derniere-maj` → 2026-06-16.
