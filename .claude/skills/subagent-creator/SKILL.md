@@ -73,7 +73,7 @@ Extraire d'abord depuis l'historique, puis combler avec AskUserQuestion.
 7. Modèle : haiku (exploration rapide) / sonnet (implémentation) / opus (orchestration/jugement) ?
 8. Effort : high (défaut) / xhigh (architect, dev-lead, refactor profond) ?
 9. Skills à injecter ? (subagents n'héritent PAS des skills du parent — lister explicitement)
-10. Mémoire entre sessions → `memory: project` (toujours)
+10. Mémoire entre sessions → `memory: project` (toujours). **Si l'agent fait partie d'un PIPELINE** (plusieurs agents se passent le travail) : distinguer `memory: project` (mémoire PERSISTANTE de l'agent, entre sessions) du RELAIS entre agents (transmission pendant la tâche — fichier-relais sectionné + contrat de sortie + la SESSION persiste, jamais l'agent read-only). Le relais n'est PAS un réglage d'agent → ne pas répondre `memory: project`. Cf [[relais-inter-agents-fiable]].
 
 ---
 
@@ -271,6 +271,7 @@ Priorités audit rapide :
 ## Gotchas
 
 - **`memory: project` obligatoire** — sans ça, pas d'accumulation cross-sessions, chaque run repart de zéro
+- **« mémoire entre agents » ≠ `memory: project`** — `memory: project` = mémoire PERSISTANTE d'UN agent (entre sessions). Des agents qui se PASSENT le travail = RELAIS (la session persiste la sortie de chaque agent dans un fichier-relais ; agents read-only jamais Write). Ne jamais répondre `memory: project` à un besoin de relais. Foyer : [[relais-inter-agents-fiable]] (design + méthode de déploiement)
 - **`permissionMode` obligatoire** — sans ça, auto-mode classifier bloque (observé 21 mai 2026)
 - **`tools:` toujours explicite** — sans, comportement variable (incident git reset mars 2026)
 - **`Skill` doit être dans `tools:`** — sinon le subagent NE PEUT PAS invoquer de skill mécaniquement
