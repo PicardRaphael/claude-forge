@@ -25,6 +25,10 @@ Un plugin **declared dans `extraKnownMarketplaces`** (settings.json L75-94 forge
 
 Pour desactiver completement un plugin auto-charge via marketplace : retirer la declaration du marketplace OU retirer `Plugin:*` des permissions.
 
+## Gotcha : cache consomme par statusline meme plugin disabled (12 juin 2026)
+
+`installed` ≠ `enabled` : le cache d'un plugin peut avoir des consommateurs EXTERNES au mecanisme plugin. Cas claude-hud : installe scope project neo_ia avec `enabled: false`, MAIS la statusline user-scope (`~/.claude/settings.json` champ `statusLine`) appelle directement `~/.claude/plugins/cache/claude-hud/claude-hud/*/dist/index.js`. Desinstaller le plugin purgerait le cache et casserait la statusline sur TOUTES les sessions. Avant de desinstaller un plugin : grep son installPath/cache dans les settings user + projets (statusLine, hooks, commands).
+
 ## Tokens cost
 
 Chaque plugin enabled charge les `name:` + `description:` de TOUTES ses skills au demarrage de session du repo concerne. Mesure 28 mai : 8 plugins enabled user-scope = ~1 690 tokens / session forge.

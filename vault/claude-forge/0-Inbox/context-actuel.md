@@ -10,26 +10,29 @@ tags: ["#type/context", "#meta/working-memory"]
 ---
 
 ## Phase actuelle
-Migration ia_back → neoteem-back-ts en cours (story S1, N2-111278) — sessions parallèles par worktree opérationnelles sur les deux repos actifs.
+Outillage workflow IA cross-repo (neo_ia + neoteem-back-ts + skill forge) : /spec classe désormais les tickets par TYPE (FEATURE/BUG/OPTIMISATION) et route vers les 6 epics. Prochain gros chantier annoncé : CDC NeoMail.
 
 ## Derniere session (2026-06-11)
 ### Decisions prises
-- Sessions parallèles par US = `claude -w` natif + `/feature <ticket>` (PAS de script worktree manuel — `/feature` gère la branche depuis origin/develop). Déployé neoteem-back-ts (a415bfe) + neo_ia (0e0a696), directement sur develop.
-- Fix config-guard validé par Raphael (classifier avait bloqué) : chemin relatif à la racine du worktree, testé 5 chemins — sans lui, sous-agents bloqués en écriture dans tout worktree.
-- Sources : doc officielle Anthropic uniquement (howborisusesclaudecode.com = compilation tweets non officielle, rappel Raphael).
+- Classification de ticket à 3 catégories (FEATURE/BUG/OPTIMISATION) gravée dans les 3 /spec jumeaux + `references/epics-jira.md` partagé (byte-identique ×3).
+- 6e epic ajouté (NeoDoc N2-103047) — le référentiel disait « 5 epics » à tort.
+- `refactor-scan` (neo_ia) corrigée : `user-invocable` (bug `user-invokable`), méta frontmatter retirée, densifiée 208→75L, périmètre d'audit complet préservé. Pas de renommage (référencée 11 fichiers).
+- N2-111316 (durcissement SQL shared_utils) créé en `[IA] BUG`, parent N2-68082 (Chatbots), assigné Raphael — à rebasculer en `[IA] Optimisation` quand le type existera.
+- Ordre validé : durcissement SQL shared_utils AVANT le CDC NeoMail (reuse-first : assainir le socle partagé avant de bâtir dessus).
+- Plans nettoyés : `harnais-repo-parfait.md` supprimé (notes de session livrées) ; `docs/futur/` GARDÉ (visions différées, pas des plans terminés).
 
 ### En cours
-- neoteem-back-ts : US3 (N2-111281, requalifiée outillage Zod) et US4 (N2-111282, harnais parité — livré d'après CHANGELOG) ; US2 socle neoia-api mergée. Jérôme actif sur le repo.
-- neo_ia : us/N2-111316 (durcissement SQL) mergée pendant la session, checkout principal revenu sur develop.
+- Rien d'ouvert techniquement — les 3 repos sont commités/poussés (neo_ia 55cd899, back-ts 4653f40, forge 96e2b37 + 4b5d627).
 
 ### Prochaines etapes
-- Lancer la prochaine vague parallélisable (US5-US8 domaines, après US4) — 4 worktrees possibles, vigilance BDD partagée.
-- Vérifier au premier usage réel `claude -w` par Jérôme que `.worktreeinclude` copie bien tout (1er test humain du flow).
+- **CDC NeoMail** (gros chantier de cadrage) — y intégrer l'exigence « zéro S608 » (les 6 S608 NeoMail hors-prod absorbées par le refacto).
+- Lancer la story durcissement SQL N2-111316 via `/feature` quand souhaité (one-shot, parité).
+- Quand le PM aura créé `[IA] Optimisation` dans Jira : rebasculer N2-111316.
 
 ## Fils ouverts
-- ia_back : système worktrees NON porté (repo en migration vers neoteem-back-ts) — porter seulement si besoin réel.
-- Hooks path-based `.claude/` = 5e brique à vérifier dans tout futur repo recevant le système (cf memory reference_worktree_natif_vs_convention_develop).
-- Actions humaines back-ts restantes : SEMGREP_APP_TOKEN, branch restrictions, Aikido (devops).
+- Type Jira `[IA] Optimisation` : création déléguée au PM (action humaine). Mapping skills déjà prêt (résolution par nom).
+- Une autre session Claude tournait en parallèle sur neo_ia (story SQL + gate mypy) — branches `us/N2-111316` et `chore/mypy-gate-vert` côté autre session, ne pas marcher dessus.
+- P1 différés neo_ia (promptfoo, Presidio AI Act 2 août, DeepEval, Langfuse budgets) — stories /spec à venir.
 
 ## Liens
 [[2-Casquettes/Raphael-Picard|Raphael Picard]]
