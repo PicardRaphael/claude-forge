@@ -5,7 +5,7 @@ metadata:
   type: feedback
 ---
 
-**Statut : hypothèse à valider sur 2-3 cas réels** (workflow de promotion : 1 incident isolé ≠ canonique ; cf [[memory-discipline]]).
+**Statut : DÉPLOYÉ sur neo_ia + neoteem-back-ts** (2026-06-16, format `notes` 6 sections, section « Déjà fait ») — à OBSERVER en usage réel avant promotion vault canonique. Déployé ≠ validé : le gain reste à prouver sur des features réelles (cf [[memory-discipline]] workflow de promotion).
 
 **L'idée :** quand N agents travaillent une même tâche, la session principale tient un registre minimal de ce qui a déjà été fait — une ligne par opération **coûteuse** (recherche vault/web, lecture de gros fichier, audit, requête DB) : `op + cible → artefact où est le résultat`. Tout agent consulte ce registre **avant** de lancer une op coûteuse ; s'il y est déjà, il lit l'artefact au lieu de refaire. Jamais le contenu, seulement le pointeur (discipline tokens).
 

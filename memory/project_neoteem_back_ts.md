@@ -117,3 +117,5 @@ architect→dev = doctrine orchestrée par skill/session principale, pas verrou 
 
 Reste à cadrer : soft-delete Phase 4 (vérifier si des `p_*delete` PG font du hard-delete → à construire si oui) ;
 WorkOS vs Keycloak (reco = démarrer WorkOS, garder `auth-mcp` agnostique pour bascule RGPD europe-west).
+
+**Dette `.claude/` à nettoyer (notée 2026-06-16, non corrigée — hors scope du chantier relais)** : le repo a DEUX dossiers doc (`doc/` singulier ET `docs/` pluriel coexistent). La skill `notes`/`recap` parlent de `doc/adr/` et `doc/` ; le chemin de travail historique était `docs/implementation-notes/` ; `doc/stories/` est sous `doc/`. Incohérence interne à trancher (un seul des deux) dans un nettoyage dédié. Le fichier-relais `/feature` est désormais hors de ce débat (`.tmpclaude/feature-notes/`, gitignoré).
