@@ -20,6 +20,7 @@
 - [audit-thematique-methode-sub-agents-clusters](feedback_audit_thematique_methode.md) — Audit vault : sub-agents par CLUSTER, checkpoint A avant B, self-verify avant D
 - [behavioral-test-after-setup](feedback_behavioral_test_pattern.md) — Après setup/audit/modif massive, prompt test comportemental PASS/FAIL
 - [brief-premisse-fausse-verifier-avant-executer](feedback_brief_premisse_fausse_verifier_avant_executer.md) — Brief peut poser prémisse fausse. Vérifier matériellement avant d'exécuter, surfacer si fausse
+- [capitaliser-methode-pas-que-resultat](feedback_capitaliser_methode_pas_que_resultat.md) — Après un chantier redéployable, capitaliser la MÉTHODE (recette déploiement + routage dans la skill créatrice), pas que le RÉSULTAT (note de design). Sinon un futur repo re-réinvente. Prouvé 3× (16 juin)
 - [carte-blanche-commit-push-tranche-pas-revalider](feedback_carte_blanche_commit_push.md) — "Carte blanche" = exécuter direct sans re-valider note par note
 - [ccnews-confronter-existant](feedback_ccnews_confronter_existant.md) — cc-news confronte chaque finding à l'existant (notes vault + skills/agents/hooks/rules) et agit, pas juste résumer
 - [claim-security-must-be-provable](feedback_claim_security_must_be_provable.md) — Claim sécu read-only prouvable par code, sinon by discipline pas by construction
