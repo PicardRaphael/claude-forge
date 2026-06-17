@@ -1,5 +1,21 @@
 # Journal d'archive mémoire
 
+## [2026-06-17] clean-memory agressif — reference_ + project_ (21 fichiers)
+- **Mode** : agressif-réversible (carte blanche Raphael), 3 agents // (clean-ref-a/b + clean-proj) ont lu les 69 fichiers en entier. Vérif vault MCP avant archive des project_ auto-déclarés doublons.
+- **project_ archivés (12)** → memory/_archive/2026-06/ :
+  - back_refacto, neoteem_brain, bdd_neoteem : s'auto-déclaraient « contexte stable → voir vault/1-Projets/ » → doublons vault confirmés (ia_back.md, neoteem-brain.md existent au vault). Doctrine memory-discipline : stable vit au vault.
+  - session_22mai_refonte_hooks : chantier terminé (« Tâches en cours : Aucune »), capitalisé [[raisonnement-22mai-doctrine-vs-enforcement]].
+  - v2_optimizations, meta_generator_pending : pending jamais concrétisés.
+  - neoteem_brain_plugin, neoteem_plugin_claude : doctrine plugins capitalisée vault ([[neoteem-brain-plugins]], [[plugin-vs-skill-anatomie]]) ; plugin_claude supplanté par brain_plugin.
+  - mcp_v2 (auto-aveu « à rapatrier, mal placé »), mcp_brain_remote (état OPÉRATIONNEL stable), ia_neoteem_interne (avril périmé), claude_forge_naming_collision (conditionnel dormant).
+- **reference_ archivés (9)** → memory/_archive/2026-06/ :
+  - opus47_best_practices (Opus 4.7 déprécié, courant 4.8), cc_updates_april2026 (428L changelog daté, absorbé cc-news/cc-features-ref), industry_april2026 (snapshot concurrents volatil périmé), cowork_dispatch (absorbé skill cc-cowork-ref), skills_guide (absorbé skill-creator/cc-skills-ref), audit_06_findings (corrections d'attribution → vault), vibe_coding_setup (doctrine modèle divergente + absorbé vault).
+  - agent_team_workflow (doctrine pré-22-mai : CTO + gates systématiques, contredit le pivot), mcp_stdio_restart_impossible (prémisse stdio périmée, forge-brain = HTTP, contredit par lifecycle_gotchas à jour).
+- **Index** : 12 lignes tier-1 retirées de MEMORY.md (166→154 lignes). 0 pointeur orphelin (vérifié).
+- **GARDÉS notables** (mode agressif mais pas aveugle) : neoteem_back_ts/neo_ia/dossier_strategique/tool_selection (phases actives), lojii/deploy_methods (actions ouvertes), subagent_permissions (fait « non hérité » peut-être encore vrai), 37 reference_ valides.
+- **NON FAIT (laissé pour session dédiée)** : fusions reference_ proposées (stdio→lifecycle déjà archivé ; obsidian_cli+query_brain ; prompt_engineering→techniques_cheatsheet) — fusion = plus risqué qu'archive. Drifts internes signalés à corriger (workarounds L89 CLAUDE_AGENT, python_dev_agent dernière ligne, claude_code_architecture nesting, forge_brain_vault ontologie).
+- **Rollback** : pour chaque fichier, `git -C <repo> mv memory/_archive/2026-06/<f>.md memory/<f>.md` + restaurer ligne index.
+
 ## [2026-06-17] archive — delegate-guard-scope-tout-skillmd (feedback FAUX)
 - **Fichier** : feedback_delegate_guard_scope_tout_skillmd → memory/_archive/2026-06/
 - **Raison** : factuellement faux sur l'état courant. Disait « delegate-guard ne bloque plus SKILL.md depuis 6 juin (hard block retiré) ». Contredit par le code (`delegate-guard.py:47,122` — SKILL.md dans PROTECTED) ET par l'expérience directe du 17 juin (Edit io-daily/SKILL.md bloqué → skill-creator requis). Le pivot 6 juin documenté n'a pas pris effet / été annulé. 0 citation entrante.
