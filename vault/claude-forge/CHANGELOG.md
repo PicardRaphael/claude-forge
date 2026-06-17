@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-17 — Gotcha lecture grosse note (read_note_by_path déborde aussi)
+
+- **Modifiées** :
+  - [[mcp-vault-llm-design]] (`04-Techniques/patterns/`) — § Lecture grosse note : le débordement tokens vaut aussi pour `read_note_by_path` ; relire le fichier de résultat via `Read` déborde car JSON une ligne ; fallback `head -c` pour le format de tête.
+- **Source** : découverte empirique en mettant à jour ce CHANGELOG (~200k chars) pendant le chantier DPO.
+
 ## 2026-06-17 — DPO / preference tuning : dérivation + variantes 2026
 
 - **Ajoutées** :

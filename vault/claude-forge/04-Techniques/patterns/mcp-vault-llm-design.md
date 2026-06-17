@@ -8,7 +8,7 @@ aliases:
   - "recipe mcp forge-brain"
   - "mcp llm-optimized"
   - "pattern mcp obsidian vault"
-derniere-maj: 2026-06-07
+derniere-maj: 2026-06-17
 auteur: claude
 type: pattern
 sources:
@@ -161,6 +161,8 @@ read_note("CHANGELOG")
 # Apres : section specifique
 read_section("CHANGELOG", "## 2026-05-24")  # ~2k chars
 ```
+
+**Gotcha (17 juin 2026)** : le débordement vaut aussi pour `read_note_by_path` (un CHANGELOG de ~200k chars dépasse le max tokens et est dumpé dans un fichier de résultat). Pire, relire ce fichier de résultat via `Read` déborde encore car le JSON est sur **une seule ligne géante** (offset/limit par lignes inopérant). Quand on ne veut que le **format de tête** d'une grosse note (ex. structure d'une entrée CHANGELOG à recopier), le plus rapide est `head -c 2500 <fichier>` en Bash — ni `read_note`, ni `read_section`. Pour cibler une entrée connue → `read_section_by_path` (chemin exact, stem ambigu).
 
 ### Pivot doctrinal (move + rewriting auto)
 ```python
