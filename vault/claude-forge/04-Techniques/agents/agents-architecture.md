@@ -10,7 +10,7 @@ aliases:
   - agent memory
 domaine: ia
 type: technique
-derniere-maj: 2026-06-07
+derniere-maj: 2026-06-17
 auteur: claude
 sources:
   - "https://arxiv.org/abs/2210.03629"
@@ -80,6 +80,8 @@ Marche significatif en 2026 (croissance forte sur 2025-2030, sources tierces a c
 
 Pattern dominant : **hybride vector + graph + episodic buffer**. Memory Router classifie et route les ecritures.
 
+**Frameworks de mémoire (notes dédiées)** : [[memoire-agent-mem0]] (couche universelle agnostique, extraction/consolidation LLM, cross-session multi-user) et [[memoire-agent-langmem]] (LangChain-native, différenciateur = mémoire procédurale qui réécrit le prompt système). Autres acteurs cités : Zep/Graphiti (graphe temporel), Letta/MemGPT (self-editing).
+
 > Synthese forge — pas de verbatim externe identifie : "10M tokens de context ne remplacent pas la memoire — complements, pas substituts" et "Le modele n'est pas le produit — la memoire l'est". Slogans pedagogiques, pas des citations sourcees.
 
 ## Tool Use & Protocoles
@@ -133,6 +135,8 @@ Voir [[agents-securite]] pour details. Points critiques :
 - [[Agents IA]] — Index principal
 - [[agents-frameworks]] — Comparatif frameworks
 - [[agents-automation]] — Patterns automation
+- [[memoire-agent-mem0]] — couche mémoire universelle agnostique
+- [[memoire-agent-langmem]] — mémoire LangChain-native (procédurale)
 - [[Shunyu Yao]] — ReAct, ToT, LATS
 - [[Lilian Weng]] — LLM = brain + Planning + Memory + Tool use (verbatim blog 2023)
 - [[harness-engineering]] — 4e paradigme AI Engineering

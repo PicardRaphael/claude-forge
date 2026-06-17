@@ -81,6 +81,12 @@ Le code de l'auth se trouve dans @libs/auth/
 Les migrations sont gérées dans @tools/migrations/
 ```
 
+## Au-delà de la map statique — context engines
+
+La map dit *où* (table des matières statique). Quand l'agent a besoin de *recherche sémantique + graphe de dépendances à la demande* (analyse d'impact « blast radius », call-flow, « je ne connais pas le nom du symbole »), un **context engine** prend le relais : il indexe le repo et l'expose en MCP. Leaders OSS locaux : **CodeGraph** (50k★, MIT), **Serena** (LSP), **SocratiCode** (AGPL-3.0). Paysage complet + build-vs-buy → [[intelligence-de-code-build-vs-buy]].
+
+Hiérarchie : map markdown (tier-0, gratuit, zéro setup) → exploration agentique native sur grande fenêtre (cf posture Cline) → context engine indexé (gros repos, recherche sémantique). Commencer par le tier-0, monter seulement si l'agent peine sur la navigation.
+
 ## Pièges
 
 - ❌ Map trop verbeuse — au-delà d'une ligne par dossier, ça devient du noise

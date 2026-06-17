@@ -10,7 +10,7 @@ aliases:
   - GraphRAG
 domaine: ia
 type: technique
-derniere-maj: 2026-06-05
+derniere-maj: 2026-06-17
 auteur: claude
 sources:
   - "https://www.microsoft.com/en-us/research/project/graphrag/"
@@ -43,15 +43,26 @@ Stack production 2026 : **LangGraph** (orchestration, graphes cycliques) + **Lla
 
 - **LangGraph** : graphe dirigé cyclique avec branching conditionnel, checkpoints, human-in-the-loop
 - **LlamaIndex** : Composite Retrieval APIs, `auto_routed` mode, routing multi-index
-- **Adaptive RAG** ([Jeong et al. NAACL 2024](https://arxiv.org/abs/2403.14403)) : classifieur **T5-large** prédit difficulté query → no retrieval / single-step / multi-step. Latence classifieur et gain de coût exacts à vérifier dans le paper résultats — ordres de grandeur cités dans des blogs (~ms latence, 30-50% économie) non sourcés verbatim au paper.
+- **Adaptive-RAG** ([Jeong et al. NAACL 2024](https://arxiv.org/abs/2403.14403)) : classifieur **T5-Large (770M)** prédit la difficulté de la query → no retrieval / single-step / multi-step. **Efficience vérifiée table 1 (full-text arXiv, FLAN-T5-XL, temps normalisé single-step=1.00)** : multi-step = 4,69 steps / **8,81× le temps** ; Adaptive-RAG = 2,17 steps / **3,60× le temps** → **~59% de réduction de temps vs multi-step** (calculé, jamais énoncé en % par les auteurs ; le « 30-50% » des blogs n'est PAS dans le paper). Compétitif en précision sauf retard sur HotpotQA / 2Wiki (pas un free lunch).
 
-Coût : 3-10x plus de tokens, 2-5x latence. Justifié sur multi-hop, ambiguïté, high-stakes. Pas sur FAQ bots.
+Coût : 3-10x plus de tokens, 2-5x latence. Justifié sur multi-hop, ambiguïté, high-stakes. Pas sur FAQ bots. Réponse au « quand un agent RAG bat un RAG simple » : quand la query exige décomposition/multi-hop ou auto-correction — le routage par complexité (Adaptive-RAG) *est* la réponse : ne pas faire d'agentic sur les queries simples.
 
 ## GraphRAG (Microsoft)
 
-Extrait knowledge graphs du texte, construit hiérarchies de communautés, génère résumés. Sources secondaires citent **3.4x meilleure accuracy** sur multi-hop (80% vs 50%) — verbatim direct non confirmé sur la page projet Microsoft, à sourcer si utilisé en contexte formel.
+Extrait knowledge graphs du texte, construit hiérarchies de communautés, génère résumés.
+
+> [!note] Chiffres vérifiés source primaire (full-text arXiv 2404.16130v2, 17 juin 2026)
+> Le paper Edge et al. mesure des **win-rates de comprehensiveness/diversity** (LLM-as-judge) vs vector RAG, **PAS une accuracy multi-hop**. Le « 3.4× accuracy / 80% vs 50% multi-hop » (et le « 86% vs 32% ») des blogs **n'existe nulle part dans le paper** — fabrication tierce, à ne pas propager. Vrais chiffres : **comprehensiveness 72-83%** (podcasts) / 72-80% (news), p<.001 ; **diversity 75-82%** / 62-71%. Le niveau root C0 = 72% comprehensiveness à **~97% de tokens en moins** que la summarization full-source. Vector RAG garde l'avantage sur la « directness » (contrôle). Force documentée = **comprehensiveness/diversity sur summarization globale cross-document**, pas un % multi-hop.
 
 **LazyGraphRAG** : *"data indexing costs are identical to vector RAG and **0.1% of the costs of full GraphRAG**"* — verbatim [Microsoft Research Blog](https://www.microsoft.com/en-us/research/blog/lazygraphrag-setting-a-new-standard-for-quality-and-cost/), novembre 2024. Les deux disponibles via Microsoft Discovery sur Azure.
+
+### Implémentations GraphRAG OSS (panorama 2026)
+
+- **LightRAG** ([Guo et al. arXiv 2410.05779](https://arxiv.org/abs/2410.05779), [HKUDS/LightRAG](https://github.com/HKUDS/LightRAG)) : **dual-level retrieval** (entités low-level / concepts high-level) + **mise à jour incrémentale** (le vrai différenciateur vs MS GraphRAG qui réindexe mal l'incrémental), **pas de community detection**. ⚠️ **Conflit de coût à surfacer, pas à trancher** : LightRAG annonce ~60% de réduction du coût d'indexation (comparaison maison) MAIS le benchmark indépendant **GraphRAG-Bench 2025** mesure l'inverse en tokens bruts (LightRAG 83,9M vs GraphRAG 79,9M). Documenter les deux, jamais le « 60% » seul. Le « EMNLP 2025 » qui circule n'est PAS dans l'abstract arXiv.
+- **nano-graphrag** : réimplémentation minimale (~1100 lignes), ~70-90% de la perf à ~1/100 du coût (rapporté, chiffre rond non primaire).
+- **Neo4j GraphRAG** : pattern différent — pas de community detection LLM ; **Cypher (requêtes N-hops) + vector index natif**. Définition Emil Eifrem : *« GraphRAG is RAG where on the retrieval path you use a Knowledge Graph. »* Aussi Neo4j Graphiti (mémoire d'agent temporelle).
+
+**Coût d'extraction d'entités = le vrai trade-off GraphRAG** (ordres de grandeur convergents, rapporté) : MS GraphRAG ≈ $50-200 pour un corpus moyen (10-40× l'indexation vector), nano/LightRAG-style ≈ $0,50 / 500 pages. MAJ MS jan. 2025 « Dynamic Community Selection » = -79% tokens. **Quand GraphRAG vaut le coût** : multi-hop / multi-entités, summarization globale cross-document. **Quand NON** : single-hop factuel (GraphRAG *sous-performe* vanilla RAG de ~13% sur Natural Questions, rapporté), queries time-sensitive, latence critique (2-3× latence). Pattern 2026 : *« vectors for semantic entry-point, graphs for relational depth »* — souvent hybride.
 
 ## RAPTOR (Stanford)
 
@@ -68,7 +79,10 @@ LM unique qui décide adaptativement de retriever et évalue sa propre sortie vi
 2. Passages multiples traités en parallèle avec évaluation pertinence
 3. Tokens critique : évaluent factualité et qualité
 
-Paper [Asai et al. (arXiv oct. 2023, ICLR 2024)](https://arxiv.org/abs/2310.11511). Self-RAG surpasse significativement les baselines sur PubHealth (fact-checking) et Bio (FactScore). Chiffres précis (~81% PubHealth, ~80% FactScore, critique ~90% agreement GPT-4) dans les tables du paper PDF — à vérifier verbatim dans Table 2 si cités en contexte formel.
+Paper [Asai et al. (arXiv oct. 2023, ICLR 2024)](https://arxiv.org/abs/2310.11511).
+
+> [!note] Chiffres vérifiés source primaire (full-text arXiv table 2, 17 juin 2026)
+> Le « ~81% PubHealth / ~80% FactScore » du vault confondait deux métriques. Vrais scores : **Self-RAG 7B** — PubHealth **72,4**, PopQA 54,9, ARC 67,3, Bio FactScore **81,2** ; **Self-RAG 13B** — PubHealth **74,5**, PopQA 55,8, ARC 73,1, Bio FactScore 80,2. (Le « ~81% » était le FactScore Bio, pas le PubHealth qui est à 72-74%.) Bat ChatGPT sur PubHealth/PopQA/Bio ; ChatGPT garde l'avantage sur ARC.
 
 ## CRAG (Corrective RAG)
 
@@ -77,7 +91,10 @@ Paper [Asai et al. (arXiv oct. 2023, ICLR 2024)](https://arxiv.org/abs/2310.1151
 - **Incorrect** (basse confiance) → discard, fallback web search
 - **Ambiguous** → combine retrieval refiné + web search
 
-Paper [Yan et al. 2024](https://arxiv.org/abs/2401.15884). L'abstract confirme amélioration significative vs vanilla RAG. Chiffre "78.1% / +26.7 pts" à vérifier dans tables du paper PDF. Reproduction open-source 2026 : pipeline Wikipedia 5 stages, 99% coverage.
+Paper [Yan et al. 2024](https://arxiv.org/abs/2401.15884).
+
+> [!note] Chiffres vérifiés source primaire (full-text arXiv table 1, 17 juin 2026)
+> Le « 78,1% / +26,7 pts » du vault **n'existe pas dans le paper**. Vrais gains CRAG vs RAG (backbone SelfRAG-LLaMA2-7b) : PopQA 52,8→59,8 (**+7,0**), Biography FactScore 59,2→74,1 (**+14,9**), **PubHealth 39,0→75,6 (+36,6, plus gros gain)**, Arc-Challenge 53,2→68,6 (**+15,4**). Sur backbone LLaMA2-7b nu : PubHealth 48,9→59,5, Arc 43,4→53,7.
 
 ## RAG vs Fine-tuning vs Long Context
 
@@ -95,6 +112,14 @@ Paper [Yan et al. 2024](https://arxiv.org/abs/2401.15884). L'abstract confirme a
 
 ### Pattern hybride 2026
 RAG retrieve les documents les plus pertinents d'un grand corpus → charge dans un long context pour cross-document reasoning. RAG = scale (millions docs), long context = depth (centaines de pages).
+
+## Late interaction (ColBERT) vs dense — grille de décision
+
+Complète [[jina-embeddings-v4|ColPali]] et FastPlaid (cf [[rag-embeddings]]) côté texte.
+
+- **ColBERT (multi-vecteur, late interaction)** : 1 vecteur par token + scoring MaxSim. **Force** = généralisation out-of-domain (BEIR jamais vu en training), documents longs (le single-vecteur compresse de façon lossy), explicabilité (scoring token-level). PLAID/SPLATE = 7-45× latence en moins que le naïf.
+- **Trade-off central = stockage** : 1 vecteur/token explose le footprint. Mitigations 2024-2025 : pooling post-hoc (÷2 sans perte), token pruning 50-75% (≤2% de perte), résiduel+centroïde (ColBERTv2/PLAID).
+- **Grille** : **dense single-vector** si coût/stockage prioritaire + domaine bien couvert ; **ColBERT** si out-of-domain, docs longs, précision légale/financière critique, et budget stockage OK.
 
 ## Évaluation (RAGAS)
 
@@ -129,7 +154,7 @@ Spectre d'options, du moins au plus souverain :
 2. **100% européen** (Mistral sur Scaleway/OVH) pour données sensibles. Labels : **SecNumCloud** (ANSSI), **HDS** (santé, décret renforcé mars 2026).
 
 Briques souveraines 2026 :
-- **Parsing** : [Mistral OCR 3](https://mistral.ai/news/mistral-ocr-3/) — SOTA extraction (markdown + tables HTML), ~$2/1000 pages ($1 batch), **self-hostable** pour données sensibles. Provider FR. Le pipeline [[Jonas Roman]] / ZParse l'utilise comme étape d'extraction.
+- **Parsing** : [Mistral OCR 3](https://mistral.ai/news/mistral-ocr-3/) — SOTA extraction (markdown + tables HTML), ~$2/1000 pages ($1 batch), **self-hostable** pour données sensibles. Provider FR. Le pipeline [[Jonas Roman]] / ZParse l'utilise comme étape d'extraction. Paysage OCR complet → [[briques-produit-ia-build-vs-buy]].
 - **Ingestion** : ZParse (FR, hébergé EU, ISO 27001 en cours) — cf [[Jonas Roman#ZParse — son outil d'ingestion RAG (souveraineté EU)]].
 - **Vector DB EU** : Qdrant (HQ Allemagne, self-host Rust), Weaviate (HQ Pays-Bas, hybrid champion), ou **pgvector sur Postgres EU** (Supabase région EU, Neon) — confortable jusqu'à ~50M vecteurs, « use the Postgres you already have ».
 - **Embeddings/génération** : Mistral (souveraineté EU, embed+gen même plateforme, soumis à l'AI Act). Sur la pure précision retrieval, Voyage/Jina restent devant — arbitrer souveraineté vs précision selon la sensibilité des données. Self-host (BGE-M3, Jina v5, Nomic) pour l'air-gap strict.

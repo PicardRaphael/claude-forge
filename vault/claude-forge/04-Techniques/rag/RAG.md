@@ -40,6 +40,8 @@ Les benchmarks (FloTorch 2026, Chroma Research, NAACL 2025 Vectara) confirment d
 ## Notes techniques
 
 ### Pipeline d'ingestion
+- [[rag-data-audit-discovery]] — **Étape 0 : audit data EN AMONT** (questions/golden dataset → sources → entités → qualité/ACL → décisions d'archi). La chaîne audit→data model→ingestion→récupération→UX
+- [[rag-data-models-par-cas-usage]] — **Le data model par cas d'usage** (3 couches + 8 schémas concrets avec JSON : maintenance, immobilier, support, juridique, e-commerce, médical, code, financier)
 - [[rag-chunking]] — Stratégies de découpage (recursive, semantic, late, contextual, AST)
 - [[rag-embeddings]] — Modèles d'embedding 2026, fine-tuning, Matryoshka, quantization
 - [[rag-metadata]] — Métadonnées, preprocessing, parsing, indexation

@@ -10,7 +10,7 @@ aliases:
   - embedding optimization
 domaine: ia
 type: technique
-derniere-maj: 2026-06-05
+derniere-maj: 2026-06-17
 auteur: claude
 sources:
   - "https://milvus.io/blog/choose-embedding-model-rag-2026.md"
@@ -31,11 +31,16 @@ Les embeddings transforment le texte en vecteurs numériques pour la recherche s
 
 | Modèle | MTEB | Dims | Context | Prix/1M tokens |
 |--------|------|------|---------|----------------|
-| Voyage AI voyage-3-large | 65.1 | 1024 | 32K | $0.06 |
+| Voyage AI voyage-4 | top | 1024 | 32K | $0.06 |
+| Voyage AI voyage-4-large | top | 1024 | 32K | $0.12 |
+| Voyage AI voyage-3-large | 65.1 | 1024 | 32K | $0.18 |
 | Cohere embed-v4 (multimodal) | 65.2 | 1536 | 128K | $0.12 |
 | Jina embeddings v3 | 65.5 | 1024 | 8K | $0.02 |
 | OpenAI text-embedding-3-large | 64.6 | 3072 | 8K | $0.13 |
-| Gemini Embedding 2 | top cross-lingual | variable (MRL) | varies | $0.006 |
+| Gemini embedding-001 | top cross-lingual | variable (MRL) | varies | $0.15 (batch $0.075) |
+
+> [!note] Pricing vérifié source primaire (17 juin 2026)
+> **voyage-3-large = $0.18/M** (pas $0.06 — le $0.06 est le nouveau **voyage-4**, lancé janv. 2026, qui n'existait pas à la rédaction du 5 juin). **Gemini embedding-001 = $0.15/M** (l'ancien « $0.006 » était une erreur d'un facteur 25). Vérifiés sur docs.voyageai.com/docs/pricing + ai.google.dev/gemini-api/docs/pricing.
 
 ### Open-source
 
@@ -48,7 +53,7 @@ Les embeddings transforment le texte en vecteurs numériques pour la recherche s
 | BGE-M3 | 63.0-64.2 | 1024 | 8K | MIT |
 | Nomic Embed v1.5 (137M) | 62.39 | 768 | 8K | Apache 2.0 |
 
-**Voyage AI** domine le domain-specific (+4-6 pts MTEB sur **code/legal** — [voyage-law-2 blog](https://blog.voyageai.com/2024/04/15/domain-specific-embeddings-and-retrieval-legal-edition-voyage-law-2/) ; "médical" non attesté pour Voyage). **BGE-M3** = seul modèle combinant dense+sparse+multi-vector ColBERT dans un seul modèle (Jina v4 = dense+multi-vector sans sparse). **Nomic** = seul avec weights+code+data ouverts.
+**Voyage AI** domine le domain-specific (+4-6 pts MTEB sur **code/legal** — [voyage-law-2 blog](https://blog.voyageai.com/2024/04/15/domain-specific-embeddings-and-retrieval-legal-edition-voyage-law-2/) ; "médical" non attesté pour Voyage). **BGE-M3** = seul modèle combinant dense+sparse+multi-vector ColBERT dans un seul modèle (Jina v4 = dense+multi-vector sans sparse). **Nomic** = seul avec weights+code+data ouverts. Pour la souveraineté FR self-host, **Qwen3-Embedding-8B** (#1 MTEB multilingue) est le choix le plus défendable (cf [[briques-produit-ia-build-vs-buy]]).
 
 ## Fine-tuning
 
@@ -92,7 +97,7 @@ Standard en 2026 : OpenAI, Cohere, Jina, Nomic, Qwen3.
 ## Multimodal
 ## Parsing OCR amont (Mistral OCR 3)
 
-L'embedding ne vaut que ce que vaut l'extraction amont. Pour les PDF scannés/manuels techniques, [**Mistral OCR 3**](https://mistral.ai/news/mistral-ocr-3/) est une référence 2026 : SOTA parsing (markdown + reconstruction tables HTML, formules, manuscrit), ~**$2/1000 pages** ($1 en batch, nettement moins cher qu'AWS Textract), **self-hostable** pour données sensibles. Provider FR → pertinent souveraineté (cf [[rag-architecture#RAG souverain EU]]). Sortie page-par-page en JSONL = unité naturelle pour un chunking à fenêtre-page (cf [[rag-chunking]]).
+L'embedding ne vaut que ce que vaut l'extraction amont. Pour les PDF scannés/manuels techniques, [**Mistral OCR 3**](https://mistral.ai/news/mistral-ocr-3/) est une référence 2026 : SOTA parsing (markdown + reconstruction tables HTML, formules, manuscrit), ~**$2/1000 pages** ($1 en batch, nettement moins cher qu'AWS Textract), **self-hostable** pour données sensibles. Provider FR → pertinent souveraineté (cf [[rag-architecture#RAG souverain EU]]). Sortie page-par-page en JSONL = unité naturelle pour un chunking à fenêtre-page (cf [[rag-chunking]]). Paysage OCR complet → [[briques-produit-ia-build-vs-buy]].
 
 ## Génération groundée — Cohere Command A+
 
@@ -125,8 +130,8 @@ Coût ingestion : une fois par document via prompt caching.
 
 | Besoin | Choix |
 |--------|-------|
-| Défaut API, bon rapport qualité/prix | Jina v3 ($0.02/M) |
-| Meilleur score absolu (API) | Voyage AI voyage-3-large |
+| Défaut API, bon rapport qualité/prix | Jina v3 ($0.02/M) ou Voyage voyage-4 ($0.06/M) |
+| Meilleur score absolu (API) | Voyage AI voyage-4-large |
 | Multimodal text+image (API) | Cohere embed-v4 |
 | Open-source, self-hosted | Qwen3-Embedding-8B ou BGE-M3 |
 | Budget minimal | Nomic Embed v1.5 (137M) |
@@ -139,6 +144,7 @@ Coût ingestion : une fois par document via prompt caching.
 - [[rag-chunking]] — Impact chunking sur embeddings
 - [[rag-reranking]] — Reranking post-retrieval
 - [[rag-vector-databases]] — Stockage des vecteurs
+- [[briques-produit-ia-build-vs-buy]] — Paysage build-vs-buy des briques produit (OCR, embeddings, reranking, modération)
 - [[Nils Reimers]] — Sentence-BERT, sentence-transformers
 - [[Omar Khattab]] — ColBERT
 - [[Han Xiao]] — Jina AI embeddings

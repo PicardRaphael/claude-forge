@@ -52,6 +52,10 @@ type: index
 - [[codebase-maps-pattern]] — Markdown table of contents racine pour grosses codebases / structure non-conventionnelle
 
 ## Agents & Harness Engineering
+
+- [[memoire-agent-mem0]] — mem0 : couche mémoire long-terme universelle pour agents (extraction/consolidation LLM, cross-session). v3 avril 2026 a retiré le graphe externe de l'OSS
+- [[memoire-agent-langmem]] — LangMem : SDK mémoire LangChain/LangGraph, différenciateur = mémoire procédurale (réécrit le prompt système). Lock-in LangGraph fort
+- [[packmind-context-governance]] — Packmind (ex-Promyze) : gouvernance de contexte pour agents de codage (single-source → CLAUDE.md/.cursor/rules/AGENTS.md + versioning + drift). Industrialise la propagation cross-repo manuelle de la forge
 - [[anti-reentrance-sub-agents-pattern-escalade]] — Escalade STOP + signal ESCALADE REQUISE markdown vers session principale qui orchestre = DÉFAUT recommandé (contexte propre, coût maîtrisé). Le nesting sous-agents est POSSIBLE depuis CC v2.1.172 (amende 16 juin) mais reste déconseillé par défaut ; verrouiller un agent leaf-node via `tools:` explicite sans `Agent` ou `disallowedTools: Agent`. Format standardise neo_ia 23 mai 2026.
 - [[architecture-decision-niveaux-mesure-agents]] — Niveau 1 statique (frontmatter) = CARTE, Niveau 2 transcripts JSONL = verdict echantillon, Niveau 3 hook PostSubagentStop CSV = verdict statistique. Capacite vs usage = ne JAMAIS refactor mass agents sur Niveau 1 seul (architect-deep 5/5 seuils Niveau 1 mais 6 ops Niveau 2 = OK)
 
@@ -96,12 +100,24 @@ type: index
 - [[architecture-gemini-api]] — ADK, A2A protocol, budget tokens
 - [[architecture-autogen]] — GroupChat, en declin
 
+## Paysage outils IA marché (build-vs-buy)
+
+- [[intelligence-de-code-build-vs-buy]] — context engines (SocratiCode, CodeGraph, Serena, Augment) + revue de code IA (CodeRabbit, SonarQube, Semgrep). Faire coder mieux les agents.
+
+- [[MOC-paysage-outils-ia-marche-2026]] — **Cartographie marché 5 catégories** : voix, briques produit, productivité interne, infra/LLMOps, plateformes générales. Angle build-vs-buy + adoption.
+- [[outils-voix-ia-build-vs-buy]] — TTS / STT / agents vocaux (ElevenLabs, Gladia, Whisper, Retell, LiveKit). Build-vs-buy par brique.
+- [[briques-produit-ia-build-vs-buy]] — OCR, embeddings, reranking, modération, RAG-aaS, extraction structurée (Mistral OCR, Ragie, BAML).
+- [[outils-memoire-rag-gouvernance-juin-2026]] — mem0, LangMem, Pinecone, Onyx, Packmind.
+
 ## Stacks Implementation IA (TypeScript / Python)
 
 - [[stack-typescript-ia]] — **Stack TS complet** : Vercel AI SDK, Mastra, Zod, SSE, Cloudflare, audit checklist
 - [[stack-python-ia]] — **Stack Python complet** : LangGraph, Pydantic AI, Instructor, DSPy, FastAPI, audit checklist
 
 ## RAG & Search
+
+- [[pinecone-vector-database]] — Pinecone en profondeur : vector DB managée serverless, pricing RU/WU, Inference + Assistant
+- [[onyx-enterprise-search]] — Onyx (ex-Danswer) : plateforme RAG/recherche entreprise open-source, 50-60+ connectors, sync ACL, index OpenSearch (ex-Vespa v4.0)
 
 - [[sqlite-fts5-vault]] — Pattern : indexer un vault Obsidian dans SQLite FTS5 sans dependance Obsidian
 

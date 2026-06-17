@@ -14,6 +14,40 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-17 — Chaîne de conception RAG : data models par cas + audit data amont
+- **Ajoutées** :
+  - [[rag-data-models-par-cas-usage]] (`04-Techniques/rag/`) — le data model optimal d'un chunk dépend du cas d'usage. Pattern transverse 3 couches (texte embeddé / scalaires pre-filter / payload citation) + 6 patterns de structuration + **8 schémas concrets avec JSON** (maintenance, immobilier/Loji, support FAQ, juridique, e-commerce, médical, code, financier). Le modèle Symptôme→Remède de Raphael confirmé + affiné
+  - [[rag-data-audit-discovery]] (`04-Techniques/rag/`) — méthodologie d'audit data EN AMONT : commencer par les QUESTIONS (golden dataset), pas les documents ; grille d'inventaire des sources ; modélisation entités (flat vs graph) ; audit qualité (OCR/dédup/PII/**ACL filtrable**) ; table finding→décision d'architecture. Cadre CODIR = Azure CAF 4-level data-readiness
+- **Source** : demande Raphael — (1) data models par type de RAG (exemple maintenance Symptôme→Cause→Diagnostic→Remède) ; (2) « comment fait-on un audit de data » → la chaîne audit→data model→ingestion→récupération→UX. Fan-out de 3 agents. Honnêteté capitalisée : AUCUN « modèle de maturité data-readiness propre au RAG » n'existe (toujours une dimension d'un cadre AI large). 5 IDs arXiv hallucinés par les agents écartés (chiffres supprimés avec leur source non vérifiable) ; les % Anthropic Contextual Retrieval (35/49/67) conservés car primaire vérifié
+
+## 2026-06-17 — Intelligence de code + corrections RAG avancé (vérifiées arXiv)
+- **Ajoutée** : [[intelligence-de-code-build-vs-buy]] (`04-Techniques/agents/`) — context engines (SocratiCode, CodeGraph 50k★, Serena, Augment) + revue de code IA (CodeRabbit, SonarQube/Semgrep). Verdict : OSS local gagne sur l'indexation, buy sur la revue, gate déterministe non négociable
+- **Modifiées** :
+  - [[rag-architecture]] — **4 chiffres corrigés, vérifiés full-text arXiv** (`/html/`) : CRAG (PubHealth 39→75,6 = +36,6 ; le « 78,1% » n'existe pas) · Self-RAG (PubHealth 72,4/74,5, FactScore Bio 81,2/80,2 ; confusion de métriques corrigée) · Adaptive-RAG (3,60× temps vs multi-step 8,81× = ~59% ; classifieur T5-Large 770M ; « 30-50% » pas dans le paper) · GraphRAG (win-rates comprehensiveness 72-83%, PAS « 86% vs 32% multi-hop » = fabrication tierce). + sections LightRAG/nano-graphrag/Neo4j + grille ColBERT-vs-dense
+  - [[codebase-maps-pattern]] (section « au-delà de la map statique → context engines ») · [[MOC-paysage-outils-ia-marche-2026]] (catégorie 6) · [[MOC-Techniques]]
+- **Source** : demande Raphael — domaine « intelligence de code » (outils qui analysent un repo pour que Claude Code code mieux), SocratiCode cité nommément + RAG avancé (suite). Fan-out de 3 agents. Découvertes : CodeGraph/Serena (leaders OSS que SocratiCode ne dominait pas), 4 chiffres faux dans rag-architecture corrigés à la source. Méthode capitalisable : `arxiv.org/html/<id>` est parsable (tables vérifiables), contrairement à `/abs/`.
+
+## 2026-06-17 — Paysage outils IA marché : voix, briques produit (build-vs-buy)
+- **Ajoutées** :
+  - [[MOC-paysage-outils-ia-marche-2026]] (`00-Hub/`) — MOC parent : cartographie marché 5 catégories (voix, briques, productivité, infra/LLMOps, plateformes), angle build-vs-buy + adoption
+  - [[outils-voix-ia-build-vs-buy]] (`04-Techniques/voix/`) — TTS/STT/agents vocaux ; build-vs-buy par brique (TTS=buy, STT=build viable, agents=buy-POC-puis-build) ; flags PlayHT mort + XTTS piège licence + EU AI Act
+  - [[briques-produit-ia-build-vs-buy]] (`04-Techniques/rag/`) — OCR/embeddings/reranking/modération/RAG-aaS/extraction ; 2 piles Loji (buy rapide vs souveraineté FR self-host)
+- **Modifiées** :
+  - [[rag-embeddings]] — **2 corrections de pricing vérifiées source primaire** : voyage-3-large $0,18/M (pas $0,06 — le $0,06 est le nouveau voyage-4) ; Gemini embedding-001 $0,15/M (pas $0,006, erreur ×25). + ajout voyage-4
+  - [[MOC-Techniques]] (section « Paysage outils IA marché ») · [[outils-memoire-rag-gouvernance-juin-2026]] (lien vers le MOC parent)
+- **Source** : demande Raphael — outils IA du marché (gratuits ou payants-très-forts), voix (TTS/robots vocaux) cité comme exemple phare, angle « mieux que développer à la main ». Fan-out de 5 agents web. M&A vérifiés relevés : Humanloop MORT (Anthropic, sept. 2025), Langfuse→ClickHouse, Promptfoo→OpenAI, Portkey→Palo Alto.
+
+## 2026-06-17 — Recherche 5 outils : mémoire agent, vector DB, RAG entreprise, gouvernance contexte
+- **Ajoutées** :
+  - [[memoire-agent-mem0]] (`04-Techniques/agents/`) — couche mémoire universelle ; flag du pivot v3 (avril 2026, OSS sans graphe traversable vs Platform)
+  - [[memoire-agent-langmem]] (`04-Techniques/agents/`) — SDK LangChain-native, mémoire procédurale ; statut 0.0.30 figé
+  - [[onyx-enterprise-search]] (`04-Techniques/rag/`) — plateforme RAG entreprise open-source ; flag Vespa→OpenSearch v4.0 (mai 2026)
+  - [[pinecone-vector-database]] (`04-Techniques/rag/`) — vector DB serverless en profondeur (RU/WU, Inference, Assistant)
+  - [[packmind-context-governance]] (`04-Techniques/agents/`) — gouvernance de contexte agents de code (ex-Promyze) + croisement doctrine cross-repo forge
+  - [[outils-memoire-rag-gouvernance-juin-2026]] (`00-Hub/`) — note-hub d'orientation (3 catégories, pas un versus)
+- **Modifiées** : [[rag-vector-databases]] (ligne Pinecone rafraîchie + liens) · [[agents-architecture]] (§ Memory : frameworks mem0/LangMem) · [[MOC-Techniques]] (entrées RAG & Agents)
+- **Source** : demande Raphael — recherche approfondie sur mem0, LangMem, Onyx (onyx.app), Pinecone, Packmind (packmind.com). Fan-out de 5 agents web (site officiel + GitHub + retours d'usage), sources primaires distinguées du rapporté, faits volatils horodatés.
+
 ## 2026-06-16 — Veille cc-news + amende doctrinale sous-agents imbriqués (v2.1.172) + mémoire CC/Cowork
 - **Modifiée** : [[relais-inter-agents-fiable]] — ajout de DEUX sections actionnables pour les futurs repos : (1) « Le maillon read-only : contrat de sortie de l'architect » (fuite « plan dans message intermédiaire → dev re-décide », parade « dernier message = livrable » + dispatch, sans jamais ouvrir Write ; déployé architect-deep neo_ia + architect back-ts) ; (2) « Déployer le relais /feature sur un NOUVEAU repo — méthode » (recette 6 étapes éprouvée : lire les formats réels avant de trancher / vérifier l'état git + .gitignore / grep REPO-WIDE / adapter pas copier / read-only préservé / cleanup sélectif). **Source** : demande Raphael « tout est-il dans tes notes pour qu'un futur repo soit top ». Le design était capitalisé, la MÉTHODE de déploiement ne l'était pas — manque comblé (search-then-enrich, foyer = le hub, pas de note orpheline). Lien croisé ajouté vers [[pattern-spec-skill-deployment]] (méthode sœur).
 - **Modifiée** : [[relais-inter-agents-fiable]] — statut du registre léger passé de « hypothèse non éprouvée » à **« déployé sur neo_ia + neoteem-back-ts, à observer avant promotion canonique »** (≠ validé). Ajout d'une section « Relais intra-/feature » documentant le déploiement : fichier-relais unique sectionné `.tmpclaude/feature-notes/<slug>.md` (gitignoré, éphémère, 6 sections Objectif/Déjà fait/Décisions/Déviations/État/Next), persisté par la SESSION (read-only jamais touchés ; dev/test-writer déjà-writer peut écrire sa section), lecture ciblée par section, frontière cross-repo = ticket Jira, cleanup sélectif au /ship. **Source** : chantier « relais inter-agents /feature » (neo_ia 10 fichiers + neoteem-back-ts 11 fichiers, sur develop ; aucun frontmatter agent touché ; 0 pointeur-relais résiduel repo-wide vérifié).

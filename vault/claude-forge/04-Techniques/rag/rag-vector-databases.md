@@ -10,7 +10,7 @@ aliases:
   - Pinecone vs Qdrant
 domaine: ia
 type: technique
-derniere-maj: 2026-05-23
+derniere-maj: 2026-06-17
 auteur: claude
 sources:
   - "https://www.datacamp.com/blog/the-top-5-vector-databases"
@@ -29,13 +29,16 @@ Le choix de la vector DB dépend de l'échelle, du budget, de l'écosystème exi
 
 | Base | Spécialité | Stat clé 2026 |
 |------|-----------|---------------|
-| **Pinecone** | Managed cloud, zero ops | Eventually consistent, metadata filtering limitée |
+| **Pinecone** | Managed cloud, zero ops | Serverless (storage/compute découplés), pricing RU/WU, Inference + Assistant intégrés. Détail → [[pinecone-vector-database]] |
 | **Qdrant** | Speed-critical, open-source | **p99 ~12ms à 10M vecteurs** (vs Weaviate 16ms, Milvus 18ms) |
 | **Weaviate** | Hybrid search, GraphQL | Meilleur vector+BM25+metadata natif |
 | **Milvus** | Billion-scale, GPU | Production au-dessus de 1B vecteurs |
 | **Chroma** | Prototyping, local dev | Limité au-delà de 100M vecteurs |
 | **pgvector** | Équipes Postgres, <50M | Production-grade 2026 (Supabase, Neon, Instacart) |
 | **Vespa** | Large-scale hybrid search | Co-leader avec Milvus au-dessus de 1B |
+
+> [!note] Mise à jour Pinecone (juin 2026)
+> Le « metadata filtering limitée » des comparatifs antérieurs est **largement périmé** depuis l'archi serverless : métadonnées plates jusqu'à 40 KB/record, opérateurs `$eq/$in/$and/$or`…, hybrid sparse-dense, + Pinecone Inference (embeddings/rerank hébergés) et Pinecone Assistant (RAG managé). Voir la note dédiée [[pinecone-vector-database]].
 
 ## Tiers d'échelle
 
@@ -64,10 +67,14 @@ Hybrid search natif : Weaviate, Vespa, Qdrant, **Milvus 2.6** (dense+sparse mêm
 | Prototype rapide | Chroma |
 | Scale > 1B | Milvus distribué ou Vespa |
 
+> **À noter** : [[onyx-enterprise-search|Onyx]] (RAG entreprise open-source) utilise **OpenSearch** comme index hybride depuis sa v4.0 (mai 2026, ex-Vespa) ; [[memoire-agent-mem0|mem0]] supporte Qdrant (défaut), pgvector, Pinecone… comme backends.
+
 ## Liens
 
 - [[MOC-Techniques]]
 - [[RAG]] — Index principal
+- [[pinecone-vector-database]] — Pinecone en profondeur (serverless, RU/WU, Inference, Assistant)
+- [[onyx-enterprise-search]] — plateforme RAG entreprise (index OpenSearch)
 - [[rag-embeddings]] — Modèles à stocker
 - [[rag-reranking]] — Post-retrieval reranking
 - [[rag-metadata]] — Metadata filtering
