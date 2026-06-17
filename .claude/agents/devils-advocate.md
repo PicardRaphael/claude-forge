@@ -1,10 +1,9 @@
 ---
 name: devils-advocate
 description: Use PROACTIVELY when a major deliverable is ready (new agent, skill, hook, architecture decision, technique proposal) before it is shipped to the user. Also invokable manually with any proposal to stress-test. Input must include the full proposal text or file path.
-tools: Read, Grep, Glob, Bash, Skill, mcp__forge-brain__*
+tools: Read, Grep, Glob, Skill, mcp__forge-brain__*
 skills:
   - forge-brain
-  - obsidian-markdown
 disallowedTools: Write, Edit
 model: opus
 effort: high
@@ -54,7 +53,7 @@ auteur: claude
 <corps de la critique>"
    )
    ```
-   **En contexte sub-agent, le MCP forge-brain n'est PAS connecté** (`create_note` retourne `No such tool available` — frontmatter MCP décoratif, vérifié 27 mai). La sauvegarde vault est donc **recommandée mais non bloquante** : tente `create_note`, et si l'appel échoue (cas systématique en sub-agent) ou si le contexte est trivial (critique courte, peu d'enjeu), renvoie la critique en bloc texte dans ta sortie finale — la session principale (seul contexte avec MCP effectif) la persistera si elle le juge utile. **JAMAIS de fallback Bash/PowerShell heredoc pour écrire le fichier** — c'est la cause documentée du bug du 22 mai 2026 (boucle infinie sur quoting Windows).
+   **En contexte sub-agent, le MCP forge-brain n'est PAS connecté** (`create_note` retourne `No such tool available` — frontmatter MCP décoratif). La sauvegarde vault est donc **recommandée mais non bloquante** : tente `create_note`, et si l'appel échoue (cas systématique en sub-agent) ou si le contexte est trivial (critique courte, peu d'enjeu), renvoie la critique en bloc texte dans ta sortie finale — la session principale (seul contexte avec MCP effectif) la persistera si elle le juge utile. **JAMAIS de fallback Bash/PowerShell heredoc pour écrire le fichier** — boucle infinie sur quoting Windows.
 
 ## Si AMBIGU détecté — STOP + format ESCALADE
 

@@ -164,9 +164,9 @@ Ne pas tout mettre dans le SKILL.md. Pointer vers des fichiers :
 
 ```
 SKILL.md (< 500 lignes)
-  ├── references/guide-complet.md (detail)
-  ├── references/api-reference.md (reference)
-  └── scripts/validate.sh (execution)
+  ├── references/<sujet>.md (detail)
+  ├── references/<reference>.md (reference)
+  └── scripts/<script>.sh (execution)
 ```
 
 Claude lit le SKILL.md, puis Read les references A LA DEMANDE.

@@ -1,8 +1,8 @@
 ---
 name: cc-advisor
-description: Use this skill when the user describes a need or problem WITHOUT specifying what Claude Code component to create. Use PROACTIVELY for any ambiguous automation request. Searches web if question involves recent features.
+description: ALWAYS invoke when the user describes a need or automation problem WITHOUT naming which Claude Code component to build (hook, skill, agent, MCP, rule). Diagnoses the need and recommends the right component. NOT for auditing an existing setup (repo-inspector) nor creating a named component directly.
 user-invocable: true
-allowed-tools: WebSearch, WebFetch, Read
+allowed-tools: WebSearch, WebFetch, Read, mcp__forge-brain__*
 argument-hint: "décris ton besoin"
 ---
 
@@ -19,7 +19,7 @@ Avant de recommander un composant, consulter les canoniques pertinentes via `mcp
 - Recommandation hook → `comment-creer-hook` + `raisonnement-22mai-doctrine-vs-enforcement`
 - Recommandation workflow → `workflow-claude-code-optimal`
 
-Lecture EN ENTIER (pas `max_lines`) **si scope large** (architecture globale, première lecture). Si la question cible un aspect précis ET section_id identifiable depuis `search_brain` → `read_section` ciblée d'abord (économe tokens, cf [[read-section-preference]]). Pas de recommandation à l'œil sur savoir interne. Si la canonique pertinente n'existe pas dans le vault → SURFACER comme trou doctrinal, pas inventer un critère.
+Lecture EN ENTIER (pas `max_lines`) **si scope large** (architecture globale, première lecture). Si la question cible un aspect précis ET section_id identifiable depuis `search_brain` → `read_section` ciblée d'abord (économe tokens, cf `.claude/rules/forge-brain-proactive.md` § "read_section vs read_note"). Pas de recommandation à l'œil sur savoir interne. Si la canonique pertinente n'existe pas dans le vault → SURFACER comme trou doctrinal, pas inventer un critère.
 
 Référence : [[pattern-mcp-brief-then-direct]] Règle 2 (skill sans brief inline doit auto-fetch).
 

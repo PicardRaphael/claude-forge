@@ -40,4 +40,4 @@ git log --oneline -5
 - Ne pas paralleliser `git commit` sur le même repo — race condition sur l'index
 - Vérifier le repo cible après toute opération cross-repo
 
-Source : `memory/feedback_git_C_pas_cd_multi_repo.md`
+Source : `memory/feedback_git_C_pas_cd.md`

@@ -9,9 +9,7 @@ memory: project
 tools: Read, Glob, Grep, Bash, Skill, Agent, WebFetch, WebSearch, mcp__forge-brain__*
 disallowedTools: Write, Edit
 skills:
-  - cc-advisor
   - forge-brain
-  - obsidian-markdown
 ---
 
 # repo-inspector — Analyse PROFONDE, audit et scan de repos

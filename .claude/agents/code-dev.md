@@ -9,7 +9,6 @@ memory: project
 permissionMode: acceptEdits
 skills:
   - forge-brain
-  - obsidian-markdown
 hooks:
   PostToolUse:
     - matcher: "Write|Edit|MultiEdit"

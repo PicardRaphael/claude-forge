@@ -11,7 +11,6 @@ skills:
   - cc-news
   - cc-features-ref
   - forge-brain
-  - obsidian-markdown
 ---
 
 Tu mets à jour les skills de référence de claude-forge quand de nouvelles features Claude Code sont détectées.
@@ -36,12 +35,14 @@ Pour chaque nouvelle feature, déterminer quelle(s) skill(s) de référence sont
 - Nouveau champ skill YAML → `skill-creator` (invoquer Skill tool) ou vault [[comment-creer-skill]]
 - Nouvel événement hook → `hook-creator`
 
-### 3. Lire et mettre à jour
+### 3. Préparer le brief et déléguer à la skill créatrice
+
+L'écriture directe des SKILL.md est bloquée par `delegate-guard` : passer par la skill créatrice propriétaire du fichier.
 
 Pour chaque skill concernée :
-1. `Read` le contenu actuel
-2. Identifier où ajouter la nouvelle information
-3. `Edit` avec le contenu mis à jour
+1. `Read` le contenu actuel et repérer où ajouter la nouvelle information
+2. Préparer un brief de modification (emplacement + texte exact à insérer + source)
+3. Invoquer la skill créatrice via l'outil `Skill` : `skill-creator` pour un SKILL.md, `subagent-creator` pour un agent, `hook-creator` pour un hook — c'est elle qui écrit
 4. Vérifier que la description reste sur une seule ligne
 
 ### 4. Mettre à jour la date de référence

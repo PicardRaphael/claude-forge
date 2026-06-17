@@ -2,6 +2,7 @@
 name: cc-rag-ref
 description: ALWAYS load when designing, reviewing, or debugging a RAG system — chunking, embeddings, reranking, vector DBs, metadata, data audit, evaluation, production. Dense decision tables. Do not answer RAG architecture from memory without loading this. NOT for choosing a market tool (choix-outils-ia), NOT the guided dialogue (rag-design).
 user-invocable: false
+allowed-tools: Read, mcp__forge-brain__*
 ---
 
 # Référence RAG — corpus actif 2026

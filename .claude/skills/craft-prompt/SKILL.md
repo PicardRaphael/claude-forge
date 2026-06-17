@@ -1,6 +1,6 @@
 ---
 name: craft-prompt
-description: Use when the user asks to create, write, improve, or optimize a prompt for Claude, Gemini, or any LLM. Applies best techniques automatically based on target model and use case.
+description: ALWAYS invoke when the user asks to create, write, improve, or optimize a prompt for Claude, Gemini, or any LLM. Applies the best techniques automatically per target model and use case. NOT for creating a Claude Code skill/agent/hook (use their creators), NOT for a CLAUDE.md (claudemd-creator).
 user-invocable: true
 allowed-tools: Read, WebSearch
 argument-hint: "description du prompt a creer (+ modele cible si pas Claude)"

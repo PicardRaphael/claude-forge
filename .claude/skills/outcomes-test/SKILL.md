@@ -1,6 +1,6 @@
 ---
 name: outcomes-test
-description: Evaluate a deliverable against a RUBRIC.md using a separate grader agent. Complements devil's advocate with objective, measurable criteria checking. Use when verifying skills, agents, hooks, or specs against defined success criteria.
+description: ALWAYS invoke when verifying a deliverable (skill, agent, hook, spec) against a RUBRIC.md via a separate grader agent for objective PASS/FAIL scoring. Complements devil's advocate (adversarial critique). NOT for adversarial stress-testing (devils-advocate), NOT without defined success criteria.
 argument-hint: "<path-to-deliverable> [path-to-rubric]"
 allowed-tools: Agent, Read, Glob, Grep
 user-invocable: true
