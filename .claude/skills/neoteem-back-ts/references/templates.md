@@ -69,6 +69,7 @@ Source : <CDC §X> · Dépend de : <…> · Bloque : <…>
 
 🏷️ IA-DEV · neoteem-back-ts · <label domaine> · <one-shot|récurrent>
 ↳ Story : <titre story parent>
+🗂️ Repo cible : <repo où l'US s'implémente — neoteem-back-ts / neo_ia / lojii…>
 🔀 Dépend de : <S# ou « aucune »> · Parallélisable avec : <S#/S# ou « aucune »>
 
 ## 🎯 Objectif
@@ -106,9 +107,10 @@ Branche `<type>/<N°ticket>` (type : `bug` / `us` / `hotfix`) → PR vers **`dev
 - Chaque section = `heading` level 3 : émoji en texte normal + libellé en `textColor` **`#00b8d9`** + `:`.
 - Séparateur `rule` entre sections. Listes = `bulletList`. Checklists → `taskList`/`taskItem` ADF.
 - **La description ADF d'une STORY reprend TOUTES les sections du `.md` — dont 🔀 Dépendances & parallélisation** (étapes, US parallélisables, séquences) : visible d'un coup d'œil dans Jira sans ouvrir le `.md`. Jamais résumer au seul périmètre. Chaque US du périmètre = lien vers son ticket (N2-…).
+- **La description ADF d'une SOUS-TÂCHE mentionne le 🗂️ Repo cible** (en en-tête, comme le `.md`) : un lecteur Jira sait dans quel repo l'US s'implémente sans deviner depuis les étiquettes. Feature multi-repo → préciser le repo cible PAR sous-tâche, jamais un repo global implicite.
 - Encadré **choix techniques** (panel `warning` fond `#fffae6`) en fin de toute sous-tâche technique : « Les choix techniques sont indicatifs. Le développeur reste maître de son implémentation. »
 - Style de référence Jira : ticket N2-98153 (structure ADF), N2-111159 (panel).
-- Palette émoji : 🎯 Objectif · 💡 Contexte · ⚙️ Description/Périmètre · 🔍 Recherche · 🚧 Frontières · ✅ Critères/Tests · 🧪 Points d'attention · 🌿 Branche · 📎 Documents · 📦 Périmètre · 🚫 Hors-périmètre · 🔒 Sécurité · 🧭 Méthode.
+- Palette émoji : 🎯 Objectif · 💡 Contexte · ⚙️ Description/Périmètre · 🔍 Recherche · 🚧 Frontières · ✅ Critères/Tests · 🧪 Points d'attention · 🌿 Branche · 📎 Documents · 📦 Périmètre · 🚫 Hors-périmètre · 🔒 Sécurité · 🧭 Méthode · 🗂️ Repo cible.
 
 ## Décision de conception (9 juin 2026)
 **Pas de section Tests séparée des critères de done.** Le test EST le critère de done — les fusionner en UNE section « ✅ Critères de done — TDD » évite la duplication et la désynchronisation. L'en-tête « écrire les tests AVANT » rend le TDD explicite pour le test-writer sans créer deux sources de vérité. Un agent lit un seul endroit pour savoir « qu'est-ce qui prouve que c'est fini ».
