@@ -88,4 +88,4 @@ Afficher ce résumé dans la console.
 
 ## Apprentissage
 
-Après chaque usage, si un pattern de log inattendu est observé (champs manquants, format divergent du hook metrics-tracker), le noter en mémoire projet pour aligner le hook.
+Après chaque usage, si un pattern de log inattendu est observé (champs manquants, format divergent du producteur de `.jsonl`), le noter en mémoire projet.
