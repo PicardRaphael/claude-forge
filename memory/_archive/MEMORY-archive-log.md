@@ -1,5 +1,22 @@
 # Journal d'archive mémoire
 
+## [2026-06-17] archive — delegate-guard-scope-tout-skillmd (feedback FAUX)
+- **Fichier** : feedback_delegate_guard_scope_tout_skillmd → memory/_archive/2026-06/
+- **Raison** : factuellement faux sur l'état courant. Disait « delegate-guard ne bloque plus SKILL.md depuis 6 juin (hard block retiré) ». Contredit par le code (`delegate-guard.py:47,122` — SKILL.md dans PROTECTED) ET par l'expérience directe du 17 juin (Edit io-daily/SKILL.md bloqué → skill-creator requis). Le pivot 6 juin documenté n'a pas pris effet / été annulé. 0 citation entrante.
+- **Index** : ligne retirée de _index_archive.md (était tier-2)
+- **Rollback** : git mv memory/_archive/2026-06/feedback_delegate_guard_scope_tout_skillmd.md memory/, restaurer ligne _index_archive.md
+
+## [2026-06-17] fusion — Suffixe plugin ≠ niveau d'accès
+- **Fichier** : feedback_plugin_suffixe_ia_pas_readonly → memory/_archive/2026-06/
+- **Raison** : doublon — même audit 28 mai, le fichier EST la section « Cas inverse » de feedback_plugin_admin_absorbe_readonly sortie en fichier séparé (pointe lui-même vers le survivant). Contenu déjà présent dans le survivant.
+- **Survivant** : feedback_plugin_admin_absorbe_readonly (contient la section « Cas inverse »)
+- **Index** : ligne retirée de _index_archive.md (était tier-2)
+- **Rollback** : git mv memory/_archive/2026-06/feedback_plugin_suffixe_ia_pas_readonly.md memory/, restaurer ligne _index_archive.md
+
+## [2026-06-17] séparation + wikilink (PAS archive) — famille « diagnostiquer la couche avant de patcher »
+- **Fichiers** : feedback_deny_global_ecrase_allow_projet + feedback_hook_vs_harness_permission_distinction (tous deux EN PLACE)
+- **Décision** : NE PAS fusionner (angles distincts : précédence deny>allow vs ordre harness/hook). Wikilink réciproque ajouté pour marquer la parenté sans perdre la nuance.
+
 ## [2026-06-01] fusion — Brief prémisse fausse + chiffre baseline
 - **Fichiers** : feedback_chiffre_baseline_brief_verifier_empiriquement → memory/_archive/2026-06/
 - **Raison** : doublon conceptuel — le chiffré se déclarait lui-même "variante chiffrée" du général

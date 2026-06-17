@@ -14,3 +14,5 @@ Quand une commande Bash précise (`git commit`, `git push`) est refusée alors q
 **How to apply:** Dès qu'une permission Bash est refusée malgré un allow projet → `Read ~/.claude/settings.json` AVANT toute autre hypothèse. Vérifier le bloc `deny`. Le deny est relu à chaud (pas besoin de redémarrer après édition). Le deny git global est un garde-fou volontaire — le modifier seulement avec accord explicite utilisateur.
 
 Voir [[erreur-deny-global-ecrase-allow-projet]] (vault Knowledge/erreurs).
+
+Famille « diagnostiquer la bonne couche avant de patcher » (distinct, pas fusionné) : [[feedback_hook_vs_harness_permission_distinction]] traite l'ordre harness-puis-hook ; celui-ci traite la précédence deny global > allow projet.
