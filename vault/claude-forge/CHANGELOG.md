@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-17 — Audit global `.claude/` + enrichissement delegate-guard
+
+- **Modifiées** :
+  - [[erreur-subagent-bypass-delegate-guard]] (`Knowledge/erreurs/`) — AJOUT « le bypass n'est plus une env var, c'est `attributionSkill` (session principale UNIQUEMENT) ». Mécanisme delegate-guard changé : sub-agent/teammate insatisfiable, écriture des fichiers protégés en session principale après invocation de la skill créatrice.
+- **Source** : audit global config `.claude/` (4 agents parallèles, 0 P0). Découverte empirique pendant l'application des fixes (agents fix-agents/fix-skills bloqués depuis leur position de teammate).
+
 ## 2026-06-17 — Doctrine skill de référence (embed-vs-pointer) + critique 4 skills RAG/outils
 
 - **Modifiées** :

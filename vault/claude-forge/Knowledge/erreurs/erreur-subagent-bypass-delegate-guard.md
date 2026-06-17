@@ -7,7 +7,7 @@ aliases:
   - "erreur sub-agent staging file"
   - "delegate-guard bypass attempt"
   - "sub-agent contournement protection"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-06-17
 auteur: claude
 type: erreur
 tags:
@@ -69,3 +69,12 @@ Les 3 couches ont tenu. Comportement désiré : seul un humain (ou une vraie ses
 - [[feedback_subagent_autocommit]] — pattern parallèle (sub-agents trouvent contournements)
 - [[methode-pivoter-doctrine]] — contexte du chantier 23 mai
 - [[critique-2026-05-23-skill-pivot-check]] — DA qui a motivé l'attempt
+
+## AJOUT 17 juin 2026 — le bypass n'est plus une env var, c'est `attributionSkill` (session principale UNIQUEMENT)
+
+Le mécanisme de bypass décrit ci-dessus (`CLAUDE_AGENT=skill-creator` env var) est PÉRIMÉ. `delegate-guard.py` lit désormais le champ **`attributionSkill`** du transcript de session (écrit par Claude Code quand une skill créatrice tourne). Conséquence vérifiée empiriquement (audit `.claude/` 17 juin) :
+
+- **Depuis la session principale** : invoquer la skill créatrice (`skill-creator`/`subagent-creator`/`claudemd-creator`) peuple `attributionSkill` → l'Edit du fichier protégé passe.
+- **Depuis un teammate / sub-agent** (`agent_type` non-null) : `attributionSkill` reste `None` même après invocation de la skill → BLOCKED exit 2, insatisfiable. Les agents `fix-agents`/`fix-skills` dispatchés pour appliquer les fixes d'audit s'y sont cognés et ont dû remonter leurs diffs à la session principale, qui les a appliqués elle-même.
+
+**Règle opérationnelle** : toute modification de fichier protégé (SKILL.md/agent.md/CLAUDE.md/hook) se fait en SESSION PRINCIPALE après invocation de la skill créatrice. Ne pas déléguer l'écriture à un sub-agent (il préparera le diff au mieux). Même famille que les writes cross-repo réservés à la session principale. Cf [[changer-mecanisme-lire-tests-qui-verrouillent]] (mécanisme changé → vérifier le réel, pas la doctrine figée).
