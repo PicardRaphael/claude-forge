@@ -749,3 +749,22 @@ Quand un modèle génère sa propre connaissance procédurale avant de résoudre
 Cohérent avec le finding Seleznov (community research, 650 trials, Fisher's exact + logistic regression — **non Anthropic-officiel, non vérifié primaire ici**) : description directive ~100 % activation vs ~77 % passive vs ~50 % non-optimisée. La convergence SkillsBench (benchmark) + Seleznov (community) + doctrine « pushy description » Anthropic est forte sur l'activation ; le step-following (exécution) n'a pas été testé au même niveau de rigueur.
 
 **Source de cet ajout** : réconciliation du rapport `Important/skill.md` (supprimé après absorption, 7 juin). Le rapport était ~85 % subsumé (anatomie skill-creator, matrice 3 environnements, checklist 6 dimensions, question set 3 rounds déjà présents) ; seuls les chiffres SkillsBench précis manquaient. Chiffres vérifiés à la source avant propagation (cf [[feedback_lire_fichier_entier_avant_verdict]] + skill `arxiv-verification`).
+
+---
+
+## AJOUT 17 juin 2026 — Skill de référence : embarquer le stable, déléguer le volatil
+
+Une skill de **référence** (`user-invocable: false`, type `cc-features-ref`/`cc-rag-ref`/`python-ref` : connaissance chargée en contexte sur un sujet) affronte une tension : tout pointer vers le vault (N `read_note` à l'activation, skill faible) vs tout recopier (drift vs vault, viole single-source).
+
+**Arbitrage par volatilité du fait, pas par dogme :**
+
+| Fait | Où | Pourquoi |
+|---|---|---|
+| **Stable** (tables de décision, taxonomie, formules, chiffres figés type Contextual Retrieval Anthropic -35/-49/-67) | **embarqué** dans le SKILL.md, avec tag de source inline | chargé une fois, autoportant, ne dérive pas |
+| **Volatil** (pricing, ⭐ GitHub, valos, versions, M&A) | **pointé** vers le vault via `read_note`, jamais recopié | dérive vite ; le vault reste la source, rafraîchi par une skill de veille dédiée |
+
+Le SKILL.md embarque le sommaire dense + pointe `references/<corpus>.md` qui liste les notes vault « quand lire chacune ». La chaîne reste à **1 niveau** (SKILL → references → `read_note` = appel data, pas chaîne de fichiers).
+
+**Corollaire — séparer la maintenance** : si une catégorie de faits volatils doit rester à jour, créer une skill de **veille ciblée distincte** (ex `veille-outils-ia` refresh les notes-paysage marché) qui exclut explicitement les skills de référence de son périmètre. La référence consomme le vault ; la veille le maintient. Évite que « rafraîchir » touche un chiffre stable embarqué.
+
+Validé 17 juin 2026 (chantier 4 skills RAG/outils, tension embed-vs-pointer résolue avec l'advisor ; DA verdict SHIP — « faits stables embarqués, faits volatils en vault via veille = pas un drift single-source »). Cf [[mcp-vs-skills-doctrine]] (où vit l'info).

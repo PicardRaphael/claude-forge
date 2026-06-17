@@ -14,6 +14,14 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-17 — Doctrine skill de référence (embed-vs-pointer) + critique 4 skills RAG/outils
+
+- **Modifiées** :
+  - [[comment-creer-skill]] (`04-Techniques/claude-code/`) — AJOUT « Skill de référence : embarquer le stable, déléguer le volatil ». Arbitrage embed-vs-pointer par volatilité du fait (stable embarqué + tag source ; volatil pointé vers vault, rafraîchi par skill de veille dédiée). Corollaire : séparer référence (consomme) de veille (maintient).
+- **Ajoutées** :
+  - [[critique-2026-06-17-4-skills-rag-outils-ia]] (`Knowledge/critiques/`) — verdict DA SHIP des skills `cc-rag-ref`/`rag-design`/`choix-outils-ia`/`veille-outils-ia` (0 bloquant ; fix-first collision routage responsable-ia appliqué).
+- **Source** : chantier création 4 skills RAG/outils + enrichissement responsable-ia (forge `.claude/skills/`). Tension embed-vs-pointer résolue avec l'advisor, validée par DA.
+
 ## 2026-06-17 — Chaîne de conception RAG : data models par cas + audit data amont
 - **Ajoutées** :
   - [[rag-data-models-par-cas-usage]] (`04-Techniques/rag/`) — le data model optimal d'un chunk dépend du cas d'usage. Pattern transverse 3 couches (texte embeddé / scalaires pre-filter / payload citation) + 6 patterns de structuration + **8 schémas concrets avec JSON** (maintenance, immobilier/Loji, support FAQ, juridique, e-commerce, médical, code, financier). Le modèle Symptôme→Remède de Raphael confirmé + affiné
