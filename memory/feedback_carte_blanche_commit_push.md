@@ -25,6 +25,7 @@ Sur un chantier long (audit massif, refonte structurelle, propagation cross-file
 - Reconnaître les signaux "carte blanche" : "tu as carte blanche", "vas-y", "à toi", "trance", "go"
 - Si plan validé et méthode validée (cf `feedback_audit_thematique_methode`) → exécuter directement
 - Garder advisor() pour : bloqueur conceptuel, ambiguïté méthodologique nouvelle, décision destructive non-évidente
+- **Carte blanche couvre le bulk non-structurel ; elle ne dispense PAS du DA sur le sous-ensemble structurel** (KILL hook/skill, retrait d'outil touchant un claim sécu, refonte d'enforcement, suppression de composant). Ces cas restent OUI-DA même sous carte blanche — cf `.claude/rules/devils-advocate-pipeline.md` (« le LIVRABLE déclenche, pas l'activité »)
 - Rapport final intermédiaire OK et utile, mais sans demander validation à chaque étape
 - En fin de chantier : 1 rapport global + `/done` pour capitalisation
 

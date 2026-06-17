@@ -19,6 +19,7 @@
 - **Tokens/contexte = ressource ultra-précieuse** : MEMORY.md > 38k chars, fichiers obsolètes, doctrine périmée → dégrade chaque tâche. Fix immédiat, jamais "plus tard". Architecture : MEMORY.md tier-1 visible + `memory/_index_archive.md` tier-2 (réintégrer si cité).
 - **Découverte importante → ENRICHIR l'existant avant de créer** : `search_brain` d'abord ; une note/règle couvre déjà le sujet → l'enrichir (vault : `insert_section`/MCP ; hors-vault rules/CLAUDE.md/memory : `Edit`), créer une note neuve seulement si aucun foyer existant. Évite les doublons orphelins. Cf `.claude/rules/memory-discipline.md`.
 - **Workflow par défaut = langage naturel** : Raphael parle, session principale orchestre. Création composants → skills créatrices (skill/subagent/hook/claudemd-creator). Analyse/audit → repo-inspector. Dev → code-dev. Slash commands optionnels.
+- **Plan de modifs structurelles issu d'un audit → `devils-advocate` AVANT application** (« déjà validé »/« carte blanche » ≠ dispense). Détail : `.claude/rules/devils-advocate-pipeline.md`.
 
 ## Workflow Git (convention)
 

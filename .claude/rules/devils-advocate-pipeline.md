@@ -28,7 +28,7 @@ Référence : [[critique-2026-05-22-8-canoniques-chantier]] + [[raisonnement-22m
 | Création de fiches vault / batch de notes | NON |
 | Audit / restructuration vault | NON — utiliser vault-audit |
 
-**C'est le LIVRABLE qui déclenche, pas l'activité.** Un audit `.claude/` est read-only → pas de DA sur l'audit. Mais si l'audit débouche sur un PLAN de modifications structurelles (retrait d'outil changeant un claim de sécurité, KILL d'un hook/skill, refonte d'enforcement, suppression de composants), ce plan retombe sur les lignes OUI ci-dessus → **DA sur le PLAN avant application**. « Les findings sont déjà validés (par des agents ou par Raphael) » n'est PAS une dispense — c'est exactement la rationalisation que DA existe pour attraper. Le seuil : modifs cosmétiques/désyncs/typo = NON ; toucher sécu, enforcement, ou tuer un composant = OUI.
+**C'est le LIVRABLE qui déclenche, pas l'activité.** Un audit `.claude/` est read-only → pas de DA sur l'audit. Mais si l'audit débouche sur un PLAN de modifications structurelles (retrait d'outil changeant un claim de sécurité, KILL d'un hook/skill, refonte d'enforcement, suppression de composants), ce plan retombe sur les lignes OUI ci-dessus → **DA sur le PLAN avant application**. « Les findings sont déjà validés (par des agents ou par Raphael) » n'est PAS une dispense — c'est exactement la rationalisation que DA existe pour attraper. Le seuil : modifs cosmétiques/désyncs/typo = NON ; toucher sécu, enforcement, ou tuer un composant = OUI. « Carte blanche » couvre l'exécution du bulk validé mais ne dispense PAS du DA sur ce sous-ensemble structurel (cf `memory/feedback_carte_blanche_commit_push.md`).
 
 ## Comment l'intégrer
 

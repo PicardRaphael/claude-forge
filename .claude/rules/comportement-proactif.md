@@ -23,6 +23,7 @@ description: "Dispatch table: which agent or skill to invoke based on user situa
 | Début de session / reprise | `/recap` pour snapshot contexte |
 | Fin de session / capitalisation | `/done` pour metacognition — decisions, faits, preferences, erreurs |
 | Livrable majeur prêt (skill, agent, archi) | Agent `devils-advocate` AVANT de livrer |
+| ↳ Plan de modifs structurelles issu d'un audit (KILL hook/skill, retrait outil sécu, refonte enforcement, suppression composant) | `devils-advocate` sur le PLAN AVANT application. Cosmétique/désync/typo → NON. « Déjà validé » / « carte blanche » ≠ dispense |
 | Problème complexe résolu (multi-étapes) | `/reasoning-cache` pour sauvegarder le raisonnement |
 | "Optimise cette skill" / maintenance skills | `/skill-evolve [nom]` ou `/skill-evolve all` |
 | Review stratégique / remise en question | `/forge-review` (mensuel via /schedule) |
