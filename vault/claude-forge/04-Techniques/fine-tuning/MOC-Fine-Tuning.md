@@ -8,7 +8,7 @@ aliases:
   - "guide fine-tuning"
 type: index
 domaine: ia
-derniere-maj: 2026-05-10
+derniere-maj: 2026-06-17
 auteur: claude
 sources: []
 tags:
@@ -20,6 +20,8 @@ tags:
 # Fine-Tuning LLM — Guide Complet
 
 ## Techniques
+
+- [[dpo-derivation]] — dérivation mathématique de la loss DPO (RLHF → Bradley-Terry → loss)
 
 - [[fine-tuning-techniques-peft]] — LoRA, QLoRA, DoRA, Spectrum, IA3, configs recommandées
 - [[fine-tuning-alignment]] — DPO, GRPO, ORPO, SimPO, DAPO, RLHF, pipeline 3 stages

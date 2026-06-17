@@ -13,7 +13,7 @@ aliases:
   - "post-training"
 type: technique
 domaine: ia
-derniere-maj: 2026-05-23
+derniere-maj: 2026-06-17
 auteur: claude
 sources:
   - "https://arxiv.org/abs/2305.18290"
@@ -77,7 +77,42 @@ SFT (1-10M examples) → DPO/SimPO/ORPO → GRPO/DAPO
 
 [Jiwoo Hong, Noah Lee, James Thorne (KAIST), arXiv 2403.07691](https://arxiv.org/abs/2403.07691). Fusionne SFT + alignement en un seul pass via odds ratios. Zéro dépendance externe. Idéal single-GPU, petits modèles.
 
+## Variantes DPO 2026
+
+Famille de variantes corrigeant des limites du DPO original (cf [[dpo-derivation]] pour la loss de base).
+
+| Variante | Source | Apport | Cible |
+|----------|--------|--------|-------|
+| **TDPO** (Token-level DPO) | [arXiv 2404.11999](https://arxiv.org/abs/2404.11999) | KL forward par token + termes KL séquentiels | Alignement + diversité de génération |
+| **R-DPO** (Regularized DPO) | [arXiv 2403.19159](https://arxiv.org/abs/2403.19159) « Disentangling Length from Quality » (Park et al.) | Terme de longueur $\alpha|y|$ dans l'objectif | Anti-verbosité (length bias) |
+| **Iterative DPO** | survey [arXiv 2503.06072](https://arxiv.org/abs/2503.06072) | Multi-rounds, préférences ré-évaluées (souvent self-judge) | Raffinement continu |
+| **Step-wise DPO** | survey 2503.06072 | Partitionne le dataset, politique du round N = baseline du round N+1 | Updates itératifs stables |
+| **SimPO** | (déjà au comparatif) | Reference-free, normalise la longueur | DPO moins cher, 1 modèle |
+
+## Nouveautés GRPO 2026
+
+Le cluster GRPO s'est densifié fin 2025 / 2026 autour de deux axes : **réduire le coût** et **corriger le biais de longueur / l'assignation de crédit**.
+
+| Méthode | Source | Apport clé | Résultat sourcé |
+|---------|--------|-----------|-----------------|
+| **Dr. GRPO** | [arXiv 2503.20783](https://arxiv.org/abs/2503.20783) (Liu et al., sail-sg) | Retire la normalisation de longueur ET d'écart-type → estimateur non biaisé | 43.3 % AIME 2024 (7B), 27h sur 8×A100 |
+| **2-GRPO** « Your GRPO Is Secretly DPO » | [arXiv 2510.00977](https://arxiv.org/abs/2510.00977) (Wu et al.) | GRPO = objectif contrastif implicite ≈ DPO ; 2 rollouts suffisent | 97.6 % de la perf de 16-GRPO, 12.5 % des rollouts, 21 % du temps |
+| **λ-GRPO** | [arXiv 2510.06870](https://arxiv.org/abs/2510.06870) (Wang et al.) | Paramètre $\lambda$ **apprenable** pour le poids token-level (unifie les variantes) | +1–2 % vs GRPO vanilla (Qwen2.5 1.5/3/7B), sans coût ajouté |
+| **GRPO-λ** | [arXiv 2510.00194](https://arxiv.org/abs/2510.00194) (Parthasarathi et al.) | λ-return + eligibility traces, approximation critic-free du TD-error | +3 pts moyenne (AIME24/Math500/Olympiad/Minerva/AMC), +4.5 pts en 7B |
+| **RLOO** (REINFORCE Leave-One-Out) | [arXiv 2402.14740](https://arxiv.org/abs/2402.14740) (Ahmadian et al., « Back to Basics ») | Baseline REINFORCE par leave-one-out → estimateur d'avantage non biaisé | Surpasse DPO/PPO quand on génère plus d'échantillons on-policy |
+
+⚠️ **Ne pas confondre** : `λ-GRPO` (2510.06870, token preferences apprenables) et `GRPO-λ` (2510.00194, credit assignment) sont **deux papiers distincts** — noms quasi identiques, contributions différentes.
+
+## Le problème du Length Bias (transversal)
+
+Les méthodes modernes de policy/preference optimization exhibent presque toutes un **biais de longueur** : tendance à générer des réponses inutilement longues même quand une réponse concise suffirait.
+
+- Une grande part des gains de récompense en RLHF vient de l'**augmentation de longueur**, pas d'une amélioration substantielle de qualité.
+- Le problème persiste dans GRPO car l'avantage est appliqué uniformément sur tous les tokens d'une réponse.
+- Corrections directes : **Dr. GRPO** (retire la normalisation de longueur), **R-DPO** (pénalité $\alpha|y|$), **λ-GRPO** (poids token apprenable).
+
 ## Liens
+- [[dpo-derivation]] — dérivation mathématique complète de la loss DPO
 
 - [[MOC-Techniques]]
 - [[fine-tuning-techniques-peft]] — LoRA, QLoRA, DoRA

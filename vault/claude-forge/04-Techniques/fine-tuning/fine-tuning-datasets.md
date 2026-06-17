@@ -12,7 +12,7 @@ aliases:
   - "Distilabel"
 type: technique
 domaine: ia
-derniere-maj: 2026-05-23
+derniere-maj: 2026-06-17
 auteur: claude
 sources:
   - "https://ai.meta.com/blog/how-to-fine-tune-llms-peft-dataset-curation/"
@@ -81,7 +81,33 @@ tags:
 5. Évaluer → identifier gaps restants → itérer
 ```
 
+## Dataset de préférence (DPO / RLHF)
+
+Les sections ci-dessus couvrent les datasets SFT (instruction/output). Le **preference tuning** (cf [[fine-tuning-alignment]]) exige un format différent : des **paires** $\{x, y_w, y_l\}$ — prompt, réponse gagnante, réponse perdante.
+
+### Construction (recette on-policy)
+
+1. Le modèle **SFT** (pas le base model) génère plusieurs complétions par prompt (typiquement ~16).
+2. Toutes les candidates sont scorées (reward model ou juge).
+3. On forme la paire en sélectionnant la **meilleure** et la **pire** complétion (contrastive selection) → signal net, on écarte les comparaisons ambiguës à faible signal.
+
+**On-policy > off-policy** : échantillonner depuis la distribution générative du modèle lui-même évite le *distribution shift* et donne des gains d'alignement plus stables et fiables que les paires off-policy. Datasets de référence : UltraFeedback.
+
+### Pitfalls DPO (empiriques)
+
+| Pitfall | Conséquence | Remède |
+|---------|-------------|--------|
+| **Skipper le SFT** (DPO direct sur base model) | Instable, mauvais résultats | DPO = raffinement d'un modèle déjà instruction-tuned |
+| **Learning rate trop haut** | Oubli catastrophique | LR faible (DPO ≪ SFT) |
+| **Trop d'epochs** | Modèle rigide, répétitif | 1–2 epochs suffisent souvent |
+| **Données de préférence bruitées** | Garbage in, garbage out | Signal de préférence clair, déduplication |
+| **Ignorer le modèle de référence** | Perte de stabilité | La pénalité KL via $\pi_{\text{ref}}$ est cruciale (cf [[dpo-derivation]]) |
+
+Outils : `DPOTrainer` de **TRL** (charge un dataset type UltraFeedback, `accelerate launch`), pipeline config-driven via **Axolotl** (cf [[fine-tuning-frameworks]]).
+
 ## Liens
+- [[fine-tuning-alignment]] — DPO, GRPO, variantes (consomme le dataset de préférence)
+- [[dpo-derivation]] — pourquoi la pénalité KL / le modèle de référence est cruciale
 
 - [[MOC-Techniques]]
 - [[fine-tuning-techniques-peft]] — techniques PEFT

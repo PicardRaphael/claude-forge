@@ -14,6 +14,16 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-17 — DPO / preference tuning : dérivation + variantes 2026
+
+- **Ajoutées** :
+  - [[dpo-derivation]] (`04-Techniques/fine-tuning/`) — dérivation mathématique complète de la loss DPO : objectif RLHF KL-régularisé → Bradley-Terry → reward implicite → annulation de Z(x) → loss sigmoïde. Explique « Your Language Model is Secretly a Reward Model ».
+- **Modifiées** :
+  - [[fine-tuning-alignment]] (`04-Techniques/fine-tuning/`) — AJOUT 3 sections : variantes DPO 2026 (TDPO 2404.11999, R-DPO 2403.19159, Iterative/Step-wise), nouveautés GRPO 2026 (Dr.GRPO 2503.20783, 2-GRPO 2510.00977, λ-GRPO 2510.06870, GRPO-λ 2510.00194, RLOO 2402.14740), problème du Length Bias (transversal). Warning explicite λ-GRPO ≠ GRPO-λ (papiers distincts).
+  - [[fine-tuning-datasets]] (`04-Techniques/fine-tuning/`) — AJOUT section dataset de préférence DPO : construction on-policy (sampling SFT, contrastive selection), pitfalls (skip SFT, LR, epochs, ref model), TRL DPOTrainer.
+  - [[MOC-Fine-Tuning]] — pointeur vers dpo-derivation.
+- **Source** : recherche web 3 angles (théorie/maths, pratique/production, nouveautés 2026). Tous les arXiv IDs nouveaux vérifiés en source primaire (WebFetch abstracts). Doctrine forge : enrichir l'existant (cluster fine-tuning) plutôt que dupliquer.
+
 ## 2026-06-17 — Audit global `.claude/` + enrichissement delegate-guard
 
 - **Modifiées** :
