@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-18 — Critique DA : ia-workbench / spec discovery cross-repo
+
+- **Ajoutées** :
+  - [[critique-2026-06-18-ia-workbench-spec-discovery]] (`Knowledge/critiques/`) — verdict devil's advocate sur le repo de management `ia-workbench` et son skill `/spec` cross-repo. 2 BLOCKING (trou d'oracle « 80-90% parfait » sans métrique ; 4e copie du référentiel Jira qui dérive) + 4 IMPORTANT (brain périmé, découpage cross-repo = contrat hallucinable, coût tokens discovery par ticket, dérive orchestrateur). Patterns de fix : oracle binaire + capture verdict humain, source-unique-sync vault.
+- **Source** : chantier loop / fiabilisation entrée tickets (session 18 juin). Note : prémisse « on part de rien » de la critique amendée ensuite par Raphael (les `/spec` mono-repo existent déjà et sont finis) → séquence oracle A→B→C abandonnée, mais les angles tests/coût/brain-périmé restent valides pour la conception du `/spec`.
+
 ## 2026-06-18 — Doctrine hook : structure d'artefact ≠ workflow agentique
 
 - **Modifiées** :

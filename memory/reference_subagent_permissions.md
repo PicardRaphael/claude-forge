@@ -27,3 +27,9 @@ originSessionId: f3b37008-cac0-4a75-ae36-b058217ea80b
 2. `mode: acceptEdits` — accepte auto les edits, prompte encore pour Bash
 
 **How to apply:** La situation s'ameliore. Pour les cas worktree et MCP, plus de workaround necessaire. Pour permissions.allow, continuer avec `mode: acceptEdits` comme compromis.
+
+### Permission heritee != sandbox filesystem (verifie empiriquement 18 juin 2026)
+
+`permissions.allow` non herite = le subagent peut RE-PROMPTER pour un chemin, PAS qu'il est murre. Il n'existe AUCUN sandbox filesystem isolant les repos entre eux sur la machine forge (Windows). Test : un subagent lance depuis claude-forge a lu librement `neot-v2/neo_ia/**` et `neot-v2/neoteem-back-ts/**` (Read + Grep + Glob), zero blocage — parce que le settings.json de forge a deja les `Read/Grep/Glob(neot-v2/**)` dans son `allow`.
+
+Consequence pour un design « subagent explore plusieurs repos » (ex. discovery cross-repo ia-workbench) : la capacite technique EXISTE, le seul prerequis est de configurer le `permissions.allow` du repo SOURCE en read-only strict (`Read`/`Grep`/`Glob(neot-v2/**)`, jamais `Write`/`Edit`/`Bash` destructif). Distinct de `repo-scope-guard` (hook neot-v2/ qui BLOQUE volontairement la sortie de scope) — capacite brute != garde-fou intentionnel. Cf [[erreur-architect-neo_ia-fouille-bdd]] (cote garde-fou) + `critique-2026-06-18-ia-workbench-spec-discovery` (cote design discovery).

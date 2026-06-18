@@ -127,7 +127,46 @@ Le DA cite l'historique forge : la fusion `/spec`+`/decompose-ticket` a été fa
 
 ---
 
+## MAJ 18 juin 2026 (après-midi) — Le BRIEF voyage avec le ticket (pièce jointe Jira)
+
+Décision Raphael : le BRIEF technique complet d'une story / US ne vit plus seulement en lien Bitbucket — il devient une **pièce jointe du ticket Jira**, pour que le détail (dont les tests) voyage physiquement avec le ticket. Le ticket Jira reste le résumé scannable (dual-audience) ; la PJ porte le BRIEF auto-suffisant complet. Le `.md` reste AUSSI versionné dans le repo (vie git normale) ; la PJ est un instantané attaché à la création.
+
+### Découpage MCP tranché (vérifié web 18 juin)
+
+Le **MCP Atlassian officiel** (Rovo) liste les PJ (nom, taille, type, URL) via `getJiraIssue` mais **n'expose AUCUN download du contenu** d'une PJ — limitation connue ouverte (JRACLOUD-97830, atlassian-mcp-server#15). Donc le MCP NEOTEEM maison n'est PAS un doublon, il comble ce trou.
+
+Règle d'outillage Jira (à appliquer partout) : **MCP Atlassian officiel d'abord ; MCP NEOTEEM pour ce que l'officiel ne couvre pas.**
+
+| Action | Outil | MCP |
+|---|---|---|
+| Détecter les PJ d'un ticket (nom, URL) | `getJiraIssue` (champ `attachment`) | Atlassian officiel |
+| **Lire le contenu** d'une PJ | `get_attachment_content(attachment_id)` | NEOTEEM (existe déjà) |
+| **Créer/attacher** une PJ | `add_attachment` | NEOTEEM — **À AJOUTER (Jérôme)** |
+
+### Côté LECTURE — LIVRÉ (18 juin), non committé
+
+Étape 1 (Brief) des deux `/feature` (neoteem-back-ts + neo_ia) modifiée : `getJiraIssue` inclut `attachment` ; si PJ présente(s) → les lire TOUTES dès le début, AVANT l'architect, via `get_attachment_content` du MCP NEOTEEM. **Toute** PJ (pas que `.md`). **La PJ prime sur la description** (source technique complète et à jour). Règle officiel→NEOTEEM écrite dans la skill. Prise en compte à la prochaine session CLI (skills snapshotées au démarrage).
+
+### Côté ÉCRITURE + INFRA — en attente Jérôme
+
+Prompt remis à Jérôme : (1) ajouter `add_attachment(issue_key, filename, content)` au MCP NEOTEEM — réutilise la logique d'upload déjà dans `copy_attachments`, UTF-8 sans BOM, appelable plusieurs fois (un BRIEF story + un par US), n'écrase pas ; (2) **exposer le MCP NEOTEEM en HTTP** (comme `neobrain` via `https://mcp-brain.neoteem.fr/mcp`) pour le brancher en CLI — car aujourd'hui il N'EST PAS dans les `.mcp.json` des repos (neo_ia n'a aucun MCP Jira CLI ; back-ts n'a que l'Atlassian officiel). Une fois l'URL fournie → l'ajouter aux `.mcp.json` de neo_ia + back-ts.
+
+⚠️ **Tant que le MCP NEOTEEM n'est pas branché en CLI, la lecture de PJ par `/feature` est inopérante** — la modif des skills est correcte mais dort jusqu'au branchement.
+
+### Diagnostic « tests pas assez mentionnés » — CAUSE RÉELLE PROUVÉE (lecture des tickets + `.md` source)
+
+Hypothèse initiale « le /spec appauvrit les tickets en les poussant dans Jira » = **FAUSSE** (vérifié). Réalité (S1-migration-ia-back.md ligne 3 + 29) : les **BRIEFs `.md` par US n'existent pas encore** au moment de la création du ticket — ils sont rédigés « avant chaque /feature ». Donc le ticket Jira mince reflète une source qui, à ce stade, EST mince. Deux vrais problèmes distincts :
+1. **Moment de rédaction (Cas B)** : le test détaillé d'une US est écrit trop tard (juste avant /feature), donc invisible à la relecture et fragile pour un loop autonome. Pour un loop, le test doit être figé AVANT, pas pendant.
+2. **Type de test non forcé** : la ligne `**test** :` des templates est générique — elle ne force pas à distinguer unitaire / intégration / fonctionnel-e2e / éval selon la nature de l'US (vrai sur les 2 templates). Levier solide pour le nouveau /spec. Nuance vérifiée : une US de **migration à parité** hérite légitimement du test défini au niveau story (US5 maigre ≠ défaut) ; le vrai manque est sur les US tool/feature LLM (ex. US11 : aucun test propre).
+
+→ Ces 2 points deviennent des exigences de conception du `/spec` de ia-workbench : produire des US où le « quoi tester + de quel type » est complet et figé dès la création.
+
+### Reste à concevoir (cœur, non entamé)
+
+Le `/spec` de ia-workbench lui-même : discovery cross-repo (brain carte ⨯ code réel) + découpage en US liées + tests par type d'US figés dès création. Les `/spec` mono-repo de neo_ia/back-ts restent FINIS et en place (on les fiabilise une fois, on les utilisera moins — pas une dette à tuer). DA et advisor consultés ; oracle/séquence A→B→C ABANDONNÉS (prémisse « on part de rien » fausse — il y a déjà des stories réelles à améliorer).
+
 ## Sources vérifiées (18 juin 2026)
+- MCP Atlassian officiel sans download attachment : support.atlassian.com/atlassian-rovo-mcp-server (supported-tools), JRACLOUD-97830, github atlassian-mcp-server#15
 - Nesting v2.1.172 + coûts : ofox.ai/claude-code-nested-subagents-2026, claudefa.st, cloudzero
 - Agents vs skills : code.claude.com/docs/en/skills, developersdigest, theaiarchitects
 - Subagent MCP access : github issues #13898 #34935, code.claude.com/docs/en/agent-sdk/subagents
