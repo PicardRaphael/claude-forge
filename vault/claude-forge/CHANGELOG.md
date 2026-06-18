@@ -14,6 +14,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-18 — Warp / Zach Lloyd (analyse 3 tweets X)
+
+- **Ajoutées** :
+  - [[Warp]] (`11-Warp/products/`) — ADE Warp 2.0 (4 piliers Code/Agents/Terminal/Drive), Oz (orchestration cloud multi-agents pilotant aussi Claude Code/Codex), benchmarks vérifiés source primaire warp.dev (71% SWE-bench Verified, #1 Terminal-Bench 52%), 3 stades du coding IA, terminal-as-workbench. Nouveau dossier fournisseur `11-Warp`.
+  - [[Zach Lloyd]] (`05-Leaders/claude-code/`) — fondateur Warp (ex-Google Docs), thèses « terminal as AI workbench », « coding will be solved → intention humaine = prochain goulot », 3 stades du coding.
+- **Source** : analyse de 3 tweets X (0xMorlex sur Agent Skills Anthropic ; addyosmani sur harness/loop engineering ; zachlloydtweets sur Warp). Tweets 1 et 2 déjà couverts (recherche-x-twitter-leaders + AJOUT 16 juin harness-engineering) → aucune action. Tweet 3 = seul vrai gap → 2 notes neuves. Corps des articles X (tweets 2-3) inaccessibles (402) : synthèse basée sur écrits publics des auteurs + vérif primaire warp.dev/Sequoia.
+
 ## 2026-06-17 — Gotcha lecture grosse note (read_note_by_path déborde aussi)
 
 - **Modifiées** :
