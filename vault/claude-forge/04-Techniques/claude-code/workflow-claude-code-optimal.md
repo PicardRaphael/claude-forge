@@ -409,6 +409,7 @@ Pas d'overhead. Pas d'agent.
 - **Subagent qui commit malgré "pas de commit"** — TOP du prompt en gras (cf [[feedback_subagent_autocommit]])
 
 ### Pièges modèle
+> ⚠️ **Amende 18 juin 2026 — effort : « xhigh réservé » est PÉRIMÉ.** Les deux lignes ci-dessous (et la ligne 160 « high partout sauf 3 rôles ») reflètent l'ancien pivot 22 mai. Doctrine actuelle = **Option C** (tranchée 18 juin) : `xhigh` = défaut agentique/coding multi-tool ; `high` = comparatif/jugement structuré ; `medium`/`low` = scan/extraction ; `max` = ponctuel jamais frontmatter. Source de vérité : [[effort-opus-47-doctrine-anthropic-2026]] + [[conflit-effort-xhigh-anthropic-vs-pivot-22mai]] (résolue). Ne pas re-propager « xhigh réservé ».
 - **`effort: max` toujours disponible** mai 2026 (vérifié docs), à utiliser avec prudence
 - **`xhigh` partout = coût massif** — réservé architect/dev-lead/refactor-pg (forge)
 - **Opus 4.7 plus littéral** — être explicite scope et parallélisme (observation forge)

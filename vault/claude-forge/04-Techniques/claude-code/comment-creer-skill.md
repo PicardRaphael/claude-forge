@@ -753,6 +753,23 @@ Cohérent avec le finding Seleznov (community research, 650 trials, Fisher's exa
 ---
 
 ## AJOUT 17 juin 2026 — Skill de référence : embarquer le stable, déléguer le volatil
+## AJOUT 18 juin 2026 — Limite description : le modèle de troncature a changé (CC 2.1.129+), résout la contradiction interne
+
+Cette note contient deux affirmations contradictoires accumulées par couches : le frontmatter/gotchas dit « ≤250 chars sinon invisible (system reminder tronque) », le corps dit « 1024 spec / 1536 listing, le 250 était une estimation ». **La vérif web 18 juin 2026 tranche : aucune des deux formulations ne décrit le mécanisme actuel.**
+
+**Mécanisme réel CC 2.1.129+** (vérifié [code.claude.com/docs/en/skills](https://code.claude.com/docs/en/skills) + [claudefa.st skill-listing-budget](https://claudefa.st/blog/guide/mechanics/skill-listing-budget), juin 2026) : il n'y a plus de troncature uniforme à 250. Deux réglages en cascade :
+1. `skillListingMaxDescChars` — raccourcit chaque description individuelle au-delà du seuil ;
+2. `skillListingBudgetFraction` (défaut 1% du contexte) — si le listing total dépasse, CC **drop des descriptions ENTIÈRES** des skills les moins utilisées (ranking par récence + fréquence), au lieu de couper toutes les descriptions de moitié.
+
+**Conséquence pratique pour rédiger une description** :
+- Viser **200-400 chars trigger-dense** (≈ 50-100 tokens) — fourchette typique observée, pas une limite dure.
+- Le risque n'est plus « ma description dépasse 250 donc sa fin est invisible » mais « j'ai trop de skills peu utilisées donc certaines descriptions sont droppées en entier ». Budget : ~15-25 skills à 200K de contexte (1%), ~75-125 à 1M.
+- Un repo avec peu de skills (ex. ia-workbench, 1-3 loupes) : zéro risque de drop, la description complète est toujours chargée.
+- Garde stable : description = TRIGGER (phrases concrètes FR+EN), 3e personne directive, jamais marketing. Ça, le benchmark + Anthropic le confirment toujours.
+
+Les anciennes formulations « ≤250 sinon invisible » dans le frontmatter et les gotchas sont à lire comme historiques (vraies sur une version antérieure). Ne pas les re-propager comme règle de troncature actuelle.
+
+Sources : [code.claude.com/docs/en/skills](https://code.claude.com/docs/en/skills), [claudefa.st/blog/guide/mechanics/skill-listing-budget](https://claudefa.st/blog/guide/mechanics/skill-listing-budget), [allahabadi.dev frontmatter guide](https://allahabadi.dev/blogs/ai/claude-code-skills-frontmatter-complete-guide/).
 
 Une skill de **référence** (`user-invocable: false`, type `cc-features-ref`/`cc-rag-ref`/`python-ref` : connaissance chargée en contexte sur un sujet) affronte une tension : tout pointer vers le vault (N `read_note` à l'activation, skill faible) vs tout recopier (drift vs vault, viole single-source).
 

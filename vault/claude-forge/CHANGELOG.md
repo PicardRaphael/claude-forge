@@ -15,6 +15,15 @@ tags:
 ---
 
 ## 2026-06-18 — Critique DA : ia-workbench / spec discovery cross-repo
+## 2026-06-18 — Amende limite description skill (modèle troncature CC 2.1.129+)
+## 2026-06-18 — Doctrine effort : conflit xhigh résolu (option C)
+
+- **Modifiées** : [[conflit-effort-xhigh-anthropic-vs-pivot-22mai]] (QUESTION → résolue, option C) · [[workflow-claude-code-optimal]] (amende « xhigh réservé » périmé).
+- **Décision** : xhigh = défaut agentique/coding ; high = comparatif/jugement ; medium/low = extraction ; max = ponctuel. Aligné sur reco Anthropic 2026 (vérif web Opus 4.8) + vécu chantier ia-workbench.
+- **Source** : arbitrage Raphael 18 juin, ferme une question ouverte depuis le 26 mai. Canonique = [[effort-opus-47-doctrine-anthropic-2026]].
+
+- **Modifiées** : [[comment-creer-skill]] — AJOUT 18 juin résolvant la contradiction interne (250 vs 1024/1536). Le mécanisme actuel = drop de descriptions entières par récence/fréquence (`skillListingMaxDescChars` + `skillListingBudgetFraction`), plus de troncature uniforme à 250. Viser 200-400 chars trigger-dense.
+- **Source** : vérif web MANDATORY pendant la conception du squelette ia-workbench (skill /spec) — docs Anthropic skills + claudefa.st skill-listing-budget.
 
 - **Ajoutées** :
   - [[critique-2026-06-18-ia-workbench-spec-discovery]] (`Knowledge/critiques/`) — verdict devil's advocate sur le repo de management `ia-workbench` et son skill `/spec` cross-repo. 2 BLOCKING (trou d'oracle « 80-90% parfait » sans métrique ; 4e copie du référentiel Jira qui dérive) + 4 IMPORTANT (brain périmé, découpage cross-repo = contrat hallucinable, coût tokens discovery par ticket, dérive orchestrateur). Patterns de fix : oracle binaire + capture verdict humain, source-unique-sync vault.

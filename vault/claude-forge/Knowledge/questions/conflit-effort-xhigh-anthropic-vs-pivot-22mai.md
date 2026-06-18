@@ -10,7 +10,7 @@ derniere-maj: 2026-05-26
 tags:
   - "#type/question"
   - "#domaine/claude-code"
-  - "#statut/ouverte"
+  - "#statut/resolue"
 ---
 
 # Conflit effort xhigh — Anthropic Applied AI vs pivot forge 22 mai
@@ -43,6 +43,18 @@ Notre [[raisonnement-22mai-doctrine-vs-enforcement]] et `CLAUDE.md` ligne effort
 4. **Will simplifie pour l'audience** → "I forget about it" = anti-pattern, pas best practice
 
 ## Décision en attente
+## RÉSOLU — 18 juin 2026 (Option C, arbitrage Raphael)
+
+Conflit tranché : **Option C — calibrer par TYPE de tâche.**
+
+- `xhigh` = défaut pour le travail **agentique/coding multi-tool long-horizon** (skills d'orchestration type `/spec`, dev, architect, dev-lead, refactor profond, auditeurs/analyzers).
+- `high` = analyse / comparatif / jugement structuré (graders, reviewers, conseil), et exécution intelligence-sensitive.
+- `medium`/`low` = scan / extraction / formatage / classification mécanique (la doc Anthropic déconseille explicitement `xhigh` sur ce profil — « wastes tokens »).
+- `max` = jamais en frontmatter, ponctuel sur un mur uniquement (« try harder ≠ be right » ; +3 % de score pour 2× tokens, rarement justifié).
+
+**Ce qui a tranché** (vérif web 18 juin, sources Opus 4.8 postérieures au talk Will/4.7) : la reco officielle Anthropic 2026 est devenue « **start with xhigh for coding and agentic use cases** » — `xhigh` n'est plus une exception mais le défaut agentique. Confirmé par le vécu de la session (skill `/spec` cross-repo → `xhigh` ; agent `repo-explorer` lecture → `high`). L'« overthinking » qui justifiait le pivot 22 mai était soit du bruit, soit lié à Opus 4.7 (corrigé sur 4.8 par adaptive thinking).
+
+La canonique à jour est [[effort-opus-47-doctrine-anthropic-2026]] (statut canonique, tableau Option C). Cette note QUESTION est close — elle reste comme trace du raisonnement.
 
 Arbitrage Raphael requis. Options :
 - **A** : garder pivot 22 mai (high par défaut, xhigh réservé) — notre vécu prime
