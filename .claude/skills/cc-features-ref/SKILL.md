@@ -248,7 +248,7 @@ LSPs disponibles pour tous les langages majeurs.
 ## Gotchas
 
 - **Date de référence** — ce fichier intègre des éléments jusqu'à juin 2026 (v2.1.160). Utiliser `cc-news` si l'info semble datée ou si la feature demandée est postérieure à cette date.
-- **`effort: max`** — toujours disponible mai 2026 (verbatim docs Anthropic 23 mai), mais prone à l'overthinking. Réserver à cas justifiés ; doctrine forge = `high` par défaut, `xhigh` pour architect/dev-lead/refactor-pg.
+- **`effort: max`** — toujours disponible mai 2026 (verbatim docs Anthropic 23 mai), mais prone à l'overthinking. Réserver à cas justifiés ; doctrine forge (option C) = `xhigh` agentique/coding, `high` comparatif/jugement, `medium`/`low` extraction.
 
 ## Apprentissage
 

@@ -24,7 +24,7 @@ Source : reference-subagents-claude-code.md (research LLM juin 2026) + doctrine 
 - [ ] `disallowedTools: Write, Edit` si agent read-only
 - [ ] `disallowedTools: Bash` si délégation forcée (Bash = raccourci qui zappe les skills)
 - [ ] `model` adapté : haiku (exploration), sonnet (implémentation), opus (jugement)
-- [ ] `effort` : `high` défaut ; `xhigh` uniquement architect/dev-lead/refactor profond
+- [ ] `effort` calibré par TYPE : `xhigh` agentique/coding · `high` jugement structuré · `medium`/`low` extraction · `max` ponctuel jamais frontmatter
 - [ ] `color` selon convention forge cross-repo (même rôle = même couleur)
 - [ ] `memory: project` — TOUJOURS, sans exception
 - [ ] `permissionMode` — TOUJOURS (`acceptEdits` pour writers, `plan` pour side-effects)

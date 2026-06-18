@@ -71,7 +71,7 @@ Extraire d'abord depuis l'historique, puis combler avec AskUserQuestion.
 
 **Round 3 — Modèle & enrichissement**
 7. Modèle : haiku (exploration rapide) / sonnet (implémentation) / opus (orchestration/jugement) ?
-8. Effort : high (défaut) / xhigh (architect, dev-lead, refactor profond) ?
+8. Effort : xhigh (agentique/coding — défaut) / high (jugement structuré) / medium-low (extraction) ?
 9. Skills à injecter ? (subagents n'héritent PAS des skills du parent — lister explicitement)
 10. Mémoire entre sessions → `memory: project` (toujours). **Si l'agent fait partie d'un PIPELINE** (plusieurs agents se passent le travail) : distinguer `memory: project` (mémoire PERSISTANTE de l'agent, entre sessions) du RELAIS entre agents (transmission pendant la tâche — fichier-relais sectionné + contrat de sortie + la SESSION persiste, jamais l'agent read-only). Le relais n'est PAS un réglage d'agent → ne pas répondre `memory: project`. Cf [[relais-inter-agents-fiable]].
 
@@ -134,7 +134,7 @@ maxTurns: 50                           # optionnel
 - `haiku` : exploration rapide, tâches courtes
 - `sonnet` : implémentation, exécution (défaut)
 - `opus` : orchestration, jugement, décisions complexes
-- `xhigh` : réservé architect / dev-lead / refactor profond — pas partout
+- `xhigh` : défaut agentique/coding · `high` : jugement structuré · `medium`/`low` : extraction (option C)
 
 ### Body (system prompt de l'agent)
 
@@ -280,7 +280,7 @@ Priorités audit rapide :
 - **AskUserQuestion filtré** en subagent (issues #12890 #18721 #20275) → pattern ESCALADE obligatoire
 - **MCP non garanti** en subagent (`No such tool available`) → brief inline depuis session principale
 - **Subagent auto-commit** malgré instruction → mettre "PAS DE COMMIT" en TOP du prompt en gras
-- **`effort: xhigh` partout = coût massif** — réservé architect/dev-lead/refactor profond
+- **`effort: xhigh` sur extraction/formatage = tokens gaspillés** — xhigh = défaut agentique/coding, medium/low pour le mécanique (option C)
 - **`CLAUDE_CODE_FORK_SUBAGENT=1`** (v2.1.117+) — hérite du contexte complet parent, réutilise le cache
 - **Self-modification bloquée** — un agent ne peut pas modifier son propre fichier (classifier)
 - **BOM UTF-8** sur Windows (PowerShell Out-File) → frontmatter cassé silencieusement
