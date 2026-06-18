@@ -17,6 +17,10 @@ tags:
 ## 2026-06-18 — Critique DA : ia-workbench / spec discovery cross-repo
 ## 2026-06-18 — Amende limite description skill (modèle troncature CC 2.1.129+)
 ## 2026-06-18 — Doctrine effort : conflit xhigh résolu (option C)
+## 2026-06-18 — Note projet ia-workbench (repo de management + loupe /spec)
+
+- **Ajoutées** : [[ia-workbench-repo-management]] (`1-Projets/ia-workbench/`) — design + décisions figées du repo de management et de sa 1re loupe /spec (source unique du référentiel Jira, read-only strict, taxonomie tests réelle, e2e écarté, effort option C). Complète la critique DA du même jour.
+- **Source** : chantier de construction d'ia-workbench (squelette + skill /spec + agent repo-explorer + système mémoire/changelog).
 
 - **Modifiées** : [[conflit-effort-xhigh-anthropic-vs-pivot-22mai]] (QUESTION → résolue, option C) · [[workflow-claude-code-optimal]] (amende « xhigh réservé » périmé).
 - **Décision** : xhigh = défaut agentique/coding ; high = comparatif/jugement ; medium/low = extraction ; max = ponctuel. Aligné sur reco Anthropic 2026 (vérif web Opus 4.8) + vécu chantier ia-workbench.
