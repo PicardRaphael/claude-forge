@@ -830,4 +830,21 @@ Un hook Stop qui découvre « ce qui a changé » via git diff manque les fichie
 - Application : neoteem-back-ts d3b4e20 (typecheck → Stop), neo_ia 17fa987 (python direct + timeouts)
 ## AJOUT 11 juin 2026 — SubagentStop : scanner le TRANSCRIPT, jamais les champs du payload
 
+## AJOUT 18 juin 2026 — Hook de STRUCTURE d'artefact ≠ hook de workflow agentique (clarification doctrine 22 mai)
+
+La doctrine 22 mai (« lint/sécu/scope OUI, workflow NON ») était lue trop largement : un hook qui vérifie la **structure d'un artefact** produit dans un pipeline (description de PR, format de commit, présence de sections) a été à tort rangé du côté « workflow » lors d'un dispatch. C'est un **quality gate de format**, pas un workflow gate. Distinction nette :
+
+| Ce que le hook fait | Catégorie | Verdict |
+|---|---|---|
+| Vérifie qu'un artefact a sa **structure** (sections obligatoires d'une PR, frontmatter YAML valide, message de commit conventionnel) | Format/quality gate | ✅ AUTORISÉ — c'est du lint sur un artefact, déterministe et mécanique |
+| Impose un **déroulé agentique** (architect d'abord, test avant code, commit seulement après review, markers de pipeline) | Workflow gate | ❌ INTERDIT (doctrine 22 mai inchangée) |
+
+Le départage : **un hook de structure vérifie la PRÉSENCE/FORME d'une sortie déjà produite** (il ne dicte pas QUAND ni DANS QUEL ORDRE travailler) ; **un hook de workflow dicte la séquence du travail**. Le premier est un sensor computationnel (Böckeler), le second combat le jugement de l'agent.
+
+**Corollaire structure vs contenu** (état de l'art 2026, consensus « hooks suggest structure, LLM generates content ») : un hook de structure ne peut garantir que ce qui est **mécaniquement vérifiable** — la présence des sections d'une PR, jamais la qualité de leur contenu. La génération du contenu reste du jugement LLM (la skill `/ship` la fait), le hook ne fait que refuser un artefact structurellement incomplet. Pattern hybride : skill génère + hook garde la structure.
+
+**Robustesse encodage** (gotcha Windows) : un hook qui matche des en-têtes contenant emoji/accents doit **normaliser** (NFKD + suppression des diacritiques, ancres ASCII) plutôt que comparer l'octet exact — les emojis/accents transitant par stdin se corrompent sur une console cp1252 et feraient échouer le match sur une PR pourtant valide. Cf le même gotcha côté skill x-read (stdout UTF-8 forcé).
+
+Cas fondateur : hook `pr-template-guard` (PreToolUse Bash, intercepte `create-pr.ts`/`create_pr.py`, refuse une description sans les sections obligatoires du template), déployé sur neoteem-back-ts (TS) + neo_ia (Python), 18 juin 2026. Catégorie identique à `file-size-guard` ou `guard-ts-nocheck` déjà présents — format, pas workflow.
+
 Un hook SubagentStop qui veut analyser « la sortie » d'un sub-agent doit lire la **queue du transcript** (`transcript_path` + éventuel `agent-<agent_id>.jsonl` voisin, ~40 dernières lignes = rapport final). Les champs `output`/`result`/`messages` du payload sont rarement peuplés — l'escalade-detector de neo_ia scannait ces champs (et ajoutait le CHEMIN du transcript à la chaîne scannée au lieu de son contenu) : **il n'a jamais détecté un seul marqueur depuis sa création** (24 mai → 11 juin). Corrigé sur neo_ia (py) et porté sur neoteem-back-ts (ts). Test du hook = créer un faux transcript avec le marqueur et vérifier la détection — tester le payload seul ne prouve rien. Gotcha de test Windows : un chemin `/tmp` Git Bash n'est pas lisible par Bun/Python natifs — fichier de test en chemin Windows réel.

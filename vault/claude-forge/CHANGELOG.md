@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-18 — Doctrine hook : structure d'artefact ≠ workflow agentique
+
+- **Modifiées** :
+  - [[comment-creer-hook]] (`04-Techniques/claude-code/`) — AJOUT 18 juin : clarification doctrine 22 mai. Un hook qui vérifie la STRUCTURE d'un artefact (sections d'une PR, frontmatter, message de commit) = quality gate de format AUTORISÉ ; seul le hook qui dicte le DÉROULÉ agentique reste interdit. + corollaire structure (hook) vs contenu (LLM) + gotcha robustesse encodage (normaliser NFKD, pas l'octet emoji).
+- **Source** : chantier template de PR neoteem-back-ts + neo_ia (hook `pr-template-guard` déployé sur les 2 repos). J'avais mal appliqué la doctrine en rangeant ce hook côté « workflow » ; vérif état de l'art 2026 (consensus « hooks enforce structure, LLM generates content ») a confirmé qu'il s'agit d'un format gate.
+
 ## 2026-06-18 — Warp / Zach Lloyd (analyse 3 tweets X)
 
 - **Ajoutées** :
