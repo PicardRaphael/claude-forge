@@ -120,6 +120,7 @@ tags: ["#type/knowledge", "#source/twitter"]
 
 - 2026-05-20 régression détectée par DA : claim "Read-only enforced by construction" était factuellement faux (Account class a write methods). Fix appliqué : honnêteté dans la description. Apprentissage : toute description qui claim un contrat sécurité ("read-only", "sandboxed", "no write") doit être prouvable par le code, pas juste par convention. Pattern check à ajouter dans le check-list DA.
 - Mode `pretty` ajouté 2026-05-20 : Claude est multimodal, peut Read les images locales téléchargées. Sans téléchargement, images invisibles.
+- 2026-06-18 `UnicodeEncodeError 'charmap'` (cp1252) sur Windows : un tweet contenant un emoji ou caractère non-Latin1 (ex. ✨) crashait `reader.py` car `print(json.dumps(..., ensure_ascii=False))` émet les caractères bruts vers un stdout cp1252. Fix durable : `sys.stdout.reconfigure(encoding="utf-8")` en tête de module (après les imports). Plus besoin du workaround `PYTHONIOENCODING=utf-8` par invocation. Apprentissage : tout script CLI qui imprime du JSON `ensure_ascii=False` doit forcer stdout UTF-8 — la console Windows par défaut casse sur le premier caractère non-Latin1.
 Capturer ici les patterns observés en production :
 
 - Si `twitter-api-client` casse à une version -> noter version fonctionnelle dans requirements.txt avec pin

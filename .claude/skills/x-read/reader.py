@@ -28,6 +28,14 @@ import json
 import sys
 from pathlib import Path
 
+# Force UTF-8 stdout: tweets contain emoji/non-Latin1 chars that crash on a
+# Windows cp1252 console (UnicodeEncodeError) when json.dumps(ensure_ascii=False)
+# emits them raw. reconfigure is a no-op where stdout is already UTF-8.
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+except (AttributeError, ValueError):
+    pass
+
 # Resolve cookies relative to this file: skills/x-read/reader.py -> .claude/secrets/x-cookies.json
 # This keeps cookies inside claude-forge (gitignored) instead of ~/.claude/
 COOKIES_PATH = Path(__file__).resolve().parent.parent.parent / "secrets" / "x-cookies.json"
