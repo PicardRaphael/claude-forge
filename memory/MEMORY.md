@@ -122,6 +122,7 @@
 - [bashrc-bind-warnings-non-interactive](reference_bashrc_bind_warnings.md) — Warnings bind readline sans garde `[[ $- == *i* ]]`
 - [python-windows-cross-machine](reference_python_windows_cross_machine.md) — Hooks Windows : py launcher, path absolu, antislashes JSON
 - [agent-type-hook-detection](reference_agent_type_hook_detection.md) — Hooks : `agent_id` = discriminant sub-agent officiel (agent_type insuffisant — présent aussi en --agent main), JAMAIS CLAUDE_AGENT env
+- [mcp-tool-prefix-nom-serveur](reference_mcp_tool_prefix_nom_serveur.md) — Préfixe tool MCP = NOM du serveur (.mcp.json) ou du connector, jamais le nom d'affichage. Doublon d'URL = serveur masqué (dedup claude.ai). Vérifier `claude mcp list` avant de câbler. Cas ia-workbench 18 juin
 - [mcp-forge-brain-lifecycle-gotchas](reference_mcp_forge_brain_lifecycle_gotchas.md) — 2 gotchas cycle de vie MCP forge-brain : recharger le code = kill port 8091 + NOUVELLE session (autostart au SessionStart only) ; register_tools non testé si tests appellent BrainTools direct → exercer via `_list_tools`/`call_tool` sans binder le port
 - [neo-brain-pattern](reference_obsidian_query_brain.md) — Pattern neo-brain : wrapper CLI + skill + knowledge-first routing
 - [subagent-permissions-limitation](reference_subagent_permissions.md) — v2.1.101 : worktree+MCP OK, permissions.allow toujours non hérité
