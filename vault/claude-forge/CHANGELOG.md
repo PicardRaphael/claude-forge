@@ -14,6 +14,16 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-19 — Optimisations LLM par provider + dispositif d'agents Neoteem
+
+- **Ajoutées** :
+  - [[parametres-echantillonnage-llm]] (`04-Techniques/prompt-engineering/`) — réglages de sampling (temperature/top_p/top_k/penalties/seed) par cas d'usage, qualifiés par provider. 5 gotchas anti-folklore (non-portabilité plage, temp XOR top_p, reasoning verrouille la temp, penalties=0, seed≠déterminisme).
+  - [[modes-service-debit-cout-latence-providers]] (`04-Techniques/serving/`) — Batch/Priority/Flex/Scale + provisioned throughput par provider (OpenAI/Azure, Anthropic, Vertex, Bedrock, vLLM). Discriminant : unités de réservation distinctes (Scale units/PTU/GSU+burndown/MU). Gotcha Vertex PT ≈8× on-demand sauf saturation.
+- **Modifiées** :
+  - [[reference-technique-stack-ia]] — 2 pointeurs vers les deltas NEUFS ci-dessus (comblent le trou « sampling » + « modes de service »).
+  - [[Neoteem]] — chiffres agents corrigés (14/14/5 vs 15/11), nouvelle section « Dispositif d'agents Claude Code » (inventaire vérifié des 33 agents des 3 repos : rôle/modèle/effort + patterns transverses), alias `neoyah` ajouté.
+- **Source** : demande Raphael — capitaliser les optimisations de réglages IA (sampling) puis les patterns provider (Vertex/OpenAI/Claude/Gemini/Bedrock, provisioning). Recherche web sources primaires (Anthropic/OpenAI/Google/AWS docs), tag VÉRIFIÉ/RAPPORTÉ sur pricing volatil. + note ombrelle Neoteem enrichie depuis l'inventaire disque des agents.
+
 ## 2026-06-18 — Critique DA : ia-workbench / spec discovery cross-repo
 ## 2026-06-18 — Amende limite description skill (modèle troncature CC 2.1.129+)
 ## 2026-06-18 — Doctrine effort : conflit xhigh résolu (option C)

@@ -301,6 +301,9 @@ Primitives : **Runner** (boucle d'exécution), **handoffs** (délégation entre 
 
 ## Liens
 
+- [[parametres-echantillonnage-llm]] — **delta NEUF** : sampling (temperature/top_p/penalties/seed) par cas d'usage, qualifié par provider (comble le trou « réglages d'inférence » de cette référence)
+- [[modes-service-debit-cout-latence-providers]] — **delta NEUF** : Batch/Priority/Flex/Scale + provisioned throughput (Scale units/PTU/GSU/MU) par provider
+
 - [[serving-inference-optimisation]] — delta décisionnel §2 (serving, quantification, spec decoding, P/D)
 - [[prompt-caching-kv-cache]] — delta décisionnel §1 (caching mécanique, relocation trick)
 - [[agents-evaluation]] — delta §6 (eval/observabilité, Langfuse→ClickHouse)
