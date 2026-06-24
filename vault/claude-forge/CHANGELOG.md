@@ -1733,3 +1733,8 @@ Tests hooks 176 verts (180→176, suppression du mécanisme d'exemption testé).
 
 - **Ajoutées** : [[switcher-credentials-claude-code]] (Knowledge/explorations) — mécanisme copie + re-capture qui dure des mois, pourquoi NeoBoard a cassé (refresh maison + client_id invalidé par Anthropic février 2026), vérités contre-intuitives (expiresAt=accessToken, refreshToken présent≠vivant), pièges d'implémentation.
 - **Source** : enquête + résolution panne switcher Neoteem (front web local `Documents/credential-claude/switch-web.mjs`).
+## 2026-06-24 — Kit de base setup repo (chantier migration_script)
+
+- **Modifiées** : [[methode-analyser-repo]] — section « KIT DE BASE — composants systématiques vs selon-repo » (memory/ + learning-reminder non-bloquant + skill-triggers/skill-activation + README/workflow/astuces = systématique ; pipeline agents / TDD / hooks lint = selon-repo).
+- **Source** : chantier setup `.claude/` complet sur migration_script (repo équipe PostgreSQL). Gotchas capitalisés : trigger `_` mort (word-boundary), reset `.skill-recommendations-session` au SessionStart (bug latent neo_ia), erreur de catégorie « workflow dev app sur repo SQL ».
+- **Mémoire** : feedback [[config-repo-equipe-vs-forge]] (déjà créé).

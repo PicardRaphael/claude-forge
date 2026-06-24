@@ -15,6 +15,12 @@ Ne JAMAIS écrire directement les fichiers que des skills créatrices savent pro
 | Critiquer un livrable majeur | `devils-advocate`                | Non — rule conditionnelle |
 | Évoluer/optimiser une skill  | `skill-evolve` → `skill-creator` | via skill-creator         |
 
+## La règle vaut CROSS-REPO — le hook, non
+
+La règle de comportement s'applique **quel que soit le repo cible** : éditer un `SKILL.md`/agent/hook/`CLAUDE.md` dans ia_back, neo_ia, migration_script ou tout autre repo → invoquer la skill créatrice, exactement comme dans forge. Forge peut écrire partout (permissions cross-repo), mais « écrire partout » n'autorise jamais le raccourci de la rédaction à la main.
+
+⚠️ `delegate-guard.py` ne fire que sur les fichiers **sous forge/** (test `is_inside_forge`). Hors forge, **aucun blocage technique** — c'est la discipline qui tient la couverture. Incident 24 juin : 9 `SKILL.md` écrits à la main dans `migration_script` (repo d'équipe) sans déclencher le guard. Décision Raphael : pas de durcissement du hook (on ne livre pas de hook bloquant à un repo d'équipe, cf [[config-repo-equipe-vs-forge]]) → engagement de comportement. Cf `memory/feedback_ecrire_partout_invoquer_skill_creatrice.md`.
+
 ## Comment le hook reconnaît une skill légitime (détection 2026-06-06)
 
 Les skills créatrices ne sont PAS des sous-agents : `agent_type` et `agent_id` sont `null` quand elles tournent. Le hook lit donc le champ **`attributionSkill`** dans le transcript de session (écrit par Claude Code, vérifié sur CC 2.1.167).

@@ -455,6 +455,27 @@ Soit typiquement **5 sub-agents en parallèle** (4 project-auditor par cluster +
 ---
 
 ## OPTIMISATION — Output recommandé
+## KIT DE BASE — composants systématiques vs selon-repo (24 juin 2026)
+
+> Issu du chantier migration_script (24 juin 2026) — repo d'équipe PostgreSQL/PLpgSQL. Distingue ce qu'on déploie TOUJOURS de ce qui dépend du repo.
+
+Tout setup `.claude/` complet (étape 5-6 de la grille) comprend un **kit de base systématique** puis des composants **calibrés au repo**.
+
+### Systématique (tout repo équipé, quel que soit le type)
+- **`memory/`** (pattern neo_ia) : `MEMORY.md` index + fichiers `reference_*`/`feedback_*`/`project_*`. Compounding versionné, contenu portable (zéro wikilink/MCP si repo d'équipe — cf [[config-repo-equipe-vs-forge]]).
+- **`learning-reminder`** (hook Stop, **non-bloquant** exit 0) : rappelle de capitaliser dans `memory/`. Sur repo d'équipe, JAMAIS la version bloquante de forge (cf [[decision-garder-learning-reminder-hook]]). C'est ce qui rend la mémoire vivante sans discipline manuelle.
+- **`.skill-triggers.json` + hook `skill-activation`** (UserPromptSubmit) : garantit l'auto-suggestion des skills (sinon ~50%). Gotcha vérifié : un trigger finissant par `_` (`vp_`, `chk_`) est MORT (`\b` après `_` ne matche jamais une lettre suivante) → triggers en prose uniquement. Ajouter `memory-watcher` qui reset `.skill-recommendations-session` au SessionStart (sinon chaque skill se tait après 1 fois — bug latent de neo_ia).
+- **`README.md` + `workflow.md`** (doc onboarding) : inventaire + parcours « je dois faire X ». Critique pour une équipe de débutants.
+- **`astuces.md`** : bonnes pratiques Claude Code builtin (Shift+Tab normal/auto/plan, `/model`, `/advisor` si l'équipe l'a, `/clear`, vérifier, capitaliser).
+
+### Selon le repo (calibrer, ne pas copier)
+- **Pipeline d'agents** : dérivé des rôles RÉELS. Un repo SQL sans test runner → PAS d'agent test-writer ni de pipeline architect→dev→test app. Sa couche « give Claude a way to verify » est SQL-native (vues `chk_`, contrôles, reviewer).
+- **TDD / mutation testing / `/go` typecheck-lint** : INAPPLICABLE sans substrat (test runner, CI). Ne PAS docker la note d'un repo SQL pour leur absence — erreur de catégorie.
+- **Hooks** : lint/format adaptés à la STACK (encoding SQL ≠ ruff ≠ eslint). Sur repo d'équipe, tous non-bloquants.
+- **Skills** : workflows récurrents détectés dans la doc du repo, pas un set générique.
+
+### Anti-pattern (cas migration_script)
+Transplanter le workflow dev **app** (vault [[workflow-claude-code-optimal]] calibré neo_ia/ia_back) sur un repo SQL = même erreur de catégorie que transplanter la machinerie forge. Filtrer chaque brique : « assume-t-elle un test runner / typecheck / CI app ? » → si oui, inapplicable.
 
 ### Niveau basique
 - 2-3 agents (architect, dev, reviewer)

@@ -26,6 +26,7 @@
 - [claim-security-must-be-provable](feedback_claim_security_must_be_provable.md) — Claim sécu read-only prouvable par code, sinon by discipline pas by construction
 - [classification-type-ticket-jira](feedback_classification_type_ticket_jira.md) — Classer un ticket par sa NATURE (FEATURE/BUG/OPTIMISATION), jamais par mimétisme
 - [commit-push-check-pattern](feedback_commit_push_check.md) — "regarde commit et push" = git status + diff avant push, jamais push aveugle
+- [config-repo-equipe-vs-forge](feedback_config_repo_equipe_vs_forge.md) — Configurer un repo d'ÉQUIPE PARTAGÉ ≠ transplanter la machinerie forge : skills auto-portantes (refs docs repo, pas wikilinks vault/MCP forge-brain), hooks non-bloquants, pas de delegate-guard. Convertir commands legacy avant suppression
 - [conformite-aveugle-regle-generique](feedback_conformite_aveugle_regle_generique.md) — Garde refusée = lire son intention avant de contourner. Souvent intentionnelle
 - [consolidate-searches](feedback_consolidate_searches.md) — Ne jamais chercher 2× la même info. Consolider en 1 fichier dès le 1er search
 - [couper-loops-decision-fatigue](feedback_couper_loops_decision_fatigue.md) — Après validation, trancher vite. 2 signaux : boucle "es-tu parfait" + session longue. Cap 3 advisor
@@ -41,6 +42,7 @@
 - [drift-implementation-karpathy-organes-morts](feedback_drift_implementation_karpathy_organes_morts.md) — forge-brain a dérivé du pattern Karpathy (raw/ mort, index.md stale +51%, Query keyword-only). Vérifier le RÉEL (vault_stats/usage_stats), pas la doctrine. Garde-fou : un manque n'est un défaut que s'il a un consommateur (valoriser ≠ consommer) — sinon c'est de la discipline anti-gonflage
 - [ia-back-postgresjs-stack-drift-pattern](feedback_drizzle_postgresjs_drift.md) — Migration code ≠ migration .claude/. Grep stack OLD vs NEW (Drizzle→postgres.js)
 - [ecart-consigne-chiffree-surfacer](feedback_ecart_consigne_chiffree_surfacer.md) — Écart à consigne chiffrée = surfacer pour arbitrage, jamais juger acceptable en silence
+- [ecrire-partout-invoquer-skill-creatrice](feedback_ecrire_partout_invoquer_skill_creatrice.md) — Forge écrit cross-repo MAIS invoque TOUJOURS la skill créatrice (SKILL.md/agent/hook/CLAUDE.md jamais à la main), même hors forge — le delegate-guard forge ne fire que sous forge/ (trou cross-repo). Incident migration_script 24 juin
 - [edit-tool-read-obligatoire-meme-en-parallele](feedback_edit_tool_read_obligatoire.md) — Edit en // sans Read = 7/8 failures. Batch Read d'abord, puis batch Edit
 - [enforce-not-advise](feedback_enforce_not_advise.md) — RÉVISÉ 22 mai : hooks = lint/sécu/scope, JAMAIS workflow
 - [eval-trio-angles-complementaires](feedback_eval_trio_angles_complementaires.md) — Éval forge = TRIO (skill-evolve fin / forge-review stratégique / outcomes-test rubric). Chercher 3 angles avant conclure gap
