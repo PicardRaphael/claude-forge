@@ -6,7 +6,8 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 
 **Critère d'archivage réel (vers `_archive/`) :** distinct — un tier-2 n'est archivé que si obsolète/absorbé (voir `_archive/MEMORY-archive-log.md`). Tier-2 ≠ archivé.
 
-## Feedback (tier-2 — 127 entrées)
+## Feedback (tier-2 — 128 entrées)
+- [verifier-shadow-plugin-avant-ref-morte](feedback_verifier_shadow_plugin_avant_ref_morte.md) — Skill supprimée ≠ réf morte : find le shadow plugin par nom avant de purger
 - [design-collegue-flow-first](feedback_design_collegue_flow_first.md) — Outiller un collègue = flow utilisateur d'abord + vérifier ce que les skills couvrent déjà
 - [merge-markers-grep-avant-commit](feedback_merge_markers_grep_avant_commit.md) — Conflit résolu = grep 0 marqueur AVANT commit (marqueur committé 10 juin)
 - [optimiser-claudemd-inspec](feedback_optimiser_claudemd_inspec.md) — Optimiser CLAUDE.md in-spec ≠ réduire mécaniquement — appliquer "Would removing this cause mistakes?" pas un %-objectif
