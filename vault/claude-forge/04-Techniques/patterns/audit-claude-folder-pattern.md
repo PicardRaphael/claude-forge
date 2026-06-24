@@ -152,6 +152,19 @@ git push
 - **DA bug Windows PowerShell heredoc** : si DA planté, sa critique vault peut être tronquée (que le frontmatter). Le titre du frontmatter contient parfois le verdict utile
 - **Description = routing CC** : si elle ment, dispatch cassé même si le body est correct (cas test-writer phase=refactor)
 
+## Gotcha — refonte interne d'une feature casse l'index de recâblage (24 juin 2026)
+
+Variante sœur du « stack drift » (code migré ≠ prompts migrés) : une **refonte INTERNE à un repo** qui ajoute/renomme/supprime des fichiers de `references/` (ou des hooks) laisse muets les **index qui recâblent ces fichiers**. Le fichier-feuille est juste, mais ce qui pointe vers lui ment. Audit `ia-workbench` post-refonte `/spec` (modèle epics-jira → Module) : 4 casses, toutes en amont des fichiers refondus, aucune dans les fichiers refondus eux-mêmes.
+
+Checklist post-refonte (à passer EN PLUS de l'audit de chaque fichier) :
+- **Table de routage du SKILL.md** : `ls references/ | wc -l` vs nb de lignes de la table « quand lire ». Un fichier ajouté mais non recâblé = invisible à l'exécution (3 templates ux/devops/qa ajoutés, table à 10 lignes).
+- **Préfixe MCP mort dans `allowed-tools`** : si une déclaration `.mcp.json` a été supprimée/renommée, son préfixe `mcp__<ancien>__*` survit en frontmatter. Croiser `allowed-tools` ⨯ `claude mcp list` (préfixe = NOM du serveur, cf [[reference_mcp_tool_prefix_nom_serveur]]).
+- **`.mcp.json` résiduel** : un brain/serveur copié d'un autre repo (forge-brain localhost vs connector claude.ai NeoTeem) reste « Pending approval » et n'est référencé nulle part. Croiser `.mcp.json` ⨯ préfixes réellement cités dans `.claude/`.
+- **Hook tracker/marker jamais reset** : un fichier d'état (`.skill-recommendations-session`) écrit par un hook mais nettoyé par un autre hook **qui n'existe pas** (cité dans une docstring) → le tracker fige (`["spec"]`) et la feature ne se re-déclenche plus. Vérifier que CHAQUE writer de marker a un cleaner réel au SessionStart.
+- **Doc feature (`doc/features/<nom>.md`)** : décrit souvent encore l'ancien modèle. Grep le vocabulaire de l'ancien design (`epic`, `epics-jira`), pas seulement les noms de fichiers.
+
+Réflexe : après une refonte, l'audit ne suffit pas fichier-par-fichier — auditer les **arêtes** (qui pointe vers quoi). Un `git rm` d'une reference exige un grep de TOUS ses référents (table de routage, body SKILL, doc, CLAUDE.md).
+
 ## Apprentissage (méta sur le pattern lui-même)
 
 - **Règle** : Toujours présenter le rapport AVANT d'appliquer les fix (feedback `present-before-build`)

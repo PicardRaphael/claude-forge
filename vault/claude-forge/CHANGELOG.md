@@ -14,6 +14,49 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-24 — Audit ia-workbench post-refonte workflow /spec (modèle Module)
+- **Modifiées** : `04-Techniques/patterns/audit-claude-folder-pattern.md` — nouveau Gotcha « refonte interne d'une feature casse l'index de recâblage » (checklist des arêtes : table de routage SKILL.md, préfixe MCP mort, `.mcp.json` résiduel, hook tracker sans cleaner, doc feature périmée). Capitalise les 4 casses trouvées sur ia-workbench.
+
+- **Modifiées** : `1-Projets/ia-workbench/ia-workbench-repo-management.md` — alignée sur le nouveau modèle Jira **Module → 4 familles de Stories (REPO/UX/DevOps/QA) → Sous-tâches** (remplace epic-thème figé) ; references à jour (modules-jira source unique + templates ux/devops/qa) ; décision MCP figée (brain NeoTeem = connector claude.ai, `.mcp.json` ne déclare aucun forge-brain). `derniere-maj` → 2026-06-24.
+- **Source** : audit du `.claude/` d'ia-workbench (repo de management hors forge) après refonte du workflow /spec — réparation de 4 casses introduites par l'update : `.mcp.json` (résidu forge-brain), SKILL.md (préfixe MCP mort + table de routage incomplète), hook tracker jamais reset (/spec ne se recommandait plus), doc feature périmée. Détail dans le CHANGELOG d'ia-workbench.
+
+## 2026-06-23 — Cause RÉELLE du faux « pas trouvé » : synonymie marque NEOTEEM=Lojii (fix livré)
+
+- **Modifiées** : `Knowledge/explorations/rag-qualite-source-documentaire-neoia-2026-06-19.md` — Gotcha 7 RÉÉCRIT : la piste « métadonnée pauvre » (écrite le 22) est INFIRMÉE par le diagnostic (summary+keywords contenaient « vote »). Vraie cause prouvée par test discriminant : le grader traite NEOTEEM ≠ Lojii comme deux produits et rejette (même produit). Fix livré documenté : single-source `PRODUCT_NAME_SYNONYMS` (parser+grader+génération), 2 foyers (grep obligatoire), garde-fou 0/N RETIRÉ (inverserait la doctrine d'abstention anti-hallucination), DeepEval double test anti-faux-vert « sur lojii », observabilité avec masquage PII obligatoire (`redact_for_observability`, flag OFF = champ omis, 5 foyers dont error). + Gotcha 6 complété (allowlist PII finale exclut PERSON, pas que MONEY). `derniere-maj` → 2026-06-23.
+- **Source** : chantier fix grading agent support neo_ia (PR bug/support-grading-marque-synonymie, 2× APPROVE). Connaissance métier clé : NEOTEEM = Lojii = Vorio = même produit, que tout composant LLM du pipeline doit savoir.
+
+## 2026-06-22 — Gotcha grading faux négatif + trace Langfuse aveugle (RAG support)
+
+- **Modifiées** : `Knowledge/explorations/rag-qualite-source-documentaire-neoia-2026-06-19.md` — « Gotcha 7 — Faux négatif du grading LLM (juge sur métadonnée) + trace Langfuse aveugle » : query « vote extranet » → faux « pas trouvé » alors que la bonne page est au rang 4 ; le grader juge sur métadonnée (pas le contenu) et rejette ; correctifs priorisés (garde-fou anti-0/N > escalade contenu ciblée > revoir exemple canonique) + DeepEval double test ; sous-gotcha = la trace Langfuse a tous les I/O des nodes à null → prouve le chemin pas la cause, reproduire en local.
+- **Source** : diagnostic session neo_ia + lecture `grading.py` + trace Langfuse réelle (I/O vides confirmés) — chantier agent support, échéance prod fin juillet.
+
+## 2026-06-22 — Veille LangGraph/LangChain 1.0 + purge chiffres fabriqués
+
+- **Modifiées** :
+  - `04-Techniques/chatbot/index-architectures.md` — PURGE des métriques fabriquées rescapées de l'audit 23 mai (routing 94%/91%, latence 4.2s/2.8s, tokens 2800/1900, -33% latence) dans le decision tree ET la matrice par pattern → remplacées par du qualitatif + disclaimer + renvoi [[agents-ia-22-claims-fausses-2026-05-23]]. Règle d'or reformulée (verbatim « is usually enough »). `derniere-maj` → 2026-06-22.
+  - `04-Techniques/chatbot/architecture-langgraph.md` — nouvelle section « LangGraph / LangChain 1.0 (GA 22 oct. 2025) — idiome 2026 » : `create_agent` (namespace `langchain.agents`, `langgraph.prebuilt` déprécié) + Agent Middleware (hooks before/after model, HITL/summarization/prompt-caching/retry) + durable execution (label canonique du checkpointing, idempotence, graceful shutdown ≥1.2). `derniere-maj` → 2026-06-22.
+  - `04-Techniques/agents/agents-architecture.md` — section dédiée « Deep Agents (Harrison Chase) » (4 piliers : planning-as-tool, subagents isolation contexte, file-system memory, system prompt riche + mise en garde « subagents too soon »). `derniere-maj` → 2026-06-22.
+- **Source** : veille `cc-news` ciblée LangGraph/LangChain/agents (confrontée à l'existant forge) avant de figer les références d'un futur skill `document-agent` (neo_ia). Seul angle mort réel = la GA 1.0 d'oct. 2025 ; le reste du corpus agents/RAG/eval/sécu est sain.
+
+## 2026-06-21 — RAG eval : faible rescue ≠ boost inutile
+## 2026-06-21 — Chantier couverture RAG support : bilan + pattern re-sync ciblé
+
+- **Modifiées (suite, soir)** : `Knowledge/explorations/rag-qualite-source-documentaire-neoia-2026-06-19.md` — « Gotcha 6 — "C'est déjà neutralisé en amont" ne dispense PAS du filet aval » (critère structurel défense en profondeur : lister ce que la couche amont ne peut PAS couvrir par construction — source Confluence hors contrôle éditorial, entrée utilisateur non filtrée, écritures futures non disciplinées ; allowlist support sans MONEY factorisée dans le package via `mask_pii_entities`).
+- **Source (suite)** : arbitrage axe D anti-PII du prompt de génération de l'agent support (chantier dev neo_ia) — décision « filet aval P0 malgré corps de note neutralisés ».
+
+- **Modifiées** : `Knowledge/explorations/rag-qualite-source-documentaire-neoia-2026-06-19.md` — section « Suite empirique — bilan mesuré du chantier » (routing sain/marginal, restitution saine, seul levier = couverture, lexique→Confluence rejeté) + « Gotcha 5 — Re-sync ciblé d'UNE note sans flag dédié » (mini-vault temp + UPSERT idempotent, pas de rebuild).
+- **Source** : chantier couverture neo_ia/neoteem-brain (3 trous comblés, lettrage TVA SC-101822 miss→rang 2). Clôture du diagnostic RAG ; reste = audit prompt génération + tests + mesure prod.
+
+
+- **Modifiées** : `04-Techniques/rag/rag-evaluation.md` — nouvelle section « Faible rescue ≠ boost inutile — séparer les trois causes du no-gain » (gap sémantique / redondance / trou de contenu) ; enrichit le paragraphe « Verdict = rescues vs régressions ».
+- **Source** : Bloc 1 du bilan routing support neo_ia (1 rescue / 0 régression sur 7 paires, baseline déjà forte sur les codes d'erreur explicites) → diagnostic = enrichir la couverture, pas toucher au boost.
+
+## 2026-06-20 — Golden set RAG : composition deux familles + anti-fuite in-sample
+
+- **Modifiées** :
+  - [[rag-evaluation]] (`04-Techniques/rag/`) — section « Golden set frozen » enrichie : composition deux familles (pannes via tickets hors-sample / usage normal via contenu de pages indexées, mesurées séparément), garde anti-fuite in-sample (`assert lexical_index.match(q) is None` + sourcing hors-sample), verdict rescues vs régressions plutôt que hit@1 quand un boost sature le ranking. 2 pitfalls ajoutés (monoculture pannes, set in-sample tautologique).
+- **Source** : chantier RAG Support neo_ia — cadrage du golden set pilote après re-chunk full. Réflexe Raphael « tester aussi l'usage normal, pas que les pannes » (le bot vise un rôle formateur, pas que le SAV).
+
 ## 2026-06-19 — Optimisations LLM par provider + dispositif d'agents Neoteem
 
 - **Ajoutées** :
@@ -1684,3 +1727,9 @@ Tests hooks 176 verts (180→176, suppression du mécanisme d'exemption testé).
 - **Renommée** : `MOC-Concurrents` → `MOC-Outils-IA` (00-Hub), via `move_note` (wikilinks réécrits automatiquement dans 7 backlinks : Home, MOC-Industrie, Gemini CLI, OpenAI Codex, GitHub Copilot, Cursor, xAI Grok).
 - **Contenu neutralisé** : titre « MOC — Outils AI coding », H1 « Outils AI coding (cross-fournisseurs) », resume + tag `#domaine/outils-ia`. La note reste un index thématique transverse (les fiches vivent dans les dossiers fournisseurs `products/`).
 - **Source** : préférence Raphael — dissolution du concept « Concurrents » (les fournisseurs sont des acteurs suivis).
+
+
+## 2026-06-22 — Switcher credentials Claude Code
+
+- **Ajoutées** : [[switcher-credentials-claude-code]] (Knowledge/explorations) — mécanisme copie + re-capture qui dure des mois, pourquoi NeoBoard a cassé (refresh maison + client_id invalidé par Anthropic février 2026), vérités contre-intuitives (expiresAt=accessToken, refreshToken présent≠vivant), pièges d'implémentation.
+- **Source** : enquête + résolution panne switcher Neoteem (front web local `Documents/credential-claude/switch-web.mjs`).

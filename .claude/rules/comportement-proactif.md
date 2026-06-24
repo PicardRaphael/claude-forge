@@ -30,7 +30,7 @@ description: "Dispatch table: which agent or skill to invoke based on user situa
 
 ## Séquence canonique AVANT tout dispatch créateur/analyste — OBLIGATOIRE
 
-Avant d'invoquer `subagent-creator`, `skill-creator`, `hook-creator`, `claudemd-creator`, `repo-inspector`, `cc-advisor`, `evolve`, `skill-evolve`, `spec` — la session principale DOIT briefer le sub-agent avec la séquence canonique :
+Avant d'invoquer `subagent-creator`, `skill-creator`, `hook-creator`, `claudemd-creator`, `repo-inspector`, `cc-advisor`, `evolve`, `skill-evolve` — la session principale DOIT briefer le sub-agent avec la séquence canonique :
 
 ```
 1. ANALYSER le RÉEL du repo (faits bruts, code, .claude/ existant)
