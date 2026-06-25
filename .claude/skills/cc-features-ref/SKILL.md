@@ -108,7 +108,7 @@ Configurer via `/memory`. Désactiver : `CLAUDE_CODE_DISABLE_AUTO_MEMORY=1`
 CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 claude
 ```
 
-Subagents qui se communiquent directement via task board partagé.
+Subagents qui se communiquent directement via task board partagé. Equipe implicite : spawn teammate via le param `name` du tool Agent, plus de `TeamCreate`/`TeamDelete`, `team_name` ignoré.
 
 ## Fonctionnalités récentes (avril 2026)
 

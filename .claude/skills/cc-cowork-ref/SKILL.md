@@ -68,6 +68,8 @@ Feature distincte de Cowork. Subagents qui se parlent directement.
 }
 ```
 
+Plus de `TeamCreate`/`TeamDelete` : le flag actif, chaque session a une equipe implicite. On spawn un teammate directement via le parametre `name` du tool Agent (`Agent(name="reviewer", ...)`). `team_name` reste accepte mais ignore.
+
 ### Architecture
 
 ```
