@@ -26,6 +26,7 @@
 - [claim-security-must-be-provable](feedback_claim_security_must_be_provable.md) — Claim sécu read-only prouvable par code, sinon by discipline pas by construction
 - [classification-type-ticket-jira](feedback_classification_type_ticket_jira.md) — Classer un ticket par sa NATURE (FEATURE/BUG/OPTIMISATION), jamais par mimétisme
 - [commit-push-check-pattern](feedback_commit_push_check.md) — "regarde commit et push" = git status + diff avant push, jamais push aveugle
+- [cowork-mcp-stdio-marche](feedback_cowork_mcp_stdio_marche.md) — MCP local stdio MARCHE en Cowork (retour terrain) : la vraie limite est le transport (HTTP-localhost échoue), pas local-vs-cloud. Ne plus dire « MCP local impossible en Cowork »
 - [config-repo-equipe-vs-forge](feedback_config_repo_equipe_vs_forge.md) — Configurer un repo d'ÉQUIPE PARTAGÉ ≠ transplanter la machinerie forge : skills auto-portantes (refs docs repo, pas wikilinks vault/MCP forge-brain), hooks non-bloquants, pas de delegate-guard. Convertir commands legacy avant suppression
 - [conformite-aveugle-regle-generique](feedback_conformite_aveugle_regle_generique.md) — Garde refusée = lire son intention avant de contourner. Souvent intentionnelle
 - [consolidate-searches](feedback_consolidate_searches.md) — Ne jamais chercher 2× la même info. Consolider en 1 fichier dès le 1er search
