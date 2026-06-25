@@ -8,7 +8,7 @@ aliases:
 domaine: claude-code
 type: best-practice
 auteur-source: "Raphael Picard / claude-forge"
-derniere-maj: 2026-05-24
+derniere-maj: 2026-06-24
 auteur: claude
 sources:
   - "[[erreur-edit-direct-skills]]"
@@ -18,9 +18,9 @@ tags:
 ---
 ## Regle
 
-Chaque projet Claude Code DOIT avoir un hook `delegate-guard` dans PreToolUse (Edit|Write) qui :
-1. Bloque les edits directs sur les fichiers proteges (SKILL.md, agents/*.md, CLAUDE.md)
-2. Indique quel agent specialise utiliser a la place
+Chaque projet Claude Code DOIT avoir un hook `delegate-guard` dans PreToolUse (Edit|Write|MultiEdit) qui :
+1. Bloque les edits directs sur les fichiers proteges (SKILL.md, agents/*.md, hooks/*.py, CLAUDE.md)
+2. Indique quel agent/skill specialise utiliser a la place
 3. Autorise les typos < 20 chars (warning sans blocage)
 4. Fail-open sur erreur de parsing (ne jamais bloquer par accident)
 
@@ -35,47 +35,59 @@ Les rules advisory ("OBLIGATOIRE" ecrit dans un .md) ne sont PAS respectees sous
 | Stack projet | Format hook | Runner |
 |-------------|-------------|--------|
 | TypeScript/Bun | `.ts` | `bun .claude/hooks/delegate-guard.ts` |
-| Python | `.py` | `python3 .claude/hooks/delegate-guard.py` |
-| Go | `.py` (Python par defaut) | `python3 .claude/hooks/delegate-guard.py` |
-| SQL/PL-pgSQL | `.py` (Python par defaut) | `python3 .claude/hooks/delegate-guard.py` |
+| Python | `.py` | `py .claude/hooks/delegate-guard.py` (Windows) / `python3 ...` (Unix) |
+| Go | `.py` (Python par defaut) | `py` / `python3` |
+| SQL/PL-pgSQL | `.py` (Python par defaut) | `py` / `python3` |
+
+Sur Windows forge : `py` (PEP 514 launcher), jamais `python`/`python3`. Cf [[reference_python_windows_cross_machine]].
 
 ### 2. Adapter aux agents du projet
 
-Le message de blocage doit referencer les agents DU PROJET, pas ceux de forge :
+Le message de blocage doit referencer les skills/agents DU PROJET, pas ceux de forge :
 
 ```
-# Si le projet a ses propres agents specialises :
-BLOCKED: Direct edit of 'SKILL.md' — use skill-creator agent
+# Si le projet a ses propres skills creatrices :
+BLOCKED: Direct edit of 'SKILL.md' — use skill-creator skill
 
-# Si le projet n'a PAS d'agents specialises (depend de forge) :
-BLOCKED: Direct edit of 'SKILL.md' — use skill-creator agent (from forge)
+# Si le projet n'a PAS de skills creatrices (depend de forge) :
+BLOCKED: Direct edit of 'SKILL.md' — use skill-creator skill (from forge)
 ```
 
-### 3. Adapter le bypass
+### 3. Detection + bypass — par `attributionSkill`, jamais par env var
 
-- `CLAUDE_AGENT` env var = nom de l'agent specialise autorise
-- Ou `CLAUDE_DELEGATE_BYPASS=1` pour bypass total (mode urgence)
+> **MIS A JOUR 2026-06-24** : le bypass historique par `CLAUDE_AGENT` / `CLAUDE_DELEGATE_BYPASS` est PERIME — il a ete RETIRE deliberement du hook forge (signal spoofable : une injection d'env var n'est pas une delegation legitime, c'est un contournement). Ne plus le documenter ni le cabler.
 
-### 4. Ajouter dans settings.json
+Mecanisme reel (verifie CC 2.1.167, hook forge) :
+- Les skills creatrices ne sont PAS des sous-agents : `agent_type` et `agent_id` sont `null` quand elles tournent. Le hook parse donc le champ **`attributionSkill`** dans le transcript de session (ecrit par Claude Code quand une skill est active).
+- **Bypass STRICT** : `attributionSkill` doit correspondre a la skill PROPRIETAIRE du fichier — `claudemd-creator` ne deblo­que que `CLAUDE.md`, `skill-creator` que les `SKILL.md`, `subagent-creator` que `agents/*.md`, `hook-creator` que `hooks/*.py`. Une skill active ne peut pas debloquer un type qu'elle ne possede pas (defense en profondeur).
+- Comme `attributionSkill` vit dans le transcript de SESSION, le bypass marche meme quand la skill ecrit un fichier d'un AUTRE repo (voir section Scope cross-repo).
 
-Le delegate-guard doit etre le PREMIER hook du matcher Edit|Write (avant les guards specifiques au projet) :
+### 4. Scope du hook — forge-only, et ce que ca implique cross-repo
+
+Le delegate-guard forge ne fire QUE sur les fichiers **sous `forge/`** (test `is_inside_forge`, fail-open exit 0 hors forge). Consequence : quand la session forge edite un composant `.claude/` d'un AUTRE repo (ia_back, neo_ia, migration_script...), **aucun blocage technique** — seule la discipline tient.
+
+Decision forge (24 juin 2026) : ne PAS durcir le hook au cross-repo. On ne livre pas de hook bloquant a un repo d'equipe partage (cf [[config-repo-equipe-vs-forge]] : `.claude/` auto-portant, hooks non-bloquants). La regle "invoquer la skill creatrice" reste un ENGAGEMENT DE COMPORTEMENT valable quel que soit le repo cible, porte par `memory/feedback_ecrire_partout_invoquer_skill_creatrice.md` + rule `delegate-to-specialists.md`. Incident fondateur : 9 `SKILL.md` ecrits a la main dans `migration_script` sans declencher le guard.
+
+### 5. Ajouter dans settings.json
+
+Le delegate-guard doit etre dans PreToolUse, matcher `Write|Edit|MultiEdit` (oublier MultiEdit = trou architectural) :
 
 ```json
 {
-  "matcher": "Edit|Write",
+  "matcher": "Write|Edit|MultiEdit",
   "hooks": [
-    { "type": "command", "command": "python3 .claude/hooks/delegate-guard.py", "timeout": 5 },
-    { "type": "command", "command": "..." }
+    { "type": "command", "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/delegate-guard.py\"", "timeout": 10 }
   ]
 }
 ```
 
-### 5. Checklist setup nouveau repo
+### 6. Checklist setup nouveau repo
 
-- [ ] Creer `.claude/hooks/delegate-guard.{py|ts}` adapte au langage
-- [ ] Ajouter dans `settings.json` PreToolUse, matcher `Edit|Write`, en premiere position
+- [ ] Creer `.claude/hooks/delegate-guard.{py|ts}` adapte au langage (runner `py` sur Windows)
+- [ ] Ajouter dans `settings.json` PreToolUse, matcher `Write|Edit|MultiEdit`
 - [ ] Tester : un Edit sur un SKILL.md doit retourner exit 2
 - [ ] Tester : un Edit < 20 chars doit passer avec warning
+- [ ] Tester : skill creatrice active (`attributionSkill` = proprietaire) doit debloquer
 - [ ] Tester : un fichier normal doit passer sans rien
 
 ## Implementation de reference
@@ -88,7 +100,7 @@ Le delegate-guard doit etre le PREMIER hook du matcher Edit|Write (avant les gua
 - [[MOC-Claude-Code]]
 - [[erreur-edit-direct-skills]] — erreur qui a motive ce pattern
 - [[methode-analyser-repo]] — checklist setup projet
-
+- [[config-repo-equipe-vs-forge]] — pourquoi on ne deploie pas le guard bloquant sur un repo d'equipe
 
 ## Erreurs liées
 

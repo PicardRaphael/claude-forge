@@ -4,30 +4,31 @@ resume: Working memory dynamique -- mis a jour par /done, lu par /recap
 aliases: [context actuel, contexte courant, working memory, memoire de travail, etat actuel]
 type: context
 status: active
-derniere-maj: 2026-06-24
+derniere-maj: 2026-06-25
 auteur: claude
 tags: ["#type/context", "#meta/working-memory"]
 ---
 
 ## Phase actuelle
-Maintenance config `.claude/` — audit ia-workbench (repo de management hors forge) + nettoyage refs mortes forge après suppression de 2 skills.
+Audit + durcissement config Claude Code des repos d'équipe (migration_script terminé).
 
-## Derniere session (2026-06-24)
-### Decisions prises
-- **ia-workbench** : audit post-refonte du workflow `/spec` (modèle epics-jira → Module/4 familles de Stories REPO·UX·DevOps·QA → Sous-tâches). 4 casses réparées (`.mcp.json` résidu forge-brain → vidé ; SKILL.md préfixe Atlassian doublon + table routage incomplète ; tracker `.skill-recommendations-session` jamais reset → /spec ne se recommandait plus ; doc feature périmée). Puis audit conformité (repo-inspector, 92→100 : `permissionMode: plan` ajouté à repo-explorer). Atlassian = `mcp__plugin_atlassian_atlassian__*`. Commité `e80ea48` (repo LOCAL, pas de remote → pas de push).
-- **claude-forge** : suppression par Raphael des 2 skills forge `spec` + `neoteem-back-ts`. Nettoyage des refs mortes (rules/comportement-proactif `, spec` retiré ; mémoire projet + MEMORY.md alignés). Commité+poussé `aa5ca5c` (main).
-- Distinction clé : `/spec` survit via plugin PO `neoteem-admin` (shadow) → refs gardées ; `neoteem-back-ts` = nom de repo VIVANT, seule la skill forge est morte.
+## Dernière session (2026-06-25)
+### Décisions prises
+- **migration_script `.claude/` = CONFORME** (audit profond 31 objets, 4 grilles dont portabilité dominante). Repo assaini depuis l'incident du 24 juin : zéro wikilink vault, zéro MCP forge-brain, zéro chemin machine, zéro `exit 2`.
+- **Fix É1 appliqué + poussé** (commit `50b88378`, branche `raphael_claude_setup`, PR Bitbucket #1514) : table de routage dédupliquée → CLAUDE.md = source unique (lu en premier par un dev), `dispatch-skills.md` réduit à un stub pointeur, README:62 ajusté. Sens de fix inversé par le DA (découvrabilité humaine > réflexe forge « rule = canonique »).
+- **É2 (descriptions > 250 chars) laissé tel quel** : gain tokens marginal, risque auto-activation.
+- **Isolation stricte forge ↔ migration_script** : aucune liaison, intervention uniquement sur demande explicite de Raphael.
 
 ### En cours
-Rien — 2 chantiers clos. Forge poussé (main @ aa5ca5c). ia-workbench commité local (e80ea48, pas de remote).
+Rien — chantier migration_script clos.
 
-### Prochaines etapes
-- ia-workbench : TROU 1 (oracle/rubrique de « ticket parfait », BLOCKING du DA 18 juin) à traiter avant d'allumer un loop d'exécution ; script de sync modules-jira → mono-repo ; dry-run réel de `/spec`.
-- `/clean-memory` : memory/ forge toujours au-dessus du WARNING 250.
+### Prochaines étapes
+- Si Raphael ouvre la PR #1514 → merge vers Master (décision humaine, repo d'équipe).
+- Appliquer la même grille d'audit repo-d'équipe aux autres repos partagés si demandé.
 
 ## Fils ouverts
-- Capitalisation cette session : `[[audit-claude-folder-pattern]]` enrichi (gotcha « refonte interne casse l'index de recâblage ») + feedback `verifier-shadow-plugin-avant-ref-morte` (tier-2).
-- Forge : 2 explorations vault non trackées + `output/claude-switcher.js` + notes vault (agents-architecture, architecture-langgraph, rag-evaluation) modifiées AVANT cette session, laissées hors commit — à traiter par Raphael.
+- **Récidive Edit direct CLAUDE.md** (2/3 vers seuil [[feedback-reviole-3x-regle-insuffisante]]) : à la 3e occurrence, envisager un réflexe pré-Edit structurel plutôt qu'une note. Enrichi dans `memory/feedback_ecrire_partout_invoquer_skill_creatrice.md`.
+- `vera/gen_tags_patch.py:193` : chemin machine en dur (`C:/Data/ctrl/controls.sql`) — dans le CODE de migration_script, hors scope `.claude/`. Signalé, non traité.
 
 ## Liens
 [[2-Casquettes/Raphael-Picard|Raphael Picard]]

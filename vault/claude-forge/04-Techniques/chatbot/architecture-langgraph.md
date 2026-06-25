@@ -10,7 +10,7 @@ aliases:
   - langgraph swarm
 domaine: ia
 type: technique
-derniere-maj: 2026-05-23
+derniere-maj: 2026-06-22
 auteur: claude
 sources:
   - "https://langchain-ai.github.io/langgraph/"
@@ -27,6 +27,30 @@ tags:
 ## Definition
 
 Framework open-source (MIT) pour orchestrer des agents via des graphes diriges avec etat type. Seul framework grand-public avec **checkpointing natif, time-travel debugging et HITL integre (`interrupt`)**. Adoption enterprise forte (Klarna, LinkedIn, Uber, JP Morgan documentes). Philosophie : model-agnostic, controle fin via graphe, persistence first-class.
+
+## LangGraph / LangChain 1.0 (GA 22 oct. 2025) — idiome 2026
+
+Jalon majeur : **LangChain & LangGraph 1.0 sont GA depuis le 22 octobre 2025** (engagement de stabilite : pas de breaking change avant 2.0). Trois changements structurent l'idiome actuel — les exemples de code plus bas utilisent encore l'ancien namespace `langgraph.prebuilt`, conserve comme reference historique mais **deprecie**.
+
+### 1. Nouveau namespace agent — `create_agent` (remplace `create_react_agent`)
+
+`langgraph.prebuilt` est deprecie ; la construction d'agent a migre vers `langchain.agents`. L'idiome 2026 :
+
+```python
+from langchain.agents import create_agent  # ancien : from langgraph.prebuilt import create_react_agent
+
+agent = create_agent(model, tools=[...], prompt="...")
+```
+
+### 2. Agent Middleware — l'abstraction centrale de LangChain 1.0
+
+Des hooks reutilisables autour de la boucle d'agent, executes en pile (entree sequentielle, retour inverse — comme un middleware web) : `before_agent` / `before_model` / `wrap_model_call` (modifie la requete modele) / `after_model` / `wrap_tool_call` / `after_agent`. C'est la reponse de LangChain au probleme "les devs sortent de l'abstraction des qu'un cas non-trivial demande du context engineering fin". Middlewares fournis : **Human-in-the-loop**, **Summarization** (compaction au-dela d'un seuil de contexte), **Anthropic Prompt Caching**, **Retry** (backoff exponentiel), **Content moderation**. Source : [blog Agent Middleware](https://blog.langchain.com/agent-middleware/).
+
+### 3. Durable execution — le label canonique du checkpointing
+
+Ce que la note appelle "checkpointing + time-travel" porte desormais le nom officiel **durable execution** : etat persiste, reprise apres crash/restart, **idempotence des noeuds requise** (re-execution au resume). `langgraph >= 1.2` ajoute le **graceful shutdown** (SIGTERM → checkpoint reprenable). Versions : latest PyPI = 1.2.6 (18 juin 2026). Source : [docs durable execution](https://docs.langchain.com/oss/python/langgraph/durable-execution).
+
+> Pour aller plus loin sur les **Deep Agents** (planning-as-tool + subagents + file-system-as-memory, runtime LangGraph) : voir [[agents-architecture]] section Deep Agents + [[Harrison Chase]].
 
 ## Architecture
 

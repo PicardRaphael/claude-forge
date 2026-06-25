@@ -17,7 +17,7 @@ const DATA_DIR = path.join(os.homedir(), '.neoboard')
 const ACCOUNTS_FILE = path.join(DATA_DIR, 'accounts.json')
 const CREDENTIALS_FILE = path.join(os.homedir(), '.claude', '.credentials.json')
 const OAUTH_TOKEN_URL = 'https://platform.claude.com/v1/oauth/token'
-const OAUTH_CLIENT_ID = '22422756-60c9-4084-8eb7-27705fd5cf9a'
+const OAUTH_CLIENT_ID = '9d1c250a-e61b-44d9-88ed-5944d1962f5e'
 const CACHE_TTL = 45
 
 // ── Accounts service ──────────────────────────────────────────────

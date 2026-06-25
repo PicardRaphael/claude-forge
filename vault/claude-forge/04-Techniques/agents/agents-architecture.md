@@ -10,7 +10,7 @@ aliases:
   - agent memory
 domaine: ia
 type: technique
-derniere-maj: 2026-06-17
+derniere-maj: 2026-06-22
 auteur: claude
 sources:
   - "https://arxiv.org/abs/2210.03629"
@@ -113,6 +113,19 @@ MCP a gagné la guerre des interfaces MAIS sa sécurité est immature : **tool p
 | Graph-of-Thought | Relations complexes entre idees | Ajustement dynamique |
 | **LATS** | MCTS + LLM triple role | 94.4% HumanEval, 0.61 EM HotPotQA (arXiv 2310.04406) |
 | Adaptive | LLM charge dynamiquement des "skills" | Deep Agents (Harrison Chase) |
+
+## Deep Agents (Harrison Chase)
+
+Harness pour agents **long-horizon** (trajectoires de 50-100+ tool calls : recherche profonde, coding, tâches multi-étapes). Lib standalone `deepagents` (batteries-included, sur runtime LangGraph) ; `create_deep_agent` préassemble la stack. Reverse-engineering de Claude Code / Deep Research / Manus. **4 piliers** :
+
+1. **Planning-as-a-tool** — un outil `write_todos` (no-op) qui force l'agent à décomposer et garder un plan explicite sur les longues trajectoires (anti-drift).
+2. **Subagents pour isolation de contexte** — sous-agents parallélisables dont le contexte est compressé en un seul résultat remonté au parent (le contexte long reste isolé).
+3. **File-system virtuel comme état/mémoire** — offload de la mémoire de travail hors du context window (un agent écrit/lit des "fichiers" plutôt que tout garder en messages).
+4. **System prompt riche** — inspiré de Claude Code (instructions détaillées plutôt que prompt minimal).
+
+> Mise en garde de Chase lui-même : **« People reach for subagents too soon. If your prompt is 20 lines, expand it — don't outsource it. »** Le réflexe sain reste la doctrine simple → workflow → multi-agent ci-dessus : un Deep Agent est une réponse au *long-horizon*, pas un défaut d'architecture.
+
+Sources : [docs Deep Agents](https://docs.langchain.com/oss/python/deepagents/overview) · [GitHub deepagents](https://github.com/langchain-ai/deepagents). Cf [[Harrison Chase]] + [[architecture-langgraph]] (runtime).
 
 ## Context Engineering
 

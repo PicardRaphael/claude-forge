@@ -10,7 +10,7 @@ aliases:
   - chatbot decision tree
 domaine: ia
 type: index
-derniere-maj: 2026-05-10
+derniere-maj: 2026-06-22
 auteur: claude
 sources:
   - "https://www.anthropic.com/research/building-effective-agents"
@@ -24,9 +24,9 @@ tags:
 
 ## Regle d'or
 
-> "Optimize single LLM calls with retrieval and in-context examples BEFORE adding complexity." — Anthropic, Building Effective Agents
+> "Optimize single LLM calls with retrieval and in-context examples — this is usually enough." — Anthropic, Building Effective Agents (verbatim : "is usually enough" ; "before adding complexity" est une paraphrase)
 
-**Commencer par [[pattern-single-agent-multi-tool]]**. Ne passer au multi-agent que quand un seul agent ne suffit plus (system prompt > 2000 tokens, precision routing < 90%, domaines conflictuels).
+**Commencer par [[pattern-single-agent-multi-tool]]**. Ne passer au multi-agent que quand un seul agent ne suffit plus (system prompt trop lourd, routing imprecis, domaines conflictuels) — et seulement quand les **evals** le prouvent, pas par anticipation.
 
 ## Decision tree — Quel pattern ?
 
@@ -36,14 +36,14 @@ Combien de domaines distincts ?
 ├── 1-2 domaines
 │   └── [[pattern-single-agent-multi-tool]]
 │       Agent unique + N outils
-│       80% des chatbots sont ici
+│       Le defaut pour la grande majorite des chatbots
 │
 ├── 3-5 domaines
 │   ├── Latence critique ?
 │   │   ├── Oui → [[pattern-swarm]]
-│   │   │         -30% tokens, -33% latence
+│   │   │         handoffs lateraux, moins de hops centraux
 │   │   └── Non → [[pattern-orchestrateur]]
-│   │             94% routing accuracy, audit trail
+│   │             routage centralise, audit trail
 │   │
 │   └── Process fixe/deterministe ?
 │       └── Oui → [[pattern-pipeline]]
@@ -74,7 +74,7 @@ Contrainte principale ?
 │
 ├── Checkpointing / HITL / Durabilite
 │   └── LangGraph + PostgresSaver
-│       Time-travel debugging, interrupts natifs
+│       Durable execution, time-travel debugging, interrupts natifs
 │       → [[architecture-langgraph]]
 │
 ├── Prototype rapide (< 1 jour)
@@ -99,7 +99,7 @@ Contrainte principale ?
 │
 └── Maximum controle + simplicite
     └── Raw SDK (Anthropic/OpenAI) sans framework
-        -40-60% code, -8-22% latence vs framework
+        moins de code et de latence vs framework (mesurer cas par cas)
 ```
 
 ## Matrice d'evaluation croisee
@@ -109,7 +109,7 @@ Contrainte principale ?
 | Critere | Claude API | OpenAI API | LangGraph | CrewAI | Gemini/ADK | AutoGen |
 |---------|-----------|-----------|-----------|--------|-----------|---------|
 | **Production-ready** | Haute | Haute | Haute | Moyenne | Moyenne | Basse |
-| **Cout tokens** | Moyen | Variable | N/A (LLM) | N/A (+18%) | **Tres bas** | N/A (5-6x) |
+| **Cout tokens** | Moyen | Variable | N/A (LLM) | N/A | **Tres bas** | N/A |
 | **Learning curve** | Basse | Basse | **Haute** | **Basse** | Moyenne | Moyenne |
 | **Streaming** | Oui | Oui | Oui | **Non** | Oui | Non |
 | **Checkpointing** | Non | Basique | **Natif** | Non | Basique | Non |
@@ -123,13 +123,15 @@ Contrainte principale ?
 
 ### Par pattern
 
-| Pattern | Complexite | Latence | Tokens | Routing accuracy | Audit trail | Cas d'usage |
-|---------|-----------|---------|--------|-----------------|-------------|-------------|
-| **Single Agent** | **Basse** | **1-3s** | **~1,200** | Outil-level | Basique | 80% des cas |
-| **Orchestrateur** | Moyenne | ~4.2s | ~2,800 | **94%** | **Centralise** | Support multi-domaine |
-| **Swarm** | Moyenne | **~2.8s** | **~1,900** | 91% | Distribue | Latence critique |
+> ⚠️ Les chiffres precis de routing accuracy / latence / tokens par pattern (type "94%/91%, 4.2s/2.8s, 2800/1900 tokens") qui figuraient dans les versions anterieures **n'ont pas de source primaire** (audit 23 mai 2026, cf [[agents-ia-22-claims-fausses-2026-05-23]]). Les colonnes ci-dessous restent **qualitatives** ; pour chiffrer ton cas, mesurer empiriquement.
+
+| Pattern | Complexite | Latence | Tokens | Routing | Audit trail | Cas d'usage |
+|---------|-----------|---------|--------|---------|-------------|-------------|
+| **Single Agent** | **Basse** | **Basse** | **Bas** | Outil-level | Basique | Majorite des cas |
+| **Orchestrateur** | Moyenne | Plus elevee (hops centraux) | Plus eleves | Centralise | **Centralise** | Support multi-domaine |
+| **Swarm** | Moyenne | **Reduite vs orchestrateur** | **Reduits vs orchestrateur** | Distribue | Distribue | Latence critique |
 | **Pipeline** | Basse | N × step | Variable | N/A (fixe) | Par step | Process deterministe |
-| **Hierarchique** | **Haute** | +50-100% | x1.5-2 | ~94%/niveau | Multi-niveau | 6+ domaines |
+| **Hierarchique** | **Haute** | La plus elevee | Les plus eleves | Par niveau | Multi-niveau | 6+ domaines |
 
 ## Architectures recommandees par cas d'usage
 
@@ -158,7 +160,7 @@ Contrainte principale ?
 - **Implementation** : Realtime API + handoffs pour routing
 
 ### Agent autonome long-running (recherche, coding)
-- **Pattern** : [[pattern-orchestrateur]] hierarchique
+- **Pattern** : [[pattern-orchestrateur]] hierarchique, ou [[agents-architecture]] Deep Agent (planning-as-tool + subagents + file-system memory)
 - **Framework** : Claude Managed Agents ($0.08/h) ou LangGraph Cloud
 - **Cout estimatif** : $0.08-0.70/session (1h Opus)
 - **Implementation** : coordinator + specialists dans threads isoles
@@ -172,19 +174,19 @@ Contrainte principale ?
 ## Optimisations transversales
 
 ### Cout
-1. **Prompt caching** : -90% sur cache hit (Claude), -50-90% (OpenAI)
+1. **Prompt caching** : -90% sur cache hit (Claude), -50-90% (OpenAI), jusqu'a 95% (verbatim Anthropic)
 2. **Batch API** : -50% (tous providers), si latence < 24h acceptable
 3. **Triage modele** : Haiku/Nano pour classifier, Sonnet/4.1 pour repondre
 4. **Tool Search / deferred loading** : -85% tokens sur definitions outils (> 10 outils)
 
 ### Latence
-1. **Streaming** : latence percue reduite de 3-5x
+1. **Streaming** : latence percue fortement reduite
 2. **Appels paralleles** : outils independants en parallele (Claude, GPT-4.1+, Gemini)
-3. **Swarm over supervisor** : -33% latence single-domain
-4. **Raw SDK over framework** : -8-22% (pas d'overhead LangGraph ~14ms/op)
+3. **Swarm over supervisor** : moins de hops centraux
+4. **Raw SDK over framework** : moins d'overhead (mesurer cas par cas)
 
 ### Qualite
-1. **Descriptions outils precises** : "une bonne description vaut 3 outils" (Anthropic)
+1. **Descriptions outils precises** : ecrire de meilleures descriptions plutot que multiplier les outils (principe Anthropic ; le ratio "vaut 3 outils" est une formule forge, pas un verbatim)
 2. **Evaluator-optimizer** : boucle generate-evaluate pour reponses verifiees
 3. **Extended thinking** (Claude) / reasoning (o3/o4-mini) pour cas complexes
 4. **Gates programmatiques** : validation code entre steps, pas juste LLM
@@ -206,22 +208,23 @@ Phase 4 : LangGraph avec checkpointing (enterprise)
 ### Frameworks
 - [[architecture-claude-api]] — Messages API, Agent SDK, Managed Agents
 - [[architecture-openai-api]] — Responses API, Agents SDK, Conversations
-- [[architecture-langgraph]] — StateGraph, checkpointing, HITL
+- [[architecture-langgraph]] — StateGraph, checkpointing, HITL, LangGraph 1.0 + middleware
 - [[architecture-crewai]] — Crews, Flows, prototypage rapide
 - [[architecture-gemini-api]] — Function calling, ADK, A2A
 - [[architecture-autogen]] — GroupChat, en declin
 
 ### Patterns
-- [[pattern-single-agent-multi-tool]] — Le defaut (80% des cas)
+- [[pattern-single-agent-multi-tool]] — Le defaut (majorite des cas)
 - [[pattern-orchestrateur]] — Supervisor central + hierarchique
 - [[pattern-swarm]] — Handoffs decentralises
 - [[pattern-pipeline]] — Chaine sequentielle + evaluator-optimizer
 
 ### Contexte
-- [[agents-architecture]] — Patterns abstraits (WHAT)
+- [[agents-architecture]] — Patterns abstraits (WHAT) + taxonomie complete
 - [[agents-frameworks]] — Comparatif general frameworks
 - [[Agents IA]] — MOC principal agents
 
 ## Liens
 
 - [[MOC-Techniques]]
+- [[agents-ia-22-claims-fausses-2026-05-23]] — audit source des retraits de chiffres

@@ -1,0 +1,30 @@
+#!/bin/sh
+# pre-commit — régénère .claude/INDEX.md quand un skill/agent change.
+# Déterministe, NON bloquant : un échec du générateur avertit mais ne bloque pas le commit.
+# Source VERSIONNÉE — installée dans .git/hooks/ par .claude/scripts/install-git-hooks.sh
+# (.git/ n'est pas versionné ; relancer l'installeur après un clone).
+
+# Ne rien faire si aucun skill/agent n'est stagé (pas de bruit sur les autres commits)
+changed=$(git diff --cached --name-only --diff-filter=ACMR -- '.claude/skills/' '.claude/agents/')
+[ -z "$changed" ] && exit 0
+
+# py launcher (Windows/cross-machine) ; fallback python3 si absent
+if command -v py >/dev/null 2>&1; then
+  PY=py
+elif command -v python3 >/dev/null 2>&1; then
+  PY=python3
+else
+  echo "[pre-commit] py/python3 introuvable — INDEX.md non régénéré (commit poursuivi)." >&2
+  exit 0
+fi
+
+"$PY" .claude/scripts/gen-index.py
+status=$?
+
+if [ "$status" -eq 0 ]; then
+  git add .claude/INDEX.md
+elif [ "$status" -eq 2 ]; then
+  echo "[pre-commit] gen-index a échoué (frontmatter malformé). INDEX.md inchangé, commit poursuivi." >&2
+fi
+
+exit 0

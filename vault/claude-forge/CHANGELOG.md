@@ -1738,3 +1738,8 @@ Tests hooks 176 verts (180→176, suppression du mécanisme d'exemption testé).
 - **Modifiées** : [[methode-analyser-repo]] — section « KIT DE BASE — composants systématiques vs selon-repo » (memory/ + learning-reminder non-bloquant + skill-triggers/skill-activation + README/workflow/astuces = systématique ; pipeline agents / TDD / hooks lint = selon-repo).
 - **Source** : chantier setup `.claude/` complet sur migration_script (repo équipe PostgreSQL). Gotchas capitalisés : trigger `_` mort (word-boundary), reset `.skill-recommendations-session` au SessionStart (bug latent neo_ia), erreur de catégorie « workflow dev app sur repo SQL ».
 - **Mémoire** : feedback [[config-repo-equipe-vs-forge]] (déjà créé).
+
+## 2026-06-24 — Correction bypass périmé delegate-guard-pattern
+
+- **Modifiées** : `delegate-guard-pattern` — section 3 (bypass) corrigée : `CLAUDE_AGENT`/`CLAUDE_DELEGATE_BYPASS` PÉRIMÉS (retirés du hook réel car spoofables) → mécanisme réel = `attributionSkill` lu dans le transcript, bypass STRICT par type de fichier. Ajout section 4 « scope forge-only + engagement cross-repo » + alignement runner `py` Windows + matcher `Write|Edit|MultiEdit`.
+- **Source** : incident 24 juin (9 SKILL.md écrits à la main dans migration_script hors forge → guard ne fire pas). Drift résiduel entre la note canonique et l'implémentation `delegate-guard.py` réelle.
