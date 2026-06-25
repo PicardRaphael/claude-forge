@@ -14,6 +14,10 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-24 — Correction drift : MCP local stdio MARCHE en Cowork (retour terrain)
+
+- **Modifiées** : `01-Claude/Cowork/mcp-local-cowork-vs-claude-code.md` — amendement daté : la prémisse « localhost impossible en Cowork » est FAUSSE pour le transport **stdio**. Cowork lance le process en local (comme Desktop Chat) → stdio marche, pas besoin de tunnel HTTPS. La vraie distinction est le TRANSPORT (stdio ✅ / HTTP-localhost ❌ / HTTPS public ✅), pas local-vs-cloud. `titre`/`resume`/`derniere-maj` corrigés pour que le faux claim ne sorte plus en tête de search_brain.
+- **Source** : retour terrain Raphael — forge-brain MCP testé en stdio sur le Cowork d'un PO puis le sien (launcher `mcp-forge-brain/start_stdio.py` créé, `transport="stdio"`). Infirme la note du 1er juin qui sur-généralisait depuis le seul cas HTTP-localhost.
 ## 2026-06-24 — Veille CC v2.1.179→190 + amendement Agent Teams (équipe implicite)
 
 - **Modifiées** : `01-Claude/Code/changelog/CC juin 2026 - v2.1.160 ultracode.md` — section « AJOUT 24 juin 2026 — v2.1.179 → v2.1.190 » : auto mode bloque git destructif + `terraform/pulumi/cdk destroy` (2.1.183), `sandbox.credentials` (2.1.187), `!` bash auto-respond + `claude mcp login/logout` (2.1.186), foreground subagents plafonnés 5 niveaux (2.1.181), `/config key=value` (2.1.181). Constat loops : aucune nouveauté structurante depuis le 5 juin (que des fixes), [[concevoir-loops-travail]] reste à jour. `derniere-maj` → 2026-06-24.
