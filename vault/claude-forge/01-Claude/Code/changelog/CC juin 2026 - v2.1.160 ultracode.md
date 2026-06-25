@@ -9,7 +9,7 @@ aliases:
   - "workflow trigger renamed ultracode"
 type: changelog
 domaine: claude-code
-derniere-maj: 2026-06-16
+derniere-maj: 2026-06-24
 auteur: claude
 sources:
   - "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md"
@@ -88,3 +88,27 @@ Drop CC postérieur au changelog vault du 28 mai (v2.1.154 Opus 4.8 + Dynamic Wo
 - v2.1.161 — parallel tool calls : un Bash échoué n'annule plus les autres du batch. v2.1.162 — Windsurf renommé « Devin Desktop ». v2.1.176 — titres de session dans la langue de conversation (`language`).
 
 `derniere-maj` → 2026-06-16.
+
+
+---
+
+## AJOUT 24 juin 2026 — v2.1.179 → v2.1.190 (auto mode terraform/git, sandbox credentials, bash auto-respond)
+
+> Source primaire vérifiée : [code.claude.com/docs/en/changelog](https://code.claude.com/docs/en/changelog) (fetch 24 juin). Drop postérieur à l'AJOUT 16 juin (s'arrêtait à v2.1.178).
+
+### Le plus structurant pour forge
+
+- **v2.1.183 (19 juin)** — **Auto mode safety durci** : les commandes git destructives (`git reset --hard`, `git checkout -- .`, `git clean -fd`, `git stash drop`) sont bloquées si tu n'as pas demandé à jeter le travail local ; `git commit --amend` bloqué si le commit n'a pas été fait par l'agent dans la session ; **`terraform destroy` / `pulumi destroy` / `cdk destroy` bloqués** sauf demande explicite sur la stack. ⚠️ Renforce mécaniquement l'interdit forge « rm -rf / force push main sauf demande explicite » côté auto mode. Aussi : `attribution.sessionUrl` pour omettre le lien claude.ai des commits/PR ; warning si modèle déprécié couvre désormais les modèles en frontmatter d'agent.
+- **v2.1.181 (17 juin)** — **Foreground subagents plafonnés à 5 niveaux** comme les background (avant : profondeur illimitée). Complète l'amendement v2.1.172 (cf AJOUT 16 juin). `/config key=value` en interactif/`-p`/Remote Control (ex `/config thinking=false`). Bundled Bun → 1.4.
+- **v2.1.187 (23 juin)** — **`sandbox.credentials`** : empêche les commandes sandboxées de lire les fichiers de credentials / variables d'env secrètes. Restrictions de modèle org-configurées (model picker, `--model`, `/model`, `ANTHROPIC_MODEL`). Fix des boucles de structured output (`--json-schema` et workflow `agent({schema})`). Fix profondeur sous-agent : un sous-agent resumé restaure sa profondeur de spawn d'origine, un sous-agent forké compte dans le cap.
+- **v2.1.186 (22 juin)** — **`!` bash auto-respond** : une commande bash `!` déclenche désormais automatiquement une réponse de Claude à sa sortie (`"respondToBashCommands": false` pour désactiver). `claude mcp login <name>` / `claude mcp logout <name>` (auth MCP en CLI). Filtrage par statut (`f`) dans `/workflows`. **Agent Teams** : fix des deny-rules `Agent(type)` et restrictions `Agent(x,y)` non appliquées aux spawns de sous-agents nommés. `/review <pr>` utilise le même moteur que `/code-review medium`.
+
+### Loops — aucune nouveauté structurante (machinerie stable)
+
+Vérifié source primaire : depuis le 5 juin, **rien de structurant sur `/loop` et `/goal`**, uniquement des fixes — `/goal` evaluator ne tire plus pendant que des shells/sous-agents tournent (2.1.143), Ctrl+C annule un wakeup `/loop` en idle (2.1.145), CC arrête de promouvoir `/loop` en sessions remote où les loops ne gardent pas le conteneur vivant (2.1.162). **Aucune durée d'expiration de `/loop` n'apparaît dans le changelog** — le « 7 jours » d'aggregateurs n'est pas confirmé en source primaire ; la note canonique [[concevoir-loops-travail]] reste à jour (3 types, 4 briques, vérif tip #1, READ/WRITE cross-repo, garde-fous).
+
+### Autres
+
+- v2.1.185 (20 juin) — hint stall « Waiting for API response · will retry in… » (déclenche à 20s au lieu de 10s). v2.1.190 (24 juin) — fixes & fiabilité.
+
+`derniere-maj` → 2026-06-24.

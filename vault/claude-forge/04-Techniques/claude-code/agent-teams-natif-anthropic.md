@@ -7,7 +7,7 @@ aliases:
   - Anthropic multi-agent 2026
   - team lead teammates pattern
 resume: "Agent Teams = orchestrateur multi-agents natif Claude Code (fév 2026, Opus 4.6). Lead session + teammates en context windows isolés + shared task list. Flag expérimental, requires 2.1.32+."
-derniere-maj: 2026-05-26
+derniere-maj: 2026-06-24
 tags:
   - "#type/feature"
   - "#domaine/claude-code"
@@ -91,3 +91,21 @@ API users non affectés.
 - [Developers Digest 2026 playbook](https://www.developersdigest.tech/blog/claude-code-agent-teams-subagents-2026)
 - [Shipyard multi-agent orchestration 2026](https://shipyard.build/blog/claude-code-multi-agent/)
 - [Anthropic managed agents docs](https://platform.claude.com/docs/en/managed-agents/multi-agent)
+
+
+---
+
+## AJOUT 24 juin 2026 — v2.1.178 : `TeamCreate`/`TeamDelete` supprimés, équipe implicite
+
+> Source primaire : [code.claude.com/docs/en/changelog](https://code.claude.com/docs/en/changelog) v2.1.178 (15 juin 2026), fetch 24 juin. **Amendement de la couche mécanisme** (pas un pivot — l'intention « orchestrateur multi-agents natif » tient), cf [[amende-vs-pivot-couche-factuelle-design]].
+
+Le modèle d'activation décrit plus haut (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` + `TeamCreate`/`TeamDelete` + 2.1.32) est **périmé sur la mécanique de création** :
+
+- **`TeamCreate` et `TeamDelete` supprimés.** Plus d'étape de setup d'équipe.
+- Avec `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`, **chaque session a désormais une équipe implicite** : on spawn un teammate directement via le paramètre **`name`** du tool `Agent` (ex `Agent(name="reviewer", …)`). Le flag reste donc requis pour activer le mode, mais la création d'équipe disparaît.
+- Le paramètre `team_name` du tool `Agent` est **toujours accepté mais ignoré** (rétrocompat, no-op).
+- **v2.1.186 (22 juin)** — fix : les deny-rules `Agent(type)` et les restrictions `Agent(x,y)` (allowed-types) n'étaient pas appliquées aux spawns de **sous-agents nommés** ; corrigé. À croiser avec la syntaxe `Tool(param:value)` de 2.1.178 (ex `Agent(model:opus)`).
+
+Ce qui NE change pas : architecture lead + teammates en context windows isolés, shared task list, communication directe entre teammates, statut expérimental (flag toujours requis). La note features minimale [[Agent Teams]] pointe ici pour le détail mécanique.
+
+`derniere-maj` → 2026-06-24.

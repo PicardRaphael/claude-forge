@@ -1,6 +1,6 @@
 ---
 name: cc-news
-description: ALWAYS invoke when user asks "quoi de neuf", "est-ce que X existe", or knowledge seems stale. Recent Claude Code updates, new features, AI industry news. Reference date : 2 juin 2026 (v2.1.160 — workflow trigger renamed ultracode + Opus 4.8).
+description: ALWAYS invoke when user asks "quoi de neuf", "est-ce que X existe", or knowledge seems stale. Recent Claude Code updates, new features, AI industry news. Reference date : 24 juin 2026 (v2.1.190 — auto mode terraform/git blocks + sandbox.credentials + Agent Teams équipe implicite).
 user-invocable: true
 allowed-tools: WebSearch, WebFetch, Read, Write, Agent, mcp__forge-brain__*
 argument-hint: "domaine ou sujet (ex: rag, agents, fine-tuning, concurrents, claude-code, prompt, tout)"
@@ -11,7 +11,7 @@ skills:
 
 # cc-news — Veille IA & Claude Code
 
-Date de référence : **2 juin 2026** (v2.1.160 — workflow trigger renamed ultracode + Opus 4.8 + Dynamic Workflows)
+Date de référence : **24 juin 2026** (v2.1.190 — auto mode terraform/git blocks + sandbox.credentials + Agent Teams équipe implicite)
 Tout ce qui est postérieur à cette date doit être recherché.
 
 ## Tier 0 — Vérifier EN PREMIER (toujours, avant tout routage)

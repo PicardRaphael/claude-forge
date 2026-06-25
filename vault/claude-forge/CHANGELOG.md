@@ -14,6 +14,11 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-24 — Veille CC v2.1.179→190 + amendement Agent Teams (équipe implicite)
+
+- **Modifiées** : `01-Claude/Code/changelog/CC juin 2026 - v2.1.160 ultracode.md` — section « AJOUT 24 juin 2026 — v2.1.179 → v2.1.190 » : auto mode bloque git destructif + `terraform/pulumi/cdk destroy` (2.1.183), `sandbox.credentials` (2.1.187), `!` bash auto-respond + `claude mcp login/logout` (2.1.186), foreground subagents plafonnés 5 niveaux (2.1.181), `/config key=value` (2.1.181). Constat loops : aucune nouveauté structurante depuis le 5 juin (que des fixes), [[concevoir-loops-travail]] reste à jour. `derniere-maj` → 2026-06-24.
+- **Modifiées** : `04-Techniques/claude-code/agent-teams-natif-anthropic.md` + `01-Claude/Code/features/Agent Teams.md` — amendement v2.1.178 : `TeamCreate`/`TeamDelete` supprimés → équipe implicite (spawn teammate via paramètre `name` du tool `Agent`, `team_name` ignoré). Amendement de la couche mécanisme, pas pivot.
+- **Source** : run `cc-news` (veille Claude Code + loops, demande Raphael) — changelog officiel source primaire vérifié (code.claude.com/docs/en/changelog, fetch 24 juin). Chiffres d'aggregateurs écartés (Salesforce 231j→13j, `/loop` 7 jours — non confirmés source primaire).
 ## 2026-06-24 — Audit ia-workbench post-refonte workflow /spec (modèle Module)
 - **Modifiées** : `04-Techniques/patterns/audit-claude-folder-pattern.md` — nouveau Gotcha « refonte interne d'une feature casse l'index de recâblage » (checklist des arêtes : table de routage SKILL.md, préfixe MCP mort, `.mcp.json` résiduel, hook tracker sans cleaner, doc feature périmée). Capitalise les 4 casses trouvées sur ia-workbench.
 
