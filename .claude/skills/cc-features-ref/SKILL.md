@@ -121,14 +121,14 @@ Subagents qui se communiquent directement via task board partagé. Equipe implic
 | Plugin executables | `bin/` dans plugin → commandes callable depuis Bash |
 | `additionalDirectories` | Dans settings.json pour accès repos externes permanent |
 | `disableSkillShellExecution` | Bloquer exécution shell dans les skills |
-| `PermissionDenied` hook | Se déclenche après refus auto mode |
+| `PermissionDenied` hook | Se déclenche après refus auto mode, `{retry: true}` (v2.1.89) |
 | `PostCompact` hook | Se déclenche après compression du contexte |
 | Deferred hooks | `PreToolUse` peut retourner `permissionDecision: "defer"` |
 | `InstructionsLoaded` hook | Quand un CLAUDE.md ou rule se charge |
 | `hookSpecificOutput.sessionTitle` | Nommer sessions depuis hook `UserPromptSubmit` (v2.1.94) |
 | `keep-coding-instructions` | Nouveau frontmatter pour output styles de plugins (v2.1.94) |
 | Bedrock via Mantle | `CLAUDE_CODE_USE_MANTLE=1` (v2.1.94) |
-| `NO_FLICKER` mode | `CLAUDE_CODE_NO_FLICKER=1` renderer expérimental + support souris (Boris) |
+| `NO_FLICKER` mode | `CLAUDE_CODE_NO_FLICKER=1` renderer expérimental + support souris (v2.1.89) |
 | Opus 4.6 output | 64k tokens par défaut, 128k max (Cat Wu) |
 | `--resume` cross-worktree | Reprend sessions d'autres worktrees du même repo (v2.1.94) |
 | Write tool 60% faster | Diff computation optimisée sur gros fichiers (v2.1.94) |
@@ -141,15 +141,15 @@ Subagents qui se communiquent directement via task board partagé. Equipe implic
 | **Routines** | **Research preview** — Scheduled + API + Webhook automations cloud (v2.1.110) |
 | **Desktop Redesign** | Multi-sessions sidebar, terminal intégré, Side Chat `Cmd+;`, 3 modes vue (14 avril) |
 | **Push notifications** | Claude envoie notifs push mobiles (Remote Control + config, v2.1.110) |
-| **`--channels`** | Relay approbation permissions vers téléphone (v2.1.110) |
-| `PreCompact` hook | Avant compression contexte, blocage possible exit code 2 (v2.1.110) |
+| **`--channels`** | Relay approbation permissions vers téléphone (v2.1.80) |
+| `PreCompact` hook | Avant compression contexte, blocage possible exit code 2 (v2.1.105) |
 | `ENABLE_PROMPT_CACHING_1H` | Opt-in cache 1h (API key, Bedrock, Vertex, Foundry) — remplace `_BEDROCK` (v2.1.108) |
 | `FORCE_PROMPT_CACHING_5M` | Force TTL 5 minutes (v2.1.108) |
 | `autoScrollEnabled` | Désactiver auto-scroll en fullscreen (v2.1.110) |
 | Session recap | Active même sans télémétrie, opt-out `CLAUDE_CODE_ENABLE_AWAY_SUMMARY=0` (v2.1.110) |
 | Advisor Tool | Beta — Sonnet consulte Opus mid-generation, 1 seul appel API (9 avril) |
 | Claude for Word | Beta publique, sidebar native Mac + Windows (10 avril) |
-| MCP 500K chars | Tool result override jusqu'à 500K chars (v2.1.110) |
+| MCP 500K chars | Tool result override jusqu'à 500K chars (v2.1.91) |
 | Auto Mode | Shift+Tab cycle Ask → Plan → Auto. Auto-approve via classifier ML (Opus 4.7, Max/Teams/Enterprise) |
 | Hooks MCP direct | `type: "mcp_tool"` — hooks invoquent outils MCP directement (v2.1.119) |
 | Custom Themes | Créer themes JSON dans ~/.claude/themes/, plugins peuvent shipper des themes (v2.1.119) |
