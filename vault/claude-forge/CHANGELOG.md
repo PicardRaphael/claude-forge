@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-26 — Correction note ADF Jira + critique DA chantier /spec
+
+- **Modifiées** : `Knowledge/questions/jira-rendu-adf-mcp-atlassian.md` — AJOUT corrigeant le gotcha #1 (le read MCP `responseContentFormat:"adf"` renvoie BIEN l'ADF structuré, vérifié 26 juin ; l'ancien « toujours markdown au read » était faux/périmé). `derniere-maj` → 2026-06-26.
+- **Ajoutées** : `Knowledge/critiques/critique-2026-06-26-uniformisation-spec-3-repos.md` — verdict devil's advocate sur le plan hook+skill+cosmétique (3 BLOCKING résolus via marqueur footer /spec).
+- **Source** : chantier normalisation tickets /spec 3 repos (option B Gherkin en PJ, hook footer-gate, retrait lignes parasites IA-27/28/33/34).
+
 ## 2026-06-24 — Correction drift : MCP local stdio MARCHE en Cowork (retour terrain)
 
 - **Modifiées** : `01-Claude/Cowork/mcp-local-cowork-vs-claude-code.md` — amendement daté : la prémisse « localhost impossible en Cowork » est FAUSSE pour le transport **stdio**. Cowork lance le process en local (comme Desktop Chat) → stdio marche, pas besoin de tunnel HTTPS. La vraie distinction est le TRANSPORT (stdio ✅ / HTTP-localhost ❌ / HTTPS public ✅), pas local-vs-cloud. `titre`/`resume`/`derniere-maj` corrigés pour que le faux claim ne sorte plus en tête de search_brain.

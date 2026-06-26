@@ -6,7 +6,7 @@ aliases:
   - contentFormat adf Jira
   - emoji couleur ticket Jira
 resume: "Le rendu visuel d'une description Jira Cloud (titres colorés + emoji + séparateurs) ne s'obtient QUE via l'ADF du MCP Atlassian (contentFormat:adf) ; le wiki markup h2./h3. est cassé et le markdown ne porte pas la couleur."
-derniere-maj: 2026-06-06
+derniere-maj: 2026-06-26
 tags:
   - "#type/question"
   - "#stack/atlassian"
@@ -89,3 +89,18 @@ Skill `spec` (plugin PO `neoteem-po`) : création via MCP `createJiraIssue` + `c
 
 - Build plugin via Python zipfile (séparateurs `/`), JAMAIS `Compress-Archive` (sépare en `\`, Claude rejette « invalid characters ») — cf `build-skills-zip.ps1` du repo `neoteem-plugin-claude-admin`.
 - [[plugin-vs-skill-anatomie]] — distribution skills/plugins Neoteem
+
+---
+
+## AJOUT 26 juin 2026 — CORRECTION du gotcha #1 : `responseContentFormat:"adf"` renvoie BIEN l'ADF (read-path)
+
+Le gotcha #1 ci-dessus (« le MCP Atlassian renvoie TOUJOURS la description en markdown à la lecture, même quand on demande `adf` ») est **faux à partir d'au moins juin 2026** — vérifié empiriquement le 26 juin sur le projet IA (`getJiraIssue` avec `responseContentFormat: "adf"`).
+
+**Constat mesuré** : `getJiraIssue(..., responseContentFormat: "adf")` renvoie le **document ADF structuré complet** dans `fields.description` (arbre `{type:"doc", content:[...]}` avec headings, marks `textColor`, `taskList`, `table`, `panel`, `codeBlock`…), PAS du markdown. Ça a permis un **retrait chirurgical** (lire l'ADF réel → supprimer un seul nœud → réécrire via `editJiraIssue` `contentFormat:"adf"`) au lieu d'une reconstruction ADF à l'aveugle depuis le markdown. Sur les mêmes tickets, `responseContentFormat: "markdown"` (ou l'omission) renvoie bien du markdown — donc le paramètre **est respecté** au read, contrairement à ce que disait le gotcha #1.
+
+**Lecture à jour** :
+- Pour MODIFIER chirurgicalement une description Jira existante (retirer/ajouter un nœud sans casser le rendu coloré) → `getJiraIssue` `responseContentFormat:"adf"` puis `editJiraIssue` `contentFormat:"adf"` avec l'arbre modifié. Pas besoin de reconstruire l'ADF de mémoire.
+- `expand:"renderedFields"` (gotcha #2) reste utile pour lire le **HTML rendu** (vérifier la couleur exacte affichée, un glyphe corrompu au source, etc.) — complémentaire de l'ADF, pas redondant.
+- Le gotcha #1 était peut-être vrai sur une version antérieure du MCP (note datée 5 juin) ; le comportement a changé. **Mesurer à la source avant de s'appuyer sur le read-path** plutôt que relayer le gotcha #1 tel quel.
+
+Contexte : chantier `/spec` 3 repos — retrait de lignes parasites + ajout d'un footer `/spec · rôle:` sur IA-27/28/33/34, rendu `#00b8d9` préservé. Cf `memory/project_spec_unification_3repos.md`.
