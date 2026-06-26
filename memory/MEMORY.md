@@ -108,6 +108,7 @@
 - [neo-ia-tool-selection-state](project_neo_ia_tool_selection.md) — HybridToolSelector : expansion+reranking OFF en prod, Lazy Expansion + OATS validé
 - [deploy-methods-other-repos](project_deploy_methods_other_repos.md) — Déployer 9e principe + skill-evolve all sur neo_ia et ia_back
 - [lojii-project](project_lojii.md) — Frontend Vue 3/Vuetify 3 gestion immo, 634 composants, migration Composition API
+- [spec-unification-3repos](project_spec_unification_3repos.md) — Chantier 26 juin : /spec IDENTIQUE ×3 repos (SKILL unifié + repo-explorer + hook validation structure template + script sync), Phase 1+2 poussées. RESTE : normaliser 23 tickets Jira existants (IA-7/16/27 + Stories + sous-tâches) par editJiraIssue, prochaine session
 
 ## User
 - [raphael-picard-full-profile](user_raphael_profile.md) — Profil holistique : Lead IA Neoteem, 36 ans, parcours atypique, gamer, vision expert IA reconnu
@@ -129,6 +130,7 @@
 - [mcp-forge-brain-lifecycle-gotchas](reference_mcp_forge_brain_lifecycle_gotchas.md) — 2 gotchas cycle de vie MCP forge-brain : recharger le code = kill port 8091 + NOUVELLE session (autostart au SessionStart only) ; register_tools non testé si tests appellent BrainTools direct → exercer via `_list_tools`/`call_tool` sans binder le port
 - [neo-brain-pattern](reference_obsidian_query_brain.md) — Pattern neo-brain : wrapper CLI + skill + knowledge-first routing
 - [subagent-permissions-limitation](reference_subagent_permissions.md) — v2.1.101 : worktree+MCP OK, permissions.allow toujours non hérité
+- [diff-crlf-faux-positif-audit](reference_diff_crlf_faux_positif_audit.md) — Audit copies cross-repo Windows : md5sum/diff crient DIFFÉRENT sur contenu identique (CRLF vs LF). Re-diff `--strip-trailing-cr` AVANT verdict de divergence. Symétrique read-path de [[gate-zero-diff-test-live-byte-exact]] (write-path)
 - [discord-webhook-jarvis](reference_discord_webhook.md) — Webhook Discord #veille-tech pour notifications Jarvis (JAMAIS commit)
 - [forge-brain-vault](reference_forge_brain_vault.md) — Vault Obsidian forge-brain, priority 1 des sources
 - [acceptedits-bug-anthropic-since-v2179](reference_acceptedits_bug.md) — Bug acceptEdits prompte depuis v2.1.79. Workaround = Auto mode
