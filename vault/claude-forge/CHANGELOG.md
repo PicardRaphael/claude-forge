@@ -16,6 +16,11 @@ tags:
 
 ## 2026-06-26 — Correction note ADF Jira + critique DA chantier /spec
 
+## 2026-06-26 — Pattern footer-gate hook repo d'équipe (canonique hook)
+
+- **Modifiées** : `04-Techniques/claude-code/comment-creer-hook.md` — AJOUT « Hook de validation sur repo d'ÉQUIPE : un marqueur dans l'artefact = gate d'étanchéité » (prolonge l'AJOUT 18 juin hook-de-structure). `derniere-maj` → 2026-06-26.
+- **Source** : déblocage DA+advisor du chantier /spec — résout l'anti-pattern « hook bloquant large sur repo d'équipe » via discriminant footer écrit par l'outil producteur, lu comme gate d'entrée (pas de marqueur → SKIP).
+
 - **Modifiées** : `Knowledge/questions/jira-rendu-adf-mcp-atlassian.md` — AJOUT corrigeant le gotcha #1 (le read MCP `responseContentFormat:"adf"` renvoie BIEN l'ADF structuré, vérifié 26 juin ; l'ancien « toujours markdown au read » était faux/périmé). `derniere-maj` → 2026-06-26.
 - **Ajoutées** : `Knowledge/critiques/critique-2026-06-26-uniformisation-spec-3-repos.md` — verdict devil's advocate sur le plan hook+skill+cosmétique (3 BLOCKING résolus via marqueur footer /spec).
 - **Source** : chantier normalisation tickets /spec 3 repos (option B Gherkin en PJ, hook footer-gate, retrait lignes parasites IA-27/28/33/34).

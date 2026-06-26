@@ -1,5 +1,5 @@
 ---
-derniere-maj: 2026-06-07
+derniere-maj: 2026-06-26
 ---
 ﻿---
 titre: "Comment créer un hook Claude Code parfait"
@@ -848,3 +848,21 @@ Le départage : **un hook de structure vérifie la PRÉSENCE/FORME d'une sortie 
 Cas fondateur : hook `pr-template-guard` (PreToolUse Bash, intercepte `create-pr.ts`/`create_pr.py`, refuse une description sans les sections obligatoires du template), déployé sur neoteem-back-ts (TS) + neo_ia (Python), 18 juin 2026. Catégorie identique à `file-size-guard` ou `guard-ts-nocheck` déjà présents — format, pas workflow.
 
 Un hook SubagentStop qui veut analyser « la sortie » d'un sub-agent doit lire la **queue du transcript** (`transcript_path` + éventuel `agent-<agent_id>.jsonl` voisin, ~40 dernières lignes = rapport final). Les champs `output`/`result`/`messages` du payload sont rarement peuplés — l'escalade-detector de neo_ia scannait ces champs (et ajoutait le CHEMIN du transcript à la chaîne scannée au lieu de son contenu) : **il n'a jamais détecté un seul marqueur depuis sa création** (24 mai → 11 juin). Corrigé sur neo_ia (py) et porté sur neoteem-back-ts (ts). Test du hook = créer un faux transcript avec le marqueur et vérifier la détection — tester le payload seul ne prouve rien. Gotcha de test Windows : un chemin `/tmp` Git Bash n'est pas lisible par Bun/Python natifs — fichier de test en chemin Windows réel.
+
+---
+
+## AJOUT 26 juin 2026 — Hook de validation sur repo d'ÉQUIPE : un marqueur dans l'artefact = gate d'étanchéité
+
+Prolonge l'AJOUT 18 juin (hook de STRUCTURE d'artefact ≠ workflow). Problème découvert en DA : un hook de structure dont le **matcher est large** (ici `(create|edit)JiraIssue` + tout `mcp__…JIRA…__*`) valide TOUS les artefacts de ce type dans le repo — pas seulement ceux produits par notre outil. Sur un **repo d'équipe**, un membre qui édite un artefact normal (un ticket Jira lambda, hors `/spec`) mange un `deny`. C'est l'anti-pattern [[config-repo-equipe-vs-forge]] (« pas de hook bloquant large sur repo d'équipe ») — mais le matcher seul ne sait pas distinguer « notre artefact » d'« un artefact quelconque ».
+
+**Solution : le discriminant vit DANS l'artefact, écrit par l'outil producteur, lu par le hook comme GATE D'ENTRÉE.** Un marqueur stable (footer visible `— 🤖 /spec · rôle: <role>` dans la description du ticket) :
+- **Pas de marqueur → le hook SKIP (exit 0)** : un artefact d'équipe normal n'a pas le marqueur → jamais validé → étanchéité. Le hook ne mord QUE sur ce que l'outil a produit.
+- **Marqueur présent → le hook lit le marqueur** pour router (ici le RÔLE : module/story-repo/couloir/sous-tâche → set de sections attendu). On ne se fie PAS à un champ que le hook n'extrait pas (le `summary` du payload Jira n'est pas lu par le hook ; ne pas concevoir un classifieur sur un champ jamais observé en payload réel — vérifié en DA).
+
+**Propriété clé (diff minimal) : « pas de marqueur → skip » dispense de rétrofitter les artefacts existants.** Les anciens tickets sans footer skippent (ils sont déjà relus = correct) ; seuls les FUTURS portent le marqueur. Pas de migration de masse.
+
+**Forme du marqueur** : footer **visible et stable**, pas un token caché (Jira peut stripper un commentaire/HTML masqué à la sérialisation ADF ; un humain ne le voit pas). Une ligne texte plat d'un seul tenant — en ADF, un paragraphe à UN seul nœud texte pour que `role: <x>` reste contigu après `json.dumps` (sinon le découpage en nœuds casse la sous-chaîne recherchée). Extraction robuste : normaliser accents (rôle/role), casse, séparateurs.
+
+**Couplage hook ↔ outil producteur** : le marqueur est un CONTRAT entre les deux. Le hook ne peut garantir que le mécaniquement vérifiable (présence du marqueur + des sections) — il ne prouve PAS qu'une pièce jointe existe (les attachements ne sont pas dans le payload `description`). Trou assumé, à documenter, pas à masquer.
+
+Cas fondateur : `jira-ticket-format-guard` (.py neo_ia+ia-workbench, .ts neoteem-back-ts), chantier `/spec` 26 juin 2026. Tests adverses : le cas le PLUS important est « footer absent → SKIP même si sections manquantes » (preuve d'étanchéité), pas le happy path. Cf `memory/project_spec_unification_3repos.md` + [[critique-2026-06-26-uniformisation-spec-3-repos]].
