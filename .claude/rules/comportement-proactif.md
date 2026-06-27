@@ -28,6 +28,8 @@ description: "Dispatch table: which agent or skill to invoke based on user situa
 | Problème complexe résolu (multi-étapes) | `/reasoning-cache` pour sauvegarder le raisonnement |
 | "Optimise cette skill" / maintenance skills | `/skill-evolve [nom]` ou `/skill-evolve all` |
 | Review stratégique / remise en question | `/forge-review` (mensuel via /schedule) |
+| "Évolutions / prochaines features d'un projet" | Skill `/evolve [path]` |
+| "Conçois une routine / loop récurrent à spécifier" | Skill `loop-forge` |
 
 ## Séquence canonique AVANT tout dispatch créateur/analyste — OBLIGATOIRE
 

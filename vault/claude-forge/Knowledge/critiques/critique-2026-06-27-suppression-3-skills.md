@@ -50,3 +50,15 @@ Plan corrigé à exécuter en **session fraîche** (la session d'origine était 
 
 - [[methode-monter-systeme-workflow]] — grille capabilities source du chantier
 - [[devils-advocate-pipeline]] · [[da-blocking-arbitrage]] — doctrine arbitrage BLOCKING
+
+## MAJ 27 juin — exécution (3 actions DONE, zéro-perte)
+
+Plan corrigé exécuté en session (pas reportée — Raphael ne pouvait pas switcher) :
+- ✅ **Action 3** : `auditor-empirical-verify` → rule `.claude/rules/post-dispatch-verify.md` (path hardcodé corrigé en `git rev-parse`). Skill supprimée, INDEX retiré.
+- ✅ **Action 2** : `da-blocking-arbitrage` splittée — scoring 0-100 + faux-positifs → agent `devils-advocate` ; protocole arbitrage A/B + dette → rule `devils-advocate-pipeline`. Skill supprimée.
+- ✅ **Action 1** : `self-check` KILL — 2 checks uniques (validité JSON settings + détection `agent-memory/`) portés dans `repo-inspector` mode=audit ; 5 réfs réécrites (forge-review SKILL.md ×4, baseline.md, INDEX, 2× skill-triggers) ; JSON validés. Skill supprimée.
+- ✅ Trous dispatch comblés : `evolve` + `loop-forge` ajoutés à `comportement-proactif`.
+
+Le grep a révélé +réfs que le DA listait (forge-review:13 + 2× skill-triggers) — vérification exhaustive faite avant `git rm`.
+
+**Reste (additif, non destructif)** : câbler `arxiv-verification` (cc-news/rag-design/deep-research) · fix bug path `python-script-refactor-masse` (raphael.picard_neote) · drift contenu cc-features-ref (Opus 4.7→4.8) + cc-cowork-ref · créer `roadmap-projet-ia` + `deconstruction-maieutique`.

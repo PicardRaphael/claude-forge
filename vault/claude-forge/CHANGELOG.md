@@ -14,6 +14,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-27 — Pivot agent-first + /done étape 6-bis (capitalisation session)
+
+- **Ajoutées** : `Knowledge/decisions/decision-vault-agent-first.md` — ADR : forge = cerveau d'agent, Karpathy = échafaudage dépassé (raw/ tué, MOCs = couche humaine optionnelle, SCHEMA à refondre). Pivot à instruire via `methode-pivoter-doctrine`.
+- **Modifiées** : `0-Inbox/context-actuel.md` (working memory) ; `1-Projets/Claude-Forge/Claude-Forge.md` (état récent + `derniere-maj` 2026-06-27) — via la nouvelle étape 6-bis de `/done`.
+- **Outillage (.claude, hors vault)** : `skills/done/SKILL.md` étape 6-bis (maj notes contexte projet) ; mémoire — `feedback_pas-dogmatique-patterns-externes` (tier-2) + amendement `feedback_vault_edit_gotchas_outillage` (gotcha delete_note).
+- **Source** : `/done` de fin de session (audit outillage vault + vision agent-first de Raphael).
+
 ## 2026-06-27 — Nettoyage vault : suppression raw/ (8 notes) + audit outillage (hub, MCP)
 
 - **Supprimées** : `raw/2026-05-22-chantier/` — 8 notes `recherche-*` (bruts d'un chantier déjà distillés en canoniques). Pattern « pureté du contexte » : un brut = variable jetable. 1 wikilink mort résiduel dans [[pattern-vault-llm-karpathy]] (~L514) — à nettoyer (révèle une limitation MCP : pas d'édition ciblée).
@@ -1787,3 +1794,9 @@ Tests hooks 176 verts (180→176, suppression du mécanisme d'exemption testé).
 
 - **Ajoutées** : `Knowledge/critiques/critique-2026-06-27-suppression-3-skills.md` — verdict DA (2 BLOCKING + 1 PARTIAL) sur le plan KILL self-check / merge da-blocking-arbitrage / convert auditor-empirical-verify, avec plan corrigé zéro-perte + items additifs.
 - **Source** : 3 workflows d'audit skills (classification, amélioration, utilité/reclassement) + devils-advocate. Corpus jugé LEAN (42/45 KEEP). Chantier destructif reporté en session fraîche.
+
+## 2026-06-27 (suite 2) — Reclassement 3 skills exécuté (zéro-perte)
+
+- **Composants `.claude/`** : `auditor-empirical-verify` → rule `post-dispatch-verify` ; `da-blocking-arbitrage` splittée (agent devils-advocate + rule pipeline) ; `self-check` KILL (checks portés dans repo-inspector). + trous dispatch evolve/loop-forge comblés. 3 commits (ce64a76, fa65282, ce32bd3).
+- **Modifiées** : `Knowledge/critiques/critique-2026-06-27-suppression-3-skills.md` — section MAJ exécution (3 actions DONE + reste additif).
+- **Source** : audit utilité skills + DA (2 BLOCKING corrigés zéro-perte avant suppression).
