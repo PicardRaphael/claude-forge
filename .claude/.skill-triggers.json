@@ -1,4 +1,26 @@
 {
+  "roadmap-projet-ia": {
+    "type": "skill",
+    "description": "Notes de cadrage / réunion → roadmap d'exécution projet IA interne (phases, livrables, estimations, dépendances)",
+    "triggers": [
+      "transforme ces notes de cadrage en roadmap",
+      "roadmap projet ia",
+      "découpe ce projet en phases",
+      "roadmap depuis cette réunion",
+      "fais-moi une roadmap"
+    ]
+  },
+  "deconstruction-maieutique": {
+    "type": "skill",
+    "description": "Livre / podcast / article → notes-concepts atomiques via questionnement maïeutique (liens suggérés, humain tranche)",
+    "triggers": [
+      "déconstruis ce livre",
+      "décortique ce podcast",
+      "extrais les concepts de cet article",
+      "maïeutique sur ce contenu",
+      "déconstruis en notes-concepts"
+    ]
+  },
   "cc-advisor": {
     "type": "skill",
     "description": "Aide à choisir quel composant Claude Code créer (skill, agent, hook, rule)",
