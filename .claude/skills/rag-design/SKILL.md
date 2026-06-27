@@ -33,6 +33,15 @@ On commence par les QUESTIONS, pas les documents. Demander / construire (AskUser
 
 Remplir section 1. Lire `mcp__forge-brain__read_note("rag-data-audit-discovery")` si besoin du détail (taxonomie questions, sourcing, Adaptive-RAG).
 
+### Gate Étape 1 → 2 (validateur PASS/FAIL avant le data model) ⚠️
+L'Étape 2 décide **flat vs graphe** à partir du comptage des questions multi-hop : un golden set bâclé fausse cette décision en cascade. Vérifier AVANT de continuer :
+- Triples **complets** `(question, source/contexte attendu, réponse attendue)` — pas de réponse/source manquante.
+- Chaque question est **typée** (single-hop / multi-hop / comparaison / temporel / agrégation / procédural) → sinon le compte multi-hop est inexploitable.
+- **≥5 questions sans réponse** présentes (test du refus).
+- Couverture **par persona** (droits ≠ questions).
+
+**PASS** → Étape 2. **FAIL** → compléter le golden set, ne pas avancer. Gate **skill-invoqué** (logique interne), jamais un hook.
+
 ## Étape 2 — Audit des sources + entités → data model
 
 1. **Grille d'inventaire** une ligne par source (format, structuré vs non, volume, fraîcheur, qualité, doublons, langue, **ACL/permissions**, **PII/RGPD**, connecteur, pré-traitements). Rouge récurrent Loji : PDF **scannés** (OCR), **ACL par locataire**.

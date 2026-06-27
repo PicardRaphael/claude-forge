@@ -55,6 +55,14 @@ Pour chaque repo concerné :
 - `.claude/agent-memory/*/MEMORY.md` : vérifier chaque dossier agent
 - **Préférer marquer plutôt que supprimer** : préfixer `[OBSOLÈTE <date>]` ou pointer vers la note canonique du pivot
 
+### Étape 4bis — GATE `pivot-check` (validateur PASS/FAIL avant le test) ⚠️
+Avant de passer en session fraîche, verrouiller la purge avec un gate statique :
+- Invoquer la skill `pivot-check` (détection statique du drift Type 1 : claims obsolètes survivants dans rules / CLAUDE.md / MEMORY / RECAP).
+- **PASS** = zéro drift Type 1 → passer à l'étape 5.
+- **FAIL** = au moins un claim obsolète survit → **retour étape 4** (purge incomplète), puis re-gate.
+
+Complémentarité (les deux sont nécessaires) : `pivot-check` = vérif **statique** (le drift résiduel est-il purgé du texte ?) ; étape 5 = vérif **comportementale** (la session re-propose-t-elle l'ancienne doctrine ?). Ce gate est **skill-invoqué** (logique interne à cette skill), jamais un hook — cohérent avec le gotcha « pas de hook substring-matching sur MEMORY/RECAP » ci-dessous (`pivot-check` juge, un hook matcherait à l'aveugle).
+
 ### Étape 5 — Test session fraîche
 - Lancer une nouvelle session Claude Code dans le repo
 - Demander une tâche typique (feature, bug fix)

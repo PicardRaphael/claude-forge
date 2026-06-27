@@ -14,6 +14,7 @@ Date de référence du studio : **31 mars 2026** — chercher sur le web si feat
 ## Étape 0 — Consulter canoniques vault (OBLIGATOIRE avant recommandation)
 
 Avant de recommander un composant, consulter les canoniques pertinentes via `mcp__forge-brain__read_note` :
+- Choisir la brique (besoin → quelle capability ?) → `methode-monter-systeme-workflow` (grille de dispatch Skill/Workflow/Agent/Framework/Hook/MCP + 4 patterns de robustesse)
 - Recommandation skill → `comment-creer-skill` + `mcp-vs-skills-doctrine`
 - Recommandation agent → `comment-creer-agent` + `mcp-vs-skills-doctrine`
 - Recommandation hook → `comment-creer-hook` + `raisonnement-22mai-doctrine-vs-enforcement`
@@ -32,6 +33,7 @@ Référence : [[pattern-mcp-brief-then-direct]] Règle 2 (skill sans brief inlin
 | Bloquer commandes dangereuses     | Hook PreToolUse Bash                               |
 | Analyser un repo externe          | Agent                                              |
 | Auditer un codebase               | Agent                                              |
+| Enchaîner plusieurs skills avec contrôle qualité entre étapes | Workflow (métaskill / rule d'orchestration) + **validateur embarqué** (sous-agent PASS/FAIL entre étapes, jamais un hook) |
 | Committer vite                    | Skill `/commit` + `disable-model-invocation: true` |
 | Connaître stack / API interne     | Skill `user-invocable: false`                      |
 | Règles selon type de fichier      | Skill `paths: "**/*.py"`                           |
