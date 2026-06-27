@@ -7,6 +7,7 @@ description: "Dispatch table: which agent or skill to invoke based on user situa
 | Situation | Action |
 |-----------|--------|
 | Besoin flou / "comment automatiser X" | Invoquer `cc-advisor` |
+| "Je veux créer/construire qqch pour résoudre un problème" (besoin → quelle brique ?) | Consulter la grille `[[methode-monter-systeme-workflow]]` (arbre besoin → Skill/Workflow/Agent/Framework/Hook/MCP + 4 patterns de robustesse + 3 archétypes) AVANT de choisir/proposer la brique |
 | "J'ai un projet X" / URL GitHub | Invoquer `repo-inspector` (mode=analyze) |
 | "Analyse les skills/agents/rules de X" / "audite mon repo" / audit config (simple) | Agent `repo-inspector` (mode=audit, PAS Explore) — scope `.claude/` UNIQUEMENT, inclut audit qualité-design transverse (skills à diviser/fusionner/kill, hooks redondants, cohérence canoniques forge 22 mai) |
 | "audit à fond / complet / approfondi" · "sous tous les angles / 3 lentilles / tripartite" · "mon setup .claude est-il bon" · "optimise / nettoie ma config" | Agent `repo-inspector` (mode=audit, lentilles tripartites intégrées : Discipline Boris / Minimalisme Will / Couverture ECC). Anciens agents boris-auditor/ecc-auditor/will-auditor absorbés dans repo-inspector. |

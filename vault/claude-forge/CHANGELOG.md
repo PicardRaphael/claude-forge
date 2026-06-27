@@ -1763,3 +1763,7 @@ Tests hooks 176 verts (180→176, suppression du mécanisme d'exemption testé).
 
 - **Modifiées** : `delegate-guard-pattern` — section 3 (bypass) corrigée : `CLAUDE_AGENT`/`CLAUDE_DELEGATE_BYPASS` PÉRIMÉS (retirés du hook réel car spoofables) → mécanisme réel = `attributionSkill` lu dans le transcript, bypass STRICT par type de fichier. Ajout section 4 « scope forge-only + engagement cross-repo » + alignement runner `py` Windows + matcher `Write|Edit|MultiEdit`.
 - **Source** : incident 24 juin (9 SKILL.md écrits à la main dans migration_script hors forge → guard ne fire pas). Drift résiduel entre la note canonique et l'implémentation `delegate-guard.py` réelle.
+## 2026-06-27 — Méthode « monter un système de workflow » (capabilities)
+
+- **Ajoutées** : `04-Techniques/patterns/methode-monter-systeme-workflow.md` — grille de dispatch besoin → Skill/Workflow/Agent/Framework/Hook/MCP, 4 patterns de robustesse, 3 archétypes. Méthode transverse (cœur stack-agnostique, colonne « créer via » = instanciation forge/CC).
+- **Source** : podcast YouTube agence/bootcamp IA (Eliott Meunier & associés, https://www.youtube.com/watch?v=5WiuP81OVJo) — taxonomie « capabilities », validateur embarqué Sierra-style, provenance draft→approved + jauge %draftia.
