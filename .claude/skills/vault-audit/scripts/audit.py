@@ -58,29 +58,13 @@ TEMPLATE_SECTIONS = {
     "2-Casquettes": ["## Liens"],
 }
 
-# MOC per top-level folder
-FOLDER_TO_MOC = {
-    "01-Claude-Code": "MOC-Claude-Code",
-    "02-Concurrents": "MOC-Concurrents",
-    "03-Modeles": "MOC-Modeles",
-    "04-Techniques": "MOC-Techniques",
-    "05-Leaders": "MOC-Leaders",
-    "06-Industrie": "MOC-Industrie",
-    "07-Prompts": "MOC-Prompts",
-    "Knowledge": None,  # no single MOC
-    "0-Inbox": None,  # draft area, no MOC
-    "1-Projets": None,  # project context, no MOC — wikilinks to parent project required
-    "2-Casquettes": None,  # life areas, no MOC — wikilinks to Raphael-Picard required
-}
-
 # Scoring weights (sum = 100)
 WEIGHTS = {
     "frontmatter_complete": 30,
-    "aliases_4plus": 15,
-    "resume_informative": 10,
+    "aliases_4plus": 20,
+    "resume_informative": 15,
     "tags_structured": 10,
     "wikilinks_not_bare": 10,
-    "moc_link": 10,
     "sections_match": 10,
     "derniere_maj_fresh": 5,
 }
@@ -212,23 +196,9 @@ def score_note(path: Path, vault_root: Path, all_note_names: set) -> dict:
     else:
         partial_scores["wikilinks_not_bare"] = WEIGHTS["wikilinks_not_bare"]
 
-    # --- 6. MOC link in ## Liens (10 pts) ---
-    rel = path.relative_to(vault_root)
-    top_folder = rel.parts[0] if len(rel.parts) > 0 else ""
-    expected_moc = FOLDER_TO_MOC.get(top_folder)
-    liens_section = re.search(r'## Liens\s*(.*?)(?=^##|\Z)', body, re.DOTALL | re.MULTILINE)
-    liens_text = liens_section.group(1) if liens_section else ""
-    if not liens_section:
-        issues.append("Section ## Liens absente")
-        partial_scores["moc_link"] = 0
-    elif expected_moc and f"[[{expected_moc}" not in liens_text and f"[[{expected_moc}]]" not in content:
-        issues.append(f"Lien [[{expected_moc}]] absent dans ## Liens")
-        partial_scores["moc_link"] = 5
-    else:
-        partial_scores["moc_link"] = WEIGHTS["moc_link"]
-
-    # --- 7. Sections match template (10 pts) ---
+    # --- 6. Sections match template (10 pts) ---
     # Find the template sections for this folder
+    rel = path.relative_to(vault_root)
     folder_key = None
     for key in TEMPLATE_SECTIONS:
         if str(rel).replace("\\", "/").startswith(key):
@@ -245,7 +215,7 @@ def score_note(path: Path, vault_root: Path, all_note_names: set) -> dict:
     else:
         partial_scores["sections_match"] = WEIGHTS["sections_match"]
 
-    # --- 8. derniere-maj freshness (5 pts) ---
+    # --- 7. derniere-maj freshness (5 pts) ---
     derniere_maj = fm.get("derniere-maj", "").strip()
     if not derniere_maj:
         issues.append("derniere-maj vide")
@@ -438,11 +408,10 @@ def format_table(report: dict) -> str:
     lines.append("| Critère | Poids |")
     lines.append("|---------|-------|")
     lines.append("| Frontmatter complet (7 champs) | 30 |")
-    lines.append("| Aliases ≥ 4 | 15 |")
-    lines.append("| Resume informatif (>40 chars, ≠ titre) | 10 |")
+    lines.append("| Aliases ≥ 4 | 20 |")
+    lines.append("| Resume informatif (>40 chars, ≠ titre) | 15 |")
     lines.append("| Tags #type/X + #domaine/Y | 10 |")
     lines.append("| Wikilinks internes (pas markdown) | 10 |")
-    lines.append("| Lien MOC dans ## Liens | 10 |")
     lines.append("| Sections template respectées | 10 |")
     lines.append("| derniere-maj < 30 jours | 5 |")
     lines.append("| **A** ≥ 90  **B** ≥ 75  **C** ≥ 60  **D** < 60 | |")

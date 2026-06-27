@@ -7,7 +7,6 @@ IMPORTANT: Only deterministic corrections are applied automatically:
   - Add missing frontmatter fields (empty/default values)
   - Normalize tag format (#type/X, #domaine/Y from existing type/domaine fields)
   - Add missing ## Liens section
-  - Add MOC wikilink if folder has a known MOC and ## Liens exists
 
 LLM-judgment tasks (alias enrichment, resume rewriting) are NEVER auto-applied.
 They appear as "Suggestions" in the audit report only.
@@ -31,16 +30,6 @@ SKIP_DIRS = {".obsidian", "Templates", ".git", ".claude", "agent-memory"}
 SKIP_FILES = {"Bienvenue.md"}
 
 REQUIRED_FIELDS = ["titre", "resume", "aliases", "type", "derniere-maj", "auteur", "tags"]
-
-FOLDER_TO_MOC = {
-    "01-Claude-Code": "MOC-Claude-Code",
-    "02-Concurrents": "MOC-Concurrents",
-    "03-Modeles": "MOC-Modeles",
-    "04-Techniques": "MOC-Techniques",
-    "05-Leaders": "MOC-Leaders",
-    "06-Industrie": "MOC-Industrie",
-    "07-Prompts": "MOC-Prompts",
-}
 
 DEFAULT_VALUES = {
     "titre": "",
@@ -103,20 +92,6 @@ def ensure_liens_section(body: str) -> tuple[str, bool]:
     return body, True
 
 
-def add_moc_link(body: str, moc_name: str) -> tuple[str, bool]:
-    """Add [[MOC-*]] link in ## Liens section if not present. Returns (new_body, was_added)."""
-    if f"[[{moc_name}" in body:
-        return body, False
-
-    liens_match = re.search(r'(## Liens\s*\n)', body)
-    if not liens_match:
-        return body, False
-
-    insert_pos = liens_match.end()
-    body = body[:insert_pos] + f"- [[{moc_name}]]\n" + body[insert_pos:]
-    return body, True
-
-
 def normalize_wikilinks(body: str, all_note_names: set, ambiguous_names: set) -> tuple[str, int]:
     """Replace [[path/to/Note|Display]] with [[Note|Display]] when Note is unambiguous."""
     pattern = re.compile(r'\[\[([^\]|]+/([^\]|]+))(\|[^\]]+)?\]\]')
@@ -146,8 +121,6 @@ def fix_note(path: Path, vault_root: Path, dry_run: bool = False, all_note_names
         return {"path": str(path.relative_to(vault_root)), "error": str(e), "fixes": []}
 
     rel = path.relative_to(vault_root)
-    top_folder = rel.parts[0] if len(rel.parts) > 0 else ""
-    expected_moc = FOLDER_TO_MOC.get(top_folder)
 
     # Parse raw frontmatter
     before, fm_text, after_fm = parse_frontmatter_raw(content)
@@ -176,19 +149,13 @@ def fix_note(path: Path, vault_root: Path, dry_run: bool = False, all_note_names
     if liens_added:
         fixes.append("Section ## Liens ajoutée")
 
-    # 3. Add MOC link
-    if expected_moc:
-        new_body, moc_added = add_moc_link(new_body, expected_moc)
-        if moc_added:
-            fixes.append(f"Lien [[{expected_moc}]] ajouté")
-
-    # 4. Normalize path-based wikilinks
+    # 3. Normalize path-based wikilinks
     if all_note_names and ambiguous_names:
         new_body, wl_count = normalize_wikilinks(new_body, all_note_names, ambiguous_names)
         if wl_count:
             fixes.append(f"Wikilinks normalisés : {wl_count} chemins → noms simples")
 
-    # 5. Update derniere-maj if it was empty (we just set it)
+    # 4. Update derniere-maj if it was empty (we just set it)
     if "derniere-maj" in added_fields:
         today_str = date.today().isoformat()
         new_fm = re.sub(

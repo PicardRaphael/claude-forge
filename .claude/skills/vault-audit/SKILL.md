@@ -8,7 +8,9 @@ effort: high
 memory: project
 ---
 
-Audits the forge-brain Obsidian vault (96+ notes) for quality issues and applies deterministic corrections on demand.
+Audits the forge-brain Obsidian vault (500+ notes) for quality issues and applies deterministic corrections on demand.
+
+Depuis le pivot agent-first 2026-06-27 ([[decision-vault-agent-first]]), les MOCs sont une couche humaine **optionnelle non auto-maintenue** : l'audit ne score ni ne corrige plus les liens MOC.
 
 ## Usage
 
@@ -53,7 +55,6 @@ Corrections appliquées automatiquement :
 - Ajout des champs frontmatter manquants (valeurs vides/défaut)
 - Ajout `auteur: claude` si absent
 - Ajout section `## Liens` si absente
-- Ajout `[[MOC-*]]` si dossier a un MOC connu et section Liens présente
 - Initialisation `derniere-maj` à aujourd'hui si vide
 
 **Non corrigé automatiquement (suggestions seulement) :**
@@ -81,30 +82,21 @@ Pour les notes grade D avec aliases pauvres ou resume vide :
 | Critère | Poids | Détail |
 |---------|-------|--------|
 | Frontmatter complet (7 champs) | 30 | titre, resume, aliases, type, derniere-maj, auteur, tags |
-| Aliases ≥ 4 | 15 | synonymes FR, termes EN, noms techniques, termes recherche |
-| Resume informatif | 10 | > 40 chars, distinct du titre |
+| Aliases ≥ 4 | 20 | synonymes FR, termes EN, noms techniques, termes recherche |
+| Resume informatif | 15 | > 40 chars, distinct du titre |
 | Tags #type/X + #domaine/Y | 10 | les deux requis sauf type=leader/knowledge/erreur |
 | Wikilinks internes (pas markdown) | 10 | pas de `[texte](note.md)`, utiliser `[[wikilink]]` |
-| Lien MOC dans ## Liens | 10 | ex. `[[MOC-Claude-Code]]` selon dossier |
 | Sections template respectées | 10 | ## Liens minimum |
 | derniere-maj < 30 jours | 5 | warning si > 30 jours |
 
 **Grades :** A ≥ 90 | B ≥ 75 | C ≥ 60 | D < 60
 
-## MOC par dossier
+## Wikilinks attendus par dossier
 
-| Dossier | MOC attendu |
-|---------|-------------|
-| 01-Claude-Code | [[MOC-Claude-Code]] |
-| 02-Concurrents | [[MOC-Concurrents]] |
-| 03-Modeles | [[MOC-Modeles]] |
-| 04-Techniques | [[MOC-Techniques]] |
-| 05-Leaders | [[MOC-Leaders]] |
-| 06-Industrie | [[MOC-Industrie]] |
-| 07-Prompts | [[MOC-Prompts]] |
-| 0-Inbox | aucun (zone de brouillon) |
-| 1-Projets | aucun — wikilink vers projet parent obligatoire |
-| 2-Casquettes | aucun — wikilink vers [[Raphael-Picard]] obligatoire |
+Les MOCs ne sont plus une cible auto-maintenue (couche humaine optionnelle, pivot agent-first). Restent attendus, comme connectivité de graphe :
+- `1-Projets/` — wikilink vers le projet parent
+- `2-Casquettes/` — wikilink vers [[Raphael-Picard]]
+- Toute note — ≥ 2 wikilinks vers d'autres notes (graphe dense, signal de qualité agent-first)
 
 ## Gotchas
 
