@@ -106,6 +106,8 @@ Avec MCP LLM-optimized :
 - **Tables** : notes (id, file_stem, path, content, frontmatter, last_modified, content_hash), aliases, links, tags, notes_fts (virtual FTS5)
 
 ### Layer Karpathy strict
+
+> **forge-brain exception (pivot agent-first 2026-06-27)** : `raw/` **supprimé** — les sources externes sont distillées directement en wiki/, pas de layer brut immuable. La structure ci-dessous décrit le pattern Karpathy d'origine ; pour l'état réel de forge-brain, voir [[decision-vault-agent-first]].
 - `raw/` — sources externes immuables (Karpathy layer 1, LLM ne touche pas)
 - `wiki/` — couche LLM-owned (00-Hub a 07-Prompts + 1-Projets + 2-Casquettes + Knowledge + 0-Inbox)
 - `SCHEMA.md`, `index.md`, `log.md`, `CHANGELOG.md` — schema/orientation/trace/narration

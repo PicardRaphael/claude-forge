@@ -12,7 +12,7 @@ aliases:
   - "qmd tobi lutke"
   - "agentic engineering memory"
   - "compounding wiki"
-derniere-maj: 2026-06-08
+derniere-maj: 2026-06-27
 auteur: claude
 type: pattern
 sources:
@@ -27,6 +27,17 @@ tags:
   - "#domaine/llm-wiki"
 ---
 # Pattern vault LLM canonique Karpathy
+
+> ## ⚠️ STATUT 2026-06-27 — forge-brain s'est ÉMANCIPÉ de ce pattern
+>
+> **[[decision-vault-agent-first]]** : forge-brain est un **cerveau d'agent** piloté via MCP (Obsidian débranché de fait). Karpathy = échafaudage de départ, **pas la cible**. Ce que forge-brain n'applique plus :
+> - **`raw/` supprimé** (8 notes `git rm`) — sources distillées directement en wiki/, pas de couche brute immuable. La règle « LLM modifie raw/ = bug fatal » est **caduque pour forge-brain**.
+> - **`index.md` + `log.md`** : plus « obligatoires » — couche humaine **optionnelle**, non auto-maintenue.
+> - **MOCs** : couche humaine optionnelle, non auto-maintenue (non supprimés : ~95 backlinks).
+>
+> **Cette note reste un document de référence** sur le pattern Karpathy générique, **valide pour d'autres vaults** (neo_ia, neoteem-brain). Les sections **DRIFT D'IMPLÉMENTATION** et **REQUALIFICATION POST-MESURE** plus bas sont la **trace historique** du raisonnement (8 juin) — leur conclusion à jour est désormais : **décision délibérée agent-first**, pas « écart à réparer ».
+>
+> **Condition de falsification (raw/)** : si un incident d'hallucination réel remontant à une source non archivée émerge → re-créer `raw/` pour ce besoin précis, **sans rouvrir le pivot agent-first global**.
 
 > Note canonique forge — pattern Karpathy LLM Wiki (Gist 4 avril 2026), application à forge-brain.
 
@@ -511,7 +522,7 @@ Source audit : `output/audit-vault-thematique/01-claude-code/B-verif-cluster7-ka
 
 ## DRIFT D'IMPLÉMENTATION CONSTATÉ — 8 juin 2026 (vérif empirique vault réel)
 
-> Le pattern (architecture) reste 100% canonique. Cette section documente l'**écart entre la doctrine et l'état RÉEL du vault**, mesuré le 8 juin 2026 (`vault_stats`, `usage_stats(30j)`, `list_notes("raw")`, lecture `index.md`/`log.md` racine). Constat déclencheur : comparaison forge-brain vs pattern Karpathy demandée par Raphael. Les écarts du 22 mai (cf [[recherche-karpathy-vault-canonique]]) ont été PARTIELLEMENT comblés puis ont **re-dérivé**.
+> Le pattern (architecture) reste 100% canonique. Cette section documente l'**écart entre la doctrine et l'état RÉEL du vault**, mesuré le 8 juin 2026 (`vault_stats`, `usage_stats(30j)`, `list_notes("raw")`, lecture `index.md`/`log.md` racine). Constat déclencheur : comparaison forge-brain vs pattern Karpathy demandée par Raphael. Les écarts du 22 mai (cf `recherche-karpathy-vault-canonique`, note raw/ supprimée au pivot agent-first) ont été PARTIELLEMENT comblés puis ont **re-dérivé**.
 
 ### 3 organes obligatoires Karpathy — état réel
 
@@ -546,7 +557,7 @@ Tout manque vs Karpathy n'est PAS un défaut. Deux catégories à ne jamais conf
 
 ### Méta-leçon
 
-Le drift doctrine↔réel se reproduit (cf [[doctrine-drift-silent-regression]] / `feedback_doctrine_drift_pattern`). Ici il est **silencieux car le système marche quand même** : on tape `search_brain` direct, donc l'index stale et le raw mort ne bloquent rien — le pattern Karpathy est contourné dans la pratique sans que personne ne l'ait décidé. **Un système qui fonctionne malgré un organe mort cache son propre drift.** Un `lint_vault` étendu devrait vérifier la fraîcheur de `index.md` (Karpathy : le lint cible « index entries that are stale »).
+Le drift doctrine↔réel se reproduit (cf `doctrine-drift-silent-regression` / `feedback_doctrine_drift_pattern`). Ici il est **silencieux car le système marche quand même** : on tape `search_brain` direct, donc l'index stale et le raw mort ne bloquent rien — le pattern Karpathy est contourné dans la pratique sans que personne ne l'ait décidé. **Un système qui fonctionne malgré un organe mort cache son propre drift.** Un `lint_vault` étendu devrait vérifier la fraîcheur de `index.md` (Karpathy : le lint cible « index entries that are stale »).
 
 **Corollaire (objection Raphael 8 juin)** : symétriquement, ne pas sur-diagnostiquer. Un outil absent n'est un défaut que s'il a un consommateur. Vérifier `usage_stats` AVANT de qualifier un manque d'« angle mort » — sinon on confond la discipline anti-gonflage avec une lacune.
 

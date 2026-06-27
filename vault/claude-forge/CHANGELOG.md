@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-27 — Pivot doctrinal vault agent-first INSTRUIT (émancipation de Karpathy)
+
+- **Ajoutées** : `Knowledge/raisonnements/raisonnement-2026-06-27-vault-agent-first.md` (instruction du pivot via methode-pivoter-doctrine).
+- **Modifiées** : `SCHEMA.md` (raw/ retiré des couches, ontologie, ingest, anti-patterns, bandeau STATUT), `pattern-vault-llm-karpathy` (bandeau STATUT en tête chapeautant DRIFT/REQUALIF = trace), `architecture-cerveau-obsidian-mcp` + `mcp-vault-llm-design` + `LLM Wiki` (caveats forge-brain exception), `index.md` (raw/ + métadonnées Karpathy → agent-first, stats 480→511), `00-Hub/Home.md` (resume + lien Karpathy + derniere-maj). Hors vault : rule `forge-brain-proactive.md`, skill `pivot-check/SKILL.md` (exclusion raw/ morte retirée), `memory/feedback_drift_implementation_karpathy_organes_morts.md`.
+- **Source** : décision [[decision-vault-agent-first]] (acceptée 2026-06-27) — forge-brain = cerveau d'agent piloté via MCP, Karpathy = échafaudage dépassé. raw/ supprimé, index/log/MOC = couche humaine optionnelle. Plan validé par advisor + devils-advocate (critique-2026-06-27-pivot-vault-agent-first), périmètre étendu 6→11 foyers après détection de foyers manqués. RESTE (ÉTAPE B) : alléger FOLDER_TO_MOC dans vault-audit.
+
 ## 2026-06-27 — Pivot agent-first + /done étape 6-bis (capitalisation session)
 
 - **Ajoutées** : `Knowledge/decisions/decision-vault-agent-first.md` — ADR : forge = cerveau d'agent, Karpathy = échafaudage dépassé (raw/ tué, MOCs = couche humaine optionnelle, SCHEMA à refondre). Pivot à instruire via `methode-pivoter-doctrine`.

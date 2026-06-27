@@ -4,31 +4,35 @@ resume: Working memory dynamique -- mis a jour par /done, lu par /recap
 aliases: [context actuel, contexte courant, working memory, memoire de travail, etat actuel]
 type: context
 status: active
-derniere-maj: 2026-06-25
+derniere-maj: 2026-06-27
 auteur: claude
 tags: ["#type/context", "#meta/working-memory"]
 ---
 
 ## Phase actuelle
-Audit + durcissement config Claude Code des repos d'équipe (migration_script terminé).
+Refonte de l'outillage vault pour rendre Jarvis plus rapide et juste — orientation **agent-first** (cf [[decision-vault-agent-first]]).
 
-## Dernière session (2026-06-25)
-### Décisions prises
-- **migration_script `.claude/` = CONFORME** (audit profond 31 objets, 4 grilles dont portabilité dominante). Repo assaini depuis l'incident du 24 juin : zéro wikilink vault, zéro MCP forge-brain, zéro chemin machine, zéro `exit 2`.
-- **Fix É1 appliqué + poussé** (commit `50b88378`, branche `raphael_claude_setup`, PR Bitbucket #1514) : table de routage dédupliquée → CLAUDE.md = source unique (lu en premier par un dev), `dispatch-skills.md` réduit à un stub pointeur, README:62 ajusté. Sens de fix inversé par le DA (découvrabilité humaine > réflexe forge « rule = canonique »).
-- **É2 (descriptions > 250 chars) laissé tel quel** : gain tokens marginal, risque auto-activation.
-- **Isolation stricte forge ↔ migration_script** : aucune liaison, intervention uniquement sur demande explicite de Raphael.
+## Derniere session (2026-06-27)
+### Decisions prises
+- Pivot doctrinal : vault = cerveau d'agent, Karpathy = échafaudage dépassé ([[decision-vault-agent-first]]).
+- Capitalisation du cours Eliott Meunier : 3 notes neuves ([[cartographier-process-cma]], [[n8n-self-host-mcp-claude]], workflow-inbox-capture-vrac).
+- n8n prioritaire pour l'automatisation externe ; Zapier/Make gardés en veille.
+- Ne pas créer /process-map (doublon loop-forge) ni /n8n-automate (sans VPS).
+- Ne pas tuer les MOCs (~95 backlinks) ; vrai défaut = FOLDER_TO_MOC cassé dans vault-audit.
 
 ### En cours
-Rien — chantier migration_script clos.
+- `/done` étape 6-bis livrée (maj note de contexte projet).
+- raw/ supprimé (8 notes).
 
-### Prochaines étapes
-- Si Raphael ouvre la PR #1514 → merge vers Master (décision humaine, repo d'équipe).
-- Appliquer la même grille d'audit repo-d'équipe aux autres repos partagés si demandé.
+### Prochaines etapes
+- P0-1 : alléger/remapper la logique FOLDER_TO_MOC de vault-audit (audit.py/fix.py + SKILL.md).
+- Refonte SCHEMA agent-first (retirer raw/ Layer 1) via `methode-pivoter-doctrine`.
+- P1-1 : réaligner dossiers provider dans forge-brain/SKILL.md.
+- P2 (trigger) : edit_note ciblé dans le MCP.
 
 ## Fils ouverts
-- **Récidive Edit direct CLAUDE.md** (2/3 vers seuil [[feedback-reviole-3x-regle-insuffisante]]) : à la 3e occurrence, envisager un réflexe pré-Edit structurel plutôt qu'une note. Enrichi dans `memory/feedback_ecrire_partout_invoquer_skill_creatrice.md`.
-- `vera/gen_tags_patch.py:193` : chemin machine en dur (`C:/Data/ctrl/controls.sql`) — dans le CODE de migration_script, hors scope `.claude/`. Signalé, non traité.
+- Pivot agent-first à instruire proprement (3 canoniques : pattern-vault-llm-karpathy, architecture-cerveau-obsidian-mcp, SCHEMA).
+- 1 wikilink mort dans pattern-vault-llm-karpathy (`recherche-karpathy-vault-canonique`) — à nettoyer.
 
 ## Liens
 [[2-Casquettes/Raphael-Picard|Raphael Picard]]

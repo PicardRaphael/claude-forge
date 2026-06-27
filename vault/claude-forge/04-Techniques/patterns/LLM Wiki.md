@@ -9,7 +9,7 @@ aliases:
   - "plain text knowledge management"
 domaine: technique
 type: technique
-derniere-maj: 2026-05-23
+derniere-maj: 2026-06-27
 auteur: claude
 sources:
   - "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f"
@@ -44,11 +44,12 @@ Le chiffre "70x plus efficient que RAG" est cité par MindStudio (blog tiers) ma
 
 ## Lien avec forge-brain
 
-Ce vault implémente le pattern Karpathy : 3 layers (raw/wiki/schema), notes atomiques cross-linkées en plain text, LLM maintient l'organisation via le MCP forge-brain. Voir [[pattern-vault-llm-karpathy]] pour l'implémentation.
+> **STATUT 2026-06-27** : forge-brain s'est **émancipé** de ce pattern ([[decision-vault-agent-first]]). Karpathy fut l'échafaudage de départ ; aujourd'hui forge-brain est un **cerveau d'agent** piloté via MCP — `raw/` supprimé (sources distillées directement en wiki/), `index.md`/`log.md`/MOCs = couche humaine optionnelle. Le pattern Karpathy reste pertinent en **référence générique** pour d'autres vaults. Implémentation et état réel : [[pattern-vault-llm-karpathy]] (voir son bandeau STATUT) + [[decision-vault-agent-first]].
 
 ## Liens
 
 - [[Andrej Karpathy]]
 - [[pattern-vault-llm-karpathy]]
+- [[decision-vault-agent-first]]
 - [[Context Engineering]]
 - [[MOC-Techniques]]

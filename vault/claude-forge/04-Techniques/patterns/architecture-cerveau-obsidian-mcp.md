@@ -19,6 +19,8 @@ tags:
   - "#domaine/claude-code"
 ---
 
+> **STATUT 2026-06-27 — forge-brain agent-first** ([[decision-vault-agent-first]]) : ce guide décrit l'architecture cerveau Obsidian+MCP inspirée de Karpathy. forge-brain s'en est **émancipé** : `raw/` (layer 1 immuable) **supprimé** — sources distillées directement en wiki/ ; `index.md`/`log.md`/MOCs = couche humaine optionnelle non auto-maintenue. Le pattern reste valide en référence générique pour d'autres vaults. Critère : « ça sert l'agent ? », pas « c'est conforme à Karpathy ? ».
+
 ## Pourquoi
 
 Les agents IA (Claude Code, Gemini CLI, etc.) perdent leur contexte entre sessions. Un vault Obsidian + MCP donne une mémoire persistante infinie : chaque session lit et écrit dans le vault, chaque erreur est documentée, chaque technique est retrouvable.

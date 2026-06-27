@@ -1,6 +1,6 @@
 ---
 titre: "Schema vault forge-brain — conventions self-describing"
-resume: "Schema layer Karpathy : conventions d'ecriture du vault (frontmatter, aliases, wikilinks, dossiers). Self-describing pour qu'un LLM puisse comprendre le vault sans contexte externe."
+resume: "Schema layer Karpathy : conventions d'ecriture du vault (frontmatter, aliases, wikilinks, dossiers). Self-describing pour qu'un LLM puisse comprendre le vault sans contexte externe. Agent-first depuis 2026-06-27 (raw/ supprime)."
 aliases:
   - "schema vault"
   - "vault schema"
@@ -8,7 +8,7 @@ aliases:
   - "AGENTS.md vault"
   - "self-describing vault"
   - "schema forge-brain"
-derniere-maj: 2026-06-14
+derniere-maj: 2026-06-27
 auteur: claude
 type: schema
 tags:
@@ -18,17 +18,20 @@ tags:
 
 # Schema vault forge-brain
 
-> Pattern Karpathy LLM Wiki layer 3 (schema). Conventions self-describing pour qu'un LLM novice (ou n'importe quel outil cross-LLM type Hashimoto AGENTS.md) puisse ecrire dans le vault correctement.
+> Conventions self-describing pour qu'un LLM (ou n'importe quel outil cross-LLM type Hashimoto AGENTS.md) puisse ecrire dans le vault correctement.
+
+> **STATUT — agent-first depuis 2026-06-27** ([[decision-vault-agent-first]]) : forge-brain est un **cerveau d'agent** pilote via MCP, pas un wiki humain (Obsidian debranche de fait). Le pattern Karpathy a ete l'echafaudage de depart, pas la cible. Consequences appliquees ci-dessous : `raw/` supprime (sources distillees directement en wiki/), `index.md`/`log.md`/MOCs = couche humaine **optionnelle**. Le critere est « est-ce que ca sert l'agent ? », jamais « est-ce conforme a Karpathy ? ».
 
 ---
 
-## 1. Architecture 3-layers (Karpathy)
+## 1. Architecture des couches
 
-| Layer | Dossiers | Regle |
+| Couche | Dossiers | Regle |
 |-------|----------|-------|
-| **raw/** (sources immuables) | `raw/<YYYY-MM-DD-contexte>/` | JAMAIS modifie par LLM. Web research, transcripts Whisper, papers, clips Defuddle. Lecture seule. |
-| **wiki/** (LLM-owned) | `00-Hub/`, `01-Claude/` a `07-Prompts/`, `1-Projets/`, `2-Casquettes/`, `Knowledge/`, `0-Inbox/` | LLM ecrit, restructure, compound. Notes atomiques, frontmatter strict, wikilinks. |
-| **schema/** (conventions) | `SCHEMA.md` (ce fichier), `index.md`, `log.md`, `CHANGELOG.md` | Schema partage humain/LLM. Mis a jour rarement. |
+| **wiki/** (LLM-owned) | `00-Hub/`, `01-Claude/` a `07-Prompts/`, `1-Projets/`, `2-Casquettes/`, `Knowledge/`, `0-Inbox/` | LLM ecrit, restructure, compound. Notes atomiques, frontmatter strict, wikilinks. C'est le coeur du vault. |
+| **schema/** (conventions) | `SCHEMA.md` (ce fichier), `index.md`, `log.md`, `CHANGELOG.md` | Schema partage humain/LLM. `index.md`/`log.md` = couche humaine optionnelle non auto-maintenue. |
+
+> `raw/` (sources immuables, Karpathy layer 1) **supprime au pivot agent-first 2026-06-27** : les sources externes sont distillees directement en notes wiki/ (cc-news, x-read, defuddle, watch). Plus de couche brute archivee. Cf [[decision-vault-agent-first]].
 
 ---
 
@@ -107,19 +110,17 @@ Choisir parmi :
 | Synthese d'analyse | `Knowledge/syntheses/` |
 | Question technique resolue | `Knowledge/questions/` |
 | Raisonnement multi-etapes | `Knowledge/raisonnements/` |
-| Source externe brute | `raw/<YYYY-MM-DD-contexte>/` |
 
 **Convention fournisseur (14 juin 2026)** : 1 dossier par acteur IA — Anthropic = `01-Claude`, puis `02-OpenAI`, `03-Google`, `08-xAI`, `09-Anysphere`, `10-Microsoft`… — contenant `models/` (modèles fondation : specs, benchmarks, pricing) et `products/` (apps, CLI, IDE, API), **créés à la demande** (pas de dossier vide). **Pas de dossier « Concurrents »** : les fournisseurs sont des acteurs suivis, pas des concurrents. Les comparatifs cross-fournisseurs (modèle-vs-modèle) vont en thématique (`04-Techniques/` ou une MOC `00-Hub/`), jamais dans un dossier acteur.
 
 ---
 
-## 5. 3 operations Karpathy
+## 5. 3 operations vault
 
 ### Ingest (capturer source → wiki)
 1. Source externe (talk, article, paper, transcript)
-2. Depose dans `raw/<YYYY-MM-DD-contexte>/` (Layer 1, immuable)
-3. LLM extrait concepts atomiques → cree notes dans dossiers wiki (`01-` a `07-`, `Knowledge/`)
-4. Mise a jour : `index.md` (nouveaux concepts) + `log.md` (action ingest)
+2. LLM extrait concepts atomiques → cree notes dans dossiers wiki (`01-` a `07-`, `Knowledge/`)
+3. Mise a jour optionnelle : `index.md` / `log.md` si on les maintient (couche humaine)
 
 ### Query (chercher dans le wiki)
 1. Question utilisateur
@@ -131,7 +132,7 @@ Choisir parmi :
 1. Scan periodique (mensuel via `/forge-review`)
 2. Detecte : notes orphelines, frontmatter incomplet, aliases manquants, derniere-maj > 30j, liens casses
 3. Propose corrections → humain valide
-4. Update `log.md` (action lint)
+4. Update `log.md` (si maintenu)
 
 ---
 
@@ -182,7 +183,7 @@ Utiliser la skill `obsidian-markdown` pour : wikilinks, callouts, frontmatter YA
 
 ## 8. Anti-patterns vault
 
-- ❌ Editer dans `raw/` (viole immutabilite Karpathy)
+- ❌ Tenter de deposer dans `raw/` (dossier supprime — pivot agent-first 2026-06-27, cf [[decision-vault-agent-first]])
 - ❌ Grep/Read brut sur le vault (utiliser MCP)
 - ❌ Aliases bricoles ad-hoc (4-6 minimum, semantiques)
 - ❌ `resume` generique ("note sur X")
@@ -190,7 +191,7 @@ Utiliser la skill `obsidian-markdown` pour : wikilinks, callouts, frontmatter YA
 - ❌ Note sans tags (au moins 2 : type + domaine)
 - ❌ Note isolee (au moins 2 wikilinks)
 - ❌ Note > 500L sans references/ extraite (cf [[comment-creer-skill]])
-- ❌ Editer `log.md` retroactivement (append-only strict)
+- ❌ Editer `log.md` retroactivement (append-only strict, si maintenu)
 - ❌ Mettre du Knowledge/projet dans MCP-only-readable formats (toujours markdown)
 
 ---
@@ -205,15 +206,19 @@ Ce schema est compatible avec le pattern AGENTS.md propose par [[hashimoto]] (Gh
 
 Ce SCHEMA.md est modifie **rarement** (changements doctrinaux majeurs uniquement). Pour changements frequents → `CHANGELOG.md` ou `log.md`.
 
-Derniere modification doctrinale : **22 mai 2026** — adoption pattern Karpathy strict + creation `raw/` + `index.md` + `log.md` + `SCHEMA.md`. **14 juin 2026** — réorg fournisseurs IA en dossiers premier niveau (dissout `02-Concurrents` + `03-Modeles`, squelette `models/`+`products/` par acteur).
+Dernieres modifications doctrinales :
+- **22 mai 2026** — adoption pattern Karpathy strict + creation `raw/` + `index.md` + `log.md` + `SCHEMA.md`.
+- **14 juin 2026** — réorg fournisseurs IA en dossiers premier niveau (dissout `02-Concurrents` + `03-Modeles`, squelette `models/`+`products/` par acteur).
+- **27 juin 2026** — **pivot agent-first** : `raw/` supprime (bruts = variables jetables), `index.md`/`log.md`/MOCs = couche humaine optionnelle non auto-maintenue. Karpathy = echafaudage depasse. Cf [[decision-vault-agent-first]].
 
 ---
 
 ## Voir aussi
 
-- [[index]] — index content-oriented (orientation LLM)
-- [[log]] — log append-only operations
+- [[index]] — index content-oriented (orientation LLM, optionnel)
+- [[log]] — log append-only (optionnel)
 - [[CHANGELOG]] — narration prosaique
-- [[pattern-vault-llm-karpathy]] — pattern complet 3-layers + 3 ops
+- [[pattern-vault-llm-karpathy]] — pattern Karpathy de reference (forge-brain s'en est emancipe)
+- [[decision-vault-agent-first]] — decision du pivot
 - [[forge-brain-proactive]] — rule MCP forge-brain proactif
 - [[obsidian-markdown]] — skill format Obsidian

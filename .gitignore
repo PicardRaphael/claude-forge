@@ -32,6 +32,9 @@ data/
 .claude/skills/x-read/downloads/
 mcp-forge-brain/logs/
 
+# Logs runtime racine (transcripts watch, logs cc-news — regeneres, pas versionnes)
+logs/
+
 # Memoire portable — versionnee par defaut, sauf items marques prives
 memory/.consolidate-lock
 memory/private/

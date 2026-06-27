@@ -55,7 +55,7 @@ Anti-patterns : scanner le vault par réflexe sans besoin · skipper le vault su
 
 ## OÙ écrire — Ontologie vault
 
-Source canonique : `vault/claude-forge/SCHEMA.md` (13 dossiers wiki + Knowledge/ + raw/). Voir aussi [[pattern-vault-llm-karpathy]].
+Source canonique : `vault/claude-forge/SCHEMA.md` (dossiers wiki + Knowledge/ — `raw/` supprimé au pivot agent-first 2026-06-27). Voir aussi [[decision-vault-agent-first]].
 
 ## Standard qualité notes
 

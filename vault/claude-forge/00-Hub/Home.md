@@ -1,6 +1,6 @@
 ---
 titre: "Forge Brain — Home"
-resume: "Vault forge-brain — 340+ notes pattern Karpathy 3-layers, MCP forge-brain port 8091, 8 canoniques chantier 22 mai + doctrine 22 mai (hooks lint/security/scope, JAMAIS workflow)"
+resume: "Vault forge-brain — 511 notes, orientation agent-first (cerveau d'agent piloté via MCP, Karpathy = échafaudage dépassé), MCP port 8091, 8 canoniques chantier 22 mai + doctrine 22 mai (hooks lint/security/scope, JAMAIS workflow)"
 aliases:
   - "home"
   - "accueil"
@@ -9,7 +9,7 @@ aliases:
   - "knowledge base"
   - "index principal"
 type: index
-derniere-maj: 2026-05-24
+derniere-maj: 2026-06-27
 auteur: claude
 sources: []
 tags:
@@ -20,7 +20,7 @@ tags:
 
 # Forge Brain
 
-Vault Karpathy LLM Wiki pour claude-forge. Pour trouver une note en 1 saut → **[[index]]** (content-oriented). Pour les conventions → **[[SCHEMA]]**. Pour les opérations → **[[log]]** + **[[CHANGELOG]]**.
+Vault **agent-first** pour claude-forge — cerveau d'agent piloté via MCP (Karpathy = échafaudage de départ dépassé, cf [[decision-vault-agent-first]]). Pour trouver une note → `search_brain` direct, ou **[[index]]** (content-oriented, optionnel). Pour les conventions → **[[SCHEMA]]**.
 
 ## Si tu cherches "comment faire X" — canoniques chantier 22 mai
 
@@ -32,9 +32,9 @@ Vault Karpathy LLM Wiki pour claude-forge. Pour trouver une note en 1 saut → *
 - [[methode-analyser-repo]] — META 6 étapes
 - [[methode-pivoter-doctrine]] — checklist anti-drift résiduel
 - [[mcp-vs-skills-doctrine]] — MCP data / Skills how-to
-- [[pattern-vault-llm-karpathy]] — 3-layers + index.md + log.md
+- [[pattern-vault-llm-karpathy]] — pattern Karpathy de référence (forge-brain s'en est émancipé → agent-first)
 
-## Navigation par MOC
+## Navigation par MOC (couche humaine optionnelle, non auto-maintenue)
 
 | Section | Contenu |
 |---------|---------|
@@ -42,12 +42,13 @@ Vault Karpathy LLM Wiki pour claude-forge. Pour trouver une note en 1 saut → *
 | [[MOC-Outils-IA]] | Gemini CLI, Codex, Copilot, Cursor, xAI |
 | [[MOC-Modeles]] | Specs, benchmarks, migrations |
 | [[MOC-Techniques]] | Prompt eng, context eng, RAG, agents, fine-tuning, patterns |
-| [[MOC-Leaders]] | 79 fiches : CC team, agents, RAG, fine-tuning, prompt, industrie |
+| [[MOC-Leaders]] | 80 fiches : CC team, agents, RAG, fine-tuning, prompt, industrie |
 | [[MOC-Industrie]] | Market, funding, événements |
 | [[MOC-Prompts]] | System prompts, techniques prompting |
 
-## Doctrine 22 mai 2026 (active)
+## Doctrine active
 
+- **Vault agent-first** (27 juin) : optimisé pour la boucle Jarvis (search → read), pas la navigation humaine. `raw/` supprimé, index/log/MOC = couche humaine optionnelle. Voir [[decision-vault-agent-first]]
 - **Hooks** : lint / security / scope UNIQUEMENT. JAMAIS workflow agentique. Voir [[raisonnement-22mai-doctrine-vs-enforcement]]
 - **Modèles** : Sonnet exécution, Opus jugement
 - **DA conditionnel ciblé** : livrables majeurs (skill cross-repo, agent orchestrant, archi). Pas systématique
@@ -62,7 +63,8 @@ Vault Karpathy LLM Wiki pour claude-forge. Pour trouver une note en 1 saut → *
 
 ## Liens
 
-- [[index]] — index content-oriented Karpathy
+- [[index]] — index content-oriented (optionnel)
 - [[SCHEMA]] — conventions self-describing
-- [[log]] — log append-only
+- [[decision-vault-agent-first]] — pivot agent-first
+- [[log]] — log append-only (optionnel)
 - [[CHANGELOG]] — narration mensuelle

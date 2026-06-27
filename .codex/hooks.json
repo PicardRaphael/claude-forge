@@ -1,0 +1,115 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/session-reminder.py\"",
+            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\session-reminder.py\"",
+            "timeout": 5,
+            "statusMessage": "Loading project memory reminder"
+          },
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/memory-size-watcher.py\"",
+            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\memory-size-watcher.py\"",
+            "timeout": 5,
+            "statusMessage": "Checking memory size"
+          },
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/memory-saturation-watcher.py\"",
+            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\memory-saturation-watcher.py\"",
+            "timeout": 5,
+            "statusMessage": "Checking memory saturation"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/codex-apply-patch-guard.py\"",
+            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\codex-apply-patch-guard.py\"",
+            "timeout": 10,
+            "statusMessage": "Checking apply_patch policy"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash|PowerShell|Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/pre-bash-guards.py\"",
+            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\pre-bash-guards.py\"",
+            "timeout": 10,
+            "statusMessage": "Checking shell/read policy"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/pre-write-guards.py\"",
+            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\pre-write-guards.py\"",
+            "timeout": 10,
+            "statusMessage": "Checking write policy"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__forge-brain__append_note|mcp__forge-brain__insert_section|mcp__forge-brain__read_section|mcp__forge-brain__update_note|mcp__forge-brain__delete_note|mcp__forge-brain__move_note|mcp__forge-brain__update_property|mcp__forge-brain__bulk_update_property",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/mcp-alias-guard.py\"",
+            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\mcp-alias-guard.py\"",
+            "timeout": 10,
+            "statusMessage": "Checking forge-brain alias"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/session-health.py\"",
+            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\session-health.py\"",
+            "timeout": 5,
+            "statusMessage": "Checking session health"
+          },
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/skill-activation.py\"",
+            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\skill-activation.py\"",
+            "timeout": 3,
+            "statusMessage": "Checking skill recommendations"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/metrics-tracker.py\"",
+            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\metrics-tracker.py\"",
+            "timeout": 2,
+            "statusMessage": "Recording tool metrics"
+          }
+        ]
+      }
+    ]
+  }
+}

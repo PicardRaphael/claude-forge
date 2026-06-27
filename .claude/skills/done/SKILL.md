@@ -294,6 +294,43 @@ Cette note est la **working memory** -- ce que Jarvis doit savoir au reveil. `/r
 
 ---
 
+## Etape 6bis -- Notes de contexte PROJET touchees
+
+L'etape 6 met a jour la working memory GLOBALE. Cette etape met a jour la note de contexte du/des PROJET(S) sur lesquels la session a porte -- sinon ces notes (`1-Projets/<Projet>/<Projet>.md`, lues par `/recap`) derivent (constat : une note projet active peut stagner plusieurs semaines pendant qu'on travaille dessus).
+
+### 6bis-a -- Detecter les projets touches
+
+Identifier le(s) projet(s) ou casquette(s) sur lesquels la session a reellement travaille (repos/fichiers edites, sujets traites, decisions prises) :
+- Cible projet : `1-Projets/<Projet>/<Projet>.md`
+- Cible casquette : `2-Casquettes/<Casquette>/<Casquette>.md`
+
+> Anti-bruit (purete du contexte) : si la session n'a pas substantiellement fait avancer un projet (exploration, lecture, discussion sans livrable), ne rien ecrire. "Aucune note projet a mettre a jour" est une reponse valide.
+
+### 6bis-b -- Proposer la mise a jour (gate par note)
+
+Pour chaque projet touche, presenter un bloc pret-a-ecrire :
+
+```
+Note projet : 1-Projets/<Projet>/<Projet>.md
+---
+derniere-maj -> YYYY-MM-DD
+Etat recent (2-4 puces : decisions prises + en cours cette session)
+---
+[v]alider  [m]odifier  [i]gnorer
+```
+
+L'etat recent reste court : ce qui a change cette session, sans dupliquer l'historique de la note.
+
+### 6bis-c -- Ecrire (apres v/m)
+
+Ecriture vault via MCP forge-brain UNIQUEMENT (jamais Write/Edit -- le hook vault-write-guard les bloque ; le MCP gere le YAML) :
+- `update_property file="<Projet>" name="derniere-maj" value="YYYY-MM-DD"` (ou `update_property_by_path` si le stem est ambigu)
+- Etat recent : `insert_section` sous la section d'etat existante, sinon `append_note`. Refonte large -> `update_note`.
+
+Ne pas creer la note si elle n'existe pas : un projet sans note de contexte releve d'une creation deliberee, hors scope de `/done`.
+
+---
+
 ## Gotchas
 
 - **Aucun fichier transcript** -- la conversation est dans le contexte courant. Ne pas chercher de `conversation.txt` ou equivalent.

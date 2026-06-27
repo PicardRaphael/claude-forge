@@ -1,13 +1,13 @@
 ---
 titre: "Index vault forge-brain — orientation LLM"
-resume: "Index content-oriented Karpathy : par concepts/erreurs/canoniques pour permettre au LLM de trouver une note en 1 saut, pas via les MOCs en 3 sauts. Catalogue navigable, pas table des matières exhaustive — l'exhaustif vit dans les _index de sous-dossiers."
+resume: "Index content-oriented : par concepts/erreurs/canoniques pour permettre au LLM de trouver une note en 1 saut, pas via les MOCs en 3 sauts. Catalogue navigable, pas table des matières exhaustive — l'exhaustif vit dans les _index de sous-dossiers."
 aliases:
   - "index vault"
   - "index forge-brain"
   - "vault index"
   - "orientation LLM vault"
-  - "karpathy index content-oriented"
-derniere-maj: 2026-06-09
+  - "index content-oriented"
+derniere-maj: 2026-06-27
 auteur: claude
 type: index
 tags:
@@ -17,7 +17,7 @@ tags:
 
 # Index vault forge-brain
 
-> Pattern Karpathy LLM Wiki : index **content-oriented** (par concepts), pas sommaire généré (par dossiers). Le LLM trouve une note en 1 saut. **Cet index est un catalogue navigable, pas un dump des 480 notes** — pour l'exhaustif d'un sous-domaine, suivre le `_index` du dossier concerné.
+> Index **content-oriented** (par concepts), pas sommaire généré (par dossiers). Le LLM trouve une note en 1 saut. **Cet index est un catalogue navigable, pas un dump des 511 notes** — pour l'exhaustif d'un sous-domaine, suivre le `_index` du dossier concerné. Couche d'orientation **optionnelle** (agent-first 2026-06-27, cf [[decision-vault-agent-first]]) : l'agent passe le plus souvent par `search_brain` direct.
 
 ---
 
@@ -33,7 +33,7 @@ Produit au chantier 22 mai 2026, vit dans `04-Techniques/claude-code/` :
 - **Analyser un repo et proposer config CC** → [[methode-analyser-repo]] (MÉTA, 6 étapes, ORDRE CANONIQUE A→B→C→D→E)
 - **Pivoter une doctrine sans drift résiduel** → [[methode-pivoter-doctrine]] (checklist 5 étapes, 23 mai)
 - **MCP vs Skills vs Bash (quand quoi)** → [[mcp-vs-skills-doctrine]] (MCP data / Skills how-to / Bash exploration)
-- **Pattern vault LLM Karpathy** → [[pattern-vault-llm-karpathy]] (3-layers, 3 ops, 2 fichiers oblig. + drift réel mesuré 8 juin)
+- **Pattern vault LLM Karpathy** → [[pattern-vault-llm-karpathy]] (référence générique ; forge-brain s'en est émancipé → agent-first, cf [[decision-vault-agent-first]])
 - **Pattern STOP + ESCALADE sub-agents** → [[anti-reentrance-sub-agents-pattern-escalade]] (sub-agent non-réentrant)
 - **Comparaison skill Anthropic claude-code-setup** → [[comparaison-skill-anthropic-claude-code-setup]]
 - **Setup entreprise sécu publique** → [[trail-of-bits-config]]
@@ -53,6 +53,7 @@ Produit au chantier 22 mai 2026, vit dans `04-Techniques/claude-code/` :
 - [[pattern-mcp-brief-then-direct]] — brief MCP verbatim in-body (skills frontmatter ignorées cross-repo)
 - [[pattern-vault-source-unique-sync-mecanique]] · [[pattern-vault-query-guard]]
 - [[limite-mcp-lock-inter-ecritures]] · [[limite-mcp-lag-reindexation-agregats]] — limites MCP connues + triggers
+- [[decision-vault-agent-first]] — pivot agent-first (Karpathy = échafaudage dépassé)
 
 ### Spec / dev / workflow
 - [[pattern-spec-driven-development]] · [[pattern-sdd-triangle]] · [[pattern-github-spec-kit]] · [[pattern-gsd-framework]]
@@ -83,6 +84,7 @@ Le 22 mai 2026, doctrine inversée : hooks pour lint/security/scope, **JAMAIS** 
 - **Effort calibré par type de tâche** → [[effort-opus-47-doctrine-anthropic-2026]]
 - **Anti-pattern hookify / workflow hooks** → [[anti-pattern-hookify-workflow-hooks]]
 - **Critique chantier 22 mai 8 canoniques** → [[critique-2026-05-22-8-canoniques-chantier]]
+- **Vault agent-first (Karpathy dépassé)** → [[decision-vault-agent-first]]
 - **Décisions d'architecture raisonnées** → [[Knowledge/raisonnements/_index]] (hook maison vs plugin, mémoire portable, niveaux de mesure agents, byte-for-byte splice…)
 
 ---
@@ -160,36 +162,35 @@ Le 22 mai 2026, doctrine inversée : hooks pour lint/security/scope, **JAMAIS** 
 
 ---
 
-## Navigation par dossier (ontologie utilité — Eliott Meunier Prisme One)
+## Navigation par dossier (ontologie par utilité)
 
-- `00-Hub/` — MOCs classiques (8 notes)
-- `01-Claude/` — features, deprecations, best-practices CC + Cowork (35)
-- `02-Concurrents/` — ChatGPT, Codex, Gemini CLI, Cursor (5)
-- `03-Modeles/` — specs Opus 4.8, Gemini 3, GPT-5 (7)
-- `04-Techniques/` — RAG, agents, fine-tuning, prompt, patterns, claude-code (133)
-- `05-Leaders/` — personnes clés, 6 sous-domaines (80)
-- `06-Industrie/` — funding, events, acquisitions (9)
-- `07-Prompts/` — system prompts, techniques prompting (7)
-- `1-Projets/` — contexte projets stables (28)
-- `2-Casquettes/` — aires de vie, dont responsable-ia (46)
-- `Knowledge/` — mémoire compounding : erreurs, critiques, raisonnements, synthèses, questions, reviews, evolutions (103)
-- `raw/` — sources immuables (Karpathy layer 1) : web research, transcripts, papers (8)
+- `00-Hub/` — MOCs (couche humaine optionnelle)
+- `01-Claude/` … `10-Microsoft/`, `11-Warp/` — un dossier par fournisseur IA (`models/` + `products/`, créés à la demande — convention 14 juin)
+- `04-Techniques/` — RAG, agents, fine-tuning, prompt, patterns, claude-code (le plus gros dossier)
+- `05-Leaders/` — personnes clés, 6 sous-domaines
+- `06-Industrie/` — funding, events, acquisitions
+- `07-Prompts/` — system prompts, techniques prompting
+- `1-Projets/` — contexte projets stables
+- `2-Casquettes/` — aires de vie, dont responsable-ia
+- `Knowledge/` — mémoire compounding : erreurs, critiques, raisonnements, synthèses, questions, reviews, evolutions
 - `Templates/` — Templates Templater · `Archive/` — notes archivées
+
+> `raw/` (sources immuables Karpathy) **supprimé au pivot agent-first 2026-06-27** — sources distillées directement en wiki/. Cf [[decision-vault-agent-first]].
 
 ---
 
 ## Schéma vault
 
 - Conventions vault → [[SCHEMA]]
-- Log append-only Karpathy → [[log]]
+- Log append-only (optionnel) → [[log]]
 - Changelog narratif → [[CHANGELOG]]
 
 ---
 
-## Métadonnées vault (au 9 juin 2026, source `vault_stats`)
+## Métadonnées vault (au 27 juin 2026, source `vault_stats`)
 
-- **480 notes** · **3193 wikilinks** · **2790 aliases** · **204 tags**
+- **511 notes** · **3592 wikilinks** · **2978 aliases** · **213 tags**
 - **MCP** : `mcp__forge-brain__*` (port 8091, FTS5 SQLite, BM25 pondéré file_stem:10 / aliases:8 / content:1)
-- **Pattern** : Karpathy LLM Wiki (3-layers raw/wiki/schema) — drift d'implémentation mesuré et arbitré le 8 juin (cf [[pattern-vault-llm-karpathy]] section REQUALIFICATION POST-MESURE)
+- **Orientation** : **agent-first** (cf [[decision-vault-agent-first]]) — cerveau d'agent piloté via MCP. Pattern Karpathy = échafaudage de départ dépassé (`raw/` supprimé, index/log/MOC = couche humaine optionnelle).
 - **Doctrine pivot** : 22 mai 2026 (hooks lint/security/scope, JAMAIS workflow agentique)
 - **Retrieval** : BM25 lexical + alias expansion FR assumé (vectoriel écarté à la mesure : ratage réel 0,89% non-sémantique)

@@ -32,6 +32,9 @@ tags:
 
 Decision simple : high volume + APIs stables = n8n/Make. Ambigue + non-structure = Claude Code.
 
+> [!tip] Choix forge / Neoteem — n8n en priorité (2026-06-27)
+> Pour toute **automatisation externe**, proposer **n8n self-host en priorité** : souveraineté des données, coût maîtrisé, workflows pilotables par Claude via MCP — recette opérationnelle dans [[n8n-self-host-mcp-claude]]. Zapier/Make restent listés ci-dessus pour **connaître le marché**, mais sont écartés par défaut (cloud propriétaire, facturation par tâche/opération, données hors UE — point RGPD pour le pro).
+
 ## Claude Code Scheduling
 
 ### Routines (avril 2026)
