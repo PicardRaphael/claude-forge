@@ -218,16 +218,6 @@
       "summary session"
     ]
   },
-  "self-check": {
-    "type": "command",
-    "description": "Valide la cohérence interne de claude-forge",
-    "triggers": [
-      "self check",
-      "vérifie la cohérence",
-      "valide le projet",
-      "self-check"
-    ]
-  },
   "skill-evolve": {
     "type": "skill",
     "description": "Fait évoluer une skill existante via analyse + skill-creator",

@@ -10,7 +10,7 @@ memory: project
 
 # forge-review -- Scheduled Status Quo Challenger
 
-NOT a conformity audit (self-check does that). NOT an external project analysis (evolve does that).
+NOT a conformity audit (repo-inspector mode=audit does that). NOT an external project analysis (evolve does that).
 This is a frank strategic challenge: is forge still on the best path, or are we running on habit?
 
 ## When to run
@@ -26,7 +26,7 @@ This is a frank strategic challenge: is forge still on the best path, or are we 
 | If the user wants... | Correct skill |
 |---|---|
 | Vault note quality, orphans, frontmatter | vault-audit |
-| YAML conformity, lengths, kebab-case | self-check |
+| YAML conformity, lengths, kebab-case | repo-inspector (mode=audit) |
 | External project product/architecture evolution | evolve |
 | Strategic challenge of forge own .claude/ setup | **forge-review** |
 
@@ -211,9 +211,9 @@ If previous reports exist, populate the Delta section. This is the primary value
 
 **Verdicts discarded is mandatory.** At minimum 2 items. Without it, the list looks generated, not curated.
 
-**Do not confuse with vault-audit and self-check.** They are complementary:
+**Do not confuse with vault-audit and repo-inspector.** They are complementary:
 - vault-audit: note quality in Obsidian (aliases, frontmatter, wikilinks)
-- self-check: .claude/ config conformity (YAML format, line counts, naming)
+- repo-inspector (mode=audit): .claude/ config conformity (YAML format, line counts, naming)
 - forge-review: strategic value of each component (should it exist at all?)
 
 **Second-notice pattern.** If a KILL item from the previous report was not actioned, include it in the next review's KILL list with label "(second notice)". Three reviews without action = escalate to direct conversation.
