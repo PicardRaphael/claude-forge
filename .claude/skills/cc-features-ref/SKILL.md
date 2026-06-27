@@ -69,16 +69,15 @@ Claude utilise `ScheduleWakeup` pour décider dynamiquement quand revérifier (�
 
 ## Effort levels
 
-| Niveau   | Effet (Opus 4.7)                                        |
+| Niveau   | Effet (Opus 4.8)                                        |
 | -------- | -------------------------------------------------------- |
 | `low`    | ≈ medium 4.6. Routes simples, schémas, tests unitaires  |
 | `medium` | Refactors multi-fichiers, migrations simples             |
-| `high`   | Migrations complexes, debug cross-layer, code review     |
-| `xhigh`  | **DÉFAUT Opus 4.7.** Design API, archi modules, refactors structurels, tâches agentiques longues |
+| `high`   | **DÉFAUT Opus 4.8.** Migrations complexes, debug cross-layer, code review |
+| `xhigh`  | Option agentique/coding long : design API, archi modules, refactors structurels |
 | `max`    | Problèmes très durs. Diminishing returns, prone overthinking |
 
-**`xhigh` est le nouveau défaut** pour Opus 4.7 (v2.1.111+). `high` reste le défaut pour Sonnet 4.6.
-Effort plus important sur 4.7 que tout modèle précédent — il contrôle directement le nombre de tool calls et la profondeur de raisonnement.
+**`high` est le défaut Opus 4.8** ; `xhigh`/`extra`/`max` en option pour les tâches agentiques/coding longues. `high` reste aussi le défaut Sonnet 4.6.
 À `xhigh`/`max` : mettre max_tokens à 64k+ minimum.
 
 **Opus 4.8** (`claude-opus-4-8`, sorti 28 mai 2026) — défaut effort = **high** (recommandé), options `extra`/`xhigh`/`max`. Fast mode 3× moins cher qu'avant (vitesse 2.5×). ~4× moins susceptible de laisser passer une faille sans la signaler vs 4.7. C'est désormais le dernier Opus : le défaut forge `opus` = `claude-opus-4-8`.

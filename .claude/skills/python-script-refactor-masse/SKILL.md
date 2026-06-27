@@ -1,6 +1,6 @@
 ---
 name: python-script-refactor-masse
-description: ALWAYS invoke when refactoring the same pattern across >10 files. DO NOT use sequential Edit tool calls -- one Python script with regex beats them all. Validated 25 May 2026 on ia_back (308 lines saved in 1 command).
+description: ALWAYS invoke when refactoring the same pattern across >10 files. DO NOT use sequential Edit tool calls -- one Python script with regex beats them all.
 allowed-tools: Read, Write, Edit, Bash, Glob
 effort: high
 user-invocable: true
@@ -23,7 +23,7 @@ Valide 25 mai 2026 sur ia_back : 308 lignes economisees en 1 commande vs sequenc
     #!/usr/bin/env python3
     import re, pathlib
 
-    ROOT = pathlib.Path(r"C:/Users/raphael.picard_neote/Documents/[REPO]")
+    ROOT = pathlib.Path(r"[CHEMIN ABSOLU DU REPO]")  # resoudre via: git rev-parse --show-toplevel
     GLOB_PATTERN = "**/*.py"
     DRY_RUN = True  # mettre False pour appliquer
 

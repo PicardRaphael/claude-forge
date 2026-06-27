@@ -123,6 +123,8 @@ Agent 7  : "Read .claude/skills/cc-news/references/domain-discovery.md
 
 Synthétiser avec le format de references/format-reponse.md.
 
+Avant de capitaliser un paper arXiv dans le vault → `Skill(arxiv-verification)` (vérifie YYMM / URL / venue avant citation — les deep-research LLM hallucinent versions et venues).
+
 ## Étapes
 
 1. **Vault forge-brain d'abord** — `search_brain` sur le sujet pour voir ce qui est déjà connu (`derniere-maj`)
