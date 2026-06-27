@@ -14,6 +14,21 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-27 — Nettoyage vault : suppression raw/ (8 notes) + audit outillage (hub, MCP)
+
+- **Supprimées** : `raw/2026-05-22-chantier/` — 8 notes `recherche-*` (bruts d'un chantier déjà distillés en canoniques). Pattern « pureté du contexte » : un brut = variable jetable. 1 wikilink mort résiduel dans [[pattern-vault-llm-karpathy]] (~L514) — à nettoyer (révèle une limitation MCP : pas d'édition ciblée).
+- **Analysé, non modifié** : `00-Hub/` MOCs — suppression **écartée** (`MOC-Techniques` = ~95 backlinks ; casser les liens = dette nette pour bénéfice nul). Vrai défaut = `FOLDER_TO_MOC` de `vault-audit` pointe vers dossiers périmés (`02-Concurrents`/`03-Modeles`, provider drift 14 juin).
+- **Source** : demande Raphael — hygiène vault + question outillage MCP/skills.
+
+## 2026-06-27 — Second Cerveau IA (cours Eliott Meunier) : CMA + n8n + idée inbox
+
+- **Ajoutées** :
+  - `04-Techniques/patterns/cartographier-process-cma.md` — méthode CMA (Clarifier/Mapper/Amplifier), fiche process, mapping par fréquence, arbre agent-vs-automatisation, anatomie statique/dynamique/méthode, routage vers `loop-forge` (boucle CC) ou n8n (externe). Amont de [[methode-monter-systeme-workflow]].
+  - `04-Techniques/claude-code/n8n-self-host-mcp-claude.md` — recette self-host n8n (Hostinger+Dokploy) + MCP n8n czlonkowski piloté par Claude, point RGPD, spec future skill `/n8n-automate`.
+  - `0-Inbox/workflow-inbox-capture-vrac.md` — idée dormante : inbox capture-vrac → tri auto ; diagnostic « pourquoi dormant dans forge » + condition de viabilité (flux entrant).
+- **Modifiées** : `04-Techniques/agents/agents-automation.md` — AJOUT callout « Choix forge/Neoteem : n8n en priorité » (Zapier/Make conservés pour la veille, écartés par défaut). Aucune suppression.
+- **Source** : vidéo YouTube IubQUC9TL2w (Eliott Meunier — L'IA devient simple avec un Second Cerveau IA, cours complet). Le vault couvrait déjà ~80 % (IPCRA, `architecture-cerveau-obsidian-mcp`, `methode-monter-systeme-workflow`) → capitalisation du delta neuf uniquement, zéro doublon, zéro nouvelle skill.
+
 ## 2026-06-26 — Correction note ADF Jira + critique DA chantier /spec
 
 ## 2026-06-26 — Pattern footer-gate hook repo d'équipe (canonique hook)
@@ -1767,3 +1782,8 @@ Tests hooks 176 verts (180→176, suppression du mécanisme d'exemption testé).
 
 - **Ajoutées** : `04-Techniques/patterns/methode-monter-systeme-workflow.md` — grille de dispatch besoin → Skill/Workflow/Agent/Framework/Hook/MCP, 4 patterns de robustesse, 3 archétypes. Méthode transverse (cœur stack-agnostique, colonne « créer via » = instanciation forge/CC).
 - **Source** : podcast YouTube agence/bootcamp IA (Eliott Meunier & associés, https://www.youtube.com/watch?v=5WiuP81OVJo) — taxonomie « capabilities », validateur embarqué Sierra-style, provenance draft→approved + jauge %draftia.
+
+## 2026-06-27 (suite) — Audit utilité skills + critique DA suppression 3 skills
+
+- **Ajoutées** : `Knowledge/critiques/critique-2026-06-27-suppression-3-skills.md` — verdict DA (2 BLOCKING + 1 PARTIAL) sur le plan KILL self-check / merge da-blocking-arbitrage / convert auditor-empirical-verify, avec plan corrigé zéro-perte + items additifs.
+- **Source** : 3 workflows d'audit skills (classification, amélioration, utilité/reclassement) + devils-advocate. Corpus jugé LEAN (42/45 KEEP). Chantier destructif reporté en session fraîche.
