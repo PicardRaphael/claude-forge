@@ -62,3 +62,12 @@ Plan corrigé exécuté en session (pas reportée — Raphael ne pouvait pas swi
 Le grep a révélé +réfs que le DA listait (forge-review:13 + 2× skill-triggers) — vérification exhaustive faite avant `git rm`.
 
 **Reste (additif, non destructif)** : câbler `arxiv-verification` (cc-news/rag-design/deep-research) · fix bug path `python-script-refactor-masse` (raphael.picard_neote) · drift contenu cc-features-ref (Opus 4.7→4.8) + cc-cowork-ref · créer `roadmap-projet-ia` + `deconstruction-maieutique`.
+
+## MAJ 27 juin (bis) — 2 skills créées, chantier bouclé
+
+- ✅ **`roadmap-projet-ia`** créée (`.claude/skills/roadmap-projet-ia/`) : notes de cadrage/réunion → roadmap d'exécution phasée (`Phase | Livrable | Estimation | Dépend de | Jalon`). Frontières : ≠ responsable-ia (CODIR), ≠ spec (Jira).
+- ✅ **`deconstruction-maieutique`** créée (`.claude/skills/deconstruction-maieutique/`) : livre/podcast/article → notes-concepts atomiques `draft` + liens suggérés (garde-fou Karpathy : l'humain tranche). Vit APRÈS /watch.
+- Triggers FR câblés dans `.skill-triggers.json` + `skill-triggers.json` ; INDEX régénéré (51 skills). Commits `4348520` + `942dcec`.
+- Skills de jugement LLM → pas d'eval A/B formelle (exception canonique) ; validation = exécution réelle au premier usage.
+
+**Chantier grille capabilities entièrement bouclé** : 3 reclassements zéro-perte + additifs + 2 créations.
