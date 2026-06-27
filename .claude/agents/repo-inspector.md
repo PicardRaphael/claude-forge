@@ -96,6 +96,7 @@ Audite `.claude/` et produit un rapport avec corrections, en passant les 3 lenti
 
 ### Checks skills
 `name`=dossier kebab-case ; description UNE LIGNE directive ; SKILL.md < 500L (sinon `references/`) ; pas de README ; section Apprentissage (skills métier) ; non orpheline.
+**Grille capabilities** (canonique `methode-monter-systeme-workflow`, fournie inline dans le brief) : chaque skill est-elle CORRECTEMENT TYPÉE ? Skill = 1 transformation, 3-10 étapes (ou skill de référence/creator légitime) ; si elle orchestre plusieurs sous-skills → candidate Workflow ; si output variable/comportement → candidate Agent ; si modèle mental consulté → candidate Framework. Et toute skill qui ORCHESTRE (enchaîne des sous-étapes) doit porter un validateur embarqué PASS/FAIL **entre** les étapes (pas en fin de chaîne, jamais un hook).
 
 ### Checks rules
 `description:` présent (sinon non chargée) ; `paths:`/`globs:` quotés si conditionnelle ; pas de contradiction inter-rules ni avec CLAUDE.md.
