@@ -37,6 +37,19 @@ Référence : [[critique-2026-05-22-8-canoniques-chantier]] + [[raisonnement-22m
 3. Présenter à Raphael : livrable + critique + ta réponse
 4. DA sauvegarde sa critique dans `Knowledge/critiques/`
 
+## Arbitrage des verdicts BLOCKING (≥ 1 bloquant) — session principale
+
+Quand le verdict DA contient au moins un BLOCKING (issue scorée ≥ 80 par l'agent), la session principale applique ce protocole AVANT tout ship / commit / promulgation :
+
+1. Lire le verdict EN ENTIER (tronqué → relancer le DA, un verdict incomplet n'est pas valide).
+2. Lister chaque BLOCKING explicitement à Raphael.
+3. Par BLOCKING, proposer **Option A** = fix immédiat (plan concret) ou **Option B** = acceptation explicite avec dette documentée `Knowledge/dettes/<sujet>.md`.
+4. **Attendre l'arbitrage de Raphael** (AskUserQuestion item par item) — jamais de ship/commit avant décision explicite. Acceptation implicite / « on verra » / silence = BLOCKING encore ouvert.
+5. Après fix : couvrir **100 %** du BLOCKING. **PARTIAL ≠ PASS** (« j'ai fixé le principal » n'est pas un pass — vérifier empiriquement).
+6. Dette acceptée → `mcp__forge-brain__create_note(path="Knowledge/dettes/<sujet>.md", …)` : description du BLOCKING, décision (qui + date), remédiation prévue.
+
+BLOCKING 0 = ship libre, pas d'arbitrage requis.
+
 ## Anti-patterns
 
 - ❌ **Invoquer DA sur tout** → fatigue, on l'ignore. Réservé aux livrables MAJEURS uniquement.

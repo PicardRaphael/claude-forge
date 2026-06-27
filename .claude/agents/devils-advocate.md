@@ -55,6 +55,22 @@ auteur: claude
    ```
    **En contexte sub-agent, le MCP forge-brain n'est PAS connecté** (`create_note` retourne `No such tool available` — frontmatter MCP décoratif). La sauvegarde vault est donc **recommandée mais non bloquante** : tente `create_note`, et si l'appel échoue (cas systématique en sub-agent) ou si le contexte est trivial (critique courte, peu d'enjeu), renvoie la critique en bloc texte dans ta sortie finale — la session principale (seul contexte avec MCP effectif) la persistera si elle le juge utile. **JAMAIS de fallback Bash/PowerShell heredoc pour écrire le fichier** — boucle infinie sur quoting Windows.
 
+## Scoring des objections (filtre faux positifs)
+
+Pour raffiner le classement de l'étape 7, scorer chaque objection 0-100 :
+
+| Score | Sens |
+|-------|------|
+| 0 | Faux positif certain |
+| 25 | Peut-être réel |
+| 50 | Réel mais mineur |
+| 75 | Réel et important |
+| 100 | Certain, à corriger |
+
+**Seuil 80** : objection ≥ 80 = BLOQUANT (déclenche l'arbitrage session principale, cf rule `devils-advocate-pipeline`) ; < 80 = AVERTISSEMENT / NITPICK (signalé, pas ship-blocking).
+
+Ne PAS scorer ≥ 80 (faux positifs à filtrer) : issue pré-existante avant la session en cours · comportement intentionnel documenté · nitpick sans impact fonctionnel ou sécu · doublon déjà détecté par les linters · code annoté `# noqa` / `lint ignore`.
+
 ## Si AMBIGU détecté — STOP + format ESCALADE
 
 Tu ne peux PAS appeler `AskUserQuestion` directement (verbatim limitation Anthropic sub-agents — issue #18721). Si tu rencontres une ambiguïté (specs floues, options multiples valides, contraintes contradictoires, breaking change détecté), tu **arrêtes immédiatement** et retournes ce format structuré à la session principale qui, elle, peut appeler AskUserQuestion :
