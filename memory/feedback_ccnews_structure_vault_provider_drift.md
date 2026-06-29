@@ -1,8 +1,12 @@
 ---
 name: ccnews-structure-vault-provider-drift
-description: La skill cc-news encode l'ancienne ontologie vault (02-Concurrents/ + 03-Modeles/) ; le SCHEMA a basculé en dossiers provider le 14 juin. Vérifier le SCHEMA réel AVANT de capitaliser, pas se fier au routage de la skill.
+description: Le routage d'une skill peut dériver du SCHEMA vault (cas réorg fournisseurs 14 juin) — vérifier le SCHEMA réel AVANT de capitaliser. Drift cc-news/forge-brain/veille/vault-audit RÉSOLU le 29 juin.
 metadata:
   type: feedback
+---
+
+**RÉSOLU 2026-06-29** : le drift a été corrigé — `cc-news` (SKILL + 4 references), `forge-brain` (SKILL), `veille-outils-ia` (SKILL) et `vault-audit/audit.py` (TEMPLATE_SECTIONS) alignés sur la convention fournisseurs (`<NN>-<Fournisseur>/models|products`). Vérifié : zéro occurrence `02-Concurrents`/`03-Modeles`/`01-Claude-Code` dans `.claude/`. **La leçon générale reste valide** : le routage figé d'une skill peut diverger du SCHEMA vivant — au moment de capitaliser, lire le SCHEMA réel via MCP, pas le routage de la skill si elle diverge.
+
 ---
 
 Run cc-news du 16 juin 2026 : Raphael a prévenu « la structure du vault a été mise à jour ». Vérifié via `vault_stats` + `SCHEMA` : réorg du **14 juin** — un dossier par acteur IA premier niveau (`01-Claude`, `02-OpenAI`, `03-Google`, `08-xAI`, `09-Anysphere`, `10-Microsoft`…) contenant `models/` + `products/`, créés à la demande. **Dissolution de `02-Concurrents/` et `03-Modeles/`** ; pas de dossier « Concurrents » (les fournisseurs sont des acteurs suivis). Comparatifs cross-fournisseurs → thématique (`04-Techniques/` ou MOC `00-Hub/`).
