@@ -108,6 +108,8 @@ Y a-t-il une intervention humaine ?
 
 ## Liens
 
+- [[auditer-departements-pour-automatisation]] — méthode sœur : auditer un département TIERS (vs mon propre quotidien ici)
+
 - [[methode-monter-systeme-workflow]] — méthode sœur : besoin → quelle brique (une à la fois)
 - [[concevoir-loops-travail]] — canonique derrière la skill `loop-forge` (cible boucle Claude Code)
 - [[n8n-self-host-mcp-claude]] — cible automatisation externe

@@ -103,3 +103,15 @@ En 2026, les modèles frontier (Claude Opus 4.7, GPT-5.x, Gemini 2.5 Deep Think)
 - [[amanda-askell-prompt-engineering]] — Techniques Anthropic encore valides
 - [[Context Engineering]] — Paradigme dominant 2026
 - [[MOC-Techniques]]
+
+
+## AJOUT 2026-06-26 — Gemini 3.x / 3.5 Flash (vérifié source primaire Google)
+
+Vérifié à la source primaire le 26 juin 2026 (ai.google.dev/gemini-api/docs/whats-new-gemini-3.5 + blog.google + docs.cloud.google.com gemini-3-prompting-guide), chantier prompting neo_ia. Faits DATÉS — re-vérifier avant de citer.
+
+- **`gemini-3.5-flash` GA depuis le 19 mai 2026**, devenu défaut de l'app Gemini (remplace 2.5 Flash). « Gemini 3 Flash/Pro » = génération précédente ; `gemini-3-flash-preview` était la preview.
+- **`temperature` / `top_p` / `top_k` ne sont plus recommandés sur TOUS les modèles Gemini 3.x** — verbatim : *« temperature, top_p, and top_k are no longer recommended for all Gemini 3.x models »*. Reco Google = **retirer ces paramètres** (modèle optimisé pour ses défauts). Conséquence migration : tout mapping `task_type → temperature` (ex : ROUTING/EXTRACTION à temp=0.0 pour le déterminisme) devient caduc → déterminisme via **règles explicites en system instruction**, pas via la température. Cohérent avec [[parametres-echantillonnage-llm]] et [[opus-47-design-defaults]] (contrôle par le prompt, pas le sampling).
+- **CoT forcé → `thinking_level`** (`minimal` / `low` / `medium` (défaut) / `high`), qui remplace `thinking_budget`. Verbatim : *« If you used chain-of-thought prompt engineering to force reasoning, try thinking_level… with simpler prompts instead. »*
+- **Concis par défaut** : *« verbose or complex prompt engineering techniques designed for older models may cause the model to over-analyze »* → validation directe de [[over-specification-paradox]].
+- **« do not infer » / négations larges** font over-indexer → préférer « use the provided context for deductions ».
+- **Seuil cache implicite par modèle** : 2.5 Flash = **1024 tokens**, 2.5 Pro = **2048 tokens** (doc Google). Seuil 3.5 Flash non documenté publiquement (valider via `cached_content_token_count`). Gotcha neo_ia : code force `GEMINI_CACHE_MIN_TOKENS = 2048` (valeur Pro) → monitoring `calculate_cache_eligible_tokens` **sous-rapporte** sur Flash. Bug de monitoring, pas de coût. Cf [[neochat-adaptive-prompt]] (note « seuil 1024 » à préciser par modèle).

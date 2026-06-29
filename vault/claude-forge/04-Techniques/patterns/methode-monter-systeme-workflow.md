@@ -95,6 +95,8 @@ Seul l'« infra de rêve » (aspirationnel, non quotidien) sort de Claude Code :
 
 ## Liens
 
+- [[auditer-departements-pour-automatisation]] — l'étape amont : interviewer un département tiers pour découvrir SES process avant de choisir la brique
+
 - [[methode-analyser-repo]] — méthode sœur (auditer un repo existant)
 - [[comment-creer-skill]] · [[comment-creer-agent]] · [[comment-creer-hook]] · [[comment-ecrire-claudemd]]
 - [[mcp-vs-skills-doctrine]] — MCP (donnée) vs Skills (how-to)
