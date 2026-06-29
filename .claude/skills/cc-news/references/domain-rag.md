@@ -72,4 +72,4 @@ Nils Reimers Cohere embed reranker
 ## Capitalisation vault
 
 Nouvelles techniques RAG → `04-Techniques/rag/`
-Nouveaux modèles d'embeddings → `03-Modeles/<provider>/`
+Nouveaux modèles d'embeddings → `<NN>-<Fournisseur>/models/` (ex `02-OpenAI/models/`)

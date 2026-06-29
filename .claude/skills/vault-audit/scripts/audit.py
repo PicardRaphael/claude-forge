@@ -45,9 +45,12 @@ OPTIONAL_FIELDS_BY_TYPE = {
 
 # Expected sections per folder (template-based)
 TEMPLATE_SECTIONS = {
-    "01-Claude-Code": ["## Liens"],
-    "02-Concurrents": ["## Liens"],
-    "03-Modeles": ["## Liens"],
+    "01-Claude": ["## Liens"],
+    "02-OpenAI": ["## Liens"],
+    "03-Google": ["## Liens"],
+    "08-xAI": ["## Liens"],
+    "09-Anysphere": ["## Liens"],
+    "10-Microsoft": ["## Liens"],
     "04-Techniques": ["## Liens"],
     "05-Leaders": ["## Liens"],
     "06-Industrie": ["## Liens"],

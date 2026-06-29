@@ -29,5 +29,5 @@ new AI startup launch this month
 
 - Nouveau leader découvert → `05-Leaders/<nom>.md`
 - Nouvelle technique virale → `04-Techniques/<sous-dossier>/`
-- Nouveau concurrent émergent → `02-Concurrents/<produit>/`
+- Nouveau produit/outil d'un fournisseur → `<NN>-<Fournisseur>/products/`
 - Paper breakthrough → `Knowledge/explorations/`

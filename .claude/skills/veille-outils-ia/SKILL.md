@@ -10,7 +10,7 @@ argument-hint: "catégorie (voix | briques | code | memoire-rag | infra | tout) 
 
 Veille CIBLÉE sur les **outils IA du marché** : re-vérifie les **faits volatils** à la source primaire, détecte les écarts vs vault, met à jour les notes-paysage + CHANGELOG **sous gate humain par item**.
 
-**Frontière (≠ cc-news)** : `cc-news` surveille Claude Code, modèles frontières, techniques, leaders (capitalise dans `01-Claude`/`03-Modeles`/`04-Techniques`/`05-Leaders`). `veille-outils-ia` ne touche QUE les notes-paysage build-vs-buy ci-dessous. `choix-outils-ia` consomme ces notes pour recommander ; cette skill les maintient à jour.
+**Frontière (≠ cc-news)** : `cc-news` surveille Claude Code, modèles frontières, techniques, leaders (capitalise dans `01-Claude`/`<NN>-<Fournisseur>/models`/`04-Techniques`/`05-Leaders`). `veille-outils-ia` ne touche QUE les notes-paysage build-vs-buy ci-dessous. `choix-outils-ia` consomme ces notes pour recommander ; cette skill les maintient à jour.
 
 ## Périmètre — les notes maintenues
 

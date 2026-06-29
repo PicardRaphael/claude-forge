@@ -114,6 +114,6 @@ Reid Hoffman OR Allie K Miller OR Tobi Lütke AI business
 
 ## Capitalisation vault
 
-Nouveaux modèles → `03-Modeles/<provider>/`
-Nouvelles features produit coding → `02-Concurrents/<produit>/`
+Nouveaux modèles → `<NN>-<Fournisseur>/models/` (ex `02-OpenAI/models/`)
+Nouvelles features produit coding → `<NN>-<Fournisseur>/products/` (ex `09-Anysphere/products/` pour Cursor, `02-OpenAI/products/` pour Codex)
 Info industrie (funding, acquisitions) → `06-Industrie/`

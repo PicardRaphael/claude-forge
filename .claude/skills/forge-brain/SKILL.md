@@ -202,8 +202,7 @@ Read/Glob direct sur `vault/claude-forge/`. Ne devrait jamais arriver.
 2-Casquettes/     — Aires de responsabilité de vie (profil holistique, famille, gaming)
 00-Hub/           — Home + 6 MOCs (index par thème)
 01-Claude/Code/   — features/, changelog/, best-practices/, hooks/, skills/, agents/
-02-Concurrents/   — gemini-cli/, codex/, copilot/, cursor/, xai/
-03-Modeles/       — claude/, gpt/, gemini/, grok/
+01-Claude/ … 10-Microsoft/ — un dossier par fournisseur IA (models/ + products/, convention 14 juin)
 04-Techniques/    — prompt-engineering/, context-engineering/, patterns/
 05-Leaders/       — Fiches personnes clés
 06-Industrie/     — Market, funding, événements, tendances
@@ -221,8 +220,8 @@ Toujours lire le template AVANT de créer une note :
 | `01-Claude/Code/features/` | `Templates/feature.md` |
 | `01-Claude/Code/changelog/` | `Templates/changelog.md` |
 | `01-Claude/Code/best-practices/` | `Templates/best-practice.md` |
-| `02-Concurrents/` | `Templates/concurrent.md` |
-| `03-Modeles/` | `Templates/modele.md` |
+| `<NN>-<Fournisseur>/products/` | `Templates/concurrent.md` |
+| `<NN>-<Fournisseur>/models/` | `Templates/modele.md` |
 | `04-Techniques/` | `Templates/technique.md` |
 | `05-Leaders/` | `Templates/leader.md` |
 | `06-Industrie/` | `Templates/knowledge.md` |

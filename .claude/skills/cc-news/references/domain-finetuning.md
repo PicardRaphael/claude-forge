@@ -74,4 +74,4 @@ vLLM SGLang llama.cpp inference benchmark
 ## Capitalisation vault
 
 Nouvelles techniques → `04-Techniques/`
-Nouveaux modèles open-source → `03-Modeles/<provider>/`
+Nouveaux modèles open-source → `<NN>-<Fournisseur>/models/` (ex `03-Google/models/`)

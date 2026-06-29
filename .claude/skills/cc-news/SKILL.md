@@ -151,8 +151,8 @@ Si une source à analyser est une URL X.com/Twitter (`https://x.com/...` ou `htt
 ## Capitalisation vault (étape 8)
 
 - Nouvelle version CC → `01-Claude/Code/changelog/CC vX.Y.Z.md`
-- Nouveau modèle → `03-Modeles/<provider>/<nom>.md`
-- Feature concurrent → mettre à jour `02-Concurrents/<produit>/`
+- Nouveau modèle → `<NN>-<Fournisseur>/models/<nom>.md`
+- Feature produit/outil fournisseur → mettre à jour `<NN>-<Fournisseur>/products/<produit>/`
 - Nouvelle technique → `04-Techniques/<sous-dossier>/`
 - Info leader → mettre à jour `05-Leaders/`
 - Info industrie → `06-Industrie/`
@@ -198,7 +198,7 @@ Source canonique : [[pattern-mcp-brief-then-direct]] vault forge.
 - **fine-tuning = 2 agents ; rag + prompt = 2 agents chacun ; claude-code + agents + concurrents = 3 agents chacun** — ces domaines dépassent 8 queries ; l'orchestration complète utilise 16 agents (pas 6) pour cette raison.
 - **Vault AVANT de chercher** — éviter de re-chercher ce qui est documenté avec un `derniere-maj` récent.
 - **Capitaliser APRÈS le scan** — l'étape 8 est obligatoire, pas optionnelle.
-- **Modèle vs produit vs industrie** — GPT-5.5 → `03-Modeles/`. Feature Codex CLI → `02-Concurrents/`. Acquisition/funding → `06-Industrie/`. Ne pas tout mettre dans Concurrents.
+- **Modèle vs produit vs industrie** — GPT-5.5 → `02-OpenAI/models/`. Codex CLI → `02-OpenAI/products/`. Acquisition/funding → `06-Industrie/`. Pas de dossier « Concurrents » : un fournisseur = un dossier acteur (`models/` + `products/`).
 - **Ne pas hardcoder l'année dans les queries** — les reference files n'ont pas "2026" dans leurs queries ; la date de référence dans ce fichier suffit.
 - **Si un agent ne retourne rien** — relancer le domaine individuellement plutôt que l'ignorer. Un scan incomplet doit être signalé.
 - **X/Twitter inaccessible via Defuddle/WebFetch** — toujours déléguer à la skill `x-read` (utilise cookies du compte authentifié). Si x-read pas dispo → demander coller le contenu à l'utilisateur, ne pas abandonner la source.
