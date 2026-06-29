@@ -40,12 +40,12 @@ forge-brain:get_tags
 ```
 Donne le top des tags par fréquence. Afficher les 10 premiers dans le rapport.
 
-```bash
-# Notes modifiées dans les 7 derniers jours — ordre plus récent en premier
-# (find est le seul usage acceptable ici : le MCP n'a pas de filtre par date de modification)
-find vault/claude-forge -name "*.md" ! -path "*/Templates/*" -mtime -7   -printf "%T@ %p
-" 2>/dev/null | sort -rn | head -10 | cut -d' ' -f2-
+Notes récemment mises à jour : calculer la date d'il y a 7 jours (aujourd'hui − 7j, ISO `YYYY-MM-DD`), puis :
+
 ```
+forge-brain:find_by_property  name="derniere-maj"  value="<date-7j>"  comparator="gt"  limit=15
+```
+Afficher les **noms** des notes retournées (pas les chemins).
 
 #### Collecte 3 — Derniers feedbacks mémoire
 
@@ -65,18 +65,19 @@ Lire le **resume** frontmatter de chaque note trouvée pour l'afficher dans le r
 
 #### Collecte 3c — Dernières notes Knowledge
 
-```bash
-# find est ici le seul usage acceptable : le MCP n'a pas de filtre par date de modification
-find vault/claude-forge/Knowledge -name "*.md" -mtime -14 -printf "%T@ %p
-" 2>/dev/null | sort -rn | head -5 | cut -d' ' -f2-
+Calculer la date d'il y a 14 jours (ISO `YYYY-MM-DD`), puis :
+
+```
+forge-brain:find_by_property  name="derniere-maj"  value="<date-14j>"  comparator="gt"  folder="Knowledge"  limit=5
 ```
 
 #### Collecte 3e — Dernières notes contexte (projets + casquettes)
 
-```bash
-# find est ici le seul usage acceptable : le MCP n'a pas de filtre par date de modification
-find vault/claude-forge/1-Projets vault/claude-forge/2-Casquettes -name "*.md" -mtime -14 -printf "%T@ %p
-" 2>/dev/null | sort -rn | head -5 | cut -d' ' -f2-
+Avec la même date d'il y a 14 jours, **deux appels** :
+
+```
+forge-brain:find_by_property  name="derniere-maj"  value="<date-14j>"  comparator="gt"  folder="1-Projets"  limit=5
+forge-brain:find_by_property  name="derniere-maj"  value="<date-14j>"  comparator="gt"  folder="2-Casquettes"  limit=5
 ```
 
 #### Collecte 3d — Best practices et techniques récentes
@@ -149,9 +150,8 @@ La **Suggestion** se déduit des signaux observés :
 
 ## Gotchas
 
-- **MCP forge-brain uniquement** — utiliser `forge-brain:vault_stats`, `forge-brain:get_tags`, `forge-brain:search_brain` (MCP auto-start, port 8091). Jamais de CLI Obsidian.
-- **`find -newer FILE` non-déterministe** — le mtime du fichier de référence change. Toujours `-mtime -7` pour "7 derniers jours"
-- **Paths absolus sur Git Bash Windows** — `find vault/claude-forge` retourne `/c/Users/...`. Afficher seulement `basename` dans le rapport
+- **Accès vault = MCP uniquement** — `forge-brain:vault_stats`/`get_tags`/`search_brain`/`find_by_property` (auto-start, port 8091). `find vault/...` en Bash est **bloqué par `pre-bash-guards.py`** (échec silencieux) — ne jamais l'utiliser pour le vault. Jamais de CLI Obsidian.
+- **`find_by_property` filtre `derniere-maj` (frontmatter), pas le mtime filesystem** — sémantiquement plus juste pour un recap (date de MAJ réelle), mais une note éditée sans bumper `derniere-maj` n'apparaîtra pas dans "notes récentes". C'est un compromis assumé.
 - **Suggestion = descriptive, pas prescriptive** — "Activité récente sur X" et non "Vous devriez faire Y"
 - **Parallélisation obligatoire** — collectes en séquentiel = > 10 secondes. Toute la phase 1 dans un seul round de tool_use
 - **Read-only absolu** — aucun Write, Edit. Si delegate-guard bloque, une modification a été tentée par erreur

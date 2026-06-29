@@ -8,7 +8,7 @@ aliases:
   - framework forge
 type: context
 status: active
-derniere-maj: 2026-06-27
+derniere-maj: 2026-06-29
 auteur: claude
 tags:
   - "#type/context"
@@ -46,9 +46,10 @@ Transformer Claude Code d'un outil de coding en un **partenaire** (contrat Jarvi
 - [[Neoteem|Neoteem]]
 
 
-## État récent (2026-06-27)
+## État récent (2026-06-29)
 
 - Orientation **agent-first** actée : forge-brain optimisé pour la boucle Jarvis (MCP/search), pas la navigation humaine Obsidian (débranchée). Cf [[decision-vault-agent-first]].
 - Doctrine 22 mai en vigueur : hooks = lint/sécu/scope uniquement, jamais workflow agentique.
 - Outillage : MCP forge-brain (22 outils), skills créatrices (skill/subagent/hook/claudemd-creator), `/done` maintient désormais les notes de contexte projet (étape 6-bis).
-- Chantiers ouverts : refonte SCHEMA agent-first, fix vault-audit (FOLDER_TO_MOC périmé).
+- Pivot agent-first **appliqué bout-en-bout** (11 foyers, advisor+DA) : SCHEMA refondu (raw/ retiré), vault-audit débarrassé de la logique MOC, `/recap` fixé (`find vault`→`find_by_property` MCP). Cf [[raisonnement-2026-06-27-vault-agent-first]].
+- Reste hors-pivot : provider-reorg 14 juin (`02-Concurrents`/`03-Modeles` en dur dans quelques composants).

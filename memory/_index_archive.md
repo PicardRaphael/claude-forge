@@ -111,6 +111,7 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 - [verify-empirique-avant-affirmation-session](feedback_verify_avant_affirmation_session.md) — Avant d'affirmer "X parce que Y" sur changement filesystem/repo : git log/diff/blame d'abord. User questionnement "pourquoi ?" = signal paraphrase non-vérifiée
 - [visibilite-vs-consommation-demi-fix](feedback_visibilite_vs_consommation_demi_fix.md) — Donnée visible ≠ consommateur capable de l'utiliser. Tracer donnée→usage
 - [x-articles-inaccessibles-empirique](_archive/2026-06/feedback_x_articles_inaccessibles_empirique.md) — Archivé : absorbé par skills `x-read` L104 + `web-search-canonical-source` L64
+- [recap-find-vault-bloque-prebash](feedback_recap_find_vault_bloque_prebash.md) — /recap collecte find vault/ bloquée par pre-bash-guards → skill à fixer (MCP find_by_property)
 
 ## Reference (tier-2)
 - [posttooluse-hook-pas-tokens-api](reference_posttooluse_hook_limitations.md) — Hook PostToolUse voit I/O outils, PAS tokens API Claude ni attribution skill/agent
