@@ -72,6 +72,7 @@
 - [ratio-empirique-doublons-memory-vault-pilote](feedback_ratio_empirique_doublons_memory_vault.md) — Pilote 29 fichiers = 38% doublons vault. Ancre seuils hook saturation (WARNING 80, CRITICAL 100) et cible ≤100 fichiers
 - [pas-de-meta-commentaire-doctrine-composants](feedback_pas_de_meta_commentaire_doctrine.md) — JAMAIS justification/source/meta dans hook/agent/skill/CLAUDE.md. Le pourquoi → vault
 - [plugin-admin-absorbe-readonly](feedback_plugin_admin_absorbe_readonly.md) — Plugin admin (write) absorbe fonctionnellement read-only. Desinstaller le read-only sans perte (gain tokens). Verifier allowed-tools de chaque skill
+- [pas-de-wakeup-pour-agents-background](feedback_pas_de_wakeup_pour_agents_background.md) — Ne JAMAIS programmer un ScheduleWakeup pour attendre mes propres agents background (le harness notifie déjà à leur fin). Wakeup = travail externe non-tracké uniquement (CI, déploiement, poll externe)
 - [pas-de-symetrie-artificielle-priorisation](feedback_pas_de_symetrie_artificielle_priorisation.md) — Audit multi-axes : ne PAS distribuer P0/P1 par axe pour l'équilibre. Impact réel sans complexe — N axes peuvent n'avoir qu'1 P0. Reste P2/P3 capitalisé + déclencheur. Observé Phase 2+3 (27 mai)
 - [permissionmode-mandatory](feedback_permissionmode_mandatory.md) — permissionMode obligatoire sur TOUS agents, acceptEdits pour créateurs
 - [present-before-build](feedback_present_before_build.md) — Présenter le plan AVANT construire, jamais créer sans validation Raphael
