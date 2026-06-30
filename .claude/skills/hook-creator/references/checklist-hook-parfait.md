@@ -8,6 +8,7 @@ Source : reference-hooks-claude-code.md (research LLM juin 2026) + doctrine forg
 
 - [ ] La règle doit tenir à **100% mécaniquement** ? (sinon → rule/CLAUDE.md advisory)
 - [ ] C'est du lint / sécurité / scope / format / logging / injection / vérification ? → hook OK
+- [ ] Mode d'action choisi : **OBLIGER** (PreToolUse exit 2, règle 100% mécanique) OU **RECOMMANDER** (UserPromptSubmit → additionalContext, exit 0, oriente sans forcer) — les deux légitimes, selon que la règle doit tenir à 100% ou seulement orienter le jugement
 - [ ] Ce n'est PAS du workflow agentique (architect-first, TDD, commit gates, markers TTL) ?
 - [ ] L'environnement cible est bien le **CLI** ? (Desktop/Cowork → hooks absents)
 - [ ] Aucun hook similaire existant ? (sinon → modifier/étendre)

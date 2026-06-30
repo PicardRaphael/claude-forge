@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-06-30 — Hooks : OBLIGER vs RECOMMANDER + pattern routeur skill-trigger (recalibrage confiance Anthropic/forge)
+
+- **Modifiées** : `comment-creer-hook` (AJOUT 30 juin : 2 modes d'action OBLIGER/RECOMMANDER, niveau de confiance Anthropic-literal vs doctrine forge, pattern routeur skill-trigger + gotchas) ; `cowork-skills-reliability` (section Skill Activation Hook étoffée : keyword vs forced-eval, sources communautaires) ; `anti-pattern-hookify-workflow-hooks` (ligne recalibrage : frontière no-workflow = doctrine forge, PAS règle Anthropic).
+- **Hors vault** : `.claude/skills/hook-creator/references/checklist-hook-parfait.md` (1 ligne étape 0 : mode OBLIGER/RECOMMANDER) ; doublon `.claude/skill-triggers.json` (sans point, orphelin périmé) supprimé via git rm.
+- **Source** : correction Raphael en session — j'avais aplati « hooks = lint/sécu/scope uniquement, jamais obliger ». Faux : exit 2 bloque (verbatim Anthropic vérifié code.claude.com/docs/en/hooks 30 juin), et le couple `.skill-triggers.json` + `skill-activation.py` route déjà vers les bonnes skills sur forge/neo_ia/back-ts. Vérif source primaire : la frontière no-workflow n'est PAS une règle Anthropic (doc muette) mais une doctrine forge (Boris thinnest wrapper). Pas de pivot — la doctrine vault était déjà correcte (AJOUT 18 juin + critère ACTION/SÉQUENCE 9 juin), c'était l'aplatissement de session qui était l'erreur.
+
 ## 2026-06-27 — Pivot doctrinal vault agent-first INSTRUIT (émancipation de Karpathy)
 
 - **Ajoutées** : `Knowledge/raisonnements/raisonnement-2026-06-27-vault-agent-first.md` (instruction du pivot via methode-pivoter-doctrine).

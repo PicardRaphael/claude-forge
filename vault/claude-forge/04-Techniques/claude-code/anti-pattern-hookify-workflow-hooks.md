@@ -57,6 +57,10 @@ Traduction : **Claude ne peut PAS terminer sa session tant que `npm test` n'appa
 2. **Hooks = enforcement 100%** : si la règle n'est pas 100% applicable (cas exceptionnels existent), on bloque à tort
 3. **Workflow = advisory ~80%** : doctrine rules + CLAUDE.md + skills, Claude juge selon contexte
 
+### Niveau de confiance (recalibré 30 juin 2026 — vérif source primaire)
+
+La frontière « pas de workflow agentique » est **doctrine forge, PAS une règle Anthropic**. Vérifié verbatim sur [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) le 30 juin : la doc **n'interdit ni ne décourage** les hooks de workflow (TDD, commit gates, architect-first) — elle est muette sur le sujet. Ce qui est *Anthropic-literal* : un hook PEUT bloquer (`exit 2` annule l'action). Ce qui est *forge* : le choix de ne pas s'en servir pour piloter une séquence, fondé sur Boris « thinnest wrapper » et la régression empirique ci-dessus. Garder les deux niveaux distincts : ne jamais citer « pas de workflow » comme une interdiction officielle. Cf [[comment-creer-hook]] AJOUT 30 juin.
+
 ### Critère discriminant net : ACTION ponctuelle vs SÉQUENCE d'étapes (affiné 9 juin 2026)
 
 La frontière « sécurité/destructif OK / workflow gate KO » est correcte mais ne classe pas bien tous les cas — notamment `delegate-guard` (qui bloque une *écriture* de fichier, ni `rm -rf` ni secret). Le critère le plus net :

@@ -866,3 +866,44 @@ Prolonge l'AJOUT 18 juin (hook de STRUCTURE d'artefact ≠ workflow). Problème 
 **Couplage hook ↔ outil producteur** : le marqueur est un CONTRAT entre les deux. Le hook ne peut garantir que le mécaniquement vérifiable (présence du marqueur + des sections) — il ne prouve PAS qu'une pièce jointe existe (les attachements ne sont pas dans le payload `description`). Trou assumé, à documenter, pas à masquer.
 
 Cas fondateur : `jira-ticket-format-guard` (.py neo_ia+ia-workbench, .ts neoteem-back-ts), chantier `/spec` 26 juin 2026. Tests adverses : le cas le PLUS important est « footer absent → SKIP même si sections manquantes » (preuve d'étanchéité), pas le happy path. Cf `memory/project_spec_unification_3repos.md` + [[critique-2026-06-26-uniformisation-spec-3-repos]].
+
+---
+
+## AJOUT 30 juin 2026 — Un hook peut OBLIGER ou RECOMMANDER : les deux sont légitimes (+ pattern routeur skill-trigger)
+
+Cas fondateur : en session, j'ai affirmé à Raphael que « les hooks ne servent qu'à lint/sécurité/scope/format, jamais à obliger ». **Faux, et c'est l'aplatissement que cette canonique combat déjà** (cf AJOUT 18 juin structure≠workflow + note [[anti-pattern-hookify-workflow-hooks]] critère ACTION vs SÉQUENCE). Vérifié en sources primaires le 30 juin pour graver le bon niveau de confiance.
+
+### Deux modes d'action d'un hook — distincts, tous deux légitimes
+
+| Mode | Mécanisme | Force | Exemple forge |
+|---|---|---|---|
+| **OBLIGER** | `PreToolUse` + `exit 2` | 100% — l'action est annulée | `delegate-guard` (force la skill créatrice), `repo-scope-guard`, `guard-ddl-ban` |
+| **RECOMMANDER** | `UserPromptSubmit` → `additionalContext` (exit 0) | Suggestion — Claude voit, décide | `skill-activation` (route vers la bonne skill), `escalade-detector` (SubagentStop) |
+
+« Hook = recommander seulement » est faux ; « hook = toujours bloquer » aussi. Le mode se choisit selon que la règle doit tenir **mécaniquement à 100%** (obliger) ou seulement **orienter le jugement** (recommander).
+
+### Niveau de confiance — Anthropic-literal vs doctrine forge (à NE PAS confondre)
+
+Vérifié verbatim sur [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) le 30 juin 2026 :
+
+- ✅ **Anthropic-literal** : *« Exit 2 means a blocking error… PreToolUse blocks the tool call »*. Un hook PEUT obliger — attesté source primaire. Exemples littéraux Anthropic de hooks : `rm -rf` block, lint, `security_scan` MCP, style checker, formatage auto.
+- ⚠️ **Doctrine forge, PAS règle Anthropic** : la frontière « pas de workflow agentique » **n'apparaît nulle part sur la doc Anthropic** (vérifié : la doc n'interdit ni ne décourage les commit gates / TDD / architect-first). Elle repose sur Boris « thinnest wrapper » (cf [[raisonnement-22mai-doctrine-vs-enforcement]]), pas sur une interdiction officielle. De même *« hooks recommended for lint, test, security »* est une **paraphrase forge**, pas un verbatim (déjà noté plus haut).
+
+Conséquence d'écriture : ne jamais présenter « pas de workflow » comme une règle Anthropic. C'est un **choix forge** justifié empiriquement. Distinguer toujours ce qu'Anthropic dit (le hook peut bloquer) de ce que forge décide (ne pas s'en servir pour piloter une séquence de travail).
+
+### Pattern « routeur skill-trigger » (JSON + hook UserPromptSubmit) — mode RECOMMANDER
+
+Mécanisme déployé forge + neo_ia + neoteem-back-ts pour fiabiliser l'auto-activation des skills (sinon ~50%, cf [[cowork-skills-reliability]]) :
+
+1. **`.claude/.skill-triggers.json`** — table `{ nom: { type, description, triggers[] | triggers_by_subject{} } }`. `type` = `skill` / `command` / `agent`.
+2. **`.claude/hooks/skill-activation.py`** (`UserPromptSubmit`, timeout 3s) — matche le prompt par regex word-boundary, injecte un `additionalContext` « compétences disponibles ». **exit 0, jamais exit 2** : il recommande, ne force pas (conforme doctrine non-workflow).
+
+Variante communautaire (sources : claudefa.st, gist umputun, Scott Spence) : **keyword-matching** (notre approche — simple, fiable) vs **forced-eval** (injecter « évalue chaque skill OUI/NON avant d'agir », réputé ~100% activation, plus lent). Pratique **communautaire reconnue**, pas une reco Anthropic.
+
+**Gotchas vérifiés** :
+- **Trigger finissant par `_` = MORT** : `\b` après `_` ne matche jamais la lettre suivante (`_` est un word-char). Triggers en prose uniquement, jamais `vp_`/`chk_`.
+- **Reset session obligatoire** : un hook `SessionStart` (ex. `memory-watcher`) doit remettre à zéro `.skill-recommendations-session`, sinon chaque skill se tait après une seule recommandation (bug latent observé sur neo_ia).
+- **Un seul fichier lu** : le hook lit `.skill-triggers.json` (avec point). Un `skill-triggers.json` sans point = orphelin si personne ne le lit — vérifier les consommateurs (`skill-activation.py` + `gen-index.py`) avant d'en maintenir deux (doublon supprimé forge 30 juin).
+- **Cowork** : `UserPromptSubmit` ne fire pas en Cowork — le routeur est CLI-only (cf matrice [[cowork-skills-reliability]]).
+
+Wikilinks : [[cowork-skills-reliability]] · [[anti-pattern-hookify-workflow-hooks]] · [[methode-analyser-repo]] (L467 mention skill-activation).

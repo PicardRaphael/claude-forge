@@ -161,6 +161,16 @@ Le Skill Activation Hook (ci-dessous) fonctionne dans Claude Code mais PAS dans 
 
 ## Pattern Skill Activation Hook (Claude Code uniquement)
 
+> Mécanisme canonique (settings.json, gotchas, niveau de confiance) : [[comment-creer-hook]] AJOUT 30 juin « routeur skill-trigger ». Résumé ci-dessous.
+
+Deux pièces : (1) `.claude/.skill-triggers.json` — table `{ nom: { type: skill|command|agent, description, triggers[] | triggers_by_subject{} } }` ; (2) `.claude/hooks/skill-activation.py` sur `UserPromptSubmit` — matche le prompt par regex word-boundary et injecte un `additionalContext` recommandant la skill. **exit 0 (recommande, ne force pas)** — c'est le mode RECOMMANDER d'un hook, conforme à la doctrine non-workflow.
+
+Deux approches communautaires (sources : [claudefa.st](https://claudefa.st/blog/tools/hooks/skill-activation-hook), gist umputun, [Scott Spence](https://scottspence.com/posts/measuring-claude-code-skill-activation-with-sandboxed-evals)) :
+- **Keyword-matching** (approche forge/neo_ia) — string/regex sur le prompt. Simple, rapide, fiable, zéro coût LLM.
+- **Forced-eval** — le hook injecte « évalue chaque skill OUI/NON avant d'agir » ; réputé ~100% activation et zéro faux positif, mais plus lent (le modèle évalue à chaque tour).
+
+Pratique **communautaire reconnue**, **pas une reco Anthropic** (la doc officielle ne mentionne pas ce pattern). Déployé forge + neo_ia + neoteem-back-ts. CLI-only : `UserPromptSubmit` ne fire pas en Cowork.
+
 Un hook `UserPromptSubmit` qui intercepte les prompts et ajoute des recommandations de skills avant que Claude ne les voie. Claude ne peut pas oublier car il n'a jamais eu a se souvenir.
 
 Le hook track ce qu'il a deja recommande et ne repete pas. Complement aux guard hooks (qui gerent la compliance, pas l'activation).
