@@ -39,6 +39,16 @@ Les deux moitiés du besoin sont **distinctes**, ne pas les fusionner :
    - **Option A — auto-merge dans l'automation** : l'agent retourne un **JSON structuré** (`décision: create|update`, `page_id_cible`, `markdown`) parsé en smart values → branchement → REST. Fragile : dédup ratée sur pages non indexées + branching Confluence cassé + parsing `{{agentResponse}}` délicat (erreur "Could not parse page content" connue).
    - **Option B — merge au gate "À valider" (recommandé)** : l'agent publie toujours un brouillon Q/R dans "À valider" ; le regroupement thématique se fait **à la validation** (humain ou passe de curation), pas dans l'automation déclenchée par ticket. Le dossier "À valider" EST le point de dédup naturel. Contourne d'un coup agent texte-seul + branching cassé + indexing delays.
 
+## Le gate de validation = brouillon Confluence NATIF (pas un dossier custom)
+
+Découvert 2026-07-03 (chantier suite skills `neodoc` côté Cowork, écriture par skill Claude et non par agent Rovo). L'« Option B — gate à la validation » ci-dessus décrit un dossier custom « À valider ». Or Confluence a un mécanisme **natif** qui rend le dossier inutile :
+
+- `createConfluencePage(..., status="draft")` crée un **brouillon** : non publié, invisible dans l'arborescence du space, **jamais ingéré** par le pipeline RAG tant qu'il reste draft. Le brouillon EST le gate.
+- **Validation humaine = le bouton « Publier »** de Confluence. Un humain relit et publie lui-même. Aucun automate/skill ne publie.
+- Corriger une page publiée existante ne se fait **jamais** par `updateConfluencePage` : on crée un nouveau brouillon dont le titre signale qu'il remplace l'original (« [remplace] <titre> »), qu'un humain publie à son tour. Symétrique de la règle « BROUILLON ONLY » de NeoMail ([[neomail-architecture]]).
+- Conséquence : « brouillon = non indexé » remplace le besoin d'un `EXCLUDED_PAGE_IDS` ou d'un dossier exclu du sync pour les contenus en attente de relecture (une page de config type Lexique, tant qu'elle reste draft, est de fait hors RAG).
+
+Applicable au flux Rovo aussi : plutôt que publier dans un dossier « À valider » puis dédupliquer, publier en brouillon natif contourne d'un coup indexing-delays (un draft n'est pas indexé) + branching cassé + gate humain — le regroupement thématique se fait à la relecture humaine, avant le clic « Publier ».
 ## Format doc cible — pensé POUR le chunking/embedding
 
 Paramètres RÉELS de prod (vérifiés dans `scripts/confluence_ingest_v2.py`, racine neot-v2, juin 2026 — 3e script de sync trouvé, tous lecture→embed) :

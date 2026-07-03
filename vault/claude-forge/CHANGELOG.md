@@ -14,6 +14,27 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-07-03 — Pattern brouillon Confluence natif comme gate de validation (enrichissement)
+
+- **Modifiées** : `04-Techniques/chatbot/rovo-agent-automation-confluence.md` — nouvelle section « Le gate de validation = brouillon Confluence NATIF (pas un dossier custom) » : `createConfluencePage(status="draft")` non indexé tant que draft, validation humaine = bouton « Publier », jamais `updateConfluencePage` (brouillon « [remplace] X »). Affine l'« Option B » (gate custom « À valider ») avec le mécanisme natif.
+- **Source** : chantier refonte suite skills `neodoc` (Cowork, écriture par skill) — décision d'archi Raphael de remplacer le dossier Brouillon par le brouillon Confluence natif.
+## 2026-07-02 — Loupe cadrage-cdc ia-workbench (enrichissement note projet)
+
+- **Modifiées** : `1-Projets/ia-workbench/ia-workbench-repo-management.md` — ajout de la 2e loupe `/cadrage-cdc` (idée → CDC fonctionnel → /spec), avec la frontière anti-doublon (CDC fonctionnel, /spec dérive le technique) et le pattern « sortie calée sur les marqueurs d'entrée du consommateur ». `derniere-maj` → 2026-07-02.
+- **Source** : création skill `cadrage-cdc` dans ia-workbench (hors vault — repo neot-v2), demande Raphael.
+## 2026-07-02 — Cheatsheet prompting Fable 5
+
+- **Ajoutées** : `07-Prompts/techniques/prompting-fable5-cheatsheet.md` — 12 patterns officiels Anthropic copier-coller pour Fable 5 (goal-setting > micromanagement, effort high défaut, anti-refacto, verification loops, checkpoint, memory system, send_to_user tool). Templates verbatim.
+- **Modifiées** : `00-Hub/MOC-Techniques` (§ Prompt Engineering) + `00-Hub/MOC-Prompts` (§ Templates Prompts) — wikilinks vers la cheatsheet.
+- **Source** : doc officielle platform.claude.com/docs/prompting-claude-fable-5 (source primaire), demande Raphael.
+## 2026-07-02 — Scan cc-news complet : Sonnet 5 + CC v2.1.198 + vérifs primaires
+
+- **Ajoutées** : `01-Claude/models/Sonnet 5.md` (modèle défaut CC v2.1.197, 1M natif, nouveau tokenizer ~1.0-1.35× tokens, pricing promo $2/$10 jusqu'au 31 août) ; `01-Claude/Code/changelog/CC juillet 2026 - Sonnet 5 + v2.1.198.md` (v2.1.191→198 vérifié CHANGELOG primaire : /dataviz, Claude in Chrome GA, background agents auto-PR, Explore hérite modèle session cap Opus, hook matchers hyphénés exact-match, sécu spawn MCP non approuvés)
+- **Modifiées** : `Tim Dettmers` (correctif attribution SERA → papier AI2/Shen et al., Dettmers senior author ; claims 26×/57×/Devstral sourcés arXiv 2601.20789 + blog AI2, pas le blog perso)
+- **Source** : scan cc-news 16 agents. Vérifs source primaire : CC CHANGELOG, MCP spec 2026-07-28 (stateless final), Sonnet 5 (anthropic.com, 30 juin), Karpathy→Anthropic (déjà au vault), LeCun/AMI Labs (déjà au vault), FlashAttention-4 (déjà au vault, Tri Dao), SERA. Rejetés comme non-nouveaux/hors-périmètre : Cohere Rerank 4 (11 déc 2025), OpenClaw (assistant messagerie, hors veille), AI Scientist-v2 (mars 2025). Découverte méthode : 4/6 candidats déjà à jour au vault → confirmation, pas révélation.
+- **Doctrine (en attente gate)** : 2 traces REINFORCE proposées — controverse Adaptive-Thinking/effort sur `effort-opus-47-doctrine-anthropic-2026`, MCP stateless final sur `construire-mcp-production`.
+- **Maintenance skill cc-news** : query morte `paperswithcode.com` repointée (HF Papers + CodeSOTA) ; Gemini CLI→Antigravity noté (migration forcée 18 juin) ; date de référence SKILL.md → 2 juillet 2026 / v2.1.198.
+
 ## 2026-06-30 — Hooks : OBLIGER vs RECOMMANDER + pattern routeur skill-trigger (recalibrage confiance Anthropic/forge)
 
 - **Modifiées** : `comment-creer-hook` (AJOUT 30 juin : 2 modes d'action OBLIGER/RECOMMANDER, niveau de confiance Anthropic-literal vs doctrine forge, pattern routeur skill-trigger + gotchas) ; `cowork-skills-reliability` (section Skill Activation Hook étoffée : keyword vs forced-eval, sources communautaires) ; `anti-pattern-hookify-workflow-hooks` (ligne recalibrage : frontière no-workflow = doctrine forge, PAS règle Anthropic).
