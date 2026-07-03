@@ -10,7 +10,7 @@ aliases:
   - "mcp sdk officiel"
   - "structure d'un mcp"
   - "mcp inspector debug"
-derniere-maj: 2026-06-09
+derniere-maj: 2026-07-02
 auteur: claude
 type: technique
 sources:
@@ -195,3 +195,17 @@ FastMCP 3.0 a une instrumentation **OpenTelemetry native** : chaque tool call / 
 - [[mcp-vault-llm-design]] — exemple complet : forge-brain
 - [[architecture-cerveau-obsidian-mcp]] — archi cerveau de bout en bout
 - [[reference-technique-stack-ia]] — MCP dans la stack IA globale
+
+## Confirmée — MCP spec 2026-07-28 finale (2026-07-02)
+
+La RC 2026-07-28 anticipée en ÉTAPE 1 est passée en **spec finale** (source primaire vérifiée : blog.modelcontextprotocol.io, crédit MAX). **Verdict `doctrine-impact-check` : DOCTRINE_REINFORCE** — l'anticipation de la note était juste, aucun pivot.
+
+Breaking changes concrets (au-delà de ce que la note listait) :
+- Handshake `initialize`/`initialized` **supprimé** — version + capacités voyagent dans `_meta` à chaque requête ; nouvelle méthode `server/discover`.
+- Header `Mcp-Session-Id` **retiré** — état via handles explicites passés en args d'outils (visibles du modèle), plus de sticky routing.
+- Code erreur ressource manquante : `-32002` → `-32602` (JSON-RPC standard).
+- Headers `Mcp-Method` / `Mcp-Name` **requis** sur Streamable HTTP ; schemas → JSON Schema 2020-12.
+- **Dépréciés** (fonctionnels ≥ 12 mois) : **Roots, Sampling, Logging**. Nouveautés : **MCP Apps** (UI HTML sandbox), **Tasks Extension** (handle via `tools/call` + `tasks/get|update|cancel`, `tasks/list` retiré).
+- Feature Lifecycle Policy : Active → Deprecated → Removed, ≥ 12 mois entre dépréciation et retrait.
+
+**Impact forge-brain (FastMCP)** : FastMCP abstrait le transport → pas d'action serveur immédiate, mais surveiller la version FastMCP qui implémentera le stateless. À revérifier quand FastMCP annonce le support 2026-07-28.

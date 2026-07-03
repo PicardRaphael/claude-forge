@@ -7,7 +7,7 @@ aliases:
   - low medium high xhigh max
   - effort recommandation officielle
 resume: "Doctrine officielle Anthropic Opus 4.7 (2026) — xhigh = default Claude Code tous plans. Scale low→medium→high→xhigh→max. xhigh 71% @ 100k vs max 74.5% @ 200k. Trivial = medium/low."
-derniere-maj: 2026-06-06
+derniere-maj: 2026-07-02
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
@@ -112,3 +112,9 @@ python-dev → code-dev. agent-creator / hook-creator / claudemd-optimizer → s
 - [Claude Code model config](https://code.claude.com/docs/en/model-config)
 - [Apiyi xhigh practical guide](https://help.apiyi.com/en/claude-opus-4-7-xhigh-effort-mode-explained-en.html)
 - [ClaudeFast Opus 4.7 best practices](https://claudefa.st/blog/guide/development/opus-4-7-best-practices)
+
+## Challengée + confirmée (2026-07-02)
+
+Un scan cc-news a remonté une controverse : effort par défaut de Claude Code silencieusement baissé (high→medium, ~3 mars 2026), réponses superficielles (SHAs de commit et noms de packages fabriqués). **Boris Cherny (Anthropic, crédit MAX) a confirmé que certains tours allouaient ZÉRO token de raisonnement.**
+
+**Verdict `doctrine-impact-check` : DOCTRINE_REINFORCE.** La controverse porte sur le fait de SUBIR le default adaptatif (Opus 4.6, medium implicite), pas sur `xhigh` demandé explicitement. Elle valide donc la doctrine forge : **forcer un effort explicite calibré par type plutôt que subir l'adaptatif silencieux**. Les chiffres « Opus 4.6 pense 67 % moins / analyse 6852 sessions » viennent d'agrégateurs (pasqualepillitteri.it, medium) — non vérifiés en primaire, **ne pas citer**. Seul le point Boris Cherny (zéro token) est de crédit MAX.

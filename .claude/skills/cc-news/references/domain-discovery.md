@@ -8,7 +8,7 @@ Nombre de queries : 7
 - `news.ycombinator.com` — top stories votées
 - `reddit.com/r/LocalLLaMA` — communauté IA locale
 - `reddit.com/r/MachineLearning` — communauté ML académique
-- `paperswithcode.com` — papers trending avec code
+- `huggingface.co/papers` — papers trending (Papers With Code retiré par Meta juil. 2025, redirige vers HF ; alt indépendant : `codesota.com`)
 - `arxiv.org` — preprints IA
 
 ## Queries à exécuter
@@ -19,7 +19,7 @@ Nombre de queries : 7
 site:news.ycombinator.com (LLM OR fine-tuning OR RAG OR agents) past month
 site:reddit.com/r/LocalLLaMA top this week
 site:reddit.com/r/MachineLearning top this week
-paperswithcode.com trending LLM
+site:huggingface.co/papers trending LLM
 "viral" OR "everyone is using" AI tool this month
 breakthrough AI paper arxiv this month
 new AI startup launch this month

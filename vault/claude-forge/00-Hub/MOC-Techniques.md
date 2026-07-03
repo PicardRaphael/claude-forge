@@ -18,6 +18,7 @@ type: index
 # Techniques
 
 ## Prompt Engineering
+- [[prompting-fable5-cheatsheet]] — 12 prompts officiels Anthropic copier-coller pour Fable 5 (classe Mythos) : goal-setting > micromanagement, anti-refacto, verification loops, memory system
 - [[recursive-language-models-rlm]] — RLMs (MIT, Khattab) : prompt = variable externe dans un REPL, auto-appel récursif, nouvel axe test-time compute / context folding
 
 - [[Context Engineering]] — Paradigme dominant 2026

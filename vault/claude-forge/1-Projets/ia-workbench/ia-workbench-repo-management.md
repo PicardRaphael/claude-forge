@@ -7,7 +7,7 @@ aliases:
   - "spec unique cross-repo"
   - "loupe spec discovery"
   - "repo preparation chantiers IA"
-derniere-maj: 2026-06-24
+derniere-maj: 2026-07-02
 auteur: claude
 type: projet
 tags:
@@ -37,6 +37,16 @@ LE `/spec` unique, **destiné à remplacer** les `/spec` mono-repo (neo_ia + bac
 - **Modèle Jira (révisé 24 juin 2026) : Module → 4 familles de Stories → Sous-tâches.** Le Module (type Jira « Module », hierarchyLevel 1) est CRÉÉ à chaque chantier — il remplace l'ancien epic-thème permanent figé et voyage dans le pipeline « IA - Pipeline ». Sous lui : **STORY-REPO** (une par repo touché, cas par défaut) + **STORY-UX / STORY-DEVOPS / STORY-QA** conditionnelles (couloirs de responsabilité, assignées à l'acteur). Projet **IA** (`projectKey` IA, id 10319), plus jamais N2.
 - **references de la skill** : `modules-jira.md` (SOURCE UNIQUE du référentiel Jira, marqueurs SYNC ; remplace l'ex-`epics-jira.md` supprimé), interview-bank, output-templates, template-neo_ia (+ QA française), template-back-ts (pas de QA), **template-ux / template-devops / template-qa** (les 3 couloirs conditionnels), matrice-tests, stack-conventions, contradiction-prompt, cross-validation, decompose-waves.
 - **Tests par type, chiffrés** (taxonomie réelle cartographiée) : back-ts par suffixe (use-case/parité/contrat/mutation) ; neo_ia par dossier+marker (unit/integration/functional-DeepEval). **Pas de e2e** (pas de front dans ces repos ; bout-en-bout couvert par DeepEval + contrat/parité + la STORY-QA conditionnelle pour la surface IA testable par un humain).
+
+## 2e loupe — /cadrage-cdc (idée → CDC fonctionnel → /spec)
+
+Loupe **en amont de /spec** (2 juillet 2026). Transforme une **idée de projet** en **cahier des charges FONCTIONNEL** : interview → recherche (web socle + forge-brain/NeoBrain bonus) → **challenge devil's advocate** (trous fonctionnels, faisabilité techno, 4 risques sécu IA + sécu classique, ROI) → rédaction CDC → validation + PDF optionnel. Applique le principe fondateur du repo à un cran plus tôt : fiabiliser l'entrée de /spec, qui fiabilise lui-même l'entrée du dev.
+
+- **Frontière anti-doublon avec /spec** (le point de design clé) : le CDC s'arrête à la couche **fonctionnelle/produit** (QUOI/POURQUOI). Il **n'invente JAMAIS le contrat technique** (endpoints, schémas, tables, paths) — /spec le dérive du code réel via sa discovery. Descendre dans le technique = collision directe avec l'interdit « jamais inventer le contrat d'API » de /spec, et cette skill n'a pas accès fiable au code.
+- **Sortie calée sur l'entrée du consommateur** : le CDC porte les marqueurs que `interview-bank.md` § « Détection format Jira structuré » de /spec reconnaît (`### Détail métier`, `### Règles de gestion`+RG-X, `### Critères d'acceptation`+CA-X, `### Contexte technique`) → /spec **raccourcit son interview** en le lisant. C'est le critère d'acceptation de la skill, pas juste une intention.
+- **Robustesse Cowork** : livrable durable = CDC markdown autoportant ; PDF (charte Neoteem, Chrome headless + Poppler) optionnel avec fallback (`shutil.which` — absent en Cowork cloud) ; forge-brain en bonus (`.mcp.json` vidé ici, serveur local non branché), web = socle ; NeoBrain remote pour le métier Neoteem. **Pas de `model:` figé** : la skill hérite du modèle de session (choix Raphael, 2 juillet).
+- Un modèle fort sert mieux le challenge (Fable 5 — redéployé le 1er juillet après la levée de l'export-control, cf [[Fable 5]] — ou Opus 4.8), mais les patterns de cadrage valent quel que soit le modèle. Cheatsheet prompting associée : [[prompting-fable5-cheatsheet]].
+- `.claude/skills/cadrage-cdc/` (SKILL.md + `references/template-cdc.md`).
 
 ## Décisions FIGÉES (18 juin 2026, modèle Jira révisé 24 juin)
 

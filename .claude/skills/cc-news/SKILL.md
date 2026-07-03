@@ -1,6 +1,6 @@
 ---
 name: cc-news
-description: ALWAYS invoke when user asks "quoi de neuf", "est-ce que X existe", or knowledge seems stale. Recent Claude Code updates, new features, AI industry news. Reference date : 24 juin 2026 (v2.1.190 — auto mode terraform/git blocks + sandbox.credentials + Agent Teams équipe implicite).
+description: ALWAYS invoke when user asks "quoi de neuf", "est-ce que X existe", or knowledge seems stale. Recent Claude Code updates, new features, AI industry news. Reference date : 2 juillet 2026 (v2.1.198 — Sonnet 5 défaut CC + 1M natif + /dataviz + Claude in Chrome GA + background agents auto-PR + hook matchers exact-match).
 user-invocable: true
 allowed-tools: WebSearch, WebFetch, Read, Write, Agent, mcp__forge-brain__*
 argument-hint: "domaine ou sujet (ex: rag, agents, fine-tuning, concurrents, claude-code, prompt, tout)"
@@ -11,7 +11,7 @@ skills:
 
 # cc-news — Veille IA & Claude Code
 
-Date de référence : **24 juin 2026** (v2.1.190 — auto mode terraform/git blocks + sandbox.credentials + Agent Teams équipe implicite)
+Date de référence : **2 juillet 2026** (v2.1.198 — Sonnet 5 défaut CC + 1M natif + /dataviz + Claude in Chrome GA + background agents auto-PR + hook matchers exact-match)
 Tout ce qui est postérieur à cette date doit être recherché.
 
 ## Tier 0 — Vérifier EN PREMIER (toujours, avant tout routage)

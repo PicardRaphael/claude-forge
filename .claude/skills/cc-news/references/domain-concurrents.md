@@ -6,7 +6,7 @@ Nombre de queries : 29 — **Découper sur 3 agents** (Agent A + Agent B + Agent
 ## Changelogs concurrents
 
 - OpenAI : `https://openai.com/index` (blog/announcements)
-- Gemini CLI : `https://github.com/google-gemini/gemini-cli/blob/main/CHANGELOG.md`
+- Gemini CLI / Antigravity : `https://github.com/google-gemini/gemini-cli/blob/main/CHANGELOG.md` (⚠️ Gemini CLI + Code Assist ont cessé de servir les requêtes le 18 juin 2026 → migration forcée vers **Antigravity + Antigravity CLI** ; surveiller aussi les release notes Antigravity)
 - Cursor : `https://cursor.com/changelog`
 - GitHub Copilot : `https://github.blog` (filtered for Copilot)
 

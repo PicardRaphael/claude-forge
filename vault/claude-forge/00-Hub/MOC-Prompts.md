@@ -32,6 +32,8 @@ Prompts des agents Claude Code — descriptions, triggers, instructions.
 Prompts des skills — triggers, descriptions, instructions SKILL.md.
 
 ## Templates Prompts
+- [[prompting-fable5-cheatsheet]] — 12 prompts officiels Anthropic copier-coller pour Fable 5 (classe Mythos)
+- [[prompting-opus47-cheatsheet]] — 16 prompts officiels Anthropic copier-coller pour Opus 4.7
 
 Prompts réutilisables pour tâches courantes.
 
