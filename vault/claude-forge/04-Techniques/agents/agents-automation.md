@@ -37,6 +37,22 @@ Decision simple : high volume + APIs stables = n8n/Make. Ambigue + non-structure
 
 ## Claude Code Scheduling
 
+### Isolation des routines remote — contrainte critique
+
+Les routines `/schedule` tournent dans un **sandbox cloud Anthropic isolé** (git checkout du repo uniquement). Elles n'ont PAS accès à :
+- `~/.claude/agents/` user-scope local (ex : will-auditor, ecc-auditor, boris-auditor)
+- Vault forge-brain local
+- MCP locaux non déclarés explicitement dans la routine
+- Tout fichier hors du repo GitHub checkouté
+
+**Critère de décision** : "Ce que ferait la routine peut-il fonctionner avec UNIQUEMENT git checkout du repo + MCP connecté ?" Si non → skill locale ou Task Scheduler Windows.
+
+**Cas d'usage valides** pour routines remote : check PRs, lint schedulé, deploy monitoring — tâches autonomes sans dépendances locales.
+
+**Anti-pattern** : proposer une routine sans vérifier les dépendances locales (agents user-scope, vault, MCP non connecté). Erreur observée 26 mai 2026 : routine `/schedule` pour spawner Agent Team with user-scope auditors → impossible par construction.
+
+Alternatif pour review/audit cyclique : skill `/forge-review` manuelle, ou Task Scheduler Windows (cf [[org-blocks-github]]). Cf aussi [[skills-user-scope-pas-cross-repo]].
+
 ### Routines (avril 2026)
 Unifient cron + webhook + GitHub events :
 - **Cron** : hourly, daily, weekdays, weekly, custom. Min 1h.

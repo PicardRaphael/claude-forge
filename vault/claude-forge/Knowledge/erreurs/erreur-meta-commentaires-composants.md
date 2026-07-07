@@ -43,6 +43,9 @@ Raphael a immédiatement demandé la suppression : *"c'est totalement inutile ja
 Le POURQUOI d'une règle vit dans le vault canonique. Le composant exécutable applique la règle, point.
 
 ## Comportements à proscrire
+6. **Entrées « Apprentissage » horodatées** : `"Audit 10 juin : pnpm audit manquait…"` ou `"cause racine : D1 jamais consignée le 10 juin"` dans un SKILL.md. Les dates/historiques d'audit appartiennent aux ADR et CHANGELOG, jamais aux directives d'un composant. Raphael 10 juin 2026 : *"tu fais le changement mais tu ne mets pas pourquoi, un skill n'a pas besoin de ça, pas la date."* (RE-VIOLATION sur skills `/go` + `spec` de neoteem-back-ts)
+
+**Garde structurelle ajoutée suite à re-violation** : ligne « Zéro méta-commentaire de modification » intégrée dans les checklists de `skill-creator` et `claudemd-creator` (feedback-reviole-3x). Cf [[comment-creer-skill]] + [[comment-creer-agent]].
 
 Anti-patterns concrets à JAMAIS reproduire dans hook, agent, skill, CLAUDE.md, rule :
 

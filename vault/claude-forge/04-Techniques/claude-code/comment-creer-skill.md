@@ -74,7 +74,19 @@ Sans skills, on accumule dans CLAUDE.md des instructions cross-repos (= bruit). 
 
 ## COMMENT — Structure et frontmatter
 
+### `allowed-tools` — pré-approbation, pas allowlist restrictive
+
+**Verbatim doc Anthropic** (`code.claude.com/docs/en/skills`, section "Pre-approve tools for a skill") :
+> "The `allowed-tools` field grants permission for the listed tools while the skill is active... **It does not restrict which tools are available: every tool remains callable**, and your permission settings still govern tools that are not listed."
+
+Conséquence : une skill avec `allowed-tools: Read, Grep` peut quand même invoquer `Skill` (autre skill) et des MCP non listés — ils restent callable, juste soumis aux permissions de base. Pour **bloquer** un outil : `disallowed-tools` (l'inverse). Ne jamais traiter `allowed-tools` comme une allowlist qui bloque. Un finding d'audit sur ce comportement = hypothèse à vérifier en source primaire AVANT d'agir (cf [[feedback_subagent_audit_category_error]]).
+
 ### Frontmatter SKILL.md
+
+**Champs frontmatter valides complets** : `name`, `description`, `user-invocable`, `allowed-tools`, `model`, `effort`, `disable-model-invocation`, `argument-hint`.
+
+- **`argument-hint`** : champ **officiel Anthropic** pour les skills slash command. Affiche un indice d'argument quand l'utilisateur tape `/nom-skill`. Exemple : `argument-hint: "[rough prompt to expand]"`. Ne JAMAIS le signaler comme erreur lors d'un audit — il est valide uniquement pour les skills invocables via slash command.
+- **`user-invocable`** : `false` pour cacher du menu `/`. Orthographe avec **c** (`user-invocable`), jamais `user-invokable` (k) — cf gotchas ci-dessous.
 
 ```yaml
 ---
@@ -299,6 +311,13 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilis�
 - [ ] Tester sur Haiku/Sonnet/Opus effectivement utilisés
 
 ### 5. Optimisation / audit (mode amélioration skill existante)
+
+**Vérifier `allowed-tools` empiriquement** : avant de déclarer ou corriger les `allowed-tools` d'une skill, grep le body pour identifier TOUS les outils réellement appelés — ne pas supposer depuis le nom ou titre de la skill.
+
+```bash
+grep -E "WebFetch|WebSearch|Read|Bash|mcp__" SKILL.md
+```
+Ne déclarer que les outils qui apparaissent effectivement dans le body.
 Détecter et corriger :
 - [ ] Description tronquée / over-budget (> 250 chars pratique, > 1024 spec)
 - [ ] Description passive (non-directive)
@@ -415,6 +434,8 @@ Détecter et corriger :
 ## GOTCHAS — Pièges observés
 
 ### Pièges frontmatter
+
+- **`user-invocable` orthographe** : toujours avec un **c** (`user-invocable`), jamais `user-invokable` (k). Source : `code.claude.com/docs/en/skills` table frontmatter. Défaut = `true` (visible dans le menu `/`). Ne jamais valider une orthographe de champ frontmatter sur "ce que le repo utilise" — vérifier la doc Anthropic source primaire. Impact fonctionnel nul (champ inconnu ignoré) mais l'orthographe fausse se propage via les skills de référence (37 fichiers forge portaient la faute avant fix 3 juin).
 - **Limites description** : ≤ 1024 chars spec (hard limit) ; description + `when_to_use` ≤ 1536 chars combiné dans le listing. ~~Le "250 chars" anciennement cité~~ était une estimation du system reminder dans un contexte donné — pas une limite de troncature CC. Limites canoniques : **1024 / 1536**.
 - **Evals obligatoires** : toute skill créée ou optimisée doit passer par les evals A/B (with_skill vs baseline). Sans mesure = pas de validation.
 - **Interview 3 rounds obligatoires** : ne pas bypasser l'interview, même si l'objectif semble évident. Une question peut être skippée uniquement si la réponse est explicite dans le contexte.
@@ -436,6 +457,8 @@ Détecter et corriger :
 - **Budget tokens 5k/25k** : surveiller avec `references/` plutôt que tout en SKILL.md
 
 ### Pièges forge
+
+- **Skills externes (kepano/source amont) = intouchables absolument** : NE JAMAIS modifier le SKILL.md d'une skill externe (obsidian-bases, json-canvas, obsidian-markdown, defuddle), même pour corriger la description ou ajouter `user-invocable`. Modifier casse la synchro avec la source amont. Améliorer le déclenchement = `.skill-triggers.json` uniquement. À l'audit : identifier si la skill est externe AVANT tout fix — si oui, signaler les écarts sans les appliquer.
 - **Édit direct bloqué par hook** `delegate-guard.py` — utiliser `skill-creator`
 - **Vault check obligatoire** avant création (cf [[forge-brain-proactive]])
 - **DA après création majeure** (cf [[devils-advocate-pipeline]])

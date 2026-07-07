@@ -22,6 +22,21 @@ tags:
 
 ## QUOI
 
+## Étape préalable : le test rouge encode-t-il un bug ou une hypothèse ?
+
+Avant d'appliquer le pattern fix-trivial/coûteux, confirmer que le test révèle un **bug réel** et non une **hypothèse erronée du testeur** sur le fonctionnement interne.
+
+| Type d'assert | Interprétation | Action |
+|---|---|---|
+| Encode une **exigence** (le code DOIT faire X, contrat public) | Comportement incorrect = **bug réel** → appliquer fix trivial/coûteux | Fixer le code |
+| Encode une **hypothèse** sur l'implémentation interne (je SUPPOSE que le code fait X en interne) | Le code fait Y de façon cohérente et sensée → ce n'est pas un bug | Corriger l'assert + renommer le test pour pinner le comportement réel (test de caractérisation) |
+
+**Réflexe** : test rouge sur du code non touché → lire le code AVANT de conclure "bug". Si le comportement réel est cohérent et sensé, c'est l'assert qui est faux.
+
+**Exemple (27 mai 2026, forge-brain MCP)** : `test_resolve_prefix` a échoué car le testeur supposait que `resolve_note` testait le tier 3 (préfixe `name-%`) avant le tier 2 (substring `%-name%`). Le code fait l'inverse (tier 2 ligne 246, tier 3 ligne 254). Aucun bug — hypothèse sur l'ordre. Fix : renommer en `test_resolve_tier2_beats_tier3` pour pinner l'ordre RÉEL.
+
+**Règle absolue** : ne jamais modifier le code source pour faire passer un test dont l'assert encodait une hypothèse non vérifiée. Cf [[comment-creer-hook]] (tests adverses = vérifier le contrat, pas l'implémentation interne).
+
 Quand un test adverse, un audit ou une revue **caractérise un bug réel** (comportement épinglé par un test, pas une hypothèse), il faut arbitrer **immédiatement** entre deux voies — ne jamais laisser un bug caractérisé dans un flou "on verra".
 
 ## La règle

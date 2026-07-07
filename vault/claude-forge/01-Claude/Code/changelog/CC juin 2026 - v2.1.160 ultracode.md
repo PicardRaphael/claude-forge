@@ -26,6 +26,16 @@ Drop CC postérieur au changelog vault du 28 mai (v2.1.154 Opus 4.8 + Dynamic Wo
 
 ## v2.1.160 — le changement qui impacte forge
 
+### Conséquence : skill `deep-research` — opt-in strict requis
+
+La skill `deep-research` est un **harness Workflow** (fan-out multi-agents). L'invoquer via le Skill tool retourne `Workflow({ name: "deep-research", args: ... })` — et le tool Workflow n'est déclenché qu'avec opt-in explicite (`ultracode`, demande directe « use a workflow », ou session ultracode-on).
+
+- « Recherches ultra poussées / prends ton temps » ≠ opt-in (règle stricte).
+- Sans opt-in explicite → faire les WebSearch/WebFetch en parallèle soi-même (sources primaires d'abord, vérifier les claims actionnables).
+- Raison : un Workflow peut spawner des dizaines d'agents et brûler beaucoup de tokens — l'utilisateur doit l'avoir demandé explicitement, pas inféré.
+
+Cf [[llm-deep-research-version-numbers-hallucinated]] pour la qualité du contenu produit par deep-research.
+
 - **`workflow` → `ultracode`** : le mot-déclencheur des Dynamic Workflows est renommé. Dire « workflow » dans un prompt ne déclenche plus un dynamic workflow ; c'est désormais `ultracode`. ⚠️ Impacte tout setup forge qui s'appuyait sur le mot « workflow » comme déclencheur.
 - Prompt de confirmation **avant écriture** dans les fichiers de démarrage shell et `~/.config/git/` (durcissement sécu).
 - Mode `acceptEdits` demande confirmation avant d'écrire un fichier de config de build exécutable.

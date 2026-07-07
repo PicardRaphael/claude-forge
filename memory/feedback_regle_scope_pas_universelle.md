@@ -65,6 +65,6 @@ La règle est née de ce cas : sur un audit Claude Code, **Anthropic team/docs/b
 
 ## Lien
 
-- [[feedback_audit_thematique_methode]] — méthode validée audit thématique
+- [[audit-thematique-claims-vault]] — méthode validée audit thématique
 
 Consolide depuis : [[feedback_anthropic_single_source]] (fusionné le 1er juin 2026 — cas d'origine de la règle générale de scope).

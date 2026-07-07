@@ -21,4 +21,4 @@ Découverte 26 mai 2026 lors capitalisation will/ecc/boris-auditor en `~/.claude
 
 **Validation empirique** : will-auditor.md créé avec body Phase B incluant `mcp__forge-brain__read_note` verbatim → fonctionnel cross-repo malgré skills décoratives.
 
-Liens : [[anti-reentrance-sub-agents-pattern-escalade]], [[delegate-guard-env-var-blocked]]
+Liens : [[anti-reentrance-sub-agents-pattern-escalade]], [[erreur-auto-mode-classifier-self-modification]]

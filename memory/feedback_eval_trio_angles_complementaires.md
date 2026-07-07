@@ -23,4 +23,4 @@ Plus `self-check` (conformité YAML/structure déterministe) en socle.
 - Si 1 angle manque : étendre l'existant le plus proche, pas nouvelle skill
 - Si 0 angle couvert : construction justifiée
 
-**Pattern cousin** : [[feedback_check_before_create_pattern]] (vérifier l'existant avant créer) mais plus spécifique à la classe "évaluation/audit/qualité".
+**Pattern cousin** : [[methode-analyser-repo]] (vérifier l'existant avant créer) mais plus spécifique à la classe "évaluation/audit/qualité".

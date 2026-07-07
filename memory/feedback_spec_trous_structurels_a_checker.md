@@ -27,4 +27,4 @@ Après audit de `feature-jira-ticket-from-neochat/SPEC.md` (qualité 8/10, 600L)
 
 Les 3 trous sont maintenant prévenus par la skill `/spec` enrichie (commit ia_back 1e20c38 + neo_ia 2257ec3, 26 mai 2026). Cette mémoire reste utile pour auditer des specs externes ou pré-skill-update.
 
-Lien : [[feedback_workflow_spec_forge_jira]]
+Lien : [[pattern-spec-driven-development]]

@@ -17,4 +17,4 @@ metadata:
 - Si une claim haute prio n'est dans AUCUN cluster dispatched → ajouter cluster ou la rattacher à un cluster existant
 - Pour les audits suivants (prompt engineering, context engineering, etc.) : intégrer ce cross-check dans le template phase B
 
-**Sister rules** : [[verify-exhaustive-claims]], [[audit-thematique-methode-sub-agents-clusters]]
+**Sister rules** : [[verify-exhaustive-claims]], [[audit-thematique-claims-vault]]

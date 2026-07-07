@@ -88,6 +88,13 @@ En 2026, les modèles frontier (Claude Opus 4.7, GPT-5.x, Gemini 2.5 Deep Think)
 **Pourquoi :** Verbatim OpenAI GPT-5.5 Guide : *"Use plain paragraphs as the default format for normal conversation, explanations, reports, documentation, and technical writeups."* Trop de headers/bullets fragmente la cohérence de sortie.
 **Alternative :** Prose structurée pour les tâches analytiques. Markdown uniquement si la sortie est un document.
 
+### 10. `budget_tokens` comme levier de contrôle du raisonnement
+
+**Statut :** Deprecated → remplacé par `effort` parameter  
+**Pourquoi :** `budget_tokens` (Claude 3.x) est remplacé par `effort: low|medium|high|xhigh` sur les modèles 4.x.  
+**Pitfall Adaptive Thinking :** Le remplacement peut allouer **ZERO tokens de réflexion** → hallucinations précises (faux SHA, packages inexistants). Garde-fous si comportement non déterministe observé : `CLAUDE_CODE_EFFORT_LEVEL=max` + `CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING=1`.  
+**Sweet spot prompts :** 150-300 mots (~3000 tokens max) — au-delà, voir [[over-specification-paradox]].
+
 ## Ce qui reste valide
 
 - **XML pour zones sémantiques** (system prompts longs, tools API) — toujours efficace

@@ -403,6 +403,11 @@ Pas d'overhead. Pas d'agent.
 
 ## GOTCHAS — Pièges observés
 
+### AskUserQuestion sur actions destructives
+
+- **Seuil >3 actions destructives indépendantes** → AskUserQuestion item par item, jamais en bloc. Chaque action = options multi-choix (pas binaire) + label « (Recommandé) » sur la première option + toujours offrir « Statu quo » et « Plus radical » pour cadrer le spectre.
+- Si Raphael répond « valide tout en bloc » → accepter (préférence contextuelle).
+- **Pourquoi** : 3 corrections importantes sur 4 questions successives (session 28 mai 2026) — chaque correction modifiait une action destructive. En bloc, ces corrections auraient été perdues.
 ### Pièges parallélisation
 - **Multi-clauding sur features dépendantes** = conflits worktrees, perte temps
 - **Pas de `/clear` entre tâches** = pollution contexte
@@ -419,6 +424,7 @@ Pas d'overhead. Pas d'agent.
 - **Workaround devient sédiment** sans dette technique loggée (cf [[feedback_workaround_sediment]])
 
 ### Pièges advisor / DA
+- **Surfacer l'écart si la recherche corrige une affirmation déjà faite** : si WebSearch révèle que ce qu'on a dit à Raphael était faux ou partiel → dire explicitement « tu pensais X, l'état de l'art c'est Y » — jamais basculer en silence. Vaut pour toute affirmation technique quantitative (cadence, seuil, version), pas seulement advisor/DA.
 - **TOUJOURS advisor+DA AVANT de proposer** un setup, pas après rappel (cf [[feedback_advisor_da_mandatory]])
 - **Rechercher internet AVANT advisor/DA** quand fait technique incertain (cf [[feedback_advisor_da_web_search]])
 - **Si DA échoue (529/timeout)** : relancer 1×, sinon advisor fallback, sinon STOP (cf [[feedback_da_failure_options]])

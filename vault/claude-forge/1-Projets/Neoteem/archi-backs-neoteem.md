@@ -41,6 +41,13 @@ Toute feature impliquant le front doit explicitement décider :
 - ❌ Réimplémenter Correspondance / AG / Drive ailleurs alors que Jérôme expose des webservices → duplication, dérive.
 - ❌ Proposer un livrable cross-stack sans clarifier l'archi en V1 → coût ×4 en itérations (cf [[feedback_archi_clarifier_avant_livrable_cross_stack]]).
 
+## Protocole avant livrable cross-stack
+
+Dès qu'un livrable implique ≥ 2 composants backend Neoteem (neo_ia, ia_back, front, webservices Jérôme, bdd) : **première action = clarifier l'archi**, pas commencer la rédaction.
+
+Question obligatoire en V1 : *« Quel back parle au front pour cette feature ? Qui orchestre quoi ? Quelles actions sont métier vs IA ? »*
+
+S'applique à tout livrable cross-stack : commentaire Jira, `/spec`, BRIEF sub-agent, doc archi, proposition technique. Sans cette clarification → pas de V1. Coût d'un oubli : ×3–4 itérations de correction (cf session 28 mai 2026 : V7→V9→V10 avant archi correcte).
 ## Origine
 
 Confirmé par Raphael session 28 mai 2026 lors de la rédaction du commentaire ticket comparatif devis (8 itérations V1→V14 pour caler l'archi avant que les sections du commentaire soient justes).

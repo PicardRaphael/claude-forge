@@ -32,6 +32,20 @@ Le hook `delegate-guard.py` matche `agents/*.md` **par nom de chemin**. Une note
 
 **Réparation** : pour insérer en FIN de section, viser un marker **précis** (dernière phrase de la section, en gras si possible) plutôt que le header nu. Vérifier le placement avec `read_section(file, heading="## Section")` (le param s'appelle `heading` et DOIT commencer par `#`). Si déjà mal parenté : `update_note` (réécriture complète).
 
+## 3. Edit DISQUE direct → index SQLite désynchronisé
+
+Corriger une note vault via `Edit`/`Write` (au lieu des outils MCP) écrit bien le disque, mais ne réindexe PAS : la table `links`/`tags` du MCP reste sur l'ancien état. La réindexation n'arrive qu'au prochain tick du watcher (`poll_interval_seconds=30` dans config.yaml) — d'où un `lint_vault` qui montre encore un lien qu'on vient de corriger.
+
+**Ne pas confondre** avec le lag d'agrégat (fluctuation non liée aux edits) : ici c'est l'écriture hors-MCP qui n'a pas déclenché `index_note`.
+
+**Réparation** : si un Edit disque a déjà eu lieu, forcer la réindexation par un appel MCP sur la note (`update_property` sur `derniere-maj` suffit — il appelle `index_note`), ou attendre le poll 30s. → Toujours éditer le contenu d'une note vault via MCP (`update_note`/`update_property`/`insert_section`) qui réindexe atomiquement en fin d'appel. C'est la raison d'être de la doctrine « vault via MCP, jamais Edit direct » — pas du dogme, l'index en dépend.
+
+## 4. `delete_note` prend le STEM (pas le chemin) — et laisse les wikilinks brisés
+
+`mcp__forge-brain__delete_note(file=...)` résout par nom/alias : passer un chemin complet (`raw/.../note.md`) → « introuvable » silencieux (constat : 8 suppressions ratées avant correction). Passer le **STEM** (`note`).
+
+Refuse si backlinks>0 sauf `force=True` ; avec `force`, les liens entrants deviennent **BRISÉS** (pas de cleanup auto) → lancer `lint_vault(category=broken_wikilinks)` après et nettoyer chaque source. Cf [[decision-vault-agent-first]] (un brut distillé = jetable — cas où `force=True` est acceptable).
+
 ## Wikilinks
 
 - [[mcp-vault-llm-design]] — design MCP vault, gotchas résolution

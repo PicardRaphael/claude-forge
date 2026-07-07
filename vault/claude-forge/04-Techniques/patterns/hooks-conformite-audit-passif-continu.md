@@ -28,6 +28,14 @@ Conséquence non-évidente : **quand un hook bloque une action prévue et légit
 
 ## Doctrine
 
+## By construction vs by discipline
+
+Tout claim sécu (« read-only », « sandboxé », « sans effets de bord ») doit être **prouvable structurellement par le code** — sinon c'est « by discipline » : la surface d'attaque existe, seul le routage courant l'ignore.
+
+*Cas empirique x-read (2026-05-20)* : description proclamait « Read-only enforced by construction » mais `reader.py` importait `Account` avec `tweet()/like()/follow()` accessibles en RAM. Read-only **by discipline** (CLI ne route pas ces méthodes), pas **by construction**. Vecteur concret : prompt injection sur tweet capté → Claude invoque une write-method existante en RAM. DA a tagué BLOCKING. Cf [[critique-session-2026-05-20-running-notes-decompose-xread-mcp]].
+
+Règle : si la conformité repose sur une convention d'utilisation plutôt que sur une impossibilité technique, le documenter explicitement comme « by discipline » — jamais « by construction ».
+
 1. **Ne jamais contourner** un blocage de hook de conformité (pas de bypass env-var, pas de `.proposed` de complaisance, pas de désactivation temporaire).
 2. **Traiter le blocage comme un audit qui vient de trouver quelque chose** : lire ce qu'il signale, distinguer ma modification de la dette préexistante.
 3. **Nettoyer la dette révélée dans la MÊME passe** — pas en rappel dans 2 semaines (cf le feedback `zero-dette-technique-nettoyer-completement`).
@@ -39,6 +47,14 @@ Conséquence non-évidente : **quand un hook bloque une action prévue et légit
 2. **Session Mémoire Portable (27 mai 2026) — `meta-commentary-detector`** : en tentant d'ajouter la section `## Mémoire` à CLAUDE.md, le hook a bloqué sur une violation PRÉEXISTANTE L77 (`= tip #1 Boris`, attribution-source) qui dormait depuis des semaines. Nettoyée dans la même passe + autre attribution `Doctrine Anthropic "xhigh partout" = ...` L57 retirée par cohérence. La distinction attribution-source vs label-structurel a été capitalisée pour éviter les faux positifs sur les titres (cf [[erreur-meta-commentaires-composants]]).
 
 ## Réutilisation
+
+## Limites : audit passif ≠ audit rétroactif
+
+Le hook ne scanne qu'au moment de l'**écriture future** — tout composant créé ou édité AVANT l'existence du hook (ou via un chemin qui le contourne) conserve ses non-conformités sans jamais être re-scanné. Après plusieurs sessions de transformation, un hook actif ne garantit PAS que l'état global est propre.
+
+**Audit transverse ponctuel obligatoire** : passer le hook lui-même en mode scan sur TOUT son scope (`check_content` sur chaque fichier) — c'est l'oracle de classification, distingue vraie violation vs faux positif sans opinion. Compléter par les critères que le hook ne couvre pas : wikilinks morts (croiser `[[X]]` avec existence vault via MCP), imports orphelins (pyflakes), couleurs agents vs convention.
+
+*Exemple 27 mai 2026 : audit transverse forge → 5 résidus sur 78 composants (94% conformes), dont 2 meta-commentaires que `meta-commentary-detector` aurait bloqués à l'écriture mais qui dataient de sessions pré-hook.* Cf [[cartographie-exhaustive-avant-delegation]], [[erreur-meta-commentaires-composants]].
 
 Quand un hook bloque une action que tu pensais légitime : ne pas pester ni contourner. Lire le verbatim du blocage, identifier si c'est TA modif ou une dette préexistante. Si dette préexistante → l'audit passif vient de trouver, nettoie-la maintenant. C'est un avantage de la conformité par construction, pas un obstacle.
 

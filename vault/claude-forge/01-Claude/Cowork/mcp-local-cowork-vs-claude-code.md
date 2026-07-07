@@ -34,6 +34,8 @@ Là où le MCP local **marche** :
 | **Cowork** | — | ❌ localhost impossible (HTTPS public requis) |
 
 **Piège transport** : un serveur lancé via `command`/`args` (attendu stdio) mais qui démarre en HTTP
+
+**Debug transport** : `claude mcp list` → statut **"Connected"** = seul indicateur fiable. "running" = process vivant, pas nécessairement connecté. Tout MCP "lancé mais inactif" → vérifier stdio vs http AVANT toute autre piste.
 affiche "running" (process vivant) sans être **connecté** (mismatch). "running" ≠ "Connected".
 
 **Conséquence** : pour faire tourner une automatisation à MCP local sans VM ni admin → utiliser

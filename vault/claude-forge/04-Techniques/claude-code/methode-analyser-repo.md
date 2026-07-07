@@ -457,6 +457,15 @@ Soit typiquement **5 sub-agents en parallèle** (4 project-auditor par cluster +
 ## OPTIMISATION — Output recommandé
 ## KIT DE BASE — composants systématiques vs selon-repo (24 juin 2026)
 
+### Socle minimum rules — projet-analyzer recommande TOUJOURS ces 3 rules
+
+Quel que soit le repo cible, `project-analyzer` propose systématiquement ces 3 rules comme socle minimum (même niveau que les composants systématiques ci-dessous) :
+1. `check-before-create.md` — **adapté aux agents DU PROJET** (pas les agents forge qui n'existent pas localement)
+2. `quality-gates.md` — workflows concrets avec les agents du projet
+3. `learn-from-mistakes.md` — sans globs restrictifs
+
+**Règle delegate-guard = forge ONLY** : le hook `delegate-guard` n'a de sens que dans forge (seul repo avec les agents créateurs spécialisés). Le déployer dans un repo d'équipe bloque les édits sans alternative disponible. Dans tout repo non-forge, le workflow check-before-create s'appuie sur les agents LOCAUX : `architect` (fast pass cohérence) + `code-reviewer` (conformité standards). Cf [[config-repo-equipe-vs-forge]].
+
 > Issu du chantier migration_script (24 juin 2026) — repo d'équipe PostgreSQL/PLpgSQL. Distingue ce qu'on déploie TOUJOURS de ce qui dépend du repo.
 
 Tout setup `.claude/` complet (étape 5-6 de la grille) comprend un **kit de base systématique** puis des composants **calibrés au repo**.

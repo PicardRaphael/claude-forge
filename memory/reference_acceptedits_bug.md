@@ -23,11 +23,11 @@ Status bar affiche "Accept edits on" mais prompt "Do you want to make this edit?
 - #31827, #11870, #7662 — duplicates fermés
 
 ## Workarounds (ordre préférence Raphael)
-1. **Auto mode** (Anthropic, sorti 2026-03-24) — Classifier évalue risque par tool call. Safe + autonome. Cf [[reference_auto_mode_classifier]]
+1. **Auto mode** (Anthropic, sorti 2026-03-24) — Classifier évalue risque par tool call. Safe + autonome. Cf [[auto-mode-classifier]]
 2. `"defaultMode": "bypassPermissions"` dans .claude/settings.json — plus large blast radius
 3. `permissions.allow` allow-list explicite Edit/Write/MultiEdit
 
 ## Pertinence forge
 Raphael en Auto mode actuellement (cf CLAUDE.md ligne 7 "Auto-mode classifier hard block"). Le bug acceptEdits n'est PAS sa config — c'est un bug Anthropic. Ne pas chercher à debugger ses settings.
 
-Liens : [[reference_auto_mode_classifier]], [[reference_cc_updates_april2026]]
+Liens : [[auto-mode-classifier]], [[reference_cc_updates_april2026]]

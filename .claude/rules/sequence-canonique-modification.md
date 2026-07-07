@@ -37,7 +37,7 @@ Avant d'écrire un verdict sur un fichier — **« doublon / subsumé / appauvri
 
 **Asymétrie interdite** : comparer un fichier lu en entier (la canonique/cible) à un fichier lu partiellement (la source) puis trancher = faute. Prouver que la DESTINATION est riche ne prouve PAS que la SOURCE est subsumée — « zéro perte » exige que chaque claim substantiel du source EXISTE déjà dans la cible, ce qui se vérifie en lisant le source en entier (le contenu neuf vit souvent après la ligne 30). Les DEUX côtés en entier, ou pas de verdict.
 
-Réflexe (formulation Raphael 7 juin 2026) : **« quand je trouve un fichier à évaluer, je repose, puis je le lis en entier, ENSUITE je conclus. »** Trouver le fichier ne clôt rien — c'est le déclencheur de la lecture complète. Barre de référence : un `git rm` n'est sûr que si le fichier a été lu intégralement (cf [[feedback_lire_fichier_entier_avant_verdict]]).
+Réflexe (formulation Raphael 7 juin 2026) : **« quand je trouve un fichier à évaluer, je repose, puis je le lis en entier, ENSUITE je conclus. »** Trouver le fichier ne clôt rien — c'est le déclencheur de la lecture complète. Barre de référence : un `git rm` n'est sûr que si le fichier a été lu intégralement (cf [[methode-analyser-repo]]).
 
 ## B. Lire canoniques EN ENTIER
 

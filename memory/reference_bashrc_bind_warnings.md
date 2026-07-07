@@ -28,4 +28,4 @@ Ou inline : `[[ $- == *i* ]] && bind '...'`
 
 **Pourquoi c'est important** : ces warnings polluent stdout/stderr de chaque Bash tool call, gaspillent du contexte, et peuvent masquer des erreurs réelles. Vu chez Raphael 2026-05-22 (lignes 20-22 du `.bashrc`).
 
-Related : [[python-path-windows-hooks]], [[python-windows-cross-machine]] — autres gotchas environnement Windows.
+Related : [[python-path-windows-hooks]], [[comment-creer-hook]] — autres gotchas environnement Windows.

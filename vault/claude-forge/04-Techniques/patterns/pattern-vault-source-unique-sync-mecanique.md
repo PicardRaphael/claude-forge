@@ -60,6 +60,15 @@ Un script de transformation déterministe lit le vault en `open()`/`glob()` dire
 
 Si une métadonnée n'est pas un champ structuré (handles X dans `aliases`, pas `handle_x`), le script n'émet que les valeurs **haute confiance** (lien `x.com/` explicite). Un faux positif (handle d'orga) est **pire** qu'un vide (génère une mauvaise query). Denylist manuelle pour les faux connus. Le reste = dette tracée vers une passe de normalisation frontmatter.
 
+## Vérifier la chaîne complète avant de déclarer FAIT
+
+Distinguer deux moitiés d'un sync : (1) **visibilité** — la donnée est à jour, lisible, propre ; (2) **consommation** — le code/process qui l'utilise pointe réellement vers la nouvelle donnée. Résoudre (1) sans (2) = moitié cosmétique qui *paraît* finie.
+
+**Avant de déclarer un sync/refonte FAIT**, tracer le chemin complet **donnée → consommateur → usage effectif** et vérifier que chaque maillon pointe vers la nouvelle donnée. Si un maillon reste sur l'ancien (queries hardcodées, cache, mapping figé) : dette explicite tracée et annoncée, jamais présentée comme livré.
+
+Cas concret (Chantier C cc-news, 27 mai 2026) : sync-leaders a régénéré la table Leaders dans les `domain-*.md` (visibilité ✓). Mais cc-news exécute le bloc `## Queries à exécuter`, PAS la table — les queries n'ont pas été régénérées. Résultat : ~50 leaders listés mais toujours ratés. Le report du script montrait les leaders sans query ; le self-check les a classés « dette mineure » au lieu de voir la moitié manquante. L'advisor a rattrapé.
+
+Cf [[ecart-consigne-chiffree-surfacer]] (ne jamais absorber silencieusement un écart mesurable).
 ## Liens
 
 - [[mcp-vs-skills-doctrine]]

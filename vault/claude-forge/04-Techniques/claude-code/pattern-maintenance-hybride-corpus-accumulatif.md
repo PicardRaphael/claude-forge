@@ -75,6 +75,8 @@ Ni 50 ni 137 ne sont prouvés comme la bonne cible : le tri n'a porté que sur l
 
 ### Anti-patterns spécifiques
 
+**`search_brain` avec requête trop étroite (composée du contexte courant)** → faux négatif « aucun foyer » → doublon mécanique, même si le search_brain a bien été lancé. Règle : chercher sur le **concept seul** (1-3 mots du sujet de la note), jamais la phrase de contexte du run. Ex : `search_brain("harness engineering")` trouve `harness-engineering.md` ; `search_brain("harness engineering recursive language models RLM")` ne la remonte pas (FTS BM25 score dilué). Le hook `mcp-alias-guard` (blocage stem ambigu) est le DERNIER filet, pas le premier. Rattrapage quand doublon déjà créé : lire l'existant EN ENTIER → enrichir du seul contenu neuf → supprimer le doublon via son alias UNIQUE (delete_note par stem ambigu échoue). Cf `memory/feedback_search_brain_large_avant_creer_note.md` + [[feedback_mcp_alias_ambigu_chemin_exact]].
+
 - **Création feedback sans `search_brain` vault préalable** → produit doublon mécaniquement.
 - **Feedback memory qui réécrit la canonique vault** → la doctrine appartient au vault, le feedback ne porte que l'incident empirique.
 - **Promotion vault prématurée** (1 incident → note canonique) → attendre 2-3 récurrences. La note canonique doit énoncer un pattern, pas raconter une histoire.

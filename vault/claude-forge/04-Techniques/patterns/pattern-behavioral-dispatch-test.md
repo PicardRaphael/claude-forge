@@ -91,6 +91,19 @@ Prompt = intentionnellement "mauvais" (coder sans plan, sans test, sur session p
 ### 6. Triggers domaine (si applicable)
 Teste les agents spécialisés par domaine métier (api-designer, schema-mapper...).
 
+## Pré-requis : valider la détection CLI avant les tests
+
+Avant de construire ou lancer la suite comportementale, confirmer que Claude Code détecte bien les composants via CLI — un fichier peut exister avec un frontmatter invalide, un `name` incorrect, ou être dans le mauvais dossier :
+
+```bash
+claude agents list   # confirme détection, model, memory
+claude skills list   # confirme skills visibles et groupées
+claude hooks list    # confirme hooks actifs dans settings.json
+claude rules list    # confirme rules chargées avec descriptions
+```
+
+Lancer depuis le repo cible. La CLI est la source de vérité — lire les fichiers bruts ne garantit pas que CC les détecte. Un test comportemental lancé sur un composant non détecté mesurera un faux FAIL.
+
 ## Comment adapter à un repo
 
 1. **Lister agents** : `ls .claude/agents/*.md` — chaque agent doit apparaître dans au moins 1 scénario

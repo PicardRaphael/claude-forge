@@ -209,6 +209,34 @@ docs/
 
 ## Pipeline complet Neoteem
 
+### Rôles dans la boucle forge ↔ Jira ↔ équipe (validé 2026-05-26)
+
+| Artefact | Source de vérité | Contenu |
+|---|---|---|
+| **Spec/BRIEF** (Git) | Technique | Architecture, contrats API, Gherkin, sécu IA, Langfuse, décisions assignées |
+| **Jira ticket** | Process | Qui, deadline, blockers, KPI, retro |
+| **Forge (Jarvis)** | Pont + challenge | Challenge qualité, génère tickets mère + sous-tickets, Gherkin COPIÉ du BRIEF |
+
+**Boucle complète :** idée → forge challenge → `/spec` repo cible → retour forge (challenge + ajouts sécu IA / Langfuse / KPI) → forge génère tickets → Raphael copie dans Jira + colle liens Bitbucket → implémentation CC → `/go` (STOP) → test manuel → `/ship`.
+
+**BRIEF enrichi 4 sections obligatoires :** Gherkin DANS le BRIEF (source unique, pas dans Jira), recherche préalable, refs, comment vérifier + sécu IA + Langfuse + décisions assignées.
+
+### Seuil /spec OBLIGATOIRE vs optionnel (décision 2026-05-27)
+
+- **Grosse feature** (multi-repo, >5 fichiers, beaucoup de décisions, branches/cas) → `/spec` OBLIGATOIRE
+- **Petit truc** (tient en 1 phrase claire) → ticket Jira direct SANS spec ; l'architect produit les contrats testables à la volée
+
+### /go ≠ /ship — checkpoint humain (décision 2026-05-27)
+
+`/go` : typecheck + tests + review + changelog → **STOP** (ne commit pas).
+`/ship` : commit + push quand Raphael décide.
+Checkpoint humain explicite entre les deux — `/go` ne ship jamais automatiquement.
+
+### Outillage routing (décision 2026-05-27)
+
+- Pas de skill `/dev` : le routing (`agent-delegation` ia_back / `agent-routing` neo_ia) orchestre déjà l'implémentation.
+- `architect-quick` = alias de `architect-sanity-check` (skill, NOT un agent) — mode S de `architect-deep` pour les cas légers.
+
 ```
 /spec (idée floue → dossier spec)
   ↓

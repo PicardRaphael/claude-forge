@@ -38,6 +38,21 @@ Si dispatch-guard avait utilisé le même pattern (`CLAUDE_AGENT` env var), il a
 
 ## Quoi faire à la place
 
+> **Correction 2026-06-09 (doc officielle)** — `agent_type` distingue QUEL agent appelle mais est **insuffisant pour discriminer main vs sub** : il est aussi présent quand la session principale tourne avec `--agent <nom>`. Utiliser `agent_id` à la place pour distinguer session principale vs sub-agent.
+>
+> **Discriminant officiel pour main/sub : `agent_id`** — présent UNIQUEMENT quand le hook s'exécute dans un sub-agent (doc hooks `code.claude.com/docs/en/hooks`, validée 2026-06-09). Test :
+> ```python
+> if not data.get("agent_id"):  # session principale → passer
+>     sys.exit(0)
+> ```
+>
+> **Usage combiné recommandé :**
+> - `agent_id` → discriminant main vs sub (boolean)
+> - `agent_type` → quel agent appelle (bypass ciblé par nom)
+> - Jamais env var, jamais `agent_type` seul comme gate de détection sub-agent
+>
+> [[pattern-mcp-brief-then-direct]] — contexte découverte lors de la conception de `config-guard.ts` neoteem-back-ts.
+
 Lire `agent_type` ou `subagent_type` dans le JSON stdin du hook (multi-field fallback) :
 ```python
 agent_type = data.get("agent_type", "") or data.get("subagent_type", "")

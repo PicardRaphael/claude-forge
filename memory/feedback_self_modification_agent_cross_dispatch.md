@@ -19,4 +19,4 @@ Un sub-agent ne peut PAS modifier son propre fichier source. Le classifier auto-
 - **`skill-creator` n'est plus un agent** (depuis 6 juin 2026) — c'est une skill. Ne pas le lister comme dispatcher.
 - **Règle générale** : pour modifier l'agent X, dispatcher un agent Y ≠ X qui a Edit dans ses tools
 
-Lié à [[feedback_delegate_guard_env_var_blocked]].
+Lié à [[erreur-auto-mode-classifier-self-modification]].

@@ -17,4 +17,4 @@ Quand une dette technique est découverte (référence morte, drift de nommage, 
 - Vérifier exhaustivement avec grep AVANT de déclarer "zéro dette" (cf [[feedback_verify_exhaustive_claims]])
 - Ne PAS dire "hors scope, plus tard" sur de la dette — la dette ne se résorbe jamais toute seule
 
-Lien : [[feedback_doctrine_drift_pattern]], [[feedback_workflow_spec_forge_jira]]
+Lien : [[methode-pivoter-doctrine]], [[pattern-spec-driven-development]]

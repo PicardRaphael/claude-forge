@@ -41,5 +41,5 @@ Sub-agents en cluster = ~10 min chacun. Si 4 claims fabriquées au cœur d'un cl
 
 ## Lien
 
-[[feedback_audit_thematique_methode]] — méthode mère sub-agents par cluster
+[[audit-thematique-claims-vault]] — méthode mère sub-agents par cluster
 [[workflow-claude-code-optimal]] — advisor AVANT travail substantiel (ici phase B = travail substantiel)

@@ -39,4 +39,4 @@ PROPRIÉTÉ CLÉ : les 25 autres tickets restent SANS footer → le hook les ski
 - À CAPITALISER vault (fin de chantier) : pattern « marqueur footer = gate d'étanchéité d'un hook de validation sur repo d'équipe » + « getJiraIssue responseContentFormat:adf renvoie l'ADF réel » (corrige la note jira-rendu-adf). Cf section capitalisation ci-dessous.
 
 ## À capitaliser en fin de chantier (vault, pas encore fait)
-Pattern « skill identique ×N repos + script sync fichiers-entiers + hook validation format déterministe » = réponse au drift multi-copies. Lié à [[pattern-vault-source-unique-sync-mecanique]] et critique DA `critique-2026-06-26-uniformisation-spec-3-repos`. Gotcha encodage hook déjà couvert ([[comment-creer-hook]] + [[diff-crlf-faux-positif-audit]] pour l'audit CRLF).
+Pattern « skill identique ×N repos + script sync fichiers-entiers + hook validation format déterministe » = réponse au drift multi-copies. Lié à [[pattern-vault-source-unique-sync-mecanique]] et critique DA `critique-2026-06-26-uniformisation-spec-3-repos`. Gotcha encodage hook déjà couvert ([[comment-creer-hook]] + [[decision-byte-for-byte-splice-test-live]] pour l'audit CRLF).

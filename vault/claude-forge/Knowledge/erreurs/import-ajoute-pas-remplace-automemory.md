@@ -30,6 +30,17 @@ L'orthogonalité (préférer un mécanisme qui s'ajoute au défaut plutôt qu'un
 
 ## Conséquence pratique
 
+## Coût et cause du doublon (constat 28 mai 2026)
+
+Après [[decision-memoire-dans-le-repo]] (migration vers `memory/MEMORY.md` projet), la native `~/.claude/projects/<encoded>/MEMORY.md` n'a pas été purgée. Le harness continue de la charger automatiquement via `/done` auto-memory — elle est devenue un **fantôme historique** : ~10.8k tokens chargés chaque session pour zéro valeur ajoutée (≈ 4-5 % du budget Opus/Sonnet).
+
+### Procédure de purge (comment atteindre la source unique)
+
+1. **Diff structurel d'abord** : comparer `~/.claude/projects/.../MEMORY.md` vs `<repo>/memory/MEMORY.md` — identifier les 5-10 entrées uniques (à migrer dans le projet avant toute suppression).
+2. **Migrer les entrées uniques** dans `memory/` projet.
+3. **Vider** l'user-scope MEMORY.md (laisser le fichier vide, pas le supprimer — évite la récréation auto).
+4. **Empêcher `/done` de ré-écrire dedans** : vérifier que le tool auto-memory résout le chemin via `git rev-parse --show-toplevel` et écrit dans `memory/` projet.
+
 Sur un repo qui adopte `@import` pour sa mémoire, ne pas considérer la native comme remplacée : soit on vit avec deux sources (et on accepte la divergence), soit on vide/désactive la native pour atteindre la source unique. Le choix relève de l'ADR mémoire du repo.
 
 ## Liens

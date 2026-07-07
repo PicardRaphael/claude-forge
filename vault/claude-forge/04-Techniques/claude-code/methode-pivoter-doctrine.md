@@ -97,6 +97,31 @@ Si la session pré-propose l'ancienne doctrine → retour étape 4, audit plus p
 
 ---
 
+## AMENDE vs PIVOT — Discriminant obligatoire
+
+Avant de déclarer un pivot et d'exécuter la checklist 5 étapes, appliquer ce discriminant :
+
+Une note canonique mélange deux couches :
+- **Couche factuelle** = prémisse de réalité (« techniquement impossible / interdit par la plateforme »). Une update Anthropic peut la rendre fausse → corriger.
+- **Couche design** = recommandation (« session principale orchestre, escalade propre leaf-node »). Elle survit généralement — une nouvelle feature d'enforcement peut même la renforcer.
+
+**Règle** : si seule la possibilité technique change → **amende ciblée** (corriger la prémisse, garder le design, ajouter le levier d'enforcement). Si le design lui-même est invalidé → vrai pivot via checklist complète.
+
+**Comment appliquer :**
+1. Décomposer la note : combien de raisons sont des raisons d'IMPOSSIBILITÉ vs de COÛT/QUALITÉ ? Seule l'impossibilité bascule avec une feature ; le coût/qualité survit.
+2. Vérifier en source PRIMAIRE (changelog officiel + doc), pas agrégateur (cf [[llm-deep-research-version-numbers-hallucinated]]).
+3. Si amende : corriger la prémisse, garder le design, ajouter le levier d'enforcement. Toujours GATE humaine avant de toucher une note canonique.
+
+### ⚠️ Gotcha amende — Les vitrines
+
+**Une AMENDE appendée en bas NE corrige PAS les vitrines.** Après avoir appendé une section « AMENDE » : le `resume:` frontmatter, le corps amont (sections QUOI/POURQUOI), les gloses d'index (MOC, notes qui résument en 1 ligne) et les analogies cross-notes continuent d'asserter le faux claim. Un lecteur du haut, ou un `search_brain` qui remonte le résumé, prend le périmé pour vrai.
+
+Après toute amende : `search_brain` sur la FORMULE périmée pour traquer toutes les vitrines, puis corriger résumé + corps amont + gloses. Discriminant fin : une glose qui *asserte* l'impossibilité = drift à corriger ; une glose qui *décrit* un coût/limitation contextuelle reste vraie → intacte (diff minimal).
+
+Cas référence : [[anti-reentrance-sub-agents-pattern-escalade]] — v2.1.172 (sous-agents imbriqués) → amende factuelle, pattern ESCALADE intact.
+
+---
+
 ## QUAND — Critère d'application
 
 ### Pivot doctrinal MAJEUR (checklist complète obligatoire)
@@ -112,6 +137,33 @@ Si la session pré-propose l'ancienne doctrine → retour étape 4, audit plus p
 - Modification d'une seule rule
 - Ajout d'un nouveau skill
 - Renaming non doctrinal
+
+---
+
+## PROPAGATION — L'angle mort systématique
+
+### Méta-leçon (3 incidents en 3 jours, 22-23 mai 2026)
+
+L'Étape 4 (purge MEMORY/RECAP) couvre la mémoire directe. Mais les **composants qui citent la doctrine** sont l'angle mort systématique :
+
+- **Incident 1 (22 mai)** : MEMORY.md + RECAP.md neo_ia non purgés → doctrine annulée ~10 jours. *(Couvert dans EXEMPLE CONCRET.)*
+- **Incident 2 (23 mai matin)** : MOC-Claude-Code + MOC-Leaders contenaient encore « Angela Jiang advisor 5× » malgré la réécriture des notes canoniques le 22 mai. Cause : propagation vers les MOCs non faite à l'Étape 4. Corrigé via commit `4aee799`.
+- **Incident 3 (23 mai après-midi)** : 11 drifts factuels supplémentaires dans CLAUDE.md, vault/index.md, `.claude/skills/cc-hooks-ref/SKILL.md`, `.claude/agents/hook-creator.md`, ia_back — canoniques OK, propagation aval non resynchronisée.
+
+**Pattern** : la doctrine canonique est facile à mettre à jour (1-N notes). **Tous les composants qui la citent** (MOCs, CLAUDE.md, skills cc-*, agents, mémoire forge, vault d'autres repos) sont l'angle mort. Sans check automatisé, il faut un audit dogfooding pour les détecter — coût mesuré ~3h/incident.
+
+### Extension de l'Étape 4 — Propagation complète
+
+Après la purge MEMORY/RECAP/agent-memory, vérifier aussi :
+- `vault/00-Hub/MOC-*.md` — les MOCs résument souvent les canoniques en 1 ligne
+- `.claude/skills/cc-*.md` (SKILL.md des skills de référence CC)
+- `.claude/agents/*.md` — agents qui citent la doctrine dans leur body
+- `CLAUDE.md` racine + secondaires des repos concernés
+- Notes vault qui contiennent des analogies cross-notes (cf gotcha vitrines [[methode-pivoter-doctrine#AMENDE vs PIVOT]])
+
+Pour chaque composant identifié : `search_brain` sur la formule périmée (le claim ET ses raisons), corriger les hits.
+
+**Levier d'automatisation** : skill `/pivot-check` draftée (verdict DA GO-WITH-FIXES, cf [[critique-2026-05-23-skill-pivot-check]]). À activer quand disponible — ~2h dev pour gagner ~3h × N pivots futurs.
 
 ---
 

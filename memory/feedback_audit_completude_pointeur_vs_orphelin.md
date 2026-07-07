@@ -9,7 +9,7 @@ Quand on audite la **complétude d'un index/hub/roadmap** (combien de cibles wik
 
 **Cas observé 7 juin 2026** : backlog roadmap casquette `responsable-ia`. Le hub `technique-ia/index` cite ~60 wikilinks RAG/agents/prompt-engineering qui semblent orphelins depuis la casquette, mais pointent vers des notes existantes dans `04-Techniques/` (pointeurs valides, pas des trous). Compte brut ≈ 60-70 « orphelins » → compte réel après vérif = **41**. L'écart de 20-30 venait de ces pointeurs cross-dossier pris à tort pour des trous.
 
-**Why** : confondre « pointeur cross-dossier valide » et « cible manquante » gonfle le périmètre de travail annoncé à Raphael (faux 52-70 au lieu de 41 réels). C'est le pendant inverse de [[verify-exhaustive-claims]] (grep avant « zéro/tous ») et de [[lire-fichier-entier-avant-verdict]] (lire avant « supprimer ») : ici c'est avant de déclarer « manquant/orphelin/à créer ».
+**Why** : confondre « pointeur cross-dossier valide » et « cible manquante » gonfle le périmètre de travail annoncé à Raphael (faux 52-70 au lieu de 41 réels). C'est le pendant inverse de [[verify-exhaustive-claims]] (grep avant « zéro/tous ») et de [[methode-analyser-repo]] (lire avant « supprimer ») : ici c'est avant de déclarer « manquant/orphelin/à créer ».
 
 **How to apply** :
 1. Lister les wikilinks atomiques cités dans l'index audité.

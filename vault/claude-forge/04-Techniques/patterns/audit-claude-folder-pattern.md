@@ -143,6 +143,8 @@ git push
 
 ## Gotchas (highest-signal)
 
+- **Repo à plugins distribués — auditer le `.claude/` SOURCE, pas les bundles** : sur un repo qui publie des plugins, les plugins distribués sont la partie émergée. La maintenance réelle (scripts `scripts/`, agents `vault-linker`/`vault-validator`, rules, pipeline) vit dans le `.claude/` complet du repo source. Auditer uniquement les bundles produit des faux positifs garantis (ex. neoteem-brain : "lint manquant / 3 agents redondants" — TOUS faux). Avant tout verdict "X manque / Y est redondant" sur un tel repo → cartographier `.claude/agents`, `.claude/skills`, `scripts/`, `.claude/rules` du repo source, puis croiser avant de conclure.
+
 - **Matcher `Write|Edit` sans MultiEdit** = trou architectural (cf feedback `multiedit-matcher-blind-spot-hooks`)
 - **Stack drift** : code migré ≠ prompts migrés. Grep stack OLD vs NEW (Drizzle→postgres.js sur ia_back : 17 fichiers contaminés découverts)
 - **Decisions cross-repo** : pas de propagation automatique. Renaming neo_ia 22 mai (cto-mindset, outcomes-after-architect) à refaire sur ia_back

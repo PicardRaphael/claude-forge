@@ -27,6 +27,11 @@ tags:
 - **Ajoutées** : `07-Prompts/techniques/prompting-fable5-cheatsheet.md` — 12 patterns officiels Anthropic copier-coller pour Fable 5 (goal-setting > micromanagement, effort high défaut, anti-refacto, verification loops, checkpoint, memory system, send_to_user tool). Templates verbatim.
 - **Modifiées** : `00-Hub/MOC-Techniques` (§ Prompt Engineering) + `00-Hub/MOC-Prompts` (§ Templates Prompts) — wikilinks vers la cheatsheet.
 - **Source** : doc officielle platform.claude.com/docs/prompting-claude-fable-5 (source primaire), demande Raphael.
+## 2026-07-07 — Migration memory→vault (triage 247 fichiers, workflow)
+
+- **Ajoutées (14 notes)** : `04-Techniques/patterns/` audit-thematique-claims-vault, refactor-masse-script-python-regex, verifier-audit-deja-fait-avant-relancer, verify-empirique-avant-affirmation-session ; `04-Techniques/claude-code/` architecture-claude-folder, enableallprojectmcp-permissions-allow, skills-externes-upstream-sync, skills-metadata-tokens-load, worktrees-sessions-paralleles ; `04-Techniques/mcp/mcp-tool-prefix-serveur-wiring` ; `04-Techniques/outils/pdf-chrome-headless` ; `Knowledge/erreurs/` changer-mecanisme-lire-tests-qui-verrouillent, llm-deep-research-version-numbers-hallucinated ; `Knowledge/raisonnements/raisonnement-da-probe-empirique-avant-verdict`
+- **Enrichies (33 notes)** : comment-creer-skill/-agent/-hook, auto-mode-classifier, methode-pivoter-doctrine, workflow-claude-code-optimal, plugin-vs-skill-anatomie, architecture-cerveau-obsidian-mcp, methode-analyser-repo, etc. (49 insertions, 478 lignes ajoutées, 0 écrasée)
+- **Source** : triage read-only de 247 fichiers `memory/` (feedback+reference) vs vault via 3 workflows (50 agents triage + 53 prep + 48 apply). Contenu doctrinal doublon/absent migré, puis 114 fichiers memory supprimés (259→145). MEMORY.md 162→89 lignes. Re-tri session principale : 2 faux DELETE + 13 faux ENRICH corrigés (agents sur-classent).
 ## 2026-07-07 — Scan cc-news : CC v2.1.199→202 (source primaire)
 
 - **Modifiées** : `01-Claude/Code/changelog/CC juillet 2026 - Sonnet 5 + v2.1.198.md` étendue à v2.1.202 (ajout sections 199/200/201/202, titre + resume + aliases + derniere-maj)

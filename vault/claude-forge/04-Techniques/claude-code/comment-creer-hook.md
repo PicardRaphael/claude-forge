@@ -255,6 +255,13 @@ Réveille la session à un timing futur. Utile pour scheduling, polling externe.
 Pour les hooks PreToolUse sur les modifications de fichiers, **TOUJOURS** matcher `Write|Edit|MultiEdit`. Sans `MultiEdit`, trou architectural (cf [[feedback_multiedit_matcher_blind_spot]]).
 
 ### Étape 5 — Tests adverses
+**Harnais de test : `json.dumps`, jamais JSON à la main.** Sur Windows, un chemin `C:\Users\...` écrit en JSON littéral contient `\U`, `\D` = échappements invalides → `json.load` lève → hook fail-open (`exit 0`) → faux négatif silencieux (le test semble passer, le hook ne bloque pas). Utiliser `payload = {...}; js = json.dumps(payload); subprocess.run([...], input=js)` — `json.dumps` échappe correctement les backslashes Windows.
+
+**Deux preuves complémentaires (toutes deux nécessaires)** :
+- **LOGIQUE** = invocation directe `py hook.py < payload.json` (déterministe, zéro effet de bord, prouve que le code décide juste).
+- **ARMEMENT** = vrai appel d'outil via le harness (prouve que settings.json câble bien le hook — un hook au code parfait mais mal matché ne s'arme pas).
+
+Un hook fail-open avale silencieusement le JSON cassé : toujours vérifier que le JSON parse côté Python AVANT de conclure « le hook ne bloque pas ».
 #### Ratio adverse/happy ≥ 3:1 pour hooks sécu/contrôle
 
 Un hook de sécurité ou de contrôle (security-guard, delegate-guard, scope-guard) DOIT avoir une suite de tests **majoritairement adverse** : ≥ 75% de tentatives de bypass, ≤ 25% de happy path. Le happy path seul est trompeur — il prouve que le légitime passe, jamais que l'illégitime est bloqué.
@@ -383,6 +390,7 @@ Source canonique du catalogue : cette section. Pour le détail d'implémentation
 - ❌ **Hooks user-level** pour workflow — toujours project-level
 
 ### Techniques
+- ❌ **Armer un hook sans grep les skills/rules existantes** : quand on arme un PreToolUse qui bloque un outil/verbe (Write/Edit/Bash/MCP), toute skill ou rule prescrivant encore ce verbe dans le périmètre gardé devient **cassée au runtime** silencieusement. Réflexe : après armement, `grep -r "Write\|Edit\|Bash" .claude/skills .claude/rules` filtré sur le scope matché → corriger vers l'alternative sanctionnée. Distinguer le périmètre exact (ex. `vault-write-guard` ne matche que `vault/claude-forge/` → Write dans `memory/` reste valide). Cf [[feedback_mcp_alias_ambigu_chemin_exact]].
 - ❌ **Matcher "Write|Edit"** sans MultiEdit — trou (cf [[feedback_multiedit_matcher_blind_spot]])
 - ❌ **Chemin Python relatif** sur Windows — alias MS Store (cf [[feedback_python_path_windows]])
 - ❌ **`exit 1` pour bloquer** — non bloquant, utiliser `exit 2`
@@ -599,6 +607,16 @@ Réinjecter le contexte critique après compaction via `additionalContext` dans 
 
 ## GOTCHAS — Pièges observés
 
+### Vérif grep complète — hooks embedded dans agents inclus
+
+Audit `python`/`python.exe` dans la config hooks = grep TOUT `.claude/`, pas juste `settings.json` :
+
+```bash
+grep -rn 'python \|python.exe' .claude/ | grep -v ".pyc\|.proposed"
+```
+
+Inclut les hooks embedded dans les agents (`PostToolUse` inline dans `agents/python-dev.md`, etc.) — un audit `settings.json` seul rate ces occurrences. Cf [[feedback_python_path_windows]].
+
 ### Pièges Windows
 - **Path absolu Python obligatoire** dans settings.json (alias MS Store sinon, cf [[feedback_python_path_windows]])
 - **Bash heredoc** : boucle quoting Git Bash (cf [[erreur-da-heredoc-bash-silencieux]])
@@ -616,6 +634,8 @@ Réinjecter le contexte critique après compaction via `additionalContext` dans 
 - **`agent_type` détection** : via stdin JSON, JAMAIS via env var (cf [[reference_agent_type_hook_detection]])
 
 ### Pièges architecture
+- ❌ **Hook PostToolUse présenté comme 'mesureur de tokens'** : un hook PostToolUse voit via stdin `session_id`, `tool_name`, `tool_input`, `tool_response`, `transcript_path`, `cwd`. Il NE VOIT PAS le contexte cumulé Claude ni la skill/agent invoquant l'outil. `(input_chars + output_chars) / 3.3` = proxy I/O outils, jamais les tokens API Claude réels (source : Anthropic Console ou `/context` uniquement). De même, attribution skill/agent depuis un hook nécessite de parser le transcript via `session_id` (non trivial — souvent à drop). Un hook qui prétend « mesurer les tokens » ment sur son mécanisme.
+- ❌ **Hook qui se bloque lui-même (catch-22)** : un hook PreToolUse Write|Edit|MultiEdit qui scanne des patterns interdits CONTIENT ces patterns en data pour les matcher → toute édition du hook s'auto-bloque. Fix : `EXCLUDED_SUFFIXES` liste le hook lui-même + ses tests (les deux formats .py et .ts si portés). Réflexe à la création : ajouter immédiatement le script + `test_<hook>.<ext>` dans l'exclusion. Variante commande Bash : un message de commit ou une commande shell contenant une chaîne que le hook scanne (ex. `git push --force` dans un test) déclenche aussi le blocage — séparer les commandes, jamais piper read-command + path vault dans la même ligne.
 - **Timeouts par type** : 600s command/http/mcp_tool, 30s prompt, 60s agent (UserPromptSubmit abaisse 600s→30s pour command/http/mcp_tool)
 - **Hook qui consume tokens** (Haiku call) = coût caché, réserver
 - **Sensors > Guides** : préférer hooks à rules quand critique
@@ -626,6 +646,8 @@ Réinjecter le contexte critique après compaction via `additionalContext` dans 
 - **Capturer $? immédiat** (pas via wrapper shell)
 
 ### Pièges classifier
+- ❌ **Hook avec variable d'env sans section `env` dans settings.local.json** → silent skip indétectable. Pattern correct pour secrets de hook (webhooks, API keys) : (1) `.claude/settings.json` (versionné) référence `${VAR_NAME}` dans `env` ; (2) `.claude/settings.local.json` (gitignored) définit `env.VAR_NAME` avec la valeur réelle ; (3) le hook Python lit `os.environ.get("VAR_NAME", "")` et `sys.exit(0)` si vide. Si étape 2 manquante → hook s'exécute sans erreur, jamais de notif. Diagnostic silent-skip : `grep "env" .claude/settings.local.json` et test direct `VAR=value bash -c 'echo "{...}" | uv run python .claude/hooks/<hook>.py'`. Vérifier `.gitignore` exclut `settings.local.json` (leak si commit). Cf [[erreur-password-postgres-clair-mcp-json]].
+- ❌ **Diagnostic hook quand c'est le harness qui bloque** : bypass hook ≠ bypass harness. Deux couches indépendantes : (1) **harness** (auto-mode classifier / permissions.allow) décide si l'outil peut tenter ; (2) **hook PreToolUse** s'exécute APRÈS permission accordée. Si le harness bloque, le hook NE TOURNE PAS → debug log vide. Protocole : `cat %TEMP%\delegate-guard-debug.log` (Windows) ou `/tmp/...-debug.log` ; si log montre `BYPASS via X` mais Write échoue quand même → problème harness, pas hook. **Anti-pattern** : patcher le hook quand le problème vient du harness. Cf [[erreur-deny-global-ecrase-allow-projet]] (distinct : précédence deny global > allow projet).
 - **Auto-mode classifier** : bloque self-modification de hooks via env var (cf [[reference_auto_mode_classifier]])
 - **Secret en clair** dans .mcp.json/configs versionnés (cf [[feedback_secret_in_mcp_json]])
 

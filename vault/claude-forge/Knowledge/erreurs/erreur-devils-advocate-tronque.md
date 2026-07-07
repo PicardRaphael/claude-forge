@@ -51,6 +51,17 @@ Causes identifiées :
 
 ## Contournement (en attendant le fix)
 
+## Protocole quand DA échoue (fail / timeout / output vide)
+
+Ordre à respecter :
+1. **Relancer DA 1 fois** — attendre ~5 min (surcharge contexte peut se résorber)
+2. **Advisor en remplacement** — voit la conversation complète, verdict équivalent
+3. **STOP livraison** — commit WIP, capitaliser le draft, finir en session dédiée ; absence de verdict ≠ verdict positif
+
+**Cas Windows PowerShell heredoc** : DA tourne 15-20 min et retourne un fragment shell au lieu d'une critique → le champ `resume:` du frontmatter contient souvent un verdict utile même quand le body est vide. Fix systémique : prompter DA explicitement à utiliser `mcp__forge-brain__create_note` pour écrire sa critique.
+
+**Override conscient** : si Raphael dit « fais tout commit push » sans verdict DA valide → signaler explicitement « DA n'a pas validé, advisor recommandait STOP, tu confirmes override ? ». Acceptation implicite / silence = BLOCKING encore ouvert. Cf [[devils-advocate-pipeline]] § arbitrage verdicts BLOCKING.
+
 Agent `general-purpose` avec prompt clair → rapport complet de 3000+ mots avec verdict. Pas de troncation.
 
 ## Liens

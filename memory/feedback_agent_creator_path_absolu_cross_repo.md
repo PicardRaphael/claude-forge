@@ -21,4 +21,4 @@ Erreur commise 26 mai 2026 : j'avais conclu "classifier bloque toute self-modifi
 
 **Validation** : 26 mai 2026, 3 migrations Haiku + 2 fusions reviewer (ia_back, neo_ia) appliquées avec succès via ce pattern.
 
-Liens : [[delegate-guard-env-var-blocked]], [[cross-repo-write-main-session-only]]
+Liens : [[erreur-auto-mode-classifier-self-modification]], [[cross-repo-write-main-session-only]]

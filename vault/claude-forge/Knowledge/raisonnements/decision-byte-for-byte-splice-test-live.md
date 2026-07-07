@@ -50,6 +50,18 @@ Déclencher ce raisonnement quand :
 - on s'apprête à conclure « validé » sur une écriture fichier à partir d'un **diff mémoire ou d'un diff qui normalise les lignes** → **ne pas conclure** : exiger un test live byte-exact octets, couvrant LF et CRLF (et BOM si le corpus en a).
 - dev d'un outil/MCP qui lit-transforme-écrit un fichier sur Windows → se méfier de la traduction EOL par défaut de `read_text`/`write_text`/`open(...,"a")` ; `newline=""` rend le code seule autorité.
 
+## Symétrique — read/compare-path (audit de divergence)
+
+Même racine EOL Windows, autre moment : lors d'un **audit de synchro cross-repo**, `md5sum` et `diff` bruts crient **DIFFÉRENT** alors que le contenu est identique — seul l'encodage des fins de ligne diffère (`core.autocrlf` ou outil d'écriture).
+
+**Vécu 26 juin 2026 (audit skill /spec ×3 repos) :** MD5 « DIFFERENT » sur 13/14 références → diagnostic « les références divergent → cause du bug ». Re-diff `--strip-trailing-cr` : **0 ligne de diff réel** sur 12/13. Faux diagnostic complet.
+
+**Réflexe avant tout verdict de divergence/synchro :**
+1. `file <a> <b>` → repère « with CRLF line terminators » d'un côté seulement.
+2. Re-comparer en neutralisant les EOL : `diff --strip-trailing-cr a b` (ou `git diff --ignore-cr-at-eol`, ou normaliser avant `md5sum`).
+3. Le verdict « identique / divergent » se prononce sur le diff EOL-neutre, jamais sur le MD5/diff brut.
+
+Write-path : la couche IO Python traduit `\n`→`\r\n` à l'écriture (ce raisonnement, fix `newline=""`). Compare-path : `md5sum`/`diff` bruts mentent à la *lecture/comparaison*. Même faille, deux contextes.
 ## Liens
 
 - [[erreur-mcp-yaml-dump-corruption]] — le bug et le code (détails)

@@ -49,4 +49,4 @@ Brief skill-creator pour rename :
 ## Wikilinks
 
 - [[feedback_edit_tool_read_obligatoire]] — pattern Edit batch
-- [[feedback_proactive_references]] — proactive extraction
+- [[erreur-skill-monolithique-sans-references]] — proactive extraction

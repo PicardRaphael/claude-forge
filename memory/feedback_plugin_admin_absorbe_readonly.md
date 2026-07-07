@@ -25,4 +25,4 @@ L'admin etant un sur-ensemble du read-only, garder les deux = doublon fonctionne
 
 **Cas inverse** : un plugin peut s'appeler `<X>-ia` ET etre admin a lui seul (cf `neoteem-brain-dev-ia` qui a write access via MCP obsidian-brain). Le suffixe n'est pas un indicateur fiable. Toujours lire la description.
 
-Lien : [[reference_plugins_scoping_mecanisme]].
+Lien : [[plugin-vs-skill-anatomie]].

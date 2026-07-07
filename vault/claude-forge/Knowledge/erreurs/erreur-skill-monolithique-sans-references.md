@@ -57,6 +57,8 @@ references/
 
 ## Règle à appliquer
 
+> **Seuil d'alerte proactif : 430 lignes.** À chaque ajout de contenu dans un SKILL.md, vérifier la taille AVANT de terminer l'édition. Si > 430 lignes après modification → proposer proactivement d'extraire dans `references/` sans attendre que Raphael le signale. Dès qu'une section ajoutée dépasse ~30 lignes et peut vivre seule (templates, guides, domaines, étapes de phase), la déporter immédiatement. Ne pas attendre le mur des 500 lignes.
+
 > **Seuil de refactor : 200 lignes.** Au-delà, évaluer si le contenu est de l'orchestration (reste dans SKILL.md) ou de la référence (part dans references/). Si >50% est de la référence → refactoriser.
 
 > **Quand on ajoute un nouveau domaine à une skill existante**, toujours créer un fichier `references/domain-X.md` plutôt que d'ajouter au SKILL.md.

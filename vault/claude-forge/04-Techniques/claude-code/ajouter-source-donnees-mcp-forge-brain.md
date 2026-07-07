@@ -71,6 +71,27 @@ Application `search_sessions` (chemins réels) :
 
 Sur le modèle de `test_search.py` : fixture déterministe, chaque filtre + edge case. ~60% adverse pour une source de données externe : JSONL malformé, fichier vide, message sans content, encodage cassé, FTS operators hostiles, query vide, projet inexistant, incrémental sans rescan, suppression fichier disparu. 18 + 19 = 37 tests, 0 régression.
 
+## Cycle de vie — gotchas opérationnels
+
+### Gotcha #1 — Recharger le code = KILL port 8091 + NOUVELLE session
+
+Après modification du code serveur (`mcp-forge-brain/src/...`), les changements ne sont PAS visibles dans la session courante : le handshake MCP (liste des outils) est figé au SessionStart. `mcp-autostart.py` fait `if port_open(8091): exit(0)` → tant que l'ancien process tient le port, même une nouvelle session relance l'ANCIEN code.
+
+Séquence correcte : **`taskkill` le process Python sur le port 8091 → PUIS ouvrir une NOUVELLE session** (son SessionStart voit le port fermé → autostart lance le code à jour). Tuer mid-session ne relance rien. Oublier le kill = reconnexion silencieuse à l'ancien code → tests "live" contre des outils périmés = faux résultat déroutant.
+
+**Wrinkle élévation** : `taskkill /PID <pid> /F` peut échouer « Accès refusé » si le process a été lancé par une session à privilège différent. Symptôme : outils absents de la session ET `taskkill` refusé = serveur périmé non-tuable sans élévation → kill revient à l'utilisateur (PowerShell admin ou Gestionnaire des tâches).
+
+### Gotcha #2 — `register_tools` non testé si les tests appellent `BrainTools` directement
+
+Déjà couvert dans la section Tests ci-dessus.
+
+### Gotcha #3 — Changement du PARSER = supprimer la DB (le watcher incrémental ne suffit pas)
+
+`VaultWatcher.scan()` est incrémental : il ne reparse une note que si son `mtime`/hash a changé. Quand on modifie le CODE de parsing (`indexer.py` — ex. ajout de `_strip_code` pour ignorer les wikilinks en code spans), les notes existantes inchangées **gardent leurs données parsées à l'ancienne façon**, même après kill + nouvelle session.
+
+Fix : `kill serveur → Remove-Item forge-brain.db* (+ -wal + -shm) → NOUVELLE session → rebuild complet`. La DB est 100 % reconstructible depuis les `.md` (vérité = les notes). Preuve 14 juin 2026 : après rebuild, `broken_wikilinks` 88 → 75 (13 faux positifs en code spans éliminés).
+
+Distinction nette : changement de **NOTE** → watcher suffit (≤ 30 s) ; changement de **CODE serveur** (nouveaux outils) → kill + nouvelle session (gotcha #1) ; changement de **PARSER** → delete DB en plus (gotcha #3).
 ## ANTI-PATTERNS
 
 - Réutiliser `notes_fts` avec un champ discriminant → casse BM25 vault, brouille `search_brain`.

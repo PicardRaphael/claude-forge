@@ -110,6 +110,37 @@ Le manifeste lui-même est *techniquement* optionnel (Claude Code auto-découvre
 
 **Pour Neoteem** : les PO/support sur Claude Desktop installent les plugins en **uploadant un .zip** (zipper le CONTENU du dossier, pas le dossier — cf section ANTI-PATTERNS ci-dessous). Le MCP vault passe par une **Connector / URL distante** (VM `mcp-brain.neoteem.fr`), pas un MCP local.
 
+## Scoping et activation des plugins — mécanisme empirique
+
+> Audit context tokens 28 mai 2026 — 3 lieux de configuration.
+
+### 3 lieux de configuration
+
+1. **`~/.claude/plugins/installed_plugins.json`** — registry des plugins installés.
+   - `"scope": "user" | "project" | "local"` — si `project|local`, `"projectPath"` est spécifié.
+   - `scope=user` → potentiellement disponible partout selon `enabledPlugins`.
+   - `scope=project` → disponible UNIQUEMENT dans le repo `projectPath`.
+
+2. **`~/.claude/settings.json` → `enabledPlugins`** — whitelist user-scope (charge dans toutes sessions sauf override repo).
+
+3. **`<repo>/.claude/settings.json` → `enabledPlugins`** — whitelist project-scope (charge dans ce repo spécifiquement).
+
+### Gotcha : auto-discovery marketplace (obsidian@obsidian-skills)
+
+Un plugin déclaré dans `extraKnownMarketplaces` (settings.json) **+** permission `Plugin:*` **peut être auto-chargé SANS être dans `enabledPlugins`**. Vérifié empiriquement : `obsidian@obsidian-skills` absent de tous les `enabledPlugins`, pourtant ses 5 skills apparaissent dans chaque session forge. Pour désactiver complètement un tel plugin : retirer la déclaration marketplace OU retirer `Plugin:*` des permissions.
+
+### Gotcha : cache consommé par statusline même si plugin disabled (12 juin 2026)
+
+`installed` ≠ `enabled` : un plugin `enabled: false` peut encore avoir des consommateurs EXTERNES. Cas `claude-hud` : scope project neo_ia, disabled, mais `~/.claude/settings.json → statusLine` appelle directement le cache `dist/index.js`. Désinstaller le plugin purgerait le cache et casserait la statusline sur TOUTES les sessions. **Avant de désinstaller un plugin : grep son `installPath`/cache dans les settings user + projets** (`statusLine`, hooks, commands). Cf [[skills-metadata-tokens-load]].
+
+### Coût tokens et méthode d'audit
+
+- Chaque plugin enabled charge les `name:` + `description:` de **toutes** ses skills au démarrage. Mesure : 8 plugins user-scope ≈ 1 690 tokens/session ; passer à 4 plugins → −1 098 tokens.
+- **Decision matrix** pour rationaliser :
+  - 0 ref dans tous repos → désinstaller global
+  - N refs dans 1-2 repos → scope `project` sur ces repos
+  - N refs dans 3-4 repos → garder global
+- Grep d'audit : `Get-ChildItem <repo>\.claude -Recurse -File -Include '*.md','*.json' | Select-String -Pattern '<skill-name>' -SimpleMatch`
 ## Quand skill, quand plugin — arbre de décision
 
 ```
@@ -135,6 +166,21 @@ Le setup PO (`spec` + `review-ticket`) = **un plugin** `po-lojii` (2 skills → 
 - Les skills brain (`neo-brain-support-admin` / `neo-brain-dev-admin`) sont des **plugins séparés** installés à côté ; po-lojii les invoque via le tool Skill.
 - Mémoire des PO : Auto-Memory locale par PC (`~/.claude/projects/<repo>/memory/`) par défaut, OU `memory/` versionné dans le repo si capitalisation équipe voulue (décision ouverte).
 
+## Cache plugin — bug de rafraîchissement (GitHub #17361)
+
+Le cache local (`~/.claude/plugins/cache/`) n'est **pas invalidé** quand le plugin source est mis à jour (`autoUpdate` fait un `git pull` mais ne purge pas le cache).
+
+**Workaround fiable** : bumper la `version` dans `.claude-plugin/plugin.json` à chaque mise à jour — le cache est indexé par version, nouvelle version = nouveau dossier = pas de stale cache.
+
+**Commande de secours** : `/reload-plugins` ou `rm -rf ~/.claude/plugins/cache/<nom-plugin>/`
+
+**Pas de différence** entre source `github` et `git-url` (Bitbucket) — même comportement.
+
+**Cowork Desktop** (marketplace GitHub) : resync auto 30 min après merge (système différent du CLI).
+
+**Cleanup auto** : anciens dossiers de version marqués « orphaned » et supprimés après 7 jours.
+
+**Règle opérationnelle** : avant de push une mise à jour de plugin, TOUJOURS bumper la version dans `plugin.json`.
 ## Anti-patterns
 - ❌ **BOM UTF-8 en tête d'un `SKILL.md`** → casse le parsing du frontmatter YAML. Symptôme observé (PO Neoteem, 6 juin 2026) : « plugin validation failed » à l'upload Cowork, OU skill silencieusement non chargée (l'utilisateur tape `/spec`, rien ne s'active, Claude rédige « à la main » sans suivre les templates ni l'ADF). Toujours écrire les SKILL.md en **UTF-8 sans BOM** (PowerShell : `[System.IO.File]::WriteAllText($f, $c, (New-Object System.Text.UTF8Encoding($false)))`, jamais `Out-File`/`Set-Content` qui ajoutent un BOM). Vérifier : 3 premiers octets ≠ `239 187 191`.
 - ❌ **Vouloir « un plugin invoqué par `/spec` nu »** : impossible — un plugin force le préfixe `/<plugin>:<skill>`. Pour `/spec` sans préfixe → distribuer la **compétence individuelle** (zip `dist/chat/`, SKILL.md à la racine), uploadée via Customize → Skills. Bonus : pas de manifest → « plugin validation failed » ne peut pas se produire. Chemin fiable pour `/spec` nu + zéro risque de validation (cas PO Marie-Laure, 6 juin 2026).

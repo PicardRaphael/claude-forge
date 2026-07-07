@@ -42,6 +42,8 @@ Hors de ces deux contextes, le HEREDOC est utilisable. La prudence « préférer
 
 ## Piège connexe — here-string PowerShell `@'...'@` dans le tool Bash (5 juin 2026)
 
+**3e violation 7 juin 2026 — seuil [[feedback_feedback_reviole_3x_regle_insuffisante]] atteint** : `git commit -m @'...'@` via Bash tool → `@` parasite en tête du sujet, corrigé `--amend`. Documentée 3× et re-violée 3× = la règle textuelle ne suffit pas. **Garde-fou structurel justifié** : hook PreToolUse Bash qui détecte `git commit` + `@'` dans la commande et bloque (exit 2) avec message « multi-`-m` sous Windows ». À créer via `hook-creator`.
+
 Distinct du HEREDOC bash. Un `git commit -m @'...message...'@` (here-string **PowerShell**) lancé via le tool **Bash** ne casse pas l'écriture — il pollue le contenu : `@'` et `'@` sont une syntaxe PowerShell que bash ne parse pas, donc le `@` de tête survit comme **premier caractère littéral** du message → sujet de commit `@ docs(...)`. Corrigé par `git commit --amend` avec des `-m` multiples (un par paragraphe).
 
 **Règle :** ne pas mélanger les syntaxes de shell. Pour un message multi-ligne dans le tool **Bash**, utiliser plusieurs `-m`. Le here-string `@'...'@` n'est valide que dans le tool **PowerShell**. Symétrique du HEREDOC bash qui n'est valide que côté Bash.

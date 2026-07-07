@@ -98,6 +98,16 @@ python-dev → code-dev. agent-creator / hook-creator / claudemd-optimizer → s
 - `vault/04-Techniques/claude-code/workflow-claude-code-optimal.md`
 - `vault/04-Techniques/claude-code/comment-creer-agent.md`
 
+## Anti-pattern : double thinking archi → dev
+
+**Jamais deux Opus xhigh en chaîne** sur la même feature (architect → dev). Si l'architecte (Opus xhigh) produit un plan détaillé, le dev qui re-raisonne profondément refait un travail déjà fait → double facturation thinking, redondant.
+
+**Règles vérifiées empiriquement (ia_back, neo_ia)** :
+1. Archi Opus xhigh → plan/spec/contrats. Dev **Sonnet high** → exécution du plan.
+2. Si trop complexe pour Sonnet → **1 SEUL agent Opus xhigh** (archi + code, pattern dev-lead). Pas de délégation Opus→Opus.
+3. **Anti-pattern à détecter** : `dev-*.md` avec `model: opus` + `effort: xhigh` appelé après un `architect-*.md` Opus → revoir.
+
+- [[workflow-claude-code-optimal]] — patterns chain architect/dev
 ## Liens
 
 - [[conflit-effort-xhigh-anthropic-vs-pivot-22mai]] — résolution du conflit

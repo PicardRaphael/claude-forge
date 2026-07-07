@@ -89,6 +89,37 @@ Le classifier respecte les `allow` rules et ne juge plus.
 
 Les 3 se cumulent. Un tool call passe = autorisé par les 3.
 
+## Hard block — tous les vecteurs settings.json
+
+**Confirmé 2026-05-22** : le classifier bloque TOUS les vecteurs de modification de `.claude/settings.json` du repo courant, même indirects :
+- `Write` direct · `Edit` · `cp settings.json.proposed settings.json` (Bash) · `cat .proposed > settings.json` (heredoc redirect)
+
+**Pattern recommandé** : générer `.claude/settings.json.proposed` avec le fichier COMPLET (jamais un extrait — un `.proposed` partiel appliqué en remplacement total perd les sections `permissions`/`enabledPlugins` etc.) + instruction explicite à Raphael d'appliquer manuellement.
+
+**Distinction project vs user-scope** : le hard block est project-scope du repo courant. `~/.claude/settings.json` (user-scope) passe sans blocage depuis n'importe quelle session. `.claude/settings.json` d'un *autre* repo passe aussi — sauf si le changement touche l'invocation de hooks de sécurité (le blocage dépend du CONTENU perçu, pas seulement du scope). Cf [[self-modification-user-scope-passe]].
+
+## Hard block étendu aux hooks de sécurité `.py`
+
+**Confirmé 2026-06-07** : le verdict self-modification ne se limite pas à `settings.json`. Le classifier bloque aussi l'`Edit` autonome d'un **hook de sécurité** (`.claude/hooks/*-guard.py`) — même pour une correction de texte pure (docstring, message stderr), zéro changement de logique.
+
+**Le classifier juge l'INTENTION perçue, pas la lettre du brief.** Verdict observé : *"the user's task never authorized changing THIS SPECIFIC hook"* — alors que le brief nommait explicitement le hook concerné. Un hook sécu voisin = « non autorisé » indépendamment du brief textuel.
+
+**Workarounds** : Raphael lève le mode (Shift+Tab) → les `Edit` passent immédiatement, puis l'agent rejoue. OU `.proposed` + renommage manuel. JAMAIS contourner (cf [[delegate-guard-pattern]]).
+
+Distinct scope project/user : [[self-modification-user-scope-passe]] (settings.json user-scope passe) ne s'étend PAS aux hooks sécu — un hook du repo courant est bloqué quel que soit le scope.
+
+## Windows — bug antislash dans settings.json (hooks)
+
+**Confirmé 2026-05-22** : dans `settings.json`, ne JAMAIS utiliser de chemin Windows avec antislashes échappés (`"C:\\\\Users\\\\..."`) pour les `command` de hooks. Bash Git Bash mange les antislashes → chemin cassé (`C:Usersraphael...python.exe: command not found`).
+
+**Solution cross-machine** : `py` (Python launcher Windows PEP 514). Pas de chemin en dur, pas de username.
+
+```json
+"command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/X.py\""
+```
+
+Sur macOS/Linux : `python3` ou shebang + chmod +x (py n'existe pas). Cf [[windows-hooks-doctrine]].
+
 ## Gotcha
 
 **Le classifier ne peut pas être désactivé**. Si tu lances en mode auto et qu'il bloque, les seules options sont :

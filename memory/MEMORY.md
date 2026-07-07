@@ -1,25 +1,14 @@
 # Memory Index
 
 ## Feedback
-- [advisor-da-web-search](feedback_advisor_da_web_search.md) — Rechercher web AVANT advisor/DA si fait technique incertain
-- [allowed-tools-pas-allowlist](feedback_allowed_tools_pas_allowlist.md) — `allowed-tools` skill = pré-approbation, PAS allowlist restrictive (tous outils restent callable). Source Anthropic. Un faux P0 d'agent auditeur reposait dessus
-- [argument-hint-champ-officiel](feedback_argument_hint_champ_officiel.md) — `argument-hint` = champ frontmatter OFFICIEL Anthropic (slash commands). Ne jamais le signaler comme erreur d'audit. Checklist locale mise à jour.
-- [skills-externes-intouchables](feedback_skills_externes_intouchables.md) — Skills externes (kepano) = NE JAMAIS modifier le SKILL.md. Déclenchement = .skill-triggers.json uniquement.
-- [allowed-tools-verif-empirique](feedback_allowed_tools_verif_empirique.md) — Vérifier allowed-tools par grep du body avant de déclarer la liste complète.
-- [amende-vs-pivot-couche-factuelle-design](feedback_amende_vs_pivot_couche_factuelle_design.md) — Avant de crier « pivot doctrinal » sur une update Anthropic, séparer couche FACTUELLE (prémisse « impossible ») de couche DESIGN (reco « session orchestre »). Si seule la possibilité technique change → AMENDE ciblée, pas pivot. Cas v2.1.172 sous-agents imbriqués
 - [registre-relais-agents](feedback_registre-relais-agents.md) — HYPOTHÈSE (à valider 2-3 cas) : registre léger « op coûteuse X faite → artefact Y », 1 ligne/op, consulté AVANT op coûteuse pour éviter le doublon multi-agent. Net-neuf de la note-hub [[relais-inter-agents-fiable]] ; distinct de [[idee-compounding-retroactif]] (transcripts passés)
 - [ccnews-structure-vault-provider-drift](feedback_ccnews_structure_vault_provider_drift.md) — Drift routage skill↔SCHEMA RÉSOLU 29 juin (cc-news/forge-brain/veille/vault-audit alignés convention fournisseurs). Leçon générale : lire le SCHEMA réel avant de capitaliser, pas le routage figé de la skill
-- [search-brain-large-avant-creer-note](feedback_search_brain_large_avant_creer_note.md) — Avant create_note, search_brain sur le CONCEPT SEUL (terme large), pas la requête composée du run. Requête étroite rate la note existante → doublon (cas harness-engineering, 16 juin). mcp-alias-guard = dernier filet, pas le premier
 - [audit-completude-pointeur-vs-orphelin](feedback_audit_completude_pointeur_vs_orphelin.md) — Audit complétude index/roadmap : un wikilink non résolu localement peut pointer vers une note existante ailleurs. search_brain chaque cible avant de la compter orpheline, sinon surcompte le backlog (60→41 réels)
-- [askuserquestion-arbitrage-destructif](feedback_askuserquestion_arbitrage_destructif.md) — Actions destructives multiples = AskUserQuestion item par item, jamais en bloc. Permet corrections contextuelles
 - [audit-prompt-adaptatif-par-couche](feedback_audit_prompt_adaptatif_par_couche.md) — Auditer des prompts d'archi adaptative = par COUCHE (statut de chargement : core toujours-chargé strict vs L3a/conditional à-la-demande tolérant), jamais à plat. Lire blueprint.py (conditional_rules) + chaque prompt en entier. Script qui compte des balises = fausse précision (compter ≠ juger ; `_disabled` ≠ mort pour tous les agents). Skills prompt fusionnées si repo mono-provider (neo_ia 100% Gemini)
-- [audit-thematique-methode-sub-agents-clusters](feedback_audit_thematique_methode.md) — Audit vault : sub-agents par CLUSTER, checkpoint A avant B, self-verify avant D
 - [brief-premisse-fausse-verifier-avant-executer](feedback_brief_premisse_fausse_verifier_avant_executer.md) — Brief peut poser prémisse fausse. Vérifier matériellement avant d'exécuter, surfacer si fausse
 - [capitaliser-methode-pas-que-resultat](feedback_capitaliser_methode_pas_que_resultat.md) — Après un chantier redéployable, capitaliser la MÉTHODE (recette déploiement + routage dans la skill créatrice), pas que le RÉSULTAT (note de design). Sinon un futur repo re-réinvente. Prouvé 3× (16 juin)
 - [carte-blanche-commit-push-tranche-pas-revalider](feedback_carte_blanche_commit_push.md) — "Carte blanche" = exécuter direct sans re-valider note par note
-- [changer-mecanisme-lire-tests-qui-verrouillent](feedback_changer_mecanisme_lire_tests_qui_verrouillent.md) — Avant de changer un mécanisme/contrat (canal de lecture, import, symbole loggé), lire les TESTS qui le verrouillent (patch/grep-source/import), pas que le fichier. 9 tests cassés sur fix Langfuse neo_ia (17 juin)
 - [ccnews-confronter-existant](feedback_ccnews_confronter_existant.md) — cc-news confronte chaque finding à l'existant (notes vault + skills/agents/hooks/rules) et agit, pas juste résumer
-- [claim-security-must-be-provable](feedback_claim_security_must_be_provable.md) — Claim sécu read-only prouvable par code, sinon by discipline pas by construction
 - [classification-type-ticket-jira](feedback_classification_type_ticket_jira.md) — Classer un ticket par sa NATURE (FEATURE/BUG/OPTIMISATION), jamais par mimétisme
 - [commit-push-check-pattern](feedback_commit_push_check.md) — "regarde commit et push" = git status + diff avant push, jamais push aveugle
 - [config-repo-equipe-vs-forge](feedback_config_repo_equipe_vs_forge.md) — Configurer un repo d'ÉQUIPE PARTAGÉ ≠ transplanter la machinerie forge : skills auto-portantes (refs docs repo, pas wikilinks vault/MCP forge-brain), hooks non-bloquants, pas de delegate-guard. Convertir commands legacy avant suppression
@@ -28,11 +17,7 @@
 - [couper-loops-decision-fatigue](feedback_couper_loops_decision_fatigue.md) — Après validation, trancher vite. 2 signaux : boucle "es-tu parfait" + session longue. Cap 3 advisor
 - [cross-repo-write-main-session-only](feedback_cross_repo_write_main_session.md) — Session forge a write cross-repo, sub-agents bloqués. Ne pas déléguer fixes cross-repo
 - [creator-reorganise-design-verrouille](feedback_creator_reorganise_design_verrouille.md) — skill/agent-creator réorganise/dilue un design verrouillé avec l'user. Vérifier bloc par bloc vs design validé, briefer "ne pas réinterpréter"
-- [deep-research-skill-workflow-optin](feedback_deep_research_skill_workflow_optin.md) — Skill deep-research = harness Workflow, exige opt-in explicite (ultracode). Sinon WebSearch/WebFetch manuels parallèles
-- [user-invocable-orthographe](feedback_user_invocable_orthographe.md) — Champ frontmatter skill = `user-invocable` (avec c), PAS user-invokable. Source Anthropic. 37 fichiers forge avaient la faute (fixés 3 juin). Vérité ≠ consensus interne
-- [delegate-guard-env-var-blocked](feedback_delegate_guard_env_var_blocked.md) — Bypass CLAUDE_AGENT impossible auto-mode. Edit manuel ou Shift+Tab
 - [diagnostic-empirique-avant-affirmer-une-garde](feedback_diagnostic_empirique_avant_affirmer_garde.md) — Avant d'écrire qu'une garde existe (deny/hook), la vérifier + citer la preuve
-- [doctrine-drift-silent-regression](feedback_doctrine_drift_pattern.md) — Doctrine annulée par MEMORY/RECAP non purgés. Solution = [[methode-pivoter-doctrine]]
 - [ia-back-postgresjs-stack-drift-pattern](feedback_drizzle_postgresjs_drift.md) — Migration code ≠ migration .claude/. Grep stack OLD vs NEW (Drizzle→postgres.js)
 - [ecart-consigne-chiffree-surfacer](feedback_ecart_consigne_chiffree_surfacer.md) — Écart à consigne chiffrée = surfacer pour arbitrage, jamais juger acceptable en silence
 - [ecrire-partout-invoquer-skill-creatrice](feedback_ecrire_partout_invoquer_skill_creatrice.md) — Forge écrit cross-repo MAIS invoque TOUJOURS la skill créatrice (SKILL.md/agent/hook/CLAUDE.md jamais à la main), même hors forge — le delegate-guard forge ne fire que sous forge/ (trou cross-repo). Incident migration_script 24 juin
@@ -40,27 +25,19 @@
 - [eval-trio-angles-complementaires](feedback_eval_trio_angles_complementaires.md) — Éval forge = TRIO (skill-evolve fin / forge-review stratégique / outcomes-test rubric). Chercher 3 angles avant conclure gap
 - [feedback-reviole-3x-regle-insuffisante](feedback_feedback_reviole_3x_regle_insuffisante.md) — Feedback re-violé ≥3× = règle insuffisante. Réflexe pré-action ou garde-fou structurel
 - [git-C-pas-cd-multi-repo](feedback_git_C_pas_cd.md) — TOUJOURS git -C <path>, jamais cd && git. CWD persiste entre Bash calls
-- [hook-vs-harness-permission-distinction](feedback_hook_vs_harness_permission_distinction.md) — Bypass hook ≠ bypass harness. Vérifier debug log avant patcher. Bash(py -c) contourne
 - [jarvis-innovator-mindset](feedback_jarvis_innovator.md) — Contrat Jarvis : partenaire, anticiper, innover, évoluer, franc, autonome, proactif
-- [llm-deep-research-version-numbers-hallucinated](feedback_llm_deep_research_version_numbers.md) — Claims numériques précis (versions, dates, ⭐) de Gemini/ChatGPT deep research = hallucinations. WebFetch source primaire AVANT d'agir. Fait qualitatif peut être vrai même si chiffres faux.
-- [lire-fichier-entier-avant-verdict](feedback_lire_fichier_entier_avant_verdict.md) — JAMAIS verdict (doublon/subsumé/supprimer) sur lecture partielle. Trouvé un fichier à évaluer → le lire EN ENTIER, PUIS conclure. Asymétrie (canonique entière vs source 30L) interdite
 - [localiser-repos-avant-workflow-multi-repo](feedback_localiser_repos_avant_workflow_multi_repo.md) — Avant audit/workflow fan-out multi-repo, localiser empiriquement chaque repo (ls */.claude). neo_ia + ia_back sous Documents\neot-v2\, pas à la racine
 - [preference-modele-opus-4-8](feedback_preference_modele_opus.md) — Raphael : Opus 4.8 préféré, 4.6 repli, JAMAIS 4.7 (jugé moyen). Défaut modèle Opus = claude-opus-4-8
 - [mcp-alias-ambigu-chemin-exact](feedback_mcp_alias_ambigu_chemin_exact.md) — MCP append_note/read par alias court résout faux si stem partagé. Chemin exact
-- [measure-before-optimize-tests](feedback_measure_before_optimize.md) — Avant optim tests, mesurer --durations : trop de tests vs chaque test lent
 - [mcp-transport-stdio-http-crashloop](feedback_mcp_transport_stdio_http_crashloop.md) — FastMCP crash loop systemd + nginx 502 = transport stdio au lieu de http. Lire les logs AVANT de soupçonner l'OAuth (biais du dernier changement)
 - [multiedit-matcher-blind-spot-hooks](feedback_multiedit_matcher_blind_spot.md) — Hooks PreToolUse Write|Edit sans MultiEdit = trou. TOUJOURS le triplet
 - [never-pure-executor](feedback_never_pure_executor.md) — JAMAIS mode exécutant pur, posture Jarvis active même sur prompts directifs/QA
-- [no-cto-orchestrator-agent](feedback_no_cto_agent.md) — JAMAIS d'agent orchestrateur. Session principale orchestre via rules
-- [obsidian-optionnel-forge](feedback_obsidian_optionnel_forge.md) — forge-brain : Obsidian optionnel (GUI humaine seule), MCP couvre toutes les ops agent, débranché de fait depuis ~30/05. obsidian-cli supplanté
 - [org-blocks-github](feedback_no_github_cloud.md) — Orga Team bloque GitHub, pas de triggers cloud, tout en local Task Scheduler
 - [opus47-workflow-decisions](feedback_opus47_workflow.md) — xhigh RÉSERVÉ architect/dev-lead/refactor-pg. high partout ailleurs
 - [ratio-empirique-doublons-memory-vault-pilote](feedback_ratio_empirique_doublons_memory_vault.md) — Pilote 29 fichiers = 38% doublons vault. Ancre seuils hook saturation (WARNING 80, CRITICAL 100) et cible ≤100 fichiers
-- [pas-de-meta-commentaire-doctrine-composants](feedback_pas_de_meta_commentaire_doctrine.md) — JAMAIS justification/source/meta dans hook/agent/skill/CLAUDE.md. Le pourquoi → vault
 - [plugin-admin-absorbe-readonly](feedback_plugin_admin_absorbe_readonly.md) — Plugin admin (write) absorbe fonctionnellement read-only. Desinstaller le read-only sans perte (gain tokens). Verifier allowed-tools de chaque skill
 - [pas-de-wakeup-pour-agents-background](feedback_pas_de_wakeup_pour_agents_background.md) — Ne JAMAIS programmer un ScheduleWakeup pour attendre mes propres agents background (le harness notifie déjà à leur fin). Wakeup = travail externe non-tracké uniquement (CI, déploiement, poll externe)
 - [present-before-build](feedback_present_before_build.md) — Présenter le plan AVANT construire, jamais créer sans validation Raphael
-- [proactive-references-extraction](feedback_proactive_references.md) — Déporter dans references/ proactivement dès l'ajout, pas attendre 500L
 - [python-path-windows-hooks](feedback_python_path_windows.md) — Windows : chemin absolu Python313 dans hooks, jamais "python" seul
 - [recurring-meta-anti-pattern](feedback_recurring_meta_anti_pattern.md) — Workaround ≥ 2 fois = bug. AVANT refonte structurelle, lister cran 1/2/3
 - [regression-diagnostic-diff-avant-redesign](feedback_regression_diagnostic_diff_avant_redesign.md) — Régression à point d'introduction connu = diff AVANT redesign. Ne pas anchrer sur l'hypothèse user "trop gros". Asymétrie read/write runtime. Write-path résolu dans TOUS les points d'entrée
@@ -74,10 +51,7 @@
 - [tag-projet-nom-repo-exact](feedback_tag_projet_nom_repo_exact.md) — Tag projet = nom EXACT du repo (neo_ia, ia_back, claude-forge), jamais de normalisation cosmétique du séparateur. Vérifier nom réel (disque + git remote) avant fusion
 - [test-writer-systematic](feedback_test_writer_systematic.md) — RÉVISÉ 22 mai : MAX 3 tests/comportement, REFACTOR supprimée, effort high
 - [use-brain-skills-not-grep](feedback_use_brain_skills.md) — Questions métier/décisions = skill `/neoteem-brain-dev-ia:neo-brain-dev-ia` (forge : MCP NeoBrain direct autorisé par Raphael), jamais grep manuel. Interroger le brain À FOND avant toute taxonomie/décision métier (domaines back-ts = Damier Lojii + 01-Domaines + MOC-BDD, 10 juin). Skill/source NOMMÉE par Raphael = l'invoquer VISIBLEMENT dès le 1er tool call, même en plan mode — jamais « je le ferai à l'exécution »
-- [vault-edit-gotchas-outillage](feedback_vault_edit_gotchas_outillage.md) — delegate-guard faux positif sur note vault agents-*.md (utiliser MCP, pas Edit) + insert_section misparente après header nu (viser marker précis) + Edit disque direct désynchronise l'index SQLite (réindex au poll 30s seulement → toujours MCP)
-- [vault-quality-standard](feedback_vault_quality_standard.md) — Vault forge-brain = standard neoteem-brain : 5-6 aliases, wikilinks, templates
 - [verify-exhaustive-claims](feedback_verify_exhaustive_claims.md) — Grep de validation AVANT toute déclaration exhaustive (zéro, tous, aucun, complet)
-- [workflow-spec-forge-jira-tickets](feedback_workflow_spec_forge_jira.md) — Workflow : idée → forge challenge → /spec repo → tickets Jira. Spec=technique, Jira=process
 - [zero-dette-technique-nettoyer-completement](feedback_zero_dette_technique.md) — Dette/drift/réf morte découverte = nettoyage COMPLET immédiat, jamais plus tard
 
 ### Archive de référence — tier-2 (125 feedbacks)
@@ -97,37 +71,19 @@
 - [raphael-picard-full-profile](user_raphael_profile.md) — Profil holistique : Lead IA Neoteem, 36 ans, parcours atypique, gamer, vision expert IA reconnu
 
 ## Reference
-- [vault-edit-gotchas-outillage](feedback_vault_edit_gotchas_outillage.md) — 3 gotchas écriture vault : delegate-guard bloque l'Edit direct des notes `agents-*.md` (match par nom → utiliser MCP insert_section/update_note) ; insert_section insère après la LIGNE du header, pas la section (misparente → viser un marker précis) ; Edit disque direct désynchronise l'index SQLite (réindex au poll 30s seulement → toujours éditer le contenu vault via MCP)
-- [pdf-chrome-headless-charte](reference_pdf_chrome_headless_charte.md) — Générer PDF pro via Chrome headless (--no-pdf-header-footer) + Poppler + charte Neoteem. Gotchas pages blanches/tables/flag en-têtes
-- [enableallprojectmcp-couvre-tool-level](reference_enableallprojectmcp_couvre_tool_level.md) — enableAllProjectMcpServers:true + serveur dans .mcp.json auto-approuve les outils MCP au niveau TOOL sans prompt. Lister mcp__server__tool dans permissions.allow = redondant. Vérifié empiriquement (retrait list_notes → appel OK sans prompt, 27 mai). Distinct de mcp-wildcard (frontmatter agent/skill).
-- [skills-metadata-tokens-load](reference_skills_metadata_tokens_load.md) — Claude Code charge name+description de TOUTES les skills installées au démarrage. 49 forge + 35 plugins = 6.8k tokens. Cap desc 250-300 chars = levier optim contexte
-- [plugins-scoping-mecanisme](reference_plugins_scoping_mecanisme.md) — Plugins scope via "scope" dans installed_plugins.json (user/project/local) + enabledPlugins settings.json. Marketplace declaration + Plugin:* auto-charge sans enabledPlugins (gotcha obsidian-skills). Cache plugin consommé par statusline même disabled → grep installPath avant désinstaller (gotcha claude-hud)
-- [self-modification-user-scope-passe](reference_self_modification_user_scope_passe.md) — Auto-mode classifier bloque .claude/settings.json du repo courant, mais ~/.claude/settings.json user-scope PASSE en Edit direct. Distinction project vs user critique
 - [bashrc-bind-warnings-non-interactive](reference_bashrc_bind_warnings.md) — Warnings bind readline sans garde `[[ $- == *i* ]]`
-- [python-windows-cross-machine](reference_python_windows_cross_machine.md) — Hooks Windows : py launcher, path absolu, antislashes JSON
-- [agent-type-hook-detection](reference_agent_type_hook_detection.md) — Hooks : `agent_id` = discriminant sub-agent officiel (agent_type insuffisant — présent aussi en --agent main), JAMAIS CLAUDE_AGENT env
-- [mcp-tool-prefix-nom-serveur](reference_mcp_tool_prefix_nom_serveur.md) — Préfixe tool MCP = NOM du serveur (.mcp.json) ou du connector, jamais le nom d'affichage. Doublon d'URL = serveur masqué (dedup claude.ai). Vérifier `claude mcp list` avant de câbler. Cas ia-workbench 18 juin
-- [mcp-forge-brain-lifecycle-gotchas](reference_mcp_forge_brain_lifecycle_gotchas.md) — 2 gotchas cycle de vie MCP forge-brain : recharger le code = kill port 8091 + NOUVELLE session (autostart au SessionStart only) ; register_tools non testé si tests appellent BrainTools direct → exercer via `_list_tools`/`call_tool` sans binder le port
 - [neo-brain-pattern](reference_obsidian_query_brain.md) — Pattern neo-brain : wrapper CLI + skill + knowledge-first routing
 - [subagent-permissions-limitation](reference_subagent_permissions.md) — v2.1.101 : worktree+MCP OK, permissions.allow toujours non hérité
-- [diff-crlf-faux-positif-audit](reference_diff_crlf_faux_positif_audit.md) — Audit copies cross-repo Windows : md5sum/diff crient DIFFÉRENT sur contenu identique (CRLF vs LF). Re-diff `--strip-trailing-cr` AVANT verdict de divergence. Symétrique read-path de [[gate-zero-diff-test-live-byte-exact]] (write-path)
 - [discord-webhook-jarvis](reference_discord_webhook.md) — Webhook Discord #veille-tech pour notifications Jarvis (JAMAIS commit)
 - [forge-brain-vault](reference_forge_brain_vault.md) — Vault Obsidian forge-brain, priority 1 des sources
 - [acceptedits-bug-anthropic-since-v2179](reference_acceptedits_bug.md) — Bug acceptEdits prompte depuis v2.1.79. Workaround = Auto mode
-- [claude-code-architecture](reference_claude_code_architecture.md) — Structure .claude/ : rules, agents, skills, settings
 - [anthropic-skills-plugin](reference_anthropic_skills_plugin.md) — 16 skills officielles (pdf, skill-creator, mcp-builder, etc.)
 - [obsidian-cli-windows](reference_obsidian_cli_windows.md) — Windows Git Bash résout Obsidian.exe au lieu de .com, wrapper obligatoire
 - [gchat-webhooks](reference_gchat_webhooks.md) — Webhooks Google Chat ia_back + neo_ia + neoteem-brain
-- [prompt-engineering-2026](reference_prompt_engineering_2026.md) — Context engineering dominant, emphasis OK skills/rules
 - [techniques-cheatsheet](reference_techniques_cheatsheet.md) — Cheat sheet : meilleure technique par besoin
-- [plugin-cache-bug](reference_plugin_cache_bug.md) — Bug cache plugin CC, workaround = bumper version
 - [code-dev-agent](reference_python_dev_agent.md) — Agent code-dev (remplace python-dev) : multi-stack, hook PostToolUse code-lint-dispatch. Pattern TDD + 4 modes conservé
 - [boris-thariq-bestpractices](reference_boris_thariq_bestpractices.md) — Best practices Boris+Thariq+Anthropic : agents, skills, rules, CLAUDE.md
 - [workarounds-contraintes-session-forge](reference_workarounds_session_constraints.md) — Machine forge : gh absent, x.com 402, HEREDOC Windows
 - [eliott-meunier-prisme-one](reference_eliott_meunier_prisme.md) — Prisme One : ontologie par utilité, /done, contexte holistique
-- [auto-mode-classifier](reference_auto_mode_classifier.md) — Classifier auto : bloque scope escalation + self-mod + destructif
 - [repo-scope-guard-hook](hook_repo_scope_guard.md) — Triplet auth-detector+repo-scope-guard+auth-cleanup : repos neot-v2/
-- [permissionmode-enum-valid-values](reference_permissionmode_enum_valid_values.md) — permissionMode = default|acceptEdits|auto|dontAsk|bypassPermissions|plan (doc officielle 9 juin). Parent auto mode = frontmatter ignoré
-- [skills-preload-subagents](reference_skills_preload_subagents.md) — `skills:` agent project-scope = préchargement CONTENU COMPLET au démarrage (pas décoratif) ; ne pas lister `Skill` dans tools pour ça ; references/ non préchargés
 - [transcrire-video-native-x](reference_transcrire_video_native_x.md) — Vidéo native X (pas YouTube) : x-read JSON → URLs MP4 → curl → ffmpeg WAV 16k → faster-whisper small. /watch ne couvre pas X
-- [worktree-natif-vs-convention-develop](reference_worktree_natif_vs_convention_develop.md) — Sessions parallèles par US = `claude -w` natif + skill pipeline qui gère la branche (fetch+switch depuis origin/develop). 4 briques par repo : .worktreeinclude (.env/certs/settings.local.json) + .gitignore + skill worktree-aware + README. Déployé neoteem-back-ts 11 juin

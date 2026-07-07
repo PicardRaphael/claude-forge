@@ -240,6 +240,8 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (agent orchestran
 
 ---
 
+> ⚠️ **Correction doc officielle 9 juin 2026** (source : code.claude.com/docs/en/sub-agents) : pour les **agents project-scope du repo courant**, `skills:` frontmatter précharge le **CONTENU COMPLET** de chaque skill dans le contexte du sub-agent au démarrage (« The full skill content is injected, not just the description »). La Cause 2 ci-dessous et la table Héritage (« précharge les *descriptions* seulement ») sont **périmées pour ce scope**. Limitations toujours vraies dans leurs contextes : Agent Teams teammates (skills frontmatter ignorées) et agents user-scope cross-repo (skills non résolues) — cf [[pattern-mcp-brief-then-direct]]. **Conséquence pratique** : agent project-scope avec `skills:` → body dit « skills préchargées, applique-les » + pointer uniquement les `references/` non préchargés. Ne PAS ajouter `Skill` aux `tools:` pour le préchargement (inutile) — seulement si l'agent doit invoquer d'autres skills à la demande. Skills avec `disable-model-invocation: true` non préchargeables ; skill manquante = warning debug log, skip silencieux.
+
 ## POURQUOI un subagent n'invoque pas ses skills — 3 causes cumulées
 
 Le problème le plus fréquent. Source : research LLM juin 2026 + empirique forge.
@@ -560,6 +562,7 @@ Un agent généré par `agent-creator` doit adapter ses mécanismes selon l'envi
 - **Modèle IDs exacts** : sonnet→`claude-sonnet-4-6`, opus→`claude-opus-4-7`, haiku→`claude-haiku-4-5`
 
 ### Pièges permissions
+- **agents de plugins** : `hooks`, `mcpServers`, `permissionMode` sont **ignorés pour les agents de plugins** (sécurité) — s'applique uniquement aux agents `.claude/agents/` du repo courant.
 - **`permissionMode` OBLIGATOIRE** côté forge — sans, auto-mode bloque (cf [[feedback_permissionmode_mandatory]])
 - **`permissions.allow`** : non hérité par sub-agents (cf [[reference_subagent_permissions]])
 - **Worktree access + MCP tools** : OK depuis v2.1.101
@@ -954,6 +957,16 @@ Cohérent avec Boris (« give Claude a way to verify its work » = un check CIBL
 ---
 
 ## AJOUT 16 juin 2026 — AMENDE : sous-agents imbriqués POSSIBLES (v2.1.172) — la table de capacités est périmée
+
+### Coût économique — pourquoi l'anti-pattern reste valide (couche design, amendé 18 juin 2026)
+
+Depuis v2.1.172, le nesting n'est plus une impossibilité technique. La reco « pas d'agent orchestrateur » reste valide pour une raison **économique vérifiée** : multi-agents = **+200-500% de tokens** (incidents réels documentés 8-47k$). Sur abonnement, chaque agent parallèle consomme le quota Nx plus vite.
+
+- **Profondeur utile réelle = 2-3, jamais 5** (verbatim Boris + retours prod) — le nesting est fait pour gérer le contexte (pousser le bruit loin de la conversation), PAS pour orchestrer.
+- **Pour orchestrer BEAUCOUP d'agents** (ex. loop multi-stories) → outil **Workflow** (orchestration hors-contexte), pas un arbre d'agents imbriqués.
+- Session principale + CLAUDE.md = orchestrateur ; agents = travailleurs spécialisés. Pattern Boris testé 5 fois.
+
+Source : [[feedback_no_cto_agent]] — amende couche FACTUELLE 18 juin 2026. Cf [[amende-vs-pivot-couche-factuelle-design]].
 
 > Cette note est la **source amont** du claim « pas de subagents imbriqués » (citée par [[anti-reentrance-sub-agents-pattern-escalade]], `subagent-creator` SKILL, [[limites-subagents-claude-code]]). Corrigée ici pour éviter le drift résiduel. Source primaire : [code.claude.com/docs/en/sub-agents](https://code.claude.com/docs/en/sub-agents) + changelog v2.1.172.
 

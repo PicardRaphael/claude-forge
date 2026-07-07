@@ -61,6 +61,20 @@ Sur la **mémoire structurée, la conformité par construction et la traçabilit
 
 ## Où Hermes gagne (honnêteté)
 
+## Méthode — comparaison concurrentielle : code source, jamais marketing
+
+Cf [[audit-puis-vagues-paralleles]], [[stars-github-drift]].
+
+Pour toute future veille concurrentielle (cf [[phase-4-comparaison-hermes-roadmap]]) :
+
+1. **Cloner les repos** (`--depth 1`), vérifier stars/dates via `gh api` ou API GitHub — les chiffres SEO dérivent (ex. "140k" → 169 296 réelles).
+2. **Identifier le fichier source de chaque axe marketing AVANT toute prose.** Si un axe n'a pas de fichier identifiable → signal marketing > code.
+3. **Déléguer la lecture profonde à des agents Explore par axe** (contexte principal propre, workflow Boris).
+4. **Ne pas confirmer l'hypothèse de positionnement — la tester.** Laisser les données décider de l'asymétrie.
+5. **Question discriminante mémoire/apprentissage** : QUI décide quoi capitaliser, et l'humain peut-il auditer/corriger après coup ? (contrôle vs automatisation).
+
+Leçon Phase 4 (2026-05-27) : l'hypothèse de départ "Hermes brille sur l'async, forge sur la mémoire" était fausse — le marketing Hermes ciblait précisément les axes prioritaires de forge. Seule la lecture du code a départagé : `file_safety` explicitement "NOT a security boundary", GEPA = POC hors runtime, `MEMORY.md` plat 2200 chars.
+
 - Recherche dans les transcripts de sessions passées (`session_search`) — gap réel pertinent, à combler (plan A1).
 - Lifecycle/usage tracking des skills (curator) — gap réel, P2.
 - Vitesse de capitalisation (background review automatique) — couverture supérieure, à importer sans l'autonomie (plan A3).

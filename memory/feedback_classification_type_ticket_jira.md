@@ -13,4 +13,4 @@ Avant de créer un ticket Jira IA, classer par la nature réelle du travail, pas
 ## Lien
 
 - [[feedback_spec_trous_structurels_a_checker]] — autres trous structurels à checker en audit spec
-- [[feedback_workflow_spec_forge_jira]] — workflow idée → forge → /spec → tickets Jira
+- [[pattern-spec-driven-development]] — workflow idée → forge → /spec → tickets Jira

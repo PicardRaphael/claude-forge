@@ -25,6 +25,19 @@ tags:
 | Thinking | Adaptive supporté |
 
 ## Quand utiliser
+## Paramètre effort
+
+Sonnet 4.6 est le **premier Sonnet à supporter `effort`**. Niveaux : `low` / `medium` / `high` / `max`. Défaut = `high`.
+
+> *"Effort is supported on Opus 4.7, Opus 4.6, and Sonnet 4.6. Sonnet 4.6 is the first Sonnet model to support the effort parameter."* — Anthropic
+
+- `xhigh` exclusif Opus — si posé sur Sonnet → fallback automatique vers `high`
+- Précédence : env var > `--effort` flag > frontmatter > parent default
+- Agents Sonnet **mécaniques** (scan, maintenance, inspection) → `medium` ou `low` (économie tokens)
+- Agents Sonnet **code complexe** (dev) → garder `high`
+- JAMAIS retirer `effort:` du frontmatter Sonnet (paramètre actif, pas ignoré)
+
+Voir aussi [[Opus 4.7]] pour `xhigh` et calibrage par type de tâche.
 
 - Subagents Claude Code par defaut (`model: sonnet`)
 - **effort: high OBLIGATOIRE** — jamais medium
