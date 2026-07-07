@@ -13,4 +13,4 @@ Quand on câble un outil MCP dans `allowed-tools` (skill) ou `tools:` (agent), l
 
 **Réflexe avant de câbler un MCP dans une skill/agent** : vérifier le NOM réel du serveur (`claude mcp list` ou la clé du `.mcp.json`), pas supposer depuis le nom d'affichage. Vérification empirique seulement en session fraîche (les MCP ne se rechargent pas en cours de session).
 
-Lié : [[mcp-wildcard-syntax-officielle]] (wildcard `mcp__server__*` suffit, jamais lister les tools) · [[enableallprojectmcp-couvre-tool-level]].
+Lié : [[comment-creer-skill]] (wildcard `mcp__server__*` suffit, jamais lister les tools) · [[enableallprojectmcp-couvre-tool-level]].

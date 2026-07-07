@@ -78,7 +78,7 @@ Via agents spécialisés ou Edit/Write. Capitaliser :
 
 - ❌ Skipper A = "code that solves the wrong problem" (Anthropic)
 - ❌ Lire canoniques avant analyser = biais de perception
-- ❌ `search_brain` seul = audit sur mémoire session, pas source vérité (cf [[feedback_lire_canoniques_avant_audit]])
+- ❌ `search_brain` seul = audit sur mémoire session, pas source vérité (cf [[methode-analyser-repo]])
 - ❌ Édit direct au lieu de déléguer aux agents spécialisés (delegate-guard bloque)
 
 ## Exemple — "Optimise la skill /xxx"

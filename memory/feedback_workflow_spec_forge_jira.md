@@ -16,4 +16,4 @@ Cf [[pattern-spec-driven-development]] (doctrine : SDD interview→SPEC→execut
 - **2026-05-27, split /go ≠ /ship** : /go vérifie (typecheck + tests + review + changelog) puis STOP ; /ship commit+push quand Raphael décide. Checkpoint humain entre les deux.
 - **2026-05-27, décisions outillage** : Pas de skill /dev — le routing (agent-delegation ia_back / agent-routing neo_ia) orchestre déjà. `architect-quick` = skill `architect-sanity-check` (PAS un agent), mode S de architect-deep pour léger. Nettoyage dette architect-quick appliqué sur les 2 repos.
 
-Lien : [[feedback_lire_canoniques_avant_audit]], [[erreur-vault-jamais-consulte-session-principale]], [[feedback_spec_trous_structurels_a_checker]].
+Lien : [[methode-analyser-repo]], [[erreur-vault-jamais-consulte-session-principale]], [[feedback_spec_trous_structurels_a_checker]].

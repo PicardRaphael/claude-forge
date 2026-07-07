@@ -14,4 +14,4 @@ Quand on compare des copies d'un même fichier entre repos sur Windows (audit de
 2. Re-comparer en neutralisant les EOL : `diff --strip-trailing-cr a b` (ou `git diff --ignore-cr-at-eol`, ou normaliser avant `md5sum`).
 3. Le verdict « identique / divergent » se prononce sur le diff EOL-neutre, jamais sur le MD5/diff brut.
 
-Symétrique du write-path : [[gate-zero-diff-test-live-byte-exact]] (la couche IO Python `write_text` TRADUIT `\n`→`\r\n` à l'écriture). Ici c'est le READ/COMPARE-path qui ment. Même racine (EOL Windows), deux moments différents : l'un casse l'écriture byte-exact, l'autre casse l'audit de comparaison.
+Symétrique du write-path : [[decision-byte-for-byte-splice-test-live]] (la couche IO Python `write_text` TRADUIT `\n`→`\r\n` à l'écriture). Ici c'est le READ/COMPARE-path qui ment. Même racine (EOL Windows), deux moments différents : l'un casse l'écriture byte-exact, l'autre casse l'audit de comparaison.

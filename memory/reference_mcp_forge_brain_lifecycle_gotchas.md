@@ -27,7 +27,7 @@ Les tests forge appellent `tools.update_note(...)` sur l'instance `BrainTools` �
 
 API FastMCP 2.x vérifiée empiriquement (Python 3.14, 7 juin) : `get_tools` n'existe pas ; `_list_tools`/`call_tool` sont des coroutines une fois le provider agrégé monté. Ne pas sonder `.fn`/`.func` (fragile, dérive entre versions) — passer par `call_tool` (API publique).
 
-Foyer connexe vault : [[ajouter-source-donnees-mcp-forge-brain]] (section Tests — enrichie d'un renvoi à ce gotcha). Cf aussi [[gate-zero-diff-test-live-byte-exact]] (même esprit : tester la vraie couche d'exécution, pas une approximation).
+Foyer connexe vault : [[ajouter-source-donnees-mcp-forge-brain]] (section Tests — enrichie d'un renvoi à ce gotcha). Cf aussi [[decision-byte-for-byte-splice-test-live]] (même esprit : tester la vraie couche d'exécution, pas une approximation).
 
 ## 3. Changement du PARSER (indexer) = supprimer la DB pour un reparse complet (le watcher incrémental ne suffit PAS)
 

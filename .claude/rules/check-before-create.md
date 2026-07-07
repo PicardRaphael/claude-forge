@@ -21,4 +21,4 @@ Avant toute création/modification/optimisation de composant (skill, agent, hook
 
 ## Source canonique unique
 
-La séquence A→B→C→D→E détaillée (avec cas d'usage par type de tâche, anti-patterns, exemples concrets) vit dans **`.claude/rules/sequence-canonique-modification.md`**. Cette rule (`check-before-create.md`) est un rappel court qui pointe vers la canonique — pas de duplication (cf [[feedback_single_source_truth_vault_canonique]]).
+La séquence A→B→C→D→E détaillée (avec cas d'usage par type de tâche, anti-patterns, exemples concrets) vit dans **`.claude/rules/sequence-canonique-modification.md`**. Cette rule (`check-before-create.md`) est un rappel court qui pointe vers la canonique — pas de duplication (cf [[pattern-maintenance-hybride-corpus-accumulatif]]).

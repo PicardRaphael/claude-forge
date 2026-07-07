@@ -28,4 +28,4 @@ Si harness bloque, le hook ne tourne PAS, donc le debug log ne contient RIEN. Si
 
 Liens : [[delegate-guard-env-var-blocked]], [[agent-creator-path-absolu-cross-repo]], [[skills-user-scope-pas-cross-repo]]
 
-Famille « diagnostiquer la bonne couche avant de patcher » (distinct, pas fusionné) : [[feedback_deny_global_ecrase_allow_projet]] traite la précédence deny global > allow projet ; celui-ci traite l'ordre harness-puis-hook.
+Famille « diagnostiquer la bonne couche avant de patcher » (distinct, pas fusionné) : [[erreur-deny-global-ecrase-allow-projet]] traite la précédence deny global > allow projet ; celui-ci traite l'ordre harness-puis-hook.

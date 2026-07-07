@@ -15,5 +15,5 @@ Pour toute comparaison concurrentielle (Phase 4 Hermes Agent, futures veilles), 
 1. Cloner les repos (`--depth 1`), vérifier stars/dates via `gh api` ou API GitHub (pattern [[stars-github-drift]]).
 2. Identifier LE chemin de fichier de chaque axe AVANT d'écrire la moindre prose. Si un axe marketing n'a pas de fichier identifiable → signal #1 marketing > code.
 3. Déléguer la lecture profonde à des agents Explore par axe (contexte principal propre, workflow Boris).
-4. Ne PAS confirmer l'hypothèse de positionnement — la TESTER. Laisser les données décider de l'asymétrie (cf [[pas-de-symetrie-artificielle-priorisation]]).
+4. Ne PAS confirmer l'hypothèse de positionnement — la TESTER. Laisser les données décider de l'asymétrie (cf [[audit-puis-vagues-paralleles]]).
 5. Question discriminante mémoire/apprentissage : QUI décide quoi capitaliser, et l'humain peut-il auditer/corriger après coup ? (contrôle vs automatisation).

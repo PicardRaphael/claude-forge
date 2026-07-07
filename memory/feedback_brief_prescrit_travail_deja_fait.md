@@ -47,6 +47,6 @@ Anti-pattern : "le brief dit Phase 1, je commence Phase 1" sans vérifier que Ph
 
 - [[brief-premisse-fausse-verifier-avant-executer]] — feedback voisin (prémisse fausse vs obsolète)
 - [[consolidate-searches]] — règle anti-doublon recherches
-- [[single-source-truth-vault-canonique]] — règle anti-doublon notes
+- [[pattern-maintenance-hybride-corpus-accumulatif]] — règle anti-doublon notes
 - [[pattern-mcp-brief-then-direct]] — canonique déjà à jour 28 mai
 - [[audit-lifecycle-classification-categories]] — raisonnement méta 28 mai

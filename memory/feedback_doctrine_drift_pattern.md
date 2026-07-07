@@ -31,5 +31,5 @@ La **propagation** est l'étape qui dérive systématiquement. La doctrine canon
 - [[raisonnement-22mai-doctrine-vs-enforcement]] — doctrine 22 mai
 - [[erreur-22-claims-fausses-vault-claude-code-2026-05-23]] — Incident 2 (audit thématique)
 - [[feedback_recurring_meta_anti_pattern]] — anti-pattern Jarvis (1 incident → refonte structurelle = NON, mais 3 incidents = pattern)
-- [[enforce-not-advise]] — quand promouvoir rule → hook (critères que ce hook NE remplissait PAS)
+- [[raisonnement-22mai-doctrine-vs-enforcement]] — quand promouvoir rule → hook (critères que ce hook NE remplissait PAS)
 - [[feedback_audit_thematique_methode]] — méthode validée audit sub-agents par cluster

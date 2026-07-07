@@ -15,4 +15,4 @@ Sur sujet à faible levier (cosmétique, hypothétique, "si un jour"), Raphael t
 - Anti-pattern : OSEF total sans trace = perte info à terme. OSEF + dette conditionnelle = arbitrage propre.
 - Distinct de [[feedback_zero_dette_technique]] (dette TECHNIQUE découverte nettoie immédiat) et [[pattern-mcp-brief-then-direct]] (KILL assumé sans canonique). Ici dette = arbitrage explicite reporté, pas dette involontaire.
 
-Voir aussi [[feedback_pas_de_symetrie_artificielle_priorisation]] (axes peuvent n'avoir qu'1 P0 — pas d'équilibre forcé).
+Voir aussi [[audit-puis-vagues-paralleles]] (axes peuvent n'avoir qu'1 P0 — pas d'équilibre forcé).

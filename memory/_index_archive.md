@@ -20,12 +20,9 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 - [dispatch-analyse-vs-audit](feedback_dispatch_analyse_vs_audit.md) — analyse skills/agents = project-auditor pas Explore. Multi-repo = 1 agent/repo
 - [emphasis-prompt-vs-skill](feedback_emphasis_distinction.md) — Emphasis OK dans skills/rules/agents, réduire uniquement dans tool descriptions
 - [hook-arme-perime-instructions-skills](feedback_hook_arme_perime_instructions_skills.md) — Armer un hook PreToolUse périme au runtime les instructions de skills écrites avant — grep le verbe bloqué dans le périmètre gardé
-- [hook-garde-hors-vault-bloque-plan-file](feedback_hook_garde_hors_vault_plan_file.md) — Hook bloquant écriture hors-périmètre strict attrape le plan file ~/.claude/plans/ en faux positif → plan mode cassé. Exception explicite en tête. Classifier refuse l'édit autonome du hook sécu
-- [hooks-same-stack](feedback_hooks_same_stack.md) — Hooks dans le même langage que le projet
 - [read-note-conditionnel-si-pas-deja-contexte](feedback_read_note_conditionnel_si_pas_deja_contexte.md) — Avant read_note canonique audit/jugement, vérifier si déjà en contexte session. Citer + wikilink si oui. Application directe règle tokens/contexte L19
 - [cross-repo-naming-decision-propagation](feedback_propagate_decisions_cross_repo.md) — Décisions naming/structure = propager explicitement aux autres repos
 - [skills-referenced-in-body](feedback_skills_referenced_in_body.md) — Skills en frontmatter DOIVENT être référencées dans le body avec instructions
-- [stop-hook-context-injection](feedback_stop_hook_injection.md) — Stop hook : pas de additionalContext. Utiliser decision:block+reason + once:true
 - [vault-cat-guard-faux-positif-memory](feedback_vault_cat_guard_faux_positif_memory.md) — Hook vault-cat-guard bloque cat memory/ si commande contient "vault". Edit pas Bash
 - [webfetch-avant-subagents-audit](feedback_webfetch_avant_subagents_audit.md) — Avant dispatch audit thématique : 3-4 WebFetch directs sur sources suspectes
 - [mcp-running-pas-connected-transport](feedback_mcp_running_pas_connected_transport.md) — MCP 'running' = process vivant, PAS connecté. Vérifier transport stdio vs http
@@ -43,9 +40,7 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 - [agent-vs-skill-invocation](feedback_agent_vs_skill.md) — Agents = dispatch auto. Skills = slash commands ou auto-trigger
 - [model-allocation-strategy](feedback_all_opus.md) — Sonnet pour exécution, Opus pour jugement — politique CwC 2026 validée 21 mai
 - [anthropic-doctrine-biais-full-thune](feedback_anthropic_doctrine_biais_full_thune.md) — Anthropic reco xhigh = biais tokens illimités. Calibrer par TYPE de tâche
-- [askuserquestion-sub-agent-impossible](feedback_askuserquestion_sub_agent_pattern.md) — AskUserQuestion ne marche pas en sub-agent. Pattern = ESCALADE vers session principale
 - [audit-transverse-periodique-hooks-gardes-ecriture](feedback_audit_transverse_periodique_hooks_gardes_ecriture.md) — Hooks = gardes en écriture, pas scanners. Audit transverse ponctuel reste nécessaire
-- [audit-tripartite-doctrinal-pattern](feedback_audit_tripartite_doctrinal_pattern.md) — Agent Team 3 teammates Will/ECC/Boris. Consensus 3/3 > 2/3 > désaccords priorisés
 - [audit-use-cli-validation](feedback_audit_use_cli.md) — Auditer .claude/ via CLI (agents/skills/hooks/rules list), pas juste lire les fichiers
 - [auto-violation-doctrine-fraichement-inscrite](feedback_auto_violation_doctrine_fraichement_inscrite.md) — Respecter immediatement la doctrine fraichement inscrite, pas l'oublier au tour suivant
 - [autonomy-initiative-rule](feedback_autonomy_rule.md) — Si advisor+DA valident → agir sans demander. Proposer innovations proactivement
@@ -56,22 +51,17 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 - [coach-proactif-complet](feedback_coach_proactif.md) — Proposer commandes CC, MCP, automations, raccourcis — pas juste skills/agents/hooks
 - [commit-message-no-herestring-bash-tool](feedback_commit_message_no_herestring_bash_tool.md) — Commit multi-lignes Bash tool Windows : -m répétés, jamais here-string @'...'@
 - [comparaison-concurrentielle-code-vs-marketing](feedback_comparaison_concurrentielle_code_vs_marketing.md) — Comparer à un concurrent = lire son code cloné, jamais le marketing
-- [cross-project-rules](feedback_cross_project_rules.md) — Rules forge ne s'appliquent PAS aux repos externes. Déployer hooks ou rappeler
 - [da-probe-empirique-avant-verdict](feedback_da_probe_empirique_avant_verdict.md) — DA sur prémisse falsifiable = mesurer avant de débattre. 0 hit = tuer
 - [db-immutable-check](feedback_db_immutable.md) — Vérifier que db:generate/db:migrate ne sont pas dans les agents
-- [deny-global-ecrase-allow-projet](feedback_deny_global_ecrase_allow_projet.md) — Bash refusé malgré allow projet = lire ~/.claude/ global d'abord. Deny global > allow
 - [dispatch-clusters-priority-check-mandatory](feedback_dispatch_clusters_priority_check.md) — Audit thématique : cross-check claims PRIORITÉ HAUTE AVANT dispatch
 - [doctrine-pushback-user-choice-violation](feedback_doctrine_pushback_user_choice.md) — User choisit option violant doctrine → pushback Jarvis franc avec alternative AVANT exécuter
 - [dont-prefill-files](feedback_dont_prefill_files.md) — Ne pas pré-créer les fichiers que les agents génèreront
 - [forge-skills-priority](feedback_forge_skills_priority.md) — Skills forge PRIORITAIRES sur plugins externes, mémoire en premier
-- [frontmatter-fait-foi-body-se-tait](feedback_frontmatter_fait_foi_body_se_tait.md) — Frontmatter fait foi. Body ne re-commente jamais un champ (effort, model)
 - [git-log-before-resume](feedback_git_log_before_resume.md) — Avant finir/reprendre un chantier : git log --oneline -10. Message qui matche = déjà fait
 - [glissement-jarvis-executant-sessions-longues](feedback_glissement_jarvis_executant.md) — Sessions >10 échanges = glissement exécutant. Auto-check tous 3 échanges
 - [hook-self-blocking-catch22](feedback_hook_self_blocking_catch22.md) — Hook qui scanne ses propres patterns DOIT s'auto-exclure dans EXCLUDED_SUFFIXES
-- [insert-section-apres-ligne-header-pas-section](feedback_insert_section_apres_ligne_header.md) — MCP insert_section(after) insère après la LIGNE header, pas la section. Viser before
 - [loop-brain-check](feedback_loop_brain_check.md) — /loop 1h /brain-check = monitoring passif, uniquement si projet a un Brain
 - [major-mistakes](feedback_major_mistakes.md) — Erreurs à ne pas refaire : agent CTO, routing CLAUDE.md, bricoler sans rechercher
-- [neoteem-brain-correct-path](feedback_neoteem_brain_path.md) — neoteem-brain = neot-v2/neoteem-brain, PAS Documents/neoteem-brain
 - [neoteem-brain-vault-pipeline](feedback_neoteem_brain_pipeline.md) — Pipeline complet repo-analyzer → vault-linker → sync-checker, ne pas s'arrêter à création notes
 - [obsidian-skills-sacred](feedback_obsidian_skills_sacred.md) — Jamais supprimer les skills Obsidian officielles. Le MCP complète, ne remplace pas
 - [osef-pragmatique-dette-conditionnelle](feedback_osef_pragmatique_dette_conditionnelle.md) — OSEF assumé sur sujet faible levier + dette conditionnelle tracée (≠ couper loops)
@@ -86,15 +76,10 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 - [repo-scope-read-libre-write-marker](feedback_repo_scope_read_libre.md) — Lecture cross-repo libre depuis ia_back/neo_ia, écriture garde marker
 - [roadmap-implementable-document-clear](feedback_roadmap_implementable_document_clear.md) — Plan différé = self-contained (chemin + skeleton + tests + ordre). Document & Clear
 - [routine-remote-cloud-pas-acces-local](feedback_routine_remote_vs_local_agents.md) — Routines /schedule = cloud, pas d'accès local. Skill manuelle ou Task Scheduler
-- [rules-frontmatter-mandatory](feedback_rules_frontmatter_mandatory.md) — Rules sans frontmatter description: sont mortes silencieusement. Vérifier
-- [rules-for-routing](feedback_rules_not_claudemd.md) — Routing dans .claude/rules/, PAS dans CLAUDE.md
 - [schema-mapper-not-in-forge](feedback_schema_mapper_location.md) — Composants pour autres projets = output/, pas dans .claude/
 - [secu-calibrage-pragmatique](feedback_secu_calibrage_pragmatique.md) — Risque sécu base test OK si remédiation coûteuse. JAMAIS secret commité
 - [self-modification-agent-cross-dispatch](feedback_self_modification_agent_cross_dispatch.md) — Modifier agent-creator.md = dispatcher skill-creator. Classifier bloque self-mod
-- [session-multi-chantiers-piege](feedback_session_multi_chantiers.md) — Jamais 4+ chantiers indépendants par session. Fin de session fatiguée = erreurs
 - [settings-local-env-secret-pattern](feedback_settings_local_env_secret_pattern.md) — Hooks avec secret : settings.json référence ${VAR}, settings.local.json (gitignored) définit valeur réelle. Si section env oubliée = hook silent skip sans erreur
-- [skill-structure-complete](feedback_skill_structure.md) — Skills = dossier complet (SKILL.md + scripts/ + references/)
-- [skills-in-agents](feedback_skills_in_agents.md) — Toujours injecter skills: pertinentes dans le frontmatter des agents
 - [sonnet-46-supporte-effort](feedback_sonnet_supporte_effort.md) — Sonnet 4.6 supporte effort (default high). xhigh = Opus 4.7 only, fallback auto
 - [sub-agent-invente-classifier](feedback_sub_agent_invente_classifier.md) — Sub-agent qui refuse sans tenter = rationalisation. Forcer tentative + verbatim error
 - [superpowers-decision](feedback_superpowers_decision.md) — Garder superpowers neo_ia (executing-plans L), ne pas ajouter ia_back
@@ -115,4 +100,3 @@ Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory 
 
 ## Reference (tier-2)
 - [posttooluse-hook-pas-tokens-api](reference_posttooluse_hook_limitations.md) — Hook PostToolUse voit I/O outils, PAS tokens API Claude ni attribution skill/agent
-- [search-brain-context-defaut](reference_search_brain_context_default.md) — search_brain renvoie déjà context=true avec highlights — pas besoin d'ajouter snippets

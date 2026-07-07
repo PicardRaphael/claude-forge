@@ -27,7 +27,7 @@ Coût d'attendre 7j sur outils convergents = perte d'usage pendant la fenêtre +
 Quand convergence claire (multiple cas d'usage observés dans la session OU verbalisation explicite "game-changer") :
 
 1. **Vérifier l'évidence** : 2-3 cas d'usage concrets cette session ? Oui → ship
-2. **Tests adverses rigoureux** : pas négociable. DA pattern obligatoire (cf [[feedback_da_dicte_tests_adverses]])
+2. **Tests adverses rigoureux** : pas négociable. DA pattern obligatoire (cf [[erreur-tests-heureux-vs-adverses]])
 3. **Logger usage** : ajouter à `usage_stats` pour future pruning si jamais inutile
 4. **Note canonique** : capitaliser dans vault Knowledge/syntheses ou 04-Techniques pour réutilisation
 
@@ -37,5 +37,5 @@ Sur features spéculatives (jamais observé en usage) → AU CONTRAIRE attendre 
 
 ## Liens
 
-- [[feedback_da_dicte_tests_adverses]] — tests adverses obligatoires sur code rewriting/destructif
+- [[erreur-tests-heureux-vs-adverses]] — tests adverses obligatoires sur code rewriting/destructif
 - [[feedback_carte_blanche_commit_push]] — exécuter direct quand validé

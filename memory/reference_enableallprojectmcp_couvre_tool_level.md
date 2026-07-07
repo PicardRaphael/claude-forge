@@ -13,7 +13,7 @@ metadata:
 
 **How to apply :**
 - Si `enableAllProjectMcpServers: true` est présent → ne PAS lister les `mcp__server__tool` dans `permissions.allow` (redondant, bruit).
-- Distinct de [[mcp-wildcard-syntax-officielle]] : celui-là porte sur `tools:`/`allowed-tools:` du FRONTMATTER agent/skill (donner accès à un sous-agent). Ici c'est `permissions.allow` des settings (éviter le prompt en session principale). Deux mécanismes, deux fichiers.
+- Distinct de [[comment-creer-skill]] : celui-là porte sur `tools:`/`allowed-tools:` du FRONTMATTER agent/skill (donner accès à un sous-agent). Ici c'est `permissions.allow` des settings (éviter le prompt en session principale). Deux mécanismes, deux fichiers.
 - Caveat : si `enableAllProjectMcpServers` est un jour retiré, le prompt par tool réapparaît. Le flag est le porteur de la couverture, pas le allow.
 
 Lié à [[brief-premisse-fausse-verifier-avant-executer]] (le test empirique a tranché un ARBITRAGE plutôt qu'une affirmation de couverture non vérifiée).
