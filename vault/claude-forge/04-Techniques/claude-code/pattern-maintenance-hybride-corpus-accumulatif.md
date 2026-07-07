@@ -122,3 +122,17 @@ Première application du pattern au corpus **complet** (216 feedbacks, vs pilote
 - **Exécution option (b)** : 50 PURGE archivés (216→166 feedbacks) + 22 POINTEUR verbeux (>25L) slimmés en pointeurs enrichis (−502 lignes, −52%, zéro incident perdu, verify 22/22). Total racine 282→232.
 - **Plancher structurel** : <100 fichiers hors d'atteinte par dedup feedbacks seul (94 KEEP + 44 reference + 18 project ≈ 158). Atteindre la cible exigerait de trier reference/project ou d'archiver les POINTEUR gardés — décision utilisateur, passe séparée.
 - **Garde-fous validés** : tie-break sur divergence WF1/WF2 = bucket le moins destructif ; backlinks vault vérifiés cross-namespace (notation `[[>>> x <<<]]` = déjà danglant, archiver ne casse rien) ; commit phase PURGE avant slim in-place (restore point) ; gotcha workflow `args` array → [[workflow-args-array-gotcha]].
+
+## Triage automatisé memory→vault à grande échelle (retour 7 juillet 2026)
+
+Triage de 247 fichiers `memory/` vs vault via 3 workflows enchaînés (triage → prep → apply, ~50 agents chacun, read-only côté agents, écritures centralisées).
+
+**Les agents de triage SUR-CLASSENT — re-vérif session principale obligatoire sur tout verdict destructif.** Taux mesuré : ~4 % de faux DELETE (2/48), ~17 % de faux ENRICH (13/76 reclassés). Ne jamais `git rm` sur le seul verdict d'un agent.
+
+**2 signaux de faux DELETE à re-examiner systématiquement :**
+1. **Contenu VIVANT** — hypothèse non validée, statut « en cours / à observer », suivi d'expérience. Ce n'est PAS de la doctrine canonique → KEEP (ex : `registre-relais-agents`, « déployé ≠ validé »). Détectable par scan de marqueurs (`hypoth|à valider|en cours|à observer|non validé|statut:`).
+2. **Nœud d'ANCRAGE** — fichier cité par du code ACTIF (hooks `.py`, rules chargées en contexte). Sa valeur dépasse son contenu : le supprimer forcerait à toucher des garde-fous pour gagner 1 fichier → KEEP même si le contenu vit déjà dans le vault (ex : `mcp-alias-ambigu-chemin-exact`, cité par 2 hooks).
+
+**Méthode de suppression sûre (git > archive) :** en repo git, `git rm` suffit (récupérable via historique) — pas besoin d'`_archive/`. AVANT le rm : (a) retirer la ligne d'index `MEMORY.md`/`_index_archive`, (b) repointer les wikilinks survivants (feedbacks KEEP + rules) vers la canonique vault, (c) dry-run + vérif liens morts. Le vrai risque n'est jamais le mécanisme de suppression mais la QUALITÉ du verdict — cf [[feedback_lire_fichier_entier_avant_verdict]].
+
+Résultat du chantier : 259→145 fichiers memory, `MEMORY.md` 162→89 lignes, 14 notes vault créées + 33 enrichies, 0 perte. Liens : [[relais-inter-agents-fiable]].
