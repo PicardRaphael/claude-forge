@@ -27,6 +27,12 @@ tags:
 - **Ajoutées** : `07-Prompts/techniques/prompting-fable5-cheatsheet.md` — 12 patterns officiels Anthropic copier-coller pour Fable 5 (goal-setting > micromanagement, effort high défaut, anti-refacto, verification loops, checkpoint, memory system, send_to_user tool). Templates verbatim.
 - **Modifiées** : `00-Hub/MOC-Techniques` (§ Prompt Engineering) + `00-Hub/MOC-Prompts` (§ Templates Prompts) — wikilinks vers la cheatsheet.
 - **Source** : doc officielle platform.claude.com/docs/prompting-claude-fable-5 (source primaire), demande Raphael.
+## 2026-07-07 — Audit complet forge + roadmap Jarvis (4 agents + DA)
+
+- **Ajoutées** : `Knowledge/critiques/critique-2026-07-07-roadmap-jarvis.md` (par l'agent devils-advocate — 2 bloquants : #7 agent-memory flippé, #20 rules conditionnelles re-scopé)
+- **Livrable repo** : `docs/roadmap-jarvis-2026-07.md` — 35 items P0→P3 (correctifs dette vault/.claude/, quick wins CC v2.1.202, chantiers sécurité MCP + proactivité Jarvis, arbitrages)
+- **Source** : audit 4 agents parallèles (config .claude/ 3 lentilles, vault structurel, gap features CC, état de l'art web) + vérif empirique session principale + verdict DA intégré
+
 ## 2026-07-07 — Migration memory→vault (triage 247 fichiers, workflow)
 
 - **Ajoutées (14 notes)** : `04-Techniques/patterns/` audit-thematique-claims-vault, refactor-masse-script-python-regex, verifier-audit-deja-fait-avant-relancer, verify-empirique-avant-affirmation-session ; `04-Techniques/claude-code/` architecture-claude-folder, enableallprojectmcp-permissions-allow, skills-externes-upstream-sync, skills-metadata-tokens-load, worktrees-sessions-paralleles ; `04-Techniques/mcp/mcp-tool-prefix-serveur-wiring` ; `04-Techniques/outils/pdf-chrome-headless` ; `Knowledge/erreurs/` changer-mecanisme-lire-tests-qui-verrouillent, llm-deep-research-version-numbers-hallucinated ; `Knowledge/raisonnements/raisonnement-da-probe-empirique-avant-verdict`
