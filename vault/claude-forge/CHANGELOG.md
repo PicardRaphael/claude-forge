@@ -27,6 +27,14 @@ tags:
 - **Ajoutées** : `07-Prompts/techniques/prompting-fable5-cheatsheet.md` — 12 patterns officiels Anthropic copier-coller pour Fable 5 (goal-setting > micromanagement, effort high défaut, anti-refacto, verification loops, checkpoint, memory system, send_to_user tool). Templates verbatim.
 - **Modifiées** : `00-Hub/MOC-Techniques` (§ Prompt Engineering) + `00-Hub/MOC-Prompts` (§ Templates Prompts) — wikilinks vers la cheatsheet.
 - **Source** : doc officielle platform.claude.com/docs/prompting-claude-fable-5 (source primaire), demande Raphael.
+## 2026-07-07 — Scan cc-news : CC v2.1.199→202 (source primaire)
+
+- **Modifiées** : `01-Claude/Code/changelog/CC juillet 2026 - Sonnet 5 + v2.1.198.md` étendue à v2.1.202 (ajout sections 199/200/201/202, titre + resume + aliases + derniere-maj)
+- **Findings CC** : Dynamic workflow size dans `/config` + OTel workflow (202) ; fix re-invoke skill dupliquée (202) ; `AskUserQuestion` no auto-continue + mode « default »→« Manual » non-breaking (200) ; slash-skills empilées jusqu'à 5 + sous-agents remontent erreurs API/partiels au parent + hooks stderr exit 2 affiché (199)
+- **Impact forge signalé (pas de modif)** : renommage `default`→`Manual` non-breaking pour `permissionMode` ; fix « sous-agent erreur=succès » atténue partiellement `post-dispatch-verify` (pas le Write-denied exit 0)
+- **Non capitalisé** : Fable 5 redéploiement 1er juillet (déjà dans [[Fable 5]]) ; Gemini 3.5 Pro encore en preview (pas de GA daté)
+- **Source** : https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md
+
 ## 2026-07-02 — Scan cc-news complet : Sonnet 5 + CC v2.1.198 + vérifs primaires
 
 - **Ajoutées** : `01-Claude/models/Sonnet 5.md` (modèle défaut CC v2.1.197, 1M natif, nouveau tokenizer ~1.0-1.35× tokens, pricing promo $2/$10 jusqu'au 31 août) ; `01-Claude/Code/changelog/CC juillet 2026 - Sonnet 5 + v2.1.198.md` (v2.1.191→198 vérifié CHANGELOG primaire : /dataviz, Claude in Chrome GA, background agents auto-PR, Explore hérite modèle session cap Opus, hook matchers hyphénés exact-match, sécu spawn MCP non approuvés)
