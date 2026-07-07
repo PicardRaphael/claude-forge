@@ -46,7 +46,7 @@
 
 | # | Feature | Usage proposé | Gain Jarvis | Adopt. |
 |---|---------|---------------|-------------|--------|
-| 11 | **`/dataviz` + Artifacts** (v2.1.198) | Livrer audits, `vault_stats`, gap-analyses, et livrables Lead IA (CODIR) en dashboard visuel partageable au lieu de murs de markdown | « Présenter à Tony » des synthèses lisibles ; double usage casquette Lead IA | B |
+| 11 | **`/dataviz` + Artifacts** (v2.1.198) — **REPORTÉ (décision Raphael 7 juil.)** | Livrer audits, `vault_stats`, gap-analyses, et livrables Lead IA (CODIR) en dashboard visuel partageable au lieu de murs de markdown. À réactiver au prochain besoin CODIR | « Présenter à Tony » des synthèses lisibles ; double usage casquette Lead IA | B |
 | 12 | **`/rewind` + checkpoints** (v2.1.191, reprise avant `/clear`) | Checkpoint avant toute opération structurelle (refonte vault, migration masse, propagation cross-repo). **À appliquer dès la Vague 1** (pendant la chirurgie P0, pas après — DA) | Filet de sécurité mécanique sur le destructif | B |
 | 13 | **Slash-skills empilées** (≤5, v2.1.199) | Composer les chaînes existantes : `/cc-news /doctrine-impact-check`, `/recap /forge-brain` | Moins d'allers-retours | B |
 | 14 | **`fallbackModel`** (≤3 replis, v2.1.166) | Opus 4.8 → Opus 4.6 si indisponible. **Exclure 4.7 explicitement** (préférence Raphael) | Résilience zéro-babysitting | C |
