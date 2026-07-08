@@ -84,4 +84,4 @@ tags:
 - [[wsjf-pour-equipe-petite]]
 - [[roadmap-now-next-later]]
 - [[okr-equipe-ia-wodtke]]
-- [[intake-no-factory-yes-if]]
+- intake-no-factory-yes-if

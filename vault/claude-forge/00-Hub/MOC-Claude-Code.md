@@ -8,7 +8,7 @@ aliases:
   - "index claude code"
   - "CC features map"
 type: index
-derniere-maj: 2026-06-06
+derniere-maj: 2026-07-08
 auteur: claude
 sources: []
 tags:
@@ -39,28 +39,38 @@ Quand on demande "analyse ce repo, propose-moi la config CC", la doctrine se tro
 
 ## Changelog (consolidé par mois)
 
+- [[CC juillet 2026 - Sonnet 5 + v2.1.198]] — Sonnet 5 défaut (1M natif), /dataviz, Chrome GA, v2.1.191→202 (Dynamic workflow size, mode Manual, slash-skills empilées)
+- [[CC juin 2026 - v2.1.160 ultracode]] — ultracode, Fable 5 intro, v2.1.150→190
+- [[CC 28 mai 2026 - Opus 4.8 + Dynamic Workflows]] — Opus 4.8 + orchestration native (research preview)
 - [[CC mai 2026 - Code with Claude]] — Desktop GUI, web UI, v2.1.126→v2.1.136, cache TTL fix, memory leak fix
 - [[CC avril 2026]] — Opus 4.7, Auto Mode, CLI binaire natif, Windows sans Git Bash, v2.1.110→v2.1.123
 
 ## Features (notes existantes)
 
+- [[auto-mode-classifier]] — Classifier auto-mode, hard-block settings.json + hooks sécu, bug antislash Windows
+- [[architecture-claude-folder]] — Anatomie complète du dossier .claude/ (settings, skills, agents, hooks, rules)
+- [[worktrees-sessions-paralleles]] — Worktrees natifs vs convention develop, sessions parallèles
+- [[skills-metadata-tokens-load]] — Coût tokens du chargement des métadonnées skills
+- [[skills-externes-upstream-sync]] — Skills marketplace : upstream sync, jamais fabriquer
+- [[enableallprojectmcp-permissions-allow]] — enableAllProjectMcpServers vs permissions.allow tool-level
+- [[agent-teams-natif-anthropic]] — Agent Teams natif (teammates, mailbox, plan approval)
 - [[Computer Use CC]]
 - [[Claude Security]]
 - [[claude-desktop-preferences]] — Profil, Cowork, pattern vault-first MCP pour non-devs
 - [[mcp-obsidian-brain-v2]] — MCP SQLite FTS5 autonome, déployé sur VM, accessible via VPN
 - [[cowork-architecture]] — Architecture Cowork, Dispatch, Plugin Marketplace, Agent Teams
+- [[programmatic-tool-calling]] — PTC : code orchestre, modèle juge
 
 ## Features (à documenter)
 
-Auto Mode · Effort Levels · Worktrees · Skills System · Hooks System · Agent Teams · Routines · Session Sharing · Remote Control · Dynamic Loop · Plugin Marketplace
+Effort Levels (note dédiée) · Routines · Session Sharing · Remote Control · Dynamic Loop
 
 ## Best Practices
 
-- [[workflow-claude-code-optimal]] — Fleet commander, 5 terminaux, worktrees
+- [[workflow-claude-code-optimal]] — Fleet commander, 5 terminaux, worktrees — synthèse Boris, Erik, Thariq, Cat Wu, Karpathy
 - [[delegate-guard-pattern]] — Hook PreToolUse forge-only : bloque edits directs, redirige vers agents spécialisés
 - [[methode-analyser-repo]] — 3 rules obligatoires tout projet : check-before-create, quality-gates, learn-from-mistakes
 - [[comment-ecrire-claudemd]] — Consensus Boris + Anthropic : 100-200L max, monthly audit
-- [[workflow-claude-code-optimal]] — Synthèse Boris, Erik, Thariq, Cat Wu, Karpathy
 - [[mcp-vs-cli-vs-skills]] — Quand MCP, quand CLI, quand skill : matrice de décision
 
 ## Agents forge
@@ -79,17 +89,6 @@ Skills créatrices (thread principal — plus des agents) :
 
 Agents supprimés : python-dev → code-dev ; boris-auditor + ecc-auditor + will-auditor → repo-inspector ; agent-creator + hook-creator + skill-creator + claudemd-optimizer → skills.
 
-
-Les agents vivent dans `.claude/agents/` (hors vault, gérés directement par Claude Code) :
-- `agent-creator` — Crée/modifie les agents Claude Code (pink)
-- `claudemd-optimizer` — Optimise les CLAUDE.md (pink)
-- `hook-creator` — Crée/modifie les hooks (pink)
-- `skill-creator` — Crée/modifie les skills (pink)
-- `project-analyzer` — Analyse projet complet (purple)
-- `project-auditor` — Audit config .claude/ (purple)
-- `self-updater` — Maintenance skills de référence (cyan)
-- `devils-advocate` — Critique livrables majeurs (red)
-
 Convention couleurs : voir [[agents-color-convention]].
 
 ## Dépréciations
@@ -101,13 +100,11 @@ Convention couleurs : voir [[agents-color-convention]].
 
 ## Liens
 
-
 ### Ajouts mai 2026
 
 - [[Code with Claude 2026]] — Conférence SF 6 mai : SpaceX, Dreaming, Outcomes, Multi-agent, Routines
 - [[Memory Managed Agents]] — Memory = filesystem, permission scopes, optimistic concurrency, version history
 - [[Dreaming Managed Agents]] — Review cross-sessions, déduplication, vérification, enrichissement mémoire
-- [[workflow-claude-code-optimal]] — Boris setup mai 2026 : mobile-first, /loop partout, 150 PRs/jour
 
 ### Leaders ajoutés audit 23 mai 2026
 

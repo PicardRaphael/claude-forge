@@ -1,6 +1,18 @@
 ---
 derniere-maj: 2026-06-06
 resume: Note canonique pour créer une skill Claude Code selon les 9 catégories Thariq (post Anthropic mars 2026), structure progressive disclosure, frontmatter trigger 3e personne, < 500L SKILL.md, limite description 1024 chars spec / 1536 listing (pas 250), interview 3 rounds obligatoires, evals obligatoires, agentskills.io spec ouverte.
+aliases:
+  - "comment creer une skill"
+  - "creer skill claude code"
+  - "best practices SKILL.md"
+  - "9 categories Thariq"
+  - "frontmatter trigger skill"
+  - "skill description directive"
+  - "doctrine skills forge"
+tags:
+  - "#type/technique"
+  - "#domaine/claude-code"
+  - "#doctrine/2026"
 ---
 ﻿---
 titre: "Comment créer une skill Claude Code parfaite"

@@ -10,12 +10,12 @@ aliases:
   - "hook block reveals tech debt"
 type: pattern
 domaine: claude-code
-derniere-maj: 2026-05-27
+derniere-maj: 2026-07-08
 auteur: claude
 tags:
   - "#type/pattern"
   - "#domaine/claude-code"
-  - "#domaine/hooks"
+  - "#domaine/verification"
 ---
 
 # Hooks de conformité par construction = audit passif continu
@@ -54,7 +54,7 @@ Le hook ne scanne qu'au moment de l'**écriture future** — tout composant cré
 
 **Audit transverse ponctuel obligatoire** : passer le hook lui-même en mode scan sur TOUT son scope (`check_content` sur chaque fichier) — c'est l'oracle de classification, distingue vraie violation vs faux positif sans opinion. Compléter par les critères que le hook ne couvre pas : wikilinks morts (croiser `[[X]]` avec existence vault via MCP), imports orphelins (pyflakes), couleurs agents vs convention.
 
-*Exemple 27 mai 2026 : audit transverse forge → 5 résidus sur 78 composants (94% conformes), dont 2 meta-commentaires que `meta-commentary-detector` aurait bloqués à l'écriture mais qui dataient de sessions pré-hook.* Cf [[cartographie-exhaustive-avant-delegation]], [[erreur-meta-commentaires-composants]].
+*Exemple 27 mai 2026 : audit transverse forge → 5 résidus sur 78 composants (94% conformes), dont 2 meta-commentaires que `meta-commentary-detector` aurait bloqués à l'écriture mais qui dataient de sessions pré-hook.* Cf `cartographie-exhaustive-avant-delegation` (feedback memory), [[erreur-meta-commentaires-composants]].
 
 Quand un hook bloque une action que tu pensais légitime : ne pas pester ni contourner. Lire le verbatim du blocage, identifier si c'est TA modif ou une dette préexistante. Si dette préexistante → l'audit passif vient de trouver, nettoie-la maintenant. C'est un avantage de la conformité par construction, pas un obstacle.
 

@@ -125,7 +125,7 @@ Solo en découverte (la politique fausse les groupes) ; atelier de groupe **apr�
 ## Restitution
 
 - **Fiche par process** (Interview Snapshot, Torres — remplie 15-20 min après l'entretien) : Qui · citation mémorable · **Opportunités** (douleurs actionnables) · **Insights** (notables mais pas encore actionnables, section séparée) · carte d'expérience (étapes du process). Pour un audit d'automatisation, ajouter : Fréquence/volume · Règles explicites ou jugement tacite · Données structurées ? · Candidat IA vs règles · niveau de solution proposé.
-- **Opportunity Solution Tree** ([[Continuous Discovery]] Torres) comme synthèse transverse : Outcome → Opportunités (douleurs) → Solutions (agents candidats) → Tests. Construire après 3-4 entretiens, réviser tous les 3-4. Sizing sans analytics = compter combien de fiches mentionnent la même opportunité.
+- **Opportunity Solution Tree** (Continuous Discovery, Teresa Torres) comme synthèse transverse : Outcome → Opportunités (douleurs) → Solutions (agents candidats) → Tests. Construire après 3-4 entretiens, réviser tous les 3-4. Sizing sans analytics = compter combien de fiches mentionnent la même opportunité.
 - **Straw model** pour l'atelier de groupe : arriver avec un brouillon de cartographie issu des 1:1, les participants corrigent (résout les perceptions contradictoires plus vite qu'une page blanche).
 
 ## Mises en garde de sourcing (vérifié, à ne PAS citer comme canon)
@@ -139,6 +139,6 @@ Solo en découverte (la politique fausse les groupes) ; atelier de groupe **apr�
 
 - [[cartographier-process-cma]] — méthode sœur : auditer MON propre quotidien (vs un tiers ici)
 - [[methode-monter-systeme-workflow]] — l'étape d'après : pour le process retenu, quelle brique construire
-- [[Continuous Discovery]] — Teresa Torres, OST et Interview Snapshot (le squelette de restitution)
+- Continuous Discovery (Teresa Torres) — OST et Interview Snapshot (le squelette de restitution)
 - [[architecture-cerveau-obsidian-mcp]] — la couche contexte (world model) sur laquelle la phase 2 s'appuie
 - [[n8n-self-host-mcp-claude]] — cible si le verdict est une automatisation externe

@@ -146,4 +146,4 @@ Au lieu de "Q3 2026" :
 - [[index]]
 - [[frameworks-comparatif]]
 - [[okr-equipe-ia-wodtke]]
-- [[intake-no-factory-yes-if]]
+- intake-no-factory-yes-if

@@ -10,7 +10,7 @@ aliases:
 derniere-maj: 2026-05-27
 auteur: claude
 type: decision
-statut: en-attente
+statut: tranchee
 tags:
   - "#type/decision"
   - "#projet/claude-forge"
@@ -61,3 +61,6 @@ Décision d'architecture (où vit la mémoire, comment la sync) ≠ feature A1 (
 ## Mise à jour — test de validation (27 mai 2026)
 
 L'option 4 (migration via @import dans CLAUDE.md versionné) a été IMPLÉMENTÉE et TESTÉE. L'@import charge bien la mémoire portable du repo. **Mais le risque de divergence redouté dans les options 2 et 3 s'est matérialisé sur l'option 4 aussi** : l'auto-memory native (`~/.claude/projects/`) reste injectée en parallèle, tronquée et divergente (231 L repo vs 229 L native). L'@import ajoute une source, ne remplace pas la native. **Reste à faire pour clore l'ADR** : désactiver/vider l'auto-memory native afin d'obtenir la single source. Cf [[import-ajoute-pas-remplace-automemory]] + résultat détaillé dans [[architecture-decision-memoire-portable-import]].
+## Clôture (8 juillet 2026)
+
+**TRANCHÉE** — la décision a été prise et appliquée : mémoire versionnée **dans le repo** (`<repo>/memory/`, `@memory/MEMORY.md` importé par CLAUDE.md), auto-memory native reléguée au rôle de pointeur poste-local. Décision canonique : [[decision-memoire-dans-le-repo]]. Le CLAUDE.md forge documente l'emplacement (« PAS ~/.claude/projects/ ») et la mémoire suit le `git clone` sur les deux machines (pro + perso).

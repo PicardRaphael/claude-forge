@@ -135,8 +135,8 @@ Décomposer en arbres de défaillance (probabilité combinée).
 ## Liens
 
 - [[reunions/index]]
-- [[../gouvernance/securite-llm-owasp]] (à venir, prompt injection)
-- [[../strategie/mlops-monitoring-modeles]] (à venir, drift detection)
+- securite-llm-owasp (à venir, prompt injection)
+- mlops-monitoring-modeles (à venir, drift detection)
 
 ## Sources
 

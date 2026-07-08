@@ -170,8 +170,8 @@ Réunion synchrone 1h max sur RFC déjà lu.
 ## Liens
 
 - [[reunions/index]]
-- [[../documentation/adr-michael-nygard]] (à venir, deep dive)
-- [[../documentation/rfc-process-rust-python]] (à venir)
+- adr-michael-nygard (à venir, deep dive)
+- rfc-process-rust-python (à venir)
 
 ## Sources
 

@@ -15,7 +15,7 @@ tags:
 
 # Idées d'agents IA issues des tickets support réels
 
-> Dérivées du [[lexique-expressions-clients]] (250 tickets SC clôturés déc 2025–avr 2026, vault neoteem-brain). Ces idées ne sont PAS inventées : chaque pain point est documenté par des tickets réels (n° SC cités). Complète [[comprendre-neoteem-vue-responsable-ia]] et [[veille-concurrents-ia-syndic]].
+> Dérivées du lexique-expressions-clients (250 tickets SC clôturés déc 2025–avr 2026, vault neoteem-brain). Ces idées ne sont PAS inventées : chaque pain point est documenté par des tickets réels (n° SC cités). Complète [[comprendre-neoteem-vue-responsable-ia]] et [[veille-concurrents-ia-syndic]].
 
 ## Constat clé du lexique
 

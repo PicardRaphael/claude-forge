@@ -84,7 +84,7 @@ done | sort -n | head -20
 Read in full (in parallel):
 - CLAUDE.md
 - All .claude/rules/*.md
-- .claude/agent-memory/skill-creator/MEMORY.md (project memory index)
+- .claude/agent-memory/*/MEMORY.md (compounding memories of agents — devils-advocate, repo-inspector; read every MEMORY.md that exists)
 
 ---
 

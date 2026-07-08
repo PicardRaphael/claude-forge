@@ -9,6 +9,7 @@ aliases:
   - "zero-diff file edit reasoning"
   - "EOL translation write_text gotcha"
   - "splice chirurgical frontmatter"
+  - "gate-zero-diff-test-live-byte-exact"
 type: raisonnement
 domaine: general
 derniere-maj: 2026-06-07

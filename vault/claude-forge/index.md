@@ -7,7 +7,7 @@ aliases:
   - "vault index"
   - "orientation LLM vault"
   - "index content-oriented"
-derniere-maj: 2026-06-27
+derniere-maj: 2026-07-08
 auteur: claude
 type: index
 tags:

@@ -8,7 +8,7 @@ aliases:
   - "AGENTS.md vault"
   - "self-describing vault"
   - "schema forge-brain"
-derniere-maj: 2026-06-27
+derniere-maj: 2026-07-08
 auteur: claude
 type: schema
 tags:
@@ -82,6 +82,7 @@ Choisir parmi :
 - JAMAIS de markdown link `[text](path.md)` pour notes internes
 - Au moins 2 wikilinks par note pour graphe dense
 - Wikilinks brisés (vers note inexistante) acceptés temporairement (= note a creer)
+- **Câblage-à-la-création** : toute note neuve reçoit ≥2 wikilinks ENTRANTS le jour même (ajout dans le MOC pertinent ou une note sœur) — une note sans backlink est irrécupérable par graphe
 
 ---
 
@@ -111,7 +112,7 @@ Choisir parmi :
 | Question technique resolue | `Knowledge/questions/` |
 | Raisonnement multi-etapes | `Knowledge/raisonnements/` |
 
-**Convention fournisseur (14 juin 2026)** : 1 dossier par acteur IA — Anthropic = `01-Claude`, puis `02-OpenAI`, `03-Google`, `08-xAI`, `09-Anysphere`, `10-Microsoft`… — contenant `models/` (modèles fondation : specs, benchmarks, pricing) et `products/` (apps, CLI, IDE, API), **créés à la demande** (pas de dossier vide). **Pas de dossier « Concurrents »** : les fournisseurs sont des acteurs suivis, pas des concurrents. Les comparatifs cross-fournisseurs (modèle-vs-modèle) vont en thématique (`04-Techniques/` ou une MOC `00-Hub/`), jamais dans un dossier acteur.
+**Convention fournisseur (14 juin 2026)** : 1 dossier par acteur IA — Anthropic = `01-Claude`, puis `02-OpenAI`, `03-Google`, `08-xAI`, `09-Anysphere`, `10-Microsoft`, `11-Warp`… — contenant `models/` (modèles fondation : specs, benchmarks, pricing) et `products/` (apps, CLI, IDE, API), **créés à la demande** (pas de dossier vide). **Pas de dossier « Concurrents »** : les fournisseurs sont des acteurs suivis, pas des concurrents. Les comparatifs cross-fournisseurs (modèle-vs-modèle) vont en thématique (`04-Techniques/` ou une MOC `00-Hub/`), jamais dans un dossier acteur.
 
 ---
 
@@ -158,18 +159,9 @@ JAMAIS Grep/Read/Glob/CLI Obsidian brut sur le vault. **MCP uniquement** (port 8
 
 ## 7. Conventions edition
 
-### Templates obligatoires
-Lire le template AVANT de creer une note :
-- Features CC → `Templates/feature.md`
-- Best practices → `Templates/best-practice.md`
-- Leaders → `Templates/leader.md`
-- Modeles → `Templates/modele.md`
-- Concurrents → `Templates/concurrent.md`
-- Techniques → `Templates/technique.md`
-- Knowledge → `Templates/knowledge.md`
-- Erreurs → `Templates/erreur.md`
-- Projets → `Templates/context-projet.md`
-- Casquettes → `Templates/context-casquette.md`
+### Format par type de note
+
+> Le dossier `Templates/` a été **retiré le 8 juillet 2026** (prescrit depuis mai mais jamais construit — même logique que `raw/` au pivot agent-first). Le format canonique d'une note = **§2 frontmatter obligatoire** + l'exemple des notes existantes du dossier cible (lire 1-2 notes sœurs avant de créer) + la skill `obsidian-markdown` pour la syntaxe.
 
 ### Format Obsidian Flavored Markdown
 Utiliser la skill `obsidian-markdown` pour : wikilinks, callouts, frontmatter YAML, properties.
@@ -193,6 +185,7 @@ Utiliser la skill `obsidian-markdown` pour : wikilinks, callouts, frontmatter YA
 - ❌ Note > 500L sans references/ extraite (cf [[comment-creer-skill]])
 - ❌ Editer `log.md` retroactivement (append-only strict, si maintenu)
 - ❌ Mettre du Knowledge/projet dans MCP-only-readable formats (toujours markdown)
+- ❌ Tags plats hors convention (`worktrees`, `oauth`) — toujours namespacés `#type/`·`#domaine/`
 
 ---
 
@@ -210,6 +203,7 @@ Dernieres modifications doctrinales :
 - **22 mai 2026** — adoption pattern Karpathy strict + creation `raw/` + `index.md` + `log.md` + `SCHEMA.md`.
 - **14 juin 2026** — réorg fournisseurs IA en dossiers premier niveau (dissout `02-Concurrents` + `03-Modeles`, squelette `models/`+`products/` par acteur).
 - **27 juin 2026** — **pivot agent-first** : `raw/` supprime (bruts = variables jetables), `index.md`/`log.md`/MOCs = couche humaine optionnelle non auto-maintenue. Karpathy = echafaudage depasse. Cf [[decision-vault-agent-first]].
+- **8 juillet 2026** — retrait §7 `Templates/` (prescrit jamais construit, meme logique que raw/) ; enregistrement `11-Warp` en §4 ; ajout regle cablage-a-la-creation (§3) + anti-pattern tags plats (§8). Decisions Raphael, vague 1 roadmap Jarvis.
 
 ---
 

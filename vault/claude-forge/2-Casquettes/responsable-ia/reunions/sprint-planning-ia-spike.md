@@ -121,7 +121,7 @@ en divisant la latence par 3.
 - [[reunions/index]]
 - [[stand-up-walking-the-board]]
 - [[sprint-review-demo-eval-ia]]
-- [[../tickets/template-spike-ia]]
+- template-spike-ia
 
 ## Sources
 

@@ -9,8 +9,8 @@ aliases:
   - pdf-headless-gotchas
 derniere-maj: 2026-07-07
 tags:
-  - technique/outils
-  - technique/pdf
+  - "#type/technique"
+  - "#domaine/outils"
 type: technique
 ---
 
@@ -65,9 +65,9 @@ CSS de référence : `output/neoteem/_charte/neoteem-charte.css` + `CHARTE.md`.
 - Couleurs : bleu `#0a3a5c`, teal `#00a78e`, dégradé teal → corail → magenta.
 - Page de garde : fond clair + logo couleur. **PAS** de filtre `brightness` / `invert` sur le logo `.webp` (casse les couleurs).
 
-Voir aussi : [[dossier-strategique-ia-neoteem]]
+Voir aussi : `dossier-strategique-ia-neoteem`
 
 ## Liens
 
 - [[ia-workbench-repo-management]] — usage dans le repo ia-workbench (PDF optionnel avec fallback)
-- [[dossier-strategique-ia-neoteem]] — premier document généré avec cette chaîne (validé 29 mai 2026)
+- `dossier-strategique-ia-neoteem` — premier document généré avec cette chaîne (validé 29 mai 2026)

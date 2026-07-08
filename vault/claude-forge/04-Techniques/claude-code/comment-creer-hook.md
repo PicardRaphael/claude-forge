@@ -1,5 +1,17 @@
 ---
 derniere-maj: 2026-06-26
+aliases:
+  - "comment creer un hook"
+  - "creer hook claude code"
+  - "best practices hooks"
+  - "29 events hooks officiels"
+  - "hooks lint securite scope"
+  - "hooks transversaux catalogue"
+  - "doctrine hooks forge"
+tags:
+  - "#type/technique"
+  - "#domaine/claude-code"
+  - "#doctrine/2026"
 ---
 ﻿---
 titre: "Comment créer un hook Claude Code parfait"

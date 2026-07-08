@@ -49,7 +49,7 @@ Plan corrigé à exécuter en **session fraîche** (la session d'origine était 
 ## Liens
 
 - [[methode-monter-systeme-workflow]] — grille capabilities source du chantier
-- [[devils-advocate-pipeline]] · [[da-blocking-arbitrage]] — doctrine arbitrage BLOCKING
+- [[devils-advocate-pipeline]] · `da-blocking-arbitrage` — doctrine arbitrage BLOCKING
 
 ## MAJ 27 juin — exécution (3 actions DONE, zéro-perte)
 

@@ -44,3 +44,10 @@ Même en accordant que conditional rules marchent à v2.1.198, les règles chois
 - Ordre sécu-avant-autonomie CORRECT : Vague 3 fait #22 en premier, « préalable à toute montée en autonomie ».
 - P0 vault (#1-6 hors présomption #7) : dette réelle, evidence-based, à livrer.
 - Séparation P0 evidence / P2-P3 spéculatif : structure saine.
+
+## Liens
+
+- [[workflow-claude-code-optimal]] — doctrine workflow forge (référentiel de la roadmap)
+- [[methode-analyser-repo]] — séquence A→B→C→D→E appliquée à l'audit source
+- [[pattern-maintenance-hybride-corpus-accumulatif]] — doctrine memory/vault (item #7 agent-memory)
+- [[decision-vault-agent-first]] — contexte agent-first du vault audité

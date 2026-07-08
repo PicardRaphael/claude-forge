@@ -26,16 +26,16 @@ tags:
 | 3 | SCQA + Pyramid Principle | [[scqa-pyramid-principle-minto]] |
 | 4 | BLUF — Bottom Line Up Front | [[bluf-bottom-line-up-front]] |
 | 5 | Présenter tech à non-tech | [[parler-non-tech-vulgarisation]] |
-| 6 | Reporting executive cadence | [[reporting-executive-cadence]] |
-| 7 | Influence sans autorité (Cialdini) | [[influence-cialdini-cohen-bradford]] |
+| 6 | Reporting executive cadence | reporting-executive-cadence |
+| 7 | Influence sans autorité (Cialdini) | influence-cialdini-cohen-bradford |
 | 8 | Gestion hype IA (Kozyrkov) | [[hype-ia-cadrage-kozyrkov]] |
-| 9 | Dire non avec élégance | [[dire-non-yes-and-fournier]] |
-| 10 | Business case IA | [[business-case-tco-4-piliers]] |
-| 11 | Reporting incident direction | [[reporting-incident-exec-summary]] |
-| 12 | Communication crise (Coombs) | [[communication-crise-coombs]] |
-| 13 | Board / Comex prep | [[board-comex-prep-anticipation]] |
-| 14 | Sales enablement IA | [[sales-enablement-ia-meddpicc]] |
-| 15 | Communication interne | [[communication-interne-annonce]] |
+| 9 | Dire non avec élégance | dire-non-yes-and-fournier |
+| 10 | Business case IA | business-case-tco-4-piliers |
+| 11 | Reporting incident direction | reporting-incident-exec-summary |
+| 12 | Communication crise (Coombs) | communication-crise-coombs |
+| 13 | Board / Comex prep | board-comex-prep-anticipation |
+| 14 | Sales enablement IA | sales-enablement-ia-meddpicc |
+| 15 | Communication interne | communication-interne-annonce |
 
 ## Cadrage : pourquoi tu galères (et c'est normal)
 

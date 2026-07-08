@@ -98,7 +98,7 @@ Daily standup async dans Slack — chaque membre poste réponse à 9h, le bot ag
 2. **Pre-read si > 2 personnes** doivent décider
 3. **Objectif explicite** : info / décision / co-construction
 4. **Owner décideur** clair (DACI : qui décide)
-5. **CR partagé J+1** max (cf [[../documentation/cr-meeting-template]])
+5. **CR partagé J+1** max (cf cr-meeting-template)
 
 ### Meeting cancellation rule (GitLab)
 Si agenda vide 30 min avant le meeting → **annulé automatiquement**.
@@ -129,8 +129,8 @@ Indicateurs équipe Neoteem :
 ## Liens
 
 - [[reunions/index]]
-- [[../documentation/handbook-gitlab-style]] (à venir)
-- [[../management/team-rituals-async]] (à venir)
+- handbook-gitlab-style (à venir)
+- team-rituals-async (à venir)
 
 ## Sources
 

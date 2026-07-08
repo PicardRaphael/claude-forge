@@ -116,8 +116,8 @@ Si incident en prod chez client (cf [[post-mortem-blameless-sre]]) :
 
 - [[reunions/index]]
 - [[../communication/parler-non-tech-vulgarisation]]
-- [[../communication/communication-crise-ia]] (à venir)
-- [[../strategie/roi-ia-mesure]] (à venir)
+- communication-crise-ia (à venir)
+- roi-ia-mesure (à venir)
 
 ## Sources
 

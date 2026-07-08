@@ -12,6 +12,12 @@ sources:
   - "[[decision-vault-agent-first]]"
   - "[[pattern-vault-llm-karpathy]]"
   - "[[methode-pivoter-doctrine]]"
+aliases:
+  - "critique pivot vault agent-first"
+  - "DA pivot agent-first 27 juin"
+  - "critique 2026-06-27 vault agent-first"
+  - "verdict devils-advocate pivot vault"
+  - "critique suppression raw layer"
 ---
 
 ## Devils Advocate — Plan pivot vault agent-first

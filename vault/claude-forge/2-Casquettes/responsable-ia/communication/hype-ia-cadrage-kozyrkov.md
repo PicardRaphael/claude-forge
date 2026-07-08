@@ -140,5 +140,5 @@ Tu **ne cèdes jamais** sur :
 - [[index]]
 - [[../index]]
 - [[parler-non-tech-vulgarisation]]
-- [[dire-non-yes-and-fournier]]
+- dire-non-yes-and-fournier
 - [[../reunions/reunion-client-hype-management]]

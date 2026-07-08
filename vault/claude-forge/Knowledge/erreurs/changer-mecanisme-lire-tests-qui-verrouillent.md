@@ -47,8 +47,8 @@ Si l'un de ces patterns existe → **adapter le test dans le même changement**,
 
 ## Distinct des patterns adjacents
 
-- [[edit-tool-read-obligatoire-meme-en-parallele]] — lire le fichier qu'on édite (avant l'edit)
-- [[regression-diagnostic-diff-avant-redesign]] — diagnostiquer une régression déjà présente
+- `edit-tool-read-obligatoire-meme-en-parallele` — lire le fichier qu'on édite (avant l'edit)
+- `regression-diagnostic-diff-avant-redesign` — diagnostiquer une régression déjà présente
 - [[erreur-tests-heureux-vs-adverses]] — tests adverses manquants sur hooks sécurité
 
 Ici on **anticipe** la casse de tests existants lors d'un changement de mécanisme.

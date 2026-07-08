@@ -11,10 +11,9 @@ aliases:
   - critique 4 project-auditor neo_ia
   - audit miss postgres password mcp optional
 tags:
-  - #type/critique
-  - #projet/neo_ia
-  - #domaine/claude-code
-  - #technique/audit
+  - "#type/critique"
+  - "#domaine/claude-code"
+  - "#projet/neo-ia"
 resume: DA audit consolide neo_ia. 3 bloquants manques dont 1 securite critique (password Postgres en clair commit ffb5963). VERDICT REVISE.
 ---
 

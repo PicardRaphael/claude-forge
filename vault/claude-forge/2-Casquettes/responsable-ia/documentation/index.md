@@ -21,19 +21,19 @@ tags:
 
 | Framework | Note atomique | Quand l'utiliser |
 |---|---|---|
-| CR de réunion | [[cr-meeting-template]] | Tracer réunion (Confluence) |
-| Decision Register | [[decision-register-index]] | Tracer décisions chronologiquement |
-| ADR (Architecture Decision Record) | [[adr-michael-nygard]] | Décision code-near (Bitbucket) |
-| MADR / Y-Statement | [[adr-madr-y-statement]] | Variantes ADR |
-| RFC process | [[rfc-process-rust-python-oxide]] | Proposer changement substantiel |
-| Action items SMART | [[action-items-smart-wwwf]] | Suivi actions réunion |
-| DACI | [[daci-decision-framework]] | Décision avec 1 Approver |
-| RACI | [[raci-execution-operationnelle]] | Exécution projet standard |
-| RAPID | [[rapid-bain-decisions-strategiques]] | Décisions stratégiques avec veto |
-| Status reports RAG | [[status-report-rag-watermelon]] | Hebdo/mensuel équipe |
-| Confluence best practices | [[confluence-structure-espace]] | Hygiène vault Confluence |
-| Team handbook | [[team-handbook-gitlab-style]] | Documentation équipe |
-| Model cards IA | [[model-cards-mitchell]] | Documenter modèle prod |
+| CR de réunion | cr-meeting-template | Tracer réunion (Confluence) |
+| Decision Register | decision-register-index | Tracer décisions chronologiquement |
+| ADR (Architecture Decision Record) | adr-michael-nygard | Décision code-near (Bitbucket) |
+| MADR / Y-Statement | adr-madr-y-statement | Variantes ADR |
+| RFC process | rfc-process-rust-python-oxide | Proposer changement substantiel |
+| Action items SMART | action-items-smart-wwwf | Suivi actions réunion |
+| DACI | daci-decision-framework | Décision avec 1 Approver |
+| RACI | raci-execution-operationnelle | Exécution projet standard |
+| RAPID | rapid-bain-decisions-strategiques | Décisions stratégiques avec veto |
+| Status reports RAG | status-report-rag-watermelon | Hebdo/mensuel équipe |
+| Confluence best practices | confluence-structure-espace | Hygiène vault Confluence |
+| Team handbook | team-handbook-gitlab-style | Documentation équipe |
+| Model cards IA | model-cards-mitchell | Documenter modèle prod |
 | Postmortem blameless | [[../reunions/post-mortem-blameless-sre]] | Incident |
 
 ## Quel doc pour quel besoin
@@ -185,7 +185,6 @@ Critères objectifs (à fixer une fois) :
 - [Oxide RFD 1](https://oxide.computer/blog/rfd-1-requests-for-discussion)
 - [Rust RFC Process](https://github.com/rust-lang/rfcs/blob/master/text/0002-rfc-process.md)
 - [Google SRE — Postmortem Culture](https://sre.google/sre-book/postmortem-culture/)
-- [RAPID Decision — Bain](https://www.bain.com/insights/rapid-decision-making/)
 - [Model Cards for Model Reporting — Mitchell et al. 2019](https://arxiv.org/abs/1810.03993)
 - [BLUF — Wikipedia](https://en.wikipedia.org/wiki/BLUF_(communication))
 - [Pyramid Principle — Think Insights](https://thinkinsights.net/strategy/pyramid-principle/)

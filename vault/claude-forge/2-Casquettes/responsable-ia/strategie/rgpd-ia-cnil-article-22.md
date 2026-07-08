@@ -10,7 +10,7 @@ resume: RGPD + IA — Article 22 décision automatisée, DPIA Art 35, recommanda
 derniere-maj: 2026-05-25
 tags:
   - "#type/cheatsheet"
-  - "#domaine/conformité"
+  - "#domaine/conformite"
   - "#domaine/rgpd"
   - "#domaine/ia"
   - "#projet/neoteem"
@@ -107,7 +107,7 @@ Complète et finalise les guides "IA et RGPD" CNIL (premières versions 2023-202
 | Base légale développement IA | Intérêt légitime souvent défendable si tests 3-volets sérieux |
 | Constitution datasets | Sources licites, minimisation, suppression données inutiles |
 | Annotation/labellisation | Sous-traitance = Art 28 DPA obligatoire |
-| Sécurité dev IA | OWASP LLM Top 10 référencé (cf [[../gouvernance/securite-llm-owasp]]) |
+| Sécurité dev IA | OWASP LLM Top 10 référencé (cf securite-llm-owasp) |
 | Information personnes | Art 13/14 adaptés au cycle de vie IA |
 | Modèles open-source / mise à disposition | Documentation type "model card" |
 | Droits personnes (Art 15-22) | Modalités exercice + délais |
@@ -170,5 +170,5 @@ Framework conjoint ANSSI/CNIL pour **évaluer le risque de ré-identification de
 
 - [[../index]] — casquette responsable-ia
 - [[ai-act-eu-cheatsheet]] — règlement UE 2024/1689
-- [[../gouvernance/ai-usage-policy-interne]] — politique interne
-- [[../gouvernance/vendor-management-llm-dpa]] — DPA vendor LLM
+- ai-usage-policy-interne — politique interne
+- vendor-management-llm-dpa — DPA vendor LLM

@@ -7,6 +7,7 @@ aliases:
   - "erreur fine-tuning"
   - "22 corrections fine-tuning"
   - "fine-tuning audit"
+  - "stars-github-drift"
 type: erreur
 domaine: ia
 derniere-maj: 2026-05-23

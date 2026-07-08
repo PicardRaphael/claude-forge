@@ -1,6 +1,6 @@
 ---
 titre: "Forge Brain — Home"
-resume: "Vault forge-brain — 511 notes, orientation agent-first (cerveau d'agent piloté via MCP, Karpathy = échafaudage dépassé), MCP port 8091, 8 canoniques chantier 22 mai + doctrine 22 mai (hooks lint/security/scope, JAMAIS workflow)"
+resume: Vault forge-brain — 531 notes, orientation agent-first (cerveau d'agent piloté via MCP, Karpathy = échafaudage dépassé), MCP port 8091, 8 canoniques chantier 22 mai + doctrine 22 mai (hooks lint/security/scope, JAMAIS workflow)
 aliases:
   - "home"
   - "accueil"

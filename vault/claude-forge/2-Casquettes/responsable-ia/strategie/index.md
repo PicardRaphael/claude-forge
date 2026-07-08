@@ -29,18 +29,18 @@ tags:
 | Sujet | Note atomique | Source |
 |---|---|---|
 | AI Act EU (cheatsheet) | [[ai-act-eu-cheatsheet]] | EU Reg 2024/1689 |
-| NIST AI RMF 1.0 | [[nist-ai-rmf-govern-map-measure-manage]] | NIST |
-| ISO/IEC 42001:2023 | [[iso-42001-aims]] | ISO |
+| NIST AI RMF 1.0 | nist-ai-rmf-govern-map-measure-manage | NIST |
+| ISO/IEC 42001:2023 | iso-42001-aims | ISO |
 | RGPD & IA — CNIL | [[rgpd-ia-cnil-article-22]] | CNIL juillet 2025 |
-| AI Usage Policy interne | [[ai-usage-policy-interne]] | Samsung 2023 lesson |
-| Build vs Buy vs Fine-tune vs RAG | [[build-vs-buy-vs-finetune-rag]] | Menlo, TCO 2026 |
-| ROI IA — mesure honnête | [[roi-ia-mesure-mckinsey]] | McKinsey State of AI |
-| Roadmap IA & maturity | [[roadmap-ia-gartner-maturity]] | Gartner, Andrew Ng |
-| Mistral & souveraineté FR | [[mistral-souverainete-francaise]] | Introl, Maddyness |
-| Éthique IA (biais, explainability) | [[ethique-ia-fairness-model-cards]] | Mitchell, Gebru |
-| Sécurité OWASP LLM | [[securite-llm-owasp-mitre-atlas]] | OWASP, MITRE |
-| Vendor management LLM | [[vendor-management-llm-dpa]] | TrueFoundry |
-| AI Council interne | [[ai-council-charter-composition]] | OneTrust, Deloitte |
+| AI Usage Policy interne | ai-usage-policy-interne | Samsung 2023 lesson |
+| Build vs Buy vs Fine-tune vs RAG | build-vs-buy-vs-finetune-rag | Menlo, TCO 2026 |
+| ROI IA — mesure honnête | roi-ia-mesure-mckinsey | McKinsey State of AI |
+| Roadmap IA & maturity | roadmap-ia-gartner-maturity | Gartner, Andrew Ng |
+| Mistral & souveraineté FR | mistral-souverainete-francaise | Introl, Maddyness |
+| Éthique IA (biais, explainability) | ethique-ia-fairness-model-cards | Mitchell, Gebru |
+| Sécurité OWASP LLM | securite-llm-owasp-mitre-atlas | OWASP, MITRE |
+| Vendor management LLM | vendor-management-llm-dpa | TrueFoundry |
+| AI Council interne | ai-council-charter-composition | OneTrust, Deloitte |
 | Économie agentique & pricing | [[economie-agentique-pricing-2026]] | Menlo, Klarna, Ramp, Harvey |
 | Communication CODIR IA | [[../communication/index]] | Cassie Kozyrkov, Mollick |
 

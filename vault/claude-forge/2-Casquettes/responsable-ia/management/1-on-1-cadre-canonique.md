@@ -142,4 +142,4 @@ Si rien dans le notepad au moment du 1:1 → tu n'as pas observé assez.
 
 - [[index]] — hub management
 - [[feedback-sbi-radical-candor]] — feedback se prépare en 1:1
-- [[manager-seniors-plus-experimentes]] — 1:1 avec séniors
+- manager-seniors-plus-experimentes — 1:1 avec séniors

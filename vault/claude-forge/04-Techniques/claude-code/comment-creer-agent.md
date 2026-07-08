@@ -1,5 +1,18 @@
 ---
 derniere-maj: 2026-06-16
+aliases:
+  - "comment creer un agent"
+  - "creer subagent claude code"
+  - "best practices agents"
+  - "sonnet opus split agents"
+  - "frontmatter agent effort model"
+  - "2-agent justin young"
+  - "doctrine agents forge"
+  - "permissionmode-enum-valid-values"
+tags:
+  - "#type/technique"
+  - "#domaine/claude-code"
+  - "#doctrine/2026"
 ---
 ﻿---
 titre: "Comment créer un agent Claude Code parfait"

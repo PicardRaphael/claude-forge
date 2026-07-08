@@ -19,7 +19,7 @@ Tout corpus qui s'accumule par ajout (index mémoire `MEMORY.md`, notes de doctr
 | **LLM** | Clustering **sémantique** : doublons conceptuels, amendements, ambigus à NE PAS fusionner, dormants | Le jugement, pas la mécanique |
 | **Humain** | Gate `[v]/[m]/[i]` typée par section, `[m]` anti tout-ou-rien | Toute opération destructive |
 
-Le LLM lit le corpus entier et regroupe mieux que toute heuristique lexicale sur corpus court/homogène — la couche déterministe se limite aux métriques objectives. Construire une couche déterministe lourde (Jaccard, ML) par-dessus une lecture LLM possible = **enforcement-théâtre** (cf [[llm-lit-court-homogene-pas-couche-deterministe]]). Mesurer que le LLM rate AVANT de construire l'aide.
+Le LLM lit le corpus entier et regroupe mieux que toute heuristique lexicale sur corpus court/homogène — la couche déterministe se limite aux métriques objectives. Construire une couche déterministe lourde (Jaccard, ML) par-dessus une lecture LLM possible = **enforcement-théâtre** (cf `llm-lit-court-homogene-pas-couche-deterministe`). Mesurer que le LLM rate AVANT de construire l'aide.
 
 ## Architecture cognitive — trois acteurs
 
@@ -105,7 +105,7 @@ Même ADN que [[doctrine-vivante]] : **gate humaine non négociable + anti-scan-
 
 ## Wikilinks
 
-- [[llm-lit-court-homogene-pas-couche-deterministe]] — anti enforcement-théâtre (fondement de la limite déterministe)
+- `llm-lit-court-homogene-pas-couche-deterministe` — anti enforcement-théâtre (fondement de la limite déterministe)
 - [[doctrine-vivante]] — méta-principe partagé (gate humaine + anti-scan-aveugle)
 - [[methode-pivoter-doctrine]] — autre application de gate humaine sur changement structurant
 - [[pattern-mcp-brief-then-direct]] — skill = écritures MCP denses en session principale
@@ -118,7 +118,7 @@ Même ADN que [[doctrine-vivante]] : **gate humaine non négociable + anti-scan-
 Première application du pattern au corpus **complet** (216 feedbacks, vs pilote 29 du 28 mai). Méthode : 3 Dynamic Workflows croisés (235 agents) — WF1 clustering doublons/dormants + verify, WF2 classification KEEP/POINTEUR/PURGE sur les 216, WF3 slim des POINTEUR verbeux + verify.
 
 - **Répartition mesurée** : 94 KEEP (44%) / 73 POINTEUR (34%) / 49 PURGE (23%). Le pilote 29 projetait 62/28/10% — le corpus complet est nettement plus dilué (PURGE 23% vs 10%) : les feedbacks anciens accumulent plus de doublons-vault que l'échantillon récent du pilote.
-- **Couche déterministe inopérante** : 0 orphelin, 0 lien mort, index parfaitement synchro (216 fichiers ↔ 215 entrées, écart = 1 faux positif de casse). Confirme [[llm-lit-court-homogene-pas-couche-deterministe]] : sur ce corpus, seule la classification LLM bouge l'aiguille, pas le grep mécanique.
+- **Couche déterministe inopérante** : 0 orphelin, 0 lien mort, index parfaitement synchro (216 fichiers ↔ 215 entrées, écart = 1 faux positif de casse). Confirme `llm-lit-court-homogene-pas-couche-deterministe` : sur ce corpus, seule la classification LLM bouge l'aiguille, pas le grep mécanique.
 - **Exécution option (b)** : 50 PURGE archivés (216→166 feedbacks) + 22 POINTEUR verbeux (>25L) slimmés en pointeurs enrichis (−502 lignes, −52%, zéro incident perdu, verify 22/22). Total racine 282→232.
 - **Plancher structurel** : <100 fichiers hors d'atteinte par dedup feedbacks seul (94 KEEP + 44 reference + 18 project ≈ 158). Atteindre la cible exigerait de trier reference/project ou d'archiver les POINTEUR gardés — décision utilisateur, passe séparée.
 - **Garde-fous validés** : tie-break sur divergence WF1/WF2 = bucket le moins destructif ; backlinks vault vérifiés cross-namespace (notation `[[>>> x <<<]]` = déjà danglant, archiver ne casse rien) ; commit phase PURGE avant slim in-place (restore point) ; gotcha workflow `args` array → [[workflow-args-array-gotcha]].

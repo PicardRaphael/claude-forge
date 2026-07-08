@@ -11,7 +11,7 @@
 - [ccnews-confronter-existant](feedback_ccnews_confronter_existant.md) — cc-news confronte chaque finding à l'existant (notes vault + skills/agents/hooks/rules) et agit, pas juste résumer
 - [classification-type-ticket-jira](feedback_classification_type_ticket_jira.md) — Classer un ticket par sa NATURE (FEATURE/BUG/OPTIMISATION), jamais par mimétisme
 - [commit-push-check-pattern](feedback_commit_push_check.md) — "regarde commit et push" = git status + diff avant push, jamais push aveugle
-- [config-repo-equipe-vs-forge](feedback_config_repo_equipe_vs_forge.md) — Configurer un repo d'ÉQUIPE PARTAGÉ ≠ transplanter la machinerie forge : skills auto-portantes (refs docs repo, pas wikilinks vault/MCP forge-brain), hooks non-bloquants, pas de delegate-guard. Convertir commands legacy avant suppression
+- config-repo-equipe-vs-forge — PROMU VAULT (8 juil.) : repo d'équipe ≠ machinerie forge (skills auto-portantes, hooks non-bloquants, pas de delegate-guard). Canonique : [[config-repo-equipe-vs-forge]]
 - [conformite-aveugle-regle-generique](feedback_conformite_aveugle_regle_generique.md) — Garde refusée = lire son intention avant de contourner. Souvent intentionnelle
 - [consolidate-searches](feedback_consolidate_searches.md) — Ne jamais chercher 2× la même info. Consolider en 1 fichier dès le 1er search
 - [couper-loops-decision-fatigue](feedback_couper_loops_decision_fatigue.md) — Après validation, trancher vite. 2 signaux : boucle "es-tu parfait" + session longue. Cap 3 advisor

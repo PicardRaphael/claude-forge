@@ -35,7 +35,7 @@ forge-brain = **cerveau d'agent**. On optimise pour la boucle Jarvis (search →
 - raw/ supprimé (bruts = variables jetables : distillés puis jetés).
 - MOCs + index navigables = couche humaine **optionnelle** : ne plus les auto-maintenir (alléger/retirer la logique `FOLDER_TO_MOC` de vault-audit). Ne PAS les supprimer (~95 backlinks sur MOC-Techniques = dette nette).
 - `SCHEMA.md` à refondre : retirer raw/ du Layer 1 immuable, décrire l'état agent-first réel.
-- Investir : note de contexte projet vivante ([[done]] étape 6-bis), Knowledge compounding, recherche FTS + aliases, doctrine à jour qui ne ment pas.
+- Investir : note de contexte projet vivante (`/done` étape 6-bis), Knowledge compounding, recherche FTS + aliases, doctrine à jour qui ne ment pas.
 - Canoniques impactées : [[pattern-vault-llm-karpathy]] (« LLM modifie raw/ = bug fatal » devient caduc), [[architecture-cerveau-obsidian-mcp]], [[SCHEMA]].
 
 ## Déclencheur de réactivation

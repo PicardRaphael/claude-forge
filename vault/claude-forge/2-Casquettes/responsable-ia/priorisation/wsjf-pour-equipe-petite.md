@@ -133,4 +133,4 @@ Connecteur API Pennylane pour syndics Loji (demande commerciale 3 prospects).
 - [[index]]
 - [[frameworks-comparatif]]
 - [[rice-en-pratique]]
-- [[hidden-tech-debt-ml-sculley]]
+- hidden-tech-debt-ml-sculley

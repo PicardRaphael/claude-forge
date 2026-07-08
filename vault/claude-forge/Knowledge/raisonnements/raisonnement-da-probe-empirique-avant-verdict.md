@@ -74,6 +74,6 @@ Détail complet : [[critique-2026-05-27-compounding-retroactif]].
 
 ## Distinction avec autres patterns
 
-- [[verify-exhaustive-claims]] — grep avant déclaration "tous/zéro/aucun" dans du code/config. Probe empirique DA = mesure de valeur produit, pas d'exhaustivité textuelle.
+- `verify-exhaustive-claims` — grep avant déclaration "tous/zéro/aucun" dans du code/config. Probe empirique DA = mesure de valeur produit, pas d'exhaustivité textuelle.
 - [[da-dicte-tests-adverses]] — tests adverses sur du code destructif AVANT push. Probe DA = mesure de prémisse AVANT de rédiger le verdict.
-- [[brief-premisse-fausse-verifier-avant-executer]] — vérifier la prémisse d'un brief avant d'exécuter. Probe DA = vérifier la prémisse d'une idée avant de conclure (b) ou (c).
+- `brief-premisse-fausse-verifier-avant-executer` — vérifier la prémisse d'un brief avant d'exécuter. Probe DA = vérifier la prémisse d'une idée avant de conclure (b) ou (c).

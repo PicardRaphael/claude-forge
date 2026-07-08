@@ -1,11 +1,12 @@
 ---
 titre: Tests "8/8 PASS" sur cas heureux ne valident PAS la sécurité
 aliases:
-  - tests heureux vs adverses
-  - tests adverses obligatoires
-  - validation tests cas evidents
-  - tests PASS faux validation
-  - cas adverses non testes
+  - "tests heureux vs adverses"
+  - "tests adverses obligatoires"
+  - "validation tests cas evidents"
+  - "tests PASS faux validation"
+  - "cas adverses non testes"
+  - "da-dicte-tests-adverses"
 resume: J'ai proclamé "tests 8/8 PASS validés" sur le hook repo-scope-guard alors que je n'avais testé que des cas évidents (Read bdd direct) sans tester les bypass (Glob pattern, Write/Edit, Bash exotique). Le DA a trouvé 3 bloquants en lisant le code.
 derniere-maj: 2026-05-24
 tags:

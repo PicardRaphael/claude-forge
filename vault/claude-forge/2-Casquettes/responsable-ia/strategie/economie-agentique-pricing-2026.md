@@ -80,7 +80,7 @@ Bascule décisive vers le **buy** (76%). Mais les acteurs **AI-native build leur
 2. Le **context engineering domaine-spécifique**
 3. L'**intégration profonde au workflow**
 
-→ Complète la matrice [[build-vs-buy-vs-finetune-rag]] (à créer) et la section « Build vs Buy — Neoteem » de [[../strategie/index]].
+→ Complète la matrice build-vs-buy-vs-finetune-rag (à créer) et la section « Build vs Buy — Neoteem » de [[../strategie/index]].
 
 ## Trois études de cas canoniques
 
@@ -136,8 +136,8 @@ Le pricing par siège ne survit pas à l'agentique. Modèles émergents :
 ## Liens
 
 - [[../strategie/index]] — hub stratégie IA & gouvernance (matrice Build vs Buy Neoteem)
-- [[build-vs-buy-vs-finetune-rag]] — note atomique build/buy/fine-tune/RAG (à créer)
+- build-vs-buy-vs-finetune-rag — note atomique build/buy/fine-tune/RAG (à créer)
 - [[stack-ia-production-2026]] — synthèse transverse du stack IA en production
-- [[roi-ia-mesure-mckinsey]] — ROI IA (75% des projets ratent leur ROI)
+- roi-ia-mesure-mckinsey — ROI IA (75% des projets ratent leur ROI)
 - [[hype-ia-cadrage-kozyrkov]] — cadrage anti-hype
 - [[Cursor]] — fiche concurrent (Composer, inférence maison)

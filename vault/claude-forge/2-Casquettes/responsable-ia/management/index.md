@@ -23,12 +23,12 @@ Synthèse complète sourcée + notes atomiques.
 |---|---|---|
 | 1:1 réguliers | [[1-on-1-cadre-canonique]] | Grove, Fournier, Hogan |
 | Feedback | [[feedback-sbi-radical-candor]] | CCL SBI, Kim Scott |
-| Recrutement profils IA | [[recrutement-profils-ia-system-design]] | Anthropic, FAANG |
-| Onboarding 30-60-90 | [[onboarding-30-60-90-ia]] | Cornerstone, Fournier |
-| Manager des seniors | [[manager-seniors-plus-experimentes]] | Stack Overflow Blog |
-| Conflits & Crucial Conversations | [[conflits-crucial-conversations]] | Patterson et al. |
-| Motivation Pink + dual ladder | [[motivation-pink-dual-ladder]] | Daniel Pink, Larson |
-| Spécificités management IA 2026 | [[specificites-management-ia-2026]] | METR, DORA |
+| Recrutement profils IA | recrutement-profils-ia-system-design | Anthropic, FAANG |
+| Onboarding 30-60-90 | onboarding-30-60-90-ia | Cornerstone, Fournier |
+| Manager des seniors | manager-seniors-plus-experimentes | Stack Overflow Blog |
+| Conflits & Crucial Conversations | conflits-crucial-conversations | Patterson et al. |
+| Motivation Pink + dual ladder | motivation-pink-dual-ladder | Daniel Pink, Larson |
+| Spécificités management IA 2026 | specificites-management-ia-2026 | METR, DORA |
 
 ## Les 1:1 réguliers — la pierre angulaire
 

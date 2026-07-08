@@ -10,7 +10,7 @@ resume: Cheatsheet AI Act UE 2024/1689 — timeline, classification 4 niveaux, A
 derniere-maj: 2026-05-25
 tags:
   - "#type/cheatsheet"
-  - "#domaine/conformité"
+  - "#domaine/conformite"
   - "#domaine/ia"
   - "#projet/neoteem"
   - "#casquette/responsable-ia"
@@ -149,5 +149,5 @@ tags:
 
 - [[../index]] — casquette responsable-ia
 - [[rgpd-ia-cnil-article-22]] — DPIA + Article 22
-- [[../gouvernance/ai-usage-policy-interne]] — politique interne usage IA
-- [[../gouvernance/ai-council-charter-composition]] — gouvernance interne
+- ai-usage-policy-interne — politique interne usage IA
+- ai-council-charter-composition — gouvernance interne

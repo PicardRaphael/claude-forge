@@ -68,7 +68,7 @@ Distinguer deux moitiés d'un sync : (1) **visibilité** — la donnée est à j
 
 Cas concret (Chantier C cc-news, 27 mai 2026) : sync-leaders a régénéré la table Leaders dans les `domain-*.md` (visibilité ✓). Mais cc-news exécute le bloc `## Queries à exécuter`, PAS la table — les queries n'ont pas été régénérées. Résultat : ~50 leaders listés mais toujours ratés. Le report du script montrait les leaders sans query ; le self-check les a classés « dette mineure » au lieu de voir la moitié manquante. L'advisor a rattrapé.
 
-Cf [[ecart-consigne-chiffree-surfacer]] (ne jamais absorber silencieusement un écart mesurable).
+Cf `ecart-consigne-chiffree-surfacer` (ne jamais absorber silencieusement un écart mesurable).
 ## Liens
 
 - [[mcp-vs-skills-doctrine]]

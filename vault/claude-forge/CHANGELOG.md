@@ -27,6 +27,15 @@ tags:
 - **Ajoutées** : `07-Prompts/techniques/prompting-fable5-cheatsheet.md` — 12 patterns officiels Anthropic copier-coller pour Fable 5 (goal-setting > micromanagement, effort high défaut, anti-refacto, verification loops, checkpoint, memory system, send_to_user tool). Templates verbatim.
 - **Modifiées** : `00-Hub/MOC-Techniques` (§ Prompt Engineering) + `00-Hub/MOC-Prompts` (§ Templates Prompts) — wikilinks vers la cheatsheet.
 - **Source** : doc officielle platform.claude.com/docs/prompting-claude-fable-5 (source primaire), demande Raphael.
+## 2026-07-08 — Roadmap Jarvis Vague 1 (P0 correctifs dette)
+
+- **Wikilinks cassés 101 → 1** (le dernier = exemple pédagogique délibéré `[[old]]` dans mcp-vault-llm-design). Prune ~73 liens scaffolding responsable-ia (texte conservé), déwiki ~20 renvois memory/rules en code-span, repointage ~10 vers canoniques, réparation par alias de 6 cibles (permissionmode→comment-creer-agent, amende→methode-pivoter-doctrine, etc.).
+- **Notes sans tag 5 → 0 · orphelines → 0 · YAML cassé 0.** 3 canoniques (`comment-creer-skill`/`-agent`/`-hook`, 0 alias/0 tag) dotées de 7 aliases + 3 tags chacune (fix agent-first #1). Tags plats des 15 notes du 7 juil. normalisés `#type/`·`#domaine/` ; quasi-doublons fusionnés (conformité→conformite) ; 2 tags cassés réparés (#casquette/ vide, #projet/neote tronqué).
+- **MOC-Claude-Code** : bloc « agents supprimés » (re-listés actifs) purgé, changelog + features juillet reliés. **Home** : compte 511→531. **SCHEMA** : §7 Templates/ retiré (prescrit jamais construit), Warp §4, règle câblage-à-la-création + anti-pattern tags plats. **MOC-Techniques** : 10 notes du 7 juil. câblées.
+- **Promue** : `config-repo-equipe-vs-forge` (feedback cité 4× → note canonique 04-Techniques/claude-code). **0-Inbox trié** (6→1) : ADR mémoire clôturée (decisions/), 2 idées (raisonnements/), 2 synthèses Hermes (syntheses/).
+- **`.claude/`** : repo-inspector:111 flippé (agent-memory = pattern VIVANT, plus jamais flaggé vestige — DA), forge-review:87 réf morte réparée, `.claude/agent-memory/agent-creator/` vestige purgé, memory-saturation-watcher recalibré 250/290→180/220 (+ tests), trigger-map 28→38 skills, 2 stubs rules supprimés.
+- **Source** : roadmap `docs/roadmap-jarvis-2026-07.md` P0. Confirme 3× le pattern « les agents sur-classent » (audit-vault proposait 2 fusions de tags qui étaient des axes sémantiques légitimes).
+
 ## 2026-07-07 — Audit complet forge + roadmap Jarvis (4 agents + DA)
 
 - **Ajoutées** : `Knowledge/critiques/critique-2026-07-07-roadmap-jarvis.md` (par l'agent devils-advocate — 2 bloquants : #7 agent-memory flippé, #20 rules conditionnelles re-scopé)

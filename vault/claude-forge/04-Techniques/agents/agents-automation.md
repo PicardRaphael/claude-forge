@@ -51,7 +51,7 @@ Les routines `/schedule` tournent dans un **sandbox cloud Anthropic isolé** (gi
 
 **Anti-pattern** : proposer une routine sans vérifier les dépendances locales (agents user-scope, vault, MCP non connecté). Erreur observée 26 mai 2026 : routine `/schedule` pour spawner Agent Team with user-scope auditors → impossible par construction.
 
-Alternatif pour review/audit cyclique : skill `/forge-review` manuelle, ou Task Scheduler Windows (cf [[org-blocks-github]]). Cf aussi [[skills-user-scope-pas-cross-repo]].
+Alternatif pour review/audit cyclique : skill `/forge-review` manuelle, ou Task Scheduler Windows (cf `org-blocks-github`). Cf aussi `skills-user-scope-pas-cross-repo`.
 
 ### Routines (avril 2026)
 Unifient cron + webhook + GitHub events :

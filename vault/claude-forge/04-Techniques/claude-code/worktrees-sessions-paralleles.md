@@ -10,10 +10,9 @@ aliases:
   - sessions parallèles claude code
 derniere-maj: 2026-07-07
 tags:
-  - claude-code
-  - worktrees
-  - sessions-parallèles
-  - git
+  - "#type/technique"
+  - "#domaine/claude-code"
+  - "#domaine/outils"
 type: technique
 ---
 

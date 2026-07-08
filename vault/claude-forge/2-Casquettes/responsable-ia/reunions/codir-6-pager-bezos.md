@@ -131,7 +131,7 @@ Remplacer chaque métrique technique par sa traduction business :
 
 - [[reunions/index]]
 - [[../communication/parler-non-tech-vulgarisation]]
-- [[../templates/template-6-pager-codir]]
+- template-6-pager-codir
 - [[../priorisation/roadmap-now-next-later]]
 
 ## Sources

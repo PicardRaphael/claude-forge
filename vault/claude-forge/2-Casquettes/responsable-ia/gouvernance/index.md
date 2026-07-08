@@ -26,12 +26,12 @@ Cette section recouvre la **dimension réglementaire et sécurité** de la strat
 | RGPD & IA (art. 22, DPIA) | [[../strategie/index]] | CNIL juillet 2025 |
 | NIST AI RMF 1.0 | [[../strategie/index]] | NIST |
 | ISO/IEC 42001:2023 | [[../strategie/index]] | ISO |
-| **Sécurité OWASP LLM Top 10** | [[securite-llm-owasp]] | OWASP |
-| **MITRE ATLAS** | [[mitre-atlas-ml-threat]] | MITRE |
-| **Red teaming LLM** | [[red-teaming-llm-promptfoo]] | Promptfoo, Garak |
-| **Vendor management LLM** | [[vendor-management-llm-dpa]] | TrueFoundry |
+| **Sécurité OWASP LLM Top 10** | securite-llm-owasp | OWASP |
+| **MITRE ATLAS** | mitre-atlas-ml-threat | MITRE |
+| **Red teaming LLM** | red-teaming-llm-promptfoo | Promptfoo, Garak |
+| **Vendor management LLM** | vendor-management-llm-dpa | TrueFoundry |
 | **AI Council interne** | [[../strategie/index]] | OneTrust, Deloitte |
-| **AI Acceptable Use Policy** | [[ai-usage-policy-interne]] | Strac, Samsung 2023 |
+| **AI Acceptable Use Policy** | ai-usage-policy-interne | Strac, Samsung 2023 |
 
 ## OWASP Top 10 for LLM Applications (2025)
 

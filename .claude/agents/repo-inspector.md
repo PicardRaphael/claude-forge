@@ -108,7 +108,7 @@ Scripts existent ; adaptés OS+stack (py vs python3 ; ruff vs eslint) ; **exit 2
 < 200L scannable 90s ; routing dans rules pas inline lourd ; pas d'évidence ; chaque règle testable + a une raison.
 
 ### Checks settings & chemins obsolètes
-`.claude/settings.json` + `.claude/settings.local.json` = JSON valide (`python -m json.tool` ou équivalent) ; aucune référence au chemin obsolète `agent-memory/` dans les agents (vestige pré-pivot).
+`.claude/settings.json` + `.claude/settings.local.json` = JSON valide (`python -m json.tool` ou équivalent) ; les références `agent-memory/` dans les agents pointent vers `.claude/agent-memory/<nom-agent>/` du repo (pattern mémoire compounding VIVANT — cf config-guardian baseline qui compte ses fichiers ; ne JAMAIS le flagger comme vestige).
 
 ### Format rapport AUDIT
 ```markdown

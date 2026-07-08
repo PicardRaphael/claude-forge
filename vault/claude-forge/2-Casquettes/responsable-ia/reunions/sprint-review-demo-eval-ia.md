@@ -105,7 +105,7 @@ Si certaines métriques regressent, dire pourquoi **sans détour** :
 - [[reunions/index]]
 - [[sprint-planning-ia-spike]]
 - [[retrospective-formats-rotation]]
-- [[../strategie/eval-suites-ia]] (à venir)
+- eval-suites-ia (à venir)
 
 ## Sources
 

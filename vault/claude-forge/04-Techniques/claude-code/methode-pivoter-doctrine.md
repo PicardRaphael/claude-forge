@@ -8,6 +8,7 @@ aliases:
   - "purge MEMORY RECAP apres pivot"
   - "regression silencieuse doctrine"
   - "doctrine drift one-shot fix"
+  - "amende-vs-pivot-couche-factuelle-design"
 derniere-maj: 2026-05-23
 auteur: claude
 type: technique

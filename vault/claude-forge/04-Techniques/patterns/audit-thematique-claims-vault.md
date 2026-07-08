@@ -12,6 +12,7 @@ derniere-maj: 2026-07-07
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
+  - "#domaine/vault"
   - "#pattern/audit"
   - "#pattern/sub-agents"
 ---
@@ -81,4 +82,4 @@ Les sub-agents mettent tout en "FAUX" sans distinguer — la session principale 
 - [[audit-puis-vagues-paralleles]] — pattern soeur pour l'audit `.claude/` (config, pas claims)
 - [[methode-analyser-repo]] — séquence A→B→C→D→E (macro-méthode analyse repo)
 - [[feedback_auditor_false_positives]] — les sub-agents se trompent : toujours self-verify
-- [[sequence-canonique-modification]] — anti-pattern `search_brain` seul ≠ audit (read_note entier requis)
+- `.claude/rules/sequence-canonique-modification.md` — anti-pattern `search_brain` seul ≠ audit (read_note entier requis)

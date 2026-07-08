@@ -10,10 +10,8 @@ aliases:
   - verify empirique session
 derniere-maj: "2026-07-07"
 tags:
-  - patterns
-  - agents
-  - qualite
-  - verification
+  - "#type/pattern"
+  - "#domaine/verification"
 type: pattern
 ---
 
@@ -48,8 +46,8 @@ Tout claim « X créé / modifié / fixé / fait » doit être vérifié empiriq
 
 ## Wikilinks
 
-- [[post-dispatch-verify]] — rule `.claude/rules/` avec checklist par type d'agent (ls, wc, git diff)
-- [[verify-exhaustive-claims]] — variante pour les déclarations exhaustives (« zéro / tous / aucun / complet »)
+- `post-dispatch-verify` — rule `.claude/rules/` avec checklist par type d'agent (ls, wc, git diff)
+- `verify-exhaustive-claims` — variante pour les déclarations exhaustives (« zéro / tous / aucun / complet »)
 - [[erreur-subagent-bypass-delegate-guard]] — précédent vault sur l'écriture silencieuse contournant le guard
 - [[pattern-behavioral-dispatch-test]] — vérification comportementale PASS/FAIL post-setup
 - [[anti-reentrance-sub-agents-pattern-escalade]] — pattern escalade + resume pour ne pas re-briefer à vide

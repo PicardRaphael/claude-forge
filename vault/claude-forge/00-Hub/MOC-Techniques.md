@@ -6,7 +6,7 @@ aliases:
 - patterns Claude Code
 - prompt engineering techniques
 auteur: claude
-derniere-maj: 2026-06-16
+derniere-maj: 2026-07-08
 resume: 'Index des techniques : prompt engineering, context engineering, patterns,
   anti-patterns'
 tags:
@@ -34,6 +34,16 @@ type: index
 - [[opus-47-design-defaults]] — Style visuel persistant Opus 4.7 + 2 contre-mesures
 
 ## Patterns
+- [[audit-thematique-claims-vault]] — Audit claims factuelles d'un corpus : clusters de sub-agents, checkpoint A avant B, self-verify des FAUX, types 1/2/3
+- [[refactor-masse-script-python-regex]] — >10 fichiers même pattern : script Python regex ponctuel au lieu d'Edit séquentiels (308L/18 fichiers/5s)
+- [[verifier-audit-deja-fait-avant-relancer]] — Checklist 4 étapes AVANT tout audit thématique (derniere-maj, Knowledge/erreurs, context-actuel, CHANGELOG)
+- [[verify-empirique-avant-affirmation-session]] — Vérifier matériellement avant d'affirmer en session (grep/read/run, jamais de mémoire)
+- [[config-repo-equipe-vs-forge]] — Repo d'équipe ≠ machinerie forge : skills auto-portantes, hooks non-bloquants, pas de delegate-guard
+- [[mcp-tool-prefix-serveur-wiring]] — Préfixe mcp__<serveur>__<tool> : wiring, collisions, renommage serveur
+- [[pdf-chrome-headless]] — PDF fidèle à la charte via Chrome headless (--print-to-pdf), pas de lib intermédiaire
+- [[llm-deep-research-version-numbers-hallucinated]] — Chiffres précis des deep research LLM tiers = vecteur principal d'hallucination, WebFetch source primaire avant action
+- [[changer-mecanisme-lire-tests-qui-verrouillent]] — Avant de changer un mécanisme/contrat, grep ses tests (patch/grep-source/imports) — 9 tests cassés sinon
+- [[raisonnement-da-probe-empirique-avant-verdict]] — DA sur prémisse falsifiable : mesurer AVANT de débattre des garde-fous ; la donnée tranche (c) tuer vs (b) garde-fous
 - [[architecture-decision-memoire-portable-import]] — Raisonnement : mémoire portable cross-machine via @import CLAUDE.md (pivot depuis autoMemoryDirectory cassé en multi-repos). Mécanisme orthogonal > réglage global.
 
 - Knowledge-First Routing — Brain avant code

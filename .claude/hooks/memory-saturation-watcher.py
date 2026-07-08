@@ -2,10 +2,10 @@
 """SessionStart hook: warns when memory/ accumulates too many .md files.
 
 Trigger   : SessionStart
-Thresholds: WARNING 250, CRITICAL 290 (advisory, not blocking)
+Thresholds: WARNING 180, CRITICAL 220 (advisory, not blocking)
 Doctrine  : Le compteur inclut tous les .md racine (feedbacks + reference/project/user),
-            plancher structurel réel ~240 — dedup feedbacks seul ne peut descendre sous
-            ce plancher. Seuils calibrés au-dessus pour n'alerter que sur vraie dérive.
+            base post-migration 7 juil. 2026 ~135 fichiers (triage memory→vault) ;
+            WARNING à 180 = +45 de dérive, signal précoce avant re-saturation.
             Cf [[pattern-maintenance-hybride-corpus-accumulatif]] section Architecture cognitive.
 Behavior  : Fail-open — any error (missing dir, IO) -> exit 0 silently.
 """
@@ -44,8 +44,8 @@ def count_memory_files(memory_dir: str) -> int | None:
 
 def check_memory_saturation(
     memory_dir: str,
-    warning: int = 250,
-    critical: int = 290,
+    warning: int = 180,
+    critical: int = 220,
 ) -> str | None:
     """Return a warning message based on count, else None.
 
@@ -58,13 +58,13 @@ def check_memory_saturation(
         return None
     if count >= critical:
         return (
-            f"[memory-saturation-watcher] CRITICAL: {count} fichiers memory/ (cible ~240, plancher structurel)."
+            f"[memory-saturation-watcher] CRITICAL: {count} fichiers memory/ (base post-migration ~135)."
             " Lancer /clean-memory en session dediee."
             " Cf [[pattern-maintenance-hybride-corpus-accumulatif]] section Architecture cognitive."
         )
     if count >= warning:
         return (
-            f"[memory-saturation-watcher] WARNING: {count} fichiers memory/ (cible ~240, plancher structurel)."
+            f"[memory-saturation-watcher] WARNING: {count} fichiers memory/ (base post-migration ~135)."
             " Planifier /clean-memory prochainement."
             " Workflow nouveau feedback: search_brain vault d'abord (rule memory-discipline)."
         )

@@ -8,6 +8,7 @@ aliases:
   - "claude code safety classifier"
   - "auto mode safety"
   - "classifier haiku claude"
+  - "self-modification-user-scope-passe"
 domaine: claude-code
 type: feature
 derniere-maj: 2026-05-18
@@ -118,7 +119,7 @@ Distinct scope project/user : [[self-modification-user-scope-passe]] (settings.j
 "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/X.py\""
 ```
 
-Sur macOS/Linux : `python3` ou shebang + chmod +x (py n'existe pas). Cf [[windows-hooks-doctrine]].
+Sur macOS/Linux : `python3` ou shebang + chmod +x (py n'existe pas). Cf `.claude/rules/windows-hooks.md`.
 
 ## Gotcha
 

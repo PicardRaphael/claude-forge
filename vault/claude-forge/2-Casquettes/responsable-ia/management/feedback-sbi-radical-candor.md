@@ -163,4 +163,4 @@ gères X en prod ?" plutôt que verdict ?
 
 - [[index]] — hub management
 - [[1-on-1-cadre-canonique]] — où le feedback se donne
-- [[manager-seniors-plus-experimentes]] — feedback à un sénior
+- manager-seniors-plus-experimentes — feedback à un sénior

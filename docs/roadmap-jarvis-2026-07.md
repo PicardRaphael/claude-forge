@@ -18,6 +18,8 @@
 
 ---
 
+> **✅ P0 EXÉCUTÉ le 2026-07-08 (Vague 1).** Wikilinks cassés 101→1 (dernier = exemple pédagogique), sans-tag/orphelins/YAML→0, 3 canoniques dotées d'aliases+tags, MOC/Home/SCHEMA à jour, agent-memory clarifié (pattern vivant), seuils watcher recalibrés, trigger-map 28→38, inbox trié 6→1. Détail : CHANGELOG vault 2026-07-08. Résidu cosmétique signalé : 10 notes Knowledge à 3 aliases (non bloquant) + index racine optionnel non re-synchronisé.
+
 ## P0 — Correctifs (dette, info fausse servie en continu)
 
 ### P0.1 Vault

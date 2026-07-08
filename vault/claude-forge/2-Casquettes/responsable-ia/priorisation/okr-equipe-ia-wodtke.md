@@ -167,4 +167,4 @@ Tout KR modèle → labo, pas de valeur business
 - [[index]]
 - [[roadmap-now-next-later]]
 - [[frameworks-comparatif]]
-- [[intake-no-factory-yes-if]]
+- intake-no-factory-yes-if

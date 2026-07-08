@@ -126,4 +126,4 @@ Règle : ne comparer RICE qu'avec un écart ≥ 1.5× ou ≥ 200 points absolus.
 - [[index]]
 - [[frameworks-comparatif]]
 - [[wsjf-pour-equipe-petite]]
-- [[intake-no-factory-yes-if]]
+- intake-no-factory-yes-if
