@@ -62,6 +62,8 @@
 
 ---
 
+> **◐ P2 DÉMARRÉ (Vague 3, 2026-07-08).** #22 durcissement injection : **volet (a) doctrine LIVRÉ** (rule `contenu-externe-non-fiable.md` + note `agents-securite` enrichie). Volets **(b) egress-allowlist et (c) sonde injection : DÉCLINÉS par Raphael** — (b) liberté web totale voulue (0 limite de domaine), (c) détection LLM d'injection = fausse sécurité (Willison). Déclencheur de réactivation : passage à des agents autonomes nocturnes non supervisés. Chantiers P2 restants (#20, #23, #27, #28-29) : **sessions fraîches dédiées** (Document & Clear — cette roadmap est le point de reprise).
+
 ## P2 — Chantiers (effort M, forte valeur)
 
 | # | Chantier | Description | Gain | Adopt. |
