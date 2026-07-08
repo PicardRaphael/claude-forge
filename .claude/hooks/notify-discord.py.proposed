@@ -1,0 +1,101 @@
+#!/usr/bin/env python3
+"""Notification hook: routes "Claude needs your input" notifications to Discord.
+
+Trigger   : Notification (fires on every occurrence — no matcher support ; filter in-script)
+Target     : idle_prompt + elicitation_dialog + agent_needs_input (decision Raphael, anti-noise:
+             permission_prompt is NOT routed)
+Webhook    : read from env DISCORD_WEBHOOK_VEILLE (set in .claude/settings.local.json, gitignored).
+             URL is NEVER hardcoded here (committed file). Absent/empty env -> dormant, exit 0.
+Behavior   : Fail-open — missing URL, unknown type, network error, invalid JSON -> exit 0 silently.
+             A missed notification must NEVER break the session.
+Calibration: if the webhook IS configured but the notification type can't be resolved, the full
+             payload is appended to .claude/logs/notification-payloads.jsonl so the type-field
+             name can be pinned from real data (measure-before-optimize).
+"""
+import json
+import os
+import sys
+import urllib.request
+
+_HOOK_DIR = os.path.dirname(os.path.abspath(__file__))
+_CLAUDE_DIR = os.path.dirname(_HOOK_DIR)
+_LOG_DIR = os.path.join(_CLAUDE_DIR, "logs")
+
+# Types worth interrupting Raphael for ("Claude is waiting on you").
+_TARGET_TYPES = {"idle_prompt", "elicitation_dialog", "agent_needs_input"}
+# Explicitly NOT routed (anti-noise): permission_prompt, auth_success,
+# elicitation_complete, elicitation_response, agent_completed.
+_KNOWN_NON_TARGET = {
+    "permission_prompt", "auth_success", "elicitation_complete",
+    "elicitation_response", "agent_completed",
+}
+
+
+def _resolve_type(data: dict) -> str | None:
+    """Best-effort extraction of the notification type from an under-documented payload.
+
+    The field name carrying the type isn't reliably documented, so probe the plausible
+    keys. Returns the type string if found, else None (caller logs for calibration).
+    """
+    for key in ("notification_type", "type", "notificationType", "hook_event_name"):
+        val = data.get(key)
+        if isinstance(val, str) and val in (_TARGET_TYPES | _KNOWN_NON_TARGET):
+            return val
+    # Some builds may nest it under a notification object.
+    notif = data.get("notification")
+    if isinstance(notif, dict):
+        for key in ("type", "notification_type"):
+            val = notif.get(key)
+            if isinstance(val, str):
+                return val
+    return None
+
+
+def _log_payload(data: dict) -> None:
+    """Append the raw payload for calibration when the type is unresolved (webhook set)."""
+    try:
+        os.makedirs(_LOG_DIR, exist_ok=True)
+        with open(os.path.join(_LOG_DIR, "notification-payloads.jsonl"), "a", encoding="utf-8") as f:
+            f.write(json.dumps(data, ensure_ascii=False) + "\n")
+    except Exception:
+        pass
+
+
+def _post_discord(url: str, message: str) -> None:
+    payload = json.dumps({"username": "Jarvis", "content": message}).encode("utf-8")
+    req = urllib.request.Request(
+        url, data=payload, headers={"Content-Type": "application/json"}, method="POST"
+    )
+    urllib.request.urlopen(req, timeout=5)  # noqa: S310 (trusted webhook URL from local env)
+
+
+def main() -> None:
+    try:
+        data = json.load(sys.stdin)
+    except Exception:
+        sys.exit(0)  # invalid JSON -> fail-open
+
+    try:
+        url = os.environ.get("DISCORD_WEBHOOK_VEILLE", "").strip()
+        if not url:
+            sys.exit(0)  # dormant until an URL is configured in settings.local.json
+
+        ntype = _resolve_type(data)
+        message = data.get("message") or "Jarvis a besoin de ton attention."
+
+        if ntype is None:
+            # Webhook set but type unknown -> log once for calibration, stay silent.
+            _log_payload(data)
+            sys.exit(0)
+
+        if ntype not in _TARGET_TYPES:
+            sys.exit(0)  # known but not a "needs input" type -> silent (anti-noise)
+
+        _post_discord(url, f"[{ntype}] {message}")
+    except Exception:
+        pass  # network/other error -> fail-open
+    sys.exit(0)
+
+
+if __name__ == "__main__":
+    main()

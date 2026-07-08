@@ -44,6 +44,8 @@
 
 ---
 
+> **◐ P1 EN COURS (Vague 2, 2026-07-08).** #16 statusLine : **déjà en place** (Raphael, claude-hud). #13 slash-skills empilées + #17 déterministe-d'abord : **adoptés** (behavioral, pas d'artefact). #14 fallbackModel + #15 Notification→Discord : livrés en `.proposed` (application manuelle Raphael, hard-block classifier). #18 staleness / #19 consolidation planifiée : **rétrogradés P2/P3** (routines, pas quick-wins — évite la sur-ingénierie, cf DA). Prérequis #15 vérifiés en source primaire : `fallbackModel` = array d'IDs complets ; event Notification a des types LOCAUX (idle_prompt/elicitation_dialog/agent_needs_input) qui firent hors cloud → #15 vivant mais dormant tant qu'une URL webhook fonctionnelle n'est pas dans settings.local.
+
 ## P1 — Quick wins (features CC + état de l'art, effort S)
 
 | # | Feature | Usage proposé | Gain Jarvis | Adopt. |
