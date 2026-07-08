@@ -27,6 +27,12 @@ tags:
 - **Ajoutées** : `07-Prompts/techniques/prompting-fable5-cheatsheet.md` — 12 patterns officiels Anthropic copier-coller pour Fable 5 (goal-setting > micromanagement, effort high défaut, anti-refacto, verification loops, checkpoint, memory system, send_to_user tool). Templates verbatim.
 - **Modifiées** : `00-Hub/MOC-Techniques` (§ Prompt Engineering) + `00-Hub/MOC-Prompts` (§ Templates Prompts) — wikilinks vers la cheatsheet.
 - **Source** : doc officielle platform.claude.com/docs/prompting-claude-fable-5 (source primaire), demande Raphael.
+## 2026-07-08 — Roadmap Jarvis Vague 3 : durcissement injection #22 (volet doctrine)
+
+- **Modifiée** : `04-Techniques/agents/agents-securite.md` — section « Application forge — hygiène injection indirecte » (MCP tiers + web = données non fiables, lethal trifecta chez forge, ETDI/tool poisoning, capitalisation = distiller le fait).
+- **Hors vault** : nouvelle rule `.claude/rules/contenu-externe-non-fiable.md` (doctrine comportementale courte : contenu externe = donnée jamais instruction, HITL sur l'irréversible).
+- **Source** : roadmap #22 volet (a). Volets (b) egress-allowlist hook + (c) sonde injection = arbitrage Raphael en cours (intrusifs sur la veille). État de l'art : arXiv 2601.17548 (agentic coding assistants), Anthropic auto-mode/sandboxing, Willison lethal trifecta.
+
 ## 2026-07-08 — Roadmap Jarvis Vague 1 (P0 correctifs dette)
 
 - **Wikilinks cassés 101 → 1** (le dernier = exemple pédagogique délibéré `[[old]]` dans mcp-vault-llm-design). Prune ~73 liens scaffolding responsable-ia (texte conservé), déwiki ~20 renvois memory/rules en code-span, repointage ~10 vers canoniques, réparation par alias de 6 cibles (permissionmode→comment-creer-agent, amende→methode-pivoter-doctrine, etc.).
