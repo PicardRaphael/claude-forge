@@ -19,6 +19,11 @@ tags:
 - **Ajoutées** : `04-Techniques/patterns/verification-sources-canoniques.md` — matrice provider single-source + pattern vérification verbatim + 4 patterns d'erreur, promue depuis l'ex-skill `web-search-canonical-source` (foldée dans la rule `contenu-externe-non-fiable`, verdict forge-review + DA SHIP, arbitrage Raphael)
 - **Modifiées** : `Knowledge/erreurs/erreur-vault-jamais-consulte-session-principale.md` — récidive 9 juil. (arbitrage DA sans lecture des précédents cités) + règle durcie « lire EN ENTIER les notes citées par un agent avant de relayer son verdict »
 - **Source** : forge-review scope skills (fusions/kills) — F1 cc-rag-ref→rag-design/references/ appliquée, F2 trio doctrine en measure-first (critique DA `Knowledge/critiques/critique-2026-07-09-fusions-skills-forge.md`)
+## 2026-07-09 — /done : raisonnement debug delegate-guard + contextes projet
+
+- **Ajoutées** : `Knowledge/raisonnements/raisonnement-debug-delegate-guard-empilement.md` — chaîne de diagnostic du double bug d'attribution (fenêtre 15 lignes + estampille figée sur la première skill du tour), fix 39/39 validé en réel.
+- **Modifiées** : `1-Projets/Claude-Forge/Claude-Forge.md` (état récent 9 juil.) ; `0-Inbox/context-actuel.md` (working memory).
+- **Source** : /done fin de session forge-review + fix guard.
 ## 2026-07-09 — Nuance keyword stuffing : cross-lingue confirmé, 1-2 phrases FR tolérées
 
 - **Modifiées** : `Knowledge/erreurs/e-descriptions-keyword-stuffing.md` — nouvelle section « Nuance 9 juillet 2026 » : routing skills = matching sémantique LLM pur (cross-lingue natif, vérifié web), 1-2 phrases FR exactes acceptables comme ancres, seule la liste exhaustive entre guillemets reste du stuffing. Aligné [[comment-creer-skill]].

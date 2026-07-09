@@ -8,7 +8,7 @@ aliases:
   - framework forge
 type: context
 status: active
-derniere-maj: 2026-06-29
+derniere-maj: 2026-07-09
 auteur: claude
 tags:
   - "#type/context"
@@ -45,6 +45,13 @@ Transformer Claude Code d'un outil de coding en un **partenaire** (contrat Jarvi
 - [[Raphael-Picard|Raphael Picard]]
 - [[Neoteem|Neoteem]]
 
+
+## État récent (2026-07-09)
+
+- **Sweep descriptions** : 21 skills ramenées ≤ 250 chars (−855 tokens résidents/session) ; doctrine budget/drop listing (CC ≥ 2.1.129) propagée dans skill-creator + checklist + rule.
+- **Fusions forge-review 50 → 48** : cc-rag-ref → `rag-design/references/` ; web-search-canonical-source → rule + note [[verification-sources-canoniques]]. F2 (trio doctrine) en **measure-first** — hôte imposé [[methode-pivoter-doctrine]] (34 backlinks), protocole A/B dans `output/mesure-F2-fusion-doctrine.md`. 0 KILL. Arbitrage : perf de déclenchement > budget (feedback tier-1).
+- **delegate-guard corrigé** (skills empilées CC ≥ 2.1.202 + fenêtre 15→80) : fix appliqué manuellement par Raphael (classifier self-mod), 39/39 tests, validé en réel. Cf [[raisonnement-debug-delegate-guard-empilement]].
+- **Doctor poste perso** : defaultMode auto, context7 + connecteur GChat désactivés, 4 doublons mémoire locale purgés.
 
 ## État récent (2026-06-29)
 

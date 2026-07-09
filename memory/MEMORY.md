@@ -1,6 +1,7 @@
 # Memory Index
 
 ## Feedback
+- [perf-déclenchement avant budget](feedback_perf_declenchement_avant_budget_skills.md) — fusion/kill/trim skills : routing d'abord, budget ensuite (consigne 9 juil.)
 - [registre-relais-agents](feedback_registre-relais-agents.md) — HYPOTHÈSE (à valider 2-3 cas) : registre léger « op coûteuse X faite → artefact Y », 1 ligne/op, consulté AVANT op coûteuse pour éviter le doublon multi-agent. Net-neuf de la note-hub [[relais-inter-agents-fiable]] ; distinct de [[idee-compounding-retroactif]] (transcripts passés)
 - [ccnews-structure-vault-provider-drift](feedback_ccnews_structure_vault_provider_drift.md) — Drift routage skill↔SCHEMA RÉSOLU 29 juin (cc-news/forge-brain/veille/vault-audit alignés convention fournisseurs). Leçon générale : lire le SCHEMA réel avant de capitaliser, pas le routage figé de la skill
 - [audit-completude-pointeur-vs-orphelin](feedback_audit_completude_pointeur_vs_orphelin.md) — Audit complétude index/roadmap : un wikilink non résolu localement peut pointer vers une note existante ailleurs. search_brain chaque cible avant de la compter orpheline, sinon surcompte le backlog (60→41 réels)
