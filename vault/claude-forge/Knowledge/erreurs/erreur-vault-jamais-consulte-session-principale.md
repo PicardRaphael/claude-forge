@@ -108,3 +108,9 @@ La règle "consulter le vault d'abord" est advisory et a été zappée sous pres
 **Doctrine respectée** : le hook reste advisory (exit 0, injecte un rappel, ne force rien) — conforme [[raisonnement-22mai-doctrine-vs-enforcement]] (pas de workflow-hook bloquant). C'est un sensor/guide léger, pas un gate.
 
 **Hors-scope assumé** (Raphael : « reprend juste pour le mcp ») : le trou de routing du tripartite (« analyse profonde » ne déclenche pas boris/ecc/will-auditor) reste en option documentée non appliquée. Advisor disait « pas de trigger », DA disait « trigger-rappel léger ». Arbitrage : gardé prêt-à-coller si récidive (cf feedback reviole_3x = garde-fou structurel avant 3e occurrence).
+
+## Récidive 9 juillet 2026 — arbitrage DA sans lecture des précédents cités
+
+Pendant le forge-review fusions skills : le devils-advocate a cité 2 précédents vault ([[raisonnement-revirement-pipeline-mai-2026]], [[critique-2026-05-21-refonte-hooks-16-vers-6]]) et la session principale s'apprêtait à relayer le verdict à Raphael SANS les avoir lus elle-même. Raphael a dû rappeler « je te vois jamais call ton vault ».
+
+**Règle durcie** : avant de relayer un verdict d'agent (DA, auditeur, grader) qui cite des notes vault, la session principale lit EN ENTIER les notes citées — un verdict relayé sans vérification de ses sources n'est pas un arbitrage, c'est un téléphone arabe. Même exigence que [[feedback_lire_fichier_entier_avant_verdict]], appliquée aux sorties d'agents. Le gain est réel : la lecture directe a révélé une nuance que le DA avait manquée (impossibilité mécanique vs risque de migration).

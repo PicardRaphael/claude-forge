@@ -10,7 +10,7 @@ aliases:
   - "doctrine évolutive forge"
 domaine: claude-code
 type: technique
-derniere-maj: 2026-05-28
+derniere-maj: 2026-07-09
 auteur: claude
 sources:
   - "Chantier A — pont veille → doctrine (27 mai 2026)"
@@ -42,7 +42,7 @@ Le moteur externe comble ce trou : un signal à fort crédit qui contredit ou re
 | Leaders reconnus du vault | Élevé sur leur domaine | `05-Leaders/` — Karpathy, Hashimoto, Böckeler, Simon Willison, etc. |
 | Mesure empirique forge | Décisive | probe sur transcripts, audit, test adverse |
 
-**Pas une source légitime** : tweet random, article tiers paraphrasant Anthropic sans lien primaire, hype non vérifiée (cf [[feedback_tweet_hype_paraphrase_pattern]]). Le crédit se vérifie : sur Claude, Anthropic est single source ([[feedback_anthropic_single_source]]) ; sur un domaine large, consensus multi-sources (skill `web-search-canonical-source`).
+**Pas une source légitime** : tweet random, article tiers paraphrasant Anthropic sans lien primaire, hype non vérifiée (cf [[feedback_tweet_hype_paraphrase_pattern]]). Le crédit se vérifie : sur Claude, Anthropic est single source ([[feedback_anthropic_single_source]]) ; sur un domaine large, consensus multi-sources ([[verification-sources-canoniques]]).
 
 ## Mécanisme — trois verdicts
 
@@ -82,6 +82,7 @@ Continu et événementiel — à chaque `cc-news` (étape 8 sur les findings maj
 
 - [[methode-pivoter-doctrine]] — exécute un pivot validé (5 étapes, anti-drift)
 - skill `pivot-check` — détecte le drift résiduel post-pivot (aval ; ici = amont)
+- [[verification-sources-canoniques]] — matrice single-source / multi-sources + vérification verbatim
 - [[critique-2026-05-27-compounding-retroactif]] — pourquoi le scan aveugle est interdit (0/12)
 - [[raisonnement-22mai-doctrine-vs-enforcement]] — exemple de pivot déclenché par signal externe (Boris, Agent SDK)
 - [[comment-ecrire-claudemd]] — « CLAUDE.md DOIT évoluer » (moteur interne étendu ici)

@@ -1,6 +1,6 @@
 ---
 name: rag-design
-description: ALWAYS invoke to design a RAG system — 'conçois un RAG', 'architecture RAG'. Guided dialogue audit→data→ingestion→retrieval→UX→eval filling a deliverable template. NOT for choosing a tool (choix-outils-ia) or Jira tickets (spec).
+description: ALWAYS invoke to design, review or debug a RAG system — 'conçois un RAG', chunking, embeddings, reranking. Guided dialogue filling a deliverable template, or direct answers from references/. NOT for choosing a tool (choix-outils-ia) or Jira tickets (spec).
 user-invocable: true
 allowed-tools: Read, Write, Edit, Glob, Grep, Skill, mcp__forge-brain__*
 ---
@@ -9,7 +9,9 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Skill, mcp__forge-brain__*
 
 Dialogue pas-à-pas qui déroule la chaîne canonique et remplit un template livrable au fil de l'eau. Le résultat = un document de conception prêt à passer en `spec` (idée→tickets). Tu poses les questions, tu lis le vault, tu remplis le template, Raphael tranche aux embranchements.
 
-**Charger d'abord la connaissance** : invoquer `Skill(cc-rag-ref)` au démarrage (corpus RAG en contexte — tables de décision, 3 couches, champs pivots). Le détail vit dans le vault via `mcp__forge-brain__read_note`.
+**Charger d'abord la connaissance** : lire `references/rag-reference.md` au démarrage (corpus RAG — tables de décision, 3 couches, champs pivots). Le détail vit dans le vault via `mcp__forge-brain__read_note`.
+
+**Question RAG ponctuelle** (review, debug, « quel chunking pour X ») sans conception complète → lire `references/rag-reference.md` et répondre directement, sans dérouler le dialogue 6 étapes.
 
 **Frontière** : `rag-design` conçoit (audit→archi) ; `spec` vient APRÈS (design→tickets) ; `responsable-ia` cadre la décision stratégique (build-vs-buy, CODIR), pas la conception technique.
 
@@ -27,7 +29,7 @@ Les 6 étapes sont séquentielles et aucune ne doit être sautée. Créer une t�
 
 On commence par les QUESTIONS, pas les documents. Demander / construire (AskUserQuestion, batché) :
 - 30-50 vraies questions des users réels, **par persona** (un gérant ≠ un locataire : ni mêmes questions ni mêmes droits).
-- Typer chaque question : factuel single-hop / multi-hop / comparaison / temporel / agrégation / procédural (cf table dans `cc-rag-ref`). La proportion de multi-hop relationnel décide flat vs graph.
+- Typer chaque question : factuel single-hop / multi-hop / comparaison / temporel / agrégation / procédural (cf table dans `references/rag-reference.md`). La proportion de multi-hop relationnel décide flat vs graph.
 - Inclure ≥5 questions **sans réponse** (test du refus).
 - Golden dataset = triples `(question, source/contexte attendu, réponse attendue)`, validés humainement.
 
@@ -46,7 +48,7 @@ L'Étape 2 décide **flat vs graphe** à partir du comptage des questions multi-
 
 1. **Grille d'inventaire** une ligne par source (format, structuré vs non, volume, fraîcheur, qualité, doublons, langue, **ACL/permissions**, **PII/RGPD**, connecteur, pré-traitements). Rouge récurrent Loji : PDF **scannés** (OCR), **ACL par locataire**.
 2. **Cartographier les entités** + compter les questions multi-hop relationnelles → trancher **flat+vector** (factuel mono-doc) vs **hybride graphe+vecteur** (multi-hop sur relations). Ne pas sur-ingénierer.
-3. **Data model — règle des 3 couches** (texte embeddé / scalaires pre-filter / payload citation). Choisir le **champ pivot** du cas (table dans `cc-rag-ref` ; Loji = `lot_id`+`type_doc`+`date_echeance`). Choisir le pattern de structuration (a-f).
+3. **Data model — règle des 3 couches** (texte embeddé / scalaires pre-filter / payload citation). Choisir le **champ pivot** du cas (table dans `references/rag-reference.md` ; Loji = `lot_id`+`type_doc`+`date_echeance`). Choisir le pattern de structuration (a-f).
 
 Remplir section 2. Détail JSON par cas → `mcp__forge-brain__read_note("rag-data-models-par-cas-usage")` ; métadonnées transverses → `read_note("rag-metadata")`.
 
@@ -86,4 +88,5 @@ Après chaque conception : noter le cas d'usage + le data model retenu (flat vs 
 ## Références
 
 - `references/template-rag-design.md` — template livrable 6 sections à pré-remplir
-- `Skill(cc-rag-ref)` — corpus RAG en contexte (tables de décision)
+- `references/rag-reference.md` — corpus RAG (tables de décision, 3 couches, champs pivots, gotchas ACL/PII)
+- `references/rag-corpus.md` — table des 11 notes vault RAG + quand lire chacune

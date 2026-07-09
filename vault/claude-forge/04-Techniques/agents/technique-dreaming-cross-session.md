@@ -9,7 +9,7 @@ aliases:
   - memory dreaming claude
   - review automatique sessions
 type: knowledge
-derniere-maj: 2026-06-16
+derniere-maj: 2026-07-09
 auteur: claude
 sources:
   - "https://platform.claude.com/docs/en/managed-agents/dreams"
@@ -114,7 +114,7 @@ Le corps liste `claude-opus-4-7` + `claude-sonnet-4-6`. Doc primaire actuelle = 
 
 ### Le « 97% » est À CONFIRMER — pas un chiffre Rakuten vérifié
 
-Le corps écrit « Rakuten — **97% reduction in initial critical errors** (verbatim Anthropic) ». **Non confirmé en source primaire.** La page client primaire [claude.com/customers/rakuten](https://claude.com/customers/rakuten) donne : **79% reduction in time to market**, 7 h de run autonome, 99.9% accuracy, 24 sessions parallèles. Le « 97% » apparaît dans des contextes secondaires (parfois rattaché à Netflix, non confirmé). **Traiter le 97% comme non vérifié** (cf [[llm-deep-research-version-numbers-hallucinated]] + `web-search-canonical-source`) ; citer 79% TTM comme chiffre Rakuten solide. La présentation orale Code with Claude a pu énoncer un chiffre non repris dans la doc écrite → ne pas le relayer comme « verbatim Anthropic » certain.
+Le corps écrit « Rakuten — **97% reduction in initial critical errors** (verbatim Anthropic) ». **Non confirmé en source primaire.** La page client primaire [claude.com/customers/rakuten](https://claude.com/customers/rakuten) donne : **79% reduction in time to market**, 7 h de run autonome, 99.9% accuracy, 24 sessions parallèles. Le « 97% » apparaît dans des contextes secondaires (parfois rattaché à Netflix, non confirmé). **Traiter le 97% comme non vérifié** (cf [[llm-deep-research-version-numbers-hallucinated]] + [[verification-sources-canoniques]]) ; citer 79% TTM comme chiffre Rakuten solide. La présentation orale Code with Claude a pu énoncer un chiffre non repris dans la doc écrite → ne pas le relayer comme « verbatim Anthropic » certain.
 
 ### Caps Research Preview (complément primaire)
 

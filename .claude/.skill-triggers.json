@@ -511,5 +511,15 @@
       "cite ce papier",
       "ce paper arxiv"
     ]
+  },
+  "python-script-refactor-masse": {
+    "type": "skill",
+    "description": "Refactor du même pattern sur >10 fichiers via UN script Python (jamais des Edit séquentiels)",
+    "triggers": [
+      "refactor de masse",
+      "refactorise tous les fichiers",
+      "même pattern partout",
+      "applique ça à tous les fichiers"
+    ]
   }
 }

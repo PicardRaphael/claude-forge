@@ -11,7 +11,7 @@ effort: high
 
 Transforme un contenu déjà disponible (livre, podcast, article, talk — texte collé ou transcript `/watch`) en **notes-concepts atomiques** (1 concept = 1 note) via un questionnement maïeutique. Une seule transformation : contenu → notes-concepts `draft`.
 
-Frontières : ≠ `watch` (qui transcrit une vidéo) — cette skill vit APRÈS, sur le contenu déjà en texte. ≠ `deep-research` / `web-search-canonical-source` (qui vont chercher dehors) — ici on travaille la matière fournie, on ne cherche pas.
+Frontières : ≠ `watch` (qui transcrit une vidéo) — cette skill vit APRÈS, sur le contenu déjà en texte. ≠ `deep-research` (qui va chercher dehors) — ici on travaille la matière fournie, on ne cherche pas.
 
 ## Étapes
 

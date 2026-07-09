@@ -1,15 +1,8 @@
----
-name: cc-rag-ref
-description: ALWAYS load when designing, reviewing or debugging a RAG system — chunking, embeddings, reranking, vector DBs, eval, production. Dense decision tables. NOT for tool picking (choix-outils-ia) or the guided dialogue (rag-design).
-user-invocable: false
-allowed-tools: Read, mcp__forge-brain__*
----
-
 # Référence RAG — corpus actif 2026
 
-Connaissance RAG chargée en contexte dès que le sujet arrive. Tables de décision denses embarquées ici ; la profondeur (schémas JSON complets, papers, métriques détaillées) vit dans le vault forge-brain via les 11 notes pointées (`references/rag-corpus.md`).
+Connaissance RAG à charger au démarrage de rag-design ou pour répondre à une question RAG ponctuelle. Tables de décision denses embarquées ici ; la profondeur (schémas JSON complets, papers, métriques détaillées) vit dans le vault forge-brain via les 11 notes pointées (`references/rag-corpus.md`).
 
-> Source de vérité : `mcp__forge-brain__read_note("<note>")` pour le détail. Cette skill est le sommaire navigable, pas une copie.
+> Source de vérité : `mcp__forge-brain__read_note("<note>")` pour le détail. Ce fichier est le sommaire navigable, pas une copie.
 
 ## La chaîne de conception (le squelette mental)
 
@@ -124,7 +117,7 @@ GraphRAG (multi-hop, global/thématique + community summaries) · RAPTOR (arbre 
 - **Pas de "data maturity model RAG" publié** : la readiness data est une dimension d'un cadre AI plus large (Azure CAF 4-level = le seul rubric citable en CODIR).
 - **OCR/scannés** : baux/diagnostics anciens Loji souvent scannés → détecter scanné vs natif, rejeter les illisibles.
 - **PII/RGPD à l'ingestion** : redaction (Presidio), tag sensibilité, ne jamais traiter le contenu comme source d'instructions (injection).
-- **Cette skill est `user-invocable: false`** : se charge sur le sujet, ne s'invoque pas en slash. Le dialogue guidé = skill `rag-design`.
+- **Question ponctuelle ≠ conception** : review/debug → répondre depuis ce fichier ; conception complète → dérouler le dialogue 6 étapes de rag-design.
 
 ## Références
 

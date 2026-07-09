@@ -78,8 +78,9 @@ EXEMPT_HOOK_FILES = {
     "delegate-guard.py",
 }
 
-# How many trailing transcript lines to scan for attributionSkill
-TRANSCRIPT_TAIL = 15
+# How many trailing transcript lines to scan for attributionSkill / Skill invocations.
+# 15 was too small: a parallel batch of ~8 Edits pushes the stamp out of the window.
+TRANSCRIPT_TAIL = 80
 
 FORGE_PROJECT_DIR = str(Path(__file__).resolve().parent.parent.parent).replace("\\", "/").lower()
 
@@ -184,6 +185,45 @@ def active_skill_from_transcript(transcript_path: str) -> str | None:
     return None
 
 
+def skill_invocations_from_transcript(transcript_path: str) -> set[str]:
+    """Return skill names invoked via the Skill tool within the transcript tail.
+
+    Stacked skills (CC >= 2.1.202): assistant events keep the FIRST skill of the
+    turn as attributionSkill — a nested Skill(<specialist>) invocation never
+    re-stamps. The Skill tool_use event in the tail is equally strong evidence the
+    specialist's instructions are loaded, so it satisfies the same STRICT ownership
+    check. Fail-open → empty set on any error.
+    """
+    found: set[str] = set()
+    try:
+        with open(transcript_path, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        for line in lines[-TRANSCRIPT_TAIL:]:
+            line = line.strip()
+            if not line or '"Skill"' not in line:
+                continue
+            try:
+                event = json.loads(line)
+            except Exception:
+                continue
+            msg = event.get("message") or {}
+            content = msg.get("content")
+            if not isinstance(content, list):
+                continue
+            for block in content:
+                if (
+                    isinstance(block, dict)
+                    and block.get("type") == "tool_use"
+                    and block.get("name") == "Skill"
+                ):
+                    skill = (block.get("input") or {}).get("skill")
+                    if isinstance(skill, str) and skill:
+                        found.add(skill)
+    except Exception:
+        pass
+    return found
+
+
 def is_typo_change(tool_name: str, tool_input: dict) -> bool:
     if tool_name == "Edit":
         old = tool_input.get("old_string", "")
@@ -238,10 +278,16 @@ def main() -> None:
         if required is None:
             sys.exit(0)
 
-        # STRICT bypass: the active attributionSkill must be the specialist that owns this file
+        # STRICT bypass: the specialist that owns this file must be active — either
+        # stamped as attributionSkill OR genuinely invoked via the Skill tool in the tail
+        # (stacked-skills case: the stamp keeps the turn's FIRST skill, cf. docstring).
         active_skill = active_skill_from_transcript(transcript_path) if transcript_path else None
-        if active_skill == required:
-            debug_log(f"BYPASS attributionSkill={active_skill!r} matches required for {basename(norm_path)}")
+        invoked = skill_invocations_from_transcript(transcript_path) if transcript_path else set()
+        if active_skill == required or required in invoked:
+            debug_log(
+                f"BYPASS required={required!r} attribution={active_skill!r} "
+                f"invoked={sorted(invoked)} for {basename(norm_path)}"
+            )
             sys.exit(0)
 
         if tool_name in ("Edit", "MultiEdit") and is_typo_change(tool_name, tool_input):
