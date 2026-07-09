@@ -58,6 +58,7 @@ is_agent_md = _mod.is_agent_md
 is_exempt_skill = _mod.is_exempt_skill
 is_typo_change = _mod.is_typo_change
 active_skill_from_transcript = _mod.active_skill_from_transcript
+skill_invocations_from_transcript = _mod.skill_invocations_from_transcript
 normalize = _mod.normalize
 FORGE = _mod.FORGE_PROJECT_DIR
 
@@ -240,6 +241,49 @@ def test_active_skill_none_when_absent():
 def test_active_skill_missing_file_fail_open_none():
     """Unreadable transcript path → None, never raises (fail-open)."""
     assert active_skill_from_transcript("/no/such/transcript.jsonl") is None
+
+
+# ===========================================================================
+# STACKED SKILLS — nested Skill(<specialist>) invocation in the tail unlocks
+# (CC >= 2.1.202 keeps the turn's FIRST skill as attributionSkill)
+# ===========================================================================
+
+def test_nested_skill_invocation_detected():
+    """A Skill(skill-creator) tool_use in the tail is detected even when the
+    attribution stamp stays on the turn's first skill (forge-review)."""
+    tmp = tempfile.NamedTemporaryFile(mode="w", suffix=".jsonl", delete=False, encoding="utf-8")
+    try:
+        tmp.write(json.dumps({"type": "assistant", "attributionSkill": "forge-review"}) + "\n")
+        tmp.write(json.dumps({"type": "assistant", "message": {"content": [
+            {"type": "tool_use", "name": "Skill", "input": {"skill": "skill-creator"}}]}}) + "\n")
+        for i in range(30):
+            tmp.write(json.dumps({"type": "user"}) + "\n")
+        tmp.write(json.dumps({"type": "assistant", "attributionSkill": "forge-review"}) + "\n")
+        tmp.close()
+        invoked = skill_invocations_from_transcript(tmp.name)
+        assert "skill-creator" in invoked
+        assert active_skill_from_transcript(tmp.name) == "forge-review"
+    finally:
+        os.unlink(tmp.name)
+
+
+def test_nested_invocation_strict_ownership():
+    """An invocation of a DIFFERENT skill never unlocks the required specialist."""
+    tmp = tempfile.NamedTemporaryFile(mode="w", suffix=".jsonl", delete=False, encoding="utf-8")
+    try:
+        tmp.write(json.dumps({"type": "assistant", "message": {"content": [
+            {"type": "tool_use", "name": "Skill", "input": {"skill": "cc-news"}}]}}) + "\n")
+        tmp.close()
+        invoked = skill_invocations_from_transcript(tmp.name)
+        assert "skill-creator" not in invoked
+        assert invoked == {"cc-news"}
+    finally:
+        os.unlink(tmp.name)
+
+
+def test_skill_invocations_missing_file_fail_open_empty():
+    """Unreadable transcript path → empty set, never raises (fail-open)."""
+    assert skill_invocations_from_transcript("/no/such/transcript.jsonl") == set()
 
 
 # ===========================================================================
