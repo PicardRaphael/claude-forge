@@ -86,5 +86,5 @@ Deux pièges distincts, même axe (écriture Windows PS 5.1), rencontrés 2× da
 
 - Lancer audit massif → garder en tête que `gh` indispo, x.com indispo
 - HEREDOC long → préférer `-F message.txt` ou message court
-- Corrections .claude/ → soit déléguer à skill-creator/agent-creator, soit bypass CLAUDE_AGENT pour micro-fix
+- Corrections .claude/ → invoquer la skill créatrice propriétaire (seul bypass légitime — cf section delegate-guard ci-dessus ; le bypass CLAUDE_AGENT est SUPPRIMÉ)
 - Avant `git push` → vérifier `git log --oneline origin/main..HEAD` ET `git status -s`

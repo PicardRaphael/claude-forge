@@ -26,4 +26,4 @@ Cf [[workflow-claude-code-optimal]] (doctrine : pipeline `architect → test-wri
 ## Liens
 - [[workflow-claude-code-optimal]] — recette complète (recette pipeline + densité + REFACTOR fusionné)
 - [[erreur-pipeline-trop-long-frustration]] — pourquoi cette révision (incident cache_helpers détaillé)
-- [[feedback_opus47_workflow]] — effort levels révisés (high vs xhigh)
+- [[feedback_allocation_modele_effort]] — effort levels révisés (high vs xhigh) ; consolide l'ex feedback_opus47_workflow (archivé 2026-07)
