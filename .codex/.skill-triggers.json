@@ -1,4 +1,26 @@
 {
+  "roadmap-projet-ia": {
+    "type": "skill",
+    "description": "Notes de cadrage / réunion → roadmap d'exécution projet IA interne (phases, livrables, estimations, dépendances)",
+    "triggers": [
+      "transforme ces notes de cadrage en roadmap",
+      "roadmap projet ia",
+      "découpe ce projet en phases",
+      "roadmap depuis cette réunion",
+      "fais-moi une roadmap"
+    ]
+  },
+  "deconstruction-maieutique": {
+    "type": "skill",
+    "description": "Livre / podcast / article → notes-concepts atomiques via questionnement maïeutique (liens suggérés, humain tranche)",
+    "triggers": [
+      "déconstruis ce livre",
+      "décortique ce podcast",
+      "extrais les concepts de cet article",
+      "maïeutique sur ce contenu",
+      "déconstruis en notes-concepts"
+    ]
+  },
   "cc-advisor": {
     "type": "skill",
     "description": "Aide à choisir quel composant Claude Code créer (skill, agent, hook, rule)",
@@ -237,16 +259,6 @@
       "summary session"
     ]
   },
-  "self-check": {
-    "type": "command",
-    "description": "Valide la cohérence interne de claude-forge",
-    "triggers": [
-      "self check",
-      "vérifie la cohérence",
-      "valide le projet",
-      "self-check"
-    ]
-  },
   "skill-evolve": {
     "type": "skill",
     "description": "Fait évoluer une skill existante via analyse + skill-creator",
@@ -255,7 +267,9 @@
       "améliore la skill",
       "optimise la skill",
       "optimise skill",
-      "évoluer la skill"
+      "évoluer la skill",
+      "sweep skills",
+      "sweep les skills"
     ]
   },
   "vault-audit": {
@@ -347,6 +361,8 @@
       "priorise la roadmap",
       "ai act",
       "fria",
+      "okr",
+      "prépare mon 1:1",
       "feedback dev",
       "build vs buy",
       "réunion client ia",
@@ -372,6 +388,128 @@
       "avant de livrer",
       "valide ce livrable",
       "c'est prêt à livrer"
+    ]
+  },
+  "audit-departement": {
+    "type": "skill",
+    "description": "Interview live d un departement (Migration, Support, Commercial, RH, PO, Ops) pour cartographier ses process et reperer les candidats automatisation IA",
+    "triggers": [
+      "audit le département",
+      "interview le service",
+      "audite le departement",
+      "cartographie les process du service"
+    ]
+  },
+  "choix-outils-ia": {
+    "type": "skill",
+    "description": "Choisir un outil IA ou trancher build-vs-buy (voice/TTS/OCR, transcription, moderation, embeddings, prod)",
+    "triggers": [
+      "quel outil ia",
+      "build vs buy",
+      "choisir un outil",
+      "quelle solution tts",
+      "quel ocr",
+      "outil de transcription"
+    ]
+  },
+  "rag-design": {
+    "type": "skill",
+    "description": "Dialogue guide de conception RAG (audit, data model, ingestion, retrieval, UX, eval)",
+    "triggers": [
+      "conçois un rag",
+      "design rag",
+      "architecture rag",
+      "structurer mes chunks",
+      "data model rag"
+    ]
+  },
+  "reco-automatisation": {
+    "type": "skill",
+    "description": "Transformer des fiches process en recommandations d automatisation IA gradees (chatbot/workflow/agent)",
+    "triggers": [
+      "recos d'automatisation",
+      "qu'est-ce qu'on automatise",
+      "analyse cette fiche process",
+      "recommandations automatisation"
+    ]
+  },
+  "veille-outils-ia": {
+    "type": "skill",
+    "description": "Rafraichir les notes paysage outils IA (pricing, stars, valuations, M&A) a la source primaire",
+    "triggers": [
+      "mets à jour le paysage outils",
+      "vérifie les pricing",
+      "veille outils ia",
+      "les notes outils sont-elles à jour"
+    ]
+  },
+  "loop-forge": {
+    "type": "skill",
+    "description": "Designer/specifier une routine recurrente ou un loop autonome (SPEC puis stop)",
+    "triggers": [
+      "conçois une routine",
+      "spécifie un loop",
+      "designe une boucle récurrente",
+      "routine récurrente à spécifier"
+    ]
+  },
+  "outcomes-test": {
+    "type": "skill",
+    "description": "Verifier un livrable contre une RUBRIC.md via agent grader separe (PASS/FAIL objectif)",
+    "triggers": [
+      "vérifie contre la rubric",
+      "outcomes test",
+      "évalue ce livrable objectivement",
+      "score pass fail"
+    ]
+  },
+  "methode-pivoter-doctrine": {
+    "type": "skill",
+    "description": "Checklist 5 etapes pour pivoter une doctrine canonique invalidee sans drift residuel",
+    "triggers": [
+      "pivote la doctrine",
+      "la doctrine est invalidée",
+      "cette canonique est fausse",
+      "mets à jour la doctrine"
+    ]
+  },
+  "doctrine-impact-check": {
+    "type": "skill",
+    "description": "Croiser un finding (leader, cc-news, mesure) avec la doctrine forge : INFO / PIVOT_CANDIDATE / REINFORCE",
+    "triggers": [
+      "confronte ce finding à la doctrine",
+      "impact doctrine",
+      "ce finding change-t-il la doctrine"
+    ]
+  },
+  "pivot-check": {
+    "type": "skill",
+    "description": "Detecter le drift doctrinal Type 1 (claims obsoletes residuels) apres correction d une canonique",
+    "triggers": [
+      "pivot check",
+      "cherche le drift résiduel",
+      "vérifie les claims obsolètes",
+      "drift doctrinal"
+    ]
+  },
+  "agentshield-like-scanner": {
+    "type": "skill",
+    "description": "Audit SÉCURITÉ d'un setup Claude Code (prompt injection, MCP unsafe, hooks/permissions dangereux) — pipeline red-team/blue-team",
+    "triggers": [
+      "audit sécurité",
+      "audit de sécurité",
+      "scan de sécurité",
+      "risques de sécurité du setup"
+    ]
+  },
+  "arxiv-verification": {
+    "type": "skill",
+    "description": "Vérifier un papier arXiv avant de le citer (format YYMM, URL, venue réelle)",
+    "triggers": [
+      "papier arxiv",
+      "vérifie ce papier",
+      "cite ce papier",
+      "ce paper arxiv"
     ]
   }
 }

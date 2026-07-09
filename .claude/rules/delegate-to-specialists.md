@@ -27,6 +27,8 @@ Les skills créatrices ne sont PAS des sous-agents : `agent_type` et `agent_id` 
 
 **Bypass STRICT** : `attributionSkill` doit correspondre à la skill propriétaire du fichier — `claudemd-creator` ne débloque que `CLAUDE.md`, `skill-creator` que les `SKILL.md`, etc. Une skill active ne peut pas débloquer un type de fichier qu'elle ne possède pas.
 
+**Expiration en batch** : l'attribution expire après ~8-11 Edits (observé 9 juil. 2026, batch 21 descriptions — 2 blocages en cours de lot). Pour un batch multi-fichiers : lots ≤ 8 Edits immédiatement après l'invocation, ré-invoquer la skill créatrice entre les lots. Jamais de contournement par script.
+
 ## Exceptions du hook
 
 - Correction de typo < 20 caractères (Edit/MultiEdit) → warning, pas de blocage

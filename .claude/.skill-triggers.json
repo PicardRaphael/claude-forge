@@ -267,7 +267,9 @@
       "améliore la skill",
       "optimise la skill",
       "optimise skill",
-      "évoluer la skill"
+      "évoluer la skill",
+      "sweep skills",
+      "sweep les skills"
     ]
   },
   "vault-audit": {
@@ -359,6 +361,8 @@
       "priorise la roadmap",
       "ai act",
       "fria",
+      "okr",
+      "prépare mon 1:1",
       "feedback dev",
       "build vs buy",
       "réunion client ia",
@@ -423,8 +427,8 @@
     "type": "skill",
     "description": "Transformer des fiches process en recommandations d automatisation IA gradees (chatbot/workflow/agent)",
     "triggers": [
-      "recos d automatisation",
-      "qu est-ce qu on automatise",
+      "recos d'automatisation",
+      "qu'est-ce qu'on automatise",
       "analyse cette fiche process",
       "recommandations automatisation"
     ]
@@ -486,6 +490,26 @@
       "cherche le drift résiduel",
       "vérifie les claims obsolètes",
       "drift doctrinal"
+    ]
+  },
+  "agentshield-like-scanner": {
+    "type": "skill",
+    "description": "Audit SÉCURITÉ d'un setup Claude Code (prompt injection, MCP unsafe, hooks/permissions dangereux) — pipeline red-team/blue-team",
+    "triggers": [
+      "audit sécurité",
+      "audit de sécurité",
+      "scan de sécurité",
+      "risques de sécurité du setup"
+    ]
+  },
+  "arxiv-verification": {
+    "type": "skill",
+    "description": "Vérifier un papier arXiv avant de le citer (format YYMM, URL, venue réelle)",
+    "triggers": [
+      "papier arxiv",
+      "vérifie ce papier",
+      "cite ce papier",
+      "ce paper arxiv"
     ]
   }
 }
