@@ -1,6 +1,6 @@
 ---
 name: cc-news
-description: ALWAYS invoke when user asks "quoi de neuf", "est-ce que X existe", or knowledge seems stale. Recent Claude Code updates, new features, AI industry news. Reference date : 7 juillet 2026 (v2.1.202 — Dynamic workflow size /config + AskUserQuestion no auto-continue + mode default renommé Manual + slash-skills empilées jusqu'à 5 + sous-agents remontent erreurs API au parent).
+description: ALWAYS invoke when user asks 'quoi de neuf', 'est-ce que X existe', or knowledge seems stale. Recent Claude Code updates, new features, AI industry news. Reference date : 7 juillet 2026 (v2.1.202).
 user-invocable: true
 allowed-tools: WebSearch, WebFetch, Read, Write, Agent, mcp__forge-brain__*
 argument-hint: "domaine ou sujet (ex: rag, agents, fine-tuning, concurrents, claude-code, prompt, tout)"

@@ -1,6 +1,6 @@
 ---
 name: audit-departement
-description: ALWAYS invoke when the user wants to interview a company department (Migration, Support, Commercial, RH, PO, Ops) to discover its processes and spot AI-automation candidates. Triggers "audit le département X", "interview le service Y", "/audit-departement Migration". Pilots a live discovery interview one question at a time. NOT for auditing your own daily workflow (cartographier-process-cma), NOT for turning a finished sheet into recommendations (reco-automatisation).
+description: ALWAYS invoke to interview a company department (Migration, Support, RH, PO…) and spot AI-automation candidates — 'audit le département X', 'interview le service Y'. One question at a time. NOT for turning sheets into recos (reco-automatisation).
 user-invocable: true
 allowed-tools: Read, mcp__forge-brain__*, TaskCreate, TaskUpdate, TaskList
 model: sonnet

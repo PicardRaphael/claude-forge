@@ -1,6 +1,6 @@
 ---
 name: veille-outils-ia
-description: ALWAYS invoke to refresh the market AI-tools landscape notes when the user wants to update or verify tool pricing, stars, valuations, or check the landscape notes are current. Re-verifies volatile facts (pricing, GitHub stars, valuations, M&A, dead tools) at primary source, detects drift vs vault, updates the notes + CHANGELOG under human gate. NOT for Claude Code / model news (cc-news), NOT for picking a tool now (choix-outils-ia).
+description: ALWAYS invoke to refresh the market AI-tools landscape notes — re-verifies volatile facts (pricing, stars, valuations, M&A) at primary source, updates vault under human gate. NOT for Claude Code news (cc-news) or picking a tool (choix-outils-ia).
 user-invocable: true
 allowed-tools: WebSearch, WebFetch, Read, Skill, mcp__forge-brain__*
 argument-hint: "catégorie (voix | briques | code | memoire-rag | infra | tout) ou note précise"

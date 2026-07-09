@@ -1,6 +1,6 @@
 ---
 name: skill-evolve
-description: ALWAYS invoke when user says "evolve skill", "ameliore la skill", "skill-evolve", or "sweep skills". Scans skills to spot which ones need attention (maturity score) and surfaces cross-pollination opportunities between skills. Delegates the deep per-skill audit + fixes to skill-creator. NOT for project architecture (use /evolve), NOT for Claude Code config audit (use repo-inspector mode=audit).
+description: ALWAYS invoke when user says 'evolve skill', 'améliore la skill' or 'sweep skills'. Scores skill maturity, surfaces cross-pollination, delegates deep fixes to skill-creator. NOT for project architecture (evolve) or config audit (repo-inspector).
 argument-hint: "[skill-name | all]"
 user-invocable: true
 allowed-tools: Read, Glob, Grep, Bash, mcp__forge-brain__*
@@ -131,4 +131,5 @@ Le sweep PRIORISE ; il ne corrige rien. Chaque skill prioritaire part ensuite ve
 
 Après chaque usage : skills repérées + scores, patterns de cross-pollination identifiés et transférés, skills déléguées à skill-creator.
 
-*Aucun apprentissage enregistré pour l'instant.*
+- Sweep orienté descriptions (50 skills) : un seul script py (longueur / one-line / Gotchas / externe) couvre tout le corpus en 1 Bash call — jamais 50 lectures. 21 internes > 250 chars raccourcies via skill-creator en batch ; les externes (obsidian-*, json-canvas, defuddle) qui dépassent se SIGNALENT sans jamais être touchées.
+- Le vrai risque des descriptions longues (CC ≥ 2.1.129) n'est plus la troncature à 250 mais le drop ENTIER des descriptions des skills les moins utilisées quand le listing dépasse son budget (1 % du contexte) — raccourcir tout le corpus réduit le risque pour chaque skill.

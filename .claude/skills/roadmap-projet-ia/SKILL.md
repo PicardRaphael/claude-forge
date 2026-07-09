@@ -1,6 +1,6 @@
 ---
 name: roadmap-projet-ia
-description: ALWAYS invoke when transforming framing/meeting/cadrage notes into an execution roadmap for an internal AI project — phases, deliverables, estimates, dependencies, milestones. Triggers "transforme ces notes de cadrage en roadmap", "roadmap projet IA", "découpe ce projet en phases", "roadmap depuis cette réunion". NOT for CODIR/board prioritization or RICE/OKR (use responsable-ia), NOT for Jira tickets/specs (use spec). Do not draft a roadmap freehand without invoking first.
+description: ALWAYS invoke to turn framing/meeting notes into an execution roadmap for an internal AI project — phases, deliverables, milestones. 'Transforme ces notes de cadrage en roadmap'. NOT for CODIR prioritization (responsable-ia) or Jira specs (spec).
 user-invocable: true
 allowed-tools: Read, Write, Edit, mcp__forge-brain__*
 model: opus

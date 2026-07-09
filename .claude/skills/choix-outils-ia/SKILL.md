@@ -1,6 +1,6 @@
 ---
 name: choix-outils-ia
-description: ALWAYS invoke when the user wants to choose an AI tool or decide build-vs-buy for voice/TTS/OCR, transcription, moderation, a code context engine, embeddings/reranking, or putting AI in production. Scoping dialogue, reads the vault, returns a build-vs-buy verdict + recommended tool(s) + pricing + license traps. NOT for designing a RAG (rag-design), NOT for the strategic CODIR decision (responsable-ia).
+description: ALWAYS invoke to choose an AI tool or decide build-vs-buy — voice/TTS/OCR, transcription, embeddings/reranking, AI in production. Returns verdict + tools + pricing + license traps. NOT for RAG design (rag-design) or CODIR strategy (responsable-ia).
 user-invocable: true
 allowed-tools: Read, Glob, Grep, mcp__forge-brain__*
 ---

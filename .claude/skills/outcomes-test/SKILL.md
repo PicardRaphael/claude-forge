@@ -1,6 +1,6 @@
 ---
 name: outcomes-test
-description: ALWAYS invoke when verifying a deliverable (skill, agent, hook, spec) against a RUBRIC.md via a separate grader agent for objective PASS/FAIL scoring. Complements devil's advocate (adversarial critique). NOT for adversarial stress-testing (devils-advocate), NOT without defined success criteria.
+description: ALWAYS invoke to verify a deliverable (skill, agent, hook, spec) against a RUBRIC.md via a separate grader agent — objective PASS/FAIL scoring. NOT for adversarial stress-testing (devils-advocate), NOT without defined success criteria.
 argument-hint: "<path-to-deliverable> [path-to-rubric]"
 allowed-tools: Agent, Read, Glob, Grep
 user-invocable: true

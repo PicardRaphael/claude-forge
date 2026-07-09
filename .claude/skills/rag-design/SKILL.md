@@ -1,6 +1,6 @@
 ---
 name: rag-design
-description: ALWAYS invoke when the user wants to design a RAG system — "conçois un RAG", "design RAG NeoDocs", "architecture RAG", "data model pour mon RAG", "comment structurer mes chunks". Guided dialogue audit→data model→ingestion→retrieval→UX→eval that fills a deliverable template as you go. NOT for choosing an AI tool (choix-outils-ia), NOT for turning a design into Jira tickets (spec).
+description: ALWAYS invoke to design a RAG system — 'conçois un RAG', 'architecture RAG'. Guided dialogue audit→data→ingestion→retrieval→UX→eval filling a deliverable template. NOT for choosing a tool (choix-outils-ia) or Jira tickets (spec).
 user-invocable: true
 allowed-tools: Read, Write, Edit, Glob, Grep, Skill, mcp__forge-brain__*
 ---

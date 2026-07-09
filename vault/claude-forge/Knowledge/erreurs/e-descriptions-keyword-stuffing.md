@@ -53,3 +53,9 @@ Use when the user greets, asks about their agenda, prepares for a meeting, repli
 
 - [[erreur-edit-direct-skills]]
 - [[workflow-claude-code-optimal|Best practices Boris Thariq]]
+
+## Nuance 9 juillet 2026 — cross-lingue confirmé, 1-2 phrases FR tolérées
+
+Vérifié web (leehanchung deep-dive + docs Anthropic) : le routing des skills est du **matching sémantique LLM pur** — pas de keywords, pas d'embeddings — donc **cross-lingue natif** : une description anglaise se déclenche sur des prompts français. La règle « description = verbes d'intention sémantiques en anglais » tient toujours.
+
+La nuance vs la version d'origine de cette note : **1-2 phrases FR exactes maximum** pour les formules récurrentes de l'utilisateur ('fais-moi les recos', 'conçois un RAG') sont acceptables et utiles comme ancres + documentation — c'est la **liste exhaustive** de variantes entre guillemets qui reste du keyword stuffing. Les identifiants de domaine (CODIR, FRIA, RAG, RICE) sont langue-neutres et comptent comme triggers sans coût de traduction. Aligné avec [[comment-creer-skill]] (AJOUT 24 mai « triggers concrets FR+EN » + AJOUT 18 juin budget listing).

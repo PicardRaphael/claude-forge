@@ -1,6 +1,6 @@
 ---
 name: reco-automatisation
-description: ALWAYS invoke when the user has process sheets (from audit-departement or pasted) and wants recommendations on what to automate with AI and at what level. Triggers "fais-moi les recos d'automatisation", "qu'est-ce qu'on automatise pour le service X", "analyse cette fiche process", "/reco-automatisation". Applies the quality-equation + bottleneck + chatbot/workflow/agent grading. NOT for running the interview (audit-departement), NOT for picking which Claude Code brick to build (methode-monter-systeme-workflow).
+description: ALWAYS invoke when the user has process sheets and wants AI-automation recommendations — 'fais-moi les recos d'automatisation'. Applies quality-equation + chatbot/workflow/agent grading. NOT for the interview itself (audit-departement).
 user-invocable: true
 allowed-tools: Read, mcp__forge-brain__*
 model: opus

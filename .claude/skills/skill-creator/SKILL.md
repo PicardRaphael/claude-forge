@@ -98,11 +98,11 @@ disable-model-invocation: true   # si side-effects
 ALWAYS invoke when [trigger concret]. <ce que fait la skill>. DO NOT [concurrent] without invoking first.
 ```
 
-Limites description :
-- ≤ **1024 chars** spec officielle (hard limit)
-- description + `when_to_use` ≤ **1536 chars** combiné dans le skill listing
-- Viser **court et dense** — les triggers concrets en premier, avant le contexte
-- Inclure near-miss exclusions ("NOT when X", "Use for Y not Z")
+Limites description (mécanisme CC ≥ 2.1.129) :
+- ≤ **1024 chars** spec officielle (hard limit) ; description + `when_to_use` ≤ **1536 chars** combiné
+- Viser **200-250 chars trigger-dense** : le listing a un budget (`skillListingBudgetFraction`, 1 % du contexte par défaut) — dépassé, CC **droppe des descriptions ENTIÈRES** des skills les moins utilisées (~15-25 skills confortables à 200K). Chaque char superflu augmente le risque de drop pour tout le corpus
+- Matching = sémantique LLM pur (pas de keywords ni embeddings) → cross-lingue natif : une description anglaise se déclenche sur des prompts français. 1-2 phrases FR exactes max pour les formules récurrentes ; liste exhaustive entre guillemets = keyword stuffing (note vault e-descriptions-keyword-stuffing)
+- Inclure near-miss exclusions ("NOT for X (use Y)")
 - Pas de XML tags, pas de YAML multi-ligne (Prettier mangling casse la découverte)
 
 ### Corps SKILL.md (< 500 lignes — sinon `references/`)
@@ -245,6 +245,9 @@ Priorités audit rapide :
 ## Apprentissage
 
 Après chaque création ou optimisation : noter ici les patterns efficaces et gotchas rencontrés.
+
+- Batch multi-skills : l'attribution `attributionSkill` du delegate-guard expire après ~8-11 Edits — regrouper les Edits par lots ≤ 8 juste après l'invocation, et ré-invoquer skill-creator entre les lots. Jamais de contournement par script.
+- Raccourcir une description = vérifier les longueurs des drafts par script AVANT d'éditer, préserver 1-2 triggers FR exacts + identifiants de domaine (langue-neutres), et garder les clauses NOT-for qui désambiguïsent les skills voisines.
 
 ---
 

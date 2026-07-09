@@ -14,6 +14,10 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-07-09 — Nuance keyword stuffing : cross-lingue confirmé, 1-2 phrases FR tolérées
+
+- **Modifiées** : `Knowledge/erreurs/e-descriptions-keyword-stuffing.md` — nouvelle section « Nuance 9 juillet 2026 » : routing skills = matching sémantique LLM pur (cross-lingue natif, vérifié web), 1-2 phrases FR exactes acceptables comme ancres, seule la liste exhaustive entre guillemets reste du stuffing. Aligné [[comment-creer-skill]].
+- **Source** : sweep /skill-evolve descriptions (21 skills raccourcies ≤ 250 chars) — tension résolue entre cette note d'erreur (avril) et la canonique (mai/juin).
 ## 2026-07-03 — Pattern brouillon Confluence natif comme gate de validation (enrichissement)
 
 - **Modifiées** : `04-Techniques/chatbot/rovo-agent-automation-confluence.md` — nouvelle section « Le gate de validation = brouillon Confluence NATIF (pas un dossier custom) » : `createConfluencePage(status="draft")` non indexé tant que draft, validation humaine = bouton « Publier », jamais `updateConfluencePage` (brouillon « [remplace] X »). Affine l'« Option B » (gate custom « À valider ») avec le mécanisme natif.

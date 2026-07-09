@@ -1,6 +1,6 @@
 ---
 name: responsable-ia
-description: ALWAYS invoke for a Lead/Responsable IA task — CODIR/board prep (6-pager, PR-FAQ), IA roadmap prioritization (RICE/WSJF/OKR), AI Act / RGPD compliance (FRIA, AUP), 1:1 or feedback prep, recruiting AI profiles, the strategic build-vs-buy-vs-RAG-vs-fine-tune decision, LLM vendor choice, IA feature framing, Jira tickets for IA features, or IA client meetings. Triggers: "prépare CODIR", "6-pager", "priorise", "OKR", "AI Act", "FRIA", "1:1", "build vs buy", "feature IA", "stratégie IA", "RICE", "réunion client IA". Do not improvise a Lead IA deliverable without invoking first. For hands-on RAG design use rag-design, for picking a concrete AI tool use choix-outils-ia.
+description: ALWAYS invoke for Lead IA deliverables — CODIR/6-pager, RICE/OKR prioritization, AI Act/FRIA, 1:1s, recruiting, build-vs-buy, LLM vendor choice, feature framing, Jira IA tickets. NOT for RAG design (rag-design) or tool choice (choix-outils-ia).
 user-invocable: true
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__*
 ---

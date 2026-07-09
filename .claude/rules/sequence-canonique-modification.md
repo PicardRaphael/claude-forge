@@ -58,7 +58,7 @@ Plus : `Knowledge/erreurs|critiques|raisonnements/` pour contexte spécifique.
 FAITS (A) côte-à-côte avec RÈGLES (B). Lister les écarts :
 - Agent Opus mais canonique = Sonnet → écart split
 - Skill 800L mais canonique < 500L → écart taille
-- Description skill > 250 chars → écart auto-trigger
+- Description skill > 250 chars → écart (pression budget listing : au-delà de 1 % du contexte, drop entier des descriptions des skills peu utilisées)
 - Hook workflow gate mais doctrine 22 mai interdit → écart doctrinal
 
 Pas d'opinion. Que des **écarts mesurables**.

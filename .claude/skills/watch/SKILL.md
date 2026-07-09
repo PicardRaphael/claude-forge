@@ -1,6 +1,6 @@
 ---
 name: watch
-description: Transcribe and analyze YouTube videos — downloads YouTube subtitles via yt-dlp when available, falls back to Whisper ASR on the audio when no captions exist. Use when the user shares a YouTube URL to analyze, summarize, or extract information from a video.
+description: ALWAYS invoke when the user shares a YouTube URL to analyze or summarize — downloads subtitles via yt-dlp, falls back to Whisper ASR. NOT for native X/Twitter videos (x-read flow).
 argument-hint: "<youtube-url>"
 allowed-tools: Bash, Read, Write
 user-invocable: true

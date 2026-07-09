@@ -1,6 +1,6 @@
 ---
 name: configure-claude-desktop
-description: ALWAYS invoke when configuring Claude Desktop or Cowork for a Neoteem team member, creating a "bras droit" profile, onboarding a new user to Claude, or setting up member preferences. DO NOT configure Neoteem profiles without invoking first. NOT for generic Claude Desktop questions outside Neoteem context.
+description: ALWAYS invoke when configuring Claude Desktop or Cowork for a Neoteem team member — 'bras droit' profile, onboarding, member preferences. NOT for generic Claude Desktop questions outside Neoteem.
 model: sonnet
 effort: high
 user-invocable: true

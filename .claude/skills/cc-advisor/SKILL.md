@@ -1,6 +1,6 @@
 ---
 name: cc-advisor
-description: ALWAYS invoke when the user describes a need or automation problem WITHOUT naming which Claude Code component to build (hook, skill, agent, MCP, rule). Diagnoses the need and recommends the right component. NOT for auditing an existing setup (repo-inspector) nor creating a named component directly.
+description: ALWAYS invoke when the user describes a need or automation problem WITHOUT naming which Claude Code component to build. Diagnoses and recommends hook/skill/agent/MCP/rule. NOT for auditing a setup (repo-inspector) or creating a named component.
 user-invocable: true
 allowed-tools: WebSearch, WebFetch, Read, mcp__forge-brain__*
 argument-hint: "décris ton besoin"

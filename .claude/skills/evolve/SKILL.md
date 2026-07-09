@@ -1,6 +1,6 @@
 ---
 name: evolve
-description: ALWAYS invoke when the user wants prioritized product/architecture evolution proposals for a project (path via ARGUMENTS) — what to build next. NOT for auditing the Claude Code setup (repo-inspector), NOT for sweeping/optimizing skills (skill-evolve), NOT for reviewing existing code.
+description: ALWAYS invoke when the user wants prioritized product/architecture evolution proposals for a project — what to build next (path via ARGUMENTS). NOT for config audit (repo-inspector), skill sweeps (skill-evolve) or code review.
 argument-hint: "[/absolute/path/to/project]"
 user-invocable: true
 allowed-tools: Read, Glob, Grep, Bash, Agent, mcp__forge-brain__*

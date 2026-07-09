@@ -1,6 +1,6 @@
 ---
 name: vault-audit
-description: Audits and optionally fixes notes in the forge-brain Obsidian vault. Use when the user asks to audit, check quality, find orphans, fix frontmatter, normalize tags, or score notes. Use PROACTIVELY after cc-news capitalisation or note creation to verify vault quality.
+description: ALWAYS invoke to audit or fix notes in the forge-brain vault — quality checks, orphans, frontmatter, tags, scoring. Use PROACTIVELY after cc-news capitalisation or note creation. NOT for doctrine alignment checks (align-vault-skills).
 argument-hint: "[fix] [--top N] [--full] [--note NAME]"
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep
 user-invocable: true

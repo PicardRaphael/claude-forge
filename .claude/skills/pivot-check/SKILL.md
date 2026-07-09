@@ -1,6 +1,6 @@
 ---
 name: pivot-check
-description: Detects Type 1 doctrinal drift (residual obsolete claims) after correcting a canonical note. Invoke when the user types /pivot-check, or when starting a session that follows a vault canonical edit. Advisory only — reports drifts, never auto-applies fixes.
+description: ALWAYS invoke when the user types /pivot-check or a session follows a vault canonical edit. Detects Type 1 doctrinal drift (residual obsolete claims). Advisory only — reports, never auto-applies. NOT for executing a pivot (methode-pivoter-doctrine).
 user-invocable: true
 effort: high
 memory: project

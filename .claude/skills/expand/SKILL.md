@@ -1,6 +1,6 @@
 ---
 name: expand
-description: ALWAYS invoke when the user types /expand or when a prompt is ambiguous and needs clarification before execution. Expands a rough prompt into a precise spec with scope, deliverables, success criteria, and verification steps. DO NOT execute the original prompt without invoking first.
+description: ALWAYS invoke when the user types /expand or a prompt is too ambiguous to execute. Expands a rough prompt into a precise spec — scope, deliverables, success criteria, verification. DO NOT execute the original prompt without invoking first.
 argument-hint: "[rough prompt to expand]"
 user-invocable: true
 ---

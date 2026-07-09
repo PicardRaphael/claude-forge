@@ -1,6 +1,6 @@
 ---
 name: deconstruction-maieutique
-description: ALWAYS invoke when deconstructing a book, podcast, article, or talk into atomic concept-notes through maieutic questioning. Triggers "déconstruis ce livre en notes-concepts", "décortique ce podcast", "extrais les concepts de cet article", "maïeutique sur ce contenu". Lives AFTER /watch (which transcribes) — NOT for transcribing (use watch), NOT for searching external sources (use deep-research / web-search-canonical-source). Do not dump raw summary notes without invoking first.
+description: ALWAYS invoke to deconstruct a book, podcast, article or talk into atomic concept-notes via maieutic questioning — 'déconstruis ce livre', 'décortique ce podcast'. Runs AFTER /watch. NOT for transcribing (watch) or searching sources (deep-research).
 user-invocable: true
 allowed-tools: Read, mcp__forge-brain__*
 model: opus

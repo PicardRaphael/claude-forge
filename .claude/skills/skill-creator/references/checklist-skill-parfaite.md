@@ -22,7 +22,8 @@ Source : research LLM Claude.ai juin 2026 + doctrine forge. Hedges : chiffres Se
 - [ ] `name` kebab-case, ≤ 64 chars, pas "claude"/"anthropic", gérondif préféré
 - [ ] ≤ 1024 chars spec officielle (hard limit)
 - [ ] description + `when_to_use` ≤ 1536 chars combiné dans le skill listing
-- [ ] Viser court et dense — triggers concrets en premier, contexte ensuite
+- [ ] Viser 200-250 chars trigger-dense — au-delà du budget listing (1 % du contexte), CC droppe des descriptions ENTIÈRES des skills les moins utilisées (CC ≥ 2.1.129)
+- [ ] Matching sémantique LLM cross-lingue : anglais directive + 1-2 phrases FR exactes max — jamais de liste exhaustive entre guillemets (keyword stuffing)
 - [ ] UNE SEULE LIGNE YAML — jamais `>-` ni `|` (casse la découverte, Prettier mangling)
 - [ ] Pas de XML tags
 - [ ] Near-miss exclusions incluses ("NOT when X", "Use this for Y not Z")
