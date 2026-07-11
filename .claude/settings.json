@@ -24,10 +24,6 @@
       "Bash(rmdir *)",
       "Bash(del *)",
       "Bash(git rm *)",
-      "Bash(git branch -D *)",
-      "Bash(git branch -d *)",
-      "Bash(git push *--force*)",
-      "Bash(git push *-f*)",
       "Bash(git reset --hard*)",
       "Bash(git clean *)"
     ]
@@ -143,7 +139,19 @@
           }
         ]
       }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/notify-discord.py\"",
+            "timeout": 10
+          }
+        ]
+      }
     ]
   },
-  "enabledPlugins": {}
+  "enabledPlugins": {},
+  "fallbackModel": ["claude-opus-4-8"]
 }
