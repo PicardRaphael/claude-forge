@@ -248,6 +248,7 @@ Après chaque création ou optimisation : noter ici les patterns efficaces et go
 
 - Batch multi-skills : le delegate-guard accepte une invocation `Skill(skill-creator)` dans la fenêtre du transcript (80 lignes) même quand l'estampille `attributionSkill` reste sur la première skill du tour (empilement CC ≥ 2.1.202). Sur un batch très long, si un Edit est bloqué : ré-invoquer skill-creator. Jamais de contournement par script.
 - Raccourcir une description = vérifier les longueurs des drafts par script AVANT d'éditer, préserver 1-2 triggers FR exacts + identifiants de domaine (langue-neutres), et garder les clauses NOT-for qui désambiguïsent les skills voisines.
+- Description une-ligne : JAMAIS `: ` (deux-points suivi d'un espace) dans la valeur — scalaire YAML non quoté = ScannerError, skill silencieusement non chargée. Remplacer ` : ` par ` — `, écrire les options `[sujet:{texte}]` sans espace, et parser TOUS les frontmatters par script (PyYAML) après un batch. Piège actif en typographie française et à toute migration `>-` → une-ligne (13 juil. 2026, bdd : 13/13 nouvelles descriptions touchées). Détail : vault [[comment-creer-skill]] AJOUT 13 juillet.
 
 ---
 

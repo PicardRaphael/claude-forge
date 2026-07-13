@@ -820,3 +820,18 @@ Le SKILL.md embarque le sommaire dense + pointe `references/<corpus>.md` qui lis
 **Corollaire — séparer la maintenance** : si une catégorie de faits volatils doit rester à jour, créer une skill de **veille ciblée distincte** (ex `veille-outils-ia` refresh les notes-paysage marché) qui exclut explicitement les skills de référence de son périmètre. La référence consomme le vault ; la veille le maintient. Évite que « rafraîchir » touche un chiffre stable embarqué.
 
 Validé 17 juin 2026 (chantier 4 skills RAG/outils, tension embed-vs-pointer résolue avec l'advisor ; DA verdict SHIP — « faits stables embarqués, faits volatils en vault via veille = pas un drift single-source »). Cf [[mcp-vs-skills-doctrine]] (où vit l'info).
+
+---
+
+## AJOUT 13 juillet 2026 — Deux-points + espace dans une description une-ligne = skill silencieusement non chargée
+
+En passant les descriptions au format **une seule ligne** (doctrine anti `>-`), un piège YAML devient actif : un scalaire non quoté ne peut pas contenir `: ` (deux-points suivi d'un espace) — spec YAML `ns-plain-char`, le `:` doit être suivi d'un non-espace. Résultat : `ScannerError: mapping values are not allowed here` au parsing du frontmatter → **la skill n'est pas chargée, sans aucun message**.
+
+Piège particulièrement actif en **français** (typographie « mot : liste ») et dans les syntaxes d'options (`[sujet: {texte}]`).
+
+**Règles :**
+- Dans une description une-ligne : remplacer ` : ` par ` — ` ; options sans espace après le deux-points (`[sujet:{texte}]`).
+- Les anciennes descriptions `>-` (block scalars) toléraient les `:` — c'est en migrant vers une-ligne que le piège se déclenche. Toute migration `>-` → une-ligne DOIT re-valider le parsing.
+- Validation systématique post-batch : parser tous les frontmatters (PyYAML proxy fiable de js-yaml sur cette règle) avant de livrer.
+
+Vérifié empiriquement le 13 juil. 2026 (chantier bdd, 13 descriptions touchées sur 13 nouvelles skills — attrapé par validation avant livraison). Cf. skill `skill-creator` section Apprentissage.

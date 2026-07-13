@@ -14,6 +14,11 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-07-13 — Gotcha YAML descriptions une-ligne (chantier bdd)
+
+- **Modifiées** : `04-Techniques/claude-code/comment-creer-skill.md` — AJOUT 13 juillet : `deux-points + espace` dans une description une-ligne non quotée = ScannerError → skill silencieusement non chargée. Remplacer ` : ` par ` — `, options `[sujet:{texte}]` sans espace, re-valider le parsing à toute migration `>-` → une-ligne.
+- **Source** : chantier modernisation `.claude/` repo bdd (13 juil., branche us/RPI/PP-N2-111820-claude-skills) — 13 descriptions touchées, attrapé par validation PyYAML avant livraison.
+
 ## 2026-07-09 — Fusions skills forge-review : verification-sources-canoniques créée
 
 - **Ajoutées** : `04-Techniques/patterns/verification-sources-canoniques.md` — matrice provider single-source + pattern vérification verbatim + 4 patterns d'erreur, promue depuis l'ex-skill `web-search-canonical-source` (foldée dans la rule `contenu-externe-non-fiable`, verdict forge-review + DA SHIP, arbitrage Raphael)
