@@ -48,4 +48,4 @@ Quand on aligne un repo entier sur un jumeau de référence (ex. neo_ia ↔ neot
 - **Path absolu obligatoire** pour agent cross-repo : chemin relatif = fail silencieux
 - **Scope forge ≠ règle universelle** : vérifier si la règle s'applique à tous les repos avant propagation
 
-Source : `memory/feedback_propagate_decisions_cross_repo.md`
+Source : `memory/_archive/2026-07/feedback_propagate_decisions_cross_repo.md` (feedback d'origine absorbé par cette rule, archivé 2026-07-09)

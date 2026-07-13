@@ -37,4 +37,4 @@ python --version  # peut pointer vers Microsoft Store alias (no-op)
 
 Si les deux ne pointent pas vers le même Python → utiliser `py` exclusivement.
 
-Source : `memory/feedback_python_path_windows.md` + `memory/reference_python_windows_cross_machine.md`
+Source : `memory/feedback_python_path_windows.md`

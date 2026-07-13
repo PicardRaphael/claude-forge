@@ -1,77 +1,44 @@
 # Memory — Index Archive (tier-2)
 
-Feedbacks **valides** mais **sans citation entrante** au moment du clean-memory du 2026-05-27. Déplacés ici depuis `MEMORY.md` pour alléger le chargement contexte (le pointeur dans MEMORY.md y renvoie). Ne PAS supprimer — ce sont des apprentissages actifs, simplement non cités.
+Feedbacks **valides** mais **sans citation entrante ni statut stratégique** (dernier clean : 2026-07-09, grand nettoyage — 64 fichiers archivés avec preuve, voir journal). Déplacés ici depuis `MEMORY.md` pour alléger le chargement contexte (le pointeur dans MEMORY.md y renvoie). Ne PAS supprimer — ce sont des apprentissages actifs, simplement non cités.
 
 **Critère de retour en tier-1 (MEMORY.md) :** dès qu'un feedback ici est cité par un autre feedback ou une note vault (`[[slug]]`), ou devient un sujet stratégique, le réintégrer dans MEMORY.md section Feedback.
 
-**Critère d'archivage réel (vers `_archive/`) :** distinct — un tier-2 n'est archivé que si obsolète/absorbé (voir `_archive/MEMORY-archive-log.md`). Tier-2 ≠ archivé.
+**Critère d'archivage réel (vers `_archive/`) :** distinct — un tier-2 n'est archivé que si obsolète/absorbé/one-shot daté avec preuve (voir `_archive/MEMORY-archive-log.md`). Tier-2 ≠ archivé.
 
-## Feedback (tier-2 — 129 entrées)
-- [pas-dogmatique-patterns-externes](feedback_pas-dogmatique-patterns-externes.md) — Adapter un pattern externe à forge, jamais par mimétisme (agent-first)
-- [verifier-shadow-plugin-avant-ref-morte](feedback_verifier_shadow_plugin_avant_ref_morte.md) — Skill supprimée ≠ réf morte : find le shadow plugin par nom avant de purger
-- [design-collegue-flow-first](feedback_design_collegue_flow_first.md) — Outiller un collègue = flow utilisateur d'abord + vérifier ce que les skills couvrent déjà
-- [merge-markers-grep-avant-commit](feedback_merge_markers_grep_avant_commit.md) — Conflit résolu = grep 0 marqueur AVANT commit (marqueur committé 10 juin)
-- [optimiser-claudemd-inspec](feedback_optimiser_claudemd_inspec.md) — Optimiser CLAUDE.md in-spec ≠ réduire mécaniquement — appliquer "Would removing this cause mistakes?" pas un %-objectif
-- [agent-tools-enforce-delegation](feedback_agent_tools_restriction.md) — Retirer Bash des agents orchestrateurs pour forcer délégation
-- [bash-permission-format](feedback_bash_permission_format.md) — Permissions Bash = espace avant *, jamais deux-points. Bash(git *) pas Bash(git:*)
-- [brief-prescrit-travail-deja-fait-veille](feedback_brief_prescrit_travail_deja_fait.md) — Brief auto-mode peut prescrire création/audit déjà fait 24-72h avant. search_brain + AJOUT récents canoniques AVANT Phase 1
-- [dispatch-analyse-vs-audit](feedback_dispatch_analyse_vs_audit.md) — analyse skills/agents = project-auditor pas Explore. Multi-repo = 1 agent/repo
-- [emphasis-prompt-vs-skill](feedback_emphasis_distinction.md) — Emphasis OK dans skills/rules/agents, réduire uniquement dans tool descriptions
-- [read-note-conditionnel-si-pas-deja-contexte](feedback_read_note_conditionnel_si_pas_deja_contexte.md) — Avant read_note canonique audit/jugement, vérifier si déjà en contexte session. Citer + wikilink si oui. Application directe règle tokens/contexte L19
-- [cross-repo-naming-decision-propagation](feedback_propagate_decisions_cross_repo.md) — Décisions naming/structure = propager explicitement aux autres repos
-- [skills-referenced-in-body](feedback_skills_referenced_in_body.md) — Skills en frontmatter DOIVENT être référencées dans le body avec instructions
-- [vault-cat-guard-faux-positif-memory](feedback_vault_cat_guard_faux_positif_memory.md) — Hook vault-cat-guard bloque cat memory/ si commande contient "vault". Edit pas Bash
-- [webfetch-avant-subagents-audit](feedback_webfetch_avant_subagents_audit.md) — Avant dispatch audit thématique : 3-4 WebFetch directs sur sources suspectes
-- [ton-vault-forge-pas-neoteem](feedback_ton_vault_forge_pas_neoteem.md) — « Ton vault » = forge-brain (mon cerveau), JAMAIS le vault Neoteem métier
-- [zip-import-slash-pas-compress-archive](feedback_zip_import_slash_pas_compress_archive.md) — Zip d'import Cowork = slashes. Compress-Archive met des backslashes → casse
-- [mv-shell-contourne-classifier-settings](feedback_mv_shell_contourne_classifier_settings.md) — mv shell user-commandé applique un settings.json.proposed que l'Edit tool bloque
-- [avis-franc-ecrit-dans-livrable](feedback_avis_franc_ecrit_dans_livrable.md) — Avis de fond franc + choix binaire net + dangers noir sur blanc DANS le livrable
-- [doc-pro-coherence-multi-docs](feedback_doc_pro_coherence_multi_docs.md) — Pack de docs liés : relire mot à mot la cohérence inter-docs avant de livrer
-- [raphael-pas-mise-en-avant-cadrage-client](feedback_raphael_pas_mise_en_avant_cadrage_client.md) — Docs Neoteem : ne pas mettre Raphaël en avant ; cadrage = décision client
-- [5-lignes-karpathy-ouverture-claudemd](feedback_5_lignes_karpathy_ouverture.md) — Tout CLAUDE.md forge commence par 5 lignes Karpathy verbatim
-- [80-percent-confidence-ship-now](feedback_80_percent_confidence_ship.md) — Convergence 80%+ game-changer = ship avec tests adverses, pas attendre 7j
-- [agent-creator-path-absolu-cross-repo](feedback_agent_creator_path_absolu_cross_repo.md) — Modifier agent autre repo = dispatcher agent-creator avec path ABSOLU
-- [agent-vs-skill-invocation](feedback_agent_vs_skill.md) — Agents = dispatch auto. Skills = slash commands ou auto-trigger
-- [model-allocation-strategy](feedback_all_opus.md) — Sonnet pour exécution, Opus pour jugement — politique CwC 2026 validée 21 mai
-- [anthropic-doctrine-biais-full-thune](feedback_anthropic_doctrine_biais_full_thune.md) — Anthropic reco xhigh = biais tokens illimités. Calibrer par TYPE de tâche
-- [auto-violation-doctrine-fraichement-inscrite](feedback_auto_violation_doctrine_fraichement_inscrite.md) — Respecter immediatement la doctrine fraichement inscrite, pas l'oublier au tour suivant
+## Feedback (tier-2 — 35 entrées)
+- [5-lignes-karpathy-ouverture-claudemd](feedback_5_lignes_karpathy_ouverture.md) — Tout CLAUDE.md forge commence par 5 lignes Karpathy verbatim. ⚠ Porte une divergence vs canonique vault (ne PAS propager aux repos non-code type neoteem-brain) — à replier dans [[comment-ecrire-claudemd]] puis archiver
+- [audit-completude-pointeur-vs-orphelin](feedback_audit_completude_pointeur_vs_orphelin.md) — Audit complétude index/roadmap : un wikilink non résolu localement peut pointer vers une note existante ailleurs. search_brain chaque cible avant de la compter orpheline (60→41 réels)
+- [audit-prompt-adaptatif-par-couche](feedback_audit_prompt_adaptatif_par_couche.md) — Auditer des prompts d'archi adaptative par COUCHE (core toujours-chargé strict vs conditional à-la-demande tolérant), lire blueprint.py + chaque prompt en entier. Compter ≠ juger ; `_disabled` ≠ mort
 - [autonomy-initiative-rule](feedback_autonomy_rule.md) — Si advisor+DA valident → agir sans demander. Proposer innovations proactivement
-- [backup-zip-avant-purge-massive](feedback_backup_zip_avant_purge_massive.md) — Compress-Archive .zip defensif AVANT purge >50 fichiers. Cout zero, restauration instantanee
-- [cartographie-exhaustive-avant-delegation](feedback_cartographie_exhaustive_avant_delegation.md) — Avant déléguer à un creator : grep EXHAUSTIF du fichier cible, brief complet
-- [coach-proactif-complet](feedback_coach_proactif.md) — Proposer commandes CC, MCP, automations, raccourcis — pas juste skills/agents/hooks
-- [db-immutable-check](feedback_db_immutable.md) — Vérifier que db:generate/db:migrate ne sont pas dans les agents
-- [dispatch-clusters-priority-check-mandatory](feedback_dispatch_clusters_priority_check.md) — Audit thématique : cross-check claims PRIORITÉ HAUTE AVANT dispatch
-- [doctrine-pushback-user-choice-violation](feedback_doctrine_pushback_user_choice.md) — User choisit option violant doctrine → pushback Jarvis franc avec alternative AVANT exécuter
-- [dont-prefill-files](feedback_dont_prefill_files.md) — Ne pas pré-créer les fichiers que les agents génèreront
-- [forge-skills-priority](feedback_forge_skills_priority.md) — Skills forge PRIORITAIRES sur plugins externes, mémoire en premier
-- [git-log-before-resume](feedback_git_log_before_resume.md) — Avant finir/reprendre un chantier : git log --oneline -10. Message qui matche = déjà fait
-- [glissement-jarvis-executant-sessions-longues](feedback_glissement_jarvis_executant.md) — Sessions >10 échanges = glissement exécutant. Auto-check tous 3 échanges
-- [loop-brain-check](feedback_loop_brain_check.md) — /loop 1h /brain-check = monitoring passif, uniquement si projet a un Brain
+- [avis-franc-ecrit-dans-livrable](feedback_avis_franc_ecrit_dans_livrable.md) — Avis de fond franc + choix binaire net + dangers noir sur blanc DANS le livrable
+- [conformite-aveugle-regle-generique](feedback_conformite_aveugle_regle_generique.md) — Garde refusée = lire son intention avant de contourner. Souvent intentionnelle
+- [consolidate-searches](feedback_consolidate_searches.md) — Ne jamais chercher 2× la même info. Consolider en 1 fichier dès le 1er search
+- [creator-reorganise-design-verrouille](feedback_creator_reorganise_design_verrouille.md) — skill/agent-creator réorganise/dilue un design verrouillé avec l'user. Vérifier bloc par bloc vs design validé, briefer "ne pas réinterpréter"
+- [doc-pro-coherence-multi-docs](feedback_doc_pro_coherence_multi_docs.md) — Pack de docs liés : relire mot à mot la cohérence inter-docs avant de livrer
+- [emphasis-prompt-vs-skill](feedback_emphasis_distinction.md) — Emphasis OK dans skills/rules/agents, réduire uniquement dans tool descriptions
+- [eval-trio-angles-complementaires](feedback_eval_trio_angles_complementaires.md) — Éval forge = TRIO (skill-evolve fin / forge-review stratégique / outcomes-test rubric). Chercher 3 angles avant conclure gap
+- [ia-back-postgresjs-stack-drift-pattern](feedback_drizzle_postgresjs_drift.md) — Migration code ≠ migration .claude/. Grep stack OLD vs NEW (Drizzle→postgres.js)
 - [major-mistakes](feedback_major_mistakes.md) — Erreurs à ne pas refaire : agent CTO, routing CLAUDE.md, bricoler sans rechercher
-- [neoteem-brain-vault-pipeline](feedback_neoteem_brain_pipeline.md) — Pipeline complet repo-analyzer → vault-linker → sync-checker, ne pas s'arrêter à création notes
+- [mcp-transport-stdio-http-crashloop](feedback_mcp_transport_stdio_http_crashloop.md) — FastMCP crash loop systemd + nginx 502 = transport stdio au lieu de http. Lire les logs AVANT de soupçonner l'OAuth
+- [merge-markers-grep-avant-commit](feedback_merge_markers_grep_avant_commit.md) — Conflit résolu = grep 0 marqueur AVANT commit (marqueur committé 10 juin)
 - [obsidian-skills-sacred](feedback_obsidian_skills_sacred.md) — Jamais supprimer les skills Obsidian officielles. Le MCP complète, ne remplace pas
+- [org-blocks-github](feedback_no_github_cloud.md) — Orga Team bloque GitHub, pas de triggers cloud, tout en local Task Scheduler
 - [osef-pragmatique-dette-conditionnelle](feedback_osef_pragmatique_dette_conditionnelle.md) — OSEF assumé sur sujet faible levier + dette conditionnelle tracée (≠ couper loops)
+- [pas-dogmatique-patterns-externes](feedback_pas-dogmatique-patterns-externes.md) — Adapter un pattern externe à forge, jamais par mimétisme (agent-first)
+- [pas-de-wakeup-pour-agents-background](feedback_pas_de_wakeup_pour_agents_background.md) — Jamais de ScheduleWakeup pour attendre mes propres agents background (le harness notifie à leur fin). Wakeup = travail externe non-tracké uniquement
 - [plan-commits-vs-working-tree-reel](feedback_plan_commits_vs_working_tree_reel.md) — git status AVANT, isoler le hors-scope dans un commit dédié, signaler l'écart
-- [proposed-files-antipattern-supprimer-apres-application](feedback_proposed_files_antipattern.md) — .proposed = transitoire, supprimer après application. Édition directe d'abord
-- [deep-analysis-no-shortcuts](feedback_quality.md) — Paginer les gros fichiers (~500L) mais TOUT couvrir, jamais s'arrêter au milieu
-- [read-references-first](feedback_read_references_first.md) — Lire les references/ des skills AVANT de créer
-- [renommer-skill-3-endroits-pas-2](feedback_renommer_skill_3_endroits.md) — Rename skill = dossier + frontmatter + body occurrences. Briefer skill-creator sur les 3 sinon oubli body
-- [repo-audit-workflow](feedback_repo_audit_workflow.md) — Audit multi-repo : scan parallèle, corrections par stack, commit par repo
-- [repo-autonomy-mandatory](feedback_repo_autonomy.md) — Repos projet autonomes sans forge, collègues continuent seuls
-- [repo-scope-read-libre-write-marker](feedback_repo_scope_read_libre.md) — Lecture cross-repo libre depuis ia_back/neo_ia, écriture garde marker
-- [roadmap-implementable-document-clear](feedback_roadmap_implementable_document_clear.md) — Plan différé = self-contained (chemin + skeleton + tests + ordre). Document & Clear
-- [schema-mapper-not-in-forge](feedback_schema_mapper_location.md) — Composants pour autres projets = output/, pas dans .claude/
+- [plugin-admin-absorbe-readonly](feedback_plugin_admin_absorbe_readonly.md) — Plugin admin (write) absorbe fonctionnellement le read-only. Désinstaller le read-only sans perte (gain tokens). Vérifier allowed-tools
+- [preference-modele-opus-4-8](feedback_preference_modele_opus.md) — Raphael : Opus 4.8 préféré, 4.6 repli, JAMAIS 4.7 (jugé moyen). Le mapping `opus` = claude-opus-4-8 vit dans CLAUDE.md
+- [present-before-build](feedback_present_before_build.md) — Présenter le plan AVANT construire, jamais créer sans validation Raphael
+- [raphael-pas-mise-en-avant-cadrage-client](feedback_raphael_pas_mise_en_avant_cadrage_client.md) — Docs Neoteem : ne pas mettre Raphaël en avant ; cadrage = décision client
+- [regle-scope-pas-universelle](feedback_regle_scope_pas_universelle.md) — Vérifier scope règle AVANT propagation. Provider sur SON produit = single source
 - [secu-calibrage-pragmatique](feedback_secu_calibrage_pragmatique.md) — Risque sécu base test OK si remédiation coûteuse. JAMAIS secret commité
-- [self-modification-agent-cross-dispatch](feedback_self_modification_agent_cross_dispatch.md) — Modifier agent-creator.md = dispatcher skill-creator. Classifier bloque self-mod
-- [sub-agent-invente-classifier](feedback_sub_agent_invente_classifier.md) — Sub-agent qui refuse sans tenter = rationalisation. Forcer tentative + verbatim error
-- [superpowers-decision](feedback_superpowers_decision.md) — Garder superpowers neo_ia (executing-plans L), ne pas ajouter ia_back
-- [support-100pct-success](feedback_support_tokens.md) — neo-brain-support = 100% réussite, jamais optimiser tokens au détriment qualité
-- [surface-plutot-que-padder-tronquer](feedback_surface_plutot_que_padder_ou_tronquer.md) — Longueur cible flexible : surface l'écart, jamais padder ni tronquer brutalement
-- [test-everything](feedback_test_everything.md) — Toujours tester hooks/agents/skills/MCP en réel, jamais déclarer OK sans preuve
-- [tests-adverses-hooks-secu](feedback_tests_adverses_hooks_secu.md) — Hook sécu = suite ≥3:1 adverse, DA avant push, caractériser les bugs, docstring scope
-- [venues-conference-inventees-llm-pattern](feedback_venues_inventees_pattern.md) — Pattern : NeurIPS/ICLR attribués à arXiv sans preuve. WebFetch PDF
-- [verify-empirique-avant-affirmation-session](feedback_verify_avant_affirmation_session.md) — Avant d'affirmer "X parce que Y" sur changement filesystem/repo : git log/diff/blame d'abord. User questionnement "pourquoi ?" = signal paraphrase non-vérifiée
-- [x-articles-inaccessibles-empirique](_archive/2026-06/feedback_x_articles_inaccessibles_empirique.md) — Archivé : absorbé par skills `x-read` L104 + `web-search-canonical-source` L64
-- [recap-find-vault-bloque-prebash](feedback_recap_find_vault_bloque_prebash.md) — /recap collecte find vault/ bloquée par pre-bash-guards → skill à fixer (MCP find_by_property)
-
-## Reference (tier-2)
+- [single-source-of-truth](feedback_single_source_of_truth.md) — UN fichier canonique par concept, skills pointent vers doc/
+- [subagent-audit-category-error](feedback_subagent_audit_category_error.md) — Sub-agent audit flagge drift sur note citant des valeurs externes. Vérifier la source de vérité réelle
+- [tag-projet-nom-repo-exact](feedback_tag_projet_nom_repo_exact.md) — Tag projet = nom EXACT du repo (underscore compris), vérifier disque + git remote avant fusion
+- [ton-vault-forge-pas-neoteem](feedback_ton_vault_forge_pas_neoteem.md) — « Ton vault » = forge-brain (mon cerveau), JAMAIS le vault Neoteem métier
+- [vault-cat-guard-faux-positif-memory](feedback_vault_cat_guard_faux_positif_memory.md) — Hook vault-cat-guard bloque cat memory/ si commande contient "vault". Edit pas Bash
+- [verifier-shadow-plugin-avant-ref-morte](feedback_verifier_shadow_plugin_avant_ref_morte.md) — Skill supprimée ≠ réf morte : find le shadow plugin par nom avant de purger
+- [verify-empirique-avant-affirmation-session](feedback_verify_avant_affirmation_session.md) — Avant d'affirmer "X parce que Y" sur changement filesystem/repo : git log/diff/blame d'abord. Distinct de diagnostic-empirique-avant-affirmer-une-garde (scopes différents — NON-fusion canonique)
+- [zip-import-slash-pas-compress-archive](feedback_zip_import_slash_pas_compress_archive.md) — Zip d'import Cowork = slashes. Compress-Archive met des backslashes → casse
