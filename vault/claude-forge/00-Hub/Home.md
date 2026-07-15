@@ -9,7 +9,7 @@ aliases:
   - "knowledge base"
   - "index principal"
 type: index
-derniere-maj: 2026-06-27
+derniere-maj: 2026-07-15
 auteur: claude
 sources: []
 tags:
@@ -34,11 +34,14 @@ Vault **agent-first** pour claude-forge — cerveau d'agent piloté via MCP (Kar
 - [[mcp-vs-skills-doctrine]] — MCP data / Skills how-to
 - [[pattern-vault-llm-karpathy]] — pattern Karpathy de référence (forge-brain s'en est émancipé → agent-first)
 
+Pour Codex (agent de code OpenAI) : **[[MOC-Codex]]** — corpus doctrinal parallèle (workflow, AGENTS.md, skills, hooks, subagents, loops, mémoire).
+
 ## Navigation par MOC (couche humaine optionnelle, non auto-maintenue)
 
 | Section | Contenu |
 |---------|---------|
 | [[MOC-Claude-Code]] | Features, changelog, hooks, skills, agents, best practices |
+| [[MOC-Codex]] | OpenAI Codex : doctrine (AGENTS.md, config, skills, hooks, subagents, loops, mémoire), leaders |
 | [[MOC-Outils-IA]] | Gemini CLI, Codex, Copilot, Cursor, xAI |
 | [[MOC-Modeles]] | Specs, benchmarks, migrations |
 | [[MOC-Techniques]] | Prompt eng, context eng, RAG, agents, fine-tuning, patterns |

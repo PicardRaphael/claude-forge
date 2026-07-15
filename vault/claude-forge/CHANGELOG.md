@@ -14,6 +14,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-07-15 — Doctrine Codex : corpus 04-Techniques/codex/ + doctrine ChatGPT-seul + MOC-Codex
+
+- **Ajoutées** (10, `04-Techniques/codex/`) : `workflow-codex-optimal.md` (note maître — Surface Map des 8 leviers, multitasking Sottiaux, séquence S/M/L/XL), `agents-md-codex.md` (cap 32 KiB `project_doc_max_bytes`, nesting, `AGENTS.override.md`), `config-toml-profils-codex.md` (rupture profils 0.134.0 = crash boot, précédence, requirements.toml), `comment-creer-skill-codex.md` (divergences vs standard Agent Skills : `.agents/skills`, sidecar `openai.yaml`, 4 scopes, portabilité NON byte-identique), `comment-creer-hook-codex.md` (stable v0.124.0, 10 events, piège `Stop` inversé, gap `additionalContext`/PreToolUse, trust model par hash), `subagents-cloud-codex.md` (TOML `developer_instructions`, max_threads=6/max_depth=1, CSV batch, automations RRULE), `loops-codex.md` (`codex exec`, automations, CI `openai/codex-action`), `loop-apprentissage-codex.md` (compounding `[memories]` + « scan sessions → update skills »), `memoire-optimale-codex-chatgpt.md` (montage mémoire cross-tool), `codex-vs-chatgpt-seul.md` (arbitrage produit).
+- **Ajoutée** (1, `04-Techniques/chatgpt/`, nouveau dossier) : `personnalisation-chatgpt-app.md` (custom instructions, Projects, mémoire native, GPTs, connectors, Assistants API sunset 26 août 2026 → Responses API ; provenance dégradée signalée : help.openai.com 403 → paraphrase WebSearch).
+- **Ajoutée** (1, `00-Hub/`) : `MOC-Codex.md` (index Codex, miroir de MOC-Claude-Code).
+- **Modifiées** : `00-Hub/MOC-Techniques.md` (section « OpenAI Codex » → MOC-Codex) ; `02-OpenAI/products/OpenAI Codex.md` (section « MàJ 15 juil. 2026 » : état verrouillé GPT-5.6 Sol/Terra/Luna + pointeur doctrine).
+- **Source** : chantier doctrine Codex (mission analyste 15 juil.). Recherche = sonde de sources (gate) + 6 agents read-only en parallèle sur sources primaires (`learn.chatgpt.com/docs/*`, repo `openai/codex` releases, Pragmatic Engineer, Willison), retour structuré par claim (verbatim + URL + date + confiance). Trois prémisses du brief corrigées à la source : hooks **stables** (pas expérimentaux) depuis v0.124.0 ; `on-failure` **déprécié** ; défaut CLI = **gpt-5.6-sol** (pas GPT-5-Codex). Doc officielle a migré (`developers.openai.com/codex/*` → `learn.chatgpt.com/docs/*` ; `docs/config.md` repo = stub). Chaque note distingue certain/probable/à-vérifier et date les données volatiles.
 ## 2026-07-15 — Base 05-Leaders/codex : 7 pointures OpenAI Codex
 ## 2026-07-15 — Audit couche-2 config .claude/ du repo bdd
 

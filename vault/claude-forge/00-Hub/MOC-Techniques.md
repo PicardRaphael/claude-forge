@@ -155,6 +155,16 @@ type: index
 
 
 
+## OpenAI Codex
+
+Corpus doctrinal Codex (miroir de la doctrine Claude Code) — index complet dans [[MOC-Codex]].
+
+- [[MOC-Codex]] — **index Codex** : workflow, AGENTS.md, config/profils, skills, hooks, subagents, loops, mémoire, arbitrage ChatGPT
+- [[workflow-codex-optimal]] — note maître : Surface Map des 8 leviers, multitasking Sottiaux, séquence par taille de tâche
+- [[comment-creer-hook-codex]] — hooks Codex stables (v0.124.0), 10 events, trust model par hash, piège `Stop` inversé vs Claude Code
+- [[comment-creer-skill-codex]] — Skills Codex : noyau standard partagé + divergences (`.agents/skills`, `openai.yaml`), portabilité non byte-identique
+- [[codex-vs-chatgpt-seul]] — arbitrage Codex (agent de code) vs ChatGPT (app conversationnelle)
+
 ## Spec-Driven Development
 
 - [[pattern-spec-driven-development]] — Consensus pionniers 2026 : interview → SPEC.md → execute. Thariq, Boris, Anthropic

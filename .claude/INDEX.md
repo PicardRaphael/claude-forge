@@ -3,7 +3,7 @@
 > Généré automatiquement par `.claude/scripts/gen-index.py` (pre-commit). NE PAS éditer à la main.
 > Trouve un objet par son **Nom exact** ci-dessous — jamais d'invention.
 
-## Skills (48)
+## Skills (49)
 
 | Nom exact | Chemin | Description | Triggers |
 |---|---|---|---|
@@ -19,6 +19,7 @@
 | `choix-outils-ia` | `.claude/skills/choix-outils-ia/SKILL.md` | ALWAYS invoke to choose an AI tool or decide build-vs-buy — voice/TTS/OCR, transcription, embeddings/reranking, AI in production. Returns verdict + tools + pricing + license traps. NOT for RAG design (rag-design) or CODIR strategy (responsable-ia). | quel outil ia · build vs buy · choisir un outil · quelle solution tts · quel ocr · outil de transcription |
 | `claudemd-creator` | `.claude/skills/claudemd-creator/SKILL.md` | ALWAYS invoke when user wants to create, audit, improve, or optimize a CLAUDE.md. Do not hand-write CLAUDE.md directly — use this skill first. Delegate-guard still blocks direct edits. | claude.md · claude md · optimise mon claude · audite mon claude · analyse mon claude · améliore le claude · mon fichier claude · le claude.md · audit claude.md |
 | `clean-memory` | `.claude/skills/clean-memory/SKILL.md` | ALWAYS invoke when the user types /clean-memory. Detects duplicate and dormant feedbacks in memory/MEMORY.md, proposes merges and archives with human gate per item. DO NOT archive or merge any feedback without invoking first. | — (dans description) |
+| `codex-ref` | `.claude/skills/codex-ref/SKILL.md` | ALWAYS load when user asks about OpenAI Codex (the coding agent) — its AGENTS.md, config.toml, skills, hooks, subagents, loops, memory, or Codex vs Claude Code. Stable spine here; read MOC-Codex for detail, cc-news for anything newer. NOT for Claude Code features (cc-features-ref). | — (dans description) |
 | `config-guardian` | `.claude/skills/config-guardian/SKILL.md` | Scan ia_back, neo_ia, and neoteem-brain for Claude Code config drift against baseline rules. Use when auditing multi-repo setup consistency. | audit multi-repo · config drift · vérifie la config · cohérence entre projets |
 | `configure-claude-desktop` | `.claude/skills/configure-claude-desktop/SKILL.md` | ALWAYS invoke when configuring Claude Desktop or Cowork for a Neoteem team member — 'bras droit' profile, onboarding, member preferences. NOT for generic Claude Desktop questions outside Neoteem. | configure claude desktop · profil claude desktop · bras droit · configure pour |
 | `craft-prompt` | `.claude/skills/craft-prompt/SKILL.md` | ALWAYS invoke to create, improve or optimize a prompt for Claude, Gemini or any LLM — applies the best techniques per target model and use case. NOT for Claude Code skills/agents/hooks (their creators) or CLAUDE.md (claudemd-creator). | crée un prompt · optimise ce prompt · optimise le prompt · prompt pour · améliore ce prompt |

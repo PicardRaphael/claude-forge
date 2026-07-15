@@ -73,3 +73,15 @@ CLI IA d'OpenAI pour le développement. 3M utilisateurs/semaine (+1M/mois). Prem
 - **Chrome extension** : fonctionne avec apps/sites dans le browser, parallèle multi-tabs
 - **Workspace agents** : agents répétables pour workflows entreprise (ChatGPT + Slack)
 - **GPT-5.5** remplace GPT-5.4 comme modèle principal
+
+## Mise à jour 15 juillet 2026 (doctrine Codex forge)
+
+> Cette fiche produit (versant industrie/concurrent) date de mai 2026 (GPT-5.4/5.5) et reste un instantané historique. L'état verrouillé au **15 juil. 2026** et la doctrine actionnable vivent désormais dans un corpus dédié : **[[MOC-Codex]]** (10 notes 04-Techniques/codex/ + [[personnalisation-chatgpt-app]]).
+
+État verrouillé (sources primaires 15/07/2026) :
+- **Modèle défaut CLI** : `gpt-5.6-sol` (alias `gpt-5.6`, preset Power medium) depuis la GA GPT-5.6 du 9 juil. Famille **Sol/Terra/Luna**. Dépréciés : gpt-5.2, gpt-5.3-codex. Sunset legacy 23 juil.
+- **CLI** `0.144.4` (14 juil.). Doc officielle migrée : `developers.openai.com/codex/*` → redirige `learn.chatgpt.com/docs/*` ; `docs/config.md` du repo = stub.
+- **8 leviers** : AGENTS.md · config.toml/profils · skills (`.agents/skills`) · subagents (`.codex/agents/*.toml`) · MCP · automations/cloud · hooks (stables v0.124.0) · mémoire `[memories]`.
+- Prix API (short ctx, $/1M) : Sol 5/30 · Terra 2.5/15 · Luna 1/6 · GPT-5-Codex 1.25/10 (ctx 400K).
+
+Point d'entrée doctrine : [[MOC-Codex]] · [[workflow-codex-optimal]] · [[codex-vs-chatgpt-seul]].
