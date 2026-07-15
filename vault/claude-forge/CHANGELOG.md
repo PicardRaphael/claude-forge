@@ -14,6 +14,10 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-07-15 — Gotcha boot lent MCP (Gotcha #4) après RUN de vérif tool_events
+
+- **Modifiée** : `04-Techniques/claude-code/ajouter-source-donnees-mcp-forge-brain.md` — nouveau **Gotcha #4** (section Cycle de vie) : premier boot LENT (rebuild DB + gros scan initial) → handshake MCP de la nouvelle session expire → TOUS les outils forge-brain absents (pas seulement le nouveau). Distinguer de l'échec d'enregistrement ; fix = 2e nouvelle session serveur chaud. Diagnostic PowerShell (Invoke-WebRequest 404 = vivant, db-wal figé = scan fini).
+- **Source** : chantier `tool_events` (15 juil.). RUN de vérification du mode `skill-evolve friction` réussi : `search_tool_events(is_error=true)` remonte les vraies frictions récurrentes cross-session (schémas MCP read_section/update_property, delegate-guard, mcp-alias-guard). Finding : heuristique `is_error` a des faux positifs (AskUserQuestion/Read marqués [ERROR] sur « error » cosmétique) → à filtrer au regroupement (noté dans l'Apprentissage de skill-evolve, hors vault). TODO de capture supprimé après intégration.
 ## 2026-07-15 — Enrichissement mémoire Codex avancée (couche gérée + pattern auto-améliorant)
 
 - **Modifiées** : `04-Techniques/codex/memoire-optimale-codex-chatgpt.md` (nouvelle section « Mémoire GÉRÉE par l'utilisateur » : native [memories] non-éditable → couche externe possédée ; 2 couches instruction/learned ; options MCP mem0/Basic Memory/Letta ; arbitrages portabilité/staleness/versioned-reads) ; `04-Techniques/codex/loop-apprentissage-codex.md` (section « pattern auto-améliorant » : squelette convergent 5 étapes, artefacts praticiens ECC/Dimillian/chatprd/Kulaxyz, 5 archétypes arXiv vérifiés ExpeL/Voyager/MemGPT/AWM/ACE).

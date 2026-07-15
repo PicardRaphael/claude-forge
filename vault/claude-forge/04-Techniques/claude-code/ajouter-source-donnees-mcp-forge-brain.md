@@ -92,6 +92,18 @@ Déjà couvert dans la section Tests ci-dessus.
 Fix : `kill serveur → Remove-Item forge-brain.db* (+ -wal + -shm) → NOUVELLE session → rebuild complet`. La DB est 100 % reconstructible depuis les `.md` (vérité = les notes). Preuve 14 juin 2026 : après rebuild, `broken_wikilinks` 88 → 75 (13 faux positifs en code spans éliminés).
 
 Distinction nette : changement de **NOTE** → watcher suffit (≤ 30 s) ; changement de **CODE serveur** (nouveaux outils) → kill + nouvelle session (gotcha #1) ; changement de **PARSER** → delete DB en plus (gotcha #3).
+### Gotcha #4 — Premier boot LENT = handshake MCP de la nouvelle session expire (TOUS les outils absents)
+
+Quand la nouvelle source implique un **rebuild complet de la DB** (parser changé, gotcha #3) **+ un scan initial volumineux** (ex. `tool_events` sur ~159 transcripts → DB reconstruite à 85 Mo), le serveur met plusieurs secondes à répondre au premier boot. La session ouverte PENDANT ce boot voit son **handshake MCP expirer** → **AUCUN outil forge-brain exposé** (pas seulement le nouveau — `search_brain`/`vault_stats` pré-existants manquent aussi). Vérifié 15 juil. 2026 (chantier `tool_events`).
+
+**Distinguer les deux causes de « outils forge-brain absents » :**
+- TOUS absents (y compris pré-existants) + serveur vivant (`Get-Process` PID présent sur 8091, `db-wal` figé = scan fini, `Invoke-WebRequest http://127.0.0.1:8091/` → 404 = serveur répond) = **handshake expiré au boot lent** → fix = **encore une nouvelle session** (serveur déjà chaud, handshake immédiat). PAS un bug d'enregistrement.
+- SEUL le nouvel outil absent, les autres présents = vrai problème d'enregistrement → regarder `register_tools` dans `src/tools/brain.py` (cf gotcha #2).
+
+**Séquence corrigée pour une nouvelle source à gros scan initial** : kill 8091 + delete DB → 1re nouvelle session (laisse reconstruire, surveiller `db-wal` qui cesse de grossir) → **2e nouvelle session** une fois le serveur chaud → tous les outils exposés.
+
+Diagnostic (PowerShell — éviter `===` dans une string passée via `!`, bash l'interprète) : `Invoke-WebRequest -Uri 'http://127.0.0.1:8091/' -TimeoutSec 5` (404 = vivant, endpoint MCP ailleurs) + `Get-Process -Id <pid> | Select StartTime` + taille `forge-brain.db-wal` figée.
+
 ## ANTI-PATTERNS
 
 - Réutiliser `notes_fts` avec un champ discriminant → casse BM25 vault, brouille `search_brain`.
