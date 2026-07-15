@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-07-15 — Pattern personas session principale (chantier bdd, demande Raphael)
+
+- **Ajoutées** : `04-Techniques/claude-code/pattern-personas-session-principale.md` — canonique du pattern rôles/personas chargés en conversation principale (convention @dev via CLAUDE.md) vs subagents (AskUserQuestion officiellement indisponible, vérifié doc 15 juil.) vs Agent Teams ; grille de décision, piège namespace .claude/agents/, 6 best practices, cas réel bdd. `Knowledge/critiques/critique-execution-modernisation-bdd.md` — verdict DA SHIP (0 bloquant) sur l'exécution complète du chantier bdd.
+- **Modifiées** : `04-Techniques/claude-code/comment-creer-agent.md` — AJOUT 15 juillet : persona de dialogue ≠ subagent, pointeur vers la nouvelle canonique.
+- **Source** : chantier modernisation bdd (§4 roles/) + recherches web 15 juil. (doc officielle sub-agents/agent-teams, claude-personas, persona-generator, ultimate-guide).
+
 ## 2026-07-13 — Gotcha YAML descriptions une-ligne (chantier bdd)
 
 - **Modifiées** : `04-Techniques/claude-code/comment-creer-skill.md` — AJOUT 13 juillet : `deux-points + espace` dans une description une-ligne non quotée = ScannerError → skill silencieusement non chargée. Remplacer ` : ` par ` — `, options `[sujet:{texte}]` sans espace, re-valider le parsing à toute migration `>-` → une-ligne.

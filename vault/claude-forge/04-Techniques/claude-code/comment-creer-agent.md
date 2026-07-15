@@ -998,3 +998,10 @@ L'anti-pattern **« Agent CTO orchestrateur — la session principale orchestre 
 Pour tout agent généré : **`tools:` explicite obligatoire** (déjà la règle forge) — ce qui le protège AUSSI du nesting non voulu. N'ajouter `Agent` aux `tools:` d'un agent QUE si son rôle est de dispatcher (ex `repo-inspector`), et le documenter. La syntaxe `Agent(type)` en `tools:` n'agit comme allowlist que sur un agent **main-thread** (`--agent`) ; en sous-agent la parenthèse est ignorée.
 
 `derniere-maj` → 2026-06-16.
+
+
+---
+
+## AJOUT 15 juillet 2026 — Persona/rôle de dialogue ≠ subagent : ne pas ranger les rôles dans `.claude/agents/`
+
+Un « rôle » qui pilote le DIALOGUE (checkpoints humains, questions, ton persistant — ex. `@dev`/`@docu` du repo bdd) n'est PAS un subagent : `AskUserQuestion`, `EnterPlanMode` et `ScheduleWakeup` sont **officiellement indisponibles en subagent** (doc sub-agents, vérifié 15 juil. 2026 — « depend on the main conversation's UI »). Le ranger dans `.claude/agents/` l'enregistre comme subagent natif → collision namespace (typeahead `@` spawn isolé, interactivité cassée). Pattern correct : dossier inerte `.claude/roles/` + routage CLAUDE.md. Doctrine complète, grille persona/skill/subagent/Agent Teams et cas réel bdd : [[pattern-personas-session-principale]].
