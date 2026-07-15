@@ -18,7 +18,7 @@ sessions:
   include_subagents: false
 
 tool_events:
-  enabled: false
+  enabled: true
   path: ~/.claude/projects
   include_subagents: false
 

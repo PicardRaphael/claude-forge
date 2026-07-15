@@ -1,7 +1,7 @@
 ---
 name: skill-evolve
 description: ALWAYS invoke when user says 'evolve skill', 'améliore la skill' or 'sweep skills'. Scores skill maturity, surfaces cross-pollination, delegates deep fixes to skill-creator. NOT for project architecture (evolve) or config audit (repo-inspector).
-argument-hint: "[skill-name | all]"
+argument-hint: "[skill-name | all | friction [jours]]"
 user-invocable: true
 allowed-tools: Read, Glob, Grep, Bash, mcp__forge-brain__*
 model: sonnet
@@ -24,10 +24,11 @@ Deux rôles UNIQUES que `skill-creator` ne couvre pas :
 
 Vérifier que `$ARGUMENTS` est fourni. Si absent, afficher et stopper :
 ```
-Usage : /skill-evolve <skill-name>   → repérage + cross-pollination d'une skill
-        /skill-evolve all            → sweep de toutes les skills
+Usage : /skill-evolve <skill-name>     → repérage + cross-pollination d'une skill
+        /skill-evolve all              → sweep de toutes les skills
+        /skill-evolve friction [jours] → skills qui frottent en usage réel (cross-session, défaut 14j)
 ```
-Ne pas deviner une skill par défaut.
+Ne pas deviner une skill par défaut. `friction` accepte un entier optionnel = fenêtre en jours.
 
 ---
 
@@ -109,8 +110,49 @@ Le sweep PRIORISE ; il ne corrige rien. Chaque skill prioritaire part ensuite ve
 
 ---
 
+## Mode 3 — Friction (analyse cross-session)
+
+Objectif : repérer les skills qui **frottent en usage réel de façon RÉPÉTÉE** (sur plusieurs sessions), et proposer un rapport d'amendements à valider. Comme les autres modes : **PROPOSE et DÉLÈGUE, n'applique jamais**.
+
+**Frontière avec `/done`** : `/done` capture les erreurs d'UNE session à chaud (mono-session). Ce mode ne remonte QUE ce qui se **répète sur ≥2-3 sessions** — le pattern cross-session que `/done` ne peut pas voir. Ne pas re-surfacer ce que `/done` a déjà capté en mono-session.
+
+### Étape 1 — Lire la source de friction (MCP)
+Requêter `mcp__forge-brain__search_tool_events` (source `tool_events` : les `tool_use`/`tool_result` indexés). Ne PAS parser les `.jsonl` à la main.
+- Erreurs récentes : `search_tool_events(is_error=true, since="<fenêtre>")` → regrouper par signature d'erreur (normaliser chiffres/paths) pour trouver les récurrences.
+- Collisions : examiner les `tool_use` d'invocation de skills concurrentes sur des tours proches.
+
+Si l'outil `search_tool_events` est absent → **signaler** que le MCP doit être rechargé avec `tool_events.enabled: true` (voir Gotchas). Ne pas fallback sur un parse brut.
+
+### Étape 2 — Classer par signal + confiance
+| Signal | Confiance | Détection |
+|--------|-----------|-----------|
+| 3 — erreur récurrente (≥2-3 sessions, même signature) | **[FIABLE]** | `is_error=true` groupé par signature |
+| 4 — collision de déclenchement | **[FIABLE]** | `tool_use` de skills concurrentes |
+| 2 — résultat corrigé par l'utilisateur | **[CANDIDAT — à vérifier]** | miner haute-précision, corrections nettes uniquement |
+| 1 — skill manquée (dispo + non appelée + invoquée à la main ensuite) | **[CANDIDAT — à vérifier]** | proxy comportemental, jamais affirmé comme fait |
+
+Les signaux 1 & 2 sont structurellement fragiles (pas de vérité-terrain fiable — cf `Knowledge/dettes/dette-detection-signaux-friction-skills`). Les surfacer comme **candidats à valider**, jamais comme certitudes.
+
+### Étape 3 — Rapport (chaque item cite sa preuve)
+```
+# Friction skills — fenêtre <N> jours
+| Skill | Signal | Confiance | Preuve | Amendement proposé |
+|-------|--------|-----------|--------|--------------------|
+| skill-X | 3 erreur récurrente | [FIABLE] | "<signature>" ×N sessions | ajouter gotcha … |
+```
+**Item sans preuve citée = rejeté** (pas de proposition à l'intuition). Preuve = signature d'erreur + nb de sessions, ou extrait daté.
+
+### Étape 4 — Validation + délégation
+- Raphael valide item par item. Seuls les amendements validés partent vers `skill-creator` (écriture en **append incrémental**, jamais réécriture complète d'une skill).
+- **Idempotence** : ne pas re-lister comme neuf un amendement déjà proposé lors d'un run précédent — signaler « déjà proposé » (état léger si disponible).
+
+---
+
 ## Gotchas
 
+- **Mode friction — MCP rechargé requis** : `search_tool_events` exige `tool_events.enabled: true` dans `mcp-forge-brain/config.yaml` + kill port 8091 + nouvelle session (le handshake MCP est figé au SessionStart). Outil absent → le signaler, jamais parser les `.jsonl` à la main.
+- **Mode friction ≠ `/done`** : `/done` = mono-session à chaud ; friction = récurrence cross-session. Ne pas re-surfacer les erreurs déjà capturées par `/done`.
+- **Signaux friction 1 & 2 fragiles** : skill manquée + résultat corrigé = candidats à valider, jamais des certitudes (pas de vérité-terrain dans les transcripts).
 - **Ne refait PAS l'audit profond** — depuis le GATE 0 de skill-creator, l'audit 6-dimensions + frontmatter + fixes appartient à skill-creator. skill-evolve REPÈRE (maturité, cross-pollination) et DÉLÈGUE. Dupliquer l'audit = doublon à éviter.
 - **Ne pas confondre avec `/evolve`** — `/evolve` = architecture produit projet. Rediriger si besoin.
 - **Ne pas confondre avec `repo-inspector mode=audit`** — lui audite toute la config `.claude/`. skill-evolve = les skills uniquement, angle stratégique.
@@ -129,7 +171,7 @@ Le sweep PRIORISE ; il ne corrige rien. Chaque skill prioritaire part ensuite ve
 
 ## Apprentissage
 
-Après chaque usage : skills repérées + scores, patterns de cross-pollination identifiés et transférés, skills déléguées à skill-creator.
+Après chaque usage : skills repérées + scores, patterns de cross-pollination identifiés et transférés, skills déléguées à skill-creator. Pour le mode friction : signatures d'erreur récurrentes utiles + faux positifs des signaux candidats (1 & 2) à affiner.
 
 - Sweep orienté descriptions (50 skills) : un seul script py (longueur / one-line / Gotchas / externe) couvre tout le corpus en 1 Bash call — jamais 50 lectures. 21 internes > 250 chars raccourcies via skill-creator en batch ; les externes (obsidian-*, json-canvas, defuddle) qui dépassent se SIGNALENT sans jamais être touchées.
 - Le vrai risque des descriptions longues (CC ≥ 2.1.129) n'est plus la troncature à 250 mais le drop ENTIER des descriptions des skills les moins utilisées quand le listing dépasse son budget (1 % du contexte) — raccourcir tout le corpus réduit le risque pour chaque skill.
