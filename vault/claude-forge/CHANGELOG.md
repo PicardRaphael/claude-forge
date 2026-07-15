@@ -14,6 +14,19 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-07-15 — Base 05-Leaders/codex : 7 pointures OpenAI Codex
+## 2026-07-15 — Audit couche-2 config .claude/ du repo bdd
+
+- **Modifiées** : `04-Techniques/patterns/audit-claude-folder-pattern.md` — nouvelle section « Variante — audit COUCHE 2 quand un plan de modernisation existe déjà » (détecter un plan `.claude/todo/` récent → vérifier les `[x]` empiriquement, drift plan↔réel dans les deux sens, angles morts ; gotcha propagation incomplète d'un `git mv agents/→roles/` ; piège de brief « grep nom du dev courant » qui manque le chemin d'un autre dev).
+- **Source** : audit du `.claude/` de bdd (15 juil.) — 3 agents parallèles + vérif empirique. Le repo avait déjà un plan de modernisation du 13 juil. exécuté à ~80 % → bascule en audit couche-2. Rapport archivé `claude-forge/output/audit-bdd-claude-2026-07-15.md`.
+
+
+- **Ajoutées** : `05-Leaders/codex/Thibault Sottiaux.md` (head/eng lead Codex → GM core product), `Michael Bolin.md` (tech lead dépôt OSS openai/codex), `Fouad Matin.md` (release initiale CLI, sécu/sandbox), `Gabriel Peal.md` (ext VS Code + desktop), `Josh McKinney.md` (mainteneur Ratatui recruté full-time), `Andrew Ambrosino.md` (lead desktop app, doctrine taste>implementation), `Shao-Qian Mah.md` (researcher modèles). Nouveau dossier `05-Leaders/codex/`.
+- **Modifiées** : `00-Hub/MOC-Leaders.md` — nouvelle section "Codex / OpenAI" (7 fiches).
+- **Leaders** : 7 fiches Codex, chacune vérifiée sur ≥2 sources primaires (Pragmatic Engineer "How Codex is built" de Gergely Orosz + API GitHub openai/codex contributors + X/blogs). Doublons ignorés : Sam Altman, Simon Willison, Andrej Karpathy, Lilian Weng, Jason Wei (déjà présents, aucun fond Codex spécifique à ajouter).
+- **Source** : phase veille Codex (mission analyste 15 juil.). Contributeurs semi-anonymes (jif-oai #1, pakrym-oai) écartés faute de nom vérifiable. Greg Brockman / Nick Turley = figures org, pas fiche (Brockman ⊂ industrie, proche Sam Altman existant).
+- **Enrichie** : `05-Leaders/agents/Simon Willison.md` — section "Angle Codex" (praticien externe de référence : reverse-engineering Codex CLI, Codex + modèles self-hosted, lethal trifecta appliqué à Codex). Cercle A bullet 3 (praticiens externes) et Cercle B (usage pro ChatGPT/API) cherchés puis constatés MAIGRES : paysage dominé par contenu SEO/agrégateur et blogs d'entreprise, aucune pointure individuelle passant la barre reconnaissance+fond+≥2 sources primaires hormis Willison (déjà fiché, enrichi).
+
 ## 2026-07-15 — Pattern personas session principale (chantier bdd, demande Raphael)
 
 - **Ajoutées** : `04-Techniques/claude-code/pattern-personas-session-principale.md` — canonique du pattern rôles/personas chargés en conversation principale (convention @dev via CLAUDE.md) vs subagents (AskUserQuestion officiellement indisponible, vérifié doc 15 juil.) vs Agent Teams ; grille de décision, piège namespace .claude/agents/, 6 best practices, cas réel bdd. `Knowledge/critiques/critique-execution-modernisation-bdd.md` — verdict DA SHIP (0 bloquant) sur l'exécution complète du chantier bdd.

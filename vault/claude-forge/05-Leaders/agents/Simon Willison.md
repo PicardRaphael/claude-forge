@@ -41,3 +41,15 @@ Co-créateur de Django. Outil **LLM** CLI open-source (philosophie Unix pour l'I
 - X : [@simonw](https://x.com/simonw)
 - GitHub : [simonw/llm](https://github.com/simonw/llm)
 - [[Agents IA]] — [[agents-architecture]]
+
+## Angle Codex (enrichissement 15 juil. 2026)
+
+Praticien externe de référence sur **OpenAI Codex** (tag dédié [simonwillison.net/tags/codex](https://simonwillison.net/tags/codex/)) — l'exemple canonique du praticien indépendant qui documente des workflows Codex reproductibles et compare sérieusement Codex CLI / Claude Code.
+
+- **Reverse-engineering de la Codex CLI** (9 nov. 2025) pour accéder à GPT-5-Codex-Mini avant l'API publique — a utilisé Codex lui-même sur le repo Rust `openai/codex`.
+- **Codex CLI contre modèles self-hosted** : fait tourner Codex CLI sur `gpt-oss:120b` (Ollama, NVIDIA DGX Spark via Tailscale) — démontre l'ouverture de l'agent hors écosystème OpenAI.
+- **"Skills" adoptés discrètement par Codex** (12 déc. 2025) : `~/.codex/skills` → il a relié la convention SKILL.md cross-LLM (Claude Code / Codex).
+- Cadre général : *"Coding agents like Anthropic's Claude Code and OpenAI's Codex CLI represent a genuine step change... these agents can now directly exercise the code they are writing."*
+- Son concept de **lethal trifecta** (données privées + contenu non fiable + exfiltration) s'applique directement à Codex (MCP, sandbox, cloud tasks). Cf [[contenu-externe-non-fiable]] côté forge.
+
+Sources : [tags/codex](https://simonwillison.net/tags/codex/) · [reverse-engineering GPT-5-Codex-Mini](https://simonwillison.net/2025/Nov/9/gpt-5-codex-mini/) · [OpenAI adopting skills](https://simonwillison.net/2025/Dec/12/openai-skills/)

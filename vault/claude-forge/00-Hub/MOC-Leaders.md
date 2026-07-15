@@ -29,6 +29,15 @@ tags:
 - [[Lydia Hallie]] — CC team, workshops, @lydiahallie
 - [[Alex Albert]] — Head of Claude Relations
 - Jarred Sumner — Bun creator, acquis Anthropic, @jaraboron (à créer)
+## Codex / OpenAI (`05-Leaders/codex/`)
+- [[Thibault Sottiaux]] — "Tibo", head/eng lead Codex → GM core product OpenAI, @thsottiaux, doctrine agent-first + Rust CLI
+- [[Michael Bolin]] — tech lead du dépôt open-source openai/codex (bolinfest), réécriture Rust `codex-rs`
+- [[Fouad Matin]] — release initiale de la Codex CLI, responsable sécu/sandboxing (fouad-openai)
+- [[Gabriel Peal]] — extension VS Code Codex (quasi solo) + desktop app, @gpeal8, ex-Airbnb (Lottie/MvRx)
+- [[Josh McKinney]] — mainteneur Ratatui recruté full-time Codex TUI Rust, @joshka (OpenAI Codex OSS Fund)
+- [[Andrew Ambrosino]] — lead Codex desktop app, @ajambrosino, doctrine "taste > implementation" / "zone defense"
+- [[Shao-Qian Mah]] — researcher équipe Codex (entraîne les modèles GPT-5.x-Codex), Vesuvius Challenge
+
 ## Agents (`05-Leaders/agents/`)
 - [[Andrej Karpathy]] — LLM Wiki, AutoResearch, agentic engineering, chez Anthropic depuis 19 mai 2026
 - [[martin-fowler]] — Guides+Sensors taxonomy (avec Böckeler), "Agent = Model + Harness"
