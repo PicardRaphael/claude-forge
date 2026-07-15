@@ -329,11 +329,12 @@ def _creation_blockers(content: str) -> list[str]:
 
 
 class BrainTools:
-    def __init__(self, db: BrainDB, vault_path: Path, git_sync=None, sessions_db=None):
+    def __init__(self, db: BrainDB, vault_path: Path, git_sync=None, sessions_db=None, tool_events_db=None):
         self._db = db
         self._vault = vault_path
         self._git = git_sync
         self._sessions = sessions_db
+        self._tool_events = tool_events_db
 
     def search_sessions(
         self,
@@ -353,6 +354,45 @@ class BrainTools:
             ts = (r.get("timestamp") or "")[:19]
             lines.append(
                 f"### [{r['role']}] {ts} — {r['project']}\n"
+                f"{r['snippet']}\n"
+                f"_session {r['session_id'][:8]} · {r['path']}_\n"
+            )
+        return "\n".join(lines)
+
+    def search_tool_events(
+        self,
+        query: str = "",
+        project: str = "",
+        tool_name: str = "",
+        event_kind: str = "",
+        is_error: str = "",
+        since: str = "",
+        limit: int = 20,
+    ) -> str:
+        """Recherche/filtre les evenements tool_use/tool_result indexes (friction skills).
+
+        is_error accepte "" (pas de filtre), "true" ou "false" (convention string comme
+        project/role/since ailleurs dans ce module — evite les soucis MCP avec Optional[bool]).
+        """
+        if self._tool_events is None:
+            return "Recherche tool_events desactivee (tool_events.enabled=false dans config.yaml)."
+        is_error_filter = None
+        if is_error.strip().lower() in ("true", "1"):
+            is_error_filter = True
+        elif is_error.strip().lower() in ("false", "0"):
+            is_error_filter = False
+        results = self._tool_events.search(
+            query, limit=limit, project=project, tool_name=tool_name,
+            event_kind=event_kind, is_error=is_error_filter, since=since,
+        )
+        if not results:
+            return f"Aucun evenement tool trouve pour '{query}'." if query else "Aucun evenement tool trouve."
+        lines = []
+        for r in results:
+            ts = (r.get("timestamp") or "")[:19]
+            err = "" if r.get("is_error") is None else (" [ERROR]" if r["is_error"] else "")
+            lines.append(
+                f"### [{r['event_kind']}] {r['tool_name']}{err} · {ts} — {r['project']}\n"
                 f"{r['snippet']}\n"
                 f"_session {r['session_id'][:8]} · {r['path']}_\n"
             )
@@ -1529,3 +1569,31 @@ def register_tools(mcp, tools: BrainTools):
             since: filtre temporel ISO (ex: "2026-05-20"). Vide = pas de borne.
         """
         return tools.search_sessions(query, limit, project, role, since)
+
+    @_tool
+    def search_tool_events(
+        query: str = "",
+        project: str = "",
+        tool_name: str = "",
+        event_kind: str = "",
+        is_error: str = "",
+        since: str = "",
+        limit: int = 20,
+    ) -> str:
+        """Recherche/filtre les evenements tool_use/tool_result des transcripts (friction skills).
+
+        Source separee de search_sessions (conversation) : ici uniquement les appels d'outils
+        et leurs resultats, pour detecter erreurs recurrentes et collisions d'outils cross-session.
+
+        Args:
+            query: terme de recherche plein-texte (vide = pas de filtre texte, renvoie
+                   les evenements correspondant aux SEULS filtres ci-dessous — cas d'usage
+                   central : "toutes les erreurs de l'outil X")
+            project: filtre par nom de projet encode (ex: "claude-forge")
+            tool_name: filtre par nom d'outil exact (ex: "Bash", "Edit", "mcp__forge-brain__search_brain")
+            event_kind: "tool_use" ou "tool_result". Vide = les deux.
+            is_error: "true" (erreurs uniquement), "false" (succes uniquement), "" (pas de filtre)
+            since: filtre temporel ISO (ex: "2026-05-20"). Vide = pas de borne.
+            limit: nombre max de resultats (default 20)
+        """
+        return tools.search_tool_events(query, project, tool_name, event_kind, is_error, since, limit)

@@ -17,6 +17,11 @@ sessions:
   path: ~/.claude/projects
   include_subagents: false
 
+tool_events:
+  enabled: false
+  path: ~/.claude/projects
+  include_subagents: false
+
 fts:
   weights:
     file_stem: 10.0

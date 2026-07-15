@@ -17,6 +17,8 @@ from src.database import BrainDB
 from src.watcher import VaultWatcher
 from src.sessions_db import SessionDB
 from src.sessions_watcher import SessionWatcher
+from src.tool_events_db import ToolEventsDB
+from src.tool_events_watcher import ToolEventsWatcher
 from src.git_sync import GitSync
 from src.tools.brain import BrainTools, register_tools
 from src import usage_log
@@ -50,7 +52,17 @@ def create_app(config_path: Path | None = None) -> FastMCP:
             cfg.sessions.path, sessions_db, cfg.sessions.include_subagents
         )
 
-    brain_tools = BrainTools(db, cfg.vault_path, git_sync, sessions_db)
+    # --- Tool events index (optional) ---
+    tool_events_db = None
+    tool_events_watcher = None
+    if cfg.tool_events.enabled:
+        tool_events_db = ToolEventsDB(db._conn)  # noqa: SLF001 — share the vault connection
+        tool_events_db.create_schema()
+        tool_events_watcher = ToolEventsWatcher(
+            cfg.tool_events.path, tool_events_db, cfg.tool_events.include_subagents
+        )
+
+    brain_tools = BrainTools(db, cfg.vault_path, git_sync, sessions_db, tool_events_db)
 
     # --- Initial vault index ---
     logger.info("Indexing vault: %s", cfg.vault_path)
@@ -70,6 +82,18 @@ def create_app(config_path: Path | None = None) -> FastMCP:
             "Sessions indexed in %.2fs: %d files (+%d ~%d -%d), %d messages",
             elapsed, s_result.added + s_result.modified,
             s_result.added, s_result.modified, s_result.deleted, s_result.messages,
+        )
+
+    # --- Initial tool events index (eager, with timing) ---
+    if tool_events_watcher is not None:
+        logger.info("Indexing tool events: %s", cfg.tool_events.path)
+        t0 = time.monotonic()
+        te_result = tool_events_watcher.scan()
+        elapsed = time.monotonic() - t0
+        logger.info(
+            "Tool events indexed in %.2fs: %d files (+%d ~%d -%d), %d events",
+            elapsed, te_result.added + te_result.modified,
+            te_result.added, te_result.modified, te_result.deleted, te_result.events,
         )
 
     # --- Lifespan: background loops (watcher poll, git pull, git push) ---
@@ -104,6 +128,19 @@ def create_app(config_path: Path | None = None) -> FastMCP:
                 except Exception:
                     logger.exception("Sessions poll error")
 
+        async def _poll_tool_events():
+            while True:
+                await asyncio.sleep(cfg.watcher.poll_interval_seconds)
+                try:
+                    r = tool_events_watcher.scan()
+                    if r.added or r.modified or r.deleted:
+                        logger.info(
+                            "Tool events watcher: +%d ~%d -%d (%d events)",
+                            r.added, r.modified, r.deleted, r.events,
+                        )
+                except Exception:
+                    logger.exception("Tool events poll error")
+
         async def _git_pull():
             while True:
                 await asyncio.sleep(cfg.git.pull_interval_seconds)
@@ -131,6 +168,8 @@ def create_app(config_path: Path | None = None) -> FastMCP:
         tasks.append(asyncio.create_task(_poll_watcher()))
         if sessions_watcher is not None:
             tasks.append(asyncio.create_task(_poll_sessions()))
+        if tool_events_watcher is not None:
+            tasks.append(asyncio.create_task(_poll_tool_events()))
         tasks.append(asyncio.create_task(_git_pull()))
         tasks.append(asyncio.create_task(_git_push()))
         logger.info(
