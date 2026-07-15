@@ -110,6 +110,37 @@ Ce loop est l'équivalent Codex de la doctrine forge « compounding CLAUDE.md »
 
 ---
 
+## Le pattern auto-améliorant — delta praticien + archétypes (recherche 15 juil. 2026)
+
+Au-delà de l'exemple doc OpenAI (« scan sessions → update skills »), tout ce qui se fait de sérieux converge vers **un même squelette en 5 étapes**. Utile comme recette pour instancier le loop (côté Codex quand adopté, ou côté forge dès aujourd'hui via `skill-evolve`/`/loop`).
+
+### Le squelette convergent (5 étapes)
+
+1. **Trigger** — intra-session temps réel (fin de tâche réussie) OU batch planifié (nocturne/hebdo).
+2. **Source lue** — sessions passées (`~/.codex/sessions`), trajectoires, ou historique GitHub (PR/reviews).
+3. **Extraction** — distiller un artefact réutilisable : insight NL / workflow / skill / entrée AGENTS.md.
+4. **VALIDATION** (le garde-fou que les meilleurs ajoutent, l'exemple doc OpenAI ne l'a PAS) — sub-agent goal-based, evaluator module, confidence score, ou UPVOTE/DOWNVOTE.
+5. **Écriture APPEND INCRÉMENTAL** (jamais réécriture complète — évite le *context collapse*) + rechargement auto au `SessionStart`.
+
+### Artefacts praticiens (Codex, wiring réel)
+
+- **`affaan-m/ECC`** — le plus proche du modèle forge `skill-evolve` : hook fin-de-session + SQLite state store + commande `/evolve` qui cluster des « instincts » (confidence-scored) en skills écrits sur disque. Multi-harness dont Codex (`.agents/skills/` + `agents/openai.yaml`).
+- **`Dimillian/Skills` `project-skill-audit`** — implémentation manuelle de la scheduled task doc : scanne les sessions Codex + mémoire + skills → recommande les skills de plus haute valeur.
+- **`chatprd.ai`** — automation hebdo : scanne l'historique GitHub, **spawn un sub-agent qui VALIDE chaque skill candidat** contre la base branch avant écriture (le garde-fou d'étape 4, appliqué).
+- **`Kulaxyz/self-learning-skills`** — meta-skill « golden path » : détecte en fin de session une procédure durement gagnée et la persiste (skill ou append AGENTS.md), avec note « what didn't work ». Stocke **où** trouver les secrets, jamais les secrets.
+
+### Archétypes académiques (IDs arXiv vérifiés à la source 15 juil. 2026)
+
+- **ExpeL** ([arXiv:2308.10144](https://arxiv.org/abs/2308.10144)) — insights NL cross-tâches, opérations ADD/UPVOTE/DOWNVOTE/EDIT. *Limite* : concatène tous les insights → scale mal (pertinent vs cap 32 KiB AGENTS.md).
+- **Voyager** ([arXiv:2305.16291](https://arxiv.org/abs/2305.16291)) — skill library de code exécutable qui grandit = ancêtre direct des Skills Codex/CC.
+- **MemGPT/Letta** ([arXiv:2310.08560](https://arxiv.org/abs/2310.08560)) — self-editing memory par function calls : le versant « contrôlable » que `[memories]` natif n'expose pas → transposition = couche externe.
+- **AWM** ([arXiv:2409.07429](https://arxiv.org/abs/2409.07429)) — induit des workflows depuis les trajectoires + **evaluator module** en mode online = fondement académique du « scan sessions → skill validé ».
+- **ACE** ([arXiv:2510.04618](https://arxiv.org/abs/2510.04618)) — le plus actionnable : playbook évolutif Generator/Reflector/Curator, **ajout incrémental jamais réécriture**, évite le *context collapse* (exactement le risque du cap 32 KiB + drift AGENTS.md).
+
+### À retenir pour forge
+
+Le pattern est mûr et **actionnable pour forge aujourd'hui** (forge est en usage, contrairement à Codex « pas encore »). La décision #3 du rapport Codex (`/loop` hebdo « scan sessions → valide → améliore skills ») = recette **ECC (wiring) + ACE (append incrémental) + AWM/chatprd (validation gate)**. À passer par `loop-forge` (SPEC) avant implémentation. Note : ni Willison ni OpenAI en interne ne décrivent un loop *auto-édition* — le compounding reste **jugement-piloté** (« relearn with every model »), donc garder l'humain sur la validation.
+
 ## WIKILINKS
 
 - [[workflow-codex-optimal]] — note maître (compounding niveau expert)
