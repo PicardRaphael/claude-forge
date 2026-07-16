@@ -8,6 +8,11 @@ tags:
   - "#type/critique"
   - "#domaine/claude-code"
   - "#domaine/skills"
+aliases:
+  - "critique plan bdd"
+  - "DA modernisation bdd"
+  - "critique modernisation claude bdd"
+  - "plan modernisation repo bdd"
 ---
 # Devils Advocate — Plan de modernisation `.claude/` repo bdd
 

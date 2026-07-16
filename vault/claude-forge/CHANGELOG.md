@@ -14,6 +14,11 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-07-16 — Premier run /vault-health (PASS)
+
+- **Ajoutées** : `Knowledge/reviews/vault-health-2026-07-16.md` (rapport hebdo 4 sections — lint 11→9 low_aliases, consultation 7j saine ratio create/search 1,08×, adoption cross-repo 0 = baseline J0, inbox 1 note).
+- **Modifiées** : `critique-plan-modernisation-bdd-claude` (aliases 0→4) + `delegate-guard-pattern` (aliases 3→4) — micro-fixes liste fermée (b).
+- **Source** : premier run manuel de la routine `/vault-health` (SPEC TODO/SPEC-loop-vault-health.md), triple check PASS.
 ## 2026-07-16 — Analyse Karpathy/vague virale + extension cerveau user-scope + boucle refile
 
 - **Ajoutées** : `Knowledge/critiques/critique-2026-07-16-vault-global-user-scope.md` (verdict DA sur le plan d'extension — 1 BLOCKING 82 arbitré).

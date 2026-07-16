@@ -75,3 +75,5 @@ Routine hebdo légère (cron lundi 09h00 ou invocation manuelle) : mesure la san
 ## Apprentissage
 
 Après chaque run notable : noter ici les patterns observés (rattrapage cron, faux positifs lint, seuils à recalibrer).
+
+- 2026-07-16 (premier run, PASS) : le run ne committe pas (arbitrage « note vault seule ») → il laisse 3+ fichiers vault modifiés dans le working tree. Le commit ultérieur qui les embarque doit ajouter l'entrée `CHANGELOG.md` du vault (rule changelog-vault) — le CHANGELOG n'est PAS dans la liste fermée d'écritures du run, il se traite au moment du commit, hors run. Zéro faux positif lint ; seuls des low_aliases en reliquat (résorption 2/semaine).

@@ -5,6 +5,7 @@ aliases:
   - "delegate guard"
   - "hook protection composants"
   - "guard edit direct"
+  - "delegate-guard hook"
 domaine: claude-code
 type: best-practice
 auteur-source: "Raphael Picard / claude-forge"
