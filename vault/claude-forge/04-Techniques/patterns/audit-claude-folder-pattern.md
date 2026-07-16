@@ -2,7 +2,7 @@
 titre: "Pattern audit complet .claude/ d'un repo — 4 auditeurs parallèles + vérif empirique"
 type: technique
 domaine: claude-code
-derniere-maj: 2026-05-24
+derniere-maj: 2026-07-15
 auteur: claude
 aliases:
   - audit claude folder pattern
@@ -24,6 +24,17 @@ sources:
 # Pattern Audit Complet .claude/
 
 ## Quand utiliser
+## Variante — audit COUCHE 2 quand un plan de modernisation existe déjà (15 juil. 2026)
+
+Avant de lancer un audit à froid, **chercher un plan d'audit/modernisation récent en cours** dans le repo (`.claude/todo/`, `docs/`, un `*.md` daté listant des `[x]`/`[ ]`). S'il existe et est largement exécuté (cas bdd : plan du 13 juil., ~80 % coché), NE PAS refaire l'audit — ce serait redondant et risquerait de contredire un travail validé (et négocié avec l'équipe). Basculer en **audit couche 2** :
+
+1. **Vérifier empiriquement les `[x]` « FAIT »** — un claim de complétion non tenu (commit absent, réf morte laissée) = finding majeur. Barre : lire le fichier réel, confirmer le commit (`git log -- <path>`).
+2. **Traquer le drift plan↔réel dans LES DEUX SENS** — pas seulement les `[ ]` non faits. Le décalage inverse existe et est fréquent : un `[ ]` en réalité FAIT (le réel a dépassé le plan sans re-cocher). Cas bdd : `settings.json` activé alors que le todo le disait « en attente d'activation humaine ». Un plan périmé fait auditer une fausse réalité au prochain relecteur.
+3. **Chercher les angles morts que le plan n'a pas couverts** — mesure jamais faite (`/doctor` budget listing), écart d'inventaire non réconcilié (cible 22 skills vs 33 réelles), pas d'étape « cleanup des artefacts transitoires » (`.proposed`, `last_index.txt` stale qui traînent une fois leur rôle fini).
+
+Effet de bord fréquent d'un `git mv agents/ → roles/` (ou tout déplacement de composant) : **propagation incomplète** — une skill continue de dispatcher `Task(subagent_type=dev)` alors que `dev` n'est plus un agent enregistré (réf morte fonctionnelle silencieuse). Grep exhaustif de l'ancien nom dans tout `.claude/` après tout déplacement. Cohérent avec le gotcha « refonte interne casse l'index de recâblage » plus bas — auditer les **arêtes**, pas que les feuilles.
+
+Piège de brief (session principale) : un check « zéro chemin machine hardcodé » qui ne grep QUE le nom du dev courant (`raphael.picard`) manque les chemins d'un AUTRE dev (`bastien.stagnoli_neo` dans un `paths.json` tracké malgré `.gitignore` — le gitignore n'a aucun effet sur un fichier déjà tracké). Grep le pattern générique `C:\\` / `/Users/`, jamais un nom précis. Un sous-agent bien briefé rattrape ce blind spot — le laisser le faire (registre des op coûteuses : la session injecte le contexte, l'agent vérifie).
 
 - Le user demande "audite mon repo" / "vérifie .claude/" / "le PARFAIT"
 - Repo avec 50+ composants `.claude/` (agents + skills + hooks + rules)

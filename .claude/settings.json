@@ -7,17 +7,13 @@
     "defaultMode": "acceptEdits",
     "allow": [
       "Read",
-      "Write",
       "Edit",
       "Bash(git *)",
       "Bash(ls *)",
       "Bash(taskkill *)",
       "Edit(.claude/agents/**)",
       "Edit(.claude/skills/**)",
-      "Edit(./**)",
-      "MultiEdit(.claude/agents/**)",
-      "MultiEdit(.claude/skills/**)",
-      "MultiEdit(./**)"
+      "Edit(./**)"
     ],
     "ask": [
       "Bash(rm *)",
