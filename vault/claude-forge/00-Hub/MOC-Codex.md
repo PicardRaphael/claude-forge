@@ -8,7 +8,7 @@ aliases:
   - "openai codex map"
   - "index openai codex"
 type: index
-derniere-maj: 2026-07-15
+derniere-maj: 2026-07-16
 auteur: claude
 sources: []
 tags:
@@ -40,6 +40,7 @@ tags:
 
 - Modèle défaut CLI : `gpt-5.6-sol` (alias `gpt-5.6`, preset Power medium) depuis GA 9 juil. Famille Sol/Terra/Luna. Dépréciés : gpt-5.2, gpt-5.3-codex. Sunset legacy 23 juil.
 - CLI `0.144.4` (14 juil.). Prix API (short ctx, $/1M) : Sol 5/30, Terra 2.5/15, Luna 1/6 ; GPT-5-Codex 1.25/10 (ctx 400K). Context GPT-5.6 1.05M = *à vérifier* (secondaire).
+- MAJ 16 juil. (run cc-news) : CLI `0.144.5` (16 juil., détection commandes dangereuses améliorée) ; changelog récent non daté précisément : Codex Remote GA (pilotage mobile d'un host), « Record & Replay » macOS (démo → skill), délégation multi-agent configurable — croiser avec le corpus doctrinal avant d'y toucher. Atlas → arrêt 9 août annoncé, refonte dans ChatGPT/Codex (*source unique presse, à confirmer*).
 
 ## Leaders Codex
 

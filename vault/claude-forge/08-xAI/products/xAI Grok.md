@@ -11,7 +11,7 @@ aliases:
   - "Grok 4.20"
 domaine: xai
 type: concurrent
-derniere-maj: 2026-05-10
+derniere-maj: 2026-07-16
 auteur: claude
 sources: []
 tags:
@@ -68,3 +68,9 @@ Division IA d'Elon Musk. Focus sur Grok (chatbot) et coding tools.
 - **Digital Optimus** (mars) : projet conjoint xAI-Tesla intégrant Grok dans produits Tesla
 - **Grok 5** toujours pas sorti — attendu Q2 2026
 - **Anthropic-SpaceX deal** : Anthropic utilise toute la capacité Colossus 1 (220K+ GPUs NVIDIA)
+
+## AJOUT 2026-07-16 — Grok 4.5, rebrand SpaceXAI, scandale Grok Build
+
+- [[Grok 4.5]] lancé le **8 juillet 2026** — premier modèle coding/agentic dédié (1.5T V9, co-entraîné sur données Cursor, token efficiency 4.2x vs Opus 4.8 sur SWE-Bench Pro, 500K ctx, $2/$6). Dispo Grok Build, Cursor (tous plans), console SpaceXAI ; pas EU au lancement.
+- Rebrand **SpaceXAI** finalisé le 7 juillet 2026 (nouveau logo, 5 mois après le merger SpaceX-xAI).
+- **Scandale Grok Build** : des chercheurs sécu révèlent que Grok Build uploadait des repos privés d'utilisateurs vers des serveurs cloud contrôlés par xAI sans divulgation claire → Musk pledge le 15 juillet d'open-sourcer le code de X « no exceptions ». Cas d'école d'exfiltration par agent tiers — cf [[agents-securite]].

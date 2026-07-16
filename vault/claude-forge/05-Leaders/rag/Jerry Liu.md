@@ -10,7 +10,7 @@ aliases:
   - llamaindex CEO
 role: "Co-fondateur & CEO LlamaIndex"
 affiliation: "LlamaIndex (anciennement GPT Index)"
-derniere-maj: 2026-05-23
+derniere-maj: 2026-07-16
 auteur: claude
 sources:
   - "https://www.llamaindex.ai"
@@ -60,3 +60,8 @@ Conférences fréquentes (AI Engineer Summit, Ray Summit, etc.), threads techniq
 - X : [@jerryjliu0](https://twitter.com/jerryjliu0)
 - [[RAG]] — [[rag-architecture]] — [[rag-metadata]]
 - [[Harrison Chase]] — co-leader frameworks RAG (LangChain)
+
+## AJOUT 2026-07-16 — Retrieval Harness (juillet 2026)
+
+Annonce le **« Retrieval Harness »** pour l'agentic retrieval : pipeline de données persistant qui connecte une source, indexe et met à jour une base de connaissances large, et expose des outils façon opérations filesystem (recherche sémantique/keyword, regex grep, file search, read) branchables sur n'importe quel agent. Référence d'implémentation : github.com/run-llama/legal-kb, bâtie sur Index v2, ciblant legal/fintech. Cohérent avec sa position « l'ère des frameworks est terminée, la qualité du contexte est le vrai avantage » (fiche agents) — le harness EST la couche contexte.
+Source : x.com/jerryjliu0/status/2073407100642852871

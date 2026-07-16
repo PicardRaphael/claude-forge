@@ -14,6 +14,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-07-16 — Arbitrage v : traces DOCTRINE_REINFORCE + 6 enrichissements + MAJ skills réf
+
+- **Modifiées (traces doctrine)** : `outcome-first-prompting` + `deprecated-techniques-2026` — challengées + confirmées 16 juil. par guide GPT-5.6 (9 juil.) + Mollick/Wharton (7 juil.), chiffres neufs (leaner prompts = +10-15 % score, -41-66 % tokens).
+- **Modifiées (enrichissements)** : `Cowork GA` (web/mobile 7 juil., sessions remote, >90 % non-coding) ; `MOC-Codex` (CLI 0.144.5, Atlas à confirmer) ; `05-Leaders/prompt/Ethan Mollick` (post 7 juil.) ; `05-Leaders/industrie/Demis Hassabis` (manifesto watchdog 14 juil.) ; `08-xAI/products/xAI Grok` (Grok 4.5 + SpaceXAI + scandale Grok Build) ; `05-Leaders/rag/Jerry Liu` (Retrieval Harness).
+- **Skills réf MAJ via self-updater** : cc-cowork-ref, codex-ref, cc-features-ref (findings post-7 juil.).
+- *(rectif : MAJ appliquées par la session principale — sub-agent self-updater bloqué par delegate-guard, gap capitalisé dans `delegate-guard-pattern` ; codex-ref finalement inchangé, design single-source vers MOC-Codex déjà à jour)*
+- **Source** : arbitrage Raphael `v` sur le rapport cc-news du 16 juillet.
 ## 2026-07-16 — Run cc-news : GPT-5.6, Grok 4.5, CC v2.1.203-211
 
 - **Ajoutées** : `01-Claude/Code/changelog/CC juillet 2026 - v2.1.203-211.md` (9 versions 7-15 juil. : auto mode défaut gateways, screen reader, hardening injection Agent tool, fix billing caching) ; `02-OpenAI/models/GPT-5.6.md` (Sol/Terra/Luna, gating gouvernemental, Programmatic Tool Calling, scheming METR) ; `08-xAI/models/Grok 4.5.md` (SpaceXAI, token efficiency 4.2x, leak Cursor) ; `01-Claude/Code/features/Claude Reflect.md` (dashboard usage 9 juil.) ; `06-Industrie/industrie-juillet-2026.md` (Hassabis watchdog, Nous 1.5Md$, DeepSeek IPO, MS Frontier Company).

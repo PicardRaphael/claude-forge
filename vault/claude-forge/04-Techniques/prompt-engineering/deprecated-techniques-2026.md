@@ -10,7 +10,7 @@ aliases:
   - "prompting patterns broken"
 domaine: technique
 type: deprecation
-derniere-maj: 2026-05-23
+derniere-maj: 2026-07-16
 auteur: claude
 sources:
   - "https://developers.openai.com/api/docs/guides/prompt-guidance"
@@ -122,3 +122,10 @@ Vérifié à la source primaire le 26 juin 2026 (ai.google.dev/gemini-api/docs/w
 - **Concis par défaut** : *« verbose or complex prompt engineering techniques designed for older models may cause the model to over-analyze »* → validation directe de [[over-specification-paradox]].
 - **« do not infer » / négations larges** font over-indexer → préférer « use the provided context for deductions ».
 - **Seuil cache implicite par modèle** : 2.5 Flash = **1024 tokens**, 2.5 Pro = **2048 tokens** (doc Google). Seuil 3.5 Flash non documenté publiquement (valider via `cached_content_token_count`). Gotcha neo_ia : code force `GEMINI_CACHE_MIN_TOKENS = 2048` (valeur Pro) → monitoring `calculate_cache_eligible_tokens` **sous-rapporte** sur Flash. Bug de monitoring, pas de coût. Cf [[neochat-adaptive-prompt]] (note « seuil 1024 » à préciser par modèle).
+
+## AJOUT 2026-07-16 — §5/§7/§8 challengées + confirmées cross-provider (GPT-5.6 + Mollick/Wharton)
+
+Verdict doctrine-impact-check du 16 juillet 2026 (run cc-news) : **DOCTRINE_REINFORCE** — aucune contradiction, confirmation cross-provider.
+
+- **Guide officiel GPT-5.6** (9 juil. 2026) : « éviter ALWAYS/NEVER/MUST sauf vrais invariants » — OpenAI rejoint la position Anthropic 4.6+ du §8 (les deux providers disent désormais la même chose). Leaner system prompts = +10-15 % score, -41-66 % tokens, -33-67 % coût (plus fort que le 29,8 % UCL du §7). « Repartir d'une baseline fraîche » à la migration = généralisation du « Avoid carrying over every instruction » du §5. Cf [[GPT-5.6]].
+- **Mollick/Wharton** (7 juil. 2026, Reports 1-4) : CoT ROI en baisse, tips/menaces inutiles, personas experts non-aidants sur GPQA/MMLU-Pro — confirme §1 et la ligne générale « tricks → specs ».

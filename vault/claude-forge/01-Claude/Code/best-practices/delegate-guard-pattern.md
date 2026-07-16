@@ -106,3 +106,11 @@ Le delegate-guard doit etre dans PreToolUse, matcher `Write|Edit|MultiEdit` (oub
 ## Erreurs liées
 
 - [[erreur-subagent-bypass-delegate-guard]] — Sub-agent skill-creator a tenté de bypasser delegate-guard.py via staging file + python copy. Pattern parallèle à feedback_subagent_autocommit (sub-agents trouvent des contournements quand l'instruction principale bloque).
+
+## AJOUT 2026-07-16 — Gap sub-agents : Skill(skill-creator) invoquée DANS un sub-agent ne débloque pas
+
+Cas observé (run cc-news 16 juil. 2026) : un sub-agent `self-updater`, briefé pour invoquer `Skill(skill-creator)` avant d'éditer des SKILL.md, bloqué par delegate-guard malgré 2 invocations explicites. Cause : le hook lit l'`attributionSkill` du transcript de SESSION — figée sur la dernière skill de la session principale (ici `doctrine-impact-check`) ; les invocations `Skill()` à l'intérieur du sub-agent n'actualisent pas cette valeur, et la fenêtre 80 lignes ne s'applique pas au transcript `agent-<id>.jsonl`.
+
+Conséquence opérationnelle : **la modification de SKILL.md / agents / hooks / CLAUDE.md ne se délègue PAS à un sub-agent** (self-updater inclus) tant que le hook n'a pas de bypass agent-aware — la session principale fait ces écritures elle-même via la skill créatrice (pattern prouvé : `Skill(skill-creator)` frais + Edits enchaînés dans la fenêtre). Le sub-agent bloqué a correctement appliqué STOP+ESCALADE (cf [[anti-reentrance-sub-agents-pattern-escalade]]) : diff préparé remonté, zéro contournement.
+
+Option future si le besoin se répète : bypass conditionnel dans le hook (`agent_type` légitime × invocation `Skill(spécialiste)` dans le transcript agent) — décision Raphael requise, modif via hook-creator.

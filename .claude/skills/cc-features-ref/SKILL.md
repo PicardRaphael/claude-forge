@@ -6,7 +6,7 @@ user-invocable: false
 
 # Fonctionnalités Claude Code 2026
 
-_Mise à jour : 4 juin 2026 (intègre des éléments jusqu'à juin 2026, v2.1.160) — utiliser cc-news pour les nouveautés postérieures_
+_Mise à jour : 16 juillet 2026 (intègre v2.1.203-211 ; fenêtre 2.1.161-202 couverte par les notes changelog vault) — utiliser cc-news pour les nouveautés postérieures_
 
 ## Slash Commands
 
@@ -37,7 +37,7 @@ _Mise à jour : 4 juin 2026 (intègre des éléments jusqu'à juin 2026, v2.1.16
 | `/tui fullscreen`            | Mode fullscreen sans scintillement (v2.1.110) |
 | `/recap`                     | Résumé de session au retour (v2.1.108) |
 | `/focus`                     | Focus view — remplace ancien Ctrl+O focus (v2.1.110) |
-| `/doctor`                    | Diagnostique MCP, alertes dupliqués cross-scopes (v2.1.110) |
+| `/doctor`                    | Checkup complet diagnose+fix, alias `/checkup` (v2.1.205) ; propose trimming des CLAUDE.md commités (v2.1.206) |
 | `/usage`                     | Fusionne /cost + /stats — les deux restent comme alias (v2.1.119) |
 | `/theme`                     | Créer/switcher custom themes JSON dans ~/.claude/themes/ (v2.1.119) |
 
@@ -160,6 +160,15 @@ Subagents qui se communiquent directement via task board partagé. Equipe implic
 | **Agent View** | **`claude agents` — dashboard sessions concurrentes groupées par état (attend input / en cours / terminé). Control plane lancé 11 mai 2026.** |
 | **Dynamic Workflows** | **Research preview (v2.1.154, 28 mai 2026) — Claude rédige dynamiquement un script JS d'orchestration lançant jusqu'à 1000 sous-agents (16 concurrents). Coordination hors-contexte : plan dans le code, résultats en variables, seul l'output final revient en contexte. Vérification adversariale intégrée. Déclenché par mot-clé dans un prompt OU le réglage `ultracode`. Requiert v2.1.154+, plans Max/Team/Enterprise. Visible via `/workflows`.** |
 | **`ultracode`** | **Réglage (v2.1.160, 2 juin 2026) qui fixe l'effort à `xhigh` ET laisse Claude décider automatiquement de lancer un Dynamic Workflow. Depuis v2.1.160, `ultracode` remplace `workflow` comme mot-clé déclencheur des Dynamic Workflows.** |
+| Screen reader mode | Rendu plain-text opt-in pour lecteurs d'écran (v2.1.208) |
+| Auto mode gateways | Sans opt-in sur Bedrock/Vertex/Foundry, désactivable `disableAutoMode` (v2.1.207) |
+| `--forward-subagent-text` | + env `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT` — inclut le texte des sub-agents (v2.1.211) |
+| Always-allow au repo root | Règles « always allow » sauvegardées à la racine du repo, plus au dossier courant (v2.1.211) |
+| `CLAUDE_CODE_PROCESS_WRAPPER` | Launcher corporate obligatoire pour tous les self-spawns (v2.1.208) |
+| `vimInsertModeRemaps` | Séquences 2 touches en insert-mode, ex. `jj`→Escape (v2.1.208) |
+| Transcripts -79x | Taille des transcripts de session réduite jusqu'à 79x, sessions edit-heavy (v2.1.208) |
+| Classifier Sonnet 5 | Auto mode — classifier de permissions par défaut Sonnet 5, sessions externes (v2.1.210) |
+| Hardening tool Agent | Anti prompt-injection indirecte via contenu lu par un sub-agent (v2.1.210) |
 
 ## .claude/rules/ (v2.0.64+)
 
@@ -246,7 +255,7 @@ LSPs disponibles pour tous les langages majeurs.
 
 ## Gotchas
 
-- **Date de référence** — ce fichier intègre des éléments jusqu'à juin 2026 (v2.1.160). Utiliser `cc-news` si l'info semble datée ou si la feature demandée est postérieure à cette date.
+- **Date de référence** — ce fichier intègre des éléments jusqu'au 15 juillet 2026 (v2.1.211). Utiliser `cc-news` si l'info semble datée ou si la feature demandée est postérieure à cette date.
 - **`effort: max`** — toujours disponible mai 2026 (verbatim docs Anthropic 23 mai), mais prone à l'overthinking. Réserver à cas justifiés ; doctrine forge (option C) = `xhigh` agentique/coding, `high` comparatif/jugement, `medium`/`low` extraction.
 
 ## Apprentissage

@@ -6,7 +6,7 @@ user-invocable: false
 
 # Reference — Claude Cowork, Dispatch & Agent Teams
 
-_Mise a jour : 14 mai 2026_
+_Mise a jour : 16 juillet 2026_
 
 ## Claude Cowork
 
@@ -14,10 +14,19 @@ Produit agentic pour knowledge workers. Meme moteur que Claude Code, dans Claude
 
 | Aspect | Detail |
 |--------|--------|
-| Ou | Claude Desktop (macOS + Windows) |
+| Ou | Claude Desktop (macOS + Windows) + web claude.ai + mobile iOS/Android (beta 7 juil. 2026) |
 | Acces | Pro ($20/mo), Max ($100-200/mo), Team ($30/user/mo), Enterprise |
 | Execution | Dossier local autorise, VM isolee, sub-agents automatiques |
 | Plugins | Cross-compatibles avec Claude Code via marketplace |
+
+### Web + mobile — sessions remote (7 juillet 2026)
+
+Cowork etendu au web (claude.ai) et mobile (iOS/Android) en beta — Max d'abord, rollout progressif. Home unifie Chat+Cowork.
+
+- **Sessions remote** : hebergees sur les serveurs Anthropic (inverse du modele Dispatch local) — sessions/fichiers sauvegardes sur le compte Claude, le travail continue laptop ferme, taches planifiees sans device allume
+- Une session remote n'atteint PAS un MCP localhost (stdio ou HTTP local) — connecteurs remote HTTPS uniquement
+- Usage limits doublees prolongees jusqu'au 5 aout 2026
+- Datapoint usage (1,2M sessions, 600k+ orgs, mai 2026) : >90 % de l'usage Cowork est non-coding (33,4 % business ops, 16,4 % contenu, 8,7 % dev)
 
 ### Flux d'une tache
 
@@ -215,7 +224,7 @@ Pour qu'une skill soit disponible dans Cowork, elle doit etre au scope `user` ou
 
 - Tous plans payes (Pro, Max, Team, Enterprise)
 - `/schedule` dans le chat → configure intervalle
-- **Machine doit etre eveillee + Claude Desktop ouvert** (sinon skip → relance au reveil)
+- **Desktop local : machine eveillee + Claude Desktop ouvert** (sinon skip → relance au reveil). En session remote (web/mobile, beta) : tourne sur les serveurs Anthropic sans device allume
 - Acces a tous connecteurs et plugins installes
 - **PAS de triggers partages** — chaque utilisateur configure les siens
 
@@ -287,7 +296,8 @@ Prompt Engineering (2022-24) -> Context Engineering (2025) -> Harness Engineerin
 
 - Plugins cross-compatibles Cowork ↔ Claude Code, MAIS les teammates (Agent Teams) n'heritent PAS les skills/mcpServers du frontmatter — ils heritent de project/user settings
 - Connecteurs Cowork passent par le cloud Anthropic, pas par le reseau local
-- Dispatch necessite que le desktop soit allume et connecte
+- Dispatch (modele local) necessite que le desktop soit allume et connecte — les sessions remote Cowork (web/mobile, 7 juil. 2026) n'ont pas cette contrainte
+- Sessions remote : aucun acces aux MCP localhost — un MCP local ne marche qu'en session desktop locale
 - Computer Use est en research preview (mars 2026) — pas stable pour production
 - Skills projet (`.claude/skills/`) ne sont PAS visibles dans Cowork — utiliser `~/.claude/skills/` ou plugin
 - ToxicSkills : 13.4% des skills publiques vulnerables (Snyk fev 2026) — auditer avant d'installer

@@ -1,6 +1,6 @@
 ---
 titre: "Outcome-First Prompting"
-resume: "Technique OpenAI GPT-5.5 (avril 2026) : définir le résultat attendu, critères de succès et contraintes dures, sans prescrire le processus étape par étape"
+resume: "Technique OpenAI GPT-5.5 (avril 2026), reconduite et chiffrée par le guide GPT-5.6 (juil. 2026) : définir le résultat attendu, critères de succès et contraintes dures, sans prescrire le processus étape par étape"
 aliases:
   - "outcome first prompting"
   - "outcome-first"
@@ -10,7 +10,7 @@ aliases:
   - "specification par outcome"
 domaine: technique
 type: technique
-derniere-maj: 2026-05-23
+derniere-maj: 2026-07-16
 auteur: claude
 sources:
   - "https://developers.openai.com/api/docs/guides/prompt-guidance"
@@ -89,3 +89,10 @@ Arrêt: Après 5 bugs ou 30 minutes de recherche.
 - [[over-specification-paradox]] — Seuil S*=0.509 au-delà duquel spécifier nuit
 - [[forge-prompt-machine]] — 12 principes FORGE, checklist prompts
 - [[MOC-Techniques]]
+
+## AJOUT 2026-07-16 — Challengée + confirmée (GPT-5.6 + Mollick/Wharton)
+
+Doctrine challengée et **confirmée** le 16 juillet 2026 (verdict doctrine-impact-check : DOCTRINE_REINFORCE, run cc-news) par deux sources convergentes :
+
+- **Guide officiel GPT-5.6** (9 juil. 2026, developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6) : la technique s'étend telle quelle à GPT-5.6. Chiffres neufs des évals internes coding-agent OpenAI : system prompts plus légers = **+10-15 % de score, -41-66 % de tokens, -33-67 % de coût**. Guidances additionnelles : éviter ALWAYS/NEVER/MUST sauf vrais invariants ; migration = **baseline fraîche** (porter le stack de prompts GPT-5/5.5 peut activement nuire) ; nouveau paramètre `text.verbosity` ; « Pro Mode » pour compute ponctuel à fort enjeu. Cf [[GPT-5.6]].
+- **Ethan Mollick** (7 juil. 2026, X, backing Wharton Prompting Science Reports 1-4) : « les prompt tricks perdent leur intérêt » — spécifier objectifs/outputs/critères de qualité/tests, traiter l'IA comme un collaborateur managé. Convergence indépendante côté recherche académique. Cf [[Ethan Mollick]].

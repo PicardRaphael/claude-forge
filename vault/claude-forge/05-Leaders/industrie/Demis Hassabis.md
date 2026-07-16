@@ -11,7 +11,7 @@ aliases:
 domaine: industrie
 type: leader
 affiliation: "Google DeepMind (CEO)"
-derniere-maj: 2026-05-24
+derniere-maj: 2026-07-16
 auteur: claude
 sources:
   - "https://deepmind.google/about/"
@@ -64,3 +64,8 @@ Approche unique : "AI is the most profound technology humanity has ever develope
 - [[Yoshua Bengio]] — co-Princess of Asturias 2022
 - [[Denny Zhou]] — Research Scientist Google DeepMind
 - [[MOC-Leaders]]
+
+## AJOUT 2026-07-16 — Manifesto « A Framework for Frontier AI » (14 juillet 2026)
+
+Publie un manifesto personnel appelant à un **watchdog IA US-led type FINRA** : board majoritairement indépendant, benchmarks de risque rafraîchis trimestriellement (cybersécurité, bio), applicable à tout frontier model — open ou closed, quelle que soit l'origine — opérationnel « avant fin 2026 ». Avertit que les risques cyber actuels sont des « warning shots » : sous 18 mois, des capacités bio/nucléaire-adjacentes pourraient atteindre des modèles open-source hors de contrôle gouvernemental. Briefe l'administration Trump et des officiels européens. Contexte : mois du gating gouvernemental généralisé (GPT-5.6 gated, export controls Fable 5) — cf [[industrie-juillet-2026]].
+Sources : semafor.com + axios.com (14 juil. 2026)

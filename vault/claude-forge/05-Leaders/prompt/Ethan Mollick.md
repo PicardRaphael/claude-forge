@@ -10,7 +10,7 @@ aliases:
 domaine: prompt-engineering
 type: leader
 affiliation: "The Wharton School (University of Pennsylvania)"
-derniere-maj: 2026-05-24
+derniere-maj: 2026-07-16
 auteur: claude
 sources:
   - "https://www.linkedin.com/in/emollick"
@@ -73,3 +73,8 @@ Pour techniques prompt engineering générique = 4+ sources (pas son scope exper
 - [[Amanda Askell]] — pendant Anthropic
 - [[Sander Schulhoff]] — pendant Learn Prompting
 - [[MOC-Leaders]]
+
+## AJOUT 2026-07-16 — « Prompting tricks fade, management wins » (7 juillet 2026)
+
+Post X du 7 juillet 2026 (backing : Wharton Prompting Science Reports 1-4) : les « prompt tricks » perdent leur intérêt — CoT au ROI en baisse, tips/menaces inutiles, personas experts non-aidants sur GPQA/MMLU-Pro. Ce qui compte désormais : **spécifier objectifs, outputs, critères de qualité et tests** — traiter l'IA comme un collaborateur managé plutôt que chercher des formules magiques. Momentum vers context/loop/harness engineering. Convergent avec le guide GPT-5.6 sorti 2 jours après — trace DOCTRINE_REINFORCE sur [[outcome-first-prompting]] et [[deprecated-techniques-2026]] (16 juil.).
+Source : x.com/emollick/status/2074307813392732279
