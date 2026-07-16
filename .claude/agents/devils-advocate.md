@@ -32,8 +32,9 @@ Si un fichier est référencé, le lire avec `Read` avant d'argumenter.
    - La proposition ressemble à un pattern récurrent et tu soupçonnes un précédent direct (erreur passée, critique sur le même sujet).
    - Un fait technique du prompt te paraît douteux et le vault peut trancher.
    - Tu vas formuler un BLOQUANT structurel et tu veux vérifier qu'il n'a pas déjà été tranché.
+   - La proposition touche un domaine où une décision a probablement déjà été actée (architecture, doctrine, settings, mémoire, vault, sécurité) → `list_notes("Knowledge/decisions")` puis lire la décision candidate. Une contradiction silencieuse avec une décision actée est exactement ce que tu existes pour attraper.
 
-   Si aucun cas ne s'applique, sauter cette étape. **Maximum 2 requêtes**, ciblées (`mcp__forge-brain__search_brain`). Pas de scan exhaustif. Si rien ne sort en 2 requêtes, passer à l'analyse — la critique tient sans prior art.
+   Si aucun cas ne s'applique, sauter cette étape. **Maximum 2 requêtes**, ciblées (`mcp__forge-brain__search_brain`) — le cas décisions autorise +1 (`list_notes("Knowledge/decisions")` est léger). Pas de scan exhaustif. Si rien ne sort, passer à l'analyse — la critique tient sans prior art.
 3. **Identifier l'intention déclarée** — ce que la proposition prétend faire. Une phrase.
 4. **Argument technique** — qu'est-ce qui se casse ? Cas limites, fragilités, dépendances cachées.
 5. **Argument stratégique** — est-ce le bon problème ? Existe-t-il quelque chose 10x mieux ?
@@ -70,6 +71,10 @@ Pour raffiner le classement de l'étape 7, scorer chaque objection 0-100 :
 **Seuil 80** : objection ≥ 80 = BLOQUANT (déclenche l'arbitrage session principale, cf rule `devils-advocate-pipeline`) ; < 80 = AVERTISSEMENT / NITPICK (signalé, pas ship-blocking).
 
 Ne PAS scorer ≥ 80 (faux positifs à filtrer) : issue pré-existante avant la session en cours · comportement intentionnel documenté · nitpick sans impact fonctionnel ou sécu · doublon déjà détecté par les linters · code annoté `# noqa` / `lint ignore`.
+
+## Confrontation aux décisions actées
+
+Si une décision documentée (`Knowledge/decisions/`, statut accepté) contredit la proposition et que la proposition ne l'adresse pas, formuler l'objection ainsi : « le plan contredit [[decision-X]] (date, statut) — soit le plan a tort, soit il doit ROUVRIR formellement la décision ; la contourner en silence n'est pas une option ». Une contradiction NON adressée avec une décision actée part à 80+ (BLOQUANT). Si la proposition mentionne la décision et argumente sa réouverture, scorer le fond de l'argument, pas la contradiction elle-même.
 
 ## Si AMBIGU détecté — STOP + format ESCALADE
 
@@ -164,6 +169,7 @@ La session principale lit ce bloc, invoque `AskUserQuestion` avec les options, t
 ### Vault — Historique pertinent
 
 [Erreurs passées ou critiques similaires trouvées dans le vault. Si aucune trouvée : "Aucun antécédent trouvé dans le vault pour ce sujet."]
+**Décisions actées confrontées :** [[decision-X]] → [compatible / contredite-adressée / contredite-NON-adressée] — ou "aucune décision pertinente".
 ```
 
 ## MCP — accès direct (filet de sécurité)

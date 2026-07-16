@@ -169,3 +169,14 @@ Pourquoi SPEC d'abord : c'est le principe pre-compute appliqué à `/loop-forge`
 - [[pattern-spec-driven-development]] — SPEC avant exécution
 - [[comment-creer-skill]] · [[comment-creer-agent]] · [[comment-creer-hook]] — composants générés depuis la SPEC
 - [[feedback_no_cto_agent]] · [[anti-reentrance-sub-agents-pattern-escalade]] — pourquoi la session principale orchestre
+
+---
+
+## Gotcha infra — cron natif Claude Code = SESSION-ONLY (16 juil. 2026)
+
+Découvert à la construction de la routine vault-health : l'outil `CronCreate` de Claude Code est **session-only** — « jobs live only in this Claude session, nothing is written to disk » + auto-expiration des récurrents à **7 jours**. Il sert aux rappels et polls DANS une session vivante, jamais comme déclencheur persistant d'un loop hebdo/mensuel.
+
+Conséquence pour le Bloc 6 (infra) d'une SPEC de loop récurrent local :
+- **Déclencheur persistant machine locale** = Task Scheduler Windows (`Register-ScheduledTask` + `StartWhenAvailable` pour le rattrapage machine-éteinte) ou cron OS — jamais CronCreate.
+- **/schedule (scheduled cloud agents)** = cloud → inutilisable si le loop dépend d'une ressource localhost (MCP local, fichiers locaux).
+- **Installer une persistance OS qui exécute un agent headless = décision UTILISATEUR explicite** : le classifier auto-mode bloque à raison (« Unauthorized Persistence ») un wrapper schtasks/`claude -p` non approuvé nommément en conversation — proposer les options (auto vs manuel) AVANT de créer quoi que ce soit. Cas vault-health : Raphael a choisi le déclencheur manuel assumé.
