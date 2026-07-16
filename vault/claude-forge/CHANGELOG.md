@@ -18,6 +18,7 @@ tags:
 
 - **Ajoutées** : `01-Claude/Code/changelog/CC juillet 2026 - v2.1.203-211.md` (9 versions 7-15 juil. : auto mode défaut gateways, screen reader, hardening injection Agent tool, fix billing caching) ; `02-OpenAI/models/GPT-5.6.md` (Sol/Terra/Luna, gating gouvernemental, Programmatic Tool Calling, scheming METR) ; `08-xAI/models/Grok 4.5.md` (SpaceXAI, token efficiency 4.2x, leak Cursor) ; `01-Claude/Code/features/Claude Reflect.md` (dashboard usage 9 juil.) ; `06-Industrie/industrie-juillet-2026.md` (Hassabis watchdog, Nous 1.5Md$, DeepSeek IPO, MS Frontier Company).
 - **Modifiées** : `00-Hub/MOC-Modeles.md` (+ GPT-5.6, Grok 4.5, MAJ ligne Fable 5 redéployé).
+- **Modifiée (learning post-run)** : `04-Techniques/claude-code/comment-creer-skill.md` — AJOUT 13 juillet nuancé : le ScannerError ` : ` venait du validateur PyYAML (borne conservatrice), pas d'un échec de chargement CC observé — datapoint cc-news charge avec ` : ` sur CC 2.1.211.
 - **Source** : run `/cc-news` complet 16 juillet (Tier 0 + 16 agents), référence précédente 7 juillet (v2.1.202).
 ## 2026-07-16 — Premier run /vault-health (PASS)
 
