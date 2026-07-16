@@ -3,7 +3,7 @@
 > Généré automatiquement par `.claude/scripts/gen-index.py` (pre-commit). NE PAS éditer à la main.
 > Trouve un objet par son **Nom exact** ci-dessous — jamais d'invention.
 
-## Skills (49)
+## Skills (50)
 
 | Nom exact | Chemin | Description | Triggers |
 |---|---|---|---|
@@ -53,6 +53,7 @@
 | `skill-evolve` | `.claude/skills/skill-evolve/SKILL.md` | ALWAYS invoke when user says 'evolve skill', 'améliore la skill' or 'sweep skills'. Scores skill maturity, surfaces cross-pollination, delegates deep fixes to skill-creator. NOT for project architecture (evolve) or config audit (repo-inspector). | évolue la skill · améliore la skill · optimise la skill · optimise skill · évoluer la skill · sweep skills · sweep les skills |
 | `subagent-creator` | `.claude/skills/subagent-creator/SKILL.md` | ALWAYS invoke when user wants to create, edit, audit, or optimize a Claude Code subagent / agent .md file. Do not hand-write agents/*.md directly — use this skill first. | crée un agent · créer un agent · nouvel agent · optimise l'agent · audite l'agent · analyse cet agent · modifie l'agent · subagent · crée un subagent |
 | `vault-audit` | `.claude/skills/vault-audit/SKILL.md` | ALWAYS invoke to audit or fix notes in the forge-brain vault — quality checks, orphans, frontmatter, tags, scoring. Use PROACTIVELY after cc-news capitalisation or note creation. NOT for doctrine alignment checks (align-vault-skills). | audit vault · vérifie les notes · qualité vault · audite le vault |
+| `vault-health` | `.claude/skills/vault-health/SKILL.md` | ALWAYS invoke when the user types /vault-health or asks for the weekly vault health check — lint + closed-list fixes, usage trend, cross-repo adoption, inbox, dated report. NOT for deep note fixes (vault-audit) or strategic review (forge-review). | — (dans description) |
 | `veille-outils-ia` | `.claude/skills/veille-outils-ia/SKILL.md` | ALWAYS invoke to refresh the market AI-tools landscape notes — re-verifies volatile facts (pricing, stars, valuations, M&A) at primary source, updates vault under human gate. NOT for Claude Code news (cc-news) or picking a tool (choix-outils-ia). | mets à jour le paysage outils · vérifie les pricing · veille outils ia · les notes outils sont-elles à jour |
 | `watch` | `.claude/skills/watch/SKILL.md` | ALWAYS invoke when the user shares a YouTube URL to analyze or summarize — downloads subtitles via yt-dlp, falls back to Whisper ASR. NOT for native X/Twitter videos (x-read flow). | youtube · transcris la vidéo · analyse cette vidéo · vidéo youtube |
 | `x-read` | `.claude/skills/x-read/SKILL.md` | ALWAYS invoke when the user types `/x-read <url>`, `/x-read timeline [N]`, or `/x-read @user [N]`. Reads X/Twitter content (tweets, timeline, user posts) read-only via authenticated cookies. Capitalize into vault or fetch content blocked by WebFetch. | — (dans description) |

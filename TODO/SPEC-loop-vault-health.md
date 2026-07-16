@@ -2,7 +2,7 @@
 feature: loop-vault-health
 date_spec: 2026-07-16
 type: loop-code
-statut: draft
+statut: valide
 ---
 
 # SPEC loop — vault-health (check hebdo du cerveau forge-brain)
@@ -84,7 +84,7 @@ statut: draft
 
 | Brique | Description |
 |--------|-------------|
-| **Déclencheur** | Cron natif Claude Code (CronCreate), lundi 09:00 locale, machine Raphael |
+| **Déclencheur** | Invocation MANUELLE hebdo par Raphael (`/vault-health`), lundi de préférence — décision 16 juil. 2026 : pas de persistance OS. (Le cron natif CC s'est révélé session-only/7 j max ; la tâche planifiée Windows a été proposée et déclinée.) |
 | **Source(s)** | MCP forge-brain : `lint_vault`, `usage_stats(7)`, `search_tool_events`, `list_notes("0-Inbox")` + rapport de la semaine précédente (comparaison tendance) |
 | **Critère de jugement** | Triple check structurel (cf §5) |
 | **Action** | Micro-fixes triviaux liste fermée + rapport hebdo 4 sections + verdict adoption cross-repo |
@@ -116,8 +116,8 @@ Un seul échec → FAIL → fichier d'échec `output/vault-health-FAIL-YYYY-MM-D
 
 **Option retenue :** machine locale (contrainte dure — MCP localhost:8091, vault local)
 
-- **Détails :** Windows 11, cron natif Claude Code (CronCreate), lundi 09:00 ; MCP relançable via mcp-autostart (hook forge + entrée SessionStart user proposée au chantier extension)
-- **Incompatibilités signalées :** machine éteinte lundi 09:00 → run manqué ; comportement de rattrapage du cron CC à confirmer au premier run (sinon : lancer `/vault-health` à la main le lundi). Assumé : c'est un check santé, un run manqué n'est pas critique.
+- **Détails :** Windows 11, invocation manuelle `/vault-health` en session forge ; MCP relançable via mcp-autostart (hook forge + hook SessionStart user installé le 16 juil.)
+- **Incompatibilités signalées :** aucune infra installée — la régularité repose sur Raphael. Écart assumé au consensus « maintenance planifiée, pas espérée » (décision 16 juil.) : réévaluer si ≥ 2 lundis consécutifs sont oubliés (re-proposer alors la tâche planifiée Windows).
 
 ---
 
@@ -128,7 +128,7 @@ Un seul échec → FAIL → fichier d'échec `output/vault-health-FAIL-YYYY-MM-D
 | Validation humaine | Par batch hebdo : Raphael lit le rapport (note vault seule, pas de push — arbitrage 16 juil.) ; les fixes auto sont bornés à la liste fermée §4 |
 | Cap coût / itération | 1 run/semaine, session unique SANS fan-out d'agents, timeout 15 min, ≤ 5 notes modifiées/run |
 | Log / trace | Le rapport daté EST le log (`Knowledge/reviews/vault-health-YYYY-MM-DD.md`) ; FAIL → fichier `output/vault-health-FAIL-*.md` |
-| Kill-switch | `CronDelete` (ou pause de l'entrée cron) — run court, pas de flag fichier nécessaire |
+| Kill-switch | Trivial : ne pas lancer `/vault-health` (aucun déclencheur installé) |
 
 ---
 
@@ -136,18 +136,18 @@ Un seul échec → FAIL → fichier d'échec `output/vault-health-FAIL-YYYY-MM-D
 
 > Créer ces composants depuis la session principale après validation de cette spec.
 
-| Composant | Type | Description |
-|-----------|------|-------------|
-| `vault-health` | skill (via skill-creator) | La routine 5 étapes : lint+fixes liste fermée, usage 7j + tendance, adoption cross-repo (+ verdict J+14 au run du 2026-08-03), inbox, rapport 4 sections + triple check. Invocable à la main (`/vault-health`) ET par le cron |
-| Entrée cron lundi 09:00 | cron natif CC (CronCreate) | Prompt : « invoque /vault-health » — toute la logique vit dans la skill |
+| Composant | Type | Statut |
+|-----------|------|--------|
+| `vault-health` | skill (via skill-creator) | **CRÉÉE le 16 juil. 2026** (`.claude/skills/vault-health/SKILL.md`) — routine 5 étapes : lint+fixes liste fermée, usage 7j + tendance, adoption cross-repo (+ verdict J+14 au 1er run ≥ 2026-08-03), inbox, rapport 4 sections + triple check |
+| Entrée cron lundi 09:00 | déclencheur auto | **ABANDONNÉE** (décision Raphael 16 juil.) — cron natif CC session-only, tâche Windows déclinée. Invocation manuelle |
 
-Hook kill-switch : NON créé — CronDelete suffit pour un run court read-mostly (adaptation justifiée de la table type/infra).
+Hook kill-switch : NON créé — sans déclencheur installé, il est sans objet.
 
 ---
 
 ## 9. Critères de done
 
-- [ ] Le déclencheur est testé et fonctionnel (1er run cron observé, comportement machine-éteinte noté)
+- [ ] Premier run manuel `/vault-health` complet et validé par Raphael
 - [ ] La méthode de vérification est opérationnelle (triple check produit PASS/FAIL réel)
 - [ ] Chaque itération produit le livrable attendu (rapport 4 sections daté)
 - [ ] Les 4 garde-fous sont opérationnels (validation batch, cap, log, kill-switch)
@@ -157,6 +157,6 @@ Hook kill-switch : NON créé — CronDelete suffit pour un run court read-mostl
 
 ## Notes / À confirmer
 
-- Comportement de rattrapage du cron natif CC quand la machine est éteinte à l'heure prévue — à observer au 1er lundi.
-- **Rendez-vous J+14 intégré** : le run du lundi 2026-08-03 (1er run ≥ J+14 du 2026-07-30) rend le verdict de la mesure DA — seuil proposé : ≥ 10 consultations forge-brain (search+read) depuis des sessions hors claude-forge sur 14 j = extension vivante ; en-dessous → proposer retrait du `~/.claude/CLAUDE.md` + note de dette (arbitrage Raphael).
+- **Rendez-vous J+14 intégré** : le 1er run ≥ 2026-08-03 rend le verdict de la mesure DA — seuil : ≥ 10 consultations forge-brain (search+read) depuis des sessions hors claude-forge sur 14 j = extension vivante ; en-dessous → proposer retrait du `~/.claude/CLAUDE.md` + note de dette (arbitrage Raphael). **Dépend de la régularité manuelle : penser à lancer `/vault-health` le lundi 2026-08-03.**
 - Seuil « inbox qui s'accumule » fixé à > 3 notes — à recalibrer à l'usage.
+- Déclencheur manuel = écart assumé au consensus « maintenance planifiée » ; trigger de réouverture : ≥ 2 lundis consécutifs oubliés.
