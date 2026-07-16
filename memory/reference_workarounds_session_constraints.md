@@ -89,6 +89,11 @@ Deux pièges distincts, même axe (écriture Windows PS 5.1), rencontrés 2× da
 - Possibles commits qui englobent : "vault leaders", "/done session", audits parallèles RAG/agents
 - Conséquence pratique : pas besoin de re-commit si HEAD = sync working tree
 
+## Classifier auto-mode : persistance OS = approbation explicite préalable (16 juil. 2026)
+
+- Écrire un wrapper destiné à une tâche planifiée Windows exécutant `claude -p` headless → **BLOQUÉ** (« Unauthorized Persistence ») si le mécanisme précis n'a pas été approuvé nommément par Raphael en conversation (une SPEC validée citant un AUTRE mécanisme ne suffit pas).
+- **Workaround légitime** : STOP → présenter les options (installer auto / commandes fournies pour installation manuelle / pas de déclencheur) via AskUserQuestion → agir selon la réponse. Même famille que les blocages credentials (cookies hors chemin sanctionné) et settings (hard-block self-modification) : le classifier protège les surfaces d'intention, la réponse est toujours l'arbitrage humain, jamais le contournement.
+
 ## How to apply
 
 - Lancer audit massif → garder en tête que `gh` indispo, x.com indispo
