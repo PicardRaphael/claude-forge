@@ -50,5 +50,5 @@ Les signaux 1 et 2 **ne sont pas de la vérité-terrain** : le signal 1 en label
 ## Liens
 
 - [[loop-apprentissage-codex]] — le pattern auto-améliorant (compounding jugement-piloté)
-- [[skill-evolve]] — la skill hôte du mode friction
+- `skill-evolve` — la skill hôte du mode friction (skill forge `.claude/skills/`, pas une note vault)
 - [[ajouter-source-donnees-mcp-forge-brain]] — pattern source MCP indexée

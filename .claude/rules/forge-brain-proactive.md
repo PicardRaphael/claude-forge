@@ -31,6 +31,8 @@ Fallback : si MCP crash, Read/Glob `vault/claude-forge/`. Cas anormal.
 | **Analyse repo/projet** | Notes concurrents + patterns existants |
 | **Après cc-news ou recherche web** | Capitaliser en notes atomiques + MAJ MOCs |
 | **Après erreur significative** | Note `Knowledge/erreurs/` |
+| **Avant d'affirmer « pas de note / rien dans le vault sur X »** | `search_brain` OBLIGATOIRE (+ `list_notes` du dossier attendu) — jamais de mémoire. « Fausse absence » = failure mode n°1 des vaults LLM (consensus juil. 2026, cf [[pattern-vault-llm-karpathy]]) |
+| **Après réponse substantielle composée depuis vault + web** | **Refiler** le fait distillé : enrichir le foyer existant (`insert_section`/`append_note`), note neuve seulement si aucun foyer (cf `.claude/rules/memory-discipline.md`). Boucle Query→refile = ce qui fait composer le vault (« file back », gist Karpathy) — boucle mesurée morte le 16 juil. 2026 (Knowledge/questions : 2 notes), à tenir vivante |
 
 ## read_section vs read_note (absorbe l'ex-rule read-section-preference)
 
@@ -51,7 +53,7 @@ Vault check = advisory (doctrine 22 mai : pas de hook d'enforcement). Si le prom
 | devils-advocate | Conditionnel ciblé, max 2 requêtes |
 
 Référence dans un agent (2 lignes, pas de copier-coller) : « Vault check : consulter le vault selon `.claude/rules/forge-brain-proactive.md` (advisory). »
-Anti-patterns : scanner le vault par réflexe sans besoin · skipper le vault sur un créateur « parce que simple » · Bash heredoc pour écrire des notes (boucle quoting Windows).
+Anti-patterns : scanner le vault par réflexe sans besoin · skipper le vault sur un créateur « parce que simple » · Bash heredoc pour écrire des notes (boucle quoting Windows) · répondre « aucune note là-dessus » sans `search_brain` préalable (fausse absence).
 
 ## OÙ écrire — Ontologie vault
 

@@ -12,7 +12,7 @@ aliases:
   - "qmd tobi lutke"
   - "agentic engineering memory"
   - "compounding wiki"
-derniere-maj: 2026-06-27
+derniere-maj: 2026-07-16
 auteur: claude
 type: pattern
 sources:
@@ -599,3 +599,47 @@ Non mesuré ici (hors périmètre du diagnostic tokens/perf demandé). Reste un 
 ### Méta-leçon de la requalification
 
 J'avais raison sur le constat (organes dégradés vs pattern), **tort sur l'implication** (défaut à réparer). La règle qui manquait : **mesurer le PROBLÈME sur l'usage réel avant de prescrire la SOLUTION**. Un écart au pattern canonique n'est un défaut que si l'usage réel génère le problème que le pattern prévient — sinon c'est de la conformité pour la conformité. Symétrique exact du garde-fou « valoriser ≠ consommer » (section traversée graphe) : ici c'est **« dévier du pattern ≠ avoir un problème »**. Cf [[feedback_measure_before_optimize]] (mesurer avant d'optimiser) appliqué non au code mais à la doctrine elle-même.
+
+---
+
+## VAGUE VIRALE JUILLET 2026 + CONSENSUS COMMUNAUTAIRE — capitalisé 2026-07-16
+
+> Déclencheur : article X @chesny 15 juil. (reprise ES du guide viral) → recherche 15+ sources croisées. Le pattern Karpathy n'a PAS évolué à la source ; l'écosystème autour, si.
+
+### État de la source
+
+- **Gist inchangé depuis le 4 avril 2026** (1 seule révision = création, 5k+ stars/forks). **Karpathy silencieux sur le wiki depuis son arrivée chez Anthropic (19 mai)** — aucun post/talk wiki-related mai-juillet.
+- Vault Karpathy (thread avril) : ~100 articles, ~400k mots, jamais écrits à la main.
+
+### Vague virale 8-15 juillet (généalogie)
+
+- **Guide canonique : @kirillk_web3, 8 juil.** (149k vues, mirror youmind.com/landing/x-viral-articles/karpathy-second-brain-claude-obsidian) : CLAUDE.md-schema verbatim (INGEST 8 étapes / QUERY avec « file the answer back » / LINT report-only), structure raw + raw/processed + wiki + index.md + log.md, weekly review, VPS 10 $/mois 24/7, alternative Kimi K2.7.
+- **Reprises 13-15 juil.** : @chewadot, @MyWestLord, @chesny (version ES + storytelling « chico en China 15 000 notas »). Fiabilité curateurs FAIBLE : @chesnyfcb (même sphère) corrigé publiquement par kepano fin mai (claim « galaxie 3D » fausse). Kepano au passage : « je n'aime pas le terme second brain — écrire est une forme de penser ».
+- **Ce que la vague AJOUTE vs gist avril** : (1) implémentation Claude Code native (CLAUDE.md auto-lu + slash commands /ingest /lint /query /save) ; (2) **/save = boucle refile formalisée** ; (3) couche kepano/obsidian-skills ~41k stars mi-juil. (forge a déjà 4/5 — obsidian-cli exclu par doctrine MCP-only) ; (4) scheduling 24/7 ; (5) hot.md cache + index.md en couche de routage.
+
+### Modes d'échec documentés (retours 3+ mois d'usage réel)
+
+- **Fausse absence** (répondre « pas de note » de mémoire, sans chercher) = failure mode n°1 sous-estimé (theaioperator). → Garde ajoutée à `.claude/rules/forge-brain-proactive.md` (16 juil.).
+- **Débordement d'index** vers 150-200 pages sans discipline une-ligne-par-page ; drift nommage/style ; contradictions accumulées (kunalganglani, 147 pages/3 mois : *« rewards consistent use, falls apart under neglect »*).
+- **Hallucination auto-certifiée** : le linteur est le même modèle qui a introduit l'erreur — une fausse référence écrite lundi est certifiée « consistent » mercredi (Proudfrog) → audits aléatoires tracés aux sources.
+- Coûts réels mesurés : lint complet ~300k tokens/passe sur un wiki 100 articles.
+
+### Consensus « ce qui fait vivre vs stagner un vault LLM »
+
+1. **Gouvernance > infrastructure** — vectoriel = overkill sous ~100k tokens ; confidence tags, réconciliation, pruning, agents planifiés paient. (= validation externe de [[decision-vault-agent-first]] et de la requalification vectoriel du 8 juin, cf sections DRIFT/REQUALIFICATION supra.)
+2. **Maintenance PLANIFIÉE, pas espérée** — agents cron nightly/weekly + consolidation post-session (Auto Memory/Dream natif Claude Code, mars 2026).
+3. **Faits datés, jamais relatifs** — tampon `as of`, bi-temporalité (OKM) ; supersession explicite > décroissance numérique (« les scores de confiance flottants = fausse précision »).
+4. **Ce qui vit est ce qui est UTILISÉ en boucle** : query → réponse refilée au wiki. Un vault seulement écrit stagne.
+
+### Implémentations de pointe à surveiller
+
+- **rohitg00 LLM Wiki v2** (gist ~1,6k stars, actif juil.) : graphe typé (uses/contradicts/supersedes) + traversal d'impact, hybrid search RRF, hooks event-driven (« on query → refile si quality > seuil »), crystallization des sessions de debug en digests.
+- **eugeniughelbur/obsidian-second-brain v0.12** (3,3k stars, MIT) : self-rewriting à l'ingest (réécrit 5-15 pages au lieu d'appender), OKM bi-temporel, notes AI-first (« For future Claude »), 44 commandes dont `/obsidian-challenge` (le vault argumente CONTRE les décisions passées), 4 agents planifiés, hybrid search local mesuré (recall paraphrasé 77 % à 2 350 notes — trigger forge inchangé : >5 % ratages sémantiques).
+
+### Application forge (16 juil. 2026)
+
+- Diagnostic stagnation mesuré : vault sain (lint quasi 0), **consultation −80 %** (search_brain ~1240 → 236/30j) car **65 % des sessions de juin hors forge** sans MCP → **extension user-scope machine décidée** (Raphael, 16 juil.), voir [[decision-vault-agent-first]] § Validation externe.
+- Boucle Query→refile mesurée morte (Knowledge/questions : 2 notes depuis création) → ligne refile ajoutée à forge-brain-proactive.
+- NB drift : la skill `/dream` citée en « EXEMPLE D'APPLICATION » plus haut n'existe plus (supprimée dans un sweep) — remplacée par Auto Memory CC natif + `/done`.
+
+Sources : gist karpathy 442a6bf (1 rev) · youmind kirillk_web3 · github.com/kepano/obsidian-skills · kunalganglani.com/blog/llm-wiki-karpathy-local-knowledge-base · theaioperator.io/p/karpathys-llm-wiki-v2-what-to-keep · proudfrog.com/en/insights/llm-wiki-skeptics-guide · gist.github.com/rohitg00/2067ab416f7bbe447c1977edaaa681e2 · github.com/eugeniughelbur/obsidian-second-brain

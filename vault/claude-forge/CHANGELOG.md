@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-07-16 — Analyse Karpathy/vague virale + extension cerveau user-scope + boucle refile
+
+- **Ajoutées** : `Knowledge/critiques/critique-2026-07-16-vault-global-user-scope.md` (verdict DA sur le plan d'extension — 1 BLOCKING 82 arbitré).
+- **Modifiées** : `pattern-vault-llm-karpathy` (section VAGUE VIRALE JUILLET 2026 — généalogie 8-15 juil., modes d'échec documentés, consensus « gouvernance > infrastructure », application forge) ; `decision-vault-agent-first` (§ Validation externe + extension user-scope machine actée) ; `mcp-vault-llm-design` (purge lien mort `old` dans exemple code) ; `Simon Willison` + `dette-detection-signaux-friction-skills` (liens vers non-notes réécrits en texte nu — lint 0 wikilink brisé).
+- **Source** : article X @chesny 15 juil. (reprise ES du guide viral @kirillk_web3) → recherche 15+ sources ; diagnostic stagnation mesuré (consultation −80 %/30j, 65 % des sessions de juin hors forge sans MCP) ; arbitrage Raphael + DA : config MCP user-scope (Part A appliquée), `~/.claude/CLAUDE.md` global (Part C), hook SessionStart user en diff manuel (Part B), convention single-writer append-only hors forge, mesure J+14 (2026-07-30), P2b débundlé. Hors vault : rule forge-brain-proactive (refile + fausse-absence), skill x-read (fix users_by_login + gotcha article X), SPEC-loop-vault-health (draft).
+
 ## 2026-07-15 — Gotcha boot lent MCP (Gotcha #4) après RUN de vérif tool_events
 
 - **Modifiée** : `04-Techniques/claude-code/ajouter-source-donnees-mcp-forge-brain.md` — nouveau **Gotcha #4** (section Cycle de vie) : premier boot LENT (rebuild DB + gros scan initial) → handshake MCP de la nouvelle session expire → TOUS les outils forge-brain absents (pas seulement le nouveau). Distinguer de l'échec d'enregistrement ; fix = 2e nouvelle session serveur chaud. Diagnostic PowerShell (Invoke-WebRequest 404 = vivant, db-wal figé = scan fini).
@@ -1920,3 +1926,8 @@ Tests hooks 176 verts (180→176, suppression du mécanisme d'exemption testé).
 - **Composants `.claude/`** : `auditor-empirical-verify` → rule `post-dispatch-verify` ; `da-blocking-arbitrage` splittée (agent devils-advocate + rule pipeline) ; `self-check` KILL (checks portés dans repo-inspector). + trous dispatch evolve/loop-forge comblés. 3 commits (ce64a76, fa65282, ce32bd3).
 - **Modifiées** : `Knowledge/critiques/critique-2026-06-27-suppression-3-skills.md` — section MAJ exécution (3 actions DONE + reste additif).
 - **Source** : audit utilité skills + DA (2 BLOCKING corrigés zéro-perte avant suppression).
+
+## 2026-07-16 — Gotcha permissions : Write/MultiEdit(path) inertes
+
+- **Ajoutées** : `Knowledge/erreurs/erreur-write-multiedit-regles-permission-fichier-inertes.md` — seul `Edit(path)` est évalué par le contrôle de permission fichier (il couvre Write/Edit/MultiEdit) ; `Write(path)` et `MultiEdit(path)` sont des règles mortes. À NE PAS confondre avec le matcher de hook `Write|Edit|MultiEdit` (triplet explicite obligatoire, convention opposée).
+- **Source** : message de correction Claude Code sur les settings forge — même pattern inerte trouvé dans les 4 repos (forge, ia_back, neo_ia, neoteem-brain). Nettoyage settings forge appliqué. Note reliée à [[erreur-deny-global-ecrase-allow-projet]], [[enableallprojectmcp-permissions-allow]], [[comment-creer-hook]].

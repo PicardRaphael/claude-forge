@@ -1,6 +1,6 @@
 ---
 name: workarounds-contraintes-session-forge
-description: "Contraintes machine forge et workarounds : gh CLI absent, x.com paywall 402, HEREDOC commit Windows, delegate-guard (bypass=skill créatrice uniquement), subprocess input=str hang Windows"
+description: "Contraintes machine forge et workarounds : gh CLI absent, x.com paywall 402 (articles X natifs inextractibles → mirrors), HEREDOC commit Windows, delegate-guard (bypass=skill créatrice uniquement), subprocess input=str hang Windows"
 metadata: 
   node_type: memory
   type: reference
@@ -22,6 +22,13 @@ Contraintes techniques rencontrées sur la machine forge (Windows Git Bash) et w
 - **Workaround 1** : skill `/x-read` si cookies session active
 - **Workaround 2** : sources tierces qui relayent verbatim (ABMedia, ChatPRD, Lenny's Newsletter, threadreaderapp)
 - **Workaround 3** : si verbatim critique → recherche sur threadreaderapp.com/thread/<id>
+
+### Articles X natifs (`x.com/i/article/<id>`) — INEXTRACTIBLES en direct (16 juil. 2026)
+
+- Un tweet qui « contient » un article X natif ne porte que le LIEN (`reader.py tweet` → text = URL article). Gotcha déjà documenté dans la skill x-read.
+- **WebFetch sur l'URL article** → 402 (même paywall que les tweets).
+- **Script custom réutilisant les cookies x-read** (Scraper.tweets_details + fouille champ GraphQL `article`) → **BLOQUÉ par le classifier auto-mode** (« Credential Exploration » : usage des cookies hors du chemin sanctionné `reader.py`). Ne pas retenter — c'est un blocage d'intention, pas un bug.
+- **Seule voie fiable** : WebSearch sur le sujet/titre → mirrors et articles dérivés (le contenu viral est toujours repris : youmind.com/landing/x-viral-articles/, substacks, blogs). Croiser 2+ mirrors si verbatim critique.
 
 ## HEREDOC commit Git Bash Windows échoue silencieusement
 

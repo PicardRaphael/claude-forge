@@ -130,7 +130,11 @@ def read_user_tweets(handle: str, limit: int = 10) -> list:
     cookies = _load_cookies()
     s = Scraper(cookies=cookies, pbar=False, save=False)
 
-    users = s.users_by_login([handle])
+    # users_by_login removed in newer twitter-api-client versions -- fall back to users()
+    if hasattr(s, "users_by_login"):
+        users = s.users_by_login([handle])
+    else:
+        users = s.users([handle])
     if not users:
         print(f"ERROR: user not found: @{handle}", file=sys.stderr)
         sys.exit(1)

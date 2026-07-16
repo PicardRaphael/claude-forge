@@ -8,7 +8,7 @@ aliases:
   - "cerveau agent vs wiki humain"
   - "pivot vault agent-first"
 type: knowledge
-derniere-maj: 2026-06-27
+derniere-maj: 2026-07-16
 auteur: claude
 tags:
   - "#type/knowledge"
@@ -40,6 +40,12 @@ forge-brain = **cerveau d'agent**. On optimise pour la boucle Jarvis (search →
 
 ## Déclencheur de réactivation
 Instruire le pivot via la skill `methode-pivoter-doctrine` en session dédiée : refondre les 3 canoniques ci-dessus sans drift résiduel. Jusque-là, cette décision est la source de vérité sur l'orientation.
+
+## Validation externe — 2026-07-16
+
+Le consensus communautaire de juillet 2026 (retours d'usage 3+ mois du pattern Karpathy, 15 sources croisées) converge exactement sur cette décision : « gouvernance > infrastructure », « la conformité au pattern n'est jamais le critère », vectoriel overkill à cette échelle, « ce qui vit est ce qui est utilisé en boucle ». Détail : [[pattern-vault-llm-karpathy]] section « VAGUE VIRALE JUILLET 2026 ».
+
+**Extension actée le 16 juil. (Raphael)** : le cerveau devient **user-scope machine** — disponible dans toutes les sessions Claude Code de la machine (config `~/.claude.json` user + démarrage au logon), **rien dans les repos** (repos d'équipe). Réponse au diagnostic mesuré « 65 % des sessions hors forge sans MCP, consultation −80 % en un mois » : la boucle agent que cette décision optimise s'étend de « sessions forge » à « toutes les sessions Jarvis ».
 
 ## Liens
 - [[pattern-vault-llm-karpathy]]
