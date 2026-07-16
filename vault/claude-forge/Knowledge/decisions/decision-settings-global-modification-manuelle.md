@@ -40,6 +40,12 @@ L'agent **fournit un diff précis** sous 3 formes (diff brut + fichier complet a
 - Les features nécessitant le settings global ne sont jamais "auto-installées" — toujours présentées comme diff à valider.
 - Note : la mémoire portable de forge ([[decision-memoire-dans-le-repo]]) a justement été conçue pour ÉVITER toute modif du settings global (via `@import` dans CLAUDE.md versionné). Cette ADR reste la règle générale pour les cas où le settings global est réellement requis.
 
+## Leçon d'application — 2026-07-16 (extension cerveau, hook SessionStart user)
+
+Première application réelle post-ADR : le fragment fourni (« ajoute ce bloc dans "hooks" ») a été collé **à la racine** du JSON, avec le contenu du bloc voisin dupliqué (`matcher` PreToolUse copié dans un SessionStart). Deux erreurs d'édition humaine naturelles sur un JSON imbriqué.
+
+**Règle pour les futurs diffs settings** : fournir le **bloc PARENT complet à substituer** (tout le `"hooks": {...}` final), jamais un fragment à positionner — la localisation de l'insertion est la partie fragile, pas le contenu. + Toujours re-vérifier après application : parse JSON + clé au bon niveau + commande attendue (le bloc mal placé était silencieusement ignoré, JSON pourtant valide).
+
 ## Appels
 
 - [[decision-memoire-dans-le-repo]] — cas où on a délibérément évité le settings global
