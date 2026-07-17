@@ -26,11 +26,15 @@ from src import usage_log
 logger = logging.getLogger("obsidian-brain")
 
 
-def create_app(config_path: Path | None = None) -> FastMCP:
+def create_app(config_path: Path | None = None, profile_override: str | None = None) -> FastMCP:
     """Build the MCP app: load config, create DB, index vault, register tools."""
     if config_path is None:
         config_path = Path(__file__).parent.parent / "config.yaml"
     cfg = load_config(config_path)
+    if profile_override is not None:
+        if profile_override not in {"full", "read-only"}:
+            raise ValueError("profile must be 'full' or 'read-only'")
+        cfg.profile = profile_override
 
     db = BrainDB(cfg.db_path, cfg.fts.weights)
     db.create_schema()
@@ -40,12 +44,12 @@ def create_app(config_path: Path | None = None) -> FastMCP:
     usage_log.configure(mcp_install_dir / "logs")
 
     watcher = VaultWatcher(cfg.vault_path, db, cfg.excluded_dirs)
-    git_sync = GitSync(cfg.vault_path, cfg.git)
+    git_sync = None if cfg.profile == "read-only" else GitSync(cfg.vault_path, cfg.git)
 
     # --- Sessions transcript index (optional) ---
     sessions_db = None
     sessions_watcher = None
-    if cfg.sessions.enabled:
+    if cfg.sessions.enabled and cfg.profile != "read-only":
         sessions_db = SessionDB(db._conn)  # noqa: SLF001 — share the vault connection
         sessions_db.create_schema()
         sessions_watcher = SessionWatcher(
@@ -55,7 +59,7 @@ def create_app(config_path: Path | None = None) -> FastMCP:
     # --- Tool events index (optional) ---
     tool_events_db = None
     tool_events_watcher = None
-    if cfg.tool_events.enabled:
+    if cfg.tool_events.enabled and cfg.profile != "read-only":
         tool_events_db = ToolEventsDB(db._conn)  # noqa: SLF001 — share the vault connection
         tool_events_db.create_schema()
         tool_events_watcher = ToolEventsWatcher(
@@ -170,13 +174,13 @@ def create_app(config_path: Path | None = None) -> FastMCP:
             tasks.append(asyncio.create_task(_poll_sessions()))
         if tool_events_watcher is not None:
             tasks.append(asyncio.create_task(_poll_tool_events()))
-        tasks.append(asyncio.create_task(_git_pull()))
-        tasks.append(asyncio.create_task(_git_push()))
+        if git_sync is not None:
+            tasks.append(asyncio.create_task(_git_pull()))
+            tasks.append(asyncio.create_task(_git_push()))
         logger.info(
-            "Background loops started (watcher=%ds, pull=%ds, push=%ds)",
+            "Background loops started (watcher=%ds, git=%s)",
             cfg.watcher.poll_interval_seconds,
-            cfg.git.pull_interval_seconds,
-            cfg.git.push_interval_seconds,
+            "enabled" if git_sync is not None else "disabled",
         )
 
         try:
@@ -197,7 +201,7 @@ def create_app(config_path: Path | None = None) -> FastMCP:
         lifespan=lifespan,
     )
 
-    register_tools(mcp, brain_tools)
+    register_tools(mcp, brain_tools, read_only=cfg.profile == "read-only")
 
     # Store config on the module for external access (tests, CLI)
     mcp._brain_cfg = cfg  # noqa: SLF001

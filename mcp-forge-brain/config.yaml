@@ -1,6 +1,7 @@
 vault_path: vault/claude-forge
 db_path: mcp-forge-brain/forge-brain.db
 port: 8091
+profile: full
 
 git:
   auto_commit: false

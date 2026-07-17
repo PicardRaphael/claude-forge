@@ -2,7 +2,7 @@
 
 import logging
 import re
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from src.database import BrainDB
 from src.indexer import (
     parse_note,
@@ -12,6 +12,7 @@ from src.indexer import (
     _ALIASES_INLINE_THEN_LIST_RE,
 )
 from src.usage_log import log_call, stats as _compute_usage_stats
+from src.path_security import PathSecurityError, VaultPathResolver
 
 import yaml
 
@@ -113,25 +114,10 @@ def _normalize_path(vault: Path, path: str) -> tuple[str, str | None]:
     writing outside the vault if a caller passes `C:\\foo\\bar.md`).
     """
     p = path.replace("\\", "/")
-
-    # Reject Windows absolute path unless it points inside the vault
-    if _WINDOWS_ABS_RE.match(p):
-        try:
-            vault_abs = vault.resolve()
-            abs_p = Path(p).resolve()
-            rel = abs_p.relative_to(vault_abs)
-            return str(rel).replace("\\", "/"), f"Absolute path resolved to vault-relative '{rel}'"
-        except (ValueError, OSError):
-            raise ValueError(f"Absolute path outside vault refused: {path}")
-
-    # Reject Unix absolute path that's not stripping to a known vault prefix
-    if p.startswith("/"):
-        # Try to strip to find vault path inside it
-        vault_abs_str = str(vault.resolve()).replace("\\", "/")
-        if p.startswith(vault_abs_str + "/"):
-            return p[len(vault_abs_str) + 1:], f"Absolute path stripped to vault-relative"
-        # Otherwise just strip leading slashes (legacy permissive behavior)
-        p = p.lstrip("/")
+    if _WINDOWS_ABS_RE.match(p) or p.startswith("/"):
+        raise ValueError(f"Absolute path refused: {path}")
+    if ".." in PurePosixPath(p).parts:
+        raise ValueError(f"Parent path segment refused: {path}")
 
     vault_name = vault.name
     vault_parent = vault.parent.name
@@ -145,7 +131,9 @@ def _normalize_path(vault: Path, path: str) -> tuple[str, str | None]:
         if p.startswith(prefix):
             normalized = p[len(prefix):]
             return normalized, f"Path prefix '{prefix}' stripped (passed absolute, expected vault-relative)"
-    return p, None
+    if PurePosixPath(p).suffix.lower() != ".md":
+        raise ValueError("extension must be .md")
+    return PurePosixPath(p).as_posix(), None
 
 
 _FM_BLOCK_RE = re.compile(r"^(---\s*\n)(.*?)(\n---\s*\n)", re.DOTALL)
@@ -331,10 +319,21 @@ def _creation_blockers(content: str) -> list[str]:
 class BrainTools:
     def __init__(self, db: BrainDB, vault_path: Path, git_sync=None, sessions_db=None, tool_events_db=None):
         self._db = db
-        self._vault = vault_path
+        self._paths = VaultPathResolver(vault_path)
+        self._vault = self._paths.root
         self._git = git_sync
         self._sessions = sessions_db
         self._tool_events = tool_events_db
+
+    def _file_path(self, path: str, *, must_exist: bool = True) -> Path:
+        return self._paths.resolve(path, must_exist=must_exist)
+
+    def _safe_folder(self, folder: str) -> str:
+        if not folder:
+            return ""
+        marker = f"{folder.rstrip('/')}/__folder_check__.md"
+        normalized = self._paths.relative(marker, must_exist=False)
+        return normalized.removesuffix("/__folder_check__.md")
 
     def search_sessions(
         self,
@@ -399,6 +398,10 @@ class BrainTools:
         return "\n".join(lines)
 
     def search_brain(self, query: str, limit: int = 5, context: bool = True, folder: str = "") -> str:
+        try:
+            folder = self._safe_folder(folder)
+        except PathSecurityError:
+            return "REFUS: dossier invalide."
         results = self._db.search(query, limit=limit, context=context, folder=folder)
         if not results:
             return f"Aucun resultat pour '{query}'."
@@ -426,8 +429,9 @@ class BrainTools:
                 suggest_list = ", ".join(suggestions)
                 return f"Note '{file}' introuvable. Notes similaires : {suggest_list}"
             return f"Note '{file}' introuvable (ni par nom, ni par alias, ni par recherche)."
-        full_path = self._vault / path
-        if not full_path.exists():
+        try:
+            full_path = self._file_path(path)
+        except PathSecurityError:
             return f"Note '{file}' indexee mais fichier manquant: {path}"
         content = full_path.read_text(encoding="utf-8", errors="replace")
         total_chars = len(content)
@@ -450,10 +454,11 @@ class BrainTools:
         return content
 
     def read_note_by_path(self, path: str) -> str:
-        normalized, warning = _normalize_path(self._vault, path)
-        full_path = self._vault / normalized
-        if not full_path.exists():
-            return f"Fichier introuvable: {normalized}"
+        try:
+            normalized, warning = _normalize_path(self._vault, path)
+            full_path = self._file_path(normalized)
+        except (ValueError, PathSecurityError) as exc:
+            return f"REFUS: {exc}"
         content = full_path.read_text(encoding="utf-8", errors="replace")
         if warning:
             return f"[WARN] {warning}\n\n{content}"
@@ -507,8 +512,11 @@ class BrainTools:
         return broken
 
     def create_note(self, path: str, content: str, username: str = "anonymous") -> str:
-        normalized, prefix_warning = _normalize_path(self._vault, path)
-        full_path = self._vault / normalized
+        try:
+            normalized, prefix_warning = _normalize_path(self._vault, path)
+        except ValueError as exc:
+            return f"REFUS: {exc}"
+        full_path = self._file_path(normalized, must_exist=False)
         if full_path.exists():
             return f"Note existe deja: {normalized}"
         # BLOCABLE-DUR : valider AVANT d'ecrire (sinon une note cassee atterrit sur disque,
@@ -557,8 +565,9 @@ class BrainTools:
             normalized, warning = _normalize_path(self._vault, path)
         except ValueError as e:
             return None, None, f"REFUS: {e}"
-        full_path = self._vault / normalized
-        if not full_path.exists():
+        try:
+            full_path = self._file_path(normalized)
+        except PathSecurityError:
             return None, None, f"Fichier introuvable: {normalized}"
         return normalized, warning, None
 
@@ -570,7 +579,7 @@ class BrainTools:
         update/update_property, l'appelant est seule autorite EOL du content fourni.
         Cf erreur-mcp-yaml-dump-corruption + gate-zero-diff-test-live-byte-exact.
         """
-        full_path = self._vault / path
+        full_path = self._file_path(path)
         with open(full_path, "a", encoding="utf-8", newline="") as f:
             f.write(content)
         new_content = full_path.read_text(encoding="utf-8", errors="replace")
@@ -602,7 +611,7 @@ class BrainTools:
         est seule autorite EOL (zero-diff EOL : un content LF reste LF, idem CRLF).
         Cf erreur-mcp-yaml-dump-corruption.
         """
-        full_path = self._vault / path
+        full_path = self._file_path(path)
         full_path.write_text(content, encoding="utf-8", newline="")
         parsed = parse_note(full_path.stem, path, content)
         self._db.index_note(parsed, full_path.stat().st_mtime)
@@ -677,8 +686,9 @@ class BrainTools:
         (\\r\\n vs \\n) a la lecture, pour que le contenu non touche reste byte-exact et que
         le content insere s'aligne sur l'EOL du fichier. Cf erreur-mcp-yaml-dump-corruption.
         """
-        full_path = self._vault / path
-        original = full_path.read_text(encoding="utf-8", errors="replace", newline="")
+        full_path = self._file_path(path)
+        with open(full_path, encoding="utf-8", errors="replace", newline="") as stream:
+            original = stream.read()
         if marker not in original:
             return f"Marker '{marker}' introuvable dans: {path}"
         # EOL du fichier : si CRLF present, on aligne le content insere dessus.
@@ -713,6 +723,10 @@ class BrainTools:
         return f"Contenu insere {position} '{marker}' dans: {path}"
 
     def list_notes(self, folder: str = "", limit: int = 50) -> str:
+        try:
+            folder = self._safe_folder(folder)
+        except PathSecurityError:
+            return "REFUS: dossier invalide."
         rows = self._db._conn.execute(
             "SELECT file_stem, path FROM notes WHERE path LIKE ? ORDER BY file_stem LIMIT ?",
             (f"{folder}%" if folder else "%", limit),
@@ -756,7 +770,10 @@ class BrainTools:
                 f"(ex: {sources}). Utiliser force=True pour supprimer quand meme "
                 f"(wikilinks deviendront brises)."
             )
-        full_path = self._vault / path
+        try:
+            full_path = self._file_path(path)
+        except PathSecurityError:
+            return f"REFUS: chemin indexe invalide pour '{file}'."
         file_existed = full_path.exists()
         if file_existed:
             full_path.unlink()
@@ -793,11 +810,17 @@ class BrainTools:
         path = self._db.resolve_note(file)
         if not path:
             return f"Note '{file}' introuvable."
-        normalized_new, prefix_warning = _normalize_path(self._vault, new_path)
+        try:
+            normalized_new, prefix_warning = _normalize_path(self._vault, new_path)
+        except ValueError as exc:
+            return f"REFUS: {exc}"
         if not normalized_new.endswith(".md"):
             return f"REFUS: new_path doit terminer par .md (recu: {normalized_new})"
-        old_full = self._vault / path
-        new_full = self._vault / normalized_new
+        try:
+            old_full = self._file_path(path)
+            new_full = self._file_path(normalized_new, must_exist=False)
+        except PathSecurityError as exc:
+            return f"REFUS: {exc}"
         if new_full.exists():
             return f"REFUS: la destination existe deja: {normalized_new}"
         if not old_full.exists():
@@ -817,7 +840,8 @@ class BrainTools:
         # newline="" : preserve les EOL d'origine ; _rewrite_wikilinks ne touche que les
         # [[...]] (pas les \n), donc read+write byte-exact garde l'EOL intact.
         # Cf erreur-mcp-yaml-dump-corruption.
-        content = new_full.read_text(encoding="utf-8", errors="replace", newline="")
+        with open(new_full, encoding="utf-8", errors="replace", newline="") as stream:
+            content = stream.read()
 
         # B1 self-link fix: rewrite wikilinks inside moved note BEFORE indexing
         self_link_count = 0
@@ -841,12 +865,16 @@ class BrainTools:
                 bl_path = self._db.resolve_note(bl_stem)
                 if not bl_path or bl_path == normalized_new:
                     continue
-                bl_full = self._vault / bl_path
+                try:
+                    bl_full = self._file_path(bl_path)
+                except PathSecurityError:
+                    continue
                 if not bl_full.exists():
                     continue
                 # newline="" : meme garantie byte-exact que la note deplacee — on ne
                 # reecrit que les [[...]], jamais les EOL des backlinks.
-                bl_content = bl_full.read_text(encoding="utf-8", errors="replace", newline="")
+                with open(bl_full, encoding="utf-8", errors="replace", newline="") as stream:
+                    bl_content = stream.read()
                 new_content, rewrite_count = _rewrite_wikilinks(bl_content, old_stem, new_stem)
                 if rewrite_count > 0:
                     bl_full.write_text(new_content, encoding="utf-8", newline="")
@@ -924,8 +952,9 @@ class BrainTools:
         path = self._db.resolve_note(file)
         if not path:
             return f"Note '{file}' introuvable."
-        full_path = self._vault / path
-        if not full_path.exists():
+        try:
+            full_path = self._file_path(path)
+        except PathSecurityError:
             return f"Note '{file}' indexee mais fichier manquant: {path}"
         content = full_path.read_text(encoding="utf-8", errors="replace")
         lines = content.splitlines(keepends=True)
@@ -980,6 +1009,10 @@ class BrainTools:
         - find_by_property("statut", "doublon") -> tous les doublons marques
         - find_by_property("sources", comparator="missing") -> notes sans sources frontmatter
         """
+        try:
+            folder = self._safe_folder(folder)
+        except PathSecurityError:
+            return "REFUS: dossier invalide."
         if comparator not in ("eq", "ne", "lt", "gt", "contains", "missing", "present"):
             return f"REFUS: comparator invalide '{comparator}'. Valides: eq, ne, lt, gt, contains, missing, present"
 
@@ -1116,8 +1149,11 @@ class BrainTools:
                 orphans.append({"stem": stem, "path": path})
 
             # YAML lint via re-parse (catches duplicated aliases)
-            full_path = self._vault / path
-            if full_path.exists():
+            try:
+                full_path = self._file_path(path)
+            except PathSecurityError:
+                full_path = None
+            if full_path is not None:
                 try:
                     content = full_path.read_text(encoding="utf-8", errors="replace")
                     parsed = parse_note(stem, path, content)
@@ -1217,8 +1253,9 @@ class BrainTools:
         traduction \\r\\n<->\\n par la couche texte. Le helper est ainsi la SEULE autorite
         sur les fins de ligne (zero-diff par construction : LF reste LF, CRLF reste CRLF).
         """
-        full_path = self._vault / path
-        content = full_path.read_text(encoding="utf-8", errors="replace", newline="")
+        full_path = self._file_path(path)
+        with open(full_path, encoding="utf-8", errors="replace", newline="") as stream:
+            content = stream.read()
 
         try:
             new_content = _set_property_in_frontmatter(content, name, value)
@@ -1233,7 +1270,7 @@ class BrainTools:
         return f"Propriete '{name}' mise a jour dans: {path}"
 
 
-def register_tools(mcp, tools: BrainTools):
+def register_tools(mcp, tools: BrainTools, *, read_only: bool = False):
     """Register all brain tools on the MCP server.
 
     All tools wrapped with usage_log.log_call() automatically (via _tool decorator below).
@@ -1241,6 +1278,14 @@ def register_tools(mcp, tools: BrainTools):
 
     def _tool(fn):
         """Wrap fn with log_call before registering with @mcp.tool()."""
+        forbidden = {
+            "create_note", "append_note", "append_note_by_path", "update_note",
+            "update_note_by_path", "insert_section", "insert_section_by_path",
+            "update_property", "update_property_by_path", "delete_note", "move_note",
+            "bulk_update_property", "search_sessions", "search_tool_events",
+        }
+        if read_only and fn.__name__ in forbidden:
+            return fn
         wrapped = log_call(fn.__name__)(fn)
         return mcp.tool()(wrapped)
 

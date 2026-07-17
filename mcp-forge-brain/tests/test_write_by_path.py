@@ -170,7 +170,7 @@ def test_by_path_fichier_introuvable(tmp_path):
 def test_by_path_abs_hors_vault_refuse(tmp_path):
     tools, vault = _live_tools(tmp_path)
     res = tools.append_note_by_path(r"C:\Users\evil\note.md", "x")
-    assert "REFUS" in res and "outside vault" in res
+    assert "REFUS" in res and "Absolute path refused" in res
 
 
 def test_by_path_index_inchange_si_introuvable(tmp_path):

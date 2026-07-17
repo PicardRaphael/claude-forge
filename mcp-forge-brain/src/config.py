@@ -51,6 +51,7 @@ class AppConfig:
     vault_path: Path = field(default_factory=lambda: Path("/data/neoteem-brain"))
     db_path: Path = field(default_factory=lambda: Path("/data/brain.db"))
     port: int = 8080
+    profile: str = "full"
     git: GitConfig = field(default_factory=GitConfig)
     watcher: WatcherConfig = field(default_factory=WatcherConfig)
     fts: FTSConfig = field(default_factory=FTSConfig)
@@ -79,10 +80,14 @@ def load_config(path: Path) -> AppConfig:
     tool_events_raw = dict(raw.get("tool_events", {}))
     if "path" in tool_events_raw:
         tool_events_raw["path"] = Path(tool_events_raw["path"]).expanduser()
+    profile = raw.get("profile", "full")
+    if profile not in {"full", "read-only"}:
+        raise ValueError("profile must be 'full' or 'read-only'")
     return AppConfig(
         vault_path=Path(raw["vault_path"]),
         db_path=Path(raw["db_path"]),
         port=raw.get("port", 8080),
+        profile=profile,
         git=GitConfig(**git_raw),
         watcher=WatcherConfig(**watcher_raw),
         fts=FTSConfig(weights=FTSWeights(**weights_raw)),

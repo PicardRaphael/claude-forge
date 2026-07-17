@@ -8,6 +8,7 @@ partir sur stderr, jamais sur stdout, sinon le handshake casse.
 import os
 import sys
 import logging
+import argparse
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -19,6 +20,9 @@ from src.server import create_app
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--profile", choices=("full", "read-only"))
+    args = parser.parse_args()
     # Logs sur stderr — stdout est reserve au protocole MCP en mode stdio.
     logging.basicConfig(
         level=logging.INFO,
@@ -28,7 +32,7 @@ def main():
     # vault_path / db_path de config.yaml sont relatifs a la racine du repo.
     os.chdir(PROJECT_ROOT)
     config_path = SCRIPT_DIR / "config.yaml"
-    app = create_app(config_path)
+    app = create_app(config_path, profile_override=args.profile)
     app.run(transport="stdio")
 
 

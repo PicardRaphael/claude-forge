@@ -3,6 +3,8 @@
 import hashlib
 from dataclasses import dataclass
 from pathlib import Path
+
+from src.path_security import PathSecurityError, VaultPathResolver
 from src.database import BrainDB
 from src.indexer import parse_note
 
@@ -17,12 +19,17 @@ class ScanResult:
 class VaultWatcher:
     def __init__(self, vault_path: Path, db: BrainDB, excluded_dirs: list[str]):
         self._vault = vault_path
+        self._paths = VaultPathResolver(vault_path)
         self._db = db
         self._excluded = set(excluded_dirs)
 
     def _iter_notes(self):
         for md_file in self._vault.rglob("*.md"):
             rel = md_file.relative_to(self._vault)
+            try:
+                md_file = self._paths.resolve(rel.as_posix(), must_exist=True)
+            except PathSecurityError:
+                continue
             if any(part in self._excluded for part in rel.parts):
                 continue
             yield md_file, str(rel).replace("\\", "/")
