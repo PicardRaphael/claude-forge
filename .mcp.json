@@ -3,6 +3,18 @@
     "forge-brain": {
       "type": "http",
       "url": "http://localhost:8091/mcp"
+    },
+    "forge-cognition-curator": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--project",
+        "mcp-forge-cognition",
+        "python",
+        "mcp-forge-cognition/start_stdio.py",
+        "--profile",
+        "curator"
+      ]
     }
   }
 }

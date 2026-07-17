@@ -4,3 +4,11 @@ enabled = true
 startup_timeout_sec = 10
 tool_timeout_sec = 60
 default_tools_approval_mode = "prompt"
+
+[mcp_servers.forge-cognition-curator]
+command = "uv"
+args = ["run", "--project", "mcp-forge-cognition", "python", "mcp-forge-cognition/start_stdio.py", "--profile", "curator"]
+enabled = true
+startup_timeout_sec = 20
+tool_timeout_sec = 60
+default_tools_approval_mode = "prompt"

@@ -22,6 +22,16 @@ uv run --python 3.11 --extra dev python -m pytest -q
 
 ## Start
 
+The repository-level Claude Code and Codex configurations attach the primary session to the
+`curator` profile over stdio. The MCP client starts this process when the session opens and stops
+it with the session; no `SessionStart` hook or persistent port is involved. A newly added
+project-scoped MCP server may require one-time approval in the client.
+
+Product and Red Team must use their dedicated profile entries from `mcp.example.json`; never
+attach the Curator entry to those agents.
+
+Manual launch commands:
+
 ```powershell
 uv run --project mcp-forge-cognition python mcp-forge-cognition/start_stdio.py --profile forge-product
 uv run --project mcp-forge-cognition python mcp-forge-cognition/start_stdio.py --profile red-team
