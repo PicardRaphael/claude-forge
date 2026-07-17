@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "forge-cognition-product": {
+      "command": "uv",
+      "args": ["run", "--project", "mcp-forge-cognition", "python", "mcp-forge-cognition/start_stdio.py", "--profile", "forge-product"]
+    },
+    "forge-cognition-reviewer": {
+      "command": "uv",
+      "args": ["run", "--project", "mcp-forge-cognition", "python", "mcp-forge-cognition/start_stdio.py", "--profile", "red-team"]
+    },
+    "forge-cognition-curator": {
+      "command": "uv",
+      "args": ["run", "--project", "mcp-forge-cognition", "python", "mcp-forge-cognition/start_stdio.py", "--profile", "curator"]
+    },
+    "forge-brain-product-read-only": {
+      "command": "uv",
+      "args": ["run", "--project", "mcp-forge-brain", "python", "mcp-forge-brain/start_stdio.py", "--profile", "read-only"]
+    }
+  }
+}

@@ -1,0 +1,3 @@
+principal: forge-product
+allowed_projects:
+  - "*"

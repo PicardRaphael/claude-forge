@@ -1,0 +1,3 @@
+principal: curator
+allowed_projects:
+  - "*"

@@ -1,0 +1,7 @@
+store_path: cognition-store
+transport: stdio
+host: 127.0.0.1
+port: 8092
+lock_timeout_seconds: 5
+max_document_bytes: 1048576
+profile: forge-product

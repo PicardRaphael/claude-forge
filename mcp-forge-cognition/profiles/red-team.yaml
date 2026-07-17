@@ -1,0 +1,3 @@
+principal: red-team
+allowed_projects:
+  - "*"

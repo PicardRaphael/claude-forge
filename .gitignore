@@ -31,6 +31,11 @@ data/
 # x-read downloaded media (large binaries, not part of repo)
 .claude/skills/x-read/downloads/
 mcp-forge-brain/logs/
+mcp-forge-brain/.venv/
+mcp-forge-brain/uv.lock
+mcp-forge-cognition/.venv/
+cognition-store/indexes/*.sqlite*
+cognition-store/indexes/.mutation.lock
 
 # Logs runtime racine (transcripts watch, logs cc-news — regeneres, pas versionnes)
 logs/
