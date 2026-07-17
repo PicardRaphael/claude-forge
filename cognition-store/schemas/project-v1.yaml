@@ -1,0 +1,40 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: forge-cognition/project-v1
+type: object
+required: [id, schema_version, name, slug, status, owner, objective, created_at, current_stage, revision, content_hash]
+properties:
+  schema_version:
+    const: 1
+  id:
+    pattern: ^PRJ-[0-9]{4}-[0-9]{3}$
+    type: string
+  name: {type: string}
+  slug:
+    type: string
+    pattern: ^[a-z0-9]+(?:-[a-z0-9]+)*$
+  status: {type: string}
+  owner: {type: string}
+  objective: {type: string}
+  created_at:
+    type: string
+    format: date-time
+  current_stage: {type: string}
+  success_criteria:
+    type: array
+    items: {type: string}
+  stop_criteria:
+    type: array
+    items: {type: string}
+  initial_constraints:
+    type: array
+    items: {type: string}
+  artifacts:
+    type: array
+    items: {type: string}
+  revision:
+    type: integer
+    minimum: 1
+  content_hash:
+    type: string
+    pattern: ^sha256:[0-9a-f]{64}$
+additionalProperties: false
