@@ -9,7 +9,7 @@ aliases:
   - memory dreaming claude
   - review automatique sessions
 type: knowledge
-derniere-maj: 2026-07-09
+derniere-maj: 2026-07-21
 auteur: claude
 sources:
   - "https://platform.claude.com/docs/en/managed-agents/dreams"
@@ -121,3 +121,12 @@ Le corps écrit « Rakuten — **97% reduction in initial critical errors** (ver
 Sessions/dream : 100 · `instructions` ≤ 4096 chars · lifecycle pending→running→completed/failed/canceled · l'input n'est jamais modifié (output = nouvelle store).
 
 `derniere-maj` → 2026-06-16.
+
+
+---
+
+## AJOUT 21 juillet 2026 — Statut du « 97% » mis à jour (slide officielle AI DevCon)
+
+Le « 97% reduction in initial critical errors » marqué **non confirmé** le 16 juin a été retrouvé sur une **slide officielle Anthropic** au talk AI DevCon by Tessl (Lamis, Applied AI — cf [[Memory Managed Agents]] § AJOUT 21 juillet 2026) : « **97% fewer first-pass errors** », avec le verbatim « Memory lets us put continuous learning into production at scale — at 27% lower cost and 34% lower latency, and learning stays under our control », attribué à un « **GM, AI for Business — Global commerce platform** » (anonymisé, cohérent avec Rakuten mais non nommé).
+
+**Nouveau statut** : claim Anthropic officiel (slide), attribution anonymisée. Upgrade depuis « rumeur secondaire », mais toujours PAS un chiffre confirmé par Rakuten en propre — la page client primaire reste à 79% time-to-market. Citer comme « chiffre présenté par Anthropic (client commerce anonymisé) », jamais « chiffre Rakuten vérifié ».

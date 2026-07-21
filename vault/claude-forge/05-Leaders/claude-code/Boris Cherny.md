@@ -13,7 +13,7 @@ aliases:
   - "CC best practices"
 role: "Creator of Claude Code"
 affiliation: "Anthropic"
-derniere-maj: 2026-06-07
+derniere-maj: 2026-07-21
 auteur: claude
 sources:
   - "https://howborisusesclaudecode.com"
@@ -88,3 +88,18 @@ Source primaire transcrite (podcast Acquired, partagé via @0xCodez 4 juin 2026)
 - **Conseil org** : "give everyone as many tokens as possible", "the more you buy the more you save" (Jensen), **"under-fund everything a little bit"** (2 ingénieurs + tokens au lieu de 4).
 - **Taste s'érode** : son dogme "no classes only functions" abandonné car le modèle écrivait des classes et "the business outcome is met faster". Dernier rempart humain = **enseigner les valeurs au modèle**.
 - **Co-work** construit en ~8-9 jours, 100% Claude Code.
+
+---
+
+## Talk fondateur « pro tips » — Code with Claude SF, mai 2025 (transcrit 21 juil. 2026)
+
+Transcription intégrale en session forge (vidéo native X recyclée par un compte d'engagement en juillet 2026 comme si elle était neuve — cf [[verification-sources-canoniques]] pattern 6). Stats et faits historiques citables :
+
+- **Onboarding technique Anthropic : 2-3 semaines → 2-3 jours** grâce au codebase Q&A jour 1 (« start with codebase Q&A » = la reco n°1 pour introduire CC à une équipe).
+- **~80% du staff technique Anthropic utilise Claude Code quotidiennement** (mai 2025), chercheurs inclus (notebooks).
+- **Zéro indexation** : pas de base distante, pas d'entraînement sur le code, pas de setup — différenciateur assumé vs concurrents de l'époque.
+- **Sécurité bash** (réponse Q&A, toujours d'actualité) : classification read-only + analyse statique des combinaisons de commandes + système de permissions à niveaux (allowlist/blocklist).
+- **Pourquoi CLI et pas IDE** : terminal = dénominateur commun ; « we see up close how fast the model is getting better... avoid over-investing in UI » — prédiction « fin des IDE d'ici fin 2025 » non réalisée à l'échelle, mais Boris lui-même a désinstallé son IDE en novembre 2025 (cf section Interview Acquired).
+- Déjà présents en mai 2025 : « give it a way to check its work → iterate » (devenu tip #1 canonique), plan-first prompting (« before you write code make a plan » — sans plan mode), dictée vocale macOS pour prompts précis, `claude -p` « super intelligent UNIX utility », multi-claude (checkouts/worktrees/tmux).
+
+Valeur : provenance historique — presque toute la doctrine 2026 était en germe dans ce talk ; la couche 2026 (routines, loops, fleet) s'est construite PAR-DESSUS, elle ne le remplace pas.

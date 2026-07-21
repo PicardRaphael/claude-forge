@@ -10,7 +10,7 @@ aliases:
   - "dream process"
   - "rêve agents"
 type: feature
-derniere-maj: 2026-05-11
+derniere-maj: 2026-07-21
 auteur: claude
 sources:
   - "https://www.youtube.com/watch?v=RtywqDFBYnQ"
@@ -99,3 +99,45 @@ Startup fictive "Lumara" — landing drones sur la Lune :
 - Simulation post-dreaming : **6/6 sites réussis**, pas de régression
 
 Le hill-climbing s'est fait sans intervention humaine — juste un clic sur "Dream".
+
+
+---
+
+## AJOUT 21 juillet 2026 — Intérieur d'un dreaming pass (talk AI DevCon by Tessl, Lamis, Applied AI)
+
+> Source : même talk que [[Memory Managed Agents]] § AJOUT 21 juillet 2026 (vidéo native X transcrite + slides). Détaille l'ARCHITECTURE interne d'un pass, au-delà de la doc publique.
+
+### Architecture d'un dreaming pass (slide « Inside a dreaming pass »)
+
+```
+Input memory store ($MEM) ──① clone──▶ Output memory store ($MEM_OUT)
+        │
+        ▼
+  Orchestrateur ──② one per session──▶ Subagent × N
+        ▲                                   │
+  Session transcripts (1..N)                └──③ read/write to reorganise ──▶ $MEM_OUT
+```
+
+- **① Clone** : l'input store n'est JAMAIS modifié (confirme le review-before-attach documenté).
+- **② Un subagent PAR transcript de session** — l'orchestrateur déploie une flotte, chaque subagent analyse un transcript. Les transcripts incluent les passes agent↔user **ET les métadonnées : tool calls, skills utilisées** — « we're really scrutinizing those tool calls », central pour détecter les misconfigurations.
+- **③ L'orchestrateur review les retours des subagents** et ne propose un changement que si le pattern est **assez prévalent** (« where there are prevalent enough patterns that it thinks this warrants a change »).
+- **Output livré avec preuves** : chaque changement proposé est accompagné de **transcripts d'exemple** où le pattern apparaît + **stats de prévalence** → l'humain accepte/rejette changement par changement.
+
+### Steering — curation configurable
+
+On peut dire aux agents memory ET dreaming « ce qui est important / pas important » pour SON organisation → le processus de curation est orientable par domaine, pas générique.
+
+### Analogie école (pédagogie du talk)
+
+Élèves (agents) + professeurs + **proviseur qui review toutes les copies** (dreaming) :
+- Tous les élèves de géo ratent la même question → le sujet **manque au curriculum** (= trou dans le memory store, backfill).
+- Tous les élèves de maths répondent en **radians au lieu de degrés** → consigne « configurez vos calculatrices » (= tool misconfiguration détectée dans les tool calls des transcripts).
+- « Tout le monde abuse des em-dashes » → changement de contexte **org-wide** (= préférence de flotte).
+
+### Économie du pass
+
+Objection « c'est cher de dédier des tokens à ça » → contre-argument : les memory stores efficaces font baisser les coûts downstream (**one-shotting** plus fréquent, moins de tokens par tâche) ; le dreaming a « its own allocated resources » précisément pour supprimer le **split focus** de la mémoire in-band (l'agent de tâche n'a plus à arbitrer tâche vs curation). Rejoint l'amortissement documenté (coût payé une fois, réparti sur tous les agents lecteurs).
+
+### Slide « How dreaming works » (vue d'ensemble)
+
+Transcripts des sessions quotidiennes → **Dreaming (periodic batch process)** → updated memory state (« new insights » + « organized structure ») → « **next day's agent sessions are automatically more intelligent** ». Le système unifié = Memory (real-time, pendant que les agents bossent) + Dreaming (batch périodique, entre les sessions) — les deux écrivent le même store versionné.

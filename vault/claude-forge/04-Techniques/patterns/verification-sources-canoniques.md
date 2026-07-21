@@ -9,7 +9,7 @@ aliases:
   - "paraphrase non verifiee"
   - "web search canonical source"
 type: pattern
-derniere-maj: 2026-07-09
+derniere-maj: 2026-07-21
 auteur: claude
 sources:
   - "Ex-skill forge web-search-canonical-source (foldée en rule contenu-externe-non-fiable, 9 juil. 2026)"
@@ -78,3 +78,17 @@ Pattern validé après 4 occurrences du même bug : tweet/article tiers → para
 - `.claude/rules/contenu-externe-non-fiable.md` (rule forge, hors vault — porte la doctrine toujours-active et pointe ici)
 - [[programmatic-tool-calling]] — cas d'application du pattern
 - Memory : `feedback_anthropic_single_source`, `feedback_tweet_hype_paraphrase_pattern`, `feedback_arxiv_id_yymm_format`, `feedback_stars_github_drift`
+
+
+---
+
+## AJOUT 21 juillet 2026 — Patterns 5 et 6 : quote inventée + contenu recyclé non daté
+
+Deux nouveaux cas documentés le même jour (session forge, 2 vidéos X transcrites intégralement pour vérification) :
+
+| # | Source | Claim virale | Réalité |
+|---|--------|-------------|---------|
+| 5 | Tweet @hrswatigupta (19 juil. 2026) | Verbatim « You're not supposed to prompt Claude. You're supposed to build a system that prompts itself » + « In 45 minutes » | **Citation absente** du transcript intégral (31 min, pas 45) du talk AI DevCon de Lamis (Anthropic Applied AI). Hook fabriqué pour l'engagement — le talk réel porte sur memory/dreaming, pas sur « prompter » |
+| 6 | Tweet @cyrilXBT (20 juil. 2026) | « Boris Cherny sat down and showed how he actually uses it » (présent, implique du neuf) | Talk « pro tips » de **Code with Claude mai 2025** — 14 mois d'âge (GitHub app « announced today », prédiction fin des IDE « by the end of the year », `/vibe`, `.claude/commands/`). Doctrine Boris 2026 ([[workflow-claude-code-optimal]], [[pre-compute-vs-inference-loops-boris]]) très différente |
+
+**Réflexe additionnel — DATER le contenu vidéo avant de capitaliser** : un talk recyclé n'est pas faux, mais le capitaliser comme état de l'art écrase une doctrine plus récente déjà en vault. Indices de datation dans la vidéo elle-même : annonces « today », features montrées à l'écran (slash commands disparues, UI datée), prédictions vérifiables, structure de config d'époque. La transcription intégrale (pipeline [[Memory Managed Agents|x-read → ffmpeg → faster-whisper]], cf memory `reference_transcrire_video_native_x`) reste le seul moyen fiable de vérifier un verbatim attribué à une vidéo.

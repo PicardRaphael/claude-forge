@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-07-21 — 2 vidéos X transcrites : talk AI DevCon memory/dreaming (Lamis) + talk Boris 2025 recyclé
+
+- **Modifiées** : `01-Claude/Code/features/Memory Managed Agents` (AJOUT talk AI DevCon by Tessl — évolution mémoire 4 stades, 3 bottlenecks production, boucle hash-retry, memory poisoning par prompt injection, slide 97%/27%/34%, Q&A « deterministic harness ») ; `01-Claude/Code/features/Dreaming Managed Agents` (AJOUT intérieur d'un dreaming pass — orchestrateur + 1 subagent/transcript, stats de prévalence, steering, analogie école) ; `04-Techniques/agents/technique-dreaming-cross-session` (statut « 97% » upgradé : slide officielle Anthropic anonymisée) ; `04-Techniques/patterns/verification-sources-canoniques` (patterns 5-6 : quote inventée par tweet d'engagement + contenu vidéo recyclé non daté).
+- **Leaders** : `05-Leaders/claude-code/Boris Cherny` (section talk fondateur « pro tips » Code with Claude mai 2025 — onboarding 2-3 sem→2-3 j, 80% staff quotidien, sécurité bash, pourquoi CLI).
+- **Source** : 2 vidéos natives X partagées par Raphael (tweets @cyrilXBT 20 juil. + @hrswatigupta 19 juil.), pipeline x-read → curl MP4 → ffmpeg → faster-whisper + analyse frames (28+31 screenshots). Les 2 hooks viraux se sont révélés faux (citation inventée ; talk de mai 2025 présenté comme neuf).
+
 ## 2026-07-16 — Arbitrage v : traces DOCTRINE_REINFORCE + 6 enrichissements + MAJ skills réf
 
 - **Modifiées (traces doctrine)** : `outcome-first-prompting` + `deprecated-techniques-2026` — challengées + confirmées 16 juil. par guide GPT-5.6 (9 juil.) + Mollick/Wharton (7 juil.), chiffres neufs (leaner prompts = +10-15 % score, -41-66 % tokens).
