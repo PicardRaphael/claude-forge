@@ -63,6 +63,8 @@ Niveaux et thinking depth :
 
 ## Implications forge
 
+> ⚠️ **Correction 27 juillet 2026 (catch devils-advocate)** : les deux tableaux ci-dessous portaient « devils-advocate/Reviewers → xhigh » — cellules en DRIFT vs la décision **Option C arbitrée par Raphael le 18 juin** ([[conflit-effort-xhigh-anthropic-vs-pivot-22mai]] : `xhigh` = agentique/coding multi-tool long-horizon ; `high` = jugement/comparatif structuré, graders, **reviewers**, conseil) et vs le CLAUDE.md forge. Cellules corrigées → **high**. Détail : [[critique-2026-07-27-plan-audit-regles-forge]].
+
 ### Doctrine forge actualisée (réalignée 26 mai 2026)
 
 Remplace l'ancien pivot 22 mai ("high partout, xhigh réservé 3 rôles") par :
@@ -71,7 +73,7 @@ Remplace l'ancien pivot 22 mai ("high partout, xhigh réservé 3 rôles") par :
 |------------------|-------------------|
 | Créateurs (skill-creator, agent-creator, hook-creator, claudemd-optimizer) | **xhigh** |
 | Analyseurs (project-auditor, project-analyzer, codebase-scanner) | **xhigh** |
-| Reviewers (devils-advocate, outcomes-grader) | **xhigh** |
+| Reviewers (devils-advocate, outcomes-grader) | **high** (corrigé 27 juil. — Option C : jugement structuré = high) |
 | Conseil stratégique (responsable-ia) | **xhigh** ou `max` ponctuel sur décisions majeures |
 | Exécutants pure (python-dev) | **high** (intelligence-sensitive) |
 | Workers triviaux | **medium** |
@@ -84,7 +86,7 @@ Remplace l'ancien pivot 22 mai ("high partout, xhigh réservé 3 rôles") par :
 |---|---|
 | Skills créatrices (skill-creator, subagent-creator, hook-creator, claudemd-creator) | **high** (thread principal, pas agent Opus) |
 | repo-inspector (audit/analyze/scan) | **xhigh** |
-| devils-advocate | **xhigh** |
+| devils-advocate | **high** (corrigé 27 juil. — reviewer = jugement structuré, Option C) |
 | outcomes-grader | **high** |
 | code-dev | **high** |
 | self-updater | **high** |

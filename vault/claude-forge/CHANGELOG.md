@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-07-27 (3) — chantier audit règles forge : correction drift tableau effort (catch DA)
+
+- **Modifiées** : `04-Techniques/claude-code/effort-opus-47-doctrine-anthropic-2026` — cellules « Reviewers/devils-advocate → xhigh » corrigées → **high** (drift vs décision Option C du 18 juin, détecté par le devils-advocate qui a refusé son propre bump ; l'audit s'appuyait sur la cellule outlier) + callout de correction daté
+- **Leaders** : critique DA sauvegardée par l'agent : `Knowledge/critiques/critique-2026-07-27-plan-audit-regles-forge.md`
+- **Source** : chantier audit `.claude/` forge (repo-inspector lentille frontière + 3 tripartites → devils-advocate PASS-avec-réserves, 1 BLOQUANT inversé → arbitrage Raphael 4 questions). Côté repo : code-dev TDD reformulé 100 %-accurate, dédup comportement-proactif, descriptions codex-ref/rag-design < 250, CLAUDE.md S2/S4, settings.json.proposed (retrait hook fantôme notify-discord)
+
 ## 2026-07-27 (2) — analyse approfondie : interviews équipe CC + deep-dive graph engineering
 
 - **Ajoutées** : `04-Techniques/claude-code/steps-of-ai-adoption-boris` (framework 0-4 Boris 16 juil., source primaire X retrouvée — les blogs tiers disaient anthropic.com, faux) ; `04-Techniques/claude-code/fireside-cat-wu-thariq-aiewf-2026` (Willison 21 juil. : system prompt −80 %, fewer constraints/tools, Claude prompting Claude all the way down, auto mode quasi universel, mémoire Tag = markdown/canal) ; `01-Claude/Code/features/How we contain Claude` (article 28 mai manquant au vault — 93 % approbation, sandbox −84 % prompts, deterministic boundary)

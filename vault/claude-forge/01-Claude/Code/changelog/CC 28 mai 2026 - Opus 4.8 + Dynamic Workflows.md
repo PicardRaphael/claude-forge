@@ -12,7 +12,7 @@ aliases:
   - "workflow tool claude code"
 domaine: claude-code
 type: changelog
-derniere-maj: 2026-05-29
+derniere-maj: 2026-07-27
 auteur: claude
 sources:
   - "https://www.anthropic.com/news/claude-opus-4-8"
@@ -97,3 +97,25 @@ Confronté à [[workflow-claude-code-optimal]] (Advisor Strategy, multi-clauding
 - [[CC mai 2026 - Code with Claude]] — drop précédent
 - [[MOC-Claude-Code]]
 - [[feedback_no_cto_agent]]
+
+
+---
+
+## AJOUT 27 juillet 2026 — workflows SAUVEGARDABLES : dossier `.claude/workflows/` (doc officielle vérifiée)
+
+État de la feature au 27 juil. 2026 (source primaire : code.claude.com/docs/en/workflows, fetchée intégralement) — la research preview du 28 mai est devenue un système complet de workflows nommés :
+
+- **Sauvegarde** : `/workflows` → sélectionner un run → touche `s` → deux emplacements : **`.claude/workflows/` (projet, partagé via le repo)** ou `~/.claude/workflows/` (perso, tous projets ; respecte `CLAUDE_CONFIG_DIR`). Le workflow sauvegardé devient une **slash command `/<nom>`** (autocomplete inclus). Conflit de nom : le projet gagne sur le perso.
+- **Format du fichier** : `export const meta = { name, description }` (+ `phases`, `whenToUse` optionnels) puis body JavaScript plain avec top-level `await` — `agent()` spawne un subagent, `pipeline()` un par item. Écrit par Claude, éditable à la main.
+- **Args** : un workflow sauvegardé accepte un input via `args` (« Run /triage-issues on issues 1024, 1025 ») — passé en données structurées, le script lit le global `args`.
+- **Monorepo** (≥ 2.1.178) : sauvegarde dans le `.claude/workflows/` le plus proche du working dir ; chargement depuis TOUS les `.claude/workflows/` du chemin.
+- **Plugins** : distribution via dossier `workflows/` à la racine du plugin, namespacé `/plugin:nom`.
+- **Bundled** : `/deep-research` = workflow intégré (manuel uniquement depuis v2.1.218).
+- **Déclenchement** (précisions post-mai) : mot-clé **`ultracode`** dans le prompt (avant v2.1.160 c'était `workflow`) OU demande en langage naturel (« use a workflow ») OU `/effort ultracode` (session entière, ≥ 2.1.203). Le mot-clé ne fire que sur input HUMAIN tapé (≥ 2.1.210 — plus via webhook/PR comment/-p).
+- **Taille** : `workflowSizeGuideline` small/medium/large/unrestricted — **défaut `medium` (< 15 agents) depuis v2.1.219**. Advisory, pas un cap. Warning « Large workflow » à > 25 agents ou > 1,5M tokens projetés (≥ 2.1.203).
+- **Permissions** : les subagents d'un workflow tournent TOUJOURS en `acceptEdits` + héritent de l'allowlist, quel que soit le mode session — file edits auto-approuvés ; bash/web/MCP hors allowlist peuvent prompter mid-run (allowlister AVANT un long run). Approbation par run avec « don't ask again » par workflow×projet.
+- **Resume** : same-session only — agents complétés = résultats cachés ; sortir de CC pendant un run = repart de zéro à la session suivante.
+- **Sécurité save** (≥ 2.1.216) : refus d'écrire à travers un symlink (`.claude`, `.claude/workflows` ou fichier cible côté projet).
+- **Désactivation** : `/config` Dynamic workflows off · `"disableWorkflows": true` · `CLAUDE_CODE_DISABLE_WORKFLOWS=1` · managed settings org.
+
+**Pertinence forge** : les orchestrations récurrentes (veille multi-agents type cc-news, sweeps d'audit) sont candidates à être figées en workflows nommés dans `.claude/workflows/` — la doc le dit explicitement : « If you already have an orchestrator built another way, such as a folder of subagent prompts or a skill that fans work out, you can point Claude at it and ask for a workflow that does the same thing. » Tableau comparatif officiel subagents/skills/agent-teams/workflows : « the difference is who holds the plan » — workflow = le script tient le plan, le contexte de Claude ne garde que la réponse finale.

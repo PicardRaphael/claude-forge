@@ -23,7 +23,7 @@
 
 ## Workflow Git (convention)
 
-- **FULL MAIN par défaut** : commit ET push directement sur `main`. NE JAMAIS demander « branche ou main ? ». NE JAMAIS créer de branche feature de sa propre initiative.
+- **FULL MAIN par défaut** : commit ET push directement sur `main`. NE JAMAIS demander « branche ou main ? » de ta propre initiative — seule exception : harness qui force « branch first » (cf. ci-dessous). NE JAMAIS créer de branche feature de sa propre initiative.
 - **Branche UNIQUEMENT si Raphael le demande explicitement** (« branche », « nouvelle branch », « bosse sur une branche »). Sinon, toujours main.
 - Si le harness force « branch first » sur `main` : contourner/demander selon le contexte, mais l'intention par défaut reste main. Merge = convention humaine, pas verrou technique (vérifié 27 mai).
 - Toujours `git status` + `git diff` avant push (jamais push aveugle). Cf [[feedback_commit_push_check]] + [[commit-full-main-defaut]].
@@ -95,7 +95,7 @@ Pivot doctrinal complet : **[[raisonnement-22mai-doctrine-vs-enforcement]]**
 4. **Plugins externes** — uniquement si forge n'a pas l'info
 5. **Recherche web** (cc-news) — info potentiellement datée
 
-JAMAIS invoquer plugin externe si skill forge couvre le sujet.
+JAMAIS invoquer plugin externe si skill forge couvre le sujet — parce que forge est la source maintenue et calibrée (le plugin duplique en moins à jour et coûte du contexte).
 
 ## Mémoire
 

@@ -1,6 +1,6 @@
 ---
 name: rag-design
-description: ALWAYS invoke to design, review or debug a RAG system — 'conçois un RAG', chunking, embeddings, reranking. Guided dialogue filling a deliverable template, or direct answers from references/. NOT for choosing a tool (choix-outils-ia) or Jira tickets (spec).
+description: ALWAYS invoke to design, review or debug a RAG system — 'conçois un RAG', chunking, embeddings, reranking. Guided dialogue or direct answers from references/. NOT for choosing a tool (choix-outils-ia) or Jira tickets (spec).
 user-invocable: true
 allowed-tools: Read, Write, Edit, Glob, Grep, Skill, mcp__forge-brain__*
 ---

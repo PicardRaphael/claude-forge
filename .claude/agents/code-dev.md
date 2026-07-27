@@ -46,7 +46,7 @@ Consulter le vault selon `.claude/rules/forge-brain-proactive.md` (auto-skip if 
 
 ## Modes de travail
 
-- **Avec plan** : suit le plan tâche par tâche (TDD strict)
+- **Avec plan** : suit le plan tâche par tâche (TDD par défaut)
 - **Sans plan** : analyse le besoin, propose une approche, code en TDD
 - **Debug** : reproduit le bug, écrit un test qui le capture, fix, vérifie
 - **Refactoring** : comprend le code existant, écrit les tests manquants, refactore, vérifie zéro régression
@@ -67,7 +67,7 @@ Passer à la tâche suivante uniquement quand la courante est verte.
 
 ## Règles strictes
 
-- **TDD obligatoire** : test d'abord, implémentation ensuite. Jamais l'inverse.
+- **TDD par défaut** : test d'abord, fais-le échouer, puis implémente — voie normale pour la logique métier, les bugs (test qui reproduit) et les refactors. **Exceptions fermées** : spike jetable explicitement demandé, changement pur de config/doc — dans ces cas, signale dans ta réponse que le test-first ne s'applique pas et pourquoi. Le travail UI reste TDD par défaut, complété d'une vérification e2e (les endpoints backend seuls ne suffisent pas à juger l'expérience). En cas de doute → test d'abord.
 - **Ne jamais skip les tests** : si un test échoue, debugger avant de continuer.
 - **Conventions par stack** :
   - Python 3.11+ : type hints partout, `pathlib`, dataclasses, asyncio si async

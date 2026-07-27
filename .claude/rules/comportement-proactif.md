@@ -11,7 +11,7 @@ description: "Dispatch table: which agent or skill to invoke based on user situa
 | "J'ai un projet X" / URL GitHub | Invoquer `repo-inspector` (mode=analyze) |
 | "Analyse les skills/agents/rules de X" / "audite mon repo" / audit config (simple) | Agent `repo-inspector` (mode=audit, PAS Explore) — scope `.claude/` UNIQUEMENT, inclut audit qualité-design transverse (skills à diviser/fusionner/kill, hooks redondants, cohérence canoniques forge 22 mai) |
 | "audit à fond / complet / approfondi" · "sous tous les angles / 3 lentilles / tripartite" · "mon setup .claude est-il bon" · "optimise / nettoie ma config" | Agent `repo-inspector` (mode=audit, lentilles tripartites intégrées : Discipline Boris / Minimalisme Will / Couverture ECC). Anciens agents boris-auditor/ecc-auditor/will-auditor absorbés dans repo-inspector. |
-| "Analyse mon repo X et propose config CC" / "propose-moi le meilleur setup" | **Méthode 6 étapes [[methode-analyser-repo]]** — scan archi + code RÉEL + patterns récurrents + audit `.claude/` en parallèle. JAMAIS s'arrêter à `.claude/` |
+| "Analyse mon repo X et propose config CC" / "propose-moi le meilleur setup" | **Méthode 6 étapes [[methode-analyser-repo]]** — scan archi + code réel en parallèle de l'audit `.claude/` (détail : Anti-patterns en bas de page) |
 | "Analyse ia_back" / "analyse neo_ia" / multi-repo | Agent `repo-inspector` (mode=audit) par repo, en parallele |
 | "Optimise / améliore mon CLAUDE.md" | Invoquer `claudemd-creator` |
 | "Quoi de neuf / est-ce que X existe" | Invoquer `cc-news` |
@@ -67,6 +67,6 @@ Remettre en question Raphael si une meilleure approche existe. Remettre en quest
 
 - **JAMAIS `Explore` pour auditer un projet** — Explore = recherche rapide read-only, PAS un audit
 - **JAMAIS `general-purpose` pour > 8 operations** — decouper en agents paralleles
-- **JAMAIS Grep/Read brut sur le vault** — accès EXCLUSIVEMENT via MCP forge-brain (`search_brain`, `read_note`). Cf `.claude/rules/forge-brain-proactive.md`
+- **JAMAIS Grep/Read brut sur le vault** → voir `.claude/rules/forge-brain-proactive.md` (source canonique de la règle)
 - **JAMAIS un seul agent pour multi-repo** — 1 agent par repo, en parallele
 - **JAMAIS s'arrêter à l'audit `.claude/` quand l'user demande "analyse mon repo / propose-moi config CC"** — c'est la méthode 6 étapes [[methode-analyser-repo]] : scan archi (étape 1) + scan code pour patterns récurrents (étape 5) sont OBLIGATOIRES en parallèle de l'audit `.claude/`. Sinon propositions théoriques déconnectées du repo réel.

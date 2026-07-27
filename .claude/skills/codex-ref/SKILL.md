@@ -1,6 +1,6 @@
 ---
 name: codex-ref
-description: ALWAYS load when user asks about OpenAI Codex (the coding agent) — its AGENTS.md, config.toml, skills, hooks, subagents, loops, memory, or Codex vs Claude Code. Stable spine here; read MOC-Codex for detail, cc-news for anything newer. NOT for Claude Code features (cc-features-ref).
+description: ALWAYS load when user asks about OpenAI Codex (the coding agent) — AGENTS.md, config.toml, skills, hooks, subagents, loops, memory, or Codex vs Claude Code. MOC-Codex for detail, cc-news for newer. NOT for Claude Code features (cc-features-ref).
 user-invocable: false
 ---
 
