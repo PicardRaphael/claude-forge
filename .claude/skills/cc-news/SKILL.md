@@ -1,6 +1,6 @@
 ---
 name: cc-news
-description: ALWAYS invoke when user asks 'quoi de neuf', 'est-ce que X existe', or knowledge seems stale. Recent Claude Code updates, new features, AI industry news. Reference date : 15 juillet 2026 (v2.1.211).
+description: ALWAYS invoke when user asks 'quoi de neuf', 'est-ce que X existe', or knowledge seems stale. Recent Claude Code updates, new features, AI industry news. Reference date : 25 juillet 2026 (v2.1.220).
 user-invocable: true
 allowed-tools: WebSearch, WebFetch, Read, Write, Agent, mcp__forge-brain__*
 argument-hint: "domaine ou sujet (ex: rag, agents, fine-tuning, concurrents, claude-code, prompt, tout)"
@@ -11,7 +11,7 @@ skills:
 
 # cc-news — Veille IA & Claude Code
 
-Date de référence : **15 juillet 2026** (v2.1.211 — auto mode par défaut Bedrock/Vertex/Foundry + screen reader mode + hardening anti-injection tool Agent + always-allow au repo root + transcripts -79x + fix billing prompt-caching gateways)
+Date de référence : **25 juillet 2026** (v2.1.220 — Opus 5 nouveau défaut Opus + /fork vers session background + tool EndConversation + patch sécu permissions PowerShell 5.1 + nesting subagents depth 3 avec caps 200/20 + skills context:fork en background par défaut)
 Tout ce qui est postérieur à cette date doit être recherché.
 
 ## Tier 0 — Vérifier EN PREMIER (toujours, avant tout routage)

@@ -10,7 +10,7 @@ aliases:
   - "re-entrance prevention claude code"
   - "pattern escalade neo_ia"
   - "session principale orchestre"
-derniere-maj: 2026-06-16
+derniere-maj: 2026-07-27
 auteur: claude
 type: technique
 sources:
@@ -452,3 +452,16 @@ Distinguer **possibilité technique** (levée) de **recommandation** (intacte). 
 - [code.claude.com/docs/en/sub-agents](https://code.claude.com/docs/en/sub-agents) § Spawn nested subagents (lue en entier 16 juin)
 - [code.claude.com/docs/en/changelog](https://code.claude.com/docs/en/changelog) — v2.1.172 (10 juin), v2.1.178 (15 juin)
 - [anthropic.com/engineering/multi-agent-research-system](https://www.anthropic.com/engineering/multi-agent-research-system) — 4×/15× tokens
+
+
+---
+
+## AJOUT 27 juillet 2026 — le nesting depth 3 ne remplace pas l'escalade
+
+CC v2.1.219 (24 juil. 2026) active le **nesting de sub-agents jusqu'à depth 3 par défaut** (après un flip-flop : off en v2.1.217 le 21 juil., re-on 3 jours après), avec caps 200 spawns/session et 20 concurrents. Détail : [[CC juillet 2026 - Opus 5 + v2.1.212-220]].
+
+Ce que ça change pour ce pattern :
+
+- Un sub-agent bloqué peut désormais théoriquement spawner un sous-sub-agent au lieu d'escalader. **Ne pas s'y fier pour les cas d'escalade** : le sous-sub-agent démarre lui aussi contexte vierge (le problème de ré-exploration reste entier), et v2.1.203 rend précisément les sub-agents « moins enclins à re-déléguer leur tâche entière ».
+- Le pattern STOP+ESCALADE (« État actuel » + « Suite recommandée » vers la session principale) reste la voie canonique quand il manque au sub-agent une info que seule la session principale ou Raphael détient.
+- Le paramètre `mode` du Task tool est déprécié/ignoré depuis v2.1.212 (héritage du permission mode parent) — les briefs de relance n'ont plus à le spécifier.

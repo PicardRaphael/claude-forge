@@ -73,7 +73,7 @@ Pivot doctrinal complet : **[[raisonnement-22mai-doctrine-vs-enforcement]]**
 
 - Description YAML : **UNE SEULE LIGNE** — jamais `>-` ni `|`
 - 1 composant = 1 responsabilité
-- `model: sonnet` = claude-sonnet-4-6 · `opus` = claude-opus-4-8 (dernier Opus) · `haiku` = claude-haiku-4-5
+- `model: sonnet` = claude-sonnet-4-6 · `opus` = claude-opus-5 (défaut Opus depuis 24 juil. 2026 — épingler `claude-opus-4-8` explicitement si besoin de l'ancien) · `haiku` = claude-haiku-4-5
 - `effort` : calibrer par TYPE (cf « Effort calibré » plus haut) — `xhigh` agentique/coding, `high` comparatif/jugement, `medium`/`low` extraction, `max` ponctuel jamais frontmatter
 - `memory: project` + `permissionMode` OBLIGATOIRES sur tous agents
 - `disallowedTools: Write, Edit` sur agents read-only

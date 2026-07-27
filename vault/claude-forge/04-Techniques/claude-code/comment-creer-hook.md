@@ -1,5 +1,5 @@
 ---
-derniere-maj: 2026-06-26
+derniere-maj: 2026-07-27
 aliases:
   - "comment creer un hook"
   - "creer hook claude code"
@@ -118,6 +118,9 @@ Avec hooks bloquants sur règles critiques :
 ```
 
 ### Les 29 events officiels (source vérifiée verbatim docs Anthropic 23 mai 2026)
+
+> [!warning] MAJ 27 juillet 2026 — le décompte passe à 30 events
+> CC **v2.1.219** (24 juil. 2026) ajoute l'event **`DirectoryAdded`** (fire après `/add-dir` ou l'ajout SDK d'un working directory mid-session ; non bloquant) → compter **30 events officiels**, `DirectoryAdded` en n°30 dans la table ci-dessous. Par ailleurs `SessionStart` gagne une nouvelle source **`'fork'`** (v2.1.214, sessions créées par `/fork`). Source : [[CC juillet 2026 - Opus 5 + v2.1.212-220]].
 
 Source : [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — section "Lifecycle events".
 

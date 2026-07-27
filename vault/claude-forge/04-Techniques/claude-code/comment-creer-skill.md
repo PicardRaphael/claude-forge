@@ -1,5 +1,5 @@
 ---
-derniere-maj: 2026-06-06
+derniere-maj: 2026-07-27
 resume: Note canonique pour créer une skill Claude Code selon les 9 catégories Thariq (post Anthropic mars 2026), structure progressive disclosure, frontmatter trigger 3e personne, < 500L SKILL.md, limite description 1024 chars spec / 1536 listing (pas 250), interview 3 rounds obligatoires, evals obligatoires, agentskills.io spec ouverte.
 aliases:
   - "comment creer une skill"
@@ -836,3 +836,15 @@ Piège particulièrement actif en **français** (typographie « mot : liste ») 
 
 Vérifié empiriquement le 13 juil. 2026 (chantier bdd, 13 descriptions touchées sur 13 nouvelles skills — attrapé par validation avant livraison). Cf. skill `skill-creator` section Apprentissage.
 **Nuance empirique (16 juillet 2026)** : la description de `cc-news` contient ` : ` (« Reference date : 15 juillet 2026 ») et **charge parfaitement sur CC 2.1.211** — vérifiée dans le listing skills avant ET après édition (session forge, run cc-news). Le ScannerError du 13 juillet venait du **validateur PyYAML forge**, pas d'un échec de chargement observé dans Claude Code : PyYAML est donc une borne **conservatrice** (peut rejeter ce que le parseur CC accepte), pas un proxy exact. Règle pratique inchangée : ` — ` par défaut dans toute NOUVELLE description (zéro risque) et validation PyYAML maintenue comme garde-fou ; mais un ` : ` existant dont la skill charge n'est pas un bug urgent. Variable discriminante du parseur CC non identifiée — si un cas réel de skill non chargée pour cause de ` : ` est observé DANS CC, le documenter ici.
+
+
+---
+
+## AJOUT 27 juillet 2026 — skills `context: fork` en background par défaut (CC v2.1.215-218)
+
+Source : [[CC juillet 2026 - Opus 5 + v2.1.212-220]].
+
+- **v2.1.218 (22 juil.)** : les skills `context: fork` s'exécutent **en background par défaut** — opt-out par frontmatter `background: false` si la skill doit rester synchrone dans le tour (ex. skill dont la session principale attend le résultat pour continuer). À vérifier au cas par cas sur les skills forge qui utilisent `context: fork`.
+- **v2.1.218** : les noms d'agents contenant `:` sont **rejetés** (réservé au namespacing plugins) — vaut aussi pour les références d'agents dans les skills.
+- **v2.1.215 (19 juil.)** : Claude ne lance plus `/verify` ni `/code-review` de sa propre initiative (invocation manuelle uniquement) ; `/deep-research` idem depuis v2.1.218. Les skills/rules qui comptaient sur un déclenchement autonome de ces builtins doivent l'invoquer explicitement.
+- **v2.1.212 (17 juil.)** : l'ancien fork in-session est renommé **`/subtask`** ; `/fork` copie désormais la conversation vers une session background.

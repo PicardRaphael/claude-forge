@@ -7,12 +7,18 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-06-07
+derniere-maj: 2026-07-27
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-07-27 — cc-news 16-27 juillet : Opus 5, CC v2.1.212-220, buzz Graph Engineering, RC MCP détaillée
+
+- **Ajoutées** : `01-Claude/models/Opus 5` (lancé 24 juil., $5/$25, 1M ctx, thinking ON, défaut Opus CC + Claude Max) ; `01-Claude/Code/changelog/CC juillet 2026 - Opus 5 + v2.1.212-220` (8 versions 17-25 juil. : /fork background, EndConversation, patch sécu PowerShell 5.1, flip-flop nesting subagents depth 3, skills fork→background) ; `06-Industrie/graph-engineering-buzz` (buzz Steinberger 18 juil., PAS une feature Anthropic, fake « étude Stanford+Anthropic $3,1M » débunké)
+- **Modifiées** : `00-Hub/MOC-Modeles` (Opus 5, recadrage Fable, retraits) ; `01-Claude/models/Fable 5` (AJOUT recadrage accès 20 juil. : 50 % limites Max/Team Premium, -33 % limites, Pro→credits) ; `04-Techniques/claude-code/comment-creer-hook` (callout 30 events : +DirectoryAdded v2.1.219, source 'fork' SessionStart) ; `comment-creer-agent` + `anti-reentrance-sub-agents-pattern-escalade` (AJOUT nesting depth 3 + caps 200/20 + dépréciation param mode Task) ; `comment-creer-skill` (AJOUT context:fork background par défaut, /verify //code-review plus auto) ; `effort-opus-47-doctrine-anthropic-2026` (AJOUT Opus 5 thinking ON, erreur 400 thinking disabled+xhigh/max, Opus 4.7 hors fast mode) ; `mcp-vs-skills-doctrine` (AJOUT détails RC 2026-07-28 : core stateless, FastMCP→MCPServer, MCP Apps, dépréciation 12 mois)
+- **Source** : run cc-news 27 juillet (fenêtre 16-27 juil.) — changelog officiel CC, annonce Anthropic « Introducing Claude Opus 5 » (24 juil.), blog officiel MCP (RC 2026-07-28), 5 agents de veille sources croisées
 
 ## 2026-07-21 — 2 vidéos X transcrites : talk AI DevCon memory/dreaming (Lamis) + talk Boris 2025 recyclé
 

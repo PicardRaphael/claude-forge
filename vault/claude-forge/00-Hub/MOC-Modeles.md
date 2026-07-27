@@ -8,7 +8,7 @@ aliases:
   - "comparatif modèles IA"
   - "Claude Opus Sonnet Haiku"
 type: index
-derniere-maj: 2026-07-16
+derniere-maj: 2026-07-27
 auteur: claude
 sources: []
 tags:
@@ -18,12 +18,13 @@ tags:
 # Modèles IA
 
 ## Anthropic
-- [[Fable 5]] — classe Mythos (au-dessus d'Opus), 1M ctx, annoncé 9 juin 2026, redéployé 1er juillet (export controls levés 30 juin)
+- [[Fable 5]] — classe Mythos (au-dessus d'Opus), 1M ctx, annoncé 9 juin 2026, redéployé 1er juillet (export controls levés 30 juin) ; recadré 20 juillet (50 % des limites hebdo Max/Team Premium, Pro → usage credits)
+- [[Opus 5]] — flagship Opus (24 juil. 2026), $5/$25, 1M ctx, thinking ON par défaut, proche Fable 5 à moitié prix, défaut Claude Max + défaut Opus CC
 - [[Sonnet 5]] — near-Opus agentic, 1M ctx natif, défaut Free/Pro depuis 30 juin 2026
-- [[Opus 4.7]] — SWE-bench 87.6%, adaptive thinking, xhigh par défaut
+- [[Opus 4.7]] — SWE-bench 87.6%, adaptive thinking, xhigh par défaut — retiré du fast mode (24 juil. 2026)
 - [[Sonnet 4.6]] — Exécution forge, effort high obligatoire
 - [[Haiku 4.5]] — Rapide, léger, faible coût
-- [[claude-mythos-preview]] — SWE-bench 93.9%, zero-day autonome, Project Glasswing only — **retrait 21 juillet 2026**
+- [[claude-mythos-preview]] — SWE-bench 93.9%, zero-day autonome, Project Glasswing only — **retiré 21 juillet 2026**
 
 ## OpenAI
 
@@ -44,8 +45,9 @@ tags:
 
 ## Deprecations
 
-- [[claude-mythos-preview]] — retrait 21 juillet 2026
+- [[claude-mythos-preview]] — retrait 21 juillet 2026 (effectif)
 - Opus 4.1 — retrait 5 août 2026
+- Opus 4.7 — retiré du fast mode 24 juillet 2026 (`speed: "fast"` → erreur ; standard toujours dispo)
 - [[Deprecation Sonnet 4 Opus 4]] — retirement 15 juin 2026
 - [[Deprecation Haiku 3]] — retirement 19 avril 2026
 - [[Deprecation 1M Context Beta]]

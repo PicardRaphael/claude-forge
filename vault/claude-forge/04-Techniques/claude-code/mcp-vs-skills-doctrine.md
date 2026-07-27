@@ -12,7 +12,7 @@ aliases:
   - "tools bash code-gen tradeoffs"
   - "lethal trifecta willison"
   - "compute allocator"
-derniere-maj: 2026-05-24
+derniere-maj: 2026-07-27
 auteur: claude
 type: technique
 sources:
@@ -440,3 +440,17 @@ Cette note documente déjà le lethal trifecta (Willison). La doctrine OAuth com
 ### Multi-client
 
 Ce que supportent réellement Claude / ChatGPT / Gemini en juin 2026 (ChatGPT = remote only, pas de localhost ; Streamable HTTP commun aux 3) : [[mcp-multi-client-claude-chatgpt-gemini]].
+
+
+---
+
+## AJOUT 27 juillet 2026 — RC spec 2026-07-28 : détails confirmés (plus grosse révision depuis le lancement)
+
+La RC mentionnée dans l'AJOUT 9 juin est désormais détaillée (blog officiel MCP, ~20-23 juil. 2026 ; convergence TechCrunch + The Register) :
+
+- **Core stateless** : suppression du handshake `initialize` et de la session protocolaire — chaque requête self-contained, header `Mcp-Method` routable, load-balancing round-robin possible.
+- **Tasks sort du core** vers une extension ; **MCP Apps** (UI HTML sandboxée iframe) entre dans la spec ; durcissement authz OAuth/OIDC ; **politique de dépréciation formelle 12 mois**.
+- **SDK v2 en beta — ⚠️ renames breaking** : Python `FastMCP` → **`MCPServer`** ; TypeScript éclaté en packages ESM-only (`@modelcontextprotocol/server` / `client`) ; Go v1.7.0-pre.1 ; C# 2.0.0-preview.1. Les serveurs 2026-07-28 peuvent être incompatibles avec les anciens clients.
+- Impact forge : la ligne « FastMCP 3.0 GA = défaut prod » (AJOUT 9 juin, et [[reference-technique-stack-ia]]) reste vraie AUJOURD'HUI mais le rename `MCPServer` est à anticiper pour forge-brain/obsidian-brain à la GA de la spec. Pas d'action immédiate — surveiller la GA.
+
+Sources : blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/ · techcrunch.com/2026/07/20/ais-most-important-protocol-is-getting-a-little-bit-easier-to-use/ · theregister.com (23 juil. 2026).

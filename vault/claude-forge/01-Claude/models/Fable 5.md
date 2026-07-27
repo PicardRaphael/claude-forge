@@ -8,7 +8,7 @@ aliases:
   - "Mythos 5"
   - "Mythos-class model"
   - "Project Glasswing"
-derniere-maj: 2026-07-02
+derniere-maj: 2026-07-27
 auteur: claude
 type: modele
 sources:
@@ -51,3 +51,11 @@ Fable 5 est de nouveau utilisable (dont en Cowork). Impact sur le défaut modèl
 - [[Sonnet 5]] — nouveau défaut CC (croisement défaut modèle)
 - [[MOC-Modeles]]
 - [[CC 28 mai 2026 - Opus 4.8 + Dynamic Workflows]] — modèle de repli des classifiers
+
+
+---
+
+## AJOUT 27 juillet 2026 — recadrage accès du 20 juillet + arrivée d'Opus 5
+
+- **20 juillet 2026 — fin du « limbo » d'accès** : Fable 5 devient **permanent dans Max et Team Premium à 50 % des limites hebdo** — limites elles-mêmes **réduites de 33 %** le même jour (fin du bonus post-redéploiement). Pro/Team Standard : usage credits à $10/$50 + crédit one-time de $100. Motif officiel : capacité, pas pénalité. (Presse tech convergente, the-decoder et autres.)
+- **24 juillet 2026 — [[Opus 5]] lancé** : positionné « close to the frontier intelligence of Claude Fable 5 at half the price », à 0,5 % de Fable 5 sur CursorBench 3.2. Fable 5 garde l'avantage sur les tâches les plus longues/complexes et reste le seul tier Mythos-class ; Opus 5 devient l'option rationnelle pour la majorité des workloads Opus-tier (même mécanique de fallback classifier vers Opus 4.8).

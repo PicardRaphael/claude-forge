@@ -1,5 +1,5 @@
 ---
-derniere-maj: 2026-06-16
+derniere-maj: 2026-07-27
 aliases:
   - "comment creer un agent"
   - "creer subagent claude code"
@@ -1005,3 +1005,16 @@ Pour tout agent généré : **`tools:` explicite obligatoire** (déjà la règle
 ## AJOUT 15 juillet 2026 — Persona/rôle de dialogue ≠ subagent : ne pas ranger les rôles dans `.claude/agents/`
 
 Un « rôle » qui pilote le DIALOGUE (checkpoints humains, questions, ton persistant — ex. `@dev`/`@docu` du repo bdd) n'est PAS un subagent : `AskUserQuestion`, `EnterPlanMode` et `ScheduleWakeup` sont **officiellement indisponibles en subagent** (doc sub-agents, vérifié 15 juil. 2026 — « depend on the main conversation's UI »). Le ranger dans `.claude/agents/` l'enregistre comme subagent natif → collision namespace (typeahead `@` spawn isolé, interactivité cassée). Pattern correct : dossier inerte `.claude/roles/` + routage CLAUDE.md. Doctrine complète, grille persona/skill/subagent/Agent Teams et cas réel bdd : [[pattern-personas-session-principale]].
+
+---
+
+## AJOUT 27 juillet 2026 — nesting subagents depth 3 + caps quantitatifs (CC v2.1.212-219)
+
+Changement de paysage sub-agents dans la fenêtre 17-24 juillet 2026 (source : [[CC juillet 2026 - Opus 5 + v2.1.212-220]]) :
+
+- **Nesting par défaut jusqu'à depth 3** (v2.1.219, 24 juil.) : un sub-agent peut spawner des sub-agents, sur 3 niveaux. `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` pour revenir à l'ancien comportement. Flip-flop assumé : la v2.1.217 (21 juil.) avait DÉSACTIVÉ le nesting par défaut, revert 3 jours après — Anthropic choisit les garde-fous quantitatifs plutôt que l'interdiction.
+- **Caps par session** : 200 spawns de subagents + 200 WebSearch (v2.1.212) ; **20 subagents concurrents** max (`CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`, v2.1.217).
+- **Paramètre `mode` du Task tool DÉPRÉCIÉ (ignoré)** (v2.1.212) — les subagents héritent du permission mode parent ; le frontmatter agent peut l'overrider. Toute doctrine/brief qui passait `mode` à l'invocation est à nettoyer.
+- v2.1.203 avait déjà rendu les sub-agents « moins enclins à re-déléguer leur tâche entière à un autre sub-agent ».
+
+Impact doctrine forge : le pattern hiérarchique profond devient officiellement supporté — mais la doctrine forge (orchestration en session principale, 1 niveau de délégation, brief riche) reste valide par défaut : depth 3 = capacité, pas recommandation. Cf [[anti-reentrance-sub-agents-pattern-escalade]] pour la relance/escalade.

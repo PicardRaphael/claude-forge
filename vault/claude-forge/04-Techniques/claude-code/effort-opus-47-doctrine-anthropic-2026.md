@@ -7,7 +7,7 @@ aliases:
   - low medium high xhigh max
   - effort recommandation officielle
 resume: "Doctrine officielle Anthropic Opus 4.7 (2026) — xhigh = default Claude Code tous plans. Scale low→medium→high→xhigh→max. xhigh 71% @ 100k vs max 74.5% @ 200k. Trivial = medium/low."
-derniere-maj: 2026-07-02
+derniere-maj: 2026-07-27
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
@@ -128,3 +128,15 @@ python-dev → code-dev. agent-creator / hook-creator / claudemd-optimizer → s
 Un scan cc-news a remonté une controverse : effort par défaut de Claude Code silencieusement baissé (high→medium, ~3 mars 2026), réponses superficielles (SHAs de commit et noms de packages fabriqués). **Boris Cherny (Anthropic, crédit MAX) a confirmé que certains tours allouaient ZÉRO token de raisonnement.**
 
 **Verdict `doctrine-impact-check` : DOCTRINE_REINFORCE.** La controverse porte sur le fait de SUBIR le default adaptatif (Opus 4.6, medium implicite), pas sur `xhigh` demandé explicitement. Elle valide donc la doctrine forge : **forcer un effort explicite calibré par type plutôt que subir l'adaptatif silencieux**. Les chiffres « Opus 4.6 pense 67 % moins / analyse 6852 sessions » viennent d'agrégateurs (pasqualepillitteri.it, medium) — non vérifiés en primaire, **ne pas citer**. Seul le point Boris Cherny (zéro token) est de crédit MAX.
+
+
+---
+
+## AJOUT 27 juillet 2026 — Opus 5 : thinking ON par défaut, ladder effort inchangé
+
+[[Opus 5]] (24 juil. 2026, `claude-opus-5`, nouveau défaut Opus dans CC v2.1.219 et défaut Claude Max) reconduit le ladder **low / medium / high / xhigh / max** sans changement de sémantique. Deux points neufs :
+
+- **Thinking ON par défaut** (comme la lignée adaptive thinking 4.7/4.8) ; ⚠️ breaking migration : `thinking: disabled` combiné à effort **xhigh/max** → **erreur 400** (source secondaire, à re-vérifier docs plateforme avant de câbler en prod).
+- **Fast mode** : Opus 5 à $10/$50 par MTok (~2,5× la vitesse) ; **Opus 4.7 retiré du fast mode** (`speed: "fast"` → erreur, pas de fallback) — fast = Opus 5 + Opus 4.8 uniquement.
+
+La doctrine forge « effort calibré par TYPE de tâche » (xhigh agentique profond, high comparatif/jugement, medium mécanique) reste valide telle quelle pour Opus 5.
