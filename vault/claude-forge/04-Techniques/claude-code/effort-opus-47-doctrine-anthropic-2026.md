@@ -6,24 +6,26 @@ aliases:
   - adaptive thinking Opus 4.7
   - low medium high xhigh max
   - effort recommandation officielle
-resume: "Doctrine officielle Anthropic Opus 4.7 (2026) — xhigh = default Claude Code tous plans. Scale low→medium→high→xhigh→max. xhigh 71% @ 100k vs max 74.5% @ 200k. Trivial = medium/low."
+resume: "Doctrine effort Anthropic 2026 — scale low→medium→high→xhigh→max. xhigh = défaut CC à l'ère Opus 4.7 ; high = défaut recommandé depuis Opus 4.8 (reconduit par Opus 5). xhigh 71% @ 100k vs max 74.5% @ 200k. Doctrine forge Option C : effort explicite calibré par TYPE (xhigh agentique, high jugement, medium/low mécanique)."
 derniere-maj: 2026-07-27
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
   - "#statut/canonique"
 ---
-# Effort Opus 4.7 — doctrine officielle Anthropic 2026
+# Effort — doctrine officielle Anthropic 2026 (lignée Opus 4.7 → 4.8 → 5)
 
-## Default = xhigh
+## Le défaut effort par ère
 
-> [!info] Borne temporelle (précision 27 juil. 2026) — « xhigh = default » décrit l'**ère Opus 4.7** (avril-mai 2026). Depuis **Opus 4.8 (28 mai 2026)**, le défaut effort recommandé est redescendu à **high** (source primaire : annonce Opus 4.8, cf [[CC 28 mai 2026 - Opus 4.8 + Dynamic Workflows]]) — reconduit tel quel par [[Opus 5]]. La doctrine forge « effort calibré par TYPE » (Option C) est indépendante de ce défaut : elle FORCE un effort explicite au lieu de le subir.
+Le scale complet, introduit avec Opus 4.7 : **low → medium → high → xhigh → max** (`xhigh` = niveau ajouté entre `high` et `max`).
 
-Depuis Opus 4.7, Anthropic a **fait monter le default de Claude Code à `xhigh` sur tous les plans**. Le scale complet :
+| Ère | Défaut Claude Code | Source |
+|-----|--------------------|--------|
+| Opus 4.7 (avril-mai 2026) | **xhigh** (monté sur tous les plans) | annonce Opus 4.7 |
+| Opus 4.8 (depuis 28 mai 2026) | **high** (recommandé) | annonce Opus 4.8, cf [[CC 28 mai 2026 - Opus 4.8 + Dynamic Workflows]] |
+| [[Opus 5]] (depuis 24 juil. 2026) | **high** — ladder reconduit sans changement de sémantique | annonce Opus 5 |
 
-**low → medium → high → xhigh → max**
-
-`xhigh` est un nouveau niveau introduit entre `high` et `max`.
+La doctrine forge (Option C, ci-dessous) est indépendante de ce défaut : elle **force un effort explicite calibré par type de tâche** au lieu de subir le défaut adaptatif.
 
 ## Recommandation officielle Anthropic
 
@@ -40,17 +42,17 @@ Depuis Opus 4.7, Anthropic a **fait monter le default de Claude Code à `xhigh` 
 
 **Gain max vs xhigh** : +3% pour 2x tokens. Rarement justifié.
 
-`max` n'est plus le default. **Adaptive thinking + xhigh ≈ max sans le coût**.
+`max` n'est pas un défaut. **Adaptive thinking + xhigh ≈ max sans le coût**.
 
 ## Adaptive thinking
 
-Opus 4.7 utilise `thinking: {type: "adaptive"}`. Effort = contrôle recommandé pour profondeur de réflexion.
+Depuis Opus 4.7 : `thinking: {type: "adaptive"}`. Effort = contrôle recommandé pour la profondeur de réflexion.
 
 Niveaux et thinking depth :
 - `high`, `xhigh`, `max` : Claude pense profondément quasi toujours
 - `medium`, `low` : peut skip thinking pour problèmes simples
 
-**Important** : manual extended thinking (`thinking: {type: "enabled", budget_tokens: N}`) **n'est plus supporté** sur Opus 4.7. Utiliser adaptive thinking + effort.
+**Important** : manual extended thinking (`thinking: {type: "enabled", budget_tokens: N}`) **n'est plus supporté** depuis Opus 4.7. Utiliser adaptive thinking + effort.
 
 ## Pratique
 
@@ -65,30 +67,26 @@ Niveaux et thinking depth :
 
 ## Implications forge
 
-> ⚠️ **Correction 27 juillet 2026 (catch devils-advocate)** : les deux tableaux ci-dessous portaient « devils-advocate/Reviewers → xhigh » — cellules en DRIFT vs la décision **Option C arbitrée par Raphael le 18 juin** ([[conflit-effort-xhigh-anthropic-vs-pivot-22mai]] : `xhigh` = agentique/coding multi-tool long-horizon ; `high` = jugement/comparatif structuré, graders, **reviewers**, conseil) et vs le CLAUDE.md forge. Cellules corrigées → **high**. Détail : [[critique-2026-07-27-plan-audit-regles-forge]].
+### Doctrine forge actualisée — Option C (arbitrée 18 juin 2026)
 
-### Doctrine forge actualisée (réalignée 26 mai 2026)
-
-Remplace l'ancien pivot 22 mai ("high partout, xhigh réservé 3 rôles") par :
+`xhigh` = agentique/coding multi-tool long-horizon · `high` = jugement/comparatif structuré · `medium`/`low` = scan/extraction · `max` = ponctuel, jamais en frontmatter. Source de la décision : [[conflit-effort-xhigh-anthropic-vs-pivot-22mai]] (résolue).
 
 | Agent forge type | Effort recommandé |
 |------------------|-------------------|
 | Créateurs (skill-creator, agent-creator, hook-creator, claudemd-optimizer) | **xhigh** |
 | Analyseurs (project-auditor, project-analyzer, codebase-scanner) | **xhigh** |
-| Reviewers (devils-advocate, outcomes-grader) | **high** (corrigé 27 juil. — Option C : jugement structuré = high) |
+| Reviewers (devils-advocate, outcomes-grader) | **high** (Option C — jugement structuré) |
 | Conseil stratégique (responsable-ia) | **xhigh** ou `max` ponctuel sur décisions majeures |
 | Exécutants pure (python-dev) | **high** (intelligence-sensitive) |
 | Workers triviaux | **medium** |
 
-### Anciens fichiers à mettre à jour
-
-> ⚠️ **Mis à jour 6 juin 2026** — Tableau effort révisé après pivot agents → skills :
+### Composants forge actuels (post-pivot agents → skills, 6 juin 2026)
 
 | Composant forge | Effort recommandé |
 |---|---|
 | Skills créatrices (skill-creator, subagent-creator, hook-creator, claudemd-creator) | **high** (thread principal, pas agent Opus) |
 | repo-inspector (audit/analyze/scan) | **xhigh** |
-| devils-advocate | **high** (corrigé 27 juil. — reviewer = jugement structuré, Option C) |
+| devils-advocate | **high** (Option C — reviewer) |
 | outcomes-grader | **high** |
 | code-dev | **high** |
 | self-updater | **high** |
@@ -96,11 +94,7 @@ Remplace l'ancien pivot 22 mai ("high partout, xhigh réservé 3 rôles") par :
 
 python-dev → code-dev. agent-creator / hook-creator / claudemd-optimizer → skills (pas d'effort frontmatter agent).
 
-
-- `CLAUDE.md` forge (ligne effort)
-- `feedback_opus47_workflow` mémoire
-- `vault/04-Techniques/claude-code/workflow-claude-code-optimal.md`
-- `vault/04-Techniques/claude-code/comment-creer-agent.md`
+Fichiers alignés sur cette grille : `CLAUDE.md` forge (ligne effort) · `feedback_allocation_modele_effort` mémoire · [[workflow-claude-code-optimal]] · [[comment-creer-agent]].
 
 ## Anti-pattern : double thinking archi → dev
 
@@ -112,12 +106,13 @@ python-dev → code-dev. agent-creator / hook-creator / claudemd-optimizer → s
 3. **Anti-pattern à détecter** : `dev-*.md` avec `model: opus` + `effort: xhigh` appelé après un `architect-*.md` Opus → revoir.
 
 - [[workflow-claude-code-optimal]] — patterns chain architect/dev
+
 ## Liens
 
-- [[conflit-effort-xhigh-anthropic-vs-pivot-22mai]] — résolution du conflit
-- [[methode-pivoter-doctrine]] — méthode pour propager le pivot
-- [[workflow-claude-code-optimal]] — à mettre à jour
-- [[comment-creer-agent]] — à mettre à jour
+- [[conflit-effort-xhigh-anthropic-vs-pivot-22mai]] — décision Option C (résolue 18 juin, arbitrage Raphael)
+- [[critique-2026-07-27-plan-audit-regles-forge]] — le DA qui a détecté le drift des cellules Reviewers (corrigées 27 juil.)
+- [[methode-pivoter-doctrine]] — méthode pour propager un pivot
+- [[workflow-claude-code-optimal]] · [[comment-creer-agent]]
 
 ## Référence
 
@@ -133,29 +128,23 @@ Un scan cc-news a remonté une controverse : effort par défaut de Claude Code s
 
 **Verdict `doctrine-impact-check` : DOCTRINE_REINFORCE.** La controverse porte sur le fait de SUBIR le default adaptatif (Opus 4.6, medium implicite), pas sur `xhigh` demandé explicitement. Elle valide donc la doctrine forge : **forcer un effort explicite calibré par type plutôt que subir l'adaptatif silencieux**. Les chiffres « Opus 4.6 pense 67 % moins / analyse 6852 sessions » viennent d'agrégateurs (pasqualepillitteri.it, medium) — non vérifiés en primaire, **ne pas citer**. Seul le point Boris Cherny (zéro token) est de crédit MAX.
 
+## Opus 5 (24 juillet 2026) — ladder inchangé, thinking ON par défaut
 
----
-
-## AJOUT 27 juillet 2026 — Opus 5 : thinking ON par défaut, ladder effort inchangé
-
-[[Opus 5]] (24 juil. 2026, `claude-opus-5`, nouveau défaut Opus dans CC v2.1.219 et défaut Claude Max) reconduit le ladder **low / medium / high / xhigh / max** sans changement de sémantique. Deux points neufs :
+[[Opus 5]] (`claude-opus-5`, nouveau défaut Opus dans CC v2.1.219 et défaut Claude Max) reconduit le ladder **low / medium / high / xhigh / max** sans changement de sémantique. Deux points neufs :
 
 - **Thinking ON par défaut** (comme la lignée adaptive thinking 4.7/4.8) ; ⚠️ breaking migration : `thinking: disabled` combiné à effort **xhigh/max** → **erreur 400** (source secondaire, à re-vérifier docs plateforme avant de câbler en prod).
 - **Fast mode** : Opus 5 à $10/$50 par MTok (~2,5× la vitesse) ; **Opus 4.7 retiré du fast mode** (`speed: "fast"` → erreur, pas de fallback) — fast = Opus 5 + Opus 4.8 uniquement.
 
-La doctrine forge « effort calibré par TYPE de tâche » (xhigh agentique profond, high comparatif/jugement, medium mécanique) reste valide telle quelle pour Opus 5.
+La doctrine forge « effort calibré par TYPE de tâche » reste valide telle quelle pour Opus 5.
 
+## Formalisation OFFICIELLE de la doctrine effort × modèle (Lydia Hallie, 7 juillet 2026)
 
----
-
-## AJOUT 27 juillet 2026 (2) — formalisation OFFICIELLE de la doctrine effort × modèle (Lydia Hallie, blog claude.com)
-
-Post « Claude Code effort level and model selection » — **Lydia Hallie (MTS équipe CC), claude.com/blog, 7 juillet 2026** (source primaire, crédit MAX ; antérieur à Opus 5, cite Opus 4.7/4.8). Première formalisation officielle de ce que forge maintenait empiriquement :
+Post « Claude Code effort level and model selection » — **Lydia Hallie (MTS équipe CC), claude.com/blog** (source primaire, crédit MAX ; antérieur à Opus 5, cite Opus 4.7/4.8). Première formalisation officielle de ce que forge maintenait empiriquement :
 
 - **Modèle = plafond de capacité** (swap de poids gelés) ; **effort = quantité de travail par tour** — verbatim : « how much work Claude does on your request overall » (fichiers lus, outils, étapes avant de rendre la main — pas seulement la profondeur de thinking).
 - **Grille modèles** : « Fable is a specialist… Opus is the expert… Sonnet is a really good generalist. » (Fable = problèmes inédits/tâches longues multi-étapes ; Opus = tâches ambiguës/domaines inconnus ; Sonnet = travail routinier précisément décrit.)
-- **Règle de troubleshooting** (l'ajout net) : « **did it not try hard enough, or did it not know enough?** » — erreur par fichiers sautés/vérification manquante → monter l'**effort** ; erreur malgré contexte complet et vraie tentative → monter de **modèle**. « Start with the defaults, then reach for the dials. » Effort = préférence générale, pas toggle par tâche.
+- **Règle de troubleshooting** : « **did it not try hard enough, or did it not know enough?** » — erreur par fichiers sautés/vérification manquante → monter l'**effort** ; erreur malgré contexte complet et vraie tentative → monter de **modèle**. « Start with the defaults, then reach for the dials. » Effort = préférence générale, pas toggle par tâche.
 
-**Verdict doctrine : REINFORCE** — valide « Sonnet exécution / Opus jugement » + « effort calibré par TYPE » (`feedback_allocation_modele_effort`, CLAUDE.md forge § Effort calibré). La règle try-vs-know devient le critère officiel pour arbitrer bump d'effort vs bump de modèle avant toute modification de frontmatter agent.
+**Verdict doctrine : REINFORCE** — valide « Sonnet exécution / Opus jugement » + « effort calibré par TYPE ». La règle try-vs-know est le critère officiel pour arbitrer bump d'effort vs bump de modèle avant toute modification de frontmatter agent.
 
 Source : https://claude.com/blog/claude-model-and-effort-level-in-claude-code · Fiche [[Lydia Hallie]].

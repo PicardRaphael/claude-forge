@@ -33,6 +33,7 @@
 - [use-brain-skills-not-grep](feedback_use_brain_skills.md) — Questions métier/décisions = skill `neo-brain-dev-ia` (forge : MCP NeoBrain direct OK), jamais grep manuel — interroger le brain À FOND avant taxonomie/décision. Skill/source NOMMÉE par Raphael = l'invoquer VISIBLEMENT dès le 1er tool call, même en plan mode
 - [verify-exhaustive-claims](feedback_verify_exhaustive_claims.md) — Grep de validation AVANT toute déclaration exhaustive (zéro, tous, aucun, complet)
 - [zero-dette-technique-nettoyer-completement](feedback_zero_dette_technique.md) — Dette/drift/réf morte découverte = nettoyage COMPLET immédiat, jamais plus tard
+- [correction-in-place-vault](feedback_correction_in_place_vault.md) — Claim périmée dans une note vault = réécrire le CORPS en place (update_note), jamais bannière+addendum qui laissent le texte faux dans le corps. AJOUT daté réservé à l'additif (consigne 27 juil.)
 
 ### Archive de référence — tier-2 (35 feedbacks)
 > Feedbacks valides mais sans citation entrante (ou non stratégiques), déplacés vers [memory/_index_archive.md](_index_archive.md) pour alléger le chargement. Accès via recherche/lecture directe si besoin. Critère tier-1 : cité ≥1 OU sujet stratégique. Réintégrer ici un tier-2 dès qu'il est cité. Archives prouvées (obsolète/absorbé/one-shot daté) : `_archive/` + journal `MEMORY-archive-log.md` (grand nettoyage 2026-07-09 : 64 fichiers).

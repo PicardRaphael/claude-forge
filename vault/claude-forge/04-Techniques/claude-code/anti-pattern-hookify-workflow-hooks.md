@@ -7,7 +7,7 @@ aliases:
   - "hooks transcript conditions anti-pattern"
   - "workflow hooks pourquoi non"
   - "hookify vs doctrine 22 mai"
-derniere-maj: 2026-05-26
+derniere-maj: 2026-07-27
 auteur: claude
 type: anti-pattern
 sources:
@@ -102,6 +102,6 @@ Reformulation canonique : **hooks = garanties déterministes** (lint/scope/sécu
 ## Wikilinks
 
 - [[raisonnement-22mai-doctrine-vs-enforcement]] — doctrine canonique
-- [[comment-creer-hook]] — comment créer hook (29 events, doctrine appliquée)
+- [[comment-creer-hook]] — comment créer hook (30 events, doctrine appliquée)
 - [[plugins-officiels-veille-2026-05-26]] — synthèse 11 plugins
 - [[methode-pivoter-doctrine]] — si doctrine évolue un jour

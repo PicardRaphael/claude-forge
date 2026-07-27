@@ -6,7 +6,7 @@ aliases:
   - "claude-code-setup vs forge"
   - "automation recommender comparaison"
   - "skill officielle vs vault forge"
-derniere-maj: 2026-05-26
+derniere-maj: 2026-07-27
 auteur: claude
 type: comparaison
 sources:
@@ -54,7 +54,7 @@ Skill officielle Anthropic `claude-automation-recommender` du plugin `claude-cod
 | 2-agent architecture | Justin Young verbatim (initializer + coding, harness identique, pas de split modèles) | Pas mentionné |
 | Advisor Strategy | Brad Abrams verbatim "close to Opus-level intelligence at much lower prices" | Pas mentionné |
 | 9 catégories Thariq | Post Anthropic mars 2026 "Lessons from Building Claude Code" | Pas mentionné |
-| Hooks events | 29 events officiels avec table bloquant/non-bloquant | Liste partielle |
+| Hooks events | 30 events officiels avec table bloquant/non-bloquant | Liste partielle |
 | Hook timeouts | 600s/30s/60s par type (command/prompt/agent) | Pas mentionné |
 | `once: true` règle | Skill frontmatter UNIQUEMENT | Pas mentionné |
 | Description SKILL.md | 1024 chars spec MAIS ~250 chars pratique (system reminder tronque) | Pas mentionné |

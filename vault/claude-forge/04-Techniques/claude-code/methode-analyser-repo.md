@@ -16,7 +16,7 @@ aliases:
   - "automate repo setup"
   - "automatiser projet claude code"
   - "pipeline architect dev test"
-derniere-maj: 2026-05-25
+derniere-maj: 2026-07-27
 auteur: claude
 type: technique
 sources:
@@ -583,7 +583,7 @@ Transplanter le workflow dev **app** (vault [[workflow-claude-code-optimal]] cal
 
 ### Anthropic officiel
 - [code.claude.com/docs/en/memory](https://code.claude.com/docs/en/memory) — CLAUDE.md target 200L
-- [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — spec 29 events, timeouts par type
+- [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — spec 30 events, timeouts par type
 - [code.claude.com/docs/en/agent-sdk/subagents](https://code.claude.com/docs/en/agent-sdk/subagents) — effort levels (max inclus)
 - [anthropic.com/engineering/effective-harnesses-for-long-running-agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) — 2-agent Justin Young (initializer + coding, harness identique)
 - features-overview — "If a rule must hold every time, make it a hook"

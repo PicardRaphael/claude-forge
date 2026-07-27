@@ -1,33 +1,25 @@
 ---
-derniere-maj: 2026-07-27
-aliases:
-  - "comment creer un hook"
-  - "creer hook claude code"
-  - "best practices hooks"
-  - "29 events hooks officiels"
-  - "hooks lint securite scope"
-  - "hooks transversaux catalogue"
-  - "doctrine hooks forge"
-tags:
-  - "#type/technique"
-  - "#domaine/claude-code"
-  - "#doctrine/2026"
----
-﻿---
 titre: "Comment créer un hook Claude Code parfait"
-resume: "Note canonique pour créer un hook Claude Code — 29 events officiels (docs Anthropic), timeouts par type (600s/30s/60s), exit codes 0/1/2, hookSpecificOutput, doctrine 'If a rule must hold every time, make it a hook'. Lint/security/scope OUI, workflow NON (doctrine 22 mai)."
+resume: "Note canonique pour créer un hook Claude Code — 30 events officiels (docs Anthropic), timeouts par type (600s/30s/60s), exit codes 0/1/2, hookSpecificOutput, doctrine 'If a rule must hold every time, make it a hook'. Lint/security/scope OUI, workflow NON (doctrine 22 mai)."
 aliases:
   - "comment creer hook"
   - "creer un hook claude code"
   - "create claude code hook"
   - "hook parfait"
   - "hook best practices"
-  - "29 events hooks"
+  - "30 events hooks"
   - "exit codes hooks"
   - "hookSpecificOutput"
   - "asyncRewake"
   - "guides sensors fowler"
-derniere-maj: 2026-05-27
+  - "comment creer un hook"
+  - "creer hook claude code"
+  - "best practices hooks"
+  - "30 events hooks officiels"
+  - "hooks lint securite scope"
+  - "hooks transversaux catalogue"
+  - "doctrine hooks forge"
+derniere-maj: 2026-07-27
 auteur: claude
 type: technique
 sources:
@@ -40,6 +32,7 @@ tags:
   - "#domaine/claude-code"
   - "#sujet/hooks"
   - "#doctrine/2026"
+
 ---
 # Comment créer un hook Claude Code parfait
 
@@ -117,10 +110,8 @@ Avec hooks bloquants sur règles critiques :
 }
 ```
 
-### Les 29 events officiels (source vérifiée verbatim docs Anthropic 23 mai 2026)
+### Les 30 events officiels (29 vérifiés verbatim docs Anthropic 23 mai 2026 + DirectoryAdded v2.1.219)
 
-> [!warning] MAJ 27 juillet 2026 — le décompte passe à 30 events
-> CC **v2.1.219** (24 juil. 2026) ajoute l'event **`DirectoryAdded`** (fire après `/add-dir` ou l'ajout SDK d'un working directory mid-session ; non bloquant) → compter **30 events officiels**, `DirectoryAdded` en n°30 dans la table ci-dessous. Par ailleurs `SessionStart` gagne une nouvelle source **`'fork'`** (v2.1.214, sessions créées par `/fork`). Source : [[CC juillet 2026 - Opus 5 + v2.1.212-220]].
 
 Source : [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — section "Lifecycle events".
 
@@ -155,8 +146,11 @@ Source : [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) 
 | 27 | `Elicitation` | ❌ | Prompt saisie utilisateur |
 | 28 | `ElicitationResult` | ❌ | Résultat saisie |
 | 29 | `SessionEnd` | ❌ | Fin session |
+| 30 | `DirectoryAdded` | ❌ | Après `/add-dir` ou ajout SDK d'un working directory mid-session (v2.1.219, 24 juil. 2026) |
 
 **Pour intercepter une écriture de fichier** : utiliser `PreToolUse` avec `matcher: "Write|Edit|MultiEdit"` (triplet obligatoire, cf [[feedback_multiedit_matcher_blind_spot]]). Il n'existe **PAS** d'événements `PreEdit`/`PostEdit`/`PreWrite`/`PostWrite`/`PreBash`/`PostBash` séparés — tout passe par `PreToolUse`/`PostToolUse` avec matcher.
+
+**`SessionStart`** reçoit une nouvelle source **`'fork'`** depuis v2.1.214 (sessions créées par `/fork`).
 
 **`asyncRewake`** = option de retour d'un hook (réveille la session plus tard), **PAS un event**.
 
@@ -245,7 +239,7 @@ Réveille la session à un timing futur. Utile pour scheduling, polling externe.
 
 ## WORKFLOW — Création étape par étape
 
-> ⚠️ **Pivot 6 juin 2026** : `hook-creator` est désormais une **skill** (`.claude/skills/hook-creator/`). Invoquer via `Skill(hook-creator)` depuis la session principale. L'agent `hook-creator` est supprimé. `cc-hooks-ref` reste comme référence technique (29 events, formats JSON) — la skill `hook-creator` y accède via MCP vault.
+> ⚠️ **Pivot 6 juin 2026** : `hook-creator` est désormais une **skill** (`.claude/skills/hook-creator/`). Invoquer via `Skill(hook-creator)` depuis la session principale. L'agent `hook-creator` est supprimé. `cc-hooks-ref` reste comme référence technique (30 events, formats JSON) — la skill `hook-creator` y accède via MCP vault.
 
 
 ### Étape 1 — Identifier la règle critique
@@ -454,7 +448,7 @@ Un hook-garde qui matche **trop large** (par nom de fichier, regex, ou scope de 
 - Hooks lint/security uniquement, pas de workflow
 
 ### Anthropic officiel
-- [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — spec complète 29 events
+- [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — spec complète 30 events
 - [github.com/anthropics/claude-code](https://github.com/anthropics/claude-code) — config minimaliste
 
 ### Böckeler / Fowler
@@ -472,7 +466,7 @@ Un hook-garde qui matche **trop large** (par nom de fichier, regex, ou scope de 
 ## SOURCES — Verbatim avec URLs
 
 ### Anthropic officiel
-- [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — spec 29 events, timeouts, exit codes, `once: true` scope
+- [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — spec 30 events, timeouts, exit codes, `once: true` scope
 - docs.claude.com features-overview — "If a rule must hold every time, make it a hook"
 
 ### Doctrine forge 22 mai 2026
@@ -676,7 +670,7 @@ Aliases déclarés en frontmatter (10) :
 - create claude code hook
 - hook parfait
 - hook best practices
-- 29 events hooks
+- 30 events hooks
 - exit codes hooks
 - hookSpecificOutput
 - asyncRewake
@@ -816,7 +810,7 @@ Source primaire revérifiée le 7 juin 2026 : [code.claude.com/docs/en/hooks](ht
 
 ### Count events : 30 (et non 29)
 
-La doc Anthropic liste désormais **30 events**. Le tableau « 29 events » plus haut ratait **`MessageDisplay`** (#12 dans la liste à jour, entre `Notification` et `SubagentStart`). Liste complète à jour : SessionStart, Setup, UserPromptSubmit, UserPromptExpansion, PreToolUse, PermissionRequest, PermissionDenied, PostToolUse, PostToolUseFailure, PostToolBatch, Notification, **MessageDisplay**, SubagentStart, SubagentStop, TaskCreated, TaskCompleted, Stop, StopFailure, TeammateIdle, InstructionsLoaded, ConfigChange, CwdChanged, FileChanged, WorktreeCreate, WorktreeRemove, PreCompact, PostCompact, Elicitation, ElicitationResult, SessionEnd.
+La doc Anthropic liste désormais **30 events**. Le tableau « 30 events » plus haut ratait **`MessageDisplay`** (#12 dans la liste à jour, entre `Notification` et `SubagentStart`). Liste complète à jour : SessionStart, Setup, UserPromptSubmit, UserPromptExpansion, PreToolUse, PermissionRequest, PermissionDenied, PostToolUse, PostToolUseFailure, PostToolBatch, Notification, **MessageDisplay**, SubagentStart, SubagentStop, TaskCreated, TaskCompleted, Stop, StopFailure, TeammateIdle, InstructionsLoaded, ConfigChange, CwdChanged, FileChanged, WorktreeCreate, WorktreeRemove, PreCompact, PostCompact, Elicitation, ElicitationResult, SessionEnd.
 
 > Le compte d'events bouge par version CC — toujours revérifier à la source primaire avant de citer un chiffre exact (29 = instantané 23 mai, 30 = 7 juin).
 

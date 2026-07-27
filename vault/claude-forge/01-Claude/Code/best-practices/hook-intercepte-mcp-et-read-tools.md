@@ -8,7 +8,7 @@ aliases:
   - "intercepter append_note hook"
   - "matcher mcp__forge-brain__append_note"
   - "hook sur tool MCP"
-derniere-maj: 2026-05-27
+derniere-maj: 2026-07-27
 auteur: claude
 type: technique
 sources:
@@ -80,7 +80,7 @@ Exception unique justifiée, jamais en routine, validation `advisor` préalable.
 
 ## Wikilinks
 
-- [[comment-creer-hook]] — canonique hooks (29 events, matchers)
+- [[comment-creer-hook]] — canonique hooks (30 events, matchers)
 - [[pattern-mcp-brief-then-direct]] — pourquoi vault-cat-guard existe (MCP décoratif en sub-agent)
 - [[feedback_mcp_alias_ambigu_chemin_exact]] — pourquoi mcp-alias-guard existe
 - [[resolution-path-3-contextes]] — contextes d'exécution et résolution de path

@@ -14,6 +14,11 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-07-27 (5) — corrections EN PLACE (nouvelle consigne Raphael : plus de bannière+texte périmé)
+
+- **Modifiées (réécriture du corps, plus de couches correctives)** : `comment-creer-hook` (fusion du double frontmatter en un seul bloc — anomalie structurelle réparée par patch script déterministe, 30 events partout : resume, 2 aliases, header de section, ligne 30 DirectoryAdded ajoutée à la table, source 'fork' SessionStart, callout retiré) ; `concevoir-loops-travail` (bannière AMENDE supprimée, ligne nesting corrigée dans le corps, section « Loops vs graphes » intégrée proprement) ; `effort-opus-47-doctrine-anthropic-2026` (refonte en place : tableau « défaut par ère » 4.7→4.8→5, callouts intégrés, cellules Option C nettoyées de leur méta-commentaire, resume corrigé) ; glosses 29→30 : `methode-analyser-repo`, `anti-pattern-hookify-workflow-hooks`, `hook-intercepte-mcp-et-read-tools`, `comparaison-skill-anthropic-claude-code-setup`
+- **Doctrine** : nouvelle consigne mémoire `feedback_correction_in_place_vault` — claim périmée = réécrire le CORPS en place ; AJOUT daté réservé au contenu additif ; archives restent append-only. Restent en « 29 events » : uniquement archives (CHANGELOG, log, Knowledge/*, snapshot plugins-officiels daté) + miroir ChatGPT (.agents/AGENTS.md, intouchable)
+- **Source** : consigne Raphael 27 juil. (« modifie directement les notes dedans ») + vérification grep post-fix
 ## 2026-07-27 (4) — sweep anti-drift post-pivots (pivot-check sur les 9 pivots du jour)
 
 - **Modifiées** : `index.md` + `00-Hub/Home` + `00-Hub/MOC-Claude-Code` (29→30 events, changelogs juillet ajoutés, gloss workflows/research-preview corrigé, How we contain Claude + steps-of-ai-adoption + fireside référencés) ; `00-Hub/MOC-Industrie` (retrait mythos-preview, graph-engineering-buzz) ; `01-Claude/models/claude-mythos-preview` (bannière RETIRÉ 21 juil.) ; `04-Techniques/claude-code/architecture-claude-folder` (gotcha nesting → depth 3, dossier workflows/ ajouté à la structure) ; `04-Techniques/agents/limites-subagents-claude-code` (AJOUT depth 3 + caps v2.1.217-219) ; `effort-opus-47-doctrine` (borne temporelle « xhigh = default » = ère 4.7, high depuis 4.8)
