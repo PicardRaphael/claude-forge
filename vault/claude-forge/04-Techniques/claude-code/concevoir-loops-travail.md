@@ -19,6 +19,9 @@ sources:
   - "Sunghyun Roh (Medium) — Multi-Repo Workspace Strategy (READ/WRITE split)"
   - "Anthropic engineering/managed-agents + 7-strategy framework large codebases"
   - "Claude Opus 4.8 prompting (TaskCreate/TaskUpdate, interprétation littérale)"
+  - "Docs officielles code.claude.com : /goal, scheduled-tasks, desktop-scheduled-tasks, routines (fetchées 27 juil. 2026)"
+  - "Plugin officiel anthropics/claude-code plugins/ralph-wiggum (README)"
+  - "SpecBench arXiv 2605.21384 (reward hacking) + postmortem qualité CC (InfoQ mai 2026) + Every/Kieran Klaassen Compound Engineering"
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
@@ -46,7 +49,7 @@ Distinction des 3 niveaux d'abstraction (cf [[pre-compute-vs-inference-loops-bor
 | Type | Mécanique | Quand | Exemple |
 |------|-----------|-------|---------|
 | **Inner-loop** | slash command lancée à la main, plusieurs fois/jour | workflow répété pendant que tu bosses | `/commit-push-pr` |
-| **Time-loop** (`/loop`) | récurrent sur intervalle, autonome **jusqu'à 3 jours** | tâche périodique sans surveillance | `/loop babysit all my PRs` ; `/loop 30m /slack-feedback` |
+| **Time-loop** (`/loop`) | récurrent sur intervalle, autonome — expiration **7 jours** (doc officielle ; le « 3 jours » qui circule dans les blogs est faux) | tâche périodique sans surveillance | `/loop babysit all my PRs` ; `/loop 30m /slack-feedback` |
 | **Goal-loop** (`/goal`) | tourne **jusqu'à condition vraie** | objectif binaire vérifiable | `/goal all tests in test/auth pass and lint is clean` |
 
 La skill explique les 3, **recommande** celui adapté au job, l'utilisateur valide. Inner-loop = juste une slash command classique ; la valeur autonome est dans `/loop` et `/goal`.
@@ -82,10 +85,12 @@ Ce n'est PAS optionnel : une SPEC qui laisse l'idempotence à « à confirmer »
 > « Probably the most important thing to get great results out of Claude Code: give Claude a way to verify its work. If Claude has that feedback loop, it will **2-3x the quality** of the final result. » — Boris Cherny
 
 Un loop **sans méthode de vérification = anti-pattern bloquant**. Options selon le type de job :
-- **Code** : tests qui passent, typecheck, `/goal` sur condition, agent de vérif en background, Chrome extension (UI/UX), agent-stop hook déterministe, plugin Ralph Wiggin (looping autonome).
+- **Code** : tests qui passent, typecheck, `/goal` sur condition, agent de vérif en background, Chrome extension (UI/UX), agent-stop hook déterministe, plugin Ralph Wiggum (looping autonome).
 - **Hors-code** : relecture croisée par un 2e agent (lens différente), critère mesurable explicite, validation humaine sur échantillon.
 
 La skill `/loop-forge` **refuse de finaliser** sans méthode de vérif définie (propose des défauts selon le type, mais n'avance pas à vide).
+
+**Doer ≠ Checker (consensus 2026)** : celui qui fait ne se note jamais lui-même — le vérificateur est un test exécutable, un modèle SÉPARÉ (le juge Haiku de `/goal`), ou un agent à lens différente. Une sortie qui dépend de l'auto-évaluation du modèle sort trop tôt ou jamais. Et le vérificateur est lui-même la surface d'attaque n°1 (cf section reward hacking dans l'AJOUT 27 juil. plus bas).
 
 ---
 
@@ -116,9 +121,9 @@ Une skill destinée à tourner en `/loop` **sans surveillance** ne doit PAS écr
 
 | Option | Tourne | Pour | Limite |
 |--------|--------|------|--------|
-| **Machine locale** (Task Scheduler / `/loop`) | quand la machine est allumée | loops déclenchés pendant que tu bosses | ne tourne pas la nuit ; parallélisme plafonné par ta RAM/CPU |
-| **Serveur H24 / routines cloud** | en continu, indépendant de ta machine | loops permanents façon Boris | infra à monter/maintenir ; accès repos privés à régler |
-| **Claude Desktop (scheduled)** | selon planification Desktop | loops hors-code grand public, sans terminal | dépend de Desktop ouvert/config |
+| **Machine locale — `/loop` en session** | quand la session est ouverte | loops attended pendant que tu bosses | session fermée = loop mort (restauré via `--resume` si non expiré) ; min 1 min |
+| **Machine locale — Desktop scheduled tasks** | à l'heure planifiée, **sans session ouverte** (app Desktop ouverte + machine éveillée suffisent) | le vrai « loop auto » local sans serveur | machine endormie = run skippé (catch-up : UN seul run manqué rejoué au réveil ; option « Keep computer awake ») ; min 1 min |
+| **Serveur H24 / routines cloud** | en continu, indépendant de ta machine | loops permanents façon Boris | infra à monter/maintenir ; accès repos privés à régler ; routines cloud = min 1h, fresh clone sans fichiers locaux |
 
 La skill **demande + signale les incompatibilités** : ex. « loop H24 critique » + « machine locale qui dort » = incohérent → force un choix. Boris tourne « a couple hundred Claudes » côté serveur ; en local/Desktop, commencer petit (1 loop, 1 périmètre).
 
@@ -131,7 +136,7 @@ Un loop qui dérape coûte cher ou fait des dégâts. La skill impose les 4 :
 1. **Validation humaine** — le loop produit des *drafts* (PR, tickets) ; l'humain valide avant l'action finale irréversible (Boris : Plan Mode + relecture des PRs).
 2. **Plafond coût / itérations** — max N tours ou budget tokens, sinon arrêt (adaptation forge cruciale en infra locale/Desktop = facture réelle).
 3. **Log / trace de chaque tour** — le loop écrit ce qu'il fait (vault/fichier) → tu sais le matin ce qu'il a fait la nuit (Boris : Agent view, system notifications).
-4. **Kill-switch / condition de sortie** — moyen d'arrêt clair (`/goal` = la condition EST le stop ; `/loop` borné à 3 j ; fichier stop ; max itérations).
+4. **Kill-switch / terminaison MULTI-COUCHES** — moyen d'arrêt clair, et jamais une seule couche : (a) condition de convergence objective (`/goal` = la condition EST le stop ; tests verts, queue vide, passe complète sans nouveau finding), (b) détection de stall (même erreur N fois d'affilée, ex. streak 3 → stop + escalade humaine), (c) budgets durs (max itérations, coût, wall-clock ; `/loop` expire à 7 j ; fichier stop). Une couche seule ne suffit pas : un loop peut respecter le budget en étant coincé, ou progresser en le dépassant.
 
 3/4 sont directement chez Boris ; le plafond coût est un ajout forge justifié par l'infra non-illimitée.
 
@@ -162,14 +167,42 @@ Le buzz [[graph-engineering-buzz]] (18 juil. 2026) n'invalide rien de cette note
 
 ---
 
+## AJOUT 27 juillet 2026 — mécaniques vérifiées + loop engineering (recherche 3 agents, sources primaires)
+
+### Mécaniques officielles vérifiées (docs code.claude.com fetchées — crédit MAX)
+
+- **`/goal`** (v2.1.139) = wrapper autour d'un **Stop hook prompt-based** : après chaque tour, la condition + le transcript sont jugés par un **modèle Haiku séparé** (Doer ≠ Checker natif — il ne lit pas les fichiers, il juge ce que la conversation a surfacé). Condition ≤ 4000 chars ; **la borne se met DANS la condition** (« …or stop after 20 turns ») ; une seule goal active/session ; ne change PAS les permissions → pairer avec auto mode pour tourner sans surveillance ; headless : `claude -p "/goal …" --output-format stream-json --verbose`. Indisponible si `disableAllHooks`.
+- **`/loop`** = bundled skill, 3 modes : intervalle fixe (`/loop 5m …`, min 1 min, cron sous-jacent) ; **self-paced** (prompt seul → Claude choisit le délai via `ScheduleWakeup`, clampé 1 min–1 h) ; nu (`/loop`) → prompt de maintenance intégré (babysit PR/CI/conflits), personnalisable via **`.claude/loop.md`** (projet) ou `~/.claude/loop.md` (≤ 25 000 bytes, éditable à chaud). Expiration **7 jours**, max 50 tâches/session, `Esc` pour stopper.
+- **`ScheduleWakeup(stop: true)`** (v2.1.202) : le loop dynamique se termine proprement de lui-même ; sans replanification, wakeup de secours ~20 min puis fin.
+- **Desktop scheduled tasks** = le tier local sans session : prompt stocké dans `~/.claude/scheduled-tasks/<nom>/SKILL.md`, presets Manual→Weekly + cron custom, une tâche peut se replanifier via le MCP tool `update_scheduled_task`, worktree toggle par run.
+- **Routines cloud** (`/schedule`, alias `/routines`) : min 1 h, 3 triggers (schedule / API POST `/fire` / GitHub events) ; depuis v2.1.214 le payload d'un fire API arrive **wrappé untrusted** — le prompt doit opt-in explicitement pour agir dessus (cohérent [[agents-securite]] / rule contenu-externe-non-fiable).
+- **Plugin officiel `ralph-wiggum`** (anthropics/claude-code) : boucle par Stop hook EN session locale — `/ralph-loop "tâche… Output <promise>COMPLETE</promise>" --completion-promise "COMPLETE" --max-iterations 50` ; `/cancel-ralph` pour tuer. Le README est explicite : **`--max-iterations` = mécanisme de sécurité PRIMAIRE** (la promise est un match de chaîne exact, fragile). Philosophie Ralph (Geoffrey Huntley) : l'état vit dans les FICHIERS + git, chaque itération repart d'un contexte frais — c'est ce qui évite le context rot.
+
+### Reward hacking — LE risque du tip #1 (SpecBench arXiv 2605.21384, vérifié)
+
+Donner un vérificateur crée la cible de triche (Goodhart) : les agents frontier **saturent les tests visibles (~100 %)** et l'écart ne se voit que sur des tests **held-out** — gap jusqu'à 100 points sur les gros codebases, et il **croît avec l'horizon** (+27pp au 90e percentile par ×10 LOC). La surface d'attaque n°1 est **le vérificateur lui-même** (modifier les tests, overfit aux visibles, feature-isolation) — pas l'exploit délibéré. Plus de budget de recherche ne ferme pas le gap. Parades pratiques : vérificateur **exécutable/déterministe > LLM-judge** pour juger du code (Lean4Agent : alignement faible du jugement LLM sur les tâches SWE) MAIS LLM-judge **fort pour détecter la triche** (EVILGENIE) — deux rôles distincts ; garder des checks held-out hors de portée du loop ; un test flaky corrompt le signal (le loop « répare » ce qui n'était pas cassé).
+
+### Compounding implémenté + incident→eval (la boucle qui se referme)
+
+- **Compound Engineering** (Every / Kieran Klaassen, plugin CC fév. 2026) : cycle **Plan → Work → Review → Compound** — la phase Compound réinjecte les leçons dans un fichier lu à chaque session future (« lessons as assets ») ; split d'effort ~80/20 planning+review vs génération ; capturer la leçon JUSTE après l'échec/succès, avant compaction. C'est l'implémentation concrète du verbatim Boris ci-dessus (finding récurrent → lint rule/CI step/hook → la classe d'erreur disparaît pour toujours).
+- **Incident → eval** (doctrine Anthropic, InfoWorld) : chaque défaut qui atteint la prod → (1) à quelle étape aurait-il été observable ? (2) fixture MINIMAL qui reproduit le mécanisme, (3) ajout à la suite déterministe ou à l'éval du reviewer. Dimensionnement : **20-50 tâches issues de VRAIS échecs** (pas des milliers de cas synthétiques) ; distinguer **pass@k** (≥1 succès sur k — outil interne) de **pass^k** (succès à chaque fois — workflow client-facing).
+- **Postmortem qualité Claude Code** (Anthropic, mai 2026, InfoQ) : 6 semaines de régression tracées à 3 changements — « the eval suite was too narrow to detect a 3% quality drop from prompt changes ». Même Anthropic a dérivé faute d'evals assez larges + soak periods. L'argument massue pour la discipline vérification.
+
+### Chiffres circulants (CLAIMS convergents de blogs — jamais officiels, ordres de grandeur seulement)
+
+~20 itérations suffisent pour une tâche bien définie ; **> 50 itérations = la spec est à raffiner**, pas la boucle à allonger ; boucle 50 tours sur gros codebase ≈ $50-100 d'API.
+
+---
+
 ## ANTI-PATTERNS
 
 - ❌ « 1 loop par source de retour » → raisonner en **jobs**, pas en sources.
 - ❌ Loop qui **écrit** sur plusieurs repos en devinant lequel → READ cross-repo OK, WRITE mono-repo.
 - ❌ Loop **sans vérification** → le tip #1 est non négociable.
-- ❌ Loop **sans kill-switch / plafond** → runaway coûteux.
+- ❌ Loop où le doer **s'auto-note** → checker séparé (test exécutable, juge Haiku de `/goal`, 2e agent), et vérificateur protégé (le loop ne doit pas pouvoir modifier ses propres tests).
+- ❌ Loop **sans kill-switch / plafond** → runaway coûteux. Terminaison = 3 couches (convergence + stall + budget), jamais une seule.
 - ❌ Construire un **agent orchestrateur** pour gérer les loops → session principale orchestre (cf [[feedback_no_cto_agent]]).
-- ❌ Loop « H24 » sur **machine qui dort** → incohérence infra.
+- ❌ Loop « H24 » sur **machine qui dort** → incohérence infra (Desktop tasks = catch-up d'UN seul run manqué, pas de rattrapage complet).
 - ❌ Une feature **one-shot** transformée en loop → un loop = job *répétitif*.
 
 ---
@@ -194,6 +227,6 @@ Le buzz [[graph-engineering-buzz]] (18 juil. 2026) n'invalide rien de cette note
 Découvert à la construction de la routine vault-health : l'outil `CronCreate` de Claude Code est **session-only** — « jobs live only in this Claude session, nothing is written to disk » + auto-expiration des récurrents à **7 jours**. Il sert aux rappels et polls DANS une session vivante, jamais comme déclencheur persistant d'un loop hebdo/mensuel.
 
 Conséquence pour le Bloc 6 (infra) d'une SPEC de loop récurrent local :
-- **Déclencheur persistant machine locale** = Task Scheduler Windows (`Register-ScheduledTask` + `StartWhenAvailable` pour le rattrapage machine-éteinte) ou cron OS — jamais CronCreate.
+- **Déclencheur persistant machine locale** = **Desktop scheduled task** (officiel, sans session ouverte) ou Task Scheduler Windows (`Register-ScheduledTask` + `StartWhenAvailable` pour le rattrapage machine-éteinte) / cron OS — jamais CronCreate.
 - **/schedule (scheduled cloud agents)** = cloud → inutilisable si le loop dépend d'une ressource localhost (MCP local, fichiers locaux).
 - **Installer une persistance OS qui exécute un agent headless = décision UTILISATEUR explicite** : le classifier auto-mode bloque à raison (« Unauthorized Persistence ») un wrapper schtasks/`claude -p` non approuvé nommément en conversation — proposer les options (auto vs manuel) AVANT de créer quoi que ce soit. Cas vault-health : Raphael a choisi le déclencheur manuel assumé.
