@@ -29,6 +29,7 @@ Les sub-agents retournent « done » même en cas d'échec silencieux (Write den
 - Relayer le résumé sub-agent sans grep/ls → régression silencieuse.
 - « Je vois le résultat dans la conversation » → le sub-agent peut avoir affiché le PRÉVU sans avoir écrit.
 - Skipper la vérif sur agents « fiables » → tous échouent silencieusement sur Write denied.
+- Relayer un finding d'AUDIT sans Read direct du fichier incriminé → un agent peut lire une liste YAML multi-lignes (`tools:` suivi de `- Read`) comme « champ vide » et rapporter un CRITIQUE faux (audit neo_ia 27 juil. : 2 faux positifs frontmatter). Contre-vérifier chaque finding bloquant par Read avant de le relayer ou d'agir.
 
 ## Gotchas
 
