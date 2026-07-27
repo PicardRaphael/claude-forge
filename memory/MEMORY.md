@@ -60,3 +60,4 @@
 - [repo-scope-guard-hook](hook_repo_scope_guard.md) — Triplet auth-detector+repo-scope-guard+auth-cleanup : repos neot-v2/
 - [transcrire-video-native-x](reference_transcrire_video_native_x.md) — Vidéo native X (pas YouTube) : x-read JSON → URLs MP4 → curl → ffmpeg WAV 16k → faster-whisper small. /watch ne couvre pas X
 - [agents-dir-chatgpt-mirror](reference_agents_dir_chatgpt_mirror.md) — `.agents/` + `AGENTS.md` racine = miroir ChatGPT/Codex géré par Raphael : JAMAIS toucher ni flagger en drift (décision 27 juil.)
+- [creer-workflow-cc](reference_creer_workflow_cc.md) — 8 règles design workflow .claude/workflows/ (1er build verify-diff 27 juil.) : agentType = session cible, jamais worktree si fichiers gitignorés, args tout-optionnel, ≥2 agents sinon surcoût. Promouvoir vault au 2e-3e build
