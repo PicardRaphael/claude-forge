@@ -51,6 +51,21 @@ La thèse dominante : Claude Code ship déjà les primitives — **subagents = n
 - Le cours gratuit de knowledge graphs d'**Andrew Ng** la même semaine a relancé le débat loops vs graphs.
 - ⚠️ **Claim FABRIQUÉE en circulation** : une « étude Stanford + Anthropic à $3,1M » sur le graph engineering a viralé — **elle n'existe pas** (débunkée par le Field Guide theaioperator.io du 21 juillet). Cas d'école [[verification-sources-canoniques]].
 
+### 2e fake (24-25 juil.) — le « paper Boris Cherny » / « Graph Engineering: Opus 5 Edition »
+
+Nouvelle vague de fabrication, vérifiée le 27 juil. (x-read + WebSearch) :
+
+- **L'artefact** : image d'un pseudo-paper académique « *Graph Engineering: Opus 5 Edition — A field note on routing, indexing, and graph-grounded retrieval* », signé « Boris Cherny — Head of Claude Code, for internal study circulation, July 2026 », logo Anthropic en pied de page. Diffusé notamment par @unicodef1wn (25 juil., ~246K vues, ~616 likes) ; variante « 7-page PDF » diffusée par @vartekxx (« how 4 Claude prompts replace 4 trained ML models »).
+- **Débunk** : community note X sur la variante PDF — le document porte lui-même la mention « *independently compiled — not affiliated with Anthropic and not endorsed* ». Aucune trace sur les canaux de Boris Cherny (X, GitHub, LinkedIn) ni sur anthropic.com. Le titre est faux en prime : Boris est créateur de Claude Code (Staff Engineer), pas « Head of Claude Code ».
+- **Technique du fake crédibilisé** : le tweet porteur enrobe la fausse attribution de faits VRAIS et vérifiables — « Opus 5 = $5/M input, moitié du prix de Fable 5 » est exact (pricing officiel $5/$25 vs $10/$50 par MTok). Le lecteur vérifie le pricing, conclut que le reste est fiable. Le « 58 tokens/sec » n'a aucune source officielle, et « matches Fable 5's performance » est un raccourci marketing (Opus 5 = step-change au-dessus d'Opus 4.8 ; Fable reste le tier supérieur).
+- **Ironie pour forge** : le contenu du pseudo-paper (« How to turn an Obsidian vault into a graph » — router < 500 tokens, index 1 ligne/note, nodes petits lus en un coup, edges typés, state persistant) paraphrase des patterns communautaires déjà documentés ici ([[pattern-vault-llm-karpathy]], [[mcp-vault-llm-design]]). Plausible, générique, invérifiable = signature du contenu fabriqué par IA.
+
+Lignée des fakes du buzz : « étude Stanford+Anthropic $3,1M » (débunkée 21 juil.) → « prédiction Andrew Ng » (fausse attribution) → « paper Boris Cherny » (24-25 juil.). Le pattern s'industrialise : chaque semaine, un nouvel artefact pseudo-officiel. Réflexe [[verification-sources-canoniques]] : recherche des canaux primaires AVANT toute capitalisation.
+
+### 3e vecteur — hijacking de vidéos réelles (vérifié par transcription intégrale, 27 juil.)
+
+Le tweet @cnemalek (24 juil., ~52K vues, arabe) claim « un ingénieur Anthropic : plus besoin d'écrire des prompts, le nouveau métier est le Graph Engineering » sur une vidéo de 47 min de Thariq Shihipar. Transcription intégrale locale (faster-whisper) : **zéro occurrence de « graph engineering »** — la vidéo est le fireside South Park Commons du 28 mai 2026 (jour de sortie Opus 4.8 + workflows), qui parle de capability overhang et de harness engineering (cf [[Thariq Shihipar]] AJOUT bis). Même mécanique sur @Raytar (25 juil., 95K vues) : vidéo du fireside AIEWF Cat Wu + Thariq re-uploadée **sans piste audio** (silence numérique sur toutes les renditions — personne ne la regarde, elle sert de décor au thread). Le buzz recycle donc des talks Anthropic réels mais antérieurs et hors-sujet, en leur greffant le vocabulaire de la semaine.
+
 ## Adjacents réels (tiers, pas Anthropic)
 
 - **CodeGraph** (github.com/colbymchenry/codegraph) — code knowledge graph pré-indexé local, MIT

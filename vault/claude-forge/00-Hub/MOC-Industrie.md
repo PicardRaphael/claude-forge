@@ -52,6 +52,8 @@ tags:
 - Piebald-AI System Prompts — Repo public prompts CC
 - [[graph-engineering-buzz]] — buzz mémétique juillet 2026 (loops → graphs), fake « étude Stanford+Anthropic » débunké
 
+- [[kimi-k25-agent-swarm-scaling]] — keynote Moonshot : agent swarms appris par RL (3e dimension de scaling), MuonClip, Kimi Linear, K2.5 early fusion vision
+
 ## Concurrents — voir [[MOC-Outils-IA]]
 
 - [[OpenAI Codex]] — Computer Use macOS, GPT-5.4, 111 plugins
