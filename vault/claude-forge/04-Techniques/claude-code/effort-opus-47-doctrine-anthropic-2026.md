@@ -140,3 +140,18 @@ Un scan cc-news a remonté une controverse : effort par défaut de Claude Code s
 - **Fast mode** : Opus 5 à $10/$50 par MTok (~2,5× la vitesse) ; **Opus 4.7 retiré du fast mode** (`speed: "fast"` → erreur, pas de fallback) — fast = Opus 5 + Opus 4.8 uniquement.
 
 La doctrine forge « effort calibré par TYPE de tâche » (xhigh agentique profond, high comparatif/jugement, medium mécanique) reste valide telle quelle pour Opus 5.
+
+
+---
+
+## AJOUT 27 juillet 2026 (2) — formalisation OFFICIELLE de la doctrine effort × modèle (Lydia Hallie, blog claude.com)
+
+Post « Claude Code effort level and model selection » — **Lydia Hallie (MTS équipe CC), claude.com/blog, 7 juillet 2026** (source primaire, crédit MAX ; antérieur à Opus 5, cite Opus 4.7/4.8). Première formalisation officielle de ce que forge maintenait empiriquement :
+
+- **Modèle = plafond de capacité** (swap de poids gelés) ; **effort = quantité de travail par tour** — verbatim : « how much work Claude does on your request overall » (fichiers lus, outils, étapes avant de rendre la main — pas seulement la profondeur de thinking).
+- **Grille modèles** : « Fable is a specialist… Opus is the expert… Sonnet is a really good generalist. » (Fable = problèmes inédits/tâches longues multi-étapes ; Opus = tâches ambiguës/domaines inconnus ; Sonnet = travail routinier précisément décrit.)
+- **Règle de troubleshooting** (l'ajout net) : « **did it not try hard enough, or did it not know enough?** » — erreur par fichiers sautés/vérification manquante → monter l'**effort** ; erreur malgré contexte complet et vraie tentative → monter de **modèle**. « Start with the defaults, then reach for the dials. » Effort = préférence générale, pas toggle par tâche.
+
+**Verdict doctrine : REINFORCE** — valide « Sonnet exécution / Opus jugement » + « effort calibré par TYPE » (`feedback_allocation_modele_effort`, CLAUDE.md forge § Effort calibré). La règle try-vs-know devient le critère officiel pour arbitrer bump d'effort vs bump de modèle avant toute modification de frontmatter agent.
+
+Source : https://claude.com/blog/claude-model-and-effort-level-in-claude-code · Fiche [[Lydia Hallie]].

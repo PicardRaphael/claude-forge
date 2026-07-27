@@ -10,7 +10,7 @@ aliases:
   - "inner loop time loop goal loop"
   - "read vs write cross-repo"
   - "fleet of agents per repo"
-derniere-maj: 2026-06-05
+derniere-maj: 2026-07-27
 auteur: claude
 type: technique
 sources:
@@ -26,6 +26,8 @@ tags:
   - "#doctrine/2026"
 ---
 # Concevoir un loop de travail
+
+> ⚠️ **AMENDE 27 juillet 2026** — la ligne « un sub-agent ne peut pas spawner de sub-agent » (section PÉRIMÈTRE) est périmée : le nesting est possible depuis CC v2.1.172 et **depth 3 par défaut depuis v2.1.219** (24 juil. 2026). La recommandation de design reste : **l'orchestration vient de la session principale** (escalade > nesting par défaut, cf [[anti-reentrance-sub-agents-pattern-escalade]] AMENDE 16 juin + AJOUT 27 juil.). Voir aussi l'AJOUT « loops vs graphes » en fin de note.
 
 > Note canonique forge — méthode pour concevoir un loop de travail autonome, **code ou hors-code**. Socle doctrinal de la skill `/loop-forge`. Le *pourquoi* (pre-compute > inference) vit dans [[pre-compute-vs-inference-loops-boris]] ; cette note traite le *comment*.
 
@@ -180,3 +182,21 @@ Conséquence pour le Bloc 6 (infra) d'une SPEC de loop récurrent local :
 - **Déclencheur persistant machine locale** = Task Scheduler Windows (`Register-ScheduledTask` + `StartWhenAvailable` pour le rattrapage machine-éteinte) ou cron OS — jamais CronCreate.
 - **/schedule (scheduled cloud agents)** = cloud → inutilisable si le loop dépend d'une ressource localhost (MCP local, fichiers locaux).
 - **Installer une persistance OS qui exécute un agent headless = décision UTILISATEUR explicite** : le classifier auto-mode bloque à raison (« Unauthorized Persistence ») un wrapper schtasks/`claude -p` non approuvé nommément en conversation — proposer les options (auto vs manuel) AVANT de créer quoi que ce soit. Cas vault-health : Raphael a choisi le déclencheur manuel assumé.
+
+
+---
+
+## AJOUT 27 juillet 2026 — loops vs graphes + place dans l'échelle d'adoption Boris
+
+### Loop d'abord, graphe si séparable (verdict du buzz « graph engineering », juil. 2026)
+
+Le buzz [[graph-engineering-buzz]] (18 juil.) n'invalide RIEN de cette note — débunk logique (Turing Post) : « **A loop is already a graph** ». Le consensus de fond qui en sort **renforce** la méthode :
+
+- Une tâche bien scopée + un vérificateur clair (le tip #1 Boris de cette note) = **un loop suffit**. Le passage à un graphe d'agents ne se justifie que sur un critère de **séparabilité** (spécialités distinctes, outils différents par étape, parallélisme réel, isolation de contexte) — jamais de cardinalité.
+- Chaque node d'un graphe doit être un loop qui ship fiablement SEUL avant câblage (« a graph of weak nodes is just slop produced in parallel »).
+- Les transitions qui DOIVENT firer = hooks (arêtes déterministes), pas des instructions de prompt.
+- Contre-exemple utile : GPT Researcher a migré d'un pipeline graphe VERS une core loop — la maturité peut aller dans les deux sens.
+
+### Place dans l'échelle Boris (16 juil. 2026)
+
+[[steps-of-ai-adoption-boris]] positionne les loops exactement là où cette note les met : la transition **2→3** (« découper le travail en loops et routines », « let Claude kick off Claude ») et le step 3 (Routines, /loop, /batch, /goal, dynamic workflows). Verbatim Boris (post du 15 juil.) : « If Claude instead writes a lint rule, CI step, or routine, that class of issue can be fully automated forever. **This is really what people are talking about when they talk about loops.** »

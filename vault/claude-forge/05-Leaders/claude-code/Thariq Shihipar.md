@@ -14,7 +14,7 @@ aliases:
   - "HTML is the new markdown"
 role: "Skills Author, Claude Code team"
 affiliation: "Anthropic"
-derniere-maj: 2026-06-07
+derniere-maj: 2026-07-27
 auteur: claude
 sources:
   - "https://x.com/trq212"
@@ -124,3 +124,12 @@ Thariq diffuse et applique le concept, mais le **terme "lethal trifecta" a été
 - Simon Willison, juin 2025 — terme original "lethal trifecta"
 - Recherche vault : `0-Inbox/_chantier-22mai/recherche-youtube-talks.md`
 - Recherche vault : `0-Inbox/_chantier-22mai/recherche-x-twitter-leaders.md`
+
+
+---
+
+## AJOUT 27 juillet 2026 — fireside AIEWF + system prompt −80 %
+
+- Fireside avec Simon Willison + Cat Wu (21 juil.) — capitalisé dans [[fireside-cat-wu-thariq-aiewf-2026]]. Ses apports propres : « **Workflows… it's Claude not just prompting a single subagent, but prompting the orchestration of many subagents** » / « It's just Claude prompting Claude all the way down » ; tools « more of a biology than a physics » ; grep/glob supprimés pour bash natif ; mémoire Claude Tag = « a markdown file per channel » ; pro-rewrite (« a codebase is a spec, and maybe it's the only copy of the spec that you have »).
+- **24 juil.** (X @trq212, 3,9M vues) : « **We removed ~80% of the Claude Code system prompt for our newest models** » + leçons system prompts/skills/CLAUDE.md — la confirmation primaire du chiffre du fireside.
+- Keynote séparée AIEWF sur le « loop engineering » (recap tiers ChatForest) — VOD à surveiller.

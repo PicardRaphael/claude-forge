@@ -67,3 +67,36 @@ Le buzz mappe 1:1 sur des patterns déjà documentés et outillés chez forge (o
 - [[architecture-langgraph]] — l'antériorité revendiquée par LangChain
 - [[agents-architecture]] — mémoire vector + graph
 - [[verification-sources-canoniques]] — le fake débunké comme cas d'école
+
+
+---
+
+## AJOUT 27 juillet 2026 (soir) — analyse de fond (4 sources lues intégralement)
+
+Deep-dive post-buzz : Field Guide theaioperator.io (21 juil., le plus rigoureux) · Turing Post FOD#159 (20 juil.) · AI Builder Club (24 juil.) · **LangChain source primaire du backlash** (« 3 Years of Graph Engineering with LangGraph », Sydney Runkle + Harrison Chase, 22 juil.).
+
+### Corrections vs première capitalisation
+
+- **La « déclaration d'un ingénieur Anthropic » (« everyone will be building graphs, 4-6 mois ») est une FAUSSE attribution** : la prédiction virale est attribuée à **Andrew Ng** (« In 3-6 months, everyone will be building Graphs ») via un tweet engagement-bait (@0xMovez) sans source primaire (talk non nommé, pas de vidéo). Non vérifiée même pour Ng. Une seconde citation virale « une ingénieure Anthropic : build a system that prompts itself » parle de self-prompting/loops, pas de graphes (probablement Daisy Hollman, paraphrase tierce). **Anthropic = silence officiel total** — verbatim Turing Post : « Anthropic has not announced a discipline or product called graph engineering ».
+- Turing Post identifie **4 sens** (pas 3) : control graph (LangGraph/ADK), knowledge graph (GraphRAG), execution trace, improvement graph (Carlos Perez — jugé le moins actionnable).
+- Timeline affinée : Osmani popularise « loop engineering » ~7 juin → Josh Simmons 4 juil. (earliest use) → Steinberger 18 juil. (qui se MOQUAIT du treadmill à buzzwords) → Hamel Husain « Loop Engineering Is Dead » ~4h30 après → déferlante cours/roadmaps le 20.
+
+### La substance qui survit (consensus des 4 sources, indépendamment)
+
+1. **« Loop d'abord, graphe ensuite »** : tâche bien scopée + vérificateur clair = loop suffit. Le graphe se justifie UNIQUEMENT si parties **génuinement séparables** (spécialités distinctes, outils différents par étape, parallélisme réel, isolation de contexte). Critère de **séparabilité**, pas de cardinalité — aucun seuil chiffré consensuel n'existe.
+2. **« A graph of weak nodes is just slop produced in parallel »** (AI Builder Club) — chaque node doit shipper fiablement SEUL avant câblage.
+3. **Arêtes déterministes via hooks** quand la transition DOIT firer (tests avant handoff) — jamais par instruction de prompt. Validation externe de la doctrine forge « hooks = lint/security/scope » et de [[comment-creer-hook]].
+4. **Encoder le routage répétitif en code** (script d'orchestration écrit par le modèle) — économise les décisions de routage répétées. Cf Programmatic Tool Calling.
+5. Coût : ~**15× tokens** (chiffre primaire Anthropic multi-agent research, +90,2 % vs single-agent sur leur éval interne). **Aucun benchmark indépendant « graphe d'agents vs loop » n'existe** — les seuls chiffres indépendants concernent le knowledge graph.
+6. Débunk logique (Turing Post) : « **A loop is already a graph.** It is simply a graph whose path returns to an earlier node. » + contre-exemple empirique cité par LangChain eux-mêmes : **GPT Researcher a migré D'UN graphe VERS une core loop** — la flèche va dans les deux sens. Heuristique LangChain : structure prédictible/encodable → graphe ; open-ended (deep research) → harness agentique.
+7. **Concession LangChain** (le vrai neuf 2026) : ce qui a changé = **ce qui peut vivre dans un node** — avant : code déterministe ou 1 appel LLM ; maintenant : **un run d'agent complet** (« you're orchestrating agents, not just LLM calls »).
+
+### Couche knowledge graph — la seule avec des benchmarks indépendants (Field Guide)
+
+- GraphRAG-Bench (arXiv 2506.05690) : multi-hop **53,4 % graphe vs 42,9 % vector** ; synthèse corpus 64,4 vs 51,3 ; MAIS fact lookup simple : le graphe **perd** (60,1 vs 60,9) pour **331 375 tokens/query** (GraphRAG global) vs 880 (vector). Temporal : Mem0-graph 58,1 vs 21,7 OpenAI memory. HippoRAG 2 : +9,5 F1 multi-hop à ~1 000 tokens/query. Garde-fou : LightRAG self-reported gros gains → **6,6 F1** en éval indépendante (« Never trust a system evaluated only by its authors »).
+- **Heuristique entity resolution** : à 95 % de précision par hop, une chaîne 5-hops = 77 % fiable ; à 85 % → **44 %**. Les **wikilinks curés à la main résolvent l'entity resolution par construction** — argument direct pour l'architecture vault Obsidian forge ([[pattern-vault-llm-karpathy]], [[mcp-vault-llm-design]]).
+- Consensus technique 2026 : indexation lazy (LazyGraphRAG ≈ 0,1 % du coût), traversée agentique (l'agent choisit ses hops), vocabulaire d'arêtes petit (10-20 verbes typés : `supersedes`, `depends_on`, `caused`…), routage honnête (hybride, jamais graph-only).
+
+### Verdict forge (inchangé, renforcé)
+
+Rien à adopter structurellement — forge EST déjà l'architecture recommandée (session principale = hub, subagents = nodes fiables, hooks = arêtes déterministes, vault wikilinks = knowledge graph curé). Le vocabulaire « séparabilité » et l'heuristique entity-resolution sont les deux emprunts utiles. Le buzz confirme aussi [[fireside-cat-wu-thariq-aiewf-2026]] : la position équipe CC = « Claude prompting Claude all the way down » (orchestration dynamique), pas de graphes figés.

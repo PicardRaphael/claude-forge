@@ -13,7 +13,7 @@ aliases:
   - "CC best practices"
 role: "Creator of Claude Code"
 affiliation: "Anthropic"
-derniere-maj: 2026-07-21
+derniere-maj: 2026-07-27
 auteur: claude
 sources:
   - "https://howborisusesclaudecode.com"
@@ -103,3 +103,14 @@ Transcription intégrale en session forge (vidéo native X recyclée par un comp
 - Déjà présents en mai 2025 : « give it a way to check its work → iterate » (devenu tip #1 canonique), plan-first prompting (« before you write code make a plan » — sans plan mode), dictée vocale macOS pour prompts précis, `claude -p` « super intelligent UNIX utility », multi-claude (checkouts/worktrees/tmux).
 
 Valeur : provenance historique — presque toute la doctrine 2026 était en germe dans ce talk ; la couche 2026 (routines, loops, fleet) s'est construite PAR-DESSUS, elle ne le remplace pas.
+
+
+---
+
+## AJOUT 27 juillet 2026 — série mi-juillet (automation, Steps, Odd Lots, Opus 5)
+
+- **15 juil.** (X, 1,68M vues) : « les meilleurs ingénieurs automatisent leur travail » — « If Claude instead writes a lint rule, CI step, or routine, that class of issue can be fully automated forever. **This is really what people are talking about when they talk about loops.** » + artifacts CC peuvent appeler des MCP connectors (1,5M vues).
+- **16 juil.** : **[[steps-of-ai-adoption-boris]]** — framework de maturité 0-4 (1,38M vues). « Anthropic is on step 3 and pushing toward 4. Personally, I just hit level 4. »
+- **20 juil.** : podcast **Odd Lots (Bloomberg)** ~1h07 — sur le déclencheur de l'adoption explosive : « **It's almost entirely the model** » (chaque release = point d'inflexion) ; le coding a émergé du focus safety d'Anthropic ; CC « more like a co-worker than a tool ». https://www.bloomberg.com/news/audio/2026-07-20/odd-lots-how-claude-code-is-reshaping-software-podcast
+- **22 juil.** : relaie le **Claude Security plugin** beta (2,4M vues).
+- **24 juil.** ([[Opus 5]] launch, 5,5M vues) : « Opus 5 is our least prompt injectable model yet… the success rate for prompt injection attacks drops to ~0 » (défenses empilées) ; OSWorld v2 55,7→70,6 ; offre de sponsoriser tout benchmark computer-use < 50 %.

@@ -8,7 +8,7 @@ aliases:
   - "_catwu"
   - "head of product claude code"
   - "anthropic cat wu"
-derniere-maj: 2026-05-22
+derniere-maj: 2026-07-27
 auteur: claude
 sources:
   - "https://www.youtube.com/watch?v=AgQ4cwL5eOM"
@@ -159,3 +159,10 @@ Cat Wu reste attribuée à : **+200% PRs/eng (Anthropic interne)**, **23k Mercad
 ### Handle social
 
 - X : [@_catwu](https://x.com/_catwu) — peu de threads techniques publics, canal principal = podcasts/keynotes
+
+
+---
+
+## AJOUT 27 juillet 2026 — fireside AIEWF (Willison, 21 juil.)
+
+Fireside avec Simon Willison + Thariq — capitalisé dans [[fireside-cat-wu-thariq-aiewf-2026]]. Ses apports propres : méthode « **100 % accurate** » pour les instructions (chasser le 10 % de cas faux, adoucir) ; gate de ship = rétention interne ; « Broadly within Anthropic, almost every single person uses auto mode » ; cap annoncé « a world where humans don't need to be in the loop » (code review) ; Claude Tag = « the evolution of Claude Code », **65 % des PRs product engineering mergées** (tweet : « merges 65% of product PRs » — la variante presse « writes 65% of code » est imprécise).

@@ -75,3 +75,13 @@ tags:
 - [[CC 28 mai 2026 - Opus 4.8 + Dynamic Workflows]] — prédécesseur Opus 4.8
 - [[CC juillet 2026 - Opus 5 + v2.1.212-220]] — versions CC liées
 - [[MOC-Modeles]]
+
+
+---
+
+## AJOUT 27 juillet 2026 — claims sécurité Boris Cherny (jour du launch)
+
+Thread @bcherny du 24 juil. (5,5M vues, lu via x-read) :
+
+- « Opus 5 is the new state-of-the-art » ; **« Opus 5 is our least prompt injectable model yet »** — en empilant les défenses (« strong model alignment + prompt injection probes + Auto Mode in Claude Code »), **« the success rate for prompt injection attacks drops to ~0 »**. Claim vendeur mais cohérent avec l'architecture décrite dans [[How we contain Claude]] (couches probabilistes + frontière déterministe).
+- **OSWorld v2 : 55,7 % → 70,6 %** (vs Opus 4.8) ; Boris offre de sponsoriser tout benchmark computer-use où Opus 5 ferait < 50 %.

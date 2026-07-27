@@ -14,6 +14,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-07-27 (2) — analyse approfondie : interviews équipe CC + deep-dive graph engineering
+
+- **Ajoutées** : `04-Techniques/claude-code/steps-of-ai-adoption-boris` (framework 0-4 Boris 16 juil., source primaire X retrouvée — les blogs tiers disaient anthropic.com, faux) ; `04-Techniques/claude-code/fireside-cat-wu-thariq-aiewf-2026` (Willison 21 juil. : system prompt −80 %, fewer constraints/tools, Claude prompting Claude all the way down, auto mode quasi universel, mémoire Tag = markdown/canal) ; `01-Claude/Code/features/How we contain Claude` (article 28 mai manquant au vault — 93 % approbation, sandbox −84 % prompts, deterministic boundary)
+- **Modifiées** : `06-Industrie/graph-engineering-buzz` (analyse de fond : fausse attribution « ingénieur Anthropic » → Andrew Ng non vérifié, doctrine loop-d'abord/graphe-si-séparable, benchmarks knowledge graph, heuristique entity resolution pro-wikilinks) ; `effort-opus-47-doctrine-anthropic-2026` (post officiel Lydia Hallie 7 juil. : try-vs-know, REINFORCE allocation forge) ; `workflow-claude-code-optimal` + `concevoir-loops-travail` (AMENDE claim périmée nesting + addenda) ; `mcp-vs-skills-doctrine` (fewer tools + hooks coût contexte nul, crédit MOYEN Daisy) ; `comment-ecrire-claudemd` (doctrine prompting frontière) ; `Opus 5` (claims sécu Boris launch)
+- **Leaders** : Boris Cherny (Odd Lots « It's almost entirely the model », série 15-24 juil.), Lydia Hallie (post effort×modèle), cat-wu + Thariq Shihipar (fireside), daisy-hollman (talk NDC 3 juin, VOD à surveiller)
+- **Source** : run cc-news approfondi 27 juil. (4 agents : deep-dive graph engineering, fireside Willison, source primaire Steps of AI Adoption via x-read, balayage équipe 1-27 juil.)
+
 ## 2026-07-27 — cc-news 16-27 juillet : Opus 5, CC v2.1.212-220, buzz Graph Engineering, RC MCP détaillée
 
 - **Ajoutées** : `01-Claude/models/Opus 5` (lancé 24 juil., $5/$25, 1M ctx, thinking ON, défaut Opus CC + Claude Max) ; `01-Claude/Code/changelog/CC juillet 2026 - Opus 5 + v2.1.212-220` (8 versions 17-25 juil. : /fork background, EndConversation, patch sécu PowerShell 5.1, flip-flop nesting subagents depth 3, skills fork→background) ; `06-Industrie/graph-engineering-buzz` (buzz Steinberger 18 juil., PAS une feature Anthropic, fake « étude Stanford+Anthropic $3,1M » débunké)

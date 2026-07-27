@@ -9,7 +9,7 @@ aliases:
   - "@dhollman"
   - "MTS Anthropic Daisy"
   - "beyond the basics claude code"
-derniere-maj: 2026-05-22
+derniere-maj: 2026-07-27
 auteur: claude
 role: "Member of Technical Staff (MTS)"
 affiliation: "Anthropic"
@@ -92,3 +92,12 @@ Verbatim Daisy Hollman, Code with Claude London (cf. `recherche-youtube-talks.md
 - [Code with Claude London opening keynote](https://www.youtube.com/watch?v=6amLO7I9xdg)
 - [MIT Tech Review — coding's future (21 mai 2026)](https://www.technologyreview.com/2026/05/21/1137735/anthropics-code-with-claude-showed-off-codings-future-whether-you-like-it-or-not/)
 - Rapports chantier internes : `0-Inbox/_chantier-22mai/recherche-youtube-talks.md`, `audit-notes-existantes-vs-fraiches.md`
+
+
+---
+
+## AJOUT 27 juillet 2026 — talk NDC Copenhagen (3 juin, VOD non publiée)
+
+Talk « How Anthropic uses Claude Code: Agentic Software Engineering at Scale », **NDC Copenhagen, 3 juin 2026** (agenda officiel : plugins CC + « context engineering primitives », filtre « does it scale? », contexte 1M stagnant depuis un an). **Vidéo/slides non publiées à ce jour — à surveiller** (NDC publie avec des semaines de délai).
+
+Verbatims circulants attribués à elle (paraphrases tierces, **crédit MOYEN** tant que la VOD n'est pas sortie) : « You're not supposed to prompt Claude. You're supposed to build a system that prompts itself » · « **hooks are the only abstraction to extend Claude Code that doesn't consume context until they fire** » (capitalisé avec réserve dans [[mcp-vs-skills-doctrine]] AJOUT 27 juil.) · « You should be running agents overnight » (déjà attesté CwC London).

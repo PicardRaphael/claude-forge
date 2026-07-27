@@ -14,7 +14,7 @@ aliases:
   - "compute allocator"
   - "comment automatiser claude code"
   - "automation workflow"
-derniere-maj: 2026-05-24
+derniere-maj: 2026-07-27
 auteur: claude
 type: technique
 sources:
@@ -727,3 +727,15 @@ Premier `/feature` réel de neoteem-back-ts (US1, schéma Drizzle) : `drizzle-ki
 4. Templates stories : « livrable généré = critère de done CHIFFRÉ » (règle d'or 6, ×3 repos).
 
 Composants : skill `drizzle-query` § Introspection · agents `reviewer`/`test-writer` · skill `test` · CDC §7.3 · hook `guard-ts-nocheck.ts` (testé 8/8 adverse). Cf [[anti-reentrance-sub-agents-pattern-escalade]] (l'autre leçon US1 : la relance) et [[comment-creer-hook]] AJOUT 10 juin (placement des checks).
+
+---
+
+## AJOUT 27 juillet 2026 — fireside Cat Wu × Thariq, Steps of AI Adoption, Odd Lots
+
+Trois sources fraîches de l'équipe CC enrichissent (sans invalider) les 7 pratiques de cette note. Détails complets : [[fireside-cat-wu-thariq-aiewf-2026]] + [[steps-of-ai-adoption-boris]].
+
+- **Orchestration officielle = « Claude prompting Claude all the way down »** (Thariq, fireside 21 juil.) : les workflows où Claude écrit lui-même les prompts détaillés de N subagents sont « a level above just spawning a subagent ». Renforce le pattern brief-riche (`.claude/rules/agent-relaunch-context.md`) et la session principale comme hub — PAS de graphes d'agents figés (zéro mention « harness »/« multi-agent » dans le fireside ; silence Anthropic sur le buzz [[graph-engineering-buzz]]).
+- **Steps of AI Adoption (Boris, 16 juil.)** : le framework de maturité 0-4 donne l'axe de progression de ce workflow — les pratiques de cette note = steps 2-3 ; la suite = proactivité (« let Claude kick off Claude », agents lancés par Claude). Thèse : « tokens aren't enough » — chaque montée = bottlenecks cassés + guardrails montés.
+- **« It's almost entirely the model »** (Boris, Odd Lots/Bloomberg 20 juil., sur ce qui a déclenché l'adoption explosive) : chaque release modèle = point d'inflexion de la courbe. Cohérent avec son « all the secret sauce — it's all in the model » (déjà dans cette note) et contrepoids permanent au harness-first : investir dans le harness ce que le prochain modèle ne rendra pas obsolète (cf « Complex scaffolding is often rendered obsolete by the next model generation »).
+- **Gate de rétention interne** (Cat Wu, fireside) : une feature CC ne ship que si elle tient une barre d'usage/rétention interne — analogue au verdict KILL/EVOLVE/KEEP de /forge-review pour les composants forge : un composant sans usage mesuré ne devrait pas survivre.
+- **Doctrine prompting frontière** (system prompt −80 %, « fewer hard constraints, more context », retirer les exemples, don't-lists nuisibles) : voir [[fireside-cat-wu-thariq-aiewf-2026]] § 1 et l'addendum de [[comment-ecrire-claudemd]] — chantier d'audit des règles forge à arbitrer séparément.

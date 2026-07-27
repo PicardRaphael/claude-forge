@@ -454,3 +454,13 @@ La RC mentionnée dans l'AJOUT 9 juin est désormais détaillée (blog officiel 
 - Impact forge : la ligne « FastMCP 3.0 GA = défaut prod » (AJOUT 9 juin, et [[reference-technique-stack-ia]]) reste vraie AUJOURD'HUI mais le rename `MCPServer` est à anticiper pour forge-brain/obsidian-brain à la GA de la spec. Pas d'action immédiate — surveiller la GA.
 
 Sources : blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/ · techcrunch.com/2026/07/20/ais-most-important-protocol-is-getting-a-little-bit-easier-to-use/ · theregister.com (23 juil. 2026).
+
+
+---
+
+## AJOUT 27 juillet 2026 (2) — « fewer tools » officiel + coût contexte des hooks
+
+Deux compléments à l'arbitrage MCP/Skills/CLI, source équipe CC :
+
+- **« Fewer tools, fonctions distinctes »** ([[fireside-cat-wu-thariq-aiewf-2026]], 21 juil.) : l'équipe CC « trend towards fewer tools », principe Cat Wu : « every tool we add has a distinct function from every other tool, so that Claude can very easily distinguish when to call each ». Ils ont **supprimé leurs tools grep/glob au profit du bash natif** (le file-edit tool survit pour le déterminisme UI). Thariq : les tools sont « more of a biology than a physics ». → Renforce le piège 1 de cette note (« le modèle se perd ») et donne un critère d'ajout : un tool MCP n'entre que si sa fonction est **mutuellement exclusive** des tools existants. À appliquer aux MCP forge (forge-brain 22 outils, curator) avant tout ajout.
+- **« Hooks = seule abstraction à coût contexte NUL tant qu'elle ne fire pas »** (attribué à Daisy Hollman, talk NDC Copenhagen 3 juin — **crédit MOYEN**, paraphrase tierce, vidéo non publiée à ce jour, à re-vérifier à la sortie de la VOD) : contrairement aux skills (descriptions dans le listing budget), aux MCP (schemas upfront ~8k tokens type Sentry) et au CLAUDE.md (chargé au démarrage), un hook ne consomme RIEN jusqu'à son déclenchement. Argument tokens pour pousser vers hooks ce qui est déterministe — cohérent avec [[How we contain Claude]] (« the deterministic boundary is what gets hit when everything probabilistic misses »).

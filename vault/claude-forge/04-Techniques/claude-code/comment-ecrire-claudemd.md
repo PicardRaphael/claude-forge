@@ -12,7 +12,7 @@ aliases:
   - "configuration CLAUDE.md"
   - "200 lignes CLAUDE.md"
   - "anti-patterns CLAUDE.md"
-derniere-maj: 2026-06-06
+derniere-maj: 2026-07-27
 auteur: claude
 type: technique
 sources:
@@ -649,3 +649,16 @@ Aliases déjà déclarés en frontmatter (10) :
 ---
 
 **Fin note canonique `comment-ecrire-claudemd.md`** — révisée 23 mai 2026 post-audit thématique vault.
+
+
+---
+
+## AJOUT 27 juillet 2026 — doctrine prompting frontière (system prompt CC −80 %)
+
+Le fireside Cat Wu × Thariq du 21 juil. ([[fireside-cat-wu-thariq-aiewf-2026]] § 1, crédit ÉLEVÉ-MAX) documente la refonte du system prompt Claude Code pour les modèles frontière (Fable 5, Opus 4.8) — **−80 % de volume** (confirmé par Thariq sur X, 24 juil.). Trois leçons transposables aux CLAUDE.md/rules :
+
+1. **Retirer les exemples aide** les modèles frontière (« removing examples was extremely helpful », Claude devient « more creative than the examples we gave it ») — Willison note que ça contredit le conseil standard pré-2026. Pour un CLAUDE.md : préférer la règle + raison à la règle + exemples multiples.
+2. **Les don't-lists dégradent** (conflits avec les instructions en aval) ; direction officielle : « **fewer hard constraints, more context, and fewer instructions overall** ». Converge avec la doctrine de cette note (< 200 lignes, règle testable + raison, dégradation quadratique au-delà du sweet spot).
+3. **Méthode « 100 % accurate » de Cat Wu** : pour chaque règle absolue, chercher le ~10 % de cas où elle est fausse et adoucir jusqu'à ce qu'elle soit vraie à 100 % (ex. « always verify » → formulation conditionnelle précise). Complément direct de « règle testable + raison » : une règle fausse à 10 % entraîne des violations légitimes qui érodent l'adhérence au reste.
+
+⚠️ Périmètre : dit du system prompt CC (frontier models). Les interdits forge issus d'erreurs réelles documentées gardent leur valeur (ils portent leur « parce que ») — le chantier éventuel d'audit des « JAMAIS » forge à l'aune de la méthode 100 %-accurate est une décision séparée, pas un pivot automatique.
