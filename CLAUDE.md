@@ -50,7 +50,7 @@ Vault path : `vault/claude-forge/04-Techniques/claude-code/`
 - **[[comment-ecrire-claudemd]]** — target 200L, 5 anti-patterns Anthropic, compounding
 - **[[comment-creer-skill]]** — 9 catégories Thariq, frontmatter trigger 3e personne, < 500L
 - **[[comment-creer-agent]]** — Sonnet/Opus split, 8 couleurs cross-repo, 2-agent Justin Young
-- **[[comment-creer-hook]]** — 29 events officiels, doctrine 22 mai
+- **[[comment-creer-hook]]** — 30 events officiels, doctrine 22 mai
 - **[[workflow-claude-code-optimal]]** — routines Boris, advisor strategy Brad Abrams, leaf nodes Erik
 - **[[mcp-vs-skills-doctrine]]** — MCP data / Skills how-to / Bash exploration
 - **[[pattern-vault-llm-karpathy]]** — 3-layers + index.md + log.md

@@ -10,7 +10,7 @@ aliases:
   - "additionalDirectories claude"
 domaine: claude-code
 type: reference
-derniere-maj: 2026-07-07
+derniere-maj: 2026-07-27
 auteur: claude
 sources:
   - "memory/reference_claude_code_architecture.md (avril 2026)"
@@ -39,6 +39,7 @@ tags:
   hooks/                  # Scripts Python/JS pour les events lifecycle
   scripts/                # Scripts utilitaires (hooks, etc.)
   plans/                  # Plans d'implémentation
+  workflows/              # Workflows nommés sauvegardés (slash commands, juil. 2026)
 ```
 
 ## Quand utiliser quel composant
@@ -49,6 +50,7 @@ tags:
 | Règles obligatoires, routing agents, workflows | `rules/*.md` | Toujours (ou path-scoped) |
 | Workflow invocable (`/commande` ou auto-trigger) | `skills/*/SKILL.md` | Sur invocation ou description match |
 | Worker spécialisé (code, debug, review) | `agents/*.md` | Quand dispatché par la session principale |
+| Orchestration multi-agents rejouable | `workflows/*.js` | Sur invocation `/<nom>` (cf [[CC 28 mai 2026 - Opus 4.8 + Dynamic Workflows]] AJOUT 27 juil.) |
 | Accès repo externe | `settings.json` → `additionalDirectories` | Toujours |
 | Scripts d'automation sur events | `hooks/`, `scripts/` | Sur events lifecycle |
 
@@ -89,7 +91,7 @@ paths:
 
 ## Agents — gotchas critiques
 
-- **Un subagent NE PEUT PAS spawner de sub-agents** (limitation #19077 — à re-vérifier depuis CC v2.1.172 qui a assoupli le nesting, cf [[anti-reentrance-sub-agents-pattern-escalade]]).
+- **Nesting de subagents : depth 3 par défaut depuis CC v2.1.219 (24 juil. 2026)** — un subagent peut spawner des subagents sur 3 niveaux (`CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` pour l'interdire ; caps 200 spawns/session, 20 concurrents). Recommandation forge inchangée : escalade vers la session principale par défaut, cf [[anti-reentrance-sub-agents-pattern-escalade]].
 - Session principale = orchestrateur (lit rules, dispatch agents).
 - `tools:` = allowlist stricte. Si un agent a `Bash`, il l'utilisera.
 - `disallowedTools:` = denylist.

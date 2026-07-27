@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-07-27 (4) — sweep anti-drift post-pivots (pivot-check sur les 9 pivots du jour)
+
+- **Modifiées** : `index.md` + `00-Hub/Home` + `00-Hub/MOC-Claude-Code` (29→30 events, changelogs juillet ajoutés, gloss workflows/research-preview corrigé, How we contain Claude + steps-of-ai-adoption + fireside référencés) ; `00-Hub/MOC-Industrie` (retrait mythos-preview, graph-engineering-buzz) ; `01-Claude/models/claude-mythos-preview` (bannière RETIRÉ 21 juil.) ; `04-Techniques/claude-code/architecture-claude-folder` (gotcha nesting → depth 3, dossier workflows/ ajouté à la structure) ; `04-Techniques/agents/limites-subagents-claude-code` (AJOUT depth 3 + caps v2.1.217-219) ; `effort-opus-47-doctrine` (borne temporelle « xhigh = default » = ère 4.7, high depuis 4.8)
+- **Source** : demande Raphael « regarde toutes les notes du vault à mettre à jour » → /pivot-check sur les 9 pivots du 27 juil. (Opus 5, mythos-preview retiré, fast mode 4.7, nesting depth 3, effort reviewers, 30 events, workflows nommés, date cc-news, MCP RC). Côté repo : cc-features-ref (Opus 5 + date réf. 25 juil.), subagent-creator (2 claims nesting), craft-prompt ref, hook-creator (30 events), pivot-check (exclusion .agents/+AGENTS.md = miroir ChatGPT, décision Raphael), CLAUDE.md l.53, memory feedback_major_mistakes #1 amendé + reference_agents_dir_chatgpt_mirror créée
+- **Exclusions respectées** : CHANGELOG, log, Knowledge/erreurs|critiques|tests, notes changelog datées, fiches leaders (historique)
+
 ## 2026-07-27 (3) — chantier audit règles forge : correction drift tableau effort (catch DA)
 
 - **Modifiées** : `04-Techniques/claude-code/effort-opus-47-doctrine-anthropic-2026` — cellules « Reviewers/devils-advocate → xhigh » corrigées → **high** (drift vs décision Option C du 18 juin, détecté par le devils-advocate qui a refusé son propre bump ; l'audit s'appuyait sur la cellule outlier) + callout de correction daté

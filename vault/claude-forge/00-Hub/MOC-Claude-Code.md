@@ -8,7 +8,7 @@ aliases:
   - "index claude code"
   - "CC features map"
 type: index
-derniere-maj: 2026-07-08
+derniere-maj: 2026-07-27
 auteur: claude
 sources: []
 tags:
@@ -24,7 +24,7 @@ Quand on demande "analyse ce repo, propose-moi la config CC", la doctrine se tro
 - [[comment-ecrire-claudemd]] — target 200L, 5 anti-patterns Anthropic, compounding Boris
 - [[comment-creer-skill]] — 9 catégories Thariq (post Anthropic mars 2026), frontmatter trigger 3e personne, règle ~250 chars auto-trigger
 - [[comment-creer-agent]] — 2-agent Justin Young (sans split modèles), Sonnet/Opus split doctrine forge (Cat Wu + Brad Abrams), convention 8 couleurs
-- [[comment-creer-hook]] — **29 events officiels**, timeouts 600s/30s/60s par type, doctrine "rule 100% → hook", Böckeler Guides+Sensors
+- [[comment-creer-hook]] — **30 events officiels** (+DirectoryAdded v2.1.219), timeouts 600s/30s/60s par type, doctrine "rule 100% → hook", Böckeler Guides+Sensors
 - [[workflow-claude-code-optimal]] — routines Boris + **Advisor Strategy Brad Abrams** + leaf nodes Erik
 - [[methode-analyser-repo]] (META) — grille 6 étapes + pipeline architect→dev→reviewer→test
 - [[mcp-vs-skills-doctrine]] — MCP data / Skills how-to / Bash exploration, lethal trifecta = Willison
@@ -39,9 +39,11 @@ Quand on demande "analyse ce repo, propose-moi la config CC", la doctrine se tro
 
 ## Changelog (consolidé par mois)
 
+- [[CC juillet 2026 - Opus 5 + v2.1.212-220]] — **Opus 5 défaut Opus**, /fork background + /subtask, EndConversation, patch sécu PowerShell 5.1, nesting depth 3 + caps, skills context:fork background
+- [[CC juillet 2026 - v2.1.203-211]] — auto mode défaut gateways, screen reader, transcripts -79x, hardening anti-injection Agent
 - [[CC juillet 2026 - Sonnet 5 + v2.1.198]] — Sonnet 5 défaut (1M natif), /dataviz, Chrome GA, v2.1.191→202 (Dynamic workflow size, mode Manual, slash-skills empilées)
 - [[CC juin 2026 - v2.1.160 ultracode]] — ultracode, Fable 5 intro, v2.1.150→190
-- [[CC 28 mai 2026 - Opus 4.8 + Dynamic Workflows]] — Opus 4.8 + orchestration native (research preview)
+- [[CC 28 mai 2026 - Opus 4.8 + Dynamic Workflows]] — Opus 4.8 + orchestration native (devenue workflows nommés `.claude/workflows/` en juillet, cf AJOUT 27 juil. de la note)
 - [[CC mai 2026 - Code with Claude]] — Desktop GUI, web UI, v2.1.126→v2.1.136, cache TTL fix, memory leak fix
 - [[CC avril 2026]] — Opus 4.7, Auto Mode, CLI binaire natif, Windows sans Git Bash, v2.1.110→v2.1.123
 
@@ -60,6 +62,7 @@ Quand on demande "analyse ce repo, propose-moi la config CC", la doctrine se tro
 - [[mcp-obsidian-brain-v2]] — MCP SQLite FTS5 autonome, déployé sur VM, accessible via VPN
 - [[cowork-architecture]] — Architecture Cowork, Dispatch, Plugin Marketplace, Agent Teams
 - [[programmatic-tool-calling]] — PTC : code orchestre, modèle juge
+- [[How we contain Claude]] — containment cross-produits : sandbox −84 % prompts, « deterministic boundary »
 
 ## Features (à documenter)
 
@@ -72,6 +75,8 @@ Effort Levels (note dédiée) · Routines · Session Sharing · Remote Control �
 - [[methode-analyser-repo]] — 3 rules obligatoires tout projet : check-before-create, quality-gates, learn-from-mistakes
 - [[comment-ecrire-claudemd]] — Consensus Boris + Anthropic : 100-200L max, monthly audit
 - [[mcp-vs-cli-vs-skills]] — Quand MCP, quand CLI, quand skill : matrice de décision
+- [[steps-of-ai-adoption-boris]] — échelle de maturité 0-4 (16 juil. 2026), bottlenecks + guardrails par transition
+- [[fireside-cat-wu-thariq-aiewf-2026]] — doctrine prompting frontière (system prompt −80 %), fewer tools, evals
 
 ## Agents forge
 
@@ -97,6 +102,7 @@ Convention couleurs : voir [[agents-color-convention]].
 - [[Deprecation Sonnet 4 Opus 4]]
 - [[Deprecation 1M Context Beta]]
 - [[Deprecation budget_tokens]]
+- [[claude-mythos-preview]] — retiré 21 juillet 2026
 
 ## Liens
 

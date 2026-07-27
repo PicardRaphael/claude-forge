@@ -9,7 +9,7 @@ aliases:
   - "knowledge base"
   - "index principal"
 type: index
-derniere-maj: 2026-07-15
+derniere-maj: 2026-07-27
 auteur: claude
 sources: []
 tags:
@@ -27,7 +27,7 @@ Vault **agent-first** pour claude-forge — cerveau d'agent piloté via MCP (Kar
 - [[comment-ecrire-claudemd]] — 200L, anti-patterns
 - [[comment-creer-skill]] — 9 catégories Thariq, < 500L
 - [[comment-creer-agent]] — Sonnet/Opus split, 8 couleurs
-- [[comment-creer-hook]] — 29 events, doctrine 22 mai
+- [[comment-creer-hook]] — 30 events, doctrine 22 mai
 - [[workflow-claude-code-optimal]] — routines Boris, advisor Brad Abrams
 - [[methode-analyser-repo]] — META 6 étapes
 - [[methode-pivoter-doctrine]] — checklist anti-drift résiduel

@@ -135,7 +135,7 @@ system=[{
 ## Breaking changes
 
 - `budget_tokens` **NON SUPPORTE** sur Opus 4.7 → `thinking: {type: "adaptive"}` + `output_config: {effort: "xhigh"}`
-- `effort: xhigh` = nouveau defaut Opus 4.7. `high` reste defaut Sonnet 4.6
+- `effort: xhigh` = defaut a l'ere Opus 4.7 (avril-mai 2026) ; depuis Opus 4.8 (28 mai) le defaut recommande est `high`. `high` reste defaut Sonnet 4.6
 - Prefill deprecated sur claude-4.6+ → Structured Outputs
 - Skills = standard ouvert (agentskills.io) adopte par OpenAI, Gemini, GitHub Copilot
 - Opus 4.7 est plus litterral que 4.6 → instructions de scope explicites, parallelisme explicite

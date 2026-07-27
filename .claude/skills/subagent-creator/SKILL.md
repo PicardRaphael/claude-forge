@@ -235,7 +235,7 @@ Les evals sont **obligatoires** pour tout agent créé ou optimisé. Sans mesure
 - [ ] `color` selon convention forge
 - [ ] `disallowedTools: Write, Edit` si read-only
 - [ ] `disallowedTools: Bash` si délégation forcée
-- [ ] `disallowedTools: Agent` — les subagents ne peuvent PAS spawner d'autres subagents
+- [ ] `disallowedTools: Agent` si l'agent doit rester leaf-node — le nesting est depth 3 par défaut (v2.1.219) et `Agent` est hérité si `tools:` est omis
 
 **Body**
 - [ ] Ordre : Rôle → Input → Étapes → Règles → Format sortie
@@ -276,7 +276,7 @@ Priorités audit rapide :
 - **`tools:` toujours explicite** — sans, comportement variable (incident git reset mars 2026)
 - **`Skill` doit être dans `tools:`** — sinon le subagent NE PEUT PAS invoquer de skill mécaniquement
 - **`skills:` précharge, ne force pas** — injecte les descriptions, pas une invocation. Pour forcer → enforcement Niveau 1-6
-- **Sous-subagents POSSIBLES** depuis CC v2.1.172 (foreground toute profondeur, background plafond 5) ET hérités par défaut si `tools:` omis → pour garder un agent leaf-node : `tools:` explicite sans `Agent`, ou `disallowedTools: Agent`. Escalade vers session principale = défaut recommandé (cf [[anti-reentrance-sub-agents-pattern-escalade]])
+- **Sous-subagents POSSIBLES** — depth 3 par défaut depuis CC v2.1.219 (caps 200 spawns/session, 20 concurrents ; `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` pour l'ancien comportement) ET `Agent` hérité par défaut si `tools:` omis → pour garder un agent leaf-node : `tools:` explicite sans `Agent`, ou `disallowedTools: Agent`. Escalade vers session principale = défaut recommandé (cf [[anti-reentrance-sub-agents-pattern-escalade]])
 - **AskUserQuestion filtré** en subagent (issues #12890 #18721 #20275) → pattern ESCALADE obligatoire
 - **MCP non garanti** en subagent (`No such tool available`) → brief inline depuis session principale
 - **Subagent auto-commit** malgré instruction → mettre "PAS DE COMMIT" en TOP du prompt en gras

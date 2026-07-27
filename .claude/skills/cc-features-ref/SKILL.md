@@ -80,7 +80,9 @@ Claude utilise `ScheduleWakeup` pour décider dynamiquement quand revérifier (�
 **`high` est le défaut Opus 4.8** ; `xhigh`/`extra`/`max` en option pour les tâches agentiques/coding longues. `high` reste aussi le défaut Sonnet 4.6.
 À `xhigh`/`max` : mettre max_tokens à 64k+ minimum.
 
-**Opus 4.8** (`claude-opus-4-8`, sorti 28 mai 2026) — défaut effort = **high** (recommandé), options `extra`/`xhigh`/`max`. Fast mode 3× moins cher qu'avant (vitesse 2.5×). ~4× moins susceptible de laisser passer une faille sans la signaler vs 4.7. C'est désormais le dernier Opus : le défaut forge `opus` = `claude-opus-4-8`.
+**Opus 4.8** (`claude-opus-4-8`, sorti 28 mai 2026) — défaut effort = **high** (recommandé), options `extra`/`xhigh`/`max`. Fast mode 3× moins cher qu'avant (vitesse 2.5×). ~4× moins susceptible de laisser passer une faille sans la signaler vs 4.7.
+
+**Opus 5** (`claude-opus-5`, sorti 24 juillet 2026) — **nouveau défaut Opus** (CC v2.1.219) et défaut Claude Max : $5/$25 (inchangé), 1M contexte / 128k output, thinking ON par défaut, proche de Fable 5 à moitié prix, fast mode $10/$50 (~2,5×). Le défaut forge `opus` = `claude-opus-5` (épingler `claude-opus-4-8` si besoin de l'ancien). ⚠️ `thinking: disabled` + effort xhigh/max → erreur 400 ; Opus 4.7 exclu du fast mode.
 
 ## Git Worktrees — #1 productivité
 
@@ -255,7 +257,7 @@ LSPs disponibles pour tous les langages majeurs.
 
 ## Gotchas
 
-- **Date de référence** — ce fichier intègre des éléments jusqu'au 15 juillet 2026 (v2.1.211). Utiliser `cc-news` si l'info semble datée ou si la feature demandée est postérieure à cette date.
+- **Date de référence** — ce fichier intègre des éléments jusqu'au 25 juillet 2026 (v2.1.220 — Opus 5 défaut Opus, `/fork` vers session background + `/subtask`, tool EndConversation, hook event DirectoryAdded, nesting subagents depth 3 avec caps 200/20, workflows sauvegardables dans `.claude/workflows/`). Utiliser `cc-news` si l'info semble datée ou si la feature demandée est postérieure à cette date.
 - **`effort: max`** — toujours disponible mai 2026 (verbatim docs Anthropic 23 mai), mais prone à l'overthinking. Réserver à cas justifiés ; doctrine forge (option C) = `xhigh` agentique/coding, `high` comparatif/jugement, `medium`/`low` extraction.
 
 ## Apprentissage

@@ -58,3 +58,4 @@
 - [workarounds-contraintes-session-forge](reference_workarounds_session_constraints.md) — Machine forge : gh absent, x.com 402, HEREDOC Windows
 - [repo-scope-guard-hook](hook_repo_scope_guard.md) — Triplet auth-detector+repo-scope-guard+auth-cleanup : repos neot-v2/
 - [transcrire-video-native-x](reference_transcrire_video_native_x.md) — Vidéo native X (pas YouTube) : x-read JSON → URLs MP4 → curl → ffmpeg WAV 16k → faster-whisper small. /watch ne couvre pas X
+- [agents-dir-chatgpt-mirror](reference_agents_dir_chatgpt_mirror.md) — `.agents/` + `AGENTS.md` racine = miroir ChatGPT/Codex géré par Raphael : JAMAIS toucher ni flagger en drift (décision 27 juil.)

@@ -8,7 +8,7 @@ aliases:
   - "market IA"
   - "funding AI startups"
 type: index
-derniere-maj: 2026-05-10
+derniere-maj: 2026-07-27
 auteur: claude
 sources: []
 tags:
@@ -31,7 +31,7 @@ tags:
 - [[Managed Agents]] — Beta publique, $0.08/session-hour, Agent Memory public beta
 - [[Claude Design]] — Plugin Anthropic Labs, text-to-prototype (17 avril)
 - Dispatch — Sessions CC + Computer Use
-- Project Glasswing — Mythos Preview, zero-day autonomous, $100M credits (voir [[claude-mythos-preview]])
+- Project Glasswing — Mythos Preview (modèle retiré 21 juil. 2026, cf [[claude-mythos-preview]]), poursuivi via Mythos 5 ([[Fable 5]]), $100M credits
 - Web Search GA — Plus de beta header requis, dynamic filtering
 - [[Claude Security]] — Beta publique enterprise, scans planifiés, Opus 4.7 (1er mai)
 - [[Code with Claude Conference]] — 1ère conference dev : SF 6 mai, Londres 19 mai, Tokyo 10 juin
@@ -50,6 +50,7 @@ tags:
 - [[Agent Skills Spec]] — Spec ouverte cross-platform
 - Convergence AI Coding — Tous convergent vers même architecture
 - Piebald-AI System Prompts — Repo public prompts CC
+- [[graph-engineering-buzz]] — buzz mémétique juillet 2026 (loops → graphs), fake « étude Stanford+Anthropic » débunké
 
 ## Concurrents — voir [[MOC-Outils-IA]]
 

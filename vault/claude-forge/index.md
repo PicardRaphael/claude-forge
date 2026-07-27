@@ -7,7 +7,7 @@ aliases:
   - "vault index"
   - "orientation LLM vault"
   - "index content-oriented"
-derniere-maj: 2026-07-08
+derniere-maj: 2026-07-27
 auteur: claude
 type: index
 tags:
@@ -28,7 +28,7 @@ Produit au chantier 22 mai 2026, vit dans `04-Techniques/claude-code/` :
 - **Comment écrire un CLAUDE.md** → [[comment-ecrire-claudemd]] (target 200L, 5 anti-patterns Anthropic)
 - **Comment créer une skill** → [[comment-creer-skill]] (9 catégories Thariq, < 500L, description 1 ligne)
 - **Comment créer un agent** → [[comment-creer-agent]] (Sonnet/Opus split, 8 couleurs, 2-agent Justin Young)
-- **Comment créer un hook** → [[comment-creer-hook]] (29 events officiels, doctrine 22 mai lint/sécu/scope)
+- **Comment créer un hook** → [[comment-creer-hook]] (30 events officiels, doctrine 22 mai lint/sécu/scope)
 - **Workflow Claude Code optimal** → [[workflow-claude-code-optimal]] (routines Boris, advisor strategy Brad Abrams, leaf nodes Erik)
 - **Analyser un repo et proposer config CC** → [[methode-analyser-repo]] (MÉTA, 6 étapes, ORDRE CANONIQUE A→B→C→D→E)
 - **Pivoter une doctrine sans drift résiduel** → [[methode-pivoter-doctrine]] (checklist 5 étapes, 23 mai)
@@ -146,8 +146,8 @@ Le 22 mai 2026, doctrine inversée : hooks pour lint/security/scope, **JAMAIS** 
 
 ## Si tu cherches une feature/news Claude Code — `01-Claude/`
 
-- **Changelog** : [[CC juin 2026 - v2.1.160 ultracode]] · [[CC 28 mai 2026 - Opus 4.8 + Dynamic Workflows]] · [[CC mai 2026 - Code with Claude]] · [[CC avril 2026]]
-- **Features** : [[Agent Teams]] · [[Managed Agents]] · [[Dreaming Managed Agents]] · [[Cowork GA]] · [[auto-mode-classifier]] · [[MCP Tunnels]] · [[Self-Hosted Sandboxes]] · [[Session Sharing]]
+- **Changelog** : [[CC juillet 2026 - Opus 5 + v2.1.212-220]] · [[CC juillet 2026 - v2.1.203-211]] · [[CC juillet 2026 - Sonnet 5 + v2.1.198]] · [[CC juin 2026 - v2.1.160 ultracode]] · [[CC 28 mai 2026 - Opus 4.8 + Dynamic Workflows]] · [[CC mai 2026 - Code with Claude]] · [[CC avril 2026]]
+- **Features** : [[Agent Teams]] · [[Managed Agents]] · [[Dreaming Managed Agents]] · [[Cowork GA]] · [[auto-mode-classifier]] · [[MCP Tunnels]] · [[Self-Hosted Sandboxes]] · [[Session Sharing]] · [[How we contain Claude]]
 - **Best practices** : [[delegate-guard-pattern]] · [[context-management]] · [[agents-color-convention]] · [[hook-intercepte-mcp-et-read-tools]] · [[mcp-vs-cli-vs-skills]]
 - **Deprecations** : [[Deprecation Sonnet 4 Opus 4]] · [[Deprecation 1M Context Beta]] · [[Deprecation Haiku 3]] · [[Deprecation budget_tokens]]
 - **Cowork** : [[cowork-architecture]] · [[cowork-skills-reliability]] · [[cowork-write-vault-headless-impossible]]

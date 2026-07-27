@@ -6,7 +6,7 @@ aliases:
   - "claude-mythos"
   - "glasswing"
 type: modele
-derniere-maj: 2026-05-04
+derniere-maj: 2026-07-27
 auteur: claude
 sources:
   - "https://www.anthropic.com/news/claude-mythos-preview"
@@ -15,6 +15,9 @@ tags:
   - "#domaine/claude"
   - "#domaine/securite"
 ---
+
+> [!warning] RETIRÉ le 21 juillet 2026
+> Le modèle `claude-mythos-preview` a été **retiré** (dépréciation annoncée dans la fenêtre CC v2.1.203-211, effective le 21 juil.). La lignée Mythos continue via [[Fable 5]] (Mythos 5 = même modèle sans classifiers, Project Glasswing). Le contenu ci-dessous décrit le modèle tel qu'annoncé en avril 2026 — historique.
 
 ## Specifications
 

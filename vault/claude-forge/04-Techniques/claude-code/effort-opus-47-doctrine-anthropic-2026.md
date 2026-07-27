@@ -17,6 +17,8 @@ tags:
 
 ## Default = xhigh
 
+> [!info] Borne temporelle (précision 27 juil. 2026) — « xhigh = default » décrit l'**ère Opus 4.7** (avril-mai 2026). Depuis **Opus 4.8 (28 mai 2026)**, le défaut effort recommandé est redescendu à **high** (source primaire : annonce Opus 4.8, cf [[CC 28 mai 2026 - Opus 4.8 + Dynamic Workflows]]) — reconduit tel quel par [[Opus 5]]. La doctrine forge « effort calibré par TYPE » (Option C) est indépendante de ce défaut : elle FORCE un effort explicite au lieu de le subir.
+
 Depuis Opus 4.7, Anthropic a **fait monter le default de Claude Code à `xhigh` sur tous les plans**. Le scale complet :
 
 **low → medium → high → xhigh → max**

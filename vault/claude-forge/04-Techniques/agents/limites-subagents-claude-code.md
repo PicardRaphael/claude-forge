@@ -133,3 +133,17 @@ L'affirmation « 3 repos déjà bloqués » est à **re-auditer** avec la bonne 
 Cohérent avec la table ci-dessus : `maxTurns` non enforcé (#41143), pas de timeout `Agent()` (#49150). Le seul mur dur est le **plafond background = 5 niveaux** (fixe, non configurable). Pour un arrêt déterministe → « STOP après N ops » dans le prompt + `tools:` explicite sans `Agent`.
 
 `derniere-maj` → 2026-06-16.
+
+
+---
+
+## AJOUT 27 juillet 2026 — nesting : depth 3 par défaut + caps quantitatifs (v2.1.217-219)
+
+Après l'amende v2.1.172 (« up to 5 levels deep ») ci-dessus, la fenêtre 21-24 juillet a rebattu les valeurs par défaut ([[CC juillet 2026 - Opus 5 + v2.1.212-220]]) :
+
+- **v2.1.217 (21 juil.)** : nesting DÉSACTIVÉ par défaut + cap **20 subagents concurrents** (`CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`).
+- **v2.1.219 (24 juil.)** : nesting réactivé **jusqu'à depth 3 par défaut** (`CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` pour l'ancien comportement) + forwarding stream-json des subagents depth 2+.
+- Caps par session depuis v2.1.212 : **200 spawns** + 200 WebSearch.
+- Le paramètre `mode` du Task tool est **déprécié/ignoré** (héritage du permission mode parent).
+
+Les valeurs « foreground toute profondeur / background plafond 5 » de l'amende du 16 juin décrivent l'ère v2.1.172-216 — depuis v2.1.219, raisonner en « depth 3 par défaut, configurable ». La recommandation design (escalade session principale par défaut) reste inchangée, cf [[anti-reentrance-sub-agents-pattern-escalade]].

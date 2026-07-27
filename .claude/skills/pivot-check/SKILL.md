@@ -55,6 +55,7 @@ Ignorer les occurrences dans :
 - `vault/claude-forge/Knowledge/erreurs/` — contexte archive
 - `vault/claude-forge/Knowledge/critiques/` — DA passes
 - `vault/claude-forge/0-Inbox/_chantier-*` — archives chantier
+- `.agents/` + `AGENTS.md` (racine repo) — miroir ChatGPT/Codex géré par Raphael : JAMAIS flagger comme drift, JAMAIS y écrire (décision Raphael 27 juil. 2026)
 - Lignes contenant "avant le" ou "coquille corrigee" (meta-historique)
 
 **Regle biographies** : `vault/claude-forge/05-Leaders/` peut legitimement nommer des personnes — ces notes SONT la source de verite biographique. Flagger uniquement si le terme obsolete apparait dans une **affirmation doctrinale** (ex : dans CLAUDE.md ou une rule).

@@ -282,5 +282,5 @@ Après chaque création ou optimisation : noter ici les patterns efficaces et go
 ## Références
 
 - `references/checklist-hook-parfait.md` — 4 dimensions complètes
-- `mcp__forge-brain__read_note("comment-creer-hook")` — doctrine forge canonique complète (29 events, formats JSON, matrice OS+stack)
+- `mcp__forge-brain__read_note("comment-creer-hook")` — doctrine forge canonique complète (30 events, formats JSON, matrice OS+stack)
 - `mcp__forge-brain__read_note("raisonnement-22mai-doctrine-vs-enforcement")` — pourquoi workflow hors hooks
