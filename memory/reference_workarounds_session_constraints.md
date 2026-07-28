@@ -89,6 +89,16 @@ Deux pièges distincts, même axe (écriture Windows PS 5.1), rencontrés 2× da
 - Possibles commits qui englobent : "vault leaders", "/done session", audits parallèles RAG/agents
 - Conséquence pratique : pas besoin de re-commit si HEAD = sync working tree
 
+## Hook qui lance un serveur : 3 pièges (28 juil. 2026, panne forge-brain 11 j)
+
+Cas fondateur : `mcp-autostart.py` annonçait « MCP forge-brain démarré » sans que le serveur tourne. Résultat : vault HTTP indisponible du 17 au 28 juil. sans que personne le voie (`usage.jsonl` figé). Les 3 défauts, tous génériques à un hook qui démarre un process :
+
+1. **Annoncer le succès depuis `Popen` = mentir.** `Popen` rend la main au fork, avant tout bind. Le hook doit vérifier l'**observable** (port qui répond, PID vivant) avant d'imprimer un succès, sinon la panne est invisible. Corollaire : `stdout`/`stderr` de l'enfant **jamais vers `DEVNULL`** — vers un log (`logs/startup.log`), sinon zéro diagnosticabilité. C'est ce log qui a livré la cause racine en 1 lecture.
+2. **`sys.executable` = interpréteur AMBIANT**, pas celui du projet. Sur un projet géré par `uv`/venv, il peut lui manquer les deps → `ModuleNotFoundError: fastmcp` **intermittent** (le même interpréteur réussissait en direct et échouait depuis le hook). Résoudre explicitement `<projet>/.venv/Scripts/python.exe` (Windows) / `.venv/bin/python` (posix), fallback `sys.executable`.
+3. **Un budget de poll compté en ITÉRATIONS sous-estime le temps réel.** `for _ in range(12): sleep(0.5) + port_open(timeout=0.5)` = jusqu'à 12 s, pas 6 s — chaque tour paie le sleep ET le timeout du check. Mesuré : 13,3 s pour un « budget 6 s » naïf, soit au-delà du `timeout: 10` déclaré dans settings.json → le hook est tué avant d'imprimer son WARNING. Toujours borner par **deadline** (`time.monotonic() + N`), jamais par un compteur.
+
+À promouvoir dans la canonique vault [[comment-creer-hook]] section GOTCHAS quand le MCP forge-brain sera de nouveau joignable (écrit ici car MCP down au moment du fix).
+
 ## Fins de ligne : JAMAIS les mesurer au grep — `git ls-files --eol` uniquement (28 juil. 2026)
 
 - Symptôme : sur un conflit de rebase, **3 mesures fausses d'affilée** du même fait (« combien de fichiers ont des CRLF ? »). Réponses successives : 51 lignes, 104 lignes, 96 fichiers… vraie réponse = **0**. J'ai annoncé une « cause racine CRLF » à Raphael sur cette base — faux.
