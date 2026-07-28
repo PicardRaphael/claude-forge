@@ -7,8 +7,23 @@ default_tools_approval_mode = "prompt"
 
 [mcp_servers.forge-cognition-curator]
 command = "uv"
-args = ["run", "--project", "mcp-forge-cognition", "python", "mcp-forge-cognition/start_stdio.py", "--profile", "curator"]
+args = [
+    "run",
+    "--project",
+    "mcp-forge-cognition",
+    "python",
+    "mcp-forge-cognition/start_stdio.py",
+    "--profile",
+    "curator",
+]
 enabled = true
 startup_timeout_sec = 20
 tool_timeout_sec = 60
 default_tools_approval_mode = "prompt"
+
+[shell_environment_policy]
+inherit = "core"
+
+[shell_environment_policy.set]
+CLAUDE_AUTOCOMPACT_PCT_OVERRIDE = "50"
+CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "1"
