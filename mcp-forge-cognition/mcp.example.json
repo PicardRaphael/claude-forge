@@ -8,6 +8,10 @@
       "command": "uv",
       "args": ["run", "--project", "mcp-forge-cognition", "python", "mcp-forge-cognition/start_stdio.py", "--profile", "red-team"]
     },
+    "forge-cognition-architect": {
+      "command": "uv",
+      "args": ["run", "--project", "mcp-forge-cognition", "python", "mcp-forge-cognition/start_stdio.py", "--profile", "architect-brainstorm"]
+    },
     "forge-cognition-curator": {
       "command": "uv",
       "args": ["run", "--project", "mcp-forge-cognition", "python", "mcp-forge-cognition/start_stdio.py", "--profile", "curator"]

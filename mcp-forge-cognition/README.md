@@ -6,7 +6,7 @@
 
 - The principal is fixed by `--profile` at process startup and is absent from every tool input.
 - Tools are business operations; there is no generic file/path/list/move/delete tool.
-- Product and Red Team write candidates to separate inboxes and private memories to separate namespaces.
+- Product, Architect and Reviewer write candidates/private memories to separate namespaces.
 - Only Curator can commit, deprecate, supersede or rebuild.
 - Each profile searches a physically separate FTS5 index containing only authorized documents.
 - Files are canonical; indexes are disposable.
@@ -27,13 +27,16 @@ The repository-level Claude Code and Codex configurations attach the primary ses
 it with the session; no `SessionStart` hook or persistent port is involved. A newly added
 project-scoped MCP server may require one-time approval in the client.
 
-Product and Red Team must use their dedicated profile entries from `mcp.example.json`; never
-attach the Curator entry to those agents.
+Project-brainstorm roles use the isolated global runtime documented in
+`docs/agents/project-brainstorm.md`. Every role MCP starts with a fixed principal,
+absolute configuration and no wildcard project access. Never attach Curator to a
+Product, Architect or Reviewer child.
 
 Manual launch commands:
 
 ```powershell
 uv run --project mcp-forge-cognition python mcp-forge-cognition/start_stdio.py --profile forge-product
+uv run --project mcp-forge-cognition python mcp-forge-cognition/start_stdio.py --profile architect-brainstorm
 uv run --project mcp-forge-cognition python mcp-forge-cognition/start_stdio.py --profile red-team
 uv run --project mcp-forge-cognition python mcp-forge-cognition/start_stdio.py --profile curator
 ```
@@ -79,5 +82,5 @@ Curator validation:
 
 - Lexical FTS5 only; no embeddings, reranker or graph.
 - Global store lock favors correctness over high write throughput.
-- Review-packet neutralization is deterministic section removal, not semantic rewriting; input briefs must use the canonical template.
+- Pipeline review packets use strict allowlisted fields. Structural neutralization cannot prove semantic neutrality inside otherwise factual text.
 - Full production prompts and evaluated Skills are intentionally deferred until their own interview/eval workflow.

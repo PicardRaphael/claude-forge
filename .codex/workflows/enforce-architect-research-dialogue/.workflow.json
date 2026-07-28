@@ -1,0 +1,23 @@
+{
+  "version": 4,
+  "task_id": "enforce-architect-research-dialogue",
+  "mode": "DEV",
+  "requested_mode": "DEV",
+  "intake_depth_requested": "DEEP",
+  "auto_run": "YES",
+  "workflow_id": null,
+  "workflow_version": null,
+  "workflow_readiness": null,
+  "route": null,
+  "current_phase": null,
+  "blocked_reason": null,
+  "automation": "continuous",
+  "lifecycle": "active",
+  "active_agent_type": null,
+  "active_agent_id": null,
+  "active_phase": null,
+  "expected_handoff": null,
+  "loop_counters": {},
+  "created_at": "2026-07-28T06:17:57.108747+00:00",
+  "updated_at": "2026-07-28T06:17:57.108747+00:00"
+}

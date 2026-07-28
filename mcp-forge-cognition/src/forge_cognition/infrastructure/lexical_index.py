@@ -11,6 +11,7 @@ from typing import Any
 from forge_cognition.domain.errors import ValidationError
 from forge_cognition.domain.models import Principal
 from forge_cognition.domain.policies import AccessPolicy
+from forge_cognition.application.authorization import PipelineAuthorization
 
 from .file_store import FileCanonicalStore
 
@@ -20,9 +21,11 @@ class SQLiteLexicalIndex:
         self,
         store: FileCanonicalStore,
         policies: dict[Principal, AccessPolicy],
+        authorization: PipelineAuthorization | None = None,
     ) -> None:
         self.store = store
         self.policies = policies
+        self.authorization = authorization
         self.index_dir = store.root / "indexes"
         self.index_dir.mkdir(parents=True, exist_ok=True)
 
@@ -30,6 +33,8 @@ class SQLiteLexicalIndex:
         return self.index_dir / f"{principal.value}.sqlite"
 
     def rebuild_all(self) -> None:
+        if self.authorization:
+            self.authorization.reset_snapshot()
         for principal in Principal:
             self.rebuild(principal)
 
@@ -63,7 +68,12 @@ class SQLiteLexicalIndex:
             )
             policy = self.policies[principal]
             for document, relative_path in self.store.list_documents():
-                if not policy.can_read(relative_path, document.project_id):
+                allowed = (
+                    self.authorization.can_read(principal, document, relative_path)
+                    if self.authorization
+                    else policy.can_read(relative_path, document.project_id)
+                )
+                if not allowed:
                     continue
                 provenance_summary = ", ".join(
                     f"{item.type}:{item.reference}" for item in document.provenance[:3]

@@ -1,7 +1,10 @@
 # Integration contract skeletons
 
-These files are intentionally not Claude Code `agents/*.md` or `SKILL.md` files. They define role/tool/data contracts after the MCP has passed its tests, while deferring prompt discovery, trigger evaluation and surface-specific enforcement to a separate evaluated change.
+These legacy contracts remain for the original Product/Red Team flow. The
+Codex-native project-brainstorm roles are installed globally under
+`~/.codex/agents/`, with their Skills under `~/.codex/skills/`; see
+`docs/agents/project-brainstorm.md`.
 
-- Product should run in the main conversational context because it needs interactive ideation and repeated MCP writes.
-- Red Team should run in an isolated session/task with only the reviewer profile. A native subagent is acceptable only after proving its MCP access on the target surface.
+- CDC, Architect and Reviewer run as narrow global Codex subagents.
+- Each role writes only its assigned handoff and does not modify product code.
 - Curator should be a main-thread Skill because it performs dense governed MCP writes.

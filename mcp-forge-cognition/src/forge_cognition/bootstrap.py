@@ -7,6 +7,7 @@ from pathlib import Path
 import yaml
 
 from forge_cognition.application.service import CognitionService
+from forge_cognition.application.authorization import PipelineAuthorization
 from forge_cognition.config.loader import AppConfig
 from forge_cognition.domain.models import Principal
 from forge_cognition.domain.policies import AccessPolicy
@@ -14,10 +15,12 @@ from forge_cognition.infrastructure.audit import JsonlAuditLog
 from forge_cognition.infrastructure.file_store import FileCanonicalStore
 from forge_cognition.infrastructure.lexical_index import SQLiteLexicalIndex
 from forge_cognition.infrastructure.transactions import MutationCoordinator
+from forge_cognition.infrastructure.runtime_compat import require_pipeline_runtime
 
 
 def build_service(config: AppConfig) -> CognitionService:
     store = FileCanonicalStore(config.store_path, config.max_document_bytes)
+    require_pipeline_runtime(store)
     profile_dir = Path(__file__).resolve().parents[2] / "profiles"
     policies = {}
     for principal in Principal:
@@ -28,7 +31,8 @@ def build_service(config: AppConfig) -> CognitionService:
             principal, frozenset(profile.get("allowed_projects", ["*"]))
         )
     policies[config.profile] = AccessPolicy(config.profile, config.allowed_projects)
-    indexes = SQLiteLexicalIndex(store, policies)
+    authorization = PipelineAuthorization(store, policies)
+    indexes = SQLiteLexicalIndex(store, policies, authorization)
     audit = JsonlAuditLog(store.root / "audit" / "events.jsonl")
     transactions = MutationCoordinator(
         store,
@@ -42,4 +46,5 @@ def build_service(config: AppConfig) -> CognitionService:
         store,
         indexes,
         transactions,
+        authorization,
     )

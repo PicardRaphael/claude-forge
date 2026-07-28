@@ -6,6 +6,8 @@ import pytest
 
 from forge_cognition.domain.errors import NotFoundError
 from forge_cognition.domain.models import Principal
+from forge_cognition.bootstrap import build_service
+from forge_cognition.config.loader import AppConfig
 
 
 def test_full_product_review_curator_learning_cycle(services) -> None:
@@ -133,3 +135,47 @@ def test_full_product_review_curator_learning_cycle(services) -> None:
     assert reviewer.context_search("Product prediction episode")["results"] == []
     assert product.context_search("Reviewer prediction episode")["results"] == []
     assert review["id"] in {item["id"] for item in product.context_search("GO IF")["results"]}
+
+
+def test_real_deny_by_default_profiles_preserve_legacy_workflow(tmp_path, services) -> None:
+    store_path = services[Principal.CURATOR].store.root
+
+    def real_service(principal: Principal):
+        return build_service(AppConfig(store_path=store_path, profile=principal, allowed_projects=frozenset()))
+
+    product = real_service(Principal.FORGE_PRODUCT)
+    reviewer = real_service(Principal.RED_TEAM)
+    project = product.project_create(
+        name="Legacy profile",
+        slug="legacy-real-profile",
+        objective="Preserve the established review flow",
+        owner="raphael",
+        initial_constraints=[],
+        idempotency_key="legacy-real-profile-project",
+    )
+    brief = product.project_write_opportunity_brief(
+        project_id=project["project_id"],
+        title="Legacy brief",
+        content="# Target\nOperators\n\n# Problem\nManual work\n\n# First test\nPilot",
+        provenance=[{"type": "user", "reference": "explicit-input"}],
+        confidence=0.7,
+        idempotency_key="legacy-real-profile-brief",
+    )
+    packet = product.project_publish_review_packet(
+        project_id=project["project_id"],
+        source_brief_id=brief["id"],
+        included_evidence_ids=[],
+        included_hypothesis_ids=[],
+        expected_hash=brief["content_hash"],
+        idempotency_key="legacy-real-profile-packet",
+    )
+    assert reviewer.context_get(packet["id"])["id"] == packet["id"]
+    review = reviewer.review_record(
+        project_id=project["project_id"],
+        packet_id=packet["id"],
+        verdict="GO_IF",
+        content="Proceed after review",
+        confidence=0.7,
+        idempotency_key="legacy-real-profile-review",
+    )
+    assert review["id"]

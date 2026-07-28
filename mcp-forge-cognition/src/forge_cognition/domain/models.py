@@ -15,6 +15,7 @@ from .errors import ImmutableEntityError, ValidationError
 
 class Principal(StrEnum):
     FORGE_PRODUCT = "forge-product"
+    ARCHITECT_BRAINSTORM = "architect-brainstorm"
     RED_TEAM = "red-team"
     CURATOR = "curator"
 

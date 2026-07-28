@@ -77,7 +77,11 @@ def create_mcp(service: CognitionService) -> FastMCP:
         """Get one authorized cognition document by immutable identifier."""
         return _call(lambda: service.context_get(id, revision))
 
-    @register_for(Principal.FORGE_PRODUCT, Principal.RED_TEAM)
+    @register_for(
+        Principal.FORGE_PRODUCT,
+        Principal.ARCHITECT_BRAINSTORM,
+        Principal.RED_TEAM,
+    )
     def memory_propose(
         entity_type: str,
         project_id: str | None,
@@ -152,6 +156,117 @@ def create_mcp(service: CognitionService) -> FastMCP:
         request = ProjectCreateRequest(**locals())
         return _call(lambda: service.project_create(**request.model_dump()))
 
+    @register_for(Principal.FORGE_PRODUCT)
+    def pipeline_project_create(
+        name: str,
+        slug: str,
+        objective: str,
+        owner: str,
+        initial_constraints: list[str],
+        idempotency_key: str,
+    ) -> dict[str, Any]:
+        """Create a project with append-only pipeline state and a Product owner grant."""
+        arguments = locals()
+        return _call(lambda: service.pipeline_project_create(**arguments))
+
+    @register_for(Principal.FORGE_PRODUCT)
+    def pipeline_publish_cdc(
+        project_id: str,
+        payload: dict[str, Any],
+        idempotency_key: str,
+        expected_previous_id: str | None = None,
+        expected_previous_revision: int | None = None,
+        expected_previous_hash: str | None = None,
+    ) -> dict[str, Any]:
+        """Append a strict CDC revision bound to any previous current revision."""
+        arguments = locals()
+        return _call(lambda: service.pipeline_publish_cdc(**arguments))
+
+    @register_for(Principal.CURATOR)
+    def pipeline_approve_cdc(
+        project_id: str,
+        cdc_id: str,
+        cdc_revision: int,
+        cdc_hash: str,
+        human_decision_id: str,
+        idempotency_key: str,
+    ) -> dict[str, Any]:
+        """Record explicit human CDC approval and grant the exact CDC to Architect."""
+        arguments = locals()
+        return _call(lambda: service.pipeline_approve_cdc(**arguments))
+
+    @register_for(Principal.ARCHITECT_BRAINSTORM)
+    def pipeline_publish_architecture(
+        project_id: str,
+        payload: dict[str, Any],
+        cdc_id: str,
+        cdc_revision: int,
+        cdc_hash: str,
+        idempotency_key: str,
+        expected_previous_id: str | None = None,
+        expected_previous_revision: int | None = None,
+        expected_previous_hash: str | None = None,
+    ) -> dict[str, Any]:
+        """Append architecture only from the exact curator-approved CDC."""
+        arguments = locals()
+        return _call(lambda: service.pipeline_publish_architecture(**arguments))
+
+    @register_for(Principal.CURATOR)
+    def pipeline_approve_architecture(
+        project_id: str,
+        cdc_id: str,
+        cdc_revision: int,
+        cdc_hash: str,
+        architecture_id: str,
+        architecture_revision: int,
+        architecture_hash: str,
+        included_evidence_ids: list[str],
+        idempotency_key: str,
+    ) -> dict[str, Any]:
+        """Approve exact inputs and publish a structurally neutral reviewer packet."""
+        arguments = locals()
+        return _call(lambda: service.pipeline_approve_architecture(**arguments))
+
+    @register_for(Principal.RED_TEAM)
+    def pipeline_record_verdict(
+        project_id: str,
+        packet_id: str,
+        packet_revision: int,
+        packet_hash: str,
+        payload: dict[str, Any],
+        idempotency_key: str,
+    ) -> dict[str, Any]:
+        """Record one closed verdict against the exact current review packet."""
+        arguments = locals()
+        return _call(lambda: service.pipeline_record_verdict(**arguments))
+
+    @register_for(Principal.CURATOR)
+    def pipeline_record_human_rework_decision(
+        project_id: str,
+        scope: str,
+        decision_id: str,
+        confirmed: bool,
+        idempotency_key: str,
+    ) -> dict[str, Any]:
+        """Resume a gated rework only after an explicit scoped human decision."""
+        arguments = locals()
+        return _call(lambda: service.pipeline_record_human_rework_decision(**arguments))
+
+    @register_for(Principal.CURATOR)
+    def pipeline_create_development_handoff(
+        project_id: str,
+        verdict_id: str,
+        verdict_revision: int,
+        verdict_hash: str,
+        adrs: list[str],
+        slices: list[dict[str, Any]],
+        risks: list[str],
+        idempotency_key: str,
+    ) -> dict[str, Any]:
+        """Create an immutable DEV handoff only from a compatible current verdict."""
+        arguments = locals()
+        return _call(lambda: service.pipeline_create_development_handoff(**arguments))
+
     @register_for()
     def project_get(project_id: str) -> dict[str, Any]:
         """Return the profile-authorized project projection."""
@@ -191,7 +306,11 @@ def create_mcp(service: CognitionService) -> FastMCP:
         request = PublishPacketRequest(**locals())
         return _call(lambda: service.project_publish_review_packet(**request.model_dump()))
 
-    @register_for(Principal.FORGE_PRODUCT, Principal.RED_TEAM)
+    @register_for(
+        Principal.FORGE_PRODUCT,
+        Principal.ARCHITECT_BRAINSTORM,
+        Principal.RED_TEAM,
+    )
     def episode_record(
         project_id: str,
         title: str,

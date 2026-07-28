@@ -11,6 +11,7 @@ import yaml
 
 from forge_cognition.domain.errors import NotFoundError, ValidationError
 from forge_cognition.domain.models import CognitionDocument, Project
+from forge_cognition.domain.pipeline import ArtifactPointer, PipelineState, parse_payload
 
 from .paths import StorePathResolver
 
@@ -73,6 +74,78 @@ class FileCanonicalStore:
                 continue
             secured = self.paths.resolve(relative, must_exist=True)
             yield self.parse_document(secured), relative
+
+    def resolve_pipeline_series(
+        self, project_id: str, series_id: str
+    ) -> list[tuple[CognitionDocument, str]]:
+        matches = [
+            (document, path)
+            for document, path in self.list_documents()
+            if document.project_id == project_id
+            and document.attributes.get("pipeline_managed") is True
+            and document.attributes.get("series_id") == series_id
+        ]
+        matches.sort(key=lambda item: item[0].revision)
+        revisions = [document.revision for document, _ in matches]
+        if len(revisions) != len(set(revisions)):
+            raise ValidationError(f"duplicate pipeline revision for {series_id}")
+        for index, (document, _) in enumerate(matches):
+            if document.revision != index + 1:
+                raise ValidationError(f"non-contiguous pipeline revision for {series_id}")
+            expected = None if index == 0 else matches[index - 1][0].id
+            if document.supersedes != expected:
+                raise ValidationError(f"broken pipeline revision chain for {series_id}")
+        return matches
+
+    def latest_pipeline_state(
+        self, project_id: str
+    ) -> tuple[PipelineState, CognitionDocument] | None:
+        series = self.resolve_pipeline_series(project_id, f"{project_id}:pipeline-state")
+        if not series:
+            return None
+        document = series[-1][0]
+        schema = document.attributes.get("payload_schema")
+        if schema != "pipeline-state-v1":
+            raise ValidationError("unsupported pipeline state schema")
+        try:
+            state = parse_payload(document.body, schema)
+        except (TypeError, ValueError) as exc:
+            raise ValidationError("invalid pipeline state payload") from exc
+        if not isinstance(state, PipelineState) or state.project_id != project_id:
+            raise ValidationError("pipeline state project mismatch")
+        for pointer in state.pointers.values():
+            self._verify_pipeline_pointer(project_id, pointer)
+        for grant in state.grants:
+            for pointer in grant.artifact_bindings:
+                self._verify_pipeline_pointer(project_id, pointer)
+        return state, document
+
+    def _verify_pipeline_pointer(self, project_id: str, pointer: ArtifactPointer) -> None:
+        document, _ = self.get_document(pointer.document_id)
+        synthetic_document_series = pointer.series_id == f"document:{document.id}"
+        if not synthetic_document_series:
+            series = self.resolve_pipeline_series(project_id, pointer.series_id)
+            if not any(item.id == pointer.document_id for item, _ in series):
+                raise ValidationError("pipeline pointer is outside its series")
+        if (
+            document.project_id != project_id
+            or document.revision != pointer.revision
+            or document.content_hash != pointer.content_hash
+            or (
+                not synthetic_document_series
+                and (
+                    document.attributes.get("series_id") != pointer.series_id
+                    or document.attributes.get("pipeline_managed") is not True
+                )
+            )
+        ):
+            raise ValidationError("stale or invalid pipeline pointer")
+
+    def has_pipeline_documents(self) -> bool:
+        return any(
+            document.attributes.get("pipeline_managed") is True
+            for document, _ in self.list_documents()
+        )
 
     def project_path(self, project_id: str) -> str:
         if not project_id.startswith("PRJ-") or "/" in project_id or "\\" in project_id:

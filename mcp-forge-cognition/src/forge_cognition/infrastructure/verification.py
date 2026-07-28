@@ -50,6 +50,11 @@ class StoreVerifier:
                     errors.add("project_path_mismatch")
 
         self._references(documents, errors)
+        for project_id in projects:
+            try:
+                self.store.latest_pipeline_state(project_id)
+            except Exception:
+                errors.add("invalid_pipeline_state_or_chain")
         self._files(errors)
         self._indexes(documents, errors)
         version_path = self.store.root / "STORE_VERSION"
@@ -90,13 +95,17 @@ class StoreVerifier:
         if not parts:
             return False
         if parts[0] == "inbox":
-            return len(parts) == 3 and parts[1] in {"forge-product", "red-team"}
+            return len(parts) == 3 and parts[1] in {
+                "forge-product",
+                "architect-brainstorm",
+                "red-team",
+            }
         if parts[0] == "shared":
             return len(parts) == 3 and parts[1] in {"context", "procedures", "calibration"}
         if parts[0] == "private":
             return (
                 len(parts) == 4
-                and parts[1] in {"forge-product", "red-team"}
+                and parts[1] in {"forge-product", "architect-brainstorm", "red-team"}
                 and parts[2] in {"episodes", "lessons", "calibration"}
             )
         if parts[0] == "projects":
@@ -170,11 +179,19 @@ class StoreVerifier:
             if not path.exists():
                 errors.add("missing_profile_index")
                 continue
-            expected = {
-                document_id
-                for document_id, (document, relative) in documents.items()
-                if self.indexes.policies[principal].can_read(relative, document.project_id)
-            }
+            if self.indexes.authorization:
+                self.indexes.authorization.reset_snapshot()
+            expected = set()
+            for document_id, (document, relative) in documents.items():
+                allowed = (
+                    self.indexes.authorization.can_read(principal, document, relative)
+                    if self.indexes.authorization
+                    else self.indexes.policies[principal].can_read(
+                        relative, document.project_id
+                    )
+                )
+                if allowed:
+                    expected.add(document_id)
             connection = sqlite3.connect(path)
             try:
                 actual = {row[0] for row in connection.execute("SELECT id FROM documents")}

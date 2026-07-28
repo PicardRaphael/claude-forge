@@ -1,0 +1,12 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: forge-cognition/review-packet-v1
+type: object
+required: [payload_schema, cdc, architecture, evidence_ids, factual_constraints, unknowns]
+properties:
+  payload_schema: {const: review-packet-v1}
+  cdc: {$ref: cdc-handoff-v1.yaml}
+  architecture: {$ref: architecture-handoff-v1.yaml}
+  evidence_ids: {type: array, items: {type: string}}
+  factual_constraints: {type: array, items: {type: string}}
+  unknowns: {type: array, items: {type: string}}
+additionalProperties: false

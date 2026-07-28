@@ -1,0 +1,52 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: forge-cognition/pipeline-state-v1
+type: object
+required: [payload_schema, project_id, stage, pointers, grants, consecutive_reworks, human_gate_required]
+properties:
+  payload_schema: {const: pipeline-state-v1}
+  project_id: {type: string, pattern: '^PRJ-[0-9]{4}-[0-9]{3}$'}
+  stage: {enum: [DISCOVERY, CDC_DRAFT, CDC_APPROVED, ARCHITECTURE_DRAFT, REVIEW, REWORK_CDC, REWORK_ARCHITECTURE, GO_DEV, GO_DEV_WITH_CONDITIONS, PARK, KILL, DEVELOPMENT_READY]}
+  pointers:
+    type: object
+    additionalProperties: {$ref: '#/$defs/pointer'}
+  grants:
+    type: array
+    items: {$ref: '#/$defs/grant'}
+  consecutive_reworks: {type: integer, minimum: 0}
+  human_gate_required: {type: boolean}
+  human_decision:
+    anyOf:
+      - {$ref: '#/$defs/human_decision'}
+      - {type: 'null'}
+additionalProperties: false
+$defs:
+  pointer:
+    type: object
+    required: [document_id, revision, content_hash, series_id]
+    properties:
+      document_id: {type: string, pattern: '^[0-9A-HJKMNP-TV-Z]{26}$'}
+      revision: {type: integer, minimum: 1}
+      content_hash: {type: string, pattern: '^sha256:[0-9a-f]{64}$'}
+      series_id: {type: string, minLength: 1}
+    additionalProperties: false
+  grant:
+    type: object
+    required: [principal, project_id, project_access, artifact_bindings, status]
+    properties:
+      principal: {enum: [forge-product, architect-brainstorm, red-team, curator]}
+      project_id: {type: string, pattern: '^PRJ-[0-9]{4}-[0-9]{3}$'}
+      project_access: {type: boolean}
+      artifact_bindings:
+        type: array
+        items: {$ref: '#/$defs/pointer'}
+      status: {enum: [active, revoked]}
+    additionalProperties: false
+  human_decision:
+    type: object
+    required: [decision_id, scope, confirmed, recorded_at]
+    properties:
+      decision_id: {type: string, minLength: 1}
+      scope: {enum: [CDC, ARCHITECTURE, RESET]}
+      confirmed: {type: boolean}
+      recorded_at: {type: string, format: date-time}
+    additionalProperties: false

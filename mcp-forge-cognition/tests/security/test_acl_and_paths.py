@@ -68,6 +68,43 @@ def test_product_cannot_read_red_team_private_episode(services) -> None:
         product.context_get(episode["id"])
 
 
+@pytest.mark.parametrize(
+    ("owner", "reader"),
+    [
+        (owner, reader)
+        for owner in (
+            Principal.FORGE_PRODUCT,
+            Principal.ARCHITECT_BRAINSTORM,
+            Principal.RED_TEAM,
+        )
+        for reader in (
+            Principal.FORGE_PRODUCT,
+            Principal.ARCHITECT_BRAINSTORM,
+            Principal.RED_TEAM,
+        )
+        if owner != reader
+    ],
+)
+def test_all_role_pairs_keep_private_memory_isolated(services, owner, reader) -> None:
+    project_id = _project(services[Principal.FORGE_PRODUCT])
+    token = f"PRIVATE-{owner.value}-{reader.value}"
+    episode = services[owner].episode_record(
+        project_id=project_id,
+        title=token,
+        prediction=token,
+        actual_outcome=None,
+        error_types=[],
+        procedures_used=[],
+        candidate_lessons=[],
+        confidence_before=0.5,
+        confidence_after=0.5,
+        idempotency_key=token,
+    )
+    with pytest.raises(NotFoundError, match="resource not found"):
+        services[reader].context_get(episode["id"])
+    assert services[reader].context_search(token)["results"] == []
+
+
 def test_empty_query_is_refused(services) -> None:
     with pytest.raises(ValidationError, match="must not be empty"):
         services[Principal.RED_TEAM].context_search("   ")
@@ -131,6 +168,39 @@ def test_privileged_tools_are_absent_from_unprivileged_registries(services) -> N
         assert "project_record_outcome" not in names
     assert "review_record" not in product_names
     assert "project_create" not in reviewer_names
+
+
+def test_pipeline_tool_registries_are_role_exact(services) -> None:
+    names = {
+        principal: {
+            tool.name for tool in asyncio.run(create_mcp(services[principal])._list_tools())
+        }
+        for principal in Principal
+    }
+    assert {
+        "pipeline_project_create",
+        "pipeline_publish_cdc",
+    } <= names[Principal.FORGE_PRODUCT]
+    assert "pipeline_publish_architecture" in names[Principal.ARCHITECT_BRAINSTORM]
+    assert "pipeline_record_verdict" in names[Principal.RED_TEAM]
+    assert {
+        "pipeline_approve_cdc",
+        "pipeline_approve_architecture",
+        "pipeline_record_human_rework_decision",
+        "pipeline_create_development_handoff",
+    } <= names[Principal.CURATOR]
+    curator_only = {
+        "pipeline_approve_cdc",
+        "pipeline_approve_architecture",
+        "pipeline_record_human_rework_decision",
+        "pipeline_create_development_handoff",
+    }
+    for principal in (
+        Principal.FORGE_PRODUCT,
+        Principal.ARCHITECT_BRAINSTORM,
+        Principal.RED_TEAM,
+    ):
+        assert not curator_only & names[principal]
 
 
 def test_attempt_to_override_principal_is_rejected_by_mcp_schema(services) -> None:

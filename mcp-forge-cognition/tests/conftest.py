@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 from forge_cognition.application.service import CognitionService
+from forge_cognition.application.authorization import PipelineAuthorization
 from forge_cognition.domain.models import Principal
 from forge_cognition.domain.policies import AccessPolicy
 from forge_cognition.infrastructure.audit import JsonlAuditLog
@@ -19,6 +20,7 @@ def _make_store(root: Path) -> None:
         "templates",
         "inbox/forge-product",
         "inbox/red-team",
+        "inbox/architect-brainstorm",
         "shared/context",
         "shared/procedures",
         "shared/calibration",
@@ -29,6 +31,9 @@ def _make_store(root: Path) -> None:
         "private/red-team/episodes",
         "private/red-team/lessons",
         "private/red-team/calibration",
+        "private/architect-brainstorm/episodes",
+        "private/architect-brainstorm/lessons",
+        "private/architect-brainstorm/calibration",
         "audit",
         "indexes",
         "archive",
@@ -45,11 +50,19 @@ def services(tmp_path: Path) -> dict[Principal, CognitionService]:
     _make_store(root)
     store = FileCanonicalStore(root)
     policies = {principal: AccessPolicy(principal, frozenset({"*"})) for principal in Principal}
-    indexes = SQLiteLexicalIndex(store, policies)
+    authorization = PipelineAuthorization(store, policies)
+    indexes = SQLiteLexicalIndex(store, policies, authorization)
     indexes.rebuild_all()
     audit = JsonlAuditLog(root / "audit" / "events.jsonl")
     transactions = MutationCoordinator(store, indexes, audit, timeout_seconds=0.3)
     return {
-        principal: CognitionService(principal, policies[principal], store, indexes, transactions)
+        principal: CognitionService(
+            principal,
+            policies[principal],
+            store,
+            indexes,
+            transactions,
+            authorization,
+        )
         for principal in Principal
     }

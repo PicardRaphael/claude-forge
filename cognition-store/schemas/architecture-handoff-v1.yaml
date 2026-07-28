@@ -1,0 +1,20 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: forge-cognition/architecture-handoff-v1
+type: object
+required: [payload_schema, summary, components, data_contracts, interfaces, security, failure_modes, test_strategy, rollout, alternatives, assumptions, evidence, unknowns, file_impacts]
+properties:
+  payload_schema: {const: architecture-handoff-v1}
+  summary: {type: string, minLength: 1}
+  components: {type: array, items: {type: string}}
+  data_contracts: {type: array, items: {type: string}}
+  interfaces: {type: array, items: {type: string}}
+  security: {type: array, items: {type: string}}
+  failure_modes: {type: array, items: {type: string}}
+  test_strategy: {type: array, items: {type: string}}
+  rollout: {type: array, items: {type: string}}
+  alternatives: {type: array, items: {type: string}}
+  assumptions: {type: array, items: {type: string}}
+  evidence: {type: array, items: {type: string}}
+  unknowns: {type: array, items: {type: string}}
+  file_impacts: {type: array, items: {type: string}}
+additionalProperties: false

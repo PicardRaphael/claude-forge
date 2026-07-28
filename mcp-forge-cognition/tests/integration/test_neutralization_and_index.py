@@ -101,7 +101,7 @@ def test_profile_indexes_are_physically_separate_and_filtered(services) -> None:
         idempotency_key="index-episode",
     )
     paths = [product.indexes.path_for(principal) for principal in Principal]
-    assert len(set(paths)) == 3 and all(path.exists() for path in paths)
+    assert len(set(paths)) == len(Principal) and all(path.exists() for path in paths)
     reviewer = sqlite3.connect(product.indexes.path_for(Principal.RED_TEAM))
     try:
         assert (

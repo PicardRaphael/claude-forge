@@ -1,0 +1,12 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: forge-cognition/review-verdict-v1
+type: object
+required: [payload_schema, verdict, findings, conditions, cdc_rework, architecture_rework]
+properties:
+  payload_schema: {const: review-verdict-v1}
+  verdict: {enum: [GO_DEV, GO_DEV_WITH_CONDITIONS, REWORK_CDC, REWORK_ARCHITECTURE, PARK, KILL]}
+  findings: {type: array, items: {type: string}}
+  conditions: {type: array, items: {type: string}}
+  cdc_rework: {type: array, items: {type: string}}
+  architecture_rework: {type: array, items: {type: string}}
+additionalProperties: false
