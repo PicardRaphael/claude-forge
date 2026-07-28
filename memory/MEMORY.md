@@ -56,7 +56,7 @@
 - [discord-webhook-jarvis](reference_discord_webhook.md) — Webhook Discord #veille-tech pour notifications Jarvis (JAMAIS commit)
 - [gchat-webhooks](reference_gchat_webhooks.md) — Webhooks Google Chat ia_back + neo_ia + neoteem-brain
 - [techniques-cheatsheet](reference_techniques_cheatsheet.md) — Cheat sheet : meilleure technique par besoin
-- [workarounds-contraintes-session-forge](reference_workarounds_session_constraints.md) — Machine forge : gh absent, x.com 402, HEREDOC Windows
+- [workarounds-contraintes-session-forge](reference_workarounds_session_constraints.md) — Machine forge : gh absent, x.com 402, HEREDOC Windows, fins de ligne jamais au grep (`git ls-files --eol`)
 - [repo-scope-guard-hook](hook_repo_scope_guard.md) — Triplet auth-detector+repo-scope-guard+auth-cleanup : repos neot-v2/
 - [transcrire-video-native-x](reference_transcrire_video_native_x.md) — Vidéo native X (pas YouTube) : x-read JSON → URLs MP4 → curl → ffmpeg WAV 16k → faster-whisper small. /watch ne couvre pas X
 - [agents-dir-chatgpt-mirror](reference_agents_dir_chatgpt_mirror.md) — `.agents/` + `AGENTS.md` racine = miroir ChatGPT/Codex géré par Raphael : JAMAIS toucher ni flagger en drift (décision 27 juil.)

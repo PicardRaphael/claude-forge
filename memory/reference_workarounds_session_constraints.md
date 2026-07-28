@@ -1,6 +1,6 @@
 ---
 name: workarounds-contraintes-session-forge
-description: "Contraintes machine forge et workarounds : gh CLI absent, x.com paywall 402 (articles X natifs inextractibles → mirrors), HEREDOC commit Windows, delegate-guard (bypass=skill créatrice uniquement), subprocess input=str hang Windows"
+description: "Contraintes machine forge et workarounds : gh CLI absent, x.com paywall 402 (articles X natifs inextractibles → mirrors), HEREDOC commit Windows, delegate-guard (bypass=skill créatrice uniquement), subprocess input=str hang Windows, fins de ligne jamais au grep (git ls-files --eol)"
 metadata: 
   node_type: memory
   type: reference
@@ -88,6 +88,15 @@ Deux pièges distincts, même axe (écriture Windows PS 5.1), rencontrés 2× da
 - **Vérification** : `git log --oneline -- <fichier>` + `git log --all --oneline | head -10`
 - Possibles commits qui englobent : "vault leaders", "/done session", audits parallèles RAG/agents
 - Conséquence pratique : pas besoin de re-commit si HEAD = sync working tree
+
+## Fins de ligne : JAMAIS les mesurer au grep — `git ls-files --eol` uniquement (28 juil. 2026)
+
+- Symptôme : sur un conflit de rebase, **3 mesures fausses d'affilée** du même fait (« combien de fichiers ont des CRLF ? »). Réponses successives : 51 lignes, 104 lignes, 96 fichiers… vraie réponse = **0**. J'ai annoncé une « cause racine CRLF » à Raphael sur cette base — faux.
+- Cause 1 — `git grep -E '\r$'` : en ERE POSIX, `\r` n'est pas un retour chariot mais un **`r` échappé**, donc littéral. `\r$` matche les lignes finissant par la **lettre « r »** (`hook-creator`, `mettre à jour`, `skill-creator`…). Explique les scores gonflés et plausibles.
+- Cause 2 — `grep -c $'\r'` via le tool Bash : l'expansion `$'\r'` **n'est pas fiable d'un appel à l'autre** (a donné le bon résultat une fois, mangé en `r` les fois suivantes). Ne jamais s'appuyer dessus.
+- **Outils autoritatifs** : `git ls-files --eol` (donne `i/lf`, `i/crlf`, `i/mixed`, `w/…` par fichier — index ET worktree, c'est fait pour ça) et `od -c` pour trancher au niveau octet.
+- **Piège de lecture `cat -A`** : un vrai CR s'affiche `^M`, **pas** `\r`. Voir `\r$` dans une sortie `cat -A` (ou `\r` dans un Read) signifie donc **la chaîne littérale backslash-r dans le contenu**, pas un CRLF. C'est cette distinction qui a débloqué le vrai diagnostic (des `\r` littéraux pollués dans un prompt d'agent `.codex/agents/*.toml`, générés par le script de miroir).
+- Leçon méthode : un chiffre **plausible** n'est pas un chiffre **vérifié**. Avant d'énoncer une cause racine à partir d'une mesure, la recouper avec un outil de nature différente (natif > grep) — cf `feedback_verify_exhaustive_claims` et `feedback_diagnostic_empirique_avant_affirmer_garde`.
 
 ## Classifier auto-mode : persistance OS = approbation explicite préalable (16 juil. 2026)
 
