@@ -14,13 +14,21 @@ tags:
   - "#domaine/claude-code"
 ---
 
-## 2026-07-29 (2) — doctrine « vérifier un CONSTAT d'audit » (findings ≠ fichiers)
+## 2026-07-29 (3) — learning-reminder V2 : de rappel systématique à détecteur
+
+- **Modifiées** : `Knowledge/decisions/decision-garder-learning-reminder-hook` — **réécrite en place** (corps remplacé, pas de bannière + addendum). L'ancienne version du 29 mai tranchait « GARDÉ, exception assumée » sur deux piliers techniques devenus faux : (1) « Stop ne supporte pas `additionalContext` donc l'advisory est infaisable » → faux depuis CC v2.1.163, soit 6 jours après la décision ; (2) « `once: true` = mécanisme légitime » → silencieusement ignoré dans `settings.json`. La V2 documente le pivot, le périmètre réel (3 textes, 2 mécanismes, 2 langages + copie `.codex/` à sémantique inversée) et une **clause de sortie mesurable**.
+- **Modifiées** : `04-Techniques/claude-code/methode-analyser-repo` — la ligne du catalogue de hooks décrivait `learning-reminder` comme « hook Stop, **non-bloquant** exit 0 ». Faux pour les 4 copies déployées, qui émettent toutes `decision: block` : une canonique qui aurait induit en erreur tout futur déploiement.
+- **Source** : décision Raphael 29 juil. après consultation advisor + `devils-advocate` (3 bloquants, tous vérifiés par lecture directe). Mesure décisive : `search_sessions` sur les transcripts → 8 occurrences de « rien à sauvegarder », **zéro capture attribuable au hook**. La capitalisation arrive pendant la session, poussée par les rules en pré-action ; le hook la constatait après coup.
+- **Hors vault (même chantier)** : le hook est devenu un détecteur dans 3 repos (forge, neo_ia, neoteem-brain) — il lit le transcript, cherche des signaux d'apprentissage, vérifie si une capitalisation a eu lieu, et **ne parle que s'il reste de la matière**. Bug réparé au passage sur forge, seul repo sans garde anti-boucle (`stop_hook_active` jamais testé car le stdin était jeté, marqueur global au lieu de par-session).
+- **Sujet clos après 3 réouvertures** (29 mai, 17 juin, roadmap juil. item 31 jamais exécuté) — pattern [[feedback_recurring_meta_anti_pattern]] : ce qui manquait n'était pas l'analyse mais une décision écrite avec critère de sortie.
+
 
 - **Modifiées** : `04-Techniques/claude-code/methode-analyser-repo` — AJOUT 29 juillet : quand/pourquoi vérifier un constat d'audit avant de le relayer, table finding → mesure qui tranche, ce qu'il ne faut PAS re-vérifier (opinions de conception), 3 cas réels de faux findings.
 - **Source** : session 29 juil. — 3 findings faux relayés par des agents d'audit sans qu'aucun fichier ne soit en jeu (chemin absent *ici* lu comme « erroné » alors que 2 postes ; dossier conteneur de ~10 repos lu comme un repo ; « `git merge *` en deny global » alors que `settings.json` a 0 entrée deny).
 - **Hors vault (même chantier)** : `.claude/rules/post-dispatch-verify.md` § « Deux natures de sortie » + « Vérifier un CONSTAT d'audit » ; `.claude/agents/repo-inspector.md` (colonne « Mesure qui le prouve » + section « À vérifier (non mesuré) » dans le rapport d'audit) ; `.claude/scripts/check-frontmatter.py` (exit 1 bloquant).
 - **Pourquoi** : la règle post-dispatch ne couvrait que le cas « l'agent a écrit des fichiers ». Un audit ne produit pas de fichiers mais des affirmations — rien n'échoue, rien n'est vide, et le fait est faux. Un audit livre 20-50 findings d'autorité apparente élevée ; relayer sans mesurer propage des faux à l'échelle, et si l'audit débouche sur un plan de nettoyage, chaque faux devient une suppression.
 
+## 2026-07-29 (2) — doctrine « vérifier un CONSTAT d'audit » (findings ≠ fichiers)
 ## 2026-07-29 — doctrine par modèle Opus 5 / Fable 5 + effort `xhigh` périmé sur Opus 5
 
 - **Ajoutées** : `04-Techniques/claude-code/doctrine-par-modele-opus5-fable5` — grille de décision par modèle (effort, vérification, délégation, skills prescriptives, verbosité), checklist « je veux passer un agent en Fable 5 », piège `reasoning_extraction` (refus + fallback silencieux), frontière « vérifier son propre travail ≠ vérifier un tiers », et rappel que la page canonique skills (500L, exemples recommandés) n'a PAS été révisée dans le sens de Fable 5.
