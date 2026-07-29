@@ -64,7 +64,7 @@ Vault path : `vault/claude-forge/04-Techniques/claude-code/`
 Pivot doctrinal complet : **[[raisonnement-22mai-doctrine-vs-enforcement]]**
 
 - **Hooks** : lint / security / scope UNIQUEMENT. **JAMAIS workflow agentique** (architect-first, TDD strict, commit gates, markers TTL).
-- **Effort calibré (doctrine 26 mai 2026)** : `xhigh` pour exploration agentique multi-tours profonde (architect-deep, dev-lead, refactor-pg-function, project-auditor, project-analyzer). `high` pour comparatif structuré (graders, reviewers, designers, conseil). Sonnet supporte aussi effort — `medium` pour scan/maintenance/inspection mécanique (codebase-scanner Haiku candidate). `max` jamais en frontmatter, seulement ponctuel si mur. Calibrer par TYPE de tâche réelle.
+- **Effort — départ `high`, step-up mesuré** : `high` est le point de départ officiel sur Opus 5 / Fable 5 / Sonnet 5, et l'alias `opus` résout vers Opus 5. `xhigh` ne se met qu'après avoir MESURÉ un gain matériel sur la tâche réelle (1 run `high` vs 1 run `xhigh` : un fichier lu en plus qui change la conclusion, pas une réponse plus verbeuse) — titulaires actuels : architect-deep, dev-lead, refactor-pg-function, repo-inspector. `medium`/`low` pour scan / extraction / inspection mécanique : c'est le levier de coût principal, sous-utilisé. `max` jamais en frontmatter. Calibrer par TYPE de tâche, jamais tâche par tâche. Grille par modèle + verbatims : [[effort-opus-47-doctrine-anthropic-2026]] · [[doctrine-par-modele-opus5-fable5]].
 - **Modèles** : Sonnet exécution, Opus jugement.
 - **DA** : CONDITIONNEL ciblé sur livrables majeurs (skill réutilisée, agent orchestrant, archi). **Pas systématique**.
 - **Advisor** : AVANT travail substantiel (pas après). Après exploration, avant d'écrire / proposer.
@@ -74,7 +74,7 @@ Pivot doctrinal complet : **[[raisonnement-22mai-doctrine-vs-enforcement]]**
 - Description YAML : **UNE SEULE LIGNE** — jamais `>-` ni `|`
 - 1 composant = 1 responsabilité
 - `model: sonnet` = claude-sonnet-4-6 · `opus` = claude-opus-5 (défaut Opus depuis 24 juil. 2026 — épingler `claude-opus-4-8` explicitement si besoin de l'ancien) · `haiku` = claude-haiku-4-5
-- `effort` : calibrer par TYPE (cf « Effort calibré » plus haut) — `xhigh` agentique/coding, `high` comparatif/jugement, `medium`/`low` extraction, `max` ponctuel jamais frontmatter
+- `effort` : `high` par défaut (cf « Effort » plus haut) — `medium`/`low` pour l'extraction/le mécanique, `xhigh` seulement si un gain a été mesuré, `max` jamais en frontmatter
 - `memory: project` + `permissionMode` OBLIGATOIRES sur tous agents
 - `disallowedTools: Write, Edit` sur agents read-only
 

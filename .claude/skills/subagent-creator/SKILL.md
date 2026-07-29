@@ -71,7 +71,7 @@ Extraire d'abord depuis l'historique, puis combler avec AskUserQuestion.
 
 **Round 3 — Modèle & enrichissement**
 7. Modèle : haiku (exploration rapide) / sonnet (implémentation) / opus (orchestration/jugement) ?
-8. Effort : xhigh (agentique/coding — défaut) / high (jugement structuré) / medium-low (extraction) ?
+8. Effort : `high` (défaut) / `medium`-`low` (scan, extraction, inspection mécanique) / `xhigh` uniquement si un gain a déjà été mesuré sur ce type de tâche ?
 9. Skills à injecter ? (subagents n'héritent PAS des skills du parent — lister explicitement)
 10. Mémoire entre sessions → `memory: project` (toujours). **Si l'agent fait partie d'un PIPELINE** (plusieurs agents se passent le travail) : distinguer `memory: project` (mémoire PERSISTANTE de l'agent, entre sessions) du RELAIS entre agents (transmission pendant la tâche — fichier-relais sectionné + contrat de sortie + la SESSION persiste, jamais l'agent read-only). Le relais n'est PAS un réglage d'agent → ne pas répondre `memory: project`. Cf [[relais-inter-agents-fiable]].
 
@@ -97,7 +97,7 @@ description: <TRIGGER directive 3e personne — UNE SEULE LIGNE anglais, jamais 
 tools: Read, Grep, Glob, Bash, Skill   # TOUJOURS explicite — inclure Skill si l'agent doit invoquer des skills
 disallowedTools: Write, Edit           # pour agents read-only
 model: sonnet | opus | haiku
-effort: high | xhigh
+effort: high                           # défaut · medium/low si mécanique · xhigh seulement si gain mesuré
 color: red|orange|yellow|green|blue|purple|cyan|pink
 memory: project                        # OBLIGATOIRE — toujours
 permissionMode: acceptEdits | plan     # OBLIGATOIRE — plan si side-effects
@@ -134,7 +134,7 @@ maxTurns: 50                           # optionnel
 - `haiku` : exploration rapide, tâches courtes
 - `sonnet` : implémentation, exécution (défaut)
 - `opus` : orchestration, jugement, décisions complexes
-- `xhigh` : défaut agentique/coding · `high` : jugement structuré · `medium`/`low` : extraction (option C)
+- `high` : le défaut (point de départ officiel sur Opus 5 / Fable 5 / Sonnet 5) · `medium`/`low` : scan, extraction, inspection mécanique — levier de coût principal · `xhigh` : step-up réservé à l'agentique long-horizon, et seulement après avoir mesuré un gain matériel · `max` : jamais en frontmatter
 
 ### Body (system prompt de l'agent)
 
@@ -280,7 +280,7 @@ Priorités audit rapide :
 - **AskUserQuestion filtré** en subagent (issues #12890 #18721 #20275) → pattern ESCALADE obligatoire
 - **MCP non garanti** en subagent (`No such tool available`) → brief inline depuis session principale
 - **Subagent auto-commit** malgré instruction → mettre "PAS DE COMMIT" en TOP du prompt en gras
-- **`effort: xhigh` sur extraction/formatage = tokens gaspillés** — xhigh = défaut agentique/coding, medium/low pour le mécanique (option C)
+- **`effort: xhigh` posé sans mesure = tokens gaspillés** — `high` est le point de départ officiel sur Opus 5 / Fable 5 / Sonnet 5, et l'alias `opus` résout vers Opus 5 : un `xhigh` hérité d'un modèle antérieur n'est plus justifié par défaut. Le prouver avant de le poser (1 run `high` vs 1 run `xhigh` sur la tâche réelle : un fichier lu en plus qui change la conclusion, pas une réponse plus longue). `medium`/`low` pour le mécanique. Cf [[effort-opus-47-doctrine-anthropic-2026]]
 - **`CLAUDE_CODE_FORK_SUBAGENT=1`** (v2.1.117+) — hérite du contexte complet parent, réutilise le cache
 - **Self-modification bloquée** — un agent ne peut pas modifier son propre fichier (classifier)
 - **BOM UTF-8** sur Windows (PowerShell Out-File) → frontmatter cassé silencieusement
