@@ -95,6 +95,35 @@ def _parse(path):
     return name, desc, triggers
 
 
+def _contains(needle, haystack):
+    """Sous-chaine AVEC frontieres de mot.
+
+    Un `in` nu fait matcher les triggers courts sur n'importe quel mot qui les
+    contient : `main` dans « maintenant », `red` dans « redemarre », `log` dans
+    « logique », `go` dans « algo ». Faux positif mesure le 29 juil. 2026
+    (« fais le 2 maintenant » -> merge-ref-morte-croisee via `main`). 42 des
+    triggers poses font 4 caracteres ou moins : le risque est structurel.
+
+    Meme correctif que `skill-activation.py` du repo, meme event, meme cause :
+    « Word-boundary regex (avoids "done" matching "abandoned") ». Ecrit a la
+    main plutot qu'en regex pour ne pas avoir a echapper les triggers qui
+    contiennent des metacaracteres (`git -C`, `4.8`, `.agents`).
+    """
+    n = len(needle)
+    if not n:
+        return False
+    start = 0
+    while True:
+        i = haystack.find(needle, start)
+        if i < 0:
+            return False
+        before = haystack[i - 1] if i > 0 else ""
+        after = haystack[i + n] if i + n < len(haystack) else ""
+        if not (before.isalnum() or before == "_") and not (after.isalnum() or after == "_"):
+            return True
+        start = i + 1
+
+
 def score(prompt_tokens, prompt_raw, name, desc, triggers):
     """Score lexical : `trigger:` pese lourd, name/description en appoint."""
     total = 0
@@ -104,9 +133,9 @@ def score(prompt_tokens, prompt_raw, name, desc, triggers):
             continue
         if "/" in t or "*" in t:
             core = t.strip("*").strip("/").split("*")[0].strip("/")
-            if core and core in prompt_raw:
+            if core and _contains(core, prompt_raw):
                 total += 4
-        elif t in prompt_raw:
+        elif _contains(t, prompt_raw):
             total += 4
         elif _tokens(t) & prompt_tokens:
             total += 2
