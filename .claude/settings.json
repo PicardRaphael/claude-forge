@@ -144,17 +144,6 @@
           }
         ]
       }
-    ],
-    "Notification": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/notify-discord.py\"",
-            "timeout": 10
-          }
-        ]
-      }
     ]
   },
   "enabledPlugins": {},
