@@ -1,6 +1,7 @@
 ---
 name: workarounds-contraintes-session-forge
 description: "Contraintes machine forge et workarounds : gh CLI absent, x.com paywall 402 (articles X natifs inextractibles → mirrors), HEREDOC commit Windows, delegate-guard (bypass=skill créatrice uniquement), subprocess input=str hang Windows, fins de ligne jamais au grep (git ls-files --eol)"
+trigger: fins de ligne, eol, crlf, heredoc, gh cli, x.com, subprocess, delegate-guard
 metadata: 
   node_type: memory
   type: reference
