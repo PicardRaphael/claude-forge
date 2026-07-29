@@ -61,7 +61,8 @@ Routine hebdo légère (cron lundi 09h00 ou invocation manuelle) : mesure la san
 3. **Triple check** (le run se note lui-même) :
    - (a) relire le rapport créé (`read_note`) → les 4 headers présents ;
    - (b) lint POST ≤ lint PRÉ sur chaque catégorie touchée ;
-   - (c) zéro erreur MCP pendant le run.
+   - (c) zéro erreur MCP pendant le run ;
+   - (d) **avant d'émettre le verdict J+14** : re-dériver le comptage hors-forge et l'écrire dans le rapport (nombre d'événements retenus + comment le projet a été identifié). Le filtrage par projet se fait côté lecture, sans paramètre d'exclusion : un comptage non re-dérivé peut sous-estimer l'adoption et déclencher à tort la recommandation de retrait. Comptage non re-dérivable → écrire « adoption non mesurable ce run », jamais la recommandation de retrait.
 4. Un seul check en échec → FAIL : écrire `$(git rev-parse --show-toplevel)/output/vault-health-FAIL-<date>.md` (tool Write, hors vault) avec la cause et l'état atteint. Si le rapport vault a pu être créé, y noter aussi FAIL en première ligne.
 
 ## Gotchas

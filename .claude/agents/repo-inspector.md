@@ -174,7 +174,7 @@ Mapper la stack vers le mini-référentiel + identifier discipline/minimalisme/c
 ## Analyse PROFONDE — [nom]
 
 ### Ce que j'ai VU
-[Stack, archi, DB, infra, tests, OS probable, topologie — faits]
+[Stack, archi, DB, infra, tests, OS probable, topologie — chaque fait suivi du fichier qui l'établit : `package.json`, `pyproject.toml`, `docker-compose.yml`, lockfile, CI. Un élément déduit d'un nom de dossier ou d'une convention s'écrit « supposé », jamais affirmé.]
 
 ### Config CC existante
 [Résumé .claude/ ou "absent"]
@@ -214,7 +214,7 @@ Naming, error handling, logging, async, DB access, mocking, telemetry, validatio
 Topologie, dépendances cross-app, conftest racine, config partagée.
 
 ### Étape 5 — Candidats CC
-Skills candidates (pattern répété > 2×, 9 catégories Thariq) ; hooks candidats (frontières à protéger).
+Skills candidates (pattern répété > 2×, 9 catégories Thariq) ; hooks candidats (frontières à protéger). Un « pattern récurrent » porte son compte réel et les chemins où il apparaît — sans ces deux éléments, c'est une impression, pas un candidat.
 
 ### Format rapport SCAN
 ```markdown

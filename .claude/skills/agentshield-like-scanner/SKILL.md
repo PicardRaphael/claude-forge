@@ -80,7 +80,7 @@ Produit : risk assessment priorisé (CRITICAL first), avec verdict par catégori
 - **Red et Blue en PARALLÈLE** (pas séquentiel) : c'est l'avantage du pattern ECC par rapport à un audit linéaire.
 - **Auditor reçoit LES DEUX rapports** avant de synthétiser — ne pas lancer Auditor avant d'avoir Red ET Blue complets.
 - **Ne PAS confondre avec repo-inspector** : repo-inspector = audit conformité canonique (frontmatter, taille, structure). AgentShield = audit sécurité (exploits, permissions, injection).
-- **Vérifier empiriquement les CRITICAL** avant de les relayer : sous-agents Opus peuvent surestimer la sévérité sur des patterns courants (cf `feedback_auditor_false_positives`).
+- **Un CRITICAL/HIGH se lit, ne se déduit pas** : pour une permission ou un deny, parser `settings.json` global ET projet ; pour un hook injectable, lire le corps du script ; pour un MCP wildcard, lire `.mcp.json`. Le nom d'une garde ne dit pas ce qu'elle autorise. Vecteur non lu à la source → **MEDIUM « à vérifier »**, jamais CRITICAL. Les sous-agents Opus surestiment la sévérité sur des patterns courants (cf `feedback_auditor_false_positives`).
 - **`.mcp.json` souvent hors périmètre des audits standards** — l'inclure explicitement dans le brief.
 - **Settings.json self-modification** : hook `auto-mode classifier` bloque les édits directs de settings.json. Si un CRITICAL concerne settings.json → signaler pour édition manuelle Raphael.
 

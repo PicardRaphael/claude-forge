@@ -43,6 +43,8 @@ Pour chaque résultat, assigner un statut :
 - **WARN** — écart non bloquant (ex: format alternatif valide, fichier optionnel manquant)
 - **CRITIQUE** — écart bloquant (ex: hook fantôme, deny git, agent sans memory)
 
+Un statut n'est **CRITIQUE** que s'il est mesuré. Nommer dans la colonne Détail la commande qui a tranché : parse des DEUX settings (global puis projet) pour un deny/allow, `Read` du frontmatter pour un champ `tools:` prétendu vide — une liste YAML multi-lignes se lit comme absente —, `ls -d` du script pour un hook fantôme. Sans cette commande, le statut est **WARN « à vérifier »**, jamais CRITIQUE.
+
 ### Étape 3 — Produire le rapport
 
 Afficher le rapport directement (ne pas sauvegarder dans un fichier).

@@ -93,7 +93,7 @@ Verdict : DOCTRINE_PIVOT_CANDIDATE
 
 ## Brouillon de pivot doctrinal — À VALIDER
 
-**Doctrine actuelle** : [note canonique + position actuelle citée verbatim ou résumée fidèlement]
+**Doctrine actuelle** : [note canonique — chemin exact + passage cité VERBATIM, jamais résumé]
 **Source externe** : [URL/source + crédit + date]
 **Contradiction observée** : [ce que le finding affirme qui contredit la doctrine]
 **Position proposée** : [nouvelle doctrine suggérée — précise, pas générique]
@@ -134,6 +134,7 @@ Proposition : tracer "challengée + confirmée le {date} par {source}" sur [note
 - **Ne jamais appeler methode-pivoter-doctrine directement** — `[v]` sur DOCTRINE_PIVOT_CANDIDATE signale à la session principale de le faire ; cette skill ne l'invoque pas.
 - **Gate obligatoire** — rien n'est écrit (ni trace REINFORCE, ni brouillon enregistré) avant que l'utilisateur tape `[v]`. Présenter d'abord, écrire ensuite.
 - **read_note sans max_lines** — lire la note canonique EN ENTIER pour ne pas rater une nuance qui invaliderait la contradiction supposée.
+- **Pas de contradiction sur un résumé** — une doctrine paraphrasée fabrique des contradictions qui n'existent pas dans le corps. Citer la ligne verbatim de la canonique ET la phrase verbatim de la source, lue dans sa section (un texte à l'intérieur d'un bloc d'exemple n'est pas une assertion de l'auteur). Vérifier aussi le périmètre de la source : une consigne cadrée pour un modèle donné ne vaut pas pour un autre. Si les deux citations ne peuvent pas être produites → verdict **INFO**, jamais PIVOT.
 
 ---
 
