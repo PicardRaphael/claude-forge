@@ -158,6 +158,37 @@ neo_ia a **25 rules sur disque**. `/context all` en liste **23**. Les 2 absentes
 
 **Le vrai enseignement du gain modeste sur `MEMORY.md`** : la condensation n'a rendu que 236 tokens parce qu'elle a été **réinvestie en couverture** — 19 fichiers mémoire existants n'étaient pas indexés du tout (index passé de 50 à 69 pointeurs). Un index qui mentait par omission valait moins que 5 % de tokens.
 
+## Bilan des 3 repos — 29 juil. 2026
+
+| Repo | Gain eager | Rules scopées | Index mémoire |
+|---|---|---|---|
+| claude-forge | ~1 490 tok | 1 / 16 | 69/69 (19 trous comblés) |
+| neo_ia | ~1 200 tok | 4 / 25 | 27/27 ✅ |
+| neoteem-back-ts | **~2 150 tok** | 4 / 11 | 35/35 ✅ |
+| **Total** | **~4 840 tok/session** | | |
+
+**back-ts a le meilleur ratio** (~2 150 tok pour 11 rules) parce que ses rules sont adossées à un enforcement mécanique : `depcruise` en CI, `file-size-guard`, Biome. Quand une garantie est tenue par un hook ou la CI, la rule ne porte plus que le *raisonnement* — donc elle peut être conditionnelle sans rien risquer.
+
+### Le critère qui a émergé — quand scoper est sûr
+
+**Scoper est sûr quand la garantie est ailleurs.** Trois cas rencontrés :
+
+| Situation | Scoper ? | Exemples |
+|---|---|---|
+| Un **hook / la CI** enforce mécaniquement | ✅ oui — la rule ne porte que le raisonnement | `file-size-limit` (×2 repos), `frontieres-hexagonales`, `conventions-code`, `windows-hooks` |
+| La rule ne sert qu'en **lisant/écrivant un type de fichier** | ✅ oui | `agents-color-convention`, `tdd-doctrine` |
+| La rule doit mordre **à la création**, ou après une action sans lecture | ❌ **non** — le gate fire sur LECTURE, elle serait muette dans son propre cas | `changelog` (×3), `source-tree-update`, `changelog-vault` |
+| Table de **routage** / méthode canonique, nécessaire avant de savoir quel fichier sera touché | ❌ non | `agent-routing`, `comportement-proactif`, `sequence-canonique-modification` |
+
+Chaque décision négative porte un **commentaire inline dans le fichier** expliquant pourquoi, pour qu'une passe d'optimisation future ne la défasse pas en croyant bien faire.
+
+### Reste possible (non fait)
+
+- **forge** : `post-dispatch-verify` (~3,3k tok restants), `comportement-proactif` (2,8k), `forge-brain-proactive` (2,1k) — tous des transverses, dégraissables mais pas scopables.
+- **neo_ia** : `agent-routing` (3,3k), `sub-agent-patterns` (2,4k), `repo-scope` (2k) — même nature.
+- `coaching-lead-ia` → skill : décision de conception en attente d'arbitrage Raphael (cf § décisions négatives).
+- Mesure `/context` post-optimisation à refaire sur les 3 repos pour confirmer les chiffres estimés ici.
+
 ## Couverture `trigger:` — mesurée
 
 | Repo | Fichiers mémoire | Avec `trigger:` (29 juil., après pose) |
