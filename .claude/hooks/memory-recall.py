@@ -95,8 +95,12 @@ def _parse(path):
     return name, desc, triggers
 
 
+_FLEX = ("e", "es", "er", "ez", "ee", "ees", "ent", "ons", "ait", "aient",
+         "s", "r", "rs", "nt")
+
+
 def _contains(needle, haystack):
-    """Sous-chaine AVEC frontieres de mot.
+    """Sous-chaine AVEC frontieres de mot, flexion francaise toleree en fin.
 
     Un `in` nu fait matcher les triggers courts sur n'importe quel mot qui les
     contient : `main` dans « maintenant », `red` dans « redemarre », `log` dans
@@ -108,6 +112,16 @@ def _contains(needle, haystack):
     « Word-boundary regex (avoids "done" matching "abandoned") ». Ecrit a la
     main plutot qu'en regex pour ne pas avoir a echapper les triggers qui
     contiennent des metacaracteres (`git -C`, `4.8`, `.agents`).
+
+    La frontiere STRICTE seule a coute un rappel legitime (regression mesuree
+    le meme jour : « audite la config » ne matchait plus le trigger `audit`).
+    Un trigger de 4+ caracteres accepte donc un suffixe de flexion : `audit`
+    matche « audite / auditer / audites », `cree` matche « creer ». Le seuil de
+    4 et la liste FERMEE de suffixes preservent les rejets : « bundle » n'est
+    pas `bun` + flexion (`dle` absent de la liste), ni « scandale » `scan`,
+    ni « portable » `port`, ni « edition » `edit`. Limite connue et assumee :
+    `scan` ne matche pas « scanner » (suffixe `ner`) — l'ajouter ouvrirait
+    trop. Frontiere AVANT le needle : toujours stricte.
     """
     n = len(needle)
     if not n:
@@ -118,9 +132,17 @@ def _contains(needle, haystack):
         if i < 0:
             return False
         before = haystack[i - 1] if i > 0 else ""
-        after = haystack[i + n] if i + n < len(haystack) else ""
-        if not (before.isalnum() or before == "_") and not (after.isalnum() or after == "_"):
-            return True
+        if not (before.isalnum() or before == "_"):
+            j = i + n
+            after = haystack[j] if j < len(haystack) else ""
+            if not (after.isalnum() or after == "_"):
+                return True
+            if n >= 4:
+                k = j
+                while k < len(haystack) and (haystack[k].isalnum() or haystack[k] == "_"):
+                    k += 1
+                if haystack[j:k] in _FLEX:
+                    return True
         start = i + 1
 
 
