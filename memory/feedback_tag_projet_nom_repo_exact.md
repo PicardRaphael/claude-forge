@@ -1,6 +1,7 @@
 ---
 name: tag-projet-nom-repo-exact
 description: Tag projet = nom EXACT du repo (séparateur compris), jamais de normalisation cosmétique — vérifier le nom réel avant fusion
+trigger: tag, nom du repo, projet, separateur, normaliser
 metadata:
   type: feedback
 ---

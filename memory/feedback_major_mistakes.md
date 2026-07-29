@@ -1,6 +1,7 @@
 ---
 name: major-mistakes-to-never-repeat
 description: Erreurs majeures faites sur le projet back-refacto. Ne JAMAIS refaire.
+trigger: erreur, refaire, attention, piege, back-refacto, ne jamais
 type: feedback
 originSessionId: a0d051cb-3e6f-429d-9908-b2cfe3295ea9
 ---

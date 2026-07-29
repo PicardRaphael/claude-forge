@@ -1,6 +1,7 @@
 ---
 name: eval-trio-angles-complementaires
 description: Évaluation/audit forge couverte par TRIO complémentaire (qualitatif fin / stratégique / objectif rubric) — chercher les 3 angles avant conclure gap
+trigger: evaluer, auditer, scorer, rubric, angle
 type: feedback
 ---
 

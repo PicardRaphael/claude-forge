@@ -1,6 +1,7 @@
 ---
 name: present-before-build
 description: "TOUJOURS présenter le plan complet à Raphael AVANT de construire quoi que ce soit. Ne pas commencer à créer des notes, skills, ou agents sans validation."
+trigger: cree, construis, ecris, genere, fais moi, plan
 metadata: 
   node_type: memory
   type: feedback

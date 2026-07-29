@@ -1,6 +1,7 @@
 ---
 name: merge-markers-grep-avant-commit
 description: "Résolution de conflit = grep des 3 marqueurs AVANT commit (un marqueur a été committé le 10 juin)"
+trigger: conflit, merge, resolution, marqueur, HEAD, commit
 metadata:
   type: feedback
 ---

@@ -1,6 +1,7 @@
 ---
 name: ecart-consigne-chiffree-surfacer
 description: "Écart à une consigne explicite et chiffrée (longueur cible, nombre, deadline) = surfacer pour arbitrage, jamais trancher 'acceptable' en silence. La cible appartient à Raphael."
+trigger: lignes, mots, maximum, cible, limite, deadline, target
 metadata:
   type: feedback
 ---

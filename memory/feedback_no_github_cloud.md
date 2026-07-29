@@ -1,6 +1,7 @@
 ---
 name: org-blocks-github-cloud
 description: Org "Claude IA" blocks GitHub access — remote triggers need admin approval. Use local Task Scheduler instead.
+trigger: github, remote trigger, cloud, task scheduler, org
 type: feedback
 originSessionId: b8821289-a77e-4c03-9a03-e61d32124156
 ---

@@ -1,6 +1,7 @@
 ---
 name: regression-diagnostic-diff-avant-redesign
 description: Régression à point d'introduction connu (réécriture) = diffuser AVANT de redesigner. Ne pas anchrer sur l'hypothèse user "trop gros".
+trigger: regression, ne marche plus, casse, avant ca marchait, diff
 metadata:
   type: feedback
 ---

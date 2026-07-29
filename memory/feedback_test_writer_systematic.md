@@ -1,6 +1,7 @@
 ---
 name: test-writer-systematic
 description: "test-writer systématique en phase RED (PAS REFACTOR, supprimée). MAX 3 tests/comportement. Effort high (pas xhigh). Révisé 22 mai 2026"
+trigger: test, tdd, red, refactor, test-writer, pytest
 metadata: 
   node_type: memory
   type: feedback

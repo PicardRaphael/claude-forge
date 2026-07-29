@@ -1,6 +1,7 @@
 ---
 name: feedback-reviole-3x-regle-insuffisante
 description: Un feedback comportemental existant re-violé ≥3 fois (malgré sa présence en mémoire chargée) = signal que la règle écrite ne suffit pas. Ne pas juste ré-enrichir le texte — formuler un réflexe pré-action concret OU envisager un garde-fou structurel (hook). La répétition de l'enrichissement sans changement de comportement = boucle.
+trigger: encore, deja dit, tu recommences, re-viole, toujours pareil
 metadata:
   type: feedback
 ---

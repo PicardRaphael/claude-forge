@@ -1,6 +1,7 @@
 ---
 name: bashrc-bind-warnings-non-interactive
 description: "Warnings \"bind: line editing not enabled\" dans sorties Bash Claude Code = bind readline dans .bashrc sans garde interactive"
+trigger: bind, line editing, bashrc, warning, readline
 metadata: 
   node_type: memory
   type: reference

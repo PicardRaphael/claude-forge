@@ -1,6 +1,7 @@
 ---
 name: ia-back-postgresjs-stack-drift-pattern
 description: "ia_back avait 17 fichiers `.claude/` référençant Drizzle alors que stack = postgres.js depuis migration. Pattern : migration code finie mais migration `.claude/` oubliée. Toujours auditer cohérence stack-code↔stack-prompts."
+trigger: drizzle, postgres, ia_back, migration, stack, drift
 metadata: 
   node_type: memory
   type: feedback

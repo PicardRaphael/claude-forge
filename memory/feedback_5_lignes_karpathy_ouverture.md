@@ -1,6 +1,7 @@
 ---
 name: 5-lignes-karpathy-ouverture-claudemd
 description: "Tout CLAUDE.md forge commence par 5 lignes Karpathy en tête (avant Critiques < ligne 25), verbatim non-paraphrasables, tradeoff italique en dessous."
+trigger: CLAUDE.md, karpathy, 5 lignes, ouverture, en tete
 metadata: 
   node_type: memory
   type: feedback

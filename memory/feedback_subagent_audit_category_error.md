@@ -1,6 +1,7 @@
 ---
 name: subagent-audit-category-error
 description: "Sub-agent audit vault flagge \"drift\" sur note de doc citant des valeurs d'un objet externe — vérifier que la note décrit elle-même l'objet vs documente un objet vivant ailleurs"
+trigger: drift, audit vault, note de doc, faux positif
 metadata: 
   node_type: memory
   type: feedback

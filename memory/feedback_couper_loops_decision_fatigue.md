@@ -1,6 +1,7 @@
 ---
 name: couper-loops-decision-fatigue
 description: Après validation, trancher vite — ne pas multiplier options A/B/C ni appels advisor (cap ~3). Deux signaux — boucle "es-tu parfait" + session longue >15 échanges
+trigger: es-tu parfait, option, alternative, advisor, tranche
 metadata:
   type: feedback
 ---

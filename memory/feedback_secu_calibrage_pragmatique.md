@@ -1,6 +1,7 @@
 ---
 name: secu-calibrage-pragmatique
 description: Raphael accepte le risque sécu sur base test si effort de fix > impact. JAMAIS de nouveau secret committé. Anciens secrets déjà compromis = pragmatique
+trigger: secret, secu, token, credential, commit, risque
 metadata: 
   node_type: memory
   type: feedback

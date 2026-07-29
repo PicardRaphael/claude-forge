@@ -1,6 +1,7 @@
 ---
 name: mcp-transport-stdio-http-crashloop
 description: Serveur FastMCP en crash loop systemd + nginx 502 = transport stdio au lieu de http. Le log dit "with transport 'stdio'". Diagnostiquer par les logs AVANT de soupçonner l'OAuth.
+trigger: mcp, crash, 502, systemd, nginx, transport, stdio, serveur
 metadata:
   type: feedback
 ---

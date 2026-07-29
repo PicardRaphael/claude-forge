@@ -1,6 +1,7 @@
 ---
 name: conformite-aveugle-regle-generique
 description: Appliquer une règle générique (harness, doctrine, convention) sans juger si elle sert le contexte = conformité aveugle, que "scan aveugle interdit" condamne aussi pour les workflows. Quand une garde refuse une action, diagnostiquer son INTENTION (lire settings/code) avant de contourner ou de la "corriger".
+trigger: regle, doctrine, convention, harness, applique la regle
 metadata:
   type: feedback
 ---

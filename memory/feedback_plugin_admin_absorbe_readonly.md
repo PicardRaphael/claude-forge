@@ -1,6 +1,7 @@
 ---
 name: plugin-admin-absorbe-readonly
 description: Quand un plugin existe en version read-only ET admin (write), enabler l'admin remplace fonctionnellement le read-only. Desinstaller le read-only sans perte de fonctionnalite, gain tokens.
+trigger: plugin, read-only, admin, desinstaller, enabler
 metadata:
   type: feedback
 ---

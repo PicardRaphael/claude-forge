@@ -1,6 +1,7 @@
 ---
 name: preference-modele-opus-4-8
 description: Ordre Opus (MAJ 27 juil. 2026) — défaut claude-opus-5 (surveiller les agents jugement) ; repli 4.8 (préférence validée) puis 4.6 ; jamais 4.7 (jugé moyen)
+trigger: modele, opus, sonnet, haiku, 4.8, 4.7, quel modele
 metadata:
   type: feedback
 ---

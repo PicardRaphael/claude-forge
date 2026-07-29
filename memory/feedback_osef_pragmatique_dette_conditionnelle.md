@@ -1,6 +1,7 @@
 ---
 name: osef-pragmatique-dette-conditionnelle
 description: OSEF assume avec dette conditionnelle = trancher sans debat sujet faible levier
+trigger: osef, dette, faible levier, pragmatique
 metadata:
   type: feedback
 ---

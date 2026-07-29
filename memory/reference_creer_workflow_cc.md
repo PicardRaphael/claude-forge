@@ -1,6 +1,7 @@
 ---
 name: creer-workflow-cc
 description: Règles de design apprises au 1er build réel d'un workflow .claude/workflows/ (verify-diff neo_ia, 27 juil. 2026) — à promouvoir en canonique vault au 2e-3e workflow
+trigger: workflow, .claude/workflows, agentType, worktree, fan-out
 metadata:
   type: reference
 ---

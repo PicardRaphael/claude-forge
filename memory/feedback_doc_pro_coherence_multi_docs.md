@@ -1,6 +1,7 @@
 ---
 name: doc-pro-coherence-multi-docs
 description: "Pack de docs liés : relire mot à mot la cohérence inter-docs avant de livrer"
+trigger: pack de docs, plusieurs docs, coherence, trilogie
 metadata:
   type: feedback
 ---

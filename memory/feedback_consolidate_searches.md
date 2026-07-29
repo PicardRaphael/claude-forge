@@ -1,6 +1,7 @@
 ---
 name: consolidate-searches-immediately
 description: Ne JAMAIS chercher la meme info plusieurs fois. Consolider en 1 seul fichier memoire exhaustif des le premier search.
+trigger: cherche, recherche, search, retrouve, deja cherche
 type: feedback
 originSessionId: 7344c917-42fa-4a63-8a92-bc680e8d28e4
 ---

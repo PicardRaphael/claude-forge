@@ -1,6 +1,7 @@
 ---
 name: audit-prompt-adaptatif-par-couche
 description: Auditer/scorer un prompt à architecture adaptative = par COUCHE (statut de chargement), jamais en bloc plat
+trigger: prompt, scorer, auditer, couche, adaptatif
 metadata:
   type: feedback
 ---

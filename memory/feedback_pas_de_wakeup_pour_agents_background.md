@@ -1,6 +1,7 @@
 ---
 name: pas-de-wakeup-pour-agents-background
 description: Ne JAMAIS programmer un ScheduleWakeup pour attendre mes propres agents background — le harness notifie déjà à leur fin. Wakeup = seulement travail externe non-tracké.
+trigger: wakeup, attendre, background, agent, loop, schedule
 metadata:
   type: feedback
 ---

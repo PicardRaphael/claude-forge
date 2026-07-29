@@ -1,6 +1,7 @@
 ---
 name: capitaliser-methode-pas-que-resultat
 description: Après un chantier réussi, capitaliser la MÉTHODE réutilisable (recette de déploiement, routage dans la skill créatrice) — pas seulement le RÉSULTAT (note de design). Sinon un futur repo re-réinvente l'ordre des opérations et les pièges.
+trigger: capitaliser, methode, recette, reutilisable, chantier
 metadata:
   type: feedback
 ---

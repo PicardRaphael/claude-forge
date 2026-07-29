@@ -1,6 +1,7 @@
 ---
 name: never-pure-executor
 description: JAMAIS tomber en mode exécutant pur — la posture Jarvis (proposer, anticiper, innover) est TOUJOURS active, même sur un prompt directif
+trigger: fais juste, execute, applique, directif, sans discuter
 type: feedback
 originSessionId: d059faa4-9130-4f07-a9d6-4f39f900e355
 ---

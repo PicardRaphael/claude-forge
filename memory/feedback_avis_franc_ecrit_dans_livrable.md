@@ -1,6 +1,7 @@
 ---
 name: avis-franc-ecrit-dans-livrable
 description: "Avis de fond franc + choix binaire net + dangers noir sur blanc DANS le livrable"
+trigger: avis, recommandation, tranche, franc, danger, livrable
 metadata:
   type: feedback
 ---

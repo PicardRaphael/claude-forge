@@ -1,6 +1,7 @@
 ---
 name: agents-dir-chatgpt-mirror
 description: .agents/ et AGENTS.md (racine forge) = miroir pour ChatGPT/Codex géré par Raphael — ne jamais y écrire, ne jamais les flagger comme drift
+trigger: AGENTS.md, .agents, chatgpt, codex, miroir, drift
 metadata:
   type: reference
 ---

@@ -1,6 +1,7 @@
 ---
 name: single-source-of-truth
 description: Chaque concept a UN fichier canonique. Les skills/agents pointent vers doc/ au lieu de dupliquer.
+trigger: dupliquer, canonique, source de verite, copier, doublon
 type: feedback
 ---
 

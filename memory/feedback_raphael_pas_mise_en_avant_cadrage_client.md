@@ -1,6 +1,7 @@
 ---
 name: raphael-pas-mise-en-avant-cadrage-client
 description: "Docs Neoteem : ne pas mettre Raphaël en avant ; le cadrage est une décision client"
+trigger: doc neoteem, client, cadrage, mise en avant, redige
 metadata:
   type: feedback
 ---

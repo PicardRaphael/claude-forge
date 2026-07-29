@@ -1,6 +1,7 @@
 ---
 name: verify-empirique-avant-affirmation-session
 description: "Avant d'affirmer \"X parce que Y\" sur changement filesystem/repo, vérifier empiriquement (git log/blame/diff). User questionne souvent \"pourquoi ?\" → ne pas inventer la raison"
+trigger: pourquoi, parce que, git log, blame, qui a change, explique
 metadata: 
   node_type: memory
   type: feedback

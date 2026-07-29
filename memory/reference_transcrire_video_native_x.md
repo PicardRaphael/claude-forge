@@ -1,6 +1,7 @@
 ---
 name: transcrire-video-native-x
 description: Transcrire une vidéo native X/Twitter (pas YouTube) — pipeline x-read JSON → curl MP4 → ffmpeg WAV → faster-whisper
+trigger: video, x.com, twitter, transcrire, whisper, ffmpeg
 metadata:
   type: reference
 ---

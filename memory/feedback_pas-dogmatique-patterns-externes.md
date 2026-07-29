@@ -1,6 +1,7 @@
 ---
 name: pas-dogmatique-patterns-externes
 description: "Adapter un pattern externe (Karpathy, etc.) à forge, jamais l'appliquer par mimétisme"
+trigger: pattern, karpathy, externe, appliquer, mimetisme
 metadata:
   type: feedback
 ---

@@ -1,6 +1,7 @@
 ---
 name: plan-commits-vs-working-tree-reel
 description: Plan de commits précis donné par Raphael ⨯ working tree contenant des fichiers hors-scope (résidus session antérieure, fichiers déjà M au démarrage) = vérifier git status AVANT, isoler le hors-scope dans un commit dédié, signaler l'écart. Jamais noyer un concern étranger dans un commit du plan ni exécuter le plan à l'aveugle.
+trigger: plan de commits, working tree, git status, residu, hors-scope
 metadata:
   type: feedback
 ---

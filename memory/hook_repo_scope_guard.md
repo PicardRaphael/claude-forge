@@ -1,6 +1,7 @@
 ---
 name: repo-scope-guard-hook
 description: Triplet auth-detector+repo-scope-guard+auth-cleanup bloquant acces repos voisins neot-v2/ depuis neo_ia
+trigger: repo-scope-guard, auth-detector, neot-v2, repo voisin
 metadata: 
   node_type: memory
   type: project

@@ -1,6 +1,7 @@
 ---
 name: creator-reorganise-design-verrouille
 description: Un agent créateur (skill-creator/agent-creator) réorganise/dilue un design déjà verrouillé avec l'utilisateur. Vérifier empiriquement le livrable bloc par bloc vs design validé.
+trigger: skill-creator, subagent-creator, design, verrouille, reorganise
 metadata:
   type: feedback
 ---

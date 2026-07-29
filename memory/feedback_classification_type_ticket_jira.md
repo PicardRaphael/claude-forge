@@ -1,6 +1,7 @@
 ---
 name: classification-type-ticket-jira
 description: "Classer un ticket Jira par sa NATURE (FEATURE/BUG/OPTIMISATION), jamais par mimétisme avec un ticket voisin"
+trigger: ticket, jira, feature, bug, optimisation, classer
 metadata:
   type: feedback
 ---

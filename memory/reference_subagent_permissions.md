@@ -1,6 +1,7 @@
 ---
 name: subagent-permissions-limitation
 description: Bug subagent permissions — PARTIELLEMENT FIXE v2.1.101 (worktree access + MCP tools). permissions.allow/deny toujours non herites.
+trigger: subagent, permission, allow, deny, herite, worktree
 type: reference
 originSessionId: f3b37008-cac0-4a75-ae36-b058217ea80b
 ---

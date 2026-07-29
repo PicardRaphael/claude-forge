@@ -1,6 +1,7 @@
 ---
 name: obsidian-skills-sacred
 description: NEVER delete official Obsidian skills (obsidian-cli, obsidian-bases, obsidian-markdown, defuddle, json-canvas) from any project
+trigger: supprimer, delete, obsidian, kill, purge, nettoyer, skill
 type: feedback
 originSessionId: 9c6cffbe-5ce8-4690-9608-17e544ed56ce
 ---

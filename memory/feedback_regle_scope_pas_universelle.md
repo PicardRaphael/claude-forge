@@ -1,6 +1,7 @@
 ---
 name: regle-scope-pas-universelle
 description: "Une règle validée sur un thème n'est PAS automatiquement universelle. Toujours vérifier le scope avant de propager. Erreur évitée 23 mai 2026 : \"Anthropic single source\" propagé tel quel aux 6 audits thématiques non-Claude (RAG, fine-tuning, agents IA, prompt eng général, leaders industrie) — Raphael m'a corrigé."
+trigger: propager, tous les repos, universel, scope, partout
 metadata: 
   node_type: memory
   type: feedback

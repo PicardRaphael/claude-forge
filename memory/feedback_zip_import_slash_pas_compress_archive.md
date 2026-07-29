@@ -1,6 +1,7 @@
 ---
 name: zip-import-slash-pas-compress-archive
 description: "Zip d'import (skill Cowork) = slashes. Compress-Archive met des backslashes → casse"
+trigger: zip, archive, import, cowork, compress, plugin
 metadata:
   type: feedback
 ---

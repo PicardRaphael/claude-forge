@@ -1,6 +1,7 @@
 ---
 name: carte-blanche-commit-push-tranche-pas-revalider
 description: "Quand Raphael dit \"carte blanche jusqu'au commit/push\" — exécuter directement sans re-valider note par note, advisor uniquement si bloqueur réel"
+trigger: carte blanche, jusqu au commit, valide, fais tout, go
 metadata: 
   node_type: memory
   type: feedback

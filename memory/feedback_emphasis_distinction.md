@@ -1,6 +1,7 @@
 ---
 name: emphasis-prompt-vs-skill
 description: Emphasis (JAMAIS, YOU MUST, CRITICAL) OK dans skills/rules/agents/CLAUDE.md, mais reduire dans tool descriptions (overtriggering). Distinction cle.
+trigger: JAMAIS, YOU MUST, CRITICAL, emphasis, tool description
 type: feedback
 originSessionId: f3b37008-cac0-4a75-ae36-b058217ea80b
 ---

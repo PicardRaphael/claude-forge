@@ -1,6 +1,7 @@
 ---
 name: audit-completude-pointeur-vs-orphelin
 description: Audit de complétude d'index/roadmap — un wikilink non résolu localement peut pointer vers une note existante ailleurs dans le vault. search_brain chaque cible AVANT de la compter comme orpheline, sinon surcompte du travail
+trigger: wikilink, orphelin, index, completude, non resolu
 metadata:
   type: feedback
 ---

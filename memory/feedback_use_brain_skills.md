@@ -1,6 +1,7 @@
 ---
 name: use-brain-skills-not-grep
 description: Pour questions metier Neoteem, utiliser les skills neo-brain (dev/support) avec MCP, jamais fallback grep manuel
+trigger: neoteem, metier, copropriete, syndic, gerance, brain
 type: feedback
 originSessionId: 3deba384-7dfb-4d29-890d-01b8723f7a5f
 ---

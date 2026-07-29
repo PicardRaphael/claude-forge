@@ -1,6 +1,7 @@
 ---
 name: spec-trous-structurels-langfuse-secuia-decisions
 description: "Quand Raphael montre une spec (issue de /spec), checker systématiquement 3 trous structurels — Langfuse manquant, sécu IA non analysée, décisions silencieuses sans assignee."
+trigger: spec, langfuse, securite ia, decision, assignee
 metadata: 
   node_type: memory
   type: feedback

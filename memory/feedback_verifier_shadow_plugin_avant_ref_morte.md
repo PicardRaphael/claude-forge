@@ -1,6 +1,7 @@
 ---
 name: verifier-shadow-plugin-avant-ref-morte
 description: "Skill supprimée ≠ référence morte : vérifier le shadow plugin avant de purger"
+trigger: reference morte, skill supprimee, purger, shadow, plugin
 metadata:
   type: feedback
 ---

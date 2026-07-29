@@ -1,6 +1,7 @@
 ---
 name: recurring-meta-anti-pattern
 description: "3 fois en 2 jours j'ai proposé une refonte structurelle suite à 1 incident, malgré la règle Jarvis documentée hier"
+trigger: refonte, restructurer, repenser, incident, workaround
 metadata: 
   node_type: memory
   type: feedback

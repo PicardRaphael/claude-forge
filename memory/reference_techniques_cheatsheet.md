@@ -1,6 +1,7 @@
 ---
 name: techniques-cheatsheet
 description: Cheat sheet des meilleures techniques CC, prompt engineering et workflow — consulter quand Raphael demande "meilleure approche pour X"
+trigger: meilleure approche, quelle technique, comment faire
 type: reference
 originSessionId: 16ee3ed4-640e-4e12-aa29-c8156e56b4f6
 ---

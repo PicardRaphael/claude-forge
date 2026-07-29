@@ -1,6 +1,7 @@
 ---
 name: perf-declenchement-avant-budget-skills
 description: "Arbitrage corpus skills : performance de déclenchement > budget tokens"
+trigger: skill, fusion, kill, trim, budget, tokens, declenchement
 metadata:
   type: feedback
 ---

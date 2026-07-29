@@ -1,6 +1,7 @@
 ---
 name: ton-vault-forge-pas-neoteem
 description: "'Ton vault' = forge-brain (mon cerveau), JAMAIS le vault Neoteem métier"
+trigger: ton vault, mon vault, le vault, cerveau
 metadata:
   type: feedback
 ---
