@@ -1,6 +1,18 @@
 ---
 description: Convention d'écriture hooks Windows — py launcher, ${CLAUDE_PROJECT_DIR}, forward slashes. Cross-machine obligatoire sur forge, ia_back, neo_ia, lojii.
+paths:
+  - "**/.claude/hooks/**"
+  - "**/.claude/settings*.json"
 ---
+
+<!-- `paths:` sûr ici (contrairement à `changelog-vault.md`, cf son commentaire) :
+     modifier un hook impose de le LIRE d'abord (Edit exige un Read préalable), et
+     le gate fire sur lecture. Le glob couvre les deux surfaces de la convention :
+     le script (`hooks/**`) ET son enregistrement (`settings*.json`, où vivent
+     `command`/`timeout`). ⚠️ Une rule scopée reste chargée toute la session après
+     déclenchement — c'est voulu ici : une session qui touche un hook en touche
+     souvent plusieurs. -->
+
 
 # Hooks Windows — Convention cross-machine
 
