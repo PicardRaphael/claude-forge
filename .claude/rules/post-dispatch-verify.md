@@ -69,11 +69,25 @@ Un frontmatter présent peut être **cassé** : le motif deux-points-espace dans
 
 Après toute création/modification de composant, parser le YAML plutôt que le regarder :
 
+## Les trois findings mécanisables — script, pas jugement
+
+Ces trois-là ne demandent aucune interprétation : un script les tranche en exit 0/1, donc ils ne dépendent plus de ma discipline. Chaînables avant un commit (`py … && git commit`) — un script qui *imprime* l'erreur mais sort en 0 laisse passer le commit, constaté le 29 juil.
+
 ```bash
-py .claude/scripts/check-frontmatter.py
+py .claude/scripts/check-frontmatter.py && py .claude/scripts/check-refs.py && py .claude/scripts/check-portability.py
 ```
 
-Le script sort en **1** si un frontmatter est cassé, ce qui permet `py .claude/scripts/check-frontmatter.py && git commit …` : le commit ne part pas si un composant est invisible. Un script qui *imprime* l'erreur mais sort en 0 laisse passer le commit — constaté le 29 juil. (le commit est parti malgré l'échec affiché).
+| Script | Ce qu'il tranche | Mode d'échec évité |
+|---|---|---|
+| `check-frontmatter.py` | frontmatter YAML invalide (motif `: ` dans un scalaire non quoté) | composant **invisible silencieusement** |
+| `check-refs.py` | un texte route vers un agent/skill inexistant | routage qui échoue à l'invocation, sans erreur |
+| `check-portability.py` | chemin absolu utilisateur · hook en `python` au lieu de `py` · hook sans `timeout` | casse sur l'autre machine, souvent en silence |
+
+Chacun accepte un chemin de repo en argument (`py .claude/scripts/check-refs.py ../neot-v2/neo_ia`) — utile pour les repos voisins qui n'embarquent pas les scripts.
+
+⚠️ **Portée de `check-refs.py`** : il ne regarde que les citations en **contexte de routage** (« agent `x` », « invoquer `y` », `Skill(z)`). Son silence prouve qu'aucun routage ne pointe vers le vide, pas qu'il n'existe aucune référence morte ailleurs. Un filtre plus large avait produit 108 faux positifs — un outil qui crie 108 fois est ignoré au premier usage.
+
+Le reste (« ce finding est-il pertinent ? », « cette inférence tient-elle ? ») n'est pas mécanisable : un script peut vérifier qu'une colonne « Mesure » existe, jamais que la mesure a réellement été faite.
 
 ## Anti-patterns
 
