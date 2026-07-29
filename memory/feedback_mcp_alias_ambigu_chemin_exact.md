@@ -1,6 +1,6 @@
 ---
 name: mcp-alias-ambigu-chemin-exact
-description: "MCP forge-brain append_note/read avec un alias court (ex \"log\") résout vers le mauvais fichier quand plusieurs notes partagent le stem. Passer chemin exact ou alias unique."
+description: "MCP forge-brain append_note/read avec un alias court (ex \"log\") résout vers le mauvais fichier quand plusieurs notes partagent le stem. Passer chemin exact ou alias unique. Et même en *_by_path : un MARQUEUR ambigu (\"---\") injecte dans le frontmatter et détruit le YAML."
 metadata: 
   node_type: memory
   type: feedback
@@ -32,3 +32,15 @@ Toujours lire le chemin réel retourné par l'écriture MCP et corriger immédia
 **Bug connexe `insert_section` position `after`** : cf [[vault-edit-gotchas-outillage]] (capitalisé 27 mai). Re-violé 28 mai sur `pattern-maintenance-hybride-corpus-accumulatif` faute d'avoir consulté ce feedback avant `insert_section` — pattern `feedback_reviole_3x_regle_insuffisante` confirmé. Workaround inchangé : viser marker section SUIVANTE avec `position="before"`, ou `insert_section_by_path` (chemin exact).
 
 > ⚠️ **Périmé dans l'historique ci-dessus (violations 5-7)** : toute mention « Edit FS direct » / « Python FS écriture » / « bypass du résolveur MCP » est ANNULÉE par 6-B (voir encadré RÉSOLU en tête). La voie sanctionnée pour un stem ambigu en écriture = `*_by_path`. L'Edit-direct du vault est bloqué par `vault-write-guard.py`.
+
+## 8e occurrence 29 juil. 2026 — le CHEMIN était bon, le MARQUEUR était ambigu
+
+`*_by_path` résout le bon FICHIER mais ne protège pas du mauvais ENDROIT dans ce fichier. `insert_section_by_path(path="CHANGELOG.md", marker="---", mode="after")` a matché le **premier** `---` du fichier — l'ouverture du frontmatter — et injecté l'entrée **dans** le YAML, détruisant le frontmatter (titre, aliases, tags déplacés après le contenu). Réparé par réécriture de l'en-tête, YAML re-parsé, 229 entrées préservées.
+
+Règles tirées de l'incident :
+
+- **Jamais un marqueur qui existe en plusieurs exemplaires** — `---`, `## Liens`, `## Sources` sont ambigus par nature. Choisir une ligne unique (le titre daté de la section voisine).
+- **Le marqueur doit être la LIGNE ENTIÈRE exacte** : un titre tronqué est refusé (« présent mais non aligné »), ce qui pousse à retomber sur un marqueur court et dangereux — c'est le piège.
+- **`mode:"replace"` se comporte comme un insert-after** : il vide la section mais laisse le titre orphelin, produisant un doublon de titre. Vérifier après coup.
+- **Re-parser le YAML après toute écriture MCP** sur un fichier à frontmatter (`yaml.safe_load` du bloc) — un frontmatter cassé rend la note invisible aux recherches, silencieusement.
+- Pour une note volumineuse (CHANGELOG = 266 Ko), `read_note_by_path` dépasse la limite de tokens : lire seulement l'en-tête pour repérer la structure avant d'écrire.
