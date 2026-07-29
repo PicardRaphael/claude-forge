@@ -14,6 +14,14 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-07-29 — doctrine par modèle Opus 5 / Fable 5 + effort `xhigh` périmé sur Opus 5
+
+- **Ajoutées** : `04-Techniques/claude-code/doctrine-par-modele-opus5-fable5` — grille de décision par modèle (effort, vérification, délégation, skills prescriptives, verbosité), checklist « je veux passer un agent en Fable 5 », piège `reasoning_extraction` (refus + fallback silencieux), frontière « vérifier son propre travail ≠ vérifier un tiers », et rappel que la page canonique skills (500L, exemples recommandés) n'a PAS été révisée dans le sens de Fable 5.
+- **Modifiées** : `effort-opus-47-doctrine-anthropic-2026` — réécriture EN PLACE de « Recommandation officielle Anthropic » (affirmait « Coding / agentic : start `xhigh` » sans distinction de modèle → faux depuis le 24 juil.) ; `resume` corrigé ; conclusion « la doctrine forge reste valide telle quelle pour Opus 5 » corrigée ; point « `thinking: disabled` + xhigh/max → 400 » confirmé en source primaire.
+- **Source** : pages officielles `platform.claude.com` lues directement (effort · prompting-claude-opus-5 · prompting-claude-fable-5 · agent-skills/best-practices) + `claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models` (Thariq Shihipar, 24 juil.) + post harness (2 juin, Thariq + Sid Bidasaria). Énumération exhaustive du blog : 199 URLs datées une par une, rien de postérieur au 24 juil.
+- **Fait déclencheur** : Anthropic recommande `high` — et non `xhigh` — comme point de départ sur Opus 5, avec « If you carried effort settings over from an earlier model, run a fresh effort sweep on your evals rather than reusing them ». Les 4 repos n'épinglent aucun modèle (100 % alias), donc les 18 agents `opus` tournent tous sur Opus 5 et héritaient du défaut non recommandé.
+- **Erreurs de lecture évitées (méthode)** : un claim modèle-spécifique (« skills too prescriptive ») a failli être généralisé à Opus 5 alors qu'il ne vise que Fable/Mythos 5 ; un texte situé dans un bloc d'exemple de prompt (« do not use subagents to verify ») a failli être promulgué comme assertion d'Anthropic. Un verbatim se lit dans sa section et avec son périmètre de modèle.
+
 ## 2026-07-27 (7) — veille X graph/loops/agents : 2 fakes documentés + keynote Kimi swarms + fireside SPC Thariq
 
 - **Ajoutées** : `06-Industrie/kimi-k25-agent-swarm-scaling` — keynote Moonshot transcrit intégralement (pipeline x-read → ffmpeg → faster-whisper) : 3 dimensions de scaling (MuonClip 2× token efficiency, Kimi Linear/KDA, agent swarms appris par RL avec 3 rewards — instantiation anti-serial-collapse, finished anti-hack, outcome), K2.5 early fusion vision + zero vision SFT, attention residual +24 %.

@@ -6,7 +6,7 @@ aliases:
   - adaptive thinking Opus 4.7
   - low medium high xhigh max
   - effort recommandation officielle
-resume: "Doctrine effort Anthropic 2026 — scale low→medium→high→xhigh→max. xhigh = défaut CC à l'ère Opus 4.7 ; high = défaut recommandé depuis Opus 4.8 (reconduit par Opus 5). xhigh 71% @ 100k vs max 74.5% @ 200k. Doctrine forge Option C : effort explicite calibré par TYPE (xhigh agentique, high jugement, medium/low mécanique)."
+resume: "Doctrine effort Anthropic 2026 — scale low→medium→high→xhigh→max. La recommandation de DÉPART dépend du modèle : xhigh pour Opus 4.7/4.8 coding-agentic, mais high pour Opus 5 / Fable 5 / Sonnet 5 (« run a fresh effort sweep » si settings hérités d'un modèle antérieur). Doctrine forge Option C (calibrage par TYPE) toujours valide, mais son point de départ xhigh est périmé sur Opus 5 — re-mesure requise."
 derniere-maj: 2026-07-27
 tags:
   - "#type/technique"
@@ -28,6 +28,32 @@ Le scale complet, introduit avec Opus 4.7 : **low → medium → high → xhigh 
 La doctrine forge (Option C, ci-dessous) est indépendante de ce défaut : elle **force un effort explicite calibré par type de tâche** au lieu de subir le défaut adaptatif.
 
 ## Recommandation officielle Anthropic
+
+## Recommandation officielle Anthropic — DÉPEND DU MODÈLE (corrigé 29 juil. 2026)
+
+⚠️ Il n'y a **pas** de recommandation unique : la page officielle [Effort](https://platform.claude.com/docs/en/build-with-claude/effort) donne une consigne **par modèle**, et elle a changé avec Opus 5. La version précédente de cette section affirmait « Coding / agentic : start `xhigh` » sans distinction de modèle — **c'était faux depuis le 24 juillet 2026**.
+
+| Modèle | Point de départ officiel | Verbatim |
+|--------|--------------------------|----------|
+| Opus 4.7 **et** 4.8 | **`xhigh`** pour coding/agentic | « **Start with `xhigh` for coding and agentic use cases**, use `high` for most other intelligence-sensitive workloads » |
+| **Opus 5** (défaut CC depuis 24 juil. 2026) | **`high`** (le défaut) | « **Start with `high`, the default**, and adjust based on your evals: step up to `xhigh` for demanding coding and agentic work, or to `max` when a task justifies unconstrained token spending, and use `low` and `medium` **liberally as your primary control** for token cost and response time wherever your evals show quality holds. » |
+| Fable 5 (+ Mythos 5) | **`high`** | « Start with `high`, the default, for most tasks » · « Lower effort settings on Claude Fable 5 still perform well and often exceed `xhigh` performance on prior models. » |
+| Sonnet 5 | **`high`** (défaut) | `xhigh` réservé « for the hardest coding and agentic tasks » |
+
+**La phrase qui vise directement forge** :
+
+> « **If you carried effort settings over from an earlier model, run a fresh effort sweep on your evals rather than reusing them.** »
+
+C'est littéralement la situation de forge : la grille Option C a été calibrée à l'ère Opus 4.7/4.8, puis reconduite sur Opus 5 sans re-mesure.
+
+**Ce qui change / ce qui ne change pas** :
+- ❌ **Périmé** : `xhigh` comme *point de départ* de l'agentique/coding sur Opus 5.
+- ✅ **Toujours valide** : calibrer par TYPE de tâche, et forcer un effort explicite plutôt que subir l'adaptatif. `xhigh` reste un **step-up mesuré** (« demanding coding and agentic work »), pas un défaut.
+- 🔎 **Levier neuf non exploité par forge** : `low`/`medium` sont désignés « primary control » du coût sur Opus 5.
+
+Autres faits de la même page, spécifiques à Opus 5 : **thinking non désactivable** à `xhigh`/`max` (requête `thinking: disabled` → **erreur 400**, ce qui confirme en primaire le point marqué « à re-vérifier » plus bas) ; `max_tokens` ≥ 64k à `xhigh`/`max` ; l'effort **ne raccourcit pas** la réponse visible (« changing effort does not reliably shorten responses, so prompt for length instead »).
+
+Vérifié en session principale le 29 juil. 2026 par lecture directe de la page officielle (`platform.claude.com/docs/en/build-with-claude/effort`).
 
 - **Coding / agentic** : start `xhigh`
 - **Intelligence-sensitive** : minimum `high`
@@ -136,6 +162,7 @@ Un scan cc-news a remonté une controverse : effort par défaut de Claude Code s
 - **Fast mode** : Opus 5 à $10/$50 par MTok (~2,5× la vitesse) ; **Opus 4.7 retiré du fast mode** (`speed: "fast"` → erreur, pas de fallback) — fast = Opus 5 + Opus 4.8 uniquement.
 
 La doctrine forge « effort calibré par TYPE de tâche » reste valide telle quelle pour Opus 5.
+⚠️ **Correction 29 juil. 2026** — cette section concluait « la doctrine forge *effort calibré par TYPE* reste valide telle quelle pour Opus 5 ». **Partiellement faux** : le *principe* de calibrage par type reste valide, mais son **point de départ** ne l'est plus. La page officielle Effort recommande pour Opus 5 « Start with `high`, the default » (et non `xhigh`), et ajoute « If you carried effort settings over from an earlier model, run a fresh effort sweep on your evals rather than reusing them » — ce qui décrit exactement la grille Option C reconduite sans re-mesure. Le point « thinking disabled + xhigh/max → 400 », marqué ici comme source secondaire à re-vérifier, est **confirmé en primaire**. Voir la section « Recommandation officielle Anthropic — DÉPEND DU MODÈLE » en haut de cette note.
 
 ## Formalisation OFFICIELLE de la doctrine effort × modèle (Lydia Hallie, 7 juillet 2026)
 

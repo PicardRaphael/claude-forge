@@ -10,22 +10,17 @@ Quand une décision de naming, structure ou doctrine est prise sur un repo, elle
 
 ## Checklist repos concernés
 
-| Alias | Chemin |
-|-------|--------|
-| forge | `C:/Users/raphael.picard_neote/Documents/claude-forge/` |
-| ia_back | `C:/Users/raphael.picard_neote/Documents/neot-v2/ia_back/` |
-| neo_ia | `C:/Users/raphael.picard_neote/Documents/neot-v2/neo_ia/` |
-| lojii | `C:/Users/raphael.picard_neote/Documents/neofront/` |
-| neoteem-brain | `C:/Users/raphael.picard_neote/Documents/neot-v2/neoteem-brain/` |
+Table des repos + **procédure de résolution des chemins** (obligatoire : 2 machines, arborescences différentes, repos parfois absents) : source unique `.claude/rules/git-multi-repo.md` § « Chemins des repos — RÉSOUDRE, jamais recopier ». Ne pas recopier de chemin absolu ici.
 
 ## Protocole
 
 1. **Identifier le scope** : décision forge-only → pas de propagation. Décision multi-repo → continuer.
-2. **Pour chaque repo concerné** :
+2. **Vérifier la présence du repo AVANT** (2 machines — un repo peut être absent ici et présent là-bas) : `[ -d "$repo/.git" ]`. Absent → annoncer le skip à Raphael, ne pas improviser de chemin.
+3. **Pour chaque repo présent** :
    - Identifier le composant à modifier (agent, skill, rule, CLAUDE.md)
-   - Session principale pour les writes cross-repo (sub-agents bloqués cross-repo)
-   - Path absolu si délégation : `C:/Users/.../<repo>/.claude/agents/<nom>.md`
-3. **Vérifier empiriquement** après propagation : grep le terme modifié sur chaque repo.
+   - **Write en session principale** — jamais délégué à un sub-agent (bloqué cross-repo, et `delegate-guard` lit l'`attributionSkill` de la session principale). Cf `delegate-to-specialists.md` + `mcp-brief-then-direct.md` § contre-exemple.
+   - Chemin résolu dynamiquement, jamais recopié (cf `git-multi-repo.md`)
+4. **Vérifier empiriquement** après propagation : grep le terme modifié sur chaque repo.
 4. **Documenter** dans le vault si décision à valeur canonique :
    ```
    mcp__forge-brain__create_note(path="Knowledge/decisions/<sujet>.md", ...)

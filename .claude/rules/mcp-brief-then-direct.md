@@ -45,14 +45,19 @@ Si l'agent est invoqué depuis plusieurs repos (ia_back, neo_ia, etc.) :
 - Les `skills:` frontmatter restent pour documentation mais sont décoratives cross-repo
 - Valider : invoquer l'agent depuis un repo qui n'a PAS les skills en question
 
-## Modifier un agent dans un autre repo
+## Modifier un agent dans un autre repo — NE PAS déléguer
+
+⚠️ **Contre-exemple** (ce bloc prescrivait l'inverse jusqu'au 29 juil. 2026) :
 
 ```python
-Agent(
-  subagent_type="subagent-creator",
-  prompt="Modifier C:/Users/raphael.picard_neote/Documents/ia_back/.claude/agents/xxx.md..."
-)
+# FAUX — le sub-agent est bloqué en write cross-repo, et delegate-guard
+# lit l'attributionSkill de la session principale, pas du transcript sub-agent
+Agent(subagent_type="subagent-creator", prompt="Modifier <autre-repo>/.claude/agents/xxx.md...")
 ```
+
+Les écritures cross-repo (`SKILL.md`, `agents/*.md`, hooks, `CLAUDE.md`) se font **en session principale**, qui invoque elle-même la skill créatrice. Cf `cross-repo-propagation.md` § Protocole + `delegate-to-specialists.md` § « Sub-agents : le bypass ne fonctionne PAS » (observé 16 juil. 2026).
+
+Le brief MCP verbatim (objet de cette rule) reste valable : c'est le **write** qui ne se délègue pas, pas la lecture ni l'analyse.
 
 ## Gotchas
 

@@ -1,6 +1,6 @@
 @echo off
 setlocal
-set PROJECT=C:\Users\rapha\Documents\claude-forge
+for %%I in ("%~dp0..") do set PROJECT=%%~fI
 set LOGDIR=%PROJECT%\logs
 set TIMESTAMP=%date:~6,4%-%date:~3,2%-%date:~0,2%_%time:~0,2%-%time:~3,2%
 set TIMESTAMP=%TIMESTAMP: =0%

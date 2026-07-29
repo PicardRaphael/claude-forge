@@ -42,7 +42,7 @@ Avant de créer un nouveau fichier dans `memory/`, distinguer les 3 acteurs et a
 
 - **`MEMORY.md`** = table des matières + déclencheurs critiques (≤ 50 entrées tier-1)
 - **vault canoniques** = source de vérité doctrinale (règles énoncées, réutilisables)
-- **`memory/*.md`** = exceptions empiriques uniquement (plancher structurel ~240 ; WARNING 250 / CRITICAL 290 via hook `memory-saturation-watcher`)
+- **`memory/*.md`** = exceptions empiriques uniquement (WARNING 180 / CRITICAL 220 via hook `memory-saturation-watcher`, base post-migration 7 juil. ~135 ; mesuré 85 au 29 juil. 2026)
 
 ### Workflow décision (4 étapes obligatoires)
 

@@ -1,6 +1,6 @@
 ---
 name: cc-features-ref
-description: ALWAYS load when user asks about Claude Code features, capabilities, or what exists. Covers 2026 features: /loop, /schedule, /batch, /simplify, /voice, worktrees, effort, Auto Memory, plugins, LSPs, Agent Teams, CLI flags.
+description: ALWAYS load when user asks about Claude Code features, capabilities, or what exists. Covers 2026 features — /loop, /schedule, /batch, /simplify, /voice, worktrees, effort, Auto Memory, plugins, LSPs, Agent Teams, CLI flags.
 user-invocable: false
 ---
 

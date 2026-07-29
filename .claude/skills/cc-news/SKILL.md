@@ -1,6 +1,6 @@
 ---
 name: cc-news
-description: ALWAYS invoke when user asks 'quoi de neuf', 'est-ce que X existe', or knowledge seems stale. Recent Claude Code updates, new features, AI industry news. Reference date : 25 juillet 2026 (v2.1.220).
+description: ALWAYS invoke when user asks 'quoi de neuf', 'est-ce que X existe', or knowledge seems stale. Recent Claude Code updates, new features, AI industry news. Reference date — 25 juillet 2026 (v2.1.220).
 user-invocable: true
 allowed-tools: WebSearch, WebFetch, Read, Write, Agent, mcp__forge-brain__*
 argument-hint: "domaine ou sujet (ex: rag, agents, fine-tuning, concurrents, claude-code, prompt, tout)"
@@ -138,6 +138,7 @@ Avant de capitaliser un paper arXiv dans le vault → `Skill(arxiv-verification)
    - **Composants `.claude/`** : ce finding rend-il obsolète une skill / agent / hook / rule / CLAUDE.md ? (ex : mot-déclencheur renommé, API dépréciée, feature qui change un workflow). Si OUI → SIGNALER à l'utilisateur avec recommandation de modification, mais NE PAS modifier le composant directement (gate humaine obligatoire ; délégation aux agents spécialisés : skill-creator / subagent-creator / hook-creator / claudemd-creator).
 8. **Capitaliser dans le vault forge-brain** (obligatoire, pas optionnel) — Si une nouvelle version CC est découverte, mettre à jour la date de référence et la version dans ce SKILL.md (ligne 3 description + ligne 11 body).
 9. **Doctrine impact check** (sur les findings MAJEURS uniquement) — Pour chaque finding majeur d'un leader reconnu (05-Leaders/) ou d'Anthropic officiel issu de ce run, invoquer la skill `doctrine-impact-check` avec le finding (claim + source + URL) pour le croiser avec la doctrine canonique forge. PAS pour tout finding (anti-cascade : un run cc-news peut produire 30 findings, seuls les findings à fort crédit qui touchent une doctrine méritent le croisement). La skill produit un verdict INFO / DOCTRINE_PIVOT_CANDIDATE / DOCTRINE_REINFORCE avec gate humaine `[v]/[m]/[i]`.
+10. **Propager un finding OFFICIEL Anthropic jusqu'au bout** (cf § Propagation d'une norme officielle) — Un finding issu d'une source officielle (`claude.com`, `anthropic.com`, `code.claude.com`, `platform.claude.com`, CHANGELOG `anthropics/claude-code`) qui prescrit ou renverse une pratique **devient la norme** : dérouler la chaîne complète. Mettre à jour le vault seulement ne suffit pas — la doctrine se reproduit par les templates des skills créatrices et par `memory/`.
 
 ### Fallback X/Twitter
 
@@ -147,6 +148,27 @@ Si une source à analyser est une URL X.com/Twitter (`https://x.com/...` ou `htt
 - Si la skill x-read n'est pas disponible (cookies absents, pas encore installée) → fallback :
   1. Demander à l'utilisateur de coller le contenu du tweet
   2. Capitaliser quand même dans le vault avec la source citée
+
+## Propagation d'une norme officielle (étape 10)
+
+Déclencheur : finding de source **officielle** Anthropic qui prescrit, chiffre ou renverse une pratique. Un finding tiers, même crédible, ne déclenche PAS cette chaîne.
+
+Dérouler dans cet ordre, chaque maillon vérifié avant le suivant :
+
+1. **Vault** — canonique concernée : réécrire le CORPS en place. Une bannière ou un addendum qui laisse la claim fausse dans le corps ne compte pas comme corrigé. Mettre aussi à jour `resume` et `derniere-maj` : un `resume` périmé est ce que lira la prochaine recherche.
+2. **`memory/`** — feedback concerné + son `description` frontmatter + l'entrée dans `MEMORY.md`.
+3. **`CLAUDE.md`** (via `claudemd-creator`) et **`.claude/rules/`** — les lignes qui énoncent la doctrine, pas seulement celles qui la citent.
+4. **Templates des skills créatrices** (`skill-creator`, `subagent-creator`, `hook-creator`, `claudemd-creator`) — le maillon le plus souvent oublié : c'est lui qui reproduit la doctrine dans chaque composant futur.
+5. **Frontmatters existants** — les composants déjà écrits avec l'ancienne valeur.
+6. **Cross-repo** — ia_back, neo_ia, neoteem-brain (cf `.claude/rules/cross-repo-propagation.md`). Écriture en session principale, jamais déléguée.
+
+Grep de complétude avant de déclarer la propagation faite : chercher l'ancienne valeur dans `vault/`, `memory/`, `CLAUDE.md`, `.claude/`. Un seul site restant = drift.
+
+**Vérifier le périmètre avant de généraliser** — trois pièges qui produisent une fausse norme :
+
+- **Périmètre de modèle** : une page de prompting vaut pour LE modèle qu'elle nomme. « specific to Claude Fable 5 and Claude Mythos 5 » ne s'étend pas à Opus 5. Vérifier l'en-tête de la page avant d'appliquer.
+- **Verbatim dans sa section** : un texte à l'intérieur d'un bloc d'exemple de prompt est une suggestion à donner au modèle, pas une assertion d'Anthropic. Lire la section qui l'entoure.
+- **Date ≠ intégration** : une canonique mise à jour APRÈS un événement peut n'avoir lu que l'annonce, pas la page de doctrine correspondante. Relire la page de référence, pas seulement l'annonce.
 
 ## Capitalisation vault (étape 8)
 

@@ -19,6 +19,7 @@ description: Convention d'écriture hooks Windows — py launcher, ${CLAUDE_PROJ
 - **Timeout** : obligatoire (`timeout: N`, N ≤ 30) — sans timeout, freeze Claude Code indéfini
 - **Chemins dans le script** : via `__file__` (`os.path.dirname(os.path.abspath(__file__))`)
 - `shutil.which("outil")` avant tout appel d'outil externe — fail-open si absent
+- **`$ARGUMENTS` JAMAIS dans des backticks shell** (`` `cmd $ARGUMENTS` ``) — la substitution est littérale : un argument contenant un espace, un guillemet ou un `&` casse le quoting et exécute autre chose que prévu. Windows y est le plus exposé (chemins avec espaces). Passer par des variables séparées, un argument par variable.
 
 ## Gotchas
 
