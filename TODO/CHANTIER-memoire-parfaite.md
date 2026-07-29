@@ -65,7 +65,7 @@ Contrainte : **mémoire 100 % locale au repo**, aucun branchement vault sur neo_
 | 1 | Croiser recherche × audit → critère d'écriture + carte des déclencheurs | ✅ fait |
 | 2 | **Injection contextuelle** `UserPromptSubmit` | ✅ **livré** — `memory-recall.py`, branché sur les 3 repos |
 | 3 | Durcir l'écriture (`learning-reminder` exige que le souvenir nomme l'erreur) | ✅ fait (`af60bf3`) |
-| 4 | Prouver le gate `paths:` puis étendre le scoping | ⛔ **BLOQUÉ — preuve absente** (voir ci-dessous) |
+| 4 | Prouver le gate `paths:` puis étendre le scoping | ✅ **PROUVÉ par `/context all`** (29 juil.) — extension débloquée |
 | 5 | Mesurer avant/après en tokens réels | 🔶 **délégué** — chiffre borné ci-dessous ; `/context` = 10 s de Raphael |
 | 6 | Décision vault avec clause de sortie mesurable | ⬜ à faire |
 | 7 | Compléter les `trigger:` manquants, **sélectivement** | ⬜ à faire (voir critère) |
@@ -76,35 +76,69 @@ Contrainte : **mémoire 100 % locale au repo**, aucun branchement vault sur neo_
 
 **Comportement mesuré** (8 prompts réalistes, 29 juil.) : silencieux sur 3/8 (« salut ca va », « ajoute un test », méta-question) ; 3 rappels sur « commit et push » et « fix le bug dans le hook python windows » ; 1 sur « audite neo_ia », « crée une skill », « merge la branche ». Pas de sur-déclenchement observé — la sélectivité tient à 19 triggers.
 
-## ⛔ Le point bloqué — le gate `paths:` n'est PAS prouvé
+## ✅ Le gate `paths:` est PROUVÉ — `/context all` sur neo_ia, 29 juil. 2026
 
-Les deux logs de la sonde ne contiennent **qu'une ligne chacun**, un `session_start` sur un fichier de test :
+La sonde `InstructionsLoaded` n'a servi à rien (ses 2 logs ne contiennent qu'un `session_start` sur un fichier de test). **C'est `/context all` qui a tranché**, par une preuve plus directe : la ventilation fichier par fichier des Memory files.
 
-```
-forge   : 2026-07-29T12:55:03  reason=session_start  path=.claude/rules/test.md
-neo_ia  : 2026-07-29T13:06:48  reason=session_start  path=.claude/rules/x.md
-```
+neo_ia a **25 rules sur disque**. `/context all` en liste **23**. Les 2 absentes sont *exactement* les 2 rules scopées :
 
-**Aucun `path_glob_match` n'a jamais été observé.** neo_ia a pourtant 2 rules scopées (`database-rules`, `testing-mandatory`) : il faut une vraie session neo_ia qui touche un `.sql` ou un fichier de `tests/`, puis relire le log.
-
-Tant que cette ligne n'apparaît pas, **ne pas étendre le scoping `paths:`** — précédent `once: true` : champ documenté, silencieusement ignoré. Un champ documenté n'est pas un champ honoré.
-
-## Le gain, borné honnêtement (point 5) — ⚠️ « ~6 200 tokens » était surévalué
-
-**Mesuré en caractères** sur neo_ia, 29 juil. (`wc -c`, artefacts chargés à chaque session) :
-
-| Artefact | Chars | Statut |
+| Rule | `paths:` | Dans `/context` ? |
 |---|---|---|
-| `memory/MEMORY.md` | 5 977 | condensé depuis 17 948 → **−11 971 chars acquis** |
-| `CLAUDE.md` | 8 235 | chargé inconditionnellement |
-| rules NON scopées | 57 438 | chargées inconditionnellement |
-| rules scopées `paths:` | 11 020 | **conditionnel — gain NON réclamable** (gate non prouvé) |
+| `database-rules.md` (2 677 chars) | `**/*.sql`, `**/repositories/**` | ❌ **absente** |
+| `testing-mandatory.md` (8 343 chars) | `**/tests/**`, `**/test_*.py` | ❌ **absente** |
+| les 23 autres | aucun | ✅ toutes présentes |
 
-**Ce qui est réellement acquis** : la condensation de l'index, soit **≈ 3 000–3 600 tokens/session** (11 971 chars ÷ 3,3 à ÷ 4). Zéro savoir perdu, 27 fichiers intacts et tous indexés.
+**Confirmation arithmétique** : la somme des tokens listés fait 32 796 contre 32 700 affichés (écart 0,3 %, un arrondi). Il n'y a **aucune place** pour les 11 020 chars des 2 rules gatées. Elles ne sont pas chargées, point.
 
-**Ce qui ne l'est pas** : les 11 020 chars de rules scopées. Un gate non prouvé économise **zéro** — tant qu'aucun `path_glob_match` n'apparaît dans le log de la sonde, ces rules peuvent très bien être chargées à chaque session comme les autres. L'ancien chiffre « ~6 200 tokens/session » additionnait les deux : il est donc **faux tant que le point 4 est bloqué**.
+**Leçon de méthode** : la preuve n'est pas venue de l'instrument construit pour ça (la sonde), mais d'une commande native qui expose l'état réel. Chercher d'abord ce que l'outil expose déjà avant d'instrumenter.
 
-**Ces chiffres sont des comptes de caractères, pas des tokens.** La conversion ÷3,3–÷4 est une estimation. La mesure autoritative est `/context`, qui n'est accessible que depuis un terminal interactif : **une session `claude` sur neo_ia + `/context`** donne le nombre réel. Pas exécutable depuis une session agent (ni `tiktoken`, ni SDK, ni clé API ici — vérifié).
+→ **L'extension du scoping est débloquée** (voir § suivant).
+
+## Le gain, MESURÉ (point 5) — `/context` sur les 2 repos, 29 juil. 2026
+
+| | claude-forge | neo_ia |
+|---|---|---|
+| Memory files | **35,5k tok** · 20 fichiers | **32,7k tok** · 27 fichiers |
+| Fenêtre utilisée | 67,6k / 1M (7 %) | 74,4k / 1M (7 %) |
+| Rules | 16, **0 scopée** | 25, **2 scopées (gatées, prouvé)** |
+| Chars eager | 82 758 | 73 948 |
+
+**Ratio réel : 2,26–2,33 chars/token** — pas 3,3–4 comme estimé. Corpus français + markdown dense (tableaux, backticks, wikilinks, noms techniques) = tokenisation beaucoup plus fine que la prose anglaise. **Toute estimation antérieure à ÷3,3 sous-évaluait de ~40 %.**
+
+**Acquis, chiffré au bon ratio** :
+- Condensation de l'index neo_ia : −11 971 chars ⇒ **≈ 5 100 tokens/session** (et non 3 000–3 600).
+- Gate `paths:` sur 2 rules : 11 020 chars ⇒ **≈ 4 700 tokens/session** — désormais **réclamable**, le gate est prouvé.
+- Total neo_ia : **≈ 9 800 tokens/session**. L'ancien « ~6 200 » était *sous*-estimé, pas surestimé — mais pour la mauvaise raison (mauvais ratio ⨯ gate non prouvé).
+
+**Deux faits que l'estimation n'aurait pas donnés** :
+- **`MCP tools · 0 tokens (loaded on-demand)`** — 79 à 87 outils MCP ne coûtent **rien** au démarrage. Contre-intuitif : on pourrait croire à un coût fixe par serveur.
+- **Skills : 8,4k pour 73 skills** — seules les descriptions sont chargées, pas les corps. La doctrine « description ≤ 250 chars » se paie donc directement ici.
+
+**Mise en perspective** : 7 % de fenêtre utilisée sur 1M. Ce n'est pas un problème de saturation — c'est un coût *par requête*. L'optimisation vaut le coup, mais casser un garde-fou pour 1 % de contexte serait un mauvais échange.
+
+⚠️ `/context` n'est **pas** exécutable depuis une session agent (commande de terminal interactif ; ni `tiktoken`, ni SDK, ni clé API disponibles — vérifié). C'est une mesure à demander à Raphael, 10 secondes.
+
+## Où est le gisement restant — mesuré par fichier
+
+**Les rules = ~75 % des Memory files sur les deux repos.** C'est le seul levier qui compte.
+
+**forge — 0 / 16 scopée**, alors que plusieurs sont déclenchées par fichier. Top 6 = ~15 000 tokens :
+
+| Rule | Tokens | Scopable ? |
+|---|---|---|
+| `post-dispatch-verify` | ~3 660 | non (transverse) — mais découpable principe/référence |
+| `comportement-proactif` | ~2 760 | non (routage) |
+| `delegate-to-specialists` | ~2 170 | partiellement |
+| `memory-discipline` | ~2 160 | non |
+| `sequence-canonique-modification` | ~2 130 | non |
+| `forge-brain-proactive` | ~2 100 | non |
+| `changelog-vault` | ~334 | **oui** → `vault/**` |
+| `windows-hooks` | ~887 | **oui** → `.claude/hooks/*.py` |
+| `coaching-lead-ia` | ~780 | **→ SKILL** (task-specific, cf doctrine Anthropic) |
+
+**neo_ia — 2 / 25 scopées**, les plus grosses restantes : `agent-routing` (3,4k), `ia-back-contract` (2,9k), `sub-agent-patterns` (2,2k), `repo-scope` (2k), `billing-labels` (1,8k — **volontairement eager**, un glob y ferait faux-négatif sur le cas « nouvelle app »).
+
+⚠️ Rappel : une rule scopée **reste chargée toute la session** après déclenchement → glob étroit obligatoire. Et ne jamais gater un garde-fou qui doit mordre *avant* que le fichier ne soit touché.
 
 ## Couverture `trigger:` — mesurée
 
