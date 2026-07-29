@@ -140,6 +140,24 @@ neo_ia a **25 rules sur disque**. `/context all` en liste **23**. Les 2 absentes
 
 ⚠️ Rappel : une rule scopée **reste chargée toute la session** après déclenchement → glob étroit obligatoire. Et ne jamais gater un garde-fou qui doit mordre *avant* que le fichier ne soit touché.
 
+## Optimisation appliquée sur forge — 29 juil. 2026 (~1 490 tokens eager)
+
+| Action | Avant → après | Gain eager |
+|---|---|---|
+| `windows-hooks` **scopée** `paths:` | eager → conditionnel | **~1 160 tok** |
+| `post-dispatch-verify` dégraissée (récit → `docs/doctrine/`) | 8 537 → 7 718 chars | ~356 tok |
+| `MEMORY.md` restructuré 7 sous-sections | 11 151 → 10 609 chars | ~236 tok |
+
+**Trois décisions NÉGATIVES, aussi importantes que les gains** — un futur passage d'optimisation ne doit pas les défaire :
+
+1. **`changelog-vault` NON scopée** malgré l'évidence apparente (`vault/**`). Le gate fire sur **lecture**, or les notes du vault s'écrivent via MCP (`create_note`/`append_note`) — aucun Read sur `vault/**`. La scoper la rendrait muette exactement dans le cas qu'elle attrape (CHANGELOG oublié). Commentaire explicatif laissé dans le fichier. ~298 tokens assumés.
+2. **Référence sortie vers `docs/doctrine/`, pas `.claude/rules/references/`.** Premier essai dans un sous-dossier de `rules/` annulé : aucun précédent sur les 3 repos, et `/context all` ne liste que des `.md` à plat → impossible d'affirmer qu'un sous-dossier n'est pas ramassé comme rule. Si l'hypothèse était fausse, les 3 989 chars devenaient un coût **net**.
+3. **`coaching-lead-ia` (768 tok) laissée en rule.** Candidate évidente au passage en skill (task-specific, cf doctrine Anthropic), MAIS la skill `responsable-ia` existe déjà et couvre les *livrables* — la rule couvre le *coaching + la capture terrain*, frontière explicite et voulue. Ce n'est pas un doublon : convertir est une décision de conception, à arbitrer par Raphael, pas une optimisation.
+
+**Ce qui reste volontairement eager** : `comportement-proactif` (2,8k), `forge-brain-proactive` (2,1k), `sequence-canonique-modification` (2,2k), `memory-discipline`, `delegate-to-specialists`. Ce sont les tables de routage et les méthodes canoniques : elles doivent être en contexte **avant** de savoir quel fichier sera touché. Les gater ferait rater le déclenchement — c'est le cœur de la réserve « garde-fou tardif ».
+
+**Le vrai enseignement du gain modeste sur `MEMORY.md`** : la condensation n'a rendu que 236 tokens parce qu'elle a été **réinvestie en couverture** — 19 fichiers mémoire existants n'étaient pas indexés du tout (index passé de 50 à 69 pointeurs). Un index qui mentait par omission valait moins que 5 % de tokens.
+
 ## Couverture `trigger:` — mesurée
 
 | Repo | Fichiers mémoire | Avec `trigger:` (29 juil., après pose) |
