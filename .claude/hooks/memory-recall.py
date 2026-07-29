@@ -18,6 +18,13 @@ Limite assumee : un fait range sous un vocabulaire different du prompt reste
 invisible. Le correctif est d'enrichir `trigger:`, pas d'ajouter un index
 vectoriel.
 
+Perf mesuree (profilage 29 juil. 2026, 85 fichiers) : demarrage de `py` sous
+Windows = ~420 ms INCOMPRESSIBLE, load_index = 1,6 ms, scoring = 2,9 ms, soit
+~60 ms de travail reel. Le plafond « < 500 ms » de la doctrine hook est donc
+inatteignable pour tout hook Python sous Windows — 26 hooks existants sont deja
+dans ce regime. Ne pas re-optimiser ce script en croyant que le cout vient de la
+lecture des fichiers : il vient de l'interpreteur.
+
 Fail-open partout : toute erreur -> exit 0, aucune injection.
 """
 import hashlib
@@ -192,10 +199,16 @@ def main():
         if not lines:
             sys.exit(0)
 
+        # Formule en FAITS, jamais en imperatif. Docs hooks : « Write the text as
+        # factual statements rather than imperative system instructions. Text
+        # framed as out-of-band system commands can trigger Claude's
+        # prompt-injection defenses, which causes Claude to surface the text to
+        # you instead of treating it as context. » Un « ouvre ceci » ferait
+        # AFFICHER le rappel au lieu de le faire lire.
+        noun = "souvenir" if len(lines) == 1 else "souvenirs"
         context = (
-            "Souvenirs de ce repo qui semblent concerner la demande — "
-            "ouvrir ceux que la tache touche vraiment, ignorer les autres :\n"
-            + "\n".join(lines)
+            f"Ce repo contient {len(lines)} {noun} dont les mots-clés recoupent "
+            "la demande en cours :\n" + "\n".join(lines)
         )
         print(json.dumps({
             "hookSpecificOutput": {
