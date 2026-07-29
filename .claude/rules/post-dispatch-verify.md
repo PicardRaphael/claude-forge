@@ -42,15 +42,9 @@ Le second cas est le plus dangereux : rien n'échoue, rien n'est vide, le rappor
 
 **Le déclencheur pratique** : si le finding va provoquer une **action irréversible** (suppression, réécriture, `git rm`) ou une **affirmation à Raphael**, il se vérifie. S'il alimente une discussion, non.
 
-**Pourquoi c'est non négociable sur un audit de repo** : un audit produit 20 à 50 findings d'un coup, et son autorité apparente est haute (rapport structuré, `file:line`, ton assuré). Relayer sans mesurer, c'est propager des faux à l'échelle — et si l'audit débouche sur un plan de nettoyage, chaque faux devient une suppression.
+**Pourquoi c'est non négociable** : un audit produit 20 à 50 findings d'un coup avec une autorité apparente haute (`file:line`, ton assuré). Relayer sans mesurer propage des faux à l'échelle — et si l'audit débouche sur un nettoyage, chaque faux devient une suppression.
 
-**Trois cas réels, session du 29 juil. 2026** — mêmes agents, aucun fichier écrit, trois faits faux :
-
-1. « chemin mort `Documents/ia_back` » → le chemin existe **sur l'autre PC** de Raphael. Le fait mesuré (« absent ici ») était juste ; l'interprétation (« erroné ») était fausse.
-2. « repo fantôme `lojii/neofront` » → le dossier existe. `ls -d neofront/.git` a tranché : ce n'est pas un repo, c'est un **conteneur de ~10 repos**. Deux erreurs opposées corrigées par une seule mesure.
-3. « `git merge *` est en deny global intentionnel » (écrit dans un feedback depuis mai) → parse de `settings.json` : **0 entrée deny**. Une intention rassurante avait été fabriquée pour une garde jamais lue.
-
-Aucun des trois n'aurait été attrapé par la checklist « fichiers » : aucun fichier n'était en jeu.
+📎 **3 cas réels mesurés + le raisonnement long** : `docs/doctrine/post-dispatch-cas-reels.md` (chemin « mort » qui existait sur l'autre PC · « repo » qui était un conteneur de 10 repos · deny global inventé, jamais lu). À lire quand un audit produit des findings à relayer.
 
 ## Par type d'agent
 
@@ -65,9 +59,7 @@ Aucun des trois n'aurait été attrapé par la checklist « fichiers » : aucun 
 
 ## Valider un frontmatter, pas seulement sa présence
 
-Un frontmatter présent peut être **cassé** : le motif deux-points-espace dans un scalaire YAML non quoté (`Modes: mode=audit`, `date : 25 juillet`) lève une `ScannerError` et rend le composant **invisible silencieusement**. 9 composants étaient dans cet état le 29 juil. 2026, dont 7 antérieurs à la session.
-
-Après toute création/modification de composant, parser le YAML plutôt que le regarder :
+Un frontmatter présent peut être **cassé** : le motif deux-points-espace dans un scalaire YAML non quoté (`Modes: mode=audit`) lève une `ScannerError` et rend le composant **invisible silencieusement**. Après toute création/modification de composant, **parser** le YAML plutôt que le regarder — `check-frontmatter.py` ci-dessous.
 
 ## Les trois findings mécanisables — script, pas jugement
 
@@ -85,7 +77,7 @@ py .claude/scripts/check-frontmatter.py && py .claude/scripts/check-refs.py && p
 
 Chacun accepte un chemin de repo en argument (`py .claude/scripts/check-refs.py ../neot-v2/neo_ia`) — utile pour les repos voisins qui n'embarquent pas les scripts.
 
-⚠️ **Portée de `check-refs.py`** : il ne regarde que les citations en **contexte de routage** (« agent `x` », « invoquer `y` », `Skill(z)`). Son silence prouve qu'aucun routage ne pointe vers le vide, pas qu'il n'existe aucune référence morte ailleurs. Un filtre plus large avait produit 108 faux positifs — un outil qui crie 108 fois est ignoré au premier usage.
+⚠️ `check-refs.py` ne couvre que les citations en **contexte de routage** — son silence ne prouve pas l'absence de toute référence morte (détail + le pourquoi des 108 faux positifs : `docs/doctrine/post-dispatch-cas-reels.md`).
 
 Le reste (« ce finding est-il pertinent ? », « cette inférence tient-elle ? ») n'est pas mécanisable : un script peut vérifier qu'une colonne « Mesure » existe, jamais que la mesure a réellement été faite.
 
