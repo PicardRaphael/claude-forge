@@ -1,6 +1,6 @@
 ---
 name: mcp-alias-ambigu-chemin-exact
-description: "MCP forge-brain append_note/read avec un alias court (ex \"log\") résout vers le mauvais fichier quand plusieurs notes partagent le stem. Passer chemin exact ou alias unique. Et même en *_by_path : un MARQUEUR ambigu (\"---\") injecte dans le frontmatter et détruit le YAML."
+description: "MCP forge-brain append_note/read par alias court (ex. log) résout vers le mauvais fichier quand plusieurs notes partagent le stem — passer chemin exact ou alias unique. Et même en *_by_path, un MARQUEUR ambigu (trois tirets) injecte dans le frontmatter et détruit le YAML."
 metadata: 
   node_type: memory
   type: feedback
