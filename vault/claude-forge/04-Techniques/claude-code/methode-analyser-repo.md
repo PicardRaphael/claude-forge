@@ -707,3 +707,39 @@ Aliases déclarés en frontmatter (14) :
 ---
 
 **Fin note canonique `methode-analyser-repo.md`** — révisée 23 mai 2026 post-audit thématique vault (ajout pipeline standard architect/dev/reviewer/test conditionnel).
+
+---
+
+## AJOUT 29 juillet 2026 — vérifier un CONSTAT d'audit avant de le relayer
+
+Un audit ne produit pas des fichiers, il produit des **affirmations**. Entre le fichier lu et le verdict rendu il y a une inférence, et c'est l'inférence qui casse : rien n'échoue, rien n'est vide, le rapport est bien écrit — et le fait est faux. La vérification est donc **plus** nécessaire après un audit qu'après une création.
+
+**Le déclencheur** : le finding va-t-il provoquer une action irréversible (suppression, réécriture, `git rm`) ou une affirmation à l'utilisateur ? → vérifier, c'est bloquant. Alimente-t-il seulement une discussion ? → non, coût sans gain.
+
+**Reproduire la mesure la plus courte qui tranche le verdict** :
+
+| Finding | Mesure qui tranche |
+|---|---|
+| « fichier / chemin inexistant » | `ls -d` — et se demander *sur quelle machine* (arborescences différentes selon le poste) |
+| « X est un repo / un composant » | `ls -d <X>/.git` — un dossier n'est pas un repo |
+| « champ vide / absent » | `Read` du frontmatter — une liste YAML multi-lignes se lit comme « vide » |
+| chiffre, seuil, compteur | recompter (`wc -l`, `grep -c`, parse de la config) |
+| « la garde / le deny existe » | lire la définition (settings, code du hook) |
+| « aucune occurrence », « tout conforme » | grep de validation avant toute déclaration exhaustive |
+| citation d'une source externe | relire **dans sa section** — un exemple n'est pas une assertion ; vérifier le périmètre (quel modèle, quelle version) |
+
+**Ne pas re-vérifier** : opinions de conception, recommandations, jugements de priorité. Aucun fait à mesurer — c'est un avis, à discuter.
+
+**Pourquoi c'est non négociable** : un audit livre 20 à 50 findings d'un coup, avec une autorité apparente élevée (rapport structuré, `file:line`, ton assuré). Relayer sans mesurer propage des faux à l'échelle ; et si l'audit débouche sur un plan de nettoyage, chaque faux devient une suppression.
+
+**Trois cas réels, 29 juillet 2026** — mêmes agents, aucun fichier écrit, trois faits faux :
+
+1. « chemin mort `Documents/ia_back` » → existe **sur l'autre poste** de Raphael. Le fait mesuré (« absent ici ») était juste ; l'interprétation (« erroné ») fausse.
+2. « repo fantôme `neofront` » → le dossier existe ; `ls -d neofront/.git` a tranché : c'est un **conteneur de ~10 repos git**, pas un repo. Deux erreurs opposées levées par une seule mesure.
+3. « `git merge *` est en deny global intentionnel » (écrit dans un feedback depuis mai) → parse de `settings.json` : **0 entrée deny**. Une intention rassurante avait été fabriquée pour une garde jamais lue.
+
+Aucun des trois n'aurait été attrapé par une vérification « les fichiers existent-ils ? » : aucun fichier n'était en jeu.
+
+**Corollaire outillage** : un frontmatter présent peut être cassé (motif deux-points-espace dans un scalaire non quoté → `ScannerError` → composant **invisible silencieusement**). 9 composants forge étaient dans cet état le 29 juil. 2026, dont 7 antérieurs. Valider en parsant le YAML, avec un script qui **sort en 1** — un script qui imprime l'erreur mais sort en 0 laisse passer le commit (constaté le même jour). Outil : `.claude/scripts/check-frontmatter.py`.
+
+Règle opérationnelle : `.claude/rules/post-dispatch-verify.md` § « Vérifier un CONSTAT d'audit ». Prior art : [[erreur-audit-rag-11-faux-2026-05-23]] (11 claims faux sur 78) · [[critique-2026-05-24-regex-source-faux-positifs]].

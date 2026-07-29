@@ -14,6 +14,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-07-29 (2) — doctrine « vérifier un CONSTAT d'audit » (findings ≠ fichiers)
+
+- **Modifiées** : `04-Techniques/claude-code/methode-analyser-repo` — AJOUT 29 juillet : quand/pourquoi vérifier un constat d'audit avant de le relayer, table finding → mesure qui tranche, ce qu'il ne faut PAS re-vérifier (opinions de conception), 3 cas réels de faux findings.
+- **Source** : session 29 juil. — 3 findings faux relayés par des agents d'audit sans qu'aucun fichier ne soit en jeu (chemin absent *ici* lu comme « erroné » alors que 2 postes ; dossier conteneur de ~10 repos lu comme un repo ; « `git merge *` en deny global » alors que `settings.json` a 0 entrée deny).
+- **Hors vault (même chantier)** : `.claude/rules/post-dispatch-verify.md` § « Deux natures de sortie » + « Vérifier un CONSTAT d'audit » ; `.claude/agents/repo-inspector.md` (colonne « Mesure qui le prouve » + section « À vérifier (non mesuré) » dans le rapport d'audit) ; `.claude/scripts/check-frontmatter.py` (exit 1 bloquant).
+- **Pourquoi** : la règle post-dispatch ne couvrait que le cas « l'agent a écrit des fichiers ». Un audit ne produit pas de fichiers mais des affirmations — rien n'échoue, rien n'est vide, et le fait est faux. Un audit livre 20-50 findings d'autorité apparente élevée ; relayer sans mesurer propage des faux à l'échelle, et si l'audit débouche sur un plan de nettoyage, chaque faux devient une suppression.
+
 ## 2026-07-29 — doctrine par modèle Opus 5 / Fable 5 + effort `xhigh` périmé sur Opus 5
 
 - **Ajoutées** : `04-Techniques/claude-code/doctrine-par-modele-opus5-fable5` — grille de décision par modèle (effort, vérification, délégation, skills prescriptives, verbosité), checklist « je veux passer un agent en Fable 5 », piège `reasoning_extraction` (refus + fallback silencieux), frontière « vérifier son propre travail ≠ vérifier un tiers », et rappel que la page canonique skills (500L, exemples recommandés) n'a PAS été révisée dans le sens de Fable 5.

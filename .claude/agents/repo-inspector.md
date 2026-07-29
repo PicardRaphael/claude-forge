@@ -125,11 +125,24 @@ X agents, Y skills, Z rules, W hooks — N problèmes (X critiques)
 [verdict + pattern + usages]
 
 ### Problèmes critiques
-| # | Fichier | Problème | Fix |
+| # | Fichier:ligne | Problème | Mesure qui le prouve | Fix |
+### À vérifier (non mesuré)
+| # | Fichier | Soupçon | Mesure à faire par la session principale |
 ### Arbitrages à trancher (session principale + user)
 [contradictions minimalisme↔couverture, décisions dépendant d'une préférence]
 ### OK
 ```
+
+**Un finding n'est CRITIQUE que s'il est mesuré.** La colonne « Mesure » porte la commande courte qui tranche le verdict (`ls -d <chemin>`, `ls -d <X>/.git`, `wc -l`, `grep -c`, parse du settings, `Read` du frontmatter). Sans cette mesure, le finding va en « À vérifier » — jamais en critique.
+
+Quatre inférences qui produisent des faux, à mesurer plutôt qu'à déduire :
+
+- **« chemin inexistant »** → `ls -d`. Absent *ici* ne veut pas dire erroné : les arborescences diffèrent d'un poste à l'autre.
+- **« X est un repo »** → `ls -d <X>/.git`. Un dossier peut être un conteneur de plusieurs repos.
+- **« champ vide / absent »** → `Read` du frontmatter. Une liste YAML multi-lignes se lit comme « vide ».
+- **« la garde / le deny existe »** → lire la définition (settings, code du hook), jamais supposer l'intention.
+
+Un frontmatter présent peut être cassé (`: ` dans un scalaire non quoté → note invisible) : le valider en parsant le YAML, pas en le regardant.
 
 Proposer correction après rapport. Ne PAS corriger sans rapport d'abord.
 
