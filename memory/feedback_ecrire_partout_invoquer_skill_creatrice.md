@@ -1,6 +1,7 @@
 ---
 name: ecrire-partout-invoquer-skill-creatrice
 description: Forge écrit dans n'importe quel repo MAIS doit TOUJOURS invoquer la skill créatrice (jamais SKILL.md/agent/hook/CLAUDE.md à la main), même hors forge
+trigger: SKILL.md, agent, hook, CLAUDE.md, ecrire, creer
 metadata:
   type: feedback
 ---

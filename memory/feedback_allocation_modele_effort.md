@@ -1,6 +1,7 @@
 ---
 name: allocation-modele-effort-doctrine
 description: Doctrine consolidée modèle/effort — Sonnet exécution / Opus jugement, calibrer par TYPE, try-vs-know (Lydia Hallie) + mesurer avant bump. ⚠️ Point de départ xhigh PÉRIMÉ sur Opus 5 (officiel = high, low/medium en primary control, fresh effort sweep si settings hérités — vérifié 29 juil.). Pipeline repos projet architect-first + code-reviewer séparé.
+trigger: effort, model, xhigh, opus, sonnet, frontmatter
 metadata:
   type: feedback
 ---

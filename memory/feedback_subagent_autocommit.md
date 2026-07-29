@@ -1,6 +1,7 @@
 ---
 name: subagent-autocommit-violation
 description: "Les sous-agents (hook-creator notamment) committent dans le repo cible malgré consigne \"pas de commit\" — répéter en MAJUSCULES dans le prompt"
+trigger: sub-agent, subagent, agent, dispatch, commit
 metadata: 
   node_type: memory
   type: feedback

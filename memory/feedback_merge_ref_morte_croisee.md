@@ -1,6 +1,7 @@
 ---
 name: merge-ref-morte-croisee
 description: Merge de branches divergentes — vérifier la CONVERSE (un côté référence-t-il un fichier que l'autre supprime/archive ?), une réf morte qu'aucune branche seule n'avait
+trigger: merge, branche, develop, main, reference morte
 metadata:
   type: feedback
 ---

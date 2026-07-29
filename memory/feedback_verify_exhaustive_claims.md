@@ -1,6 +1,7 @@
 ---
 name: verify-exhaustive-claims
 description: Toujours valider les déclarations exhaustives (zéro, tous, aucun) par grep/search avant de les affirmer
+trigger: zero, aucun, tous, complet, exhaustif, tout est
 type: feedback
 originSessionId: d059faa4-9130-4f07-a9d6-4f39f900e355
 ---

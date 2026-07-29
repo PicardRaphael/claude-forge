@@ -1,6 +1,7 @@
 ---
 name: git-c-pas-cd-multi-repo
 description: "Pour git multi-repos, TOUJOURS utiliser `git -C <path>` au lieu de `cd <path> && git`. Le cd persiste entre Bash calls et casse les commandes suivantes."
+trigger: git -C, cd, multi-repo, cross-repo, cwd
 metadata: 
   node_type: memory
   type: feedback

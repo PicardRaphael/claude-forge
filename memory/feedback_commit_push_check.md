@@ -1,6 +1,7 @@
 ---
 name: commit-push-check-pattern
 description: Quand Raphael dit "regarde commit et push tout", verifier git status + diff des repos externes avant push
+trigger: commit, push, git status, git diff, regarde commit
 type: feedback
 originSessionId: b3529a11-dcf4-49f9-aa3d-d8b5e7bdabc2
 ---

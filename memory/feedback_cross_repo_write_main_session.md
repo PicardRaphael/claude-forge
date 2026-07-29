@@ -1,6 +1,7 @@
 ---
 name: cross-repo-write-main-session-only
 description: "Session principale forge a write sur autres repos (ia_back, neo_ia, lojii) via Bash/Edit direct. Sub-agents bloqués cross-repo — NE PAS déléguer fixes cross-repo"
+trigger: cross-repo, autre repo, session principale, write
 metadata: 
   node_type: memory
   type: feedback

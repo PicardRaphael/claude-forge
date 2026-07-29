@@ -1,6 +1,7 @@
 ---
 name: correction-in-place-vault
 description: Corriger une claim périmée dans une note vault = réécrire le CORPS en place, jamais bannière AMENDE + texte périmé conservé + addendum en fin de note
+trigger: note vault, canonique, perime, banniere, addendum, corps
 metadata:
   type: feedback
 ---

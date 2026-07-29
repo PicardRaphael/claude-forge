@@ -1,6 +1,7 @@
 ---
 name: diagnostic-empirique-avant-affirmer-une-garde
 description: Avant d'ÉCRIRE dans un fichier doctrinal (CLAUDE.md, note canonique, settings, hook) qu'une garde technique existe (deny/hook/permission/bloqué), la vérifier matériellement (parse JSON settings, grep hooks, ls). JAMAIS inférer une garde depuis un comportement observé. Citer la preuve dans le commit/body, sinon ne pas écrire l'affirmation.
+trigger: garde, deny, hook, permission, bloque, settings
 metadata:
   type: feedback
 ---

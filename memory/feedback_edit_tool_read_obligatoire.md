@@ -1,6 +1,7 @@
 ---
 name: edit-tool-read-obligatoire-meme-en-parallele
 description: "Edit tool EXIGE Read préalable du fichier, même si l'Edit est lancé en parallèle avec d'autres tools"
+trigger: Edit, MultiEdit, parallele, batch, Read
 metadata: 
   node_type: memory
   type: feedback

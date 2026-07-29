@@ -1,6 +1,7 @@
 ---
 name: zero-dette-technique-nettoyer-completement
 description: "Quand on découvre une référence morte / drift / incohérence dans les .claude/, nettoyer COMPLÈTEMENT (tous fichiers vivants) immédiatement, pas \"on verra plus tard\"."
+trigger: dette, drift, reference morte, nettoyer, TODO
 metadata: 
   node_type: memory
   type: feedback

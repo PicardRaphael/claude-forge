@@ -1,6 +1,7 @@
 ---
 name: localiser-repos-avant-workflow-multi-repo
 description: Avant audit/workflow multi-repo, vérifier que les repos cibles existent SUR la machine courante — la doctrine les suppose présents, ce n'est pas garanti
+trigger: multi-repo, fan-out, audit, tous les repos
 metadata:
   type: feedback
 ---

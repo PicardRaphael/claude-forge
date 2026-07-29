@@ -1,6 +1,7 @@
 ---
 name: brief-premisse-fausse-verifier-avant-executer
 description: Un brief de mission peut poser une prémisse factuelle fausse (fichier ciblé, chiffre, état du repo). Vérifier matériellement la prémisse AVANT d'exécuter, et si fausse, surfacer + ré-arbitrer le périmètre — jamais exécuter le brief littéralement.
+trigger: brief, premisse, mission, chiffre, etat du repo
 metadata:
   type: feedback
 ---

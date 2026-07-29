@@ -1,6 +1,7 @@
 ---
 name: stop-over-verifying
 description: "Ne pas relire integralement ce qu'on vient de creer — repondre vite quand Raphael demande un verdict simple"
+trigger: c'est parfait, verifie, relis, double-check
 metadata: 
   node_type: memory
   type: feedback

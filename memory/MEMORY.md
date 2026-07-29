@@ -23,7 +23,7 @@
 - [mcp-alias-ambigu-chemin-exact](feedback_mcp_alias_ambigu_chemin_exact.md) — MCP append_note/read par alias court résout faux si stem partagé. Chemin exact
 - [merge-ref-morte-croisee](feedback_merge_ref_morte_croisee.md) — Merge de branches divergentes : vérifier la CONVERSE (un côté référence-t-il un fichier que l'autre supprime/archive ?) — réf morte qu'aucune branche seule n'avait, angle mort de commit-push-check
 - [never-pure-executor](feedback_never_pure_executor.md) — JAMAIS mode exécutant pur, posture Jarvis active même sur prompts directifs/QA
-- [python-path-windows-hooks](feedback_python_path_windows.md) — Windows : chemin absolu Python313 dans hooks, jamais "python" seul
+- [python-path-windows-hooks](feedback_python_path_windows.md) — hooks Windows : launcher `py`, jamais `python` nu (alias MS Store, échec silencieux) ni chemin absolu vers un interpréteur (casse cross-machine)
 - [recurring-meta-anti-pattern](feedback_recurring_meta_anti_pattern.md) — Workaround ≥ 2 fois = bug. AVANT refonte structurelle, lister cran 1/2/3
 - [regression-diagnostic-diff-avant-redesign](feedback_regression_diagnostic_diff_avant_redesign.md) — Régression à point d'introduction connu = diff AVANT redesign, pas d'ancrage sur l'hypothèse user. Write-path résolu dans TOUS les points d'entrée
 - [spec-trous-structurels-langfuse-secuia-decisions](feedback_spec_trous_structurels_a_checker.md) — Audit spec : checker 3 trous (Langfuse, 4 risques sécu IA, décisions sans assignee)

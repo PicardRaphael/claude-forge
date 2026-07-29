@@ -1,6 +1,7 @@
 ---
 name: vault-cat-guard-faux-positif-memory
 description: "Le hook vault-cat-guard bloque un cat/grep sur memory/_archive/ si la commande contient le mot vault dans son contenu (faux positif). Contourner via Edit, pas Bash."
+trigger: vault, cat, grep, memory, archive, faux positif
 metadata:
   type: feedback
 ---
