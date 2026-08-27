@@ -1,76 +1,95 @@
 #!/usr/bin/env python3
-"""Learning detector — Stop hook. Alerte SEULEMENT s'il reste de la matière.
+"""Stop hook advisory: surface uncaptured learning signals without continuing.
 
-Ancien comportement : rappel systématique à chaque fin de session. Mesure sur les
-transcripts : 8 « rien à sauvegarder » et zéro capture attribuable au hook — la
-capitalisation arrive PENDANT la session, poussée par les rules en pré-action.
-Un rappel qui pose toujours la question est ignoré ; un détecteur qui ne parle
-que quand il a trouvé quelque chose est lu.
-
-Comportement : lit le transcript de la session (chemin fourni par le harness),
-cherche des SIGNAUX d'apprentissage (feedback de Raphael, erreur corrigée, claim
-mesurée fausse, gotcha) ET vérifie si une capitalisation a déjà eu lieu.
-- signaux + aucune capitalisation -> decision:block en citant ce qui est détecté
-- rien trouvé, ou déjà capitalisé   -> exit 0 SILENCIEUX
-
-Anti-boucle : `stop_hook_active` (le hook précédent jetait son stdin, donc ne le
-testait jamais) + marqueur par session_id (l'ancien marqueur était global : deux
-sessions concurrentes se le volaient). Fail-open partout.
+This is a deterministic lint, not a memory writer or workflow orchestrator. It
+scans the local transcript for a small closed list of signals, subtracts only
+the categories that have matching evidence of capitalisation, and emits a
+non-blocking ``systemMessage`` once per session. Fail-open on every error.
 """
+
+from __future__ import annotations
+
 import json
 import os
 import re
 import sys
 import tempfile
+from collections.abc import Iterable
 
-# Assez pour couvrir une session longue sans lire un fichier de plusieurs Mo.
 _TAIL_LINES = 4000
 
-# Signaux d'apprentissage — formulations de Raphael et faits mesurés.
-_SIGNALS = (
-    (re.compile(r"\b(?:faut (?:pas|jamais)|ne (?:refais|refait) (?:plus|jamais)|"
-                r"attention (?:car|à|a)\b|c'est faux|c'est pas (?:ça|ca|bon)|"
-                r"tu (?:as|a) tort|pas comme ça|pas comme ca)", re.I),
-     "correction explicite de Raphael"),
-    (re.compile(r"\b(?:desormais|dorenavant|à partir de maintenant|"
-                r"a partir de maintenant|nouvelle (?:norme|règle|regle)|"
-                r"devient la (?:norme|règle|regle))", re.I),
-     "nouvelle norme énoncée"),
-    (re.compile(r"\b(?:péri(?:mé|me)|obsol(?:è|e)te|plus (?:valide|à jour|a jour)|"
-                r"claim fausse|fait faux|était faux|etait faux)", re.I),
-     "doctrine mesurée périmée ou fausse"),
-    (re.compile(r"\b(?:gotcha|piège découvert|piege decouvert|"
-                r"gard(?:e|e-fou) (?:manquant|absent)|bug (?:trouvé|trouve|réel|reel))", re.I),
-     "gotcha ou bug découvert"),
+_SIGNALS: tuple[tuple[str, re.Pattern[str], str], ...] = (
+    (
+        "correction",
+        re.compile(
+            r"\b(?:faut (?:pas|jamais)|ne (?:refais|refait) (?:plus|jamais)|"
+            r"c'est faux|c'est pas (?:ça|ca|bon)|tu (?:as|a) tort|pas comme ça|pas comme ca)",
+            re.I,
+        ),
+        "correction explicite de Raphaël",
+    ),
+    (
+        "norm",
+        re.compile(
+            r"\b(?:désormais|desormais|dorénavant|dorenavant|à partir de maintenant|"
+            r"a partir de maintenant|nouvelle (?:norme|règle|regle))",
+            re.I,
+        ),
+        "nouvelle norme énoncée",
+    ),
+    (
+        "stale",
+        re.compile(
+            r"\b(?:péri(?:mé|me)|obsol(?:è|e)te|plus (?:valide|à jour|a jour)|"
+            r"claim fausse|fait faux|était faux|etait faux)",
+            re.I,
+        ),
+        "fait ou doctrine signalé comme périmé",
+    ),
+    (
+        "gotcha",
+        re.compile(
+            r"\b(?:gotcha|piège découvert|piege decouvert|bug (?:trouvé|trouve|réel|reel))",
+            re.I,
+        ),
+        "gotcha ou bug découvert",
+    ),
+    (
+        "profile",
+        re.compile(
+            r"\b(?:je préfère|je prefere|j'aime|je n'aime pas|je travaille|"
+            r"mon objectif|je veux que (?:tu|claude|chatgpt|codex)|apprends? (?:ça|ca) sur moi|"
+            r"mémorise (?:ça|ca|ceci) sur moi)",
+            re.I,
+        ),
+        "fait ou préférence personnelle explicite",
+    ),
 )
 
-# Preuves qu'une capitalisation a déjà eu lieu dans la session.
-_CAPITALIZED = re.compile(
-    r"(?:memory/(?:feedback|reference|project|user)_[a-z0-9_-]+\.md"
-    r"|mcp__forge-brain__(?:create_note|append_note|insert_section|update_note"
-    r"|append_note_by_path|insert_section_by_path|update_note_by_path)"
-    r"|Knowledge/(?:erreurs|critiques|decisions|questions)/)",
+_PROFILE_EVIDENCE = re.compile(r"memory/user_raphael_profile\.md", re.I)
+_MEMORY_EVIDENCE = re.compile(r"memory/(?:feedback|reference)_[a-z0-9_-]+\.md", re.I)
+_VAULT_EVIDENCE = re.compile(
+    r"mcp__forge-brain__(?:create_note|append_note|insert_section|update_note|update_property)"
+    r"|mcp__forge_brain__(?:create_note|append_note|insert_section|update_note|update_property)",
     re.I,
 )
+_DONE_EVIDENCE = re.compile(r"## Session done\s*[—-]|### Appliqué", re.I)
 
 
-def _tail(path):
+def _tail(path: str) -> list[str]:
     try:
-        with open(path, "r", encoding="utf-8", errors="replace") as fh:
-            return fh.readlines()[-_TAIL_LINES:]
+        with open(path, encoding="utf-8", errors="replace") as handle:
+            return handle.readlines()[-_TAIL_LINES:]
     except OSError:
         return []
 
 
-def _texts(lines):
-    """Extrait le texte utile des events du transcript (user + assistant)."""
+def _texts(lines: Iterable[str]) -> Iterable[str]:
+    """Yield model-visible text and tool inputs from JSONL transcript events."""
     for raw in lines:
-        raw = raw.strip()
-        if not raw:
-            continue
         try:
             event = json.loads(raw)
-        except ValueError:
+        except (TypeError, ValueError):
             continue
         message = event.get("message") or {}
         content = message.get("content")
@@ -78,80 +97,70 @@ def _texts(lines):
             yield content
         elif isinstance(content, list):
             for block in content:
-                if isinstance(block, dict):
-                    if block.get("type") == "text":
-                        yield block.get("text") or ""
-                    elif block.get("type") == "tool_use":
-                        yield json.dumps(block.get("input") or {}, ensure_ascii=False)
+                if not isinstance(block, dict):
+                    continue
+                if block.get("type") == "text":
+                    yield block.get("text") or ""
+                elif block.get("type") == "tool_use":
+                    yield json.dumps(block.get("input") or {}, ensure_ascii=False)
 
 
-def analyse(lines):
-    """Retourne (signaux détectés, capitalisation déjà faite)."""
-    found, capitalized = [], False
+def analyse(lines: Iterable[str]) -> tuple[dict[str, str], set[str]]:
+    """Return detected signal labels and categories with matching evidence."""
+    found: dict[str, str] = {}
+    handled: set[str] = set()
     for text in _texts(lines):
-        if not capitalized and _CAPITALIZED.search(text):
-            capitalized = True
-        for pattern, label in _SIGNALS:
-            if label not in found and pattern.search(text):
-                found.append(label)
-    return found, capitalized
+        for category, pattern, label in _SIGNALS:
+            if pattern.search(text):
+                found.setdefault(category, label)
+        if _DONE_EVIDENCE.search(text):
+            handled.update(category for category, _, _ in _SIGNALS)
+        if _PROFILE_EVIDENCE.search(text):
+            handled.add("profile")
+        if _MEMORY_EVIDENCE.search(text):
+            handled.update({"correction", "gotcha"})
+        if _VAULT_EVIDENCE.search(text):
+            handled.update({"norm", "stale", "gotcha"})
+    return found, handled
 
 
-def main():
+def pending_labels(lines: Iterable[str]) -> list[str]:
+    found, handled = analyse(lines)
+    return [label for category, label in found.items() if category not in handled]
+
+
+def main() -> None:
     try:
         data = json.load(sys.stdin)
-    except Exception:
-        sys.exit(0)
-
-    try:
-        # Anti-boucle : ce Stop vient déjà d'un blocage de hook.
         if data.get("stop_hook_active"):
-            sys.exit(0)
-
-        session = str(data.get("session_id") or "nosession")
-        marker = os.path.join(tempfile.gettempdir(), f"forge-learning-{session}")
-        if os.path.exists(marker):
-            sys.exit(0)
-
+            return
         transcript = data.get("transcript_path")
+        session = str(data.get("session_id") or "nosession")
         if not transcript or not os.path.isfile(transcript):
-            sys.exit(0)  # sans transcript, pas de détection possible
+            return
 
-        signals, capitalized = analyse(_tail(transcript))
-        if capitalized or not signals:
-            sys.exit(0)  # silencieux : rien à dire
+        pending = pending_labels(_tail(transcript))
+        if not pending:
+            return
 
-        # Il reste de la matière — on ne le dira qu'une fois par session.
+        marker = os.path.join(tempfile.gettempdir(), f"forge-learning-advisory-{session}")
+        if os.path.exists(marker):
+            return
         try:
-            with open(marker, "w", encoding="utf-8") as fh:
-                fh.write("1")
+            with open(marker, "w", encoding="utf-8") as handle:
+                handle.write("1")
         except OSError:
-            sys.exit(0)  # marqueur impossible -> ne pas risquer la boucle
+            return
 
-        detected = "\n".join(f"  - {s}" for s in signals)
-        reason = (
-            "Signaux d'apprentissage détectés dans cette session, sans trace de "
-            f"capitalisation :\n{detected}\n\n"
-            "TEST À PASSER pour chacun, avant d'écrire quoi que ce soit — critère "
-            "officiel Anthropic : « Would removing this cause Claude to make "
-            "mistakes? If not, cut it. »\n"
-            "1. Nommer l'erreur CONCRÈTE que ce souvenir empêcherait de refaire. "
-            "Impossible de la nommer → ne pas écrire, le dire en une ligne et fermer.\n"
-            "2. Incident ISOLÉ → ne pas capitaliser. Le seuil officiel est la "
-            "SECONDE occurrence : « Add to it when: Claude makes the same mistake "
-            "a second time. »\n"
-            "3. Fait qui change souvent (version, seuil, chemin) → exclu, il "
-            "périmera plus vite qu'il ne servira.\n\n"
-            "Si le test passe :\n"
-            "- grep `memory/` d'abord — enrichir un fichier existant plutôt qu'en créer un\n"
-            "- le fichier doit porter un `trigger:` (mots-clés de déclenchement) au "
-            "frontmatter, sinon `memory-recall` ne le retrouvera jamais\n\n"
-            "Ne RIEN inventer pour remplir la liste : un signal mal détecté se dit et se ferme."
+        labels = "; ".join(pending)
+        message = (
+            f"[learning-reminder] Candidats non capitalisés : {labels}. "
+            "Le hook ne bloque et n'écrit rien. Utiliser /done seulement si le "
+            "contrat docs/second-brain/session-capture.md autorise le delta."
         )
-        print(json.dumps({"decision": "block", "reason": reason}, ensure_ascii=False))
-        sys.exit(0)
+        print(json.dumps({"systemMessage": message}, ensure_ascii=False))
     except Exception:
-        sys.exit(0)
+        return
 
 
 if __name__ == "__main__":

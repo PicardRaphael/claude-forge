@@ -5,7 +5,10 @@ Nombre de queries : 29 — **Découper sur 3 agents** (Agent A + Agent B + Agent
 
 ## Changelogs concurrents
 
-- OpenAI : `https://openai.com/index` (blog/announcements)
+- OpenAI / ChatGPT : `https://help.openai.com/en/articles/6825453-chatgpt-release-notes`
+- OpenAI / Codex : `https://learn.chatgpt.com/docs` + la page `What's new`
+- OpenAI modèles / API : `https://platform.openai.com/docs/changelog`
+- OpenAI blog : `https://openai.com/index` (annonces, pas doctrine normative)
 - Gemini CLI / Antigravity : `https://github.com/google-gemini/gemini-cli/blob/main/CHANGELOG.md` (⚠️ Gemini CLI + Code Assist ont cessé de servir les requêtes le 18 juin 2026 → migration forcée vers **Antigravity + Antigravity CLI** ; surveiller aussi les release notes Antigravity)
 - Cursor : `https://cursor.com/changelog`
 - GitHub Copilot : `https://github.blog` (filtered for Copilot)
@@ -54,12 +57,11 @@ Nombre de queries : 29 — **Découper sur 3 agents** (Agent A + Agent B + Agent
 
 #### OpenAI (modèles + Codex CLI)
 ```
-OpenAI new model release GPT
-OpenAI Codex CLI new features update changelog
-ChatGPT new features coding agents
-Sam Altman OpenAI announcements
-Kevin Weil OpenAI CPO product
-site:openai.com/index
+site:help.openai.com/en/articles/6825453 ChatGPT release notes
+site:learn.chatgpt.com/docs Codex what's new changelog
+site:platform.openai.com/docs/changelog OpenAI API model
+site:openai.com/index Codex OR ChatGPT OR model
+OpenAI deprecated OR retired Codex ChatGPT model
 ```
 
 #### Google (Gemini modèles + CLI + AI Studio)

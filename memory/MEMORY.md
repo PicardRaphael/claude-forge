@@ -90,7 +90,7 @@
 - [workarounds-session-forge](reference_workarounds_session_constraints.md) — `gh` absent, x.com 402, HEREDOC Windows, fins de ligne via `git ls-files --eol`
 - [creer-workflow-cc](reference_creer_workflow_cc.md) — 8 règles de design `.claude/workflows/` (à promouvoir vault au 2e-3e build)
 - [subagent-permissions](reference_subagent_permissions.md) — worktree+MCP OK, `permissions.allow` toujours non hérité
-- [agents-dir-chatgpt-mirror](reference_agents_dir_chatgpt_mirror.md) — `.agents/` + `AGENTS.md` = miroir Codex de Raphael : ne jamais toucher ni flagger
+- [agents-dir-chatgpt-adapters](reference_agents_dir_chatgpt_mirror.md) — `.agents/` + `AGENTS.md` = adaptateurs Codex d'une doctrine commune
 - [repo-scope-guard-hook](hook_repo_scope_guard.md) — triplet auth-detector + repo-scope-guard + auth-cleanup
 - [transcrire-video-native-x](reference_transcrire_video_native_x.md) — pipeline x-read → MP4 → ffmpeg → whisper (`/watch` ne couvre pas X)
 - [bashrc-bind-warnings](reference_bashrc_bind_warnings.md) — warnings readline sans garde interactive

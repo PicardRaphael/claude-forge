@@ -57,7 +57,7 @@
   },
   "cc-news": {
     "type": "skill",
-    "description": "Recherche les nouveautés Claude Code (Boris, Cat Wu, Lydia Hallie, Noah Zweben)",
+    "description": "Vérifie les nouveautés, corrige le vault existant et propose les nouvelles notes",
     "triggers": [
       "quoi de neuf",
       "news",
@@ -66,7 +66,10 @@
       "what's new",
       "mise à jour",
       "update cc",
-      "update claude code"
+      "update claude code",
+      "mets le vault à jour",
+      "les notes sont-elles à jour",
+      "est-ce que cette information est encore vraie"
     ]
   },
   "cc-prompt-ref": {
@@ -122,12 +125,15 @@
   },
   "done": {
     "type": "command",
-    "description": "Capitalise la session (décisions, faits, erreurs, apprentissages)",
+    "description": "Capitalise la session et met à jour le profil explicite de Raphaël",
     "triggers": [
       "fin de session",
       "capitalise",
       "capitaliser la session",
-      "fin de travail"
+      "fin de travail",
+      "mémorise ceci sur moi",
+      "apprends ça sur moi",
+      "mets à jour mon profil"
     ]
   },
   "evolve": {

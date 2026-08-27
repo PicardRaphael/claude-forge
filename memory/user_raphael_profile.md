@@ -3,6 +3,8 @@ name: raphael-picard-full-profile
 description: Profil holistique de Raphael — rôle, parcours, famille, passions, vision, préférences de travail
 type: user
 originSessionId: be761cf9-3fd0-4016-adb8-3e189b4efb1f
+derniere-maj: 2026-08-27
+schema_version: 1
 ---
 ## Identité
 - Raphaël Picard, né 23/01/1990 (36 ans)
@@ -38,3 +40,10 @@ originSessionId: be761cf9-3fd0-4016-adb8-3e189b4efb1f
 - Franc-parler apprécié, dire non si c'est mauvais
 - Comprend le code en profondeur (geek)
 - Pragmatique : résultat > théorie
+- Une demande de news doit comparer aux notes existantes, corriger les faits actifs devenus faux et proposer les nouveaux foyers — pas seulement produire un résumé
+- Veut que Claude et Codex capitalisent ce qu'ils apprennent explicitement sur lui, dans un profil corrigeable, sans confondre hypothèse et fait
+
+## Provenance des mises à jour
+
+- 2026-08-27 — `workflow_news` — explicit
+- 2026-08-27 — `personal_learning` — explicit

@@ -1,89 +1,118 @@
 ---
-titre: "Personnaliser ChatGPT (l'app, pas Codex) — instructions, Projects, mémoire, GPTs, connectors, API"
-resume: "Note canonique forge — leviers réels de personnalisation de ChatGPT l'application (≠ Codex l'agent de code) : custom instructions, Projects (mémoire scopée), mémoire native 2 couches, GPTs, connectors/plugins, Assistants API (sunset 26 août 2026) → Responses API. PAS de hooks/AGENTS.md/skills au sens Codex. Provenance dégradée (403 WebFetch → paraphrase). Au 15 juil. 2026."
+titre: "Personnaliser ChatGPT — instructions, Projects, mémoire, GPTs et tâches"
+resume: "Canon ChatGPT : instructions globales, mémoire personnelle contrôlable, Projects scopés, GPTs sans mémoire personnelle, et tâches planifiées. Séparé de Codex et du vault forge."
 aliases:
   - "personnalisation chatgpt"
   - "chatgpt custom instructions"
   - "chatgpt projects memoire"
   - "chatgpt memoire native"
   - "custom gpts 2026"
-  - "chatgpt connectors plugins"
-  - "assistants api responses api sunset"
-  - "chatgpt work agent"
-derniere-maj: 2026-07-15
-auteur: claude
+  - "chatgpt scheduled tasks"
+  - "chatgpt work webhooks"
+  - "chatgpt sources memoire"
+derniere-maj: 2026-08-27
+auteur: codex
 type: technique
 sources:
-  - "help.openai.com (custom instructions, memory, projects, GPTs, connectors) — 403 WebFetch, contenu via WebSearch"
-  - "https://developers.openai.com/api/docs/deprecations (Assistants API sunset)"
-  - "9to5mac.com / Bloomberg / MacRumors 9 juil. 2026 (ChatGPT Work)"
+  - "https://help.openai.com/en/articles/8096356-custom-instructions-for-chatgpt"
+  - "https://help.openai.com/en/articles/10169521-projects-in-chatgpt"
+  - "https://help.openai.com/en/articles/8554407-gpts-in-chatgpt"
+  - "https://help.openai.com/en/articles/6825453-chatgpt-release-notes"
 tags:
   - "#type/technique"
   - "#domaine/openai"
   - "#domaine/chatgpt"
   - "#doctrine/2026"
 ---
-# Personnaliser ChatGPT (l'app) — leviers réels
+# Personnaliser ChatGPT — leviers réels
 
-> Note canonique forge — la personnalisation de **ChatGPT l'application** (modèle/app grand public), à ne PAS confondre avec **Codex** l'agent de code. **Ici : PAS de hooks, PAS d'AGENTS.md, PAS de skills au sens Codex.** Les leviers sont : custom instructions, Projects, mémoire native, GPTs, connectors, API. Vérifié au **15 juil. 2026**.
+> Canon au **27 août 2026**. ChatGPT, Codex et le vault forge sont trois surfaces distinctes. Une continuité fiable ne doit pas dépendre d'une seule mémoire opaque.
 
-> ⚠️ **PROVENANCE DÉGRADÉE — à lire.** `help.openai.com` et `openai.com/index/*` renvoient **403 à WebFetch**. Tout le contenu ci-dessous vient de **résumés WebSearch** (paraphrase moteur mêlant help center + presse tech). Les formulations entre guillemets sont **reconstituées, PAS du verbatim mot-à-mot**. Chiffres marqués *à vérifier*. Pour figer les strings et les chiffres, un accès authentifié (navigateur / MCP fetch) est nécessaire. Cette note est un **corpus court et honnête**, pas une référence de production.
+## Carte des leviers
 
----
+| Levier | Portée | Bon usage | Limite importante |
+|---|---|---|---|
+| **Instructions personnalisées** | compte ChatGPT | ton, format, préférences générales | peuvent être transmises aux apps tierces si pertinentes |
+| **Mémoire personnelle** | conversations autorisées | préférences, intérêts, objectifs et continuité | générée par ChatGPT, contrôlable mais non versionnée |
+| **Projects** | chantier | fichiers, chats, instructions et mémoire scopée | règles de scope propres au projet |
+| **GPTs** | assistant packagé | instructions, knowledge, capacités, apps/actions | n'utilisent pas la mémoire sauvegardée ni les custom instructions |
+| **Tâches planifiées / Work** | exécution différée ou événementielle | routines, webhooks et travail en arrière-plan | disponibilités et approbations dépendent du plan et de la surface |
+| **Vault forge + repo memory** | système contrôlé de Raphaël | doctrine, décisions, profil explicite, historique | doit être maintenu par workflows et preuves |
 
-## 1. Custom instructions (PROBABLE)
+## Instructions personnalisées
 
-Instructions appliquées à **toutes les conversations**, éditables/supprimables, effet sur les conversations **futures** uniquement. Tous plans (Web/Desktop/iOS/Android). Limites *à vérifier* : ~1500 chars/champ, ~4500 total (perso), 8000 pour un Custom GPT. Pas d'API pour les custom instructions (utiliser les system messages en Chat Completions).
+OpenAI indique qu'elles s'appliquent immédiatement aux chats et qu'elles sont disponibles sur web, desktop, iOS et Android. Elles peuvent être modifiées ou désactivées dans les réglages de personnalisation.
 
-## 2. Projects (PROBABLE)
+Elles servent à la forme de collaboration, pas à stocker une base de connaissances importante. Éviter d'y placer des secrets : une app ou un plugin tiers peut recevoir l'information pertinente à son appel.
 
-Espaces regroupant chats + fichiers + instructions. Les **instructions de projet surchargent les instructions globales**. Partageables en équipe (Business/Enterprise/Edu). Fichiers *à vérifier* : 5–40 selon plan, 512 MB/fichier. **Mémoire scopée par projet** : « project-only » (ne fuit ni vers le main chat ni vers d'autres projets) ou « default » ; un projet **partagé** est forcé en project-only (non réversible).
+## Mémoire personnelle ChatGPT
 
-## 3. Mémoire native (PROBABLE)
+La mémoire personnelle sert à rappeler des détails utiles entre conversations. Les leviers observables sont notamment :
 
-Deux couches :
-- **Reference saved memories** — faits discrets, éditables/supprimables individuellement, toujours pris en compte sauf suppression.
-- **Reference chat history** — puise dans l'ensemble des conversations passées (contenu évolutif).
+- voir, corriger ou supprimer les souvenirs ;
+- désactiver la mémoire ;
+- utiliser un Temporary Chat qui ne l'utilise ni ne l'enrichit ;
+- consulter les sources de personnalisation lorsqu'elles sont exposées ;
+- indiquer qu'un élément n'est plus pertinent.
 
-**Contrôle parent/enfant** (confirmé sur 2 articles help) : couper « Reference saved memories » **coupe aussi** « Reference chat history » ; l'inverse est possible (couper chat history seul). Réglages sous Settings → Personalization → Memory. Temporary Chat = sans mémoire. Supprimer une conversation ≠ supprimer la mémoire qui en dérive.
+Depuis les évolutions 2026, ChatGPT peut actualiser automatiquement ce qu'il juge important et réduire les souvenirs contradictoires. Cette amélioration ne transforme pas la mémoire en registre canonique : les réglages, plans et déploiements peuvent varier, et l'utilisateur doit pouvoir corriger.
 
-> « Dreaming V3 » (process de synthèse mémoire, revendiqué déployé le 4 juin 2026) = **claim purement tierce** (chatgptmemory.com / memx, NON OpenAI). **Ne pas capitaliser comme fait** — mentionné ici uniquement pour traçabilité, à confirmer en primaire.
+Pour Raphaël, les faits et préférences explicites importants doivent donc aussi vivre dans `memory/user_raphael_profile.md`, avec provenance et possibilité de révocation.
 
-## 4. GPTs (custom GPTs) — toujours d'actualité (PROBABLE)
+## Projects
 
-Pleinement supportés en 2026. Builder web (Create conversationnel / Configure manuel : Name, Description, Instructions, Knowledge, Capabilities, Actions). Création réservée Plus+, browsing du GPT Store dès le Free. Knowledge *à vérifier* : jusqu'à 20 fichiers, 512 MB. Actions = connexion API externes ; « a GPT can use either apps or actions, but not both at the same time ».
+Un Project rassemble chats, fichiers, texte, instructions et sources issues d'apps. Il sert de second cerveau **scopé à un chantier**, pas de profil global.
 
-## 5. Connectors → Plugin directory unifié (PROBABLE)
+- Les Projects sont disponibles sur les plans gratuits et payants.
+- Le nombre de fichiers dépend du plan ; ne pas figer le chiffre dans une règle durable.
+- La mémoire peut être `default` ou `project-only` selon le projet et les réglages.
+- En project-only, les souvenirs personnels et conversations externes ne sont pas consultés.
+- Un projet partagé passe en project-only et ne récupère pas le contexte personnel extérieur des membres.
+- Les instructions du projet guident ses conversations.
 
-Connectors = tirer des fichiers de services externes (Google Drive, Gmail, SharePoint, Dropbox, Box… 15+ apps). Le **9 juil. 2026**, OpenAI a migré vers un **Plugin directory unifié** — « plugins are the primary way to discover workflow capabilities across ChatGPT and Codex ; a plugin can include skills, apps, and app templates ». Limite : recherche **une source à la fois**, keyword matching (pas sémantique).
+Le bon pattern : un projet par contexte long, avec sources explicites, et le vault pour la doctrine cross-projet.
 
-## 6. API — Assistants vs Responses (PROBABLE→CERTAIN, 3+ sources)
+## GPTs
 
-**Assistants API dépréciée, arrêt dur le 26 août 2026** (annoncé le 26 août 2025). Remplacée par **Responses API** (+ Conversations API). Mapping : Assistants→Prompts, Threads→Conversations, Runs→Responses, Run Steps→Items. → Pour la perso/état programmatique côté OpenAI, c'est **Responses + Conversations API**, pas Assistants.
+Un GPT combine instructions, knowledge et capacités. Il peut utiliser des apps ou des actions, mais pas les deux simultanément.
 
-## 7. ChatGPT Work (agent, 9 juil. 2026 — presse)
+Point critique : les GPTs ne réutilisent pas les souvenirs sauvegardés, les instructions personnalisées ni les conversations précédentes. Chaque conversation commence donc sans cette mémoire personnelle. Tout comportement essentiel doit être présent dans les instructions ou la knowledge du GPT.
 
-Agent ChatGPT avec Codex intégré : prend un objectif, rassemble l'info sur les apps connectées, découpe en étapes, exécute en background sur des heures. @-mention de services (Slack/Teams/Drive/SharePoint) via le Plugin directory. L'ancienne app → « ChatGPT Classic » ; Codex devient la nouvelle app desktop. Propulsé par GPT-5.6. **Pertinence perso** : c'est un agent d'**exécution** — la personnalisation qu'il exploite reste celle des sections 1–5 (il n'introduit pas de nouveau levier de mémoire documenté).
+## Tâches planifiées et ChatGPT Work
 
----
+Au 25 août 2026 :
 
-## Ce que ChatGPT-app N'A PAS (vs Codex)
+- les tâches peuvent être partagées ; le destinataire révise les instructions, connecte ses propres apps et crée sa copie ;
+- ChatGPT Work peut déclencher des tâches sur des événements Gmail, Slack et GitHub pour les plans éligibles ;
+- une action nécessitant une approbation se met en pause ;
+- le navigateur Work peut poursuivre certaines tâches sur des sites authentifiés, avec confirmation avant les actions conséquentes ;
+- les limites et surfaces varient selon le plan, donc les vérifier avant recommandation.
 
-Pas de `AGENTS.md`, pas de `config.toml`/profils, pas de hooks, pas de `codex exec`, pas de subagents TOML. Les Skills existent côté produit (via plugins) mais la mécanique d'agent de code (sandbox, délégation TOML, CI) est **Codex**, pas ChatGPT-app. Arbitrage : [[codex-vs-chatgpt-seul]].
+Ce levier automatise l'exécution. Il ne remplace pas le workflow `cc-news` de forge pour corriger le vault avec préimage, sources et relecture.
 
----
+## Architecture recommandée pour Raphaël
 
-## SOURCES
+1. **Instructions ChatGPT** : préférences de forme courtes.
+2. **Project** : contexte d'un chantier et ses documents.
+3. **Mémoire ChatGPT** : recall pratique, corrigible, non canonique.
+4. **Vault forge** : doctrine, décisions et notes de connaissance.
+5. **Profil repo** : faits et préférences explicites sur Raphaël.
+6. **Skills `cc-news` et `done`** : maintenance et consolidation.
 
-- `help.openai.com` (custom instructions / memory / projects / GPTs / connectors) — **403 WebFetch, contenu via WebSearch** (paraphrase).
-- `developers.openai.com/api/docs/deprecations` — Assistants API sunset 26 août 2026 (convergent 3 sources).
-- Presse ChatGPT Work : 9to5mac / Bloomberg / MacRumors, 9 juil. 2026.
+Cette architecture tolère qu'un mécanisme de mémoire se mette à jour en retard, oublie un détail ou réécrive sa synthèse : aucune couche générée n'est seule propriétaire de l'information.
 
----
+## Anti-patterns
 
-## WIKILINKS
+- Confondre mémoire ChatGPT et mémoire locale Codex.
+- Mettre un corpus entier dans les instructions personnalisées.
+- Supposer qu'un GPT connaît les souvenirs personnels du compte.
+- Utiliser un Project partagé en pensant qu'il accède au profil privé de chaque membre.
+- Traiter une mémoire générée comme une preuve de fraîcheur.
+- Laisser des chiffres de plan ou de limites sans date ni re-vérification.
 
-- [[codex-vs-chatgpt-seul]] — quand utiliser Codex vs ChatGPT-app
-- [[memoire-optimale-codex-chatgpt]] — montage mémoire cross-tool
-- [[OpenAI Codex]] — l'agent de code (fiche produit)
-- [[workflow-codex-optimal]] — le versant Codex
+## Wikilinks
+
+- [[memoire-optimale-codex-chatgpt]]
+- [[codex-vs-chatgpt-seul]]
+- [[MOC-Codex]]
+- [[pattern-vault-llm-karpathy]]

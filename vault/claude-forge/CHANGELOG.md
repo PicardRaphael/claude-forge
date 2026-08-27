@@ -7,7 +7,7 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-07-27
+derniere-maj: 2026-08-27
 auteur: claude
 tags:
   - "#type/index"
@@ -2019,3 +2019,15 @@ Tests hooks 176 verts (180→176, suppression du mécanisme d'exemption testé).
 
 - **Ajoutées** : `Knowledge/erreurs/erreur-write-multiedit-regles-permission-fichier-inertes.md` — seul `Edit(path)` est évalué par le contrôle de permission fichier (il couvre Write/Edit/MultiEdit) ; `Write(path)` et `MultiEdit(path)` sont des règles mortes. À NE PAS confondre avec le matcher de hook `Write|Edit|MultiEdit` (triplet explicite obligatoire, convention opposée).
 - **Source** : message de correction Claude Code sur les settings forge — même pattern inerte trouvé dans les 4 repos (forge, ia_back, neo_ia, neoteem-brain). Nettoyage settings forge appliqué. Note reliée à [[erreur-deny-global-ecrase-allow-projet]], [[enableallprojectmcp-permissions-allow]], [[comment-creer-hook]].
+
+
+## 2026-08-27 — second cerveau vivant Claude/Codex
+
+- **Pivot doctrinal** : `04-Techniques/codex/memoire-optimale-codex-chatgpt` réécrite en place. La mémoire est désormais séparée en instructions versionnées, connaissance contrôlée (vault + profil) et recall natif généré, non autoritaire.
+- **Correction du loop** : `04-Techniques/codex/loop-apprentissage-codex` remplace l'auto-édition implicite par une boucle collecte → classification → proposition → validation → mutation vérifiée.
+- **Index corrigé** : `00-Hub/MOC-Codex` ne fige plus des versions et prix volatils comme état actuel ; il route les questions de fraîcheur vers `cc-news`.
+- **Sources primaires** : documentation OpenAI Memories et Hooks, plus notes de version ChatGPT, vérifiées le 27 août 2026.
+- **Hors vault** : contrats communs `docs/second-brain/`, adapters `cc-news` et `done` pour Claude/Codex, profil explicite versionné, hooks de détection/recall et tests de non-régression.
+
+- **Run réel cc-news** : version Claude Code `2.1.247` confirmée et plage `2.1.221–247` lue dans le changelog Anthropic officiel. Le référentiel repo `cc-features-ref` a été corrigé ; une nouvelle note changelog vault « CC août 2026 - v2.1.221-247 » reste **proposée**, non créée silencieusement.
+- **ChatGPT corrigé** : `04-Techniques/chatgpt/personnalisation-chatgpt-app` réécrite en place depuis les pages OpenAI actuelles. Suppression des claims presse et des limites non vérifiées ; clarification mémoire personnelle, Projects, GPTs et tâches Work/webhooks.

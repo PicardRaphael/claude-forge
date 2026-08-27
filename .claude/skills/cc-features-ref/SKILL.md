@@ -6,7 +6,7 @@ user-invocable: false
 
 # Fonctionnalités Claude Code 2026
 
-_Mise à jour : 16 juillet 2026 (intègre v2.1.203-211 ; fenêtre 2.1.161-202 couverte par les notes changelog vault) — utiliser cc-news pour les nouveautés postérieures_
+_Mise à jour : 27 août 2026 (intègre le changelog officiel jusqu'à v2.1.247) — utiliser cc-news pour les nouveautés postérieures_
 
 ## Slash Commands
 
@@ -255,9 +255,37 @@ LSPs disponibles pour tous les langages majeurs.
 }
 ```
 
+## Delta v2.1.221–247 — points actionnables
+
+- **Sessions et agents** : `/fork` crée son propre worktree (2.1.221) ;
+  `SendMessage` + `ListAgents` permettent la messagerie cross-session
+  (2.1.224, Windows depuis 2.1.239) ; le fork de subagent avec conversation et
+  prompt cache est actif par défaut (2.1.232).
+- **Boucles** : `/usage` affiche désormais runs, tokens/run et dernier run par
+  loop (2.1.243). Utiliser ces mesures pour détecter les loops bavardes.
+- **Skills/plugins** : activation immédiate quand sûre (2.1.221), validation BOM
+  et hot-reload renforcés, `/reload-plugins` corrigé (2.1.246).
+- **Hooks/sécurité** : un `PreToolUse` auto-allow ne contourne plus les
+  restrictions des background agents (2.1.222) ; les conditions de hook avec
+  substitutions shell sont mieux isolées (2.1.243) ; les sorties géantes d'un
+  hook ou agent ne peuvent plus saturer le contexte (2.1.247).
+- **Mémoire/compaction** : le nettoyage de session ne supprime plus le contenu
+  d'un dossier mémoire projet (2.1.228) ; Sonnet 5 utilise la fenêtre complète
+  de 1M pour l'auto-compaction (2.1.247).
+- **Configuration** : modèle initial via `ANTHROPIC_DEFAULT_MODEL` (2.1.236),
+  `modelPicker`, TTL de prompt cache distinct pour subagents et métriques de
+  prix managées (2.1.243), règles Auto mode visibles dans `/permissions`
+  (2.1.246).
+- **Outils** : `SendFeedback` prépare un rapport soumis à validation et
+  `/claude-api cost-optimize` guide une optimisation mesurée (2.1.247).
+
+Source : changelog officiel
+`anthropics/claude-code/CHANGELOG.md`, vérifié le 27 août 2026.
+
 ## Gotchas
 
-- **Date de référence** — ce fichier intègre des éléments jusqu'au 25 juillet 2026 (v2.1.220 — Opus 5 défaut Opus, `/fork` vers session background + `/subtask`, tool EndConversation, hook event DirectoryAdded, nesting subagents depth 3 avec caps 200/20, workflows sauvegardables dans `.claude/workflows/`). Utiliser `cc-news` si l'info semble datée ou si la feature demandée est postérieure à cette date.
+- **Date de référence** — ce fichier intègre des éléments jusqu'au 27 août 2026
+  (v2.1.247). Utiliser `cc-news` si l'info semble datée ou postérieure.
 - **`effort: max`** — toujours disponible mai 2026 (verbatim docs Anthropic 23 mai), mais prone à l'overthinking. Réserver à cas justifiés ; doctrine forge (option C) = `xhigh` agentique/coding, `high` comparatif/jugement, `medium`/`low` extraction.
 
 ## Apprentissage

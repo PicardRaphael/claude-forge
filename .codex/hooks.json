@@ -7,21 +7,21 @@
           {
             "type": "command",
             "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/session-reminder.py\"",
-            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\session-reminder.py\"",
+            "commandWindows": "py .codex/hooks/session-reminder.py",
             "timeout": 5,
             "statusMessage": "Loading project memory reminder"
           },
           {
             "type": "command",
             "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/memory-size-watcher.py\"",
-            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\memory-size-watcher.py\"",
+            "commandWindows": "py .codex/hooks/memory-size-watcher.py",
             "timeout": 5,
             "statusMessage": "Checking memory size"
           },
           {
             "type": "command",
             "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/memory-saturation-watcher.py\"",
-            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\memory-saturation-watcher.py\"",
+            "commandWindows": "py .codex/hooks/memory-saturation-watcher.py",
             "timeout": 5,
             "statusMessage": "Checking memory saturation"
           }
@@ -35,7 +35,7 @@
           {
             "type": "command",
             "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/codex-apply-patch-guard.py\"",
-            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\codex-apply-patch-guard.py\"",
+            "commandWindows": "py .codex/hooks/codex-apply-patch-guard.py",
             "timeout": 10,
             "statusMessage": "Checking apply_patch policy"
           }
@@ -47,7 +47,7 @@
           {
             "type": "command",
             "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/pre-bash-guards.py\"",
-            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\pre-bash-guards.py\"",
+            "commandWindows": "py .codex/hooks/pre-bash-guards.py",
             "timeout": 10,
             "statusMessage": "Checking shell/read policy"
           }
@@ -59,7 +59,7 @@
           {
             "type": "command",
             "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/pre-write-guards.py\"",
-            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\pre-write-guards.py\"",
+            "commandWindows": "py .codex/hooks/pre-write-guards.py",
             "timeout": 10,
             "statusMessage": "Checking write policy"
           }
@@ -71,7 +71,7 @@
           {
             "type": "command",
             "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/mcp-alias-guard.py\"",
-            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\mcp-alias-guard.py\"",
+            "commandWindows": "py .codex/hooks/mcp-alias-guard.py",
             "timeout": 10,
             "statusMessage": "Checking forge-brain alias"
           }
@@ -84,16 +84,23 @@
           {
             "type": "command",
             "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/session-health.py\"",
-            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\session-health.py\"",
+            "commandWindows": "py .codex/hooks/session-health.py",
             "timeout": 5,
             "statusMessage": "Checking session health"
           },
           {
             "type": "command",
             "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/skill-activation.py\"",
-            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\skill-activation.py\"",
+            "commandWindows": "py .codex/hooks/skill-activation.py",
             "timeout": 3,
             "statusMessage": "Checking skill recommendations"
+          },
+          {
+            "type": "command",
+            "command": "python3 .codex/hooks/memory-recall.py",
+            "commandWindows": "py .codex/hooks/memory-recall.py",
+            "timeout": 3,
+            "statusMessage": "Checking relevant project memories"
           }
         ]
       }
@@ -104,7 +111,7 @@
           {
             "type": "command",
             "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/metrics-tracker.py\"",
-            "commandWindows": "\"C:\\Users\\rapha\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\rapha\\Documents\\claude-forge\\.codex\\hooks\\metrics-tracker.py\"",
+            "commandWindows": "py .codex/hooks/metrics-tracker.py",
             "timeout": 2,
             "statusMessage": "Recording tool metrics"
           }

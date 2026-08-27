@@ -1,13 +1,22 @@
 ---
-name: agents-dir-chatgpt-mirror
-description: .agents/ et AGENTS.md (racine forge) = miroir pour ChatGPT/Codex géré par Raphael — ne jamais y écrire, ne jamais les flagger comme drift
+name: agents-dir-chatgpt-adapters
+description: .agents/ et AGENTS.md sont les surfaces Codex versionnées — adapter depuis une doctrine commune, jamais copier librement
 trigger: AGENTS.md, .agents, chatgpt, codex, miroir, drift
 metadata:
   type: reference
 ---
 
-`.agents/skills/` et `AGENTS.md` à la racine de claude-forge sont des **copies destinées à ChatGPT/Codex**, gérées par Raphael (décision explicite du 27 juillet 2026, lors de l'audit de drift vault).
+`.agents/skills/` et `AGENTS.md` à la racine de claude-forge sont les surfaces
+versionnées destinées à ChatGPT/Codex.
 
-**Why :** ces fichiers ont l'air d'être des miroirs périmés de `.claude/skills/` et `CLAUDE.md` (contenu daté, encodage mojibake) — un audit naïf les flagge comme drift et propose de les supprimer/resynchroniser. Raphael a tranché : « fait rien sur tout ce qui est .agents, c'est chatgpt ».
+**Décision supersédée (27 août 2026) :** la règle du 27 juillet « ne jamais y
+toucher » a produit exactement le drift redouté : `cc-news` Codex était restée
+au 2 juin, en mojibake, tandis que Claude avançait au 25 juillet. Raphaël a
+explicitement autorisé la refonte Claude + Codex et demandé une mise à jour
+réelle du vault.
 
-**How to apply :** ne JAMAIS y écrire, les modifier, les supprimer ni les proposer en fix. Les exclure de tout audit de drift/pivot-check (exclusion codée dans `.claude/skills/pivot-check/SKILL.md` étape 3). Si une divergence avec `.claude/` semble poser un problème réel, la SIGNALER à Raphael sans agir. Cf [[feedback_ecart_consigne_chiffree_surfacer]].
+**How to apply :** ne plus maintenir de copie libre. Une procédure partagée vit
+dans `docs/second-brain/` ; les fichiers `.claude/skills/` et `.agents/skills/`
+sont des adaptateurs minces propres à chaque plateforme. Une demande explicite
+qui couvre Codex autorise leur modification. Auditer leur conformité au noyau,
+pas leur identité byte-for-byte.

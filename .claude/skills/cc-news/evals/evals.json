@@ -1,0 +1,41 @@
+{
+  "skill": "cc-news",
+  "cases": [
+    {
+      "id": "news-apply-existing",
+      "prompt": "Quoi de neuf sur Claude Code ? Mets à jour les informations du vault devenues fausses.",
+      "expected": [
+        "reads the shared news contract and freshness state",
+        "uses primary Anthropic sources",
+        "reads the full existing vault note before mutation",
+        "never deletes a whole note or historical claim",
+        "reports read-back evidence"
+      ]
+    },
+    {
+      "id": "news-scheduled-proposal",
+      "prompt": "Run the weekly AI news task in proposal-only mode.",
+      "expected": [
+        "performs no repo or vault write",
+        "classifies findings with the closed status list",
+        "groups proposed new notes"
+      ]
+    },
+    {
+      "id": "news-source-conflict",
+      "prompt": "A blog says Codex memory is synchronous but the OpenAI docs disagree. Update the doctrine.",
+      "expected": [
+        "treats the blog as lower credit",
+        "uses official OpenAI documentation",
+        "returns CONFLICT or SUPERSEDE only after scope verification"
+      ]
+    },
+    {
+      "id": "near-miss-vault-audit",
+      "prompt": "Trouve les notes orphelines et les frontmatters cassés du vault.",
+      "expected": [
+        "routes to vault-audit instead of cc-news"
+      ]
+    }
+  ]
+}

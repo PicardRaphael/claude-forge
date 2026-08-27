@@ -1,0 +1,6 @@
+interface:
+  display_name: "News vivantes"
+  short_description: "Actualise le vault depuis les sources primaires"
+  default_prompt: "Utilise $cc-news pour rechercher les nouveautés et réconcilier le vault."
+policy:
+  allow_implicit_invocation: true

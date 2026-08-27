@@ -1,7 +1,7 @@
 # Domaine — Claude Code & Écosystème Anthropic
 
 Couvre : Claude Code lui-même, l'équipe officielle, les frameworks ecosystem (LangChain, MCP, DSPy).
-Nombre de queries : 18 — **Découper sur 2 agents** (Agent A + Agent B)
+Nombre de queries : 21 — sélectionner 6–8 requêtes par run et utiliser au plus 3 chercheurs read-only.
 
 ## Sources officielles
 
@@ -12,7 +12,7 @@ Nombre de queries : 18 — **Découper sur 2 agents** (Agent A + Agent B)
 
 <!-- SYNC:leaders:start — généré par scripts/sync-leaders.py, NE PAS éditer à la main -->
 
-## Leaders canonisés (15) — vault 05-Leaders/claude-code/
+## Leaders canonisés (16) — vault 05-Leaders/claude-code/
 
 | Personne | Rôle | Sources |
 |----------|------|---------|
@@ -31,6 +31,7 @@ Nombre de queries : 18 — **Découper sur 2 agents** (Agent A + Agent B)
 | **Mitchell Hashimoto** | Co-founder HashiCorp, créateur Ghostty. A popularisé le terme 'harness engineering' (5… | mitchellh.com, ghostty.org |
 | **Noah Zweben** | Anthropic — Engineering | Code with Claude London, 19 mai 2026 |
 | **Thariq Shihipar** (@trq212) | Skills Author, Claude Code team | x.com, linkedin.com |
+| **Zach Lloyd** | Fondateur & CEO | x.com, sequoiacap.com |
 
 > Bloc généré depuis le vault. Pour ajouter/retirer un leader : créer/supprimer la fiche dans `05-Leaders/claude-code/` puis relancer `py scripts/sync-leaders.py`.
 > Les leaders sans handle (`@`) sont en mode dégradé — compléter les queries à la main.
@@ -93,6 +94,7 @@ Angela Jiang OR Lisa Crofoot Anthropic Code with Claude
 Jeremy Hadfield OR Daisy Hollman OR Justin Young Anthropic
 Mitchell Hashimoto harness engineering Ghostty
 Affaan Mustafa Everything Claude Code ECC
+Zach Lloyd Claude Code Terminal Sequoia
 ```
 
 ## Note agent

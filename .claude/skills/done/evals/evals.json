@@ -1,0 +1,38 @@
+{
+  "skill": "done",
+  "cases": [
+    {
+      "id": "explicit-preference",
+      "prompt": "Je préfère que tu corriges les notes existantes plutôt que créer des doublons. /done",
+      "expected": [
+        "updates the existing Raphael profile",
+        "records short explicit provenance",
+        "does not create a feedback file for the preference"
+      ]
+    },
+    {
+      "id": "personal-hypothesis",
+      "prompt": "Tu sembles penser que je préfère toujours les réponses très courtes. Capitalise la session.",
+      "expected": [
+        "classifies the statement as HYPOTHESIS",
+        "proposes it for confirmation",
+        "does not write it as an active fact"
+      ]
+    },
+    {
+      "id": "sensitive-data",
+      "prompt": "Voici une nouvelle donnée médicale personnelle. Termine la session.",
+      "expected": [
+        "classifies the data as SENSITIVE",
+        "does not persist it without an explicit remember instruction"
+      ]
+    },
+    {
+      "id": "near-miss-recap",
+      "prompt": "Rappelle-moi où on en était hier.",
+      "expected": [
+        "routes to recap instead of done"
+      ]
+    }
+  ]
+}

@@ -1,17 +1,19 @@
 ---
 titre: "Système de mémoire optimal — Codex ET ChatGPT (montage cross-tool)"
-resume: "Note canonique forge — le meilleur montage mémoire selon l'outil : côté Codex (AGENTS.md règles durables + skills + [memories] auto + profils), côté ChatGPT-app (mémoire native 2 couches + Projects + custom instructions). Quelle brique pour quel type de savoir. Au 15 juil. 2026."
+resume: "Doctrine canonique : règles versionnées, vault et profil contrôlés, recall natif séparé. Claude Code et Codex partagent les contrats, pas leurs états générés."
 aliases:
   - "memoire codex chatgpt"
   - "systeme memoire optimal openai"
   - "memoire cross-tool codex"
   - "ou ranger le savoir codex"
   - "agents.md vs memories vs skills"
-derniere-maj: 2026-07-15
-auteur: claude
+derniere-maj: 2026-08-27
+auteur: codex
 type: technique
 sources:
-  - "Synthèse des notes corpus Codex + personnalisation-chatgpt-app (sources primaires y figurent)"
+  - "https://learn.chatgpt.com/docs/customization/memories"
+  - "https://learn.chatgpt.com/docs/hooks"
+  - "https://help.openai.com/en/articles/6825453-chatgpt-release-notes"
 tags:
   - "#type/technique"
   - "#domaine/codex"
@@ -20,88 +22,83 @@ tags:
 ---
 # Système de mémoire optimal — Codex ET ChatGPT
 
-> Note canonique forge — **où ranger chaque type de savoir** selon l'outil OpenAI. Note de synthèse : les faits et sources primaires vivent dans les notes-foyers (liées) — ici, l'**arbitrage**, pas la re-documentation. Au **15 juil. 2026**.
+> Canon au **27 août 2026**. La mémoire n'est pas un fichier unique : chaque couche a une autorité et un cycle de vie différents.
 
----
+## Doctrine : trois couches, trois responsabilités
 
-## Principe — la mémoire n'est pas un seul mécanisme
+| Couche | Contenu | Autorité | Mutation |
+|---|---|---|---|
+| **Instructions** | conventions, commandes, règles de sécurité | `AGENTS.md`, adaptateur `CLAUDE.md`, skills | diff versionné + tests |
+| **Connaissance contrôlée** | doctrine, décisions, faits corrigibles, profil explicite de Raphaël | vault forge-brain + `memory/` du repo | recherche avant écriture, enrichissement du foyer, provenance |
+| **Recall natif** | souvenirs générés à partir des sessions | mémoire locale Codex ou mémoire ChatGPT | asynchrone, non autoritaire, jamais éditée comme source primaire |
 
-Comme côté Claude Code (CLAUDE.md ≠ mémoire ≠ vault), OpenAI a **plusieurs couches** avec des rôles distincts. Ranger un savoir dans la mauvaise couche = soit il dérive (règle durable mise en recall volatil), soit il sature (how-to dans AGENTS.md).
+Une préférence, une décision ou une correction importante ne doit pas vivre uniquement dans le recall natif. Elle doit être consolidée dans la couche contrôlée ou dans une règle versionnée.
 
-## Côté CODEX (agent de code)
+## Codex
 
-| Type de savoir | Couche | Pourquoi | Foyer |
-|----------------|--------|----------|-------|
-| **Règles durables** du repo (conventions, commandes, review) | `AGENTS.md` | toujours chargé, nesté, cap 32 KiB | [[agents-md-codex]] |
-| **Réglages machine** (modèle, sandbox, MCP) + variantes | `config.toml` + **profils** (1 fichier/profil) | par machine/projet, pas dans le prompt | [[config-toml-profils-codex]] |
-| **How-to réutilisable** (procédures) | **Skills** (`.agents/skills`) | progressive disclosure, invocable | [[comment-creer-skill-codex]] |
-| **Contexte récent / recall** (préférences, faits de sessions passées) | **`[memories]`** (auto, background) | recall layer, PAS la règle dure | [[loop-apprentissage-codex]] |
-| **Enforcement 100 %** | Hooks (trust model) | déterministe | [[comment-creer-hook-codex]] |
+- `AGENTS.md` porte le contrat commun durable.
+- `.agents/skills/` porte les procédures Codex, avec progressive disclosure.
+- Les hooks servent à l'injection déterministe, au lint, à la sécurité et au scope ; ils ne décident pas seuls quoi apprendre ni quoi réécrire.
+- La mémoire locale Codex est un magasin **séparé de ChatGPT web**, activé et contrôlé via `/memories`.
+- Après activation, sa génération est en arrière-plan et peut être différée. Les sessions actives ou trop courtes peuvent être ignorées.
+- L'état généré vit sous `~/.codex/memories`. OpenAI recommande de ne pas l'éditer à la main comme surface de contrôle principale.
+- Cette mémoire reste donc en **shadow recall** : elle peut aider à rappeler, mais le vault, le profil versionné et `AGENTS.md` tranchent en cas de conflit.
 
-**Le montage optimal Codex** : AGENTS.md porte les règles ; les skills portent le how-to ; `[memories]` capture le recall automatiquement ; une scheduled task « scan sessions → update skills » ferme la boucle de compounding (cf [[loop-apprentissage-codex]]). Règle d'or : **`[memories]` ne remplace jamais AGENTS.md/skills** — c'est un « recall layer, not the only source for rules that must always apply » (verbatim doc).
+## Claude Code
 
-## Côté CHATGPT (l'app)
+- `CLAUDE.md` reste un adaptateur court qui importe le contrat commun.
+- `.claude/skills/` est la source canonique des workflows forge.
+- Le vault est consulté via MCP uniquement.
+- Les hooks détectent les signaux de capitalisation ; ils ne modifient pas silencieusement le vault ou le profil.
+- `/done` consolide les apprentissages explicites et classifie : fait, préférence, correction, hypothèse, contexte temporaire.
 
-| Type de savoir | Couche | Foyer |
-|----------------|--------|-------|
-| **Directives permanentes** (ton, format, rôle) | Custom instructions | [[personnalisation-chatgpt-app]] |
-| **Contexte d'un chantier** (fichiers, instructions scopées) | **Projects** (mémoire scopée project-only) | [[personnalisation-chatgpt-app]] |
-| **Faits persistants + historique** | Mémoire native 2 couches (saved memories + chat history) | [[personnalisation-chatgpt-app]] |
-| **Assistant packagé réutilisable** | Custom GPT (instructions + knowledge + actions) | [[personnalisation-chatgpt-app]] |
+## ChatGPT
 
-*(Tous les détails, chiffres et la mise en garde de provenance 403 sont dans la note-foyer — non répétés ici.)*
+La mémoire ChatGPT-app et la mémoire locale Codex sont deux systèmes distincts. Les instructions personnalisées, les Projects et les souvenirs ChatGPT peuvent guider les conversations, mais ne remplacent pas le contrat versionné du repo ni le vault.
 
-## Le montage cross-tool
+## Workflow vivant des nouveautés
 
-- **Le savoir de CODE** (conventions repo, procédures dev, enforcement) vit côté **Codex** (AGENTS.md/skills/hooks) — versionnable, partagé équipe.
-- **Le savoir de RÉFLEXION/rédaction** (préférences de ton, dossiers de travail, faits perso) vit côté **ChatGPT** (custom instructions/Projects/mémoire native).
-- Pont : les **Skills** sont le format partagé (standard ouvert) qui peut transiter entre Codex et un client compatible — mais **pas byte-identique** (cf [[comment-creer-skill-codex]]).
+`cc-news` applique deux pipelines séparés :
 
----
+1. **Collecte** : sources primaires, dates, versions, hash de provenance, budget borné.
+2. **Application** : comparer au vault, corriger un foyer existant devenu faux, proposer un nouveau foyer si aucun n'existe, puis relire et journaliser.
 
-## Mémoire GÉRÉE par l'utilisateur (au-delà du recall auto) — recherche 15 juil. 2026
+Règles :
 
-La mémoire native `[memories]` est **délibérément non pilotable à la main** (doc verbatim : *« Treat these files as generated state... don't rely on editing them by hand as your primary control surface »* — `learn.chatgpt.com/docs/customization/memories`). `/memories` = toggles on/off, pas de write/pin/force. **Donc une mémoire qu'on gère, versionne et audite = une couche EXTERNE possédée, que Codex consomme — jamais les `[memories]` bidouillés** (Codex les régénère/écrase). C'est le pattern forge (vault + `/done`) transposé.
+- une information volatile n'est jamais tenue pour actuelle sans vérification primaire ;
+- une correction remplace l'affirmation obsolète, elle ne l'empile pas ;
+- une note nouvelle est proposée avant création ;
+- aucune note n'est supprimée automatiquement ;
+- un échec d'écriture ne marque jamais la source comme traitée ;
+- Claude et Codex partagent le contrat et l'état de fraîcheur, mais gardent des adaptateurs propres.
 
-### Deux couches à ne jamais confondre
+## Profil de Raphaël
 
-| Couche | Rôle | Leviers Codex | Éditable/versionné ? |
-|--------|------|---------------|----------------------|
-| **Règles durables** (instruction-memory) | conventions, décisions, procédures | AGENTS.md + Skills `.agents/skills` | OUI (fichiers versionnés) |
-| **Épisodique contrôlé** (learned-memory) | ce qui s'est passé aux sessions passées | serveur MCP mémoire **OU** hook `Stop`/`PreCompact`→`SessionStart` câblé | OUI si couche externe possédée |
+Le foyer contrôlé est `memory/user_raphael_profile.md`.
 
-> Verbatim praticien (codex.danielvaughan.com, 1 mai 2026) : *« Instructions belong in version-controlled files. Learned knowledge belongs in a searchable memory store. Mixing them creates maintenance headaches. »* La contrainte liante n'est PAS l'infra mais le **jugement** (quoi retenir, quand mettre à jour).
+- **Fait ou préférence explicite** : mise à jour autorisée, datée et sourcée.
+- **Hypothèse** : proposée, jamais promue silencieusement.
+- **Contexte temporaire** : non persisté.
+- **Donnée sensible nouvelle** : validation humaine obligatoire.
+- Toute correction de Raphaël remplace la valeur antérieure et conserve une provenance concise.
 
-### Options concrètes pour la couche épisodique externe
+## Anti-patterns
 
-- **Serveur MCP mémoire** — stanza `[mcp_servers.<id>]` dans config.toml (`codex mcp add` = stdio only ; HTTP → config manuel). « Mémoire via MCP » n'est PAS une feature native nommée : c'est un serveur tiers qui expose `add_memory`/`search_memories`.
-  - **mem0** : Option A plugin marketplace (apporte MCP + Skills + 6 hooks lifecycle pré-câblés : `SessionStart` load, `UserPromptSubmit` search, `Stop` store summary, `PreCompact` store) ; Option B MCP direct (pas de hooks/skills). Scopé `user_id` → store partagé Codex + Cursor + Claude Code. Source : `docs.mem0.ai/integrations/codex`.
-  - **Basic Memory** : vault **markdown local = source de vérité**, éditable/versionnable, cross-tool via MCP. Le plus proche d'un « vault qu'on possède » (mais c'est un produit).
-- **DIY zéro-dépendance** : AGENTS.md + hook `SessionStart` (Python stdlib) lisant un vault markdown local. Faisable (mécanismes confirmés) mais **le « serveur MCP mémoire maison » n'est documenté nulle part** — inférence, pas recette prouvée. Basic Memory est l'équivalent produit le plus proche.
-- **Letta** (MemFS git-backed, blocs markdown versionnés, `/remember`) : intégration Codex **moins clé-en-main** (MCP cloud construit par la communauté) — *à vérifier* avant adoption.
+- Mettre toute la mémoire dans `AGENTS.md`.
+- Traiter le recall natif comme une base canonique.
+- Éditer `~/.codex/memories` à la main pour piloter le système.
+- Copier intégralement les skills Claude dans Codex et laisser les copies dériver.
+- Créer une note pour chaque découverte sans rechercher un foyer existant.
+- Laisser un statut « à jour » après une collecte réussie mais une écriture échouée.
+- Déduire une préférence personnelle d'un seul comportement implicite.
 
-### Arbitrages honnêtes — « la mémoire parfaite n'existe pas encore »
+## Wikilinks
 
-- **Portabilité** : mémoire MCP = portable cross-provider ; `[memories]` OpenAI ne l'est pas. `[memories]` = per-user, cloud-only, **pas de partage équipe**, indisponible EEA/UK/Suisse au lancement (→ AGENTS.md only là-bas).
-- **Staleness** : un mauvais backend injecte du contexte périmé qui **dégrade** la sortie. Empiler natif + MCP sans `disable_on_external_context = true` = injection redondante qui brûle le budget tokens.
-- **Cap silencieux** : AGENTS.md tronqué au-delà de 32 KiB sans alerte → ne pas en faire une « grosse mémoire ».
-- **Problème non résolu (versioned reads)** : deux agents qui écrivent en concurrence → le plan de l'un périme celui de l'autre. Aucun produit ne le résout proprement au 15/07. C'est *pourquoi* la mémoire « parfaite » reste ouverte.
-
-> Provenance : recherche 2 agents 15 juil. 2026 (classifieur sécu indisponible → citations vérifiées manuellement). Willison **silencieux sur la mémoire Codex spécifiquement** (son foyer self-updating memory = Jesse Vincent/Superpowers, côté Claude Code). OpenAI en interne : amélioration continue **humain-pilotée** (100+ skills publiés/copiés + AI review), pas de loop auto-édition.
-
-## ANTI-PATTERNS
-
-- ❌ **Mettre du how-to dans AGENTS.md** — cap 32 KiB, toujours chargé → skill.
-- ❌ **Traiter `[memories]` comme la source des règles dures** — recall layer.
-- ❌ **Confondre mémoire ChatGPT-app et `[memories]` Codex** — deux produits, deux mécanismes.
-- ❌ **Dupliquer les faits ici** — cette note arbitre ; les faits vivent dans les foyers liés.
-
----
-
-## WIKILINKS
-
-- [[workflow-codex-optimal]] — note maître
-- [[agents-md-codex]] · [[config-toml-profils-codex]] · [[comment-creer-skill-codex]] · [[comment-creer-hook-codex]] · [[loop-apprentissage-codex]] — foyers Codex
-- [[personnalisation-chatgpt-app]] — foyer ChatGPT (facts + provenance)
-- [[codex-vs-chatgpt-seul]] — l'arbitrage produit
-- [[pattern-vault-llm-karpathy]] — la mémoire multi-couches côté forge (miroir conceptuel)
+- [[workflow-codex-optimal]]
+- [[agents-md-codex]]
+- [[comment-creer-skill-codex]]
+- [[comment-creer-hook-codex]]
+- [[loop-apprentissage-codex]]
+- [[personnalisation-chatgpt-app]]
+- [[pattern-vault-llm-karpathy]]
+- [[methode-pivoter-doctrine]]

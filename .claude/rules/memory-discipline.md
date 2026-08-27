@@ -36,6 +36,27 @@ Si la session a produit un apprentissage non trivial :
 
 **Règle clé :** `vault/1-Projets/` = source canonique pour le contexte projet stable. `memory/project_*.md` = uniquement la phase en cours et les décisions temporaires. Si une info est dans les deux → la supprimer de memory, garder le vault.
 
+## Profil Raphaël — foyer unique et preuve
+
+Le foyer unique des faits personnels et préférences de collaboration est
+`memory/user_raphael_profile.md`. Lire le contrat complet
+`docs/second-brain/session-capture.md` avant toute mise à jour.
+
+| Signal | Action |
+|---|---|
+| fait ou préférence explicite, durable, non sensible | enrichir/corriger le profil existant |
+| hypothèse ou interprétation | proposer sous « À confirmer », ne pas écrire comme fait |
+| phase temporaire d'un projet | `memory/project_*.md`, jamais le profil |
+| santé, finance, secret, localisation précise, nouvelle donnée familiale | ne pas écrire sans « mémorise ceci » explicite |
+
+Une occurrence explicite suffit pour un fait sur soi ; le seuil de 2–3
+occurrences reste réservé aux règles générales et feedbacks. Garder une
+provenance courte (date + `explicit`/`confirmed`), gérer les contradictions en
+remplaçant l'état actif et permettre « oublie X » sans argumenter.
+
+`/done` est le writer de fin de session. Les hooks peuvent signaler une anomalie
+déterministe, mais ne décident ni n'écrivent de mémoire à partir du transcript.
+
 ## Triade memory/vault/memory-physique (3 acteurs)
 
 Avant de créer un nouveau fichier dans `memory/`, distinguer les 3 acteurs et appliquer le workflow décision :
@@ -79,3 +100,5 @@ Protocole d'accès vault (MCP forge-brain uniquement, outils, quand consulter) :
 - "Je sais deja" → non, relire les feedbacks. Le contexte change.
 - "C'est rapide, pas besoin" → c'est justement quand on va vite qu'on oublie.
 - Mettre a jour la memoire 3 sessions trop tard → le detail est perdu.
+- Créer un `feedback_*` pour une préférence personnelle → mettre à jour le profil.
+- Inférer une préférence puis la présenter comme un fait → garder « À confirmer ».

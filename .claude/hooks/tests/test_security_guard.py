@@ -4,12 +4,13 @@
 SCOPE DECLARED BY THE HOOK (security-guard.py:8-15):
   Wired on matcher "Bash|PowerShell" (settings.json) — covers both shells since
   is_dangerous works on the command string, identical across shells.
-  The hook blocks ONLY these 6 patterns:
-    1. rm -rf <path starting with />        (and flag-order variant -fr)
-    2. git push ... --force
-    3. git push ... -f
-    4. git reset --hard   (without an explicit target after it)
-    5. git clean -f
+  The hook blocks these destructive patterns:
+    1. rm -rf <any target>                  (and flag-order variant -fr)
+    2. git branch -D
+    3. git push ... --force
+    4. git push ... -f
+    5. git reset --hard   (without an explicit target after it)
+    6. git clean -f
 
 WHAT THESE TESTS VERIFY:
   - For each CLAIMED pattern: >=3 adversarial variations (spacing, flag order,
@@ -20,7 +21,7 @@ WHAT THESE TESTS DO *NOT* VERIFY (documented gaps, see test_documented_gaps):
   security-guard is intentionally minimal. The real destructive-command
   protection lives in settings.json `ask`/`deny` (the harness), not in this
   hook. Out-of-scope classes (dd, mkfs, fork bomb, base64, command chaining,
-  $(...) substitution, Windows del/format/taskkill, ~ / $HOME expansion) are
+  $(...) substitution and Windows del/format/taskkill) are
   NOT caught by this hook by design. A single test enumerates them so a future
   reader knows the omission is deliberate, not an untested gap.
 
@@ -161,9 +162,8 @@ def test_git_clean_df_order():
 
 
 # ===========================================================================
-# FALSE-NEGATIVE characterization — known bypasses WITHIN the rm family
-# (these document that the hook is bypassable; they are the real value of an
-#  adversarial suite — they prove the hook is NOT a complete shield.)
+# RM family edge cases — one documented case-sensitive bypass plus targets
+# that must remain blocked before shell expansion.
 # ===========================================================================
 
 def test_fn_rm_rf_uppercase_passes():
@@ -171,24 +171,24 @@ def test_fn_rm_rf_uppercase_passes():
     assert_passes("RM -rf / (uppercase bypass)", "R" + "M" + " -rf " + SLASH)
 
 
-def test_fn_rm_rf_home_tilde_passes():
-    """Bypass: rm -rf ~ destroys home but path does not start with / → not blocked."""
-    assert_passes("rm -rf ~ (tilde bypass)", RMRF + " ~")
+def test_rm_rf_home_tilde_blocks():
+    """Any recursive forced removal target requires explicit authorization."""
+    assert_blocks("rm -rf ~", RMRF + " ~")
 
 
-def test_fn_rm_rf_home_var_passes():
-    """Bypass: rm -rf $HOME → not blocked (no leading /)."""
-    assert_passes("rm -rf $HOME (var bypass)", RMRF + " " + chr(36) + "HOME")
+def test_rm_rf_home_var_blocks():
+    """Environment-variable targets are blocked before shell expansion."""
+    assert_blocks("rm -rf $HOME", RMRF + " " + chr(36) + "HOME")
 
 
-def test_fn_rm_rf_glob_passes():
-    """Bypass: rm -rf * in cwd → not blocked (no leading /)."""
-    assert_passes("rm -rf * (glob bypass)", RMRF + " *")
+def test_rm_rf_glob_blocks():
+    """Glob targets are blocked before shell expansion."""
+    assert_blocks("rm -rf *", RMRF + " *")
 
 
-def test_fn_rm_rf_relative_passes():
-    """Bypass: rm -rf ./ or relative path → not blocked."""
-    assert_passes("rm -rf ./important (relative bypass)", RMRF + " ." + SLASH + "important")
+def test_rm_rf_relative_blocks():
+    """Relative recursive forced removals also require authorization."""
+    assert_blocks("rm -rf ./important", RMRF + " ." + SLASH + "important")
 
 
 # ===========================================================================

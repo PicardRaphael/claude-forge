@@ -1,0 +1,6 @@
+interface:
+  display_name: "Claude Code Features"
+  short_description: "Référence Claude Code avec vérification de fraîcheur"
+  default_prompt: "Vérifie la référence Claude Code et actualise les faits volatils via cc-news."
+policy:
+  allow_implicit_invocation: true

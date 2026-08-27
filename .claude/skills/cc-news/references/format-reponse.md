@@ -64,3 +64,8 @@ Après chaque scan, noter en fin de réponse :
 - Mis à jour : [chemin note] — [changement]
 - MOCs mis à jour : [MOC concerné]
 ```
+
+Une note neuve doit apparaître sous **Proposé**, jamais sous « Créé », tant que
+Raphaël n'a pas validé le batch de créations. Ajouter pour chaque finding son
+statut (`NOOP`, `UPDATE`, `SUPERSEDE`, `PROPOSE_NEW`, `DEFER`, `CONFLICT`,
+`IGNORE`, `FAILED`) et la preuve du read-back.

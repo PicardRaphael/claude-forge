@@ -1,5 +1,7 @@
 # CHANTIER — mémoire parfaite sur 3 repos
 
+> **Instantané historique du 29 juillet 2026.** Ne pas exécuter ce chantier comme plan courant. Le remplacement actif est `TODO/SPEC-loop-second-brain-refresh.md` et les contrats `docs/second-brain/`. Les mesures ci-dessous restent utiles comme preuves historiques.
+
 **Ouvert : 2026-07-29 | Mis à jour : 2026-07-29 | Mandat Raphael : carte blanche | À reprendre tel quel après un `/clear`**
 
 > Vit dans `TODO/` — **versionné**. Déplacé depuis `output/` (gitignoré) le 29 juil. sur demande de Raphael : un fichier de reprise non versionné ne peut pas être daté contre `git log`, donc rien ne signale sa péremption, et il meurt au changement de machine. Le dater contre `git log --oneline -10` avant de s'y fier reste le réflexe (cf `memory/feedback_brief_premisse_fausse_verifier_avant_executer.md`).

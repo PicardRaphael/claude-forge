@@ -1,152 +1,122 @@
 ---
-titre: "Loop d'apprentissage Codex — compounding via mémoire auto, skills et scheduled tasks"
-resume: "Note canonique forge — le cycle d'amélioration continue de Codex : mémoire auto [memories] (background, redaction secrets), Skills capitalisées, et scheduled task documentée verbatim 'scan sessions → update skills'. Le 'summarize→memory' n'est PAS un event de hook. Vérifié doc officielle au 15 juil. 2026."
+titre: "Loop d'apprentissage Codex — compounding contrôlé"
+resume: "Doctrine Codex : recall natif local en arrière-plan, règles versionnées et boucle sessions vers propositions de skills avec validation humaine."
 aliases:
   - "loop apprentissage codex"
   - "compounding codex"
   - "codex memories"
-  - "[memories] config codex"
   - "scan sessions update skills"
   - "amelioration continue codex"
   - "codex auto memory"
-derniere-maj: 2026-07-15
-auteur: claude
+derniere-maj: 2026-08-27
+auteur: codex
 type: technique
 sources:
   - "https://learn.chatgpt.com/docs/customization/memories"
-  - "https://learn.chatgpt.com/docs/config-file/config-reference ([memories])"
-  - "https://learn.chatgpt.com/docs/automations · /docs/hooks"
+  - "https://learn.chatgpt.com/docs/automations"
+  - "https://learn.chatgpt.com/docs/hooks"
 tags:
   - "#type/technique"
   - "#domaine/codex"
   - "#domaine/workflow"
   - "#doctrine/2026"
 ---
-# Loop d'apprentissage Codex — le compounding
+# Loop d'apprentissage Codex — compounding contrôlé
 
-> Note canonique forge — comment Codex capitalise ses erreurs/résultats pour s'améliorer (le « compounding » de Boris, version Codex). Trois briques natives se combinent ; le point clé est qu'**il n'y a PAS de hook « auto-memory » officiel** — la mémoire auto passe par un mécanisme dédié. Vérifié au **15 juil. 2026**.
+> Canon au **27 août 2026**. Le compounding fiable ne consiste pas à laisser une mémoire générée réécrire les règles : il sépare recall, détection, validation et consolidation.
 
----
+## Les trois briques
 
-## Les 3 briques du compounding Codex
+### 1. Recall natif local
 
-### Brique 1 — Mémoire auto `[memories]` (CERTAIN)
+Codex peut générer des souvenirs locaux à partir de sessions antérieures afin de rappeler du contexte utile.
 
-Codex génère et injecte une mémoire persistante en arrière-plan (`~/.codex/memories/` : summaries, durable entries, recent inputs, supporting evidence). Verbatim : les mémoires « carry useful context from earlier work into future work » ; « helpful recall layer, not the only source for rules that must always apply » ; « Updates memories in the background instead of immediately at the end of every task » ; « Skips active or short-lived sessions » ; « Redacts secrets from generated memory fields ».
+- activation et contrôle via `/memories` ;
+- génération en arrière-plan, donc potentiellement différée ;
+- sessions actives ou trop courtes susceptibles d'être ignorées ;
+- secrets retirés des champs générés ;
+- état sous `~/.codex/memories` ;
+- état généré, à ne pas éditer comme surface de contrôle principale ;
+- magasin distinct de la mémoire ChatGPT web.
 
-Config `[memories]` :
-```toml
-[memories]
-generate_memories = true               # false → threads non stockés comme inputs
-use_memories = true                    # false → pas d'injection des mémoires existantes
-disable_on_external_context = false    # true → threads avec MCP/web/tool search exclus
-min_rate_limit_remaining_percent = 25
-max_raw_memories_for_consolidation = 256   # cap 4096
-max_rollout_age_days = 30               # 0–90
-min_rollout_idle_hours = 6              # 1–48
+Ce recall est **consultatif**. Une règle qui doit toujours s'appliquer vit dans `AGENTS.md` ou une skill ; une connaissance corrigeable vit dans le vault ou `memory/`.
+
+### 2. Compétences versionnées
+
+Les procédures reproductibles vivent dans `.agents/skills/`. Dans forge, les contrats de fond sont partagés sous `docs/second-brain/` et les adaptateurs Claude/Codex restent spécifiques à leur runtime.
+
+Une session ne modifie une skill que si elle révèle une procédure récurrente et vérifiable, pas pour une préférence ponctuelle.
+
+### 3. Boucle sessions vers amélioration
+
+Une routine planifiée peut analyser les sessions récentes et détecter :
+
+- erreurs récurrentes ;
+- instructions répétées par Raphaël ;
+- documentation devenue fausse ;
+- friction d'une skill ;
+- nouveau fait stable sur un outil.
+
+La sortie correcte est d'abord une **proposition bornée**, avec preuve et foyer cible. L'application vient ensuite, avec diff, test et relecture.
+
+## Cycle de référence
+
+```text
+sessions et sources primaires
+        |
+        v
+détection + classification
+        |
+        v
+proposition avec preuve et cible
+        |
+        v
+validation humaine ou autorisation explicite
+        |
+        +--> AGENTS.md / skill : règle durable
+        +--> vault : doctrine ou fait sourcé
+        +--> memory/user_raphael_profile.md : fait ou préférence explicite
+        +--> rien : contexte temporaire ou hypothèse faible
+        |
+        v
+tests + journal + état de fraîcheur
 ```
-Contrôles : Settings > Personalization (global) ; commande `/memories` (par tâche).
 
-### Brique 2 — Skills capitalisées
+## Invariants
 
-Les Skills sont le vecteur « best practice réutilisable » (l'équipe Codex en a **100+** internes, cf Pragmatic Engineer). Création : « Build me a skill… » ou **Record & Replay** (macOS) qui transforme une démo en skill. Détail : [[comment-creer-skill-codex]].
+- Collecter une source et écrire une correction sont deux transactions distinctes.
+- Une écriture échouée ne fait pas avancer l'état de fraîcheur.
+- On enrichit un foyer existant avant de créer une note.
+- Une information fausse est remplacée ; elle n'est pas simplement contredite plus bas.
+- Une note nouvelle est proposée avant création.
+- Aucune suppression de note n'est automatique.
+- Un hook peut détecter ou injecter du contexte ; il ne décide pas seul d'une mutation sémantique.
+- Le recall natif reste en shadow pendant les migrations et ne devient jamais la seule source de vérité.
+- Le profil de Raphaël distingue fait explicite, préférence explicite, hypothèse et contexte temporaire.
 
-### Brique 3 — Scheduled task « scan sessions → update skills » (CERTAIN, verbatim)
+## Workflow forge
 
-L'exemple officiel documente **littéralement** le loop de compounding :
+- **Actualité** : `cc-news` collecte en sources primaires, compare au vault, corrige les foyers existants et propose les nouveaux.
+- **Fin de session** : `done` consolide les décisions, corrections et signaux personnels explicites.
+- **Hooks** : `memory-recall` injecte les foyers contrôlés ; `learning-reminder` signale ce qui semble non capitalisé.
+- **État** : `.claude/skills/cc-news/references/freshness-state.json` conserve la date, la version et les hashes utiles.
 
-> Verbatim (doc automations) : « Scan all of the `~/.codex/sessions` files from the past day and if there have been any issues using particular skills, update the skills. »
+## Anti-patterns
 
-C'est une automation planifiée (cf [[loops-codex]]) qui lit l'historique des sessions, détecte les frictions sur les skills, et **met à jour les skills** — le compounding error-driven de Boris, en routine native.
+- Confondre recall natif et doctrine.
+- Modifier directement `~/.codex/memories`.
+- Scanner toutes les sessions sans budget ni fenêtre temporelle.
+- Réécrire une skill entière à partir d'un seul incident.
+- Faire écrire le même hook dans le vault et le profil.
+- Marquer une nouveauté traitée avant vérification de la mutation.
+- Persister une donnée personnelle sensible ou une hypothèse sans validation.
 
----
+## Wikilinks
 
-## Le cycle complet
-
-```
-Sessions Codex (~/.codex/sessions)
-   │
-   ├── [memories] consolide en arrière-plan → contexte réinjecté (recall layer)
-   │
-   └── scheduled task quotidienne : scan sessions → repère frictions skills → update skills
-                                                                    │
-                                                        Skills améliorées (Brique 2)
-                                                                    │
-                                            AGENTS.md mis à jour manuellement (ou par une autre scheduled task)
-```
-
-- **`[memories]`** = mémoire courte/contextuelle (recall), auto, jamais « la règle qui doit toujours s'appliquer ».
-- **Skills + AGENTS.md** = les règles durables. AGENTS.md **ne se met PAS à jour tout seul** (cf [[agents-md-codex]]) — c'est une scheduled task ou une action manuelle.
-
----
-
-## CORRECTION — « summarize→memory » n'est PAS un event de hook
-
-Le cas d'usage « summarize conversations to create persistent memories » est listé dans la doc hooks, mais **aucun event dédié n'existe** (verbatim : « no dedicated hook event exists for this purpose »). Pour le câbler soi-même : hook `Stop` ou `PostCompact` (lire `transcript_path`, écrire un résumé) → réinjection via `SessionStart`. La mémoire auto « clé en main », elle, passe par `[memories]` — pas par un hook. Cf [[comment-creer-hook-codex]].
-
----
-
-## Miroir forge / Claude Code
-
-Ce loop est l'équivalent Codex de la doctrine forge « compounding CLAUDE.md » + des skills `skill-evolve` / `align-vault-skills` (qui font, côté forge, exactement ce que fait la scheduled task Codex : détecter les frictions et améliorer les skills). Différence : Codex a la mémoire auto `[memories]` **native** là où forge le fait manuellement (via `/done`, MEMORY.md, vault). C'est une des cross-pollinations du chantier (cf note maître, décisions applicables).
-
----
-
-## ANTI-PATTERNS
-
-- ❌ **Chercher un hook « auto-memory » officiel** — n'existe pas ; utiliser `[memories]` ou câbler Stop/PostCompact.
-- ❌ **Traiter `[memories]` comme la source des règles dures** — c'est un recall layer, pas AGENTS.md/skills.
-- ❌ **Attendre qu'AGENTS.md se mette à jour seul** — manuel ou scheduled task.
-- ❌ **Laisser `[memories]` capturer des sessions à secrets sans vérifier la redaction** — activée par défaut, mais `disable_on_external_context` pour les threads sensibles (MCP/web).
-
----
-
-## SOURCES
-
-- `learn.chatgpt.com/docs/customization/memories` + `/docs/config-file/config-reference` (`[memories]`, CERTAIN).
-- `learn.chatgpt.com/docs/automations` — exemple verbatim « scan sessions → update skills ».
-- `learn.chatgpt.com/docs/hooks` — « no dedicated hook event » pour la mémoire.
-- Pragmatic Engineer — 100+ skills internes équipe Codex.
-
----
-
-## Le pattern auto-améliorant — delta praticien + archétypes (recherche 15 juil. 2026)
-
-Au-delà de l'exemple doc OpenAI (« scan sessions → update skills »), tout ce qui se fait de sérieux converge vers **un même squelette en 5 étapes**. Utile comme recette pour instancier le loop (côté Codex quand adopté, ou côté forge dès aujourd'hui via `skill-evolve`/`/loop`).
-
-### Le squelette convergent (5 étapes)
-
-1. **Trigger** — intra-session temps réel (fin de tâche réussie) OU batch planifié (nocturne/hebdo).
-2. **Source lue** — sessions passées (`~/.codex/sessions`), trajectoires, ou historique GitHub (PR/reviews).
-3. **Extraction** — distiller un artefact réutilisable : insight NL / workflow / skill / entrée AGENTS.md.
-4. **VALIDATION** (le garde-fou que les meilleurs ajoutent, l'exemple doc OpenAI ne l'a PAS) — sub-agent goal-based, evaluator module, confidence score, ou UPVOTE/DOWNVOTE.
-5. **Écriture APPEND INCRÉMENTAL** (jamais réécriture complète — évite le *context collapse*) + rechargement auto au `SessionStart`.
-
-### Artefacts praticiens (Codex, wiring réel)
-
-- **`affaan-m/ECC`** — le plus proche du modèle forge `skill-evolve` : hook fin-de-session + SQLite state store + commande `/evolve` qui cluster des « instincts » (confidence-scored) en skills écrits sur disque. Multi-harness dont Codex (`.agents/skills/` + `agents/openai.yaml`).
-- **`Dimillian/Skills` `project-skill-audit`** — implémentation manuelle de la scheduled task doc : scanne les sessions Codex + mémoire + skills → recommande les skills de plus haute valeur.
-- **`chatprd.ai`** — automation hebdo : scanne l'historique GitHub, **spawn un sub-agent qui VALIDE chaque skill candidat** contre la base branch avant écriture (le garde-fou d'étape 4, appliqué).
-- **`Kulaxyz/self-learning-skills`** — meta-skill « golden path » : détecte en fin de session une procédure durement gagnée et la persiste (skill ou append AGENTS.md), avec note « what didn't work ». Stocke **où** trouver les secrets, jamais les secrets.
-
-### Archétypes académiques (IDs arXiv vérifiés à la source 15 juil. 2026)
-
-- **ExpeL** ([arXiv:2308.10144](https://arxiv.org/abs/2308.10144)) — insights NL cross-tâches, opérations ADD/UPVOTE/DOWNVOTE/EDIT. *Limite* : concatène tous les insights → scale mal (pertinent vs cap 32 KiB AGENTS.md).
-- **Voyager** ([arXiv:2305.16291](https://arxiv.org/abs/2305.16291)) — skill library de code exécutable qui grandit = ancêtre direct des Skills Codex/CC.
-- **MemGPT/Letta** ([arXiv:2310.08560](https://arxiv.org/abs/2310.08560)) — self-editing memory par function calls : le versant « contrôlable » que `[memories]` natif n'expose pas → transposition = couche externe.
-- **AWM** ([arXiv:2409.07429](https://arxiv.org/abs/2409.07429)) — induit des workflows depuis les trajectoires + **evaluator module** en mode online = fondement académique du « scan sessions → skill validé ».
-- **ACE** ([arXiv:2510.04618](https://arxiv.org/abs/2510.04618)) — le plus actionnable : playbook évolutif Generator/Reflector/Curator, **ajout incrémental jamais réécriture**, évite le *context collapse* (exactement le risque du cap 32 KiB + drift AGENTS.md).
-
-### À retenir pour forge
-
-Le pattern est mûr et **actionnable pour forge aujourd'hui** (forge est en usage, contrairement à Codex « pas encore »). La décision #3 du rapport Codex (`/loop` hebdo « scan sessions → valide → améliore skills ») = recette **ECC (wiring) + ACE (append incrémental) + AWM/chatprd (validation gate)**. À passer par `loop-forge` (SPEC) avant implémentation. Note : ni Willison ni OpenAI en interne ne décrivent un loop *auto-édition* — le compounding reste **jugement-piloté** (« relearn with every model »), donc garder l'humain sur la validation.
-
-## WIKILINKS
-
-- [[workflow-codex-optimal]] — note maître (compounding niveau expert)
-- [[loops-codex]] — la scheduled task comme loop
-- [[comment-creer-skill-codex]] — Skills capitalisées
-- [[agents-md-codex]] — pourquoi AGENTS.md ne se met pas à jour seul
-- [[comment-creer-hook-codex]] — câbler summarize→memory à la main
-- [[pre-compute-vs-inference-loops-boris]] — compounding error-driven (doctrine forge)
-- [[concevoir-loops-travail]] — méthode loop universelle
+- [[memoire-optimale-codex-chatgpt]]
+- [[workflow-codex-optimal]]
+- [[loops-codex]]
+- [[comment-creer-skill-codex]]
+- [[agents-md-codex]]
+- [[comment-creer-hook-codex]]
+- [[pattern-vault-llm-karpathy]]

@@ -14,7 +14,7 @@ description: "Dispatch table: which agent or skill to invoke based on user situa
 | "Analyse mon repo X et propose config CC" / "propose-moi le meilleur setup" | **Méthode 6 étapes [[methode-analyser-repo]]** — scan archi + code réel en parallèle de l'audit `.claude/` (détail : Anti-patterns en bas de page) |
 | "Analyse ia_back" / "analyse neo_ia" / multi-repo | Agent `repo-inspector` (mode=audit) par repo, en parallele |
 | "Optimise / améliore mon CLAUDE.md" | Invoquer `claudemd-creator` |
-| "Quoi de neuf / est-ce que X existe" | Invoquer `cc-news` |
+| "Quoi de neuf / est-ce que X existe" | Invoquer `cc-news` ; demande manuelle = correction bornée des assertions actives existantes, créations proposées en batch |
 | "Crée un agent / skill / hook" | Vérifier l'existant → créer |
 | Skill à optimiser | Lire l'existant → améliorer |
 | "Audite le vault / vérifie les notes" | Skill `/vault-audit` |
@@ -22,7 +22,7 @@ description: "Dispatch table: which agent or skill to invoke based on user situa
 | Amélioration de prompt / description | Skill `cc-prompt-ref` |
 | "Crée un prompt pour X" | Skill `craft-prompt` (Claude, Gemini, tout LLM) |
 | Début de session / reprise | `/recap` pour snapshot contexte |
-| Fin de session / capitalisation | `/done` pour metacognition — decisions, faits, preferences, erreurs |
+| Fin de session / capitalisation / "mémorise ce que tu apprends sur moi" | `/done` — profil explicite, mémoire, décisions et contexte ; hypothèses proposées |
 | Livrable majeur prêt (skill, agent, archi) | Agent `devils-advocate` AVANT de livrer |
 | ↳ Plan de modifs structurelles issu d'un audit (KILL hook/skill, retrait outil sécu, refonte enforcement, suppression composant) | `devils-advocate` sur le PLAN AVANT application. Cosmétique/désync/typo → NON. « Déjà validé » / « carte blanche » ≠ dispense |
 | Problème complexe résolu (multi-étapes) | `/reasoning-cache` pour sauvegarder le raisonnement |
