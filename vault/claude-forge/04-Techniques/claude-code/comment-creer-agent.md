@@ -1,5 +1,5 @@
 ---
-derniere-maj: 2026-07-27
+derniere-maj: 2026-08-28
 aliases:
   - "comment creer un agent"
   - "creer subagent claude code"
@@ -945,6 +945,8 @@ Quand Claude invoque un subagent, le modèle est résolu dans CET ordre :
 - **Session-wide** : `--agent <name>` (flag CLI) ou le setting `agent` → toute la session prend le system prompt + restrictions d'outils + modèle de ce subagent.
 
 ### Champs frontmatter récents (à connaître, doc à jour 7 juin)
+
+> **Mise à jour vérifiée le 28 août 2026 (Claude Code 2.1.248)** — Le frontmatter accepte aussi `experimental.cacheTtl: "5m" | "1h"`. Ce TTL de cache de prompt s'applique par agent uniquement lorsqu'aucun réglage de TTL de subagent n'est déjà configuré. Source primaire : [CHANGELOG officiel Claude Code](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#21248).
 
 La table frontmatter officielle inclut désormais : `isolation: worktree` (run dans un git worktree temporaire branché par défaut sur la default branch, auto-nettoyé si aucun changement), `background: true` (toujours run en background task), `initialPrompt`, `maxTurns`, `mcpServers`. Le `--agents` flag (CLI-defined subagents en JSON éphémère) accepte les mêmes champs.
 

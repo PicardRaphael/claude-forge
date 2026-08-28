@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "last_complete_run": "2026-08-27",
-  "last_attempted_run": "2026-08-27",
+  "last_complete_run": "2026-08-28",
+  "last_attempted_run": "2026-08-28",
   "domains": {
     "claude-code": {
-      "verified_at": "2026-08-27",
+      "verified_at": "2026-08-28",
       "status": "complete",
-      "latest_version": "2.1.247",
-      "content_checkpoint": "2.1.247",
+      "latest_version": "2.1.250",
+      "content_checkpoint": "2.1.250",
       "source": "https://www.npmjs.com/package/@anthropic-ai/claude-code",
       "content_source": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
-      "source_content_sha256": "e8172ef37368d193430a2a2cec974538a0633b2787c29fb72d647d2e1a1b6ce0"
+      "source_content_sha256": "5d3177183a1ee4ace2d5b8a19e895e786f03dd4082e7899b67117a7f2ee15327"
     },
     "codex": {
       "verified_at": "2026-08-27",
@@ -29,10 +29,10 @@
   },
   "proposals": [
     {
-      "id": "claude-code-changelog-2026-08-v2.1.221-247",
+      "id": "claude-code-changelog-2026-08-v2.1.221-250",
       "status": "proposed",
-      "proposed_at": "2026-08-27",
-      "suggested_path": "01-Claude/Code/changelog/CC août 2026 - v2.1.221-247.md",
+      "proposed_at": "2026-08-28",
+      "suggested_path": "01-Claude/Code/changelog/CC août 2026 - v2.1.221-250.md",
       "source": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md"
     }
   ]

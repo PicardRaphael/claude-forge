@@ -7,7 +7,7 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-08-27
+derniere-maj: 2026-08-28
 auteur: claude
 tags:
   - "#type/index"
@@ -2031,3 +2031,10 @@ Tests hooks 176 verts (180→176, suppression du mécanisme d'exemption testé).
 
 - **Run réel cc-news** : version Claude Code `2.1.247` confirmée et plage `2.1.221–247` lue dans le changelog Anthropic officiel. Le référentiel repo `cc-features-ref` a été corrigé ; une nouvelle note changelog vault « CC août 2026 - v2.1.221-247 » reste **proposée**, non créée silencieusement.
 - **ChatGPT corrigé** : `04-Techniques/chatgpt/personnalisation-chatgpt-app` réécrite en place depuis les pages OpenAI actuelles. Suppression des claims presse et des limites non vérifiées ; clarification mémoire personnelle, Projects, GPTs et tâches Work/webhooks.
+
+
+## 2026-08-28 — cc-news réel : Claude Code 2.1.250
+
+- **Modifiée** : `04-Techniques/claude-code/comment-creer-agent` — ajout vérifié de `experimental.cacheTtl: "5m" | "1h"`, TTL de cache de prompt par agent lorsqu'aucun TTL de subagent n'est configuré.
+- **Décision de création** : la note changelog `01-Claude/Code/changelog/CC août 2026 - v2.1.221-250.md` reste **proposée**, sans création silencieuse.
+- **Source primaire** : changelog officiel Anthropic, versions `2.1.248` et `2.1.250`, vérifiées le 28 août 2026.
