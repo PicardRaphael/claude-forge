@@ -58,7 +58,7 @@ Last updated: 2026-05-08
 | Item | Expected | Rationale |
 |------|----------|-----------|
 | Delegate guard | `delegate-guard.py` | Block direct edits to protected files |
-| Learning reminder | `learning-reminder.py` or equivalent | Periodic memory compounding prompt |
+| Learning reminder | Claude: conditional non-blocking detector; Codex: no Stop parity required | Surface only uncaptured deterministic signals |
 | Session health | `session-health.py` or equivalent | Session quality monitoring |
 
 ---

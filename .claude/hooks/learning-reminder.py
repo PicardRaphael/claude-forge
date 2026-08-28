@@ -66,7 +66,16 @@ _SIGNALS: tuple[tuple[str, re.Pattern[str], str], ...] = (
     ),
 )
 
-_PROFILE_EVIDENCE = re.compile(r"memory/user_raphael_profile\.md", re.I)
+_PROFILE_EVIDENCE = re.compile(
+    r"__tool__:(?:Edit|Write|MultiEdit|apply_patch)\b[^\n]*"
+    r"memory/user_raphael_profile\.md"
+    r"|__tool__:mcp__forge(?:-|_)brain__(?:append_note|append_note_by_path|"
+    r"insert_section|insert_section_by_path|update_note|update_note_by_path|"
+    r"update_property|update_property_by_path)\b[^\n]*"
+    r"(?:\"file\"\s*:\s*\"Raphael-Picard\"|"
+    r"\"path\"\s*:\s*\"2-Casquettes/Raphael-Picard\.md\")",
+    re.I,
+)
 _MEMORY_EVIDENCE = re.compile(r"memory/(?:feedback|reference)_[a-z0-9_-]+\.md", re.I)
 _VAULT_EVIDENCE = re.compile(
     r"mcp__forge-brain__(?:create_note|append_note|insert_section|update_note|update_property)"
@@ -102,7 +111,9 @@ def _texts(lines: Iterable[str]) -> Iterable[str]:
                 if block.get("type") == "text":
                     yield block.get("text") or ""
                 elif block.get("type") == "tool_use":
-                    yield json.dumps(block.get("input") or {}, ensure_ascii=False)
+                    name = str(block.get("name") or "unknown")
+                    payload = json.dumps(block.get("input") or {}, ensure_ascii=False)
+                    yield f"__tool__:{name} {payload}"
 
 
 def analyse(lines: Iterable[str]) -> tuple[dict[str, str], set[str]]:

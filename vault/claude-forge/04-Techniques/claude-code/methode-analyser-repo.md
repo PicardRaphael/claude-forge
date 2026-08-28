@@ -16,7 +16,7 @@ aliases:
   - "automate repo setup"
   - "automatiser projet claude code"
   - "pipeline architect dev test"
-derniere-maj: 2026-07-27
+derniere-maj: 2026-08-28
 auteur: claude
 type: technique
 sources:
@@ -472,7 +472,7 @@ Tout setup `.claude/` complet (étape 5-6 de la grille) comprend un **kit de bas
 
 ### Systématique (tout repo équipé, quel que soit le type)
 - **`memory/`** (pattern neo_ia) : `MEMORY.md` index + fichiers `reference_*`/`feedback_*`/`project_*`. Compounding versionné, contenu portable (zéro wikilink/MCP si repo d'équipe — cf [[config-repo-equipe-vs-forge]]).
-- **`learning-reminder`** (hook Stop) : rappelle de capitaliser dans `memory/`. ⚠️ Les 4 copies déployées **bloquent** (`decision: block`) — aucune n'est en exit 0 pur. Sur repo d'équipe, ne déployer qu'une variante **advisory** ou **conditionnelle**, jamais un blocage systématique. La version forge est passée en **détecteur** le 29 juil. 2026 : elle lit le transcript et ne bloque que si elle trouve un apprentissage non capitalisé (payoff du rappel systématique mesuré nul — 8 « rien à sauvegarder », zéro capture attribuable). Mécanisme + clause de sortie : [[decision-garder-learning-reminder-hook]]. C'est ce qui rend la mémoire vivante sans discipline manuelle.
+- **`learning-reminder`** (Stop Claude uniquement) : détecteur déterministe non bloquant. Il lit le transcript, soustrait seulement les catégories portant une preuve de capitalisation correspondante, puis émet un rappel si un signal reste sans foyer. Il n'écrit et ne choisit rien. **Ne pas le porter tel quel sur Codex** : `additionalContext` n'est pas supporté sur Stop et `decision:"block"` y force une continuation. Mécanisme + clause de sortie : [[decision-garder-learning-reminder-hook]].
 - **`.skill-triggers.json` + hook `skill-activation`** (UserPromptSubmit) : garantit l'auto-suggestion des skills (sinon ~50%). Gotcha vérifié : un trigger finissant par `_` (`vp_`, `chk_`) est MORT (`\b` après `_` ne matche jamais une lettre suivante) → triggers en prose uniquement. Ajouter `memory-watcher` qui reset `.skill-recommendations-session` au SessionStart (sinon chaque skill se tait après 1 fois — bug latent de neo_ia).
 - **`README.md` + `workflow.md`** (doc onboarding) : inventaire + parcours « je dois faire X ». Critique pour une équipe de débutants.
 - **`astuces.md`** : bonnes pratiques Claude Code builtin (Shift+Tab normal/auto/plan, `/model`, `/advisor` si l'équipe l'a, `/clear`, vérifier, capitaliser).

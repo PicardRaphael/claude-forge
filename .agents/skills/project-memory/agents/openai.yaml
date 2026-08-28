@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Memory"
+  short_description: "Maintain canonical project context and decisions"
+  default_prompt: "Create or update the canonical vault project hub and record the durable choices I explicitly make."

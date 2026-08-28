@@ -1,18 +1,18 @@
 ---
-titre: "Décision — learning-reminder : de rappel systématique à détecteur (V2, 29 juil. 2026)"
-resume: "Le hook Stop learning-reminder est passé de rappel systématique (decision:block à chaque fin de session, payoff mesuré nul) à DÉTECTEUR qui lit le transcript et n'alerte que s'il trouve un apprentissage non capitalisé. Remplace la décision du 29 mai 2026, dont les 2 piliers techniques étaient périmés. Appliqué à forge d'abord ; les copies des autres repos divergent (3 textes, 2 mécanismes, 2 langages)."
+titre: "Décision — learning-reminder : détecteur advisory Claude uniquement (V3, 28 août 2026)"
+resume: "Le Stop hook learning-reminder reste un détecteur déterministe non bloquant côté Claude seulement. Il émet un systemMessage si un signal n'a pas de preuve de capitalisation correspondante. Aucun portage Stop Codex : protocole incompatible et risque de continuation forcée."
 aliases:
   - "decision learning-reminder"
   - "learning-reminder detecteur"
-  - "learning-reminder V2"
+  - "learning-reminder V3"
   - "garder learning-reminder"
-  - "exception doctrine 22 mai learning-reminder"
+  - "exception doctrine learning-reminder"
   - "Stop hook learning-reminder décision"
   - "proactivity-reminder supprimé"
 domaine: claude-code
 type: decision
-derniere-maj: 2026-07-29
-auteur: claude
+derniere-maj: 2026-08-28
+auteur: codex
 tags:
   - "#type/decision"
   - "#domaine/claude-code"
@@ -20,78 +20,70 @@ tags:
   - "#doctrine/2026"
 ---
 
-# Décision — learning-reminder : rappel systématique → détecteur (V2)
+# Décision — learning-reminder : détecteur advisory Claude uniquement
 
-> Cette note **remplace** la décision du 29 mai 2026 (« GARDÉ, exception assumée »), dont les deux piliers techniques sont devenus faux. Historique conservé en bas.
+## Décision active (28 août 2026)
 
-## Décision (29 juillet 2026)
+`learning-reminder` reste un **capteur déterministe, non bloquant et sans écriture**, déployé sur le Stop Claude Code uniquement.
 
-`learning-reminder` **reste**, mais change de nature : il ne demande plus, il **détecte**.
-
-| Avant (mai → juil.) | Après (V2) |
+| Propriété | Contrat |
 |---|---|
-| `decision: block` à **chaque** fin de session | `decision: block` **seulement** si un apprentissage non capitalisé est détecté |
-| Question générique en 6 points | Cite **quels** signaux ont été trouvés |
-| Happy path = « rien à sauvegarder » | Happy path = **silence** (exit 0) |
+| Détection | liste fermée : correction explicite, nouvelle norme, claim périmé, gotcha/bug et préférence personnelle explicite |
+| Preuve de traitement | par catégorie ; une lecture ne compte jamais comme écriture |
+| Sortie | `systemMessage` seulement si un signal reste non capitalisé |
+| Effet | aucune mutation, aucune décision sémantique, aucune continuation forcée |
+| Anti-boucle | `stop_hook_active` + marqueur par `session_id` |
+| Robustesse | fail-open sur transcript absent, JSON invalide ou erreur |
+| Writer | session principale uniquement, selon `docs/second-brain/session-capture.md` |
 
-Mécanisme : le hook lit le transcript de la session (champ `transcript_path` du JSON stdin — le même pattern que `delegate-guard.py`), cherche des signaux d'apprentissage (correction explicite de Raphael, nouvelle norme énoncée, doctrine mesurée périmée, gotcha découvert) **et** vérifie si une capitalisation a déjà eu lieu (`memory/*.md`, appels MCP d'écriture vault, `Knowledge/*`). Signaux **sans** capitalisation → alerte. Sinon, silence.
+La preuve de profil est stricte : seuls un mutateur MCP ciblant exactement [[Raphael-Picard]] ou une écriture legacy explicite de l'adaptateur local comptent. `read_note("Raphael-Picard")`, une simple mention textuelle ou une mutation d'une autre note ne masquent pas le signal.
 
-## Pourquoi ce pivot — les deux mesures qui l'ont déclenché
+## Pourquoi Claude uniquement
 
-**1. Payoff mesuré nul.** `search_sessions` sur les transcripts : **8 occurrences** de « rien à sauvegarder » et **zéro capture attribuable au hook**. Le 27 juil., la réponse au hook était *« tout ce que la session a appris a déjà été capitalisé avant ce tour »*. La session du 29 juil. a produit ~10 apprentissages capitalisés — **aucun déclenché par le hook**.
+Ne pas simuler la parité avec Codex :
 
-La raison structurelle : la capitalisation arrive **pendant** la session, poussée par les rules en **pré-action** (`memory-discipline`, `check-before-create`, `forge-brain-proactive`). Le hook, en post-hoc, ne créait pas le comportement — il le constatait trop tard. Le motif de mai (« Raphael n'exécute pas `/done` de façon fiable ») restait vrai, mais le filet ne servait pas : d'autres mécanismes avaient pris le relais.
+- `additionalContext` n'est pas supporté sur l'événement Stop Codex ;
+- `decision:"block"` signifie « continuer le tour » côté Codex ;
+- un hook Codex nouveau ou modifié est skippé jusqu'à validation de son hash.
 
-**2. Un bug, présent sur forge uniquement.** Le hook faisait `sys.stdin.read()` sans parser → il ne testait **jamais** `stop_hook_active`, et son marqueur était **global** (`claude-forge-learning-reminded`) au lieu d'être par `session_id`. Si l'écriture du marqueur échouait (exception avalée), il bloquait à **chaque** Stop — précédent de boucle infinie dans [[erreur-hooks-bash-quoting-windows]]. Deux sessions forge concurrentes se volaient aussi le marqueur. Les trois autres repos avaient déjà la garde correcte ; le repo le plus critique était le seul fragile.
+Codex utilise donc les règles, les skills `done` / `project-memory` et `memory-recall` en pré-action. Aucun Stop hook `learning-reminder` n'est enregistré sous `.codex/`.
 
-## Les 2 piliers de mai, périmés
+## Pourquoi garder le capteur
 
-La décision du 29 mai reposait sur deux faits techniques qui ne tiennent plus :
+Le rappel systématique historique avait un payoff nul : huit réponses « rien à sauvegarder » et aucune capture attribuable. Le détecteur conditionnel reste acceptable car :
 
-1. ❌ « **Stop ne supporte PAS `additionalContext`**, donc convertir en advisory est *infaisable* ». **Faux depuis CC v2.1.163 (4 juin 2026)** — six jours après la décision. Docs officielles : « Stop and SubagentStop also accept `hookSpecificOutput.additionalContext` for non-error feedback that continues the conversation ».
-2. ❌ « `once: true` = mécanisme légitime ». **Silencieusement ignoré** dans `settings.json` (honoré en frontmatter de skill uniquement) — mesuré dans `AUDIT-CLAUDE-2026-06-17.md:26`. L'unicité reposait en réalité sur le marqueur fichier.
+- silence sur une session banale ou déjà capitalisée ;
+- coût borné par lecture de queue de transcript et regex locales ;
+- aucun jugement ni écriture cachée ;
+- filet mesurable pour les signaux explicitement formulés.
 
-⚠️ Pourquoi la V2 garde quand même `decision: block` : `additionalContext` s'injecte « for the next model request ». Au Stop **terminal**, il n'y a pas de requête suivante — un advisory pur y serait invisible, donc du code mort. `block` est conservé, mais il ne se déclenche que quand il y a matière.
+## Clause de sortie
 
-## Périmètre — les copies ne sont pas le même composant
+Supprimer ou repenser le détecteur si l'une de ces conditions est mesurée :
 
-Mesuré le 29 juil. : **3 textes différents, 2 mécanismes, 2 langages**.
+- au moins deux faux positifs où une preuve correspondante existait ;
+- un faux négatif sur un signal de la liste fermée ;
+- un coût ou bruit supérieur à son apport ;
+- un mécanisme pré-action couvre empiriquement le cas sans perte.
 
-| Repo | Garde anti-boucle | Marqueur | Texte |
-|---|---|---|---|
-| **forge** | ❌ absente (corrigée en V2) | global → par session | 6 items, sans garde anti-hallucination |
-| neo_ia | ✅ | par `session_id` | 5 items + filtre anti-bruit |
-| neoteem-brain | ✅ | par `session_id` | 3 items + filtre |
-| neoteem-back-ts | ✅ | par `session_id` | 5 items, **TypeScript** |
-| `.codex/hooks/` | — | — | ⛔ **jamais toucher** |
+Mesurer les alertes émises contre les captures réelles ; ne pas conclure depuis une impression.
 
-⛔ La copie `.codex/` est hors périmètre pour deux raisons cumulatives : sous Codex, `block` sur `Stop` a la sémantique **inversée** (= forcer la continuation, cf [[comment-creer-hook-codex]]), et `.codex/`/`.agents/` est le miroir géré par Raphael (décision du 27 juil., cf `reference_agents_dir_chatgpt_mirror`).
+## Historique conservé
 
-## Clause de sortie (à re-tester, pas à supposer)
+### V2 — 29 juillet 2026
 
-Le détecteur se supprime si l'une de ces conditions est mesurée :
-- il alerte alors que la capitalisation avait bien eu lieu (faux positifs) sur ≥ 2 sessions ;
-- il reste silencieux sur une session où un apprentissage a manifestement été perdu (faux négatifs) ;
-- un mécanisme en pré-action couvre déjà le cas de façon fiable.
+Le rappel systématique `decision:block` est devenu détecteur conditionnel après mesure du payoff nul. La version forge a aussi reçu `stop_hook_active` et un marqueur par session. La V2 gardait toutefois le blocage conditionnel et décrivait des preuves trop larges.
 
-**Mesure, pas impression** : `search_sessions` sur les alertes émises vs les captures réelles. C'est l'instrument qui a tranché ce pivot ; `git log` sur `memory/` ne peut pas le faire (un commit est indiscernable selon sa cause).
+### V1 — 29 mai 2026
 
-## Historique — décision du 29 mai 2026 (remplacée)
-
-Audit `.claude/` multi-repo du 29 mai flaguait 2 Stop hooks forge comme drift doctrinal. Discriminateur appliqué alors : `decision:block` = enforcement workflow = drift 22 mai ; `additionalContext`/exit 0 = acceptable.
-
-| Hook | Décision de mai | Statut aujourd'hui |
-|---|---|---|
-| `proactivity-reminder.py` | **SUPPRIMÉ** (behavior-shaping, zéro payoff) | reste supprimé — décision confirmée |
-| `learning-reminder.py` | **GARDÉ**, exception assumée (« Raphael n'exécute pas `/done` de façon fiable ») | **remplacé par la V2 détecteur** |
-
-Le sujet a été rouvert **trois fois** (29 mai : GARDÉ · 17 juin : « proche de la ligne mais KEEP » · roadmap juil. item 31 : « garder OU convertir en `additionalContext` », jamais exécuté). C'est le pattern [[feedback_recurring_meta_anti_pattern]] : revisiter ≥ 2 fois signale l'absence d'une décision écrite qui **clôt** le sujet. Cette note est cette décision — elle porte la clause de sortie mesurable ci-dessus pour éviter un quatrième passage.
+`proactivity-reminder` a été supprimé ; `learning-reminder` a été gardé comme exception au motif que `/done` n'était pas exécuté de façon fiable. Les piliers techniques de cette décision ont ensuite été invalidés : `additionalContext` Claude est devenu disponible et `once:true` s'est révélé ignoré dans `settings.json`.
 
 ## Liens
 
-- [[raisonnement-22mai-doctrine-vs-enforcement]] — doctrine hooks = lint/security/scope
-- [[comment-creer-hook]] — `stop_hook_active` obligatoire, exit 0 + JSON sur Stop
-- [[comment-creer-hook-codex]] — sémantique `block` inversée sous Codex
-- [[erreur-hooks-bash-quoting-windows]] — précédent de boucle infinie sur ce hook
-- [[feedback_recurring_meta_anti_pattern]] — revisiter ≥ 2 fois = décision manquante
-- [[devils-advocate-pipeline]] — le sibling `devil-advocate-stop`, supprimé au pivot 22 mai
+- [[da-blocking-non-arbitre]] — journal de la résolution du faux portage Codex
+
+- [[comment-creer-hook]]
+- [[comment-creer-hook-codex]]
+- [[loop-apprentissage-codex]]
+- [[raisonnement-2026-08-28-profil-projets-vault-canoniques]]
+- [[feedback_recurring_meta_anti_pattern]]

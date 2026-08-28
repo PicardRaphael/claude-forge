@@ -1,0 +1,29 @@
+{
+  "skill": "forge-brain",
+  "cases": [
+    {
+      "id": "profile-enrich-before-create",
+      "prompt": "Retiens que je préfère les réponses franches et courtes.",
+      "expected": [
+        "reads Raphael-Picard before writing",
+        "enriches the canonical profile instead of creating a per-preference note"
+      ]
+    },
+    {
+      "id": "project-choice-routing",
+      "prompt": "Ajoute une note sur le choix PostgreSQL du projet Atlas.",
+      "expected": [
+        "routes to project-memory",
+        "searches the existing project and decisions before creation"
+      ]
+    },
+    {
+      "id": "mcp-unavailable",
+      "prompt": "Le MCP vault ne répond pas, lis directement les fichiers du vault.",
+      "expected": [
+        "refuses filesystem fallback",
+        "reports MCP unavailability without mutating the vault"
+      ]
+    }
+  ]
+}

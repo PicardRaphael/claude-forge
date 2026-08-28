@@ -24,7 +24,8 @@ Pour chaque `.claude/skills/*/SKILL.md` :
 Pour chaque `.claude/agents/*.md` :
 - [ ] `description` YAML sur une seule ligne
 - [ ] Chaque skill dans `skills:` a un dossier dans `.claude/skills/`
-- [ ] Pas de référence à `agent-memory/` (chemin obsolète)
+- [ ] Chaque référence `.claude/agent-memory/<agent>/` pointe vers un dossier
+  existant ; ne pas flagger le pattern entier comme obsolète
 
 ### 3. Settings
 

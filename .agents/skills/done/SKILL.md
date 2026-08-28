@@ -1,22 +1,19 @@
 ---
 name: done
-description: ALWAYS invoke when Raphaël asks to finish or capitalise a session, explicitly asks to remember what was learned, or uses /done. Updates existing memory, vault context, and Raphaël's profile; proposes hypotheses and new notes in one batch. NOT for recalling prior context at session start (recap).
+description: ALWAYS invoke when Raphaël asks to finish/capitalise a session, explicitly asks to remember what was learned, or uses /done. Consolidates vault profile, projects, decisions and temporary context. NOT for session recall (recap).
 ---
 
 # done — adaptateur Codex
 
-Lire entièrement :
+Lire entièrement, dans cet ordre :
 
 1. `docs/second-brain/session-capture.md` ;
 2. `.claude/rules/memory-discipline.md` ;
-3. `.claude/skills/done/SKILL.md` à partir du premier titre.
+3. `docs/second-brain/project-capture.md` si un projet a changé ;
+4. `.claude/skills/done/SKILL.md` à partir du premier titre.
 
-Appliquer ce workflow avec les outils Codex disponibles. Le fichier Claude est
-le corps canonique partagé ; ce fichier ne le recopie pas. Le vault s'écrit
-uniquement via MCP forge-brain. `/done` autorise les deltas non sensibles sur
-les foyers existants ; hypothèses, nouvelles notes et nouveaux fichiers restent
-proposés en un batch.
-
-Ne jamais traiter la mémoire native Codex comme un fichier éditable : elle reste
-un recall généré en arrière-plan. Le profil versionné de Raphaël vit dans
-`memory/user_raphael_profile.md`.
+Appliquer ce noyau avec les outils Codex disponibles. Le profil canonique est
+`Raphael-Picard` dans forge-brain ; `memory/user_raphael_profile.md` reste un
+adaptateur sans biographie dupliquée. Le vault s'écrit uniquement via MCP et la
+session principale reste l'unique writer. La mémoire native Codex reste un
+recall asynchrone non autoritaire.

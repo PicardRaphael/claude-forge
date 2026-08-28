@@ -3,7 +3,7 @@ titre: "Maintenance hybride d'un corpus accumulatif — déterministe + LLM + ga
 resume: "Pattern canonique pour empêcher un corpus accumulatif (index mémoire, doctrine, FAQ, changelog) de se diluer : 3 couches déterministe (détection mécanique cheap) / LLM (clustering sémantique) / humain (gate [v]/[m]/[i] typée par section). Canonique vivante modifiable + archive append-only sacré. Anti enforcement-théâtre : pas de couche déterministe lourde sur corpus court/homogène."
 aliases: ["maintenance hybride corpus", "pattern compaction mémoire", "déterministe llm gate humaine", "archive append-only canonique vivante", "clean-memory pattern", "maintenance données accumulatives", "architecture cognitive memory vault", "feedback ou note vault"]
 type: technique
-derniere-maj: 2026-06-07
+derniere-maj: 2026-08-28
 auteur: claude
 tags: ["#type/technique", "#domaine/claude-code", "#domaine/maintenance", "#doctrine/2026"]
 ---
@@ -22,6 +22,12 @@ Tout corpus qui s'accumule par ajout (index mémoire `MEMORY.md`, notes de doctr
 Le LLM lit le corpus entier et regroupe mieux que toute heuristique lexicale sur corpus court/homogène — la couche déterministe se limite aux métriques objectives. Construire une couche déterministe lourde (Jaccard, ML) par-dessus une lecture LLM possible = **enforcement-théâtre** (cf `llm-lit-court-homogene-pas-couche-deterministe`). Mesurer que le LLM rate AVANT de construire l'aide.
 
 ## Architecture cognitive — trois acteurs
+
+> **Extension 28 août 2026 — profil et projets** : le vault canonique porte aussi
+> [[Raphael-Picard]], ses casquettes, les contextes projet stables et leurs
+> décisions. `memory/user_raphael_profile.md` est un adaptateur mince ;
+> `memory/project_*.md` reste réservé aux phases temporaires. Voir
+> [[raisonnement-2026-08-28-profil-projets-vault-canoniques]].
 
 Le pattern de maintenance ci-dessus s'applique à un système à trois acteurs qu'il faut distinguer nettement avant tout choix d'écriture.
 

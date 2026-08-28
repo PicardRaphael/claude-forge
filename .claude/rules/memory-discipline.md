@@ -1,104 +1,78 @@
 ---
-description: "Scan memory feedbacks before starting tasks, update memory after significant sessions"
+description: "Route durable knowledge to forge-brain and keep repo memory limited to adapters, empirical incidents, and temporary project state"
 ---
 
-# Discipline memoire — OBLIGATOIRE
+# Discipline du second cerveau
 
-## En debut de tache
+## Autorités
 
-Avant de commencer une tache substantielle, scanner la memoire pour les feedbacks pertinents :
-- Feedbacks lies au TYPE de tache (skill → feedback_skill_*, agent → feedback_agent_*)
-- Feedbacks lies au PROJET concerne (ia_back, neo_ia, neoteem-brain, bdd)
-- Erreurs passees documentees (feedback_major_mistakes)
+| Information | Foyer canonique |
+|---|---|
+| identité, objectifs et préférences durables de Raphaël | `Raphael-Picard` dans forge-brain |
+| responsabilité ou domaine de vie durable | casquette existante sous `2-Casquettes/` |
+| connaissance, doctrine et erreur généralisable | note canonique forge-brain |
+| contexte stable d'un projet | foyer sous `1-Projets/` |
+| décision structurante | note sous `Knowledge/decisions/`, reliée au projet |
+| incident empirique précis | `memory/feedback_*.md` |
+| phase temporaire d'un projet | `memory/project_*.md` avec date d'expiration |
+| rappel natif Claude/Codex | shadow recall, jamais autoritaire |
 
-Ne pas attendre de se souvenir — relire proactivement.
+`memory/user_raphael_profile.md` est un adaptateur vers `Raphael-Picard`, pas un
+foyer concurrent. Ne jamais y recopier la biographie ou les préférences.
 
-## En fin de session
+## Rappel au début d'une tâche
 
-Si la session a produit un apprentissage non trivial :
-- Feedback recu → creer/mettre a jour un fichier memoire feedback_*
-- Decouverte technique → creer/mettre a jour un fichier memoire reference_*
-- Contexte projet change → mettre a jour le fichier memoire project_*
+Utiliser `memory/MEMORY.md` comme index et lire seulement les feedbacks ou états
+temporaires dont le déclencheur correspond à la tâche. Les anciens
+`memory/reference_*.md` restent consultables, mais toute nouvelle connaissance
+réutilisable rejoint le vault. Ne pas charger le corpus mémoire en bloc.
 
-## Frontière mémoire ↔ vault (CANONIQUE)
+## Avant d'écrire
 
-| Type d'info | Où ? | Exemple |
-|-------------|------|---------|
-| Feedback relation Raphael | `memory/feedback_*.md` | "ne pas éditer directement les skills" |
-| Préférence utilisateur | `memory/user_*.md` | profil holistique, comment travailler |
-| Référence technique | `memory/reference_*.md` | pattern neo-brain, permissions limitation |
-| **Contexte projet STABLE** | **`vault/1-Projets/<nom>/`** | stack, repos, scope, contraintes |
-| Phase projet ÉPHÉMÈRE | `memory/project_*.md` | "en cours de refacto", "prochain sprint" |
-| Erreur significative | les DEUX | `memory/feedback_*` + `Knowledge/erreurs/` |
-| Savoir technique réutilisable | `vault/` uniquement | techniques, modèles, leaders |
-| Question technique résolue | `vault/Knowledge/questions/` | — |
-| Exploration technique | `vault/Knowledge/explorations/` | — |
+1. Chercher le concept seul dans forge-brain.
+2. Lire entièrement les foyers candidats.
+3. Enrichir le foyer qui couvre déjà le sujet.
+4. Créer uniquement si aucun foyer n'est adapté et si le sujet mérite une note
+   autonome ; un fait isolé n'entraîne pas une nouvelle note.
 
-**Règle clé :** `vault/1-Projets/` = source canonique pour le contexte projet stable. `memory/project_*.md` = uniquement la phase en cours et les décisions temporaires. Si une info est dans les deux → la supprimer de memory, garder le vault.
+Une information peut enrichir plusieurs notes seulement si chaque delta relève
+réellement de leur responsabilité : par exemple le profil principal et une
+casquette métier. Ne pas recopier le même paragraphe dans plusieurs foyers.
 
-## Profil Raphaël — foyer unique et preuve
+## Profil Raphaël
 
-Le foyer unique des faits personnels et préférences de collaboration est
-`memory/user_raphael_profile.md`. Lire le contrat complet
-`docs/second-brain/session-capture.md` avant toute mise à jour.
+Lire `docs/second-brain/session-capture.md` avant toute mutation.
 
 | Signal | Action |
 |---|---|
-| fait ou préférence explicite, durable, non sensible | enrichir/corriger le profil existant |
-| hypothèse ou interprétation | proposer sous « À confirmer », ne pas écrire comme fait |
-| phase temporaire d'un projet | `memory/project_*.md`, jamais le profil |
-| santé, finance, secret, localisation précise, nouvelle donnée familiale | ne pas écrire sans « mémorise ceci » explicite |
+| fait ou préférence explicite, durable, non sensible | corriger/enrichir `Raphael-Picard` ou la casquette adaptée |
+| hypothèse ou interprétation | proposer sous « À confirmer » |
+| préférence limitée à un projet | foyer du projet, pas le profil global |
+| santé, finance, secret, localisation précise, nouvelle donnée familiale | ne pas écrire sans « mémorise ceci » |
 
-Une occurrence explicite suffit pour un fait sur soi ; le seuil de 2–3
-occurrences reste réservé aux règles générales et feedbacks. Garder une
-provenance courte (date + `explicit`/`confirmed`), gérer les contradictions en
-remplaçant l'état actif et permettre « oublie X » sans argumenter.
+Une occurrence explicite suffit pour un fait sur soi. Une correction remplace
+l'état actif ; elle ne s'empile pas comme un addendum. Conserver une provenance
+courte, sans extrait intime du chat.
 
-`/done` est le writer de fin de session. Les hooks peuvent signaler une anomalie
-déterministe, mais ne décident ni n'écrivent de mémoire à partir du transcript.
+## Projets
 
-## Triade memory/vault/memory-physique (3 acteurs)
+Lire `docs/second-brain/project-capture.md` et charger `project-memory` quand
+Raphaël demande explicitement de créer/démarrer un projet ou de conserver ses
+choix. Le foyer projet porte le stable ; `memory/project_*.md` ne porte que la
+phase active et doit annoncer son expiration.
 
-Avant de créer un nouveau fichier dans `memory/`, distinguer les 3 acteurs et appliquer le workflow décision :
+## Fin de session
 
-- **`MEMORY.md`** = table des matières + déclencheurs critiques (≤ 50 entrées tier-1)
-- **vault canoniques** = source de vérité doctrinale (règles énoncées, réutilisables)
-- **`memory/*.md`** = exceptions empiriques uniquement (WARNING 180 / CRITICAL 220 via hook `memory-saturation-watcher`, base post-migration 7 juil. ~135 ; mesuré 85 au 29 juil. 2026)
-
-### Workflow décision (4 étapes obligatoires)
-
-1. `mcp__forge-brain__search_brain` sur le sujet du feedback envisagé
-2. Canonique vault existe → **POINTEUR 1 ligne** dans MEMORY.md, pas de fichier feedback
-3. Cas empirique précis non couvert vault → feedback `memory/*.md` ciblé (tier-1 ou tier-2)
-4. Sujet majeur sans canonique ET pattern récurrent (2-3 incidents) → **promouvoir vault d'abord** (créer note canonique), puis pointeur. 1 incident isolé → garder en feedback jusqu'à récurrence.
-
-Détails complets + exemples PASS/FAIL + cibles empiriques : [[pattern-maintenance-hybride-corpus-accumulatif]] section "Architecture cognitive — trois acteurs".
-
-### Découverte technique → ENRICHIR l'existant avant de créer
-
-Réflexe valable au-delà de la mémoire, pour TOUTE découverte importante (nouveau pattern, gotcha, doctrine affinée) destinée au vault :
-
-1. `mcp__forge-brain__search_brain` sur le sujet.
-2. **Une note/section couvre déjà le sujet → ENRICHIR cette note** (`insert_section`/`append_note`/Edit), pas créer une note neuve.
-3. Créer une note neuve UNIQUEMENT si aucune note existante n'est le bon foyer.
-4. Si la découverte affine plusieurs canoniques → enrichir chacune + relier par pointeur (éviter deux notes qui décrivent le même réflexe sans se connaître = futur drift). **Chercher ACTIVEMENT tous les foyers impactés** (`search_brain` large + grep `.claude/`), pas seulement les 2-3 évidents — un enrichissement partiel laisse du drift résiduel.
-
-Cohérent avec [[pattern-maintenance-hybride-corpus-accumulatif]] (un concept = un foyer canonique). Cas observé 5 juin 2026 : le pattern « checklist Tasks natif » a enrichi `comment-creer-skill` + `comment-creer-agent` au lieu d'une note séparée orpheline.
-
-### Anti-patterns spécifiques
-
-- Création feedback sans `search_brain` vault préalable → doublon mécanique
-- Feedback memory qui réécrit la canonique vault → la doctrine vit dans vault
-- Promotion vault prématurée (1 incident isolé) → attendre 2-3 récurrences
-
-## Forge Brain — via MCP forge-brain
-
-Protocole d'accès vault (MCP forge-brain uniquement, outils, quand consulter) : source unique `.claude/rules/forge-brain-proactive.md`. Pas de recopie ici (single-source).
+`/done` est le writer de consolidation. Il peut enrichir les foyers existants et
+créer un foyer non sensible clairement autorisé par la conversation. Les hooks
+peuvent seulement détecter des signaux déterministes et rappeler `/done` ; ils
+ne choisissent jamais ce qu'il faut apprendre.
 
 ## Anti-patterns
 
-- "Je sais deja" → non, relire les feedbacks. Le contexte change.
-- "C'est rapide, pas besoin" → c'est justement quand on va vite qu'on oublie.
-- Mettre a jour la memoire 3 sessions trop tard → le detail est perdu.
-- Créer un `feedback_*` pour une préférence personnelle → mettre à jour le profil.
-- Inférer une préférence puis la présenter comme un fait → garder « À confirmer ».
+- Créer une note par message ou par fait.
+- Dupliquer une doctrine du vault dans `memory/`.
+- Garder un choix projet uniquement dans un transcript ou le recall natif.
+- Transformer une hypothèse sur Raphaël en fait.
+- Conserver du contexte stable dans un fichier projet temporaire.
+- Marquer une source « à jour » après une écriture échouée.

@@ -7,7 +7,7 @@ aliases:
   - "hermes agent audit"
   - "hermes vs forge"
   - "roadmap phase 4"
-derniere-maj: 2026-06-07
+derniere-maj: 2026-08-28
 tags:
   - "#type/synthese"
   - "#projet/claude-forge"
@@ -54,7 +54,7 @@ Vainqueur honnête. Colonne "Pertinent" = pour le use case synchrone de claude-f
 | **Mémoire projet** | subdirectory_hints lit CLAUDE.md/AGENTS.md statiques par sous-dir | CLAUDE.md + rules + vault 1-Projets/ + hooks scoped per-repo (mémoire projet apprenante + enforcée) | **claude-forge** | OUI | C — avantage acquis |
 | **Mémoire cross-projet / doctrine** | MEMORY.md global plat 2200 chars, pas de structure | vault 417 notes, 3 layers, 2717 wikilinks, MCP FTS5 BM25, ontologie 07 dossiers | **claude-forge** (net) | OUI | C — avantage acquis majeur |
 | **Recherche mémoire** | holographic FTS5+Jaccard+HRR (réel mais SNR dégrade >256 faits/cat, optionnel) ; builtin = aucune | MCP search_brain FTS5 BM25 (file_stem:10/aliases:8/content:1), navigation active, 4 stratégies | **claude-forge** | OUI | C — avantage acquis |
-| **Écriture mémoire (qui décide)** | background review fork LLM auto toutes 10 itérations, écrit SANS validation, notif après coup | learning-reminder nudge advisory + Raphael décide et capitalise (humain valide before write) | **Égalité doctrinale** (couverture vs contrôle) | OUI | A — combler couverture, garder contrôle |
+| **Écriture mémoire (qui décide)** | background review fork LLM auto toutes 10 itérations, écrit SANS validation, notif après coup | session principale via `done` / `project-memory` selon autorisation explicite ; `learning-reminder` Claude détecte seulement | **Forge supérieur en contrôle** ; couverture planifiée à mesurer | OUI | A — combler couverture, garder contrôle |
 | **Capitalisation patterns décisionnels** | prompt cible "When X do Y rules" mais NL libre dans SKILL.md, pas de pourquoi, risque sur-généralisation | feedback_* files + Knowledge/raisonnements/ + reasoning-cache (règle + pourquoi + déclencheur) | **claude-forge** | OUI | C — avantage acquis |
 | **Conformité par construction** | AUCUN delegate-guard. skills_guard = install externe only. file_safety = "NOT a security boundary" | delegate-guard.py BLOQUE exit 2 l'édition directe, meta-commentary-detector, security-guard, 207 tests | **claude-forge** (net) | OUI | C — avantage acquis majeur |
 | **Doctrine versionnée datée** | AGENTS.md politiques datées narratives, pas de version/date structurée, pas de changelog doctrine | CLAUDE.md v3.3 datée + [[methode-pivoter-doctrine]] + CHANGELOG + pivot-check anti-drift | **claude-forge** | OUI | C — avantage acquis |
@@ -112,7 +112,7 @@ Section conçue pour être implémentable en session dédiée `/clear` sans rech
 
 **A3 — Capitalisation proactive à /done (croisement Jarvis) (P1, ~2h)**
 
-- Gap : le background review Hermes rattrape ce que l'agent oublie de capitaliser. `learning-reminder` rappelle mais ne PROPOSE pas de contenu concret. `done` fait de la métacognition mais ne génère pas de diff prêt-à-valider.
+- Gap : le background review Hermes rattrape ce que l'agent oublie de capitaliser. Côté forge, `learning-reminder` Claude ne fait que détecter ; `done` et `project-memory` appliquent les deltas explicitement autorisés. Le besoin restant est une revue planifiée en proposition-only, avec preuve et foyer cible, pas un writer autonome.
 - Croisement X+Y=Z : importer la COUVERTURE de Hermes (proposer des capitalisations) en gardant le CONTRÔLE forge (Raphael valide, diff visible, ADR si décision).
 - **Chemin du composant** : modifier `.claude/skills/done/SKILL.md` (303L, SKILL.md seul, pas de scripts/ ni references/ actuellement). Pas de nouveau dossier.
 - **Créateur** : skill-creator (délégation obligatoire — delegate-guard bloque l'édit direct de SKILL.md). Séquence A→B→C→D→E : lire done/SKILL.md EN ENTIER + canoniques `comment-creer-skill` + `mcp-vs-skills-doctrine` via MCP read_note.

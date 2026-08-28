@@ -12,8 +12,10 @@ recommendation when the prompt matches a trigger. Not a security hook, so the
 Run: py -m pytest tests/test_skill_activation.py -v
 """
 import importlib.util
+import json
 import os
 import sys
+from pathlib import Path
 
 _hook_path = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
@@ -86,6 +88,25 @@ def test_multiple_distinct_matches():
     m = find_matches("fais un recap puis ouvre le vault", TRIGGERS, set())
     names = {x["name"] for x in m}
     assert "recap" in names and "forge-brain" in names
+
+
+def test_real_project_memory_trigger_matches_explicit_creation_only():
+    trigger_path = Path(__file__).resolve().parents[2] / ".skill-triggers.json"
+    real_triggers = json.loads(trigger_path.read_text(encoding="utf-8"))
+
+    matches = find_matches(
+        "Crée un projet Atlas pour construire un assistant de veille.",
+        real_triggers,
+        set(),
+    )
+    assert any(item["name"] == "project-memory" for item in matches)
+
+    casual = find_matches(
+        "J'ai une idée d'assistant de veille qui s'appellerait peut-être Atlas.",
+        real_triggers,
+        set(),
+    )
+    assert not any(item["name"] == "project-memory" for item in casual)
 
 
 # ===========================================================================

@@ -1,50 +1,58 @@
 # Session capture — contrat Raphaël
 
-Ce pipeline est distinct de la veille. Il transforme seulement les informations
-de la conversation courante en mémoire relationnelle utile.
+Ce pipeline transforme les informations explicites de la conversation courante
+en deltas contrôlés. Le vault est la source canonique ; la mémoire locale sert
+uniquement d'adaptateur, d'incident empirique ou de contexte temporaire.
 
 ## Classification
 
 | Classe | Destination | Politique |
 |---|---|---|
-| `EXPLICIT_FACT` | `memory/user_raphael_profile.md` | mise à jour si durable et non sensible |
-| `EXPLICIT_PREFERENCE` | profil, section « Comment travailler » | mise à jour si elle change la collaboration |
-| `HYPOTHESIS` | batch « À confirmer » | jamais écrite comme vérité |
-| `VOLATILE_CONTEXT` | `memory/project_*.md` ou context note | TTL court, pas le profil |
-| `SENSITIVE` | aucune par défaut | demande explicite « mémorise ceci » requise |
-| `NOOP` | aucune | déjà couvert, banal ou sans valeur future |
+| `EXPLICIT_FACT` | `Raphael-Picard` ou casquette adaptée | appliquer si durable et non sensible |
+| `EXPLICIT_PREFERENCE` | profil, casquette ou projet selon portée | remplacer l'état actif si nécessaire |
+| `HYPOTHESIS` | batch « À confirmer » | ne jamais écrire comme vérité |
+| `PROJECT_DECISION` | foyer projet ou décision reliée | appliquer si le choix est explicitement acté |
+| `VOLATILE_CONTEXT` | `memory/project_*.md` | TTL court, jamais le profil |
+| `SENSITIVE` | aucune par défaut | « mémorise ceci » explicite requis |
+| `NOOP` | aucune | banal, déjà couvert ou sans valeur future |
 
 Sont sensibles par défaut : santé, finances, secrets, identifiants, localisation
 précise et nouvelles données familiales. Une donnée déjà présente n'autorise pas
 l'accumulation automatique d'autres données de même nature.
 
+## Choisir le foyer personnel
+
+1. Lire `Raphael-Picard` entièrement.
+2. Si l'information concerne une casquette durable existante, lire aussi cette
+   note et y placer le détail ; garder seulement le résumé utile dans le profil.
+3. Créer une nouvelle casquette uniquement lorsqu'un domaine durable autonome
+   émerge. Ne jamais créer une note pour une préférence isolée.
+4. Le fichier `memory/user_raphael_profile.md` reste un pointeur mince.
+
 ## Preuve et idempotence
 
-Chaque delta accepté porte une provenance courte : date de session, `explicit`
-ou `confirmed`, et prédicat concerné. L'identifiant logique est
-`schema_version + session_date + event_id + predicate + normalized_object`.
+Chaque delta accepté porte une provenance concise : date, `explicit` ou
+`confirmed`, et prédicat. Enrichir/corriger la bonne section, sans journaliser la
+conversation. Une préférence contradictoire plus récente remplace l'ancienne.
 
-- Enrichir ou corriger une puce existante ; ne pas créer un second profil.
-- Une préférence plus récente explicitement contradictoire remplace l'état actif.
-- Garder seulement la provenance nécessaire, pas des extraits intimes du chat.
-- Permettre la révocation : « oublie X » retire X du profil versionné et de son index.
+« Oublie X » révoque X dans chaque foyer actif concerné. Une suppression de note
+entière reste destructive et demande une autorisation séparée.
 
 ## Autorisation
 
-L'invocation explicite de `/done` autorise `profile-apply` pour les faits et
-préférences explicites, durables et non sensibles. Les hypothèses, nouvelles
-données sensibles et nouveaux fichiers restent proposés en un batch.
+L'invocation de `/done`, « retiens/mémorise ceci » ou une demande explicite de
+création de projet autorise les deltas non sensibles nécessaires dans les foyers
+existants et la création du foyer clairement demandé. Les hypothèses et données
+sensibles restent soumises à validation.
 
-En dehors de `/done`, une session peut préparer des candidats, mais ne doit pas
-interrompre la conversation ni utiliser un hook agentique pour décider quoi
-mémoriser. La règle `memory-discipline.md` porte le routage ; le hook éventuel
-reste un signal déterministe non bloquant.
+En dehors de ces signaux, préparer des candidats sans interrompre la conversation
+et sans écrire silencieusement depuis un hook.
 
 ## Vérification
 
-1. Relire le profil et la mémoire existante avant mutation.
-2. Vérifier doublon, contradiction, sensibilité et durabilité.
-3. Appliquer un delta minimal au bon foyer.
-4. Relire le profil et confirmer que l'ancienne préférence contradictoire n'est
-   plus active.
-5. Rapporter : appliqué, proposé, ignoré, révoqué.
+1. Lire chaque cible entière avant mutation.
+2. Vérifier doublon, contradiction, portée, sensibilité et durabilité.
+3. Appliquer le delta minimal via MCP pour le vault ou par patch versionné pour
+   la mémoire repo temporaire.
+4. Relire chaque cible et vérifier l'absence de l'ancien état contradictoire.
+5. Rapporter : appliqué, proposé, ignoré et révoqué.

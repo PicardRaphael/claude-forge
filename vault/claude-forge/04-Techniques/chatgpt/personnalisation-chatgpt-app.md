@@ -1,6 +1,6 @@
 ---
 titre: "Personnaliser ChatGPT — instructions, Projects, mémoire, GPTs et tâches"
-resume: "Canon ChatGPT : instructions globales, mémoire personnelle contrôlable, Projects scopés, GPTs sans mémoire personnelle, et tâches planifiées. Séparé de Codex et du vault forge."
+resume: "Canon ChatGPT : instructions globales, mémoire personnelle contrôlable, Projects scopés, GPTs sans mémoire personnelle, tâches planifiées et vault canonique pour le profil durable."
 aliases:
   - "personnalisation chatgpt"
   - "chatgpt custom instructions"
@@ -10,7 +10,7 @@ aliases:
   - "chatgpt scheduled tasks"
   - "chatgpt work webhooks"
   - "chatgpt sources memoire"
-derniere-maj: 2026-08-27
+derniere-maj: 2026-08-28
 auteur: codex
 type: technique
 sources:
@@ -26,7 +26,7 @@ tags:
 ---
 # Personnaliser ChatGPT — leviers réels
 
-> Canon au **27 août 2026**. ChatGPT, Codex et le vault forge sont trois surfaces distinctes. Une continuité fiable ne doit pas dépendre d'une seule mémoire opaque.
+> Canon au **28 août 2026**. ChatGPT, Codex et le vault forge sont trois surfaces distinctes. Une continuité fiable ne doit pas dépendre d'une seule mémoire opaque.
 
 ## Carte des leviers
 
@@ -37,7 +37,7 @@ tags:
 | **Projects** | chantier | fichiers, chats, instructions et mémoire scopée | règles de scope propres au projet |
 | **GPTs** | assistant packagé | instructions, knowledge, capacités, apps/actions | n'utilisent pas la mémoire sauvegardée ni les custom instructions |
 | **Tâches planifiées / Work** | exécution différée ou événementielle | routines, webhooks et travail en arrière-plan | disponibilités et approbations dépendent du plan et de la surface |
-| **Vault forge + repo memory** | système contrôlé de Raphaël | doctrine, décisions, profil explicite, historique | doit être maintenu par workflows et preuves |
+| **Vault forge + adaptateurs repo** | système contrôlé de Raphaël | doctrine, décisions, profil explicite, projets et historique | doit être maintenu par workflows et preuves |
 
 ## Instructions personnalisées
 
@@ -57,7 +57,7 @@ La mémoire personnelle sert à rappeler des détails utiles entre conversations
 
 Depuis les évolutions 2026, ChatGPT peut actualiser automatiquement ce qu'il juge important et réduire les souvenirs contradictoires. Cette amélioration ne transforme pas la mémoire en registre canonique : les réglages, plans et déploiements peuvent varier, et l'utilisateur doit pouvoir corriger.
 
-Pour Raphaël, les faits et préférences explicites importants doivent donc aussi vivre dans `memory/user_raphael_profile.md`, avec provenance et possibilité de révocation.
+Pour Raphaël, les faits et préférences explicites importants vivent dans [[Raphael-Picard]] ou dans la casquette concernée, avec provenance et possibilité de révocation. `memory/user_raphael_profile.md` n'est qu'un adaptateur de compatibilité vers ce foyer.
 
 ## Projects
 
@@ -70,7 +70,7 @@ Un Project rassemble chats, fichiers, texte, instructions et sources issues d'ap
 - Un projet partagé passe en project-only et ne récupère pas le contexte personnel extérieur des membres.
 - Les instructions du projet guident ses conversations.
 
-Le bon pattern : un projet par contexte long, avec sources explicites, et le vault pour la doctrine cross-projet.
+Le bon pattern : un projet par contexte long dans ChatGPT, un foyer durable sous `1-Projets/` dans forge-brain, et le vault pour la doctrine cross-projet.
 
 ## GPTs
 
@@ -93,11 +93,12 @@ Ce levier automatise l'exécution. Il ne remplace pas le workflow `cc-news` de f
 ## Architecture recommandée pour Raphaël
 
 1. **Instructions ChatGPT** : préférences de forme courtes.
-2. **Project** : contexte d'un chantier et ses documents.
+2. **Project ChatGPT** : contexte conversationnel d'un chantier et ses documents.
 3. **Mémoire ChatGPT** : recall pratique, corrigible, non canonique.
-4. **Vault forge** : doctrine, décisions et notes de connaissance.
-5. **Profil repo** : faits et préférences explicites sur Raphaël.
-6. **Skills `cc-news` et `done`** : maintenance et consolidation.
+4. **Vault forge** : doctrine, décisions, notes de connaissance et foyers projets.
+5. **Raphael-Picard + casquettes** : profil durable canonique.
+6. **Mémoire repo** : adaptateurs, incidents empiriques précis et états projet temporaires.
+7. **Skills `cc-news`, `done` et `project-memory`** : maintenance, consolidation et capture projet.
 
 Cette architecture tolère qu'un mécanisme de mémoire se mette à jour en retard, oublie un détail ou réécrive sa synthèse : aucune couche générée n'est seule propriétaire de l'information.
 
@@ -108,6 +109,7 @@ Cette architecture tolère qu'un mécanisme de mémoire se mette à jour en reta
 - Supposer qu'un GPT connaît les souvenirs personnels du compte.
 - Utiliser un Project partagé en pensant qu'il accède au profil privé de chaque membre.
 - Traiter une mémoire générée comme une preuve de fraîcheur.
+- Maintenir une biographie concurrente dans la mémoire repo.
 - Laisser des chiffres de plan ou de limites sans date ni re-vérification.
 
 ## Wikilinks
@@ -115,4 +117,5 @@ Cette architecture tolère qu'un mécanisme de mémoire se mette à jour en reta
 - [[memoire-optimale-codex-chatgpt]]
 - [[codex-vs-chatgpt-seul]]
 - [[MOC-Codex]]
+- [[Raphael-Picard]]
 - [[pattern-vault-llm-karpathy]]

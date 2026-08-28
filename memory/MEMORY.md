@@ -5,7 +5,7 @@
 ## Feedback
 
 ### Posture & arbitrage
-- [jarvis-innovator-mindset](feedback_jarvis_innovator.md) — contrat Jarvis : partenaire, anticiper, innover, franc, autonome
+- [jarvis-innovator-mindset](feedback_jarvis_innovator.md) — adaptateur historique ; autorité active dans AGENTS.md + `Raphael-Picard`
 - [never-pure-executor](feedback_never_pure_executor.md) — jamais exécutant pur, même sur prompt directif ou QA
 - [carte-blanche-commit-push](feedback_carte_blanche_commit_push.md) — « carte blanche » = exécuter direct, sans re-valider note par note
 - [couper-loops-decision-fatigue](feedback_couper_loops_decision_fatigue.md) — trancher vite après validation ; cap ~3 advisor
@@ -83,7 +83,7 @@
 - [deploy-methods-other-repos](project_deploy_methods_other_repos.md) — probablement absorbé par l'alignement de juin, à confirmer puis archiver
 
 ## User
-- [raphael-picard-full-profile](user_raphael_profile.md) — profil holistique : rôle, parcours, vision, préférences de travail
+- [raphael-profile-vault-adapter](user_raphael_profile.md) — pointeur vers `Raphael-Picard`, profil canonique dans forge-brain
 
 ## Reference
 - [techniques-cheatsheet](reference_techniques_cheatsheet.md) — meilleure technique par besoin

@@ -21,7 +21,8 @@ statut: valide
 **Description reformulée :** deux pipelines indépendants partagent seulement des contrôles techniques :
 
 1. `news-refresh` : depuis des sources externes, qualifier puis corriger la doctrine technique.
-2. `session-capture` : depuis les paroles explicites de Raphaël, mettre à jour son profil ou proposer une hypothèse.
+2. `session-capture` : depuis les paroles explicites de Raphaël, mettre à jour son profil vault, ses casquettes ou proposer une hypothèse.
+3. `project-capture` : créer le foyer d'un projet explicitement démarré et conserver ses choix durables.
 
 - **Fréquence actuelle :** manuelle et irrégulière.
 - **Coût actuel :** recherches répétées, doubles skills Claude/Codex et mises à jour partielles.
@@ -65,7 +66,8 @@ statut: valide
 | Input | vault et mémoire existants | Markdown via MCP / repo | lecture ciblée |
 | Output | corrections de notes existantes | Markdown via MCP | seulement claims vérifiées |
 | Output | propositions de notes neuves | rapport Markdown | groupées |
-| Output | profil Raphaël enrichi | `memory/user_raphael_profile.md` | delta durable uniquement |
+| Output | profil Raphaël enrichi | vault `Raphael-Picard` / casquettes | delta durable uniquement |
+| Output | projet et choix durables | vault `1-Projets/` + `Knowledge/decisions/` | création explicite ou delta acté |
 | Output | état de fraîcheur | JSON/Markdown versionné | un checkpoint par domaine |
 
 ### Gestion d'erreur
@@ -80,7 +82,7 @@ statut: valide
 
 | Brique | Description |
 |---|---|
-| **Déclencheur** | demande naturelle de news, `/cc-news`, `/done`, ou tâche planifiée en mode proposition |
+| **Déclencheur** | demande naturelle de news, `/cc-news`, `/done`, création explicite de projet, ou tâche planifiée en mode proposition |
 | **Sources** | vault d'abord, puis sources primaires officielles ; conversation courante pour le profil |
 | **Jugement** | crédit source, date, portée exacte et conflit avec l'existant |
 | **Action** | corriger en place, superseder proprement, proposer une création, ou ne rien faire |
@@ -107,7 +109,8 @@ statut: valide
 | `proposal-only` | recherche et rapport, aucune écriture |
 | `repo-apply` | modification des surfaces versionnées explicitement autorisées |
 | `vault-apply` | correction bornée d'une note existante via MCP |
-| `profile-apply` | mise à jour du profil avec données explicites non sensibles |
+| `profile-apply` | mise à jour de `Raphael-Picard`/casquettes avec données explicites non sensibles |
+| `project-apply` | création/enrichissement du foyer explicitement demandé et de ses choix actés |
 
 Le mandat du 27 août autorise ici les quatre capacités pour ce chantier, car Raphaël a explicitement demandé la mise à jour du vault et l'apprentissage sur lui. Dans les exécutions futures : une demande manuelle de news autorise `vault-apply` pour corriger une assertion active existante, jamais la création/suppression d'une note ; une information personnelle n'autorise `profile-apply` que si elle est explicite, durable et non sensible.
 
@@ -129,7 +132,7 @@ Le fonctionnement d'une tâche locale dépend de la machine et de l'application 
 
 | Garde-fou | Décision |
 |---|---|
-| Validation humaine | correction bornée de l'existant selon capacités ; création de note, suppression de note et hypothèse personnelle proposées en batch |
+| Validation humaine | la demande explicite de créer un projet, `/done` ou « mémorise ceci » autorise le foyer non sensible correspondant ; suppression de note, hypothèse et donnée sensible restent validées séparément |
 | Cap coût | 24 requêtes web globales par run complet, 8 par domaine ciblé, arrêt si absence de signal majeur |
 | Trace | journal local par finding + CHANGELOG vault pour toute écriture canonique |
 | Kill-switch | interruption utilisateur ou mode `proposal-only`; aucun hook agentique de workflow |
@@ -153,6 +156,7 @@ Le fonctionnement d'une tâche locale dépend de la machine et de l'application 
 |---|---|---|
 | `cc-news` Claude + Codex | skill | pipeline vivant, source-first, idempotent |
 | `/done` Claude + Codex | skill | capitalisation de session et profil Raphaël |
+| `project-memory` Claude + Codex | skill | création du foyer projet et capture des choix durables |
 | `memory-discipline.md` | rule | contrat entre mémoire, profil, vault et contexte |
 | `learning-reminder.py` | hook existant | retiré du contrôle bloquant ; au plus signal déterministe non bloquant, sans interprétation ni écriture |
 | `CLAUDE.md` / `AGENTS.md` | instructions | routage court vers les skills et le contrat |
@@ -164,7 +168,8 @@ Le fonctionnement d'une tâche locale dépend de la machine et de l'application 
 - [ ] Claude et Codex utilisent un noyau documentaire unique avec adaptateurs validés, sans corps de workflow copiés librement.
 - [ ] Une demande de news distingue correction, supersession, création proposée et no-op.
 - [ ] Une information fausse corrigée disparaît du corps actif et du résumé canonique.
-- [ ] Le profil Raphaël reçoit les faits explicites durables ; les hypothèses restent à confirmer.
+- [ ] `Raphael-Picard` et ses casquettes reçoivent les faits explicites durables ; le profil local reste un adaptateur et les hypothèses restent à confirmer.
+- [ ] Une création explicite de projet produit un hub unique ; une idée évoquée ne crée rien ; les décisions séparées restent structurantes.
 - [ ] Les contrôles n'interprètent pas une écriture quelconque comme « tout capitalisé ».
 - [ ] Le pipeline tourne d'abord en `proposal-only` sur les fixtures et un run réel ; le cutover n'a lieu qu'avec zéro faux positif critique, zéro écriture non autorisée et read-back complet. Les mémoires natives restent actives pendant et après ce chantier.
 - [ ] Les tests ciblés et suites hooks passent, puis le diff est revu avant push sur `main`.

@@ -1,6 +1,6 @@
 # claude-forge — adaptateur Claude Code
 
-**Dernière mise à jour : 2026-08-27 | Version : 4.0**
+**Dernière mise à jour : 2026-08-28 | Version : 5.0**
 
 @AGENTS.md
 @memory/MEMORY.md

@@ -125,7 +125,7 @@
   },
   "done": {
     "type": "command",
-    "description": "Capitalise la session et met à jour le profil explicite de Raphaël",
+    "description": "Capitalise la session dans le profil vault, les projets, décisions et apprentissages autorisés",
     "triggers": [
       "fin de session",
       "capitalise",
@@ -134,6 +134,28 @@
       "mémorise ceci sur moi",
       "apprends ça sur moi",
       "mets à jour mon profil"
+    ]
+  },
+  "project-memory": {
+    "type": "skill",
+    "description": "Crée ou enrichit le foyer vault d'un projet explicitement démarré et conserve ses choix durables",
+    "triggers": [
+      "crée le projet",
+      "cree le projet",
+      "crée un projet",
+      "cree un projet",
+      "créer un projet",
+      "creer un projet",
+      "démarre le projet",
+      "demarre le projet",
+      "démarre un projet",
+      "demarre un projet",
+      "démarrer un projet",
+      "demarrer un projet",
+      "nouveau projet",
+      "retiens ce choix pour le projet",
+      "garde cette décision pour le projet",
+      "mets à jour le contexte du projet"
     ]
   },
   "evolve": {

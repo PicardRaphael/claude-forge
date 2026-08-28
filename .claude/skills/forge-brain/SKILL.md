@@ -2,7 +2,7 @@
 name: forge-brain
 allowed-tools: mcp__forge-brain__*
 user-invocable: true
-description: ALWAYS invoke when user asks about vault content, past decisions, or knowledge base. Search, read, and write the forge-brain Obsidian vault. Use PROACTIVELY at session start, before creating skill/agent/hook, after cc-news.
+description: ALWAYS invoke for vault knowledge, past decisions, Raphaël's profile/casquettes, or stable project context. Search, read, and write forge-brain via MCP. Use before creating components and after cc-news. NOT for temporary project state.
 ---
 
 # Forge Brain
@@ -20,7 +20,9 @@ Knowledge base Obsidian de claude-forge. Stocke tout ce que j'apprends : Claude 
 | **Analyse de repo / projet** | **Chercher patterns, concurrents, techniques pertinentes** |
 | Question sur feature/outil | Chercher dans le vault AVANT de répondre |
 | Après cc-news | Créer/mettre à jour les notes avec les découvertes |
-| Nouvelle info apprise | Créer une note atomique |
+| Nouvelle info apprise | Chercher le foyer, enrichir ; créer seulement si aucun foyer ne convient |
+| Fait/préférence durable sur Raphaël | Enrichir `Raphael-Picard` ou la casquette adaptée |
+| Projet explicitement créé / choix à conserver | Appliquer `project-memory` |
 | **Erreur significative commise** | **Créer note dans `Knowledge/erreurs/` avec template `erreur.md`** |
 | Info potentiellement datée | Vérifier la note existante + `derniere-maj` |
 
@@ -184,15 +186,19 @@ Quand on CRÉE une note via MCP `create_note`, le contenu doit respecter la skil
 - Minimum 2 wikilinks par note
 - Résumé spécifique dans le frontmatter
 
-### Fallback (si MCP crash)
+### Indisponibilité MCP
 
-Read/Glob direct sur `vault/claude-forge/`. Ne devrait jamais arriver.
+Si MCP forge-brain est indisponible, signaler l'échec et ne pas contourner par le
+filesystem. Une écriture hors MCP casserait les index, le journal et le contrat
+d'accès unique.
 
 ## Créer une note
 
-1. Lire le template correspondant via MCP : `read_note(file="<type>")` dans `Templates/`
-2. Créer la note avec `create_note(path="...", content="...")` en suivant le template
-3. Ajouter le wikilink dans le MOC correspondant via `append_note`
+1. Chercher d'abord le concept seul et lire les foyers candidats.
+2. Lire le template correspondant via MCP lorsqu'il est indexé ; pour un projet,
+   suivre `docs/second-brain/project-capture.md`.
+3. Créer la note avec `create_note(path="...", content="...")`.
+4. Relier la note depuis son foyer parent et relire la création.
 
 ## Structure du vault
 
@@ -254,10 +260,10 @@ tags:
 
 1. **1 concept = 1 note** — atomique, jamais de dump monolithique
 2. **Wikilinks** partout — `[[Opus 4.7]]`, `[[Boris Cherny]]`
-3. **MOC à jour** — chaque nouvelle note doit être linkée dans son MOC
+3. **Graphe à jour** — chaque nouvelle note doit être reliée depuis un foyer parent pertinent
 4. **derniere-maj** — mettre à jour à chaque édition
 5. **Ne jamais modifier Templates/** — lecture seule
-6. **Vault ≠ mémoire projet** — le vault stocke du savoir référence, pas du feedback/projet
+6. **Stable ≠ temporaire** — le vault porte profil, casquettes, projets stables et décisions ; `memory/` porte incidents précis et phases temporaires
 
 ## Gotchas
 

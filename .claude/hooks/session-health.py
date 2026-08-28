@@ -51,13 +51,6 @@ def load_state(session_id: str) -> dict:
                 return state
     except Exception:
         pass
-    # New session — reset learning-reminder marker
-    reminder_marker = os.path.join(os.path.dirname(__file__), ".learning-reminder-fired")
-    if os.path.exists(reminder_marker):
-        try:
-            os.remove(reminder_marker)
-        except Exception:
-            pass
     return {"session_id": session_id, "count": 0}
 
 

@@ -22,10 +22,33 @@ def load_json(path: Path) -> object:
         return json.load(handle)
 
 
+def validate_evals(path: Path, skill: str) -> None:
+    payload = load_json(path)
+    if not isinstance(payload, dict) or payload.get("skill") != skill:
+        fail(f"invalid eval schema or skill name: {path}")
+    cases = payload.get("cases")
+    if not isinstance(cases, list) or len(cases) < 3:
+        fail(f"not enough eval cases: {path}")
+    ids: set[str] = set()
+    for case in cases:
+        if not isinstance(case, dict):
+            fail(f"invalid eval case: {path}")
+        case_id = case.get("id")
+        if not isinstance(case_id, str) or not case_id or case_id in ids:
+            fail(f"missing or duplicate eval id: {path}")
+        ids.add(case_id)
+        if not isinstance(case.get("prompt"), str):
+            fail(f"missing eval prompt: {path}#{case_id}")
+        expected = case.get("expected")
+        if not isinstance(expected, list) or not expected:
+            fail(f"missing eval expectations: {path}#{case_id}")
+
+
 def main() -> int:
     news_contract = ROOT / "docs/second-brain/news-refresh.md"
     capture_contract = ROOT / "docs/second-brain/session-capture.md"
-    for path in (news_contract, capture_contract):
+    project_contract = ROOT / "docs/second-brain/project-capture.md"
+    for path in (news_contract, capture_contract, project_contract):
         if not path.is_file() or path.stat().st_size < 1000:
             fail(f"missing or implausibly short contract: {path}")
 
@@ -33,10 +56,18 @@ def main() -> int:
     codex_news = (ROOT / ".agents/skills/cc-news/SKILL.md").read_text(encoding="utf-8")
     claude_done = (ROOT / ".claude/skills/done/SKILL.md").read_text(encoding="utf-8")
     codex_done = (ROOT / ".agents/skills/done/SKILL.md").read_text(encoding="utf-8")
+    claude_project = (ROOT / ".claude/skills/project-memory/SKILL.md").read_text(
+        encoding="utf-8"
+    )
+    codex_project = (ROOT / ".agents/skills/project-memory/SKILL.md").read_text(
+        encoding="utf-8"
+    )
     if "docs/second-brain/news-refresh.md" not in claude_news + codex_news:
         fail("news adapters do not reference the shared contract")
     if "docs/second-brain/session-capture.md" not in claude_done + codex_done:
         fail("done adapters do not reference the shared contract")
+    if "docs/second-brain/project-capture.md" not in claude_project + codex_project:
+        fail("project-memory adapters do not reference the shared contract")
 
     stale_refs = list((ROOT / ".agents/skills/cc-news/references").glob("*.md"))
     if stale_refs:
@@ -72,7 +103,7 @@ def main() -> int:
 
     claude_triggers = load_json(ROOT / ".claude/.skill-triggers.json")
     codex_triggers = load_json(ROOT / ".codex/.skill-triggers.json")
-    for skill in ("cc-news", "done"):
+    for skill in ("cc-news", "done", "project-memory"):
         if claude_triggers[skill] != codex_triggers[skill]:
             fail(f"trigger drift for {skill}")
 
@@ -82,18 +113,30 @@ def main() -> int:
         fail("Codex memory recall is not registered")
     if "C:\\\\Users\\\\rapha" in hook_blob:
         fail("Codex hooks still contain a user-specific absolute path")
+    if ".codex/hooks/learning-reminder.py" in hook_blob:
+        fail("unsupported Codex Stop learning-reminder is registered")
+    if (ROOT / ".codex/hooks/learning-reminder.py").exists():
+        fail("unsupported Codex Stop learning-reminder copy remains")
+
+    claude_settings = load_json(ROOT / ".claude/settings.json")
+    claude_hook_blob = json.dumps(claude_settings, ensure_ascii=False)
+    if ".claude/hooks/learning-reminder.py" not in claude_hook_blob:
+        fail("Claude learning-reminder is not registered")
+    if "${CLAUDE_PROJECT_DIR}" not in claude_hook_blob:
+        fail("Claude hooks do not use the portable project path")
 
     claude_md = (ROOT / "CLAUDE.md").read_text(encoding="utf-8")
     if "@AGENTS.md" not in claude_md:
         fail("CLAUDE.md does not import the common contract")
 
-    for eval_path in (
-        ROOT / ".claude/skills/cc-news/evals/evals.json",
-        ROOT / ".claude/skills/done/evals/evals.json",
-    ):
-        payload = load_json(eval_path)
-        if len(payload.get("cases", [])) < 3:
-            fail(f"not enough eval cases: {eval_path}")
+    profile_adapter = (ROOT / "memory/user_raphael_profile.md").read_text(
+        encoding="utf-8"
+    )
+    if "Raphael-Picard" not in profile_adapter or "## Identité" in profile_adapter:
+        fail("local Raphaël profile is not a thin vault adapter")
+
+    for skill in ("cc-news", "done", "project-memory", "forge-brain"):
+        validate_evals(ROOT / f".claude/skills/{skill}/evals/evals.json", skill)
 
     print("[OK] second-brain contracts, adapters, state, triggers and hooks are coherent")
     return 0

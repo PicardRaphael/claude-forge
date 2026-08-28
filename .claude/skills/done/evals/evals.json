@@ -2,36 +2,27 @@
   "skill": "done",
   "cases": [
     {
-      "id": "explicit-preference",
-      "prompt": "Je préfère que tu corriges les notes existantes plutôt que créer des doublons. /done",
+      "id": "explicit-profile-preference",
+      "prompt": "Termine la session et retiens que je veux des réponses plus franches.",
       "expected": [
-        "updates the existing Raphael profile",
-        "records short explicit provenance",
-        "does not create a feedback file for the preference"
+        "routes the explicit preference to Raphael-Picard in forge-brain",
+        "does not duplicate the biography in memory/user_raphael_profile.md"
       ]
     },
     {
-      "id": "personal-hypothesis",
-      "prompt": "Tu sembles penser que je préfère toujours les réponses très courtes. Capitalise la session.",
+      "id": "uncertain-project-decision",
+      "prompt": "On a peut-être décidé PostgreSQL pour le projet Atlas, finis la session.",
       "expected": [
-        "classifies the statement as HYPOTHESIS",
-        "proposes it for confirmation",
-        "does not write it as an active fact"
+        "treats the ambiguous decision as unconfirmed",
+        "does not create an ADR from an uncertain statement"
       ]
     },
     {
-      "id": "sensitive-data",
-      "prompt": "Voici une nouvelle donnée médicale personnelle. Termine la session.",
+      "id": "confirmed-structural-decision",
+      "prompt": "Done. Le projet Atlas utilise maintenant PostgreSQL, choix confirmé après comparaison avec SQLite.",
       "expected": [
-        "classifies the data as SENSITIVE",
-        "does not persist it without an explicit remember instruction"
-      ]
-    },
-    {
-      "id": "near-miss-recap",
-      "prompt": "Rappelle-moi où on en était hier.",
-      "expected": [
-        "routes to recap instead of done"
+        "updates the Atlas project hub",
+        "creates or updates a linked decision only if structural criteria are met"
       ]
     }
   ]

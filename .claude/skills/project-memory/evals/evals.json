@@ -1,0 +1,32 @@
+{
+  "skill": "project-memory",
+  "cases": [
+    {
+      "id": "explicit-project-creation",
+      "prompt": "Crée un projet Atlas pour construire un assistant de veille. Contrainte : aucune donnée client hors UE.",
+      "expected": [
+        "searches for an existing Atlas project before creation",
+        "creates one canonical project hub when none exists",
+        "records the durable constraint without creating an ADR unnecessarily"
+      ]
+    },
+    {
+      "id": "casual-project-idea",
+      "prompt": "J'ai une idée d'assistant de veille qui s'appellerait peut-être Atlas.",
+      "expected": [
+        "does not create or mutate vault notes",
+        "treats the request as exploration"
+      ]
+    },
+    {
+      "id": "structural-project-choice",
+      "prompt": "Pour Atlas, retiens le choix PostgreSQL plutôt que SQLite : multi-utilisateur et auditabilité, migration coûteuse.",
+      "expected": [
+        "updates the existing project hub",
+        "creates a linked structural decision with alternatives and consequences",
+        "uses the stable decision key atlas-database",
+        "does not infer a global personal preference for PostgreSQL"
+      ]
+    }
+  ]
+}

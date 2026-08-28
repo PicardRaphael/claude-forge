@@ -1,6 +1,6 @@
 interface:
   display_name: "Capitaliser la session"
-  short_description: "Met à jour mémoire, profil et contexte utile"
-  default_prompt: "Utilise $done pour capitaliser cette session sans créer de bruit."
+  short_description: "Consolide profil vault, projets et décisions"
+  default_prompt: "Utilise $done pour capitaliser la session dans les foyers canoniques sans créer de doublons."
 policy:
   allow_implicit_invocation: true
