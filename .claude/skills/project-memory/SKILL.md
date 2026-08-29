@@ -2,7 +2,7 @@
 name: project-memory
 description: ALWAYS invoke when Raphaël explicitly asks to create/start a project, persist its context, or record a project choice. Maintains the vault project hub and decisions. NOT for a casual idea, roadmap generation, or temporary task planning.
 user-invocable: true
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__*
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 argument-hint: "[project name or decision]"
 ---
 

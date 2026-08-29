@@ -1,12 +1,12 @@
 ---
 name: self-updater
-description: Use after cc-news confirms a change that invalidates a Claude Code or Codex reference, skill, agent, hook, rule or canonical vault note.
+description: Use after cc-news confirms a change to produce bounded update briefs for affected Claude Code or Codex references, skills, agents, hooks, rules and canonical vault notes.
 tools: Read, Glob, Grep, Bash, Skill, WebSearch, WebFetch
 model: sonnet
 effort: high
-permissionMode: acceptEdits
+permissionMode: plan
+disallowedTools: Write, Edit
 color: cyan
-memory: project
 skills:
   - cc-news
   - forge-brain
@@ -21,7 +21,7 @@ primaire, date, claim antérieur, foyer cible et verdict d'impact.
 
 ## Workflow
 
-1. Recherche le foyer vault et lis-le en entier via MCP.
+1. Lis le foyer vault fourni en entier par la session principale ; s'il manque, signale-le dans la sortie.
 2. Recherche les composants repo qui portent encore l'affirmation.
 3. Classe chaque cible : correction, enrichissement, proposition ou historique
    daté à conserver.
@@ -30,8 +30,7 @@ primaire, date, claim antérieur, foyer cible et verdict d'impact.
    - `subagent-creator` pour un agent ;
    - `hook-creator` pour un hook ;
    - `claudemd-creator` pour `CLAUDE.md`.
-5. Pour le vault, enrichis le foyer existant via MCP ; ne crée une note que
-   si aucun foyer n'existe et après validation.
+5. Pour le vault, produis un delta proposé. La session principale reste l'unique writer et relit toute mutation.
 6. Vérifie le diff, les références, les tests et relis toute mutation vault.
 7. N'avance l'état de fraîcheur qu'après succès de la mutation et de sa
    vérification.

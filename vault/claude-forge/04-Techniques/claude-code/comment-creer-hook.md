@@ -1,13 +1,13 @@
 ---
 titre: "Comment créer un hook Claude Code parfait"
-resume: "Note canonique pour créer un hook Claude Code — 30 events officiels (docs Anthropic), timeouts par type (600s/30s/60s), exit codes 0/1/2, hookSpecificOutput, doctrine 'If a rule must hold every time, make it a hook'. Lint/security/scope OUI, workflow NON (doctrine 22 mai)."
+resume: "Note canonique pour créer un hook Claude Code — events officiels actuels (docs Anthropic), timeouts par type (600s/30s/60s), exit codes 0/1/2, hookSpecificOutput, doctrine 'If a rule must hold every time, make it a hook'. Lint/security/scope OUI, workflow NON (doctrine 22 mai)."
 aliases:
   - "comment creer hook"
   - "creer un hook claude code"
   - "create claude code hook"
   - "hook parfait"
   - "hook best practices"
-  - "30 events hooks"
+  - "events hooks"
   - "exit codes hooks"
   - "hookSpecificOutput"
   - "asyncRewake"
@@ -15,11 +15,11 @@ aliases:
   - "comment creer un hook"
   - "creer hook claude code"
   - "best practices hooks"
-  - "30 events hooks officiels"
+  - "events hooks officiels"
   - "hooks lint securite scope"
   - "hooks transversaux catalogue"
   - "doctrine hooks forge"
-derniere-maj: 2026-07-27
+derniere-maj: 2026-08-29
 auteur: claude
 type: technique
 sources:
@@ -110,7 +110,7 @@ Avec hooks bloquants sur règles critiques :
 }
 ```
 
-### Les 30 events officiels (29 vérifiés verbatim docs Anthropic 23 mai 2026 + DirectoryAdded v2.1.219)
+### Les events officiels actuels (29 vérifiés verbatim docs Anthropic 23 mai 2026 + DirectoryAdded v2.1.219)
 
 
 Source : [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — section "Lifecycle events".
@@ -239,7 +239,7 @@ Réveille la session à un timing futur. Utile pour scheduling, polling externe.
 
 ## WORKFLOW — Création étape par étape
 
-> ⚠️ **Pivot 6 juin 2026** : `hook-creator` est désormais une **skill** (`.claude/skills/hook-creator/`). Invoquer via `Skill(hook-creator)` depuis la session principale. L'agent `hook-creator` est supprimé. `cc-hooks-ref` reste comme référence technique (30 events, formats JSON) — la skill `hook-creator` y accède via MCP vault.
+> ⚠️ **Pivot 6 juin 2026** : `hook-creator` est désormais une **skill** (`.claude/skills/hook-creator/`). Invoquer via `Skill(hook-creator)` depuis la session principale. L'agent `hook-creator` est supprimé. `cc-hooks-ref` reste comme référence technique (events et formats JSON actuels) — la skill `hook-creator` y accède via MCP vault.
 
 
 ### Étape 1 — Identifier la règle critique
@@ -448,7 +448,7 @@ Un hook-garde qui matche **trop large** (par nom de fichier, regex, ou scope de 
 - Hooks lint/security uniquement, pas de workflow
 
 ### Anthropic officiel
-- [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — spec complète 30 events
+- [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — spec complète des events actuels
 - [github.com/anthropics/claude-code](https://github.com/anthropics/claude-code) — config minimaliste
 
 ### Böckeler / Fowler
@@ -466,7 +466,7 @@ Un hook-garde qui matche **trop large** (par nom de fichier, regex, ou scope de 
 ## SOURCES — Verbatim avec URLs
 
 ### Anthropic officiel
-- [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — spec 30 events, timeouts, exit codes, `once: true` scope
+- [code.claude.com/docs/en/hooks](https://code.claude.com/docs/en/hooks) — spec des events actuels, timeouts, exit codes, `once: true` scope
 - docs.claude.com features-overview — "If a rule must hold every time, make it a hook"
 
 ### Doctrine forge 22 mai 2026
@@ -670,7 +670,7 @@ Aliases déclarés en frontmatter (10) :
 - create claude code hook
 - hook parfait
 - hook best practices
-- 30 events hooks
+- events hooks
 - exit codes hooks
 - hookSpecificOutput
 - asyncRewake
@@ -796,7 +796,7 @@ Appliqué 27 mai : hook `session-reminder.py` migré de `glob.glob("~/.claude/pr
 
 ## AJOUT 27 mai 2026 — Brief sub-agent et accès vault
 
-Un sub-agent ne peut pas lire le vault : le `mcp__forge-brain__*` de son frontmatter est décoratif (MCP non connecté en sous-agent, `No such tool available` — vérifié Chantier A 27 mai). Tout brief sub-agent impliquant le vault contient les extraits canoniques **inline** + « si manque, ESCALADE ; jamais cat/find/grep/Read le vault ». Ne jamais écrire « lis via MCP » dans le body d'un creator.
+Un sub-agent ne peut pas lire le vault : les permissions MCP de son frontmatter est décoratif (MCP non connecté en sous-agent, `No such tool available` — vérifié Chantier A 27 mai). Tout brief sub-agent impliquant le vault contient les extraits canoniques **inline** + « si manque, ESCALADE ; jamais cat/find/grep/Read le vault ». Ne jamais écrire « lis via MCP » dans le body d'un creator.
 
 Enforcement : hook `vault-cat-guard.py` (PreToolUse Bash|Read) bloque l'accès brut au vault dans les 2 contextes, exempte vault-maintainer. Preuve d'interception : [[hook-intercepte-mcp-et-read-tools]]. Cause-racine complète : [[pattern-mcp-brief-then-direct]].
 
@@ -810,7 +810,7 @@ Source primaire revérifiée le 7 juin 2026 : [code.claude.com/docs/en/hooks](ht
 
 ### Count events : 30 (et non 29)
 
-La doc Anthropic liste désormais **30 events**. Le tableau « 30 events » plus haut ratait **`MessageDisplay`** (#12 dans la liste à jour, entre `Notification` et `SubagentStart`). Liste complète à jour : SessionStart, Setup, UserPromptSubmit, UserPromptExpansion, PreToolUse, PermissionRequest, PermissionDenied, PostToolUse, PostToolUseFailure, PostToolBatch, Notification, **MessageDisplay**, SubagentStart, SubagentStop, TaskCreated, TaskCompleted, Stop, StopFailure, TeammateIdle, InstructionsLoaded, ConfigChange, CwdChanged, FileChanged, WorktreeCreate, WorktreeRemove, PreCompact, PostCompact, Elicitation, ElicitationResult, SessionEnd.
+Le nombre et la liste des events sont volatils. Vérifier la documentation Anthropic au moment de créer ou auditer un hook ; la liste ci-dessous est un snapshot historique à revalider : SessionStart, Setup, UserPromptSubmit, UserPromptExpansion, PreToolUse, PermissionRequest, PermissionDenied, PostToolUse, PostToolUseFailure, PostToolBatch, Notification, **MessageDisplay**, SubagentStart, SubagentStop, TaskCreated, TaskCompleted, Stop, StopFailure, TeammateIdle, InstructionsLoaded, ConfigChange, CwdChanged, FileChanged, WorktreeCreate, WorktreeRemove, PreCompact, PostCompact, Elicitation, ElicitationResult, SessionEnd.
 
 > Le compte d'events bouge par version CC — toujours revérifier à la source primaire avant de citer un chiffre exact (29 = instantané 23 mai, 30 = 7 juin).
 

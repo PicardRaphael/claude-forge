@@ -2,7 +2,7 @@
 name: agentshield-like-scanner
 description: ALWAYS invoke when auditing a Claude Code setup for SECURITY risks (prompt injection, unsafe MCP, dangerous hooks/permissions) — red-team/blue-team pipeline. NOT for general config/quality audit (repo-inspector mode=audit).
 user-invocable: true
-allowed-tools: Read, Grep, Glob, Bash, mcp__forge-brain__read_note, mcp__forge-brain__create_note
+allowed-tools: Read, Grep, Glob, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note
 model: sonnet
 effort: high
 ---
@@ -23,7 +23,7 @@ La skill DÉCRIT le pipeline que la session principale orchestre. La session lan
 | **Permissions** | `permissionMode` sur tous agents, `disallowedTools` cohérent, `allowed-tools` skill minimal |
 | **Hook injection** | Scripts hooks : pas de commandes arbitraires, pas de lecture stdin non filtrée, pas de path traversal |
 | **MCP risk** | Servers actifs, wildcard `mcp__server__*`, ports exposés, auto-start non voulu |
-| **Agent config** | `memory: project` présent, `effort` approprié, skills: cohérentes avec body, modèle correct |
+| **Agent config** | mémoire persistante absente ou justifiée, `effort` approprié, skills cohérentes avec body, modèle correct |
 
 ---
 
@@ -82,7 +82,7 @@ Produit : risk assessment priorisé (CRITICAL first), avec verdict par catégori
 - **Ne PAS confondre avec repo-inspector** : repo-inspector = audit conformité canonique (frontmatter, taille, structure). AgentShield = audit sécurité (exploits, permissions, injection).
 - **Un CRITICAL/HIGH se lit, ne se déduit pas** : pour une permission ou un deny, parser `settings.json` global ET projet ; pour un hook injectable, lire le corps du script ; pour un MCP wildcard, lire `.mcp.json`. Le nom d'une garde ne dit pas ce qu'elle autorise. Vecteur non lu à la source → **MEDIUM « à vérifier »**, jamais CRITICAL. Les sous-agents Opus surestiment la sévérité sur des patterns courants (cf `feedback_auditor_false_positives`).
 - **`.mcp.json` souvent hors périmètre des audits standards** — l'inclure explicitement dans le brief.
-- **Settings.json self-modification** : hook `auto-mode classifier` bloque les édits directs de settings.json. Si un CRITICAL concerne settings.json → signaler pour édition manuelle Raphael.
+- **Settings et MCP** : ce sont des surfaces de sécurité protégées par `delegate-guard`; toute correction passe par `hook-creator`, diff et tests.
 
 ---
 
@@ -118,5 +118,5 @@ Auteur : [[affaan-mustafa-ecc-hackathon-winner]] — Grand Prize Anthropic Hacke
 Après chaque scan AgentShield-like complété :
 - Catégorie de CRITICAL/HIGH la plus fréquente sur le repo audité
 - Taux faux positifs Auditor (findings Red non confirmés par Blue)
-- Ajouter patterns nouveaux dans `vault/Knowledge/erreurs/` si exploit chain inédit découvert
+- Proposer à la session principale les patterns nouveaux méritant un foyer `Knowledge/erreurs/`
 - Mettre à jour les 5 catégories scope si une nouvelle classe de risque émerge

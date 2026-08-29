@@ -2,7 +2,7 @@
 name: choix-outils-ia
 description: ALWAYS invoke to choose an AI tool or decide build-vs-buy — voice/TTS/OCR, transcription, embeddings/reranking, AI in production. Returns verdict + tools + pricing + license traps. NOT for RAG design (rag-design) or CODIR strategy (responsable-ia).
 user-invocable: true
-allowed-tools: Read, Glob, Grep, mcp__forge-brain__*
+allowed-tools: Read, Glob, Grep, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 ---
 
 # choix-outils-ia — build-vs-buy de tout outil IA

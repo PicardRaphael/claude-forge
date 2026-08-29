@@ -9,7 +9,7 @@ aliases:
   - "mcp re-consultation pattern"
   - "filet de sécurité mcp sub-agent"
   - "doctrine consultation mcp jarvis"
-derniere-maj: 2026-05-24
+derniere-maj: 2026-08-29
 auteur: claude
 type: technique
 sources:
@@ -173,7 +173,7 @@ Tu reçois normalement un brief enrichi de la session principale avec les élém
 
 | MCP | Session principale consulte AVANT brief | Sub-agent filet AVEC |
 |-----|---------------------------------------|---------------------|
-| **forge-brain** (vault perso) | `search_brain` + `read_note` canoniques + feedbacks pertinents | `mcp__forge-brain__*` si terme/note non couvert dans brief |
+| **forge-brain** (vault perso) | `search_brain` + `read_note` canoniques + feedbacks pertinents | lectures exactes déclarées si terme/note non couvert dans brief |
 | **obsidian-brain** (vault neoteem-brain métier) | Search business rules, schemas BDD, fiches produits | `mcp__obsidian-brain__*` si règle métier précise non fournie |
 | **postgres** (DB) | `describe_table`, `list_indexes` pour structure pertinente | `mcp__postgres__*` si valeur DB précise nécessaire |
 | **context7** (docs libs) | `resolve-library-id` + `query-docs` pour API à jour | `mcp__context7__*` si signature précise non fournie |
@@ -236,9 +236,9 @@ Tu reçois normalement un brief enrichi de la session principale avec les élém
 Crée agent X avec ces specs : [...]
 Contexte vault extrait :
 - [[comment-creer-agent]] section AskUserQuestion : sub-agent NE PEUT PAS appeler AskUserQuestion (issue #18721) → utiliser pattern ESCALADE
-- [[comment-creer-agent]] section wildcard MCP : préférer mcp__server__* à liste explicite
+- [[comment-creer-agent]] : déclarer les opérations MCP exactes nécessaires
 - Doctrine 22 mai : pas de workflow hooks, advisory uniquement
-Exécute. Filet : mcp__forge-brain__* si doute sur convention couleur ou modèle.
+Exécute. Filet : lectures forge-brain exactes si doute sur convention couleur ou modèle.
 ```
 
 `agent-creator` exécute avec contexte ciblé, n'a pas eu à re-chercher.
@@ -348,7 +348,7 @@ Le critère de densité capté par l'audit a révélé une nuance à expliciter 
 | `mcp__forge-brain__create_note/append_note/update_property/...` (vault) | NON (`No such tool available`) | OUI — c'est le critère |
 | `Write`/`Edit` filesystem (`.claude/`, code, skills) | OUI | NON — hors critère |
 
-Les 4 créateurs (agent-creator, skill-creator, claudemd-optimizer, hook-creator) écrivent BEAUCOUP — mais sur le **filesystem** (`.claude/`), et leur `mcp__forge-brain__*` sert à la **lecture** des canoniques (`read_note`). Donc classés **rare**, pas dense. Confondre les deux aurait produit 4 faux candidats KILL.
+Les 4 créateurs (agent-creator, skill-creator, claudemd-optimizer, hook-creator) écrivent BEAUCOUP — mais sur le **filesystem** (`.claude/`), et leurs opérations forge-brain déclarées servent à la **lecture** des canoniques (`read_note`). Donc classés **rare**, pas dense. Confondre les deux aurait produit 4 faux candidats KILL.
 
 **Règle de mesure** : grep le préfixe exact `mcp__forge-brain__(create_note|append_note|update_note|update_property|insert_section|bulk_update_property|move_note|delete_note)` dans le corps de l'agent — pas juste `Write|Edit`. Seul ce pattern, en boucle (× N notes), déclenche KILL/PIVOT.
 

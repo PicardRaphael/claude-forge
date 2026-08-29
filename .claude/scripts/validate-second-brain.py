@@ -111,7 +111,8 @@ def main() -> int:
     hook_blob = json.dumps(hooks, ensure_ascii=False)
     if ".codex/hooks/memory-recall.py" not in hook_blob:
         fail("Codex memory recall is not registered")
-    if "C:\\\\Users\\\\rapha" in hook_blob:
+    user_specific_prefix = "C:" + "\\\\Users\\\\" + "rapha"
+    if user_specific_prefix in hook_blob:
         fail("Codex hooks still contain a user-specific absolute path")
     if ".codex/hooks/learning-reminder.py" in hook_blob:
         fail("unsupported Codex Stop learning-reminder is registered")

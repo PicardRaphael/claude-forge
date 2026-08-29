@@ -3,7 +3,7 @@ name: evolve
 description: ALWAYS invoke when the user wants prioritized product/architecture evolution proposals for a project — what to build next (path via ARGUMENTS). NOT for config audit (repo-inspector), skill sweeps (skill-evolve) or code review.
 argument-hint: "[/absolute/path/to/project]"
 user-invocable: true
-allowed-tools: Read, Glob, Grep, Bash, Agent, mcp__forge-brain__*
+allowed-tools: Read, Glob, Grep, Bash, Agent, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 model: sonnet
 effort: high
 ---

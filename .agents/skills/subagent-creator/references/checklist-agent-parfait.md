@@ -26,7 +26,7 @@ Source : reference-subagents-claude-code.md (research LLM juin 2026) + doctrine 
 - [ ] `model` adapté : haiku (exploration), sonnet (implémentation), opus (jugement)
 - [ ] `effort` : `high` défaut ; `xhigh` uniquement architect/dev-lead/refactor profond
 - [ ] `color` selon convention forge cross-repo (même rôle = même couleur)
-- [ ] `memory: project` — TOUJOURS, sans exception
+- [ ] Mémoire persistante absente ou justifiée avec scope et révision
 - [ ] `permissionMode` — TOUJOURS (`acceptEdits` pour writers, `plan` pour side-effects)
 - [ ] `isolation: worktree` si agents parallèles sur fichiers
 
@@ -74,7 +74,7 @@ Si un audit signale l'absence d'un champ interdit comme un écart → c'est l'au
 - [ ] Pas de dépendance MCP dans le subagent → brief inline depuis session principale
 - [ ] Pas d'interview prévue dans le subagent → interview sur thread principal avant délégation
 - [ ] Brief enrichi passé par session principale : contexte + canoniques + feedbacks inline
-- [ ] `skills:` liste les skills à précharger (descriptions injectées — ne force pas l'invocation)
+- [ ] `skills:` liste le minimum à précharger (contenu complet injecté — ne force pas l'invocation)
 
 ## 4. Enforcement (si skills à invoquer)
 

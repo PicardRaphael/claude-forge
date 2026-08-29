@@ -49,7 +49,7 @@ Référence : [[pattern-mcp-brief-then-direct]] Règle 2 (skill sans brief inlin
 | Branches en parallèle             | `claude --worktree <feature>` (3-5 en parallèle) |
 | Debug MCP cassé                   | `/doctor` |
 | Audit post-implem                 | `/simplify` (3 agents parallèles review qualité) |
-| Garder contexte entre sessions    | `memory: project` sur agents + Auto Memory |
+| Garder contexte entre sessions    | vault/projet canonique ; mémoire d'agent seulement si besoin borné |
 | Réduire les prompts de permission | Skill `/fewer-permission-prompts` |
 
 ## Plugins workflow — recommander si pertinent

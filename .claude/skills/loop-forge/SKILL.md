@@ -2,11 +2,10 @@
 name: loop-forge
 description: ALWAYS invoke when the user wants to DESIGN or spec a recurring work loop / autonomous routine (code or non-code). Writes a SPEC then stops. NOT for running a loop — use builtin /loop or /goal to execute. DO NOT design without invoking first.
 argument-hint: "[décris le job répétitif à automatiser]"
-allowed-tools: Read, Write, Glob, Grep, Bash, Task, AskUserQuestion, mcp__forge-brain__*
+allowed-tools: Read, Write, Glob, Grep, Bash, Task, AskUserQuestion, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 user-invocable: true
 model: opus
 effort: high
-memory: project
 ---
 
 # loop-forge — Conception de boucles de travail

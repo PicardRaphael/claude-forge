@@ -1,21 +1,32 @@
 #!/usr/bin/env python3
-"""Block dangerous shell commands before execution."""
+"""Block destructive shell commands before execution.
+
+This hook is intentionally conservative: commands that can erase work or
+rewrite shared Git history require an explicit user decision.  It is a second
+line of defence behind Codex permissions, not a substitute for them.
+"""
 import json
 import re
 import sys
 
-def is_dangerous(cmd):
+def is_dangerous(cmd: str) -> str | None:
+    flags = re.IGNORECASE
     patterns = [
-        (r"rm\s+-[a-zA-Z]*r[a-zA-Z]*f[a-zA-Z]*\s+\S", "rm -rf (toute cible — demande explicite requise)"),
-        (r"rm\s+-[a-zA-Z]*f[a-zA-Z]*r[a-zA-Z]*\s+\S", "rm -fr (toute cible — demande explicite requise)"),
-        (r"git\s+branch\s+(?:-[a-zA-Z-]+\s+)*-D\b", "git branch -D (demande explicite requise)"),
-        (r"git\s+push\s+.*--force", "git push --force"),
-        (r"git\s+push\s+.*-f\b", "git push -f"),
-        (r"git\s+reset\s+--hard(?!\s+\w)", "git reset --hard without target"),
-        (r"git\s+clean\s+-[a-zA-Z]*f", "git clean -f"),
+        (r"\brm\b(?=[^\r\n;&|]*?(?:-[A-Za-z]*r[A-Za-z]*|--recursive))(?=[^\r\n;&|]*?(?:-[A-Za-z]*f[A-Za-z]*|--force))[^\r\n;&|]*\s\S+", "suppression recursive et forcee (demande explicite requise)"),
+        (r"\bremove-item\b(?=[^\r\n;&|]*?(?:-recurse|-recursive))(?=[^\r\n;&|]*?-force)\b", "Remove-Item -Recurse -Force (demande explicite requise)"),
+        (r"\bgit\b(?:\s+-C\s+\S+)*\s+branch\b[^\r\n;&|]*\s-D\b", "git branch -D"),
+        (r"\bgit\b(?:\s+-C\s+\S+)*\s+push\b[^\r\n;&|]*(?:--force(?:-with-lease)?|-f)\b", "git push force"),
+        (r"\bgit\b(?:\s+-C\s+\S+)*\s+push\b[^\r\n;&|]*\s--delete\b", "git push --delete"),
+        (r"\bgit\b(?:\s+-C\s+\S+)*\s+push\b[^\r\n;&|]*\s(?::|\+)\S+", "git push destructive refspec"),
+        (r"\bgit\b(?:\s+-C\s+\S+)*\s+reset\s+--hard\b", "git reset --hard"),
+        (r"\bgit\b(?:\s+-C\s+\S+)*\s+clean\s+-[A-Za-z]*f", "git clean -f"),
+        (r"\bgit\b(?:\s+-C\s+\S+)*\s+restore\b", "git restore (discard possible)"),
+        (r"\bgit\b(?:\s+-C\s+\S+)*\s+checkout\s+--\s+", "git checkout -- (discard)"),
+        (r"\bgit\b(?:\s+-C\s+\S+)*\s+config\b[^\r\n;&|]*\balias\.[\w.-]+\s+!?", "git alias definition (shell alias possible)"),
+        (r"\bgit\b\s+-c\s+alias\.[\w.-]+=[\"']?!", "temporary Git shell alias"),
     ]
     for pattern, reason in patterns:
-        if re.search(pattern, cmd):
+        if re.search(pattern, cmd, flags):
             return reason
     return None
 

@@ -2,7 +2,7 @@
 name: neoteem-back-ts
 description: ALWAYS invoke when validating a neoteem-back-ts feature/architecture before tickets, OR creating its stories/sous-tâches under the permanent IA epics. Architect mode = design dialogue; ticket mode = Jira-ready .md briefs. NOT for other projects (use spec), NOT during ticket implementation.
 user-invocable: true
-allowed-tools: Read, Write, Glob, Grep, Bash, AskUserQuestion, mcp__forge-brain__*
+allowed-tools: Read, Write, Glob, Grep, Bash, AskUserQuestion, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 model: opus
 effort: high
 ---

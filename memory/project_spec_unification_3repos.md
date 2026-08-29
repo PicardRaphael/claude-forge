@@ -1,6 +1,9 @@
 ---
 name: spec-unification-3repos
 description: Chantier en cours (26 juin 2026) — uniformiser /spec dans neo_ia/neoteem-back-ts/ia-workbench. Phase 1+2 livrées+poussées ; reste l'audit/normalisation des 23 tickets Jira existants.
+type: project
+status: review-required
+expires: 2026-09-15
 metadata:
   type: project
 ---

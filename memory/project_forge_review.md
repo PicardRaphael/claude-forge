@@ -1,6 +1,9 @@
 ---
 name: forge-review-journal
 description: Journal des reviews stratégiques forge — verdicts KILL/EVOLVE/FUSION et leur suivi actioned/ignored
+type: project
+status: review-required
+expires: 2026-09-15
 metadata:
   type: project
 ---

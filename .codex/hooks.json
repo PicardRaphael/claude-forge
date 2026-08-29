@@ -6,24 +6,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/session-reminder.py\"",
-            "commandWindows": "py .codex/hooks/session-reminder.py",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/session-state-reset.py\"",
+            "commandWindows": "py .codex/hooks/session-state-reset.py",
             "timeout": 5,
-            "statusMessage": "Loading project memory reminder"
+            "statusMessage": "Resetting ephemeral session state"
           },
           {
             "type": "command",
-            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/memory-size-watcher.py\"",
-            "commandWindows": "py .codex/hooks/memory-size-watcher.py",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/memory-health.py\"",
+            "commandWindows": "py .codex/hooks/memory-health.py",
             "timeout": 5,
-            "statusMessage": "Checking memory size"
-          },
-          {
-            "type": "command",
-            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/memory-saturation-watcher.py\"",
-            "commandWindows": "py .codex/hooks/memory-saturation-watcher.py",
-            "timeout": 5,
-            "statusMessage": "Checking memory saturation"
+            "statusMessage": "Checking temporary-memory lifecycle"
           }
         ]
       }

@@ -176,7 +176,7 @@ packages = ["src"]
 
 Patterns et gotchas découverts pendant le dev — enrichir au fil des projets.
 
-> Mettre à jour via : `memory: project` ou noter dans `vault/claude-forge/04-Techniques/`
+> Proposer l'apprentissage à la session principale ; elle choisit entre sortie éphémère, décision projet ou foyer vault canonique.
 
 | Date | Projet | Découverte |
 |------|--------|------------|

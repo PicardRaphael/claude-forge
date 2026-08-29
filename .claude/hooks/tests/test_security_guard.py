@@ -138,9 +138,9 @@ def test_git_reset_hard_trailing_space_only():
     assert_blocks("git reset --hard <spaces only>", "git reset --hard   ")
 
 
-def test_git_reset_hard_with_target_passes():
-    """Characterization: git reset --hard HEAD has a target word → NOT blocked (by design)."""
-    assert_passes("git reset --hard HEAD (has target)", "git reset --hard HEAD")
+def test_git_reset_hard_with_target_blocks():
+    """A target still discards changes and therefore requires authorization."""
+    assert_blocks("git reset --hard HEAD (has target)", "git reset --hard HEAD")
 
 
 # ===========================================================================
@@ -166,9 +166,8 @@ def test_git_clean_df_order():
 # that must remain blocked before shell expansion.
 # ===========================================================================
 
-def test_fn_rm_rf_uppercase_passes():
-    """Bypass: uppercase RM is not matched (regex is case-sensitive)."""
-    assert_passes("RM -rf / (uppercase bypass)", "R" + "M" + " -rf " + SLASH)
+def test_fn_rm_rf_uppercase_blocks():
+    assert_blocks("RM -rf /", "R" + "M" + " -rf " + SLASH)
 
 
 def test_rm_rf_home_tilde_blocks():
@@ -208,6 +207,64 @@ def test_happy_rm_single_file_passes():
     assert_passes("rm tempfile", RM + " tempfile.txt")
 
 
+def test_rm_long_recursive_force_blocks():
+    assert_blocks("rm long flags", RM + " --recursive --force ./important")
+
+
+def test_rm_long_flags_reverse_order_blocks():
+    assert_blocks("rm reversed long flags", RM + " --force --recursive ./important")
+
+
+def test_git_dash_c_reset_hard_blocks():
+    assert_blocks("git -C reset hard", "git -C ../repo reset --hard HEAD")
+
+
+def test_git_alias_shell_definition_blocks():
+    assert_blocks("git shell alias", "git config --global alias.deploy !powershell -File deploy.ps1")
+
+
+def test_git_quoted_temporary_shell_alias_blocks():
+    assert_blocks("git quoted shell alias", 'git -c alias.audit="!echo blocked" audit')
+
+
+def test_git_push_delete_blocks():
+    assert_blocks("git push delete", "git push origin --delete obsolete")
+
+
+def test_git_push_delete_refspec_blocks():
+    assert_blocks("git push colon refspec", "git push origin :refs/heads/obsolete")
+
+
+def test_git_push_force_refspec_blocks():
+    assert_blocks("git push plus refspec", "git push origin +main:main")
+
+
+def test_git_restore_worktree_blocks():
+    assert_blocks("git restore", "git restore src/app.py")
+
+
+def test_git_checkout_discard_blocks():
+    assert_blocks("git checkout discard", "git checkout -- src/app.py")
+
+
+def test_git_checkout_branch_passes():
+    assert_passes("git checkout branch", "git checkout feature/safe")
+
+
+def test_powershell_recursive_force_blocks():
+    assert_blocks(
+        "PowerShell recursive force",
+        "Remove-Item -LiteralPath C:\\work\\tmp -Recurse -Force",
+    )
+
+
+def test_powershell_force_recursive_blocks_case_insensitive():
+    assert_blocks(
+        "PowerShell reversed flags",
+        "remove-item -force -recursive ./tmp",
+    )
+
+
 # ===========================================================================
 # CROSS-SHELL — git patterns must block regardless of shell tool
 # (regression guard for the PowerShell blind spot found 27 May 2026: the hook
@@ -227,15 +284,9 @@ def test_cross_shell_git_reset_hard_string_blocks():
     assert_blocks("git reset --hard (PowerShell-issued)", "git reset --hard")
 
 
-def test_documented_gap_powershell_native_destructive():
-    """Documented gap (NOT created by the matcher fix): PowerShell-NATIVE
-    destructive cmdlets (Remove-Item -Recurse -Force, Stop-Process, Clear-Content)
-    are NOT covered — security-guard's patterns target POSIX/git syntax only.
-    Their Bash equivalents (rm -rf relative, etc.) are equally uncovered, so this
-    is a pre-existing scope gap, distinct from the matcher blind spot. Tracked in
-    context-actuel as a separate dedicated-session item."""
+def test_powershell_native_destructive_blocks():
     pinned = "Remove-Item -Recurse -Force C:" + chr(92) + "x"
-    assert_passes("Remove-Item -Recurse -Force (PS-native gap, tracked)", pinned)
+    assert_blocks("Remove-Item -Recurse -Force", pinned)
 
 
 # ===========================================================================

@@ -1,5 +1,5 @@
 ---
-derniere-maj: 2026-08-28
+derniere-maj: 2026-08-29
 aliases:
   - "comment creer un agent"
   - "creer subagent claude code"
@@ -100,7 +100,7 @@ tools: <outils autorisés, séparés par virgule>
 model: sonnet | opus | haiku
 effort: low | medium | high | xhigh | max
 color: red | orange | yellow | green | blue | purple | cyan | pink
-memory: project
+# memory: project  # OPTIONNEL : besoin durable, scope et revision explicites
 permissionMode: acceptEdits | auto | plan | default | dontAsk | bypassPermissions
 disallowedTools: <outils interdits, ex Write, Edit>
 skills: <skills mobilisées, optionnel>
@@ -134,8 +134,8 @@ Cas réel 27 mai 2026 : `devils-advocate.md` avait `effort: high` en frontmatter
    - "Available levels depend on the model"
    - `max` **TOUJOURS DISPONIBLE** (mai 2026). Ce qui est déprécié = `budget_tokens` manuel, remplacé par adaptive thinking
    - Doctrine forge : `high` partout par défaut, `xhigh` réservé architect/dev-lead/refactor-pg, `max` avec prudence (prone overthinking observé)
-5. **`memory: project`** = OBLIGATOIRE sur TOUS les agents forge (gère mémoire automatique)
-6. **`permissionMode`** = OBLIGATOIRE forge :
+5. **Mémoire persistante** = absente par défaut. L'activer seulement pour un apprentissage durable propre à l'agent, avec scope et révision explicites
+6. **`permissionMode`** = optionnel ; le déclarer quand il clarifie un profil de risque :
    - `acceptEdits` pour créateurs (skill-creator, agent-creator, hook-creator, claudemd-optimizer)
    - `auto` pour exécutants (dev, code-reviewer, test-writer)
    - `plan` pour agents qui doivent **toujours passer par un plan validé** avant action
@@ -253,7 +253,6 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (agent orchestran
 
 ---
 
-> ⚠️ **Correction doc officielle 9 juin 2026** (source : code.claude.com/docs/en/sub-agents) : pour les **agents project-scope du repo courant**, `skills:` frontmatter précharge le **CONTENU COMPLET** de chaque skill dans le contexte du sub-agent au démarrage (« The full skill content is injected, not just the description »). La Cause 2 ci-dessous et la table Héritage (« précharge les *descriptions* seulement ») sont **périmées pour ce scope**. Limitations toujours vraies dans leurs contextes : Agent Teams teammates (skills frontmatter ignorées) et agents user-scope cross-repo (skills non résolues) — cf [[pattern-mcp-brief-then-direct]]. **Conséquence pratique** : agent project-scope avec `skills:` → body dit « skills préchargées, applique-les » + pointer uniquement les `references/` non préchargés. Ne PAS ajouter `Skill` aux `tools:` pour le préchargement (inutile) — seulement si l'agent doit invoquer d'autres skills à la demande. Skills avec `disable-model-invocation: true` non préchargeables ; skill manquante = warning debug log, skip silencieux.
 
 ## POURQUOI un subagent n'invoque pas ses skills — 3 causes cumulées
 
@@ -263,7 +262,7 @@ Le problème le plus fréquent. Source : research LLM juin 2026 + empirique forg
 Sans l'outil `Skill` dans `tools:`, le subagent **ne peut physiquement pas** invoquer de skill. À vérifier en premier.
 
 ### Cause 2 — `skills:` précharge, ne force pas
-Le champ `skills:` injecte les *descriptions* dans le system prompt (issue #32910) — ce n'est pas une invocation forcée. "Description présente" ≠ "skill invoquée". L'invocation reste probabiliste, comme sur le thread principal.
+Le champ `skills:` injecte le **contenu complet** des skills de projet au démarrage — ce préchargement n'est toutefois pas une invocation forcée. "Description présente" ≠ "skill invoquée". L'invocation reste probabiliste, comme sur le thread principal.
 
 ### Cause 3 — Le subagent préfère le raccourci direct
 Si le subagent a tous les outils pour produire le résultat sans passer par la skill (Bash, connaissance propre), il le fait. La skill devient un détour optionnel qu'il s'autorise à zapper.
@@ -329,13 +328,13 @@ Si l'agent zappe la skill parce qu'il fait le travail directement → restreindr
 | Élément | Hérité ? |
 |---|---|
 | Contexte de conversation | ❌ Contexte frais — ne reçoit que le brief passé |
-| Skills | ❌ `skills:` = précharge les *descriptions* seulement |
+| Skills | ✅ `skills:` précharge le contenu complet des skills de projet déclarées |
 | Outil `Skill` | ❌ Doit être dans `tools:` sinon impossible mécaniquement |
 | Outils (Read, Bash…) | ❌ Définis par `tools:` — sans explicite, comportement variable |
 | MCP servers | ⚠️ Instable — souvent « No such tool available » |
 | CLAUDE.md / rules | ⚠️ Variable (Explore/Plan sautent CLAUDE.md) |
 | AskUserQuestion | ❌ Filtré hors subagents (issues #12890 #18721 #20275) |
-| Task tool (sous-subagent) | ❌ Pas de subagents imbriqués |
+| Sous-agents imbriqués | ✅ supportés ; limiter la profondeur et fournir des briefs complets |
 | Hooks settings | ✅ S'appliquent (SubagentStart/SubagentStop existent) |
 | Mémoire (`memory:`) | ✅ Persiste entre sessions |
 
@@ -358,7 +357,7 @@ Si l'agent zappe la skill parce qu'il fait le travail directement → restreindr
 - [ ] `tools:` explicite — inclut `Skill` si l'agent doit invoquer des skills
 - [ ] `model` adapté (haiku explore, sonnet implémentation, opus orchestration/jugement)
 - [ ] `disallowedTools` pour couper les raccourcis qui font zapper les skills
-- [ ] `memory: project` + `permissionMode` obligatoires (forge)
+- [ ] mémoire persistante absente ou justifiée ; permissions au moindre privilège
 
 **Body / system prompt**
 - [ ] Responsabilité unique
@@ -384,7 +383,7 @@ Si l'agent zappe la skill parce qu'il fait le travail directement → restreindr
 ### Niveau basique
 - 1 agent par rôle critique (architect, dev, reviewer)
 - Tous Sonnet effort high
-- `memory: project` partout
+- mémoire persistante partout sans besoin ni révision
 - `permissionMode: acceptEdits`
 
 ### Niveau avancé
@@ -458,8 +457,8 @@ Source : [Code with Claude SF — "Caching, harnesses, and advisors: Building on
 - ❌ **Agent qui invoque un autre agent (ré-entrance)** : risque de boucle infinie ou tool_use partagés conflictuels. Si nécessaire, passer par la session principale qui orchestre. Mise en garde forge — pas doctrine Anthropic explicite.
 
 ### Frontmatter
-- ❌ **Pas de `memory: project`** — mémoire pas gérée (règle forge)
-- ❌ **Pas de `permissionMode`** — auto-mode bloque (règle forge)
+- ❌ **Mémoire persistante par défaut** — accumule des biais et du contexte périmé
+- ❌ **Permissions rituelles** — choisir le mode selon le risque réel
 - ❌ **`effort: max` par défaut** — coût massif, réserver à cas justifiés
 - ❌ **`effort: xhigh` partout** — réservé architect/dev-lead/refactor-pg (règle forge)
 - ❌ **Description en 1ère personne** — toujours 3e personne directive
@@ -545,7 +544,7 @@ Un agent généré par `agent-creator` doit adapter ses mécanismes selon l'envi
 | **MCP remote HTTPS** | ✅ | ✅ | ✅ Seul type viable |
 | **`disallowedTools`** | ✅ | ✅ | ✅ |
 | **`permissionMode`** | ✅ | ✅ | ✅ |
-| **`memory: project`** | ✅ | ✅ | ⚠️ Comportement moins documenté |
+| **Mémoire persistante** | opt-in | opt-in | opt-in selon support de la plateforme |
 | **AskUserQuestion** | ❌ Non dispo en sub-agent (issue #18721) | ❌ Idem | ❌ Idem — ESCALADE vers session principale |
 
 ### Stratégie de génération selon la cible
@@ -576,12 +575,12 @@ Un agent généré par `agent-creator` doit adapter ses mécanismes selon l'envi
 
 ### Pièges permissions
 - **agents de plugins** : `hooks`, `mcpServers`, `permissionMode` sont **ignorés pour les agents de plugins** (sécurité) — s'applique uniquement aux agents `.claude/agents/` du repo courant.
-- **`permissionMode` OBLIGATOIRE** côté forge — sans, auto-mode bloque (cf [[feedback_permissionmode_mandatory]])
+- **`permissionMode` optionnel** — utile lorsqu'il rend explicite un profil de risque
 - **`permissions.allow`** : non hérité par sub-agents (cf [[reference_subagent_permissions]])
 - **Worktree access + MCP tools** : OK depuis v2.1.101
 
 ### Pièges memory
-- **`memory: project`** OBLIGATOIRE forge — gère mémoire automatiquement, pas besoin scripts manuels (cf [[feedback_memory_mandatory]])
+- **Mémoire persistante opt-in** — le vault et les décisions projet restent canoniques
 
 ### Pièges skills
 - **Skills dans `skills:` non référencées dans body** = orphelines, jamais activées (cf [[feedback_skills_referenced_in_body]])
@@ -782,7 +781,7 @@ Au lieu de lister explicitement chaque outil MCP forge-brain (21 outils en mai 2
 tools: Read, Write, Edit, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__get_backlinks
 
 # ✅ APRÈS (wildcard syntaxe Anthropic officielle)
-tools: Read, Write, Edit, Bash, mcp__forge-brain__*
+tools: Read, Write, Edit, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note
 ```
 
 ### Avantages
@@ -805,7 +804,7 @@ tools: Read, Write, Edit, Bash, mcp__forge-brain__*
 
 ### Application 24 mai 2026
 
-Tous les 14 agents+skills forge convertis du listing explicite (3-7 tools) vers `mcp__forge-brain__*`. Gain principal : vault-maintainer (7 outils listés → 1 wildcard).
+Historique : les wildcards MCP ont été remplacés par les opérations exactes nécessaires à chaque agent.
 
 ### Wildcard pour d'autres MCP
 
@@ -832,7 +831,7 @@ Pattern transposable à TOUT serveur MCP :
 | 50+ tools cumulés MCP toutes sources | **"le modèle se perd"** | [[Thariq Shihipar]] verbatim |
 
 **Conséquence pour forge** :
-- Wildcard `mcp__forge-brain__*` (21 outils) **OK** — pas plus coûteux que lister 5 outils dans `tools:`. Les définitions des 21 outils sont chargées **une fois** au démarrage du MCP server (whether listed in agent or not).
+- Déclarer les opérations MCP exactes : une capacité de lecture ne doit jamais pré-approuver les mutations du vault.
 - Garder le nombre de MCP servers actifs **modeste** (≤ 5-7 sur un repo) — c'est là que se joue le vrai coût.
 - Si un MCP server a > 20 outils, considérer un split (ex: `forge-brain-read` + `forge-brain-write`) plutôt que limiter via `tools:` du sub-agent.
 
@@ -868,12 +867,12 @@ Tu reçois normalement un brief enrichi de la session principale avec les élém
 Avant tout dispatch de sub-agent ayant accès MCP :
 1. Consulter MCP pertinent (vault canoniques + feedbacks + erreurs + DB schéma + docs)
 2. Synthétiser dans le prompt (puces ciblées, wikilinks aux notes lues)
-3. Préciser le scope du filet ("filet : mcp__forge-brain__* si doute sur X")
+3. Préciser le scope du filet et les opérations de lecture exactes autorisées
 
 Cf [[pattern-mcp-brief-then-direct]] pour exemples concrets + transposition cross-MCP (obsidian-brain, postgres, langfuse, context7).
 
 ## AJOUT 27 mai 2026 — Brief sub-agent et accès vault : cause-racine empirique
-Vérifié empiriquement (Chantier A étape 2b, 27 mai 2026) : le `mcp__forge-brain__*` du `tools:` d'un sub-agent est **décoratif** — le MCP n'est PAS connecté dans son contexte (`No such tool available`). Un sub-agent à qui on ordonne « lire EN ENTIER via MCP » fallback sur `cat`/`find`/`grep`/`Read` du vault → viole la doctrine MCP-only.
+Vérifié empiriquement (Chantier A étape 2b, 27 mai 2026) : les permissions MCP déclarées dans `tools:` d'un sub-agent pouvaient être **décoratives** — le MCP n'est PAS connecté dans son contexte (`No such tool available`). Un sub-agent à qui on ordonne « lire EN ENTIER via MCP » fallback sur `cat`/`find`/`grep`/`Read` du vault → viole la doctrine MCP-only.
 
 **Règle pour agent-creator** : ne JAMAIS écrire « lis via MCP » dans le body d'un creator. Écrire « le contenu canonique te vient inline dans le brief ; sinon ESCALADE ; jamais cat/find/grep/Read le vault ». Filet MCP subordonné à l'escalade. Les 6 creators forge (agent-creator, skill-creator, hook-creator, claudemd-optimizer, repo-inspector, responsable-ia) ont été durcis selon cette règle le 27 mai.
 
@@ -987,7 +986,7 @@ Source : [[feedback_no_cto_agent]] — amende couche FACTUELLE 18 juin 2026. Cf 
 
 ### Correction de la table de capacités
 
-La ligne **« Task tool (sous-subagent) | ❌ Pas de subagents imbriqués »** est **fausse depuis CC v2.1.172 (10 juin 2026)**. À lire désormais :
+L'ancienne doctrine qui interdisait les sous-agents imbriqués est fausse depuis CC v2.1.172 (10 juin 2026). À lire désormais :
 
 > **Task/Agent tool (sous-subagent) | ✅ POSSIBLE depuis v2.1.172** — foreground n'importe quelle profondeur (auto-limité), background plafonné 5 niveaux. **Par défaut hérité** (un agent qui omet `tools:` reçoit `Agent`). Pour bloquer : `tools:` explicite sans `Agent`, ou `disallowedTools: Agent`.
 

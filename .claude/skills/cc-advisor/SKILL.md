@@ -2,7 +2,7 @@
 name: cc-advisor
 description: ALWAYS invoke when the user describes a need or automation problem WITHOUT naming which Claude Code component to build. Diagnoses and recommends hook/skill/agent/MCP/rule. NOT for auditing a setup (repo-inspector) or creating a named component.
 user-invocable: true
-allowed-tools: WebSearch, WebFetch, Read, mcp__forge-brain__*
+allowed-tools: WebSearch, WebFetch, Read, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 argument-hint: "décris ton besoin"
 ---
 
@@ -51,7 +51,7 @@ Référence : [[pattern-mcp-brief-then-direct]] Règle 2 (skill sans brief inlin
 | Branches en parallèle             | `claude --worktree <feature>` (3-5 en parallèle) |
 | Debug MCP cassé                   | `/doctor` |
 | Audit post-implem                 | `/simplify` (3 agents parallèles review qualité) |
-| Garder contexte entre sessions    | `memory: project` sur agents + Auto Memory |
+| Garder contexte entre sessions    | vault/projet canonique ; mémoire d'agent seulement si besoin borné |
 | Réduire les prompts de permission | Skill `/fewer-permission-prompts` |
 
 ## Plugins workflow — recommander si pertinent

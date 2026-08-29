@@ -4,16 +4,15 @@
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
   "permissions": {
-    "defaultMode": "acceptEdits",
+    "defaultMode": "default",
     "allow": [
       "Read",
-      "Edit",
-      "Bash(git *)",
-      "Bash(ls *)",
-      "Bash(taskkill *)",
-      "Edit(.claude/agents/**)",
-      "Edit(.claude/skills/**)",
-      "Edit(./**)"
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git show*)",
+      "Bash(git branch --show-current*)",
+      "Bash(ls *)"
     ],
     "ask": [
       "Bash(rm *)",
@@ -21,7 +20,13 @@
       "Bash(del *)",
       "Bash(git rm *)",
       "Bash(git reset --hard*)",
-      "Bash(git clean *)"
+      "Bash(git clean *)",
+      "Bash(git restore *)",
+      "Bash(git checkout -- *)",
+      "Bash(git branch -D *)",
+      "Bash(git push --force*)",
+      "Bash(git push * --force*)",
+      "Bash(taskkill *)"
     ]
   },
   "hooks": {
@@ -111,7 +116,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/session-reminder.py\"",
+            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/session-state-reset.py\"",
             "timeout": 5
           }
         ]
@@ -130,16 +135,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/memory-size-watcher.py\"",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/memory-saturation-watcher.py\"",
+            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/memory-health.py\"",
             "timeout": 5
           }
         ]

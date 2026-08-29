@@ -9,7 +9,7 @@ aliases:
   - "config guardian pattern"
 domaine: claude-code
 type: technique
-derniere-maj: 2026-05-23
+derniere-maj: 2026-08-29
 auteur: claude
 sources:
   - "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f"
@@ -36,11 +36,11 @@ Skill `/config-guardian` dans forge qui scanne les 3 repos et produit un rapport
 
 | # | Check | Quoi vérifier |
 |---|-------|---------------|
-| 1 | Permissions git | commit/push allow, global deny vide |
+| 1 | Permissions git | lecture Git minimale pré-approuvée ; mutations demandées |
 | 2 | Hooks cohérence stack | Tous les hooks dans le même langage que le projet. Pas d'orphelins/fantômes |
 | 3 | Rules obligatoires | check-before-create, learn-from-mistakes, quality-gates |
 | 4 | MCP tools agents | Chaque agent déclare les MCP dont il a besoin selon son rôle |
-| 5 | Mémoire compounding | memory:project agents, Gotchas CLAUDE.md, section Mémoire, feedback rules |
+| 5 | Mémoire gouvernée | agents opt-in, TTL projets, vault canonique, rappel actif seulement |
 
 ## Principes
 
@@ -51,7 +51,7 @@ Skill `/config-guardian` dans forge qui scanne les 3 repos et produit un rapport
 ## Pattern Boris (mémoire compounding)
 
 1. CLAUDE.md = instructions de survie, pas de stockage
-2. Erreurs → Auto Memory (`.claude/agent-memory/`)
+2. Erreurs durables → proposition à la session principale ; vault canonique ou feedback empirique borné
 3. Relire feedback rules en début de tâche
 4. Compounding : 6 mois = centaines de rules, erreurs chutent
 

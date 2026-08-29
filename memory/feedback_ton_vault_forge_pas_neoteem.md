@@ -7,7 +7,7 @@ metadata:
 ---
 
 Quand Raphael dit « sauve dans TON vault » / « ton volt », il parle de **forge-brain**
-(`mcp__forge-brain__*`, mon cerveau persistant), PAS du vault Neoteem métier
+(MCP forge-brain, mon cerveau persistant), PAS du vault Neoteem métier
 (`mcp__obsidian-brain__*`). Le suivi de projet/relation va dans forge `1-Projets/`.
 
 **Why:** Session 1er juin 2026 — j'ai créé une note de suivi support dans le vault Neoteem

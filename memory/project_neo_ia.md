@@ -2,6 +2,8 @@
 name: neo-ia-project
 description: Phase ephemere neo_ia — aligné sur le modèle neoteem-back-ts le 10 juin 2026 (/feature, Default-FAIL, memory/ compounding, workflow PR, CI Bitbucket réparée). Contexte stable dans vault/1-Projets/Neoteem/neo_ia/
 type: project
+status: review-required
+expires: 2026-09-15
 originSessionId: be761cf9-3fd0-4016-adb8-3e189b4efb1f
 ---
 ## neo_ia — Phase actuelle

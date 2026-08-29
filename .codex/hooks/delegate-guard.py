@@ -46,6 +46,12 @@ from pathlib import Path
 # basename CLAUDE.md → specialist skill that owns it
 PROTECTED_BASENAMES = {
     "CLAUDE.md": "claudemd-creator",
+    "AGENTS.md": "claudemd-creator",
+    "settings.json": "hook-creator",
+    "settings.local.json": "hook-creator",
+    ".mcp.json": "hook-creator",
+    "hooks.json": "hook-creator",
+    "config.toml": "hook-creator",
 }
 
 TYPO_THRESHOLD = 20
@@ -56,6 +62,9 @@ ALLOWED_SPECIALISTS = {
     "subagent-creator",
     "hook-creator",
     "claudemd-creator",
+    "done",
+    "clean-memory",
+    "project-memory",
 }
 
 # External/kepano skills — read-only copies, NOT authored via skill-creator → not protected
@@ -68,9 +77,7 @@ EXEMPT_SKILL_DIRS = {
 }
 
 # Hook files that must never be self-locked
-EXEMPT_HOOK_FILES = {
-    "delegate-guard.py",
-}
+EXEMPT_HOOK_FILES: set[str] = set()
 
 # How many trailing transcript lines to scan for attributionSkill
 TRANSCRIPT_TAIL = 15
@@ -141,6 +148,8 @@ def is_hook_py(norm_path: str) -> bool:
 def required_specialist(norm_path: str) -> str | None:
     """Return the specialist skill required to edit this file, or None if unprotected."""
     name = basename(norm_path)
+    if norm_path.lower().endswith("/memory/memory.md"):
+        return "done|clean-memory|project-memory"
     if name in PROTECTED_BASENAMES:
         return PROTECTED_BASENAMES[name]
     if is_skill_md(norm_path):
@@ -152,6 +161,41 @@ def required_specialist(norm_path: str) -> str | None:
     return None
 
 
+def is_security_critical(norm_path: str) -> bool:
+    """Security surfaces never receive the small-typo bypass."""
+    name = basename(norm_path)
+    return (
+        name in {"settings.json", "settings.local.json", ".mcp.json", "hooks.json", "config.toml"}
+        or norm_path.lower().endswith("/memory/memory.md")
+        or is_hook_py(norm_path)
+    )
+
+
+def _current_turn_events(transcript_path: str) -> list[dict]:
+    """Return parsed events after the latest human prompt, never an older turn."""
+    with open(transcript_path, "r", encoding="utf-8") as handle:
+        parsed = []
+        for line in handle.readlines()[-TRANSCRIPT_TAIL:]:
+            try:
+                event = json.loads(line)
+            except Exception:
+                continue
+            if isinstance(event, dict):
+                parsed.append(event)
+    boundary = -1
+    for index, event in enumerate(parsed):
+        if event.get("type") != "user":
+            continue
+        content = (event.get("message") or {}).get("content")
+        is_tool_result = isinstance(content, list) and any(
+            isinstance(block, dict) and block.get("type") == "tool_result"
+            for block in content
+        )
+        if not is_tool_result:
+            boundary = index
+    return parsed[boundary + 1 :]
+
+
 def active_skill_from_transcript(transcript_path: str) -> str | None:
     """Return the attributionSkill of the most recent assistant event, or None.
 
@@ -160,16 +204,7 @@ def active_skill_from_transcript(transcript_path: str) -> str | None:
     Fail-open → None on any error.
     """
     try:
-        with open(transcript_path, "r", encoding="utf-8") as f:
-            lines = f.readlines()
-        for line in reversed(lines[-TRANSCRIPT_TAIL:]):
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                event = json.loads(line)
-            except Exception:
-                continue
+        for event in reversed(_current_turn_events(transcript_path)):
             attr = event.get("attributionSkill")
             if attr:
                 return attr
@@ -234,11 +269,16 @@ def main() -> None:
 
         # STRICT bypass: the active attributionSkill must be the specialist that owns this file
         active_skill = active_skill_from_transcript(transcript_path) if transcript_path else None
-        if active_skill == required:
+        required_options = set(required.split("|"))
+        if active_skill in required_options:
             debug_log(f"BYPASS attributionSkill={active_skill!r} matches required for {basename(norm_path)}")
             sys.exit(0)
 
-        if tool_name in ("Edit", "MultiEdit") and is_typo_change(tool_name, tool_input):
+        if (
+            not is_security_critical(norm_path)
+            and tool_name in ("Edit", "MultiEdit")
+            and is_typo_change(tool_name, tool_input)
+        ):
             print(
                 f"WARNING: delegate-guard bypassed for trivial edit (<{TYPO_THRESHOLD} chars) "
                 f"on protected file '{basename(norm_path)}'. For real changes, use {required}.",

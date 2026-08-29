@@ -2,7 +2,7 @@
 name: hook-creator
 description: ALWAYS invoke when user wants to create, modify, or audit a Claude Code hook. Do not hand-write hook configurations directly — use this skill first.
 user-invocable: true
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__*
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 ---
 
 # hook-creator

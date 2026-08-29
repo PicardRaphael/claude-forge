@@ -19,24 +19,41 @@ GUARDS = [
 ]
 
 
+class SecurityGuardFailure(RuntimeError):
+    """Raised when the critical destructive-command guard cannot execute."""
+
+
+def run_guard(name: str, payload: str, *, critical: bool = False) -> int:
+    path = os.path.join(_HOOK_DIR, name)
+    if not os.path.isfile(path):
+        if critical:
+            raise SecurityGuardFailure(f"critical guard missing: {name}")
+        return 0
+    real_stdin = sys.stdin
+    sys.stdin = io.StringIO(payload)
+    try:
+        runpy.run_path(path, run_name="__main__")
+    except SystemExit as exc:
+        return exc.code if isinstance(exc.code, int) else 1
+    except Exception as exc:
+        if critical:
+            raise SecurityGuardFailure(f"critical guard crashed: {name}") from exc
+        return 0
+    finally:
+        sys.stdin = real_stdin
+    return 0
+
+
 def main() -> None:
     payload = sys.stdin.read()
-    real_stdin = sys.stdin
     for guard in GUARDS:
-        path = os.path.join(_HOOK_DIR, guard)
-        if not os.path.isfile(path):
-            continue
-        sys.stdin = io.StringIO(payload)
         try:
-            runpy.run_path(path, run_name="__main__")
-        except SystemExit as exc:
-            if exc.code == 2:
-                sys.exit(2)  # stderr de la garde déjà émis
-        except Exception:
-            # fail-open par garde (les gardes sécu gèrent leur fail-closed en interne)
-            pass
-        finally:
-            sys.stdin = real_stdin
+            code = run_guard(guard, payload, critical=(guard == "security-guard.py"))
+        except SecurityGuardFailure as exc:
+            print(f"BLOCKED: {exc}", file=sys.stderr)
+            sys.exit(2)
+        if code == 2:
+            sys.exit(2)
     sys.exit(0)
 
 

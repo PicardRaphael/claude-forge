@@ -66,7 +66,6 @@ Exemple : un hook `validate.py` dans ia_back wired avec `python3` au lieu de `bu
 
 | Fichier | Description |
 |---------|-------------|
-| `check-before-create.md` | Checklist avant création composant |
 | `learn-from-mistakes.md` | Rule apprentissage erreurs |
 | `quality-gates.md` | Gates qualité pipeline |
 
@@ -107,8 +106,8 @@ Pattern de nommage : agent dont le nom ou la description contient `db`, `databas
 
 ## Check 5 — Mémoire compounding (pattern Boris)
 
-### 5a — memory: project dans les agents
-Chaque agent `.claude/agents/*.md` doit avoir `memory: project` dans son frontmatter.
+### 5a — mémoire persistante des agents
+Chaque agent `.claude/agents/*.md` doit omettre la mémoire persistante par défaut. Toute activation documente le besoin, le scope et la révision.
 - Absent → **CRITIQUE**
 
 ### 5b — Section Gotchas dans CLAUDE.md

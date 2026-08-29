@@ -2,7 +2,7 @@
 name: reco-automatisation
 description: ALWAYS invoke when the user has process sheets and wants AI-automation recommendations — 'fais-moi les recos d'automatisation'. Applies quality-equation + chatbot/workflow/agent grading. NOT for the interview itself (audit-departement).
 user-invocable: true
-allowed-tools: Read, mcp__forge-brain__*
+allowed-tools: Read, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 model: opus
 effort: high
 argument-hint: "[chemin ou colle la/les fiche(s) process]"

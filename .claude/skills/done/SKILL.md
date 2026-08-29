@@ -2,7 +2,7 @@
 name: done
 description: ALWAYS invoke when Raphaël types /done, asks to finish/capitalise a session, or explicitly asks to remember what was learned. Consolidates profile, projects, decisions, knowledge and temporary context. NOT for session recall (recap).
 user-invocable: true
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__*
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 ---
 
 # done — capitalisation de session

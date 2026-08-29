@@ -6,7 +6,6 @@ allowed-tools: Read, Write, Glob, Grep, Bash, Task, AskUserQuestion
 user-invocable: true
 model: opus
 effort: high
-memory: project
 skills:
   - neo-brain-dev-ia
 ---

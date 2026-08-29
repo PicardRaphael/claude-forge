@@ -10,7 +10,7 @@ Quand une décision de naming, structure ou doctrine est prise sur un repo, elle
 
 ## Checklist repos concernés
 
-Table des repos + **procédure de résolution des chemins** (obligatoire : 2 machines, arborescences différentes, repos parfois absents) : source unique `.claude/rules/git-multi-repo.md` § « Chemins des repos — RÉSOUDRE, jamais recopier ». Ne pas recopier de chemin absolu ici.
+La procédure de résolution des chemins vit dans `AGENTS.md` : résoudre sur la machine courante, puis utiliser `git -C <chemin>`. Ne recopier aucun chemin absolu.
 
 ## Protocole
 
@@ -19,7 +19,7 @@ Table des repos + **procédure de résolution des chemins** (obligatoire : 2 mac
 3. **Pour chaque repo présent** :
    - Identifier le composant à modifier (agent, skill, rule, CLAUDE.md)
    - **Write en session principale** — jamais délégué à un sub-agent (bloqué cross-repo, et `delegate-guard` lit l'`attributionSkill` de la session principale). Cf `delegate-to-specialists.md` + `mcp-brief-then-direct.md` § contre-exemple.
-   - Chemin résolu dynamiquement, jamais recopié (cf `git-multi-repo.md`)
+   - Chemin résolu dynamiquement, jamais recopié (cf `AGENTS.md`)
 4. **Vérifier empiriquement** après propagation : grep le terme modifié sur chaque repo.
 4. **Documenter** dans le vault si décision à valeur canonique :
    ```

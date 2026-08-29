@@ -472,3 +472,9 @@ Yann LeCun en `prompt/` malgré position critique LLM (essentiel pour balance id
 - skill-amended `.claude/skills/forge-brain/SKILL.md` (197L → 292L) via skill-creator — A1 Karpathy 3 temps SEARCH/SELECT/READ + N=3/4/2-4/illimité + anti-patterns ; A2 priorisation tools "search_brain dernier recours" ; A3 pagination autoguidée 500L par passes
 - vault-updated `0-Inbox/context-actuel.md` — Phase audit MCP + P3a/b/c/d brain ← forge tracés
 - Source : recadrage Raphaël (vraie question = lequel MCP mieux conçu tokens/Karpathy serveur). Audit comparatif brain.py 595L vs forge-brain.py 1135L sur 14 critères. AUCUNE modif code MCP. Cycle git groupé 2 commits proposés (STOP validation Raphaël).
+
+## [2026-08-29] pivot-check | second cerveau mémoire opt-in
+
+- Pivot propagé aux canoniques, créateurs, agents, règles, hooks et adaptateurs Claude/Codex.
+- Résidus recherchés : mémoire agent obligatoire, wildcard MCP, descriptions-only des skills, bloc d'ouverture universel.
+- Rappel mémoire désormais indexé, actif, expirable et metadata-only.

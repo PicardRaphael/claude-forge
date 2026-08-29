@@ -1,5 +1,5 @@
 ---
-derniere-maj: 2026-07-27
+derniere-maj: 2026-08-29
 resume: Note canonique pour créer une skill Claude Code selon les 9 catégories Thariq (post Anthropic mars 2026), structure progressive disclosure, frontmatter trigger 3e personne, < 500L SKILL.md, limite description 1024 chars spec / 1536 listing (pas 250), interview 3 rounds obligatoires, evals obligatoires, agentskills.io spec ouverte.
 aliases:
   - "comment creer une skill"
@@ -270,7 +270,7 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilis�
 - Composition avec MCP tools (la skill orchestre, MCP fournit data)
 - Hooks complémentaires pour invariants
 - Modèle dédié si workload spécifique (`model: opus` pour jugement)
-- `allowed-tools` restreint pour sécu
+- `allowed-tools` pré-approuve les outils nécessaires ; `disallowed-tools` porte les interdits
 
 ---
 
@@ -608,7 +608,7 @@ Pour skills qui accèdent au vault forge-brain, utiliser **wildcard** au lieu de
 allowed-tools: Read, Write, Edit, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__create_note, mcp__forge-brain__append_note, mcp__forge-brain__update_property
 
 # ✅ APRÈS
-allowed-tools: Read, Write, Edit, Bash, mcp__forge-brain__*
+allowed-tools: Read, Write, Edit, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__create_note, mcp__forge-brain__update_note
 ```
 
 ### Bénéfices identiques aux agents
@@ -647,7 +647,7 @@ Skills concernées neo_ia/ia_back : toutes celles qui ont des MCP dans allowed-t
 
 ## AJOUT 27 mai 2026 — Brief sub-agent et accès vault : cause-racine empirique
 
-Le pattern brief-then-direct n'est pas qu'une optimisation tokens : c'est une **nécessité structurelle**. Vérifié empiriquement (Chantier A étape 2b, 27 mai 2026) : le `mcp__forge-brain__*` du `tools:`/`allowed-tools:` d'un sub-agent est **décoratif** — le serveur MCP n'est PAS connecté dans son contexte (`No such tool available`). Un sub-agent à qui on ordonne « lire les canoniques via MCP » fallback sur `cat`/`find`/`grep`/`Read` du vault → viole la doctrine MCP-only.
+Le pattern brief-then-direct n'est pas qu'une optimisation tokens : c'est une **nécessité structurelle**. Vérifié empiriquement (Chantier A étape 2b, 27 mai 2026) : les permissions MCP déclarées dans `tools:`/`allowed-tools:` d'un sub-agent est **décoratif** — le serveur MCP n'est PAS connecté dans son contexte (`No such tool available`). Un sub-agent à qui on ordonne « lire les canoniques via MCP » fallback sur `cat`/`find`/`grep`/`Read` du vault → viole la doctrine MCP-only.
 
 **Règle pour skill-creator** : ne JAMAIS écrire « lis via MCP » dans le body d'un creator. Écrire « le contenu canonique te vient inline dans le brief ; sinon ESCALADE ; jamais cat/find/grep/Read le vault ». Filet MCP subordonné à l'escalade.
 

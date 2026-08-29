@@ -2,10 +2,9 @@
 name: reasoning-cache
 description: ALWAYS invoke when user says save this reasoning, cache this, or after a multi-step debug that changed direction. Captures successful reasoning chains as vault notes. Use PROACTIVELY after complex problems where path reversed.
 argument-hint: "[problem description] [-- steps]"
-allowed-tools: Bash, Read, Write, Glob, mcp__forge-brain__*
+allowed-tools: Bash, Read, Write, Glob, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 user-invocable: true
 effort: high
-memory: project
 ---
 
 Caches the reasoning PATH (not the solution) that led to a validated outcome, as a vault note in `Knowledge/raisonnements/`. Next time a similar problem surfaces, reasoning starts from the working chain — not from zero.
@@ -163,7 +162,7 @@ Inclure obligatoirement :
 
 ## MCP — accès direct (filet de sécurité)
 
-Tu reçois normalement un brief enrichi de la session principale avec les éléments MCP pertinents déjà extraits (vault, DB, docs). Si pendant l'exécution tu rencontres un doute non couvert par ton brief (terme inconnu, décision technique conflictuelle, pattern incertain, valeur précise non fournie), tu peux re-consulter directement le MCP via `mcp__forge-brain__*`.
+Tu reçois normalement un brief enrichi de la session principale avec les éléments MCP pertinents déjà extraits (vault, DB, docs). Si pendant l'exécution tu rencontres un doute non couvert par ton brief (terme inconnu, décision technique conflictuelle, pattern incertain, valeur précise non fournie), tu peux re-consulter directement le MCP via `mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes`.
 
 **Pas systématique** — la session principale t'a déjà briefé. C'est un filet de sécurité, pas une exploration parallèle. Anti-pattern : scanner par réflexe (coût tokens × N agents).
 

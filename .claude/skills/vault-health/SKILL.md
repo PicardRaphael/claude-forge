@@ -2,7 +2,7 @@
 name: vault-health
 description: ALWAYS invoke when the user types /vault-health or asks for the weekly vault health check — lint + closed-list fixes, usage trend, cross-repo adoption, inbox, dated report. NOT for deep note fixes (vault-audit) or strategic review (forge-review).
 user-invocable: true
-allowed-tools: mcp__forge-brain__*, Bash, Write
+allowed-tools: mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes, Bash, Write
 model: sonnet
 effort: medium
 ---

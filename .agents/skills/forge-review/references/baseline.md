@@ -45,7 +45,6 @@ Last updated: 2026-05-08
 |------|----------|-----------|
 | Delegate to specialists | `delegate-to-specialists.md` | Route writes to right agents |
 | Proactive behavior / dispatch | `comportement-proactif.md` | Session routing table |
-| Check before create | `check-before-create.md` | Prevent blind creation |
 | Memory discipline | `memory-discipline.md` | Enforce memory reads/writes |
 | Forge brain proactive | `forge-brain-proactive.md` | Vault query as reflex |
 | Changelog vault | `changelog-vault.md` | Vault change tracking |

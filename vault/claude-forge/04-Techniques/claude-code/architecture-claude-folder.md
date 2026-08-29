@@ -10,7 +10,7 @@ aliases:
   - "additionalDirectories claude"
 domaine: claude-code
 type: reference
-derniere-maj: 2026-07-27
+derniere-maj: 2026-08-29
 auteur: claude
 sources:
   - "memory/reference_claude_code_architecture.md (avril 2026)"
@@ -96,7 +96,7 @@ paths:
 - `tools:` = allowlist stricte. Si un agent a `Bash`, il l'utilisera.
 - `disallowedTools:` = denylist.
 - `Agent(nom1, nom2)` = restreindre quels agents peuvent être spawnés.
-- `memory: project` = mémoire persistante entre sessions (obligatoire sur tous agents forge).
+- La mémoire persistante des agents est opt-in : besoin durable, scope et révision explicites.
 - Skills listées dans `skills:` sont injectées EN ENTIER au démarrage — ne pas lister `Skill` dans `tools:` pour ça.
 - **Subagents n'héritent PAS les skills du parent** → brief in-body obligatoire (cf [[pattern-mcp-brief-then-direct]]).
 

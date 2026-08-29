@@ -2,7 +2,7 @@
 name: veille-outils-ia
 description: ALWAYS invoke to refresh the market AI-tools landscape notes — re-verifies volatile facts (pricing, stars, valuations, M&A) at primary source, updates vault under human gate. NOT for Codex news (cc-news) or picking a tool (choix-outils-ia).
 user-invocable: true
-allowed-tools: WebSearch, WebFetch, Read, Skill, mcp__forge-brain__*
+allowed-tools: WebSearch, WebFetch, Read, Skill, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 argument-hint: "catégorie (voix | briques | code | memoire-rag | infra | tout) ou note précise"
 ---
 

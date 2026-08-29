@@ -2,6 +2,8 @@
 name: deploy-methods-other-repos
 description: Deployer le standard methodes integrees + qualite notes sur neo_ia, ia_back, neoteem-brain lors du prochain skill-evolve
 type: project
+status: review-required
+expires: 2026-09-15
 originSessionId: be761cf9-3fd0-4016-adb8-3e189b4efb1f
 ---
 ## À déployer sur les autres repos

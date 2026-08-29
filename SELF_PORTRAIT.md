@@ -76,8 +76,8 @@ Document interne. Photographie technique fidèle pour reprise de contexte rapide
 - `meta-commentary-detector.py` — PreToolUse Write/Edit, bloque 11 patterns méta-commentaire
 - `vault-cat-guard.py` — PreToolUse Bash, force MCP forge-brain pour vault
 - `mcp-alias-guard.py` — bloque alias court ambigu MCP append_note
-- `memory-size-watcher.py` — surveille croissance MEMORY.md
-- `session-reminder.py` — SessionStart, nettoie markers + affiche extrait MEMORY.md (résolution `__file__`)
+- `memory-health.py` — surveille uniquement les défauts actionnables de cycle de vie (TTL/index)
+- `session-state-reset.py` — SessionStart, nettoie les marqueurs sans réinjecter MEMORY.md
 - `mcp-autostart.py` — SessionStart async, démarre MCP forge-brain port 8091
 - `session-health.py` — UserPromptSubmit, compteur tours + tips `/recap` `/compact`
 - `skill-activation.py` — UserPromptSubmit, matche prompt vs `.skill-triggers.json`
@@ -88,7 +88,7 @@ Plus 1 hook inline `py_compile` dans frontmatter `python-dev`.
 
 ### Rules (9)
 
-`changelog-vault.md`, `check-before-create.md`, `comportement-proactif.md` (dispatch agents), `delegate-to-specialists.md`, `devils-advocate-pipeline.md` (conditionnel ciblé), `forge-brain-proactive.md` (MCP), `memory-discipline.md` (frontière mémoire/vault), `sequence-canonique-modification.md` (A→B→C→D→E), `vault-consultation-protocol.md`.
+`changelog-vault.md`, `comportement-proactif.md` (dispatch agents), `delegate-to-specialists.md`, `devils-advocate-pipeline.md` (conditionnel ciblé), `forge-brain-proactive.md` (MCP), `memory-discipline.md` (frontière mémoire/vault) et `sequence-canonique-modification.md` (A→B→C→D→E).
 
 ---
 

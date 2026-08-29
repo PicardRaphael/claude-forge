@@ -1,6 +1,6 @@
 # Vérifier un CONSTAT d'audit — cas réels et raisonnement long
 
-Référence de `.claude/rules/post-dispatch-verify.md`. **Non chargée en contexte** : lue à la demande, quand un audit produit des findings à relayer ou qu'on veut comprendre *pourquoi* la règle existe. Le tableau des mesures qui tranchent vit dans la rule, lui — c'est la partie actionnable.
+Référence historique de la règle de vérification post-dispatch, désormais condensée dans `AGENTS.md` et la skill `auditor-empirical-verify`. **Non chargée en contexte** : lue seulement pour comprendre les cas réels.
 
 ## Pourquoi c'est non négociable sur un audit de repo
 
@@ -12,7 +12,7 @@ La mécanique de l'erreur : un agent d'audit rapporte ce qu'il a **déduit** de 
 
 Mêmes agents, **aucun fichier écrit**, trois faits faux. Aucun des trois n'aurait été attrapé par la checklist « fichiers » : aucun fichier n'était en jeu.
 
-**1. « Chemin mort `Documents/ia_back` »** → le chemin existe, **sur l'autre PC de Raphael**. Le fait mesuré (« absent ici ») était juste ; l'interprétation (« chemin erroné, à corriger ») était fausse. Leçon : un `ls` négatif ne dit pas « ce chemin est faux », il dit « absent sur cette machine ». Cf `git-multi-repo.md` § chemins à résoudre, jamais recopier.
+**1. « Chemin mort `Documents/ia_back` »** → le chemin existe, **sur l'autre PC de Raphael**. Le fait mesuré (« absent ici ») était juste ; l'interprétation (« chemin erroné, à corriger ») était fausse. Leçon : un `ls` négatif signifie « absent sur cette machine », pas « chemin faux ».
 
 **2. « Repo fantôme `lojii/neofront` »** → le dossier existe bel et bien. `ls -d neofront/.git` a tranché : ce n'est pas un repo, c'est un **conteneur d'une dizaine de repos indépendants**. Deux erreurs opposées (« n'existe pas » / « est un repo ») corrigées par une seule mesure.
 

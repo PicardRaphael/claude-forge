@@ -39,7 +39,7 @@ Copier le template correspondant dans un fichier `RUBRIC.md` dans le dossier du 
 
 ## Critères obligatoires (MUST)
 - [ ] `permissionMode` défini (plan, acceptEdits, ou bypassPermissions)
-- [ ] `memory: project` présent
+- [ ] Mémoire persistante absente ou explicitement justifiée
 - [ ] Description = trigger en anglais, une seule ligne
 - [ ] Modèle cohérent : opus pour jugement/analyse, sonnet pour exécution
 

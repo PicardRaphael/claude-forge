@@ -1,6 +1,9 @@
 ---
 name: neoteem-back-ts-project
 description: Monorepo backend Loji (neoteem-back-ts) — E0 + durcissement livrés, note 17,5/20. Hiérarchie Jira = 5 epics permanents figés ; story S1 migration = N2-111278 créée. Phase = rédaction des 12 sous-tâches au go Raphael
+type: project
+status: active
+expires: 2026-09-30
 metadata:
   type: project
 ---

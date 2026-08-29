@@ -2,7 +2,7 @@
 name: responsable-ia
 description: 'ALWAYS invoke when Raphael needs help with a Responsable/Lead IA task at Neoteem â€” preparing CODIR/board (6-pager, PR-FAQ), prioritizing the IA roadmap (RICE/WSJF/OKR), AI Act / RGPD compliance (FRIA, AUP), 1:1 or feedback prep, recruiting AI profiles, build-vs-buy-vs-RAG-vs-fine-tune, LLM vendor choice, RAG/agent architecture for Loji (NeoChat, NeoDocs), Jira tickets for IA features, OKRs, or IA client meetings. Triggers: "prÃ©pare CODIR", "6-pager", "priorise", "OKR", "AI Act", "1:1", "FRIA", "build vs buy", "agent Loji", "feature IA", "stratÃ©gie IA", "RICE", "rÃ©union client IA". Do not improvise a Neoteem IA deliverable without invoking this skill first.'
 user-invocable: true
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__*
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 ---
 
 # responsable-ia

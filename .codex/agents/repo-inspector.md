@@ -5,8 +5,7 @@ model: opus
 effort: xhigh
 color: purple
 permissionMode: plan
-memory: project
-tools: Read, Glob, Grep, Bash, Skill, Agent, WebFetch, WebSearch, mcp__forge-brain__*
+tools: Read, Glob, Grep, Bash, Skill, Agent, WebFetch, WebSearch, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__list_notes
 disallowedTools: Write, Edit
 skills:
   - cc-advisor
@@ -44,7 +43,7 @@ Toute analyse passe ces trois angles. Ils se contredisent volontairement : c'est
 - /clear entre tâches non-liées documenté ?
 - Verify output : Claude a-t-il un moyen de vérifier son output (hook, script, test) ?
 - Sonnet/Opus split cohérent (Sonnet exécution, Opus jugement) ?
-- Mémoire persistante (`memory: project`) sur les agents qui accumulent ?
+- Mémoire persistante activée uniquement pour un besoin démontré, avec révision ?
 
 ### Lentille 2 — MINIMALISME (a-t-on trop empilé ?)
 - Single agent / session principale pourrait-il faire ça directement (> ~45% succès) → FUSION ou DELETE candidate

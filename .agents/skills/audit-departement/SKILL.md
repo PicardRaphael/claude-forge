@@ -2,7 +2,7 @@
 name: audit-departement
 description: ALWAYS invoke to interview a company department (Migration, Support, RH, PO…) and spot AI-automation candidates — 'audit le département X', 'interview le service Y'. One question at a time. NOT for turning sheets into recos (reco-automatisation).
 user-invocable: true
-allowed-tools: Read, mcp__forge-brain__*, TaskCreate, TaskUpdate, TaskList
+allowed-tools: Read, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes, TaskCreate, TaskUpdate, TaskList
 model: sonnet
 effort: high
 argument-hint: "<NomDuDépartement>"

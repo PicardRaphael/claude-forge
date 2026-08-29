@@ -1,7 +1,7 @@
 ---
 name: clean-memory
 description: ALWAYS invoke when the user types /clean-memory. Detects duplicate and dormant feedbacks in memory/MEMORY.md, proposes merges and archives with human gate per item. DO NOT archive or merge any feedback without invoking first.
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__*
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 user-invocable: true
 ---
 
@@ -328,7 +328,7 @@ Procédure : git mv depuis _archive/ vers memory/, restaurer ligne index, ajoute
 
 ## MCP — acces direct (filet de securite)
 
-Tu recois normalement un brief enrichi de la session principale. Si pendant l'execution un element manque (terme inconnu, pattern incertain), tu peux re-consulter via `mcp__forge-brain__*`.
+Tu recois normalement un brief enrichi de la session principale. Si pendant l'execution un element manque (terme inconnu, pattern incertain), tu peux re-consulter via `mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes`.
 
 **Pas systematique** — filet de securite uniquement, pas exploration parallele.
 

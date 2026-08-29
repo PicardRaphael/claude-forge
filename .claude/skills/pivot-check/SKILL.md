@@ -3,7 +3,6 @@ name: pivot-check
 description: ALWAYS invoke when the user types /pivot-check or a session follows a vault canonical edit. Detects Type 1 doctrinal drift (residual obsolete claims). Advisory only — reports, never auto-applies. NOT for executing a pivot (methode-pivoter-doctrine).
 user-invocable: true
 effort: high
-memory: project
 allowed-tools: Grep, Read, Bash
 ---
 
@@ -38,9 +37,7 @@ Lancer Grep sur chaque terme obsolete dans ces cibles :
 | `.claude/agents/*.md` | Tous les agents |
 | `.claude/rules/*.md` | Toutes les rules |
 | `.claude/hooks/*.py` | Hooks (rare mais possible) |
-| `vault/claude-forge/index.md` | Navigation principale LLM |
-| `vault/claude-forge/00-Hub/*.md` | MOCs thematiques |
-| `vault/claude-forge/05-Leaders/**` | Fiches biographiques |
+| Vault forge-brain | rechercher via MCP uniquement, puis lire les foyers candidats en entier |
 | `memory/MEMORY.md` | Index memoire |
 | `memory/feedback_*.md` | Feedbacks archives |
 | `**/RECAP.md` | Session recaps qui figent du contexte obsolete |
@@ -80,7 +77,7 @@ Si l'utilisateur confirme les fixes, deleguer aux specialistes :
 | `.claude/skills/*/SKILL.md` | `skill-creator` |
 | `.claude/agents/*.md` | `subagent-creator` |
 | `.claude/rules/*.md` | Edit direct (pas de specialiste) |
-| Notes vault | Edit direct ou `/vault-audit` |
+| Notes vault | mutation MCP forge-brain par la session principale |
 
 Le hook `delegate-guard.py` bloque les edits directs sur SKILL.md, agents et CLAUDE.md — deleguer est obligatoire, pas optionnel.
 
@@ -88,8 +85,8 @@ Le hook `delegate-guard.py` bloque les edits directs sur SKILL.md, agents et CLA
 
 ⚠️ **Doctrine 22 mai** : cette skill est ADVISORY pure. Elle ne capitalise PAS automatiquement — elle SUGGÈRE à l'utilisateur de :
 
-1. Mettre a jour `vault/claude-forge/CHANGELOG.md` (cf `.claude/rules/changelog-vault.md`)
-2. Append dans `vault/claude-forge/log.md` : `## [YYYY-MM-DD] pivot-check | <pivot-name>`
+1. Mettre a jour `CHANGELOG.md` via MCP (cf `.claude/rules/changelog-vault.md`)
+2. Append dans `log.md` via MCP : `## [YYYY-MM-DD] pivot-check | <pivot-name>`
 3. Si le drift s'est reproduit — creer/mettre a jour `Knowledge/erreurs/<pivot-name>.md`
 
 C'est à l'utilisateur (ou la session principale) d'exécuter ces actions. La skill rapporte + recommande, ne fait pas.
@@ -110,7 +107,7 @@ Si le pivot concerne une note canonique qui peut être référencée dans `ia_ba
 - **05-Leaders est ambigu** : une fiche biographique contient forcément le nom de la personne — faux positif structurel. Flagger uniquement les **affirmations doctrinales** hors biographies (ex : le nom dans CLAUDE.md ou une rule).
 - **memory/MEMORY.md tronque a 200 lignes** — le fichier peut contenir des entrees obsoletes au-dela de la limite de lecture. Si un terme manque dans le rapport, signaler l'ambiguite.
 - **delegate-guard.py bloque le path direct** — ne pas tenter d'editer SKILL.md directement meme pour un fix evident, exit 2. Toujours passer par skill-creator.
-- **Grep sur vault via Grep natif CC** — justifie car le perimetre inclut `.claude/` et `memory/`, pas seulement le vault (qui serait MCP-only). Les deux scopes coexistent dans cette skill.
+- **Jamais Grep/Read filesystem sur le vault** — les fichiers repo se scannent localement ; les notes vault passent exclusivement par MCP.
 - **Termes partiels polluent** : chercher "max" retournera des faux positifs massifs — toujours utiliser des termes suffisamment specifiques (ex : "effort: max" ou "max deprecie").
 
 ## Reference canonique vault
@@ -120,7 +117,7 @@ Si le pivot concerne une note canonique qui peut être référencée dans `ia_ba
 
 ## Apprentissage
 
-Apres chaque invocation, noter dans la memoire projet :
+Apres chaque invocation, proposer à la session principale les apprentissages réellement durables :
 - Quel pivot a declenche l'invocation ?
 - Combien de drifts Type 1 detectes / corriges ?
 - Y a-t-il des exclusions a coder en dur pour ce repo ?

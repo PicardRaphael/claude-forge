@@ -2,7 +2,7 @@
 name: responsable-ia
 description: ALWAYS invoke for Lead IA deliverables — CODIR/6-pager, RICE/OKR prioritization, AI Act/FRIA, 1:1s, recruiting, build-vs-buy, LLM vendor choice, feature framing, Jira IA tickets. NOT for RAG design (rag-design) or tool choice (choix-outils-ia).
 user-invocable: true
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__*
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 ---
 
 # responsable-ia

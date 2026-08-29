@@ -5,7 +5,6 @@ argument-hint: "[fix] [--top N] [--full] [--note NAME]"
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep
 user-invocable: true
 effort: high
-memory: project
 ---
 
 Audits the forge-brain Obsidian vault (96+ notes) for quality issues and applies deterministic corrections on demand.

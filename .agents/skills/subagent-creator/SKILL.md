@@ -2,7 +2,7 @@
 name: subagent-creator
 description: ALWAYS invoke when user wants to create, edit, audit, or optimize a Claude Code subagent / agent .md file. Do not hand-write agents/*.md directly — use this skill first.
 user-invocable: true
-allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__*
+allowed-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 ---
 
 # subagent-creator
@@ -73,7 +73,7 @@ Extraire d'abord depuis l'historique, puis combler avec AskUserQuestion.
 7. Modèle : haiku (exploration rapide) / sonnet (implémentation) / opus (orchestration/jugement) ?
 8. Effort : high (défaut) / xhigh (architect, dev-lead, refactor profond) ?
 9. Skills à injecter ? (subagents n'héritent PAS des skills du parent — lister explicitement)
-10. Mémoire entre sessions → `memory: project` (toujours)
+10. Mémoire entre sessions → désactivée par défaut ; l'activer seulement avec besoin durable, scope et révision explicites
 
 ---
 
@@ -99,18 +99,18 @@ disallowedTools: Write, Edit           # pour agents read-only
 model: sonnet | opus | haiku
 effort: high | xhigh
 color: red|orange|yellow|green|blue|purple|cyan|pink
-memory: project                        # OBLIGATOIRE — toujours
-permissionMode: acceptEdits | plan     # OBLIGATOIRE — plan si side-effects
+# memory: project                      # OPTIONNEL — besoin durable démontré uniquement
+permissionMode: acceptEdits | plan     # OPTIONNEL — explicite si le risque le justifie
 skills:
-  - subagent-creator                   # skills à précharger (descriptions injectées au démarrage)
+  - subagent-creator                   # contenu complet préchargé au démarrage
 isolation: worktree                    # si agents parallèles sur fichiers
 maxTurns: 50                           # optionnel
 ---
 ```
 
 **Règles absolues frontmatter :**
-- `memory: project` : TOUJOURS, sans exception
-- `permissionMode` : TOUJOURS — `acceptEdits` pour writers, `plan` si side-effects irréversibles
+- `memory` : absent par défaut ; si activé, documenter contenu attendu, scope et révision
+- `permissionMode` : optionnel ; préférer `plan` pour un agent read-only ou à side-effects sensibles
 - `tools:` TOUJOURS explicite — sans ça, comportement variable (incident git reset mars 2026)
 - Inclure `Skill` dans `tools:` si l'agent doit invoquer des skills (sinon impossible mécaniquement)
 - `disallowedTools: Write, Edit` sur agents read-only (double protection)
@@ -230,8 +230,8 @@ Les evals sont **obligatoires** pour tout agent créé ou optimisé. Sans mesure
 - [ ] `description` UNE SEULE LIGNE anglais — jamais `>-` ni `|`
 - [ ] `description` directive : "Use this agent when… Use PROACTIVELY when…"
 - [ ] `tools:` TOUJOURS explicite — inclut `Skill` si l'agent doit invoquer des skills
-- [ ] `memory: project` — TOUJOURS, sans exception
-- [ ] `permissionMode` — TOUJOURS (`acceptEdits` writers, `plan` side-effects)
+- [ ] Mémoire persistante absente, ou justifiée avec scope et révision
+- [ ] `permissionMode` cohérent avec les side-effects quand il est déclaré
 - [ ] `color` selon convention forge
 - [ ] `disallowedTools: Write, Edit` si read-only
 - [ ] `disallowedTools: Bash` si délégation forcée
@@ -258,8 +258,8 @@ Les evals sont **obligatoires** pour tout agent créé ou optimisé. Sans mesure
 Voir `references/checklist-agent-parfait.md` — 5 dimensions complètes.
 
 Priorités audit rapide :
-1. `memory: project` présent ?
-2. `permissionMode` présent ?
+1. La mémoire persistante est-elle absente ou réellement justifiée ?
+2. Les permissions suivent-elles le moindre privilège ?
 3. `tools:` explicite ? Inclut `Skill` si skills dans frontmatter ?
 4. Description directive (pas passive) ? UNE SEULE LIGNE ?
 5. Body court + règles inlinées + pattern ESCALADE ?
@@ -270,11 +270,11 @@ Priorités audit rapide :
 
 ## Gotchas
 
-- **`memory: project` obligatoire** — sans ça, pas d'accumulation cross-sessions, chaque run repart de zéro
-- **`permissionMode` obligatoire** — sans ça, auto-mode classifier bloque (observé 21 mai 2026)
+- **Mémoire opt-in** — l'absence de persistance évite qu'un ancien biais contamine les runs suivants
+- **`permissionMode` optionnel** — le déclarer quand il clarifie un profil de risque, pas comme rituel
 - **`tools:` toujours explicite** — sans, comportement variable (incident git reset mars 2026)
 - **`Skill` doit être dans `tools:`** — sinon le subagent NE PEUT PAS invoquer de skill mécaniquement
-- **`skills:` précharge, ne force pas** — injecte les descriptions, pas une invocation. Pour forcer → enforcement Niveau 1-6
+- **`skills:` précharge le contenu complet, ne force pas une invocation** — garder la liste minimale
 - **Subagent ne peut pas spawner de sous-subagents** (by design, issue #19077) → retirer `Agent` de `tools:`
 - **AskUserQuestion filtré** en subagent (issues #12890 #18721 #20275) → pattern ESCALADE obligatoire
 - **MCP non garanti** en subagent (`No such tool available`) → brief inline depuis session principale

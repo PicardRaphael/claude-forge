@@ -19,7 +19,7 @@ Outils les plus utilisés :
 - `create_note`, `append_note`, `update_property`, `bulk_update_property`
 - `move_note`, `delete_note` (atomiques + wikilinks auto)
 
-Fallback : si MCP crash, Read/Glob `vault/claude-forge/`. Cas anormal.
+Si le MCP est indisponible, ne jamais lire ni modifier le vault par le filesystem. Continuer sans contexte vault quand c'est sûr, sinon signaler le blocage.
 
 ## QUAND interroger
 
@@ -67,11 +67,11 @@ Minimums : 4-6 aliases · resume 1 phrase spécifique · derniere-maj ISO · 2+ 
 
 ## Cycle d'apprentissage vault
 
-Le vault = système nerveux forge. Chaque agent y lit ET écrit. Pas de Langfuse externe — single source of truth.
+Le vault = système nerveux forge. Les agents lisent selon leur besoin ; la session principale reste l'unique writer sémantique.
 
 | Agent/Skill | Lit | Écrit |
 |---|---|---|
-| `devils-advocate` | `Knowledge/erreurs|critiques/` | `Knowledge/critiques/` |
+| `devils-advocate` | `Knowledge/erreurs|critiques/` | propose un delta à la session principale |
 | `reasoning-cache` | `Knowledge/raisonnements/` | `Knowledge/raisonnements/` |
 | `skill-evolve` | Skills + `Knowledge/evolutions/` + mémoire | `Knowledge/evolutions/` |
 | `forge-review` | CLAUDE.md + rules + skills + agents | `Knowledge/reviews/` |

@@ -4,7 +4,6 @@ description: Read-only grader that evaluates a deliverable against a RUBRIC.md. 
 model: opus
 color: yellow
 effort: high
-memory: project
 tools:
   - Read
   - Glob

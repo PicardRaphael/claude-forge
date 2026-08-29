@@ -1,6 +1,9 @@
 ---
 name: dossier-strategique-ia-neoteem
 description: Trilogie docs IA Neoteem (Stratégique + Roadmap + Modèle éco) pour CODIR, charte graphique réutilisable, à finaliser
+type: project
+status: review-required
+expires: 2026-09-15
 metadata:
   type: project
 ---

@@ -57,6 +57,7 @@ is_inside_forge = _mod.is_inside_forge
 is_agent_md = _mod.is_agent_md
 is_exempt_skill = _mod.is_exempt_skill
 is_typo_change = _mod.is_typo_change
+is_security_critical = _mod.is_security_critical
 active_skill_from_transcript = _mod.active_skill_from_transcript
 skill_invocations_from_transcript = _mod.skill_invocations_from_transcript
 normalize = _mod.normalize
@@ -158,14 +159,34 @@ def test_claude_md_in_subdir():
     assert required_specialist(_p("some/nested/CLAUDE.md")) == "claudemd-creator"
 
 
+def test_settings_and_mcp_config_are_protected_without_typo_bypass():
+    for path in (".claude/settings.json", ".claude/settings.local.json", ".mcp.json", ".codex/hooks.json"):
+        normalized = _p(path)
+        assert required_specialist(normalized) == "hook-creator"
+        assert is_security_critical(normalized) is True
+
+
+def test_memory_index_requires_a_memory_lifecycle_skill():
+    path = _p("memory/MEMORY.md")
+    assert required_specialist(path) == "done|clean-memory|project-memory"
+    assert is_security_critical(path) is True
+
+
+def test_memory_index_short_edit_without_lifecycle_skill_is_blocked():
+    code, _ = _run_hook(
+        _p("memory/MEMORY.md"),
+        tool_input={"old_string": "# Memory Index", "new_string": "# Memory Registry"},
+    )
+    assert code == 2
+
+
 def test_hook_py_canonical():
     """A .claude/hooks/*.py file is owned by hook-creator."""
     assert required_specialist(_p(".claude/hooks/some-guard.py")) == "hook-creator"
 
 
-def test_hook_py_guard_itself_exempt():
-    """The guard never self-locks: delegate-guard.py is exempt."""
-    assert required_specialist(_p(".claude/hooks/delegate-guard.py")) is None
+def test_hook_py_guard_itself_is_protected():
+    assert required_specialist(_p(".claude/hooks/delegate-guard.py")) == "hook-creator"
 
 
 def test_hook_py_test_file_exempt():
@@ -248,9 +269,7 @@ def test_active_skill_missing_file_fail_open_none():
 # (CC >= 2.1.202 keeps the turn's FIRST skill as attributionSkill)
 # ===========================================================================
 
-def test_nested_skill_invocation_detected():
-    """A Skill(skill-creator) tool_use in the tail is detected even when the
-    attribution stamp stays on the turn's first skill (forge-review)."""
+def test_nested_skill_invocation_from_older_turn_is_rejected():
     tmp = tempfile.NamedTemporaryFile(mode="w", suffix=".jsonl", delete=False, encoding="utf-8")
     try:
         tmp.write(json.dumps({"type": "assistant", "attributionSkill": "forge-review"}) + "\n")
@@ -261,7 +280,7 @@ def test_nested_skill_invocation_detected():
         tmp.write(json.dumps({"type": "assistant", "attributionSkill": "forge-review"}) + "\n")
         tmp.close()
         invoked = skill_invocations_from_transcript(tmp.name)
-        assert "skill-creator" in invoked
+        assert "skill-creator" not in invoked
         assert active_skill_from_transcript(tmp.name) == "forge-review"
     finally:
         os.unlink(tmp.name)

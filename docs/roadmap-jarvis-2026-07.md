@@ -38,7 +38,7 @@
 | # | Correctif | Preuve | Effort |
 |---|-----------|--------|--------|
 | 7 | **Contradiction `agent-memory/` — corriger les CHECKS, PAS purger le dossier** (item flippé par le DA, preuves vérifiées) : le dossier est VIVANT (écritures 27 juin, exemption explicite `vault-write-guard.py:32`, `config-guardian:124` le compte comme pattern désiré, devils-advocate y écrit). Les 2 vestiges réels : (a) `repo-inspector.md:111` qui le codifie « chemin obsolète » → corriger ce check ; (b) `forge-review/SKILL.md:87` lit `.claude/agent-memory/skill-creator/MEMORY.md` **inexistant** (réf morte) → repointer vers les subdirs réels. | ls + grep vérifiés | S |
-| 8 | **Seuils `memory-saturation-watcher` périmés** : WARNING 250 / CRITICAL 290 / « plancher ~240 » calibrés AVANT la migration (memory = 145 fichiers désormais). Le hook ne s'alarmera plus jamais. Recalibrer (ex. WARNING 180 / CRITICAL 220) + réécrire le commentaire doctrine. | grep vérifié | S |
+| 8 | **RÉSOLU 2026-08-29** — les compteurs arbitraires ont été supprimés au profit de `memory-health.py` (TTL manquant/expiré + index actif trop lourd, sans suppression automatique). | tests hooks | S |
 | 9 | **~10 skills « ALWAYS invoke » hors trigger-map** (`.skill-triggers.json` = 28 entrées / 50 skills) : `audit-departement`, `choix-outils-ia`, `rag-design`, `reco-automatisation`, `veille-outils-ia`, `loop-forge`, `outcomes-test`, `methode-pivoter-doctrine`, `doctrine-impact-check`, `pivot-check` n'obtiennent pas le nudge proactif. Les ajouter. | comptage vérifié | S |
 | 10 | **2 rules stubs** (`read-section-preference`, `vault-consultation-protocol`) encore référencées par 2 fichiers → repointer les références PUIS supprimer les stubs. | audit .claude/ | S |
 

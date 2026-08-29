@@ -2,7 +2,7 @@
 name: roadmap-projet-ia
 description: ALWAYS invoke to turn framing/meeting notes into an execution roadmap for an internal AI project — phases, deliverables, milestones. 'Transforme ces notes de cadrage en roadmap'. NOT for CODIR prioritization (responsable-ia) or Jira specs (spec).
 user-invocable: true
-allowed-tools: Read, Write, Edit, mcp__forge-brain__*
+allowed-tools: Read, Write, Edit, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 model: opus
 effort: high
 ---

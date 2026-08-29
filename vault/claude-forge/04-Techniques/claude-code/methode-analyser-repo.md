@@ -16,7 +16,7 @@ aliases:
   - "automate repo setup"
   - "automatiser projet claude code"
   - "pipeline architect dev test"
-derniere-maj: 2026-08-28
+derniere-maj: 2026-08-29
 auteur: claude
 type: technique
 sources:
@@ -311,8 +311,8 @@ Note technique 1-2 pages max :
   - `xhigh` UNIQUEMENT pour architect / dev-lead / refactor-pg
   - `max` toujours disponible (vérifié docs 23 mai 2026), à utiliser avec prudence
 - **`color`** : convention 8 couleurs cross-repo forge
-- **`memory: project`** OBLIGATOIRE forge
-- **`permissionMode`** OBLIGATOIRE forge
+- **Mémoire persistante** absente par défaut ; toute activation doit être justifiée et révisable
+- **`permissionMode`** choisi seulement quand il clarifie le profil de risque
 - **`disallowedTools: Write, Edit`** sur read-only (code-reviewer, project-auditor)
 - **`skills`** : injecter les skills pertinentes (et les référencer dans body)
 

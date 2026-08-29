@@ -26,18 +26,28 @@ def _write_memory(
     description: str,
     trigger: str | None,
     memory_type: str = "feedback",
+    status: str = "active",
+    expires: str | None = None,
+    indexed: bool = True,
 ) -> None:
     trigger_line = f"trigger: {trigger}\n" if trigger is not None else ""
-    (memory_dir / filename).write_text(
+    content = (
         "---\n"
         f"name: {name}\n"
         f"description: {description}\n"
         f"type: {memory_type}\n"
-        f"{trigger_line}"
-        "---\n"
-        "Body intentionally not injected.\n",
+        f"status: {status}\n"
+    )
+    content += f"expires: {expires}\n" if expires else ""
+    content += trigger_line + "---\n" + "Body intentionally not injected.\n"
+    (memory_dir / filename).write_text(
+        content,
         encoding="utf-8",
     )
+    if indexed:
+        index_path = memory_dir / "MEMORY.md"
+        previous = index_path.read_text(encoding="utf-8") if index_path.exists() else "# Memory Index\n"
+        index_path.write_text(previous + f"- [{name}]({filename})\n", encoding="utf-8")
 
 
 @pytest.fixture
@@ -45,6 +55,7 @@ def isolated_memory(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     memory_dir = tmp_path / "memory"
     memory_dir.mkdir()
     monkeypatch.setattr(MODULE, "_MEMORY_DIR", memory_dir)
+    monkeypatch.setattr(MODULE, "_INDEX_PATH", memory_dir / "MEMORY.md")
     monkeypatch.setattr(MODULE, "_CACHE", tmp_path / "memory-recall-cache.json")
     return memory_dir
 
@@ -128,17 +139,10 @@ def test_explicit_trigger_emits_official_codex_json_shape(
     )
     parsed = json.loads(output)
 
-    assert parsed == {
-        "hookSpecificOutput": {
-            "hookEventName": "UserPromptSubmit",
-            "additionalContext": (
-                "Ce repo contient 1 souvenir dont les mots-cles recoupent "
-                "la demande en cours :\n"
-                "- **commit-policy** (`memory/feedback_commit.md`) — "
-                "Commit and push directly on main after verification"
-            ),
-        }
-    }
+    context = parsed["hookSpecificOutput"]["additionalContext"]
+    assert "Pointeurs mémoire actifs" in context
+    assert "**commit-policy** (feedback; `memory/feedback_commit.md`)" in context
+    assert "Commit and push directly" not in context
 
 
 def test_word_boundaries_reject_substrings_and_accept_known_flexion() -> None:
@@ -148,7 +152,7 @@ def test_word_boundaries_reject_substrings_and_accept_known_flexion() -> None:
     assert MODULE._contains("log", "la logique fonctionne") is False
 
 
-def test_output_is_limited_to_three_memories_and_1200_characters(
+def test_output_is_limited_to_two_memories_and_800_characters(
     isolated_memory: Path,
     monkeypatch: pytest.MonkeyPatch,
     capsys: pytest.CaptureFixture[str],
@@ -157,7 +161,7 @@ def test_output_is_limited_to_three_memories_and_1200_characters(
         _write_memory(
             isolated_memory,
             f"feedback_{index}.md",
-            name=f"policy-{index}-" + ("n" * 180),
+            name=f"architecture-policy-{index}-" + ("n" * 180),
             description="d" * 400,
             trigger="architecture",
         )
@@ -169,8 +173,31 @@ def test_output_is_limited_to_three_memories_and_1200_characters(
     )
     context = json.loads(output)["hookSpecificOutput"]["additionalContext"]
 
-    assert context.count("(`memory/") <= 3
-    assert len(context) <= 1200
+    assert context.count("`memory/") <= 2
+    assert len(context) <= 800
+
+
+def test_unindexed_expired_and_review_required_memories_are_not_recalled(
+    isolated_memory: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    _write_memory(isolated_memory, "unindexed.md", name="unindexed", description="secret body", trigger="architecture", indexed=False)
+    _write_memory(isolated_memory, "expired.md", name="expired", description="old body", trigger="architecture", expires="2020-01-01")
+    _write_memory(isolated_memory, "review.md", name="review", description="uncertain body", trigger="architecture", status="review-required")
+    assert _run_main(json.dumps({"prompt": "Analyse cette architecture en profondeur"}), monkeypatch, capsys) == ""
+
+
+def test_active_project_name_is_recalled_without_body(
+    isolated_memory: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    _write_memory(isolated_memory, "project_neoteem_back_ts.md", name="neoteem-back-ts", description="private project choices", trigger="backend", memory_type="project", expires="2099-01-01")
+    output = _run_main(json.dumps({"prompt": "Reprends le projet neoteem back ts"}), monkeypatch, capsys)
+    context = json.loads(output)["hookSpecificOutput"]["additionalContext"]
+    assert "project_neoteem_back_ts.md" in context
+    assert "private project choices" not in context
 
 
 def test_missing_memory_directory_is_silent(
@@ -179,6 +206,7 @@ def test_missing_memory_directory_is_silent(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     monkeypatch.setattr(MODULE, "_MEMORY_DIR", tmp_path / "missing")
+    monkeypatch.setattr(MODULE, "_INDEX_PATH", tmp_path / "missing" / "MEMORY.md")
     monkeypatch.setattr(MODULE, "_CACHE", tmp_path / "cache.json")
 
     output = _run_main(

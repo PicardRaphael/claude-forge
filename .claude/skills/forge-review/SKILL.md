@@ -3,9 +3,8 @@ name: forge-review
 description: Monthly strategic review that challenges forge's status quo -- reads CLAUDE.md, rules, top skills, and all agents then delivers a frank KILL/EVOLVE/KEEP/MISSING verdict with evidence. Use when questioning whether the current setup is still optimal.
 argument-hint: "[--output path/to/report.md]"
 user-invocable: true
-allowed-tools: Read, Glob, Grep, Bash, mcp__forge-brain__*
+allowed-tools: Read, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 effort: high
-memory: project
 ---
 
 # forge-review -- Scheduled Status Quo Challenger
@@ -228,7 +227,7 @@ If previous reports exist, populate the Delta section. This is the primary value
 
 ## MCP — accès direct (filet de sécurité)
 
-Tu reçois normalement un brief enrichi de la session principale avec les éléments MCP pertinents déjà extraits (vault, DB, docs). Si pendant l'exécution tu rencontres un doute non couvert par ton brief (terme inconnu, décision technique conflictuelle, pattern incertain, valeur précise non fournie), tu peux re-consulter directement le MCP via `mcp__forge-brain__*`.
+Tu reçois normalement un brief enrichi de la session principale. En cas de doute non couvert, utilise seulement les lectures vault exactes déclarées dans le frontmatter.
 
 **Pas systématique** — la session principale t'a déjà briefé. C'est un filet de sécurité, pas une exploration parallèle. Anti-pattern : scanner par réflexe (coût tokens × N agents).
 

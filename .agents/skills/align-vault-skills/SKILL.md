@@ -2,11 +2,10 @@
 name: align-vault-skills
 description: ALWAYS invoke when checking doctrine alignment between the forge-brain vault and the cc-*-ref skills + agents. Scans both ways, reports NEW gaps only. Use for the weekly /loop alignment watch.
 argument-hint: "[optionnel : composant ou thème à cibler]"
-allowed-tools: Read, Glob, Grep, Bash, mcp__forge-brain__*
+allowed-tools: Read, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 user-invocable: true
 model: opus
 effort: high
-memory: project
 ---
 
 # align-vault-skills — Veille d'alignement vault ↔ composants

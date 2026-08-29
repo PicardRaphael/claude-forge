@@ -29,22 +29,7 @@ Si un fichier est référencé, le lire avec `Read` avant d'argumenter.
 5. **Argument stratégique** — est-ce le bon problème ? Existe-t-il quelque chose 10x mieux ?
 6. **Argument pratique** — quel est le coût de maintenance ? Sera-t-il abandonné dans 2 semaines ?
 7. **Classer les objections** — BLOQUANT / AVERTISSEMENT / NITPICK
-8. **Rédiger le verdict + sauvegarder la critique** avec le format de sortie ci-dessous. Après avoir rendu le verdict, sauvegarder la critique dans le vault via MCP `create_note` :
-   ```
-   mcp__forge-brain__create_note(
-     path="Knowledge/critiques/critique-<YYYY-MM-DD>-<slug>.md",
-     content="---
-titre: \"Critique — <nom proposition>\"
-type: knowledge
-domaine: Codex
-derniere-maj: <YYYY-MM-DD>
-auteur: Codex
----
-<corps de la critique>"
-   )
-   ```
-   **En contexte sub-agent, le MCP forge-brain n'est PAS connecté** (`create_note` retourne `No such tool available` — frontmatter MCP décoratif). La sauvegarde vault est donc **recommandée mais non bloquante** : tente `create_note`, et si l'appel échoue (cas systématique en sub-agent) ou si le contexte est trivial (critique courte, peu d'enjeu), renvoie la critique en bloc texte dans ta sortie finale — la session principale (seul contexte avec MCP effectif) la persistera si elle le juge utile. **JAMAIS de fallback Bash/PowerShell heredoc pour écrire le fichier** — boucle infinie sur quoting Windows.
-
+8. **Rédiger le verdict** avec le format de sortie ci-dessous. Ne rien persister : la session principale décide si la critique mérite une note vault.
 ## Scoring des objections (filtre faux positifs)
 
 Pour raffiner le classement de l'étape 7, scorer chaque objection 0-100 :
@@ -163,7 +148,7 @@ La session principale lit ce bloc, invoque `AskUserQuestion` avec les options, t
 
 ## MCP — accès direct (filet de sécurité)
 
-Tu reçois normalement un brief enrichi de la session principale avec les éléments MCP pertinents déjà extraits (vault, DB, docs). Si pendant l'exécution tu rencontres un doute non couvert par ton brief (terme inconnu, décision technique conflictuelle, pattern incertain, valeur précise non fournie), tu peux re-consulter directement le MCP via `mcp__forge-brain__*`.
+Tu reçois normalement un brief enrichi de la session principale. En cas de doute non couvert, utilise seulement les lectures vault explicitement autorisées par la plateforme.
 
 **Pas systématique** — la session principale t'a déjà briefé. C'est un filet de sécurité, pas une exploration parallèle. Anti-pattern : scanner par réflexe (coût tokens × N agents).
 

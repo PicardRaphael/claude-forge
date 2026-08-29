@@ -2038,3 +2038,10 @@ Tests hooks 176 verts (180→176, suppression du mécanisme d'exemption testé).
 - **Modifiée** : `04-Techniques/claude-code/comment-creer-agent` — ajout vérifié de `experimental.cacheTtl: "5m" | "1h"`, TTL de cache de prompt par agent lorsqu'aucun TTL de subagent n'est configuré.
 - **Décision de création** : la note changelog `01-Claude/Code/changelog/CC août 2026 - v2.1.221-250.md` reste **proposée**, sans création silencieuse.
 - **Source primaire** : changelog officiel Anthropic, versions `2.1.248` et `2.1.250`, vérifiées le 28 août 2026.
+
+## 2026-08-29 — Refonte du second cerveau et doctrine mémoire opt-in
+
+- **Ajoutées** : `Knowledge/critiques/critique-2026-08-29-plan-audit-optimisation-claude-forge.md` ; `Knowledge/raisonnements/raisonnement-2026-08-29-refonte-second-cerveau-forge.md`.
+- **Modifiées** : `comment-creer-agent`, `comment-creer-skill`, `comment-creer-hook`, `comment-ecrire-claudemd`, `architecture-claude-folder`, `methode-analyser-repo`, `pattern-mcp-brief-then-direct`, `config-guardian-pattern`.
+- **Pivot** : mémoire persistante des agents opt-in ; opérations MCP exactes ; skills de projet préchargées en entier ; hooks/events revalidés à la source ; aucun bloc d'ouverture universel imposé.
+- **Source** : audit complet Claude/Codex, tests empiriques de rappel mémoire et contre-audit sécurité du 29 août 2026.

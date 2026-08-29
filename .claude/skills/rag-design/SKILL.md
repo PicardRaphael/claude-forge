@@ -2,7 +2,7 @@
 name: rag-design
 description: ALWAYS invoke to design, review or debug a RAG system — 'conçois un RAG', chunking, embeddings, reranking. Guided dialogue or direct answers from references/. NOT for choosing a tool (choix-outils-ia) or Jira tickets (spec).
 user-invocable: true
-allowed-tools: Read, Write, Edit, Glob, Grep, Skill, mcp__forge-brain__*
+allowed-tools: Read, Write, Edit, Glob, Grep, Skill, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 ---
 
 # rag-design — conception guidée d'un RAG

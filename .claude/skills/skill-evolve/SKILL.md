@@ -3,7 +3,7 @@ name: skill-evolve
 description: ALWAYS invoke when user says 'evolve skill', 'améliore la skill' or 'sweep skills'. Scores skill maturity, surfaces cross-pollination, delegates deep fixes to skill-creator. NOT for project architecture (evolve) or config audit (repo-inspector).
 argument-hint: "[skill-name | all | friction [jours]]"
 user-invocable: true
-allowed-tools: Read, Glob, Grep, Bash, mcp__forge-brain__*
+allowed-tools: Read, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 model: sonnet
 effort: high
 ---

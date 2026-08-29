@@ -12,7 +12,7 @@ Design decisions:
 - Multi-match: one combined additionalContext, all matched skills tracked
 - Bypass prefixes: *, /, #, ! (system prompts, slash commands, directives)
 - Fail-open: any exception → exit 0 silently
-- Session tracker: .skill-recommendations-session (reset by session-reminder.py)
+- Session tracker: .skill-recommendations-session (reset by session-state-reset.py)
 - Two tracker formats:
     - Legacy (triggers list): key = skill_name (once per session)
     - by_subject (triggers_by_subject dict): key = "skill_name::subject" (once per subject per session)

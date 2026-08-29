@@ -2,7 +2,7 @@
 name: deconstruction-maieutique
 description: ALWAYS invoke to deconstruct a book, podcast, article or talk into atomic concept-notes via maieutic questioning — 'déconstruis ce livre', 'décortique ce podcast'. Runs AFTER /watch. NOT for transcribing (watch) or searching sources (deep-research).
 user-invocable: true
-allowed-tools: Read, mcp__forge-brain__*
+allowed-tools: Read, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 model: opus
 effort: high
 ---
