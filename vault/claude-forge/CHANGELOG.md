@@ -14,6 +14,14 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-09-05 (5) — `comment-creer-agent` : onze écarts corrigés, dont un enseignement de contournement de garde-fou
+
+- **Modifiées** : `comment-creer-agent` réécrite en place (1022 → 967 lignes). Clôt le « reste ouvert » de l'entrée (4) pour cette note.
+- **Le plus grave** : la note documentait pas à pas un « mécanisme de bypass propre » de `delegate-guard` (écriture vers un suffixe temporaire puis renommage, pour échapper au matcher). La rule `delegate-to-specialists.md` interdit explicitement tout contournement, et le hook lui-même affiche « Do NOT attempt to bypass via env vars or external scripts ». Section remplacée par une interdiction, l'épisode conservé comme erreur documentée plutôt qu'effacé.
+- **Fait faux corrigé** : la note affirmait que le hard block `delegate-guard` avait été retiré au profit d'un mode advisory. Vérifié sur le code : le hook bloque en `exit 2` et route vers `subagent-creator`. Il n'apparaît pas dans `settings.json` parce qu'il est branché via le dispatcher `pre-write-guards.py` — piège qui avait produit un faux négatif de mon propre diagnostic avant que je remonte au dispatcher.
+- **Autres écarts** : IDs de modèles morts remplacés par la règle « alias jamais ID figé » ; `effort: max` retiré du template (interdit en frontmatter par la doctrine forge) et renvoi vers `effort-opus-47-doctrine-anthropic-2026` pour la grille par génération ; `agent-creator` aligné sur `subagent-creator` (7 passages) ; faux marqueur de fin de note suivi de 356 lignes ; deux résidus d'édition ; « 21 outils MCP » → 22 ; section wildcard MCP dont l'exemple contredisait sa propre conclusion.
+- **Vérifications** : `lint_vault` 0 frontmatter cassé / 0 wikilink brisé, `check-refs` 64 composants sans routage mort, `git diff --check` propre.
+
 ## 2026-09-05 (4) — frontmatter des deux canoniques de création réparé
 
 - **Modifiées** : `comment-creer-agent` et `comment-creer-skill` — `titre`, `type`, `auteur`, `sources` (plus `resume` pour l'agent) réinjectés dans le frontmatter ACTIF. Les deux notes portaient un second bloc YAML précédé d'un BOM : leurs `titre`/`resume` vivaient hors du frontmatter parsé, donc n'étaient pas indexés. `skills-metadata-tokens-load` — nouvelle section « Les limites réelles » : 1024 chars (spec) / 1536 (description + `when_to_use`), le ~250 requalifié en repère de budget forge plutôt qu'en seuil produit.
