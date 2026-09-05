@@ -1,6 +1,6 @@
 ---
-titre: "Workflow OpenAI Codex optimal (juillet 2026)"
-resume: "Note maître forge — workflow optimal pour l'agent de code OpenAI Codex au 15 juil. 2026 : modèle défaut gpt-5.6-sol, séquence par taille de tâche S/M/L/XL, 3 niveaux d'optimisation, Surface Map des 8 leviers (AGENTS.md → hooks), multitasking Sottiaux, codex exec pour loops. Miroir de workflow-claude-code-optimal, pas une recopie."
+titre: "Workflow OpenAI Codex optimal (septembre 2026)"
+resume: "Note maître forge — workflow optimal pour l'agent de code OpenAI Codex au 5 sept. 2026 : modèle défaut gpt-6-astra depuis la CLI 0.153.4, séquence par taille de tâche S/M/L/XL, 3 niveaux d'optimisation, Surface Map des 8 leviers (AGENTS.md → hooks), multitasking Sottiaux, codex exec pour loops. Miroir de workflow-claude-code-optimal, pas une recopie."
 aliases:
   - "workflow codex optimal"
   - "workflow openai codex"
@@ -10,34 +10,47 @@ aliases:
   - "codex exec loop"
   - "multitasking codex sottiaux"
   - "codex agent-first"
-derniere-maj: 2026-07-15
+derniere-maj: 2026-09-05
 auteur: claude
 type: technique
 sources:
   - "https://learn.chatgpt.com/docs/ (doc officielle Codex, ex developers.openai.com/codex — redirect 308)"
+  - "https://learn.chatgpt.com/docs/changelog (vérifié en primaire le 5 sept. 2026)"
+  - "https://learn.chatgpt.com/docs/config-file/config-reference"
   - "https://newsletter.pragmaticengineer.com/p/how-codex-is-built (Gergely Orosz, ~17 fév 2026)"
   - "https://github.com/openai/codex (repo, releases, docs/config.md stub)"
-  - "https://learn.chatgpt.com/docs/models · /docs/changelog · /docs/non-interactive-mode"
 tags:
   - "#type/technique"
   - "#domaine/codex"
   - "#domaine/workflow"
   - "#doctrine/2026"
 ---
-# Workflow OpenAI Codex optimal (juillet 2026)
+# Workflow OpenAI Codex optimal (septembre 2026)
 
-> Note maître forge — workflow optimal pour utiliser **OpenAI Codex** (l'agent de code, CLI/IDE/cloud) selon la doc officielle au **15 juillet 2026**. Miroir structurel de [[workflow-claude-code-optimal]] ; **la doctrine Claude Code n'y est pas recopiée** — Codex a ses propres mécanismes, vérifiés en source primaire. Chaque affirmation datée + niveau de confiance (Codex bouge chaque semaine).
+> Note maître forge — workflow optimal pour utiliser **OpenAI Codex** (l'agent de code, CLI/IDE/cloud) selon la doc officielle au **5 septembre 2026**. Miroir structurel de [[workflow-claude-code-optimal]] ; **la doctrine Claude Code n'y est pas recopiée** — Codex a ses propres mécanismes, vérifiés en source primaire. Chaque affirmation datée + niveau de confiance (Codex bouge chaque semaine).
 
 ---
 
-## ⚠️ Fraîcheur — vérité datée au 15/07/2026
+## ⚠️ Fraîcheur — vérité datée au 05/09/2026
 
 Codex publie plusieurs releases CLI par semaine. Les faits ci-dessous sont datés ; toute donnée volatile (modèle, prix, cap) est marquée `à vérifier` avec sa date. État verrouillé :
 
-- **Modèle par défaut CLI** : `gpt-5.6-sol` (alias `gpt-5.6`, préréglage « Power » effort medium) depuis la GA de GPT-5.6 le **9 juil. 2026**. *Probable* — la doc ne déclare pas de « default = X » verbatim, c'est le préréglage Power. **N'est PAS** GPT-5-Codex (qui reste dispo, orienté API).
-- **Famille GPT-5.6** : `sol` (flagship), `terra` (balanced), `luna` (fast/cheap). + `gpt-5.5`, `gpt-5.3-codex-spark`. **Dépréciés** : `gpt-5.2`, `gpt-5.3-codex`. Sunset legacy **23 juil. 2026**.
-- **CLI** : `0.144.4` (14 juil.). Minimum pour voir GPT-5.6 = `0.144.0` (9 juil.).
+- **Modèle par défaut CLI** : **`gpt-6-astra`** depuis la CLI **0.153.4 (4 sept. 2026)**, verbatim changelog : *« Fixed Astra's visibility in the bundled model picker and made it the bundled default when no model is explicitly configured »*. C'est un **défaut de bundle** : il s'applique quand aucun modèle n'est configuré explicitement. Épingler `gpt-5.6-sol` dans `config.toml` reste possible et devient un choix délibéré. ⚠️ L'accès à Astra dépend du déploiement, de la méthode de connexion et du client (doc modèles) — sur un compte non éligible, le modèle servi peut différer.
+- **Défaut précédent** : `gpt-5.6-sol` (alias `gpt-5.6`, préréglage « Power » effort medium), du **9 juil.** au **3 sept. 2026**. Toute doctrine antérieure au 4 sept. qui affirme « le défaut est `gpt-5.6-sol` » est périmée.
+- **Modèles listés dans le CLI** : `gpt-6-astra`, `gpt-5.6-sol` (flagship), `gpt-5.6-terra` (balanced), `gpt-5.6-luna` (fast/cheap), `gpt-5.3-codex-spark`, `gpt-5.5`, `gpt-5.4`, `gpt-5.4-mini`. **Dépréciés** : `gpt-5.2`, `gpt-5.3-codex` (sunset legacy 23 juil. 2026). `gpt-5.4` et `gpt-5.4-mini` sont retirés pour la connexion ChatGPT depuis le **31 août 2026** — remplacements conseillés par OpenAI : `gpt-5.6-terra` / `gpt-5.6-luna`.
+- **CLI** : `0.153.4` (4 sept.). Minimum pour voir GPT-5.6 = `0.144.0` (9 juil.).
 - **Doc officielle a MIGRÉ** : `developers.openai.com/codex/*` → **redirige 308 vers `learn.chatgpt.com/docs/*`**. Le `docs/config.md` du repo GitHub `openai/codex` est devenu un **stub**. Source primaire actuelle = `learn.chatgpt.com/docs/`.
+
+### Changements de comportement à connaître (août-septembre 2026)
+
+Quatre évolutions récentes invalident des réflexes acquis plus tôt dans l'année :
+
+| Depuis | Changement | Conséquence pratique |
+|---|---|---|
+| 0.150.0 (26 août) | *« Untrusted projects no longer supply project-level `AGENTS.md` instructions »* | Un repo non *trusted* n'injecte plus ses conventions. Un `AGENTS.md` qui « ne fait rien » se diagnostique d'abord par le niveau de confiance du projet. |
+| 0.150.0 (26 août) | Hooks **Interrupt** — exécutés quand un tour top-level est interrompu | Nouveau point d'accroche pour le nettoyage ; cf [[comment-creer-hook-codex]]. |
+| 0.152.0 (1er sept.) | *« The planning tool is disabled by default; enable it with `tools.update_plan.enabled = true` »* | Toute doctrine qui suppose un plan actif par défaut est fausse. À activer explicitement pour les tâches L/XL. |
+| 0.153.0 (3 sept.) | Marketplace de plugins en CLI (list/install/remove depuis des marketplaces distantes) | Un 9ᵉ levier émerge à côté des 8 de la Surface Map ; à surveiller avant de l'inscrire en doctrine. |
 
 ---
 
@@ -72,7 +85,7 @@ Sans workflow structuré autour de Codex :
 - Config dispersée entre AGENTS.md, config.toml, skills → duplication et dérive.
 - Tout en interactif → pas d'automatisation (pas de loops, pas de CI).
 - Pas de vérification → qualité aléatoire (le tip #1 de Boris vaut pour tout agent, cf [[concevoir-loops-travail]]).
-- Modèle mal choisi → coût ×N (Sol à $5/$30 vs Luna à $1/$6 par M tokens).
+- Modèle mal choisi → coût ×N.
 
 Avec le workflow optimal : les 8 leviers occupent chacun leur rôle, `codex exec` alimente les loops, la mémoire auto capitalise, le multitasking parallélise.
 
@@ -88,6 +101,20 @@ Pratique de l'équipe Codex : **4–8 agents en parallèle**, runs autonomes 20�
 
 La dernière phrase est la doctrine maîtresse (convergente avec Anthropic, cf [[workflow-claude-code-optimal]] « re-tester les hypothèses du harness à chaque modèle ») : **les capacités se ré-apprennent à chaque modèle**. Ne pas figer un harness sur les limites du modèle d'hier.
 
+⚠️ Cette phrase vient de se vérifier deux fois en une semaine : Anthropic écrit noir sur blanc que les niveaux d'effort *« don't correspond to the same amount of thinking across models »* (cf [[Fable 5.1]]), et le défaut Codex a changé de modèle en 24 h. Le sweep de calibration se refait à chaque bascule, pas une fois pour toutes.
+
+---
+
+## Effort de raisonnement — le champ exact
+
+**`model_reasoning_effort`**, dans `config.toml`. Valeurs acceptées, verbatim de la référence officielle : `minimal | low | medium | high | xhigh`, avec la mention *« Responses API only; `xhigh` is model-dependent »*. Aucun défaut n'est déclaré dans la référence — non défini, le modèle applique le sien.
+
+⚠️ **`ultra`, `max` et `none` ne sont PAS des valeurs valides de ce champ** (vérifié en primaire le 5 sept. 2026). Les libellés de préréglage vus dans l'UI (« Power », « Ultra ») ne sont pas des valeurs de configuration : leur correspondance exacte avec `model_reasoning_effort` n'est pas documentée, ne pas la supposer.
+
+Guidance officielle (*best practices*) : *« Choose a reasoning level based on how hard the task is »* — `low` pour les tâches courtes et bien cadrées, `medium`/`high` pour les changements complexes et le debugging, `xhigh` pour les tâches longues, agentiques, à forte charge de raisonnement.
+
+Champ associé : `model_reasoning_summary` = `auto | concise | detailed | none`.
+
 ---
 
 ## WORKFLOW — Séquence par taille de tâche
@@ -97,7 +124,7 @@ La dernière phrase est la doctrine maîtresse (convergente avec Anthropic, cf [
 codex "<tâche>"        # interactif, sandbox workspace-write, approval on-request
 → vérifier le diff → commit
 ```
-Pas de skill, pas de subagent. Modèle défaut (`gpt-5.6-sol` medium) suffit.
+Pas de skill, pas de subagent. Modèle par défaut suffit.
 
 ### M (medium, 30 min – 4 h)
 ```
@@ -111,10 +138,11 @@ Pas de skill, pas de subagent. Modèle défaut (`gpt-5.6-sol` medium) suffit.
 ### L (large, > 4 h ou cross-files)
 ```
 1. AGENTS.md + skills en place
-2. Délégation subagents (max_threads=6) : "spawn N agents", 1 par sous-tâche
-3. Effort élevé (high/xhigh, ou Ultra en UI = active des subagents)
-4. Review automatique (settings/code-review) — flag P0/P1
-5. commit groupé
+2. Outil de planning ACTIVÉ (tools.update_plan.enabled = true) — off par défaut depuis 0.152.0
+3. Délégation subagents (max_threads=6) : "spawn N agents", 1 par sous-tâche
+4. model_reasoning_effort = "high" ou "xhigh"
+5. Review automatique (settings/code-review) — flag P0/P1
+6. commit groupé
 ```
 
 ### XL (multi-jours / récurrent)
@@ -131,7 +159,7 @@ Pas de skill, pas de subagent. Modèle défaut (`gpt-5.6-sol` medium) suffit.
 ## OPTIMISATION — 3 niveaux
 
 ### Niveau basique
-- AGENTS.md racine + modèle défaut (`gpt-5.6-sol`)
+- AGENTS.md racine + modèle par défaut
 - Sandbox `workspace-write` + approval `on-request`
 - Pas de skills, pas de hooks, sessions interactives
 
@@ -143,7 +171,7 @@ Pas de skill, pas de subagent. Modèle défaut (`gpt-5.6-sol` medium) suffit.
 
 ### Niveau expert
 - Les 8 leviers alignés sur la Surface Map
-- Multitasking 4–8 agents ; effort calibré (Ultra pour le lourd)
+- Multitasking 4–8 agents ; `model_reasoning_effort` calibré par taille de tâche
 - Automations récurrentes + loop d'apprentissage (sessions → skills)
 - Mémoire auto `[memories]` + hooks d'enforcement (trust model par hash)
 - Enterprise : `requirements.toml` (managed hooks, sandbox/approval imposés)
@@ -161,10 +189,13 @@ Pas de skill, pas de subagent. Modèle défaut (`gpt-5.6-sol` medium) suffit.
 ## ANTI-PATTERNS
 
 - ❌ **Figer le harness sur les limites du modèle d'hier** — Sottiaux : les capacités se ré-apprennent à chaque modèle.
-- ❌ **Tout mettre dans AGENTS.md** — cap 32 KiB (`project_doc_max_bytes`) ; sortir le how-to en skills, l'enforcement en hooks (cf Surface Map).
-- ❌ **Présumer que GPT-5-Codex est le défaut** — c'est `gpt-5.6-sol` depuis le 9 juil.
+- ❌ **Tout mettre dans AGENTS.md** — cap 32 KiB (`project_doc_max_bytes`, *à re-tester*) ; sortir le how-to en skills, l'enforcement en hooks (cf Surface Map).
+- ❌ **Présumer un modèle par défaut sans vérifier la version du CLI** — le défaut a changé deux fois en deux mois (`gpt-5.6-sol` le 9 juil., `gpt-6-astra` le 4 sept.). Un anti-pattern daté vaut mieux qu'un nom de modèle gravé : `codex --version` puis le changelog.
+- ❌ **Supposer l'outil de planning actif** — désactivé par défaut depuis 0.152.0.
+- ❌ **Écrire `ultra`, `max` ou `none` dans `model_reasoning_effort`** — valeurs invalides ; ce sont au mieux des libellés d'UI.
 - ❌ **`--full-auto`** — déprécié, préférer `--sandbox workspace-write`.
 - ❌ **`--dangerously-bypass-approvals-and-sandbox` (`--yolo`) hors env contrôlé** — bypass total sandbox + approbations.
+- ❌ **`approval_policy = "on-failure"`** — déprécié ; utiliser `on-request` (interactif) ou `never` (non-interactif).
 - ❌ **Chasser `docs/config.md` du repo** — c'est un stub ; la doc vit sur `learn.chatgpt.com/docs/`.
 - ❌ **Recopier la doctrine Claude Code** — Codex a ses propres mécanismes (TOML vs markdown, `.agents/skills` vs `.claude/skills`, trust model par hash).
 
@@ -172,10 +203,12 @@ Pas de skill, pas de subagent. Modèle défaut (`gpt-5.6-sol` medium) suffit.
 
 ## SOURCES
 
-### Doc officielle OpenAI (source primaire, au 15/07/2026)
+### Doc officielle OpenAI (source primaire, vérifiée au 05/09/2026)
 - `learn.chatgpt.com/docs/` — doc Codex canonique (les URLs `developers.openai.com/codex/*` redirigent 308 ici).
-- `learn.chatgpt.com/docs/models` · `/docs/changelog` · `/docs/non-interactive-mode` · `/docs/automations` · `/docs/hooks` · `/docs/customization/memories`
+- `learn.chatgpt.com/docs/models` · `/docs/changelog` · `/docs/config-file/config-reference` · `/docs/learn/best-practices` · `/docs/non-interactive-mode` · `/docs/automations` · `/docs/hooks` · `/docs/customization/memories`
 - `github.com/openai/codex` — repo (releases `rust-v0.XXX.0`, `docs/config.md` = stub de redirection).
+
+⚠️ **Trou de couverture connu** : le changelog Codex de **mars à juillet 2026** n'a pas été récupéré en source primaire lors de la vérification du 5 sept. (la page ne remonte qu'à fin août, le CHANGELOG brut GitHub ne sert qu'un pointeur). Les faits de cette période proviennent des vérifications de juillet et n'ont pas été recroisés depuis.
 
 ### Praticiens / analyses
 - **Pragmatic Engineer** « How Codex is built » (Gergely Orosz, ~17 fév. 2026) — multitasking Sottiaux, 100+ skills internes.
@@ -194,6 +227,10 @@ Pas de skill, pas de subagent. Modèle défaut (`gpt-5.6-sol` medium) suffit.
 - [[Agent Skills Spec]] — spec ouverte adoptée par Codex
 - [[concevoir-loops-travail]] — méthode loop universelle (tip #1 vérification)
 - [[workflow-claude-code-optimal]] — le miroir Claude Code
+
+### Modèles
+- [[GPT-6 Astra]] — défaut CLI depuis le 4 sept. 2026
+- [[GPT-5.6]] — famille Sol/Terra/Luna
 
 ### Fiches leaders
 - [[Thibault Sottiaux]] · [[Michael Bolin]] · [[Fouad Matin]] · [[Andrew Ambrosino]] · [[Gabriel Peal]] · [[Josh McKinney]] · [[Shao-Qian Mah]] · [[Simon Willison]]

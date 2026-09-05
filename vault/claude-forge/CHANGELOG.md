@@ -14,6 +14,21 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-09-05 (3) — doctrines de développement : corpus Codex réaligné, régression skills corrigée
+
+- **Modifiées** :
+  - `02-OpenAI/models/GPT-6 Astra` — **assertion fausse corrigée le lendemain de sa création**. La note affirmait « aucun changement de modèle par défaut détecté : Codex CLI reste sur `gpt-5.6-sol` » : exact au soir du 3 sept., faux dès le 4. Chronologie des quatre versions ajoutée, verbatim de la 0.153.4 : *« made it the bundled default when no model is explicitly configured »*. Leçon de méthode inscrite dans la note : sur un modèle en cours de déploiement, un « X n'a pas changé » se date à l'heure ou ne s'écrit pas.
+  - `04-Techniques/codex/workflow-codex-optimal` — note maître réactualisée du 15 juil. au 5 sept. : nouveau défaut modèle, CLI 0.153.4, catalogue de modèles complet avec les retraits du 31 août, et une section « effort » qui donne enfin le nom exact du champ (`model_reasoning_effort`). Quatre changements de comportement d'août-septembre ajoutés (trust model, hooks Interrupt, planning off par défaut, marketplace de plugins).
+  - `04-Techniques/codex/subagents-cloud-codex` — **contradiction interne du corpus tranchée en source primaire**. La note annonçait 8 valeurs d'effort (`ultra|max|xhigh|high|medium|low|minimal|none`) contre 5 dans `config-toml-profils-codex`. La référence officielle en donne **cinq** : `ultra`, `max` et `none` ne sont pas des valeurs valides. Exemple TOML corrigé au passage (`gpt-5.4`, retiré depuis le 31 août).
+  - `04-Techniques/codex/config-toml-profils-codex` — modèle par défaut, outil de planning, trust model.
+  - `04-Techniques/codex/agents-md-codex` — ajout du prérequis de confiance du projet : depuis la 0.150.0, un projet non-*trusted* ne fournit plus ses instructions. C'est désormais le **premier réflexe de diagnostic** d'un AGENTS.md inopérant, avant le cap de taille ou la syntaxe.
+  - `02-OpenAI/products/OpenAI Codex` — **violation de la règle de correction en place réparée**. Le corps datait de mai 2026 (GPT-5.4, Opus 4.7, 111 plugins, 3M utilisateurs) et deux blocs de mise à jour avaient été empilés dessous : le lecteur voyait le faux en premier. Corps réécrit à l'état du 5 sept., historique rangé en section datée, comparaisons de volumétrie non recroisées retirées.
+  - `04-Techniques/claude-code/skills-metadata-tokens-load` — **régression corrigée** : la note (7 juil.) affirmait une troncature des descriptions au-delà de 250 chars, mécanisme déjà corrigé le 18 juin dans `comment-creer-skill`. Le mécanisme réel est un budget global avec **drop entier** des descriptions de skills peu utilisées. Mesure forge refaite : 51 skills, 11 323 chars, ~3 431 tokens — contre 15 300 chars pour 49 skills en mai, soit **−26 %** malgré deux skills de plus.
+
+- **Défaut structurel découvert et borné** : deux notes du vault portent un **double frontmatter YAML empilé avec BOM** — `04-Techniques/claude-code/comment-creer-agent` et `comment-creer-skill`. Leur `titre` et leur `resume` se retrouvent hors du frontmatter actif, donc mal indexés. `lint_vault` ne détecte pas ce cas (`broken_yaml` reste à 0). Détection exhaustive effectuée sur l'ensemble du vault : **exactement ces deux notes**, et ce sont les deux canoniques de création de composants. Correction non appliquée dans cette passe — voir le chantier ci-dessous.
+
+- **Source** : trois agents read-only (inventaire doctrine Claude Code, inventaire doctrine Codex, sources primaires) + revérification en session principale de chaque point corrigé. Primaires : `learn.chatgpt.com/docs/changelog`, `/docs/config-file/config-reference`, `/docs/models`, `/docs/learn/best-practices`, `code.claude.com/docs/en/best-practices`.
+
 ## 2026-09-05 (2) — vérification primaire du pricing Fable + nettoyage de références mortes
 
 - **Modifiées** :

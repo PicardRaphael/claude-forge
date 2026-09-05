@@ -1,21 +1,23 @@
 ---
 titre: "OpenAI Codex"
-resume: "Agent coding OpenAI — GPT-5.4, computer use macOS, 111 plugins, 3 modes, subagents, 3M devs/semaine"
+resume: "Agent de code d'OpenAI (CLI, IDE, desktop, cloud). Modèle par défaut gpt-6-astra depuis la CLI 0.153.4 (4 sept. 2026). Fiche produit versant industrie ; la doctrine actionnable vit dans le corpus 04-Techniques/codex via MOC-Codex."
 aliases:
   - "OpenAI Codex"
   - "codex"
   - "codex openai"
   - "openai coding agent"
-  - "GPT-5.3 Codex"
-  - "gpt 5.3 codex"
   - "codex cli"
+  - "codex desktop"
+  - "codex cloud"
 domaine: openai
 type: concurrent
-derniere-maj: 2026-05-10
+derniere-maj: 2026-09-05
 auteur: claude
 sources:
-  - "https://www.buildfastwithai.com/blogs/openai-codex-for-almost-everything-2026"
-  - "https://www.startuphub.ai/ai-news/tech/2026/gpt-5-3-codex-powers-github-copilot-cursor"
+  - "https://learn.chatgpt.com/docs/ (doc officielle Codex)"
+  - "https://learn.chatgpt.com/docs/changelog (vérifié en primaire le 5 sept. 2026)"
+  - "https://learn.chatgpt.com/docs/models"
+  - "https://github.com/openai/codex"
 tags:
   - "#type/concurrent"
   - "#domaine/openai"
@@ -23,65 +25,55 @@ tags:
 
 ## Profil
 
-CLI IA d'OpenAI pour le développement. 3M utilisateurs/semaine (+1M/mois). Premier modèle instrumental dans sa propre création (GPT-5.3). Classifié "High capability" cybersécurité (Preparedness Framework).
+Agent de code d'OpenAI, décliné en **CLI** (terminal, Rust), **extension IDE** (VS Code / Cursor / Windsurf), **application desktop** (devenue la nouvelle app ChatGPT le 9 juil. 2026), **cloud/web** (tâches hébergées parallèles) et **extension Chrome**. Facturation au token depuis le 2 avril 2026.
 
-## Features clés
+> ℹ️ **Cette fiche est le versant produit/concurrent.** La doctrine actionnable — comment travailler avec Codex — vit dans un corpus dédié : **[[MOC-Codex]]**, point d'entrée des notes `04-Techniques/codex/`. Ne pas dupliquer ici les mécanismes (nesting AGENTS.md, profils, subagents) : ils y sont vérifiés et datés.
 
-- **Trois modes** : Read-only / Auto / Full Access
-- **Computer Use** sur macOS (contrôle desktop apps)
-- **111 plugins** natifs (GitHub/Slack/Notion/Google/GitLab/Atlassian/CircleCI)
-- **Subagents** : multi-agent workflows (write/debug/test en parallèle)
-- **MCP support** : outils tiers via terminal
-- **Mémoire inter-sessions** (contexte persistant)
-- **Navigateur intégré** avec commenting + image gen (gpt-image-1.5)
-- **Local code review** : scan changes avant PR
-- **GPT-5.4** + **GPT-5.3-Codex-Spark** (1000+ tok/s sur Cerebras)
-- Context 1M tokens = plan Pro $200/mo (Plus $20 = fenêtre réduite)
-- Token-based billing depuis 2 avril 2026
+## État au 5 septembre 2026
 
-## Dernières mises à jour
+- **Modèle par défaut** : **`gpt-6-astra`** depuis la CLI **0.153.4 (4 sept. 2026)** — verbatim : *« made it the bundled default when no model is explicitly configured »*. Le défaut précédent était `gpt-5.6-sol`, du 9 juil. au 3 sept. L'accès dépend du déploiement, de la méthode de connexion et du client.
+- **Modèles proposés** : `gpt-6-astra`, `gpt-5.6-sol` / `-terra` / `-luna`, `gpt-5.3-codex-spark`, `gpt-5.5`, `gpt-5.4`, `gpt-5.4-mini`. Dépréciés : `gpt-5.2`, `gpt-5.3-codex`. `gpt-5.4` et `gpt-5.4-mini` retirés pour la connexion ChatGPT depuis le **31 août 2026**.
+- **CLI** : `0.153.4` (4 sept. 2026).
+- **Doc officielle** : `learn.chatgpt.com/docs/` — les anciennes URL `developers.openai.com/codex/*` redirigent en 308. Le `docs/config.md` du repo GitHub est un stub.
+- **Huit leviers de configuration** : AGENTS.md · config.toml/profils · skills (`.agents/skills`) · subagents (`.codex/agents/*.toml`) · MCP · automations/cloud · hooks (stables depuis v0.124.0) · mémoire `[memories]`. Un **marketplace de plugins en CLI** est apparu en 0.153.0 (3 sept.) — pas encore intégré à la Surface Map, à observer.
+- **Modes de sandbox** : `read-only | workspace-write | danger-full-access`. **Approbation** : `untrusted | on-request | never` (`on-failure` déprécié).
+- **Changements de comportement récents** : outil de planning **désactivé par défaut** (0.152.0, 1er sept.) ; un projet non-*trusted* ne fournit plus ses instructions `AGENTS.md` (0.150.0, 26 août) ; hooks **Interrupt** ajoutés (0.150.0).
 
-- **17 avril** : Mega update — computer use, plugins, browser, multi-agent
-- **16 avril** : GPT-Rosalind (life sciences), Agents SDK update
+## Comparaison avec Claude Code (au 5 septembre 2026)
 
-## Comparaison avec Claude Code
+| | Codex | Claude Code |
+|---|---|---|
+| Modèle par défaut | `gpt-6-astra` | `claude-opus-5` (Fable 5.1 en step-up) |
+| Format d'agent | TOML (`.codex/agents/*.toml`) | Markdown + frontmatter YAML |
+| Instructions projet | `AGENTS.md` (nesting racine→CWD, cap combiné) | `CLAUDE.md` (imports `@path`) |
+| Parallélisme déclaratif | `max_threads` / `max_depth` | pas d'équivalent déclaratif ; `/batch` en fan-out |
+| Computer use | natif macOS | via MCP |
+| Multi-agent | subagents + cloud tasks | subagents, Agent Teams (expérimental, off par défaut) |
+| MCP | natif | natif |
+| Worktrees | non documenté | natif |
+| Planification récurrente | automations (RRULE, web/desktop) | `/schedule` |
 
-| Feature | Codex | Claude Code |
-|---------|-------|-------------|
-| Computer Use | macOS natif | Via MCP |
-| Plugins | 111 natifs | 2500+ marketplace |
-| Multi-agent | Subagents parallèles | Agent Teams |
-| MCP | Support natif | Support natif |
-| Modèle | GPT-5.4 | Opus 4.7 |
-| Worktrees | Non | Natif (`claude -w`) |
-| Tooling CLI | Basique | /loop, /schedule, /batch |
-| Users | 3M/semaine | Non communiqué |
+⚠️ Les lignes de ce tableau reflètent l'état vérifié au 5 sept. 2026. Les comparaisons de volumétrie (nombre de plugins, utilisateurs hebdomadaires) ont été **retirées** : les chiffres portés par cette fiche depuis mai 2026 (111 plugins, 3M utilisateurs/semaine) n'ont jamais été recroisés et une comparaison chiffrée non datée vieillit mal.
+
+## Tarifs
+
+Prix API relevés au **15 juillet 2026**, non reconfirmés depuis — à revérifier avant tout usage décisionnel ($/1M, contexte court) : Sol 5/30 · Terra 2.5/15 · Luna 1/6 · GPT-5-Codex 1.25/10 (contexte 400K). Le tarif d'Astra n'a pas été confirmé en source primaire (cf [[GPT-6 Astra]]).
+
+## Historique
+
+État antérieur de cette fiche, conservé comme trace datée — **ne pas lire comme l'état courant** :
+
+- **Avril 2026** : « mega update » du 17 avril (computer use, plugins, navigateur intégré, multi-agent) ; GPT-Rosalind (life sciences) le 16 avril. Classification « High capability » cybersécurité au Preparedness Framework. GPT-5.3 présenté comme premier modèle instrumental dans sa propre création.
+- **Mai 2026** : `codex remote-control` (app-server headless), auth Bedrock, pièces jointes image dans le CLI, mid-turn steering, extension Chrome, workspace agents. **GPT-5.5 remplace GPT-5.4** comme modèle principal.
+- **Juillet 2026** : GA de GPT-5.6 le 9 juil., famille Sol/Terra/Luna, `gpt-5.6-sol` devient le défaut CLI ; sunset des modèles legacy le 23 juil. ; migration de la doc vers `learn.chatgpt.com`.
+
+⚠️ **Trou de couverture connu** : le changelog Codex de **mars à juillet 2026** n'a pas pu être récupéré en source primaire lors de la vérification du 5 sept. — les faits de cette période viennent des vérifications de juillet.
 
 ## Liens
 
-- [[GitHub Copilot]]
-- [[Cursor]]
+- [[MOC-Codex]] — point d'entrée de la doctrine Codex
+- [[workflow-codex-optimal]] — note maître du workflow
+- [[codex-vs-chatgpt-seul]] — arbitrage Codex / app ChatGPT
+- [[GPT-6 Astra]] — modèle par défaut actuel
+- [[GitHub Copilot]] · [[Cursor]] — concurrents
 - [[MOC-Outils-IA]]
-
-
-## Mises à jour mai 2026
-
-- **Remote control mode** : `codex remote-control` pour app-server headless
-- **Bedrock auth** : credentials AWS console-login
-- **Image attachments** : screenshots/wireframes dans le CLI
-- **Mid-turn steering** : rediriger le comportement en temps réel
-- **Chrome extension** : fonctionne avec apps/sites dans le browser, parallèle multi-tabs
-- **Workspace agents** : agents répétables pour workflows entreprise (ChatGPT + Slack)
-- **GPT-5.5** remplace GPT-5.4 comme modèle principal
-
-## Mise à jour 15 juillet 2026 (doctrine Codex forge)
-
-> Cette fiche produit (versant industrie/concurrent) date de mai 2026 (GPT-5.4/5.5) et reste un instantané historique. L'état verrouillé au **15 juil. 2026** et la doctrine actionnable vivent désormais dans un corpus dédié : **[[MOC-Codex]]** (10 notes 04-Techniques/codex/ + [[personnalisation-chatgpt-app]]).
-
-État verrouillé (sources primaires 15/07/2026) :
-- **Modèle défaut CLI** : `gpt-5.6-sol` (alias `gpt-5.6`, preset Power medium) depuis la GA GPT-5.6 du 9 juil. Famille **Sol/Terra/Luna**. Dépréciés : gpt-5.2, gpt-5.3-codex. Sunset legacy 23 juil.
-- **CLI** `0.144.4` (14 juil.). Doc officielle migrée : `developers.openai.com/codex/*` → redirige `learn.chatgpt.com/docs/*` ; `docs/config.md` du repo = stub.
-- **8 leviers** : AGENTS.md · config.toml/profils · skills (`.agents/skills`) · subagents (`.codex/agents/*.toml`) · MCP · automations/cloud · hooks (stables v0.124.0) · mémoire `[memories]`.
-- Prix API (short ctx, $/1M) : Sol 5/30 · Terra 2.5/15 · Luna 1/6 · GPT-5-Codex 1.25/10 (ctx 400K).
-
-Point d'entrée doctrine : [[MOC-Codex]] · [[workflow-codex-optimal]] · [[codex-vs-chatgpt-seul]].

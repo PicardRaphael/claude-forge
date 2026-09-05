@@ -1,6 +1,6 @@
 ---
 titre: "Subagents, cloud et automations Codex — délégation et parallélisme"
-resume: "Note canonique forge — subagents Codex (fichiers TOML .codex/agents/, champs name/description/developer_instructions, built-ins default/worker/explorer, max_threads=6/max_depth=1, CSV batch), cloud tasks hébergées, automations planifiées (RRULE). Vérifié doc officielle au 15 juil. 2026."
+resume: "Note canonique forge — subagents Codex (fichiers TOML .codex/agents/, champs name/description/developer_instructions, built-ins default/worker/explorer, max_threads=6/max_depth=1, CSV batch), cloud tasks hébergées, automations planifiées (RRULE). Vérifié doc officielle au 15 juil. 2026, valeurs d'effort recorrigées le 5 sept. 2026."
 aliases:
   - "subagents codex"
   - "codex agents toml"
@@ -10,11 +10,12 @@ aliases:
   - "codex cloud tasks"
   - "automations codex scheduled"
   - "codex built-in agents explorer worker"
-derniere-maj: 2026-07-15
+derniere-maj: 2026-09-05
 auteur: claude
 type: technique
 sources:
   - "https://learn.chatgpt.com/docs/agent-configuration/subagents"
+  - "https://learn.chatgpt.com/docs/config-file/config-reference (valeurs d'effort, vérifié 5 sept. 2026)"
   - "https://learn.chatgpt.com/docs/cloud · /docs/automations"
   - "https://github.com/openai/codex"
 tags:
@@ -24,7 +25,7 @@ tags:
 ---
 # Subagents, cloud et automations Codex
 
-> Note canonique forge — délégation parallèle Codex (subagents), exécution hébergée (cloud), planification récurrente (automations). Vérifié au **15 juil. 2026**. Les TOML de subagents sont lus en markdown brut (CERTAIN) ; cloud/automations via résumé (PROBABLE sauf mention).
+> Note canonique forge — délégation parallèle Codex (subagents), exécution hébergée (cloud), planification récurrente (automations). Vérifié au **15 juil. 2026**, valeurs d'effort recorrigées le **5 sept. 2026**. Les TOML de subagents sont lus en markdown brut (CERTAIN) ; cloud/automations via résumé (PROBABLE sauf mention).
 
 ---
 
@@ -38,7 +39,7 @@ Emplacements : `~/.codex/agents/` (perso) ou `.codex/agents/` (projet). Champs *
 # .codex/agents/reviewer.toml
 name = "reviewer"
 description = "PR reviewer focused on correctness, security, and missing tests."
-model = "gpt-5.4"
+model = "gpt-5.6-terra"
 model_reasoning_effort = "high"
 sandbox_mode = "read-only"
 developer_instructions = """
@@ -59,7 +60,13 @@ path = "/Users/me/.agents/skills/docs-editor/SKILL.md"
 enabled = false
 ```
 
-**Effort — 8 valeurs** : `ultra | max | xhigh | high | medium | low | minimal | none`.
+### Effort — 5 valeurs, pas 8
+
+`model_reasoning_effort` accepte **`minimal | low | medium | high | xhigh`**, verbatim de la référence de configuration : *« Adjust reasoning effort for supported models (Responses API only; `xhigh` is model-dependent) »*. Aucun défaut n'est déclaré — non défini, le modèle applique le sien.
+
+⚠️ **Correction du 5 septembre 2026.** Cette note affirmait « Effort — 8 valeurs : `ultra | max | xhigh | high | medium | low | minimal | none` ». Vérification en source primaire : **`ultra`, `max` et `none` ne figurent pas** dans la référence officielle du champ. Ce sont au mieux des libellés de préréglage d'interface, dont la correspondance avec la valeur TOML n'est pas documentée. Écrire `ultra` ou `max` dans un `.toml` de subagent produit une configuration non conforme à la référence. Si une page dédiée aux subagents documente un jeu de valeurs élargi pour ce champ, il faudra le reconfirmer explicitement — en l'état, la référence de configuration fait foi.
+
+⚠️ **Choix du modèle dans l'exemple** : `gpt-5.4` et `gpt-5.4-mini` sont retirés pour la connexion ChatGPT depuis le **31 août 2026** (remplacements conseillés par OpenAI : `gpt-5.6-terra` / `gpt-5.6-luna`). L'exemple ci-dessus a été corrigé en conséquence. Sans `model` explicite, un subagent hérite du parent — donc du défaut de bundle, qui est **`gpt-6-astra`** depuis la CLI 0.153.4 (cf [[workflow-codex-optimal]]).
 
 ### Built-ins sans fichier
 
@@ -75,7 +82,7 @@ enabled = false
 max_threads = 6      # défaut : threads d'agents concurrents
 max_depth = 1        # défaut : root spawn enfants directs, PAS de petits-enfants
 ```
-`job_max_runtime_seconds` (défaut 1800) pour les jobs CSV, `interrupt_message` (défaut true).
+`job_max_runtime_seconds` (défaut 1800) pour les jobs CSV, `interrupt_message` (défaut true). Ces défauts datent de la vérification du 15 juil. et n'ont pas été recroisés depuis.
 
 ### CSV batch — `spawn_agents_on_csv` (EXPÉRIMENTAL)
 
@@ -115,6 +122,8 @@ Ces automations sont **l'équivalent natif du pattern Boris** (« une routine qu
 ## ANTI-PATTERNS
 
 - ❌ **Champ `instructions`** dans un TOML de subagent — c'est `developer_instructions`.
+- ❌ **`model_reasoning_effort = "ultra" | "max" | "none"`** — valeurs absentes de la référence officielle ; les cinq valides sont `minimal | low | medium | high | xhigh`.
+- ❌ **Épingler `gpt-5.4` / `gpt-5.4-mini`** — retirés pour la connexion ChatGPT depuis le 31 août 2026.
 - ❌ **Attendre des petits-enfants d'agents** — `max_depth=1` par défaut (root → enfants directs seulement).
 - ❌ **Gérer les Scheduled tasks depuis la CLI/IDE** — interface web/desktop only.
 - ❌ **Croire un cap chiffré de tâches cloud //** — non documenté.
@@ -125,6 +134,7 @@ Ces automations sont **l'équivalent natif du pattern Boris** (« une routine qu
 ## SOURCES
 
 - `learn.chatgpt.com/docs/agent-configuration/subagents` (TOML lus en raw, CERTAIN).
+- `learn.chatgpt.com/docs/config-file/config-reference` — valeurs de `model_reasoning_effort`, vérifié en primaire le 5 sept. 2026.
 - `learn.chatgpt.com/docs/cloud` · `/docs/automations` (PROBABLE, résumé).
 - RRULE RFC 5545 : verbatim doc automations.
 
@@ -134,6 +144,7 @@ Ces automations sont **l'équivalent natif du pattern Boris** (« une routine qu
 
 - [[workflow-codex-optimal]] — note maître (délégation dans le workflow L/XL)
 - [[config-toml-profils-codex]] — `[agents]`, sandbox par agent, MCP par agent
+- [[GPT-6 Astra]] — défaut de bundle hérité par les subagents sans `model` explicite
 - [[loops-codex]] — automations comme loop
 - [[loop-apprentissage-codex]] — scheduled task « scan sessions → update skills »
 - [[comment-creer-skill-codex]] — `[[skills.config]]`
