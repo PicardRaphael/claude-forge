@@ -2,7 +2,7 @@
 name: repo-inspector
 description: Use this agent when asked to audit, analyze, or scan a repo. Modes — mode=audit (deep .claude/ config audit vs canoniques forge, 3 lentilles intégrées), mode=analyze (full project analysis + CC config recommendations), mode=scan (scan real application code patterns). Use PROACTIVELY when user says "audite mon repo", "analyse mon projet", "scan le code", "propose config CC", "j'ai un projet X", "analyze agents/skills/rules". Input must include repo path and optionally mode=audit|analyze|scan.
 model: opus
-effort: xhigh
+effort: high
 color: purple
 permissionMode: plan
 tools: Read, Glob, Grep, Bash, Skill, Agent, WebFetch, WebSearch, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__list_notes
