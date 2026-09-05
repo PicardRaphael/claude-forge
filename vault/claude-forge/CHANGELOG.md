@@ -14,6 +14,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-09-05 (7) — le retrait du bypass delegate-guard propagé à son relais
+
+- **Modifiées** :
+  - `01-Claude/Code/best-practices/hook-intercepte-mcp-et-read-tools.md` — sa section « Exceptions delegate-guard légitimes — bypass par mismatch de matcher » portait la recette complète `Write <fichier>.md.new` + `Bash mv`, qualifiée de « bypass propre, sans violer ni désactiver le hook ». Réécrite en place en « ⛔ Trou connu de delegate-guard : le mismatch de matcher — exploitation INTERDITE » : le fait empirique (les angles morts du matcher) est conservé car il sert à durcir le hook, la recette est remplacée par l'interdiction et par le chemin légitime (session principale + `Skill(<creator>)` frais ; réparer la garde via `hook-creator`, jamais la franchir). Renvoi mort vers la section jumelle supprimée de `comment-creer-agent` corrigé, wikilinks complétés.
+  - `Knowledge/erreurs/erreur-subagent-bypass-delegate-guard.md` — AJOUT : la doctrine forge prescrivait le contournement dans deux canoniques pendant que cette note d'erreur le condamnait ; contradiction interne restée active plus de trois mois. Trois leçons capitalisées — `lint_vault` ne voit pas deux doctrines qui s'annulent ; l'habillage « propre / exception légitime » est le vrai vecteur d'adoption ; une suppression doctrinale se termine par un `search_brain` du concept supprimé, pas par la clôture du fichier édité.
+- **Source** : audit de doctrine Claude Code / Codex — propagation du retrait opéré aux entrées (5) et (6) du jour, qui n'était pas complète. Vérifications : `search_brain` sur le mécanisme (2 foyers, 1 contaminé), grep `.md.new`/bypass sur `subagent-creator`/`skill-creator`/`hook-creator` (0 hit), grep `forge-brain__*` sur skills/agents/rules (0 hit — confirme le claim « forge ne l'utilise pas » écrit en (6)), `lint_vault` 0 wikilink brisé / 0 YAML cassé.
+
 ## 2026-09-05 (6) — `comment-creer-skill` : la contradiction interne purgée du corps
 
 - **Modifiées** : `comment-creer-skill` réécrite en place (851 → 823 lignes). Clôt le « reste ouvert » de l'entrée (4) pour cette note ; les deux canoniques de création sont désormais à jour.

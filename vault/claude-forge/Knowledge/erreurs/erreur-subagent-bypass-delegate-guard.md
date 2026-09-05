@@ -78,3 +78,14 @@ Le mécanisme de bypass décrit ci-dessus (`CLAUDE_AGENT=skill-creator` env var)
 - **Depuis un teammate / sub-agent** (`agent_type` non-null) : `attributionSkill` reste `None` même après invocation de la skill → BLOCKED exit 2, insatisfiable. Les agents `fix-agents`/`fix-skills` dispatchés pour appliquer les fixes d'audit s'y sont cognés et ont dû remonter leurs diffs à la session principale, qui les a appliqués elle-même.
 
 **Règle opérationnelle** : toute modification de fichier protégé (SKILL.md/agent.md/CLAUDE.md/hook) se fait en SESSION PRINCIPALE après invocation de la skill créatrice. Ne pas déléguer l'écriture à un sub-agent (il préparera le diff au mieux). Même famille que les writes cross-repo réservés à la session principale. Cf [[changer-mecanisme-lire-tests-qui-verrouillent]] (mécanisme changé → vérifier le réel, pas la doctrine figée).
+## AJOUT 5 septembre 2026 — la doctrine forge enseignait elle-même le contournement
+
+Audit de doctrine du 5 septembre : pendant que cette note condamnait le bypass, **deux notes canoniques le prescrivaient** — [[comment-creer-agent]] et [[hook-intercepte-mcp-et-read-tools]] portaient une section jumelle décrivant la recette `Write <fichier>.md.new` + `Bash mv`, qualifiée de « bypass propre, sans violer ni désactiver le hook », validée par advisor et justifiée par le cas « le creator buggé doit se corriger lui-même » (27 mai 2026). Les deux sections ont été retirées et remplacées par une interdiction explicite le jour même.
+
+Ce qui rend l'incident instructif dépasse le bypass :
+
+1. **Une contradiction interne du vault a survécu trois mois.** Une note `Knowledge/erreurs/` disant « JAMAIS » et une canonique disant « voici comment » ont coexisté sans que rien ne les rapproche. `lint_vault` voit les wikilinks brisés et le YAML cassé, pas les doctrines qui s'annulent. Aucun outil ne remplace la lecture croisée.
+2. **La formulation « propre » est le vrai vecteur.** La recette ne se présentait pas comme un contournement mais comme une exception légitime respectant la spec du matcher — exactement l'habillage qui la rend adoptable. Un franchissement de garde-fou reste un franchissement quel que soit son emballage : le critère est l'effet obtenu, pas l'élégance du chemin.
+3. **La propagation ne se déduit pas d'un retrait.** Retirer la section de la canonique principale ne la retirait pas de la note qui la relayait ; c'est un `search_brain` ciblé sur le mécanisme, après coup, qui a trouvé la seconde occurrence. Toute suppression doctrinale se termine par une recherche du concept supprimé, pas par la clôture du fichier édité (cf `AGENTS.md` § Maintenance).
+
+Remède doctrinal en vigueur : le creator qui doit se corriger passe par la session principale avec `Skill(<creator>)` frais ; un creator réellement inutilisable se répare via `hook-creator` ou remonte à Raphaël. Modifier la garde est légitime, la contourner ne l'est jamais.

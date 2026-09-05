@@ -8,11 +8,12 @@ aliases:
   - "intercepter append_note hook"
   - "matcher mcp__forge-brain__append_note"
   - "hook sur tool MCP"
-derniere-maj: 2026-07-27
+derniere-maj: 2026-09-05
 auteur: claude
 type: technique
 sources:
   - "Session 27 mai 2026 — Chantier A étape 2b, hook probe empirique"
+  - "Audit de doctrine 5 septembre 2026 — retrait de la recette de contournement"
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
@@ -62,17 +63,23 @@ Pas de champ `agent_type`/`agent_id` en session principale → la détection sub
 - **Gardes sur écritures MCP** : ex `mcp-alias-guard.py` (bloque `append_note(file=<stem ambigu>)`).
 - **Gardes sur lectures** : ex `vault-cat-guard.py` (bloque `Read` sur le vault — enforce la doctrine MCP-only structurellement).
 
-## Exceptions delegate-guard légitimes — bypass par mismatch de matcher
+## ⛔ Trou connu de delegate-guard : le mismatch de matcher — exploitation INTERDITE
 
-`delegate-guard.py` route tout `.claude/agents/*.md` (et `SKILL.md`, `CLAUDE.md`) vers son creator dédié. Quand un creator est le **verrou de bootstrap** et doit se corriger lui-même (le creator requis EST le fichier buggé), l'édit direct est bloqué et la délégation impossible.
+Le corollaire du fait empirique ci-dessus : un hook ne voit **que** ce que son matcher attrape. `delegate-guard.py` est enregistré sur `Write|Edit|MultiEdit` et teste le suffixe `.md`. Il en résulte deux angles morts réels :
 
-Bypass propre, sans violer ni désactiver le hook (exploite la spec du matcher) :
+- un `Write` vers `<fichier>.md.new` ne matche pas le test de suffixe ;
+- un `Bash mv` n'est pas dans le matcher `Write|Edit|MultiEdit`.
 
-1. `Write` vers `<fichier>.md.new` — suffixe `.new` ≠ `.md` → `is_agent_md` False → delegate-guard ne tire pas.
-2. `Bash mv <fichier>.md.new <fichier>.md` — `Bash` hors matcher `Edit|Write|MultiEdit` → delegate-guard ne tire pas.
-3. `Read`/grep de vérif (le `Write` fichier entier remplace l'`Edit` ciblé → vérifier frontmatter intact).
+**Ce constat sert à durcir le hook, jamais à passer à travers.** Enchaîner ces deux angles morts pour écrire un composant protégé est un contournement de garde-fou de scope — interdit sans exception, quelle que soit l'urgence et quel que soit le prétexte (« le creator est lui-même buggé », « c'est une exception unique », « c'est propre car ça respecte la spec du matcher »). La rule `delegate-to-specialists.md` est explicite : *si le hook bloque, la réponse n'est JAMAIS de le contourner.* Cf [[erreur-subagent-bypass-delegate-guard]] — un sub-agent a produit exactement ce raisonnement et il a été traité comme une faute.
 
-Exception unique justifiée, jamais en routine, validation `advisor` préalable. Cas d'école : Chantier A étape 2b (27 mai 2026), `agent-creator` durci en premier par ce mécanisme. Détail complet : [[comment-creer-agent]] section « Self-modification d'un creator buggé via bypass de matcher ».
+### Que faire quand un creator doit se corriger lui-même
+
+1. **Session principale + `Skill(<creator>)` frais**, puis les Edits enchaînés dans la fenêtre du transcript. C'est le chemin prouvé (16 juil. 2026) ; il couvre le cas « le creator requis est le fichier à modifier », le bypass `attributionSkill` étant strict par type de fichier et non par identité du fichier édité.
+2. Si le creator est cassé au point d'être inutilisable : corriger **le hook** via `hook-creator`, ou remonter la décision à Raphaël. Modifier la garde est légitime ; la contourner ne l'est pas.
+3. Sub-agent bloqué : STOP + ESCALADE avec le diff préparé (cf [[anti-reentrance-sub-agents-pattern-escalade]]), jamais d'auto-déblocage.
+
+> **Correction du 5 septembre 2026.** Cette section prescrivait jusqu'ici la recette `.md.new` + `mv` comme un « bypass propre, sans violer ni désactiver le hook », validé par advisor et présenté comme exception légitime (cas d'école : durcissement d'`agent-creator`, 27 mai 2026). C'était une doctrine fausse, restée active plus de trois mois et relayée par [[comment-creer-agent]], qui portait une section jumelle — supprimée le même jour. Aucune formulation ne rend acceptable le franchissement d'un garde-fou de scope.
+
 ## Limite / scope
 
 - Le matcher est le **nom exact du tool** (`mcp__server__tool`), pas un wildcard testé ici.
@@ -81,6 +88,8 @@ Exception unique justifiée, jamais en routine, validation `advisor` préalable.
 ## Wikilinks
 
 - [[comment-creer-hook]] — canonique hooks (30 events, matchers)
+- [[delegate-guard-pattern]] — le hook protégé ici, son mécanisme `attributionSkill` et son scope forge-only
+- [[erreur-subagent-bypass-delegate-guard]] — l'erreur fondatrice : contourner n'est jamais la réponse
 - [[pattern-mcp-brief-then-direct]] — pourquoi vault-cat-guard existe (MCP décoratif en sub-agent)
 - [[feedback_mcp_alias_ambigu_chemin_exact]] — pourquoi mcp-alias-guard existe
 - [[resolution-path-3-contextes]] — contextes d'exécution et résolution de path
