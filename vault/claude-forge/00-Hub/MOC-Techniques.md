@@ -6,7 +6,7 @@ aliases:
 - patterns Claude Code
 - prompt engineering techniques
 auteur: claude
-derniere-maj: 2026-07-08
+derniere-maj: 2026-09-05
 resume: 'Index des techniques : prompt engineering, context engineering, patterns,
   anti-patterns'
 tags:
@@ -18,6 +18,7 @@ type: index
 # Techniques
 
 ## Prompt Engineering
+- [[doctrine-par-modele-opus5-fable5]] — les règles de prompting diffèrent PAR MODÈLE et non par génération : Opus 5 s'auto-vérifie et sur-délègue, Fable 5.1 refuse les instructions show-your-reasoning (`reasoning_extraction`). À lire avant toute règle de prompting transversale
 - [[prompting-fable5-cheatsheet]] — 12 prompts officiels Anthropic copier-coller pour Fable 5 (classe Mythos) : goal-setting > micromanagement, anti-refacto, verification loops, memory system
 - [[recursive-language-models-rlm]] — RLMs (MIT, Khattab) : prompt = variable externe dans un REPL, auto-appel récursif, nouvel axe test-time compute / context folding
 
@@ -161,7 +162,7 @@ Corpus doctrinal Codex (miroir de la doctrine Claude Code) — index complet dan
 
 - [[MOC-Codex]] — **index Codex** : workflow, AGENTS.md, config/profils, skills, hooks, subagents, loops, mémoire, arbitrage ChatGPT
 - [[workflow-codex-optimal]] — note maître : Surface Map des 8 leviers, multitasking Sottiaux, séquence par taille de tâche
-- [[comment-creer-hook-codex]] — hooks Codex stables (v0.124.0), 10 events, trust model par hash, piège `Stop` inversé vs Claude Code
+- [[comment-creer-hook-codex]] — hooks Codex stables (v0.124.0), **12 events au 5 sept. 2026** (dont `Interrupt`, seul event sans équivalent Claude Code), trust model par hash, piège `Stop` inversé vs Claude Code
 - [[comment-creer-skill-codex]] — Skills Codex : noyau standard partagé + divergences (`.agents/skills`, `openai.yaml`), portabilité non byte-identique
 - [[codex-vs-chatgpt-seul]] — arbitrage Codex (agent de code) vs ChatGPT (app conversationnelle)
 
@@ -170,8 +171,8 @@ Corpus doctrinal Codex (miroir de la doctrine Claude Code) — index complet dan
 - [[pattern-spec-driven-development]] — Consensus pionniers 2026 : interview → SPEC.md → execute. Thariq, Boris, Anthropic
 - [[pattern-spec-skill-deployment]] — Guide déploiement skill /spec sur un nouveau repo
 - [[pattern-sdd-triangle]] — Drew Breunig : SPEC ↔ TESTS ↔ CODE, outil Plumb, spec diffing
-- [[pattern-github-spec-kit]] — Framework 93K stars, 6 commandes, Constitution.md
-- [[pattern-gsd-framework]] — GSD 59K stars, contexte frais par agent, plans = prompts
+- [[pattern-github-spec-kit]] — Framework 6 commandes, Constitution.md
+- [[pattern-gsd-framework]] — GSD : contexte frais par agent, plans = prompts
 - [[feature-dev-plugin]] — Plugin officiel Anthropic 7 phases, 3 types d'agents en //
 
 ## Synthèses

@@ -1,6 +1,6 @@
 ---
-titre: "Hooks Codex — moteur stable, 10 events, contrat, parité partielle vs Claude Code"
-resume: "Note canonique forge — les hooks OpenAI Codex : STABLES depuis v0.124.0 (23 avril 2026, plus expérimentaux), 10 events en 2 scopes, config TOML par blocs hooks.Event, contrat JSON stdin + exit 2/permissionDecision, piège Stop (block=continue), gap additionalContext sur PreToolUse, trust model par hash. Vérifié doc officielle au 15 juil. 2026."
+titre: "Hooks Codex — moteur stable, 12 events, contrat, parité partielle vs Claude Code"
+resume: "Note canonique forge — les hooks OpenAI Codex : STABLES depuis v0.124.0 (23 avril 2026, plus expérimentaux), 12 events en 2 scopes, config TOML par blocs hooks.Event, contrat JSON stdin + exit 2/permissionDecision, piège Stop (block=continue), gap additionalContext sur PreToolUse, trust model par hash. Interrupt est le seul event sans équivalent Claude Code. Vérifié doc officielle au 5 sept. 2026."
 aliases:
   - "hooks codex"
   - "creer hook codex"
@@ -9,7 +9,8 @@ aliases:
   - "additionalContext PreToolUse codex"
   - "hooks codex vs claude code"
   - "allow_managed_hooks_only"
-derniere-maj: 2026-07-15
+  - "Interrupt hook codex"
+derniere-maj: 2026-09-05
 auteur: claude
 type: technique
 sources:
@@ -17,15 +18,16 @@ sources:
   - "https://github.com/openai/codex/releases/tag/rust-v0.124.0 (hooks stable)"
   - "https://github.com/openai/codex/releases/tag/rust-v0.129.0 (/hooks TUI + trust model)"
   - "https://github.com/openai/codex/issues/19385 (parité partielle vs Claude Code)"
+  - "https://code.claude.com/docs/en/hooks (côté Claude Code, pour le diff bilatéral du 5 sept. 2026)"
 tags:
   - "#type/technique"
   - "#domaine/codex"
   - "#domaine/hooks"
   - "#doctrine/2026"
 ---
-# Hooks Codex — moteur stable, 10 events, parité partielle vs Claude Code
+# Hooks Codex — moteur stable, 12 events, parité partielle vs Claude Code
 
-> Note canonique forge — les hooks Codex injectent des scripts dans la boucle agentique (logging, blocage, validation, injection de contexte). Vérifié sur `learn.chatgpt.com/docs/hooks` + release tags au **15 juil. 2026**. Mécanismes propres à Codex — ne pas présumer la sémantique Claude Code.
+> Note canonique forge — les hooks Codex injectent des scripts dans la boucle agentique (logging, blocage, validation, injection de contexte). Vérifié sur `learn.chatgpt.com/docs/hooks` + release tags au **5 sept. 2026**. Mécanismes propres à Codex — ne pas présumer la sémantique Claude Code.
 
 ---
 
@@ -40,18 +42,19 @@ Une croyance répandue (et le hedge initial de ce chantier) : « hooks Codex exp
 | **v0.124.0** | **23 avril 2026** | **STABLE** — « Hooks are now stable, can be configured inline in `config.toml` and managed `requirements.toml`, and can observe MCP tools as well as `apply_patch` and long-running Bash sessions. » |
 | v0.129.0 | 7 mai 2026 | `/hooks` browser TUI + trust model par hash + hooks avant/après compaction + `PreToolUse` context |
 
-**Stable ≠ figé** : plusieurs champs restent « parsed but not implemented » (`async`, `suppressOutput`, `updatedMCPToolOutput`), et des events continuent d'arriver. Traiter les hooks Codex comme un **levier réel de production**, pas un jouet.
+**Stable ≠ figé** : plusieurs champs restent « parsed but not implemented » (`async`, `suppressOutput`, `updatedMCPToolOutput`), et des events continuent d'arriver — la liste est passée de 10 à 12 entre juillet et septembre 2026. Traiter les hooks Codex comme un **levier réel de production**, pas un jouet, et revérifier le compte en source avant de le citer.
 
 ---
 
-## COMMENT — 10 events, 2 scopes (CERTAIN)
-
-> Verbatim : « `PreToolUse`, `PermissionRequest`, `PostToolUse`, `PreCompact`, `PostCompact`, `UserPromptSubmit`, `SubagentStop`, and `Stop` run at turn scope. `SessionStart` and `SubagentStart` run at thread or subagent-start scope. »
+## COMMENT — 12 events, 2 scopes (CERTAIN au 5 sept. 2026)
 
 | Event | Scope |
 |-------|-------|
 | `SessionStart`, `SubagentStart` | thread / subagent-start |
-| `PreToolUse`, `PermissionRequest`, `PostToolUse`, `PreCompact`, `PostCompact`, `UserPromptSubmit`, `SubagentStop`, `Stop` | turn (reçoivent un `turn_id` sur stdin) |
+| `PreToolUse`, `PermissionRequest`, `PostToolUse`, `PreCompact`, `PostCompact`, `UserPromptSubmit`, `SubagentStop`, `Stop`, `Interrupt` | turn (reçoivent un `turn_id` sur stdin) |
+| `SessionEnd` | fin de session |
+
+`Interrupt` (verbatim) « runs when you interrupt an active turn on the main thread » — l'event ajouté depuis le relevé de juillet, avec `SessionEnd`.
 
 ---
 
@@ -130,18 +133,28 @@ Logging/analytics · bloquer des clés API accidentellement pastées · **résum
 
 ---
 
+## Diff bilatéral des events — 5 septembre 2026
+
+Les deux listes relevées **le même jour** en source primaire (`learn.chatgpt.com/docs/hooks` et `code.claude.com/docs/en/hooks`) : Codex **12**, Claude Code **33**.
+
+- **Codex-only : `Interrupt`.** C'est le seul event Codex sans équivalent Claude Code — l'interruption d'un tour par l'utilisateur n'y est pas un point d'accroche.
+- **Les 11 autres events Codex existent tous côté Claude Code**, au même nom : `SessionStart`, `SessionEnd`, `SubagentStart`, `SubagentStop`, `PreToolUse`, `PermissionRequest`, `PostToolUse`, `PreCompact`, `PostCompact`, `UserPromptSubmit`, `Stop`.
+- **Claude Code a 21 events que Codex n'a pas**, dont les familles absentes côté Codex : échec (`PostToolUseFailure`, `StopFailure`, `PermissionDenied`), tâches et équipes (`TaskCreated`, `TaskCompleted`, `TeammateIdle`), environnement (`ConfigChange`, `CwdChanged`, `DirectoryAdded`, `FileChanged`, `WorktreeCreate`, `WorktreeRemove`), modèle (`PreModelSwitch`, `PostModelSwitch`), affichage et élicitation (`MessageDisplay`, `Elicitation`, `ElicitationResult`), plus `Setup`, `UserPromptExpansion`, `PostToolBatch`, `Notification`, `InstructionsLoaded`.
+
+**Conséquence de portage** : un hook forge reposant sur un event de ces familles n'a pas de cible Codex — ce n'est pas un problème de configuration mais d'absence d'event. Les deux comptes bougent par version : les revérifier avant de citer un chiffre.
+
+---
+
 ## Hooks Codex vs Claude Code (synthèse)
 
 | Aspect | Codex | Claude Code |
 |--------|-------|-------------|
 | Config | TOML `[[hooks.Event]]` (+ `hooks.json` Claude-style accepté) | JSON settings.json |
-| Events | 10 (ajoute `PermissionRequest`, `PostCompact`, `SubagentStart`, `SubagentStop`) | ~ mêmes noms de base |
+| Events | **12** | **33** — surensemble, sauf `Interrupt` |
 | `additionalContext` sur PreToolUse | ❌ non supporté (guardrail only) | ✅ supporté |
 | `Stop` `block` | = **continuer** (sémantique inversée) | = bloquer l'arrêt (cf hooks forge) |
 | Trust model | par hash (skip tant que non trusté) | absent |
 | Parité champs de sortie | **incomplète** (verbatim issue #19385) | référence |
-
-*À vérifier* : diff event-par-event exhaustif (cette synthèse s'appuie sur l'issue OpenAI #19385, pas un fetch frais de la doc Anthropic — croiser avec [[comment-creer-hook]] pour un diff bilatéral).
 
 ---
 
@@ -153,12 +166,14 @@ Logging/analytics · bloquer des clés API accidentellement pastées · **résum
 - ❌ **Compter sur `type: prompt`/`agent`, `async`, `suppressOutput`** — parsés, pas implémentés.
 - ❌ **`allow_managed_hooks_only` dans config.toml** — requirements.toml only.
 - ❌ **Oublier le trust model** — un hook modifié est skippé jusqu'à re-trust.
+- ❌ **Citer un compte d'events de mémoire** — il a bougé deux fois en cinq mois de chaque côté.
 
 ---
 
 ## SOURCES
 
-- `learn.chatgpt.com/docs/hooks` (15/07/2026).
+- `learn.chatgpt.com/docs/hooks` (05/09/2026).
+- `code.claude.com/docs/en/hooks` (05/09/2026, pour le diff bilatéral).
 - Release tags `rust-v0.114.0` (naissance), `rust-v0.124.0` (stable), `rust-v0.129.0` (TUI + trust).
 - `github.com/openai/codex/issues/19385` (parité partielle vs Claude Code).
 

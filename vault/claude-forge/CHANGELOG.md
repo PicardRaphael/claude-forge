@@ -14,6 +14,67 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-09-05 (10) — trois notes réalignées sur le réel mesuré, et le diff bilatéral des hooks enfin fait
+
+- **Modifiées** :
+  - `04-Techniques/codex/comment-creer-hook-codex.md` — annonçait **10 events** (relevé du 15 juil.).
+    Source primaire au 5 sept. : **12**, avec `SessionEnd` et surtout **`Interrupt`** (« runs when you
+    interrupt an active turn on the main thread »). Le *À vérifier* que la note portait depuis juillet —
+    « diff event-par-event exhaustif, croiser avec `comment-creer-hook` » — est **résolu** : les deux
+    listes ont été relevées le même jour, et la section « Diff bilatéral » les confronte. Résultat :
+    `Interrupt` est le **seul** event Codex sans équivalent Claude Code, les 11 autres existent au même
+    nom, et Claude Code en a 21 de plus (familles échec, tâches/équipes, environnement, changement de
+    modèle, affichage/élicitation). Conséquence de portage explicitée : un hook forge assis sur une de
+    ces familles n'a pas de cible Codex — absence d'event, pas défaut de configuration.
+  - `04-Techniques/claude-code/ecc-pattern-personal-dev-setup.md` — l'inventaire « forge actuel » datait
+    de mai (16 agents, ~30 skills, ~15 commands, 14 hooks, 4 MCP). Mesuré le 5 sept. : **5 agents,
+    51 skills, 0 command, 20 hooks, 12 rules, 2 MCP**. Surtout, les deux conclusions de la note sont
+    **infirmées** : « forge → 47 agents, trajectoire cohérente » (le pivot du 6 juin a fait l'inverse,
+    16 → 5) et « sous-dimensionné en skills, gap à investiguer » (le budget de listing drope des
+    descriptions entières au-delà du seuil — viser 119-181 dégraderait la découverte). Un anti-pattern
+    est ajouté : traiter une volumétrie observée chez un tiers comme un objectif. Compte de stars retiré.
+  - `04-Techniques/codex/codex-vs-chatgpt-seul.md` — « même famille **GPT-5.6** » alors que
+    [[GPT-6 Astra]] est flagship depuis le 3 sept. et défaut du CLI depuis le 4 ; sunset de l'Assistants
+    API écrit au futur alors qu'il est effectif depuis le 26 août. Corrigés, note redatée, plus un
+    anti-pattern sur le champ qui périme le plus vite d'une note d'arbitrage : la famille de modèles.
+- **Source** : audit de propagation Claude Code / Codex, vérifications en source primaire
+  (`learn.chatgpt.com/docs/hooks`, `code.claude.com/docs/en/hooks`) et inventaire mesuré du repo.
+- **Vérifié sans changement** : le domaine `chatgpt` de `cc-news` reste `status: failed` — le 403 sur
+  `help.openai.com` est toujours actif, le checkpoint conservé est le comportement prévu au contrat,
+  pas une panne à réparer.
+- **Reste ouvert** : les comptes d'events cités dans `MOC-Techniques` (10, Codex), `index` et
+  `comparaison-skill-anthropic-claude-code-setup` (30, Claude Code), plus le corps de
+  `comment-creer-hook`. Même cause structurelle à chaque fois : **un chiffre nu recopié dans un index
+  périme sans que rien ne le signale**.
+
+## 2026-09-05 (9) — le MOC Claude Code recâblé sur les canoniques de la lignée Opus 5
+
+- **Modifiées** :
+  - `00-Hub/MOC-Claude-Code.md` — l'index annonçait « **30 events officiels** (+DirectoryAdded v2.1.219) »
+    pour `comment-creer-hook`. Vérification en source primaire (`code.claude.com/docs/en/hooks`,
+    5 sept. 2026) : **33 events**, `DirectoryAdded` désormais dans la liste, plus `PreModelSwitch` et
+    `PostModelSwitch`. Le chiffre est corrigé et assorti de sa condition de validité (« le compte bouge
+    par version : revalider en source avant de citer un chiffre »), la formulation qui a produit la
+    péremption étant précisément un chiffre nu.
+  - Six canoniques atteignables uniquement par recherche sont désormais indexées : sous-section
+    « Doctrine par modèle » (`doctrine-par-modele-opus5-fable5`, `effort-opus-47-doctrine-anthropic-2026`,
+    `prompting-fable5-cheatsheet`), plus `pattern-maintenance-hybride-corpus-accumulatif` (citée comme
+    canonique par `AGENTS.md` et absente de l'index), `hook-intercepte-mcp-et-read-tools`,
+    `audit-tripartite-doctrinal-pattern` et `verification-sources-canoniques`.
+  - La ligne `comment-creer-skill` portait encore la « règle ~250 chars auto-trigger », que l'AJOUT du
+    18 juin de cette même note a remplacée par le mécanisme réel du budget de listing (drop de
+    descriptions entières, pas troncature). Alignée. `Effort Levels` sort des « features à documenter » :
+    la note dédiée existe.
+- **Source** : audit de propagation Claude Code / Codex. Le MOC n'est pas auto-maintenu depuis le pivot
+  agent-first (`vault-audit` ne score plus les liens MOC) — d'où la dérive : c'est la couche humaine, et
+  seule une passe manuelle la rattrape.
+- **Vérifications** : `MessageDisplay`, soupçonné d'être un event fantôme, **existe bien** en source
+  primaire — le soupçon était faux. `lint_vault` 0 wikilink brisé après écriture.
+- **Reste ouvert** : la liste des 30 events dans le corps de `comment-creer-hook` (60 294 chars) n'est pas
+  corrigée. Le MCP n'expose aucun remplacement de section ; la seule voie est `update_note`, qui réémet la
+  note entière — risque d'altération silencieuse d'une canonique disproportionné face à l'ajout de trois
+  noms. La section s'auto-protège en se déclarant « snapshot historique à revalider ».
+
 ## 2026-09-05 (8) — premier sweep d'effort mesuré sur Opus 5
 
 - **Modifiées** :

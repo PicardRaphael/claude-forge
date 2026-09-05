@@ -7,7 +7,7 @@ aliases:
   - "vault index"
   - "orientation LLM vault"
   - "index content-oriented"
-derniere-maj: 2026-07-27
+derniere-maj: 2026-09-05
 auteur: claude
 type: index
 tags:
@@ -28,11 +28,13 @@ Produit au chantier 22 mai 2026, vit dans `04-Techniques/claude-code/` :
 - **Comment écrire un CLAUDE.md** → [[comment-ecrire-claudemd]] (target 200L, 5 anti-patterns Anthropic)
 - **Comment créer une skill** → [[comment-creer-skill]] (9 catégories Thariq, < 500L, description 1 ligne)
 - **Comment créer un agent** → [[comment-creer-agent]] (Sonnet/Opus split, 8 couleurs, 2-agent Justin Young)
-- **Comment créer un hook** → [[comment-creer-hook]] (30 events officiels, doctrine 22 mai lint/sécu/scope)
+- **Comment créer un hook** → [[comment-creer-hook]] (33 events officiels au 5 sept. 2026 — le compte bouge par version, revalider en source ; doctrine 22 mai lint/sécu/scope)
+- **Comment créer un hook Codex** → [[comment-creer-hook-codex]] (12 events, `Interrupt` sans équivalent Claude Code, `Stop` à sémantique inversée)
 - **Workflow Claude Code optimal** → [[workflow-claude-code-optimal]] (routines Boris, advisor strategy Brad Abrams, leaf nodes Erik)
 - **Analyser un repo et proposer config CC** → [[methode-analyser-repo]] (MÉTA, 6 étapes, ORDRE CANONIQUE A→B→C→D→E)
 - **Pivoter une doctrine sans drift résiduel** → [[methode-pivoter-doctrine]] (checklist 5 étapes, 23 mai)
 - **MCP vs Skills vs Bash (quand quoi)** → [[mcp-vs-skills-doctrine]] (MCP data / Skills how-to / Bash exploration)
+- **Prompter selon le modèle (Opus 5 vs Fable 5.1)** → [[doctrine-par-modele-opus5-fable5]] (les règles diffèrent par modèle, pas par génération)
 - **Pattern vault LLM Karpathy** → [[pattern-vault-llm-karpathy]] (référence générique ; forge-brain s'en est émancipé → agent-first, cf [[decision-vault-agent-first]])
 - **Pattern STOP + ESCALADE sub-agents** → [[anti-reentrance-sub-agents-pattern-escalade]] (sub-agent non-réentrant)
 - **Comparaison skill Anthropic claude-code-setup** → [[comparaison-skill-anthropic-claude-code-setup]]
@@ -81,7 +83,7 @@ Le 22 mai 2026, doctrine inversée : hooks pour lint/security/scope, **JAMAIS** 
 - **Kill TDD strict hooks** → [[raisonnement-kill-tdd-strict-hooks-mai-2026]]
 - **Revirement pipeline (long → court)** → [[raisonnement-revirement-pipeline-mai-2026]]
 - **Doctrine vivante (méta)** → [[doctrine-vivante]]
-- **Effort calibré par type de tâche** → [[effort-opus-47-doctrine-anthropic-2026]]
+- **Effort calibré par type de tâche** → [[effort-opus-47-doctrine-anthropic-2026]] (`high` au départ sur Opus 5 / Fable 5 / Sonnet 5 ; `xhigh` = step-up mesuré)
 - **Anti-pattern hookify / workflow hooks** → [[anti-pattern-hookify-workflow-hooks]]
 - **Critique chantier 22 mai 8 canoniques** → [[critique-2026-05-22-8-canoniques-chantier]]
 - **Vault agent-first (Karpathy dépassé)** → [[decision-vault-agent-first]]

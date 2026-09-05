@@ -8,7 +8,7 @@ aliases:
   - "index claude code"
   - "CC features map"
 type: index
-derniere-maj: 2026-07-27
+derniere-maj: 2026-09-05
 auteur: claude
 sources: []
 tags:
@@ -22,16 +22,23 @@ tags:
 Quand on demande "analyse ce repo, propose-moi la config CC", la doctrine se trouve ici :
 
 - [[comment-ecrire-claudemd]] — target 200L, 5 anti-patterns Anthropic, compounding Boris
-- [[comment-creer-skill]] — 9 catégories Thariq (post Anthropic mars 2026), frontmatter trigger 3e personne, règle ~250 chars auto-trigger
+- [[comment-creer-skill]] — 9 catégories Thariq (post Anthropic mars 2026), frontmatter trigger 3e personne, budget de listing (drop de descriptions entières, pas troncature)
 - [[comment-creer-agent]] — 2-agent Justin Young (sans split modèles), Sonnet/Opus split doctrine forge (Cat Wu + Brad Abrams), convention 8 couleurs
-- [[comment-creer-hook]] — **30 events officiels** (+DirectoryAdded v2.1.219), timeouts 600s/30s/60s par type, doctrine "rule 100% → hook", Böckeler Guides+Sensors
+- [[comment-creer-hook]] — **33 events officiels au 5 sept. 2026** (le compte bouge par version : revalider en source avant de citer un chiffre), timeouts 600s/30s/60s par type, doctrine "rule 100% → hook", Böckeler Guides+Sensors
 - [[workflow-claude-code-optimal]] — routines Boris + **Advisor Strategy Brad Abrams** + leaf nodes Erik
 - [[methode-analyser-repo]] (META) — grille 6 étapes + pipeline architect→dev→reviewer→test
 - [[mcp-vs-skills-doctrine]] — MCP data / Skills how-to / Bash exploration, lethal trifecta = Willison
 - [[pattern-vault-llm-karpathy]] — 3-layers raw/wiki/schema, qmd Tobi Lütke
+- [[pattern-maintenance-hybride-corpus-accumulatif]] — maintenir un corpus qui grossit sans le réécrire à chaque pivot
 - [[trail-of-bits-config]] — setup entreprise sécu publique (anti-rationalization Stop hook + 3-tier sandbox)
 - [[methode-pivoter-doctrine]] — checklist 5 étapes pour pivot doctrinal sans régression silencieuse
 - [[comparaison-skill-anthropic-claude-code-setup]] — vault forge vs skill officielle (15× plus profond, 3 bits utiles repris)
+
+### Doctrine par modèle (lignée Opus 5 / Fable 5.1)
+
+- [[doctrine-par-modele-opus5-fable5]] — les règles de prompting diffèrent PAR MODÈLE, pas par génération : Opus 5 s'auto-vérifie et sur-délègue, Fable 5.1 refuse les instructions show-your-reasoning (`reasoning_extraction`)
+- [[effort-opus-47-doctrine-anthropic-2026]] — source de vérité sur `effort:` : `high` est le point de départ sur Opus 5 / Fable 5 / Sonnet 5, `xhigh` = step-up mesuré. Porte le sweep mesuré du 5 sept. 2026
+- [[prompting-fable5-cheatsheet]] — prompting Fable par symptôme
 
 ## ⚙️ Rules transverses
 
@@ -66,15 +73,18 @@ Quand on demande "analyse ce repo, propose-moi la config CC", la doctrine se tro
 
 ## Features (à documenter)
 
-Effort Levels (note dédiée) · Routines · Session Sharing · Remote Control · Dynamic Loop
+Routines · Session Sharing · Remote Control · Dynamic Loop
 
 ## Best Practices
 
 - [[workflow-claude-code-optimal]] — Fleet commander, 5 terminaux, worktrees — synthèse Boris, Erik, Thariq, Cat Wu, Karpathy
 - [[delegate-guard-pattern]] — Hook PreToolUse forge-only : bloque edits directs, redirige vers agents spécialisés
+- [[hook-intercepte-mcp-et-read-tools]] — ce qu'un matcher de hook attrape vraiment (MCP, Read), et pourquoi ses angles morts ne s'exploitent pas
 - [[methode-analyser-repo]] — 3 rules obligatoires tout projet : check-before-create, quality-gates, learn-from-mistakes
 - [[comment-ecrire-claudemd]] — Consensus Boris + Anthropic : 100-200L max, monthly audit
 - [[mcp-vs-cli-vs-skills]] — Quand MCP, quand CLI, quand skill : matrice de décision
+- [[audit-tripartite-doctrinal-pattern]] — auditer une config `.claude/` sous 3 lentilles (Discipline / Minimalisme / Couverture)
+- [[verification-sources-canoniques]] — matrice de crédit des sources avant capitalisation
 - [[steps-of-ai-adoption-boris]] — échelle de maturité 0-4 (16 juil. 2026), bottlenecks + guardrails par transition
 - [[fireside-cat-wu-thariq-aiewf-2026]] — doctrine prompting frontière (system prompt −80 %), fewer tools, evals
 
