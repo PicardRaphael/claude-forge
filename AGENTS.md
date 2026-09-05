@@ -6,6 +6,7 @@
 - Définir `<done>` en une ligne avant un chantier substantiel.
 - Vérifier le code et les sources actuelles ; ne jamais faire passer une mémoire datée pour un fait courant.
 - Diff minimal, aucune feature spéculative.
+- Calibrer la longueur d'un livrable écrit (rapport, note, spec) sur ce que la tâche demande : couvrir le fond, sans section de remplissage, résumé redondant ni boilerplate.
 
 ## Critiques
 
