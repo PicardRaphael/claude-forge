@@ -1,6 +1,6 @@
 ---
-derniere-maj: 2026-08-29
-resume: Note canonique pour créer une skill Claude Code selon les 9 catégories Thariq (post Anthropic mars 2026), structure progressive disclosure, frontmatter trigger 3e personne, < 500L SKILL.md, limite description 1024 chars spec / 1536 listing (pas 250), interview 3 rounds obligatoires, evals obligatoires, agentskills.io spec ouverte.
+titre: "Comment créer une skill Claude Code parfaite"
+resume: "Note canonique pour créer une skill Claude Code — 9 catégories Thariq, progressive disclosure, description trigger 3e personne, < 500L, limites réelles 1024/1536 chars et budget de listing, interview 3 rounds, evals A/B."
 aliases:
   - "comment creer une skill"
   - "creer skill claude code"
@@ -9,41 +9,17 @@ aliases:
   - "frontmatter trigger skill"
   - "skill description directive"
   - "doctrine skills forge"
-tags:
-  - "#type/technique"
-  - "#domaine/claude-code"
-  - "#doctrine/2026"
-titre: Comment créer une skill Claude Code parfaite
+  - "progressive disclosure skill"
+  - "agentskills.io"
 type: technique
 auteur: claude
+derniere-maj: 2026-09-05
 sources:
   - "https://www.claude.com/blog/skills-explained"
   - "Thariq Shihipar — post Anthropic 'Lessons from Building Claude Code: How We Use Skills' (mars 2026)"
   - "https://github.com/anthropics/skills"
   - "https://agentskills.io"
----
-﻿---
-titre: "Comment créer une skill Claude Code parfaite"
-resume: "Note canonique pour créer une skill Claude Code selon les 9 catégories Thariq (post Anthropic mars 2026), structure progressive disclosure, frontmatter trigger 3e personne, < 500L SKILL.md, limite pratique description ~250 chars pour auto-invocation, agentskills.io spec ouverte."
-aliases:
-  - "comment creer skill"
-  - "creer une skill"
-  - "create skill claude code"
-  - "skill parfaite"
-  - "skill best practices"
-  - "9 categories thariq"
-  - "progressive disclosure skill"
-  - "SKILL.md structure"
-  - "frontmatter skill"
-  - "agentskills.io"
-derniere-maj: 2026-05-27
-auteur: claude
-type: technique
-sources:
-  - "https://www.claude.com/blog/skills-explained"
-  - "Thariq Shihipar — post Anthropic 'Lessons from Building Claude Code: How We Use Skills' (mars 2026)"
-  - "github.com/anthropics/skills"
-  - "agentskills.io"
+  - "https://code.claude.com/docs/en/skills"
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
@@ -52,7 +28,7 @@ tags:
 ---
 # Comment créer une skill Claude Code parfaite
 
-> Note canonique forge — création de skills selon doctrine Anthropic + Thariq mai 2026.
+> Note canonique forge — création de skills selon doctrine Anthropic + Thariq.
 
 ---
 
@@ -111,7 +87,7 @@ Conséquence : une skill avec `allowed-tools: Read, Grep` peut quand même invoq
 ```yaml
 ---
 name: <nom-exact-du-dossier-kebab-case>
-description: <trigger directive 3e personne, max 1024 chars spec — viser < 250 chars pour auto-invocation fiable>
+description: <trigger directive 3e personne — viser 200-400 chars trigger-dense, 1024 max spec>
 allowed-tools: <optionnel — liste outils>
 model: <optionnel — sonnet/opus/haiku>
 ---
@@ -124,10 +100,10 @@ model: <optionnel — sonnet/opus/haiku>
    - ❌ "I help you create skills"
    - ❌ "This skill creates skills"
    - ✅ "Use when creating a new Claude Code skill, modifying an existing one, or when the user asks 'comment créer une skill'"
-3. **`description` — DEUX limites importantes** :
-   - **Spec officielle** : 1024 chars max (au-delà tronquée)
-   - **Limite pratique auto-invocation** : **~250 chars** — le système reminder `/skills` injecté à chaque turn tronque les descriptions au-delà → tout ce qui dépasse devient **invisible à Claude pour l'auto-trigger**
-   - **Conséquence** : viser < 250 chars dans la `description` pour garantir l'auto-trigger fiable. Le détail va dans le body
+3. **`description` — les limites réelles** :
+   - **Spec officielle** : **1024 chars** max (au-delà, tronquée)
+   - **Listing** : `description` + `when_to_use` ≤ **1536 chars** combinés
+   - **Fourchette de rédaction** : viser **200-400 chars trigger-dense**. Ce n'est pas une limite dure — c'est ce qui garde le listing global sous son budget. Le mécanisme exact (et pourquoi le vieux « 250 chars » ne décrit plus rien) : § AJOUT 18 juin 2026 plus bas.
 4. **`description` = critère d'activation** — Claude lit toutes les descriptions à chaque turn pour décider quelle skill activer
 
 ### Body SKILL.md
@@ -202,27 +178,21 @@ Insight Thariq : "most teams only use 2-3 of these categories — not because th
 
 ### Étape 2 — Déléguer à `skill-creator`
 
-> ⚠️ **Pivot 6 juin 2026** : `skill-creator` est désormais une **skill** (`.claude/skills/skill-creator/`), pas un agent. Invoquer via `Skill(skill-creator)` depuis la session principale. Le hard block `delegate-guard.py` sur `SKILL.md` a été retiré — enforcement advisory. Voir la rule delegate-to-specialists.
+> ⚠️ **Pivot 6 juin 2026** : `skill-creator` est une **skill** (`.claude/skills/skill-creator/`), pas un agent. Invoquer via `Skill(skill-creator)` depuis la session principale.
 
-Côté repo externe : utiliser `mcp-builder` ou `skill-creator` officiel Anthropic.
+**Le hook `delegate-guard.py` BLOQUE l'édition directe d'un `SKILL.md`** (exit 2) et route vers `skill-creator`. Vérifié sur le code le 5 septembre 2026 : le hook est branché via le dispatcher `pre-write-guards.py` (PreToolUse `Write|Edit|MultiEdit`) — il n'apparaît pas directement dans `settings.json`, ce qui a déjà fait conclure à tort qu'il était débranché. Le blocage est réel et dur.
 
-Côté forge : agent `skill-creator` génère SKILL.md conforme. Hook `delegate-guard.py` BLOQUE l'édit direct de `SKILL.md`.
-
-Côté repo externe : utiliser `mcp-builder` ou `skill-creator` officiel Anthropic.
+Côté repo externe : utiliser `mcp-builder` ou `skill-creator` officiel Anthropic. La règle de délégation vaut **cross-repo** même là où aucun hook ne l'applique — cf [[feedback_ecrire_partout_invoquer_skill_creatrice]].
 
 ### Étape 3 — Frontmatter trigger
 
 Écrire la **description comme un trigger directive 3e personne**. Tester mentalement : "si je tape X dans une session, est-ce que Claude devrait activer cette skill ?"
 
-**Limites description (corrigées juin 2026) :**
+**Limites description** :
 - ≤ **1024 chars** spec officielle (hard limit)
-- description + `when_to_use` ≤ **1536 chars** combiné dans le skill listing
-- Viser court et dense — triggers concrets en premier
-- Le "250 chars" anciennement cité était une estimation empirique du system reminder dans un contexte donné, pas une limite de troncature CC. Limites canoniques : 1024 / 1536.
-
-Écrire la **description comme un trigger directive 3e personne**. Tester mentalement : "si je tape X dans une session, est-ce que Claude devrait activer cette skill ?"
-
-**Cibler < 250 chars** dans la description pour garantir l'auto-trigger (limite pratique system reminder).
+- `description` + `when_to_use` ≤ **1536 chars** combinés dans le skill listing
+- Viser **200-400 chars trigger-dense** — triggers concrets en premier
+- Le « 250 chars » longtemps cité était une estimation empirique du system reminder dans un contexte donné, jamais une limite de troncature du produit. Mécanisme actuel : § AJOUT 18 juin 2026.
 
 ### Étape 4 — Body progressive disclosure
 - SKILL.md < 500 lignes
@@ -243,7 +213,7 @@ Les evals sont **obligatoires** pour toute skill créée ou optimisée. Sans mes
 Détail complet : `.claude/skills/skill-creator/references/eval-workflow.md`
 
 ### Étape 5 — Test en session fraîche
-Tester la skill dans une session vierge avec un prompt qui devrait l'activer. Si elle ne s'active pas → description pas assez directive **ou** trop longue (>250 chars système reminder).
+Tester la skill dans une session vierge avec un prompt qui devrait l'activer. Si elle ne s'active pas → description pas assez directive, ou noyée dans un listing saturé (cf budget de listing).
 
 ### Étape 6 — Devil's advocate (CONDITIONNEL)
 Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilisée cross-repos, skill sécu critique, skill métier complexe). Doctrine 22 mai : pas de gates systématiques (cf [[raisonnement-22mai-doctrine-vs-enforcement]]). DA reste **conditionnel**, pas réflexe.
@@ -268,7 +238,7 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilis�
 - Description claire mais pas optimisée pour trigger
 
 ### Niveau avancé
-- Frontmatter trigger optimisé (3e personne, directive, < 250 chars, mots-clés réels users)
+- Frontmatter trigger optimisé (3e personne, directive, trigger-dense, mots-clés réels users)
 - references/ pour détail
 - scripts/ pour ops déterministes
 - Section Gotchas + Apprentissage
@@ -286,7 +256,7 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilis�
 
 | Optim | Gain |
 |-------|------|
-| Description trigger directive < 250 chars | Auto-activation fiable (au-delà : invisible reminder `/skills`) |
+| Description trigger directive et dense | Auto-activation fiable ; le listing reste sous budget donc aucune description n'est droppée |
 | < 500L SKILL.md + references/ | Body chargé seulement à l'activation, references seulement à la demande |
 | Progressive disclosure | 5k tokens budget par skill, 25k combiné post-compaction (limites Anthropic) |
 | scripts/ pour ops déterministes | Fiabilité 100% vs compliance partielle LLM sur ops répétitives |
@@ -302,7 +272,7 @@ Côté forge : `devils-advocate` UNIQUEMENT si livrable majeur (skill réutilis�
 - [ ] Description = identifiant domaine + "ALWAYS invoke when…" + contrainte négative ("Do not X directly")
 - [ ] 3e personne ; contient le QUOI et le QUAND ; phrases de trigger concrètes incl. cas où l'utilisateur ne nomme pas la skill
 - [ ] `name` kebab-case, ≤64 chars, pas "claude"/"anthropic", gérondif préféré
-- [ ] Description ≤ 250 chars pratique (auto-trigger system reminder) / ≤ 1024 chars spec / description+when_to_use ≤ 1536 chars combiné dans le listing
+- [ ] Description ≤ 1024 chars spec / description + `when_to_use` ≤ 1536 chars combinés dans le listing ; viser 200-400 chars trigger-dense
 - [ ] UNE SEULE LIGNE YAML — jamais `>-` ni `|` (casse la découverte)
 - [ ] Pas de XML tags dans la description
 - [ ] Inclut near-miss exclusions pour éviter l'over-trigger
@@ -339,7 +309,7 @@ grep -E "WebFetch|WebSearch|Read|Bash|mcp__" SKILL.md
 ```
 Ne déclarer que les outils qui apparaissent effectivement dans le body.
 Détecter et corriger :
-- [ ] Description tronquée / over-budget (> 250 chars pratique, > 1024 spec)
+- [ ] Description over-budget (> 1024 spec) ou si diffuse plutôt que trigger-dense
 - [ ] Description passive (non-directive)
 - [ ] Chaînes de references > 1 niveau de profondeur
 - [ ] References mortes ou cassées
@@ -385,18 +355,17 @@ Détecter et corriger :
 
 ### Description / frontmatter
 - ❌ Description en 1ère personne ("I help...") — toujours 3e personne directive
-- ❌ Description **> 250 chars** = tronquée par system reminder `/skills` → invisible à Claude pour auto-trigger
-- ❌ Description **> 1024 chars** = tronquée spec officielle
+- ❌ Description **> 1024 chars** = tronquée par la spec
+- ❌ Description diffuse ou marketing — elle doit être un TRIGGER, pas une présentation
 - ❌ Keyword stuffing dans description — cf [[e-descriptions-keyword-stuffing]]
 - ❌ `name` ≠ nom du dossier — invalide
 - ❌ **Description qui copie le body** : la description est un TRIGGER ("Use when X"), pas un résumé du contenu. Si la description = première ligne du body, c'est faux. Description directive ≠ description descriptive.
 
 ### Structure
-- ❌ **Édit direct SKILL.md sans passer par la skill `skill-creator`** — advisory : rien ne bloque techniquement, mais les best practices (checklist 6 dimensions, interview, evals) sont appliquées automatiquement par la skill
+- ❌ **Édit direct d'un `SKILL.md`** — délégation obligatoire à `skill-creator`. Le hook `delegate-guard.py` bloque (exit 2) sous forge ; hors forge rien ne bloque techniquement mais la règle vaut quand même (cf [[feedback_ecrire_partout_invoquer_skill_creatrice]])
 - ❌ **SKILL.md monolithique > 500 lignes** — déporter dans `references/`
 - ❌ **README.md dans le dossier skill** — non-standard
 - ❌ **Skills orphelines** dans frontmatter d'un agent mais non référencées dans le body — jamais activées (cf [[feedback_non_invokable_skills_orphan]])
-- ❌ **Édit direct SKILL.md** côté forge — délégation obligatoire à `skill-creator` (hook bloque)
 
 ### Contenu
 - ❌ **STOP critique en gotchas fin** — critique < ligne 25 (cf [[erreur-stop-critique-position-gotcha-fin]])
@@ -407,6 +376,9 @@ Détecter et corriger :
 - ❌ **Skill pour ce qu'un MCP ferait** (accès données) — confusion couches (cf [[mcp-vs-skills-doctrine]])
 - ❌ **Skill pour ce qu'un agent ferait** (rôle long-running) — agent, pas skill
 - ❌ **Skill métier sans section Apprentissage** — cf [[feedback_skills_memory_section]]
+
+### Contournement de garde-fou — INTERDIT
+- ❌ **Chercher un bypass de `delegate-guard`** (staging file, renommage, script externe, variable d'env). Documenté comme erreur : [[erreur-subagent-bypass-delegate-guard]] — un sub-agent instruit d'éditer un `SKILL.md` tente spontanément de contourner le hook. Si le hook bloque, on invoque la skill ou on corrige le hook ; jamais de chemin détourné. La canonique sœur [[comment-creer-agent]] a porté un tel « bypass propre » pendant des mois avant retrait le 5 septembre 2026 — l'anti-pattern est réel et récurrent.
 
 ---
 
@@ -433,6 +405,7 @@ Détecter et corriger :
 ### Anthropic officiel
 - [claude.com/blog/skills-explained](https://www.claude.com/blog/skills-explained) — doctrine MCP/Skills
 - [github.com/anthropics/skills](https://github.com/anthropics/skills) — skills officielles
+- [code.claude.com/docs/en/skills](https://code.claude.com/docs/en/skills) — frontmatter, allowed-tools, listing
 - docs Anthropic features-overview — budget 5k/25k tokens
 
 ### Thariq Shihipar (Anthropic)
@@ -456,13 +429,12 @@ Détecter et corriger :
 ### Pièges frontmatter
 
 - **`user-invocable` orthographe** : toujours avec un **c** (`user-invocable`), jamais `user-invokable` (k). Source : `code.claude.com/docs/en/skills` table frontmatter. Défaut = `true` (visible dans le menu `/`). Ne jamais valider une orthographe de champ frontmatter sur "ce que le repo utilise" — vérifier la doc Anthropic source primaire. Impact fonctionnel nul (champ inconnu ignoré) mais l'orthographe fausse se propage via les skills de référence (37 fichiers forge portaient la faute avant fix 3 juin).
-- **Limites description** : ≤ 1024 chars spec (hard limit) ; description + `when_to_use` ≤ 1536 chars combiné dans le listing. ~~Le "250 chars" anciennement cité~~ était une estimation du system reminder dans un contexte donné — pas une limite de troncature CC. Limites canoniques : **1024 / 1536**.
+- **Limites description** : ≤ 1024 chars spec (hard limit) ; `description` + `when_to_use` ≤ 1536 chars combinés dans le listing. Le « 250 chars » longtemps cité était une estimation du system reminder dans un contexte donné — pas une limite de troncature. Limites canoniques : **1024 / 1536**, mécanisme réel au § AJOUT 18 juin 2026.
 - **Evals obligatoires** : toute skill créée ou optimisée doit passer par les evals A/B (with_skill vs baseline). Sans mesure = pas de validation.
 - **Interview 3 rounds obligatoires** : ne pas bypasser l'interview, même si l'objectif semble évident. Une question peut être skippée uniquement si la réponse est explicite dans le contexte.
 - **Description YAML une seule ligne** : jamais `>-` ni `|` — convention forge (évite bugs parsing dans plusieurs outils, pas spec Anthropic stricte)
 - **`name` kebab-case = dossier** exact
 - **Description 3e personne directive** sinon trigger défaillant
-- **Spec 1024 chars MAIS limite pratique ~250 chars** pour auto-invocation (system reminder tronque)
 
 ### Pièges structure
 - **`README.md` dans dossier skill** = non-standard
@@ -479,26 +451,10 @@ Détecter et corriger :
 ### Pièges forge
 
 - **Skills externes (kepano/source amont) = intouchables absolument** : NE JAMAIS modifier le SKILL.md d'une skill externe (obsidian-bases, json-canvas, obsidian-markdown, defuddle), même pour corriger la description ou ajouter `user-invocable`. Modifier casse la synchro avec la source amont. Améliorer le déclenchement = `.skill-triggers.json` uniquement. À l'audit : identifier si la skill est externe AVANT tout fix — si oui, signaler les écarts sans les appliquer.
-- **Édit direct bloqué par hook** `delegate-guard.py` — utiliser `skill-creator`
+- **Édit direct bloqué par hook** `delegate-guard.py` (exit 2) — utiliser `skill-creator`, jamais un contournement
 - **Vault check obligatoire** avant création (cf [[forge-brain-proactive]])
 - **DA après création majeure** (cf [[devils-advocate-pipeline]])
 - **Description en anglais** (convention forge)
-
----
-
-## ALIASES — Findability
-
-Aliases déclarés en frontmatter (10) :
-- comment creer skill
-- creer une skill
-- create skill claude code
-- skill parfaite
-- skill best practices
-- 9 categories thariq
-- progressive disclosure skill
-- SKILL.md structure
-- frontmatter skill
-- agentskills.io
 
 ---
 
@@ -514,7 +470,7 @@ Aliases déclarés en frontmatter (10) :
 - [[pattern-vault-llm-karpathy]]
 - [[eval-pattern-anthropic-skill-creator]]
 
-### Fiches leaders (à créer)
+### Fiches leaders
 - [[Thariq Shihipar]]
 - [[Lisa Crofoot]]
 - [[Andrej Karpathy]]
@@ -524,6 +480,7 @@ Aliases déclarés en frontmatter (10) :
 - [[erreur-edit-direct-skills]]
 - [[erreur-skill-monolithique-sans-references]]
 - [[erreur-stop-critique-position-gotcha-fin]]
+- [[erreur-subagent-bypass-delegate-guard]]
 - [[e-descriptions-keyword-stuffing]]
 - [[feedback_non_invokable_skills_orphan]]
 - [[feedback_skills_memory_section]]
@@ -532,20 +489,10 @@ Aliases déclarés en frontmatter (10) :
 - [[feedback_skills_referenced_in_body]]
 
 ### Forge custom
-- [[skill-creator]] — agent forge dédié
 - [[devils-advocate-pipeline]] — rule DA après création
 - [[forge-brain-proactive]] — rule vault check
 - `.claude/rules/check-before-create.md` — rule pré-création (hors vault)
-
----
-
-**Fin note canonique `comment-creer-skill.md`** — révisée 23 mai 2026 post-audit thématique vault.
-
-
-## Gotchas
-
-- [[erreur-subagent-bypass-delegate-guard]] — Quand skill-creator est instruit d'éditer un SKILL.md, il peut tenter de contourner le hook delegate-guard via staging file. Anti-pattern : sub-agents cherchent des bypass.
-
+- `.claude/rules/delegate-to-specialists.md` — délégation et interdiction de contournement
 
 ---
 
@@ -582,7 +529,7 @@ description: ALWAYS invoke when user says 'ajoute un endpoint', 'crée une route
 ### Contraintes critiques
 
 - **≤ 1024 chars** : limite frontmatter Anthropic (au-delà tronquée)
-- **≤ 250 chars idéal** : limite pratique auto-invocation (`/skills` reminder injecté à chaque turn tronque)
+- **200-400 chars trigger-dense** : fourchette de rédaction qui garde le listing sous budget
 - **Triggers concrets** : phrases utilisateur exactes (FR + EN), pas marketing copy
 - **Bad** : "A powerful Git automation skill."
 - **Good** : "ALWAYS invoke when user wants to commit changes, write a commit message, or open a PR. DO NOT use git commands manually without invoking first."
@@ -598,50 +545,41 @@ Quand auto-invocation reste à ~50% malgré description parfaite, hook `UserProm
 - [[cowork-skills-reliability]] — checklist 9 étapes diagnostic
 - [Skills docs Anthropic](https://code.claude.com/docs/en/skills)
 
-
 ---
 
-## AJOUT 24 mai 2026 (suite) — Wildcard MCP `mcp__server__*` dans `allowed-tools:`
+## AJOUT 24 mai 2026 (suite) — `allowed-tools` : opérations exactes plutôt que wildcard
 
 **Verbatim Anthropic docs** ([code.claude.com/docs/en/permissions](https://code.claude.com/docs/en/permissions) section MCP) :
 
 > * `mcp__puppeteer__*` wildcard syntax that also matches all tools from the `puppeteer` server
 
-### Application forge
+### Doctrine forge
 
-Pour skills qui accèdent au vault forge-brain, utiliser **wildcard** au lieu de lister 5-7 outils :
+La syntaxe wildcard est officielle, mais **forge ne l'utilise pas sur le vault** : pré-approuver `mcp__forge-brain__*` pré-approuve aussi `delete_note` et `move_note`. Une skill déclare les opérations exactes dont elle a besoin — c'est du moindre privilège, pas de l'économie de tokens.
 
 ```yaml
-# ❌ AVANT
-allowed-tools: Read, Write, Edit, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__create_note, mcp__forge-brain__append_note, mcp__forge-brain__update_property
+# ❌ Pré-approuve les mutations sans le vouloir
+allowed-tools: Read, Write, Edit, Bash, mcp__forge-brain__*
 
-# ✅ APRÈS
+# ✅ Opérations exactes
 allowed-tools: Read, Write, Edit, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__create_note, mcp__forge-brain__update_note
 ```
 
-### Bénéfices identiques aux agents
-
-- Pas d'oubli si MCP évolue (21 outils en mai 2026, plus à venir)
-- Token budget frontmatter optimisé
-- Sémantiquement plus juste
-
-### Application 24 mai 2026
-
-6 skills forge converties au wildcard : cc-news, done, reasoning-cache, forge-review, recap, skill-evolve. Plus la skill `/spec` (3 repos) qui avait déjà besoin d'accès large.
+Le serveur forge-brain expose 22 outils : la liste explicite reste courte parce qu'une skill donnée n'en utilise qu'une poignée.
 
 ### Voir aussi
 
-Section identique dans [[comment-creer-agent]] (AJOUT 24 mai suite) pour le champ `tools:` des agents — même syntaxe wildcard, même justification.
+Section jumelle dans [[comment-creer-agent]] pour le champ `tools:` des agents — même raisonnement, même conclusion.
 
 ### Sources
 
 - [Anthropic Permissions docs section MCP](https://code.claude.com/docs/en/permissions#mcp)
 
-
 ---
 
 ## AJOUT 24 mai 2026 (suite 2) — Pattern MCP brief-then-direct
-Pour les skills qui ont `mcp__server__*` dans `allowed-tools:` et qui sont **invoquées par sub-agents** (pas par session principale directement), le pattern s'applique aussi :
+
+Pour les skills qui déclarent des outils MCP dans `allowed-tools:` et qui sont **invoquées par sub-agents** (pas par session principale directement), le pattern s'applique aussi :
 
 - Session principale qui dispatch le sub-agent → brief enrichi avec contexte MCP
 - Sub-agent invoque la skill avec le contexte
@@ -652,15 +590,15 @@ Section body standardisée identique à celle des agents — voir [[pattern-mcp-
 Skills concernées forge : `forge-brain`, `done`, `cc-news`, `reasoning-cache`, `recap`, `skill-evolve`, `forge-review`, `obsidian-markdown`.
 Skills concernées neo_ia/ia_back : toutes celles qui ont des MCP dans allowed-tools (typiquement context7, postgres, langfuse).
 
+---
 
 ## AJOUT 27 mai 2026 — Brief sub-agent et accès vault : cause-racine empirique
 
-Le pattern brief-then-direct n'est pas qu'une optimisation tokens : c'est une **nécessité structurelle**. Vérifié empiriquement (Chantier A étape 2b, 27 mai 2026) : les permissions MCP déclarées dans `tools:`/`allowed-tools:` d'un sub-agent est **décoratif** — le serveur MCP n'est PAS connecté dans son contexte (`No such tool available`). Un sub-agent à qui on ordonne « lire les canoniques via MCP » fallback sur `cat`/`find`/`grep`/`Read` du vault → viole la doctrine MCP-only.
+Le pattern brief-then-direct n'est pas qu'une optimisation tokens : c'est une **nécessité structurelle**. Vérifié empiriquement (Chantier A étape 2b, 27 mai 2026) : les permissions MCP déclarées dans `tools:`/`allowed-tools:` d'un sub-agent sont **décoratives** — le serveur MCP n'est PAS connecté dans son contexte (`No such tool available`). Un sub-agent à qui on ordonne « lire les canoniques via MCP » fallback sur `cat`/`find`/`grep`/`Read` du vault → viole la doctrine MCP-only.
 
-**Règle pour skill-creator** : ne JAMAIS écrire « lis via MCP » dans le body d'un creator. Écrire « le contenu canonique te vient inline dans le brief ; sinon ESCALADE ; jamais cat/find/grep/Read le vault ». Filet MCP subordonné à l'escalade.
+**Règle pour `skill-creator`** : ne JAMAIS écrire « lis via MCP » dans le body d'un creator. Écrire « le contenu canonique te vient inline dans le brief ; sinon ESCALADE ; jamais cat/find/grep/Read le vault ». Filet MCP subordonné à l'escalade.
 
-Enforcement structurel : hook `vault-cat-guard.py` (PreToolUse Bash|Read) bloque l'accès brut au vault. Voir [[hook-intercepte-mcp-et-read-tools]] (preuve que PreToolUse intercepte MCP + Read) et [[pattern-mcp-brief-then-direct]] (cause-racine complète).
-
+Enforcement structurel : hook `vault-cat-guard.py` (branché via le dispatcher `pre-bash-guards.py`, PreToolUse `Bash|Read|PowerShell`) bloque l'accès brut au vault. Voir [[hook-intercepte-mcp-et-read-tools]] (preuve que PreToolUse intercepte MCP + Read) et [[pattern-mcp-brief-then-direct]] (cause-racine complète).
 
 ---
 
@@ -725,6 +663,21 @@ Référence d'implémentation : skill `done` (étapes 3 génération de blocs + 
 
 Une skill qui orchestre du jugement LLM (métacognition, capitalisation, arbitrage) n'a pas de test unitaire pertinent : un smoke test ne validerait que le parsing YAML, pas la skill. La validation se fait par **exécution réelle sur un cas représentatif** (ex : lancer `/done` sur une session ayant produit ≥1 apprentissage, vérifier que les blocs proposés sont corrects et que rien n'est écrit sans validation). Ce n'est pas de la dette tracée — c'est un choix de design assumé. Distinguer du code déterministe (scripts/ de skill, hooks, MCP) qui lui doit être testé, avec ratio adverse pour les composants critiques.
 
+---
+
+## AJOUT 27 mai 2026 (suite) — Résolution de path dans une skill : `git rev-parse`, jamais `${CLAUDE_PROJECT_DIR}`
+
+Quand une skill doit résoudre la racine du repo (pour cibler `<repo>/memory/`, `<repo>/docs/`, etc.) dans un bloc Bash, le mécanisme correct est :
+
+```bash
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+```
+
+**JAMAIS `${CLAUDE_PROJECT_DIR}`** : cette variable du harness est **vide dans le shell lancé par une skill** (vérifié empiriquement 27 mai : `echo "[$CLAUDE_PROJECT_DIR]"` → `[]`). Elle n'est peuplée que dans la string `command` de settings.json (expansion harness), pas dans l'environnement du process. Utiliser `${CLAUDE_PROJECT_DIR}/memory` dans une skill produit un chemin `/memory` faux et silencieux.
+
+Table complète des 4 contextes (skill / hook / settings / .mcp.json) avec preuve par ligne : [[resolution-path-3-contextes]].
+
+Appliqué 27 mai : skills `/done` et `/recap` migrées vers `$(git rev-parse --show-toplevel)/memory` (chantier mémoire portable, cf [[architecture-decision-memoire-portable-import]]).
 
 ---
 
@@ -744,7 +697,7 @@ Ne jamais avancer à l'étape N+1 tant que N n'est pas `completed`. Dépendances
 
 ### Pourquoi
 
-Opus 4.8 **interprète littéralement et ne généralise pas seul** : il n'infère pas « applique cette étape aussi aux suivantes » et peut sauter un bloc d'un questionnaire long si rien ne matérialise la checklist. La tâche cochée est le signal explicite qui force le pas-à-pas. (Remplace l'ancien `TodoWrite`, déprécié depuis Opus 4.8.)
+Un modèle qui **interprète littéralement et ne généralise pas seul** n'infère pas « applique cette étape aussi aux suivantes » et peut sauter un bloc d'un questionnaire long si rien ne matérialise la checklist. La tâche cochée est le signal explicite qui force le pas-à-pas. (Remplace l'ancien `TodoWrite`.)
 
 ### Quand l'appliquer
 
@@ -752,22 +705,7 @@ Opus 4.8 **interprète littéralement et ne généralise pas seul** : il n'infè
 - ✅ Skill-pipeline à phases vérifiables (audit par cluster, vagues parallèles)
 - ❌ Skill mono-action (1 transformation, 1 lookup) — la checklist est du bruit
 
-Consolide ce qui était dispersé (`audit-puis-vagues-paralleles`, `cowork-skills-reliability` principe #9 « checklist obligatoire si la skill saute des étapes », changelog Opus 4.8). Réf : [[concevoir-loops-travail]] (cas d'usage `loop-forge`).
-
-## AJOUT 27 mai 2026 — Résolution de path dans une skill : `git rev-parse`, jamais `${CLAUDE_PROJECT_DIR}`
-
-Quand une skill doit résoudre la racine du repo (pour cibler `<repo>/memory/`, `<repo>/docs/`, etc.) dans un bloc Bash, le mécanisme correct est :
-
-```bash
-REPO_ROOT="$(git rev-parse --show-toplevel)"
-```
-
-**JAMAIS `${CLAUDE_PROJECT_DIR}`** : cette variable du harness est **vide dans le shell lancé par une skill** (vérifié empiriquement 27 mai : `echo "[$CLAUDE_PROJECT_DIR]"` → `[]`). Elle n'est peuplée que dans la string `command` de settings.json (expansion harness), pas dans l'environnement du process. Utiliser `${CLAUDE_PROJECT_DIR}/memory` dans une skill produit un chemin `/memory` faux et silencieux.
-
-Table complète des 4 contextes (skill / hook / settings / .mcp.json) avec preuve par ligne : [[resolution-path-3-contextes]].
-
-Appliqué 27 mai : skills `/done` et `/recap` migrées vers `$(git rev-parse --show-toplevel)/memory` (chantier mémoire portable, cf [[architecture-decision-memoire-portable-import]]).
-
+Consolide ce qui était dispersé (`audit-puis-vagues-paralleles`, `cowork-skills-reliability` principe #9 « checklist obligatoire si la skill saute des étapes »). Réf : [[concevoir-loops-travail]] (cas d'usage `loop-forge`).
 
 ---
 
@@ -796,23 +734,6 @@ Cohérent avec le finding Seleznov (community research, 650 trials, Fisher's exa
 ---
 
 ## AJOUT 17 juin 2026 — Skill de référence : embarquer le stable, déléguer le volatil
-## AJOUT 18 juin 2026 — Limite description : le modèle de troncature a changé (CC 2.1.129+), résout la contradiction interne
-
-Cette note contient deux affirmations contradictoires accumulées par couches : le frontmatter/gotchas dit « ≤250 chars sinon invisible (system reminder tronque) », le corps dit « 1024 spec / 1536 listing, le 250 était une estimation ». **La vérif web 18 juin 2026 tranche : aucune des deux formulations ne décrit le mécanisme actuel.**
-
-**Mécanisme réel CC 2.1.129+** (vérifié [code.claude.com/docs/en/skills](https://code.claude.com/docs/en/skills) + [claudefa.st skill-listing-budget](https://claudefa.st/blog/guide/mechanics/skill-listing-budget), juin 2026) : il n'y a plus de troncature uniforme à 250. Deux réglages en cascade :
-1. `skillListingMaxDescChars` — raccourcit chaque description individuelle au-delà du seuil ;
-2. `skillListingBudgetFraction` (défaut 1% du contexte) — si le listing total dépasse, CC **drop des descriptions ENTIÈRES** des skills les moins utilisées (ranking par récence + fréquence), au lieu de couper toutes les descriptions de moitié.
-
-**Conséquence pratique pour rédiger une description** :
-- Viser **200-400 chars trigger-dense** (≈ 50-100 tokens) — fourchette typique observée, pas une limite dure.
-- Le risque n'est plus « ma description dépasse 250 donc sa fin est invisible » mais « j'ai trop de skills peu utilisées donc certaines descriptions sont droppées en entier ». Budget : ~15-25 skills à 200K de contexte (1%), ~75-125 à 1M.
-- Un repo avec peu de skills (ex. ia-workbench, 1-3 loupes) : zéro risque de drop, la description complète est toujours chargée.
-- Garde stable : description = TRIGGER (phrases concrètes FR+EN), 3e personne directive, jamais marketing. Ça, le benchmark + Anthropic le confirment toujours.
-
-Les anciennes formulations « ≤250 sinon invisible » dans le frontmatter et les gotchas sont à lire comme historiques (vraies sur une version antérieure). Ne pas les re-propager comme règle de troncature actuelle.
-
-Sources : [code.claude.com/docs/en/skills](https://code.claude.com/docs/en/skills), [claudefa.st/blog/guide/mechanics/skill-listing-budget](https://claudefa.st/blog/guide/mechanics/skill-listing-budget), [allahabadi.dev frontmatter guide](https://allahabadi.dev/blogs/ai/claude-code-skills-frontmatter-complete-guide/).
 
 Une skill de **référence** (`user-invocable: false`, type `cc-features-ref`/`cc-rag-ref`/`python-ref` : connaissance chargée en contexte sur un sujet) affronte une tension : tout pointer vers le vault (N `read_note` à l'activation, skill faible) vs tout recopier (drift vs vault, viole single-source).
 
@@ -831,6 +752,28 @@ Validé 17 juin 2026 (chantier 4 skills RAG/outils, tension embed-vs-pointer ré
 
 ---
 
+## AJOUT 18 juin 2026 — Limite description : le modèle de troncature a changé (CC 2.1.129+)
+
+Cette note portait deux affirmations contradictoires accumulées par couches : « ≤250 chars sinon invisible (system reminder tronque) » d'un côté, « 1024 spec / 1536 listing, le 250 était une estimation » de l'autre. **La vérif web du 18 juin 2026 tranche : aucune des deux formulations ne décrit le mécanisme actuel.**
+
+**Mécanisme réel CC 2.1.129+** (vérifié [code.claude.com/docs/en/skills](https://code.claude.com/docs/en/skills) + [claudefa.st skill-listing-budget](https://claudefa.st/blog/guide/mechanics/skill-listing-budget), juin 2026) : il n'y a plus de troncature uniforme à 250. Deux réglages en cascade :
+1. `skillListingMaxDescChars` — raccourcit chaque description individuelle au-delà du seuil ;
+2. `skillListingBudgetFraction` (défaut 1% du contexte) — si le listing total dépasse, CC **drop des descriptions ENTIÈRES** des skills les moins utilisées (ranking par récence + fréquence), au lieu de couper toutes les descriptions de moitié.
+
+**Conséquence pratique pour rédiger une description** :
+- Viser **200-400 chars trigger-dense** (≈ 50-100 tokens) — fourchette typique observée, pas une limite dure.
+- Le risque n'est plus « ma description dépasse 250 donc sa fin est invisible » mais « j'ai trop de skills peu utilisées donc certaines descriptions sont droppées en entier ». Budget : ~15-25 skills à 200K de contexte (1%), ~75-125 à 1M.
+- Un repo avec peu de skills (ex. ia-workbench, 1-3 loupes) : zéro risque de drop, la description complète est toujours chargée.
+- Garde stable : description = TRIGGER (phrases concrètes FR+EN), 3e personne directive, jamais marketing. Ça, le benchmark + Anthropic le confirment toujours.
+
+Les anciennes formulations « ≤250 sinon invisible » sont à lire comme historiques (vraies sur une version antérieure). **Ne pas les re-propager comme règle de troncature actuelle** — elles ont survécu onze fois dans le corps de cette note jusqu'au 5 septembre 2026, purgées à cette date.
+
+Mesure forge au 5 septembre 2026 : 51 skills, 11 323 chars de descriptions, ~3 431 tokens — soit nettement sous le budget de 1 % à 1M de contexte. Cf [[skills-metadata-tokens-load]].
+
+Sources : [code.claude.com/docs/en/skills](https://code.claude.com/docs/en/skills), [claudefa.st/blog/guide/mechanics/skill-listing-budget](https://claudefa.st/blog/guide/mechanics/skill-listing-budget), [allahabadi.dev frontmatter guide](https://allahabadi.dev/blogs/ai/claude-code-skills-frontmatter-complete-guide/).
+
+---
+
 ## AJOUT 13 juillet 2026 — Deux-points + espace dans une description une-ligne = skill silencieusement non chargée
 
 En passant les descriptions au format **une seule ligne** (doctrine anti `>-`), un piège YAML devient actif : un scalaire non quoté ne peut pas contenir `: ` (deux-points suivi d'un espace) — spec YAML `ns-plain-char`, le `:` doit être suivi d'un non-espace. Résultat : `ScannerError: mapping values are not allowed here` au parsing du frontmatter → **la skill n'est pas chargée, sans aucun message**.
@@ -843,8 +786,8 @@ Piège particulièrement actif en **français** (typographie « mot : liste ») 
 - Validation systématique post-batch : parser tous les frontmatters (PyYAML proxy fiable de js-yaml sur cette règle) avant de livrer.
 
 Vérifié empiriquement le 13 juil. 2026 (chantier bdd, 13 descriptions touchées sur 13 nouvelles skills — attrapé par validation avant livraison). Cf. skill `skill-creator` section Apprentissage.
-**Nuance empirique (16 juillet 2026)** : la description de `cc-news` contient ` : ` (« Reference date : 15 juillet 2026 ») et **charge parfaitement sur CC 2.1.211** — vérifiée dans le listing skills avant ET après édition (session forge, run cc-news). Le ScannerError du 13 juillet venait du **validateur PyYAML forge**, pas d'un échec de chargement observé dans Claude Code : PyYAML est donc une borne **conservatrice** (peut rejeter ce que le parseur CC accepte), pas un proxy exact. Règle pratique inchangée : ` — ` par défaut dans toute NOUVELLE description (zéro risque) et validation PyYAML maintenue comme garde-fou ; mais un ` : ` existant dont la skill charge n'est pas un bug urgent. Variable discriminante du parseur CC non identifiée — si un cas réel de skill non chargée pour cause de ` : ` est observé DANS CC, le documenter ici.
 
+**Nuance empirique (16 juillet 2026)** : la description de `cc-news` contient ` : ` (« Reference date : 15 juillet 2026 ») et **charge parfaitement sur CC 2.1.211** — vérifiée dans le listing skills avant ET après édition (session forge, run cc-news). Le ScannerError du 13 juillet venait du **validateur PyYAML forge**, pas d'un échec de chargement observé dans Claude Code : PyYAML est donc une borne **conservatrice** (peut rejeter ce que le parseur CC accepte), pas un proxy exact. Règle pratique inchangée : ` — ` par défaut dans toute NOUVELLE description (zéro risque) et validation PyYAML maintenue comme garde-fou ; mais un ` : ` existant dont la skill charge n'est pas un bug urgent. Variable discriminante du parseur CC non identifiée — si un cas réel de skill non chargée pour cause de ` : ` est observé DANS CC, le documenter ici.
 
 ---
 
@@ -856,3 +799,24 @@ Source : [[CC juillet 2026 - Opus 5 + v2.1.212-220]].
 - **v2.1.218** : les noms d'agents contenant `:` sont **rejetés** (réservé au namespacing plugins) — vaut aussi pour les références d'agents dans les skills.
 - **v2.1.215 (19 juil.)** : Claude ne lance plus `/verify` ni `/code-review` de sa propre initiative (invocation manuelle uniquement) ; `/deep-research` idem depuis v2.1.218. Les skills/rules qui comptaient sur un déclenchement autonome de ces builtins doivent l'invoquer explicitement.
 - **v2.1.212 (17 juil.)** : l'ancien fork in-session est renommé **`/subtask`** ; `/fork` copie désormais la conversation vers une session background.
+
+---
+
+## AJOUT 5 septembre 2026 — audit de doctrine : la contradiction interne purgée
+
+Cette note s'auto-contredisait depuis juin. L'AJOUT du 18 juin établissait le mécanisme réel du budget de listing et concluait « ne pas re-propager » l'ancienne règle des 250 chars — mais **onze passages du corps la re-propageaient toujours**, dont un situé quatre lignes après la correction elle-même. Tous alignés sur le mécanisme réel.
+
+Écarts corrigés dans la même passe, chacun vérifié plutôt que supposé :
+
+1. **Double frontmatter précédé d'un BOM** — `titre`/`auteur`/`type`/`sources` vivaient hors du frontmatter parsé. `lint_vault` ne le détecte pas. Défaut borné à 2 notes du vault : celle-ci et [[comment-creer-agent]].
+2. **Onze occurrences de la règle « ≤250 chars sinon invisible »** — remplacées par la fourchette de rédaction 200-400 et le renvoi au mécanisme réel.
+3. **« Le hard block `delegate-guard` sur SKILL.md a été retiré — advisory »** : FAUX, à deux endroits. Le hook bloque en `exit 2` ; il est branché via le dispatcher `pre-write-guards.py`, ce qui le rend invisible dans `settings.json` et avait produit un faux négatif de diagnostic.
+4. **`skill-creator` appelé « agent »** alors que le pivot du 6 juin en a fait une skill.
+5. **Deux paragraphes dupliqués mot pour mot** (« Côté repo externe… », « Écrire la description comme un trigger… »).
+6. **Faux marqueur de fin de note** suivi de 317 lignes de contenu.
+7. **Titre orphelin** : l'AJOUT du 17 juin n'avait qu'un titre, son contenu ayant atterri sous celui du 18 juin.
+8. **Section « wildcard MCP » dont l'exemple ne montrait aucun wildcard** — réécrite pour dire ce que forge fait vraiment : opérations exactes, par moindre privilège.
+9. **« 21 outils MCP »** → 22.
+10. **Anti-pattern de contournement du garde-fou ajouté explicitement** — cette note portait déjà [[erreur-subagent-bypass-delegate-guard]] en note de bas de page pendant que sa canonique sœur enseignait le bypass comme technique.
+
+**Leçon de méthode** : une correction ajoutée en fin de note ne corrige pas la note. Tant que le corps n'est pas purgé, les deux versions coexistent et c'est la plus ancienne — répétée onze fois — qui gagne à la lecture. C'est précisément ce que prescrit `correction-in-place-vault` : réécrire le corps, jamais empiler une bannière.

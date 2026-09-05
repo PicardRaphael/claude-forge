@@ -14,6 +14,14 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-09-05 (6) — `comment-creer-skill` : la contradiction interne purgée du corps
+
+- **Modifiées** : `comment-creer-skill` réécrite en place (851 → 823 lignes). Clôt le « reste ouvert » de l'entrée (4) pour cette note ; les deux canoniques de création sont désormais à jour.
+- **Le défaut central** : l'AJOUT du 18 juin établissait le mécanisme réel du budget de listing (`skillListingMaxDescChars` + `skillListingBudgetFraction`, qui **drop des descriptions entières** au lieu de tronquer) et concluait explicitement « ne pas les re-propager ». Onze passages du corps re-propageaient quand même la vieille règle des « ≤250 chars sinon invisible » — dont un situé quatre lignes après la correction. Une correction ajoutée en fin de note ne corrige pas la note : tant que le corps n'est pas purgé, c'est la version la plus répétée qui gagne à la lecture.
+- **Même erreur `delegate-guard` que la note sœur**, à deux endroits : « hard block retiré — advisory » et « rien ne bloque techniquement ». Le hook bloque en `exit 2`, branché via le dispatcher `pre-write-guards.py`.
+- **Autres écarts** : `skill-creator` encore appelé « agent » après le pivot du 6 juin ; deux paragraphes dupliqués mot pour mot ; faux marqueur de fin suivi de 317 lignes ; titre de l'AJOUT 17 juin orphelin de son contenu ; section « wildcard MCP » dont l'exemple ne montrait aucun wildcard ; « 21 outils » → 22 ; anti-pattern de contournement rendu explicite (la note portait déjà `erreur-subagent-bypass-delegate-guard` en note de bas de page pendant que sa sœur enseignait le bypass).
+- **Vérifications** : `lint_vault` 0 frontmatter cassé / 0 wikilink brisé, `git diff --check` propre, aucune prescription périmée résiduelle (les mentions de « 250 » restantes sont toutes des corrections explicites ou de l'historique daté).
+
 ## 2026-09-05 (5) — `comment-creer-agent` : onze écarts corrigés, dont un enseignement de contournement de garde-fou
 
 - **Modifiées** : `comment-creer-agent` réécrite en place (1022 → 967 lignes). Clôt le « reste ouvert » de l'entrée (4) pour cette note.
