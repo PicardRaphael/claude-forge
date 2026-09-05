@@ -17,14 +17,14 @@
 
 ## Résumé
 
-**7 findings actionnables, 2 flags, et une surface globalement saine.** Les trois pièges classiques
+**8 findings actionnables, 2 flags, et une surface globalement saine.** Les trois pièges classiques
 d'une migration Fable 5.1 — règles anti-formatage, instructions « montre ton raisonnement »
 (refus `reasoning_extraction`), suppresseurs de narration — sont **absents**, ce que la canonique
 vault avait déjà vérifié le 5 septembre et que les greps de cet audit confirment indépendamment.
 
 Ce qui reste se concentre en trois foyers :
 
-1. **`craft-prompt/references/techniques-claude.md` est le foyer le plus coûteux** (5 findings). C'est
+1. **`craft-prompt/references/techniques-claude.md` est le foyer le plus coûteux** (4 findings). C'est
    la référence qui alimente la skill de *création de prompts* : chaque prompt que tu génères hérite
    d'une doctrine arrêtée au 8 avril 2026. Elle enseigne le Chain-of-Thought explicite et
    l'auto-correction — deux instructions que Opus 5 rend contre-productives — et une ligne y est
@@ -44,8 +44,9 @@ Ce qui reste se concentre en trois foyers :
 
 | Groupe (guide) | Findings |
 |---|---|
-| 1b — scaffolds remplacés par une feature API | 3 |
+| 1b — scaffolds remplacés par une feature API | 2 |
 | 1d — fossiles (texte ayant survécu à son modèle) | 3 |
+| 2 — fichiers de skill fragiles (récits historiques) | 1 |
 | 4 — config & architecture | 1 |
 | Keep-list #11 — re-baselining (ajout de texte) | 1 |
 | Flags (rapport seulement) | 2 |
@@ -97,18 +98,28 @@ Ce qui reste se concentre en trois foyers :
   que la skill reproduira tel quel dans les prompts qu'elle génère.
 - **Confiance** : **Haute** · **Action** : `rewrite`
 
-### F5 — `comportement-proactif.md:69,71,72` — garde-fous qui *encouragent* la délégation
+### F5 — `comportement-proactif.md:69,71` — garde-fous écrits pour un modèle qui sous-déléguait
 
 - **Preuve** : l.69 `- **JAMAIS 'general-purpose' pour > 8 operations** — decouper en agents paralleles`
-  · l.72 `scan archi (étape 1) + scan code […] sont OBLIGATOIRES en parallèle de l'audit '.claude/'`
-  · l.71 `JAMAIS un seul agent pour multi-repo — 1 agent par repo, en parallele`
+  · l.71 `- **JAMAIS un seul agent pour multi-repo** — 1 agent par repo, en parallele`
 - **Pattern** : 1d — mitigation écrite pour un modèle qui sous-déléguait.
+- **Provenance** : les deux lignes viennent du même commit, `931c71a` du **8 mai 2026** — soit l'ère
+  Opus 4.6/4.7, deux mois et demi avant la sortie d'Opus 5 (24 juillet). La datation est établie,
+  pas supposée.
 - **Pourquoi obsolète** : Opus 5 atteint les sous-agents spontanément ; chacun re-établit son
   contexte, re-explore, rapporte, et le coordinateur relit le rapport. Anthropic recommande un
   **plafond explicite** plutôt qu'un encouragement. Attention à la divergence : Fable 5.1 délègue
   *bien* et gagne à le faire en asynchrone — d'où une règle conditionnelle plutôt qu'inversée.
+- **À conserver dans la réécriture** : le seuil des 8 opérations a un objet vivant qui n'est pas la
+  délégation — un sous-agent qui dépasse ce volume perd le fil de sa tâche. Ce n'est donc pas une
+  suppression sèche : le critère de découpage passe du **volume** au **périmètre indépendant**.
 - **Confiance** : **Haute** · **Action** : `rewrite`
-- ⚠️ Touche une règle de routage structurante → **Devil's Advocate avant application**.
+- Touche une règle de routage structurante → **Devil's Advocate avant application**.
+
+> **Non retenu — l.72.** « scan archi + scan code sont OBLIGATOIRES **en parallèle** de l'audit
+> `.claude/` » ne prescrit pas de sous-agents : « en parallèle de » y signifie *en plus de, dans le
+> même livrable*. La ligne porte sa raison (« sinon propositions théoriques déconnectées du repo
+> réel ») → keep-list #5. Adoucir son `OBLIGATOIRES` serait une préférence de style, pas du cruft daté.
 
 ### F6 — `cc-news` et `veille-outils-ia` — aucune garde `effort`
 
@@ -119,7 +130,14 @@ Ce qui reste se concentre en trois foyers :
   périmée »*. Sans déclaration, ces deux skills héritent du défaut de session : une session basculée
   en `low` transforme silencieusement la veille en récitation de mémoire. `arxiv-verification`, elle,
   déclare déjà `effort: high`.
-- **Confiance** : **Haute** · **Action** : `add`
+- **Réserve à lever avant d'appliquer** : 24 skills déclarent déjà `effort:`, mais c'est une
+  convention forge (template `skill-creator:91`), pas une preuve d'effet. Une seule skill du repo
+  utilise `context: fork` ; rien ne documente si `effort:` en frontmatter est honoré pour une skill
+  qui tourne **inline** dans la session principale. L'audit du 17 juin avait justement attrapé un
+  `"once": true` silencieusement ignoré dans `settings.json` — même forme de cargo-cult possible ici.
+  Si le frontmatter est sans effet inline, le levier réel devient l'effort de session (ou
+  `context: fork` + `effort`) : le hunk change de cible, le finding ne disparaît pas.
+- **Confiance** : **Moyenne** (le manque est réel ; c'est le mécanisme du correctif qui reste à confirmer) · **Action** : `add`
 
 ### F7 — Absence de calibrage de longueur des livrables écrits (Opus 5)
 
@@ -131,7 +149,25 @@ Ce qui reste se concentre en trois foyers :
   plus directement exposé, et il n'est aujourd'hui borné nulle part.
 - **Confiance** : **Moyenne** · **Action** : `add`
 
-### F8 (flag) — Le sweep d'effort n'a pas été refait pour Opus 5 / Fable 5.1
+### F8 — Récits historiques dans les rules, contre la règle que forge s'est donnée
+
+- **Preuve** : `delegate-to-specialists.md:32` « (observé 16 juil. 2026, self-updater) » ·
+  `mcp-brief-then-direct.md:37` « **Contre-exemple** (ce bloc prescrivait l'inverse jusqu'au
+  29 juil. 2026) » · `delegate-to-specialists.md:30` « Incident 24 juin : 9 `SKILL.md` écrits à la main ».
+- **Pattern** : Group 2 — récits historiques ; 1d — phrasé relatif à une migration.
+- **Pourquoi obsolète** : l'autorité d'une règle tient au comportement qu'elle prescrit, pas à
+  l'incident qui l'a motivée. « prescrivait l'inverse jusqu'au… » est un diff contre une version que
+  le modèle n'a jamais vue, et il suggère une alternative fantôme. Le levier ici n'est pas le guide
+  externe mais **la règle que forge s'applique déjà à elle-même** : `skill-creator/SKILL.md:202` —
+  *« pas de date d'audit, pas de justification de la modif […] la règle s'écrit nue ; le pourquoi
+  vit dans le CHANGELOG du repo cible ou le vault »*. L'audit du 17 juin l'avait relevé en P3 ; ça
+  n'a pas été fait depuis.
+- **Tension à arbitrer** : `memory-discipline.md` demande de « conserver une provenance courte ».
+  Les deux sont conciliables — garder l'ancre datée quand elle sert de repère doctrinal partagé
+  (« doctrine 22 mai »), retirer le récit d'incident. C'est un arbitrage, d'où la confiance moyenne.
+- **Confiance** : **Moyenne** · **Action** : `rewrite`
+
+### F9 (flag) — Le sweep d'effort n'a pas été refait pour Opus 5 / Fable 5.1
 
 29 composants déclarent un `effort:` (28 `high`/`xhigh`, 2 `medium`). La canonique est explicite :
 *« refaire le sweep : effort level names don't correspond to the same amount of thinking across
@@ -140,12 +176,11 @@ d'un sweep post-Opus 5. Deux pistes concrètes de gain : `repo-inspector` est le
 (à re-mesurer contre `high`), et sur Fable 5.1 `medium` égale Fable 5 pour moins cher. Aucun edit
 proposé — c'est une mesure à faire, pas une réécriture.
 
-### F9 (flag) — `claude-prompting-best-practices.md` (racine, 787 l.) s'arrête avant les deux cibles
+### F10 (flag) — `claude-prompting-best-practices.md` (racine, 787 l.) s'arrête avant les deux cibles
 
 Son en-tête annonce couvrir « Claude's latest models » et liste Fable 5, Mythos 5, Opus 4.8, 4.7,
 4.6, Sonnet 4.6, Haiku 4.5 — ni Opus 5 ni Fable 5.1. Le fichier n'est pas `@`-importé (donc pas de
-coût par tour), mais il se présente comme la référence de prompting du repo. Hors scope d'un edit
-ici : sa mise à jour relève de `cc-news` + `self-updater`, pas d'un audit de cruft.
+coût par tour), mais il se présente comme la référence de prompting du repo. Hors scope d'un edit ici : sa mise à jour relève de `cc-news` + `self-updater`, pas d'un audit de cruft.
 
 ---
 
@@ -287,6 +322,25 @@ l'écriture directe d'un `SKILL.md`, d'un agent ou d'un `CLAUDE.md`.
 ```diff
 @@ -8,0 +9 @@
 +- Calibrer la longueur d'un livrable écrit (rapport, note, spec) sur ce que la tâche demande : couvrir le fond, sans sections de remplissage, résumés redondants ni boilerplate.
+```
+
+### Hunk F8 — récits historiques dans les rules (arbitrage requis)
+
+Règle appliquée : garder l'ancre datée quand elle sert de repère doctrinal partagé, retirer le récit
+d'incident. Deux exemples représentatifs ; le motif se retrouve ailleurs dans les rules.
+
+```diff
+--- a/.claude/rules/delegate-to-specialists.md
++++ b/.claude/rules/delegate-to-specialists.md
+@@ -32 +32 @@
+-⚠️ **Sub-agents : le bypass ne fonctionne PAS** — un sub-agent […] reste bloqué : le hook lit l'`attributionSkill` de la session principale, pas du transcript sub-agent, et la fenêtre 80 lignes ne s'y applique pas (observé 16 juil. 2026, self-updater).
++⚠️ **Sub-agents : le bypass ne fonctionne PAS** — un sub-agent […] reste bloqué : le hook lit l'`attributionSkill` de la session principale, pas du transcript sub-agent, et la fenêtre 80 lignes ne s'y applique pas.
+
+--- a/.claude/rules/mcp-brief-then-direct.md
++++ b/.claude/rules/mcp-brief-then-direct.md
+@@ -37 +37 @@
+-⚠️ **Contre-exemple** (ce bloc prescrivait l'inverse jusqu'au 29 juil. 2026) :
++⚠️ **Contre-exemple — ne pas déléguer une écriture cross-repo :**
 ```
 
 ---
