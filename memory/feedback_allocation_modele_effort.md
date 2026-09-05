@@ -1,6 +1,6 @@
 ---
 name: allocation-modele-effort-doctrine
-description: Doctrine consolidée modèle/effort — Sonnet exécution / Opus jugement, calibrer par TYPE, try-vs-know (Lydia Hallie) + mesurer avant bump. ⚠️ Point de départ xhigh PÉRIMÉ sur Opus 5 (officiel = high, low/medium en primary control). Le sweep d'effort n'est PAS transférable entre modèles (Fable 5.1, 5 sept.) — le refaire à chaque changement, pas seulement sur settings hérités. Pipeline repos projet architect-first + code-reviewer séparé.
+description: Doctrine consolidée modèle/effort — Sonnet exécution / Opus jugement, calibrer par TYPE, try-vs-know (Lydia Hallie) + mesurer avant bump. ⚠️ Point de départ xhigh PÉRIMÉ sur Opus 5 (officiel = high, low/medium en primary control). Le sweep d'effort n'est PAS transférable entre modèles (Fable 5.1, 5 sept.) — le refaire à chaque changement, pas seulement sur settings hérités. Sweep Opus 5 fait le 5 sept. — xhigh non justifié sur repo-inspector, variance inter-runs élevée, n=1 ne départage pas deux niveaux voisins. Pipeline repos projet architect-first + code-reviewer séparé.
 trigger: effort, model, xhigh, opus, sonnet, fable, frontmatter
 metadata:
   type: feedback
@@ -21,6 +21,17 @@ Chaîne décisionnelle 2026 (21 mai → 22 mai → 26 mai). Foyer canonique live
 **Anti-biais CONFIRMÉ par Anthropic** : la ligne du 26 mai (ci-dessous) anticipait la doctrine officielle. Sur Opus 5, Anthropic désigne lui-même `low`/`medium` comme « primary control » du coût — forge ne les utilise quasiment pas. L'instinct « ne pas appliquer xhigh aveuglément » est désormais adossé à une source primaire, pas seulement à une préférence de coût.
 
 **Le sweep d'effort n'est pas transférable entre modèles (Fable 5.1, vérifié en primaire 5 sept. 2026)** : la règle du 29 juil. disait « refaire le sweep si tu as hérité des settings d'un modèle antérieur ». Anthropic la généralise sur [[Fable 5.1]] — « **effort level names don't correspond to the same amount of thinking across models** » : re-sweeper À CHAQUE changement de modèle, y compris entre deux versions d'une même famille (Fable 5 → 5.1). Renforce l'anti-biais : sur 5.1, `medium` égale Fable 5 pour moins cher, et à `low` le modèle est « often competitive with Claude Opus and Claude Sonnet models on cost per task **while scoring higher** ». Autrement dit un effort bas sur un gros modèle peut battre un effort haut sur un petit — l'inverse du réflexe « petit modèle + gros effort » pour économiser. ⚠️ Contrepartie mesurée : à `low`, Fable 5.1 déclenche moins les outils de recherche et répond de mémoire, nommément sur « a fast-moving area like AI models and developer tools » → **jamais d'effort `low` sur une routine de veille** (cc-news). Détail : [[doctrine-par-modele-opus5-fable5]] § AJOUT 5 septembre 2026.
+
+**Sweep Opus 5 EXÉCUTÉ le 5 sept. 2026 — `xhigh` mesuré non justifié.** 3 runs `repo-inspector`
+(`xhigh`/`high`/`medium`) sur la même cible, prompt gelé, une seule variable : les trois niveaux
+lisent 12/12 fichiers en entier et repèrent la même erreur de périmètre du brief. `xhigh` coûte
++25 % de tokens sur `medium` sans lire un fichier de plus ni changer une conclusion → l'agent passe
+à `high`. Le constat le plus solide n'est pas le classement mais la **variance** : chaque niveau
+trouve un CRITIQUE différent et c'est `medium` qui remonte l'écart doctrine↔code le plus
+actionnable — l'effort supplémentaire achète du volume de suggestions de style, pas de la
+profondeur de jugement. Corollaire de méthode : **n=1 par niveau ne permet pas de trancher entre
+deux niveaux voisins**, seulement d'éliminer un cran manifestement inutile. Protocole complet et
+résultats : [[effort-opus-47-doctrine-anthropic-2026]] § Sweep Opus 5.
 
 **Anti-biais Anthropic (verbatim Raphael 26 mai)** : « Anthropic réfléchit avec des tokens illimités, moi je paie le réel. xhigh partout = leur intérêt commercial, pas le mien. » xhigh ≈ +3-6 points pour 2× tokens vs high. Ne JAMAIS appliquer « Anthropic dit xhigh default » aveuglément : calibrer par TYPE de tâche réelle, et **mesurer empiriquement avant de bump** (1 run high vs 1 run xhigh sur la même tâche, comparer l'output).
 
