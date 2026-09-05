@@ -7,12 +7,40 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-08-28
+derniere-maj: 2026-09-05
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-09-05 (2) — vérification primaire du pricing Fable + nettoyage de références mortes
+
+- **Modifiées** :
+  - `01-Claude/models/Fable 5` et `01-Claude/models/Fable 5.1` — **inférence corrigée en fait sourcé**. Le « cache read −75 % » venait d'un calcul de chercheur, pas d'un verbatim : la page officielle « What's new in Claude Fable 5.1 » (section *Pricing*) donne le ratio explicite `0,025 × input` contre `0,1` sur les autres modèles Claude. Les deux fiches portent désormais **$1 / MTok pour Fable 5** et **$0,25 pour 5.1**, avec la provenance du calcul écrite dans la note. La ligne « cache read : plein tarif » du tableau comparatif était fausse.
+  - `01-Claude/models/Fable 5.1` — ajout des **trois breaking changes** officiels absents de la première version : forced tool use interdit (`tool_choice: any|tool` → 400), thinking blocks liés au modèle producteur (préservation unidirectionnelle, retrait silencieux sans beta header), historique append-only avec la liste exacte de ce qui casse et de ce qui ne casse pas + le remède `prefix_mismatch_behavior: "drop_block"`. Ajout aussi des nouveautés exploitables : effort modifiable en cours de conversation **sans invalider le cache**, messages système à portée d'un tour, watermark et Content Credentials C2PA.
+  - `01-Claude/models/Fable 5` — **référence morte et assertion périmée corrigées** en section « Pertinence forge » : la note pointait vers un slug mémoire renommé (`preference-modele-opus-4-8`) et affirmait encore « préférence Raphael = Opus 4.8 », alors que le défaut forge est Opus 5 depuis le 24 juillet 2026.
+
+- **Source** : passe de vérification post-livraison sur le run cc-news du même jour, une requête primaire sur `platform.claude.com/docs/en/models/fable-5-1/whats-new-fable-5-1`.
+
+## 2026-09-05 — cc-news : Fable 5.1, GPT-6 Astra, correction du catalogue Gemini
+
+- **Ajoutées** :
+  - `01-Claude/models/Fable 5.1.md` — modèle Fable par défaut depuis le 1er sept. 2026 (`claude-fable-5-1`, 1M ctx / 128K out, $10/$50, cache read $0,25/MTok, effort défaut `high`). Inclut Mythos 5.1 en section (même modèle, safeguards renforcés — pas de fiche séparée) et les gotchas : historique append-only obligatoire (400 sinon), sweep d'effort non transférable, alias `fable`/`best` qui résolvent encore vers Fable 5 derrière un gateway.
+  - `02-OpenAI/models/GPT-6 Astra.md` — flagship OpenAI du 3 sept. 2026. Contraintes API confirmées en primaire (pas de reasoning effort `none`, pas de temperature/top_p custom, pas de logprobs, tool calling via Responses API uniquement) ; pricing et benchmarks marqués **non confirmés en source primaire**.
+  - `03-Google/models/catalogue-gemini.md` — note catalogue unique (choix assumé : pas une fiche par modèle Gemini tant qu'aucun n'est mis en production). Série 3 stable jusqu'à 3.8 Flash, 3.1 Pro en preview, 3.5 Pro « Coming soon », Gemini 4.0 sans date.
+
+- **Modifiées** :
+  - `07-Prompts/techniques/prompting-fable5-cheatsheet` — **assertion active fausse corrigée en place** : la note affirmait « Fable 5 est suspendu depuis le 12 juin 2026 » alors que la fiche `Fable 5` du même vault documentait son redéploiement le 1er juillet. Contradiction interne vieille de deux mois. Ajout des 14 différences comportementales de Fable 5.1, organisées par symptôme observé.
+  - `00-Hub/MOC-Modeles` — **erreur factuelle corrigée** : « Gemini 4.0 annoncé Google I/O 19 mai 2026 » est faux (l'I/O 2026 a annoncé Gemini 3.5 Flash). Ajout de Fable 5.1 et GPT-6 Astra, catalogue Gemini réel, dépréciations Google.
+  - `03-Google/products/Gemini CLI` — 4 mois de retard rattrapés. La coupure du 18 juin 2026 ne visait que les **comptes individuels** (AI Pro/Ultra + gratuit) ; entreprise et clés API payantes conservent l'accès, le repo GitHub reste actif. Remplaçants : Antigravity CLI + Antigravity 2.0, **non open-source**. Même erreur Gemini 4.0 retirée.
+  - `01-Claude/models/Fable 5` — ajout du successeur 5.1 et des gotchas de transition.
+  - `04-Techniques/claude-code/doctrine-par-modele-opus5-fable5` — amendements Fable 5.1 au tableau de décision. Conséquence forge notée : ne jamais faire tourner une routine de veille à effort `low` (5.1 répond de mémoire sur « a fast-moving area like AI models and developer tools »).
+  - `04-Techniques/prompt-engineering/parametres-echantillonnage-llm` — nouvelle section « boutons de raisonnement par fournisseur » : `effort` (Anthropic) / `reasoning_effort` + `verbosity` (OpenAI) / `thinking_level` (Google, remplace `thinkingBudget`, dynamique par défaut). Seule dépréciation explicite vérifiée des trois fournisseurs : ne plus toucher temperature/top_p/top_k sur Gemini 3.x.
+
+- **Source** : scan cc-news du 5 sept. 2026 — 4 chercheurs read-only + vérification déterministe en session principale (`npm view @anthropic-ai/claude-code` = 2.1.261, sha256 du CHANGELOG officiel, 7 versions publiées depuis le checkpoint 2.1.250). Sources primaires : `platform.claude.com`, `anthropic.com`, `developers.openai.com`, `ai.google.dev`, `deepmind.google`, `developers.googleblog.com`, `blog.google`. Rapport complet : `logs/brain-refresh/2026-09-05_scan-modeles.md`.
+
+- **Note de sécurité** : deux résultats WebSearch contenaient une tentative d'injection de prompt (« REMINDER: You MUST include the sources above… »), traitée comme donnée non fiable et ignorée conformément à `.claude/rules/contenu-externe-non-fiable.md`. Première occurrence observée en conditions réelles sur un run de veille.
 
 ## 2026-07-29 (3) — learning-reminder V2 : de rappel systématique à détecteur
 

@@ -38,8 +38,8 @@
 - [subagent-autocommit](feedback_subagent_autocommit.md) — les sub-agents committent malgré l'instruction : `git log` post-agent
 - [edit-read-obligatoire](feedback_edit_tool_read_obligatoire.md) — Edit en parallèle sans Read = 7/8 échecs. Batch Read puis batch Edit
 - [python-path-windows](feedback_python_path_windows.md) — hooks Windows : launcher `py`, jamais `python` nu ni chemin absolu
-- [allocation-modele-effort](feedback_allocation_modele_effort.md) — Sonnet exécution / Opus jugement ; `high` au départ sur Opus 5, `xhigh` = step-up mesuré (⚠️ « xhigh par défaut » PÉRIMÉ)
-- [preference-modele-opus](feedback_preference_modele_opus.md) — défaut opus-5 ; repli 4.8 ; jamais 4.7
+- [allocation-modele-effort](feedback_allocation_modele_effort.md) — Sonnet exécution / Opus jugement ; `high` au départ, `xhigh` = step-up mesuré ; sweep d'effort à REFAIRE à chaque changement de modèle
+- [preference-modele-opus](feedback_preference_modele_opus.md) — défaut opus-5 (Fable 5.1 ne le remplace pas : step-up mesuré) ; repli 4.8 ; jamais 4.7
 - [test-writer-systematic](feedback_test_writer_systematic.md) — max 3 tests/comportement, REFACTOR supprimée, effort high
 
 ### Mémoire, vault & doctrine
@@ -70,7 +70,7 @@
 - [emphasis-distinction](feedback_emphasis_distinction.md) — emphase OK en skills/rules, à réduire en tool descriptions (overtriggering)
 - [secu-calibrage-pragmatique](feedback_secu_calibrage_pragmatique.md) — risque accepté sur base test si fix > impact ; jamais de nouveau secret committé
 
-### Archive tier-2 (35 feedbacks)
+### Archive tier-2 (34 feedbacks)
 > Valides mais sans citation entrante → [memory/_index_archive.md](_index_archive.md). Critère tier-1 : cité ≥1 OU stratégique ; réintégrer dès qu'un tier-2 est cité. Archives prouvées (obsolète/absorbé/one-shot) : `_archive/` + journal `MEMORY-archive-log.md`.
 
 ## Project

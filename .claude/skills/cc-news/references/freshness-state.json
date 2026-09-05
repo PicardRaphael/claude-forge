@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "last_complete_run": "2026-08-28",
-  "last_attempted_run": "2026-08-28",
+  "last_complete_run": "2026-09-05",
+  "last_attempted_run": "2026-09-05",
   "domains": {
     "claude-code": {
-      "verified_at": "2026-08-28",
+      "verified_at": "2026-09-05",
       "status": "complete",
-      "latest_version": "2.1.250",
-      "content_checkpoint": "2.1.250",
+      "latest_version": "2.1.261",
+      "content_checkpoint": "2.1.261",
       "source": "https://www.npmjs.com/package/@anthropic-ai/claude-code",
       "content_source": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
-      "source_content_sha256": "5d3177183a1ee4ace2d5b8a19e895e786f03dd4082e7899b67117a7f2ee15327"
+      "source_content_sha256": "45de16ab52f6baee38e9178794d80de3dce0efbe44bad18d7cbcdcfb3732a88a"
     },
     "codex": {
       "verified_at": "2026-08-27",
@@ -22,9 +22,26 @@
     },
     "chatgpt": {
       "verified_at": "2026-08-27",
-      "status": "complete",
+      "status": "failed",
       "latest_release_checked": "2026-08-25",
-      "source": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes"
+      "source": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+      "last_failure": "2026-09-05",
+      "failure_reason": "help.openai.com/en/articles/6825453 a renvoye 403 pendant tout le run - aucune confirmation primaire possible. Checkpoint laisse au 2026-08-27 conformement au contrat."
+    },
+    "openai-models": {
+      "verified_at": "2026-09-05",
+      "status": "complete",
+      "latest_model_checked": "GPT-6 Astra",
+      "source": "https://developers.openai.com/api/docs/changelog",
+      "note": "Pricing et benchmarks Astra non confirmes en source primaire - classes DEFER."
+    },
+    "google": {
+      "verified_at": "2026-09-05",
+      "status": "complete",
+      "scope": "gemini-models,gemini-cli,antigravity",
+      "latest_stable_checked": "Gemini 3.8 Flash",
+      "source": "https://ai.google.dev/gemini-api/docs/models",
+      "secondary_source": "https://deepmind.google/models/gemini/"
     }
   },
   "proposals": [

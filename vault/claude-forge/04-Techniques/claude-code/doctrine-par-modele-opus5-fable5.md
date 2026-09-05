@@ -9,7 +9,7 @@ aliases:
   - skills too prescriptive Fable
   - agent en Fable que faire
   - verification par modele
-derniere-maj: 2026-07-29
+derniere-maj: 2026-09-05
 auteur: claude
 type: technique
 sources:
@@ -115,3 +115,31 @@ Le `self-preferential bias` (post [harness](https://claude.com/blog/a-harness-fo
 - [[comment-creer-agent]] · [[comment-creer-skill]] · [[comment-ecrire-claudemd]]
 - [[Opus 5]] · [[workflow-claude-code-optimal]]
 - [[verification-sources-canoniques]] — lire un verbatim dans sa section
+
+---
+
+## AJOUT 5 septembre 2026 — Fable 5.1 remplace Fable 5, et le sweep d'effort n'est pas transférable
+
+Source primaire : [prompting-claude-fable-5-1](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1) + [platform.claude.com/docs/en/models/fable-5-1/overview](https://platform.claude.com/docs/en/models/fable-5-1/overview), vérifiées le 5 sept. 2026.
+
+[[Fable 5.1]] (`claude-fable-5-1`, 1er sept. 2026) est **le modèle Fable par défaut**. La colonne « Fable 5 / Mythos 5 » du tableau de décision reste valide — Anthropic confirme que *« your existing Claude Fable 5 prompts should perform well on Claude Fable 5.1 without changes »* — avec ces amendements :
+
+| Sujet | Amendement Fable 5.1 |
+|---|---|
+| **Effort de départ** | `high` inchangé, **mais refaire le sweep** : *« effort level names don't correspond to the same amount of thinking across models »*. À `medium`, 5.1 ≈ Fable 5 pour moins cher ; à `low`, il est *« often competitive with Claude Opus and Claude Sonnet models on cost per task while scoring higher »* |
+| **Narration** | 5.1 écrit **moins** d'updates que Fable 5 pendant les longs tours d'outils. Les updates transitent par des blocs `thinking` de progression, **vides sous le défaut `display: "omitted"`** → activer `display: "updates"` avant de conclure que le modèle est muet |
+| **Formatage** | 5.1 utilise **moins** de gras et de listes. Les règles anti-formatage héritées des modèles antérieurs sont devenues **contre-productives** → les retirer plutôt que les renforcer |
+| **Historique de conversation** | **Append-only obligatoire.** Pour les comptes créés depuis le 31 août 2026, un thinking block rejoué après modification du préfixe renvoie **400**. *« Future models are expected to enforce this check for all accounts »* |
+| **Batching des tool calls** | En boucle coding/computer-use, 5.1 peut émettre un appel par tour quand les suivants sont implicites → nudge d'une phrase |
+| **Édition de fichiers** | 5.1 réécrit plus volontiers un fichier entier pour un petit changement → demander l'édition chirurgicale |
+| **Recherche à effort `low`** | 5.1 déclenche moins les outils de recherche et répond de mémoire. Anthropic cite nommément *« a fast-moving area like AI models and developer tools where the landscape shifts within months »* |
+| **Safeguards** | Moins de faux positifs qu'au lancement de Fable 5, et *« finding vulnerabilities in source code is permitted »*. Trois déclencheurs résiduels : phrasé « est-ce que ça compile », langages peu connus, **base64 en sortie d'outil** |
+| **Longs livrables à `xhigh`/`max`** | 5.1 peut rédiger le livrable dans son thinking puis le réécrire → rester à `high` sauf gain mesuré |
+
+### Conséquence pour forge
+
+La ligne « recherche à `low` » vise directement `cc-news` et toute routine de veille : **ne jamais faire tourner une veille à effort `low`**, le modèle répondrait de mémoire sur exactement le domaine où sa mémoire est périmée.
+
+Vérification faite le 5 sept. 2026 : **aucun composant forge ne contient de règle anti-formatage sur les réponses, ni d'instruction « montre ton raisonnement »** (qui déclencherait `reasoning_extraction`), ni de suppression de narration type « hold all findings for the final response ». La migration vers Fable 5.1 ne demande aucune correction de composant.
+
+Prompting détaillé par symptôme : [[prompting-fable5-cheatsheet]] § AJOUT 5 septembre 2026.

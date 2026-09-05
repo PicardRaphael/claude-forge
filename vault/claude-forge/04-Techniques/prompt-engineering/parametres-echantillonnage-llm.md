@@ -10,7 +10,7 @@ aliases:
   - "temperature rag chatbot agent extraction"
 domaine: ia
 type: technique
-derniere-maj: 2026-06-19
+derniere-maj: 2026-09-05
 auteur: claude
 sources:
   - "https://platform.claude.com/docs/en/build-with-claude/extended-thinking"
@@ -78,3 +78,29 @@ tags:
 - [[serving-inference-optimisation]] — sampling côté serving self-hosted (vLLM/SGLang)
 - [[architecture-openai-api]] · [[architecture-gemini-api]] — specs par provider
 - [[prompting-opus47-cheatsheet]] — pilotage par le prompt
+
+---
+
+## AJOUT 5 septembre 2026 — les boutons de raisonnement, par fournisseur
+
+Le gotcha n°3 ci-dessus (« les modèles de raisonnement verrouillent la température ») a une contrepartie : **quand on ne peut plus régler le sampling, on règle le raisonnement.** Chaque fournisseur expose désormais son propre bouton, et ils ne portent ni le même nom ni les mêmes valeurs.
+
+| Fournisseur | Paramètre | Valeurs | Défaut | Portée |
+|---|---|---|---|---|
+| **Anthropic** | `effort` | `low` · `medium` · `high` · `xhigh` · `max` | `high` | Gouverne **toute** la dépense de tokens du tour : thinking, texte de réponse et tool calls — pas seulement un budget de réflexion séparé |
+| **OpenAI** | `reasoning_effort` + **`verbosity`** | effort : `minimal`/`low`/… (⚠️ **pas de `none` sur GPT-6 Astra**) · verbosity : longueur de la **réponse finale**, distincte de la longueur du raisonnement | — | GPT-5.x et suivants. `verbosity` répond aussi à une surcharge en langage naturel dans le prompt |
+| **Google** | **`thinking_level`** | `minimal` · `low` · `medium` · `high` (support variable selon modèle) | **thinking dynamique** si non fixé | Gemini 2.5 et 3.x. Remplace `thinkingBudget` |
+
+### Ce qu'il faut retenir par fournisseur
+
+**Anthropic** — l'effort est le contrôle principal. Sur **Opus 5**, `thinking: {type: "disabled"}` n'est autorisé qu'à effort `high` ou en dessous : le combiner avec `xhigh` ou `max` renvoie une **erreur 400**, changement cassant vs Opus 4.8. Et les niveaux ne sont **pas comparables d'un modèle à l'autre** : un sweep fait sur un modèle doit être refait sur le suivant (cf [[doctrine-par-modele-opus5-fable5]]).
+
+**OpenAI** — deux boutons distincts, à ne pas confondre : `reasoning_effort` pilote combien le modèle réfléchit, `verbosity` combien il écrit. Recommandation officielle : **verbosity haute pour le code**, effort `minimal`/`low` pour le travail de routine, effort lourd réservé aux problèmes réellement complexes. **GPT-6 Astra** (3 sept. 2026) durcit les contraintes : pas de niveau d'effort `none`, **pas de `temperature`/`top_p` custom**, pas de logprobs, et le tool calling exige la **Responses API**.
+
+**Google** — `thinking_level` remplace `thinkingBudget` sur Gemini 3.x. Par défaut, *« Gemini models engage in dynamic thinking… automatically adjusting the amount of reasoning effort based on the complexity of the request »* : ne rien fixer est un choix valide. Et surtout, **seule dépréciation explicite vérifiée des trois fournisseurs** : sur Gemini 3.x, garder `temperature`/`top_p`/`top_k` à leurs valeurs par défaut — verbatim *« Although you can modify these parameters, we strongly recommend keeping them at their default values for Gemini 3.x models. Changing these parameters (for example, setting the temperature below 1.0) can cause unexpected behavior »*. Cela étend le gotcha n°3 au-delà des seuls modes de raisonnement : sur Gemini 3.x, c'est **toute** la famille qui verrouille le sampling.
+
+### Règle transversale
+
+Le tableau « réglages par cas d'usage » plus haut ne s'applique qu'aux modèles **sans** raisonnement natif. Dès qu'un modèle raisonne, la séquence est : ne pas toucher au sampling → régler le bouton de raisonnement → piloter le reste par le prompt.
+
+Sources vérifiées le 5 sept. 2026 : `ai.google.dev/gemini-api/docs/thinking`, `ai.google.dev/gemini-api/docs/prompting-strategies`, `developers.openai.com/api/docs/changelog`, `platform.claude.com/docs/en/models/fable-5-1/overview`.

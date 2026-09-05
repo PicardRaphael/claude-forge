@@ -6,7 +6,7 @@ Feedbacks **valides** mais **sans citation entrante ni statut stratégique** (de
 
 **Critère d'archivage réel (vers `_archive/`) :** distinct — un tier-2 n'est archivé que si obsolète/absorbé/one-shot daté avec preuve (voir `_archive/MEMORY-archive-log.md`). Tier-2 ≠ archivé.
 
-## Feedback (tier-2 — 35 entrées)
+## Feedback (tier-2 — 34 entrées)
 - [5-lignes-karpathy-ouverture-claudemd](feedback_5_lignes_karpathy_ouverture.md) — Tout CLAUDE.md forge commence par 5 lignes Karpathy verbatim. ⚠ Porte une divergence vs canonique vault (ne PAS propager aux repos non-code type neoteem-brain) — à replier dans [[comment-ecrire-claudemd]] puis archiver
 - [audit-completude-pointeur-vs-orphelin](feedback_audit_completude_pointeur_vs_orphelin.md) — Audit complétude index/roadmap : un wikilink non résolu localement peut pointer vers une note existante ailleurs. search_brain chaque cible avant de la compter orpheline (60→41 réels)
 - [audit-prompt-adaptatif-par-couche](feedback_audit_prompt_adaptatif_par_couche.md) — Auditer des prompts d'archi adaptative par COUCHE (core toujours-chargé strict vs conditional à-la-demande tolérant), lire blueprint.py + chaque prompt en entier. Compter ≠ juger ; `_disabled` ≠ mort
@@ -29,7 +29,6 @@ Feedbacks **valides** mais **sans citation entrante ni statut stratégique** (de
 - [pas-de-wakeup-pour-agents-background](feedback_pas_de_wakeup_pour_agents_background.md) — Jamais de ScheduleWakeup pour attendre mes propres agents background (le harness notifie à leur fin). Wakeup = travail externe non-tracké uniquement
 - [plan-commits-vs-working-tree-reel](feedback_plan_commits_vs_working_tree_reel.md) — git status AVANT, isoler le hors-scope dans un commit dédié, signaler l'écart
 - [plugin-admin-absorbe-readonly](feedback_plugin_admin_absorbe_readonly.md) — Plugin admin (write) absorbe fonctionnellement le read-only. Désinstaller le read-only sans perte (gain tokens). Vérifier allowed-tools
-- [preference-modele-opus-4-8](feedback_preference_modele_opus.md) — Ordre Opus (MAJ 27 juil.) : défaut `claude-opus-5` (mapping CLAUDE.md, surveiller) ; repli 4.8 (préférence validée) puis 4.6 ; JAMAIS 4.7 (jugé moyen)
 - [present-before-build](feedback_present_before_build.md) — Présenter le plan AVANT construire, jamais créer sans validation Raphael
 - [raphael-pas-mise-en-avant-cadrage-client](feedback_raphael_pas_mise_en_avant_cadrage_client.md) — Docs Neoteem : ne pas mettre Raphaël en avant ; cadrage = décision client
 - [regle-scope-pas-universelle](feedback_regle_scope_pas_universelle.md) — Vérifier scope règle AVANT propagation. Provider sur SON produit = single source
