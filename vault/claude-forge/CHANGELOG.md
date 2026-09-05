@@ -14,6 +14,12 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-09-05 (4) — frontmatter des deux canoniques de création réparé
+
+- **Modifiées** : `comment-creer-agent` et `comment-creer-skill` — `titre`, `type`, `auteur`, `sources` (plus `resume` pour l'agent) réinjectés dans le frontmatter ACTIF. Les deux notes portaient un second bloc YAML précédé d'un BOM : leurs `titre`/`resume` vivaient hors du frontmatter parsé, donc n'étaient pas indexés. `skills-metadata-tokens-load` — nouvelle section « Les limites réelles » : 1024 chars (spec) / 1536 (description + `when_to_use`), le ~250 requalifié en repère de budget forge plutôt qu'en seuil produit.
+- **Source** : audit des doctrines de développement Claude Code / Codex du 5 septembre 2026. `lint_vault` ne détecte pas le frontmatter empilé (`broken_yaml` reste à 0) — défaut trouvé par script de détection dédié, borné à exactement ces deux notes sur tout le vault.
+- **Reste ouvert** : le bloc YAML fantôme subsiste dans le corps des deux notes, et `comment-creer-agent` porte encore des faits périmés (IDs modèles morts, `agent-creator` renommé `subagent-creator`) plus une section qui enseigne un contournement de `delegate-guard` que la rule interdit explicitement.
+
 ## 2026-09-05 (3) — doctrines de développement : corpus Codex réaligné, régression skills corrigée
 
 - **Modifiées** :

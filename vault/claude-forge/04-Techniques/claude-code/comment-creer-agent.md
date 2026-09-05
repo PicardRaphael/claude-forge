@@ -13,6 +13,18 @@ tags:
   - "#type/technique"
   - "#domaine/claude-code"
   - "#doctrine/2026"
+titre: Comment créer un agent Claude Code parfait
+resume: Note canonique pour créer un agent Claude Code — frontmatter, critère d'existence d'un subagent, 6 niveaux d'enforcement, doctrine Sonnet/Opus, et interdiction de contourner delegate-guard.
+type: technique
+auteur: claude
+sources:
+  - "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents"
+  - "https://code.claude.com/docs/en/sub-agents"
+  - "https://code.claude.com/docs/en/agent-sdk/subagents"
+  - "Justin Young (MTS Anthropic) — Initializer + Coding agent (sans split modèles)"
+  - "Cat Wu — Code with Claude London 19 mai 2026"
+  - "Brad Abrams — Code with Claude SF 6 mai 2026 (Advisor Strategy)"
+  - "Böckeler — martinfowler.com/articles/harness-engineering.html (2 avril 2026)"
 ---
 ﻿---
 titre: "Comment créer un agent Claude Code parfait"

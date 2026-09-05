@@ -59,6 +59,18 @@ Le cap de 250 caractères reste une **bonne pratique de budget** — moins de ch
 
 Le travail d'optimisation a porté : le corpus a grossi de deux skills tout en réduisant d'un quart le coût de chargement. Les trois pires cas de mai (`cc-news` 530, `x-read` 517, `spec` 511) sont tous rentrés dans les clous. C'est le rare cas où une note de dette peut être relue comme une mesure de progrès — raison de plus pour la garder à jour plutôt que de la laisser affirmer un état révolu.
 
+## Les limites réelles (à ne pas confondre avec le repère de budget)
+
+Le « 250 » n'a jamais été une limite du produit : c'était une estimation empirique du system reminder dans un contexte donné, promue en règle par répétition. Les limites canoniques sont ailleurs :
+
+| Limite | Valeur | Nature |
+|---|---|---|
+| `description` | **1024 chars** | hard limit de la spec — au-delà, tronquée |
+| `description` + `when_to_use` | **1536 chars** combinés | plafond dans le skill listing |
+| ~250 chars | — | **repère de budget forge**, pas un seuil produit |
+
+Garder une description autour de 250 caractères reste utile — c'est ce qui permet à beaucoup de skills de tenir dans le listing sans qu'aucune ne soit dropée — mais il faut savoir que dépasser ce repère ne tronque rien. Source canonique du mécanisme : [[comment-creer-skill]].
+
 ## Leviers d'optimisation (priorité décroissante)
 
 1. **Garder les descriptions denses et courtes** (~250 chars comme repère de budget, pas comme seuil de troncature) → maximise le nombre de skills réellement listées.

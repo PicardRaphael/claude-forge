@@ -13,6 +13,14 @@ tags:
   - "#type/technique"
   - "#domaine/claude-code"
   - "#doctrine/2026"
+titre: Comment créer une skill Claude Code parfaite
+type: technique
+auteur: claude
+sources:
+  - "https://www.claude.com/blog/skills-explained"
+  - "Thariq Shihipar — post Anthropic 'Lessons from Building Claude Code: How We Use Skills' (mars 2026)"
+  - "https://github.com/anthropics/skills"
+  - "https://agentskills.io"
 ---
 ﻿---
 titre: "Comment créer une skill Claude Code parfaite"
