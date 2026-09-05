@@ -16,7 +16,7 @@ Audits the forge-brain Obsidian vault (96+ notes) for quality issues and applies
 /vault-audit fix         — audit + deterministic fixes
 /vault-audit --full      — audit all notes (verbose)
 /vault-audit --top 20    — audit top 20 worst
-/vault-audit --note "Opus 4.7"  — audit single note
+/vault-audit --note "Opus 5"  — audit single note
 /vault-audit fix --dry-run      — show what would be fixed, no writes
 ```
 
@@ -136,7 +136,7 @@ Pour les notes grade D avec aliases pauvres ou resume vide :
 /vault-audit fix --dry-run
 
 # Corriger une note spécifique
-/vault-audit fix --note "Opus 4.7"
+/vault-audit fix --note "Opus 5"
 
 # Monitoring hebdomadaire
 /loop 7d /vault-audit --top 5

@@ -44,7 +44,7 @@ Copier le template correspondant dans un fichier `RUBRIC.md` dans le dossier du 
 - [ ] Modèle cohérent : opus pour jugement/analyse, sonnet pour exécution
 
 ## Critères souhaitables (SHOULD)
-- [ ] `effort` correct : opus = xhigh, sonnet = high
+- [ ] `effort` calibré par type de tâche : `high` par défaut, `xhigh` seulement sur agentique/coding long (audit, archi)
 - [ ] Skills pertinentes listées dans `skills:` frontmatter ET référencées dans le body
 - [ ] `disallowedTools` inclut Write/Edit si agent read-only
 - [ ] Body explique clairement le rôle et les étapes

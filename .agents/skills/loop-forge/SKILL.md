@@ -23,7 +23,7 @@ Transforme un job répétitif (code ou non-code) en spec structurée : `SPEC-loo
 
 ## Workflow — 9 blocs séquentiels
 
-**Mécanique Tasks natif** : créer une tâche via `TaskCreate` par bloc avec statut `pending`. Passer à `in_progress` en débutant le bloc, `completed` avant d'avancer au suivant. Ne jamais passer au bloc N+1 tant que le bloc N n'est pas `completed`. Raison : Opus 4.8 interprète littéralement et ne généralise pas seul — la checklist explicite évite d'oublier un bloc.
+**Mécanique Tasks natif** : créer une tâche via `TaskCreate` par bloc avec statut `pending`. Passer à `in_progress` en débutant le bloc, `completed` avant d'avancer au suivant. Ne jamais passer au bloc N+1 tant que le bloc N n'est pas `completed`. Raison : Opus 5 interprète littéralement et ne généralise pas seul — la checklist explicite évite d'oublier un bloc.
 
 ---
 
