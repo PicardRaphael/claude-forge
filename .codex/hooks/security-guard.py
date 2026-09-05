@@ -14,7 +14,7 @@ def is_dangerous(cmd: str) -> str | None:
     patterns = [
         (r"\brm\b(?=[^\r\n;&|]*?(?:-[A-Za-z]*r[A-Za-z]*|--recursive))(?=[^\r\n;&|]*?(?:-[A-Za-z]*f[A-Za-z]*|--force))[^\r\n;&|]*\s\S+", "suppression recursive et forcee (demande explicite requise)"),
         (r"\bremove-item\b(?=[^\r\n;&|]*?(?:-recurse|-recursive))(?=[^\r\n;&|]*?-force)\b", "Remove-Item -Recurse -Force (demande explicite requise)"),
-        (r"\bgit\b(?:\s+-C\s+\S+)*\s+branch\b[^\r\n;&|]*\s-D\b", "git branch -D"),
+        (r"\bgit\b(?:\s+-C\s+\S+)*\s+branch\b[^\r\n;&|]*\s-D\b", "suppression de branche -d/-D (demande explicite requise)"),
         (r"\bgit\b(?:\s+-C\s+\S+)*\s+push\b[^\r\n;&|]*(?:--force(?:-with-lease)?|-f)\b", "git push force"),
         (r"\bgit\b(?:\s+-C\s+\S+)*\s+push\b[^\r\n;&|]*\s--delete\b", "git push --delete"),
         (r"\bgit\b(?:\s+-C\s+\S+)*\s+push\b[^\r\n;&|]*\s(?::|\+)\S+", "git push destructive refspec"),

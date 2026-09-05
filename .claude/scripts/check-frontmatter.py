@@ -24,6 +24,11 @@ PATTERNS = (
     ".claude/agents/*.md",
     ".claude/rules/*.md",
     "memory/*.md",
+    # Surfaces Codex : le piege qui motive ce script y a frappe le 5 sept. 2026
+    # (.codex/agents/repo-inspector.md, "Modes: mode=audit" — agent jamais
+    # charge). Le script existait deja et ne les couvrait pas.
+    ".codex/agents/*.md",
+    ".agents/skills/*/SKILL.md",
 )
 
 

@@ -89,13 +89,21 @@ a été donnée, sauf blocage de sécurité, ambiguïté matérielle ou verdict 
 ```powershell
 py -m pytest .claude/hooks/tests -q
 py -m pytest .codex/hooks/tests -q
+py -m pytest .claude/scripts/tests -q
 # utiliser le validateur de la skill systeme `skill-creator` pour .agents/skills/<skill>
 py .claude/scripts/check-refs.py
+py .claude/scripts/check-frontmatter.py
+py .claude/scripts/check-orphan-tests.py
 git diff --check
 ```
 
 Les suites hooks se lancent séparément : leurs modules de tests portent parfois
 les mêmes noms et une collecte combinée crée des collisions artificielles.
+
+Ce bloc est la déclaration des suites vivantes, pas seulement un pense-bête :
+`check-orphan-tests.py` lit les lignes `pytest <chemin>` ci-dessus pour repérer
+un `test_*.py` que plus rien ne collecte. Une nouvelle suite s'ajoute donc ici,
+sinon elle est signalée comme inerte — et elle l'est réellement.
 
 ## Sources prioritaires
 
