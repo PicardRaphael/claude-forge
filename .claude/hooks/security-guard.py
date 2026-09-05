@@ -22,7 +22,10 @@ def is_dangerous(cmd: str) -> str | None:
             r"(?=[^\r\n;&|]*?-force)\b",
             "Remove-Item -Recurse -Force (demande explicite requise)",
         ),
-        (r"\bgit\b(?:\s+-C\s+\S+)*\s+branch\b[^\r\n;&|]*\s-D\b", "git branch -D"),
+        (
+            r"\bgit\b(?:\s+-C\s+\S+)*\s+branch\b[^\r\n;&|]*\s-D\b",
+            "suppression de branche -d/-D (demande explicite requise)",
+        ),
         (r"\bgit\b(?:\s+-C\s+\S+)*\s+push\b[^\r\n;&|]*(?:--force(?:-with-lease)?|-f)\b", "git push force"),
         (r"\bgit\b(?:\s+-C\s+\S+)*\s+push\b[^\r\n;&|]*\s--delete\b", "git push --delete"),
         (r"\bgit\b(?:\s+-C\s+\S+)*\s+push\b[^\r\n;&|]*\s(?::|\+)\S+", "git push destructive refspec"),

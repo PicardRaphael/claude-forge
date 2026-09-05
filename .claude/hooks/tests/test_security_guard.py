@@ -6,7 +6,8 @@ SCOPE DECLARED BY THE HOOK (security-guard.py:8-15):
   is_dangerous works on the command string, identical across shells.
   The hook blocks these destructive patterns:
     1. rm -rf <any target>                  (and flag-order variant -fr)
-    2. git branch -D
+    2. git branch deletion — both -D and -d (re.IGNORECASE widens the -D regex,
+       and AGENTS.md requires an explicit go-ahead for either)
     3. git push ... --force
     4. git push ... -f
     5. git reset --hard   (without an explicit target after it)
