@@ -18,7 +18,7 @@ Depuis le pivot agent-first 2026-06-27 ([[decision-vault-agent-first]]), les MOC
 /vault-audit fix         — audit + deterministic fixes
 /vault-audit --full      — audit all notes (verbose)
 /vault-audit --top 20    — audit top 20 worst
-/vault-audit --note "Opus 4.7"  — audit single note
+/vault-audit --note "Opus 5"    — audit single note
 /vault-audit fix --dry-run      — show what would be fixed, no writes
 ```
 
@@ -128,7 +128,7 @@ Les MOCs ne sont plus une cible auto-maintenue (couche humaine optionnelle, pivo
 /vault-audit fix --dry-run
 
 # Corriger une note spécifique
-/vault-audit fix --note "Opus 4.7"
+/vault-audit fix --note "Opus 5"
 
 # Monitoring hebdomadaire
 /loop 7d /vault-audit --top 5

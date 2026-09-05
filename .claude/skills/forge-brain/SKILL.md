@@ -259,7 +259,7 @@ tags:
 ## Règles
 
 1. **1 concept = 1 note** — atomique, jamais de dump monolithique
-2. **Wikilinks** partout — `[[Opus 4.7]]`, `[[Boris Cherny]]`
+2. **Wikilinks** partout — `[[Opus 5]]`, `[[Boris Cherny]]`
 3. **Graphe à jour** — chaque nouvelle note doit être reliée depuis un foyer parent pertinent
 4. **derniere-maj** — mettre à jour à chaque édition
 5. **Ne jamais modifier Templates/** — lecture seule
@@ -269,7 +269,7 @@ tags:
 
 - **MCP auto-start** — le hook SessionStart lance le MCP automatiquement. Si les outils MCP ne répondent pas, vérifier que `mcp-forge-brain/start.py` existe et que le port 8091 est libre.
 - **Écriture via MCP, format via obsidian-markdown** — le MCP gère le transport (create/append/update), la skill obsidian-markdown gère le format (wikilinks, frontmatter, callouts).
-- **Aliases minimum 4-6 par note** — standard neoteem-brain : inclure synonymes FR/EN et variantes techniques (ex : "Opus 4.7", "claude-opus-4-7", "opus47", "Claude Opus").
+- **Aliases minimum 4-6 par note** — standard neoteem-brain : inclure synonymes FR/EN et variantes techniques (ex : "Opus 5", "claude-opus-5", "opus5", "Claude Opus").
 
 ## MCP — accès direct (filet de sécurité)
 

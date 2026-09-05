@@ -69,20 +69,26 @@ Claude utilise `ScheduleWakeup` pour décider dynamiquement quand revérifier (�
 
 ## Effort levels
 
-| Niveau   | Effet (Opus 4.8)                                        |
+| Niveau   | Effet (Opus 5)                                           |
 | -------- | -------------------------------------------------------- |
-| `low`    | ≈ medium 4.6. Routes simples, schémas, tests unitaires  |
+| `low`    | Routes simples, schémas, tests unitaires                 |
 | `medium` | Refactors multi-fichiers, migrations simples             |
-| `high`   | **DÉFAUT Opus 4.8.** Migrations complexes, debug cross-layer, code review |
+| `high`   | **DÉFAUT.** Migrations complexes, debug cross-layer, code review |
 | `xhigh`  | Option agentique/coding long : design API, archi modules, refactors structurels |
 | `max`    | Problèmes très durs. Diminishing returns, prone overthinking |
 
-**`high` est le défaut Opus 4.8** ; `xhigh`/`extra`/`max` en option pour les tâches agentiques/coding longues. `high` reste aussi le défaut Sonnet 4.6.
+**`high` est le défaut** sur Opus 5, Fable 5.1 et Sonnet 5 ; `xhigh`/`extra`/`max` restent des options pour les tâches agentiques/coding longues. Monter d'un cran est un step-up mesuré, jamais un réglage de départ — le sweep se refait à chaque changement de modèle, il ne s'hérite pas.
 À `xhigh`/`max` : mettre max_tokens à 64k+ minimum.
 
-**Opus 4.8** (`claude-opus-4-8`, sorti 28 mai 2026) — défaut effort = **high** (recommandé), options `extra`/`xhigh`/`max`. Fast mode 3× moins cher qu'avant (vitesse 2.5×). ~4× moins susceptible de laisser passer une faille sans la signaler vs 4.7.
+### Modèles
 
-**Opus 5** (`claude-opus-5`, sorti 24 juillet 2026) — **nouveau défaut Opus** (CC v2.1.219) et défaut Claude Max : $5/$25 (inchangé), 1M contexte / 128k output, thinking ON par défaut, proche de Fable 5 à moitié prix, fast mode $10/$50 (~2,5×). Le défaut forge `opus` = `claude-opus-5` (épingler `claude-opus-4-8` si besoin de l'ancien). ⚠️ `thinking: disabled` + effort xhigh/max → erreur 400 ; Opus 4.7 exclu du fast mode.
+**Opus 5** (`claude-opus-5`, sorti 24 juillet 2026) — **défaut Opus** (CC v2.1.219) et défaut Claude Max : $5/$25, 1M contexte / 128k output, thinking ON par défaut, fast mode $10/$50 (~2,5×). Défaut forge pour `opus`. ⚠️ `thinking: disabled` combiné à `effort: xhigh|max` → erreur 400.
+
+**Fable 5.1** (`claude-fable-5-1`) — ne remplace pas Opus 5 comme défaut forge : bascule uniquement après gain mesuré sur la tâche visée.
+
+**Sonnet 5** (`claude-sonnet-5`) — exécution. **Haiku 4.5** (`claude-haiku-4-5-20251001`) — mécanique, demande plus de guidance.
+
+**Opus 4.8** (`claude-opus-4-8`, sorti 28 mai 2026) — repli quand l'ancien comportement est nécessaire : défaut effort high, fast mode 3× moins cher (vitesse 2.5×). Opus 4.7 est exclu du fast mode et n'est plus un choix.
 
 ## Git Worktrees — #1 productivité
 
@@ -151,7 +157,7 @@ Subagents qui se communiquent directement via task board partagé. Equipe implic
 | Advisor Tool | Beta — Sonnet consulte Opus mid-generation, 1 seul appel API (9 avril) |
 | Claude for Word | Beta publique, sidebar native Mac + Windows (10 avril) |
 | MCP 500K chars | Tool result override jusqu'à 500K chars (v2.1.91) |
-| Auto Mode | Shift+Tab cycle Ask → Plan → Auto. Auto-approve via classifier ML (Opus 4.7, Max/Teams/Enterprise) |
+| Auto Mode | Shift+Tab cycle Ask → Plan → Auto. Auto-approve via classifier ML (Max/Teams/Enterprise) |
 | Hooks MCP direct | `type: "mcp_tool"` — hooks invoquent outils MCP directement (v2.1.119) |
 | Custom Themes | Créer themes JSON dans ~/.claude/themes/, plugins peuvent shipper des themes (v2.1.119) |
 | /config persiste | Settings /config persistent dans ~/.claude/settings.json avec precedence override (v2.1.119) |
@@ -259,16 +265,17 @@ LSPs disponibles pour tous les langages majeurs.
 
 - **Sessions et agents** : `/fork` crée son propre worktree (2.1.221) ;
   `SendMessage` + `ListAgents` permettent la messagerie cross-session
-  (2.1.224, Windows depuis 2.1.239) ; le fork de subagent avec conversation et
+  (2.1.224 ; Windows 2.1.239) ; le fork de subagent avec conversation et
   prompt cache est actif par défaut (2.1.232).
 - **Boucles** : `/usage` affiche désormais runs, tokens/run et dernier run par
   loop (2.1.243). Utiliser ces mesures pour détecter les loops bavardes.
 - **Skills/plugins** : activation immédiate quand sûre (2.1.221), validation BOM
   et hot-reload renforcés, `/reload-plugins` corrigé (2.1.246).
-- **Hooks/sécurité** : un `PreToolUse` auto-allow ne contourne plus les
-  restrictions des background agents (2.1.222) ; les conditions de hook avec
-  substitutions shell sont mieux isolées (2.1.243) ; les sorties géantes d'un
-  hook ou agent ne peuvent plus saturer le contexte (2.1.247).
+- **Hooks/sécurité** : un `PreToolUse` auto-allow ne lève pas les restrictions
+  d'un background agent (2.1.222) — un agent non isolé reste bloqué en écriture
+  tant qu'il n'a pas son worktree ; les conditions de hook avec substitutions
+  shell sont mieux isolées (2.1.243) ; les sorties géantes d'un hook ou agent ne
+  peuvent plus saturer le contexte (2.1.247).
 - **Mémoire/compaction** : le nettoyage de session ne supprime plus le contenu
   d'un dossier mémoire projet (2.1.228) ; Sonnet 5 utilise la fenêtre complète
   de 1M pour l'auto-compaction (2.1.247).
@@ -278,9 +285,6 @@ LSPs disponibles pour tous les langages majeurs.
   (2.1.246).
 - **Outils** : `SendFeedback` prépare un rapport soumis à validation et
   `/claude-api cost-optimize` guide une optimisation mesurée (2.1.247).
-
-Source : changelog officiel
-`anthropics/claude-code/CHANGELOG.md`, vérifié le 27 août 2026.
 
 ## Gotchas
 
