@@ -7,7 +7,7 @@ aliases:
   - low medium high xhigh max
   - effort recommandation officielle
 resume: "Doctrine effort Anthropic 2026 — scale low→medium→high→xhigh→max. La recommandation de DÉPART dépend du modèle : xhigh pour Opus 4.7/4.8 coding-agentic, mais high pour Opus 5 / Fable 5 / Sonnet 5 (« run a fresh effort sweep » si settings hérités d'un modèle antérieur). Doctrine forge Option C (calibrage par TYPE) toujours valide, mais son point de départ xhigh est périmé sur Opus 5 — re-mesure requise."
-derniere-maj: 2026-07-27
+derniere-maj: 2026-09-05
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
@@ -121,6 +121,67 @@ Niveaux et thinking depth :
 python-dev → code-dev. agent-creator / hook-creator / claudemd-optimizer → skills (pas d'effort frontmatter agent).
 
 Fichiers alignés sur cette grille : `CLAUDE.md` forge (ligne effort) · `feedback_allocation_modele_effort` mémoire · [[workflow-claude-code-optimal]] · [[comment-creer-agent]].
+
+### ⚠️ Ligne `repo-inspector` du tableau ci-dessus : **`xhigh` est MESURÉ FAUX** (5 sept. 2026)
+
+La cellule « repo-inspector (audit/analyze/scan) | **xhigh** » est **périmée** : elle date de la
+grille Opus 4.7 et a été reconduite sur Opus 5 sans re-mesure — exactement ce qu'Anthropic
+interdit. Valeur en vigueur : **`high`**. Le fichier `.claude/agents/repo-inspector.md` porte
+désormais `effort: high`.
+
+## Sweep Opus 5 — 5 septembre 2026 (mesuré, n=1 par niveau)
+
+Premier sweep exécuté depuis l'avertissement « run a fresh effort sweep ». Répond au manque
+signalé depuis le 29 juillet.
+
+### Protocole reproductible
+
+Une seule variable change : l'effort. Même agent, même cible, même prompt, trois niveaux.
+
+1. **Véhicule** : un agent read-only (`disallowedTools: Write, Edit`) — rejouable sans risque.
+2. **Cible fixe et bornée**, identique aux trois runs. Consistance > étendue.
+3. **Sortie imposée** : écarts `fichier:ligne`, total par sévérité, et surtout **la liste des
+   fichiers lus EN ENTIER vs partiellement** — c'est cette colonne qui discrimine l'effort,
+   pas le nombre de findings.
+4. **Prompt gelé, erreurs comprises** : le brief annonçait « 9 fichiers » pour 12 réels. Ne pas
+   le corriger entre deux runs — l'erreur conservée devient un discriminant (repérer et corriger
+   le périmètre annoncé est un comportement d'effort élevé).
+5. **Critère de décision** : un fichier lu en plus qui **change la conclusion**, pas une réponse
+   plus longue.
+
+### Résultats — audit de `.claude/rules/` (12 fichiers, 710 lignes)
+
+| Effort | Écarts (C/I/S) | Cibles lues en entier | Tokens | Durée |
+|---|---|---|---|---|
+| `xhigh` | 19 (1/10/8) | 12/12 | 154 773 | 9,3 min |
+| `high` | 13 (1/7/5) | 12/12 | 136 135 | 6,7 min |
+| `medium` | 11 (1/5/5) | 12/12 | 123 917 | 12,1 min |
+
+**Les trois niveaux tiennent la couverture de lecture, et les trois repèrent l'erreur de périmètre
+du brief.** Aucun fichier lu en plus à `xhigh`, aucune conclusion changée par le surcoût.
+
+**Le résultat le plus solide n'est pas le classement, c'est la variance** : chaque niveau trouve un
+CRITIQUE *différent* et les trois ne se recouvrent qu'à moitié. `xhigh` remonte les rules eager ;
+`high` une contradiction entre deux rules ; `medium` l'écart doctrine↔code le plus actionnable.
+Le nombre d'écarts décroît avec l'effort mais **la gravité, non** — l'effort supplémentaire achète
+du volume de suggestions de style, pas de la profondeur de jugement.
+
+### Verdict et sa limite
+
+`repo-inspector` passe à **`high`**, pas à `medium` : n=1 par niveau avec une variance inter-runs
+élevée ne suffit pas à descendre de deux crans sur un agent de **jugement**, l'Option C réserve
+`medium`/`low` au mécanique, et `high` est le point de départ officiel Opus 5. Bouger un réglage
+sur une observation unique serait le raisonnement même que ce sweep discipline.
+
+Ce sweep **ne dit pas** que `medium` serait insuffisant — il dit que rien ne prouve qu'il soit
+meilleur. Une descente reste ouverte contre 3 runs par niveau.
+
+Les 27 autres composants à `high` restent inchangés : déjà au point de départ recommandé, donc
+aucun écart à corriger. `python-ref` et `vault-health` restent à `medium` (inspection mécanique).
+
+**Axe Fable 5.1 : sans objet** — aucun composant du parc ne déclare ce modèle (10 `opus`,
+12 `sonnet`). Le sweep n'étant pas transférable entre modèles, il devra être refait si un
+composant y bascule.
 
 ## Anti-pattern : double thinking archi → dev
 

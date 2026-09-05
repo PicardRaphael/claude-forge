@@ -14,6 +14,24 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-09-05 (8) — premier sweep d'effort mesuré sur Opus 5
+
+- **Modifiées** :
+  - `04-Techniques/claude-code/effort-opus-47-doctrine-anthropic-2026.md` — la cellule
+    « repo-inspector | **xhigh** » du tableau « Composants forge actuels » est marquée **mesurée
+    fausse** : héritée de la grille Opus 4.7 et reconduite sans re-mesure, exactement ce que la
+    page officielle Effort interdit. Ajout de la section « Sweep Opus 5 — 5 septembre 2026 » :
+    protocole reproductible en 5 points, résultats des 3 runs (`xhigh`/`high`/`medium` sur la même
+    cible, prompt gelé), verdict et sa limite explicite (n=1 par niveau).
+- **Source** : sweep exécuté en session principale — 3 audits `repo-inspector` read-only sur les
+  12 fichiers de `.claude/rules/`, une seule variable modifiée entre les runs. Répond à
+  l'avertissement Anthropic « run a fresh effort sweep on your evals rather than reusing them »,
+  signalé comme non traité depuis le 29 juillet 2026.
+- **Résultat de fond** : les trois niveaux lisent 12/12 fichiers en entier et repèrent l'erreur de
+  périmètre du brief ; `xhigh` n'achète aucune couverture supplémentaire. La variance inter-runs
+  est le constat le plus solide — chaque niveau trouve un CRITIQUE différent, et c'est `medium` qui
+  remonte l'écart doctrine↔code le plus actionnable. `repo-inspector` passe à `high`.
+
 ## 2026-09-05 (7) — le retrait du bypass delegate-guard propagé à son relais
 
 - **Modifiées** :
