@@ -19,7 +19,7 @@ Ne JAMAIS écrire directement les fichiers que des skills créatrices savent pro
 
 La règle de comportement s'applique **quel que soit le repo cible** : éditer un `SKILL.md`/agent/hook/`CLAUDE.md` dans ia_back, neo_ia, migration_script ou tout autre repo → invoquer la skill créatrice, exactement comme dans forge. Forge peut écrire partout (permissions cross-repo), mais « écrire partout » n'autorise jamais le raccourci de la rédaction à la main.
 
-⚠️ `delegate-guard.py` ne fire que sur les fichiers **sous forge/** (test `is_inside_forge`). Hors forge, **aucun blocage technique** — c'est la discipline qui tient la couverture. Incident 24 juin : 9 `SKILL.md` écrits à la main dans `migration_script` (repo d'équipe) sans déclencher le guard. Décision Raphael : pas de durcissement du hook (on ne livre pas de hook bloquant à un repo d'équipe, cf [[config-repo-equipe-vs-forge]]) → engagement de comportement. Cf `memory/feedback_ecrire_partout_invoquer_skill_creatrice.md`.
+⚠️ `delegate-guard.py` ne fire que sur les fichiers **sous forge/** (test `is_inside_forge`). Hors forge, **aucun blocage technique** — c'est la discipline qui tient la couverture. Le hook n'est délibérément pas durci : on ne livre pas de hook bloquant à un repo d'équipe (cf [[config-repo-equipe-vs-forge]]). Cf `memory/feedback_ecrire_partout_invoquer_skill_creatrice.md`.
 
 ## Comment le hook reconnaît une skill légitime (détection 2026-06-06)
 
@@ -29,7 +29,7 @@ Les skills créatrices ne sont PAS des sous-agents : `agent_type` et `agent_id` 
 
 **Skills empilées (CC ≥ 2.1.202)** : l'estampille `attributionSkill` reste sur la PREMIÈRE skill du tour — une invocation imbriquée `Skill(<spécialiste>)` ne ré-estampille pas. Le hook accepte donc aussi une invocation `Skill` du spécialiste requis dans la fenêtre du transcript (80 lignes) comme preuve d'activation. Si un batch très long est quand même bloqué : ré-invoquer la skill créatrice, jamais de contournement par script.
 
-⚠️ **Sub-agents : le bypass ne fonctionne PAS** — un sub-agent (même briefé d'invoquer `Skill(skill-creator)`) reste bloqué : le hook lit l'`attributionSkill` de la session principale, pas du transcript sub-agent, et la fenêtre 80 lignes ne s'y applique pas (observé 16 juil. 2026, self-updater). Les écritures SKILL.md/agents/hooks/CLAUDE.md se font en session principale — ne pas les déléguer. Détail : vault [[delegate-guard-pattern]] AJOUT 16 juillet.
+⚠️ **Sub-agents : le bypass ne fonctionne PAS** — un sub-agent (même briefé d'invoquer `Skill(skill-creator)`) reste bloqué : le hook lit l'`attributionSkill` de la session principale, pas du transcript sub-agent, et la fenêtre 80 lignes ne s'y applique pas. Les écritures SKILL.md/agents/hooks/CLAUDE.md se font en session principale — ne pas les déléguer. Détail : vault [[delegate-guard-pattern]].
 
 ## Exceptions du hook
 

@@ -63,10 +63,23 @@ Ne pas attendre qu'on demande. À chaque occasion, PROPOSER :
 
 Remettre en question Raphael si une meilleure approche existe. Remettre en question ses propres conclusions.
 
+## Plafond de délégation
+
+Un sous-agent re-établit son contexte, re-explore, rapporte, et la session relit son rapport : le
+surcoût est réel et se paie même quand le fan-out paraît élégant. Opus 5, le défaut forge, atteint
+les sous-agents spontanément — c'est le sur-usage qu'il faut borner, pas le sous-usage.
+
+**Plafond par défaut : un seul sous-agent à la fois.** Le fan-out parallèle se justifie uniquement
+par des **périmètres disjoints** — un repo par agent, une catégorie de composants par auditeur —
+jamais pour accélérer une tâche unique. Découper par périmètre, jamais par volume d'opérations :
+aucun seuil numérique n'est canonique ([[decoupe-agents-anti-crash]]). Si le travail ne se découpe
+pas en périmètres disjoints, il reste dans la boucle principale.
+
+Ne pas déléguer ce qui se fait en quelques appels d'outils, ni une vérification — elle appartient à
+la boucle principale. Sur Fable 5.1 la posture s'inverse : voir [[doctrine-par-modele-opus5-fable5]].
+
 ## Anti-patterns de dispatch
 
 - **JAMAIS `Explore` pour auditer un projet** — Explore = recherche rapide read-only, PAS un audit
-- **JAMAIS `general-purpose` pour > 8 operations** — decouper en agents paralleles
 - **JAMAIS Grep/Read brut sur le vault** → voir `.claude/rules/forge-brain-proactive.md` (source canonique de la règle)
-- **JAMAIS un seul agent pour multi-repo** — 1 agent par repo, en parallele
-- **JAMAIS s'arrêter à l'audit `.claude/` quand l'user demande "analyse mon repo / propose-moi config CC"** — c'est la méthode 6 étapes [[methode-analyser-repo]] : scan archi (étape 1) + scan code pour patterns récurrents (étape 5) sont OBLIGATOIRES en parallèle de l'audit `.claude/`. Sinon propositions théoriques déconnectées du repo réel.
+- **JAMAIS s'arrêter à l'audit `.claude/` quand l'user demande "analyse mon repo / propose-moi config CC"** — c'est la méthode 6 étapes [[methode-analyser-repo]] : le scan archi (étape 1) et le scan code (étape 5) font partie du livrable, au même titre que l'audit `.claude/`. Sinon propositions théoriques déconnectées du repo réel.

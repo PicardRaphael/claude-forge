@@ -2,6 +2,7 @@
 name: cc-news
 description: ALWAYS invoke when Raphaël asks for news, nouveautés, what changed, whether a feature exists, or when a technical claim may be stale. Refreshes the vault from primary sources, corrects active false claims, and proposes genuinely new notes. NOT for a market tooling sweep (veille-outils-ia).
 user-invocable: true
+effort: high
 allowed-tools: WebSearch, WebFetch, Read, Agent, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 argument-hint: "[proposal-only|apply] [claude-code|codex|chatgpt|rag|agents|fine-tuning|prompt|tout]"
 ---
@@ -10,6 +11,10 @@ argument-hint: "[proposal-only|apply] [claude-code|codex|chatgpt|rag|agents|fine
 
 Le workflow canonique est `docs/second-brain/news-refresh.md`. Le lire en entier
 avant chaque run ; ne pas recopier sa doctrine ici.
+
+Ne jamais faire tourner cette veille à effort `low` : le modèle répond alors de mémoire
+au lieu de chercher, précisément sur le domaine où sa mémoire est périmée. Le frontmatter
+fixe `high` et surcharge l'effort de session — ne pas l'abaisser.
 
 ## Démarrage
 

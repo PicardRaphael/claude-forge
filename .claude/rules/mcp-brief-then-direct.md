@@ -47,7 +47,7 @@ Si l'agent est invoqué depuis plusieurs repos (ia_back, neo_ia, etc.) :
 
 ## Modifier un agent dans un autre repo — NE PAS déléguer
 
-⚠️ **Contre-exemple** (ce bloc prescrivait l'inverse jusqu'au 29 juil. 2026) :
+⚠️ **Contre-exemple — ne jamais déléguer une écriture cross-repo :**
 
 ```python
 # FAUX — le sub-agent est bloqué en write cross-repo, et delegate-guard
@@ -55,7 +55,7 @@ Si l'agent est invoqué depuis plusieurs repos (ia_back, neo_ia, etc.) :
 Agent(subagent_type="subagent-creator", prompt="Modifier <autre-repo>/.claude/agents/xxx.md...")
 ```
 
-Les écritures cross-repo (`SKILL.md`, `agents/*.md`, hooks, `CLAUDE.md`) se font **en session principale**, qui invoque elle-même la skill créatrice. Cf `cross-repo-propagation.md` § Protocole + `delegate-to-specialists.md` § « Sub-agents : le bypass ne fonctionne PAS » (observé 16 juil. 2026).
+Les écritures cross-repo (`SKILL.md`, `agents/*.md`, hooks, `CLAUDE.md`) se font **en session principale**, qui invoque elle-même la skill créatrice. Cf `cross-repo-propagation.md` § Protocole + `delegate-to-specialists.md` § « Sub-agents : le bypass ne fonctionne PAS ».
 
 Le brief MCP verbatim (objet de cette rule) reste valable : c'est le **write** qui ne se délègue pas, pas la lecture ni l'analyse.
 

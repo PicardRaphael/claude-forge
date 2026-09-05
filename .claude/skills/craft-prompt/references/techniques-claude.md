@@ -1,6 +1,7 @@
 # Techniques Prompt — Claude (Anthropic)
 
-_Source : docs.anthropic.com, Anthropic Engineering Blog, recherche 8 avril 2026_
+_Source : docs.anthropic.com, Anthropic Engineering Blog — verifie le 5 septembre 2026._
+_Les regles de prompting Claude different PAR MODELE, pas par generation : [[doctrine-par-modele-opus5-fable5]]._
 
 ## Fondamentales
 
@@ -8,7 +9,7 @@ _Source : docs.anthropic.com, Anthropic Engineering Blog, recherche 8 avril 2026
 |---|---|---|
 | **Zero-shot** | Instruction directe sans exemple | Taches simples |
 | **Few-shot** | 2-5 exemples dans `<example>` tags | Format/structure precis |
-| **Chain-of-Thought** | "Think step by step" ou `<thinking>` tags | Raisonnement complexe, maths, code |
+| **Thinking adaptatif** | `thinking: {type: "adaptive"}` + `output_config.effort` | Raisonnement complexe — se regle en configuration, jamais en prose |
 | **Role Prompting** | Persona expert en system prompt | Specialisation domaine |
 | **System Prompt** | Instructions persistantes (persona, contraintes, format) | Toujours en production |
 
@@ -23,11 +24,16 @@ _Source : docs.anthropic.com, Anthropic Engineering Blog, recherche 8 avril 2026
 </examples>
 ```
 
-### Chain-of-Thought — 3 niveaux
+### Thinking — regler la profondeur, ne pas la prescrire
 
-1. **Basic** : "Think step by step"
-2. **Guided** : decrire les etapes de raisonnement
-3. **Structured** : `<thinking>` et `<answer>` tags separes
+Le thinking est natif et toujours actif sur Opus 5 et Fable 5.1. La profondeur se regle
+par `output_config.effort` (`low` a `max`) ; ecrire « think step by step » est redondant.
+
+Ne jamais demander au modele de **restituer son raisonnement dans sa reponse**
+(« montre ton raisonnement », `<thinking>` et `<answer>` separes) : sur Fable 5.1 c'est le
+declencheur du refus `reasoning_extraction`, qui provoque un fallback silencieux vers Opus 4.8.
+Pour lire le raisonnement, utiliser les blocs `thinking` de l'API — `display: "summarized"`,
+ou `"updates"` pour les notes de progression entre appels d'outils.
 
 ## Structurelles
 
@@ -36,7 +42,7 @@ _Source : docs.anthropic.com, Anthropic Engineering Blog, recherche 8 avril 2026
 | **XML Tags** | `<instructions>`, `<context>`, `<input>`, `<output_format>` | Prompts complexes multi-sections |
 | **Long Context Placement** | Documents longs EN HAUT, question EN BAS (+30% qualite) | Contexte > 20k tokens |
 | **Structured Output** | `output_config.format` avec JSON schema | Production, APIs, pipelines |
-| **Prefill** | Commencer le message assistant (DEPRECATED sur 4.6+) | Migrer vers Structured Output |
+| **Prefill** | Commencer le message assistant — renvoie **400** sur Fable 5/5.1, Opus 5/4.8/4.7/4.6, Sonnet 5/4.6 | Structured Outputs (`output_config.format`) |
 | **Format Control** | Dire quoi FAIRE, pas ce qu'il ne faut pas faire | Controle du format de sortie |
 
 ### XML Tags — Pattern
@@ -53,7 +59,7 @@ _Source : docs.anthropic.com, Anthropic Engineering Blog, recherche 8 avril 2026
 | Technique | Description | Quand |
 |---|---|---|
 | **Prompt Chaining** | Plusieurs appels sequentiels (draft → critique → amelioration) | Workflows complexes avec inspection |
-| **Self-Correction** | Verifier sa propre reponse avant de livrer | Code, maths, analyses critiques |
+| **Verification d'un tiers** | Controler un rapport de sous-agent ou une source volatile | Sortie d'agent, chiffre date — **pas** son propre output frais : Opus 5 s'auto-verifie, l'instruire cause de la sur-verification |
 | **Context Explanation** | Expliquer POURQUOI une contrainte existe | Contraintes non evidentes |
 | **Tree-of-Thought** | Explorer 3+ chemins de raisonnement en parallele | Problemes multi-strategies |
 | **Parallel Decomposition** | Sous-taches independantes en parallele | Research, fichiers multiples |
@@ -85,9 +91,9 @@ that doesn't know how to pronounce them.
 
 ```python
 client.messages.create(
-    model="claude-opus-4-7",
+    model="claude-opus-5",
     thinking={"type": "adaptive"},
-    output_config={"effort": "xhigh"},  # low | medium | high | xhigh | max
+    output_config={"effort": "high"},  # low | medium | high | xhigh | max — defaut recommande : high
 )
 ```
 
@@ -134,10 +140,16 @@ system=[{
 
 ## Breaking changes
 
-- `budget_tokens` **NON SUPPORTE** sur Opus 4.7 → `thinking: {type: "adaptive"}` + `output_config: {effort: "xhigh"}`
-- `effort: xhigh` = defaut a l'ere Opus 4.7 (avril-mai 2026) ; depuis Opus 4.8 (28 mai) le defaut recommande est `high`. `high` reste defaut Sonnet 4.6
-- Prefill deprecated sur claude-4.6+ → Structured Outputs
+- `budget_tokens` renvoie **400** sur Fable 5/5.1, Opus 5/4.8/4.7 et Sonnet 5 → `thinking: {type: "adaptive"}` + `output_config: {effort: …}`
+- `temperature` / `top_p` / `top_k` renvoient **400** sur ces memes modeles
+- Prefill renvoie **400** sur claude-4.6+ → Structured Outputs
+- Defaut recommande : `effort: high`. `xhigh` = step-up mesure, jamais par defaut
 - Skills = standard ouvert (agentskills.io) adopte par OpenAI, Gemini, GitHub Copilot
-- Opus 4.7 est plus litterral que 4.6 → instructions de scope explicites, parallelisme explicite
-- Opus 4.7 spawn moins de subagents et fait moins de tool calls → le specifier quand necessaire
-- Nouveau tokenizer Opus 4.7 : meme input = ~1.0-1.35x plus de tokens que 4.6
+- Opus 5 suit les instructions litteralement → cadrer le scope explicitement
+- **Opus 5 sur-delegue** (inverse d'Opus 4.8) → plafonner le nombre de sous-agents ; ne pas ecrire de consigne « delegue plus »
+- **Opus 5 s'auto-verifie** → retirer les instructions de re-verification, elles causent de la sur-verification
+- Opus 5 redige des reponses et des livrables Markdown plus longs → calibrer la longueur explicitement
+- **Fable 5.1 delegue bien**, en asynchrone → l'encourager plutot que le brider : la consigne de delegation est conditionnelle au modele
+- Fable 5.1 sous-formate et sous-narre → ne jamais ajouter de regle anti-formatage ni de suppresseur de narration
+- Sur Fable 5.1, `low`/`medium` depassent souvent le `xhigh` des modeles anterieurs — mais **jamais `low` sur une tache de veille** (le modele repond de memoire)
+- Tokenizer inchange depuis Opus 4.7 (Fable 5.1 inclus)

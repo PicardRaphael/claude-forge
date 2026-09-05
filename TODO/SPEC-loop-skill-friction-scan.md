@@ -63,7 +63,7 @@ _Conçue le 15 juil. 2026 via `loop-forge`. Statut : SPEC à valider — AUCUN c
 ## 7. Garde-fous
 
 1. **Validation humaine** : le loop **PROPOSE un rapport, n'écrit jamais une skill**. Raphael valide item par item ; seuls les amendements validés partent vers `skill-evolve`→`skill-creator`. (Compounding **jugement-piloté** : ni Willison ni OpenAI ne décrivent un loop auto-édition — l'humain reste sur la validation.)
-2. **Cap coût** : borne sur le nombre de transcripts lus par run (déléguer le scan à des sous-agents en parallèle si volume élevé — max 6-8 ops/agent, découpe par fenêtre). Rapport plafonné aux N frictions les plus étayées.
+2. **Cap coût** : borne sur le nombre de transcripts lus par run (déléguer le scan à des sous-agents en parallèle uniquement si le volume se découpe en fenêtres disjointes — aucun seuil numérique d'opérations n'est canonique, cf [[decoupe-agents-anti-crash]]). Rapport plafonné aux N frictions les plus étayées.
 3. **Log/trace** : le rapport horodaté dans `output/` EST la trace ; le state JSON journalise les runs. Notification : sortie console (pas de webhook — usage solo).
 4. **Kill-switch** : trivial (inner-loop manuel — Ctrl+C). Pas de fichier flag nécessaire.
 

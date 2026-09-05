@@ -3,8 +3,10 @@
 > Méthode : `/claude-api prompt-audit` (`shared/prompt-audit.md`), croisée avec la canonique vault
 > [[doctrine-par-modele-opus5-fable5]] (mise à jour le 5 sept. 2026) et `shared/model-migration.md`
 > §§ *Migrating to Claude Opus 5* / *Migrating to Claude Fable 5.1*.
-> **C'est un audit : rien n'est modifié.** Les hunks du § Diff proposé s'appliquent via les skills
-> créatrices (`skill-creator`, `subagent-creator`, `claudemd-creator`) — jamais à la main.
+> **Statut : APPLIQUÉ** (carte blanche, 5 sept. 2026). Les 8 findings actionnables sont en place,
+> via `skill-creator` et `claudemd-creator`. F5 est passé au Devil's Advocate — 2 BLOCKING, tous
+> deux corrigés avant écriture. Le § Diff proposé documente ce qui a été appliqué ; les § F9/F10
+> restent des flags non traités. Journal en fin de document.
 
 ## Hypothèses de cadrage (Step 0)
 
@@ -110,11 +112,17 @@ Ce qui reste se concentre en trois foyers :
   contexte, re-explore, rapporte, et le coordinateur relit le rapport. Anthropic recommande un
   **plafond explicite** plutôt qu'un encouragement. Attention à la divergence : Fable 5.1 délègue
   *bien* et gagne à le faire en asynchrone — d'où une règle conditionnelle plutôt qu'inversée.
-- **À conserver dans la réécriture** : le seuil des 8 opérations a un objet vivant qui n'est pas la
-  délégation — un sous-agent qui dépasse ce volume perd le fil de sa tâche. Ce n'est donc pas une
-  suppression sèche : le critère de découpage passe du **volume** au **périmètre indépendant**.
+- **Le seuil des 8 opérations part entièrement** — correction issue du Devil's Advocate. Une première
+  version de ce finding proposait de conserver le chiffre en lui prêtant un « objet vivant » (un
+  sous-agent qui dépasse ce volume perdrait le fil). C'était faux : trois notes vault classent
+  « max 6-8 ops » et « max 5 fichiers » comme des **mythes**, dont une note d'erreur dédiée à leur
+  invention — [[decoupe-agents-anti-crash]] (« pas de seuil numérique canonique dans la doc
+  Anthropic »), [[agents-ia-22-claims-fausses-2026-05-23]] et
+  [[erreur-seuils-canoniques-agents-inventes-2026-05-22]]. La justification avait été fabriquée
+  après coup pour sauver un chiffre ; le remplacement est un critère de **périmètre disjoint**,
+  assorti d'un plafond de concurrence vérifiable et d'un fallback explicite.
 - **Confiance** : **Haute** · **Action** : `rewrite`
-- Touche une règle de routage structurante → **Devil's Advocate avant application**.
+- Passé au **Devil's Advocate** (2 BLOCKING, tous deux corrigés avant application).
 
 > **Non retenu — l.72.** « scan archi + scan code sont OBLIGATOIRES **en parallèle** de l'audit
 > `.claude/` » ne prescrit pas de sous-agents : « en parallèle de » y signifie *en plus de, dans le
@@ -281,20 +289,22 @@ l'écriture directe d'un `SKILL.md`, d'un agent ou d'un `CLAUDE.md`.
 -- **JAMAIS s'arrêter à l'audit `.claude/` quand l'user demande "analyse mon repo / propose-moi config CC"** — c'est la méthode 6 étapes [[methode-analyser-repo]] : scan archi (étape 1) + scan code pour patterns récurrents (étape 5) sont OBLIGATOIRES en parallèle de l'audit `.claude/`. Sinon propositions théoriques déconnectées du repo réel.
 +- **JAMAIS s'arrêter à l'audit `.claude/` quand l'user demande "analyse mon repo / propose-moi config CC"** — c'est la méthode 6 étapes [[methode-analyser-repo]] : le scan archi (étape 1) et le scan code (étape 5) font partie du livrable, en parallèle de l'audit `.claude/`. Sinon propositions théoriques déconnectées du repo réel.
 +
-+## Plafond de délégation — dépend du modèle
++## Plafond de délégation
 +
 +Un sous-agent re-établit son contexte, re-explore, rapporte, et la session relit son rapport : le
-+surcoût est réel et se paie même quand le fan-out paraît élégant.
++surcoût est réel et se paie même quand le fan-out paraît élégant. Opus 5, le défaut forge, atteint
++les sous-agents spontanément — c'est le sur-usage qu'il faut borner, pas le sous-usage.
 +
-+**Sur Opus 5** (défaut forge) : déléguer **rarement**, et seulement quand le gain dépasse clairement
-+ce surcoût. Multi-repo et investigations larges multi-fichiers le justifient — un agent par repo
-+reste le bon découpage. Ne pas déléguer ce qui se fait en quelques appels d'outils, ni une
-+vérification (elle appartient à la boucle principale). Un seul sous-agent suffit-il ? Alors un seul.
++**Plafond par défaut : un seul sous-agent à la fois.** Le fan-out parallèle se justifie uniquement
++par des **périmètres disjoints** — un repo par agent, une catégorie de composants par auditeur —
++jamais pour accélérer une tâche unique. Découper par périmètre, jamais par volume d'opérations :
++aucun seuil numérique n'est canonique ([[decoupe-agents-anti-crash]]). Si le travail ne se découpe
++pas en périmètres disjoints, il reste dans la boucle principale.
 +
-+**Sur Fable 5.1** : l'inverse — la délégation parallèle est fiable et gagne à être asynchrone
-+(les agents longue durée gardent leur contexte, la session ne bloque pas sur le plus lent).
++Ne pas déléguer ce qui se fait en quelques appels d'outils, ni une vérification — elle appartient
++à la boucle principale.
 +
-+Source : [[doctrine-par-modele-opus5-fable5]] — le comportement de délégation diverge PAR MODÈLE.
++Sur Fable 5.1 la posture s'inverse : voir [[doctrine-par-modele-opus5-fable5]].
 ```
 
 ### Hunk F6 — `cc-news` et `veille-outils-ia` : garde `effort`
@@ -358,9 +368,45 @@ Le guide traite toute suppression comme une hypothèse, pas une conclusion.
    réduction avec une consigne de concision équivalente.
 5. **F5 uniquement** : passer par `devils-advocate` avant application (règle de routage structurante).
 
+## Journal d'application — 5 septembre 2026
+
+| Finding | Fichier | Voie |
+|---|---|---|
+| F1-F4 | `.claude/skills/craft-prompt/references/techniques-claude.md` | `skill-creator` — 8 remplacements |
+| F5 | `.claude/rules/comportement-proactif.md` | `claudemd-creator`, après Devil's Advocate |
+| F6 | `cc-news/SKILL.md`, `veille-outils-ia/SKILL.md` | `skill-creator` — `effort: high` + le pourquoi dans le corps |
+| F7 | `AGENTS.md` | `claudemd-creator` |
+| F8 | `delegate-to-specialists.md`, `mcp-brief-then-direct.md` | `claudemd-creator` |
+| — | `TODO/SPEC-loop-skill-friction-scan.md` | résidu du mythe « 6-8 ops », trouvé pendant le DA |
+
+**Réserve de F6 levée** : la doc Claude Code confirme qu'`effort:` en frontmatter *« overrides the
+session effort level »* et s'applique inline comme en `context: fork`. Le mécanisme du correctif est
+donc établi, et F6 repasse en confiance haute.
+
+**Devil's Advocate sur F5 — 2 BLOCKING, corrigés avant écriture :**
+
+1. *(85)* La keep-list du finding ressuscitait le seuil « ~8 opérations » en lui prêtant un objet
+   vivant. Trois notes vault le classent comme un **mythe**, dont une note d'erreur dédiée à son
+   invention. La justification avait été fabriquée après coup. Le chiffre part entièrement ;
+   le critère devient le **périmètre disjoint**, avec un plafond de concurrence (« un seul
+   sous-agent par défaut ») et un fallback explicite quand rien ne se découpe.
+2. *(80)* Absence d'étape de propagation. Vérification faite sur les trois canoniques citées
+   (`audit-claude-folder-pattern`, `quartet-analyse-multi-repo`, `audit-puis-vagues-paralleles`) :
+   toutes fan-out par **périmètres disjoints** — 4 catégories de composants, un repo par agent,
+   vagues de tâches indépendantes — donc exactement le cas que la règle réécrite autorise. Le
+   conflit visait le premier brouillon (« déléguer rarement ») ; la correction n°1 l'a supprimé.
+   Aucun édit vault n'était justifié, et un audit qui ne trouve rien ne change rien.
+
+Le DA a aussi corrigé une erreur factuelle du rapport : `repo-inspector` **ne spawne aucun
+sous-agent** — c'est la session principale qui en dispatche un par repo.
+
+**Vérification** : 296 tests hooks passent · `check-refs` ne trouve aucun routage mort sur
+64 composants · `git diff --check` propre · frontmatter YAML des skills modifiées reparsé ·
+zéro résidu du seuil mythique et zéro récit d'incident restant dans les rules.
+
 ## Ce que cet audit n'a pas fait
 
-- Aucun fichier modifié : le rapport et le diff sont les livrables.
+- Aucune note du vault modifiée : la propagation a été vérifiée puis jugée non nécessaire (voir le journal).
 - Pas de sweep d'effort mesuré (F8) — c'est une campagne de mesure, pas une réécriture.
 - ~40 skills hors multiplicateurs de doctrine n'ont été lues qu'aux points touchés par un grep de
   signal, pas intégralement. Les greps couvraient l'ensemble des signaux du guide ; une lecture

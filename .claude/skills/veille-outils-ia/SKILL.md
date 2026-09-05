@@ -2,6 +2,7 @@
 name: veille-outils-ia
 description: ALWAYS invoke to refresh the market AI-tools landscape notes — re-verifies volatile facts (pricing, stars, valuations, M&A) at primary source, updates vault under human gate. NOT for Claude Code news (cc-news) or picking a tool (choix-outils-ia).
 user-invocable: true
+effort: high
 allowed-tools: WebSearch, WebFetch, Read, Skill, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 argument-hint: "catégorie (voix | briques | code | memoire-rag | infra | tout) ou note précise"
 ---
@@ -37,6 +38,7 @@ Le `$ARGUMENTS` route vers une catégorie (voix / briques / code / memoire-rag /
 
 ## Gotchas
 
+- **Jamais à effort `low`** : le modèle répondrait de mémoire au lieu de chercher, sur un domaine dont les chiffres bougent en semaines. Le frontmatter fixe `high` et surcharge l'effort de session.
 - **Source primaire OBLIGATOIRE pour tout chiffre** : pricing, ⭐, valo, WER, latence. Un fait qualitatif (« X est le leader FR ») peut rester vrai même si son chiffre est faux — mais on ne patche un chiffre que vérifié à la source, avec URL + date d'accès.
 - **Gate humain par item, jamais en bloc** : une veille touche des notes que `choix-outils-ia` lit pour conseiller des clients — une fausse MAJ se propage. Diff visible, validation item par item (cf pattern « skill qui propose un diff à valider »).
 - **MCP pour écrire le vault, jamais Edit disque** : l'Edit direct désynchronise l'index SQLite (réindex au poll 30s). `update_note`/`insert_section`/`update_property`.
