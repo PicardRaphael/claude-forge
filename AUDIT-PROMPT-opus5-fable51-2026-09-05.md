@@ -203,7 +203,7 @@ Un audit qui ne trouve rien ne doit rien changer. Vérifié explicitement :
 | Suppresseurs de narration (« hold all findings », « ne narre pas ») | **0 occurrence** — les 11 hits de « silencieux » désignent des *échecs* silencieux, pas des consignes de silence |
 | Scaffolding de vérification | **Déjà à la posture Opus 5** — 6 composants portent `❌ Re-vérifier ce que le brief dit clairement`, et les seules re-vérifications prescrites visent des tiers (sources volatiles, rapports de sous-agents), ce que la canonique classe explicitement comme à garder |
 | `model: opus` / `sonnet` en frontmatter (27 occurrences) | **Forme correcte** — alias non épinglés, ils suivent la génération courante. Épingler un ID daté serait le défaut ; ce n'en est pas un |
-| `effort: high` (26 occurrences) | **Doctrine forge assumée**, alignée sur le défaut Anthropic. Voir F8 pour la mesure, pas pour un edit |
+| `effort: high` (26 occurrences) | **Doctrine forge assumée**, alignée sur le défaut Anthropic. Voir F9 pour la mesure, pas pour un edit |
 | Descriptions en `ALWAYS invoke when…` | **Texte de routage** — le guide autorise explicitement une urgence calibrée dans le trigger (Group 3), à l'inverse du corps. Non flaggé |
 | Injections de hooks (`session-health`, `skill-activation`, `memory-recall`) | **Pas des rappels périodiques** — gated une fois par session ou par seuil, elles injectent des pointeurs contextuels, pas des instructions ré-insérées. Le motif « reminder toutes les N tours » (qui casse l'append-only de Fable 5.1) est absent |
 | 210 marqueurs `JAMAIS`/`MUST`/`OBLIGATOIRE` | **Provenance vérifiée** — adossés à `memory/feedback_*.md` ou porteurs de leur « parce que ». Le guide garde l'emphase quand elle est un correctif tracé (keep-list #5), et `feedback_feedback_reviole_3x` documente que ces règles ont été re-violées. **Aucun edit de volume proposé.** |
@@ -400,14 +400,28 @@ donc établi, et F6 repasse en confiance haute.
 Le DA a aussi corrigé une erreur factuelle du rapport : `repo-inspector` **ne spawne aucun
 sous-agent** — c'est la session principale qui en dispatche un par repo.
 
-**Vérification** : 296 tests hooks passent · `check-refs` ne trouve aucun routage mort sur
-64 composants · `git diff --check` propre · frontmatter YAML des skills modifiées reparsé ·
-zéro résidu du seuil mythique et zéro récit d'incident restant dans les rules.
+**Vérification** : 296 tests hooks (+ 294 Codex) passent · `check-refs` ne trouve aucun routage
+mort sur 64 composants · `git diff --check` propre · frontmatter YAML des skills modifiées
+reparsé · zéro résidu du seuil mythique et zéro récit d'incident restant dans les rules.
+
+### Trois corrections après relecture
+
+1. **Listes de modèles rendues explicites** (`techniques-claude.md`) — les paramètres
+   d'échantillonnage restent acceptés sur Opus 4.6 / Sonnet 4.6, contrairement au prefill.
+   Le renvoi « ces mêmes modèles » laissait lire l'inverse et aurait fait retirer un paramètre
+   fonctionnel à qui cible 4.6.
+2. **Absolue resserrée** (`cc-news`) — « ne pas l'abaisser » interdisait aussi `medium`, alors que
+   seul `low` est étayé. Alignée sur la formulation de `veille-outils-ia`, issue du même finding.
+3. **Test non-idempotent réparé** (`test_learning_reminder.py`) — découvert en relançant la suite,
+   sans lien avec l'audit. Le test isolait `TEMP`/`TMP`, mais `tempfile.gettempdir()` lit `TMPDIR`
+   d'abord : le marqueur de dédup du hook fuyait dans le temp réel, et le test ne pouvait passer
+   qu'une seule fois par machine. `TMPDIR` ajouté à l'environnement du subprocess ; la suite passe
+   désormais deux fois de suite.
 
 ## Ce que cet audit n'a pas fait
 
 - Aucune note du vault modifiée : la propagation a été vérifiée puis jugée non nécessaire (voir le journal).
-- Pas de sweep d'effort mesuré (F8) — c'est une campagne de mesure, pas une réécriture.
+- Pas de sweep d'effort mesuré (F9) — c'est une campagne de mesure, pas une réécriture.
 - ~40 skills hors multiplicateurs de doctrine n'ont été lues qu'aux points touchés par un grep de
   signal, pas intégralement. Les greps couvraient l'ensemble des signaux du guide ; une lecture
   intégrale des 8 000 lignes de `SKILL.md` remonterait surtout du bruit de style, pas du cruft daté.
