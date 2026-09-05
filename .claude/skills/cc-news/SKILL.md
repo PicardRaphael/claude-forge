@@ -14,7 +14,7 @@ avant chaque run ; ne pas recopier sa doctrine ici.
 
 Ne jamais faire tourner cette veille à effort `low` : le modèle répond alors de mémoire
 au lieu de chercher, précisément sur le domaine où sa mémoire est périmée. Le frontmatter
-fixe `high` et surcharge l'effort de session — ne pas l'abaisser.
+fixe `high` et surcharge l'effort de session.
 
 ## Démarrage
 

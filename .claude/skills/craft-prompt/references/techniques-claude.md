@@ -141,8 +141,8 @@ system=[{
 ## Breaking changes
 
 - `budget_tokens` renvoie **400** sur Fable 5/5.1, Opus 5/4.8/4.7 et Sonnet 5 → `thinking: {type: "adaptive"}` + `output_config: {effort: …}`
-- `temperature` / `top_p` / `top_k` renvoient **400** sur ces memes modeles
-- Prefill renvoie **400** sur claude-4.6+ → Structured Outputs
+- `temperature` / `top_p` / `top_k` renvoient **400** sur Fable 5/5.1, Opus 5/4.8/4.7 et Sonnet 5 — toujours acceptes sur Opus 4.6 / Sonnet 4.6
+- Prefill renvoie **400** sur Fable 5/5.1, Opus 5/4.8/4.7/4.6 et Sonnet 5/4.6 → Structured Outputs
 - Defaut recommande : `effort: high`. `xhigh` = step-up mesure, jamais par defaut
 - Skills = standard ouvert (agentskills.io) adopte par OpenAI, Gemini, GitHub Copilot
 - Opus 5 suit les instructions litteralement → cadrer le scope explicitement

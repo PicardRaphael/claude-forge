@@ -117,6 +117,9 @@ def test_cli_emits_non_blocking_advisory_for_pending_signal(
     env = os.environ.copy()
     env["TEMP"] = str(tmp_path)
     env["TMP"] = str(tmp_path)
+    # tempfile.gettempdir() lit TMPDIR en premier : sans lui, le marqueur de
+    # dedup fuit dans le temp reel et le test ne passe qu'une fois par machine.
+    env["TMPDIR"] = str(tmp_path)
     result = subprocess.run(
         [sys.executable, str(HOOK)],
         input=json.dumps(
