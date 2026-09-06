@@ -1,0 +1,51 @@
+{
+  "_lisez_moi": "Divergences jumelles acceptees. Ne PAS regenerer pour faire taire un ecart : verifier d'abord que la surface en retard n'attend pas une correction. Regenerer avec --update-baseline.",
+  "acceptees": {
+    "hooks-codex:codex-apply-patch-guard.py": [
+      "sans jumeau : .claude/hooks/codex-apply-patch-guard.py n'existe pas"
+    ],
+    "hooks-codex:metrics-tracker.py": [
+      "sans jumeau : .claude/hooks/metrics-tracker.py n'existe pas"
+    ],
+    "hooks:delegate-guard.py": [
+      "message d'un seul cote : BYPASS attributionSkill={active_skill!r} matches required for {basename(norm_path)}",
+      "message d'un seul cote : BYPASS required={required!r} attribution={active_skill!r} ",
+      "message d'un seul cote : invoked={sorted(invoked)} for {basename(norm_path)}"
+    ],
+    "hooks:instructions-loaded-probe.py": [
+      "sans jumeau : .codex/hooks/instructions-loaded-probe.py n'existe pas"
+    ],
+    "hooks:learning-reminder.py": [
+      "sans jumeau : .codex/hooks/learning-reminder.py n'existe pas"
+    ],
+    "hooks:mcp-autostart.py": [
+      "message d'un seul cote : , venv_dir / ",
+      "message d'un seul cote : [mcp-autostart] WARNING: MCP forge-brain lancé mais port 8091 toujours ",
+      "message d'un seul cote : fermé — vault indisponible. Voir {log_path}"
+    ],
+    "skills-codex:auditor-empirical-verify": [
+      "sans jumeau : .claude/skills/auditor-empirical-verify/SKILL.md n'existe pas"
+    ],
+    "skills-codex:da-blocking-arbitrage": [
+      "sans jumeau : .claude/skills/da-blocking-arbitrage/SKILL.md n'existe pas"
+    ],
+    "skills-codex:io-daily": [
+      "sans jumeau : .claude/skills/io-daily/SKILL.md n'existe pas"
+    ],
+    "skills-codex:io-week": [
+      "sans jumeau : .claude/skills/io-week/SKILL.md n'existe pas"
+    ],
+    "skills-codex:neoteem-back-ts": [
+      "sans jumeau : .claude/skills/neoteem-back-ts/SKILL.md n'existe pas"
+    ],
+    "skills-codex:self-check": [
+      "sans jumeau : .claude/skills/self-check/SKILL.md n'existe pas"
+    ],
+    "skills-codex:spec": [
+      "sans jumeau : .claude/skills/spec/SKILL.md n'existe pas"
+    ],
+    "skills-codex:web-search-canonical-source": [
+      "sans jumeau : .claude/skills/web-search-canonical-source/SKILL.md n'existe pas"
+    ]
+  }
+}

@@ -94,6 +94,7 @@ py -m pytest .claude/scripts/tests -q
 py .claude/scripts/check-refs.py
 py .claude/scripts/check-frontmatter.py
 py .claude/scripts/check-orphan-tests.py
+py .claude/scripts/check-twin-drift.py
 git diff --check
 ```
 
@@ -104,6 +105,11 @@ Ce bloc est la déclaration des suites vivantes, pas seulement un pense-bête :
 `check-orphan-tests.py` lit les lignes `pytest <chemin>` ci-dessus pour repérer
 un `test_*.py` que plus rien ne collecte. Une nouvelle suite s'ajoute donc ici,
 sinon elle est signalée comme inerte — et elle l'est réellement.
+
+Une divergence entre surfaces jumelles se corrige en portant le changement sur
+celle qui est en retard, pas en la déclarant acceptable. `--update-baseline`
+sert à acter une divergence voulue après l'avoir regardée, jamais à faire taire
+un écart qu'on n'a pas ouvert.
 
 ## Sources prioritaires
 
