@@ -7,12 +7,34 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-09-05
+derniere-maj: 2026-09-06
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-09-06 — la dette qui ne fait aucun bruit
+
+- **Ajoutées** :
+  - `04-Techniques/claude-code/dette-silencieuse-config.md` — un composant présent mais
+    jamais exécuté ni chargé ne lève aucune erreur. Trois formes mesurées en 24 h sur forge :
+    deux `test_*.py` hors du chemin de collecte (dont un affirmant l'inverse du comportement
+    livré, sans contradiction relevée pendant des mois), un agent Codex qu'un deux-points suivi
+    d'un espace dans une description YAML empêchait de charger, et trois corrections appliquées
+    côté Claude sans leur jumelle Codex. La note porte surtout le **critère de conception** :
+    sur des surfaces adaptatrices, comparer des faits sémantiques et jamais du texte — un diff
+    brut donnait 24 lignes d'écart sur une paire dont les trois libellés étaient identiques.
+    Plus le calibrage (34 divergences dont 32 fausses → 2 vraies), le ratchet d'adoption relié
+    à [[addy-osmani]], et le fait qu'un garde-fou est lui-même un composant susceptible d'être
+    inerte.
+- **Modifiées** :
+  - `1-Projets/Claude-Forge/Claude-Forge.md` — nouvelle section « Chaîne de vérification
+    locale » (trois suites de tests, quatre gardes ; un outil absent du bloc `AGENTS.md` ne
+    s'exécute jamais) et entrée d'historique 2026-09-06.
+- **Source** : session d'outillage des 5-6 septembre 2026 — `check-orphan-tests.py`,
+  `check-twin-drift.py`, extension de `check-frontmatter.py` aux surfaces Codex, et portage
+  Claude de la skill `auditor-empirical-verify`.
 
 ## 2026-09-05 (10) — trois notes réalignées sur le réel mesuré, et le diff bilatéral des hooks enfin fait
 

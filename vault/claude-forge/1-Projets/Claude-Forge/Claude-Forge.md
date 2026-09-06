@@ -8,7 +8,7 @@ aliases:
   - framework forge
 type: context
 status: active
-derniere-maj: 2026-08-28
+derniere-maj: 2026-09-06
 auteur: claude
 tags:
   - "#type/context"
@@ -41,6 +41,15 @@ périmé. Le projet est aussi une vitrine de l'expertise IA de Raphaël.
 - hooks : lint, sécurité, scope et détection déterministe, jamais writer
   sémantique.
 
+## Chaîne de vérification locale
+
+`AGENTS.md` § Vérification locale déclare ce qui est vivant : trois suites de
+tests (hooks Claude, hooks Codex, scripts) et quatre gardes — routages morts,
+frontmatters cassés, tests jamais collectés, divergence entre surfaces jumelles.
+Un outil ou une suite absent de ce bloc ne s'exécute jamais ; l'y ajouter est le
+même geste que l'écrire. Méthode et pièges de calibrage :
+[[dette-silencieuse-config]].
+
 ## Contraintes
 
 - Projet personnel, pas Neoteem.
@@ -68,6 +77,16 @@ Le pivot [[raisonnement-2026-08-28-profil-projets-vault-canoniques]] est appliqu
   enrichir avant de créer et une relecture après mutation.
 
 ## Historique utile
+
+### 2026-09-06
+
+- Outillage de la dette silencieuse : détection des tests jamais collectés et
+  du drift entre surfaces jumelles, périmètre du validateur de frontmatter
+  étendu aux surfaces Codex.
+- Trois propagations Codex manquées en 24 h ont motivé un garde structurel
+  plutôt qu'une règle écrite de plus.
+- Skill `auditor-empirical-verify` portée côté Claude avec un cinquième point
+  absent de l'original — détection du commit parasite d'un sous-agent.
 
 ### 2026-07-09
 
