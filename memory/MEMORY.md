@@ -78,7 +78,7 @@
 - [neoteem-back-ts](project_neoteem_back_ts.md) — monorepo backend Loji ; 5 epics Jira FIGÉS (jamais en créer)
 - [neo-ia](project_neo_ia.md) — monorepo Python NeoChat/NeoDoc/NeoMail, aligné sur back-ts
 - [neo-ia-tool-selection](project_neo_ia_tool_selection.md) — HybridToolSelector : état prod + plan Lazy Expansion
-- [dossier-strategique-ia](project_dossier_strategique_ia_neoteem.md) — dossier CODIR 17/20, roadmap V2 à venir
+- [dossier-strategique-ia](project_dossier_strategique_ia_neoteem.md) — trilogie CODIR livrée le 30 mai ; reste la trame d'interview client
 - [spec-unification-3repos](project_spec_unification_3repos.md) — /spec identique ×3 repos ; reste la normalisation des tickets Jira
 - [deploy-methods-other-repos](project_deploy_methods_other_repos.md) — probablement absorbé par l'alignement de juin, à confirmer puis archiver
 
