@@ -21,8 +21,10 @@ Checklist de verification empirique post-dispatch. Les sub-agents retournent "do
   # Verifier frontmatter complet
 
 ### 3. Git diff confirme ?
-  git -C "C:/Users/raphael.picard_neote/Documents/[repo]" diff --stat
-  git -C "C:/Users/raphael.picard_neote/Documents/[repo]" status --short
+  REPO="$(git rev-parse --show-toplevel)"
+  git -C "$REPO" diff --stat
+  git -C "$REPO" status --short
+  # Repo tiers : resoudre son chemin sur la machine courante, jamais l ecrire en dur
 
 ### 4. Taille realiste ?
   wc -l "C:/path/to/file.md"
@@ -54,6 +56,8 @@ Checklist de verification empirique post-dispatch. Les sub-agents retournent "do
 
 ## Apprentissage
 
-Feedback source : feedback_sub_agent_claim_sans_empirie_verifier_post_dispatch.md
+Feedback source : memory/feedback_subagent_autocommit.md et
+memory/feedback_subagent_audit_category_error.md
 Pattern : sub-agents editeurs clament succes sans empirie -- toujours grep/diff post-dispatch.
+Verifier aussi git log --oneline -3 : un sub-agent commit malgre la consigne contraire.
 Si nouvel anti-pattern de sub-agent decouvert -> ajouter dans Anti-patterns.

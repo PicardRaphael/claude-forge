@@ -23,9 +23,6 @@
       "message d'un seul cote : [mcp-autostart] WARNING: MCP forge-brain lancé mais port 8091 toujours ",
       "message d'un seul cote : fermé — vault indisponible. Voir {log_path}"
     ],
-    "skills-codex:auditor-empirical-verify": [
-      "sans jumeau : .claude/skills/auditor-empirical-verify/SKILL.md n'existe pas"
-    ],
     "skills-codex:da-blocking-arbitrage": [
       "sans jumeau : .claude/skills/da-blocking-arbitrage/SKILL.md n'existe pas"
     ],
