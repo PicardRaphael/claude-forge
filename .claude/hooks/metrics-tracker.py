@@ -23,6 +23,7 @@ ou disque en erreur. Une metrique perdue ne doit jamais casser un appel d'outil.
 """
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 
@@ -34,6 +35,10 @@ _TARGET_KEYS = {
     "Agent": "subagent_type",
     "Task": "subagent_type",
 }
+
+# Forme balisee d'une commande dans un prompt : <command-name>/done</command-name>.
+# Seul le nom est capture — jamais ce qui suit, ou les arguments fuiraient.
+_BALISE_COMMANDE = re.compile(r"<command-name>\s*/?([A-Za-z0-9_:-]+)", re.IGNORECASE)
 
 
 def _repo_root():
@@ -72,10 +77,18 @@ def _command_name(raw):
 
     Ne retourne que le premier token, jamais les arguments : ils peuvent
     contenir du texte utilisateur qui n'a rien a faire dans un journal.
+
+    Le harness livre le prompt tel qu'il a ete tape — c'est cette forme brute
+    que lit skill-activation.py pour se taire sur les commandes slash. La forme
+    balisee est acceptee en repli : si elle devenait un jour la seule livree, ce
+    chemin cesserait d'enregistrer sans qu'aucune erreur ne le signale, ce qui
+    est exactement le genre de dette silencieuse que ce journal existe pour
+    lever.
     """
     cmd = str(raw or "").strip()
     if not cmd.startswith("/"):
-        return ""
+        balise = _BALISE_COMMANDE.search(cmd)
+        return balise.group(1) if balise else ""
     cmd = cmd[1:].strip()
     if not cmd:
         return ""
@@ -116,6 +129,10 @@ def _build_record(data):
         output_chars = 0
     else:
         tool_name = data.get("tool_name", "")
+        # Sans nom d'outil, il n'y a rien a attribuer. Un payload inattendu
+        # tomberait ici et remplirait le journal de {"tool": ""} sans erreur.
+        if not tool_name:
+            return None
         tool_input = data.get("tool_input", {})
         target = _target(tool_name, tool_input)
         input_chars = _char_count(tool_input)

@@ -220,6 +220,40 @@ def test_prompt_slash_avec_arguments_ne_fuit_pas(tmp_path, monkeypatch):
     assert "mot-de-passe-prod-2026" not in json.dumps(rec)
 
 
+def test_prompt_balise_est_capture(tmp_path, monkeypatch):
+    """Repli sur la forme balisee.
+
+    Le harness livre aujourd'hui le prompt brut. S'il livrait la forme balisee,
+    ce chemin cesserait d'enregistrer sans lever la moindre erreur — donc sans
+    que rien ne le signale. Le repli coute une regex et supprime ce risque.
+    """
+    payload = json.dumps({
+        "session_id": "s",
+        "hook_event_name": "UserPromptSubmit",
+        "prompt": "<command-name>/done</command-name>",
+    })
+    assert _run_hook(payload, monkeypatch, tmp_path) == 0
+    rec = _records(tmp_path)[0]
+    assert rec["tool"] == "UserPrompt"
+    assert rec["target"] == "done"
+
+
+def test_prompt_balise_avec_arguments_ne_fuit_pas(tmp_path, monkeypatch):
+    """La garantie du chemin nominal vaut aussi sur le repli."""
+    payload = json.dumps({
+        "session_id": "s",
+        "hook_event_name": "UserPromptSubmit",
+        "prompt": (
+            "<command-name>/spec</command-name>"
+            "<command-args>mot-de-passe-prod-2026</command-args>"
+        ),
+    })
+    assert _run_hook(payload, monkeypatch, tmp_path) == 0
+    rec = _records(tmp_path)[0]
+    assert rec["target"] == "spec"
+    assert "mot-de-passe-prod-2026" not in json.dumps(rec)
+
+
 # ===========================================================================
 # Confidentialite — le journal ne doit porter que des tailles
 # ===========================================================================
@@ -253,6 +287,17 @@ def test_json_malformed(tmp_path, monkeypatch):
     """JSON casse : sortie 0, aucun fichier cree."""
     assert _run_hook("not json{", monkeypatch, tmp_path) == 0
     assert glob.glob(str(tmp_path / "*.jsonl")) == []
+
+
+def test_payload_sans_nom_d_outil_n_ecrit_rien(tmp_path, monkeypatch):
+    """Un payload qui ne nomme ni son event ni son outil n'est pas journalise.
+
+    Sans cette garde, il tomberait dans le chemin outil et ecrirait une ligne
+    {"tool": ""} — du bruit qu'aucune erreur ne viendrait signaler.
+    """
+    payload = json.dumps({"session_id": "s", "prompt": "un texte quelconque"})
+    assert _run_hook(payload, monkeypatch, tmp_path) == 0
+    assert _records(tmp_path) == []
 
 
 def test_tool_input_non_dict(tmp_path, monkeypatch):
