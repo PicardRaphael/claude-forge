@@ -111,6 +111,12 @@ celle qui est en retard, pas en la déclarant acceptable. `--update-baseline`
 sert à acter une divergence voulue après l'avoir regardée, jamais à faire taire
 un écart qu'on n'a pas ouvert.
 
+`py .claude/scripts/skills-usage.py` répond à « quelles skills et quels agents
+servent réellement », depuis le journal qu'alimente `metrics-tracker`. Ce n'est
+pas un garde et il ne rejoint pas la chaîne ci-dessus : il se consulte quand la
+question se pose. Un composant absent de la fenêtre collectée — affichée en tête
+du rapport — n'est pas prouvé mort pour autant.
+
 ## Sources prioritaires
 
 1. Forge Brain pour décisions et doctrine internes.

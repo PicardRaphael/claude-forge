@@ -94,6 +94,13 @@
             "commandWindows": "py .codex/hooks/memory-recall.py",
             "timeout": 3,
             "statusMessage": "Checking relevant project memories"
+          },
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/metrics-tracker.py\"",
+            "commandWindows": "py .codex/hooks/metrics-tracker.py",
+            "timeout": 2,
+            "statusMessage": "Recording command metrics"
           }
         ]
       }

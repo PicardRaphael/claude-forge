@@ -162,6 +162,34 @@ def ecrire_baseline(root, trouve):
     return chemin
 
 
+def baseline_perimee(trouve, acceptees):
+    """Entrees figees qui ne correspondent plus a aucune divergence reelle.
+
+    Un ratchet qui ne se nettoie pas accumule : une divergence corrigee laisse
+    son entree derriere elle, et plus rien ne la distingue d'une divergence
+    encore active. Le garde signale ces entrees mortes plutot que de les porter
+    indefiniment — sans echouer, car c'est du menage, pas une regression.
+    """
+    perimees = {}
+    for cle, liste in acceptees.items():
+        actuelles = set(trouve.get(cle, []))
+        mortes = [e for e in liste if e not in actuelles]
+        if mortes:
+            perimees[cle] = mortes
+    return perimees
+
+
+def signaler_perimees(perimees):
+    if not perimees:
+        return
+    total = sum(len(v) for v in perimees.values())
+    print(f"[MENAGE] {total} entree(s) de baseline sans divergence correspondante :")
+    for cle, liste in sorted(perimees.items()):
+        for e in liste:
+            print(f"      -> {cle} : {e}")
+    print("         La divergence a ete corrigee — retirer ces entrees.")
+
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     maj = "--update-baseline" in sys.argv[1:]
@@ -188,9 +216,12 @@ def main():
         if reste:
             nouvelles[cle] = reste
 
+    perimees = baseline_perimee(trouve, acceptees)
+
     if not nouvelles:
         figees = sum(len(v) for v in acceptees.values())
         print(f"[OK] jumeaux alignes ({figees} divergence(s) acceptee(s) en baseline)")
+        signaler_perimees(perimees)
         return 0
 
     total = sum(len(v) for v in nouvelles.values())
@@ -199,6 +230,7 @@ def main():
         print(f"  {cle}")
         for e in liste:
             print(f"      -> {e}")
+    signaler_perimees(perimees)
     print(
         "\nUne correction appliquee d'un seul cote ? La porter sur la jumelle.\n"
         "Divergence voulue ? py .claude/scripts/check-twin-drift.py --update-baseline"

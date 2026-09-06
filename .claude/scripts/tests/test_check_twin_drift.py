@@ -155,3 +155,42 @@ def test_repo_sans_claude_fail_open(tmp_path):
     code, out = lancer(tmp_path)
     assert code == 0
     assert "SKIP" in out
+
+
+# ===========================================================================
+# Menage de la baseline — un ratchet accumule ses entrees mortes
+# ===========================================================================
+
+def test_entree_baseline_perimee_est_signalee(tmp_path):
+    """Une divergence figee puis corrigee laisse derriere elle une entree que
+    plus rien ne distingue d'une divergence active. Le garde doit la nommer."""
+    repo_minimal(tmp_path)
+    baseline = tmp_path / ".claude" / "scripts" / "twin-drift-baseline.json"
+    baseline.parent.mkdir(parents=True, exist_ok=True)
+    baseline.write_text(
+        json.dumps({
+            "acceptees": {
+                "hooks:security-guard.py": [
+                    "message d'un seul cote : un ecart depuis corrige"
+                ]
+            }
+        }),
+        encoding="utf-8",
+    )
+
+    code, sortie = lancer(tmp_path)
+    assert code == 0
+    assert "[MENAGE]" in sortie
+    assert "un ecart depuis corrige" in sortie
+
+
+def test_baseline_a_jour_ne_declenche_pas_le_menage(tmp_path):
+    """Aucune entree morte : pas de bruit. Un garde qui crie pour rien s'ignore."""
+    repo_minimal(tmp_path)
+    baseline = tmp_path / ".claude" / "scripts" / "twin-drift-baseline.json"
+    baseline.parent.mkdir(parents=True, exist_ok=True)
+    baseline.write_text(json.dumps({"acceptees": {}}), encoding="utf-8")
+
+    code, sortie = lancer(tmp_path)
+    assert code == 0
+    assert "[MENAGE]" not in sortie

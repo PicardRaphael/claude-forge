@@ -4,9 +4,6 @@
     "hooks-codex:codex-apply-patch-guard.py": [
       "sans jumeau : .claude/hooks/codex-apply-patch-guard.py n'existe pas"
     ],
-    "hooks-codex:metrics-tracker.py": [
-      "sans jumeau : .claude/hooks/metrics-tracker.py n'existe pas"
-    ],
     "hooks:delegate-guard.py": [
       "message d'un seul cote : BYPASS attributionSkill={active_skill!r} matches required for {basename(norm_path)}",
       "message d'un seul cote : BYPASS required={required!r} attribution={active_skill!r} ",

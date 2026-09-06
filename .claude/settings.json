@@ -82,6 +82,17 @@
         ]
       }
     ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/metrics-tracker.py\"",
+            "timeout": 2
+          }
+        ]
+      }
+    ],
     "UserPromptSubmit": [
       {
         "hooks": [
@@ -107,6 +118,15 @@
             "type": "command",
             "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/memory-recall.py\"",
             "timeout": 10
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/metrics-tracker.py\"",
+            "timeout": 2
           }
         ]
       }
