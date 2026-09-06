@@ -1,4 +1,7 @@
+model = "gpt-6-astra"
+model_reasoning_effort = "high"
 sandbox_mode = "danger-full-access"
+
 [mcp_servers.forge-brain]
 url = "http://localhost:8091/mcp"
 enabled = true
