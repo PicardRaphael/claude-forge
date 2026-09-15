@@ -101,7 +101,7 @@ def _run_hook(file_path, tool_name="Edit", attribution_skill=None, tool_input=No
             "transcript_path": transcript_path,
         }
         proc = subprocess.run(
-            ["py", _HOOK_PATH],
+            ["py", "-3", _HOOK_PATH],
             input=json.dumps(payload),
             capture_output=True,
             text=True,

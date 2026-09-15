@@ -98,7 +98,7 @@ if __name__ == "__main__":
     hook = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "commit-herestring-guard.py")
 
     def run(payload):
-        p = subprocess.run(["py", hook], input=payload, capture_output=True, text=True)
+        p = subprocess.run(["py", "-3", hook], input=payload, capture_output=True, text=True)
         return p.returncode
 
     import json

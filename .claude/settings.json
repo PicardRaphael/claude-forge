@@ -44,7 +44,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/learning-reminder.py\"",
+            "command": "py -3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/learning-reminder.py\"",
             "timeout": 10
           }
         ]
@@ -56,7 +56,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/pre-bash-guards.py\"",
+            "command": "py -3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/pre-bash-guards.py\"",
             "timeout": 10
           }
         ]
@@ -66,7 +66,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/pre-write-guards.py\"",
+            "command": "py -3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/pre-write-guards.py\"",
             "timeout": 10
           }
         ]
@@ -76,7 +76,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/mcp-alias-guard.py\"",
+            "command": "py -3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/mcp-alias-guard.py\"",
             "timeout": 10
           }
         ]
@@ -87,7 +87,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/metrics-tracker.py\"",
+            "command": "py -3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/metrics-tracker.py\"",
             "timeout": 2
           }
         ]
@@ -98,7 +98,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/session-health.py\"",
+            "command": "py -3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/session-health.py\"",
             "timeout": 5
           }
         ]
@@ -107,7 +107,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/skill-activation.py\"",
+            "command": "py -3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/skill-activation.py\"",
             "timeout": 3
           }
         ]
@@ -116,7 +116,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/memory-recall.py\"",
+            "command": "py -3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/memory-recall.py\"",
             "timeout": 10
           }
         ]
@@ -125,7 +125,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/metrics-tracker.py\"",
+            "command": "py -3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/metrics-tracker.py\"",
             "timeout": 2
           }
         ]
@@ -136,7 +136,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/session-state-reset.py\"",
+            "command": "py -3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/session-state-reset.py\"",
             "timeout": 5
           }
         ]
@@ -145,7 +145,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/mcp-autostart.py\"",
+            "command": "py -3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/mcp-autostart.py\"",
             "timeout": 10,
             "async": true
           }
@@ -155,7 +155,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "py \"${CLAUDE_PROJECT_DIR}/.claude/hooks/memory-health.py\"",
+            "command": "py -3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/memory-health.py\"",
             "timeout": 5
           }
         ]
