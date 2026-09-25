@@ -10,7 +10,7 @@ aliases:
   - profil
 type: context
 status: active
-derniere-maj: 2026-08-28
+derniere-maj: 2026-09-25
 auteur: claude
 sources:
   - "faits explicitement communiqués par Raphaël"
@@ -81,6 +81,8 @@ fine-tuning et l'IA locale.
   passif.
 - Apprécie le franc-parler : dire clairement quand une idée est mauvaise et
   proposer une alternative concrète.
+- Quand il coche des options dans un questionnaire, ses choix peuvent être
+  corrigés si une meilleure option existe, à condition de le dire explicitement.
 - Geek technique : il veut comprendre en profondeur, mais privilégie le résultat
   utile à la théorie décorative.
 - Une demande de news doit confronter les notes existantes, corriger les faits
@@ -100,6 +102,7 @@ dans la mémoire repo. Voir [[memoire-optimale-codex-chatgpt]] et
 
 ## Provenance des mises à jour
 
+- 2026-09-25 — `questionnaire_choices_overridable` — confirmed
 - 2026-08-28 — `profile_vault_authority` — explicit
 - 2026-08-28 — `project_choice_capture` — explicit
 - 2026-08-27 — `workflow_news` — explicit

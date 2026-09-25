@@ -14,6 +14,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-09-25 — profil : les choix de questionnaire restent corrigeables
+
+- **Ajoutées** : aucune
+- **Modifiées** : `2-Casquettes/Raphael-Picard.md` (§ Comment travailler avec Raphaël + provenance)
+- **Leaders** : aucune
+- **Source** : `/done` du 25 sept., préférence confirmée par Raphaël
+
 ## 2026-09-25 — clean-memory : six projets expirés promus au vault avant archivage
 
 - **Ajoutées** : `Knowledge/reviews/forge-review-2026-07-09.md` (premier journal forge-review du dossier)
