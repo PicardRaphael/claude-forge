@@ -1,6 +1,6 @@
 # Memory — Index Archive (tier-2)
 
-Feedbacks **valides** mais **sans citation entrante ni statut stratégique** (dernier clean : 2026-09-25 — dédoublonnage des 18 entrées aussi indexées dans MEMORY.md, voir journal). Déplacés ici depuis `MEMORY.md` pour alléger le chargement contexte (le pointeur dans MEMORY.md y renvoie). Ne PAS supprimer — ce sont des apprentissages actifs, simplement non cités.
+Feedbacks **valides** mais **sans citation entrante ni statut stratégique** (dernier clean : 2026-09-25 — dédoublonnage des 18 entrées aussi indexées dans MEMORY.md, voir journal). Déplacés ici depuis `MEMORY.md` pour alléger le chargement contexte (le pointeur dans MEMORY.md y renvoie). Ne PAS supprimer — ce sont des apprentissages valides, simplement non cités. ⚠️ Ils sont **hors rappel automatique** : `memory-recall` ne lit que les liens de MEMORY.md et exclut ce fichier. On ne les retrouve qu'en ouvrant cette page.
 
 **Un fichier = un seul index.** Un feedback listé dans MEMORY.md (tier-1) n'apparaît pas ici, et inversement.
 

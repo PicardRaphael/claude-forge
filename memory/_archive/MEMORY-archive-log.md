@@ -139,3 +139,9 @@
 - **Index** : 18 feedbacks listés à la fois dans MEMORY.md et _index_archive.md → retirés de _index_archive (règle « un fichier = un seul index » ajoutée à son en-tête) ; compteur tier-2 34 → 16 réels. jarvis_innovator passe en tier-2 malgré une citation entrante, parce que son propre corps dit de ne pas le charger comme préférence (adaptateur de compatibilité). agent-flow ajouté en Reference (il n'était lié nulle part, donc invisible pour memory-recall).
 - **Non fait (non validé)** : rétrogradation des ~24 tier-1 sans citation entrante.
 - **Rollback** : `git -C <repo> mv memory/_archive/2026-09/<f>.md memory/<f>.md` + restaurer la ligne d'index ; les enrichissements vault restent valables indépendamment.
+
+## [2026-09-25] décision — rétrogradation des tier-1 non cités écartée (carte blanche Raphael)
+- **Constat vérifié** : `.claude/hooks/memory-recall.py` ne rappelle que les fichiers liés depuis MEMORY.md (`_INDEX_PATH`) et exclut `_index_archive.md` (`_EXCLUDED`). Rétrograder = couper tout rappel automatique.
+- **Cause des 18 doublons** : commit `0f98f0f` (29 juil., restructuration MEMORY.md en 7 sous-sections) — il a réindexé 19 fichiers tier-2 précisément pour les rendre rappelables, sans les retirer de `_index_archive.md`. Ce n'était pas `/done`.
+- **Décision** : les ~24 tier-1 sans citation entrante restent tier-1 ; le critère « citation ≥1 » mesure le maillage, pas la valeur du rappel. Skill clean-memory (`.claude` + `.agents`) corrigée : la section E affiche le coût réel d'une rétrogradation et impose « un fichier = un seul index ». En-tête de `_index_archive.md` aligné.
+- **Rollback** : revert du commit de cette entrée.

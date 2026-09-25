@@ -51,7 +51,7 @@ Pour chaque cluster A :
 
 **Classification tier du meta-feedback consolide** :
 - Tier-1 (MEMORY.md visible) si : ≥1 citation entrante apres fusion OU sujet strategique (3 axes innovation forge : MCP decoratif sub-agent, agent vs skill densite MCP vault, living doctrine) OU pinned manuel
-- Tier-2 (`memory/_index_archive.md`) sinon — reintegrable tier-1 des premiere citation
+- Tier-2 (`memory/_index_archive.md`) sinon — hors rappel automatique (`memory-recall` ne lit que les liens de MEMORY.md et exclut `_index_archive.md`) ; reintegrable tier-1 des premiere citation
 
 ### Section B — Amendements successifs (fusion)
 
@@ -114,13 +114,17 @@ Audit des feedbacks tier-1 (visibles dans MEMORY.md) : verifier qu'ils satisfont
 - Sujet strategique (3 axes innovation forge : MCP decoratif sub-agent, agent vs skill densite MCP vault, living doctrine)
 - Pinned manuel (marqueur `pin: true` dans frontmatter)
 
+**Cout reel d'une retrogradation** : `memory-recall` ne rappelle que les fichiers lies depuis MEMORY.md et exclut `_index_archive.md`. Un feedback tier-2 n'est donc plus jamais remonte automatiquement ; on ne le retrouve qu'en ouvrant l'index archive. Retrograder = accepter de perdre son rappel, pas seulement alleger l'index. Ne le proposer que si le feedback ne vaut plus d'etre rappele ; sinon le garder tier-1.
+
 Pour chaque tier-1 ne satisfaisant AUCUN critere :
-- Proposer retrogradation vers tier-2 (`_index_archive.md`)
-- Justifier : "0 citation entrante, hors 3 axes strategiques, pas pinned"
+- Proposer retrogradation vers tier-2 (`_index_archive.md`) seulement si perdre son rappel est acceptable
+- Justifier : "0 citation entrante, hors 3 axes strategiques, pas pinned" + pourquoi le rappel ne sert plus
 
 Pour chaque tier-2 (`_index_archive.md`) ayant gagne une citation depuis dernier clean :
 - Proposer promotion vers tier-1
 - Justifier : "desormais cite par [[<slug-citant>]]"
+
+Un fichier = un seul index : une promotion retire la ligne de `_index_archive.md`, une retrogradation retire celle de MEMORY.md. Verifier a chaque clean qu'aucun fichier n'est liste dans les deux (sinon le compteur tier-2 ment).
 
 Format gate :
 
@@ -129,6 +133,7 @@ Retrogradation tier-1 → tier-2 : [slug]
 Citations entrantes : 0
 Sujet strategique : non
 Pinned : non
+Effet : sort du rappel automatique memory-recall
 ---
 [v]alider retrogradation  [p]inner (garder tier-1)  [i]gnorer
 ```
