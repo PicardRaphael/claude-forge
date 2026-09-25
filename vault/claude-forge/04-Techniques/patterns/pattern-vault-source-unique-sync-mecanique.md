@@ -8,7 +8,7 @@ aliases:
   - "sync-leaders pattern"
   - "vault folder source of truth"
   - "regeneration entre marqueurs"
-derniere-maj: 2026-05-27
+derniere-maj: 2026-09-25
 auteur: claude
 type: technique
 sources:
@@ -69,6 +69,18 @@ Distinguer deux moitiés d'un sync : (1) **visibilité** — la donnée est à j
 Cas concret (Chantier C cc-news, 27 mai 2026) : sync-leaders a régénéré la table Leaders dans les `domain-*.md` (visibilité ✓). Mais cc-news exécute le bloc `## Queries à exécuter`, PAS la table — les queries n'ont pas été régénérées. Résultat : ~50 leaders listés mais toujours ratés. Le report du script montrait les leaders sans query ; le self-check les a classés « dette mineure » au lieu de voir la moitié manquante. L'advisor a rattrapé.
 
 Cf `ecart-consigne-chiffree-surfacer` (ne jamais absorber silencieusement un écart mesurable).
+## Variante — même skill copiée dans N repos d'équipe (chantier /spec, 26 juin 2026)
+
+Même problème de double source, mais entre repos plutôt qu'entre vault et skill : la skill `/spec` vivait en trois copies divergentes (neo_ia, neoteem-back-ts, ia-workbench). Les tickets produits divergeaient aussi, par exemple Gherkin présent dans IA-27 et absent dans IA-16.
+
+- **Un repo source** (ia-workbench). Les autres repos reçoivent des copies strictement identiques ; la répétition est assumée, parce que chaque repo d'équipe doit fonctionner seul.
+- **Sync par fichiers entiers**, pas entre marqueurs : `tools/apply-sync-spec.sh` copie SKILL.md et les références partagées vers les repos voisins. Dry-run par défaut, refus si l'arbre cible est dirty. Un fichier qui mélange partagé et local (`modules-jira.md`) garde un sync à marqueurs, conforme au mécanisme ci-dessus.
+- **Le spécifique à la stack reste local** et hors sync : `template-*.md`, `stack-conventions.md`.
+- **Un hook de format déterministe complète le sync** : le sync aligne la procédure, mais la procédure reste probabiliste. `jira-ticket-format-guard` vérifie donc la sortie. Il ne s'active que sur les tickets qui portent le footer `/spec · rôle:`, pour rester étanche dans un repo d'équipe (détail : [[comment-creer-hook]]).
+- **Une seule source par artefact, là aussi** : le BRIEF joint au ticket porte le Gherkin, et le ticket n'y renvoie que par un pointeur (option B). Recopier le Gherkin dans le ticket recréerait une seconde source.
+
+Critique DA du plan : [[critique-2026-06-26-uniformisation-spec-3-repos]].
+
 ## Liens
 
 - [[mcp-vs-skills-doctrine]]

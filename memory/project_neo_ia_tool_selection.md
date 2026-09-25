@@ -2,8 +2,8 @@
 name: neo-ia-tool-selection-state
 description: "État actuel du HybridToolSelector neo_ia — expansion ACTIVE en prod sur fresh queries, reranking LLM OFF, plan Lazy Expansion + OATS"
 type: project
-status: review-required
-expires: 2026-09-15
+status: active
+expires: 2026-10-25
 metadata: 
   node_type: memory
   type: project

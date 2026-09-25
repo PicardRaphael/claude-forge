@@ -242,10 +242,10 @@ Source canonique : [[pattern-mcp-brief-then-direct]] vault forge.
 
 ## Apprentissage
 
-After each review, save to project memory what was actioned vs ignored:
+After each review, record what was actioned vs ignored in a vault note `Knowledge/reviews/forge-review-YYYY-MM-DD.md`, created with `mcp__forge-brain__create_note` (standard frontmatter, previous journals in the same folder). Never in `memory/`: a review journal is durable knowledge, not a temporary project phase.
 
 ```
-# Format memoire projet -- project_forge_review.md
+# Journal format -- Knowledge/reviews/forge-review-YYYY-MM-DD.md
 Date: YYYY-MM-DD
 KILL identified: N | actioned: N | still pending: [list]
 EVOLVE identified: N | actioned: N

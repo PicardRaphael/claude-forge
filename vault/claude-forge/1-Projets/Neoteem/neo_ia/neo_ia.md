@@ -10,7 +10,7 @@ aliases:
   - neomail
 type: context
 status: active
-derniere-maj: 2026-05-24
+derniere-maj: 2026-09-25
 auteur: claude
 tags:
   - "#type/context"
@@ -45,6 +45,19 @@ Monorepo LLM assistants B2B de [[Neoteem|Neoteem]]. 3 apps : NeoChat (agents ReA
 - [[Neoteem|Neoteem]]
 - [[ia_back|ia_back]]
 
+
+## Alignement sur neoteem-back-ts (10-12 juin 2026)
+
+État au 12 juin 2026, promu depuis la mémoire projet forge le 25 sept. 2026. Les compteurs de composants ci-dessus (audit 8 mai) sont antérieurs à cet alignement ; compteurs README au 11 juin : 14 agents, 39 skills, 23 hooks, 22 rules.
+
+- **Workflow dev** : `/feature <ticket>` → branche `us/<N°>` → PR vers `develop`, CI verte = condition de merge. Commit direct sur develop/master/main bloqué par `git-guard.py`. Pipeline `/feature` : architect → test-writer → dev → reviewer (contrat Default-FAIL) → `/go` (miroir exact de la CI) → `/ship` → transition Jira après merge. Worktrees parallèles via `claude -w` + `.worktreeinclude`.
+- **CI** : le `.github/workflows/ci.yml` était une config morte (repo hébergé sur Bitbucket, GitHub bloqué par l'org). `bitbucket-pipelines.yml` actif depuis le 11 juin : ruff + format + mypy + pytest, gates en ratchet sur le legacy (ruff S/N/C90/ERA/ARG, import-linter 3 contrats, jscpd 3 %, gitleaks), tests neodoc/neomail conditionnels par chemin. Leçon : vérifier l'hébergement réel avant de croire un fichier CI.
+- **Périmètre prod** : neochat seul en prod ; neodoc/neomail hors prod (refacto à venir), exclus du strict mais interdits à l'import depuis neochat (contrat import-linter).
+- **reuse-first** : classement RÉUTILISER/PACKAGES/LOCAL obligatoire au plan architecte ; un doublon est BLOQUANT en review.
+- **MCP Langfuse (design v2)** : un seul serveur `langfuse-neochat`, stdio via le wrapper `scripts/mcp_langfuse.py` qui lit `.env` et lance `uvx mcp-proxy` avec l'en-tête Basic. `.mcp.json` sans aucun secret, pas de variable d'environnement Windows ; onboarding = clone + `.env`. Fait vérifié : le MCP officiel Langfuse n'accepte que des clés projet, donc un MCP par projet Langfuse.
+- **Jira IA** : 6 epics permanents — Chatbots N2-68082, Agents N2-106433, Mail N2-111277, MCP N2-111230, Outils internes N2-111276, NeoDoc N2-103047. Types `[IA] FEATURE` / `[IA] BUG` / `[IA] A CLASSER` ; création N2 via le MCP `plugin:atlassian` (le MCP JIRA - NEOTEEM est Service-Desk-only). Classement par nature du ticket : feedback forge `memory/feedback_classification_type_ticket_jira.md`.
+- **Différé (P1)** : promptfoo redteam, Presidio (AI Act), DeepEval gating, budgets Langfuse. Détail : `neo_ia/docs/implementation-notes/harnais-repo-parfait.md`.
+- **Actions humaines ouvertes au 12 juin (non revérifiées depuis)** : sort de `.github/workflows/ci.yml`, application de `.claude/settings.local.json.proposed`, création du type `[IA] Optimisation` par le PM (N2-111316 à rebasculer).
 
 ## Architecture détaillée par app
 

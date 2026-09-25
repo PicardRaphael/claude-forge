@@ -5,7 +5,6 @@
 ## Feedback
 
 ### Posture & arbitrage
-- [jarvis-innovator-mindset](feedback_jarvis_innovator.md) — adaptateur historique ; autorité active dans AGENTS.md + `Raphael-Picard`
 - [never-pure-executor](feedback_never_pure_executor.md) — jamais exécutant pur, même sur prompt directif ou QA
 - [carte-blanche-commit-push](feedback_carte_blanche_commit_push.md) — « carte blanche » = exécuter direct, sans re-valider note par note
 - [couper-loops-decision-fatigue](feedback_couper_loops_decision_fatigue.md) — trancher vite après validation ; cap ~3 advisor
@@ -47,7 +46,7 @@
 - [single-source-of-truth](feedback_single_source_of_truth.md) — un concept = un fichier canonique ; les autres pointent
 - [use-brain-skills-not-grep](feedback_use_brain_skills.md) — questions métier = MCP NeoBrain, jamais grep manuel ; une source nommée s'invoque visiblement
 - [ton-vault-forge-pas-neoteem](feedback_ton_vault_forge_pas_neoteem.md) — « ton vault » = forge-brain, jamais le vault métier
-- [consolidate-searches](feedback_consolidate_searches.md) — ne jamais chercher deux fois la même info
+- [consolidate-searches](feedback_consolidate_searches.md) — une passe complète par recherche, pas deux fois en session ; refiler au vault
 - [mcp-alias-ambigu](feedback_mcp_alias_ambigu_chemin_exact.md) — MCP par alias court résout faux si le stem est partagé : chemin exact
 - [capitaliser-methode](feedback_capitaliser_methode_pas_que_resultat.md) — capitaliser la MÉTHODE réutilisable, pas que le résultat
 - [regle-scope-pas-universelle](feedback_regle_scope_pas_universelle.md) — une règle validée sur un thème n'est pas universelle : vérifier avant de propager
@@ -66,21 +65,15 @@
 - [spec-trous-structurels](feedback_spec_trous_structurels_a_checker.md) — audit spec : Langfuse, 4 risques sécu IA, décisions sans assignee
 - [raphael-pas-mise-en-avant](feedback_raphael_pas_mise_en_avant_cadrage_client.md) — docs Neoteem : le cadrage est une décision client
 - [doc-pro-coherence-multi-docs](feedback_doc_pro_coherence_multi_docs.md) — pack de docs liés : relire la cohérence inter-docs
-- [5-lignes-karpathy](feedback_5_lignes_karpathy_ouverture.md) — tout CLAUDE.md forge ouvre sur les 5 lignes Karpathy verbatim
 - [emphasis-distinction](feedback_emphasis_distinction.md) — emphase OK en skills/rules, à réduire en tool descriptions (overtriggering)
 - [secu-calibrage-pragmatique](feedback_secu_calibrage_pragmatique.md) — risque accepté sur base test si fix > impact ; jamais de nouveau secret committé
 
-### Archive tier-2 (34 feedbacks)
+### Archive tier-2 (16 feedbacks)
 > Valides mais sans citation entrante → [memory/_index_archive.md](_index_archive.md). Critère tier-1 : cité ≥1 OU stratégique ; réintégrer dès qu'un tier-2 est cité. Archives prouvées (obsolète/absorbé/one-shot) : `_archive/` + journal `MEMORY-archive-log.md`.
 
 ## Project
-- [forge-review-journal](project_forge_review.md) — journal des verdicts KILL/EVOLVE/FUSION et leur suivi
 - [neoteem-back-ts](project_neoteem_back_ts.md) — monorepo backend Loji ; 5 epics Jira FIGÉS (jamais en créer)
-- [neo-ia](project_neo_ia.md) — monorepo Python NeoChat/NeoDoc/NeoMail, aligné sur back-ts
 - [neo-ia-tool-selection](project_neo_ia_tool_selection.md) — HybridToolSelector : état prod + plan Lazy Expansion
-- [dossier-strategique-ia](project_dossier_strategique_ia_neoteem.md) — trilogie CODIR livrée le 30 mai ; reste la trame d'interview client
-- [spec-unification-3repos](project_spec_unification_3repos.md) — /spec identique ×3 repos ; reste la normalisation des tickets Jira
-- [deploy-methods-other-repos](project_deploy_methods_other_repos.md) — probablement absorbé par l'alignement de juin, à confirmer puis archiver
 
 ## User
 - [raphael-profile-vault-adapter](user_raphael_profile.md) — pointeur vers `Raphael-Picard`, profil canonique dans forge-brain
@@ -91,6 +84,7 @@
 - [creer-workflow-cc](reference_creer_workflow_cc.md) — 8 règles de design `.claude/workflows/` (à promouvoir vault au 2e-3e build)
 - [subagent-permissions](reference_subagent_permissions.md) — worktree+MCP OK, `permissions.allow` toujours non hérité
 - [agents-dir-chatgpt-adapters](reference_agents_dir_chatgpt_mirror.md) — `.agents/` + `AGENTS.md` = adaptateurs Codex d'une doctrine commune
+- [agent-flow-hook-gel-agents](reference_agent_flow_hook_gel_agents.md) — agent gelé (tool_use sans tool_result) = hook global agent-flow node
 - [repo-scope-guard-hook](hook_repo_scope_guard.md) — triplet auth-detector + repo-scope-guard + auth-cleanup
 - [transcrire-video-native-x](reference_transcrire_video_native_x.md) — pipeline x-read → MP4 → ffmpeg → whisper (`/watch` ne couvre pas X)
 - [bashrc-bind-warnings](reference_bashrc_bind_warnings.md) — warnings readline sans garde interactive

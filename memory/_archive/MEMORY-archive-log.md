@@ -124,3 +124,18 @@
 - **Fixes connexes** : drift L89 de reference_workarounds corrigé (bypass CLAUDE_AGENT supprimé) ; ligne Source de cross-repo-propagation.md repointée vers l'archive
 - **Reliquat signalé** (non exécuté ici) : replier la nuance « Karpathy ≠ repos non-code » dans la note vault [[comment-ecrire-claudemd]] puis archiver feedback_5_lignes_karpathy ; confirmer le déploiement skill-evolve neo_ia/ia_back puis archiver project_deploy_methods_other_repos
 - **Rollback** : pour chaque fichier, `git -C <repo> mv memory/_archive/2026-07/<f>.md memory/<f>.md` + restaurer la ligne d'index correspondante (MEMORY.md pour ex-tier-1, _index_archive.md pour ex-tier-2)
+
+## [2026-09-25] clean-memory — 6 projets expirés + dédoublonnage tier-2 (arbitrage Raphael « OPTIMISE »)
+- **Fichiers** → memory/_archive/2026-09/ :
+  - **project_neo_ia** : phase de juin promue au foyer vault [[neo_ia]] § « Alignement sur neoteem-back-ts » (workflow PR, CI Bitbucket, MCP Langfuse v2, 6 epics Jira, actions humaines ouvertes au 12 juin). Restes machine (plugins, caches) non promus : volatils, à revérifier sur place.
+  - **project_spec_unification_3repos** : chantier livré le 26 juin. Pattern « skill identique ×N + sync fichiers entiers + hook de format gaté par footer » promu dans [[pattern-vault-source-unique-sync-mecanique]] ; le hook footer-gate était déjà dans [[comment-creer-hook]], la correction ADF déjà dans [[jira-rendu-adf-mcp-atlassian]].
+  - **project_dossier_strategique_ia_neoteem** : trilogie, verdict A/B du 30 mai, 3 dangers, 5 trous et TODO trame d'interview promus dans [[comprendre-neoteem-vue-responsable-ia]] ; charte + gotchas PDF déjà dans [[pdf-chrome-headless]] (pointeur repointé).
+  - **project_forge_review** : journal du 9 juillet promu en [[forge-review-2026-07-09]] (Knowledge/reviews, qui n'avait aucun journal).
+  - **project_deploy_methods_other_repos** : absorbé par l'alignement de juin (reliquat signalé le 9 juillet).
+  - **feedback_5_lignes_karpathy_ouverture** : contredit par la canonique [[comment-ecrire-claudemd]] § Ouverture (« Aucune formule externe ni bloc de cinq lignes n'est obligatoire universellement »), qui porte déjà la nuance repos non-code. Reliquat du 9 juillet soldé.
+  - **feedback_autonomy_rule** : absorbé par AGENTS.md § Contrat Jarvis (pas de validations multipliées sous carte blanche) + feedback_carte_blanche_commit_push tier-1.
+- **Renouvelé** : project_neo_ia_tool_selection → `status: active`, `expires: 2026-10-25`. project_neoteem_back_ts inchangé (expire le 30 sept.).
+- **Reformulé** : feedback_consolidate_searches — « jamais dans une session future » retiré (contredisait la revérification des infos datées) ; consolidation au vault (refile), pas dans un fichier mémoire ; renvoi au registre des opérations coûteuses.
+- **Index** : 18 feedbacks listés à la fois dans MEMORY.md et _index_archive.md → retirés de _index_archive (règle « un fichier = un seul index » ajoutée à son en-tête) ; compteur tier-2 34 → 16 réels. jarvis_innovator passe en tier-2 malgré une citation entrante, parce que son propre corps dit de ne pas le charger comme préférence (adaptateur de compatibilité). agent-flow ajouté en Reference (il n'était lié nulle part, donc invisible pour memory-recall).
+- **Non fait (non validé)** : rétrogradation des ~24 tier-1 sans citation entrante.
+- **Rollback** : `git -C <repo> mv memory/_archive/2026-09/<f>.md memory/<f>.md` + restaurer la ligne d'index ; les enrichissements vault restent valables indépendamment.

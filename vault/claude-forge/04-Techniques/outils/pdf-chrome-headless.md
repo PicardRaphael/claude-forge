@@ -7,7 +7,7 @@ aliases:
   - génération-pdf-pro
   - chrome-print-to-pdf
   - pdf-headless-gotchas
-derniere-maj: 2026-07-07
+derniere-maj: 2026-09-25
 tags:
   - "#type/technique"
   - "#domaine/outils"
@@ -65,9 +65,7 @@ CSS de référence : `output/neoteem/_charte/neoteem-charte.css` + `CHARTE.md`.
 - Couleurs : bleu `#0a3a5c`, teal `#00a78e`, dégradé teal → corail → magenta.
 - Page de garde : fond clair + logo couleur. **PAS** de filtre `brightness` / `invert` sur le logo `.webp` (casse les couleurs).
 
-Voir aussi : `dossier-strategique-ia-neoteem`
-
 ## Liens
 
 - [[ia-workbench-repo-management]] — usage dans le repo ia-workbench (PDF optionnel avec fallback)
-- `dossier-strategique-ia-neoteem` — premier document généré avec cette chaîne (validé 29 mai 2026)
+- [[comprendre-neoteem-vue-responsable-ia]] — § trilogie CODIR, premier document généré avec cette chaîne (validé 29 mai 2026)

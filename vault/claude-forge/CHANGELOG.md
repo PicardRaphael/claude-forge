@@ -14,6 +14,13 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-09-25 — clean-memory : six projets expirés promus au vault avant archivage
+
+- **Ajoutées** : `Knowledge/reviews/forge-review-2026-07-09.md` (premier journal forge-review du dossier)
+- **Modifiées** : `1-Projets/Neoteem/neo_ia/neo_ia.md` (§ Alignement sur neoteem-back-ts, juin 2026) · `1-Projets/Neoteem/comprendre-neoteem-vue-responsable-ia.md` (§ trilogie CODIR, verdict A/B, TODO trame d'interview ; liens) · `04-Techniques/patterns/pattern-vault-source-unique-sync-mecanique.md` (§ variante skill identique ×N repos) · `04-Techniques/outils/pdf-chrome-headless.md` (pointeur mémoire → note vault)
+- **Leaders** : aucune
+- **Source** : `/clean-memory` du 25 sept. — le stable de `memory/project_{neo_ia,spec_unification_3repos,dossier_strategique_ia_neoteem,forge_review}.md` rejoint le vault, puis ces fichiers sont archivés dans `memory/_archive/2026-09/`
+
 ## 2026-09-25 — pivot effort Opus 5.5 + batch de créations cc-news validé
 
 - **Ajoutées** :

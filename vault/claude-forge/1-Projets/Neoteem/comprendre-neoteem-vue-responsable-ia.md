@@ -7,7 +7,7 @@ aliases:
   - neoteem-ou-l-ia-cree-valeur
   - synthese-neoteem-loji
 resume: Synthèse stratégique de Neoteem/Loji vue Responsable IA — architecture, domaines métier, le moat (base de données Loji), et où l'IA crée de la valeur. Source pour toute décision produit/roadmap IA.
-derniere-maj: 2026-06-07
+derniere-maj: 2026-09-25
 tags:
   - "#type/knowledge"
   - "#projet/neoteem"
@@ -86,12 +86,40 @@ Stack IA : LangGraph + Declarative ReAct Engine (AgentBlueprint), 2 bases PG (db
 
 Prioriser les produits qui **exploitent la donnée Loji** (NeoMail contextualisé, agents métier branchés sur comptes/interventions/AG) plutôt que les produits génériques (chatbot qui double la recherche). La fenêtre est réelle mais temporaire : avantage tant que les éditeurs traditionnels n'ont pas rattrapé l'IA.
 
+## Dossier stratégique IA — trilogie CODIR (livrée le 30 mai 2026)
+
+Trois PDF dans `output/neoteem/`, générés avec la charte et la chaîne [[pdf-chrome-headless]] :
+
+1. **Neoteem_Dossier_Strategique_IA_v2.pdf** — le *pourquoi* : diagnostic, benchmark, choix A/B, équipe valorisée sans chiffrage salarial.
+2. **Neoteem_Roadmap_IA_v2.pdf** — le *quoi/quand* : catalogue d'idées, roadmap en deux colonnes (« à 2 » / « renforcé »), coût caché, NeoChat parqué. Rien qui mette Raphaël personnellement en avant.
+3. **Neoteem_Modele_Economique_IA.pdf** — le *combien* : quatre modèles (usage, forfait, crédits, inclus), fourchettes à valider, revenus clients uniquement.
+
+**Verdict tranché le 30 mai : choix binaire A ou B.** La séquence « B finance A » est abandonnée (risque de cannibalisation ; les clients ont déjà ChatGPT et des MCP moins chers). Le dossier recommande B, en le disant, et écrit trois dangers noir sur blanc :
+
+- les clients ont déjà ChatGPT : un agent qui n'est pas meilleur décrédibilise Neoteem, donc uniquement de l'IA branchée sur Loji ;
+- un MCP ouvert tue les produits ;
+- le retard concurrentiel.
+
+Avis de fond, dans l'encadré « sans filtre » du mot de la fin : le facteur décisif n'est ni A ni B, c'est la vitesse de décision et le changement d'organisation. La roadmap correspond au scénario A ; les usages internes valent pour A comme pour B.
+
+**Trous identifiés le 29 mai** (niveau « grand Responsable IA ») :
+1. aucun chiffre de valeur client réel ;
+2. gouvernance des données et RGPD ;
+3. vélocité de la concurrence non datée ;
+4. pas de KPI de succès ni de condition de pivot ;
+5. moat pas assez central.
+
+Les sections KPI de succès, IA responsable / données et moat étaient en cours d'ajout le 29 mai (trous 2, 4 et 5). Le trou n°1 reste ouvert.
+
+**TODO (reporté par Raphaël)** : trame d'interview client, 5-6 questions posées à 2-3 syndics, pour obtenir la vraie donnée de valeur (trou n°1). Canal privilégié : le Club Utilisateurs (voir plus bas).
+
 ## Liens
 
 - [[lojii]] — frontend, architecture full web
 - [[ai-act-eu-cheatsheet]] — si « Loji Scoring » commercialisé → Neoteem devient Provider AI Act
 - [[strategie-ia]] — hub stratégie/gouvernance Responsable IA
-- Dossier Stratégique IA Neoteem (livrable CODIR, suivi en mémoire forge) — trilogie docs CODIR
+- [[reunion-kit-de-decision-autonome]] — format de présentation de la trilogie à la direction
+- [[pdf-chrome-headless]] — chaîne PDF + charte Neoteem
 
 
 ## Découvertes web (29 mai 2026) — marché & utilisateurs Loji
