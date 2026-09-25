@@ -1,18 +1,20 @@
 ---
 titre: "Claude Opus 5 — flagship Opus, proche de Fable 5 à moitié prix"
-resume: "Lancé le 24 juillet 2026 : claude-opus-5, $5/$25 par MTok (inchangé vs 4.8), 1M contexte / 128k output, thinking ON par défaut, fast mode ~2,5× à $10/$50, SOTA Frontier-Bench (double Opus 4.8), défaut Opus dans Claude Code v2.1.219 et défaut Claude Max"
+resume: "Lancé le 24 juillet 2026 : claude-opus-5, $5/$25 par MTok (inchangé vs 4.8), 1M contexte / 128k output, thinking ON par défaut, effort API défaut high, fast mode ~2,5× à $10/$50, SOTA Frontier-Bench (double Opus 4.8). Défaut Opus de Claude Code de v2.1.219 à v2.1.279 ; remplacé par Opus 5.5 le 22 sept. 2026 (v2.1.280), désormais modèle legacy."
 aliases:
   - "Claude Opus 5"
   - "Opus 5"
   - "claude-opus-5"
   - "opus-5"
   - "Claude Honeycomb"
-derniere-maj: 2026-07-27
+derniere-maj: 2026-09-25
 auteur: claude
 type: modele
 sources:
   - "https://www.anthropic.com/news/claude-opus-5"
   - "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md"
+  - "https://platform.claude.com/docs/en/models/overview"
+  - "https://platform.claude.com/docs/en/build-with-claude/effort"
   - "https://techcrunch.com/2026/07/24/anthropic-launches-opus-5/"
   - "https://www.axios.com/2026/07/24/anthropic-releases-new-model-opus-5"
 tags:
@@ -22,6 +24,8 @@ tags:
 ---
 
 # Claude Opus 5
+
+> ⚠️ **Statut au 25 sept. 2026 : plus le défaut Opus.** Claude Opus 5.5 (`claude-opus-5-5`, $4/$20) le remplace depuis le 22 sept. 2026 — CC v2.1.280, verbatim : *« Added Claude Opus 5.5 (`claude-opus-5-5`), now the default Opus model »*. L'alias `opus` de Claude Code ne résout donc plus vers Opus 5. Opus 5 reste appelable par son ID.
 
 > Annoncé **24 juillet 2026** (« Introducing Claude Opus 5 », vérifié source primaire). 4e modèle de la famille Claude 5 en moins de 2 mois (après Fable 5, Mythos 5, Sonnet 5). Successeur direct d'[[CC 28 mai 2026 - Opus 4.8 + Dynamic Workflows|Opus 4.8]]. Positionnement verbatim : *« comes close to the frontier intelligence of Claude Fable 5 at half the price »* — et *« much stronger at verifying its work and iterating carefully until it succeeds »*.
 
@@ -34,8 +38,8 @@ tags:
 | Prix standard | $5 / M input · $25 / M output (identique Opus 4.8, moitié de Fable 5) |
 | Fast mode | $10 / $50 par MTok, ~2,5× la vitesse (research preview API + usage credits Claude Code) |
 | Contexte | **1M tokens** / 128k output |
-| Thinking | **ON par défaut** ; effort low/medium/high/**xhigh/max** |
-| Défauts produit | Défaut **Claude Max** ; défaut Opus **Claude Code v2.1.219** ; plus fort modèle sur Pro |
+| Thinking | **ON par défaut** ; effort low/medium/high/**xhigh/max**, défaut API **`high`** |
+| Défauts produit | Au lancement : défaut **Claude Max**, défaut Opus **Claude Code v2.1.219**, plus fort modèle sur Pro. Défaut Opus CC **jusqu'à v2.1.279** ; remplacé par Opus 5.5 en v2.1.280 (22 sept. 2026) |
 | Dispo | Claude API, Bedrock, Vertex, Microsoft Foundry, claude.ai, Claude Code, Cowork — immédiate |
 
 ## Benchmarks (annonce officielle)
@@ -49,7 +53,7 @@ tags:
 
 ## ⚠️ Breaking changes migration (depuis Opus 4.8)
 
-- **Thinking ON par défaut** ; `thinking: disabled` + effort xhigh/max → **erreur 400** (source secondaire, à re-vérifier docs plateforme).
+- **Thinking ON par défaut** ; `thinking: disabled` + effort xhigh/max → **erreur 400** (confirmé en primaire, page Effort : *« On Claude Opus 5, thinking cannot be disabled at `xhigh` or `max` effort »*).
 - `speed: "fast"` sur **Opus 4.7 → erreur** désormais (retiré du fast mode, pas de fallback) — fast mode = Opus 5 + Opus 4.8 uniquement.
 - 2 betas API lancées avec Opus 5 : **mid-conversation tool changes** (header `mid-conversation-tool-changes-2026-07-01`, préserve le prompt cache) et **automatic fallbacks** (requêtes flaggées re-routées au lieu de bloquées).
 
@@ -64,7 +68,7 @@ tags:
 
 ## Pertinence forge
 
-- **La ligne CLAUDE.md forge « `opus` = claude-opus-4-8 (dernier Opus) » est périmée** — `model: opus` dans les frontmatters d'agents résout désormais vers Opus 5.
+- `model: opus` dans les frontmatters d'agents a résolu vers Opus 5 du 24 juil. au 21 sept. 2026 ; **depuis CC v2.1.280 il résout vers Opus 5.5**, dont l'effort API par défaut est `medium` (et non `high`). Épingler `claude-opus-5` explicitement si un agent doit rester sur ce modèle.
 - Doctrine [[feedback_allocation_modele_effort|allocation modèle/effort]] « Sonnet exécution / Opus jugement » : le tier jugement monte en capacité à prix constant — pas de raison de pivoter, mais vérifier le comportement thinking-ON-par-défaut sur les agents jugement.
 - Gotcha : comme Fable 5, fallback classifier vers Opus 4.8 possible sur requêtes flaggées.
 

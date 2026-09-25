@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "last_complete_run": "2026-09-05",
-  "last_attempted_run": "2026-09-05",
+  "last_complete_run": "2026-09-25",
+  "last_attempted_run": "2026-09-25",
   "domains": {
     "claude-code": {
-      "verified_at": "2026-09-05",
+      "verified_at": "2026-09-25",
       "status": "complete",
-      "latest_version": "2.1.261",
-      "content_checkpoint": "2.1.261",
+      "latest_version": "2.1.282",
+      "content_checkpoint": "2.1.282",
       "source": "https://www.npmjs.com/package/@anthropic-ai/claude-code",
       "content_source": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
-      "source_content_sha256": "45de16ab52f6baee38e9178794d80de3dce0efbe44bad18d7cbcdcfb3732a88a"
+      "source_content_sha256": "f7687fb54480ecc71c8f9da577ede105b4c8cea3373f8eaadc348dff0f8b2f62"
     },
     "codex": {
       "verified_at": "2026-08-27",
@@ -25,15 +25,15 @@
       "status": "failed",
       "latest_release_checked": "2026-08-25",
       "source": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
-      "last_failure": "2026-09-05",
-      "failure_reason": "help.openai.com/en/articles/6825453 a renvoye 403 pendant tout le run - aucune confirmation primaire possible. Checkpoint laisse au 2026-08-27 conformement au contrat."
+      "last_failure": "2026-09-25",
+      "failure_reason": "help.openai.com/en/articles/6825453 renvoie 403 (runs du 5 et du 25 sept.) - couverture partielle seulement via learn.chatgpt.com/docs/changelog. Checkpoint laisse au 2026-08-27 conformement au contrat."
     },
     "openai-models": {
-      "verified_at": "2026-09-05",
+      "verified_at": "2026-09-25",
       "status": "complete",
-      "latest_model_checked": "GPT-6 Astra",
+      "latest_model_checked": "GPT-6 Sol / GPT-6 Luna (2026-09-22)",
       "source": "https://developers.openai.com/api/docs/changelog",
-      "note": "Pricing et benchmarks Astra non confirmes en source primaire - classes DEFER."
+      "note": "Prix Astra et Sol confirmes sur les fiches modeles officielles. Prix Luna repris du changelog API, fiche non consultee. Benchmarks Astra toujours DEFER."
     },
     "google": {
       "verified_at": "2026-09-05",
@@ -51,6 +51,30 @@
       "proposed_at": "2026-08-28",
       "suggested_path": "01-Claude/Code/changelog/CC août 2026 - v2.1.221-250.md",
       "source": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md"
+    },
+    {
+      "id": "claude-code-changelog-2026-09-v2.1.263-282",
+      "status": "created",
+      "proposed_at": "2026-09-25",
+      "suggested_path": "01-Claude/Code/changelog/CC septembre 2026 - Opus 5.5 + v2.1.263-282.md",
+      "source": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
+      "created_at": "2026-09-25"
+    },
+    {
+      "id": "anthropic-model-opus-5-5",
+      "status": "created",
+      "proposed_at": "2026-09-25",
+      "suggested_path": "01-Claude/models/Opus 5.5.md",
+      "source": "https://platform.claude.com/docs/en/models/opus-5-5/migration-guide",
+      "created_at": "2026-09-25"
+    },
+    {
+      "id": "openai-model-gpt-6-sol-luna",
+      "status": "created",
+      "proposed_at": "2026-09-25",
+      "suggested_path": "02-OpenAI/models/GPT-6 Sol et Luna.md",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-sol",
+      "created_at": "2026-09-25"
     }
   ]
 }

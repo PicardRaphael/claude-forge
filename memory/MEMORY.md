@@ -39,7 +39,7 @@
 - [edit-read-obligatoire](feedback_edit_tool_read_obligatoire.md) — Edit en parallèle sans Read = 7/8 échecs. Batch Read puis batch Edit
 - [python-path-windows](feedback_python_path_windows.md) — hooks Windows : launcher `py`, jamais `python` nu ni chemin absolu
 - [allocation-modele-effort](feedback_allocation_modele_effort.md) — Sonnet exécution / Opus jugement ; `high` au départ, `xhigh` = step-up mesuré ; sweep d'effort à REFAIRE à chaque changement de modèle
-- [preference-modele-opus](feedback_preference_modele_opus.md) — défaut opus-5 (Fable 5.1 ne le remplace pas : step-up mesuré) ; repli 4.8 ; jamais 4.7
+- [preference-modele-opus](feedback_preference_modele_opus.md) — alias opus → Opus 5.5 (effort API medium, forge pose high) ; Fable 5.1 = step-up mesuré ; repli Opus 5 puis 4.8 ; jamais 4.7
 - [test-writer-systematic](feedback_test_writer_systematic.md) — max 3 tests/comportement, REFACTOR supprimée, effort high
 
 ### Mémoire, vault & doctrine

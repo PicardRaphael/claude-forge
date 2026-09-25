@@ -7,12 +7,36 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-09-06
+derniere-maj: 2026-09-25
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-09-25 — pivot effort Opus 5.5 + batch de créations cc-news validé
+
+- **Ajoutées** :
+  - `01-Claude/models/Opus 5.5.md` — specs, positionnement officiel, piège effort `medium`, breaking changes 400, pertinence forge.
+  - `01-Claude/Code/changelog/CC septembre 2026 - Opus 5.5 + v2.1.263-282.md` — sélection du delta v2.1.263→282 (modèles/effort, hooks, instructions/skills/agents, outils, sécurité, settings).
+  - `02-OpenAI/models/GPT-6 Sol et Luna.md` — specs Sol (fiche officielle), Luna (changelog), Codex, non-vérifiés isolés.
+  - `Knowledge/raisonnements/raisonnement-2026-09-25-effort-opus-5-5.md` — pivot validé par Raphaël : `high` = choix délibéré explicite, sweep Opus 5.5 n=3 avant tout changement de frontmatter.
+- **Modifiées** :
+  - `04-Techniques/claude-code/effort-opus-47-doctrine-anthropic-2026.md` — section Opus 5.5 + resume.
+  - `04-Techniques/claude-code/doctrine-par-modele-opus5-fable5.md` — amendement « alias opus = Opus 5.5 ».
+  - `00-Hub/MOC-Modeles.md` — wikilinks vers les nouvelles fiches ; `00-Hub/MOC-Claude-Code.md` — entrée changelog septembre.
+- **Source** : verdict `[v]` de Raphaël sur `doctrine-impact-check` ; page Effort `platform.claude.com/docs/en/build-with-claude/effort`.
+
+## 2026-09-25 — cc-news complet : Opus 5.5 devient le défaut, GPT-6 Sol/Luna
+
+- **Ajoutées** : aucune (créations proposées en batch, non écrites).
+- **Modifiées** :
+  - `01-Claude/models/Opus 5.md` — plus le défaut Opus : remplacé par Opus 5.5 en CC v2.1.280 (22 sept.), legacy ; effort API défaut `high` précisé ; point thinking-400 confirmé en primaire.
+  - `01-Claude/models/Fable 5.1.md` — positionnement officiel relu : le point de départ recommandé est désormais Opus 5.5 ; effort mid-conversation étendu à Opus 5.5 ; date de retrait.
+  - `02-OpenAI/models/GPT-6 Astra.md` — prix, contexte et output confirmés en primaire (fiche modèle officielle), palier 272K sur toute la requête ; défaut Codex requalifié « non nommé » depuis Sol/Luna.
+  - `02-OpenAI/products/OpenAI Codex.md` — état au 25 sept. : CLI 0.157.0, plus de défaut nommé, Sol/Luna, retrait GPT-5.5 le 14 oct., guide « Rethinking skills and prompts for GPT-6 Astra ».
+  - `00-Hub/MOC-Modeles.md` — lineup Anthropic officiel, Opus 5.5, Sonnet 5 plus défaut Pro, retrait Haiku 4.5 ≥ 15 oct., GPT-6 Sol/Luna, Grok 4.7, dépréciations OpenAI/Google (Antigravity preview 05-2026 arrêté le 5 oct.).
+- **Source** : `raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md` (v2.1.263→2.1.282), `platform.claude.com/docs/en/models/overview`, `…/models/opus-5-5/migration-guide`, `…/build-with-claude/effort`, `developers.openai.com/api/docs/models/gpt-6-astra`, `developers.openai.com/api/docs/changelog`, `learn.chatgpt.com/docs/models`, `github.blog/changelog`, `ai.google.dev/gemini-api/docs/changelog`.
 
 ## 2026-09-06 — la dette qui ne fait aucun bruit
 

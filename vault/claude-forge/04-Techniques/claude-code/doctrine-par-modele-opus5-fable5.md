@@ -9,7 +9,7 @@ aliases:
   - skills too prescriptive Fable
   - agent en Fable que faire
   - verification par modele
-derniere-maj: 2026-09-05
+derniere-maj: 2026-09-25
 auteur: claude
 type: technique
 sources:
@@ -117,6 +117,19 @@ Le `self-preferential bias` (post [harness](https://claude.com/blog/a-harness-fo
 - [[verification-sources-canoniques]] — lire un verbatim dans sa section
 
 ---
+
+## ⚠️ 25 septembre 2026 — l'alias `opus` est désormais Opus 5.5
+
+Depuis CC v2.1.280, `model: opus` résout vers [[Opus 5.5]], pas vers Opus 5. La colonne « Opus 5 » du tableau ci-dessus décrit un modèle legacy ; pour Opus 5.5, seuls les amendements vérifiés en primaire sont posés ici :
+
+| Sujet | Opus 5.5 |
+|---|---|
+| **Effort de départ** | défaut API **`medium`**, **aucun point de départ recommandé** (« Run an effort sweep on your own evals »). Forge garde `high` explicite comme choix délibéré jusqu'au sweep n=3 — cf [[raisonnement-2026-09-25-effort-opus-5-5]] |
+| **Thinking** | adaptatif **toujours actif** à tous les niveaux : `disabled` et `budget_tokens` → 400 |
+| **Outils** | `tool_choice` any/tool → 400 (comme Fable 5.1) ; `auto` + strict tool use |
+| **Thinking blocks** | lit ceux d'Opus 5 et antérieurs, pas ceux de Fable/Mythos |
+
+Les lignes Vérification / Délégation / Verbosité de la colonne Opus 5 **n'ont pas été revérifiées** pour Opus 5.5 (page [Prompting Claude Opus 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5) non lue le 25 sept.) : ne pas les transposer sans lecture.
 
 ## AJOUT 5 septembre 2026 — Fable 5.1 remplace Fable 5, et le sweep d'effort n'est pas transférable
 

@@ -77,14 +77,16 @@ Claude utilise `ScheduleWakeup` pour décider dynamiquement quand revérifier (�
 | `xhigh`  | Option agentique/coding long : design API, archi modules, refactors structurels |
 | `max`    | Problèmes très durs. Diminishing returns, prone overthinking |
 
-**`high` est le défaut** sur Opus 5, Fable 5.1 et Sonnet 5 ; `xhigh`/`extra`/`max` restent des options pour les tâches agentiques/coding longues. Monter d'un cran est un step-up mesuré, jamais un réglage de départ — le sweep se refait à chaque changement de modèle, il ne s'hérite pas.
+**`high` est le défaut** sur Opus 5, Fable 5.1 et Sonnet 5 ; **`medium` sur Opus 5.5** (alias `opus`), sans point de départ recommandé ; `xhigh`/`extra`/`max` restent des options pour les tâches agentiques/coding longues. Monter d'un cran est un step-up mesuré, jamais un réglage de départ — le sweep se refait à chaque changement de modèle, il ne s'hérite pas.
 À `xhigh`/`max` : mettre max_tokens à 64k+ minimum.
 
 ### Modèles
 
-**Opus 5** (`claude-opus-5`, sorti 24 juillet 2026) — **défaut Opus** (CC v2.1.219) et défaut Claude Max : $5/$25, 1M contexte / 128k output, thinking ON par défaut, fast mode $10/$50 (~2,5×). Défaut forge pour `opus`. ⚠️ `thinking: disabled` combiné à `effort: xhigh|max` → erreur 400.
+**Opus 5.5** (`claude-opus-5-5`, sorti 22 septembre 2026) — **défaut Opus** (CC v2.1.280), alias `opus` : $4/$20, cache read $0,20, 1M contexte / 128k output, thinking adaptatif toujours actif, effort API par défaut `medium`. ⚠️ `thinking: disabled`, `budget_tokens`, `tool_choice` any/tool, sampling non défaut et prefill → erreur 400.
 
-**Fable 5.1** (`claude-fable-5-1`) — ne remplace pas Opus 5 comme défaut forge : bascule uniquement après gain mesuré sur la tâche visée.
+**Opus 5** (`claude-opus-5`, 24 juillet 2026) — legacy depuis Opus 5.5, toujours disponible : $5/$25, effort défaut `high`, fast mode $10/$50 (~2,5×). Premier repli.
+
+**Fable 5.1** (`claude-fable-5-1`) — ne remplace pas Opus 5.5 comme défaut forge : bascule uniquement après gain mesuré sur la tâche visée.
 
 **Sonnet 5** (`claude-sonnet-5`) — exécution. **Haiku 4.5** (`claude-haiku-4-5-20251001`) — mécanique, demande plus de guidance.
 
@@ -260,6 +262,8 @@ LSPs disponibles pour tous les langages majeurs.
   ]
 }
 ```
+
+⚠️ Depuis v2.1.280, un hook `type: agent` sur `PermissionRequest` ne s'exécute plus (sa réponse ne pouvait ni autoriser ni refuser) et affiche une erreur : sur cet événement, utiliser un hook `command` ou `http`.
 
 ## Delta v2.1.221–247 — points actionnables
 

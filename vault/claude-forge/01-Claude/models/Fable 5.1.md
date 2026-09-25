@@ -1,6 +1,6 @@
 ---
 titre: "Claude Fable 5.1 — modèle Fable par défaut depuis le 1er septembre 2026"
-resume: "Sorti le 1er sept. 2026 : claude-fable-5-1, 1M contexte / 128K output, $10/$50 par MTok, cache read $0,25/MTok (un quart du tarif Fable 5), thinking adaptatif toujours actif, effort défaut high, cutoff juin 2026. Trois breaking changes vs Fable 5 : forced tool use interdit, thinking blocks liés au modèle, historique append-only. Anthropic recommande de démarrer sur Opus 5 et de réserver Fable 5.1 au raisonnement exigeant et à l'agentique longue durée. Mythos 5.1 = même modèle, safeguards renforcés."
+resume: "Sorti le 1er sept. 2026 : claude-fable-5-1, 1M contexte / 128K output, $10/$50 par MTok, cache read $0,25/MTok (un quart du tarif Fable 5), thinking adaptatif toujours actif, effort défaut high, cutoff juin 2026. Trois breaking changes vs Fable 5 : forced tool use interdit, thinking blocks liés au modèle, historique append-only. Depuis le 22 sept. 2026, Anthropic recommande de démarrer sur Opus 5.5 (et non plus Opus 5) et de réserver Fable 5.1 au raisonnement exigeant et à l'agentique longue durée. Mythos 5.1 = même modèle, safeguards renforcés."
 aliases:
   - "Claude Fable 5.1"
   - "Fable 5.1"
@@ -8,12 +8,13 @@ aliases:
   - "fable-5-1"
   - "Mythos 5.1"
   - "claude-mythos-5-1"
-derniere-maj: 2026-09-05
+derniere-maj: 2026-09-25
 auteur: claude
 type: modele
 sources:
   - "https://platform.claude.com/docs/en/models/fable-5-1/overview"
   - "https://platform.claude.com/docs/en/models/fable-5-1/whats-new-fable-5-1"
+  - "https://platform.claude.com/docs/en/models/overview"
   - "https://www.anthropic.com/claude-fable-and-mythos-5-1"
   - "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1"
   - "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md"
@@ -35,19 +36,22 @@ tags:
 | Date | 1er septembre 2026 |
 | Prix | **$10 / M input · $50 / M output** — identiques à Fable 5 |
 | Cache writes | $12,50 / MTok (5 min) · $20 / MTok (1 h) — inchangés |
-| Cache read | **$0,25 / MTok** = 0,025 × input, contre 0,1 × input sur les autres modèles Claude — *« pay a quarter of the Claude Fable 5 rate »* |
+| Cache read | **$0,25 / MTok** = 0,025 × input, contre 0,1 × input sur la plupart des autres modèles Claude — *« pay a quarter of the Claude Fable 5 rate »* |
 | Contexte | **1M tokens** (défaut ET maximum) / 128K output |
 | Thinking | **Adaptatif, toujours actif** (non désactivable) |
 | Effort | défaut **`high`** ; `low` · `medium` · `xhigh` · `max` disponibles |
 | Batch | $5 / M input · $25 / M output |
 | Knowledge cutoff | juin 2026 |
+| Retrait | pas avant le 1er septembre 2027 (engagement Anthropic) |
 | Rétention | 30 jours, pas de zero-data-retention sans autorisation expresse |
 
 ## Positionnement officiel
 
-Verbatim, doc plateforme : *« For most workloads, start with Claude Opus 5… Use Claude Fable 5.1 for demanding reasoning and long-horizon agentic work, or when your evals on Claude Opus 5 at higher effort still fall short. »*
+Verbatim, page *Models overview* au 25 sept. 2026 : *« If you're unsure which model to use, start with Claude Opus 5.5 for most workloads. Use Claude Fable 5.1 for demanding reasoning and long-horizon agentic work, or when your evals on Claude Opus 5.5 at higher effort still fall short. »*
 
-Autrement dit : [[Opus 5]] reste le point de départ par défaut, Fable 5.1 est le **step-up mesuré** quand Opus 5 à effort élevé ne suffit plus. Ce n'est pas « le meilleur modèle, donc le modèle à prendre ».
+Autrement dit : **Opus 5.5** (`claude-opus-5-5`, 22 sept. 2026, $4/$20) est le point de départ par défaut, Fable 5.1 est le **step-up mesuré** quand Opus 5.5 à effort élevé ne suffit plus. Ce n'est pas « le meilleur modèle, donc le modèle à prendre ».
+
+Historique : du 1er au 21 sept. 2026, la même phrase nommait [[Opus 5]] comme point de départ ; elle a basculé sur Opus 5.5 à la sortie de celui-ci.
 
 ## Mythos 5.1 — même modèle, autres safeguards
 
@@ -65,7 +69,7 @@ Une intégration qui appelait déjà Fable 5 casse sur ces trois points :
 
 ## Nouveautés exploitables
 
-- **Effort modifiable en cours de conversation** (beta `mid-conversation-output-config-2026-07-01`) : monter l'effort pour une étape dure, le redescendre ensuite, **sans invalider le prompt cache**. Se pose via un message `role: "system"` portant `output_config: {"effort": …}`, actif au tour utilisateur suivant. Supporté par Fable 5.1, Mythos 5.1 et Opus 5.
+- **Effort modifiable en cours de conversation** (beta `mid-conversation-output-config-2026-07-01`) : monter l'effort pour une étape dure, le redescendre ensuite, **sans invalider le prompt cache**. Se pose via un message `role: "system"` portant `output_config: {"effort": …}`, actif au tour utilisateur suivant. Supporté par Fable 5.1, Mythos 5.1, Opus 5.5 et Opus 5 (page Effort, 25 sept. 2026).
 - **Messages système à portée d'un tour** (beta `mid-conversation-system-clear-at-2026-08-21`) : `clear_at: "next_user_message"` donne l'autorité d'un system prompt pour le tour courant, puis cesse de rendre. Le message reste dans `messages` et se renvoie verbatim — le cache continue de matcher et les blocs suivants restent valides. C'est la manière propre de faire un rappel par tour dans une boucle d'outils, à la place d'un texte injecté puis supprimé.
 - **Progress updates lisibles** (beta `thinking-display-updates-2026-08-18`) : `thinking.display: "updates"` renvoie en texte les mises à jour inter-outils tout en gardant le raisonnement caché.
 - **Provenance du contenu** : watermark statistique sur tout texte produit, Content Credentials C2PA signés sur les fichiers image/vidéo/audio récupérés via la Files API. Aucun token ajouté, aucune information sur l'utilisateur.
@@ -93,7 +97,7 @@ Anthropic garantit la compatibilité des prompts : *« Your existing Claude Fabl
 - **Alias gateway** : derrière un Claude apps gateway, `fable` et `best` **continuent de résoudre vers Fable 5** tant que le gateway n'est pas configuré pour 5.1 — sélectionner Fable 5.1 explicitement dans `/model`.
 - **Tag `[1m]`** : un agent `model: fable` pouvait tourner silencieusement en **200K** au lieu de 1M si le tag était ignoré sur un pin `ANTHROPIC_DEFAULT_FABLE_MODEL` (corrigé CC v2.1.260).
 - **Recherche à effort `low`** : 5.1 déclenche moins les outils de recherche et répond de mémoire — Anthropic cite nommément *« a fast-moving area like AI models and developer tools »*. Ne jamais faire tourner une veille à `low`.
-- **Refus** : `stop_reason: "refusal"` reste possible, en HTTP 200 avec un objet `stop_details` nommant la politique déclenchée. Un refus arrivant avant toute sortie n'est pas facturé, et le *fallback credit* rembourse le coût de cache du changement de modèle. Cibles de fallback autorisées : **Opus 4.8 et Opus 5**. Trois déclencheurs de faux positifs : phrasé « est-ce que ça compile sans erreur » (préférer « y a-t-il des bugs »), langages peu connus, **base64 en sortie d'outil**.
+- **Refus** : `stop_reason: "refusal"` reste possible, en HTTP 200 avec un objet `stop_details` nommant la politique déclenchée. Un refus arrivant avant toute sortie n'est pas facturé, et le *fallback credit* rembourse le coût de cache du changement de modèle. Cibles de fallback autorisées au 5 sept. 2026 : **Opus 4.8 et Opus 5** (non revérifié depuis la sortie d'Opus 5.5). Trois déclencheurs de faux positifs : phrasé « est-ce que ça compile sans erreur » (préférer « y a-t-il des bugs »), langages peu connus, **base64 en sortie d'outil**.
 - **Inchangé depuis Fable 5** : prefill de la réponse assistant → 400 ; `temperature`/`top_p`/`top_k` non défaut → 400 ; longueur minimale cacheable de 512 tokens ; thinking interleaved automatique sans header.
 
 ## Pertinence forge
@@ -106,7 +110,7 @@ Anthropic garantit la compatibilité des prompts : *« Your existing Claude Fabl
 ## Liens
 
 - [[Fable 5]] — génération précédente, cycle suspension/redéploiement
-- [[Opus 5]] — point de départ recommandé par Anthropic
+- [[Opus 5]] — point de départ recommandé du 1er au 21 sept. 2026, remplacé par Opus 5.5
 - [[prompting-fable5-cheatsheet]] — patterns de prompting + différences 5.1 par symptôme
 - [[doctrine-par-modele-opus5-fable5]] — quel modèle pour quel agent
 - [[MOC-Modeles]]

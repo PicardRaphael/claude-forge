@@ -6,8 +6,8 @@ aliases:
   - adaptive thinking Opus 4.7
   - low medium high xhigh max
   - effort recommandation officielle
-resume: "Doctrine effort Anthropic 2026 — scale low→medium→high→xhigh→max. La recommandation de DÉPART dépend du modèle : xhigh pour Opus 4.7/4.8 coding-agentic, mais high pour Opus 5 / Fable 5 / Sonnet 5 (« run a fresh effort sweep » si settings hérités d'un modèle antérieur). Doctrine forge Option C (calibrage par TYPE) toujours valide, mais son point de départ xhigh est périmé sur Opus 5 — re-mesure requise."
-derniere-maj: 2026-09-05
+resume: "Doctrine effort Anthropic 2026 — scale low→medium→high→xhigh→max. La recommandation de DÉPART dépend du modèle : xhigh pour Opus 4.7/4.8 coding-agentic, high pour Opus 5 / Fable 5.1 / Sonnet 5, et AUCUNE pour Opus 5.5 (alias opus depuis le 22 sept. 2026, défaut API medium, « run an effort sweep »). Pivot 25 sept. : forge garde high explicite comme choix délibéré, sweep Opus 5.5 à n=3 avant de bouger un frontmatter."
+derniere-maj: 2026-09-25
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
@@ -128,6 +128,19 @@ La cellule « repo-inspector (audit/analyze/scan) | **xhigh** » est **périmée
 grille Opus 4.7 et a été reconduite sur Opus 5 sans re-mesure — exactement ce qu'Anthropic
 interdit. Valeur en vigueur : **`high`**. Le fichier `.claude/agents/repo-inspector.md` porte
 désormais `effort: high`.
+
+## ⚠️ Opus 5.5 (22 sept. 2026) — plus de point de départ officiel, `high` devient un choix (pivot du 25 sept.)
+
+L'alias `opus` résout vers [[Opus 5.5]] depuis CC v2.1.280. Verbatim page Effort : *« `medium` is the default (Claude Opus 5 and earlier Opus models default to `high`, so a request that omits `effort` runs one level lower than it did on Claude Opus 5) … Run an effort sweep on your own evals rather than carrying settings over from an earlier model »*. Aucune phrase « Start with … » pour ce modèle.
+
+| Modèle | Défaut API | Point de départ officiel |
+|---|---|---|
+| **Opus 5.5** (alias `opus` depuis 22 sept.) | **`medium`** | **aucun** — sweep sur ses évals |
+| Opus 5 (legacy) | `high` | `high` |
+| Fable 5.1 | `high` | `high` |
+| Sonnet 5 | `high` | `high` |
+
+Doctrine forge après pivot (validé par Raphaël le 25 sept.) : les frontmatters **gardent `effort: high` explicite**, comme **choix délibéré** et non plus comme « défaut officiel » ; un composant sans `effort:` tourne en `medium` sur Opus ; **aucun frontmatter ne bouge avant un sweep Opus 5.5 à n=3 runs par niveau** (`medium` vs `high`), même protocole que ci-dessous. Les phrases de cette note qui disent « `high` est le point de départ officiel » valent pour Opus 5, Fable 5.1 et Sonnet 5, **plus pour l'alias `opus`**. Raisonnement : [[raisonnement-2026-09-25-effort-opus-5-5]].
 
 ## Sweep Opus 5 — 5 septembre 2026 (mesuré, n=1 par niveau)
 

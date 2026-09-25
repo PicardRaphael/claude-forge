@@ -134,7 +134,7 @@ maxTurns: 50                           # optionnel
 - `haiku` : exploration rapide, tâches courtes
 - `sonnet` : implémentation, exécution (défaut)
 - `opus` : orchestration, jugement, décisions complexes
-- `high` : le défaut (point de départ officiel sur Opus 5 / Fable 5 / Sonnet 5) · `medium`/`low` : scan, extraction, inspection mécanique — levier de coût principal · `xhigh` : step-up réservé à l'agentique long-horizon, et seulement après avoir mesuré un gain matériel · `max` : jamais en frontmatter
+- `high` : le défaut forge, posé explicitement (point de départ officiel sur Fable 5.1 / Sonnet 5 ; sur Opus 5.5, alias `opus`, le défaut API est `medium` et `high` est un choix délibéré) · `medium`/`low` : scan, extraction, inspection mécanique — levier de coût principal · `xhigh` : step-up réservé à l'agentique long-horizon, et seulement après avoir mesuré un gain matériel · `max` : jamais en frontmatter
 
 ### Body (system prompt de l'agent)
 
@@ -280,7 +280,7 @@ Priorités audit rapide :
 - **AskUserQuestion filtré** en subagent (issues #12890 #18721 #20275) → pattern ESCALADE obligatoire
 - **MCP non garanti** en subagent (`No such tool available`) → brief inline depuis session principale
 - **Subagent auto-commit** malgré instruction → mettre "PAS DE COMMIT" en TOP du prompt en gras
-- **`effort: xhigh` posé sans mesure = tokens gaspillés** — `high` est le point de départ officiel sur Opus 5 / Fable 5 / Sonnet 5, et l'alias `opus` résout vers Opus 5 : un `xhigh` hérité d'un modèle antérieur n'est plus justifié par défaut. Le prouver avant de le poser (1 run `high` vs 1 run `xhigh` sur la tâche réelle : un fichier lu en plus qui change la conclusion, pas une réponse plus longue). `medium`/`low` pour le mécanique. Cf [[effort-opus-47-doctrine-anthropic-2026]]
+- **`effort: xhigh` posé sans mesure = tokens gaspillés** — l'alias `opus` résout vers Opus 5.5, dont le défaut API est `medium` et pour lequel Anthropic ne donne aucun point de départ (« run an effort sweep ») : un `xhigh` hérité d'un modèle antérieur n'est pas justifié. Omettre `effort:` sur un agent `opus` le fait tourner en `medium`. Le prouver avant de le poser (1 run `high` vs 1 run `xhigh` sur la tâche réelle : un fichier lu en plus qui change la conclusion, pas une réponse plus longue). `medium`/`low` pour le mécanique. Cf [[effort-opus-47-doctrine-anthropic-2026]]
 - **`CLAUDE_CODE_FORK_SUBAGENT=1`** (v2.1.117+) — hérite du contexte complet parent, réutilise le cache
 - **Self-modification bloquée** — un agent ne peut pas modifier son propre fichier (classifier)
 - **BOM UTF-8** sur Windows (PowerShell Out-File) → frontmatter cassé silencieusement
