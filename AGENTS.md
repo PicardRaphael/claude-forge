@@ -95,6 +95,7 @@ py .claude/scripts/check-refs.py
 py .claude/scripts/check-frontmatter.py
 py .claude/scripts/check-orphan-tests.py
 py .claude/scripts/check-twin-drift.py
+py .claude/scripts/check-review-staleness.py
 git diff --check
 ```
 
