@@ -328,6 +328,7 @@ Procédure : git mv depuis _archive/ vers memory/, restaurer ligne index, ajoute
 - **MEMORY.md < 200 lignes** : si l'index approche la limite apres nettoyage, le signaler dans le rapport.
 - **Declencheur re-clean** : MEMORY.md > 38k chars = signal a traiter dans session courte dediee. Marge 2k sous seuil systeme 40k pour maintenance anticipee.
 - **Tier-1 = critere mecanique** : citation ≥1 OU 3 axes strategiques OU pinned. Pas d'"intuition tier-1" — sinon derive vers MEMORY.md obese.
+- **Writer cache d'un fichier archive** : avant d'archiver un `memory/project_*.md`, grep son nom de fichier dans `.claude/` et `.agents/`. Si une skill l'utilise comme cible d'ecriture, repointer ce writer vers le foyer promu dans le meme lot, sinon le prochain run recree le fichier archive.
 
 ---
 
