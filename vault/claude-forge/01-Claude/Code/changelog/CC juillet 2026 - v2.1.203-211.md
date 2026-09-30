@@ -9,7 +9,7 @@ aliases:
   - "claude code 2.1.203-211"
 domaine: claude-code
 type: changelog
-derniere-maj: 2026-07-16
+derniere-maj: 2026-09-30
 auteur: claude
 sources:
   - "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md"
@@ -86,7 +86,7 @@ Suite de [[CC juillet 2026 - Sonnet 5 + v2.1.198]]. Fenêtre 7-15 juillet 2026, 
 
 ## Dépréciations liées (fenêtre juillet)
 
-- [[claude-mythos-preview]] (`claude-mythos-preview`) : retrait **21 juillet 2026**
+- [[claude-mythos-preview]] (`claude-mythos-preview`) : **déprécié le 9 juin 2026, retrait « To be announced »** d'après la page officielle *Model deprecations* au 30 sept. 2026. La date de retrait du 21 juillet 2026 inscrite ici auparavant n'a pas de source primaire retrouvée.
 - Opus 4.1 : retrait **5 août 2026**
 
 ## Liens

@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "last_complete_run": "2026-09-25",
-  "last_attempted_run": "2026-09-25",
+  "last_complete_run": "2026-09-30",
+  "last_attempted_run": "2026-09-30",
   "domains": {
     "claude-code": {
-      "verified_at": "2026-09-25",
+      "verified_at": "2026-09-30",
       "status": "complete",
-      "latest_version": "2.1.282",
-      "content_checkpoint": "2.1.282",
+      "latest_version": "2.1.285",
+      "content_checkpoint": "2.1.285",
       "source": "https://www.npmjs.com/package/@anthropic-ai/claude-code",
       "content_source": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
-      "source_content_sha256": "f7687fb54480ecc71c8f9da577ede105b4c8cea3373f8eaadc348dff0f8b2f62"
+      "source_content_sha256": "0937ba0c7c5e7c5272c65aa0b24e0a5e6cc57e8e0e263f5a0559b5800cf2f217"
     },
     "codex": {
       "verified_at": "2026-08-27",
@@ -18,22 +18,24 @@
       "scope": "memories,hooks,codex-reference",
       "source": "https://learn.chatgpt.com/docs",
       "memories_sha256": "45dd880ea3bec8dd4833e305dc6076c0d5d9e3d7ffa5715049761aef931d265e",
-      "hooks_sha256": "a40b4d6775fce2cf9764e8ab047bda71b22d0b97cc2c1d982ebbecf4c114ff61"
+      "hooks_sha256": "a40b4d6775fce2cf9764e8ab047bda71b22d0b97cc2c1d982ebbecf4c114ff61",
+      "last_attempted": "2026-09-30",
+      "note": "Run du 30 sept. : changelog CLI couvert jusqu'a 0.159.2 (29 sept.), defaut gpt-6.1-sol verifie verbatim. Pages memories/hooks non relues (404 sur l'URL testee) : checkpoint du scope laisse au 2026-08-27."
     },
     "chatgpt": {
       "verified_at": "2026-08-27",
       "status": "failed",
       "latest_release_checked": "2026-08-25",
       "source": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
-      "last_failure": "2026-09-25",
-      "failure_reason": "help.openai.com/en/articles/6825453 renvoie 403 (runs du 5 et du 25 sept.) - couverture partielle seulement via learn.chatgpt.com/docs/changelog. Checkpoint laisse au 2026-08-27 conformement au contrat."
+      "last_failure": "2026-09-30",
+      "failure_reason": "help.openai.com/en/articles/6825453 et openai.com/products/release-notes renvoient 403 (runs du 5, 25 et 30 sept.) - couverture partielle via learn.chatgpt.com/docs/whats-new (semaine du 28 sept.) et agregats tiers. Checkpoint laisse au 2026-08-27 conformement au contrat."
     },
     "openai-models": {
-      "verified_at": "2026-09-25",
+      "verified_at": "2026-09-30",
       "status": "complete",
-      "latest_model_checked": "GPT-6 Sol / GPT-6 Luna (2026-09-22)",
+      "latest_model_checked": "GPT-6.1 Sol (2026-09-29)",
       "source": "https://developers.openai.com/api/docs/changelog",
-      "note": "Prix Astra et Sol confirmes sur les fiches modeles officielles. Prix Luna repris du changelog API, fiche non consultee. Benchmarks Astra toujours DEFER."
+      "note": "Prix Luna confirme sur sa fiche officielle. Fiche gpt-6.1-sol lue par un chercheur (extrait resume). Benchmarks Astra toujours DEFER."
     },
     "google": {
       "verified_at": "2026-09-05",
@@ -41,7 +43,9 @@
       "scope": "gemini-models,gemini-cli,antigravity",
       "latest_stable_checked": "Gemini 3.8 Flash",
       "source": "https://ai.google.dev/gemini-api/docs/models",
-      "secondary_source": "https://deepmind.google/models/gemini/"
+      "secondary_source": "https://deepmind.google/models/gemini/",
+      "last_attempted": "2026-09-30",
+      "note": "Run du 30 sept. : page modeles (maj 24 sept.), changelog Gemini API (22 sept.) et Antigravity CLI 1.2.14 couverts ; release notes de l'app Antigravity non couvertes, checkpoint non avance."
     }
   },
   "proposals": [
@@ -61,6 +65,14 @@
       "created_at": "2026-09-25"
     },
     {
+      "id": "claude-code-changelog-2026-09-rename-v2.1.263-285",
+      "status": "proposed",
+      "proposed_at": "2026-09-30",
+      "suggested_path": "01-Claude/Code/changelog/CC septembre 2026 - Opus 5.5 + Sonnet 5.5 + v2.1.263-285.md",
+      "source": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
+      "note": "contenu deja etendu a 2.1.285 ; seul le renommage (move_note) est propose"
+    },
+    {
       "id": "anthropic-model-opus-5-5",
       "status": "created",
       "proposed_at": "2026-09-25",
@@ -69,12 +81,33 @@
       "created_at": "2026-09-25"
     },
     {
+      "id": "anthropic-model-sonnet-5-5",
+      "status": "proposed",
+      "proposed_at": "2026-09-30",
+      "suggested_path": "01-Claude/models/Sonnet 5.5.md",
+      "source": "https://platform.claude.com/docs/en/models/sonnet-5-5/whats-new-sonnet-5-5"
+    },
+    {
       "id": "openai-model-gpt-6-sol-luna",
       "status": "created",
       "proposed_at": "2026-09-25",
       "suggested_path": "02-OpenAI/models/GPT-6 Sol et Luna.md",
       "source": "https://developers.openai.com/api/docs/models/gpt-6-sol",
       "created_at": "2026-09-25"
+    },
+    {
+      "id": "openai-model-gpt-6-1-sol",
+      "status": "proposed",
+      "proposed_at": "2026-09-30",
+      "suggested_path": "02-OpenAI/models/GPT-6.1 Sol.md",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.1-sol"
+    },
+    {
+      "id": "anthropic-api-betas-compaction-inline-tools-2026-09",
+      "status": "proposed",
+      "proposed_at": "2026-09-30",
+      "suggested_path": "enrichir 04-Techniques/context-engineering/Context Management.md (foyer existant trouve par search_brain(compaction)), pas de creation",
+      "source": "https://platform.claude.com/docs/en/release-notes/overview"
     }
   ]
 }

@@ -1,23 +1,28 @@
 ---
 titre: "Claude Mythos Preview"
-resume: "Modele frontier Anthropic, SWE-bench 93.9%, zero-day autonome, acces restreint Project Glasswing"
+resume: "Modele frontier Anthropic d'avril 2026 (SWE-bench 93.9%, zero-day autonome, acces Project Glasswing) ; deprecie depuis le 9 juin 2026, retrait « To be announced » au 30 sept. 2026, lignee continuee par Mythos 5 / 5.1"
 aliases:
   - "mythos"
   - "claude-mythos"
   - "glasswing"
+  - "claude-mythos-preview"
+  - "mythos preview"
 type: modele
-derniere-maj: 2026-07-27
+derniere-maj: 2026-09-30
 auteur: claude
 sources:
   - "https://www.anthropic.com/news/claude-mythos-preview"
+  - "https://platform.claude.com/docs/en/about-claude/model-deprecations"
 tags:
   - "#type/modele"
   - "#domaine/claude"
   - "#domaine/securite"
 ---
 
-> [!warning] RETIRÉ le 21 juillet 2026
-> Le modèle `claude-mythos-preview` a été **retiré** (dépréciation annoncée dans la fenêtre CC v2.1.203-211, effective le 21 juil.). La lignée Mythos continue via [[Fable 5]] (Mythos 5 = même modèle sans classifiers, Project Glasswing). Le contenu ci-dessous décrit le modèle tel qu'annoncé en avril 2026 — historique.
+> [!warning] DÉPRÉCIÉ depuis le 9 juin 2026 — retrait non daté
+> Page officielle *Model deprecations* au 30 sept. 2026 : `claude-mythos-preview` | **Deprecated** | June 9, 2026 | **To be announced**. Le modèle n'est donc pas retiré côté API Anthropic ; aucune date de retrait n'est publiée. La lignée Mythos continue via Mythos 5 et Mythos 5.1 (accès limité, Project Glasswing), jumeaux de [[Fable 5]] et [[Fable 5.1]]. Le contenu ci-dessous décrit le modèle tel qu'annoncé en avril 2026 — historique.
+>
+> Historique de la note : une version antérieure affirmait un retrait effectif au 21 juillet 2026. Aucune source primaire n'a été retrouvée pour cette date (ni dans le CHANGELOG Claude Code, ni dans la page deprecations) ; assertion remplacée le 30 sept. 2026.
 
 ## Specifications
 
@@ -54,4 +59,5 @@ tags:
 ## Liens
 
 - [[Opus 4.7]]
+- [[Fable 5.1]]
 - [[MOC-Modeles]]

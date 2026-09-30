@@ -8,7 +8,7 @@ aliases:
   - "index claude code"
   - "CC features map"
 type: index
-derniere-maj: 2026-09-25
+derniere-maj: 2026-09-30
 auteur: claude
 sources: []
 tags:
@@ -46,7 +46,7 @@ Quand on demande "analyse ce repo, propose-moi la config CC", la doctrine se tro
 
 ## Changelog (consolidé par mois)
 
-- [[CC septembre 2026 - Opus 5.5 + v2.1.263-282]] — **Opus 5.5 défaut Opus** (effort API `medium`), hooks agent-type interdits sur PermissionRequest, AGENTS.md sans CLAUDE.md, TaskOutput supprimé, omitClaudeMd, maxEffortLevel, namespaces `anthropic-skills`/`claude-ai` réservés
+- [[CC septembre 2026 - Opus 5.5 + v2.1.263-282]] — couvre v2.1.263 → v2.1.285 : **Opus 5.5 défaut Opus** (effort API `medium`), **Sonnet 5.5 défaut Sonnet** sur l'API Anthropic (2.1.284), auto mode par défaut sans `permissions.defaultMode`, Ultracode devenu toggle séparé, `/doctor prompt-audit`, hooks agent-type interdits sur PermissionRequest, AGENTS.md sans CLAUDE.md, TaskOutput supprimé, omitClaudeMd, maxEffortLevel, namespace `anthropic-skills` réservé (réservation `claude-ai` annulée en 2.1.283)
 
 - [[CC juillet 2026 - Opus 5 + v2.1.212-220]] — **Opus 5 défaut Opus**, /fork background + /subtask, EndConversation, patch sécu PowerShell 5.1, nesting depth 3 + caps, skills context:fork background
 - [[CC juillet 2026 - v2.1.203-211]] — auto mode défaut gateways, screen reader, transcripts -79x, hardening anti-injection Agent
@@ -114,7 +114,7 @@ Convention couleurs : voir [[agents-color-convention]].
 - [[Deprecation Sonnet 4 Opus 4]]
 - [[Deprecation 1M Context Beta]]
 - [[Deprecation budget_tokens]]
-- [[claude-mythos-preview]] — retiré 21 juillet 2026
+- [[claude-mythos-preview]] — déprécié le 9 juin 2026, retrait « To be announced » (page deprecations au 30 sept. 2026)
 
 ## Liens
 

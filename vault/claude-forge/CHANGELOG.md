@@ -7,12 +7,27 @@ aliases:
   - changelog forge-brain
   - historique notes vault
 type: index
-derniere-maj: 2026-09-25
+derniere-maj: 2026-09-30
 auteur: claude
 tags:
   - "#type/index"
   - "#domaine/claude-code"
 ---
+
+## 2026-09-30 — cc-news complet : Sonnet 5.5, CC v2.1.283-285, GPT-6.1 Sol, Mythos Preview requalifié
+
+- **Ajoutées** : aucune (créations proposées en batch, non écrites).
+- **Modifiées** :
+  - `01-Claude/models/Sonnet 5.md` — legacy depuis Sonnet 5.5 (28 sept.) ; $2/$10 devenu prix standard (hausse à $3/$15 du 1er sept. annulée, footnote Pricing) ; n'est plus le défaut CC ; implications forge (alias `sonnet`, sweep, advisor).
+  - `01-Claude/models/claude-mythos-preview.md` — « retiré le 21 juillet » remplacé par l'état normatif : déprécié le 9 juin 2026, retrait « To be announced » ; historique conservé ; aliases 3 → 5.
+  - `01-Claude/Code/changelog/CC juillet 2026 - v2.1.203-211.md` — ligne Dépréciations Mythos Preview corrigée.
+  - `01-Claude/Code/changelog/CC septembre 2026 - Opus 5.5 + v2.1.263-282.md` — étendue à v2.1.285 (Sonnet 5.5, auto mode par défaut, Ultracode toggle, `/doctor prompt-audit`, `deniedModels`/`availableModelsMatch`/`allowedProviders`, timeout des tâches background, forks et permissions) ; réservation `claude-ai` annulée en 2.1.283. Nom de fichier inchangé (renommage proposé).
+  - `02-OpenAI/products/OpenAI Codex.md` — CLI 0.159.2 ; `gpt-6.1-sol` défaut du catalogue intégré (0.159.1, verbatim) ; comportements 0.158-0.159 ; tarifs Luna et 6.1 Sol.
+  - `02-OpenAI/models/GPT-6 Sol et Luna.md` — fiche Luna confirmée ; correctif image du 25 sept. ; section successeur GPT-6.1 Sol ; comparaison prix recalée sur Sonnet 5.5.
+  - `00-Hub/MOC-Modeles.md` — lineup Anthropic du 30 sept. (Sonnet 5.5), Sonnet 5 legacy, Mythos Preview, GPT-6.1 Sol, Astra Ultrafast, Gemini 3.8 Live/TTS, 3.5 Pro et 3.8 Flash Cyber, Grok 4.7.
+  - `00-Hub/MOC-Claude-Code.md` · `00-Hub/MOC-Industrie.md` — entrée changelog septembre et lignes Mythos Preview corrigées.
+- **Leaders** : aucune
+- **Source** : `/cc-news` manuel du 30 sept. — CHANGELOG Claude Code (sha256 `0937ba0c…f217`), platform.claude.com (models overview, Sonnet 5.5 what's new, pricing, model deprecations), learn.chatgpt.com/docs/changelog, developers.openai.com/api/docs/changelog, ai.google.dev, docs.x.ai.
 
 ## 2026-09-25 — profil : les choix de questionnaire restent corrigeables
 
