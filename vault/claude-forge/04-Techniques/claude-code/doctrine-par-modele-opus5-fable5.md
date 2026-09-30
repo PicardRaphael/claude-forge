@@ -9,7 +9,7 @@ aliases:
   - skills too prescriptive Fable
   - agent en Fable que faire
   - verification par modele
-derniere-maj: 2026-09-25
+derniere-maj: 2026-09-30
 auteur: claude
 type: technique
 sources:
@@ -124,7 +124,7 @@ Depuis CC v2.1.280, `model: opus` résout vers [[Opus 5.5]], pas vers Opus 5. La
 
 | Sujet | Opus 5.5 |
 |---|---|
-| **Effort de départ** | défaut API **`medium`**, **aucun point de départ recommandé** (« Run an effort sweep on your own evals »). Forge garde `high` explicite comme choix délibéré jusqu'au sweep n=3 — cf [[raisonnement-2026-09-25-effort-opus-5-5]] |
+| **Effort de départ** | défaut API **`medium`**, **aucun point de départ recommandé** (« Run an effort sweep on your own evals »). Forge : `medium` pour l'exécution et le mécanique (anciens composants `sonnet`, pivot du 30 sept. — [[raisonnement-2026-09-30-zero-sonnet]]), `high` explicite pour le jugement jusqu'au sweep n=3 — cf [[raisonnement-2026-09-25-effort-opus-5-5]] |
 | **Thinking** | adaptatif **toujours actif** à tous les niveaux : `disabled` et `budget_tokens` → 400 |
 | **Outils** | `tool_choice` any/tool → 400 (comme Fable 5.1) ; `auto` + strict tool use |
 | **Thinking blocks** | lit ceux d'Opus 5 et antérieurs, pas ceux de Fable/Mythos |

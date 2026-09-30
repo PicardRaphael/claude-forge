@@ -7,7 +7,7 @@ aliases:
   - "claude-opus-5"
   - "opus-5"
   - "Claude Honeycomb"
-derniere-maj: 2026-09-25
+derniere-maj: 2026-09-30
 auteur: claude
 type: modele
 sources:
@@ -69,7 +69,7 @@ tags:
 ## Pertinence forge
 
 - `model: opus` dans les frontmatters d'agents a résolu vers Opus 5 du 24 juil. au 21 sept. 2026 ; **depuis CC v2.1.280 il résout vers Opus 5.5**, dont l'effort API par défaut est `medium` (et non `high`). Épingler `claude-opus-5` explicitement si un agent doit rester sur ce modèle.
-- Doctrine [[feedback_allocation_modele_effort|allocation modèle/effort]] « Sonnet exécution / Opus jugement » : le tier jugement monte en capacité à prix constant — pas de raison de pivoter, mais vérifier le comportement thinking-ON-par-défaut sur les agents jugement.
+- Au lancement, la doctrine [[feedback_allocation_modele_effort|allocation modèle/effort]] était « Sonnet exécution / Opus jugement » : Opus 5 faisait monter le tier jugement en capacité à prix constant, sans raison de pivoter. Depuis le 30 sept. 2026, forge n'utilise plus Sonnet : Opus `medium` pour l'exécution, Opus `high` pour le jugement ([[raisonnement-2026-09-30-zero-sonnet]]).
 - Gotcha : comme Fable 5, fallback classifier vers Opus 4.8 possible sur requêtes flaggées.
 
 ## Wikilinks

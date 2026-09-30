@@ -2,8 +2,8 @@
 name: self-updater
 description: Use after cc-news confirms a change to produce bounded update briefs for affected Claude Code or Codex references, skills, agents, hooks, rules and canonical vault notes.
 tools: Read, Glob, Grep, Bash, Skill, WebSearch, WebFetch
-model: sonnet
-effort: high
+model: opus
+effort: medium
 permissionMode: plan
 disallowedTools: Write, Edit
 color: cyan

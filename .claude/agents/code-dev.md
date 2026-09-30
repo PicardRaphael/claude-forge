@@ -2,8 +2,8 @@
 name: code-dev
 description: Use when writing, debugging, refactoring, or reviewing code in any stack (Python, TypeScript/JS, Go, Rust). Use PROACTIVELY when the task involves implementation from a plan, a spec, a bug report, or a feature request. Detects the stack first, then applies the right tooling.
 tools: Read, Write, Edit, Glob, Grep, Bash, Skill
-model: sonnet
-effort: high
+model: opus
+effort: medium
 color: green
 permissionMode: acceptEdits
 skills:

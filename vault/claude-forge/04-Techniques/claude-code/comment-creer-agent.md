@@ -1,6 +1,6 @@
 ---
 titre: "Comment créer un agent Claude Code parfait"
-resume: "Note canonique pour créer un agent Claude Code — frontmatter, critère d'existence d'un subagent, 6 niveaux d'enforcement, doctrine Sonnet/Opus, nesting depth 3, et interdiction absolue de contourner delegate-guard."
+resume: "Note canonique pour créer un agent Claude Code — frontmatter, critère d'existence d'un subagent, 6 niveaux d'enforcement, allocation modèle/effort (zéro Sonnet dans forge), nesting depth 3, et interdiction absolue de contourner delegate-guard."
 aliases:
   - "comment creer un agent"
   - "creer subagent claude code"
@@ -13,11 +13,12 @@ aliases:
   - "convention couleurs agents"
 type: technique
 auteur: claude
-derniere-maj: 2026-09-05
+derniere-maj: 2026-09-30
 sources:
   - "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents"
   - "https://code.claude.com/docs/en/sub-agents"
   - "https://code.claude.com/docs/en/agent-sdk/subagents"
+  - "https://code.claude.com/docs/en/model-config"
   - "Justin Young (MTS Anthropic) — Initializer + Coding agent (sans split modèles)"
   - "Cat Wu — Code with Claude London 19 mai 2026"
   - "Brad Abrams — Code with Claude SF 6 mai 2026 (Advisor Strategy)"
@@ -61,13 +62,13 @@ Le harness compte autant que le modèle.
 Sans agents spécialisés, la session principale fait tout :
 - **Pollution contexte** — recherches massives consomment le contexte principal
 - **Pas de boundaries** — pas de restriction d'outils par rôle
-- **Pas de modèle adapté** — code review = Sonnet, mais jugement archi = Opus
+- **Pas d'effort adapté** — l'exécution se contente d'Opus `medium`, le jugement archi demande Opus `high`
 - **Pas de parallélisation** — 1 thread principal séquentiel
 
 Avec agents :
 - **Délégation focalisée** — 1 rôle = 1 agent
 - **Boundaries explicites** (`allowed-tools`, `disallowedTools`)
-- **Modèles adaptés** (Sonnet exécution, Opus jugement — doctrine forge)
+- **Effort adapté au rôle** (Opus `medium` exécution, Opus `high` jugement — doctrine forge)
 - **Parallélisation** (multi-agents simultanés)
 
 ---
@@ -81,7 +82,7 @@ Avec agents :
 name: <nom-exact-du-fichier-sans-md>
 description: <trigger directive 3e personne, max ~500 chars>
 tools: <outils autorisés, séparés par virgule>
-model: sonnet | opus | haiku
+model: opus | haiku   # forge : jamais sonnet · repo projet : sa propre doctrine
 effort: low | medium | high | xhigh
 color: red | orange | yellow | green | blue | purple | cyan | pink
 # memory: project  # OPTIONNEL : besoin durable, scope et revision explicites
@@ -110,15 +111,15 @@ Cas réel 27 mai 2026 : `devils-advocate.md` avait `effort: high` en frontmatter
 1. **`name`** = nom du fichier sans `.md`, kebab-case
 2. **`description`** = trigger directive 3e personne (comme skills)
 3. **`model`** — les alias `sonnet`/`opus`/`haiku` pointent vers la génération courante, PAS vers un ID figé :
-   - `sonnet` → génération Sonnet courante (exécution)
-   - `opus` → génération Opus courante (jugement)
+   - `sonnet` → génération Sonnet courante (exclu de forge ; exécution dans les repos projet qui l'ont validé)
+   - `opus` → génération Opus courante (forge : exécution en `medium`, jugement en `high`)
    - `haiku` → génération Haiku courante (tâches courtes ultra-rapides)
    - **Préférer l'alias à l'ID complet** dans un agent : l'alias survit aux montées de version, l'ID complet meurt silencieusement. Un agent qui épingle un ID de génération révolue continuera de « marcher » longtemps après la disparition du modèle, en repli invisible. IDs exacts d'une génération donnée : les vérifier dans les docs, jamais de mémoire. Doctrine de repli forge : [[feedback_preference_modele_opus]].
 4. **`effort`** :
    - Options acceptées par le produit : `low`, `medium`, `high`, `xhigh`, `max`
    - "Available levels depend on the model"
-   - **Doctrine forge** : `high` par défaut ; `medium`/`low` pour le mécanique ; `xhigh` seulement après gain mesuré ; **`max` JAMAIS en frontmatter** (coût massif, overthinking observé). `max` reste une valeur produit valide — c'est la doctrine forge qui l'exclut d'un composant versionné.
-   - **Le réglage dépend de la génération** : `xhigh` était calibré sur les Opus 4.7/4.8 coding-agentic ; `high` est le bon défaut sur les générations suivantes. Grille par modèle : [[effort-opus-47-doctrine-anthropic-2026]] et [[doctrine-par-modele-opus5-fable5]]. Le sweep d'effort est à REFAIRE à chaque changement de génération — un réglage hérité ne se transpose pas.
+   - **Doctrine forge** : toujours explicite — `medium` pour l'exécution et le mécanique, `high` pour le jugement, `low` pour l'inspection triviale ; `xhigh` seulement après gain mesuré ; **`max` JAMAIS en frontmatter** (coût massif, overthinking observé). `max` reste une valeur produit valide — c'est la doctrine forge qui l'exclut d'un composant versionné.
+   - **Le réglage dépend de la génération** : `xhigh` était calibré sur les Opus 4.7/4.8 coding-agentic ; `high` était le point de départ officiel d'Opus 5 ; Opus 5.5 démarre à `medium`, sans point de départ recommandé. Grille par modèle : [[effort-opus-47-doctrine-anthropic-2026]] et [[doctrine-par-modele-opus5-fable5]]. Le sweep d'effort est à REFAIRE à chaque changement de génération — un réglage hérité ne se transpose pas.
 5. **Mémoire persistante** = absente par défaut. L'activer seulement pour un apprentissage durable propre à l'agent, avec scope et révision explicites
 6. **`permissionMode`** = optionnel ; le déclarer quand il clarifie un profil de risque :
    - `acceptEdits` pour créateurs (subagent-creator, skill-creator, hook-creator, claudemd-creator)
@@ -126,19 +127,20 @@ Cas réel 27 mai 2026 : `devils-advocate.md` avait `effort: high` en frontmatter
    - `plan` pour agents qui doivent **toujours passer par un plan validé** avant action
 7. **`disallowedTools: Write, Edit`** sur agents read-only (force délégation)
 
-### Politique modèles forge (doctrine inférée cohérente avec Anthropic)
+### Politique modèles forge (zéro Sonnet depuis le 30 sept. 2026)
 
-> **Important honnêteté** : la politique "Sonnet exécution / Opus jugement" est une **doctrine forge inférée** par pattern observé en sessions. **Cohérente avec** :
-> - **Cat Wu** (Code with Claude London 19 mai 2026) : conseils de délégation et de brief complet, introduction du niveau `xhigh` (le conseil a survécu aux générations suivantes, le numéro de version non)
-> - **Brad Abrams** (Code with Claude SF 6 mai 2026, Advisor Strategy talk) : executor model (Haiku) + advisor model (Opus implicite)
->
-> Aucune doctrine Anthropic verbatim n'énonce explicitement "Sonnet = exécution, Opus = jugement". C'est une généralisation forge.
+Arbitrage de Raphaël ([[raisonnement-2026-09-30-zero-sonnet]]) : aucun composant forge ne tourne sur `sonnet`. Le rôle se règle par l'**effort**, pas par le modèle.
 
-| Modèle | Rôle forge | Exemples |
+| Modèle + effort | Rôle forge | Exemples (agents, skills) |
 |--------|-----------|----------|
-| **Sonnet** | Exécution | dev, code-reviewer, test-writer, python-dev |
-| **Opus** | Jugement | architect, devils-advocate, project-auditor, outcomes-grader |
+| **Opus `medium`** | Exécution et mécanique | code-dev, self-updater, recap, vault-health |
+| **Opus `high`** | Jugement | devils-advocate, repo-inspector, outcomes-grader |
 | **Haiku** | Checks rapides | classifiers, anti-rationalization |
+| **Fable 5.1** | Step-up mesuré | aucun composant par défaut — seulement après une mesure qui montre qu'Opus 5.5 plafonne |
+
+Fondement : doc Claude Code ([code.claude.com/docs/en/model-config](https://code.claude.com/docs/en/model-config)) — *« Opus 5.5 at `medium` matches or exceeds Opus 5 at `high` on coding and knowledge-work evaluations »* — et l'alias `sonnet` qui résout vers Sonnet 5.5 depuis CC v2.1.284, dont la calibration d'effort ne se transpose pas depuis Sonnet 5. Coût accepté : Opus 5.5 coûte le double de Sonnet 5.5 au token. Aucune mesure forge n'établit encore qu'`opus, medium` bat `sonnet, high` sur l'exécution.
+
+> **Honnêteté** : l'ancien partage « Sonnet exécution / Opus jugement » (21 mai → 30 sept. 2026) était une **doctrine forge inférée**, jamais un verbatim Anthropic — cohérente avec Cat Wu (délégation, brief complet) et Brad Abrams (Advisor Strategy : executor Haiku + advisor Opus). Il reste la norme des repos projet (ia_back, neo_ia) qui l'ont validé. Précédent : une première politique « zéro Sonnet » (5 mai 2026) avait été remplacée le 21 mai ; un retour au partage devrait s'appuyer sur une mesure, pas sur le prix seul.
 
 ### Convention couleurs forge (cross-repo)
 
@@ -203,8 +205,8 @@ Lister les rôles dev récurrents du repo. Chaque rôle distinct = candidat agen
 - Outils nécessaires (`tools`)
 - Outils interdits (`disallowedTools`)
 - Skills mobilisées (`skills`)
-- Modèle adapté (sonnet/opus/haiku)
-- Effort niveau (high défaut)
+- Modèle adapté (forge : opus/haiku ; repo projet : sa propre doctrine)
+- Effort niveau (`medium` exécution / `high` jugement)
 
 ### Étape 3 — Déléguer à `subagent-creator`
 
@@ -338,8 +340,8 @@ Si l'agent zappe la skill parce qu'il fait le travail directement → restreindr
 - [ ] `name` kebab-case = nom du fichier sans `.md`
 - [ ] `description` directive 3e personne — déclencheur de délégation
 - [ ] `tools:` explicite — inclut `Skill` si l'agent doit invoquer des skills
-- [ ] `model` adapté (haiku explore, sonnet implémentation, opus orchestration/jugement), déclaré par ALIAS et non par ID figé
-- [ ] `effort` sans `max` — `high` par défaut
+- [ ] `model` adapté (forge : haiku explore, opus `medium` implémentation, opus `high` orchestration/jugement, jamais sonnet), déclaré par ALIAS et non par ID figé
+- [ ] `effort` explicite sans `max` — `medium` exécution, `high` jugement
 - [ ] `disallowedTools` pour couper les raccourcis qui font zapper les skills
 - [ ] mémoire persistante absente ou justifiée ; permissions au moindre privilège
 
@@ -366,12 +368,12 @@ Si l'agent zappe la skill parce qu'il fait le travail directement → restreindr
 
 ### Niveau basique
 - 1 agent par rôle critique (architect, dev, reviewer)
-- Tous Sonnet effort high
+- Un seul modèle et un seul effort pour tous les agents
 - mémoire persistante partout sans besoin ni révision
 - `permissionMode: acceptEdits`
 
 ### Niveau avancé
-- Sonnet/Opus split appliqué (jugement vs exécution, doctrine forge)
+- Effort calibré par type (opus `medium` exécution / `high` jugement, doctrine forge)
 - `disallowedTools` sur read-only (project-auditor, code-reviewer)
 - Skills injectées + référencées dans body
 - Convention couleurs cross-repo forge
@@ -394,7 +396,7 @@ Source : [anthropic.com/engineering/effective-harnesses-for-long-running-agents]
 - **Pas de split modèles** dans l'article — seul Opus 4.5 mentionné comme baseline failure sans harness
 - Le seul **différentiateur** entre les 2 agents = leurs initial user prompts
 
-> ⚠️ Erreur historique forge : avant audit 23 mai 2026, cette doctrine était présentée comme "Init = Opus, Coding = Sonnet". **Extrapolation forge non sourcée**. Le 2-agent architecture est canonique, le split modèles n'est pas chez Justin Young — cohérent avec doctrine forge Sonnet/Opus split via d'autres sources (Cat Wu, Brad Abrams) mais pas verbatim Justin Young.
+> ⚠️ Erreur historique forge : avant audit 23 mai 2026, cette doctrine était présentée comme "Init = Opus, Coding = Sonnet". **Extrapolation forge non sourcée**. Le 2-agent architecture est canonique, le split modèles n'est pas chez Justin Young — l'ancien split forge Sonnet/Opus (abandonné le 30 sept. 2026) s'appuyait sur d'autres sources (Cat Wu, Brad Abrams), pas sur Justin Young.
 
 Démontré sur tâches **long-running** où la séparation init / exécution améliore qualité.
 
@@ -423,7 +425,7 @@ Source : [Code with Claude SF — "Caching, harnesses, and advisors: Building on
 
 | Optim | Gain |
 |-------|------|
-| Sonnet/Opus split | Coût ~5× réduit sur exécution (Sonnet), qualité préservée sur jugement (Opus) — observation forge |
+| Effort par type (opus `medium` / `high`) | Doc CC : « Opus 5.5 at `medium` matches or exceeds Opus 5 at `high` » — plafond Opus sur l'exécution pour un effort modéré ; coût au token ×2 vs Sonnet 5.5 accepté, gain non mesuré sur forge |
 | 2-agent architecture Justin Young | Long-running tasks : qualité préservée par séparation init/coding |
 | Advisor Strategy (Brad Abrams) | "Close to Opus-level intelligence at much lower prices" (verbatim) — pattern GitHub Copilot |
 | LangChain harness changes | 52.8% → 66.5% Terminal Bench avec même modèle, harness seul (Vivek Trivedy 17 fév 2026, GPT-5.2-Codex) |
@@ -445,7 +447,7 @@ Source : [Code with Claude SF — "Caching, harnesses, and advisors: Building on
 - ❌ **Permissions rituelles** — choisir le mode selon le risque réel
 - ❌ **`effort: max` en frontmatter** — interdit par la doctrine forge (coût massif, overthinking)
 - ❌ **`effort: xhigh` par défaut** — step-up mesuré uniquement
-- ❌ **ID de modèle figé** — préférer l'alias `opus`/`sonnet`/`haiku`, sinon l'agent meurt en silence à la génération suivante
+- ❌ **ID de modèle figé** — préférer l'alias (`opus`/`haiku` dans forge, `sonnet` dans un repo projet qui l'a validé), sinon l'agent meurt en silence à la génération suivante
 - ❌ **Description en 1ère personne** — toujours 3e personne directive
 - ❌ **Pas de `color`** — convention forge
 
@@ -573,7 +575,7 @@ Un agent généré par `subagent-creator` doit adapter ses mécanismes selon l'e
 - **`effort: max` existe côté produit mais est interdit en frontmatter forge** — coût massif, overthinking observé
 - **`xhigh` par défaut = coût massif** — step-up mesuré uniquement, jamais un réglage de confort. Le niveau juste dépend de la génération : cf [[effort-opus-47-doctrine-anthropic-2026]].
 - **Un modèle plus littéral demande un scope explicite** — observation forge stable d'une génération à l'autre : être explicite sur le scope et le parallélisme attendu plutôt que compter sur la généralisation
-- **Ne jamais épingler un ID de modèle dans un agent** — utiliser l'alias `sonnet`/`opus`/`haiku`. Un ID figé devient faux en silence ; c'est exactement ce qui a laissé des IDs de génération 4.x prescrits dans cette note jusqu'au 5 septembre 2026.
+- **Ne jamais épingler un ID de modèle dans un agent** — utiliser l'alias (`opus`/`haiku` dans forge, `sonnet` dans un repo projet qui l'a validé). Un ID figé devient faux en silence ; c'est exactement ce qui a laissé des IDs de génération 4.x prescrits dans cette note jusqu'au 5 septembre 2026.
 
 ### Pièges permissions
 - **agents de plugins** : `hooks`, `mcpServers`, `permissionMode` sont **ignorés pour les agents de plugins** (sécurité) — s'applique uniquement aux agents `.claude/agents/` du repo courant.

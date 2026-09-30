@@ -1,6 +1,6 @@
 ---
 titre: "Workflow Claude Code optimal pour tout repo (mai 2026)"
-resume: "Workflow canonique mai 2026 — Routines higher-order prompt (Boris), Advisor Strategy (Brad Abrams), leaf nodes/human core/verifiable checkpoints (Erik), multi-clauding /loop, planification 15-20min, parallélisation 5 terminal + 5-10 browser sessions, Sonnet/Opus split, compounding."
+resume: "Workflow canonique mai 2026 — Routines higher-order prompt (Boris), Advisor Strategy (Brad Abrams), leaf nodes/human core/verifiable checkpoints (Erik), multi-clauding /loop, planification 15-20min, parallélisation 5 terminal + 5-10 browser sessions, allocation modèle/effort par type (forge : zéro Sonnet depuis le 30 sept. 2026), compounding."
 aliases:
   - "workflow claude code optimal"
   - "workflow boris 2026"
@@ -14,7 +14,7 @@ aliases:
   - "compute allocator"
   - "comment automatiser claude code"
   - "automation workflow"
-derniere-maj: 2026-07-27
+derniere-maj: 2026-09-30
 auteur: claude
 type: technique
 sources:
@@ -46,7 +46,7 @@ Le **workflow optimal Claude Code mai 2026** combine 7 pratiques canoniques de l
 3. **Leaf nodes / human core / verifiable checkpoints** (Erik Schluntz)
 4. **Multi-clauding** — 5 terminal + 5-10 browser sessions parallèles
 5. **`/loop`** — autonome long-running
-6. **Sonnet/Opus split** — exécution vs jugement (doctrine forge cohérente avec Cat Wu + Brad Abrams)
+6. **Allocation modèle/effort par type** — forge : `opus` + `medium` exécution, `opus` + `high` jugement, zéro Sonnet depuis le 30 sept. 2026 ; repos projet : leur propre partage
 7. **Compounding error-driven** — CLAUDE.md évolue avec les erreurs
 
 **Verbatim Boris** (Sequoia avril 2026) :
@@ -65,7 +65,7 @@ Sans workflow optimisé :
 - **1 session séquentielle** = bottleneck humain (1 thread)
 - **Pas de spec** = code généré qui rate la cible
 - **Pas de verification** = qualité aléatoire
-- **Coût élevé** sur jugement (tout en Opus) ou qualité basse (tout en Sonnet)
+- **Coût mal alloué** — effort maximal partout, ou effort trop bas sur le jugement
 - **Erreurs récurrentes** sans compounding
 
 Avec workflow optimal :
@@ -145,19 +145,22 @@ Pattern Boris (tip #1) : **"Give Claude a way to verify its work → 2-3x qualit
 
 `/loop` + verifiable checkpoints = autonome avec qualité.
 
-### 6. Sonnet / Opus split (doctrine forge cohérente avec Anthropic)
+### 6. Allocation modèle/effort par type de tâche
 
-**Doctrine forge inférée**, cohérente avec :
-- **Cat Wu** (CwC London 19 mai 2026) : "Opus 4.7 tips — delegate, write full-context briefs, use the new `xhigh` effort level"
-- **Brad Abrams** (CwC SF) : Advisor Strategy = executor (Haiku) + advisor (Opus)
+**Forge (arbitrage de Raphaël, 30 sept. 2026 — [[raisonnement-2026-09-30-zero-sonnet]])** : aucun composant ne tourne sur `sonnet` ; le rôle se règle par l'effort.
 
-| Modèle | Rôle forge | Exemples |
+| Modèle + effort | Rôle forge | Exemples |
 |--------|-----------|----------|
-| **Sonnet** | Exécution | dev, code-reviewer, test-writer, python-dev |
-| **Opus** | Jugement | architect, devils-advocate, project-auditor |
+| **Opus `medium`** | Exécution et mécanique | code-dev, self-updater, recap, vault-health |
+| **Opus `high`** | Jugement | devils-advocate, repo-inspector, outcomes-grader |
 | **Haiku** | Checks rapides | classifiers, anti-rationalization |
+| **Fable 5.1** | Step-up mesuré | aucun composant par défaut |
 
-**Effort** : `high` partout sauf architect/dev-lead/refactor-pg = `xhigh`. `max` toujours disponible (vérifié docs 23 mai 2026), à utiliser avec prudence (prone overthinking).
+Fondement : doc Claude Code (code.claude.com/docs/en/model-config) — *« Opus 5.5 at `medium` matches or exceeds Opus 5 at `high` on coding and knowledge-work evaluations »* ; l'alias `sonnet` résout vers Sonnet 5.5 depuis CC v2.1.284 et sa calibration d'effort ne se transpose pas. Coût au token ×2 vs Sonnet 5.5 accepté ; gain non mesuré sur forge.
+
+**Repos projet** (ia_back, neo_ia) : le partage « Sonnet exécution / Opus jugement » reste leur norme validée. C'était une **doctrine forge inférée** (21 mai → 30 sept. 2026), cohérente avec Cat Wu (CwC London 19 mai 2026 : « delegate, write full-context briefs, use the new `xhigh` effort level ») et Brad Abrams (Advisor Strategy = executor Haiku + advisor Opus), jamais un verbatim Anthropic.
+
+**Effort** : toujours explicite — `medium` exécution et mécanique, `high` jugement, `xhigh` step-up mesuré, `max` jamais en frontmatter. Grille par modèle : [[effort-opus-47-doctrine-anthropic-2026]].
 
 ### 7. Compounding error-driven (Boris)
 
@@ -237,7 +240,7 @@ Pas d'overhead. Pas d'agent.
 1. Planning humain 15-20 min minimum
 2. /spec + decompose
 3. Multi-clauding (5 terminal + 5-10 browser) sur tickets indépendants
-4. Advisor Strategy : Opus advise, Sonnet/Haiku execute
+4. Advisor Strategy : Opus advise, un exécutant moins coûteux execute (forge : Opus medium ; ailleurs Sonnet/Haiku)
 5. Verifiable checkpoints à chaque ticket
 6. /loop autonome sur tâches répétitives
 7. Compounding CLAUDE.md au fil
@@ -263,14 +266,14 @@ Pas d'overhead. Pas d'agent.
 ### Niveau basique
 - CLAUDE.md + 1-3 routines (slash commands)
 - Sessions séquentielles
-- Sonnet partout
+- Un seul modèle et un seul effort partout
 - Pas de hooks
 
 ### Niveau avancé
 - 5-10 routines (skills + slash commands)
 - 3-5 agents par rôle
 - Multi-clauding 2-3 sessions parallèles
-- Sonnet/Opus split appliqué
+- Effort calibré par type de tâche
 - Hooks lint/security
 
 ### Niveau expert (forge actuel)
@@ -294,7 +297,7 @@ Pas d'overhead. Pas d'agent.
 | Routines (higher-order) | Productivité ×N (Boris : 259 PRs/30j déc 2025) |
 | Advisor Strategy | **"Close to Opus-level intelligence at much lower prices"** (Brad Abrams verbatim CwC SF) |
 | Multi-clauding 5 terminal + 5-10 browser | **+300% équipe 3 mois** Noah Zweben verbatim Every : "500 in January to roughly 1,150 in March" |
-| Sonnet/Opus split (doctrine forge) | Cohérent avec Cat Wu + Brad Abrams patterns |
+| Effort par type (forge : opus medium / high) | Doc CC : « Opus 5.5 at `medium` matches or exceeds Opus 5 at `high` » ; gain non mesuré sur forge |
 | Verifiable checkpoints + /loop | **2-3× quality** (Boris tip #1) |
 | Harness changes (Böckeler) | LangChain **52.8% → 66.5%** Terminal Bench, **harness seul**, modèle **GPT-5.2-Codex** (Vivek Trivedy LangChain blog 17 fév 2026) |
 | ForgeCode Terminal-Bench 2.0 | **79.8%** (Bustamante). Comparaison à Claude Code et +21.8 pts non sourcés directement chez Addy Osmani (qualitatif uniquement) |
@@ -308,8 +311,8 @@ Pas d'overhead. Pas d'agent.
 ### Workflow
 - ❌ **Tout prompter manuellement** — automatiser les routines
 - ❌ **0 advisor / 0 verification** — qualité aléatoire
-- ❌ **Tout en Opus** — coût ×N inutile sur exécution
-- ❌ **Tout en Sonnet** — qualité dégradée sur jugement
+- ❌ **Effort maximal partout** — `high`/`xhigh` sur l'exécution = coût inutile, `medium` suffit
+- ❌ **Effort bas sur le jugement** — qualité dégradée
 - ❌ **`max` effort partout** — coût massif, réserver
 - ❌ **Pipeline workflow trop long** (> 30 min sur CRUD) — frustration, supersédé doctrine 22 mai
 - ❌ **REFACTOR phase systématique** dans pipeline — supprimée doctrine 22 mai
@@ -414,7 +417,7 @@ Pas d'overhead. Pas d'agent.
 - **Subagent qui commit malgré "pas de commit"** — TOP du prompt en gras (cf [[feedback_subagent_autocommit]])
 
 ### Pièges modèle
-> ⚠️ **Amende 18 juin 2026 — effort : « xhigh réservé » est PÉRIMÉ.** Les deux lignes ci-dessous (et la ligne 160 « high partout sauf 3 rôles ») reflètent l'ancien pivot 22 mai. Doctrine actuelle = **Option C** (tranchée 18 juin) : `xhigh` = défaut agentique/coding multi-tool ; `high` = comparatif/jugement structuré ; `medium`/`low` = scan/extraction ; `max` = ponctuel jamais frontmatter. Source de vérité : [[effort-opus-47-doctrine-anthropic-2026]] + [[conflit-effort-xhigh-anthropic-vs-pivot-22mai]] (résolue). Ne pas re-propager « xhigh réservé ».
+> ⚠️ **Amende 18 juin 2026 — effort : « xhigh réservé » est PÉRIMÉ.** Les deux lignes ci-dessous reflètent l'ancien pivot 22 mai. Doctrine actuelle = **Option C** (tranchée 18 juin) : `xhigh` = défaut agentique/coding multi-tool ; `high` = comparatif/jugement structuré ; `medium`/`low` = scan/extraction ; `max` = ponctuel jamais frontmatter. Source de vérité : [[effort-opus-47-doctrine-anthropic-2026]] + [[conflit-effort-xhigh-anthropic-vs-pivot-22mai]] (résolue). Ne pas re-propager « xhigh réservé ».
 - **`effort: max` toujours disponible** mai 2026 (vérifié docs), à utiliser avec prudence
 - **`xhigh` partout = coût massif** — réservé architect/dev-lead/refactor-pg (forge)
 - **Opus 4.7 plus littéral** — être explicite scope et parallélisme (observation forge)
@@ -494,6 +497,7 @@ Aliases déclarés en frontmatter (12) :
 ### Knowledge / refs liées
 - [[raisonnement-22mai-doctrine-vs-enforcement]]
 - [[raisonnement-revirement-pipeline-mai-2026]]
+- [[raisonnement-2026-09-30-zero-sonnet]]
 - [[erreur-pipeline-trop-long-frustration]]
 - [[feedback_no_cto_agent]]
 - [[feedback_no_doc_agent]]

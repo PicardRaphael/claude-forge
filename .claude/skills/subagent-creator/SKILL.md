@@ -70,8 +70,8 @@ Extraire d'abord depuis l'historique, puis combler avec AskUserQuestion.
 6. Agents parallèles ? → `isolation: worktree`
 
 **Round 3 — Modèle & enrichissement**
-7. Modèle : haiku (exploration rapide) / sonnet (implémentation) / opus (orchestration/jugement) ?
-8. Effort : `high` (défaut) / `medium`-`low` (scan, extraction, inspection mécanique) / `xhigh` uniquement si un gain a déjà été mesuré sur ce type de tâche ?
+7. Modèle : dans forge, `opus` (jamais `sonnet`) ; dans un repo projet, sa propre doctrine (ia_back, neo_ia : `sonnet` exécution / `opus` jugement) ; `haiku` pour l'exploration rapide ?
+8. Effort : dans forge, `medium` pour l'exécution et le mécanique, `high` pour le jugement ; `low` pour l'inspection triviale ; `xhigh` uniquement si un gain a déjà été mesuré sur ce type de tâche ?
 9. Skills à injecter ? (subagents n'héritent PAS des skills du parent — lister explicitement)
 10. Mémoire entre sessions → désactivée par défaut. L'activer seulement si un apprentissage durable propre à cet agent est démontré, avec périmètre et méthode de révision. Un relais de pipeline n'est jamais une mémoire persistante.
 
@@ -96,8 +96,8 @@ name: <nom-exact-fichier-sans-md-kebab-case>
 description: <TRIGGER directive 3e personne — UNE SEULE LIGNE anglais, jamais >- ni |>
 tools: Read, Grep, Glob, Bash, Skill   # TOUJOURS explicite — inclure Skill si l'agent doit invoquer des skills
 disallowedTools: Write, Edit           # pour agents read-only
-model: sonnet | opus | haiku
-effort: high                           # défaut · medium/low si mécanique · xhigh seulement si gain mesuré
+model: opus | haiku                    # forge : jamais sonnet · repo projet : suivre sa doctrine
+effort: medium                         # exécution · high pour le jugement · xhigh seulement si gain mesuré
 color: red|orange|yellow|green|blue|purple|cyan|pink
 # memory: project                      # OPTIONNEL — besoin durable démontré uniquement
 permissionMode: acceptEdits | plan     # OPTIONNEL — explicite si le risque le justifie
@@ -132,9 +132,10 @@ maxTurns: 50                           # optionnel
 
 **Politique modèles :**
 - `haiku` : exploration rapide, tâches courtes
-- `sonnet` : implémentation, exécution (défaut)
-- `opus` : orchestration, jugement, décisions complexes
-- `high` : le défaut forge, posé explicitement (point de départ officiel sur Fable 5.1 / Sonnet 5 ; sur Opus 5.5, alias `opus`, le défaut API est `medium` et `high` est un choix délibéré) · `medium`/`low` : scan, extraction, inspection mécanique — levier de coût principal · `xhigh` : step-up réservé à l'agentique long-horizon, et seulement après avoir mesuré un gain matériel · `max` : jamais en frontmatter
+- `opus` : tout le reste dans forge — `medium` pour l'implémentation, l'exécution et le mécanique, `high` pour l'orchestration, le jugement et les décisions complexes
+- `sonnet` : exclu de forge (vault `raisonnement-2026-09-30-zero-sonnet`) ; reste la norme d'exécution des repos projet qui l'ont validée
+- `fable` : step-up seulement, après une mesure qui montre qu'Opus 5.5 plafonne
+- Effort : Opus 5.5 démarre à `medium` s'il n'est pas précisé — toujours poser `effort:` explicitement · `xhigh` : step-up réservé à l'agentique long-horizon, et seulement après avoir mesuré un gain matériel · `max` : jamais en frontmatter
 
 ### Body (system prompt de l'agent)
 

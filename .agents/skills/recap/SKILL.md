@@ -3,8 +3,8 @@ name: recap
 description: Produces a 30-second project status snapshot — git state, vault stats, memory, cc-news date, and one-line context suggestion. Use when resuming a session after a break or switching context.
 allowed-tools: Read, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
 user-invocable: true
-model: sonnet
-effort: high
+model: opus
+effort: medium
 ---
 
 # recap — Snapshot de contexte claude-forge

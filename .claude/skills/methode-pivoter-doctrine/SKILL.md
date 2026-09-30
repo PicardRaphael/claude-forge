@@ -3,8 +3,8 @@ name: methode-pivoter-doctrine
 description: ALWAYS invoke when a forge canonical doctrine is invalidated by new evidence (Anthropic update, empirical measurement, audit verdict). Executes 5-step checklist to pivot without residual drift. DO NOT pivot doctrine without invoking first.
 user-invocable: true
 allowed-tools: Read, Grep, Glob, Write, Edit, Bash, mcp__forge-brain__read_note, mcp__forge-brain__update_note, mcp__forge-brain__create_note
-model: sonnet
-effort: high
+model: opus
+effort: medium
 ---
 
 # Méthode pivot doctrinal — sans régression silencieuse

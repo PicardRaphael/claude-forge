@@ -4,8 +4,8 @@ description: ALWAYS invoke when user says "evolve skill", "ameliore la skill", "
 argument-hint: "[skill-name | all]"
 user-invocable: true
 allowed-tools: Read, Glob, Grep, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note, mcp__forge-brain__read_note_by_path, mcp__forge-brain__read_section, mcp__forge-brain__list_notes
-model: sonnet
-effort: high
+model: opus
+effort: medium
 ---
 
 # skill-evolve — Repérage stratégique + cross-pollination des skills

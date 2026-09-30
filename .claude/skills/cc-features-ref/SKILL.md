@@ -77,7 +77,7 @@ Claude utilise `ScheduleWakeup` pour décider dynamiquement quand revérifier (�
 | `xhigh`  | Option agentique/coding long : design API, archi modules, refactors structurels |
 | `max`    | Problèmes très durs. Diminishing returns, prone overthinking |
 
-**`high` est le défaut** sur Opus 5, Fable 5.1 et Sonnet 5 ; **`medium` sur Opus 5.5** (alias `opus`), sans point de départ recommandé ; `xhigh`/`extra`/`max` restent des options pour les tâches agentiques/coding longues. Monter d'un cran est un step-up mesuré, jamais un réglage de départ — le sweep se refait à chaque changement de modèle, il ne s'hérite pas.
+**`high` est le défaut** sur Opus 5, Fable 5.1 et Sonnet 5 ; **`medium` sur Opus 5.5 et Sonnet 5.5** dans Claude Code (alias `opus` et `sonnet`) ; `xhigh`/`extra`/`max` restent des options pour les tâches agentiques/coding longues. Monter d'un cran est un step-up mesuré, jamais un réglage de départ — le sweep se refait à chaque changement de modèle, il ne s'hérite pas.
 À `xhigh`/`max` : mettre max_tokens à 64k+ minimum.
 
 ### Modèles
@@ -88,7 +88,7 @@ Claude utilise `ScheduleWakeup` pour décider dynamiquement quand revérifier (�
 
 **Fable 5.1** (`claude-fable-5-1`) — ne remplace pas Opus 5.5 comme défaut forge : bascule uniquement après gain mesuré sur la tâche visée.
 
-**Sonnet 5** (`claude-sonnet-5`) — exécution. **Haiku 4.5** (`claude-haiku-4-5-20251001`) — mécanique, demande plus de guidance.
+**Sonnet 5.5** (`claude-sonnet-5-5`, 28 septembre 2026) — alias `sonnet` depuis CC v2.1.284, $2/$10, effort Claude Code par défaut `medium`. Forge ne l'utilise plus : l'exécution tourne sur `opus` + `medium`. **Haiku 4.5** (`claude-haiku-4-5-20251001`) — mécanique, demande plus de guidance.
 
 **Opus 4.8** (`claude-opus-4-8`, sorti 28 mai 2026) — repli quand l'ancien comportement est nécessaire : défaut effort high, fast mode 3× moins cher (vitesse 2.5×). Opus 4.7 est exclu du fast mode et n'est plus un choix.
 
@@ -169,7 +169,7 @@ Subagents qui se communiquent directement via task board partagé. Equipe implic
 | /fork optimisé | Écrit pointeur au lieu de copier toute la conversation (v2.1.119) |
 | **Agent View** | **`claude agents` — dashboard sessions concurrentes groupées par état (attend input / en cours / terminé). Control plane lancé 11 mai 2026.** |
 | **Dynamic Workflows** | **Research preview (v2.1.154, 28 mai 2026) — Claude rédige dynamiquement un script JS d'orchestration lançant jusqu'à 1000 sous-agents (16 concurrents). Coordination hors-contexte : plan dans le code, résultats en variables, seul l'output final revient en contexte. Vérification adversariale intégrée. Déclenché par mot-clé dans un prompt OU le réglage `ultracode`. Requiert v2.1.154+, plans Max/Team/Enterprise. Visible via `/workflows`.** |
-| **`ultracode`** | **Réglage (v2.1.160, 2 juin 2026) qui fixe l'effort à `xhigh` ET laisse Claude décider automatiquement de lancer un Dynamic Workflow. Depuis v2.1.160, `ultracode` remplace `workflow` comme mot-clé déclencheur des Dynamic Workflows.** |
+| **`ultracode`** | **Réglage (v2.1.160, 2 juin 2026) qui laisse Claude décider automatiquement de lancer un Dynamic Workflow. Depuis v2.1.284, interrupteur séparé dans `/effort` (Tab ou `/effort ultracode on|off`) qui ne force plus `xhigh` et reste actif à tout niveau d'effort. Depuis v2.1.160, `ultracode` remplace `workflow` comme mot-clé déclencheur des Dynamic Workflows.** |
 | Screen reader mode | Rendu plain-text opt-in pour lecteurs d'écran (v2.1.208) |
 | Auto mode gateways | Sans opt-in sur Bedrock/Vertex/Foundry, désactivable `disableAutoMode` (v2.1.207) |
 | `--forward-subagent-text` | + env `CLAUDE_CODE_FORWARD_SUBAGENT_TEXT` — inclut le texte des sub-agents (v2.1.211) |

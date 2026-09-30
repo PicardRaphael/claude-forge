@@ -3,8 +3,8 @@ name: config-guardian
 description: Scan ia_back, neo_ia, and neoteem-brain for Claude Code config drift against baseline rules. Use when auditing multi-repo setup consistency.
 user-invocable: true
 allowed-tools: Read, Glob, Grep, Agent, Bash
-model: sonnet
-effort: high
+model: opus
+effort: medium
 ---
 
 # config-guardian — Audit de configuration multi-repo

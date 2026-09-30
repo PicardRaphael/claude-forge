@@ -40,7 +40,7 @@ Toute analyse passe ces trois angles. Ils se contredisent volontairement : c'est
 - CLAUDE.md compounding : chaque erreur observée s'y ajoute, jamais de doc séparée
 - /clear entre tâches non-liées documenté ?
 - Verify output : Claude a-t-il un moyen de vérifier son output (hook, script, test) ?
-- Sonnet/Opus split cohérent (Sonnet exécution, Opus jugement) ?
+- Allocation modèle/effort cohérente avec la doctrine du repo audité (forge : `opus` + `medium` exécution, `opus` + `high` jugement, aucun `sonnet` ; repo projet : sa propre doctrine) ?
 - Mémoire persistante activée uniquement pour un besoin démontré, avec révision ?
 
 ### Lentille 2 — MINIMALISME (a-t-on trop empilé ?)

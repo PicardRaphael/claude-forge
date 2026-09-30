@@ -16,7 +16,7 @@ aliases:
   - "automate repo setup"
   - "automatiser projet claude code"
   - "pipeline architect dev test"
-derniere-maj: 2026-08-29
+derniere-maj: 2026-09-30
 auteur: claude
 type: technique
 sources:
@@ -119,7 +119,7 @@ E. EXÉCUTER après validation utilisateur
 ### C. CROISER analyse ⨯ canoniques → écarts mesurables
 
 Mettre côte-à-côte FAITS observés (A) et RÈGLES canoniques (B). Lister les ÉCARTS :
-- Agent X = Opus mais canonique dit Sonnet → écart sonnet/opus split
+- Agent X en `sonnet` dans forge mais canonique = `opus` + `medium` → écart d'allocation
 - Skill Y = 800L mais canonique dit < 500L → écart taille
 - Hook Z = workflow gate mais doctrine 22 mai interdit → écart doctrinal
 
@@ -302,7 +302,7 @@ Note technique 1-2 pages max :
 
 **Pour chaque rôle identifié**, créer un agent avec :
 - **`name`** : kebab-case (`architect`, `dev-feature`, `code-reviewer`)
-- **`model`** (doctrine forge cohérente avec Cat Wu + Brad Abrams) :
+- **`model`** (doctrine des repos projet, cohérente avec Cat Wu + Brad Abrams ; forge lui-même n'utilise plus `sonnet` depuis le 30 sept. 2026 — `opus` + `medium` exécution, `opus` + `high` jugement, cf [[raisonnement-2026-09-30-zero-sonnet]] ; suivre la doctrine validée du repo cible) :
   - Sonnet pour exécution (dev, test-writer, code-reviewer)
   - Opus pour jugement (architect, devils-advocate)
   - Haiku pour checks rapides
@@ -493,7 +493,7 @@ Transplanter le workflow dev **app** (vault [[workflow-claude-code-optimal]] cal
 - Workflow S/M
 
 ### Niveau avancé
-- 4-6 agents par rôle (Sonnet/Opus split — doctrine forge)
+- 4-6 agents par rôle (allocation modèle/effort par type — doctrine du repo cible)
 - 2-3 hooks (lint + security)
 - 5-10 skills
 - CLAUDE.md ~150 lignes
@@ -514,7 +514,7 @@ Transplanter le workflow dev **app** (vault [[workflow-claude-code-optimal]] cal
 | Optim | Gain |
 |-------|------|
 | Méthode reproductible | Time-to-config divisé par ~3 (vs ad-hoc) |
-| Sonnet/Opus split (doctrine forge) | Coût réduit sur agents exécution, qualité préservée sur jugement |
+| Allocation modèle/effort par type | Coût réduit sur l'exécution, qualité préservée sur le jugement (repos projet : Sonnet/Opus ; forge : Opus `medium`/`high`) |
 | Boundaries → hooks (pas rules) | 100% compliance vs compliance partielle advisory |
 | Patterns → skills (9 catégories Thariq) | Réutilisation cross-sessions |
 | CLAUDE.md < 200L | Moins de tokens contexte (verbatim Anthropic : "consume more context and reduce adherence") |
@@ -686,6 +686,7 @@ Aliases déclarés en frontmatter (14) :
 
 ### Knowledge / refs liées
 - [[raisonnement-22mai-doctrine-vs-enforcement]]
+- [[raisonnement-2026-09-30-zero-sonnet]]
 - [[synthese-audit-coherence-neo-ia-ia-back]]
 - [[feedback_audit_repo_method]]
 - [[feedback_no_cto_agent]]

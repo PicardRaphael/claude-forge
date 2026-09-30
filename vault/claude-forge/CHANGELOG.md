@@ -14,6 +14,20 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-09-30 — pivot zéro Sonnet dans forge : Opus medium pour l'exécution, Opus high pour le jugement
+
+- **Modifiées (résidus trouvés par `pivot-check`)** : `00-Hub/Home.md` (doctrine active « Modèles » + libellé de `comment-creer-agent`) · `00-Hub/MOC-Modeles.md` (ligne Sonnet 4.6 « Exécution forge » retirée ; Sonnet 5.5 non utilisé par forge) · `01-Claude/models/Opus 5.md` (pertinence forge : partage Sonnet/Opus daté du lancement, zéro Sonnet depuis le 30 sept.) · `01-Claude/models/Sonnet 5.md` (plus aucun composant forge `sonnet` ; les repos projet tournent sur Sonnet 5.5).
+
+- **Ajoutées** : `Knowledge/raisonnements/raisonnement-2026-09-30-zero-sonnet.md` (décision, motifs, coût accepté, précédent du 5 mai, points ouverts).
+- **Modifiées** :
+  - `04-Techniques/claude-code/comment-creer-agent.md` — politique modèles réécrite (tableau Opus `medium` / Opus `high` / Haiku / Fable step-up), frontmatter de référence, règles `model`/`effort`, checklist, niveaux d'optimisation, gains, anti-patterns ; ancien partage Sonnet/Opus tracé comme doctrine inférée, conservé pour les repos projet.
+  - `04-Techniques/claude-code/effort-opus-47-doctrine-anthropic-2026.md` — ligne Sonnet 5.5 (défaut API `high`, défaut CC `medium`, départ `medium` en agentique bien spécifié) ; code-dev et self-updater à `medium` ; cellule repo-inspector alignée sur `high` ; paragraphe zéro Sonnet.
+  - `04-Techniques/claude-code/doctrine-par-modele-opus5-fable5.md` — effort de départ Opus 5.5 côté forge (`medium` exécution, `high` jugement).
+  - `04-Techniques/claude-code/workflow-claude-code-optimal.md` — pratique 6 devenue « allocation modèle/effort par type » ; anti-pattern « tout en Opus » remplacé par « effort maximal partout ».
+  - `04-Techniques/claude-code/methode-analyser-repo.md` — le partage Sonnet/Opus est présenté comme doctrine des repos projet, plus comme doctrine forge ; exemple d'écart aligné sur la rule `sequence-canonique-modification`.
+- **Leaders** : aucune
+- **Source** : arbitrage de Raphaël du 30 sept. (« plus de sonnet, minimum opus medium ou opus high ou fable » ; par type de tâche ; forge seulement) + code.claude.com/docs/en/model-config (« Opus 5.5 at `medium` matches or exceeds Opus 5 at `high` »).
+
 ## 2026-09-30 — cc-news complet : Sonnet 5.5, CC v2.1.283-285, GPT-6.1 Sol, Mythos Preview requalifié
 
 - **Ajoutées** : aucune (créations proposées en batch, non écrites).

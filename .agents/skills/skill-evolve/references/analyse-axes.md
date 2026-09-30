@@ -56,7 +56,7 @@ Chercher dans `04-Techniques/` du vault :
 
 | Check | Signal d'obsolescence |
 |-------|----------------------|
-| `model:` | sonnet avec `effort: medium` — devrait etre `high` |
+| `model:` | `sonnet` dans un composant forge — devrait etre `opus` (`medium` execution / `high` jugement) |
 | `effort:` | `max` — supprime depuis v2.1.91, utiliser `high` ou `xhigh` |
 | `allowed-tools:` | Agent dans une skill qui devrait rester legere |
 | `disable-model-invocation:` | Absent sur une skill slash-command pure |

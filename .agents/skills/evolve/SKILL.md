@@ -4,8 +4,8 @@ description: Analyzes a project (path via ARGUMENTS) and proposes prioritized pr
 argument-hint: "[/absolute/path/to/project]"
 user-invocable: true
 allowed-tools: Read, Glob, Grep, Bash, Agent
-model: sonnet
-effort: high
+model: opus
+effort: medium
 ---
 
 # evolve — Propositions d’évolution produit et architecture

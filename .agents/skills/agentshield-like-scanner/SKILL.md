@@ -3,8 +3,8 @@ name: agentshield-like-scanner
 description: ALWAYS invoke when auditing a Claude Code setup specifically for SECURITY risks (prompt injection, unsafe MCP, dangerous hooks/permissions) — red-team/blue-team pipeline. NOT for general config/quality audit (use repo-inspector mode=audit for that). DO NOT run a security audit manually without invoking first.
 user-invocable: true
 allowed-tools: Read, Grep, Glob, Bash, mcp__forge-brain__search_brain, mcp__forge-brain__read_note
-model: sonnet
-effort: high
+model: opus
+effort: medium
 ---
 
 # AgentShield-like Scanner — audit sécurité pipeline 3-Opus

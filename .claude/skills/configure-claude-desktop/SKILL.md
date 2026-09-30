@@ -1,8 +1,8 @@
 ---
 name: configure-claude-desktop
 description: ALWAYS invoke when configuring Claude Desktop or Cowork for a Neoteem team member — 'bras droit' profile, onboarding, member preferences. NOT for generic Claude Desktop questions outside Neoteem.
-model: sonnet
-effort: high
+model: opus
+effort: medium
 user-invocable: true
 allowed-tools: Read, Write, Edit
 ---

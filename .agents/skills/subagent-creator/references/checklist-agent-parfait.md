@@ -23,8 +23,8 @@ Source : reference-subagents-claude-code.md (research LLM juin 2026) + doctrine 
 - [ ] `disallowedTools: Agent` — subagents ne peuvent PAS spawner (by design, issue #19077)
 - [ ] `disallowedTools: Write, Edit` si agent read-only
 - [ ] `disallowedTools: Bash` si délégation forcée (Bash = raccourci qui zappe les skills)
-- [ ] `model` adapté : haiku (exploration), sonnet (implémentation), opus (jugement)
-- [ ] `effort` : `high` défaut ; `xhigh` uniquement architect/dev-lead/refactor profond
+- [ ] `model` adapté : forge → `opus` (jamais `sonnet`) ; repo projet → sa propre doctrine ; `haiku` pour l'exploration
+- [ ] `effort` calibré par TYPE : `medium` exécution et mécanique · `high` jugement structuré · `low` extraction triviale · `xhigh` seulement après gain mesuré · `max` jamais en frontmatter
 - [ ] `color` selon convention forge cross-repo (même rôle = même couleur)
 - [ ] Mémoire persistante absente ou justifiée avec scope et révision
 - [ ] `permissionMode` — TOUJOURS (`acceptEdits` pour writers, `plan` pour side-effects)
@@ -40,8 +40,8 @@ Seuls ces champs existent dans le frontmatter d'un subagent. **Tout autre champ 
 | `description` | OUI | une ligne directive 3e personne |
 | `tools` | OUI (explicite) | liste — inclure `Skill` si l'agent invoque des skills |
 | `disallowedTools` | recommandé | `Write, Edit` (read-only) / `Agent` / `Bash` |
-| `model` | OUI | `sonnet` / `opus` / `haiku` |
-| `effort` | OUI | `high` / `xhigh` |
+| `model` | OUI | `opus` / `haiku` (forge) · `sonnet` accepté dans un repo projet qui l'a validé |
+| `effort` | OUI | `low` / `medium` / `high` / `xhigh` |
 | `color` | recommandé | convention forge (red/orange/.../pink) |
 | `memory` | OUI | `project` — toujours |
 | `permissionMode` | OUI | `acceptEdits` / `plan` |

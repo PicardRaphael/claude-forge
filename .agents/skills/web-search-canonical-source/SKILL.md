@@ -2,8 +2,8 @@
 name: web-search-canonical-source
 description: ALWAYS prefer canonical provider source (Anthropic docs for Claude, OpenAI docs for GPT). For broader topics, multi-source consensus. Never single tweet/article as authority without verification (paraphrase non-verified pattern).
 allowed-tools: WebSearch, WebFetch, mcp__forge-brain__search_brain, mcp__forge-brain__read_note
-model: sonnet
-effort: high
+model: opus
+effort: medium
 ---
 
 # Sources canoniques — hiérarchie et vérification

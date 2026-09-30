@@ -6,8 +6,8 @@ aliases:
   - adaptive thinking Opus 4.7
   - low medium high xhigh max
   - effort recommandation officielle
-resume: "Doctrine effort Anthropic 2026 — scale low→medium→high→xhigh→max. La recommandation de DÉPART dépend du modèle : xhigh pour Opus 4.7/4.8 coding-agentic, high pour Opus 5 / Fable 5.1 / Sonnet 5, et AUCUNE pour Opus 5.5 (alias opus depuis le 22 sept. 2026, défaut API medium, « run an effort sweep »). Pivot 25 sept. : forge garde high explicite comme choix délibéré, sweep Opus 5.5 à n=3 avant de bouger un frontmatter."
-derniere-maj: 2026-09-25
+resume: "Doctrine effort Anthropic 2026 — scale low→medium→high→xhigh→max. La recommandation de DÉPART dépend du modèle : xhigh pour Opus 4.7/4.8 coding-agentic, high pour Opus 5 / Fable 5.1 / Sonnet 5, AUCUNE pour Opus 5.5 (alias opus depuis le 22 sept. 2026, défaut API medium, « run an effort sweep »), medium en agentique bien spécifié pour Sonnet 5.5. Forge : zéro Sonnet depuis le 30 sept., opus medium pour l'exécution, opus high explicite pour le jugement."
+derniere-maj: 2026-09-30
 tags:
   - "#type/technique"
   - "#domaine/claude-code"
@@ -103,31 +103,30 @@ Niveaux et thinking depth :
 | Analyseurs (project-auditor, project-analyzer, codebase-scanner) | **xhigh** |
 | Reviewers (devils-advocate, outcomes-grader) | **high** (Option C — jugement structuré) |
 | Conseil stratégique (responsable-ia) | **xhigh** ou `max` ponctuel sur décisions majeures |
-| Exécutants pure (python-dev) | **high** (intelligence-sensitive) |
+| Exécutants pure (python-dev) | **medium** sur `opus` depuis le 30 sept. 2026 (zéro Sonnet) |
 | Workers triviaux | **medium** |
 
-### Composants forge actuels (post-pivot agents → skills, 6 juin 2026)
+### Composants forge actuels (post-pivot agents → skills, 6 juin 2026 ; zéro Sonnet, 30 sept. 2026)
 
 | Composant forge | Effort recommandé |
 |---|---|
 | Skills créatrices (skill-creator, subagent-creator, hook-creator, claudemd-creator) | **high** (thread principal, pas agent Opus) |
-| repo-inspector (audit/analyze/scan) | **xhigh** |
+| repo-inspector (audit/analyze/scan) | **high** (xhigh mesuré non justifié, sweep du 5 sept.) |
 | devils-advocate | **high** (Option C — reviewer) |
 | outcomes-grader | **high** |
-| code-dev | **high** |
-| self-updater | **high** |
+| code-dev | **medium** (`opus`, exécution) |
+| self-updater | **medium** (`opus`, exécution) |
 | responsable-ia (skill) | **xhigh** ou `max` ponctuel |
 
 python-dev → code-dev. agent-creator / hook-creator / claudemd-optimizer → skills (pas d'effort frontmatter agent).
 
 Fichiers alignés sur cette grille : `CLAUDE.md` forge (ligne effort) · `feedback_allocation_modele_effort` mémoire · [[workflow-claude-code-optimal]] · [[comment-creer-agent]].
 
-### ⚠️ Ligne `repo-inspector` du tableau ci-dessus : **`xhigh` est MESURÉ FAUX** (5 sept. 2026)
+### `repo-inspector` : `xhigh` mesuré non justifié (5 sept. 2026)
 
-La cellule « repo-inspector (audit/analyze/scan) | **xhigh** » est **périmée** : elle date de la
-grille Opus 4.7 et a été reconduite sur Opus 5 sans re-mesure — exactement ce qu'Anthropic
-interdit. Valeur en vigueur : **`high`**. Le fichier `.claude/agents/repo-inspector.md` porte
-désormais `effort: high`.
+L'ancienne valeur `xhigh` datait de la grille Opus 4.7 et avait été reconduite sur Opus 5 sans
+re-mesure — exactement ce qu'Anthropic interdit. Valeur en vigueur : **`high`**. Le fichier
+`.claude/agents/repo-inspector.md` porte `effort: high`. Mesure : § Sweep Opus 5 ci-dessous.
 
 ## ⚠️ Opus 5.5 (22 sept. 2026) — plus de point de départ officiel, `high` devient un choix (pivot du 25 sept.)
 
@@ -136,11 +135,14 @@ L'alias `opus` résout vers [[Opus 5.5]] depuis CC v2.1.280. Verbatim page Effor
 | Modèle | Défaut API | Point de départ officiel |
 |---|---|---|
 | **Opus 5.5** (alias `opus` depuis 22 sept.) | **`medium`** | **aucun** — sweep sur ses évals |
+| **Sonnet 5.5** (alias `sonnet` depuis CC v2.1.284, 28 sept.) | `high` (API) · `medium` (défaut Claude Code) | `high`, sauf agentique ou sensible à la latence : `medium` pour les tâches agentiques bien spécifiées, `high` pour les plus dures ou longues — « Re-run your effort sweep rather than carrying a setting over » |
 | Opus 5 (legacy) | `high` | `high` |
 | Fable 5.1 | `high` | `high` |
 | Sonnet 5 | `high` | `high` |
 
-Doctrine forge après pivot (validé par Raphaël le 25 sept.) : les frontmatters **gardent `effort: high` explicite**, comme **choix délibéré** et non plus comme « défaut officiel » ; un composant sans `effort:` tourne en `medium` sur Opus ; **aucun frontmatter ne bouge avant un sweep Opus 5.5 à n=3 runs par niveau** (`medium` vs `high`), même protocole que ci-dessous. Les phrases de cette note qui disent « `high` est le point de départ officiel » valent pour Opus 5, Fable 5.1 et Sonnet 5, **plus pour l'alias `opus`**. Raisonnement : [[raisonnement-2026-09-25-effort-opus-5-5]].
+Doctrine forge après pivot (validé par Raphaël le 25 sept.) : les composants de **jugement** gardent `effort: high` explicite, comme **choix délibéré** et non plus comme « défaut officiel » ; un composant sans `effort:` tourne en `medium` sur Opus ; le `high` de jugement ne descend pas avant un sweep Opus 5.5 à n=3 runs par niveau (`medium` vs `high`), même protocole que ci-dessous. Les phrases de cette note qui disent « `high` est le point de départ officiel » valent pour Opus 5, Fable 5.1 et Sonnet 5, **plus pour l'alias `opus`**. Raisonnement : [[raisonnement-2026-09-25-effort-opus-5-5]].
+
+**Zéro Sonnet (pivot validé par Raphaël le 30 sept.)** : l'alias `sonnet` pointe désormais vers Sonnet 5.5, dont la calibration d'effort ne se transpose pas depuis Sonnet 5 — le `sonnet, high` des exécutants forge était donc un réglage hérité jamais mesuré. Les anciens composants `sonnet` passent en **`opus` + `medium`**, adossés à la doc Claude Code (*« Opus 5.5 at `medium` matches or exceeds Opus 5 at `high` on coding and knowledge-work evaluations »*, code.claude.com/docs/en/model-config). Choix fait sans sweep, par arbitrage : aucune mesure forge ne prouve encore qu'`opus, medium` bat `sonnet, high` sur l'exécution. Raisonnement : [[raisonnement-2026-09-30-zero-sonnet]].
 
 ## Sweep Opus 5 — 5 septembre 2026 (mesuré, n=1 par niveau)
 
@@ -193,14 +195,14 @@ Les 27 autres composants à `high` restent inchangés : déjà au point de dépa
 aucun écart à corriger. `python-ref` et `vault-health` restent à `medium` (inspection mécanique).
 
 **Axe Fable 5.1 : sans objet** — aucun composant du parc ne déclare ce modèle (10 `opus`,
-12 `sonnet`). Le sweep n'étant pas transférable entre modèles, il devra être refait si un
-composant y bascule.
+12 `sonnet` au 5 sept. ; zéro `sonnet` depuis le 30 sept.). Le sweep n'étant pas transférable
+entre modèles, il devra être refait si un composant y bascule.
 
 ## Anti-pattern : double thinking archi → dev
 
 **Jamais deux Opus xhigh en chaîne** sur la même feature (architect → dev). Si l'architecte (Opus xhigh) produit un plan détaillé, le dev qui re-raisonne profondément refait un travail déjà fait → double facturation thinking, redondant.
 
-**Règles vérifiées empiriquement (ia_back, neo_ia)** :
+**Règles vérifiées empiriquement (ia_back, neo_ia — repos projet ; dans forge, l'exécutant est `opus` + `medium`)** :
 1. Archi Opus xhigh → plan/spec/contrats. Dev **Sonnet high** → exécution du plan.
 2. Si trop complexe pour Sonnet → **1 SEUL agent Opus xhigh** (archi + code, pattern dev-lead). Pas de délégation Opus→Opus.
 3. **Anti-pattern à détecter** : `dev-*.md` avec `model: opus` + `effort: xhigh` appelé après un `architect-*.md` Opus → revoir.
@@ -212,6 +214,7 @@ composant y bascule.
 - [[conflit-effort-xhigh-anthropic-vs-pivot-22mai]] — décision Option C (résolue 18 juin, arbitrage Raphael)
 - [[critique-2026-07-27-plan-audit-regles-forge]] — le DA qui a détecté le drift des cellules Reviewers (corrigées 27 juil.)
 - [[methode-pivoter-doctrine]] — méthode pour propager un pivot
+- [[raisonnement-2026-09-30-zero-sonnet]] — pivot zéro Sonnet dans forge
 - [[workflow-claude-code-optimal]] · [[comment-creer-agent]]
 
 ## Référence
@@ -219,6 +222,7 @@ composant y bascule.
 - [Anthropic news Opus 4.7](https://www.anthropic.com/news/claude-opus-4-7)
 - [Claude API effort docs](https://platform.claude.com/docs/en/build-with-claude/effort)
 - [Claude Code model config](https://code.claude.com/docs/en/model-config)
+- [What's new in Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/whats-new-sonnet-5-5)
 - [Apiyi xhigh practical guide](https://help.apiyi.com/en/claude-opus-4-7-xhigh-effort-mode-explained-en.html)
 - [ClaudeFast Opus 4.7 best practices](https://claudefa.st/blog/guide/development/opus-4-7-best-practices)
 
@@ -246,6 +250,6 @@ Post « Claude Code effort level and model selection » — **Lydia Hallie (MTS 
 - **Grille modèles** : « Fable is a specialist… Opus is the expert… Sonnet is a really good generalist. » (Fable = problèmes inédits/tâches longues multi-étapes ; Opus = tâches ambiguës/domaines inconnus ; Sonnet = travail routinier précisément décrit.)
 - **Règle de troubleshooting** : « **did it not try hard enough, or did it not know enough?** » — erreur par fichiers sautés/vérification manquante → monter l'**effort** ; erreur malgré contexte complet et vraie tentative → monter de **modèle**. « Start with the defaults, then reach for the dials. » Effort = préférence générale, pas toggle par tâche.
 
-**Verdict doctrine : REINFORCE** — valide « Sonnet exécution / Opus jugement » + « effort calibré par TYPE ». La règle try-vs-know est le critère officiel pour arbitrer bump d'effort vs bump de modèle avant toute modification de frontmatter agent.
+**Verdict doctrine : REINFORCE** — valide alors « Sonnet exécution / Opus jugement » + « effort calibré par TYPE ». Le partage Sonnet/Opus est abandonné dans forge depuis le 30 sept. 2026 ([[raisonnement-2026-09-30-zero-sonnet]]) ; la règle try-vs-know reste le critère officiel pour arbitrer bump d'effort vs bump de modèle avant toute modification de frontmatter agent.
 
 Source : https://claude.com/blog/claude-model-and-effort-level-in-claude-code · Fiche [[Lydia Hallie]].

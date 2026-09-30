@@ -41,7 +41,7 @@ Copier le template correspondant dans un fichier `RUBRIC.md` dans le dossier du 
 - [ ] `permissionMode` défini (plan, acceptEdits, ou bypassPermissions)
 - [ ] Mémoire persistante absente ou explicitement justifiée
 - [ ] Description = trigger en anglais, une seule ligne
-- [ ] Modèle cohérent : opus pour jugement/analyse, sonnet pour exécution
+- [ ] Modèle cohérent : dans forge, opus `high` pour jugement/analyse et opus `medium` pour exécution (jamais sonnet) ; dans un repo projet, sa propre doctrine
 
 ## Critères souhaitables (SHOULD)
 - [ ] `effort` correct : `high` par défaut des deux côtés ; `medium`/`low` si la tâche est mécanique ; `xhigh` seulement si un gain a été mesuré sur ce type de tâche

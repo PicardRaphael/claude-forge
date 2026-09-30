@@ -9,7 +9,7 @@ aliases:
   - "knowledge base"
   - "index principal"
 type: index
-derniere-maj: 2026-07-27
+derniere-maj: 2026-09-30
 auteur: claude
 sources: []
 tags:
@@ -26,7 +26,7 @@ Vault **agent-first** pour claude-forge — cerveau d'agent piloté via MCP (Kar
 
 - [[comment-ecrire-claudemd]] — 200L, anti-patterns
 - [[comment-creer-skill]] — 9 catégories Thariq, < 500L
-- [[comment-creer-agent]] — Sonnet/Opus split, 8 couleurs
+- [[comment-creer-agent]] — allocation modèle/effort, 8 couleurs
 - [[comment-creer-hook]] — 30 events, doctrine 22 mai
 - [[workflow-claude-code-optimal]] — routines Boris, advisor Brad Abrams
 - [[methode-analyser-repo]] — META 6 étapes
@@ -53,7 +53,7 @@ Pour Codex (agent de code OpenAI) : **[[MOC-Codex]]** — corpus doctrinal paral
 
 - **Vault agent-first** (27 juin) : optimisé pour la boucle Jarvis (search → read), pas la navigation humaine. `raw/` supprimé, index/log/MOC = couche humaine optionnelle. Voir [[decision-vault-agent-first]]
 - **Hooks** : lint / security / scope UNIQUEMENT. JAMAIS workflow agentique. Voir [[raisonnement-22mai-doctrine-vs-enforcement]]
-- **Modèles** : Sonnet exécution, Opus jugement
+- **Modèles (forge)** : zéro Sonnet — Opus `medium` pour l'exécution, Opus `high` pour le jugement, Fable en step-up mesuré. Voir [[raisonnement-2026-09-30-zero-sonnet]]
 - **DA conditionnel ciblé** : livrables majeurs (skill cross-repo, agent orchestrant, archi). Pas systématique
 - **Advisor AVANT travail substantiel**, après exploration
 

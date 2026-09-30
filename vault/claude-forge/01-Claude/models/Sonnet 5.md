@@ -69,7 +69,7 @@ Historique : au lancement, $2/$10 était présenté comme promotionnel jusqu'au 
 
 ## Implications forge
 
-- L'alias `sonnet` des frontmatters ne désigne plus Sonnet 5 : sur l'API Anthropic il résout vers **Sonnet 5.5** (table « alias resolution » de `code.claude.com/docs/en/model-config`, vérifiée le 30 sept. 2026 ; ailleurs : Sonnet 4.6 sur Claude Platform on AWS, Sonnet 4.5 sur Bedrock / Google Cloud / Foundry). Les agents forge `model: sonnet` tournent donc sur Sonnet 5.5.
+- L'alias `sonnet` des frontmatters ne désigne plus Sonnet 5 : sur l'API Anthropic il résout vers **Sonnet 5.5** (table « alias resolution » de `code.claude.com/docs/en/model-config`, vérifiée le 30 sept. 2026 ; ailleurs : Sonnet 4.6 sur Claude Platform on AWS, Sonnet 4.5 sur Bedrock / Google Cloud / Foundry). Forge n'a plus aucun composant `sonnet` depuis le 30 sept. 2026 (Opus `medium` pour l'exécution, [[raisonnement-2026-09-30-zero-sonnet]]) ; les repos projet qui gardent `model: sonnet` tournent sur Sonnet 5.5.
 - Même page : dans Claude Code, **Sonnet 5.5 démarre à l'effort `medium`** faute de réglage explicite (*« `high` on every model that supports effort, except that Opus 5.5 and Sonnet 5.5 default to `medium` »*), alors que le défaut de l'API est `high`. Un composant `sonnet` sans `effort:` tourne en `medium`.
 - Sonnet 5.5 recalibre les niveaux d'effort (*« Re-run your effort sweep rather than carrying a setting over »*) : un réglage validé sur Sonnet 5 ne se transpose pas tel quel. Voir [[effort-opus-47-doctrine-anthropic-2026]].
 - L'advisor tool refuse Sonnet 5 comme conseiller d'un exécuteur Sonnet 5.5 (400).
