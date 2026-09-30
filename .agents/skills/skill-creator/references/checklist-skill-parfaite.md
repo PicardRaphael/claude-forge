@@ -37,8 +37,8 @@ Seuls ces champs existent dans le frontmatter d'une skill Claude Code. **Tout au
 | `description` | OUI | une ligne directive, ≤ 1024 chars |
 | `user-invocable` | recommandé | `true` / `false` |
 | `allowed-tools` | si write/MCP | liste outils ou `mcp__server__*` |
-| `model` | optionnel | `opus` / `haiku` (forge) · `sonnet` accepté dans un repo projet qui l'a validé |
-| `effort` | optionnel | `low` / `medium` (exécution) / `high` (jugement) / `xhigh` |
+| `model` | optionnel | `opus` (forge) · `sonnet` / `haiku` acceptés dans un repo projet qui les a validés |
+| `effort` | optionnel | `medium` (exécution) / `high` (jugement) / `xhigh` · `low` hors forge seulement |
 | `disable-model-invocation` | si side-effects | `true` |
 | `argument-hint` | optionnel (slash) | indice d'argument, ex `"[prompt]"` — OFFICIEL |
 

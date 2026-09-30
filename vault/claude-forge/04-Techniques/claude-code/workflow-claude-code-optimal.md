@@ -147,20 +147,19 @@ Pattern Boris (tip #1) : **"Give Claude a way to verify its work → 2-3x qualit
 
 ### 6. Allocation modèle/effort par type de tâche
 
-**Forge (arbitrage de Raphaël, 30 sept. 2026 — [[raisonnement-2026-09-30-zero-sonnet]])** : aucun composant ne tourne sur `sonnet` ; le rôle se règle par l'effort.
+**Forge (arbitrage de Raphaël, 30 sept. 2026 — [[raisonnement-2026-09-30-zero-sonnet]])** : aucun composant ne tourne sur `sonnet` ni sur `haiku`, ni en effort `low` : le plancher est `opus` + `medium` ; le rôle se règle par l'effort.
 
 | Modèle + effort | Rôle forge | Exemples |
 |--------|-----------|----------|
 | **Opus `medium`** | Exécution et mécanique | code-dev, self-updater, recap, vault-health |
 | **Opus `high`** | Jugement | devils-advocate, repo-inspector, outcomes-grader |
-| **Haiku** | Checks rapides | classifiers, anti-rationalization |
 | **Fable 5.1** | Step-up mesuré | aucun composant par défaut |
 
 Fondement : doc Claude Code (code.claude.com/docs/en/model-config) — *« Opus 5.5 at `medium` matches or exceeds Opus 5 at `high` on coding and knowledge-work evaluations »* ; l'alias `sonnet` résout vers Sonnet 5.5 depuis CC v2.1.284 et sa calibration d'effort ne se transpose pas. Coût au token ×2 vs Sonnet 5.5 accepté ; gain non mesuré sur forge.
 
 **Repos projet** (ia_back, neo_ia) : le partage « Sonnet exécution / Opus jugement » reste leur norme validée. C'était une **doctrine forge inférée** (21 mai → 30 sept. 2026), cohérente avec Cat Wu (CwC London 19 mai 2026 : « delegate, write full-context briefs, use the new `xhigh` effort level ») et Brad Abrams (Advisor Strategy = executor Haiku + advisor Opus), jamais un verbatim Anthropic.
 
-**Effort** : toujours explicite — `medium` exécution et mécanique, `high` jugement, `xhigh` step-up mesuré, `max` jamais en frontmatter. Grille par modèle : [[effort-opus-47-doctrine-anthropic-2026]].
+**Effort** : toujours explicite — `medium` exécution et mécanique, `high` jugement, jamais `low`, `xhigh` step-up mesuré, `max` jamais en frontmatter. Grille par modèle : [[effort-opus-47-doctrine-anthropic-2026]].
 
 ### 7. Compounding error-driven (Boris)
 
@@ -417,7 +416,7 @@ Pas d'overhead. Pas d'agent.
 - **Subagent qui commit malgré "pas de commit"** — TOP du prompt en gras (cf [[feedback_subagent_autocommit]])
 
 ### Pièges modèle
-> ⚠️ **Amende 18 juin 2026 — effort : « xhigh réservé » est PÉRIMÉ.** Les deux lignes ci-dessous reflètent l'ancien pivot 22 mai. Doctrine actuelle = **Option C** (tranchée 18 juin) : `xhigh` = défaut agentique/coding multi-tool ; `high` = comparatif/jugement structuré ; `medium`/`low` = scan/extraction ; `max` = ponctuel jamais frontmatter. Source de vérité : [[effort-opus-47-doctrine-anthropic-2026]] + [[conflit-effort-xhigh-anthropic-vs-pivot-22mai]] (résolue). Ne pas re-propager « xhigh réservé ».
+> ⚠️ **Amende 18 juin 2026 — effort : « xhigh réservé » est PÉRIMÉ.** Les deux lignes ci-dessous reflètent l'ancien pivot 22 mai. Doctrine actuelle = **Option C** (tranchée 18 juin) : `xhigh` = défaut agentique/coding multi-tool ; `high` = comparatif/jugement structuré ; `medium`/`low` = scan/extraction (forge : `medium` seulement, `low` exclu depuis le 30 sept. 2026) ; `max` = ponctuel jamais frontmatter. Source de vérité : [[effort-opus-47-doctrine-anthropic-2026]] + [[conflit-effort-xhigh-anthropic-vs-pivot-22mai]] (résolue). Ne pas re-propager « xhigh réservé ».
 - **`effort: max` toujours disponible** mai 2026 (vérifié docs), à utiliser avec prudence
 - **`xhigh` partout = coût massif** — réservé architect/dev-lead/refactor-pg (forge)
 - **Opus 4.7 plus littéral** — être explicite scope et parallélisme (observation forge)

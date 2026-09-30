@@ -14,6 +14,15 @@ tags:
   - "#domaine/claude-code"
 ---
 
+## 2026-09-30 — plancher forge `opus` + `medium` : ni Haiku ni effort `low`
+
+- **Modifiées** :
+  - `04-Techniques/claude-code/comment-creer-agent.md` — frontmatter de référence (`model: opus`, `low` hors forge seulement), alias `haiku` marqué exclu de forge, règle effort « jamais `low` », ligne Haiku retirée du tableau de politique modèles, checklist / étape 2 / anti-pattern et gotcha alias alignés.
+  - `04-Techniques/claude-code/workflow-claude-code-optimal.md` — § 6 : plancher explicité, ligne Haiku retirée, effort « jamais `low` » ; amende Option C précisée pour forge.
+  - `04-Techniques/claude-code/effort-opus-47-doctrine-anthropic-2026.md` — Option C forge sans `low`, plancher rappelé au paragraphe zéro Sonnet.
+  - `Knowledge/raisonnements/raisonnement-2026-09-30-zero-sonnet.md` — point ouvert haiku/low tranché par Raphaël, bilan d'application complété.
+- **Source** : Raphaël a confirmé que le plancher « minimum opus medium » exclut aussi Haiku et l'effort `low` ; aucun composant ne les utilisait, seuls la doctrine et les gabarits les proposaient.
+
 ## 2026-09-30 — pivot zéro Sonnet dans forge : Opus medium pour l'exécution, Opus high pour le jugement
 
 - **Modifiées (résidus trouvés par `pivot-check`)** : `00-Hub/Home.md` (doctrine active « Modèles » + libellé de `comment-creer-agent`) · `00-Hub/MOC-Modeles.md` (ligne Sonnet 4.6 « Exécution forge » retirée ; Sonnet 5.5 non utilisé par forge) · `01-Claude/models/Opus 5.md` (pertinence forge : partage Sonnet/Opus daté du lancement, zéro Sonnet depuis le 30 sept.) · `01-Claude/models/Sonnet 5.md` (plus aucun composant forge `sonnet` ; les repos projet tournent sur Sonnet 5.5).

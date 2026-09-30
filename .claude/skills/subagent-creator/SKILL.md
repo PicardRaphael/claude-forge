@@ -70,8 +70,8 @@ Extraire d'abord depuis l'historique, puis combler avec AskUserQuestion.
 6. Agents parallèles ? → `isolation: worktree`
 
 **Round 3 — Modèle & enrichissement**
-7. Modèle : dans forge, `opus` (jamais `sonnet`) ; dans un repo projet, sa propre doctrine (ia_back, neo_ia : `sonnet` exécution / `opus` jugement) ; `haiku` pour l'exploration rapide ?
-8. Effort : dans forge, `medium` pour l'exécution et le mécanique, `high` pour le jugement ; `low` pour l'inspection triviale ; `xhigh` uniquement si un gain a déjà été mesuré sur ce type de tâche ?
+7. Modèle : dans forge, `opus` (jamais `sonnet` ni `haiku`) ; dans un repo projet, sa propre doctrine (ia_back, neo_ia : `sonnet` exécution / `opus` jugement) ?
+8. Effort : dans forge, `medium` pour l'exécution et le mécanique, `high` pour le jugement, jamais `low` ; `xhigh` uniquement si un gain a déjà été mesuré sur ce type de tâche ?
 9. Skills à injecter ? (subagents n'héritent PAS des skills du parent — lister explicitement)
 10. Mémoire entre sessions → désactivée par défaut. L'activer seulement si un apprentissage durable propre à cet agent est démontré, avec périmètre et méthode de révision. Un relais de pipeline n'est jamais une mémoire persistante.
 
@@ -96,7 +96,7 @@ name: <nom-exact-fichier-sans-md-kebab-case>
 description: <TRIGGER directive 3e personne — UNE SEULE LIGNE anglais, jamais >- ni |>
 tools: Read, Grep, Glob, Bash, Skill   # TOUJOURS explicite — inclure Skill si l'agent doit invoquer des skills
 disallowedTools: Write, Edit           # pour agents read-only
-model: opus | haiku                    # forge : jamais sonnet · repo projet : suivre sa doctrine
+model: opus                            # forge : jamais sonnet ni haiku · repo projet : suivre sa doctrine
 effort: medium                         # exécution · high pour le jugement · xhigh seulement si gain mesuré
 color: red|orange|yellow|green|blue|purple|cyan|pink
 # memory: project                      # OPTIONNEL — besoin durable démontré uniquement
@@ -131,9 +131,8 @@ maxTurns: 50                           # optionnel
 | pink | Meta-créateurs forge only |
 
 **Politique modèles :**
-- `haiku` : exploration rapide, tâches courtes
-- `opus` : tout le reste dans forge — `medium` pour l'implémentation, l'exécution et le mécanique, `high` pour l'orchestration, le jugement et les décisions complexes
-- `sonnet` : exclu de forge (vault `raisonnement-2026-09-30-zero-sonnet`) ; reste la norme d'exécution des repos projet qui l'ont validée
+- `opus` : tout composant forge — `medium` pour l'implémentation, l'exécution et le mécanique, `high` pour l'orchestration, le jugement et les décisions complexes
+- `sonnet` et `haiku` : exclus de forge, plancher `opus` + `medium` (vault `raisonnement-2026-09-30-zero-sonnet`) ; restent possibles dans les repos projet qui les ont validés
 - `fable` : step-up seulement, après une mesure qui montre qu'Opus 5.5 plafonne
 - Effort : Opus 5.5 démarre à `medium` s'il n'est pas précisé — toujours poser `effort:` explicitement · `xhigh` : step-up réservé à l'agentique long-horizon, et seulement après avoir mesuré un gain matériel · `max` : jamais en frontmatter
 
@@ -281,7 +280,7 @@ Priorités audit rapide :
 - **AskUserQuestion filtré** en subagent (issues #12890 #18721 #20275) → pattern ESCALADE obligatoire
 - **MCP non garanti** en subagent (`No such tool available`) → brief inline depuis session principale
 - **Subagent auto-commit** malgré instruction → mettre "PAS DE COMMIT" en TOP du prompt en gras
-- **`effort: xhigh` posé sans mesure = tokens gaspillés** — l'alias `opus` résout vers Opus 5.5, dont le défaut API est `medium` et pour lequel Anthropic ne donne aucun point de départ (« run an effort sweep ») : un `xhigh` hérité d'un modèle antérieur n'est pas justifié. Omettre `effort:` sur un agent `opus` le fait tourner en `medium`. Le prouver avant de le poser (1 run `high` vs 1 run `xhigh` sur la tâche réelle : un fichier lu en plus qui change la conclusion, pas une réponse plus longue). `medium`/`low` pour le mécanique. Cf [[effort-opus-47-doctrine-anthropic-2026]]
+- **`effort: xhigh` posé sans mesure = tokens gaspillés** — l'alias `opus` résout vers Opus 5.5, dont le défaut API est `medium` et pour lequel Anthropic ne donne aucun point de départ (« run an effort sweep ») : un `xhigh` hérité d'un modèle antérieur n'est pas justifié. Omettre `effort:` sur un agent `opus` le fait tourner en `medium`. Le prouver avant de le poser (1 run `high` vs 1 run `xhigh` sur la tâche réelle : un fichier lu en plus qui change la conclusion, pas une réponse plus longue). `medium` pour le mécanique, jamais `low` en forge. Cf [[effort-opus-47-doctrine-anthropic-2026]]
 - **`CLAUDE_CODE_FORK_SUBAGENT=1`** (v2.1.117+) — hérite du contexte complet parent, réutilise le cache
 - **Self-modification bloquée** — un agent ne peut pas modifier son propre fichier (classifier)
 - **BOM UTF-8** sur Windows (PowerShell Out-File) → frontmatter cassé silencieusement

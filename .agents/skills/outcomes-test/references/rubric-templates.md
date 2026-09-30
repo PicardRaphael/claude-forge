@@ -44,7 +44,7 @@ Copier le template correspondant dans un fichier `RUBRIC.md` dans le dossier du 
 - [ ] Modèle cohérent : dans forge, opus `high` pour jugement/analyse et opus `medium` pour exécution (jamais sonnet) ; dans un repo projet, sa propre doctrine
 
 ## Critères souhaitables (SHOULD)
-- [ ] `effort` correct : `high` par défaut des deux côtés ; `medium`/`low` si la tâche est mécanique ; `xhigh` seulement si un gain a été mesuré sur ce type de tâche
+- [ ] `effort` correct : dans forge `medium` pour l'exécution et le mécanique, `high` pour le jugement, jamais `low` ; `xhigh` seulement si un gain a été mesuré sur ce type de tâche
 - [ ] Skills pertinentes listées dans `skills:` frontmatter ET référencées dans le body
 - [ ] `disallowedTools` inclut Write/Edit si agent read-only
 - [ ] Body explique clairement le rôle et les étapes

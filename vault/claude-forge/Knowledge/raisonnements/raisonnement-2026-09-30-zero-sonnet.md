@@ -1,12 +1,13 @@
 ---
 titre: "Raisonnement 30 sept. 2026 — plus de Sonnet dans forge : Opus medium pour l'exécution, Opus high pour le jugement"
-resume: "Pivot validé par Raphaël le 30 sept. 2026 : aucun composant forge ne tourne plus sur Sonnet. Exécution et mécanique passent en opus + effort medium, le jugement reste opus + high, Fable 5.1 reste un step-up mesuré. Périmètre forge seul ; ia_back et neo_ia gardent leur partage Sonnet/Opus."
+resume: "Pivot validé par Raphaël le 30 sept. 2026 : aucun composant forge ne tourne plus sur Sonnet ni sur Haiku, ni en effort low. Exécution et mécanique passent en opus + effort medium, le jugement reste opus + high, Fable 5.1 reste un step-up mesuré. Périmètre forge seul ; ia_back et neo_ia gardent leur partage Sonnet/Opus."
 aliases:
   - "zero sonnet forge"
   - "pivot zero sonnet septembre 2026"
   - "plus de sonnet"
   - "opus medium execution"
   - "allocation modele 30 septembre 2026"
+  - "plancher opus medium"
 type: raisonnement
 derniere-maj: 2026-09-30
 auteur: claude
@@ -32,6 +33,8 @@ Arbitrage de Raphaël, 30 sept. 2026 : *« plus de sonnet, minimum opus medium o
 | Jugement (reviewers, analystes, critique) | `opus` + `high` | inchangé |
 | Step-up | Fable 5.1 mesuré | inchangé : Fable seulement après une mesure qui montre qu'Opus 5.5 plafonne |
 
+Le plancher `opus` + `medium` vaut pour tout composant forge : ni `haiku` (autrefois « exploration rapide »), ni effort `low` (autrefois « inspection triviale »). Raphaël l'a confirmé le même jour, en réponse à la question sur ces deux résidus. Aucun composant n'utilisait l'un ou l'autre ; seules la doctrine écrite et les gabarits les proposaient encore.
+
 Périmètre : **forge uniquement**. Les repos projet (ia_back, neo_ia) gardent leurs agents dev `sonnet, high` jusqu'à une décision séparée.
 
 ## Pourquoi
@@ -51,7 +54,7 @@ Forge a déjà appliqué une politique « zéro Sonnet » le **5 mai 2026**, rem
 ## Application (checklist methode-pivoter-doctrine)
 
 - **Composants** : agents `code-dev`, `self-updater` ; skills `audit-departement`, `agentshield-like-scanner`, `config-guardian`, `configure-claude-desktop`, `evolve`, `methode-pivoter-doctrine`, `python-ref`, `recap`, `skill-evolve`, `vault-health` → `opus` + `medium`, jumeaux `.agents/skills/` compris.
-- **Doctrine** : `CLAUDE.md`, gabarits `subagent-creator` / `skill-creator`, `cc-features-ref`, critère « split » de `repo-inspector`, rule `sequence-canonique-modification`, grilles `skill-evolve` / `outcomes-test`.
+- **Doctrine** : `CLAUDE.md`, gabarits et checklists `subagent-creator` / `skill-creator`, `cc-features-ref`, critères « split » et « downgrade Haiku » de `repo-inspector`, rule `sequence-canonique-modification`, grilles `skill-evolve` / `outcomes-test`.
 - **Mémoire** : `feedback_allocation_modele_effort`, `feedback_preference_modele_opus`, index `MEMORY.md`.
 - **Vault** : [[effort-opus-47-doctrine-anthropic-2026]], [[doctrine-par-modele-opus5-fable5]], [[comment-creer-agent]], [[workflow-claude-code-optimal]].
 
@@ -65,3 +68,14 @@ Forge a déjà appliqué une politique « zéro Sonnet » le **5 mai 2026**, rem
 - [[raisonnement-2026-09-25-effort-opus-5-5]] — pivot effort Opus 5.5
 - [[Opus 5.5]] · [[Sonnet 5]] · [[Fable 5.1]]
 - [[methode-pivoter-doctrine]]
+
+## Bilan d'application (30 sept. 2026)
+
+| Étape methode-pivoter-doctrine | État |
+|---|---|
+| 1. Note canonique | cette note |
+| 2. Rules | `sequence-canonique-modification` alignée |
+| 3. CLAUDE.md | ligne « Modèles » réécrite (v5.1), puis plancher `opus` + `medium` explicité (ni `haiku` ni `low`) |
+| 4. Mémoire | `feedback_allocation_modele_effort` (ancien partage marqué obsolète pour forge), `feedback_preference_modele_opus`, index `MEMORY.md` |
+| 4bis. `pivot-check` | PASS (commit `e187fa0`) — résidus trouvés et corrigés : [[methode-analyser-repo]], [[Home]], [[MOC-Modeles]], [[Opus 5]], [[Sonnet 5]] ; second passage pour `haiku` / `low` après la précision de Raphaël |
+| 5. Session fraîche | à faire par Raphaël |

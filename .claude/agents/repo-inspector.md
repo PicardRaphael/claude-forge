@@ -55,7 +55,7 @@ Toute analyse passe ces trois angles. Ils se contredisent volontairement : c'est
 - Patterns récurrents (≥ 2 usages) non couverts par une skill → ADD candidate
 - How-to répétés inline dans plusieurs agents sans capitalisation → skill à extraire
 - Frontières non protégées (fichiers sensibles, scope cross-repo) → hook manquant
-- Agents pure-inspection (Read/Glob/Grep sans jugement) sur Opus → candidats downgrade Haiku (économie tokens)
+- Agents pure-inspection (Read/Glob/Grep sans jugement) sur Opus `high` → dans forge, candidats `opus` + `medium` (plancher, jamais Haiku) ; dans un repo projet, downgrade Haiku seulement si sa doctrine l'autorise
 
 **Arbitrage** : Minimalisme et Couverture se contredisent par nature (l'un veut retirer, l'autre ajouter). Ne tranche PAS toi-même — présente les deux verdicts et laisse la session principale arbitrer avec l'utilisateur. Note : sur un setup dev perso (forge), tolérer plus de richesse ; sur un repo livré client, appliquer le minimalisme strictement.
 

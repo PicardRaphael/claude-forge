@@ -95,7 +95,7 @@ Niveaux et thinking depth :
 
 ### Doctrine forge actualisée — Option C (arbitrée 18 juin 2026)
 
-`xhigh` = agentique/coding multi-tool long-horizon · `high` = jugement/comparatif structuré · `medium`/`low` = scan/extraction · `max` = ponctuel, jamais en frontmatter. Source de la décision : [[conflit-effort-xhigh-anthropic-vs-pivot-22mai]] (résolue).
+`xhigh` = agentique/coding multi-tool long-horizon · `high` = jugement/comparatif structuré · `medium` = scan/extraction (`low` exclu de forge depuis le 30 sept. 2026, plancher `opus` + `medium`) · `max` = ponctuel, jamais en frontmatter. Source de la décision : [[conflit-effort-xhigh-anthropic-vs-pivot-22mai]] (résolue).
 
 | Agent forge type | Effort recommandé |
 |------------------|-------------------|
@@ -142,7 +142,7 @@ L'alias `opus` résout vers [[Opus 5.5]] depuis CC v2.1.280. Verbatim page Effor
 
 Doctrine forge après pivot (validé par Raphaël le 25 sept.) : les composants de **jugement** gardent `effort: high` explicite, comme **choix délibéré** et non plus comme « défaut officiel » ; un composant sans `effort:` tourne en `medium` sur Opus ; le `high` de jugement ne descend pas avant un sweep Opus 5.5 à n=3 runs par niveau (`medium` vs `high`), même protocole que ci-dessous. Les phrases de cette note qui disent « `high` est le point de départ officiel » valent pour Opus 5, Fable 5.1 et Sonnet 5, **plus pour l'alias `opus`**. Raisonnement : [[raisonnement-2026-09-25-effort-opus-5-5]].
 
-**Zéro Sonnet (pivot validé par Raphaël le 30 sept.)** : l'alias `sonnet` pointe désormais vers Sonnet 5.5, dont la calibration d'effort ne se transpose pas depuis Sonnet 5 — le `sonnet, high` des exécutants forge était donc un réglage hérité jamais mesuré. Les anciens composants `sonnet` passent en **`opus` + `medium`**, adossés à la doc Claude Code (*« Opus 5.5 at `medium` matches or exceeds Opus 5 at `high` on coding and knowledge-work evaluations »*, code.claude.com/docs/en/model-config). Choix fait sans sweep, par arbitrage : aucune mesure forge ne prouve encore qu'`opus, medium` bat `sonnet, high` sur l'exécution. Raisonnement : [[raisonnement-2026-09-30-zero-sonnet]].
+**Zéro Sonnet (pivot validé par Raphaël le 30 sept.)** : l'alias `sonnet` pointe désormais vers Sonnet 5.5, dont la calibration d'effort ne se transpose pas depuis Sonnet 5 — le `sonnet, high` des exécutants forge était donc un réglage hérité jamais mesuré. Les anciens composants `sonnet` passent en **`opus` + `medium`**, adossés à la doc Claude Code (*« Opus 5.5 at `medium` matches or exceeds Opus 5 at `high` on coding and knowledge-work evaluations »*, code.claude.com/docs/en/model-config). Choix fait sans sweep, par arbitrage : aucune mesure forge ne prouve encore qu'`opus, medium` bat `sonnet, high` sur l'exécution. Le même plancher exclut `haiku` et l'effort `low` : aucun composant forge ne descend sous `opus` + `medium`. Raisonnement : [[raisonnement-2026-09-30-zero-sonnet]].
 
 ## Sweep Opus 5 — 5 septembre 2026 (mesuré, n=1 par niveau)
 

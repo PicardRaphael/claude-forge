@@ -82,8 +82,8 @@ Avec agents :
 name: <nom-exact-du-fichier-sans-md>
 description: <trigger directive 3e personne, max ~500 chars>
 tools: <outils autorisés, séparés par virgule>
-model: opus | haiku   # forge : jamais sonnet · repo projet : sa propre doctrine
-effort: low | medium | high | xhigh
+model: opus   # forge : jamais sonnet ni haiku · repo projet : sa propre doctrine
+effort: medium | high | xhigh   # low hors forge seulement
 color: red | orange | yellow | green | blue | purple | cyan | pink
 # memory: project  # OPTIONNEL : besoin durable, scope et revision explicites
 permissionMode: acceptEdits | auto | plan | default | dontAsk | bypassPermissions
@@ -113,12 +113,12 @@ Cas réel 27 mai 2026 : `devils-advocate.md` avait `effort: high` en frontmatter
 3. **`model`** — les alias `sonnet`/`opus`/`haiku` pointent vers la génération courante, PAS vers un ID figé :
    - `sonnet` → génération Sonnet courante (exclu de forge ; exécution dans les repos projet qui l'ont validé)
    - `opus` → génération Opus courante (forge : exécution en `medium`, jugement en `high`)
-   - `haiku` → génération Haiku courante (tâches courtes ultra-rapides)
+   - `haiku` → génération Haiku courante (tâches courtes ultra-rapides ; exclu de forge, plancher `opus` + `medium`)
    - **Préférer l'alias à l'ID complet** dans un agent : l'alias survit aux montées de version, l'ID complet meurt silencieusement. Un agent qui épingle un ID de génération révolue continuera de « marcher » longtemps après la disparition du modèle, en repli invisible. IDs exacts d'une génération donnée : les vérifier dans les docs, jamais de mémoire. Doctrine de repli forge : [[feedback_preference_modele_opus]].
 4. **`effort`** :
    - Options acceptées par le produit : `low`, `medium`, `high`, `xhigh`, `max`
    - "Available levels depend on the model"
-   - **Doctrine forge** : toujours explicite — `medium` pour l'exécution et le mécanique, `high` pour le jugement, `low` pour l'inspection triviale ; `xhigh` seulement après gain mesuré ; **`max` JAMAIS en frontmatter** (coût massif, overthinking observé). `max` reste une valeur produit valide — c'est la doctrine forge qui l'exclut d'un composant versionné.
+   - **Doctrine forge** : toujours explicite — `medium` pour l'exécution et le mécanique, `high` pour le jugement, jamais `low` (plancher `opus` + `medium`) ; `xhigh` seulement après gain mesuré ; **`max` JAMAIS en frontmatter** (coût massif, overthinking observé). `max` reste une valeur produit valide — c'est la doctrine forge qui l'exclut d'un composant versionné.
    - **Le réglage dépend de la génération** : `xhigh` était calibré sur les Opus 4.7/4.8 coding-agentic ; `high` était le point de départ officiel d'Opus 5 ; Opus 5.5 démarre à `medium`, sans point de départ recommandé. Grille par modèle : [[effort-opus-47-doctrine-anthropic-2026]] et [[doctrine-par-modele-opus5-fable5]]. Le sweep d'effort est à REFAIRE à chaque changement de génération — un réglage hérité ne se transpose pas.
 5. **Mémoire persistante** = absente par défaut. L'activer seulement pour un apprentissage durable propre à l'agent, avec scope et révision explicites
 6. **`permissionMode`** = optionnel ; le déclarer quand il clarifie un profil de risque :
@@ -129,13 +129,12 @@ Cas réel 27 mai 2026 : `devils-advocate.md` avait `effort: high` en frontmatter
 
 ### Politique modèles forge (zéro Sonnet depuis le 30 sept. 2026)
 
-Arbitrage de Raphaël ([[raisonnement-2026-09-30-zero-sonnet]]) : aucun composant forge ne tourne sur `sonnet`. Le rôle se règle par l'**effort**, pas par le modèle.
+Arbitrage de Raphaël ([[raisonnement-2026-09-30-zero-sonnet]]) : aucun composant forge ne tourne sur `sonnet` ni sur `haiku`, et aucun en effort `low` : le plancher est `opus` + `medium`. Le rôle se règle par l'**effort**, pas par le modèle.
 
 | Modèle + effort | Rôle forge | Exemples (agents, skills) |
 |--------|-----------|----------|
 | **Opus `medium`** | Exécution et mécanique | code-dev, self-updater, recap, vault-health |
 | **Opus `high`** | Jugement | devils-advocate, repo-inspector, outcomes-grader |
-| **Haiku** | Checks rapides | classifiers, anti-rationalization |
 | **Fable 5.1** | Step-up mesuré | aucun composant par défaut — seulement après une mesure qui montre qu'Opus 5.5 plafonne |
 
 Fondement : doc Claude Code ([code.claude.com/docs/en/model-config](https://code.claude.com/docs/en/model-config)) — *« Opus 5.5 at `medium` matches or exceeds Opus 5 at `high` on coding and knowledge-work evaluations »* — et l'alias `sonnet` qui résout vers Sonnet 5.5 depuis CC v2.1.284, dont la calibration d'effort ne se transpose pas depuis Sonnet 5. Coût accepté : Opus 5.5 coûte le double de Sonnet 5.5 au token. Aucune mesure forge n'établit encore qu'`opus, medium` bat `sonnet, high` sur l'exécution.
@@ -205,7 +204,7 @@ Lister les rôles dev récurrents du repo. Chaque rôle distinct = candidat agen
 - Outils nécessaires (`tools`)
 - Outils interdits (`disallowedTools`)
 - Skills mobilisées (`skills`)
-- Modèle adapté (forge : opus/haiku ; repo projet : sa propre doctrine)
+- Modèle adapté (forge : opus ; repo projet : sa propre doctrine)
 - Effort niveau (`medium` exécution / `high` jugement)
 
 ### Étape 3 — Déléguer à `subagent-creator`
@@ -340,7 +339,7 @@ Si l'agent zappe la skill parce qu'il fait le travail directement → restreindr
 - [ ] `name` kebab-case = nom du fichier sans `.md`
 - [ ] `description` directive 3e personne — déclencheur de délégation
 - [ ] `tools:` explicite — inclut `Skill` si l'agent doit invoquer des skills
-- [ ] `model` adapté (forge : haiku explore, opus `medium` implémentation, opus `high` orchestration/jugement, jamais sonnet), déclaré par ALIAS et non par ID figé
+- [ ] `model` adapté (forge : opus `medium` implémentation et mécanique, opus `high` orchestration/jugement, jamais sonnet ni haiku), déclaré par ALIAS et non par ID figé
 - [ ] `effort` explicite sans `max` — `medium` exécution, `high` jugement
 - [ ] `disallowedTools` pour couper les raccourcis qui font zapper les skills
 - [ ] mémoire persistante absente ou justifiée ; permissions au moindre privilège
@@ -447,7 +446,7 @@ Source : [Code with Claude SF — "Caching, harnesses, and advisors: Building on
 - ❌ **Permissions rituelles** — choisir le mode selon le risque réel
 - ❌ **`effort: max` en frontmatter** — interdit par la doctrine forge (coût massif, overthinking)
 - ❌ **`effort: xhigh` par défaut** — step-up mesuré uniquement
-- ❌ **ID de modèle figé** — préférer l'alias (`opus`/`haiku` dans forge, `sonnet` dans un repo projet qui l'a validé), sinon l'agent meurt en silence à la génération suivante
+- ❌ **ID de modèle figé** — préférer l'alias (`opus` dans forge, `sonnet`/`haiku` dans un repo projet qui les a validés), sinon l'agent meurt en silence à la génération suivante
 - ❌ **Description en 1ère personne** — toujours 3e personne directive
 - ❌ **Pas de `color`** — convention forge
 
@@ -575,7 +574,7 @@ Un agent généré par `subagent-creator` doit adapter ses mécanismes selon l'e
 - **`effort: max` existe côté produit mais est interdit en frontmatter forge** — coût massif, overthinking observé
 - **`xhigh` par défaut = coût massif** — step-up mesuré uniquement, jamais un réglage de confort. Le niveau juste dépend de la génération : cf [[effort-opus-47-doctrine-anthropic-2026]].
 - **Un modèle plus littéral demande un scope explicite** — observation forge stable d'une génération à l'autre : être explicite sur le scope et le parallélisme attendu plutôt que compter sur la généralisation
-- **Ne jamais épingler un ID de modèle dans un agent** — utiliser l'alias (`opus`/`haiku` dans forge, `sonnet` dans un repo projet qui l'a validé). Un ID figé devient faux en silence ; c'est exactement ce qui a laissé des IDs de génération 4.x prescrits dans cette note jusqu'au 5 septembre 2026.
+- **Ne jamais épingler un ID de modèle dans un agent** — utiliser l'alias (`opus` dans forge, `sonnet`/`haiku` dans un repo projet qui les a validés). Un ID figé devient faux en silence ; c'est exactement ce qui a laissé des IDs de génération 4.x prescrits dans cette note jusqu'au 5 septembre 2026.
 
 ### Pièges permissions
 - **agents de plugins** : `hooks`, `mcpServers`, `permissionMode` sont **ignorés pour les agents de plugins** (sécurité) — s'applique uniquement aux agents `.claude/agents/` du repo courant.

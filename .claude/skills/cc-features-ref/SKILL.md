@@ -71,7 +71,7 @@ Claude utilise `ScheduleWakeup` pour décider dynamiquement quand revérifier (�
 
 | Niveau   | Effet (Opus 5)                                           |
 | -------- | -------------------------------------------------------- |
-| `low`    | Routes simples, schémas, tests unitaires                 |
+| `low`    | Routes simples, schémas, tests unitaires — jamais en forge |
 | `medium` | Refactors multi-fichiers, migrations simples             |
 | `high`   | **DÉFAUT.** Migrations complexes, debug cross-layer, code review |
 | `xhigh`  | Option agentique/coding long : design API, archi modules, refactors structurels |
@@ -88,7 +88,7 @@ Claude utilise `ScheduleWakeup` pour décider dynamiquement quand revérifier (�
 
 **Fable 5.1** (`claude-fable-5-1`) — ne remplace pas Opus 5.5 comme défaut forge : bascule uniquement après gain mesuré sur la tâche visée.
 
-**Sonnet 5.5** (`claude-sonnet-5-5`, 28 septembre 2026) — alias `sonnet` depuis CC v2.1.284, $2/$10, effort Claude Code par défaut `medium`. Forge ne l'utilise plus : l'exécution tourne sur `opus` + `medium`. **Haiku 4.5** (`claude-haiku-4-5-20251001`) — mécanique, demande plus de guidance.
+**Sonnet 5.5** (`claude-sonnet-5-5`, 28 septembre 2026) — alias `sonnet` depuis CC v2.1.284, $2/$10, effort Claude Code par défaut `medium`. Forge ne l'utilise plus : l'exécution tourne sur `opus` + `medium`. **Haiku 4.5** (`claude-haiku-4-5-20251001`) — mécanique, demande plus de guidance ; exclu de forge comme Sonnet.
 
 **Opus 4.8** (`claude-opus-4-8`, sorti 28 mai 2026) — repli quand l'ancien comportement est nécessaire : défaut effort high, fast mode 3× moins cher (vitesse 2.5×). Opus 4.7 est exclu du fast mode et n'est plus un choix.
 
@@ -294,7 +294,7 @@ LSPs disponibles pour tous les langages majeurs.
 
 - **Date de référence** — ce fichier intègre des éléments jusqu'au 27 août 2026
   (v2.1.247). Utiliser `cc-news` si l'info semble datée ou postérieure.
-- **`effort: max`** — toujours disponible mai 2026 (verbatim docs Anthropic 23 mai), mais prone à l'overthinking. Réserver à cas justifiés ; doctrine forge (option C) = `xhigh` agentique/coding, `high` comparatif/jugement, `medium`/`low` extraction.
+- **`effort: max`** — toujours disponible mai 2026 (verbatim docs Anthropic 23 mai), mais prone à l'overthinking. Réserver à cas justifiés ; doctrine forge (option C) = `xhigh` agentique/coding, `high` comparatif/jugement, `medium` extraction (jamais `low` en forge).
 
 ## Apprentissage
 

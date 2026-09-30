@@ -64,7 +64,7 @@ Extraire d'abord depuis l'historique, puis combler les trous avec AskUserQuestio
 **Round 3 — Forme & outillage**
 6. SKILL.md unique ou dossier scripts+references ? (scripts si logique déterministe répétée ; references si doc > 300L)
 7. Outils/MCP ? (stdio CLI/Desktop seulement ; remote HTTPS Cowork)
-8. Modèle cible ? (forge : `opus`, jamais `sonnet` ; repo projet : sa propre doctrine ; Haiku = plus de guidance, Opus = moins)
+8. Modèle cible ? (forge : `opus`, jamais `sonnet` ni `haiku` ; repo projet : sa propre doctrine — Haiku = plus de guidance, Opus = moins)
 9. Evals ? (OUI obligatoire sauf skill subjective pure)
 
 ---
@@ -87,8 +87,8 @@ name: <nom-exact-dossier-kebab-case>
 description: <TRIGGER directive 3e personne — UNE SEULE LIGNE, jamais >- ni |>
 user-invocable: true
 allowed-tools: <liste ou mcp__server__*>
-model: opus | haiku              # forge : jamais sonnet · repo projet : suivre sa doctrine
-effort: medium                   # exécution · high pour le jugement
+model: opus                      # forge : jamais sonnet ni haiku · repo projet : suivre sa doctrine
+effort: medium                   # exécution · high pour le jugement · jamais low en forge
 disable-model-invocation: true   # si side-effects
 ---
 ```
